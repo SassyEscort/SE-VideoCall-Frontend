@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { BannerContainer, InlineBox, InlineBoxRelative, TypographyBox, HomeExploreBox } from './HomeBanner.styled';
+import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 
 const HomeTopBanner = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -57,9 +58,9 @@ const HomeTopBanner = () => {
             </TypographyBox>
           </Box>
           <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems={{ xs: 'center', sm: 'flex-start' }}>
-            <UIThemeButton variant="contained">
+            <UIThemeShadowButton variant="contained">
               <UINewTypography variant="body">Join for FREE</UINewTypography>
-            </UIThemeButton>
+            </UIThemeShadowButton>
             <UIThemeButton>
               <UINewTypography variant="bodySemiBold">Explore Models</UINewTypography>
             </UIThemeButton>
