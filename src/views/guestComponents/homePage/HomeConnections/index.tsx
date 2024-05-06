@@ -22,15 +22,15 @@ const HomeConnections = () => {
 
   return (
     <>
-      <DullCircles />
-      <DullCircles2 />
       <Box
         sx={{
-          position: 'relative'
+          position: 'relative',
+          mt: '112px'
         }}
       >
+        <DullCircles />
+        <DullCircles2 />
         {isSmDown ? <VectorLinesMobile /> : <VectorLines />}
-
         <HomeMainBox>
           <Typography variant="h2" sx={{ color: 'text.secondary', width: '100%' }}>
             Seamless Connections Made Simple
@@ -49,8 +49,8 @@ const HomeConnections = () => {
           sx={{
             mt: isSmDown ? 7 : 15.5,
             flexDirection: isSmDown ? 'column' : 'row',
-            gap: isSmDown ? 5 : 0,
-            px: isSmDown || isMdDown ? 0 : '134px'
+            gap: isSmDown ? 5 : 0
+            // px: isSmDown || isMdDown ? 0 : '134px'
           }}
         >
           <BoxMain>
