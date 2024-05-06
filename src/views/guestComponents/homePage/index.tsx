@@ -1,6 +1,6 @@
 'use client';
 
-import HomeTopBanner from '../homeComponents/homeBanner';
+import HomeTopBanner from './homeBanner';
 
 const HomeContainer = () => {
   return <HomeTopBanner />;
