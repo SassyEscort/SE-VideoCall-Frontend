@@ -184,12 +184,11 @@ const theme = createTheme({
       200: '#B7B5B9',
       500: '#100B19',
       700: '#86838A',
-      300: '#DDDDDD',
-      100: '#EEEEEE'
+      300: '#DDDDDD'
     },
 
     white: {
-      main: '#fff',
+      main: '#fff'
     },
     black: {
       main: '#000'

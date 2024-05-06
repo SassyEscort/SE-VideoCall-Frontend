@@ -44,6 +44,15 @@ const UINewTypography = styled(Typography)(({ theme }) => ({
       fontWeight: '400',
       letterSpacing: '0.5px'
     }
+  },
+  '&.MuiTypography-bodySemiBold': {
+    [theme.breakpoints.down('md')]: {
+      fontSize: '14px',
+      lineHeight: '16.8px',
+      fontWeight: '600',
+      letterSpacing: '0.5px',
+      textWrap: 'no-wrap'
+    }
   }
 }));
 

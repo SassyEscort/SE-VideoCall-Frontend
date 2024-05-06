@@ -28,7 +28,7 @@ const WorkerCard = () => {
         }}
       />
       <HeartIconWorkerCard>
-        <FavoriteBorderIcon />
+        <FavoriteBorderIcon sx={{ width: { xs: '20px', sm: '24px' }, height: { xs: '20px', sm: '24px' } }} />
       </HeartIconWorkerCard>
 
       <SeconderContainerWorkerCard>

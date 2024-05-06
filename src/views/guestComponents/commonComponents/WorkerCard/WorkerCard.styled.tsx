@@ -17,7 +17,7 @@ export const MainWorkerCard = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const ImgWorkerCard = styled('img')(({ theme }) => ({
+export const ImgWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
   height: '100%',
@@ -52,10 +52,19 @@ export const SeconderContainerWorkerCard = styled(Box)(({ theme }) => ({
   position: 'absolute',
   alignItems: 'end',
   height: '100%',
+  [theme.breakpoints.down(330)]: {
+    padding: theme.spacing(0.5)
+  },
+  [theme.breakpoints.up(330)]: {
+    padding: theme.spacing(1)
+  },
+  [theme.breakpoints.only('sm')]: {
+    padding: theme.spacing(1.5)
+  },
   padding: theme.spacing(2)
 }));
 
-export const SubContainertWorkerCard = styled(Box)(({ theme }) => ({
+export const SubContainertWorkerCard = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
@@ -74,7 +83,7 @@ export const FirstSubContainerImgWorkerCard = styled('img')(() => ({
 export const SecondMainContainerWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(3.5),
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('lg')]: {
     flexDirection: 'column',
     gap: theme.spacing(1)
   }
@@ -94,4 +103,19 @@ export const SecondSubContainerImgWorkerCard = styled('img')(() => ({
   height: '100%',
   maxWidth: '16px',
   maxHeight: '16px'
+}));
+
+export const WorkerCardMainBox = styled(Box)(({ theme }) => ({
+  width: '100%',
+  paddingLeft: '20px',
+  paddingRight: '20px',
+
+  [theme.breakpoints.down(330)]: {
+    paddingLeft: theme.spacing(0.5),
+    paddingRight: theme.spacing(0.5)
+  },
+  [theme.breakpoints.up('lg')]: {
+    paddingLeft: '134px',
+    paddingRight: '134px'
+  }
 }));
