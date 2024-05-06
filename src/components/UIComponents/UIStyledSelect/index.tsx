@@ -13,10 +13,6 @@ export const UIStyledSelect = styled(Select)(({ theme }) => ({
       borderColor: theme.palette.secondary[700]
     }
   },
-  // '.MuiOutlinedInput-notchedOutline': {
-  //   // border: '2px solid',
-  //   // borderColor: theme.palette.secondary[500]
-  // },
   '& .MuiSelect-select': {
     padding: theme.spacing(1, 2),
     display: 'flex',
