@@ -70,7 +70,7 @@ const HomeTopBanner = () => {
             alt="home_model"
             width={495}
             height={452}
-            src="/images/home/homePageModel.png"
+            src="/images/home/homePageModel.webp"
             style={{ height: 'auto', borderRadius: '12px', right: 0 }}
             priority
           />
