@@ -18,7 +18,7 @@ const HomeImageCard = () => {
                 <UIThemeShadowButton
                   sx={{
                     padding: 0,
-                    maxWidth: { xs: '175px', sm: '100%' },
+                    maxWidth: '100%',
                     '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } }
                   }}
                   fullWidth

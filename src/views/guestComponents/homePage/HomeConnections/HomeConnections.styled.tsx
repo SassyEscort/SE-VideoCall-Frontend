@@ -20,7 +20,7 @@ export const DullCircles = styled(Box)(() => ({
   position: 'absolute',
   zIndex: '-1',
   top: '-200px',
-  right: 800
+  right: 700
 }));
 
 export const DullCircles2 = styled(Box)(() => ({
@@ -32,7 +32,7 @@ export const DullCircles2 = styled(Box)(() => ({
   position: 'absolute',
   zIndex: '-1',
   top: '350px',
-  right: 200
+  right: 0
 }));
 
 export const VectorLines = styled(Box)(({ theme }) => ({

@@ -22,7 +22,7 @@ const WorkerCard = () => {
     <MainWorkerCard>
       <ImgWorkerCard
         style={{
-          backgroundImage: `url('/images/workercards/workercard-img.png')`,
+          backgroundImage: `url('/images/workercards/workercard-img.jpeg')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
