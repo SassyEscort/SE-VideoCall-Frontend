@@ -107,15 +107,9 @@ export const SecondSubContainerImgWorkerCard = styled('img')(() => ({
 
 export const WorkerCardMainBox = styled(Box)(({ theme }) => ({
   width: '100%',
-  paddingLeft: '20px',
-  paddingRight: '20px',
 
   [theme.breakpoints.down(330)]: {
     paddingLeft: theme.spacing(0.5),
     paddingRight: theme.spacing(0.5)
-  },
-  [theme.breakpoints.up('lg')]: {
-    paddingLeft: '134px',
-    paddingRight: '134px'
   }
 }));
