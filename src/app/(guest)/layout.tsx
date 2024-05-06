@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import GuestGuard from 'utils/route-guard/GuestGuard';
-import HeaderGuestComponent from 'views/guestLayout/Header';
+import Footer from 'views/guestComponents/guestLayout/footer';
+import HeaderGuestComponent from 'views/guestComponents/guestLayout/Header';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -10,6 +11,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <main>
           <Box sx={{ mt: 10 }}>{children}</Box>
         </main>
+        <Footer />
       </Box>
     </GuestGuard>
   );
