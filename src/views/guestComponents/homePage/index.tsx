@@ -7,9 +7,9 @@ import HomeImageCard from './homeImageCards';
 const HomeContainer = () => {
   return (
     <>
-      <HomeConnections />
       <HomeTopBanner />
       <HomeImageCard />
+      <HomeConnections />
     </>
   );
 };
