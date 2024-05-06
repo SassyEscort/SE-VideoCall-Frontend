@@ -1,4 +1,4 @@
-import HomeContainer from 'views/home';
+import HomeContainer from 'views/guestComponents/homePage';
 
 const Home = () => {
   return <HomeContainer />;
