@@ -14,8 +14,8 @@ import {
   SubContainertWorkerCard
 } from './WorkerCard.styled';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 const WorkerCard = () => {
   return (
@@ -34,9 +34,9 @@ const WorkerCard = () => {
       <SeconderContainerWorkerCard>
         <SubContainertWorkerCard>
           <Box sx={{ display: 'flex', gap: 1 }}>
-            <Typography variant="newTitle" color="#ffff">
+            <UINewTypography variant="newTitle" color="#ffff">
               Kat Winter
-            </Typography>
+            </UINewTypography>
             <LiveIconWorkerCard>
               <FiberManualRecordIcon sx={{ width: '12px', height: '12px', marginTop: '8px' }} />
             </LiveIconWorkerCard>
@@ -44,19 +44,19 @@ const WorkerCard = () => {
           </Box>
           <SecondMainContainerWorkerCard>
             <SecondSubContainerWorkerCard>
-              <Typography variant="SubtitleSmallMedium" color="#B7B5B9">
+              <UINewTypography variant="SubtitleSmallMedium" color="#B7B5B9">
                 24
-              </Typography>
+              </UINewTypography>
               <Divider orientation="vertical" flexItem sx={{ borderColor: '#B7B5B9' }} />
-              <Typography variant="SubtitleSmallMedium" color="#B7B5B9">
+              <UINewTypography variant="SubtitleSmallMedium" color="#B7B5B9">
                 English, Spanish
-              </Typography>
+              </UINewTypography>
             </SecondSubContainerWorkerCard>
             <Box sx={{ display: 'flex', gap: 1, whiteSpace: 'nowrap' }}>
               <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
-              <Typography variant="captionLargeBold" color="#E9E8EB">
+              <UINewTypography variant="captionLargeBold" color="#E9E8EB">
                 20 credits/hr
-              </Typography>
+              </UINewTypography>
             </Box>
           </SecondMainContainerWorkerCard>
         </SubContainertWorkerCard>

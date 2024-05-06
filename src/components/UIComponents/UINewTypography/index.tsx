@@ -53,6 +53,22 @@ const UINewTypography = styled(Typography)(({ theme }) => ({
       letterSpacing: '0.5px',
       textWrap: 'no-wrap'
     }
+  },
+  '&.MuiTypography-newTitle': {
+    [theme.breakpoints.down('md')]: {
+      fontSize: '16px',
+      lineHeight: '19.2px',
+      fontWeight: '600',
+      letterSpacing: '0.5px'
+    }
+  },
+  '&.MuiTypography-SubtitleSmallMedium': {
+    [theme.breakpoints.down('md')]: {
+      fontSize: '12px',
+      lineHeight: '14.4px',
+      fontWeight: '500',
+      letterSpacing: '0.5px'
+    }
   }
 }));
 
