@@ -140,3 +140,10 @@ export const WorkerCardMainBox = styled(Box)(({ theme }) => ({
     paddingRight: theme.spacing(0.5)
   }
 }));
+
+export const ButtonMainBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: theme.spacing(6),
+  width: '100%'
+}));
