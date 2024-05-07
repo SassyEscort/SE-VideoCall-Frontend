@@ -7,7 +7,6 @@ export const BannerContainer = styled(Box)(({ theme }) => ({
   gap: '85px',
   width: '100%',
   height: '100%',
-  paddingLeft: '133px',
   position: 'relative',
   [theme.breakpoints.only('sm')]: {
     paddingLeft: '20px',
@@ -20,9 +19,15 @@ export const BannerContainer = styled(Box)(({ theme }) => ({
     paddingRight: '34px'
   },
   [theme.breakpoints.down('lg')]: {
-    flexDirection: 'column',
     paddingLeft: '20px',
     paddingRight: '20px'
+  },
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column'
+  },
+  [theme.breakpoints.up('lg')]: {
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   '&.last-child-box': {
     flex: 'initial',
