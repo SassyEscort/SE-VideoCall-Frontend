@@ -145,5 +145,8 @@ export const ButtonMainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   marginTop: theme.spacing(6),
-  width: '100%'
+  width: '100%',
+  [theme.breakpoints.down('sm')]: {
+    marginTop: theme.spacing(3)
+  }
 }));

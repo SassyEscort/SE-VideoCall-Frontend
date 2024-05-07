@@ -4,20 +4,23 @@ import Box from '@mui/material/Box';
 import Link from 'next/link';
 import { Banner, BannerImg, TextContainer, TextContainerMain } from './footer.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-import Typography from '@mui/material/Typography';
 import MainFooter from './MainFooter';
+import UINewTypography from 'components/UIComponents/UINewTypography';
+import { useMediaQuery } from '@mui/material';
+import theme from 'themes/theme';
 
 const Footer = () => {
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Banner>
       <TextContainerMain>
         <TextContainer>
           <Box>
             <Box display="flex" flexDirection="column" gap={'16px'} width={'100%'} alignItems={'center'}>
-              <Typography variant="h2" sx={{ color: 'text.secondary', width: '100%', maxWidth: 500 }}>
+              <UINewTypography variant={isSmDown ? 'h1' : 'h2'} sx={{ color: 'text.secondary', width: '100%', maxWidth: 500 }}>
                 Ready to explore uncharted pleasures?
-              </Typography>
-              <Typography>Have the best experience on the best platform out there!</Typography>
+              </UINewTypography>
+              <UINewTypography variant="faqSubTitle">Have the best experience on the best platform out there!</UINewTypography>
             </Box>
             <Box
               width={195}
@@ -30,7 +33,7 @@ const Footer = () => {
             >
               <Link prefetch={false} href="/">
                 <UIThemeShadowButton fullWidth variant="contained">
-                  Join for FREE
+                  <UINewTypography variant="buttonLargeBold">Join for FREE</UINewTypography>
                 </UIThemeShadowButton>
               </Link>
             </Box>
@@ -40,7 +43,7 @@ const Footer = () => {
       </TextContainerMain>
       <BannerImg
         sx={{
-          backgroundImage: `url(${'/images/Footer-min.png'})`
+          backgroundImage: `url(${'/images/Footer-min.webp'})`
         }}
       />
     </Banner>

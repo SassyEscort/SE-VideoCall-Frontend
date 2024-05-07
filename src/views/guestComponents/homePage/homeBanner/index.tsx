@@ -10,6 +10,8 @@ import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 const HomeTopBanner = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
+  const isMd = useMediaQuery(theme.breakpoints.only('md'));
+  const isTablet = useMediaQuery(theme.breakpoints.only('sm'));
 
   return (
     <>
@@ -42,14 +44,13 @@ const HomeTopBanner = () => {
                     }}
                     priority
                   />
-
-                  {!isSmDown && (
+                  {!isSmDown && !isMd && !isTablet && (
                     <UINewTypography variant="h1" color="common.white">
                       Encounters
                     </UINewTypography>
                   )}
                 </InlineBoxRelative>
-                {isSmDown && <InlineBox>Encounters</InlineBox>}
+                {(isSmDown || isMd || isTablet) && <InlineBox>Encounters</InlineBox>}
               </Box>
             </InlineBox>
             <TypographyBox>
@@ -66,12 +67,19 @@ const HomeTopBanner = () => {
             </UIThemeButton>
           </Box>
         </Box>
-        <Box display="flex" alignItems="flex-end" justifyContent={{ xs: 'flex-end', sm: 'center', md: 'center', lg: 'flex-end' }}>
+        <Box
+          pr={{ xs: 3, sm: 0 }}
+          pl={{ xs: 3, sm: 0 }}
+          display="flex"
+          alignItems="flex-end"
+          justifyContent={{ xs: 'center', sm: 'flex-start', lg: 'flex-end' }}
+          pt={{ xs: 0, lg: 9 }}
+        >
           <Image
             alt="home_model"
-            width={495}
-            height={452}
-            src="/images/home/homePageModel.webp"
+            width={isSm && isSmDown ? 300 : isSmDown ? 347 : 495}
+            height={isSmDown ? 339 : 452}
+            src="/images/home/home-banner-model.webp"
             style={{ height: 'auto', borderRadius: '12px', right: 0 }}
             priority
           />

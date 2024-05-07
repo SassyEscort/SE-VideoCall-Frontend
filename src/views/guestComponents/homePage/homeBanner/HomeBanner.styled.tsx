@@ -18,9 +18,15 @@ export const BannerContainer = styled(Box)(({ theme }) => ({
     justifyContent: 'center'
   },
   [theme.breakpoints.down('lg')]: {
-    flexDirection: 'column',
     paddingLeft: '20px',
     paddingRight: '20px'
+  },
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column'
+  },
+  [theme.breakpoints.up('lg')]: {
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   '&.last-child-box': {
     flex: 'initial',

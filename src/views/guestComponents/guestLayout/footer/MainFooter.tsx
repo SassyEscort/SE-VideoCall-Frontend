@@ -4,9 +4,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FooterSubICon } from './MainFooter.styled';
 import { FooterCityList } from './footer.constants';
-import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 const MainFooter = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -37,7 +37,8 @@ const MainFooter = () => {
                 flexDirection: 'column',
                 alignItems: isSmDown ? 'center' : 'flex-start',
                 textAlign: isSmDown ? 'center' : 'start',
-                marginBottom: isSmDown ? 3 : 0
+                marginBottom: isSmDown ? 3 : 0,
+                gap: 1
               }}
             >
               <Link prefetch={false} href="/">
@@ -54,7 +55,7 @@ const MainFooter = () => {
                 />
               </Link>
               <Box>
-                <Typography
+                <UINewTypography
                   variant="bodySmall"
                   sx={{
                     width: '100%',
@@ -65,61 +66,73 @@ const MainFooter = () => {
                   }}
                 >
                   Our platform is loved by more than 1000 customers.
-                </Typography>
+                </UINewTypography>
               </Box>
             </Box>
 
             <Box sx={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
               <FooterSubICon sx={{ flexDirection: 'column', display: 'flex', textAlign: 'left' }}>
-                <Typography variant="captionBold">Menu</Typography>
-                <Typography variant="SubtitleSmallRegular">
-                  <Link prefetch={false} href="/affiliate/program">
-                    Home
-                  </Link>
-                </Typography>
-                <Typography variant="SubtitleSmallRegular">
-                  <Link prefetch={false} href="https://blog.sassyescort.com/" target="_blank">
-                    How it works
-                  </Link>
-                </Typography>
+                <UINewTypography sx={{ mb: '6px' }} variant="captionBold">
+                  Menu
+                </UINewTypography>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                  <UINewTypography variant="SubtitleSmallRegular">
+                    <Link prefetch={false} href="/affiliate/program">
+                      Home
+                    </Link>
+                  </UINewTypography>
+                  <UINewTypography variant="SubtitleSmallRegular">
+                    <Link prefetch={false} href="https://blog.sassyescort.com/" target="_blank">
+                      How it works
+                    </Link>
+                  </UINewTypography>
 
-                <Typography variant="SubtitleSmallRegular">
-                  <Link prefetch={false} href="/privacy-statement">
-                    FAQs
-                  </Link>
-                </Typography>
-                <Typography variant="SubtitleSmallRegular">
-                  <Link prefetch={false} href="/cookie-statement">
-                    Sign up
-                  </Link>
-                </Typography>
-                <Typography variant="SubtitleSmallRegular">
-                  <Link prefetch={false} href="/terms-and-conditions">
-                    Log in
-                  </Link>
-                </Typography>
-                <Typography variant="SubtitleSmallRegular">
-                  <Link prefetch={false} href="/terms-and-conditions">
-                    Register as a Model
-                  </Link>
-                </Typography>
+                  <UINewTypography variant="SubtitleSmallRegular">
+                    <Link prefetch={false} href="/privacy-statement">
+                      FAQs
+                    </Link>
+                  </UINewTypography>
+                  <UINewTypography variant="SubtitleSmallRegular">
+                    <Link prefetch={false} href="/cookie-statement">
+                      Sign up
+                    </Link>
+                  </UINewTypography>
+                  <UINewTypography variant="SubtitleSmallRegular">
+                    <Link prefetch={false} href="/terms-and-conditions">
+                      Log in
+                    </Link>
+                  </UINewTypography>
+                  <UINewTypography variant="SubtitleSmallRegular">
+                    <Link prefetch={false} href="/terms-and-conditions">
+                      Register as a Model
+                    </Link>
+                  </UINewTypography>
+                </Box>
               </FooterSubICon>
 
               <FooterSubICon sx={{ flexDirection: 'column', display: 'flex', textAlign: 'left' }}>
-                <Typography variant="captionBold">Resources</Typography>
+                <UINewTypography sx={{ mb: '6px' }} variant="captionBold">
+                  Resources
+                </UINewTypography>
                 {FooterCityList.map((val, index) => (
-                  <Typography variant="SubtitleSmallRegular" key={index}>
-                    <Box component={Link} prefetch={false} shallow={true} href={`/escorts/city${val.link}`}>
+                  <UINewTypography variant="SubtitleSmallRegular" key={index}>
+                    <Box
+                      sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
+                      component={Link}
+                      prefetch={false}
+                      shallow={true}
+                      href={`/escorts/city${val.link}`}
+                    >
                       {val.name}
                     </Box>
-                  </Typography>
+                  </UINewTypography>
                 ))}
               </FooterSubICon>
             </Box>
           </Box>
         </Box>
         <Box sx={{ textAlign: 'center', mt: isSmDown ? '25px' : '32px' }}>
-          <Typography variant="SubtitleSmallRegular">© 2024 Sassy Escort, All Rights Reserved</Typography>
+          <UINewTypography variant="SubtitleSmallRegular">© 2024 Sassy Escort, All Rights Reserved</UINewTypography>
         </Box>
       </Box>
     </>
