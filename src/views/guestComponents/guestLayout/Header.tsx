@@ -9,9 +9,11 @@ import theme from 'themes/theme';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import LanguageDropdown from 'components/common/LanguageDropdown';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import SideBarGuestMenu from './SideBarGuestMenu';
 import { useState } from 'react';
+import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
+import HomeMainContainer from './homeContainer';
+import { FormattedMessage } from 'react-intl';
 
 const HeaderGuestComponent = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -22,7 +24,7 @@ const HeaderGuestComponent = () => {
   };
 
   return (
-    <>
+    <HomeMainContainer>
       <AppBar
         component="header"
         position="fixed"
@@ -75,7 +77,7 @@ const HeaderGuestComponent = () => {
               {isMdUp && (
                 <Link prefetch={false} href="/">
                   <Typography variant="buttonLargeMenu" color="text.secondary">
-                    Register as a Model
+                    <FormattedMessage id="RegisterAsModel" />
                   </Typography>
                 </Link>
               )}
@@ -103,16 +105,16 @@ const HeaderGuestComponent = () => {
                 </Link>
               )}
               {isMdUp && (
-                <UIThemeButton variant="contained">
+                <UIThemeShadowButton variant="contained">
                   <Typography variant="body">Join for FREE</Typography>
-                </UIThemeButton>
+                </UIThemeShadowButton>
               )}
             </Box>
           </Box>
         </Toolbar>
       </AppBar>
       <SideBarGuestMenu open={openSidebar} toggleDrawer={toggleDrawer} />
-    </>
+    </HomeMainContainer>
   );
 };
 

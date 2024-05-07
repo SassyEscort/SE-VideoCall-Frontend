@@ -40,7 +40,7 @@ const Footer = () => {
       </TextContainerMain>
       <BannerImg
         sx={{
-          backgroundImage: `url(${'/images/image-new-min.webp'})`
+          backgroundImage: `url(${'/images/Footer-min.png'})`
         }}
       />
     </Banner>

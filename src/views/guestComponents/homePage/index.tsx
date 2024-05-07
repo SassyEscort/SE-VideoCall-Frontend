@@ -1,18 +1,18 @@
 'use client';
 
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
-import { FormattedMessage } from 'react-intl';
-import { toast } from 'react-toastify';
+import HomeConnections from './HomeConnections';
+import HomePageFAQ from './HomePageFAQ/HomePageFAQ';
+import HomeTopBanner from './homeBanner';
+import HomeImageCard from './homeImageCards';
 
 const HomeContainer = () => {
-  const handle = () => {
-    toast.success('flirtbate');
-  };
-
   return (
-    <UIThemeButton variant="contained" onClick={handle}>
-      <FormattedMessage id="flirtbate" />
-    </UIThemeButton>
+    <>
+      <HomeTopBanner />
+      <HomeImageCard />
+      <HomeConnections />
+      <HomePageFAQ />
+    </>
   );
 };
 

@@ -8,7 +8,7 @@ export const MainWorkerCard = styled(Box)(({ theme }) => ({
   width: '100%',
   height: '100%',
   [theme.breakpoints.down('sm')]: {
-    maxWidth: '175px',
+    maxWidth: '100%',
     minHeight: '272px'
   },
   [theme.breakpoints.up('sm')]: {
@@ -17,7 +17,7 @@ export const MainWorkerCard = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const ImgWorkerCard = styled('img')(({ theme }) => ({
+export const ImgWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
   height: '100%',
@@ -28,10 +28,9 @@ export const ImgWorkerCard = styled('img')(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     minHeight: '272px',
-    maxWidth: '175px'
+    maxWidth: '100%'
   }
 }));
-
 export const HeartIconWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   position: 'absolute',
@@ -43,19 +42,56 @@ export const HeartIconWorkerCard = styled(Box)(({ theme }) => ({
   paddingRight: theme.spacing(1.5)
 }));
 
-export const LiveIconWorkerCard = styled(Box)(({ theme }) => ({
-  color: theme.palette.success[100]
+export const LiveIconFirstBoxWorkerCard = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  maxWidth: '12px',
+  height: '100%',
+  minHeight: '12px',
+  border: '1px',
+  borderColor: theme.palette.secondary[400],
+  borderRadius: '50%',
+  backgroundColor: theme.palette.secondary[400],
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginTop: theme.spacing(1)
+}));
+
+export const LiveIconSecBoxWorkerCard = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  maxWidth: '8px',
+  height: '100%',
+  minHeight: '8px',
+  border: '1px solid',
+  borderColor: theme.palette.success[100],
+  borderRadius: '50%',
+  backgroundColor: theme.palette.success[100]
 }));
 
 export const SeconderContainerWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   position: 'absolute',
   alignItems: 'end',
+  width: '100%',
+  maxWidth: '300px',
   height: '100%',
-  padding: theme.spacing(2)
+  maxHeight: '79px',
+  borderRadius: theme.spacing(1.5),
+  [theme.breakpoints.down(330)]: {
+    padding: theme.spacing(0.5)
+  },
+  [theme.breakpoints.up(330)]: {
+    padding: theme.spacing(1)
+  },
+  [theme.breakpoints.only('sm')]: {
+    padding: theme.spacing(1.5)
+  },
+  padding: theme.spacing(2),
+  background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.88) 100%)'
 }));
 
-export const SubContainertWorkerCard = styled(Box)(({ theme }) => ({
+export const SubContainertWorkerCard = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
@@ -74,7 +110,7 @@ export const FirstSubContainerImgWorkerCard = styled('img')(() => ({
 export const SecondMainContainerWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(3.5),
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('lg')]: {
     flexDirection: 'column',
     gap: theme.spacing(1)
   }
@@ -94,4 +130,20 @@ export const SecondSubContainerImgWorkerCard = styled('img')(() => ({
   height: '100%',
   maxWidth: '16px',
   maxHeight: '16px'
+}));
+
+export const WorkerCardMainBox = styled(Box)(({ theme }) => ({
+  width: '100%',
+
+  [theme.breakpoints.down(330)]: {
+    paddingLeft: theme.spacing(0.5),
+    paddingRight: theme.spacing(0.5)
+  }
+}));
+
+export const ButtonMainBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: theme.spacing(6),
+  width: '100%'
 }));

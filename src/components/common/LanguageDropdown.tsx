@@ -4,18 +4,19 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
-import { FLAG_IMAGES, LANGUAGES, LANGUAGES_TYPES } from 'constants/languageConstants';
+import { FLAG_IMAGES, LANGUAGES } from 'constants/languageConstants';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
-import { useState } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
+import useConfig from 'hooks/useConfig';
+import { I18n } from 'types/config';
 
 const LanguageDropdown = () => {
-  const [language, setLanguage] = useState(String(LANGUAGES_TYPES.EN));
+  const { i18n, onChangeLocalization } = useConfig();
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   const handleLanguageChange = (event: SelectChangeEvent) => {
-    setLanguage(event.target.value);
+    onChangeLocalization(event.target.value as I18n);
   };
 
   return (
@@ -35,7 +36,7 @@ const LanguageDropdown = () => {
       }}
     >
       <Select
-        value={language}
+        value={i18n}
         onChange={handleLanguageChange}
         autoWidth
         size="small"
