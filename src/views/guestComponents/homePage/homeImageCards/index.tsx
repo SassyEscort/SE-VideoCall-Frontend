@@ -3,8 +3,9 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import WorkerCard from 'views/guestComponents/commonComponents/WorkerCard/WorkerCard';
 import Image from 'next/image';
-import { WorkerCardMainBox } from 'views/guestComponents/commonComponents/WorkerCard/WorkerCard.styled';
+import { ButtonMainBox, WorkerCardMainBox } from 'views/guestComponents/commonComponents/WorkerCard/WorkerCard.styled';
 import HomeMainContainer from 'views/guestComponents/guestLayout/homeContainer';
+import UIThemeBorderButton from 'components/UIComponents/UIStyledBorderButton';
 
 const HomeImageCard = () => {
   return (
@@ -35,6 +36,9 @@ const HomeImageCard = () => {
             </Grid>
           ))}
         </Grid>
+        <ButtonMainBox>
+          <UIThemeBorderButton variant="outlined">Load More</UIThemeBorderButton>
+        </ButtonMainBox>
       </WorkerCardMainBox>
     </HomeMainContainer>
   );
