@@ -2,7 +2,15 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { FAQConatainer, FAQMainContainer, StyledAccordion, StyledAccordionDetails, StyledAccordionSummary } from './HomePageFAQ.styled';
+import {
+  FAQConatainer,
+  FAQMainContainer,
+  FAQSubTitle,
+  FAQTitle,
+  StyledAccordion,
+  StyledAccordionDetails,
+  StyledAccordionSummary
+} from './HomePageFAQ.styled';
 import HomeMainContainer from 'views/guestComponents/guestLayout/homeContainer';
 
 const HomePageFAQ = () => {
@@ -20,30 +28,14 @@ const HomePageFAQ = () => {
           <FAQConatainer sx={{ width: '100%', maxWidth: '824px' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
               <FAQMainContainer>
-                <Typography
-                  variant="faqTitle"
-                  sx={{
-                    color: 'text.secondary',
-                    textAlign: 'center'
-                  }}
-                >
-                  FAQs
-                </Typography>
-                <Typography
-                  variant="faqSubTitle"
-                  sx={{
-                    color: 'secondary.100',
-                    textAlign: 'center'
-                  }}
-                >
-                  Your queries resolved, so you can dive in with confidence.
-                </Typography>
+                <FAQTitle>FAQs</FAQTitle>
+                <FAQSubTitle>Your queries resolved, so you can dive in with confidence.</FAQSubTitle>
               </FAQMainContainer>
 
               <FAQConatainer>
                 <StyledAccordion defaultExpanded>
                   <StyledAccordionSummary aria-controls="panel1-content" id="panel1-header" expandIcon={<ExpandMoreIcon />}>
-                    <Typography variant="bodySemiBold" sx={{ color: 'white.100' }}>
+                    <Typography variant="bodySemiBold" sx={{ color: 'secondary.100' }}>
                       How do I find the right model for me?
                     </Typography>
                   </StyledAccordionSummary>
@@ -58,7 +50,7 @@ const HomePageFAQ = () => {
                 <StyledAccordion>
                   <Typography variant="bodySemiBold">
                     <StyledAccordionSummary
-                      sx={{ color: 'white.100' }}
+                      sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
@@ -74,7 +66,7 @@ const HomePageFAQ = () => {
                 <StyledAccordion>
                   <Typography variant="bodySemiBold">
                     <StyledAccordionSummary
-                      sx={{ color: 'white.100' }}
+                      sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
@@ -90,7 +82,7 @@ const HomePageFAQ = () => {
                 <StyledAccordion>
                   <Typography variant="bodySemiBold">
                     <StyledAccordionSummary
-                      sx={{ color: 'white.100' }}
+                      sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
@@ -106,7 +98,7 @@ const HomePageFAQ = () => {
                 <StyledAccordion>
                   <Typography variant="bodySemiBold">
                     <StyledAccordionSummary
-                      sx={{ color: 'white.100' }}
+                      sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
@@ -122,7 +114,7 @@ const HomePageFAQ = () => {
                 <StyledAccordion>
                   <Typography variant="bodySemiBold">
                     <StyledAccordionSummary
-                      sx={{ color: 'white.100' }}
+                      sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
@@ -138,7 +130,7 @@ const HomePageFAQ = () => {
                 <StyledAccordion>
                   <Typography variant="bodySemiBold">
                     <StyledAccordionSummary
-                      sx={{ color: 'white.100' }}
+                      sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
@@ -154,7 +146,7 @@ const HomePageFAQ = () => {
                 <StyledAccordion>
                   <Typography variant="bodySemiBold">
                     <StyledAccordionSummary
-                      sx={{ color: 'white.100' }}
+                      sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
