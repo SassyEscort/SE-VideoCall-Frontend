@@ -8,7 +8,7 @@ export const MainWorkerCard = styled(Box)(({ theme }) => ({
   width: '100%',
   height: '100%',
   [theme.breakpoints.down('sm')]: {
-    maxWidth: '175px',
+    maxWidth: '100%',
     minHeight: '272px'
   },
   [theme.breakpoints.up('sm')]: {
@@ -28,10 +28,9 @@ export const ImgWorkerCard = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     minHeight: '272px',
-    maxWidth: '175px'
+    maxWidth: '100%'
   }
 }));
-
 export const HeartIconWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   position: 'absolute',
