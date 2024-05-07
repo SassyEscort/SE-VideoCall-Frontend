@@ -1,14 +1,17 @@
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
-export const HomeMainBox = styled(Box)(() => ({
+export const HomeMainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
   justifyContent: 'center',
   textAlign: 'center',
   alignItems: 'center',
-  gap: 2
+  gap: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(1.5)
+  }
 }));
 
 export const DullCircles = styled(Box)(() => ({
@@ -62,7 +65,7 @@ export const VectorLinesMobile = styled(Box)(() => ({
   left: '-136px'
 }));
 
-export const BoxImageBackground = styled(Box)(() => ({
+export const BoxImageBackground = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
   maxWidth: '94px',
@@ -73,10 +76,14 @@ export const BoxImageBackground = styled(Box)(() => ({
   backgroundColor: '#601244',
   justifyContent: 'center',
   alignItems: 'center',
-  zIndex: 2
+  zIndex: 2,
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '72px',
+    minHeight: '72px'
+  }
 }));
 
-export const BoxImageBackgroundChild = styled(Box)(() => ({
+export const BoxImageBackgroundChild = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
   maxWidth: '64px',
@@ -86,7 +93,11 @@ export const BoxImageBackgroundChild = styled(Box)(() => ({
   borderRadius: '50%',
   backgroundColor: '#FF68C0',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '49px',
+    minHeight: '49px'
+  }
 }));
 
 export const BoxMain = styled(Box)(() => ({
