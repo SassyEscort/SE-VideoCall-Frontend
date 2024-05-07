@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 export const UIStyledSelect = styled(Select)(({ theme }) => ({
   borderRadius: '4px',
   width: '100%',
-  maxWidth: '127px',
+
   height: '40px',
   backgroundColor: theme.palette.primary[700],
   '&:hover': {
