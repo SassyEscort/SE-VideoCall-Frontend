@@ -13,6 +13,7 @@ import SideBarGuestMenu from './SideBarGuestMenu';
 import { useState } from 'react';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import HomeMainContainer from './homeContainer';
+import { FormattedMessage } from 'react-intl';
 
 const HeaderGuestComponent = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -76,7 +77,7 @@ const HeaderGuestComponent = () => {
               {isMdUp && (
                 <Link prefetch={false} href="/">
                   <Typography variant="buttonLargeMenu" color="text.secondary">
-                    Register as a Model
+                    <FormattedMessage id="RegisterAsModel" />
                   </Typography>
                 </Link>
               )}

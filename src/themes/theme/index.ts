@@ -184,7 +184,9 @@ const theme = createTheme({
       200: '#B7B5B9',
       500: '#100B19',
       700: '#86838A',
-      300: '#DDDDDD'
+      300: '#DDDDDD',
+      100: '#EEEEEE'
+      400: '#79E02852'
     },
 
     white: {

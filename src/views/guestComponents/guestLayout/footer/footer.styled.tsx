@@ -28,6 +28,7 @@ export const Banner = styled(Box)(({ theme }) => ({
   backgroundColor: 'rgba(30, 8, 21, 1)',
   overflow: 'hidden',
   width: '100%',
+  marginTop: '125px',
   height: 768,
   alignItems: 'end',
   position: 'relative',
