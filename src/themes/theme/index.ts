@@ -185,6 +185,7 @@ const theme = createTheme({
       500: '#100B19',
       700: '#86838A',
       300: '#DDDDDD',
+      100: '#EEEEEE'
       400: '#79E02852'
     },
 
