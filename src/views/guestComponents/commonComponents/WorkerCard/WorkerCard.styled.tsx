@@ -87,7 +87,7 @@ export const SeconderContainerWorkerCard = styled(Box)(({ theme }) => ({
   [theme.breakpoints.only('sm')]: {
     padding: theme.spacing(1.5)
   },
-  padding: theme.spacing(2)
+  padding: theme.spacing(2),
   background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.88) 100%)'
 }));
 
