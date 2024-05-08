@@ -76,18 +76,14 @@ export const SeconderContainerWorkerCard = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '300px',
   height: '100%',
-  maxHeight: '79px',
+  maxHeight: '109px',
   borderRadius: theme.spacing(1.5),
-  [theme.breakpoints.down(330)]: {
-    padding: theme.spacing(0.5)
+  [theme.breakpoints.up('sm')]: {
+    padding: theme.spacing(2)
   },
-  [theme.breakpoints.up(330)]: {
-    padding: theme.spacing(1)
-  },
-  [theme.breakpoints.only('sm')]: {
+  [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(1.5)
   },
-  padding: theme.spacing(2),
   background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.88) 100%)'
 }));
 
@@ -121,7 +117,10 @@ export const SecondSubContainerWorkerCard = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
   whiteSpace: 'nowrap',
   height: '100%',
-  maxHeight: '17px'
+  maxHeight: '17px',
+  [theme.breakpoints.down('sm')]: {
+    marginTop: theme.spacing(1)
+  }
 }));
 
 export const SecondSubContainerImgWorkerCard = styled('img')(() => ({

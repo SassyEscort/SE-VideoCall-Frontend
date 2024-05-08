@@ -12,6 +12,7 @@ import {
   StyledAccordionSummary
 } from './HomePageFAQ.styled';
 import HomeMainContainer from 'views/guestComponents/guestLayout/homeContainer';
+import { FormattedMessage } from 'react-intl';
 
 const HomePageFAQ = () => {
   return (
@@ -22,14 +23,18 @@ const HomePageFAQ = () => {
             display: 'flex',
             justifyContent: 'center',
             width: '100%',
-            mt: '120px'
+            mt: { xs: '96px', sm: '120px' }
           }}
         >
           <FAQConatainer sx={{ width: '100%', maxWidth: '824px' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
               <FAQMainContainer>
-                <FAQTitle>FAQs</FAQTitle>
-                <FAQSubTitle>Your queries resolved, so you can dive in with confidence.</FAQSubTitle>
+                <FAQTitle>
+                  <FormattedMessage id="FAQs" />
+                </FAQTitle>
+                <FAQSubTitle>
+                  <FormattedMessage id="YourQueriesResolved" />
+                </FAQSubTitle>
               </FAQMainContainer>
 
               <FAQConatainer>
