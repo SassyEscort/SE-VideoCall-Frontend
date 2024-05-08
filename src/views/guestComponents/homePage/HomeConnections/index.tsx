@@ -6,6 +6,7 @@ import {
   DullCircles2,
   HomeMainBox,
   MainChildContainer,
+  TextTitleTyporaphy,
   VectorLines,
   VectorLinesMobile
 } from './HomeConnections.styled';
@@ -37,15 +38,9 @@ const HomeConnections = () => {
             <UINewTypography variant={isSmDown ? 'h5' : 'MediumSemiBold'} sx={{ color: 'text.secondary', width: '100%' }}>
               Seamless Connections Made Simple
             </UINewTypography>
-            <UINewTypography
-              variant={isSmDown ? 'bodySmall' : 'faqSubTitle'}
-              sx={{
-                width: '100%',
-                maxWidth: '610px'
-              }}
-            >
-              Discover how easy it is to meet and interact with our models. Follow these simple steps to start your journey.
-            </UINewTypography>
+            <TextTitleTyporaphy>
+              Discover how easy it is to meet and inFAQSubTitleteract with our models. Follow these simple steps to start your journey.
+            </TextTitleTyporaphy>
           </HomeMainBox>
 
           <MainChildContainer
