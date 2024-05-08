@@ -16,7 +16,14 @@ const HomeTopBanner = () => {
   return (
     <>
       <BannerContainer>
-        <Box display="flex" flexDirection="column" gap={{ xs: 4, sm: 6 }} width="100%" maxWidth="652px" pt={{ xs: '94px', md: '108px' }}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          gap={{ xs: '36px', sm: 6 }}
+          width="100%"
+          maxWidth="652px"
+          pt={{ xs: '94px', md: '108px' }}
+        >
           <Box display="flex" flexDirection="column" width="100%" gap={3} alignItems={{ xs: 'center', sm: 'flex-start' }}>
             <InlineBox>
               Unlock the Gateway {(!isSmDown || isSm) && 'to'} &nbsp;
@@ -63,7 +70,9 @@ const HomeTopBanner = () => {
               <UINewTypography variant="body">Join for FREE</UINewTypography>
             </UIThemeShadowButton>
             <UIThemeButton>
-              <UINewTypography variant="bodySemiBold">Explore Models</UINewTypography>
+              <UINewTypography variant="bodySemiBold" sx={{ paddingTop: { xs: 2, sm: 0 } }}>
+                Explore Models
+              </UINewTypography>
             </UIThemeButton>
           </Box>
         </Box>
@@ -73,21 +82,25 @@ const HomeTopBanner = () => {
           display="flex"
           alignItems="flex-end"
           justifyContent={{ xs: 'center', sm: 'flex-start', lg: 'flex-end' }}
-          pt={{ xs: 0, lg: 9 }}
+          pt={{ xs: 0, lg: '83px' }}
         >
           <Image
             alt="home_model"
             width={isSm && isSmDown ? 300 : isSmDown ? 347 : 495}
             height={isSmDown ? 339 : 452}
             src="/images/home/home-banner-model.webp"
-            style={{ height: 'auto', borderRadius: '12px', right: 0 }}
+            style={{ borderRadius: '12px', right: 0 }}
             priority
           />
         </Box>
       </BannerContainer>
-      <Box width="100%" pt={{ xs: '58px', lg: '207px' }} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+      <Box width="100%" pt={{ xs: '58px', lg: '120px' }} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
         <HomeExploreBox>
-          <UINewTypography variant="h5" textAlign="center" color="text.secondary">
+          <UINewTypography
+            textAlign="center"
+            color="text.secondary"
+            sx={{ fontSize: { xs: '24px', sm: '40px' }, fontWeight: 700, lineHeight: { xs: '32px', sm: '52px' } }}
+          >
             Explore your choices from the world of diverse beauty and charm
           </UINewTypography>
           <UINewTypography color="text.secondary" textAlign="center" variant="bodySmall" sx={{ textWrap: isSm ? 'wrap' : 'nowrap' }}>

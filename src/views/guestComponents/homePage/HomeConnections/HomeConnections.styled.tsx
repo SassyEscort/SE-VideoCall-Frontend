@@ -1,5 +1,6 @@
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import { Typography } from '@mui/material';
 
 export const HomeMainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -105,6 +106,15 @@ export const BoxMain = styled(Box)(() => ({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center'
+}));
+
+export const TextTitleTyporaphy = styled(Typography)(({ theme }) => ({
+  fontSize: '20px',
+  fontWeight: 400,
+  lineHeight: '32px',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '14px'
+  }
 }));
 
 export const MainChildContainer = styled(Box)(({ theme }) => ({
