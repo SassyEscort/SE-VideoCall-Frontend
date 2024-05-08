@@ -1,5 +1,6 @@
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { LiveIconFirstBoxWorkerCard, LiveIconSecBoxWorkerCard, UIStyledSelectButton } from 'components/UIComponents/UIStyledSelectButton';
+import { FormattedMessage } from 'react-intl';
 
 const CurrentlyOnline = () => {
   return (
@@ -11,7 +12,9 @@ const CurrentlyOnline = () => {
           </LiveIconFirstBoxWorkerCard>
         }
       >
-        <UINewTypography>Currently Online</UINewTypography>
+        <UINewTypography>
+          <FormattedMessage id="CurrentlyOnline" />
+        </UINewTypography>
       </UIStyledSelectButton>
     </>
   );

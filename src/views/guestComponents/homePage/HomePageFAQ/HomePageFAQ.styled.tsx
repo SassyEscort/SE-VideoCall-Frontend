@@ -9,13 +9,23 @@ export const FAQMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
-  gap: theme.spacing(2)
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(1.5)
+  },
+  [theme.breakpoints.up('sm')]: {
+    gap: theme.spacing(2)
+  }
 }));
 
 export const FAQConatainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(2)
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(3)
+  },
+  [theme.breakpoints.up('sm')]: {
+    gap: theme.spacing(2)
+  }
 }));
 
 export const FAQTitle = styled(Typography)(({ theme }) => ({
@@ -72,11 +82,14 @@ export const StyledAccordionSummary = styled((props: AccordionSummaryProps) => <
   },
   '& .MuiSvgIcon-root': {
     color: theme.palette.text.primary
+  },
+  '& .mui-1betqn-MuiAccordionSummary-content': {
+    marginTop: 8
   }
 }));
 
 export const StyledAccordionDetails = styled((props: AccordionDetailsProps) => <AccordionDetails {...props} />)(({ theme }) => ({
   padding: '0px',
   color: theme.palette.secondary[300],
-  marginBottom: 12
+  marginBottom: 24
 }));

@@ -1,5 +1,6 @@
 import { StareIcone, UIStyledArrivalsButton } from 'components/UIComponents/UIStyledArrivalsButton';
 import Image from 'next/image';
+import { FormattedMessage } from 'react-intl';
 
 const NewArrivals = () => {
   return (
@@ -12,7 +13,7 @@ const NewArrivals = () => {
         }
         sx={{ whiteSpace: 'nowrap', width: '100%', minWidth: '145px' }}
       >
-        New Arrivals
+        <FormattedMessage id="NewArrivals" />
       </UIStyledArrivalsButton>
     </>
   );

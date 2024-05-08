@@ -63,7 +63,7 @@ export const InlineBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     fontSize: 48,
     fontWeight: 700,
-    lineHeight: '64.8px'
+    lineHeight: '62px'
   }
 }));
 
@@ -124,5 +124,21 @@ export const HomeExploreBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     maxWidth: 688,
     gap: theme.spacing(2)
+  }
+}));
+
+export const SubTitle = styled(Typography)(({ theme }) => ({
+  color: theme.palette.text.secondary,
+  textAlign: 'center',
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '20px',
+    fontWeight: 400,
+    lineHeight: '32px'
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: '32px',
+    whiteSpace: 'nowrap'
   }
 }));
