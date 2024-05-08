@@ -20,7 +20,9 @@ const Footer = () => {
               <UINewTypography variant={isSmDown ? 'h1' : 'h2'} sx={{ color: 'text.secondary', width: '100%', maxWidth: 500 }}>
                 Ready to explore uncharted pleasures?
               </UINewTypography>
-              <UINewTypography variant="faqSubTitle">Have the best experience on the best platform out there!</UINewTypography>
+              <UINewTypography sx={{ fontSize: '20px', fontWeight: 400, lineHeight: '32px' }}>
+                Have the best experience on the best platform out there!
+              </UINewTypography>
             </Box>
             <Box
               width={195}
