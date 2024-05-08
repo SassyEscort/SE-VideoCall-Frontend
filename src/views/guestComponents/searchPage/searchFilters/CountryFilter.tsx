@@ -7,7 +7,7 @@ import { COUNTRIES } from 'constants/searchConstants';
 
 const CountryFilter = () => {
   return (
-    <FormControl id="country" fullWidth>
+    <FormControl id="country" fullWidth sx={{ width: '100%', maxWidth: '127px' }}>
       <StyledSelectInputLabel>Country</StyledSelectInputLabel>
       <UIStyledSelect MenuProps={{ disableScrollLock: true }} label="country" name="country" labelId="country" IconComponent={ExpandMore}>
         {COUNTRIES.map((country, key: number) => {

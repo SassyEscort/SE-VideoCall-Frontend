@@ -121,8 +121,8 @@ export const HomeExploreBox = styled(Box)(({ theme }) => ({
     maxWidth: 385,
     gap: theme.spacing(2)
   },
-  [theme.breakpoints.up('md')]: {
-    maxWidth: 425,
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: 688,
     gap: theme.spacing(2)
   }
 }));

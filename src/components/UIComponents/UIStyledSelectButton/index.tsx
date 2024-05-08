@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 export const UIStyledSelectButton = styled(Button)(({ theme }) => ({
   borderRadius: '4px',
   width: '100%',
-  maxWidth: '187px',
+  minWidth: '187px',
   height: '40px',
   backgroundColor: theme.palette.primary[700],
   color: theme.palette.text.primary,

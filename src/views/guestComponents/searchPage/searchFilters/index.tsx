@@ -2,19 +2,21 @@ import HomeMainContainer from 'views/guestComponents/guestLayout/homeContainer';
 import AgeFilter from './AgeFilter';
 import CountryFilter from './CountryFilter';
 import Box from '@mui/material/Box';
+import CurrentlyOnline from './CurrentlyOnline';
+import NewArrivals from './NewArrivals';
 
 const SearchFilters = () => {
   return (
     <HomeMainContainer>
-      <Box pt={10} pb={4}>
-        <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} gap={1.5} width="100%" maxWidth={'711px'}>
-          <Box display="flex" gap={1.5} width="100%">
+      <Box pt={{ xs: 7, sm: 10 }} pb={{ xs: 3, sm: 4 }} sx={{ width: '100%', maxWidth: '711px' }}>
+        <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} gap={{ xs: 1.5, sm: 4 }}>
+          <Box display="flex" gap={{ xs: 1.5, sm: 4 }} width="100%" maxWidth={{ xs: '267px', sm: '305px' }}>
             <CountryFilter />
             <AgeFilter />
           </Box>
-          <Box display="flex" gap={1.5} width="100%">
-            <CountryFilter />
-            <AgeFilter />
+          <Box display="flex" gap={{ xs: 1.5, sm: 4 }} width="100%">
+            <CurrentlyOnline />
+            <NewArrivals />
           </Box>
         </Box>
       </Box>
