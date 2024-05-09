@@ -14,13 +14,24 @@ import { useState } from 'react';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import HomeMainContainer from './homeContainer';
 import { FormattedMessage } from 'react-intl';
+import Dialog from '@mui/material/Dialog';
+import GuestSignup from 'views/auth/GuestSignup';
 
 const HeaderGuestComponent = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openSidebar, setOpenSidebar] = useState(false);
+  const [open, setIsOpen] = useState(false);
 
   const toggleDrawer = (open: boolean) => {
     setOpenSidebar(open);
+  };
+
+  const handleSignupOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleSignupClose = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -107,7 +118,7 @@ const HeaderGuestComponent = () => {
                 </Link>
               )}
               {isMdUp && (
-                <UIThemeShadowButton variant="contained">
+                <UIThemeShadowButton variant="contained" onClick={handleSignupOpen}>
                   <Typography variant="body">
                     <FormattedMessage id="JoinForFREE" />
                   </Typography>
@@ -118,6 +129,30 @@ const HeaderGuestComponent = () => {
         </Toolbar>
       </AppBar>
       <SideBarGuestMenu open={openSidebar} toggleDrawer={toggleDrawer} />
+      <Dialog
+        sx={{
+          '& .MuiDialog-paper': {
+            backgroundColor: '#07030E',
+            borderRadius: '12px'
+          },
+          '& .MuiDialog-container': {
+            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
+            backdropFilter: 'blur(12px)'
+          }
+        }}
+        PaperProps={{
+          sx: {
+            maxWidth: 920,
+            borderRadius: '12px'
+          }
+        }}
+        open={open}
+        onClose={handleSignupClose}
+        maxWidth="md"
+        fullWidth
+      >
+        <GuestSignup onClose={handleSignupClose} />
+      </Dialog>
     </HomeMainContainer>
   );
 };

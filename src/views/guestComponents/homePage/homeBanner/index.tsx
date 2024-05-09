@@ -6,6 +6,9 @@ import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { BannerContainer, InlineBox, InlineBoxRelative, TypographyBox, HomeExploreBox, SubTitle } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
+import Dialog from '@mui/material/Dialog';
+import GuestSignup from 'views/auth/GuestSignup';
+import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 const HomeTopBanner = () => {
@@ -13,6 +16,15 @@ const HomeTopBanner = () => {
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isMd = useMediaQuery(theme.breakpoints.only('md'));
   const isTablet = useMediaQuery(theme.breakpoints.only('sm'));
+  const [open, setIsOpen] = useState(false);
+
+  const handleSignupOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleSignupClose = () => {
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -70,7 +82,7 @@ const HomeTopBanner = () => {
             </TypographyBox>
           </Box>
           <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems={{ xs: 'center', sm: 'flex-start' }}>
-            <UIThemeShadowButton variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
+            <UIThemeShadowButton onClick={handleSignupOpen} variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
               <UINewTypography variant="body" sx={{ lineHeight: '150%' }}>
                 <FormattedMessage id="JoinForFREE" />
               </UINewTypography>
@@ -115,6 +127,30 @@ const HomeTopBanner = () => {
           </SubTitle>
         </HomeExploreBox>
       </Box>
+      <Dialog
+        PaperProps={{
+          sx: {
+            maxWidth: 920,
+            borderRadius: '12px'
+          }
+        }}
+        sx={{
+          '& .MuiDialog-paper': {
+            backgroundColor: '#07030E',
+            borderRadius: '12px'
+          },
+          '& .MuiDialog-container': {
+            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
+            backdropFilter: 'blur(12px)'
+          }
+        }}
+        open={open}
+        onClose={handleSignupClose}
+        maxWidth="md"
+        fullWidth
+      >
+        <GuestSignup onClose={handleSignupClose} />
+      </Dialog>
     </>
   );
 };
