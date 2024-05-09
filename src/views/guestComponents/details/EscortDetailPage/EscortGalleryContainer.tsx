@@ -1,9 +1,6 @@
 import { useMemo, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-// import { WorkerPhotos } from '@/types/api/workerVerification/WorkerDetails';
-// import { useLanguageContext } from '../../../../context/LanguageContext';
-// import { JSON_TYPES } from '@/constants/jsonConstants';
 import Lightbox from 'yet-another-react-lightbox';
 import Captions from 'yet-another-react-lightbox/plugins/captions';
 import Fullscreen from 'yet-another-react-lightbox/plugins/fullscreen';
@@ -23,7 +20,6 @@ import { UIThemeGroupTabs } from 'components/UIComponents/ThemeGroupTabs/ThemeGr
 import { UIThemeTab } from 'components/UIComponents/ThemeTab/ThemeTab.styled';
 
 const EscortGalleryContainer = () => {
-  // const { t } = useLanguageContext();
   const [show, setShow] = useState(false);
   const [advancedExampleOpen, setAdvancedExampleOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -107,7 +103,6 @@ const EscortGalleryContainer = () => {
       ? workerPhotos
           // .filter((x) => x.type !== PICTURE_TYPES.REGULAR && !x.isHide && x.type === 'file_5')
           .map((data) => {
-            console.log(data, 'data');
             if (VideoAcceptType.some((file) => data.photo.endsWith(file))) {
               return {
                 type: FILE_TYPES.VIDEO as const,

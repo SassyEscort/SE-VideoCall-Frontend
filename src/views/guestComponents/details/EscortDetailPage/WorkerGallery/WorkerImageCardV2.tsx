@@ -1,11 +1,9 @@
-// import useImageOptimize from "@/hooks/useImageOptimize";
 import Box from '@mui/material/Box';
 import { WorkerImageCardBox, WorkerImageCardMainBox } from './WorkerImageCardV2.styled';
 import VideoThumbnail from 'components/UIComponents/ImageCard/VideoThumbnail';
 import { VideoAcceptType } from 'constants/workerVerification';
 import useImageOptimize from 'hooks/useImageOptimize';
 import { useRef } from 'react';
-// import { VideoAcceptType } from "@/constants/workerVerification";
 
 const WorkerImageCardV2 = ({
   image,
