@@ -2,40 +2,44 @@
 
 import Box from '@mui/material/Box';
 import Link from 'next/link';
-import { Banner, BannerImg, TextContainer, TextContainerMain } from './footer.styled';
+import { Banner, BannerImg, SubTitleText, TextContainer, TextContainerMain, TitleText } from './footer.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import MainFooter from './MainFooter';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useMediaQuery } from '@mui/material';
-import theme from 'themes/theme';
+import { FormattedMessage } from 'react-intl';
 
 const Footer = () => {
-  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+  // const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Banner>
       <TextContainerMain>
         <TextContainer>
           <Box>
             <Box display="flex" flexDirection="column" gap={'16px'} width={'100%'} alignItems={'center'}>
-              <UINewTypography variant={isSmDown ? 'h1' : 'h2'} sx={{ color: 'text.secondary', width: '100%', maxWidth: 500 }}>
-                Ready to explore uncharted pleasures?
-              </UINewTypography>
-              <UINewTypography variant="faqSubTitle">Have the best experience on the best platform out there!</UINewTypography>
+              <TitleText>
+                <FormattedMessage id="ReadyToExplore" />
+              </TitleText>
+              <SubTitleText>
+                <FormattedMessage id="HaveTheBestExperience" />
+              </SubTitleText>
             </Box>
             <Box
-              width={195}
               sx={{
                 display: 'flex',
                 justifyContent: 'center',
                 width: '100%',
-                mt: '40px'
+                mt: { xs: '32px', sm: '40px' }
               }}
             >
-              <Link prefetch={false} href="/">
-                <UIThemeShadowButton fullWidth variant="contained">
-                  <UINewTypography variant="buttonLargeBold">Join for FREE</UINewTypography>
-                </UIThemeShadowButton>
-              </Link>
+              <Box sx={{ width: '100%', maxWidth: '195px' }}>
+                <Link prefetch={false} href="/">
+                  <UIThemeShadowButton fullWidth variant="contained">
+                    <UINewTypography variant="buttonLargeBold" sx={{ lineHeight: '150%' }}>
+                      <FormattedMessage id="JoinForFREE" />
+                    </UINewTypography>
+                  </UIThemeShadowButton>
+                </Link>
+              </Box>
             </Box>
           </Box>
           <MainFooter />

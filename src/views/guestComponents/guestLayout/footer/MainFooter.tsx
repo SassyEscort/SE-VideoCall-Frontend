@@ -7,6 +7,7 @@ import { FooterCityList } from './footer.constants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import { FormattedMessage } from 'react-intl';
 
 const MainFooter = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -59,52 +60,53 @@ const MainFooter = () => {
                   variant="bodySmall"
                   sx={{
                     width: '100%',
-                    maxWidth: { md: '297px' },
+                    maxWidth: { xs: '297px' },
                     display: 'flex',
                     textAlign: isSmDown ? 'center' : 'start',
-                    alignItems: 'flex-start'
+                    alignItems: 'flex-start',
+                    lineHeight: '140%'
                   }}
                 >
-                  Our platform is loved by more than 1000 customers.
+                  <FormattedMessage id="OurPlatformIsLoved" />
                 </UINewTypography>
               </Box>
             </Box>
 
-            <Box sx={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
+            <Box sx={{ display: 'flex', gap: 10, justifyContent: 'center', mt: 3 }}>
               <FooterSubICon sx={{ flexDirection: 'column', display: 'flex', textAlign: 'left' }}>
                 <UINewTypography sx={{ mb: '6px' }} variant="captionBold">
-                  Menu
+                  <FormattedMessage id="Menu" />
                 </UINewTypography>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                   <UINewTypography variant="SubtitleSmallRegular">
                     <Link prefetch={false} href="/affiliate/program">
-                      Home
+                      <FormattedMessage id="Home" />
                     </Link>
                   </UINewTypography>
                   <UINewTypography variant="SubtitleSmallRegular">
                     <Link prefetch={false} href="https://blog.sassyescort.com/" target="_blank">
-                      How it works
+                      <FormattedMessage id="HowItWorks" />
                     </Link>
                   </UINewTypography>
 
                   <UINewTypography variant="SubtitleSmallRegular">
                     <Link prefetch={false} href="/privacy-statement">
-                      FAQs
+                      <FormattedMessage id="FAQs" />
                     </Link>
                   </UINewTypography>
                   <UINewTypography variant="SubtitleSmallRegular">
                     <Link prefetch={false} href="/cookie-statement">
-                      Sign up
+                      <FormattedMessage id="SignUp" />
                     </Link>
                   </UINewTypography>
                   <UINewTypography variant="SubtitleSmallRegular">
                     <Link prefetch={false} href="/terms-and-conditions">
-                      Log in
+                      <FormattedMessage id="LogIn" />
                     </Link>
                   </UINewTypography>
                   <UINewTypography variant="SubtitleSmallRegular">
                     <Link prefetch={false} href="/terms-and-conditions">
-                      Register as a Model
+                      <FormattedMessage id="RegisterAsAModel" />
                     </Link>
                   </UINewTypography>
                 </Box>
@@ -112,7 +114,7 @@ const MainFooter = () => {
 
               <FooterSubICon sx={{ flexDirection: 'column', display: 'flex', textAlign: 'left' }}>
                 <UINewTypography sx={{ mb: '6px' }} variant="captionBold">
-                  Resources
+                  <FormattedMessage id="Resources" />
                 </UINewTypography>
                 {FooterCityList.map((val, index) => (
                   <UINewTypography variant="SubtitleSmallRegular" key={index}>
@@ -131,8 +133,10 @@ const MainFooter = () => {
             </Box>
           </Box>
         </Box>
-        <Box sx={{ textAlign: 'center', mt: isSmDown ? '25px' : '32px' }}>
-          <UINewTypography variant="SubtitleSmallRegular">© 2024 Sassy Escort, All Rights Reserved</UINewTypography>
+        <Box sx={{ textAlign: 'center', mt: isSmDown ? '32px' : '32px' }}>
+          <UINewTypography variant="SubtitleSmallRegular">
+            <FormattedMessage id="2024SassyEscort" />
+          </UINewTypography>
         </Box>
       </Box>
     </>

@@ -7,9 +7,9 @@ import { AGES } from 'constants/searchConstants';
 
 const AgeFilter = () => {
   return (
-    <FormControl id="age" fullWidth sx={{ maxWidth: '127px' }}>
+    <FormControl id="age" fullWidth sx={{ width: '100%', maxWidth: '147px' }}>
       <StyledSelectInputLabel>Age Range</StyledSelectInputLabel>
-      <UIStyledSelect MenuProps={{ disableScrollLock: true }} label="age" name="age" labelId="age" IconComponent={ExpandMore}>
+      <UIStyledSelect MenuProps={{ disableScrollLock: true }} label="age range" name="age" labelId="age" IconComponent={ExpandMore}>
         {AGES.map((age, key: number) => {
           return (
             <MenuItem key={key} value={age.id}>
