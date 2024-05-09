@@ -14,7 +14,7 @@ export const UIStyledSelectButton = styled(Button)(({ theme }) => ({
   lineHeight: '21.86px',
   '&:hover': {
     '.MuiOutlinedInput-notchedOutline': {
-      borderColor: theme.palette.secondary[700]
+      backgroundColor: theme.palette.secondary[800]
     }
   }
 }));
