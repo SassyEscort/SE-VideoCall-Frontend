@@ -6,12 +6,24 @@ import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { BannerContainer, InlineBox, InlineBoxRelative, TypographyBox, HomeExploreBox } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
+import Dialog from '@mui/material/Dialog';
+import GuestSignup from 'views/auth/GuestSignup';
+import { useState } from 'react';
 
 const HomeTopBanner = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isMd = useMediaQuery(theme.breakpoints.only('md'));
   const isTablet = useMediaQuery(theme.breakpoints.only('sm'));
+  const [open, setIsOpen] = useState(false);
+
+  const handleSignupOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleSignupClose = () => {
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -59,7 +71,7 @@ const HomeTopBanner = () => {
             </TypographyBox>
           </Box>
           <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems={{ xs: 'center', sm: 'flex-start' }}>
-            <UIThemeShadowButton variant="contained">
+            <UIThemeShadowButton onClick={handleSignupOpen} variant="contained">
               <UINewTypography variant="body">Join for FREE</UINewTypography>
             </UIThemeShadowButton>
             <UIThemeButton>
@@ -95,6 +107,30 @@ const HomeTopBanner = () => {
           </UINewTypography>
         </HomeExploreBox>
       </Box>
+      <Dialog
+        PaperProps={{
+          sx: {
+            maxWidth: 920,
+            borderRadius: '12px'
+          }
+        }}
+        sx={{
+          '& .MuiDialog-paper': {
+            backgroundColor: '#07030E',
+            borderRadius: '12px'
+          },
+          '& .MuiDialog-container': {
+            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
+            backdropFilter: 'blur(12px)'
+          }
+        }}
+        open={open}
+        onClose={handleSignupClose}
+        maxWidth="md"
+        fullWidth
+      >
+        <GuestSignup onClose={handleSignupClose} />
+      </Dialog>
     </>
   );
 };
