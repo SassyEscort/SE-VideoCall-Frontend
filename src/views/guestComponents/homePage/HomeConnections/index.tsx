@@ -4,8 +4,13 @@ import {
   BoxMain,
   DullCircles,
   DullCircles2,
+  DullCircles3,
+  DullCircles4,
+  DullCircles5,
   HomeMainBox,
   MainChildContainer,
+  TextMainTitleTyporaphy,
+  TextTitleTyporaphy,
   VectorLines,
   VectorLinesMobile
 } from './HomeConnections.styled';
@@ -16,6 +21,7 @@ import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import HomeMainContainer from 'views/guestComponents/guestLayout/homeContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import { FormattedMessage } from 'react-intl';
 
 const HomeConnections = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -32,20 +38,17 @@ const HomeConnections = () => {
         >
           <DullCircles />
           <DullCircles2 />
+          <DullCircles3 />
+          <DullCircles4 />
+          <DullCircles5 />
           {isSmDown ? <VectorLinesMobile /> : <VectorLines />}
           <HomeMainBox>
-            <UINewTypography variant={isSmDown ? 'h5' : 'MediumSemiBold'} sx={{ color: 'text.secondary', width: '100%' }}>
-              Seamless Connections Made Simple
-            </UINewTypography>
-            <UINewTypography
-              variant={isSmDown ? 'bodySmall' : 'faqSubTitle'}
-              sx={{
-                width: '100%',
-                maxWidth: '610px'
-              }}
-            >
-              Discover how easy it is to meet and interact with our models. Follow these simple steps to start your journey.
-            </UINewTypography>
+            <TextMainTitleTyporaphy>
+              <FormattedMessage id="SeamlessConnections" />
+            </TextMainTitleTyporaphy>
+            <TextTitleTyporaphy>
+              <FormattedMessage id="DiscoverHowEasy" />
+            </TextTitleTyporaphy>
           </HomeMainBox>
 
           <MainChildContainer
@@ -58,21 +61,26 @@ const HomeConnections = () => {
             <BoxMain>
               <BoxImageBackground>
                 <BoxImageBackgroundChild>
-                  <Image alt="home_model" width={24} height={24} src="/images/home-search-img.png" />
+                  <Image
+                    alt="home_model"
+                    width={24}
+                    height={24}
+                    src="/images/home-search-img.png"
+                    style={{ width: isSmDown ? 20 : 24, height: isSmDown ? 20 : 24 }}
+                  />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
-              <UINewTypography variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'} mt={2.75}>
-                Sign Up / Log In
+              <UINewTypography variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'} sx={{ mt: { xs: 2, sm: 2.75 } }}>
+                <FormattedMessage id="SignUpLogIn" />
               </UINewTypography>
-              <Box sx={{ width: '100%', maxWidth: '314px', mt: isSmDown ? 1 : 2 }}>
+              <Box sx={{ width: '100%', maxWidth: '314px', mt: isSmDown ? 1.75 : 2 }}>
                 <UINewTypography
                   variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
                   sx={{
                     width: '100%'
                   }}
                 >
-                  Create your free account or log in. Begin exploring with just a few clicks, ensuring your privacy and security from the
-                  start.
+                  <FormattedMessage id="CreateYourFreeAccount" />
                 </UINewTypography>
               </Box>
             </BoxMain>
@@ -80,20 +88,26 @@ const HomeConnections = () => {
             <BoxMain>
               <BoxImageBackground>
                 <BoxImageBackgroundChild>
-                  <Image alt="home_model" width={24} height={24} src="/images/home-choose-your-model-img.png" />
+                  <Image
+                    alt="home_model"
+                    width={24}
+                    height={24}
+                    src="/images/home-choose-your-model-img.png"
+                    style={{ width: isSmDown ? 20 : 24, height: isSmDown ? 20 : 24 }}
+                  />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
-              <UINewTypography variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'} mt={2.75}>
-                Choose your Model
+              <UINewTypography variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'} sx={{ mt: { xs: 2, sm: 2.75 } }}>
+                <FormattedMessage id="ChooseYourModel" />
               </UINewTypography>
-              <Box sx={{ width: '100%', maxWidth: '314px', mt: isSmDown ? 1 : 2 }}>
+              <Box sx={{ width: '100%', maxWidth: '314px', mt: isSmDown ? 1.75 : 2 }}>
                 <UINewTypography
                   variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
                   sx={{
                     width: '100%'
                   }}
                 >
-                  Whether you are seeking passionate encounters or bodily exploration our video call feature will serve all your fantasies.
+                  <FormattedMessage id="WhetherYouAreSeekingPassionate" />
                 </UINewTypography>
               </Box>
             </BoxMain>
@@ -111,22 +125,27 @@ const HomeConnections = () => {
             <BoxMain>
               <BoxImageBackground>
                 <BoxImageBackgroundChild>
-                  <Image alt="home_model" width={24} height={24} src="/images/home-connect-instantly-img.png" />
+                  <Image
+                    alt="home_model"
+                    width={24}
+                    height={24}
+                    src="/images/home-connect-instantly-img.png"
+                    style={{ width: isSmDown ? 20 : 24, height: isSmDown ? 20 : 24 }}
+                  />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
-              <UINewTypography variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'} mt={2.75}>
-                Connect Instantly
+              <UINewTypography variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'} sx={{ mt: { xs: 2, sm: 2.75 } }}>
+                <FormattedMessage id="ConnectInstantly" />
               </UINewTypography>
 
-              <Box sx={{ width: '100%', maxWidth: '314px', mt: isSmDown ? 1 : 2 }}>
+              <Box sx={{ width: '100%', maxWidth: '314px', mt: isSmDown ? 1.75 : 2 }}>
                 <UINewTypography
                   variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
                   sx={{
                     width: '100%'
                   }}
                 >
-                  Start an engaging convo. through video call or chat. We offer high-quality, secure connections for your private
-                  interactions.
+                  <FormattedMessage id="StartAnEngagingConvo" />
                 </UINewTypography>
               </Box>
             </BoxMain>
@@ -134,7 +153,9 @@ const HomeConnections = () => {
 
           <Box sx={{ mt: isSmDown ? 6 : 12, display: 'flex', justifyContent: 'center' }}>
             <UIThemeShadowButton variant="contained">
-              <UINewTypography variant="buttonLargeBold">Join for FREE</UINewTypography>
+              <UINewTypography variant="buttonLargeBold">
+                <FormattedMessage id="JoinForFREE" />
+              </UINewTypography>
             </UIThemeShadowButton>
           </Box>
         </Box>

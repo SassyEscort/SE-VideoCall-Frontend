@@ -27,7 +27,7 @@ export const AuthImageMobileBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     maxWidth: '100%'
   },
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.only('xs')]: {
     display: 'block'
   }
 }));
@@ -41,7 +41,7 @@ export const AuthImageBox = styled(Box)(({ theme }) => ({
   borderRadius: '12px',
   backgroundRepeat: 'no-repeat',
   display: 'block',
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.down('sm')]: {
     display: 'none'
   }
 }));

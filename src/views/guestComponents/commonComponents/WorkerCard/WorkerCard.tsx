@@ -45,10 +45,10 @@ const WorkerCard = () => {
             </Box>
             <SecondMainContainerWorkerCard>
               <SecondSubContainerWorkerCard>
-                <UINewTypography variant="SubtitleSmallMedium" color="#B7B5B9">
+                <UINewTypography variant="SubtitleSmallMedium" color="#B7B5B9" sx={{ lineHeight: '120%' }}>
                   24
                 </UINewTypography>
-                <Divider orientation="vertical" flexItem sx={{ borderColor: '#B7B5B9' }} />
+                <Divider orientation="vertical" flexItem sx={{ borderColor: '#B7B5B9', lineHeight: '120%' }} />
                 <UINewTypography variant="SubtitleSmallMedium" color="#B7B5B9">
                   English, Spanish
                 </UINewTypography>

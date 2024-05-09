@@ -1,5 +1,6 @@
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import { Typography } from '@mui/material';
 
 export const HomeMainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -36,6 +37,42 @@ export const DullCircles2 = styled(Box)(() => ({
   zIndex: '-1',
   top: '350px',
   right: 0
+}));
+
+export const DullCircles3 = styled(Box)(() => ({
+  backgroundColor: 'rgba(255, 72, 179, 0.3)',
+  height: '412px',
+  width: '584px',
+  borderRadius: '50%',
+  filter: 'blur(100px)',
+  position: 'absolute',
+  zIndex: '-1',
+  top: '-4200px',
+  right: 0
+}));
+
+export const DullCircles4 = styled(Box)(() => ({
+  backgroundColor: 'rgba(255, 72, 179, 0.3)',
+  height: '412px',
+  width: '584px',
+  borderRadius: '50%',
+  filter: 'blur(100px)',
+  position: 'absolute',
+  zIndex: '-1',
+  top: '-3550px',
+  right: 1270
+}));
+
+export const DullCircles5 = styled(Box)(() => ({
+  backgroundColor: 'rgba(255, 72, 179, 0.3)',
+  height: '412px',
+  width: '584px',
+  borderRadius: '50%',
+  filter: 'blur(100px)',
+  position: 'absolute',
+  zIndex: '-1',
+  top: '-2900px',
+  right: 1300
 }));
 
 export const VectorLines = styled(Box)(({ theme }) => ({
@@ -105,6 +142,32 @@ export const BoxMain = styled(Box)(() => ({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center'
+}));
+
+export const TextMainTitleTyporaphy = styled(Typography)(({ theme }) => ({
+  width: '100%',
+  fontSize: '40px',
+  color: theme.palette.text.secondary,
+  fontWeight: 700,
+  lineHeight: '52px',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '24px',
+    lineHeight: '32px'
+  }
+}));
+
+export const TextTitleTyporaphy = styled(Typography)(({ theme }) => ({
+  width: '100%',
+  fontSize: '20px',
+  fontWeight: 400,
+  lineHeight: '32px',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '14px',
+    lineHeight: '21px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '680px'
+  }
 }));
 
 export const MainChildContainer = styled(Box)(({ theme }) => ({

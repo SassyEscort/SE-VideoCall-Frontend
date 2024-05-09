@@ -48,8 +48,6 @@ declare module '@mui/material/styles' {
     bodyUltraLarge: CSSProperties;
     SubtitleSmallMedium: CSSProperties;
     newTitle: CSSProperties;
-    faqTitle: CSSProperties;
-    faqSubTitle: CSSProperties;
   }
 
   // allow configuration using `createTheme`
@@ -86,8 +84,6 @@ declare module '@mui/material/styles' {
     SmallText?: CSSProperties;
     captionLargeBold?: CSSProperties;
     newTitle?: CSSProperties;
-    faqTitle?: CSSProperties;
-    faqSubTitle?: CSSProperties;
   }
 }
 
@@ -126,8 +122,6 @@ declare module '@mui/material/Typography' {
     captionLargeBold: true;
     TypographyPercentage: true;
     newTitle: true;
-    faqTitle: true;
-    faqSubTitle: true;
   }
 }
 
@@ -185,7 +179,8 @@ const theme = createTheme({
       500: '#100B19',
       700: '#86838A',
       300: '#DDDDDD',
-      400: '#79E02852'
+      400: '#79E02852',
+      600: '#B7B5B952'
     },
 
     white: {
@@ -440,16 +435,6 @@ const theme = createTheme({
       fontSize: '20px',
       fontWeight: 600,
       lineHeight: '24px'
-    },
-    faqTitle: {
-      fontSize: '40px',
-      fontWeight: 700,
-      lineHeight: '52px'
-    },
-    faqSubTitle: {
-      fontSize: '20px',
-      fontWeight: 400,
-      lineHeight: '32px'
     }
   }
 });

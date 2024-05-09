@@ -1,8 +1,5 @@
 import { Grid, Box } from '@mui/material';
-import UINewTypography from 'components/UIComponents/UINewTypography';
-import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import WorkerCard from 'views/guestComponents/commonComponents/WorkerCard/WorkerCard';
-import Image from 'next/image';
 import { ButtonMainBox, WorkerCardMainBox } from 'views/guestComponents/commonComponents/WorkerCard/WorkerCard.styled';
 import HomeMainContainer from 'views/guestComponents/guestLayout/homeContainer';
 import UIThemeBorderButton from 'components/UIComponents/UIStyledBorderButton';
@@ -16,7 +13,7 @@ const HomeImageCard = () => {
             <Grid key={index} item xs={6} sm={4} md={3} lg={3}>
               <Box display="flex" gap={2} flexDirection="column">
                 <WorkerCard />
-                <UIThemeShadowButton
+                {/* <UIThemeShadowButton
                   sx={{
                     padding: 0,
                     maxWidth: '100%',
@@ -31,7 +28,7 @@ const HomeImageCard = () => {
                       Start Video Call
                     </UINewTypography>
                   </Box>
-                </UIThemeShadowButton>
+                </UIThemeShadowButton> */}
               </Box>
             </Grid>
           ))}

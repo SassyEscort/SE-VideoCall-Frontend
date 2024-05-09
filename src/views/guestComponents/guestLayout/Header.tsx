@@ -49,8 +49,8 @@ const HeaderGuestComponent = () => {
           disableGutters
           sx={{
             px: { xs: '15px', lg: '134px' },
-            pt: { xs: '18px', sm: '15px' },
-            pb: { xs: '18px', sm: '17px' },
+            pt: { xs: '18px', sm: '12px' },
+            pb: { xs: '18px', sm: '12px' },
             justifyContent: 'space-between'
           }}
         >
@@ -78,7 +78,9 @@ const HeaderGuestComponent = () => {
             {isMdUp && (
               <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }}>
                 <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" loading="lazy" />
-                <Typography variant="buttonLargeMenu">Search</Typography>
+                <Typography variant="buttonLargeMenu">
+                  <FormattedMessage id="Search" />
+                </Typography>
               </Box>
             )}
           </Box>
@@ -110,14 +112,16 @@ const HeaderGuestComponent = () => {
                   <Box display="flex" alignItems="center" gap={1}>
                     <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
                     <Typography variant="buttonLargeMenu" color="text.secondary">
-                      Log in
+                      <FormattedMessage id="LogIn" />
                     </Typography>
                   </Box>
                 </Link>
               )}
               {isMdUp && (
-                <UIThemeShadowButton onClick={handleSignupOpen} variant="contained">
-                  <Typography variant="body">Join for FREE</Typography>
+                <UIThemeShadowButton variant="contained" onClick={handleSignupOpen}>
+                  <Typography variant="body">
+                    <FormattedMessage id="JoinForFREE" />
+                  </Typography>
                 </UIThemeShadowButton>
               )}
             </Box>
