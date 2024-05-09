@@ -24,6 +24,7 @@ import Image from 'next/image';
 import UIStyledShadowButtonLike from 'components/UIComponents/UIStyledShadowButtonLike';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { DullCirclesEscort, DullCirclesEscort2 } from './Escort.styled';
 
 const workerPhotos = [
   { photo: '/images/workerImageSlider/swiper01.png', type: 'type1', isHide: false, isFavorite: 1, cords: '1,2' },
@@ -48,6 +49,8 @@ export const EscortSlider = () => {
 
   return (
     <>
+      <DullCirclesEscort />
+      <DullCirclesEscort2 />
       <Box sx={{ display: 'flex', gap: '12px' }}>
         <Box sx={{ maxWidth: '1084px', width: '100%', cursor: 'pointer' }}>
           <Swiper modules={[Navigation, Thumbs, FreeMode]} slidesPerView={1}>
