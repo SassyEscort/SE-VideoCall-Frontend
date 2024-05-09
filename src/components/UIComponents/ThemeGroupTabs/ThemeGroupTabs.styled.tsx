@@ -8,7 +8,10 @@ export const UIThemeGroupTabs = styled(Tabs)(({ theme }) => ({
     gap: '2px',
     justifyContent: 'end',
     alignItems: 'center',
-    width: '100%'
+    width: '100%',
+    [theme.breakpoints.down('md')]: {
+      justifyContent: 'center'
+    }
   },
   '& .MuiTabs-indicator': {
     display: 'none'

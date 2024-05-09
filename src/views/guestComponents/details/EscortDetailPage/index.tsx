@@ -7,6 +7,7 @@ import theme from 'themes/theme';
 import EscortSliderMobile from './EscortSliderMobile';
 import EscortGalleryContainer from './EscortGalleryContainer';
 import EscortPersonalDetail from './EscortPersonalDetail';
+import EscortExplore from './EscortExplore';
 
 const EscortDetailPage = () => {
   const isLgDown = useMediaQuery(theme.breakpoints.down('lg'));
@@ -18,6 +19,7 @@ const EscortDetailPage = () => {
         {isLgDown && <EscortSliderMobile />}
         <EscortPersonalDetail />
         <EscortGalleryContainer />
+        <EscortExplore />
       </HomeMainContainer>
     </>
   );
