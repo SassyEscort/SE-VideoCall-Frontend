@@ -21,48 +21,56 @@ const EscortPersonalDetail = () => {
       >
         <DetailsMainBox>
           <DetailsChildBox>
-            <DetailsChildBox>
-              <UINewTypography variant="MediumSemiBold" color="#E9E8EB">
-                Lexi Lane
-              </UINewTypography>
-              <UINewTypography variant="SubtitleSmallMedium">Last active 2hrs ago</UINewTypography>
-            </DetailsChildBox>
-            <Box>
-              <NewTypography>Life is short. Take the trip, buy the shoes, eat the cake, and LOVE ❤️.</NewTypography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+              <DetailsChildBox>
+                <UINewTypography variant="MediumSemiBold" color="#E9E8EB">
+                  Lexi Lane
+                </UINewTypography>
+                <UINewTypography variant="SubtitleSmallMedium">Last active 2hrs ago</UINewTypography>
+              </DetailsChildBox>
+              <Box>
+                <NewTypography>Life is short. Take the trip, buy the shoes, eat the cake, and LOVE ❤️.</NewTypography>
+              </Box>
             </Box>
           </DetailsChildBox>
         </DetailsMainBox>
 
         <DetailsTypographyBox>
-          <Box>
-            <UINewTypography variant="captionBold">My Appearance</UINewTypography>
-          </Box>
-          <DetailsChipBox>
-            <UINewTooltip title={'Hello'} placement="top">
-              <UINewChip
-                icon={<Box height={20} width={20} component="img" src={`/images/details-icon/age-icon.svg`} alt={'language'} />}
-                label="24"
-              />
-            </UINewTooltip>
-            <UINewChip
-              icon={<Box height={20} width={20} component="img" src={`/images/details-icon/gender-icon.svg`} alt={'language'} />}
-              label="Female"
-            />
-            <UINewChip
-              icon={<Box height={20} width={20} component="img" src={`/images/details-icon/language-icon.svg`} alt={'language'} />}
-              label="English, Spanish"
-            />
-          </DetailsChipBox>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+              <Box>
+                <UINewTypography variant="captionBold">My Appearance</UINewTypography>
+              </Box>
+              <DetailsChipBox>
+                <UINewTooltip title={'Hello'} placement="top">
+                  <UINewChip
+                    icon={<Box height={20} width={20} component="img" src={`/images/details-icon/age-icon.svg`} alt={'language'} />}
+                    label="24"
+                  />
+                </UINewTooltip>
+                <UINewChip
+                  icon={<Box height={20} width={20} component="img" src={`/images/details-icon/gender-icon.svg`} alt={'language'} />}
+                  label="Female"
+                />
+                <UINewChip
+                  icon={<Box height={20} width={20} component="img" src={`/images/details-icon/language-icon.svg`} alt={'language'} />}
+                  label="English, Spanish"
+                />
+              </DetailsChipBox>
+            </Box>
 
-          <Box mt={3}>
-            <UINewTypography variant="captionBold">Rates</UINewTypography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+              <Box>
+                <UINewTypography variant="captionBold">Rates</UINewTypography>
+              </Box>
+              <DetailsChipBox>
+                <UINewChip
+                  icon={<Box height={20} width={20} component="img" src={`/images/details-icon/coin-icon.svg`} alt={'language'} />}
+                  label="20 credits/hr"
+                />
+              </DetailsChipBox>
+            </Box>
           </Box>
-          <DetailsChipBox>
-            <UINewChip
-              icon={<Box height={20} width={20} component="img" src={`/images/details-icon/coin-icon.svg`} alt={'language'} />}
-              label="20 credits/hr"
-            />
-          </DetailsChipBox>
         </DetailsTypographyBox>
       </Box>
     </>
