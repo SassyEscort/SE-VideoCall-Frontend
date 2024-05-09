@@ -19,7 +19,7 @@ export const UIStyledSelect = styled(Select)(({ theme }) => ({
     gap: theme.spacing(1)
   },
   '& .mui-hfutr2-MuiSvgIcon-root-MuiSelect-icon': {
-    color: theme.palette.secondary[200]
+    color: `${theme.palette.secondary[200]} !important`
   }
 }));
 

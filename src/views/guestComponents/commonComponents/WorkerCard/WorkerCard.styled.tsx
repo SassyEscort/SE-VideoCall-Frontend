@@ -54,7 +54,7 @@ export const LiveIconFirstBoxWorkerCard = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.secondary[400],
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: theme.spacing(1)
+  marginTop: theme.spacing(0.5)
 }));
 
 export const LiveIconSecBoxWorkerCard = styled(Box)(({ theme }) => ({
@@ -87,11 +87,14 @@ export const SeconderContainerWorkerCard = styled(Box)(({ theme }) => ({
   background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.88) 100%)'
 }));
 
-export const SubContainertWorkerCard = styled(Box)(() => ({
+export const SubContainertWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '268px'
+  maxWidth: '268px',
+  [theme.breakpoints.up('sm')]: {
+    gap: theme.spacing(1)
+  }
 }));
 
 export const FirstSubContainerImgWorkerCard = styled('img')(() => ({
@@ -100,7 +103,7 @@ export const FirstSubContainerImgWorkerCard = styled('img')(() => ({
   maxWidth: '16px',
   height: '100%',
   maxHeight: '8px',
-  marginTop: '10px'
+  marginTop: '6px'
 }));
 
 export const SecondMainContainerWorkerCard = styled(Box)(({ theme }) => ({
