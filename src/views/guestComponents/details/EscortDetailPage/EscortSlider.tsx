@@ -51,16 +51,13 @@ export const EscortSlider = () => {
       <Box sx={{ display: 'flex', gap: '12px' }}>
         <Box sx={{ maxWidth: '1084px', width: '100%', cursor: 'pointer' }}>
           <Swiper modules={[Navigation, Thumbs, FreeMode]} slidesPerView={1}>
-            {workerPhotos
-              .slice(0, 4)
-              //   .filter((x) => x.type !== PICTURE_TYPES.REGULAR && !x.isHide && x.isFavorite === 1)
-              .map((imageSrc, index) => (
-                <SwiperSlide key={index} style={{ paddingTop: 12 }}>
-                  <Box onClick={() => handleOpenImage(index)}>
-                    <EscortSwiperPhotoContainer image={imageSrc.photo} isMain={true} isMobile={false} coordinates={imageSrc.cords ?? ''} />
-                  </Box>
-                </SwiperSlide>
-              ))}
+            {workerPhotos.slice(0, 4).map((imageSrc, index) => (
+              <SwiperSlide key={index} style={{ paddingTop: 12 }}>
+                <Box onClick={() => handleOpenImage(index)}>
+                  <EscortSwiperPhotoContainer image={imageSrc.photo} isMain={true} isMobile={false} coordinates={imageSrc.cords ?? ''} />
+                </Box>
+              </SwiperSlide>
+            ))}
           </Swiper>
         </Box>
 
@@ -74,18 +71,15 @@ export const EscortSlider = () => {
           }}
         >
           <Swiper spaceBetween={12} slidesPerView={3} freeMode={true} watchSlidesProgress={true} modules={[Navigation, Thumbs, FreeMode]}>
-            {workerPhotos
-              .slice(0, 4)
-              //   .filter((x) => x.type !== PICTURE_TYPES.REGULAR && !x.isHide && x.isFavorite !== 1 && x.type !== 'file_5')
-              .map((imageSrc, index) => (
-                <SwiperSlide
-                  onClick={() => handleOpenImage(index + 1)}
-                  style={{ paddingTop: 12, width: '100%', minWidth: '148px' }}
-                  key={index}
-                >
-                  <EscortSwiperPhotoContainer image={imageSrc.photo} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
-                </SwiperSlide>
-              ))}
+            {workerPhotos.slice(0, 4).map((imageSrc, index) => (
+              <SwiperSlide
+                onClick={() => handleOpenImage(index + 1)}
+                style={{ paddingTop: 12, width: '100%', minWidth: '148px' }}
+                key={index}
+              >
+                <EscortSwiperPhotoContainer image={imageSrc.photo} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </Box>
       </Box>
@@ -134,11 +128,9 @@ export const EscortSlider = () => {
         open={advancedExampleOpen}
         close={() => setAdvancedExampleOpen(false)}
         index={currentIndex}
-        slides={workerPhotos
-          //   .filter((x) => x.type !== PICTURE_TYPES.REGULAR && !x.isHide && x.type !== 'file_5')
-          .map((imageSrc) => ({
-            src: `${imageSrc.photo}`
-          }))}
+        slides={workerPhotos.map((imageSrc) => ({
+          src: `${imageSrc.photo}`
+        }))}
         plugins={[Captions, Fullscreen, Slideshow, Thumbnails, Video, Zoom]}
       />
     </>

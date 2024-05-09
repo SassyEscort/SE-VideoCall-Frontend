@@ -100,9 +100,26 @@ const EscortGalleryContainer = () => {
 
   const workerImagesSlides =
     activeTab === 0
-      ? workerPhotos
-          // .filter((x) => x.type !== PICTURE_TYPES.REGULAR && !x.isHide && x.type === 'file_5')
-          .map((data) => {
+      ? workerPhotos.map((data) => {
+          if (VideoAcceptType.some((file) => data.photo.endsWith(file))) {
+            return {
+              type: FILE_TYPES.VIDEO as const,
+              width: 1280,
+              height: 720,
+              sources: [
+                {
+                  src: (data.photo, FILE_TYPES.VIDEO),
+                  type: 'video/mp4'
+                }
+              ]
+            };
+          }
+          return {
+            src: (data.photo, FILE_TYPES.IMAGE)
+          };
+        })
+      : activeTab === 1
+        ? photos.map((data) => {
             if (VideoAcceptType.some((file) => data.photo.endsWith(file))) {
               return {
                 type: FILE_TYPES.VIDEO as const,
@@ -120,27 +137,6 @@ const EscortGalleryContainer = () => {
               src: (data.photo, FILE_TYPES.IMAGE)
             };
           })
-      : activeTab === 1
-        ? photos
-            // .filter((x) => x.type !== PICTURE_TYPES.REGULAR && !x.isHide)
-            .map((data) => {
-              if (VideoAcceptType.some((file) => data.photo.endsWith(file))) {
-                return {
-                  type: FILE_TYPES.VIDEO as const,
-                  width: 1280,
-                  height: 720,
-                  sources: [
-                    {
-                      src: (data.photo, FILE_TYPES.VIDEO),
-                      type: 'video/mp4'
-                    }
-                  ]
-                };
-              }
-              return {
-                src: (data.photo, FILE_TYPES.IMAGE)
-              };
-            })
         : videos.map((data) => {
             if (VideoAcceptType.some((file) => data.photo.endsWith(file))) {
               return {
@@ -197,20 +193,18 @@ const EscortGalleryContainer = () => {
         {activeTab === 0 && (
           <>
             <WorkerImageCardGridBox>
-              {workerPhotos
-                // .filter((x) => x.type !== PICTURE_TYPES.REGULAR && !x.isHide && x.type === 'file_5')
-                .map(
-                  (photo, index) =>
-                    (index < 18 || show) && (
-                      <WorkerImageCardV2
-                        key={index}
-                        index={index}
-                        image={photo.photo}
-                        coordinates={photo.cords ?? ''}
-                        handleOpenImage={handleOpenImage}
-                      />
-                    )
-                )}
+              {workerPhotos.map(
+                (photo, index) =>
+                  (index < 18 || show) && (
+                    <WorkerImageCardV2
+                      key={index}
+                      index={index}
+                      image={photo.photo}
+                      coordinates={photo.cords ?? ''}
+                      handleOpenImage={handleOpenImage}
+                    />
+                  )
+              )}
             </WorkerImageCardGridBox>
             {!show && workerPhotos.length > 18 && <WorkerBlurBox onClick={handleShow} />}
           </>
@@ -218,20 +212,18 @@ const EscortGalleryContainer = () => {
         {activeTab === 1 && (
           <>
             <WorkerImageCardGridBox>
-              {photos
-                // .filter((x) => x.type !== PICTURE_TYPES.REGULAR && !x.isHide)
-                .map(
-                  (photo, index) =>
-                    (index < 18 || show) && (
-                      <WorkerImageCardV2
-                        key={index}
-                        image={photo.photo}
-                        index={index}
-                        coordinates={photo.cords ?? ''}
-                        handleOpenImage={handleOpenImage}
-                      />
-                    )
-                )}
+              {photos.map(
+                (photo, index) =>
+                  (index < 18 || show) && (
+                    <WorkerImageCardV2
+                      key={index}
+                      image={photo.photo}
+                      index={index}
+                      coordinates={photo.cords ?? ''}
+                      handleOpenImage={handleOpenImage}
+                    />
+                  )
+              )}
             </WorkerImageCardGridBox>
             {!show && workerPhotos.length > 18 && <WorkerBlurBox onClick={handleShow} />}
           </>

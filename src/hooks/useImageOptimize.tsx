@@ -16,7 +16,6 @@ function useImageOptimize(
   useEffect(() => {
     if (imageUrlRef.current && photo) {
       const height = imageUrlRef.current.clientHeight;
-      // const videoTypeCondition = VideoAcceptType.includes(photo.substring(photo.lastIndexOf('.') + 1));
 
       setImageUrl(
         photo.split('/images')[0] + `/images/` + (coordinates ? '' : !noResize ? `:h-${height + 100}` : '') + photo.split('/images')[1]
@@ -33,17 +32,6 @@ function useImageOptimize(
     };
 
     setImage(imageUrl);
-
-    // const finalCroppedImage = async () => {
-    //   const existingCords: Area | undefined = coordinates && JSON.parse(coordinates).cords;
-
-    //   if (existingCords) {
-    //     const croppedImage = `${photo}?tr=w-${existingCords.width},h-${existingCords.height},cm-extract,x-${existingCords.x},y-${existingCords.y}`;
-    //     setImage(croppedImage);
-    //   } else setImage(imageUrl);
-    // };
-
-    // finalCroppedImage();
   }, [coordinates, imageUrl, imageUrlRef, photo, type]);
 }
 
