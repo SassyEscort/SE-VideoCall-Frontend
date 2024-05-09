@@ -152,8 +152,8 @@ const HomeConnections = () => {
           </MainChildContainer>
 
           <Box sx={{ mt: isSmDown ? 6 : 12, display: 'flex', justifyContent: 'center' }}>
-            <UIThemeShadowButton variant="contained">
-              <UINewTypography variant="buttonLargeBold">
+            <UIThemeShadowButton variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
+              <UINewTypography variant="buttonLargeBold" sx={{ lineHeight: '150%' }}>
                 <FormattedMessage id="JoinForFREE" />
               </UINewTypography>
             </UIThemeShadowButton>

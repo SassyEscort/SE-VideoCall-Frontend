@@ -70,7 +70,7 @@ const HomeTopBanner = () => {
             </TypographyBox>
           </Box>
           <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems={{ xs: 'center', sm: 'flex-start' }}>
-            <UIThemeShadowButton variant="contained">
+            <UIThemeShadowButton variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
               <UINewTypography variant="body" sx={{ lineHeight: '150%' }}>
                 <FormattedMessage id="JoinForFREE" />
               </UINewTypography>
@@ -101,7 +101,7 @@ const HomeTopBanner = () => {
           />
         </Box>
       </BannerContainer>
-      <Box width="100%" pt={{ xs: '58px', lg: '120px' }} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+      <Box width="100%" pt={{ xs: '96px', lg: '120px' }} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
         <HomeExploreBox>
           <UINewTypography
             textAlign="center"

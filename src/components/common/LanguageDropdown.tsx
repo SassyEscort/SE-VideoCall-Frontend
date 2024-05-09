@@ -6,14 +6,11 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import { FLAG_IMAGES, LANGUAGES } from 'constants/languageConstants';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import theme from 'themes/theme';
 import useConfig from 'hooks/useConfig';
 import { I18n } from 'types/config';
 
 const LanguageDropdown = () => {
   const { i18n, onChangeLocalization } = useConfig();
-  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   const handleLanguageChange = (event: SelectChangeEvent) => {
     onChangeLocalization(event.target.value as I18n);
@@ -46,19 +43,18 @@ const LanguageDropdown = () => {
           }
         }}
         endAdornment={
-          isSmUp && <KeyboardArrowDownRoundedIcon sx={{ height: 16, width: 16, color: 'common.white', paddingRight: '0px !important' }} />
+          <KeyboardArrowDownRoundedIcon sx={{ height: 16, width: 16, color: 'common.white', paddingRight: '0px !important' }} />
         }
         renderValue={(value) => {
           const imagePath = FLAG_IMAGES[value].replace('g/', '\\');
           return (
-            <Box style={{ display: 'flex', alignItems: 'center' }}>
+            <Box style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
               <Image
                 src={imagePath}
                 alt={`${value} flag`}
                 width={20}
                 height={12}
                 style={{
-                  marginRight: '10px',
                   display: 'flex'
                 }}
                 loading="lazy"

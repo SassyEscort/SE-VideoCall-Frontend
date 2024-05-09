@@ -11,7 +11,12 @@ export const UIStyledArrivalsButton = styled(Button)(({ theme }) => ({
   fontSize: '16px',
   fontWeight: 400,
   whiteSpace: 'nowrap',
-  lineHeight: '21.86px'
+  lineHeight: '21.86px',
+  '&:hover': {
+    '.MuiOutlinedInput-notchedOutline': {
+      backgroundColor: theme.palette.secondary[800]
+    }
+  }
 }));
 
 export const StareIcone = styled(Box)(({ theme }) => ({
