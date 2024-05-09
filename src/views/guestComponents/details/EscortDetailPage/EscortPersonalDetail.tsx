@@ -4,6 +4,7 @@ import { DetailsChildBox, DetailsChipBox, DetailsMainBox, DetailsTypographyBox, 
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UINewChip from 'components/UIComponents/UINewChip';
 import theme from 'themes/theme';
+import { UINewTooltip } from 'components/UIComponents/UINewTooltip/UINewTooltip.styled';
 
 const EscortPersonalDetail = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -37,10 +38,12 @@ const EscortPersonalDetail = () => {
             <UINewTypography variant="captionBold">My Appearance</UINewTypography>
           </Box>
           <DetailsChipBox>
-            <UINewChip
-              icon={<Box height={20} width={20} component="img" src={`/images/details-icon/age-icon.svg`} alt={'language'} />}
-              label="24"
-            />
+            <UINewTooltip title={'Hello'} placement="top">
+              <UINewChip
+                icon={<Box height={20} width={20} component="img" src={`/images/details-icon/age-icon.svg`} alt={'language'} />}
+                label="24"
+              />
+            </UINewTooltip>
             <UINewChip
               icon={<Box height={20} width={20} component="img" src={`/images/details-icon/gender-icon.svg`} alt={'language'} />}
               label="Female"
