@@ -7,8 +7,7 @@ export const AuthCommonBox = styled(Box)(({ theme }) => ({
   border: '1px solid #FF68C0',
   paddingTop: 0,
   [theme.breakpoints.down('md')]: {
-    border: 'none',
-    paddingTop: '145px'
+    border: 'none'
   },
   borderRadius: '12px',
   position: 'relative'
