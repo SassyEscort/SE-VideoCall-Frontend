@@ -13,10 +13,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import * as yup from 'yup';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
-import { GuestAuthService } from 'services/guestAuth/signup.service';
+import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
-import AuthCommon from './AuthCommon';
+import { toast } from 'react-toastify';
+import AuthCommon from '../AuthCommon';
 
 export type SignupParams = {
   name: string;
@@ -49,8 +50,11 @@ const GuestSignup = ({ onClose }: { onClose: () => void }) => {
         password: ''
       }}
       validationSchema={validationSchema}
-      onSubmit={(values) => {
-        GuestAuthService.guestSignup(values);
+      onSubmit={async (values) => {
+        const data = await GuestAuthService.guestSignup(values);
+        if (data.code === 200) {
+          toast.success('Signed up successfully!');
+        }
       }}
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
