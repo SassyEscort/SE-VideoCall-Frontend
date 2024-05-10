@@ -45,3 +45,66 @@ export const AuthImageBox = styled(Box)(({ theme }) => ({
     display: 'none'
   }
 }));
+
+export const AuthSignupSuccessMainContainer = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  maxWidth: '509px',
+  alignItems: 'center',
+  justifyContent: 'center'
+}));
+
+export const FirstImgAuthSignupSuccessContainer = styled('img')(() => ({
+  width: '100%',
+  maxWidth: '135.5px',
+  height: '100%',
+  maxHeight: '132.16px',
+  justifyContent: 'center',
+  alignItems: 'center'
+}));
+
+export const SecContainerAuthSignupSuccessContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  maxWidth: '509px',
+  height: '100%',
+  maxHeight: '309px',
+  gap: theme.spacing(1)
+}));
+
+export const SubContainerAuthSignupSuccessContainer = styled(Box)(() => ({
+  display: 'flex',
+  width: '100%',
+  height: '100%',
+  alignItems: 'center',
+  justifyContent: 'center'
+}));
+
+export const SecImgAuthSignupSuccessContainer = styled('img')(() => ({
+  width: '100%',
+  maxWidth: '359px',
+  height: '100%',
+  maxHeight: '110px'
+}));
+
+export const TextContainerAuthSignupSuccessContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  maxWidth: '509px',
+  height: '100%',
+  maxHeight: '100px',
+  flexDirection: 'column',
+  textAlign: 'center',
+  alignItems: 'center',
+  gap: theme.spacing(1)
+}));
+
+export const TextSubContainerAuthSignupSuccessContainer = styled(Box)(() => ({
+  display: 'flex',
+  height: '100%',
+  maxHeight: '100px',
+  textAlign: 'center',
+  alignItems: 'center'
+}));
