@@ -18,8 +18,7 @@ export const DetailsChildBox = styled(Box)(({ theme }) => ({
 
 export const DetailsTypographyBox = styled(Box)(({ theme }) => ({
   display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(1.5)
+  flexDirection: 'column'
 }));
 
 export const DetailsChipBox = styled(Box)(({ theme }) => ({
@@ -33,4 +32,28 @@ export const NewTypography = styled(UINewTypography)(() => ({
   fontWeight: '400',
   letterSpacing: '0.1px',
   color: '#E9E8EB'
+}));
+
+export const DullCirclesEscort = styled(Box)(() => ({
+  backgroundColor: 'rgba(255, 72, 179, 0.3)',
+  height: '412px',
+  width: '584px',
+  borderRadius: '50%',
+  filter: 'blur(100px)',
+  position: 'absolute',
+  zIndex: '-1',
+  top: '-100px',
+  right: 150
+}));
+
+export const DullCirclesEscort2 = styled(Box)(() => ({
+  backgroundColor: 'rgba(255, 72, 179, 0.3)',
+  height: '412px',
+  width: '584px',
+  borderRadius: '50%',
+  filter: 'blur(100px)',
+  position: 'absolute',
+  zIndex: '-1',
+  top: '350px',
+  left: -450
 }));
