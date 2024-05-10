@@ -20,7 +20,6 @@ import CheckInbox from './CheckInbox';
 export type ForgetPasswordParams = {
   email: string;
 };
-
 const GuestForgetPasswordLink = ({ onClose }: { onClose: () => void }) => {
   const isSm = useMediaQuery(theme.breakpoints.down(330));
 
@@ -51,8 +50,6 @@ const GuestForgetPasswordLink = ({ onClose }: { onClose: () => void }) => {
               <Box
                 position="relative"
                 width="100%"
-                height={isSm ? '625px' : '620px'}
-                gap={4}
                 display="flex"
                 flexDirection="column"
                 justifyContent="space-between"
@@ -60,7 +57,8 @@ const GuestForgetPasswordLink = ({ onClose }: { onClose: () => void }) => {
                   pt: { xs: 0, sm: '126.5px' },
                   pl: { xs: 2, md: 4 },
                   pr: { xs: 2, md: 0 },
-                  maxWidth: { xs: '100%', md: '400px' }
+                  maxWidth: { xs: '100%', md: '400px' },
+                  gap: { xs: 5, sm: 4 }
                 }}
               >
                 {activeStep === 0 ? (
@@ -121,7 +119,7 @@ const GuestForgetPasswordLink = ({ onClose }: { onClose: () => void }) => {
                     </Box>
                   </>
                 ) : (
-                  <CheckInbox />
+                  <CheckInbox onClose={onClose} email={values.email} />
                 )}
                 <Box display="flex" flexDirection="column" gap={3} pb={3}>
                   <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
