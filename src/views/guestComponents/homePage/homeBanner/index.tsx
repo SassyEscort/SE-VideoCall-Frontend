@@ -7,16 +7,21 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { BannerContainer, InlineBox, InlineBoxRelative, TypographyBox, HomeExploreBox, SubTitle } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
-import GuestSignup from 'views/auth/GuestSignup';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+import GuestSignup from 'views/auth/guestSignup';
+import GuestNewPassword from 'views/auth/guestNewPassword';
 
 const HomeTopBanner = () => {
+  const url = new URL(window.location.href);
+  const email = url.searchParams.get('email');
+
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isMd = useMediaQuery(theme.breakpoints.only('md'));
   const isTablet = useMediaQuery(theme.breakpoints.only('sm'));
   const [open, setIsOpen] = useState(false);
+  const [openChangePassword, setIsOpenChangePassword] = useState(email ? true : false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -24,6 +29,10 @@ const HomeTopBanner = () => {
 
   const handleSignupClose = () => {
     setIsOpen(false);
+  };
+
+  const handleChangePasswordClose = () => {
+    setIsOpenChangePassword(false);
   };
 
   return (
@@ -150,6 +159,31 @@ const HomeTopBanner = () => {
         fullWidth
       >
         <GuestSignup onClose={handleSignupClose} />
+      </Dialog>
+
+      <Dialog
+        PaperProps={{
+          sx: {
+            maxWidth: 920,
+            borderRadius: '12px'
+          }
+        }}
+        sx={{
+          '& .MuiDialog-paper': {
+            backgroundColor: '#07030E',
+            borderRadius: '12px'
+          },
+          '& .MuiDialog-container': {
+            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
+            backdropFilter: 'blur(12px)'
+          }
+        }}
+        open={openChangePassword}
+        onClose={handleChangePasswordClose}
+        maxWidth="md"
+        fullWidth
+      >
+        <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} />
       </Dialog>
     </>
   );

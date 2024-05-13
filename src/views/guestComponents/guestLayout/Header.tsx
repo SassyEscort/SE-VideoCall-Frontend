@@ -15,7 +15,7 @@ import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import HomeMainContainer from './homeContainer';
 import { FormattedMessage } from 'react-intl';
 import Dialog from '@mui/material/Dialog';
-import GuestSignup from 'views/auth/GuestSignup';
+import GuestSignup from 'views/auth/guestSignup';
 
 const HeaderGuestComponent = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -108,14 +108,12 @@ const HeaderGuestComponent = () => {
                 </IconButton>
               )}
               {isMdUp && (
-                <Link prefetch={false} href="/">
-                  <Box display="flex" alignItems="center" gap={1}>
-                    <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
-                    <Typography variant="buttonLargeMenu" color="text.secondary">
-                      <FormattedMessage id="LogIn" />
-                    </Typography>
-                  </Box>
-                </Link>
+                <Box display="flex" alignItems="center" gap={1}>
+                  <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
+                  <Typography variant="buttonLargeMenu" color="text.secondary">
+                    <FormattedMessage id="LogIn" />
+                  </Typography>
+                </Box>
               )}
               {isMdUp && (
                 <UIThemeShadowButton variant="contained" onClick={handleSignupOpen}>

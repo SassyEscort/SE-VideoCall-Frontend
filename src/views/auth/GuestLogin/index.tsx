@@ -8,7 +8,6 @@ import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { RiEyeLine, RiEyeOffLine, RiUserFillLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
-import Link from 'next/link';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import * as yup from 'yup';
@@ -17,6 +16,9 @@ import theme from 'themes/theme';
 import AuthCommon from '../AuthCommon';
 import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
 import { toast } from 'react-toastify';
+import Dialog from '@mui/material/Dialog';
+import GuestForgetPasswordLink from '../guestForgetPasswordLink';
+import GuestSignup from '../guestSignup';
 
 export type LoginParams = {
   email: string;
@@ -25,12 +27,32 @@ export type LoginParams = {
 
 const GuestLogin = ({ onClose }: { onClose: () => void }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [open, setIsOpen] = useState(false);
+  const [signupOpen, setSignupIsOpen] = useState(false);
+
   const isSm = useMediaQuery(theme.breakpoints.down(330));
 
   const validationSchema = yup.object({
     email: yup.string().email('Enter a valid email').required('Email is required'),
     password: yup.string().required('Password is required')
   });
+
+  const handleForgetPasswordLinkOpen = () => {
+    setIsOpen(true);
+    setShowPassword(false);
+  };
+
+  const handleForgetPasswordLinkClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleSignupOpen = () => {
+    setSignupIsOpen(true);
+  };
+
+  const handleSignupClose = () => {
+    setSignupIsOpen(false);
+  };
 
   return (
     <Formik
@@ -151,6 +173,7 @@ const GuestLogin = ({ onClose }: { onClose: () => void }) => {
                         variant="buttonLargeMenu"
                         color="primary.400"
                         sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}
+                        onClick={handleForgetPasswordLinkOpen}
                       >
                         Forgot Password?
                       </UINewTypography>
@@ -174,16 +197,63 @@ const GuestLogin = ({ onClose }: { onClose: () => void }) => {
                     >
                       <UINewTypography variant="buttonLargeMenu">Don’t have an account?</UINewTypography>
 
-                      <Link prefetch={false} href="/login" shallow={true} style={{ textDecoration: 'underline' }}>
-                        <UINewTypography variant="body" sx={{ color: 'text.secondary' }}>
-                          Join for free now!
-                        </UINewTypography>
-                      </Link>
+                      <UINewTypography variant="body" sx={{ color: 'text.secondary', cursor: 'pointer' }} onClick={handleSignupOpen}>
+                        Join for free now!
+                      </UINewTypography>
                     </Box>
                   </Box>
                 </Box>
               </Box>
             </AuthCommon>
+            <Dialog
+              sx={{
+                '& .MuiDialog-paper': {
+                  backgroundColor: '#07030E',
+                  borderRadius: '12px'
+                },
+                '& .MuiDialog-container': {
+                  backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
+                  backdropFilter: 'blur(12px)'
+                }
+              }}
+              PaperProps={{
+                sx: {
+                  maxWidth: 920,
+                  borderRadius: '12px'
+                }
+              }}
+              open={open}
+              onClose={handleForgetPasswordLinkClose}
+              maxWidth="md"
+              fullWidth
+            >
+              <GuestForgetPasswordLink onClose={handleForgetPasswordLinkClose} />
+            </Dialog>
+
+            <Dialog
+              sx={{
+                '& .MuiDialog-paper': {
+                  backgroundColor: '#07030E',
+                  borderRadius: '12px'
+                },
+                '& .MuiDialog-container': {
+                  backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
+                  backdropFilter: 'blur(12px)'
+                }
+              }}
+              PaperProps={{
+                sx: {
+                  maxWidth: 920,
+                  borderRadius: '12px'
+                }
+              }}
+              open={signupOpen}
+              onClose={handleSignupClose}
+              maxWidth="md"
+              fullWidth
+            >
+              <GuestSignup onClose={handleSignupClose} />
+            </Dialog>
           </Box>
         );
       }}
