@@ -8,15 +8,17 @@ import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { RiEyeLine, RiEyeOffLine, RiMailLine, RiUserFillLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
-import Link from 'next/link';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import * as yup from 'yup';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
-import AuthCommon from './AuthCommon';
+import { toast } from 'react-toastify';
 import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
+import AuthCommon from '../AuthCommon';
+import Dialog from '@mui/material/Dialog';
+import GuestLogin from '../GuestLogin';
 
 export type SignupParams = {
   name: string;
@@ -26,7 +28,17 @@ export type SignupParams = {
 
 const GuestSignup = ({ onClose }: { onClose: () => void }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [open, setIsOpen] = useState(false);
+
   const isSm = useMediaQuery(theme.breakpoints.down(330));
+
+  const handleLoginOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleLoginClose = () => {
+    setIsOpen(false);
+  };
 
   const validationSchema = yup.object({
     name: yup.string().required('Username is required').min(2, 'Username is too short').max(20, 'Username is too long'),
@@ -49,8 +61,11 @@ const GuestSignup = ({ onClose }: { onClose: () => void }) => {
         password: ''
       }}
       validationSchema={validationSchema}
-      onSubmit={(values) => {
-        GuestAuthService.guestSignup(values);
+      onSubmit={async (values) => {
+        const data = await GuestAuthService.guestSignup(values);
+        if (data.code === 200) {
+          toast.success('Signed up successfully!');
+        }
       }}
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
@@ -178,16 +193,43 @@ const GuestSignup = ({ onClose }: { onClose: () => void }) => {
                         Remember password?
                       </UINewTypography>
 
-                      <Link prefetch={false} href="/login" shallow={true} style={{ textDecoration: 'underline' }}>
-                        <UINewTypography whiteSpace="nowrap" variant="body" sx={{ color: 'text.secondary' }}>
-                          Log in instead!
-                        </UINewTypography>
-                      </Link>
+                      <UINewTypography
+                        whiteSpace="nowrap"
+                        variant="body"
+                        sx={{ color: 'text.secondary', cursor: 'pointer' }}
+                        onClick={handleLoginOpen}
+                      >
+                        Log in instead!
+                      </UINewTypography>
                     </Box>
                   </Box>
                 </Box>
               </Box>
             </AuthCommon>
+            <Dialog
+              sx={{
+                '& .MuiDialog-paper': {
+                  backgroundColor: '#07030E',
+                  borderRadius: '12px'
+                },
+                '& .MuiDialog-container': {
+                  backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
+                  backdropFilter: 'blur(12px)'
+                }
+              }}
+              PaperProps={{
+                sx: {
+                  maxWidth: 920,
+                  borderRadius: '12px'
+                }
+              }}
+              open={open}
+              onClose={handleLoginClose}
+              maxWidth="md"
+              fullWidth
+            >
+              <GuestLogin onClose={handleLoginClose} />
+            </Dialog>
           </Box>
         );
       }}

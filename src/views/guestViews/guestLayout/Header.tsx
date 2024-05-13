@@ -15,8 +15,8 @@ import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import HomeMainContainer from './homeContainer';
 import { FormattedMessage } from 'react-intl';
 import Dialog from '@mui/material/Dialog';
-import GuestSignup from 'views/auth/GuestSignup';
 import GuestLogin from 'views/auth/GuestLogin';
+import GuestSignup from 'views/auth/guestSignup';
 
 const HeaderGuestComponent = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
