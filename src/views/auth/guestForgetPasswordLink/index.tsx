@@ -6,7 +6,6 @@ import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { RiMailLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
-import Link from 'next/link';
 import CloseIcon from '@mui/icons-material/Close';
 import * as yup from 'yup';
 import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
@@ -16,6 +15,8 @@ import { toast } from 'react-toastify';
 import { useState } from 'react';
 import AuthCommon from '../AuthCommon';
 import CheckInbox from './CheckInbox';
+import Dialog from '@mui/material/Dialog';
+import GuestLogin from '../GuestLogin';
 
 export type ForgetPasswordParams = {
   email: string;
@@ -24,6 +25,15 @@ const GuestForgetPasswordLink = ({ onClose }: { onClose: () => void }) => {
   const isSm = useMediaQuery(theme.breakpoints.down(330));
 
   const [activeStep, setActiveStep] = useState(0);
+  const [open, setIsOpen] = useState(false);
+
+  const handleLoginOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleLoginClose = () => {
+    setIsOpen(false);
+  };
 
   const validationSchema = yup.object({
     email: yup.string().email('Enter a valid email').required('Email is required')
@@ -127,15 +137,37 @@ const GuestForgetPasswordLink = ({ onClose }: { onClose: () => void }) => {
                     <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
                       Remember password?
                     </UINewTypography>
-                    <Link prefetch={false} href="/login" shallow={true} style={{ textDecoration: 'underline' }}>
-                      <UINewTypography whiteSpace="nowrap" variant="body" sx={{ color: 'text.secondary' }}>
-                        Log in instead!
-                      </UINewTypography>
-                    </Link>
+                    <UINewTypography whiteSpace="nowrap" variant="body" sx={{ color: 'text.secondary' }} onClick={handleLoginOpen}>
+                      Log in instead!
+                    </UINewTypography>
                   </Box>
                 </Box>
               </Box>
             </AuthCommon>
+            <Dialog
+              sx={{
+                '& .MuiDialog-paper': {
+                  backgroundColor: '#07030E',
+                  borderRadius: '12px'
+                },
+                '& .MuiDialog-container': {
+                  backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
+                  backdropFilter: 'blur(12px)'
+                }
+              }}
+              PaperProps={{
+                sx: {
+                  maxWidth: 920,
+                  borderRadius: '12px'
+                }
+              }}
+              open={open}
+              onClose={handleLoginClose}
+              maxWidth="md"
+              fullWidth
+            >
+              <GuestLogin onClose={handleLoginClose} />
+            </Dialog>
           </Box>
         );
       }}

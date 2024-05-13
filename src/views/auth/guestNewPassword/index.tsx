@@ -18,6 +18,8 @@ import AuthCommon from '../AuthCommon';
 import CustomPasswordRegex from '../customPasswordRegex';
 import InputAdornment from '@mui/material/InputAdornment';
 import { PASSWORD_PATTERN_WITHOUT_CAPITAL_LETTER } from 'constants/regexConstants';
+import Dialog from '@mui/material/Dialog';
+import GuestLogin from '../GuestLogin';
 
 export type ResetPasswordParams = {
   email: string;
@@ -28,19 +30,28 @@ export type ResetPasswordParams = {
 const GuestNewPassword = ({ onClose, email }: { onClose: () => void; email: string }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [open, setIsOpen] = useState(false);
+
+  const handleLoginOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleLoginClose = () => {
+    setIsOpen(false);
+  };
 
   const isSm = useMediaQuery(theme.breakpoints.down(330));
 
   const validationSchema = yup.object({
     password: yup
       .string()
-      .required('NewPasswordRequired')
-      .min(8, 'min 8 ')
-      .matches(PASSWORD_PATTERN_WITHOUT_CAPITAL_LETTER, 'PasswordCondition'),
+      .required('New Password Required')
+      .min(8, 'Password must be at least 8 characters')
+      .matches(PASSWORD_PATTERN_WITHOUT_CAPITAL_LETTER, 'Password Condition'),
     confirmPassword: yup
       .string()
-      .required('ConfirmPasswordRequired')
-      .oneOf([yup.ref('password'), ''], 'NewPasswordDoesNotMatch')
+      .required('Confirm Password Required')
+      .oneOf([yup.ref('password'), ''], 'New Password Does Not Match')
   });
 
   return (
@@ -53,10 +64,10 @@ const GuestNewPassword = ({ onClose, email }: { onClose: () => void; email: stri
       onSubmit={async (values) => {
         const url = new URL(window.location.href);
         const verificationCode = url.searchParams.get('code');
-        const emailData = url.searchParams.get('email');
-        if (verificationCode !== null && emailData !== null) {
+
+        if (verificationCode !== null && email !== null) {
           const resetPasswordObject = {
-            email: emailData,
+            email: email,
             password: values.password,
             reset_password_code: verificationCode
           };
@@ -180,7 +191,9 @@ const GuestNewPassword = ({ onClose, email }: { onClose: () => void; email: stri
                 </Box>
                 <Box display="flex" flexDirection="column" width="100%" gap="28px">
                   <UIThemeButton variant="contained" type="submit">
-                    <UINewTypography variant="buttonLargeBold">Change password</UINewTypography>
+                    <UINewTypography variant="buttonLargeBold" onClick={handleLoginOpen}>
+                      Change password
+                    </UINewTypography>
                   </UIThemeButton>
                   <Box display="flex" flexDirection="column" gap={3}>
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
@@ -199,6 +212,30 @@ const GuestNewPassword = ({ onClose, email }: { onClose: () => void; email: stri
                 </Box>
               </Box>
             </AuthCommon>
+            <Dialog
+              sx={{
+                '& .MuiDialog-paper': {
+                  backgroundColor: '#07030E',
+                  borderRadius: '12px'
+                },
+                '& .MuiDialog-container': {
+                  backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
+                  backdropFilter: 'blur(12px)'
+                }
+              }}
+              PaperProps={{
+                sx: {
+                  maxWidth: 920,
+                  borderRadius: '12px'
+                }
+              }}
+              open={open}
+              onClose={handleLoginClose}
+              maxWidth="md"
+              fullWidth
+            >
+              <GuestLogin onClose={handleLoginClose} />
+            </Dialog>
           </Box>
         );
       }}
