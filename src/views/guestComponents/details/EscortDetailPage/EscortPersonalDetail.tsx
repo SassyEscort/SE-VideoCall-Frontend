@@ -29,7 +29,7 @@ const EscortPersonalDetail = () => {
                 <UINewTypography variant="SubtitleSmallMedium">Last active 2hrs ago</UINewTypography>
               </DetailsChildBox>
               <Box>
-                <NewTypography>Life is short. Take the trip, buy the shoes, eat the cake, and LOVE ❤️.</NewTypography>
+                <NewTypography variant="subtitle">Life is short. Take the trip, buy the shoes, eat the cake, and LOVE ❤️.</NewTypography>
               </Box>
             </Box>
           </DetailsChildBox>

@@ -13,10 +13,11 @@ const EscortExplore = () => {
   return (
     <>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, mt: isSmDown ? 12 : 15 }}>
-        <Box>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: isSmDown ? 1.5 : 2, textAlign: isSmDown ? 'center' : 'left' }}>
           <UINewTypography variant="h2" color="text.secondary">
             Explore from the world of diverse beauty and charm
           </UINewTypography>
+          <UINewTypography variant="subtitle">Select the companion who aligns with your desires.</UINewTypography>
         </Box>
         <Box sx={{ width: '100%', maxWidth: '711px' }}>
           <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} gap={{ xs: 1.5, sm: 4 }}>

@@ -7,9 +7,10 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { BannerContainer, InlineBox, InlineBoxRelative, TypographyBox, HomeExploreBox, SubTitle } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
-import GuestSignup from 'views/auth/GuestSignup';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+import GuestLogin from 'views/auth/GuestLogin';
+import GuestSignup from 'views/auth/GuestSignup';
 
 const HomeTopBanner = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -149,6 +150,7 @@ const HomeTopBanner = () => {
         maxWidth="md"
         fullWidth
       >
+        <GuestLogin onClose={handleSignupClose} />
         <GuestSignup onClose={handleSignupClose} />
       </Dialog>
     </>

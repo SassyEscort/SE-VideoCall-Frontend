@@ -1,5 +1,7 @@
-import type { NextAuthOptions } from 'next-auth';
+import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from 'next';
+import { getServerSession, type NextAuthOptions, type User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { authServices } from 'services/guestAuth/authuser.services';
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET_KEY,
@@ -8,26 +10,26 @@ export const authOptions: NextAuthOptions = {
       id: 'login',
       name: 'login',
       credentials: {
-        userName: { name: 'userName', label: 'Username', type: 'text', placeholder: 'Enter Username' },
+        email: { name: 'email', label: 'Email', type: 'text', placeholder: 'Enter Email' },
         password: { name: 'password', label: 'Password', type: 'password', placeholder: 'Enter Password' }
       },
       async authorize(credentials) {
         try {
-          // const user = await authServices.loginUser({
-          //   userName: credentials?.userName ?? '',
-          //   password: credentials?.password ?? ''
-          // });
+          const user = await authServices.loginUser({
+            email: credentials?.email ?? '',
+            password: credentials?.password ?? ''
+          });
 
-          // if (user && user.data) {
-          //   user.data.accessToken = user.data.token;
+          if (user && typeof user !== 'string' && user.data) {
+            user.data.accessToken = user.data.token;
 
-          //   return {
-          //     id: user.data.currentUserDetails.entityID.toString(),
-          //     name: user.data.currentUserDetails.eventCompanyName,
-          //     email: user.data.currentUserDetails.username,
-          //     image: JSON.stringify(user.data)
-          //   } as User;
-          // }
+            return {
+              id: user.data.customer_id.toString(),
+              name: user.data.customer_name,
+              email: user.data.customer_email,
+              image: JSON.stringify(user.data)
+            } as User;
+          }
           return null;
         } catch (e: any) {
           const errorMessage = e?.response.data.message;
@@ -45,15 +47,15 @@ export const authOptions: NextAuthOptions = {
         token.provider = account?.provider;
       }
       return token;
-    },
-    session: ({ session, token }) => {
-      // if (token) {
-      //   session.id = token.id;
-      //   session.provider = token.provider;
-      //   session.token = token;
-      // }
-      return session;
     }
+    // session: ({ session, token }) => {
+    //   if (token) {
+    //     session.user. = token.id;
+    //     session.provider = token.provider;
+    //     session.token = token;
+    //   }
+    //   return session;
+    // }
   },
   session: {
     strategy: 'jwt',
@@ -66,3 +68,9 @@ export const authOptions: NextAuthOptions = {
     signIn: '/'
   }
 };
+
+export function getAuthUser( // <-- use this function to access the jwt from React components
+  ...args: [GetServerSidePropsContext['req'], GetServerSidePropsContext['res']] | [NextApiRequest, NextApiResponse] | []
+) {
+  return getServerSession(...args, authOptions);
+}
