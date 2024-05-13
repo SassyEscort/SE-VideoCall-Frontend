@@ -14,8 +14,11 @@ import * as yup from 'yup';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import AuthCommon from '../AuthCommon';
-import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
-import { toast } from 'react-toastify';
+import { LoginUserParams } from 'services/guestAuth/types';
+import { signIn } from 'next-auth/react';
+import getCustomErrorMessage from 'utils/error.utils';
+import StyledAlert from 'components/UIComponents/StyledAlert';
+import { useRouter } from 'next/navigation';
 import Dialog from '@mui/material/Dialog';
 import GuestForgetPasswordLink from '../guestForgetPasswordLink';
 import GuestSignup from '../guestSignup';
@@ -26,16 +29,31 @@ export type LoginParams = {
 };
 
 const GuestLogin = ({ onClose }: { onClose: () => void }) => {
+  const route = useRouter();
+  const { push } = route;
   const [showPassword, setShowPassword] = useState(false);
   const [open, setIsOpen] = useState(false);
   const [signupOpen, setSignupIsOpen] = useState(false);
 
   const isSm = useMediaQuery(theme.breakpoints.down(330));
-
+  const [alert, setAlert] = useState('');
   const validationSchema = yup.object({
-    email: yup.string().email('Enter a valid email').required('Email is required'),
+    email: yup.string().required('Email is required'),
     password: yup.string().required('Password is required')
   });
+  const handleFormSubmit = async (values: LoginUserParams) => {
+    try {
+      const res = await signIn('login', { redirect: false, email: values.email, password: values.password });
+      if (res?.status === 200) {
+        push('/profile');
+        onClose();
+      } else if (res?.error) {
+        setAlert(res.error);
+      }
+    } catch (error: any) {
+      setAlert(getCustomErrorMessage(error));
+    }
+  };
 
   const handleForgetPasswordLinkOpen = () => {
     setIsOpen(true);
@@ -61,16 +79,12 @@ const GuestLogin = ({ onClose }: { onClose: () => void }) => {
         password: ''
       }}
       validationSchema={validationSchema}
-      onSubmit={async (values) => {
-        const data = await GuestAuthService.guestLogin(values);
-        if (data.code === 200) {
-          toast.success('Login successfully!');
-        }
-      }}
+      onSubmit={(values: LoginUserParams) => handleFormSubmit(values)}
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
+            {Boolean(alert) && <StyledAlert severity="error">{alert}</StyledAlert>}
             <AuthCommon onClose={onClose} image="images/auth/auth-model.webp" mobileImage="images/auth/auth-model.webp">
               <Box
                 position="relative"

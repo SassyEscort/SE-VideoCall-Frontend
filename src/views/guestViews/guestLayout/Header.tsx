@@ -15,12 +15,14 @@ import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import HomeMainContainer from './homeContainer';
 import { FormattedMessage } from 'react-intl';
 import Dialog from '@mui/material/Dialog';
+import GuestLogin from 'views/auth/GuestLogin';
 import GuestSignup from 'views/auth/guestSignup';
 
 const HeaderGuestComponent = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openSidebar, setOpenSidebar] = useState(false);
   const [open, setIsOpen] = useState(false);
+  const [openLogin, setIsOpenLogin] = useState(false);
 
   const toggleDrawer = (open: boolean) => {
     setOpenSidebar(open);
@@ -32,6 +34,14 @@ const HeaderGuestComponent = () => {
 
   const handleSignupClose = () => {
     setIsOpen(false);
+  };
+
+  const handleLoginOpen = () => {
+    setIsOpenLogin(true);
+  };
+
+  const handleLoginClose = () => {
+    setIsOpenLogin(false);
   };
 
   return (
@@ -108,12 +118,14 @@ const HeaderGuestComponent = () => {
                 </IconButton>
               )}
               {isMdUp && (
-                <Box display="flex" alignItems="center" gap={1}>
-                  <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
-                  <Typography variant="buttonLargeMenu" color="text.secondary">
-                    <FormattedMessage id="LogIn" />
-                  </Typography>
-                </Box>
+                <Link prefetch={false} href="/">
+                  <Box display="flex" alignItems="center" gap={1} onClick={handleLoginOpen}>
+                    <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
+                    <Typography variant="buttonLargeMenu" color="text.secondary">
+                      <FormattedMessage id="LogIn" />
+                    </Typography>
+                  </Box>
+                </Link>
               )}
               {isMdUp && (
                 <UIThemeShadowButton variant="contained" onClick={handleSignupOpen}>
@@ -150,6 +162,30 @@ const HeaderGuestComponent = () => {
         fullWidth
       >
         <GuestSignup onClose={handleSignupClose} />
+      </Dialog>
+      <Dialog
+        sx={{
+          '& .MuiDialog-paper': {
+            backgroundColor: '#07030E',
+            borderRadius: '12px'
+          },
+          '& .MuiDialog-container': {
+            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
+            backdropFilter: 'blur(12px)'
+          }
+        }}
+        PaperProps={{
+          sx: {
+            maxWidth: 920,
+            borderRadius: '12px'
+          }
+        }}
+        open={openLogin}
+        onClose={handleSignupClose}
+        maxWidth="md"
+        fullWidth
+      >
+        <GuestLogin onClose={handleLoginClose} />
       </Dialog>
     </HomeMainContainer>
   );

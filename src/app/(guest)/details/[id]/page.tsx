@@ -1,4 +1,4 @@
-import EscortDetailPage from 'views/guestComponents/details/EscortDetailPage';
+import EscortDetailPage from 'views/guestViews/details/EscortDetailPage';
 
 const WorkerDetailPage = () => {
   return <>{<EscortDetailPage />}</>;

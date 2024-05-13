@@ -11,7 +11,7 @@ import {
   StyledAccordionDetails,
   StyledAccordionSummary
 } from './HomePageFAQ.styled';
-import HomeMainContainer from 'views/guestComponents/guestLayout/homeContainer';
+import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { FormattedMessage } from 'react-intl';
 
 const HomePageFAQ = () => {
