@@ -18,12 +18,15 @@ const AuthGuard = ({ children }: GuardProps) => {
   const { data: session, status } = useSession();
   const router = useRouter();
 
+  console.log(session, 'session');
+  console.log(status, 'status');
+
   useEffect(() => {
     const fetchData = async () => {
       const res: any = await fetch('/api/auth/protected');
       const json = await res?.json();
       if (!json?.protected) {
-        router.push('/login');
+        router.push('/');
       }
     };
     fetchData();

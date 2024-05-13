@@ -1,6 +1,6 @@
 'use client';
 
-import HomeMainContainer from 'views/guestComponents/guestLayout/homeContainer';
+import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { EscortSlider } from './EscortSlider';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';

@@ -1,7 +1,7 @@
 import { Grid, Box } from '@mui/material';
-import WorkerCard from 'views/guestComponents/commonComponents/WorkerCard/WorkerCard';
-import { ButtonMainBox, WorkerCardMainBox } from 'views/guestComponents/commonComponents/WorkerCard/WorkerCard.styled';
-import HomeMainContainer from 'views/guestComponents/guestLayout/homeContainer';
+import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
+import { ButtonMainBox, WorkerCardMainBox } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
+import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UIThemeBorderButton from 'components/UIComponents/UIStyledBorderButton';
 
 const HomeImageCard = () => {

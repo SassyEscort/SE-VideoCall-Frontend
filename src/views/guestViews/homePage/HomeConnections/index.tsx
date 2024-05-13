@@ -19,7 +19,7 @@ import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Image from 'next/image';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
-import HomeMainContainer from 'views/guestComponents/guestLayout/homeContainer';
+import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 

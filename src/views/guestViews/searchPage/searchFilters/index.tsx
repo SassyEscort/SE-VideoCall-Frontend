@@ -1,4 +1,4 @@
-import HomeMainContainer from 'views/guestComponents/guestLayout/homeContainer';
+import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import AgeFilter from './AgeFilter';
 import CountryFilter from './CountryFilter';
 import Box from '@mui/material/Box';

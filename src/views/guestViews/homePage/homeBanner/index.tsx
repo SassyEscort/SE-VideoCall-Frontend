@@ -9,7 +9,6 @@ import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import GuestLogin from 'views/auth/GuestLogin';
 import GuestSignup from 'views/auth/GuestSignup';
 
 const HomeTopBanner = () => {
@@ -150,7 +149,6 @@ const HomeTopBanner = () => {
         maxWidth="md"
         fullWidth
       >
-        <GuestLogin onClose={handleSignupClose} />
         <GuestSignup onClose={handleSignupClose} />
       </Dialog>
     </>

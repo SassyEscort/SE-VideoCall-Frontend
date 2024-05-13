@@ -1,10 +1,10 @@
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Box from '@mui/material/Box';
-import CountryFilter from 'views/guestComponents/searchPage/searchFilters/CountryFilter';
-import AgeFilter from 'views/guestComponents/searchPage/searchFilters/AgeFilter';
-import CurrentlyOnline from 'views/guestComponents/searchPage/searchFilters/CurrentlyOnline';
-import NewArrivals from 'views/guestComponents/searchPage/searchFilters/NewArrivals';
-import HomeImageCard from 'views/guestComponents/homePage/homeImageCards';
+import CountryFilter from 'views/guestViews/searchPage/searchFilters/CountryFilter';
+import AgeFilter from 'views/guestViews/searchPage/searchFilters/AgeFilter';
+import CurrentlyOnline from 'views/guestViews/searchPage/searchFilters/CurrentlyOnline';
+import NewArrivals from 'views/guestViews/searchPage/searchFilters/NewArrivals';
+import HomeImageCard from 'views/guestViews/homePage/homeImageCards';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 

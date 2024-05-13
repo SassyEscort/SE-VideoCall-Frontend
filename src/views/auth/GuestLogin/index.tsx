@@ -19,6 +19,7 @@ import { LoginUserParams } from 'services/guestAuth/types';
 import { signIn } from 'next-auth/react';
 import getCustomErrorMessage from 'utils/error.utils';
 import StyledAlert from 'components/UIComponents/StyledAlert';
+import { useRouter } from 'next/navigation';
 
 export type LoginParams = {
   email: string;
@@ -26,6 +27,8 @@ export type LoginParams = {
 };
 
 const GuestLogin = ({ onClose }: { onClose: () => void }) => {
+  const route = useRouter();
+  const { push } = route;
   const [showPassword, setShowPassword] = useState(false);
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const [alert, setAlert] = useState('');
@@ -36,8 +39,12 @@ const GuestLogin = ({ onClose }: { onClose: () => void }) => {
   const handleFormSubmit = async (values: LoginUserParams) => {
     try {
       const res = await signIn('login', { redirect: false, email: values.email, password: values.password });
-      if (res?.status === 200) onClose();
-      else if (res?.error) setAlert(res.error);
+      if (res?.status === 200) {
+        push('/profile');
+        onClose();
+      } else if (res?.error) {
+        setAlert(res.error);
+      }
     } catch (error: any) {
       setAlert(getCustomErrorMessage(error));
     }
