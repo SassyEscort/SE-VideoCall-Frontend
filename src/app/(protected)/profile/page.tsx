@@ -1,4 +1,4 @@
-import ProfilePage from 'views/ProfilePage';
+import ProfilePage from 'views/protectedViews';
 
 const index = () => {
   return <ProfilePage />;
