@@ -6,7 +6,6 @@ const CustomPasswordRegex = ({ password }: { password: string }) => {
   const isBetweenLength = password.length >= 8 && password.length <= 124;
   const hasNumber = /\d/.test(password);
   const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-  const hasUpperCase = /[A-Z]/.test(password);
 
   return (
     <>
@@ -100,30 +99,6 @@ const CustomPasswordRegex = ({ password }: { password: string }) => {
           )}
           <UINewTypography variant="bodyRegular" sx={{ color: 'text.secondary' }}>
             Contains atleast one symbol
-          </UINewTypography>
-        </Box>
-
-        <Box
-          sx={{
-            display: 'flex',
-            alignIitems: 'center',
-            gap: '4px'
-          }}
-        >
-          {hasUpperCase ? (
-            <Box
-              component="img"
-              src="/images/NewThemeImages/icons/Vector.svg"
-              sx={{
-                width: '20px',
-                height: '20px'
-              }}
-            />
-          ) : (
-            <FiberManualRecordIcon sx={{ width: '10px', height: '10px', alignSelf: 'center' }} fontSize="small" />
-          )}
-          <UINewTypography variant="bodyRegular" sx={{ color: 'text.secondary' }}>
-            Contains At Least One Capital Letter
           </UINewTypography>
         </Box>
       </Box>

@@ -6,7 +6,6 @@ import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
-import Link from 'next/link';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import * as yup from 'yup';
@@ -18,7 +17,6 @@ import AuthCommon from '../AuthCommon';
 import CustomPasswordRegex from '../customPasswordRegex';
 import InputAdornment from '@mui/material/InputAdornment';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
-import Dialog from '@mui/material/Dialog';
 import GuestLogin from '../GuestLogin';
 
 export type ResetPasswordParams = {
@@ -27,31 +25,22 @@ export type ResetPasswordParams = {
   reset_password_code: string;
 };
 
-const GuestNewPassword = ({ onClose, email }: { onClose: () => void; email: string }) => {
+const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void; email: string; onLoginOpen: () => void }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [open, setIsOpen] = useState(false);
-
-  const handleLoginOpen = () => {
-    setIsOpen(true);
-  };
-
-  const handleLoginClose = () => {
-    setIsOpen(false);
-  };
 
   const isSm = useMediaQuery(theme.breakpoints.down(330));
 
   const validationSchema = yup.object({
     password: yup
       .string()
-      .required('New Password Required')
+      .required('New password is required')
       .min(8, 'Password must be at least 8 characters')
       .matches(PASSWORD_PATTERN, 'Password Condition'),
     confirmPassword: yup
       .string()
-      .required('Confirm Password Required')
-      .oneOf([yup.ref('password'), ''], 'New Password Does Not Match')
+      .required('Confirm password is required')
+      .oneOf([yup.ref('password'), ''], 'New Password does not match')
   });
 
   return (
@@ -191,9 +180,7 @@ const GuestNewPassword = ({ onClose, email }: { onClose: () => void; email: stri
                 </Box>
                 <Box display="flex" flexDirection="column" width="100%" gap="28px">
                   <UIThemeButton variant="contained" type="submit">
-                    <UINewTypography variant="buttonLargeBold" onClick={handleLoginOpen}>
-                      Change password
-                    </UINewTypography>
+                    <UINewTypography variant="buttonLargeBold">Change password</UINewTypography>
                   </UIThemeButton>
                   <Box display="flex" flexDirection="column" gap={3}>
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
@@ -201,41 +188,19 @@ const GuestNewPassword = ({ onClose, email }: { onClose: () => void; email: stri
                       <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
                         Remember password?
                       </UINewTypography>
-
-                      <Link prefetch={false} href="/login" shallow={true} style={{ textDecoration: 'underline' }}>
-                        <UINewTypography whiteSpace="nowrap" variant="body" sx={{ color: 'text.secondary' }}>
-                          Log in instead!
-                        </UINewTypography>
-                      </Link>
+                      <UINewTypography
+                        whiteSpace="nowrap"
+                        variant="body"
+                        sx={{ color: 'text.secondary', cursor: 'pointer' }}
+                        onClick={onLoginOpen}
+                      >
+                        Log in instead!
+                      </UINewTypography>
                     </Box>
                   </Box>
                 </Box>
               </Box>
             </AuthCommon>
-            <Dialog
-              sx={{
-                '& .MuiDialog-paper': {
-                  backgroundColor: '#07030E',
-                  borderRadius: '12px'
-                },
-                '& .MuiDialog-container': {
-                  backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
-                  backdropFilter: 'blur(12px)'
-                }
-              }}
-              PaperProps={{
-                sx: {
-                  maxWidth: 920,
-                  borderRadius: '12px'
-                }
-              }}
-              open={open}
-              onClose={handleLoginClose}
-              maxWidth="md"
-              fullWidth
-            >
-              <GuestLogin onClose={handleLoginClose} />
-            </Dialog>
           </Box>
         );
       }}
