@@ -17,12 +17,19 @@ import { FormattedMessage } from 'react-intl';
 import Dialog from '@mui/material/Dialog';
 import GuestLogin from 'views/auth/GuestLogin';
 import GuestSignup from 'views/auth/guestSignup';
+import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
+import GuestNewPassword from 'views/auth/guestNewPassword';
 
 const HeaderGuestComponent = () => {
+  const url = new URL(window.location.href);
+  const email = url.searchParams.get('email');
+
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openSidebar, setOpenSidebar] = useState(false);
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
+  const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  const [openChangePassword, setIsOpenChangePassword] = useState(email ? true : false);
 
   const toggleDrawer = (open: boolean) => {
     setOpenSidebar(open);
@@ -30,6 +37,7 @@ const HeaderGuestComponent = () => {
 
   const handleSignupOpen = () => {
     setIsOpen(true);
+    setIsOpenLogin(false);
   };
 
   const handleSignupClose = () => {
@@ -37,11 +45,35 @@ const HeaderGuestComponent = () => {
   };
 
   const handleLoginOpen = () => {
+    setIsOpen(false);
+    setIsOpenLogin(true);
+  };
+
+  const handleLoginResetPasswordOpen = () => {
+    setOpenForgetPassLink(false);
+    setIsOpenLogin(true);
+  };
+
+  const handleLoginChangePasswordOpen = () => {
+    setIsOpenChangePassword(false);
     setIsOpenLogin(true);
   };
 
   const handleLoginClose = () => {
     setIsOpenLogin(false);
+  };
+
+  const handleResetPasswordLinkOpen = () => {
+    setIsOpenLogin(false);
+    setOpenForgetPassLink(true);
+  };
+
+  const handleResetPasswordLinkClose = () => {
+    setOpenForgetPassLink(false);
+  };
+
+  const handleChangePasswordClose = () => {
+    setIsOpenChangePassword(false);
   };
 
   return (
@@ -161,7 +193,7 @@ const HeaderGuestComponent = () => {
         maxWidth="md"
         fullWidth
       >
-        <GuestSignup onClose={handleSignupClose} />
+        <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
       </Dialog>
       <Dialog
         sx={{
@@ -181,11 +213,59 @@ const HeaderGuestComponent = () => {
           }
         }}
         open={openLogin}
-        onClose={handleSignupClose}
+        onClose={handleLoginClose}
         maxWidth="md"
         fullWidth
       >
-        <GuestLogin onClose={handleLoginClose} />
+        <GuestLogin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
+      </Dialog>
+      <Dialog
+        sx={{
+          '& .MuiDialog-paper': {
+            backgroundColor: '#07030E',
+            borderRadius: '12px'
+          },
+          '& .MuiDialog-container': {
+            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
+            backdropFilter: 'blur(12px)'
+          }
+        }}
+        PaperProps={{
+          sx: {
+            maxWidth: 920,
+            borderRadius: '12px'
+          }
+        }}
+        open={openForgetPassLink}
+        onClose={handleResetPasswordLinkClose}
+        maxWidth="md"
+        fullWidth
+      >
+        <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
+      </Dialog>
+      <Dialog
+        PaperProps={{
+          sx: {
+            maxWidth: 920,
+            borderRadius: '12px'
+          }
+        }}
+        sx={{
+          '& .MuiDialog-paper': {
+            backgroundColor: '#07030E',
+            borderRadius: '12px'
+          },
+          '& .MuiDialog-container': {
+            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
+            backdropFilter: 'blur(12px)'
+          }
+        }}
+        open={openChangePassword}
+        onClose={handleChangePasswordClose}
+        maxWidth="md"
+        fullWidth
+      >
+        <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
       </Dialog>
     </HomeMainContainer>
   );
