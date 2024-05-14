@@ -66,7 +66,7 @@ const UINewTypography = styled(Typography)(({ theme }) => ({
   },
   '&.MuiTypography-SubtitleSmallMedium': {
     [theme.breakpoints.down('md')]: {
-      fontSize: '12px',
+      fontSize: '14px',
       lineHeight: '14.4px',
       fontWeight: '500',
       letterSpacing: '0.5px'
@@ -78,6 +78,20 @@ const UINewTypography = styled(Typography)(({ theme }) => ({
       lineHeight: '16.8px',
       fontWeight: '700',
       letterSpacing: '0.5px'
+    }
+  },
+  '&.MuiTypography-MediumSemiBold': {
+    [theme.breakpoints.down('md')]: {
+      fontSize: '32px',
+      fontWeight: 700,
+      lineHeight: '43.2px'
+    }
+  },
+  '&.MuiTypography-subtitle': {
+    [theme.breakpoints.down('md')]: {
+      fontSize: '16px',
+      fontWeight: 400,
+      lineHeight: '25.6px'
     }
   }
 }));

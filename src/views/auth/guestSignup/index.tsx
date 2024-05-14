@@ -6,85 +6,71 @@ import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
-import { RiEyeLine, RiEyeOffLine, RiUserFillLine } from 'components/common/customRemixIcons';
+import { RiEyeLine, RiEyeOffLine, RiMailLine, RiUserFillLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import * as yup from 'yup';
+import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
+import { toast } from 'react-toastify';
+import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
 import AuthCommon from '../AuthCommon';
-import { LoginUserParams } from 'services/guestAuth/types';
-import { signIn } from 'next-auth/react';
-import getCustomErrorMessage from 'utils/error.utils';
-import StyledAlert from 'components/UIComponents/StyledAlert';
-import { useRouter } from 'next/navigation';
 import Dialog from '@mui/material/Dialog';
-import GuestForgetPasswordLink from '../guestForgetPasswordLink';
-import GuestSignup from '../guestSignup';
+import GuestLogin from '../GuestLogin';
 
-export type LoginParams = {
+export type SignupParams = {
+  name: string;
   email: string;
   password: string;
 };
 
-const GuestLogin = ({ onClose }: { onClose: () => void }) => {
-  const route = useRouter();
-  const { push } = route;
+const GuestSignup = ({ onClose }: { onClose: () => void }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [open, setIsOpen] = useState(false);
-  const [signupOpen, setSignupIsOpen] = useState(false);
 
   const isSm = useMediaQuery(theme.breakpoints.down(330));
-  const [alert, setAlert] = useState('');
-  const validationSchema = yup.object({
-    email: yup.string().required('Email is required'),
-    password: yup.string().required('Password is required')
-  });
-  const handleFormSubmit = async (values: LoginUserParams) => {
-    try {
-      const res = await signIn('login', { redirect: false, email: values.email, password: values.password });
-      if (res?.status === 200) {
-        push('/profile');
-        onClose();
-      } else if (res?.error) {
-        setAlert(res.error);
-      }
-    } catch (error: any) {
-      setAlert(getCustomErrorMessage(error));
-    }
-  };
 
-  const handleForgetPasswordLinkOpen = () => {
+  const handleLoginOpen = () => {
     setIsOpen(true);
-    setShowPassword(false);
   };
 
-  const handleForgetPasswordLinkClose = () => {
+  const handleLoginClose = () => {
     setIsOpen(false);
   };
 
-  const handleSignupOpen = () => {
-    setSignupIsOpen(true);
-  };
-
-  const handleSignupClose = () => {
-    setSignupIsOpen(false);
-  };
+  const validationSchema = yup.object({
+    name: yup.string().required('Username is required').min(2, 'Username is too short').max(20, 'Username is too long'),
+    email: yup.string().email('Enter a valid email').required('Email is required'),
+    password: yup
+      .string()
+      .required('Password is required')
+      .min(8, 'Password must be at least 8 characters')
+      .matches(
+        PASSWORD_PATTERN,
+        'Invalid Password! Does not meet requirements (this password has appeared in a data breach elsewhere and should never be used on any website)'
+      )
+  });
 
   return (
     <Formik
       initialValues={{
+        name: '',
         email: '',
         password: ''
       }}
       validationSchema={validationSchema}
-      onSubmit={(values: LoginUserParams) => handleFormSubmit(values)}
+      onSubmit={async (values) => {
+        const data = await GuestAuthService.guestSignup(values);
+        if (data.code === 200) {
+          toast.success('Signed up successfully!');
+        }
+      }}
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
-            {Boolean(alert) && <StyledAlert severity="error">{alert}</StyledAlert>}
             <AuthCommon onClose={onClose} image="images/auth/auth-model.webp" mobileImage="images/auth/auth-model.webp">
               <Box
                 position="relative"
@@ -94,15 +80,15 @@ const GuestLogin = ({ onClose }: { onClose: () => void }) => {
                 display="flex"
                 flexDirection="column"
                 sx={{
-                  pt: { xs: 0, sm: '64px' },
+                  pt: { xs: 0, sm: '50px' },
                   pl: { xs: 2, md: 4 },
                   pr: { xs: 2, md: 0 },
                   maxWidth: { xs: '100%', md: '400px' }
                 }}
               >
                 <Box>
-                  <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ whiteSpace: { sm: 'nowrap' } }}>
-                    Log in to your account
+                  <UINewTypography variant="MediumSemiBoldText" color="common.white">
+                    Join Now for Free
                   </UINewTypography>
                   <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
                     <IconButton
@@ -123,7 +109,27 @@ const GuestLogin = ({ onClose }: { onClose: () => void }) => {
 
                 <Box display="flex" flexDirection="column" gap={3}>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                    <UINewTypography variant="bodySemiBold">Username / Email address</UINewTypography>
+                    <UINewTypography variant="bodySemiBold">Username</UINewTypography>
+                    <UIStyledInputText
+                      fullWidth
+                      id="name"
+                      name="name"
+                      value={values.name}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={touched.name && Boolean(errors.name)}
+                      helperText={touched.name && errors.name}
+                      sx={{
+                        border: '2px solid',
+                        borderColor: 'secondary.light'
+                      }}
+                      InputProps={{
+                        endAdornment: <RiUserFillLine color="#86838A" />
+                      }}
+                    />
+                  </Box>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                    <UINewTypography variant="bodySemiBold">Email address</UINewTypography>
                     <UIStyledInputText
                       fullWidth
                       id="email"
@@ -138,7 +144,7 @@ const GuestLogin = ({ onClose }: { onClose: () => void }) => {
                         borderColor: 'secondary.light'
                       }}
                       InputProps={{
-                        endAdornment: <RiUserFillLine color="#86838A" />
+                        endAdornment: <RiMailLine color="#86838A" />
                       }}
                     />
                   </Box>
@@ -168,51 +174,32 @@ const GuestLogin = ({ onClose }: { onClose: () => void }) => {
                         }}
                       />
                     </Box>
-                    <MenuItem
-                      sx={{
-                        display: 'flex',
-                        p: 0,
-                        justifyContent: 'space-between',
-                        flexDirection: { xs: 'column', sm: 'row' },
-                        gap: { xs: 1, sm: 0 }
-                      }}
-                    >
-                      <Box>
-                        <Checkbox sx={{ p: 0, pr: 1 }} />
-                        <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}>
-                          Remember me
-                        </UINewTypography>
-                      </Box>
-                      <UINewTypography
-                        variant="buttonLargeMenu"
-                        color="primary.400"
-                        sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}
-                        onClick={handleForgetPasswordLinkOpen}
-                      >
-                        Forgot Password?
+                    <MenuItem sx={{ p: 0 }}>
+                      <Checkbox sx={{ p: 0, pr: 1 }} />
+                      <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
+                        Remember me
                       </UINewTypography>
                     </MenuItem>
                   </Box>
                 </Box>
-                <Box display="flex" flexDirection="column" gap="92px" justifyContent="space-between">
-                  <Box display="flex" flexDirection="column" width="100%">
-                    <UIThemeButton variant="contained" type="submit">
-                      <UINewTypography variant="buttonLargeBold">Login</UINewTypography>
-                    </UIThemeButton>
-                  </Box>
+                <Box display="flex" flexDirection="column" width="100%" gap="28px">
+                  <UIThemeButton variant="contained" type="submit">
+                    <UINewTypography variant="buttonLargeBold">Sign Up</UINewTypography>
+                  </UIThemeButton>
                   <Box display="flex" flexDirection="column" gap={3}>
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                    <Box
-                      display="flex"
-                      gap={1}
-                      alignItems="center"
-                      justifyContent="center"
-                      sx={{ flexDirection: { xs: 'column', sm: 'row' } }}
-                    >
-                      <UINewTypography variant="buttonLargeMenu">Don’t have an account?</UINewTypography>
+                    <Box display="flex" gap={1} alignItems="center" justifyContent="center">
+                      <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
+                        Remember password?
+                      </UINewTypography>
 
-                      <UINewTypography variant="body" sx={{ color: 'text.secondary', cursor: 'pointer' }} onClick={handleSignupOpen}>
-                        Join for free now!
+                      <UINewTypography
+                        whiteSpace="nowrap"
+                        variant="body"
+                        sx={{ color: 'text.secondary', cursor: 'pointer' }}
+                        onClick={handleLoginOpen}
+                      >
+                        Log in instead!
                       </UINewTypography>
                     </Box>
                   </Box>
@@ -237,36 +224,11 @@ const GuestLogin = ({ onClose }: { onClose: () => void }) => {
                 }
               }}
               open={open}
-              onClose={handleForgetPasswordLinkClose}
+              onClose={handleLoginClose}
               maxWidth="md"
               fullWidth
             >
-              <GuestForgetPasswordLink onClose={handleForgetPasswordLinkClose} />
-            </Dialog>
-
-            <Dialog
-              sx={{
-                '& .MuiDialog-paper': {
-                  backgroundColor: '#07030E',
-                  borderRadius: '12px'
-                },
-                '& .MuiDialog-container': {
-                  backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
-                  backdropFilter: 'blur(12px)'
-                }
-              }}
-              PaperProps={{
-                sx: {
-                  maxWidth: 920,
-                  borderRadius: '12px'
-                }
-              }}
-              open={signupOpen}
-              onClose={handleSignupClose}
-              maxWidth="md"
-              fullWidth
-            >
-              <GuestSignup onClose={handleSignupClose} />
+              <GuestLogin onClose={handleLoginClose} />
             </Dialog>
           </Box>
         );
@@ -275,4 +237,4 @@ const GuestLogin = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-export default GuestLogin;
+export default GuestSignup;
