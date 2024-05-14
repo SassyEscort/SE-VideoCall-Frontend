@@ -62,7 +62,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
               >
                 {activeStep === 0 ? (
                   <>
-                    <Box>
+                    <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
                       <Box display="flex" flexDirection="column" gap="12px" alignItems="center">
                         <UINewTypography variant="MediumSemiBoldText" color="common.white">
                           Reset password
@@ -79,7 +79,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                             position: 'absolute',
                             top: 0,
                             right: { xs: 0, md: '-84px' },
-                            display: { xs: 'none', sm: 'block' }
+                            display: { sm: 'block' }
                           }}
                           onClick={onClose}
                         >

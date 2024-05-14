@@ -6,7 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 const CheckInbox = ({ onClose, email }: { onClose: () => void; email: string }) => {
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
+    <Box display="flex" flexDirection="column" alignItems="center" gap={2} sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
       <Image src="/images/auth/check-email.png" width={175} height={123} alt="check-email.png" />
       <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
         <IconButton
@@ -16,7 +16,7 @@ const CheckInbox = ({ onClose, email }: { onClose: () => void; email: string }) 
             position: 'absolute',
             top: 0,
             right: { xs: 0, md: '-84px' },
-            display: { xs: 'none', sm: 'block' }
+            display: { sm: 'block' }
           }}
           onClick={onClose}
         >
