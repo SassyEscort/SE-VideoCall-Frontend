@@ -87,15 +87,15 @@ const CallFeature = () => {
       <button onClick={handleClick}>call</button>
       <CometChatIncomingCall
         call={call}
-        onAccept={() => {
-          console.log('Call accepted');
-        }}
-        onDecline={() => {
-          console.log('Call declined');
-          cancelCall();
-        }}
+        // onAccept={() => {
+        //   console.log('Call accepted');
+        // }}
+        // onDecline={() => {
+        //   console.log('Call declined');
+        //   cancelCall();
+        // }}
       />
-      {call && <CometChatOutgoingCall call={call} onCloseClicked={cancelCall} />}
+      <CometChatOutgoingCall call={call} onCloseClicked={cancelCall} />
       <CometChatOngoingCall sessionID={call?.getSessionId()} />
     </>
   );
