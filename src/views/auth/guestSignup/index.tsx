@@ -84,7 +84,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
               <Box
                 position="relative"
                 width="100%"
-                height={isSm ? '625px' : '620px'}
+                height={activeStep > 0 ? '620px' : 'auto'}
                 gap={4}
                 display="flex"
                 flexDirection="column"
@@ -97,7 +97,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
               >
                 {activeStep === 0 ? (
                   <>
-                    <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
+                    <Box>
                       <UINewTypography variant="MediumSemiBoldText" color="common.white">
                         Join Now for Free
                       </UINewTypography>
@@ -109,7 +109,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             position: 'absolute',
                             top: 0,
                             right: { xs: 0, md: '-84px' },
-                            display: { sm: 'block' }
+                            display: { xs: 'none', sm: 'block' }
                           }}
                           onClick={onClose}
                         >
@@ -199,11 +199,10 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                       </UIThemeButton>
                       <Box display="flex" flexDirection="column" gap={3}>
                         <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                        <Box display="flex" gap={1} alignItems="center" justifyContent="center">
+                        <Box display="flex" gap={1} alignItems="center" justifyContent="center" pb={3}>
                           <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
                             Remember password?
                           </UINewTypography>
-
                           <UINewTypography
                             whiteSpace="nowrap"
                             variant="body"

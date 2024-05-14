@@ -182,6 +182,7 @@ const HeaderGuestComponent = () => {
             backdropFilter: 'blur(12px)'
           }
         }}
+        scroll="body"
         PaperProps={{
           sx: {
             maxWidth: 920,
@@ -196,6 +197,7 @@ const HeaderGuestComponent = () => {
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
       </Dialog>
       <Dialog
+        scroll="body"
         sx={{
           '& .MuiDialog-paper': {
             backgroundColor: '#07030E',
@@ -220,6 +222,7 @@ const HeaderGuestComponent = () => {
         <GuestLogin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
       </Dialog>
       <Dialog
+        scroll="body"
         sx={{
           '& .MuiDialog-paper': {
             backgroundColor: '#07030E',
@@ -260,6 +263,7 @@ const HeaderGuestComponent = () => {
             backdropFilter: 'blur(12px)'
           }
         }}
+        scroll="body"
         open={openChangePassword}
         onClose={handleChangePasswordClose}
         maxWidth="md"

@@ -11,8 +11,6 @@ import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import * as yup from 'yup';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import theme from 'themes/theme';
 import AuthCommon from '../AuthCommon';
 import { LoginUserParams } from 'services/guestAuth/types';
 import { signIn } from 'next-auth/react';
@@ -20,6 +18,8 @@ import getCustomErrorMessage from 'utils/error.utils';
 import { useRouter } from 'next/navigation';
 import InfoIcon from '@mui/icons-material/Info';
 import { ErrorBox } from '../AuthCommon.styled';
+import { useMediaQuery } from '@mui/material';
+import theme from 'themes/theme';
 
 export type LoginParams = {
   email: string;
@@ -37,9 +37,9 @@ const GuestLogin = ({
 }) => {
   const route = useRouter();
   const { push } = route;
+  const isSm = useMediaQuery(theme.breakpoints.down(330));
   const [showPassword, setShowPassword] = useState(false);
 
-  const isSm = useMediaQuery(theme.breakpoints.down(330));
   const [alert, setAlert] = useState('');
   const validationSchema = yup.object({
     email: yup.string().required('Email is required'),
@@ -75,7 +75,6 @@ const GuestLogin = ({
               <Box
                 position="relative"
                 width="100%"
-                height={isSm ? '625px' : '620px'}
                 gap={4}
                 display="flex"
                 flexDirection="column"
@@ -166,7 +165,7 @@ const GuestLogin = ({
                         display: 'flex',
                         p: 0,
                         justifyContent: 'space-between',
-                        flexDirection: { xs: 'column', sm: 'row' },
+                        flexDirection: isSm ? 'column' : 'row',
                         gap: { xs: 1, sm: 0 }
                       }}
                     >
@@ -200,6 +199,7 @@ const GuestLogin = ({
                       gap={1}
                       alignItems="center"
                       justifyContent="center"
+                      pb={3}
                       sx={{ flexDirection: { xs: 'column', sm: 'row' } }}
                     >
                       <UINewTypography variant="buttonLargeMenu">Don’t have an account?</UINewTypography>
