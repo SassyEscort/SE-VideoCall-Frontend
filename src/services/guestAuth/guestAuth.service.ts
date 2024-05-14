@@ -6,7 +6,6 @@ import { ResetPasswordParams } from 'views/auth/guestNewPassword';
 import { SignupParams } from 'views/auth/guestSignup';
 
 export class GuestAuthService {
-
   static guestSignup = async (params: SignupParams) => {
     try {
       const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/customer/signup`, params, {
@@ -22,7 +21,7 @@ export class GuestAuthService {
 
   static guestLogin = async (params: LoginParams): Promise<GenericResponse> => {
     try {
-      const res = await axios.post<LoginParams, GenericResponseData >(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/customer/login`, params, {
+      const res = await axios.post<LoginParams, GenericResponseData>(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/customer/login`, params, {
         headers: { 'Content-Type': 'application/json' }
       });
 
@@ -59,15 +58,10 @@ export class GuestAuthService {
           headers: { 'Content-Type': 'application/json' }
         }
       );
-      console.log(res,"resresres");
-      
-
       return res.data;
     } catch (err: any) {
       const error: string = err;
       return { error: error } as GenericResponse;
     }
   };
-
-  
 }
