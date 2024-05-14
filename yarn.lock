@@ -1050,29 +1050,29 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cometchat-pro/chat@^3.0.13":
+"@cometchat-pro/chat@3.0.13":
   version "3.0.13"
   resolved "https://registry.yarnpkg.com/@cometchat-pro/chat/-/chat-3.0.13.tgz#eb0f80661ec41d4e02323e5dae963515ec1fe741"
   integrity sha512-Cb3L9lUA+7Dra8gf0gHJJKYhBYnxwLfksTS1WbhL3SchNUvmZOGrDpji3zjkSv+I7E7Hth6gV83SphGXa0Fx1Q==
 
-"@cometchat/calls-sdk-javascript@^4.0.9":
+"@cometchat/calls-sdk-javascript@4.0.9":
   version "4.0.9"
   resolved "https://registry.yarnpkg.com/@cometchat/calls-sdk-javascript/-/calls-sdk-javascript-4.0.9.tgz#0948405c155056da9376a1e0101b270d11f12acd"
   integrity sha512-woE7SeSwwCfUgnHXpt+x9o7HeXgswg3P3m/p3wGvqFtGawbX3MoTPzbbBGgVcdoPX80FfR8yUJevDG8n4VAKtw==
 
-"@cometchat/chat-sdk-javascript@^4.0.5":
+"@cometchat/chat-sdk-javascript@4.0.5":
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/@cometchat/chat-sdk-javascript/-/chat-sdk-javascript-4.0.5.tgz#aa00f8e34e5f095b16568cad98018de01394abc2"
   integrity sha512-7So46vqRCBvSKW9W6sHEModi4qWGs1XJZYrnYj1A1LO5+ATvdG2s2sL0iicrimGatXhQGlh3f77JPO8mp4EReA==
 
-"@cometchat/chat-uikit-react@^4.3.7":
+"@cometchat/chat-uikit-react@4.3.7":
   version "4.3.7"
   resolved "https://registry.yarnpkg.com/@cometchat/chat-uikit-react/-/chat-uikit-react-4.3.7.tgz#b73d7f1898d8569e13f668e85b758d5ec57221d1"
   integrity sha512-7mmAzM9pORcnyxCeIgq2WImuSjKhqDJTjYednL+oQD6Xd27DLXrT0Zo3Yt4I9JcCBklEV6isw8chdqxp0j/fxA==
   dependencies:
     "@lit-labs/react" "^1.1.1"
 
-"@cometchat/uikit-elements@^4.3.7":
+"@cometchat/uikit-elements@4.3.7":
   version "4.3.7"
   resolved "https://registry.yarnpkg.com/@cometchat/uikit-elements/-/uikit-elements-4.3.7.tgz#09abf14e33830d16f21f124723a083e5a8934f37"
   integrity sha512-7FZvQSVoH3t6kO4ZdMEHp9l3fYZhyYHj3ZxnDlo3CDPmKPCD4zLY3JF8IRk7PeHfGtMOnMYI5cXy2UDLCbwuNA==
@@ -1093,7 +1093,7 @@
     tslib "2.3.1"
     typescript "4.7.4"
 
-"@cometchat/uikit-resources@^4.3.7":
+"@cometchat/uikit-resources@4.3.7":
   version "4.3.7"
   resolved "https://registry.yarnpkg.com/@cometchat/uikit-resources/-/uikit-resources-4.3.7.tgz#0d3c8690b13b34c7e9bc3cfad6e4ad070e019402"
   integrity sha512-bGPn+39cn6rUuIIWHCn0YVB8NhSDg5DKxYsrJhifdqVJ4YleGHfE9cT/B9n4BSxVx/wgbULhXyvezLNdhJIHkg==
@@ -1119,7 +1119,7 @@
     tslib "2.3.1"
     typescript "4.7.4"
 
-"@cometchat/uikit-shared@^4.3.8":
+"@cometchat/uikit-shared@4.3.8":
   version "4.3.8"
   resolved "https://registry.yarnpkg.com/@cometchat/uikit-shared/-/uikit-shared-4.3.8.tgz#adfde68dd62329a6112d650eff3faa824740fb93"
   integrity sha512-HvGd6uBblMHh8BVobW/Xp4FuLHdKKGcrjLHFnhEDh5ADo7Nsmu1hlC3HgYZ62QmTe3p5KnP4HW9hy9SFjKoEJQ==
