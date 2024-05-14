@@ -130,6 +130,7 @@ export const HomeExploreBox = styled(Box)(({ theme }) => ({
 export const SubTitle = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
   textAlign: 'center',
+  whiteSpace: 'nowrap',
   [theme.breakpoints.up('sm')]: {
     fontSize: '20px',
     fontWeight: 400,
@@ -140,5 +141,8 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
     fontWeight: 400,
     lineHeight: '32px',
     whiteSpace: 'nowrap'
+  },
+  [theme.breakpoints.down(330)]: {
+    whiteSpace: 'normal'
   }
 }));
