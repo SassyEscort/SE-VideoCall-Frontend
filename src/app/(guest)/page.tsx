@@ -1,10 +1,7 @@
-// import HomeContainer from 'views/guestComponents/homePage';
-// import MyProfile from 'views/guestComponents/myProfile';
-
-import Logout from 'views/guestComponents/logout';
+import HomeContainer from 'views/guestComponents/homePage';
 
 const Home = () => {
-  return <Logout />;
+  return <HomeContainer />;
 };
 
 export default Home;
