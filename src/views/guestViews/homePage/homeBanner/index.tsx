@@ -10,29 +10,48 @@ import Dialog from '@mui/material/Dialog';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import GuestSignup from 'views/auth/guestSignup';
-import GuestNewPassword from 'views/auth/guestNewPassword';
+import GuestLogin from 'views/auth/GuestLogin';
+import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 
 const HomeTopBanner = () => {
-  const url = new URL(window.location.href);
-  const email = url.searchParams.get('email');
-
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isMd = useMediaQuery(theme.breakpoints.only('md'));
   const isTablet = useMediaQuery(theme.breakpoints.only('sm'));
   const [open, setIsOpen] = useState(false);
-  const [openChangePassword, setIsOpenChangePassword] = useState(email ? true : false);
+  const [openLogin, setIsOpenLogin] = useState(false);
+  const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
+    setIsOpenLogin(false);
   };
 
   const handleSignupClose = () => {
     setIsOpen(false);
   };
 
-  const handleChangePasswordClose = () => {
-    setIsOpenChangePassword(false);
+  const handleLoginOpen = () => {
+    setIsOpen(false);
+    setIsOpenLogin(true);
+  };
+
+  const handleLoginResetPasswordOpen = () => {
+    setOpenForgetPassLink(false);
+    setIsOpenLogin(true);
+  };
+
+  const handleLoginClose = () => {
+    setIsOpenLogin(false);
+  };
+
+  const handleResetPasswordLinkOpen = () => {
+    setIsOpenLogin(false);
+    setOpenForgetPassLink(true);
+  };
+
+  const handleResetPasswordLinkClose = () => {
+    setOpenForgetPassLink(false);
   };
 
   return (
@@ -137,12 +156,6 @@ const HomeTopBanner = () => {
         </HomeExploreBox>
       </Box>
       <Dialog
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
         sx={{
           '& .MuiDialog-paper': {
             backgroundColor: '#07030E',
@@ -151,6 +164,12 @@ const HomeTopBanner = () => {
           '& .MuiDialog-container': {
             backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
             backdropFilter: 'blur(12px)'
+          }
+        }}
+        PaperProps={{
+          sx: {
+            maxWidth: 920,
+            borderRadius: '12px'
           }
         }}
         open={open}
@@ -158,16 +177,9 @@ const HomeTopBanner = () => {
         maxWidth="md"
         fullWidth
       >
-        <GuestSignup onClose={handleSignupClose} />
+        <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
       </Dialog>
-
       <Dialog
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
         sx={{
           '& .MuiDialog-paper': {
             backgroundColor: '#07030E',
@@ -178,12 +190,42 @@ const HomeTopBanner = () => {
             backdropFilter: 'blur(12px)'
           }
         }}
-        open={openChangePassword}
-        onClose={handleChangePasswordClose}
+        PaperProps={{
+          sx: {
+            maxWidth: 920,
+            borderRadius: '12px'
+          }
+        }}
+        open={openLogin}
+        onClose={handleLoginClose}
         maxWidth="md"
         fullWidth
       >
-        <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} />
+        <GuestLogin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
+      </Dialog>
+      <Dialog
+        sx={{
+          '& .MuiDialog-paper': {
+            backgroundColor: '#07030E',
+            borderRadius: '12px'
+          },
+          '& .MuiDialog-container': {
+            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
+            backdropFilter: 'blur(12px)'
+          }
+        }}
+        PaperProps={{
+          sx: {
+            maxWidth: 920,
+            borderRadius: '12px'
+          }
+        }}
+        open={openForgetPassLink}
+        onClose={handleResetPasswordLinkClose}
+        maxWidth="md"
+        fullWidth
+      >
+        <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </Dialog>
     </>
   );
