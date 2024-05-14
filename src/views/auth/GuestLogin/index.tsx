@@ -85,7 +85,7 @@ const GuestLogin = ({
                   maxWidth: { xs: '100%', md: '400px' }
                 }}
               >
-                <Box>
+                <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
                   <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ whiteSpace: { sm: 'nowrap' } }}>
                     Log in to your account
                   </UINewTypography>
@@ -97,7 +97,7 @@ const GuestLogin = ({
                         position: 'absolute',
                         top: 0,
                         right: { xs: 0, md: '-84px' },
-                        display: { xs: 'none', sm: 'block' }
+                        display: { sm: 'block' }
                       }}
                       onClick={onClose}
                     >

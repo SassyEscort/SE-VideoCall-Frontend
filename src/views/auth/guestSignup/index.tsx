@@ -84,7 +84,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
               <Box
                 position="relative"
                 width="100%"
-                height={activeStep > 0 ? '620px' : 'uito'}
+                height={activeStep > 0 ? '620px' : 'auto'}
                 gap={4}
                 display="flex"
                 flexDirection="column"

@@ -72,7 +72,7 @@ const MainFooter = () => {
               </Box>
             </Box>
 
-            <Box sx={{ display: 'flex', gap: 10, justifyContent: 'center', mt: 3 }}>
+            <Box sx={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
               <FooterSubICon sx={{ flexDirection: 'column', display: 'flex', textAlign: 'left' }}>
                 <UINewTypography sx={{ mb: '6px' }} variant="captionBold">
                   <FormattedMessage id="Menu" />
