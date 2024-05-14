@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Footer from 'views/guestViews/guestLayout/footer';
-import HeaderModelComponent from 'views/modelViews/Header';
+import HeaderModelComponent from 'views/modelViews/modelLayout/Header';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
