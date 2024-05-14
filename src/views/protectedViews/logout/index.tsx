@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Divider } from '@mui/material';
+import { Box, Divider, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import {
@@ -16,9 +16,11 @@ import {
   DialogContentSecondBox,
   DialogTitleBox
 } from './Logout.styled';
+import theme from 'themes/theme';
 
 const Logout = () => {
   const [open, setOpen] = React.useState(true);
+  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleClose = () => {
     setOpen(false);
@@ -29,8 +31,16 @@ const Logout = () => {
       open={open}
       onClose={handleClose}
       fullWidth
-      PaperProps={{
-        style: { backgroundColor: '#07030E', maxWidth: '560px' }
+      sx={{
+        '& .MuiDialog-paper': {
+          backgroundColor: '#07030E',
+          borderRadius: '12px',
+          border: isMdDown ? 'solid 0px' : 'solid 1px #232027'
+        },
+        '& .MuiDialog-container': {
+          backgroundColor: isMdDown ? '#07030E' : '#07030e99 !important',
+          backdropFilter: 'blur(24px)'
+        }
       }}
     >
       <DialogTitleBox id="responsive-modal-title">
