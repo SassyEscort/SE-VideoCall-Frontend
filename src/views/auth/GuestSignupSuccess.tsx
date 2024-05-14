@@ -27,7 +27,12 @@ const GuestSignupSuccess = ({ redirectSeconds }: { redirectSeconds: number }) =>
             Please wait a bit while we redirect you to your profile.
           </Typography>
         </TextContainerAuthSignupSuccessContainer>
-        <Typography variant="body" color="text.secondary" mt="48px" textAlign="center">
+        <Typography
+          variant="body"
+          color="text.secondary"
+          textAlign="center"
+          sx={{ display: 'flex', marginTop: { xs: '68px', sm: '48px' }, justifyContent: 'center' }}
+        >
           Redirecting in {redirectSeconds} Sec
         </Typography>
       </SecContainerAuthSignupSuccessContainer>

@@ -93,7 +93,10 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                       Setup your new password
                     </UINewTypography>
                     <UINewTypography variant="bodyRegular" color="secondary.200" textAlign="center">
-                      For the account {email}
+                      For the account{' '}
+                      <UINewTypography variant="bodySemiBold" color="secondary.200">
+                        {email}
+                      </UINewTypography>
                     </UINewTypography>
                   </Box>
                   <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
