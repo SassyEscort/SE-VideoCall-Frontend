@@ -33,16 +33,18 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
   const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setRedirectSeconds((prevSeconds) => prevSeconds - 1);
-    }, 1000);
+    if (activeStep > 0) {
+      const timer = setTimeout(() => {
+        setRedirectSeconds((prevSeconds) => prevSeconds - 1);
+      }, 1000);
 
-    if (redirectSeconds === 0 && activeStep > 0) {
-      clearTimeout(timer);
-      onLoginOpen();
+      if (redirectSeconds === 0 && activeStep > 0) {
+        clearTimeout(timer);
+        onLoginOpen();
+      }
+
+      return () => clearTimeout(timer);
     }
-
-    return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeStep, redirectSeconds]);
 
