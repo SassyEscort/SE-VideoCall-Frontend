@@ -84,7 +84,7 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                 sx={{
                   pl: { xs: 2, md: 4 },
                   maxWidth: { xs: '100%', md: '400px' },
-                  pt: { xs: 0, sm: '64px' },
+                  pt: { xs: 0, sm: '64px', md: 0 },
                   pr: { xs: 2, md: 0 }
                 }}
               >
