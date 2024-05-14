@@ -17,7 +17,6 @@ import AuthCommon from '../AuthCommon';
 import CustomPasswordRegex from '../customPasswordRegex';
 import InputAdornment from '@mui/material/InputAdornment';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
-import GuestLogin from '../GuestLogin';
 
 export type ResetPasswordParams = {
   email: string;
