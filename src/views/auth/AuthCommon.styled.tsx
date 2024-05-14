@@ -7,8 +7,7 @@ export const AuthCommonBox = styled(Box)(({ theme }) => ({
   border: '1px solid #FF68C0',
   paddingTop: 0,
   [theme.breakpoints.down('md')]: {
-    border: 'none',
-    paddingTop: '145px'
+    border: 'none'
   },
   borderRadius: '12px',
   position: 'relative'
@@ -16,7 +15,7 @@ export const AuthCommonBox = styled(Box)(({ theme }) => ({
 
 export const AuthImageMobileBox = styled(Box)(({ theme }) => ({
   width: '100%',
-  height: 620,
+  height: '100%',
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   position: 'absolute',
@@ -34,7 +33,7 @@ export const AuthImageMobileBox = styled(Box)(({ theme }) => ({
 
 export const AuthImageBox = styled(Box)(({ theme }) => ({
   width: '100%',
-  height: 620,
+  height: '100%',
   maxWidth: '420px',
   backgroundSize: 'calc(100% - 320px) 100%, cover',
   backgroundPosition: 'right',
@@ -107,4 +106,17 @@ export const TextSubContainerAuthSignupSuccessContainer = styled(Box)(() => ({
   maxHeight: '100px',
   textAlign: 'center',
   alignItems: 'center'
+}));
+
+export const ErrorBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'flex-start',
+  gap: theme.spacing(1.5),
+  // padding: theme.spacing(1.5),
+  alignSelf: 'stretch',
+  borderRadius: '16px 0px',
+  backgroundColor: theme.palette.error[100],
+  // marginBottom: theme.spacing(1.5),
+  color: theme.palette.error[400],
+  justifyContent: 'center'
 }));
