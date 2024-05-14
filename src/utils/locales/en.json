@@ -30,7 +30,8 @@
   "LogIn": "Log in",
   "RegisterAsAModel": "Register as a Model",
   "Resources": "Resources",
-  "Search":"Search",
-  "CurrentlyOnline":"Currently Online",
-  "NewArrivals":"New Arrivals"
+  "Search": "Search",
+  "CurrentlyOnline": "Currently Online",
+  "NewArrivals": "New Arrivals",
+  "LookingForAModel": "Looking for a Model?"
 }

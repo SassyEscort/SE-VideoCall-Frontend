@@ -9,43 +9,22 @@ import theme from 'themes/theme';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import LanguageDropdown from 'components/common/LanguageDropdown';
-import SideBarGuestMenu from './SideBarGuestMenu';
 import { useState } from 'react';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-import HomeMainContainer from './homeContainer';
 import { FormattedMessage } from 'react-intl';
-import Dialog from '@mui/material/Dialog';
-import GuestLogin from 'views/auth/GuestLogin';
-import GuestSignup from 'views/auth/guestSignup';
+import HomeMainModelContainer from './homeModelContainer';
+import SideBarModelMenu from './SideBarModelMenu';
 
-const HeaderGuestComponent = () => {
+const HeaderModelComponent = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openSidebar, setOpenSidebar] = useState(false);
-  const [open, setIsOpen] = useState(false);
-  const [openLogin, setIsOpenLogin] = useState(false);
 
   const toggleDrawer = (open: boolean) => {
     setOpenSidebar(open);
   };
 
-  const handleSignupOpen = () => {
-    setIsOpen(true);
-  };
-
-  const handleSignupClose = () => {
-    setIsOpen(false);
-  };
-
-  const handleLoginOpen = () => {
-    setIsOpenLogin(true);
-  };
-
-  const handleLoginClose = () => {
-    setIsOpenLogin(false);
-  };
-
   return (
-    <HomeMainContainer>
+    <HomeMainModelContainer>
       <AppBar
         component="header"
         position="fixed"
@@ -98,9 +77,9 @@ const HeaderGuestComponent = () => {
           <Box display="flex" gap={2}>
             <Box display="flex" alignItems="center" gap={{ xs: 2.5, sm: 4.5 }}>
               {isMdUp && (
-                <Link prefetch={false} href="/model">
+                <Link prefetch={false} href="/">
                   <Typography variant="buttonLargeMenu" color="text.secondary">
-                    <FormattedMessage id="RegisterAsModel" />
+                    <FormattedMessage id="LookingForAModel" />
                   </Typography>
                 </Link>
               )}
@@ -119,7 +98,7 @@ const HeaderGuestComponent = () => {
               )}
               {isMdUp && (
                 <Link prefetch={false} href="/">
-                  <Box display="flex" alignItems="center" gap={1} onClick={handleLoginOpen}>
+                  <Box display="flex" alignItems="center" gap={1}>
                     <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
                     <Typography variant="buttonLargeMenu" color="text.secondary">
                       <FormattedMessage id="LogIn" />
@@ -128,7 +107,7 @@ const HeaderGuestComponent = () => {
                 </Link>
               )}
               {isMdUp && (
-                <UIThemeShadowButton variant="contained" onClick={handleSignupOpen}>
+                <UIThemeShadowButton variant="contained">
                   <Typography variant="body">
                     <FormattedMessage id="JoinForFREE" />
                   </Typography>
@@ -138,57 +117,9 @@ const HeaderGuestComponent = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      <SideBarGuestMenu open={openSidebar} toggleDrawer={toggleDrawer} />
-      <Dialog
-        sx={{
-          '& .MuiDialog-paper': {
-            backgroundColor: '#07030E',
-            borderRadius: '12px'
-          },
-          '& .MuiDialog-container': {
-            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
-            backdropFilter: 'blur(12px)'
-          }
-        }}
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        open={open}
-        onClose={handleSignupClose}
-        maxWidth="md"
-        fullWidth
-      >
-        <GuestSignup onClose={handleSignupClose} />
-      </Dialog>
-      <Dialog
-        sx={{
-          '& .MuiDialog-paper': {
-            backgroundColor: '#07030E',
-            borderRadius: '12px'
-          },
-          '& .MuiDialog-container': {
-            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
-            backdropFilter: 'blur(12px)'
-          }
-        }}
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        open={openLogin}
-        onClose={handleSignupClose}
-        maxWidth="md"
-        fullWidth
-      >
-        <GuestLogin onClose={handleLoginClose} />
-      </Dialog>
-    </HomeMainContainer>
+      <SideBarModelMenu open={openSidebar} toggleDrawer={toggleDrawer} />
+    </HomeMainModelContainer>
   );
 };
 
-export default HeaderGuestComponent;
+export default HeaderModelComponent;

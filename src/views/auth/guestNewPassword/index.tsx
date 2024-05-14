@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 import AuthCommon from '../AuthCommon';
 import CustomPasswordRegex from '../customPasswordRegex';
 import InputAdornment from '@mui/material/InputAdornment';
-import { PASSWORD_PATTERN_WITHOUT_CAPITAL_LETTER } from 'constants/regexConstants';
+import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import Dialog from '@mui/material/Dialog';
 import GuestLogin from '../GuestLogin';
 
@@ -47,7 +47,7 @@ const GuestNewPassword = ({ onClose, email }: { onClose: () => void; email: stri
       .string()
       .required('New Password Required')
       .min(8, 'Password must be at least 8 characters')
-      .matches(PASSWORD_PATTERN_WITHOUT_CAPITAL_LETTER, 'Password Condition'),
+      .matches(PASSWORD_PATTERN, 'Password Condition'),
     confirmPassword: yup
       .string()
       .required('Confirm Password Required')
