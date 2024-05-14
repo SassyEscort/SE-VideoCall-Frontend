@@ -30,20 +30,21 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
 
   const [showPassword, setShowPassword] = useState(false);
   const [redirectSeconds, setRedirectSeconds] = useState(3);
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setRedirectSeconds((prevSeconds) => prevSeconds - 1);
     }, 1000);
 
-    if (redirectSeconds === 0) {
+    if (redirectSeconds === 0 && activeStep > 0) {
       clearTimeout(timer);
       onLoginOpen();
     }
 
     return () => clearTimeout(timer);
-  }, [onLoginOpen, redirectSeconds]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeStep, redirectSeconds]);
 
   const validationSchema = yup.object({
     name: yup.string().required('Username is required').min(2, 'Username is too short').max(20, 'Username is too long'),

@@ -17,8 +17,9 @@ import AuthCommon from '../AuthCommon';
 import { LoginUserParams } from 'services/guestAuth/types';
 import { signIn } from 'next-auth/react';
 import getCustomErrorMessage from 'utils/error.utils';
-import StyledAlert from 'components/UIComponents/StyledAlert';
 import { useRouter } from 'next/navigation';
+import InfoIcon from '@mui/icons-material/Info';
+import { ErrorBox } from '../AuthCommon.styled';
 
 export type LoginParams = {
   email: string;
@@ -51,7 +52,7 @@ const GuestLogin = ({
         push('/profile');
         onClose();
       } else if (res?.error) {
-        setAlert(res.error);
+        setAlert(res.error === 'CredentialsSignin' ? 'Invalid email or password' : 'Something went wrong! Please try again');
       }
     } catch (error: any) {
       setAlert(getCustomErrorMessage(error));
@@ -70,7 +71,6 @@ const GuestLogin = ({
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
-            {Boolean(alert) && <StyledAlert severity="error">{alert}</StyledAlert>}
             <AuthCommon onClose={onClose} image="images/auth/auth-model.webp" mobileImage="images/auth/auth-model.webp">
               <Box
                 position="relative"
@@ -106,7 +106,14 @@ const GuestLogin = ({
                     </IconButton>
                   </Box>
                 </Box>
-
+                <Box sx={{ color: 'primary.300' }}>
+                  {alert && (
+                    <ErrorBox>
+                      <InfoIcon />
+                      <UINewTypography>{alert}</UINewTypography>
+                    </ErrorBox>
+                  )}
+                </Box>
                 <Box display="flex" flexDirection="column" gap={3}>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                     <UINewTypography variant="bodySemiBold">Username / Email address</UINewTypography>
@@ -180,7 +187,7 @@ const GuestLogin = ({
                     </MenuItem>
                   </Box>
                 </Box>
-                <Box display="flex" flexDirection="column" gap="92px" justifyContent="space-between">
+                <Box display="flex" flexDirection="column" gap="52px" justifyContent="space-between">
                   <Box display="flex" flexDirection="column" width="100%">
                     <UIThemeButton variant="contained" type="submit">
                       <UINewTypography variant="buttonLargeBold">Login</UINewTypography>
