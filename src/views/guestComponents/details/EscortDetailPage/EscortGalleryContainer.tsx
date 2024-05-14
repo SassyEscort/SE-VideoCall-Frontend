@@ -169,6 +169,7 @@ const EscortGalleryContainer = () => {
           }}
         >
           <UIThemeTab
+            sx={{ width: '60px' }}
             label={`${'All'} (${photos.length + videos.length})`}
             onClick={() => {
               handleTab(0);
@@ -176,6 +177,7 @@ const EscortGalleryContainer = () => {
             }}
           />
           <UIThemeTab
+            sx={{ width: '130px' }}
             label={`${'Photos'} (${photos.length})`}
             onClick={() => {
               handleTab(1);

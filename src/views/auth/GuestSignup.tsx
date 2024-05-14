@@ -72,7 +72,7 @@ const GuestSignup = ({ onClose }: { onClose: () => void }) => {
                 }}
               >
                 <Box>
-                  <UINewTypography variant="MediumSemiBoldText" color="common.white">
+                  <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ lineHeight: '38.4px' }}>
                     Join Now for Free
                   </UINewTypography>
                   <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
@@ -106,7 +106,10 @@ const GuestSignup = ({ onClose }: { onClose: () => void }) => {
                       helperText={touched.name && errors.name}
                       sx={{
                         border: '2px solid',
-                        borderColor: 'secondary.light'
+                        borderColor: 'secondary.light',
+                        width: {
+                          sm: '400px'
+                        }
                       }}
                       InputProps={{
                         endAdornment: <RiUserFillLine color="#86838A" />
@@ -126,7 +129,10 @@ const GuestSignup = ({ onClose }: { onClose: () => void }) => {
                       helperText={touched.email && errors.email}
                       sx={{
                         border: '2px solid',
-                        borderColor: 'secondary.light'
+                        borderColor: 'secondary.light',
+                        width: {
+                          sm: '400px'
+                        }
                       }}
                       InputProps={{
                         endAdornment: <RiMailLine color="#86838A" />
@@ -148,7 +154,10 @@ const GuestSignup = ({ onClose }: { onClose: () => void }) => {
                         helperText={touched.password && errors.password}
                         sx={{
                           border: '2px solid',
-                          borderColor: 'secondary.light'
+                          borderColor: 'secondary.light',
+                          width: {
+                            sm: '400px'
+                          }
                         }}
                         InputProps={{
                           endAdornment: (
@@ -159,7 +168,7 @@ const GuestSignup = ({ onClose }: { onClose: () => void }) => {
                         }}
                       />
                     </Box>
-                    <MenuItem sx={{ p: 0 }}>
+                    <MenuItem sx={{ p: 0, gap: '8px' }}>
                       <Checkbox sx={{ p: 0, pr: 1 }} />
                       <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
                         Remember me
@@ -167,8 +176,16 @@ const GuestSignup = ({ onClose }: { onClose: () => void }) => {
                     </MenuItem>
                   </Box>
                 </Box>
-                <Box display="flex" flexDirection="column" width="100%" gap="28px">
-                  <UIThemeButton variant="contained" type="submit">
+                <Box display="flex" flexDirection="column" width="100%" gap="33px">
+                  <UIThemeButton
+                    variant="contained"
+                    type="submit"
+                    sx={{
+                      width: {
+                        sm: '400px'
+                      }
+                    }}
+                  >
                     <UINewTypography variant="buttonLargeBold">Sign Up</UINewTypography>
                   </UIThemeButton>
                   <Box display="flex" flexDirection="column" gap={3}>

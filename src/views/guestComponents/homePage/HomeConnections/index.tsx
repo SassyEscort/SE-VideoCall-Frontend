@@ -55,7 +55,7 @@ const HomeConnections = () => {
             sx={{
               mt: isSmDown ? 7 : 15.5,
               flexDirection: isSmDown ? 'column' : 'row',
-              gap: isSmDown ? 5 : 0
+              gap: isSmDown ? 5 : 2
             }}
           >
             <BoxMain>

@@ -23,15 +23,20 @@ export const DetailsTypographyBox = styled(Box)(({ theme }) => ({
 
 export const DetailsChipBox = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(1)
+  gap: theme.spacing(1),
+  flexWrap: 'wrap'
 }));
 
-export const NewTypography = styled(UINewTypography)(() => ({
+export const NewTypography = styled(UINewTypography)(({ theme }) => ({
   fontSize: '20px',
   lineHeight: '32px',
   fontWeight: '400',
   letterSpacing: '0.1px',
-  color: '#E9E8EB'
+  color: '#E9E8EB',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '16px',
+    lineHeight: '25.6px'
+  }
 }));
 
 export const DullCirclesEscort = styled(Box)(() => ({
@@ -56,4 +61,16 @@ export const DullCirclesEscort2 = styled(Box)(() => ({
   zIndex: '-1',
   top: '350px',
   left: -450
+}));
+
+export const ExploreEscort = styled(Box)(({ theme }) => ({
+  width: '100%',
+  paddingTop: '120px',
+  [theme.breakpoints.down('sm')]: {
+    paddingTop: '96px'
+  },
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center'
 }));

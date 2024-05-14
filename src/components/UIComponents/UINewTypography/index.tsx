@@ -64,8 +64,8 @@ const UINewTypography = styled(Typography)(({ theme }) => ({
   },
   '&.MuiTypography-SubtitleSmallMedium': {
     [theme.breakpoints.down('md')]: {
-      fontSize: '12px',
-      lineHeight: '14.4px',
+      fontSize: '14px',
+      lineHeight: '19.6px',
       fontWeight: '500',
       letterSpacing: '0.5px'
     }

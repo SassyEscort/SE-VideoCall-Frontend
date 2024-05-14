@@ -9,7 +9,12 @@ export const WorkerImageCardContainerBox = styled(Box)(({ theme }) => ({
   alignItems: 'flex-start',
   gap: theme.spacing(2.5),
   width: '100%',
-  paddingTop: theme.spacing(5)
+  [theme.breakpoints.up('sm')]: {
+    paddingTop: theme.spacing(5)
+  },
+  [theme.breakpoints.down('sm')]: {
+    paddingTop: theme.spacing(12)
+  }
 }));
 
 export const WorkerBlurBox = styled(Box)(() => ({
@@ -27,10 +32,15 @@ export const WorkerImageCardGridBox = styled(Box)(({ theme }) => ({
   width: '100%',
   alignItems: 'flex-start',
   alignContent: 'flex-start',
-  gap: theme.spacing(2),
   flexWrap: 'wrap',
   [theme.breakpoints.down('lg')]: {
     justifyContent: 'center'
+  },
+  [theme.breakpoints.up('sm')]: {
+    gap: theme.spacing(2)
+  },
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(1.5)
   },
   flexShrink: 0
 }));

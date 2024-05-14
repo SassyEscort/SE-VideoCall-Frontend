@@ -3,7 +3,7 @@ import Chip from '@mui/material/Chip';
 
 const UINewChip = styled(Chip)(({ theme }) => ({
   letterSpacing: theme.spacing(0.02),
-  lineHeight: theme.spacing(2.25),
+  lineHeight: theme.spacing(2.45),
   fontWeight: 500,
   fontSize: '14px',
   height: '36px',
