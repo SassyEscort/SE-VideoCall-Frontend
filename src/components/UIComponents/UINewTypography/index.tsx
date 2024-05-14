@@ -25,11 +25,13 @@ const UINewTypography = styled(Typography)(({ theme }) => ({
   },
   '&.MuiTypography-h5': {
     [theme.breakpoints.down('md')]: {
-      fontSize: '22px',
-      lineHeight: '140%',
+      fontSize: '16px',
+      lineHeight: '19.2px',
+      fontWeight: '700',
       letterSpacing: '0.5px'
     }
   },
+
   '&.MuiTypography-h6': {
     [theme.breakpoints.down('md')]: {
       fontSize: '18px',
@@ -67,6 +69,14 @@ const UINewTypography = styled(Typography)(({ theme }) => ({
       fontSize: '12px',
       lineHeight: '14.4px',
       fontWeight: '500',
+      letterSpacing: '0.5px'
+    }
+  },
+  '&.MuiTypography-buttonLargeBold': {
+    [theme.breakpoints.down('md')]: {
+      fontSize: '14px',
+      lineHeight: '16.8px',
+      fontWeight: '700',
       letterSpacing: '0.5px'
     }
   }
