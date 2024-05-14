@@ -130,7 +130,7 @@ const HeaderGuestComponent = () => {
           <Box display="flex" gap={2}>
             <Box display="flex" alignItems="center" gap={{ xs: 2.5, sm: 4.5 }}>
               {isMdUp && (
-                <Link prefetch={false} href="/">
+                <Link prefetch={false} href="/model">
                   <Typography variant="buttonLargeMenu" color="text.secondary">
                     <FormattedMessage id="RegisterAsModel" />
                   </Typography>

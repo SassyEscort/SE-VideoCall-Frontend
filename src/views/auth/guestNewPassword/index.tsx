@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 import AuthCommon from '../AuthCommon';
 import CustomPasswordRegex from '../customPasswordRegex';
 import InputAdornment from '@mui/material/InputAdornment';
-import { PASSWORD_PATTERN_WITHOUT_CAPITAL_LETTER } from 'constants/regexConstants';
+import { PASSWORD_PATTERN } from 'constants/regexConstants';
 
 export type ResetPasswordParams = {
   email: string;
@@ -35,10 +35,7 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
       .string()
       .required('New password is required')
       .min(8, 'Password must be at least 8 characters')
-      .matches(
-        PASSWORD_PATTERN_WITHOUT_CAPITAL_LETTER,
-        'Invalid Password! Does not meet requirements (this password has appeared in a data breach elsewhere and should never be used on any website)'
-      ),
+      .matches(PASSWORD_PATTERN, 'Password Condition'),
     confirmPassword: yup
       .string()
       .required('Confirm password is required')
