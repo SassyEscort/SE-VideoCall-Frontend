@@ -41,7 +41,8 @@ const AuthCommon = ({
       <Box display="flex" gap={1.5}>
         <AuthImageBox
           sx={{
-            height: variant === 'resetPassword' ? 720 : 620,
+            height: 'auto',
+            backgroundPosition: variant === 'resetPassword' ? { xs: 'center', md: 'right' } : 'right',
             maxWidth: variant === 'resetPassword' ? 434 : 420,
             backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.47), rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.93)), url(${image})`
           }}

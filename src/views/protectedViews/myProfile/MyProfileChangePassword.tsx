@@ -5,8 +5,6 @@ import * as yup from 'yup';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import theme from 'themes/theme';
 import CloseIcon from '@mui/icons-material/Close';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
@@ -51,7 +49,6 @@ const MyProfileChangePassword = ({ onClose }: { onClose: () => void }) => {
         'Invalid Password! Does not meet requirements (this password has appeared in a data breach elsewhere and should never be used on any website)'
       )
   });
-  const isSm = useMediaQuery(theme.breakpoints.down(330));
   return (
     <Formik
       initialValues={{
@@ -70,7 +67,6 @@ const MyProfileChangePassword = ({ onClose }: { onClose: () => void }) => {
             <Box
               position="relative"
               width="100%"
-              height={isSm ? '625px' : '620px'}
               gap={4}
               display="flex"
               flexDirection="column"

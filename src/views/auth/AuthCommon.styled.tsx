@@ -45,13 +45,16 @@ export const AuthImageBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const AuthSignupSuccessMainContainer = styled(Box)(() => ({
+export const AuthSignupSuccessMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
   maxWidth: '509px',
   alignItems: 'center',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  [theme.breakpoints.down('sm')]: {
+    paddingTop: '65px'
+  }
 }));
 
 export const FirstImgAuthSignupSuccessContainer = styled('img')(() => ({

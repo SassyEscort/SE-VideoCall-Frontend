@@ -78,18 +78,19 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
               <Box
                 position="relative"
                 width="100%"
-                height={isSm ? '625px' : '720px'}
                 gap={4}
                 display="flex"
                 flexDirection="column"
                 sx={{
                   pl: { xs: 2, md: 4 },
-                  maxWidth: { xs: '100%', md: '400px' }
+                  maxWidth: { xs: '100%', md: '400px' },
+                  pt: { xs: 0, sm: '64px' },
+                  pr: { xs: 2, md: 0 }
                 }}
               >
                 <Box sx={{ pt: { xs: 0, sm: '50px' } }}>
                   <Box display="flex" flexDirection="column" gap="12px" alignItems="center" justifyContent="center">
-                    <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ whiteSpace: 'nowrap' }}>
+                    <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ whiteSpace: { xs: 'normal', sm: 'nowrap' } }}>
                       Setup your new password
                     </UINewTypography>
                     <UINewTypography variant="bodyRegular" color="secondary.200" textAlign="center">
@@ -104,7 +105,7 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                         position: 'absolute',
                         top: 0,
                         right: { xs: 0, md: '-72px' },
-                        display: { xs: 'none', sm: 'block' }
+                        display: 'block'
                       }}
                       onClick={onClose}
                     >
@@ -183,7 +184,7 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                   </UIThemeButton>
                   <Box display="flex" flexDirection="column" gap={3}>
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                    <Box display="flex" gap={1} alignItems="center" justifyContent="center">
+                    <Box display="flex" gap={1} alignItems="center" justifyContent="center" pb={3}>
                       <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
                         Remember password?
                       </UINewTypography>

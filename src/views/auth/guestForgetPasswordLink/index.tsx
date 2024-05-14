@@ -120,7 +120,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                 ) : (
                   <CheckInbox onClose={onClose} email={values.email} />
                 )}
-                <Box display="flex" flexDirection="column" gap={3} pb={3}>
+                <Box display="flex" flexDirection="column" gap={3} pb={3} sx={{ paddingTop: { xs: 0, md: '90px' } }}>
                   <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                   <Box display="flex" gap={1} alignItems="center" justifyContent="center">
                     <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
