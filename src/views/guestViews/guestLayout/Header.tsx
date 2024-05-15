@@ -18,7 +18,7 @@ import Dialog from '@mui/material/Dialog';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestNewPassword from 'views/auth/guestNewPassword';
-import GuestLogin from 'views/auth/GuestLogin2';
+import GuestLogin from 'views/auth/guestLogin';
 
 const HeaderGuestComponent = () => {
   const url = new URL(window.location.href);

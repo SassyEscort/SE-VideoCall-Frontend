@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestLogin from 'views/auth/GuestLogin2';
+import GuestLogin from 'views/auth/guestLogin';
 
 const HomeTopBanner = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
