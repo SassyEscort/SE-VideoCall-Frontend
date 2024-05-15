@@ -123,7 +123,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             position: 'absolute',
                             top: 0,
                             right: { xs: 0, md: '-84px' },
-                            display: { xs: 'none', sm: 'block' }
+                            display: { sm: 'block' }
                           }}
                           onClick={onClose}
                         >

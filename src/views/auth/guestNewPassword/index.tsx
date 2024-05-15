@@ -103,7 +103,11 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
               >
                 <Box sx={{ pt: { xs: 0, sm: '50px' } }}>
                   <Box display="flex" flexDirection="column" gap="12px" alignItems="center" justifyContent="center">
-                    <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ whiteSpace: { xs: 'normal', sm: 'nowrap' } }}>
+                    <UINewTypography
+                      variant="MediumSemiBoldText"
+                      color="common.white"
+                      sx={{ display: 'flex', whiteSpace: { xs: 'normal', sm: 'nowrap' }, marginTop: { xs: '100px', sm: 0 } }}
+                    >
                       Setup your new password
                     </UINewTypography>
                     <UINewTypography variant="bodyRegular" color="secondary.200" textAlign="center">
@@ -129,7 +133,6 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                     </IconButton>
                   </Box>
                 </Box>
-
                 <Box display="flex" flexDirection="column" gap={3}>
                   <Box display="flex" gap={1.5} flexDirection="column">
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
