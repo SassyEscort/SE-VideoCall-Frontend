@@ -3,7 +3,6 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { RiMailLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
@@ -15,6 +14,7 @@ import { toast } from 'react-toastify';
 import { useState } from 'react';
 import AuthCommon from '../AuthCommon';
 import CheckInbox from './CheckInbox';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 
 export type ForgetPasswordParams = {
   email: string;
@@ -23,6 +23,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
   const isSm = useMediaQuery(theme.breakpoints.down(330));
 
   const [activeStep, setActiveStep] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const validationSchema = yup.object({
     email: yup.string().email('Enter a valid email').required('Email is required')
@@ -34,11 +35,21 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
         email: ''
       }}
       validationSchema={validationSchema}
-      onSubmit={async (values) => {
-        const data = await GuestAuthService.guestForgetPasswordLink(values);
-        if (data.code === 200) {
-          setActiveStep(1);
-          toast.success('Reset password link sent successfully!');
+      onSubmit={async (values, { setSubmitting }) => {
+        try {
+          setLoading(true);
+          const data = await GuestAuthService.guestForgetPasswordLink(values);
+          if (data.code === 200) {
+            toast.success('Reset password link sent successfully!');
+            setActiveStep(1);
+          } else {
+            toast.error(data.error);
+          }
+        } catch (error) {
+          toast.error('An error occurred. Please try again.');
+        } finally {
+          setLoading(false);
+          setSubmitting(false);
         }
       }}
     >
@@ -112,9 +123,9 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                     </Box>
 
                     <Box display="flex" flexDirection="column" width="100%" gap="28px">
-                      <UIThemeButton variant="contained" type="submit">
+                      <StyleButtonV2 variant="contained" type="submit" loading={loading}>
                         <UINewTypography variant="buttonLargeBold">Request link</UINewTypography>
-                      </UIThemeButton>
+                      </StyleButtonV2>
                     </Box>
                   </>
                 ) : (

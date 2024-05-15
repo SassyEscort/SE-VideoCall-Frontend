@@ -5,7 +5,6 @@ import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { RiEyeLine, RiEyeOffLine, RiUserFillLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
@@ -20,6 +19,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import { ErrorBox } from '../AuthCommon.styled';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 
 export type LoginParams = {
   email: string;
@@ -39,7 +39,7 @@ const GuestLogin = ({
   const { push } = route;
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const [showPassword, setShowPassword] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState('');
   const validationSchema = yup.object({
     email: yup.string().required('Email is required'),
@@ -47,6 +47,7 @@ const GuestLogin = ({
   });
   const handleFormSubmit = async (values: LoginUserParams) => {
     try {
+      setLoading(true);
       const res = await signIn('login', { redirect: false, email: values.email, password: values.password });
       if (res?.status === 200) {
         push('/profile');
@@ -56,6 +57,8 @@ const GuestLogin = ({
       }
     } catch (error: any) {
       setAlert(getCustomErrorMessage(error));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -188,9 +191,9 @@ const GuestLogin = ({
                 </Box>
                 <Box display="flex" flexDirection="column" gap="52px" justifyContent="space-between">
                   <Box display="flex" flexDirection="column" width="100%">
-                    <UIThemeButton variant="contained" type="submit">
+                    <StyleButtonV2 variant="contained" type="submit" loading={loading}>
                       <UINewTypography variant="buttonLargeBold">Login</UINewTypography>
-                    </UIThemeButton>
+                    </StyleButtonV2>
                   </Box>
                   <Box display="flex" flexDirection="column" gap={3}>
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />

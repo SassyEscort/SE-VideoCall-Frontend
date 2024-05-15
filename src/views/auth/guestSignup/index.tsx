@@ -5,7 +5,6 @@ import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { RiEyeLine, RiEyeOffLine, RiMailLine, RiUserFillLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
@@ -18,6 +17,9 @@ import { toast } from 'react-toastify';
 import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
 import AuthCommon from '../AuthCommon';
 import GuestSignupSuccess from '../GuestSignupSuccess';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
+import { ErrorBox } from '../AuthCommon.styled';
+import InfoIcon from '@mui/icons-material/Info';
 
 export type SignupParams = {
   name: string;
@@ -28,10 +30,11 @@ export type SignupParams = {
 const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
-
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [redirectSeconds, setRedirectSeconds] = useState(3);
   const [activeStep, setActiveStep] = useState(0);
+  const [alert, setAlert] = useState('');
 
   useEffect(() => {
     if (activeStep > 0) {
@@ -70,11 +73,21 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
         password: ''
       }}
       validationSchema={validationSchema}
-      onSubmit={async (values) => {
-        const data = await GuestAuthService.guestSignup(values);
-        if (data.code === 200) {
-          setActiveStep(1);
-          toast.success('Signed up successfully!');
+      onSubmit={async (values, { setSubmitting }) => {
+        try {
+          setLoading(true);
+          const data = await GuestAuthService.guestSignup(values);
+          if (data.code === 200) {
+            toast.success('Signed up successfully!');
+            setActiveStep(1);
+          } else {
+            setAlert(data.error);
+          }
+        } catch (error) {
+          toast.error('An error occurred. Please try again.');
+        } finally {
+          setLoading(false);
+          setSubmitting(false);
         }
       }}
     >
@@ -118,8 +131,15 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                         </IconButton>
                       </Box>
                     </Box>
-
-                    <Box display="flex" flexDirection="column" sx={{ width: isLg ? '400px' : 'auto' }}>
+                    <Box sx={{ color: 'primary.300' }}>
+                      {alert && (
+                        <ErrorBox>
+                          <InfoIcon />
+                          <UINewTypography>{alert}</UINewTypography>
+                        </ErrorBox>
+                      )}
+                    </Box>
+                    <Box display="flex" flexDirection="column" gap={3} sx={{ width: isLg ? '400px' : 'auto' }}>
                       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                         <UINewTypography variant="bodySemiBold">Username</UINewTypography>
                         <UIStyledInputText
@@ -195,9 +215,9 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                       </Box>
                     </Box>
                     <Box display="flex" flexDirection="column" width="100%" gap={isSm ? '33px' : '29px'}>
-                      <UIThemeButton variant="contained" type="submit" sx={{ width: isLg ? '400px' : 'auto' }}>
+                      <StyleButtonV2 variant="contained" type="submit" loading={loading} sx={{ width: isLg ? '400px' : 'auto' }}>
                         <UINewTypography variant="buttonLargeBold">Sign Up</UINewTypography>
-                      </UIThemeButton>
+                      </StyleButtonV2>
                       <Box display="flex" flexDirection="column" gap={3}>
                         <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                         <Box display="flex" gap={1} alignItems="center" justifyContent="center" pb={3}>
