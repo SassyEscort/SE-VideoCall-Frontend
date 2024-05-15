@@ -74,3 +74,11 @@ export const ExploreEscort = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center'
 }));
+
+export const ExploreEscortText = styled(Box)(() => ({
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center'
+}));

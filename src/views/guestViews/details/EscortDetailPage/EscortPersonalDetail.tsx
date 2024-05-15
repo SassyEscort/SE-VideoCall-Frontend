@@ -19,7 +19,7 @@ const EscortPersonalDetail = () => {
           flexDirection: isSmDown ? 'column' : 'row'
         }}
       >
-        <DetailsMainBox>
+        <DetailsMainBox sx={{ marginTop: isSmDown ? '8px' : undefined }}>
           <DetailsChildBox>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: isSmDown ? 2 : 3 }}>
               <DetailsChildBox>
