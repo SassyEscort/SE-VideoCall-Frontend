@@ -15,10 +15,10 @@ import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import HomeMainContainer from './homeContainer';
 import { FormattedMessage } from 'react-intl';
 import Dialog from '@mui/material/Dialog';
-import GuestLogin from 'views/auth/GuestLogin';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestNewPassword from 'views/auth/guestNewPassword';
+import GuestLogin from 'views/auth/guestLogin';
 
 const HeaderGuestComponent = () => {
   const url = new URL(window.location.href);

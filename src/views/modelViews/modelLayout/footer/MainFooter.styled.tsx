@@ -21,7 +21,7 @@ export const TextContainer = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   alignItems: 'center',
   position: 'absolute',
-  zIndex: 3,
+  // zIndex: 3,
   top: 64,
   width: '100%',
   [theme.breakpoints.down('md')]: {
