@@ -14,10 +14,37 @@ import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import { FormattedMessage } from 'react-intl';
 import HomeMainModelContainer from './homeModelContainer';
 import SideBarModelMenu from './SideBarModelMenu';
+import ModelSignup from '../modelSignup';
+import { Dialog } from '@mui/material';
+import ModelSignin from '../modelSignin';
 
 const HeaderModelComponent = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openSidebar, setOpenSidebar] = useState(false);
+  const [open, setIsOpen] = useState(false);
+  const [openLogin, setIsOpenLogin] = useState(false);
+  const [, setOpenForgetPassLink] = useState(false);
+
+  const handleSignupOpen = () => {
+    setIsOpen(true);
+    setIsOpenLogin(false);
+  };
+  const handleLoginOpen = () => {
+    setIsOpen(false);
+    setIsOpenLogin(true);
+  };
+
+  const handleSignupClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleLoginClose = () => {
+    setIsOpenLogin(false);
+  };
+  const handleResetPasswordLinkOpen = () => {
+    setIsOpenLogin(false);
+    setOpenForgetPassLink(true);
+  };
 
   const toggleDrawer = (open: boolean) => {
     setOpenSidebar(open);
@@ -107,7 +134,7 @@ const HeaderModelComponent = () => {
                 </Link>
               )}
               {isMdUp && (
-                <UIThemeShadowButton variant="contained">
+                <UIThemeShadowButton variant="contained" onClick={handleSignupOpen}>
                   <Typography variant="body">
                     <FormattedMessage id="JoinForFREE" />
                   </Typography>
@@ -118,6 +145,56 @@ const HeaderModelComponent = () => {
         </Toolbar>
       </AppBar>
       <SideBarModelMenu open={openSidebar} toggleDrawer={toggleDrawer} />
+      <Dialog
+        sx={{
+          '& .MuiDialog-paper': {
+            backgroundColor: '#07030E',
+            borderRadius: '12px'
+          },
+          '& .MuiDialog-container': {
+            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
+            backdropFilter: 'blur(12px)'
+          }
+        }}
+        scroll="body"
+        PaperProps={{
+          sx: {
+            maxWidth: 920,
+            borderRadius: '12px'
+          }
+        }}
+        open={open}
+        onClose={handleSignupClose}
+        maxWidth="md"
+        fullWidth
+      >
+        <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
+      </Dialog>
+      <Dialog
+        scroll="body"
+        sx={{
+          '& .MuiDialog-paper': {
+            backgroundColor: '#07030E',
+            borderRadius: '12px'
+          },
+          '& .MuiDialog-container': {
+            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
+            backdropFilter: 'blur(12px)'
+          }
+        }}
+        PaperProps={{
+          sx: {
+            maxWidth: 920,
+            borderRadius: '12px'
+          }
+        }}
+        open={openLogin}
+        onClose={handleLoginClose}
+        maxWidth="md"
+        fullWidth
+      >
+        <ModelSignin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
+      </Dialog>
     </HomeMainModelContainer>
   );
 };
