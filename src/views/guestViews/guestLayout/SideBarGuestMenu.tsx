@@ -6,8 +6,7 @@ import Typography from '@mui/material/Typography';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
-import { IconSideBar, SideBarBox } from './GuestLayout.styled';
-import Dialog from '@mui/material/Dialog';
+import { GuestStyleComponent, IconSideBar, SideBarBox } from './GuestLayout.styled';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestLogin from 'views/auth/GuestLogin';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
@@ -101,106 +100,18 @@ const SideBarGuestMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
           </SideBarBox>
         </Box>
       </Box>
-      <Dialog
-        sx={{
-          '& .MuiDialog-paper': {
-            backgroundColor: '#07030E',
-            borderRadius: '12px'
-          },
-          '& .MuiDialog-container': {
-            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
-            backdropFilter: 'blur(12px)'
-          }
-        }}
-        scroll="body"
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        open={openSignup}
-        onClose={handleSignupClose}
-        maxWidth="md"
-        fullWidth
-      >
+      <GuestStyleComponent scroll="body" open={openSignup} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </Dialog>
-      <Dialog
-        scroll="body"
-        sx={{
-          '& .MuiDialog-paper': {
-            backgroundColor: '#07030E',
-            borderRadius: '12px'
-          },
-          '& .MuiDialog-container': {
-            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
-            backdropFilter: 'blur(12px)'
-          }
-        }}
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        open={openLogin}
-        onClose={handleLoginClose}
-        maxWidth="md"
-        fullWidth
-      >
+      </GuestStyleComponent>
+      <GuestStyleComponent open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
         <GuestLogin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
-      </Dialog>
-      <Dialog
-        scroll="body"
-        sx={{
-          '& .MuiDialog-paper': {
-            backgroundColor: '#07030E',
-            borderRadius: '12px'
-          },
-          '& .MuiDialog-container': {
-            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
-            backdropFilter: 'blur(12px)'
-          }
-        }}
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        open={openForgetPassLink}
-        onClose={handleResetPasswordLinkClose}
-        maxWidth="md"
-        fullWidth
-      >
+      </GuestStyleComponent>
+      <GuestStyleComponent open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
-      </Dialog>
-      <Dialog
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        sx={{
-          '& .MuiDialog-paper': {
-            backgroundColor: '#07030E',
-            borderRadius: '12px'
-          },
-          '& .MuiDialog-container': {
-            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
-            backdropFilter: 'blur(12px)'
-          }
-        }}
-        scroll="body"
-        open={openChangePassword}
-        onClose={handleChangePasswordClose}
-        maxWidth="md"
-        fullWidth
-      >
+      </GuestStyleComponent>
+      <GuestStyleComponent scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
         <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
-      </Dialog>
+      </GuestStyleComponent>
     </Drawer>
   );
 };
