@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import Footer from 'views/guestViews/guestLayout/footer';
+import ModalFooter from 'views/modelViews/modelLayout/footer';
 import HeaderModelComponent from 'views/modelViews/modelLayout/Header';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <main>
         <Box sx={{ mt: 10 }}>{children}</Box>
       </main>
-      <Footer />
+      <ModalFooter />
     </Box>
   );
 }
