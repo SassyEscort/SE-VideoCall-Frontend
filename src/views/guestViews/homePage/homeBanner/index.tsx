@@ -10,7 +10,7 @@ import Dialog from '@mui/material/Dialog';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import GuestSignup from 'views/auth/guestSignup';
-import GuestLogin from 'views/auth/GuestLogin';
+import GuestLogin from 'views/auth/guestLogin';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 
 const HomeTopBanner = () => {
