@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { GenericResponse, GenericResponseData } from 'types/commonApiTypes';
 import { ForgetPasswordParams } from 'views/auth/guestForgetPasswordLink';
-import { LoginParams } from 'views/auth/guestLogin';
+import { LoginParams } from 'views/auth/GuestLogin2';
 import { ResetPasswordParams } from 'views/auth/guestNewPassword';
 import { SignupParams } from 'views/auth/guestSignup';
 
