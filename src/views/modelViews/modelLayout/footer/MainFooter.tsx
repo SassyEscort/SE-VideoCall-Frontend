@@ -14,7 +14,7 @@ const MainFooter = () => {
 
   return (
     <>
-      <Box sx={{ width: '100%', mt: isSmDown ? '25px' : '115px' }}>
+      <Box sx={{ width: '100%', mt: isSmDown ? '25px' : '55px' }}>
         <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
           <Divider
             orientation="horizontal"

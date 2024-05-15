@@ -28,21 +28,3 @@ export const TextContainer = styled(Box)(({ theme }) => ({
     top: 40
   }
 }));
-
-export const Banner = styled(Box)(({ theme }) => ({
-  backgroundColor: 'rgba(30, 8, 21, 1)',
-  overflow: 'hidden',
-  width: '100%',
-  height: 768,
-  alignItems: 'end',
-  position: 'relative',
-  [theme.breakpoints.only('xs')]: {
-    height: 762
-  },
-  [theme.breakpoints.down('sm')]: {
-    marginTop: '96px'
-  },
-  [theme.breakpoints.up('sm')]: {
-    marginTop: '125px'
-  }
-}));
