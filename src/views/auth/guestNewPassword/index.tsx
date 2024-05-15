@@ -3,7 +3,6 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
@@ -17,6 +16,7 @@ import AuthCommon from '../AuthCommon';
 import CustomPasswordRegex from '../customPasswordRegex';
 import InputAdornment from '@mui/material/InputAdornment';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 
 export type ResetPasswordParams = {
   email: string;
@@ -27,6 +27,7 @@ export type ResetPasswordParams = {
 const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void; email: string; onLoginOpen: () => void }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const isSm = useMediaQuery(theme.breakpoints.down(330));
 
@@ -49,20 +50,32 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
         confirmPassword: ''
       }}
       validationSchema={validationSchema}
-      onSubmit={async (values) => {
-        const url = new URL(window.location.href);
-        const verificationCode = url.searchParams.get('code');
+      onSubmit={async (values, { setSubmitting }) => {
+        try {
+          setLoading(true);
+          const url = new URL(window.location.href);
+          const verificationCode = url.searchParams.get('code');
 
-        if (verificationCode !== null && email !== null) {
-          const resetPasswordObject = {
-            email: email,
-            password: values.password,
-            reset_password_code: verificationCode
-          };
-          const data = await GuestAuthService.guestResetPassword(resetPasswordObject);
-          if (data.code === 200) {
-            toast.success('Your password has been updated');
+          if (verificationCode !== null && email !== null) {
+            const resetPasswordObject = {
+              email: email,
+              password: values.password,
+              reset_password_code: verificationCode
+            };
+            const data = await GuestAuthService.guestResetPassword(resetPasswordObject);
+
+            if (data.code === 200) {
+              toast.success('Your password has been updated');
+              onClose();
+            } else {
+              toast.error(data.error);
+            }
           }
+        } catch (error) {
+          toast.error('An error occurred. Please try again.');
+        } finally {
+          setLoading(false);
+          setSubmitting(false);
         }
       }}
     >
@@ -182,9 +195,9 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                   <CustomPasswordRegex password={values.password} />
                 </Box>
                 <Box display="flex" flexDirection="column" width="100%" gap="28px">
-                  <UIThemeButton variant="contained" type="submit">
+                  <StyleButtonV2 variant="contained" type="submit" loading={loading}>
                     <UINewTypography variant="buttonLargeBold">Change password</UINewTypography>
-                  </UIThemeButton>
+                  </StyleButtonV2>
                   <Box display="flex" flexDirection="column" gap={3}>
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                     <Box display="flex" gap={1} alignItems="center" justifyContent="center" pb={3}>
