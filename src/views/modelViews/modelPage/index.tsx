@@ -1,11 +1,10 @@
 'use client';
-import React from 'react';
-import HomeModelConnections from './HomeModelConnections';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 const HomeContainerModel = () => {
   return (
     <>
-      <HomeModelConnections />
+      <UINewTypography>Model page</UINewTypography>
     </>
   );
 };
