@@ -97,7 +97,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
               >
                 {activeStep === 0 ? (
                   <>
-                    <Box>
+                    <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
                       <UINewTypography variant="MediumSemiBoldText" color="common.white">
                         Join Now for Free
                       </UINewTypography>
@@ -109,7 +109,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             position: 'absolute',
                             top: 0,
                             right: { xs: 0, md: '-84px' },
-                            display: { xs: 'none', sm: 'block' }
+                            display: { sm: 'block' }
                           }}
                           onClick={onClose}
                         >
