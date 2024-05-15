@@ -8,10 +8,10 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import { GuestStyleComponent, IconSideBar, SideBarBox } from './GuestLayout.styled';
 import GuestSignup from 'views/auth/guestSignup';
-import GuestLogin from 'views/auth/GuestLogin';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestNewPassword from 'views/auth/guestNewPassword';
 import { useState } from 'react';
+import GuestLogin from 'views/auth/guestLogin';
 
 const SideBarGuestMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer: (open: boolean) => void }) => {
   const url = new URL(window.location.href);

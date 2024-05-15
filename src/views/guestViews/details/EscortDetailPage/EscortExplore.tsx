@@ -8,15 +8,16 @@ import HomeImageCard from 'views/guestViews/homePage/homeImageCards';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
-import { ExploreEscort } from './Escort.styled';
 import { HomeExploreBox, SubTitle } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
+import { ExploreEscortText } from './Escort.styled';
 
 const EscortExplore = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSm = useMediaQuery(theme.breakpoints.down(330));
   return (
     <>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, mt: isSmDown ? 12 : 15 }}>
-        <ExploreEscort>
+        <ExploreEscortText>
           <HomeExploreBox>
             <UINewTypography
               textAlign="center"
@@ -29,14 +30,14 @@ const EscortExplore = () => {
               <FormattedMessage id="SelectTheCompanion" />
             </SubTitle>
           </HomeExploreBox>
-        </ExploreEscort>
+        </ExploreEscortText>
         <Box sx={{ width: '100%', maxWidth: '711px' }}>
           <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} gap={{ xs: 1.5, sm: 4 }}>
             <Box display="flex" gap={{ xs: 1.5, sm: 4 }} width="100%" maxWidth={{ xs: '267px', sm: '305px' }}>
               <CountryFilter />
               <AgeFilter />
             </Box>
-            <Box display="flex" gap={{ xs: 1.5, sm: 4 }} width="100%">
+            <Box display="flex" gap={{ xs: 1.5, sm: 4 }} width="100%" flexWrap={isSm ? 'wrap' : 'nowrap'}>
               <CurrentlyOnline />
               <NewArrivals />
             </Box>
