@@ -156,3 +156,13 @@ export const ButtonMainBox = styled(Box)(({ theme }) => ({
     marginTop: theme.spacing(3)
   }
 }));
+
+export const FavoritesText = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  maxWidth: '173px',
+  height: '100%',
+  maxHeight: '77px',
+  gap: theme.spacing(1.5)
+}));
