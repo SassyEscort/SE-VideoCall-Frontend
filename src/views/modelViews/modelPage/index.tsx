@@ -1,10 +1,10 @@
 'use client';
-import UINewTypography from 'components/UIComponents/UINewTypography';
+import UnlimitedModel from './UnlimitedModel';
 
 const HomeContainerModel = () => {
   return (
     <>
-      <UINewTypography>Model page</UINewTypography>
+      <UnlimitedModel />
     </>
   );
 };
