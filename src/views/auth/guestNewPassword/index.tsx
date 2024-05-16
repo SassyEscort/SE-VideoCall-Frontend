@@ -17,6 +17,7 @@ import CustomPasswordRegex from '../customPasswordRegex';
 import InputAdornment from '@mui/material/InputAdornment';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
+import { Typography } from '@mui/material';
 
 export type ResetPasswordParams = {
   email: string;
@@ -106,7 +107,13 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                     <UINewTypography
                       variant="MediumSemiBoldText"
                       color="common.white"
-                      sx={{ display: 'flex', whiteSpace: { xs: 'normal', sm: 'nowrap' }, marginTop: { xs: '100px', sm: 0 } }}
+                      sx={{
+                        display: 'flex',
+                        whiteSpace: { xs: 'normal', sm: 'nowrap' },
+                        marginTop: { xs: '100px', sm: 0 },
+                        lineHeight: { xs: '41.6px', sm: '40px' },
+                        fontWeight: isSm ? '600' : undefined
+                      }}
                     >
                       Setup your new password
                     </UINewTypography>
@@ -133,7 +140,7 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                     </IconButton>
                   </Box>
                 </Box>
-                <Box display="flex" flexDirection="column" gap={3}>
+                <Box display="flex" flexDirection="column" gap={3} sx={{ fontSize: '16px', lineHeight: '25.6px' }}>
                   <Box display="flex" gap={1.5} flexDirection="column">
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                       <UINewTypography variant="bodySemiBold">New password</UINewTypography>
@@ -197,11 +204,11 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                 <Box>
                   <CustomPasswordRegex password={values.password} />
                 </Box>
-                <Box display="flex" flexDirection="column" width="100%" gap="28px">
+                <Box display="flex" flexDirection="column" width="100%" gap="26px">
                   <StyleButtonV2 variant="contained" type="submit" loading={loading}>
-                    <UINewTypography variant="buttonLargeBold">Change password</UINewTypography>
+                    <Typography sx={{ fontSize: '16px', lineHeight: '19.2px', fontWeight: '700' }}> Change password</Typography>
                   </StyleButtonV2>
-                  <Box display="flex" flexDirection="column" gap={3}>
+                  <Box display="flex" flexDirection="column" gap={{ xs: 0.75, sm: 3 }}>
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                     <Box display="flex" gap={1} alignItems="center" justifyContent="center" pb={3}>
                       <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
