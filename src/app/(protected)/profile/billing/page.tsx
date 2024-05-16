@@ -1,11 +1,11 @@
 'use client';
 
-import ProfilePage from 'views/protectedViews';
+import BillingHistory from 'views/protectedViews/BillingHistory';
 
 const index = () => {
   return (
     <>
-      <ProfilePage />
+      <BillingHistory />
     </>
   );
 };
