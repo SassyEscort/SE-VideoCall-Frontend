@@ -30,7 +30,7 @@ const HomeModelConnections = () => {
         <Box
           sx={{
             position: 'relative',
-            mt: isSmDown ? '96px' : '112px'
+            mt: isSmDown ? '96px' : '170px'
           }}
         >
           {isSmDown ? <VectorLinesMobile /> : <VectorLines />}
