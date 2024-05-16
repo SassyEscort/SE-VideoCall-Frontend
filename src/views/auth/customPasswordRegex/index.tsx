@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import { Typography } from '@mui/material';
 
 const CustomPasswordRegex = ({ password }: { password: string }) => {
   const isBetweenLength = password.length >= 8 && password.length <= 124;
@@ -21,9 +22,9 @@ const CustomPasswordRegex = ({ password }: { password: string }) => {
           flexDirection: 'column'
         }}
       >
-        <UINewTypography variant="bodySemiBold" sx={{ color: 'text.secondary' }}>
+        <Typography sx={{ fontSize: '16px', lineHeight: '25.6px', color: 'text.secondary', fontWeight: '600' }}>
           Use a password you don’t use elsewhere
-        </UINewTypography>
+        </Typography>
         <Box
           sx={{
             display: 'flex',
@@ -50,7 +51,7 @@ const CustomPasswordRegex = ({ password }: { password: string }) => {
               fontSize="small"
             />
           )}
-          <UINewTypography variant="bodyRegular" sx={{ color: 'text.secondary' }}>
+          <UINewTypography variant="bodyRegular" sx={{ color: 'text.secondary', lineHeight: '25.6px' }}>
             Between 8 and 124 charecters
           </UINewTypography>
         </Box>
@@ -73,7 +74,7 @@ const CustomPasswordRegex = ({ password }: { password: string }) => {
           ) : (
             <FiberManualRecordIcon sx={{ width: '10px', height: '10px', alignSelf: 'center' }} fontSize="small" />
           )}
-          <UINewTypography variant="bodyRegular" sx={{ color: 'text.secondary' }}>
+          <UINewTypography variant="bodyRegular" sx={{ color: 'text.secondary', lineHeight: '25.6px' }}>
             Contains at least one number
           </UINewTypography>
         </Box>
@@ -97,7 +98,7 @@ const CustomPasswordRegex = ({ password }: { password: string }) => {
           ) : (
             <FiberManualRecordIcon sx={{ width: '10px', height: '10px', alignSelf: 'center' }} fontSize="small" />
           )}
-          <UINewTypography variant="bodyRegular" sx={{ color: 'text.secondary' }}>
+          <UINewTypography variant="bodyRegular" sx={{ color: 'text.secondary', lineHeight: '25.6px' }}>
             Contains atleast one symbol
           </UINewTypography>
         </Box>
