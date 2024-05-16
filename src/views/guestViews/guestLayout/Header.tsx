@@ -14,11 +14,11 @@ import { useState } from 'react';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import HomeMainContainer from './homeContainer';
 import { FormattedMessage } from 'react-intl';
-import Dialog from '@mui/material/Dialog';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestNewPassword from 'views/auth/guestNewPassword';
 import GuestLogin from 'views/auth/guestLogin';
+import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 
 const HeaderGuestComponent = () => {
   const url = new URL(window.location.href);
@@ -171,17 +171,7 @@ const HeaderGuestComponent = () => {
         </Toolbar>
       </AppBar>
       <SideBarGuestMenu open={openSidebar} toggleDrawer={toggleDrawer} />
-      <Dialog
-        sx={{
-          '& .MuiDialog-paper': {
-            backgroundColor: '#07030E',
-            borderRadius: '12px'
-          },
-          '& .MuiDialog-container': {
-            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
-            backdropFilter: 'blur(12px)'
-          }
-        }}
+      <UIStyledDialog
         scroll="body"
         PaperProps={{
           sx: {
@@ -195,19 +185,9 @@ const HeaderGuestComponent = () => {
         fullWidth
       >
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </Dialog>
-      <Dialog
+      </UIStyledDialog>
+      <UIStyledDialog
         scroll="body"
-        sx={{
-          '& .MuiDialog-paper': {
-            backgroundColor: '#07030E',
-            borderRadius: '12px'
-          },
-          '& .MuiDialog-container': {
-            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
-            backdropFilter: 'blur(12px)'
-          }
-        }}
         PaperProps={{
           sx: {
             maxWidth: 920,
@@ -220,19 +200,9 @@ const HeaderGuestComponent = () => {
         fullWidth
       >
         <GuestLogin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
-      </Dialog>
-      <Dialog
+      </UIStyledDialog>
+      <UIStyledDialog
         scroll="body"
-        sx={{
-          '& .MuiDialog-paper': {
-            backgroundColor: '#07030E',
-            borderRadius: '12px'
-          },
-          '& .MuiDialog-container': {
-            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
-            backdropFilter: 'blur(12px)'
-          }
-        }}
         PaperProps={{
           sx: {
             maxWidth: 920,
@@ -245,22 +215,12 @@ const HeaderGuestComponent = () => {
         fullWidth
       >
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
-      </Dialog>
-      <Dialog
+      </UIStyledDialog>
+      <UIStyledDialog
         PaperProps={{
           sx: {
             maxWidth: 920,
             borderRadius: '12px'
-          }
-        }}
-        sx={{
-          '& .MuiDialog-paper': {
-            backgroundColor: '#07030E',
-            borderRadius: '12px'
-          },
-          '& .MuiDialog-container': {
-            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
-            backdropFilter: 'blur(12px)'
           }
         }}
         scroll="body"
@@ -270,7 +230,7 @@ const HeaderGuestComponent = () => {
         fullWidth
       >
         <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
-      </Dialog>
+      </UIStyledDialog>
     </HomeMainContainer>
   );
 };
