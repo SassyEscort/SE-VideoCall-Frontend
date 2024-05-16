@@ -17,13 +17,18 @@ import SideBarModelMenu from './SideBarModelMenu';
 import ModelSignup from '../modelSignup';
 import ModelSignin from '../modelSignin';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import ModelForgetPasswordLink from '../modelForgetPasswordLink';
+import ModelNewPassword from '../ModelNewPassword';
 
 const HeaderModelComponent = () => {
+  const url = new URL(window.location.href);
+  const email = url.searchParams.get('email');
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openSidebar, setOpenSidebar] = useState(false);
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
-  const [, setOpenForgetPassLink] = useState(false);
+  const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  const [openChangePassword, setIsOpenChangePassword] = useState(email ? true : false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -46,6 +51,22 @@ const HeaderModelComponent = () => {
     setOpenForgetPassLink(true);
   };
 
+  const handleLoginResetPasswordOpen = () => {
+    setOpenForgetPassLink(false);
+    setIsOpenLogin(true);
+  };
+
+  const handleResetPasswordLinkClose = () => {
+    setOpenForgetPassLink(false);
+  };
+
+  const handleChangePasswordClose = () => {
+    setIsOpenChangePassword(false);
+  };
+  const handleLoginChangePasswordOpen = () => {
+    setIsOpenChangePassword(false);
+    setIsOpenLogin(true);
+  };
   const toggleDrawer = (open: boolean) => {
     setOpenSidebar(open);
   };
@@ -124,7 +145,7 @@ const HeaderModelComponent = () => {
                 </IconButton>
               )}
               {isMdUp && (
-                <Box display="flex" alignItems="center" gap={1} onClick={handleLoginOpen}>
+                <Box display="flex" alignItems="center" gap={1} onClick={handleLoginOpen} sx={{ cursor: 'pointer' }}>
                   <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
                   <Typography variant="buttonLargeMenu" color="text.secondary">
                     <FormattedMessage id="LogIn" />
@@ -172,6 +193,36 @@ const HeaderModelComponent = () => {
         fullWidth
       >
         <ModelSignin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
+      </UIStyledDialog>
+      <UIStyledDialog
+        scroll="body"
+        PaperProps={{
+          sx: {
+            maxWidth: 920,
+            borderRadius: '12px'
+          }
+        }}
+        open={openForgetPassLink}
+        onClose={handleResetPasswordLinkClose}
+        maxWidth="md"
+        fullWidth
+      >
+        <ModelForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
+      </UIStyledDialog>
+      <UIStyledDialog
+        PaperProps={{
+          sx: {
+            maxWidth: 920,
+            borderRadius: '12px'
+          }
+        }}
+        scroll="body"
+        open={openChangePassword}
+        onClose={handleChangePasswordClose}
+        maxWidth="md"
+        fullWidth
+      >
+        <ModelNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
       </UIStyledDialog>
     </HomeMainModelContainer>
   );
