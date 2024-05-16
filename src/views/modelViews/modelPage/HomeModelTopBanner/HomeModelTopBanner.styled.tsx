@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 
 export const BannerContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: '85px',
+  gap: '30px',
   width: '100%',
   height: '100%',
   position: 'relative',
@@ -39,7 +39,7 @@ export const BannerContainer = styled(Box)(({ theme }) => ({
 export const DetailContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(4.5),
+  gap: theme.spacing(8),
   [theme.breakpoints.down('sm')]: {
     paddingTop: theme.spacing(12)
   },
@@ -89,7 +89,7 @@ export const ImageContainer = styled(Box)(({ theme }) => ({
     justifyContent: 'flex-start'
   },
   [theme.breakpoints.up('sm')]: {
-    paddingTop: theme.spacing(10.375),
+    paddingTop: theme.spacing(10.875),
     justifyContent: 'flex-end'
   }
 }));
