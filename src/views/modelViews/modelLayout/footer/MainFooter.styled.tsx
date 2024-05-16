@@ -20,8 +20,6 @@ export const TextContainer = styled(Box)(({ theme }) => ({
   maxWidth: 1244,
   textAlign: 'center',
   alignItems: 'center',
-  position: 'absolute',
-  // zIndex: 3,
   top: 64,
   width: '100%',
   [theme.breakpoints.down('md')]: {
