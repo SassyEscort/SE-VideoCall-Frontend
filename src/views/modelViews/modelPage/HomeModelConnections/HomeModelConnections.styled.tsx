@@ -85,7 +85,7 @@ export const VectorLines = styled(Box)(({ theme }) => ({
   maxWidth: '1500px',
   height: '100%',
   top: 70,
-  transform: 'rotate(-01deg)',
+  transform: 'rotate(01deg)',
   zIndex: -1
 }));
 

@@ -7,8 +7,8 @@ const HomeContainerModel = () => {
   return (
     <>
       <HomeModelTopBanner />
-      <UnlimitedModel />
       <HomeModelConnections />
+      <UnlimitedModel />
     </>
   );
 };
