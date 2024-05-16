@@ -9,7 +9,7 @@ function HomeModelBottomBanner() {
         alt="home_model"
         width={1512}
         height={668.51}
-        src="/images/modelHomePage/Model-Footer.webp"
+        src="/images/modelHomePage/Model-footer.webp"
         style={{ borderRadius: '12px', right: 0 }}
         priority
       />
