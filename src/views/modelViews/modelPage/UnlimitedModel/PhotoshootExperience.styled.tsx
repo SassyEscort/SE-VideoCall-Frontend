@@ -17,7 +17,7 @@ export const PhotoshootExpWrap = styled(Box)(({ theme }) => ({
 }));
 
 export const Banner = styled(Box)(({ theme }) => ({
-  backgroundImage: `linear-gradient(rgba(7, 3, 14, 1), rgba(0, 0, 0, 0.1)), url(images/model/banner.png)`,
+  backgroundImage: `linear-gradient(rgba(7, 3, 14, 1), rgba(0, 0, 0, 0.1)), url(images/model/banner.webp)`,
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
