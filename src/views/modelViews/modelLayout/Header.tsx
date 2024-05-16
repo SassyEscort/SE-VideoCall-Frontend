@@ -15,8 +15,8 @@ import { FormattedMessage } from 'react-intl';
 import HomeMainModelContainer from './homeModelContainer';
 import SideBarModelMenu from './SideBarModelMenu';
 import ModelSignup from '../modelSignup';
-import { Dialog } from '@mui/material';
 import ModelSignin from '../modelSignin';
+import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 
 const HeaderModelComponent = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -124,14 +124,12 @@ const HeaderModelComponent = () => {
                 </IconButton>
               )}
               {isMdUp && (
-                <Link prefetch={false} href="/">
-                  <Box display="flex" alignItems="center" gap={1}>
-                    <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
-                    <Typography variant="buttonLargeMenu" color="text.secondary">
-                      <FormattedMessage id="LogIn" />
-                    </Typography>
-                  </Box>
-                </Link>
+                <Box display="flex" alignItems="center" gap={1} onClick={handleLoginOpen}>
+                  <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
+                  <Typography variant="buttonLargeMenu" color="text.secondary">
+                    <FormattedMessage id="LogIn" />
+                  </Typography>
+                </Box>
               )}
               {isMdUp && (
                 <UIThemeShadowButton variant="contained" onClick={handleSignupOpen}>
@@ -145,17 +143,7 @@ const HeaderModelComponent = () => {
         </Toolbar>
       </AppBar>
       <SideBarModelMenu open={openSidebar} toggleDrawer={toggleDrawer} />
-      <Dialog
-        sx={{
-          '& .MuiDialog-paper': {
-            backgroundColor: '#07030E',
-            borderRadius: '12px'
-          },
-          '& .MuiDialog-container': {
-            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
-            backdropFilter: 'blur(12px)'
-          }
-        }}
+      <UIStyledDialog
         scroll="body"
         PaperProps={{
           sx: {
@@ -169,19 +157,9 @@ const HeaderModelComponent = () => {
         fullWidth
       >
         <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </Dialog>
-      <Dialog
+      </UIStyledDialog>
+      <UIStyledDialog
         scroll="body"
-        sx={{
-          '& .MuiDialog-paper': {
-            backgroundColor: '#07030E',
-            borderRadius: '12px'
-          },
-          '& .MuiDialog-container': {
-            backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
-            backdropFilter: 'blur(12px)'
-          }
-        }}
         PaperProps={{
           sx: {
             maxWidth: 920,
@@ -194,7 +172,7 @@ const HeaderModelComponent = () => {
         fullWidth
       >
         <ModelSignin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
-      </Dialog>
+      </UIStyledDialog>
     </HomeMainModelContainer>
   );
 };
