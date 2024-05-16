@@ -13,22 +13,6 @@ const HomeImageCard = () => {
             <Grid key={index} item xs={6} sm={4} md={3} lg={3}>
               <Box display="flex" gap={2} flexDirection="column">
                 <WorkerCard />
-                {/* <UIThemeShadowButton  
-                  sx={{
-                    padding: 0,
-                    maxWidth: '100%',
-                    '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } }
-                  }}
-                  fullWidth
-                  variant="contained"
-                >
-                  <Box display="flex" alignItems="center" gap="10px">
-                    <Image src="/images/workercards/video-call.svg" alt="video-call" height={24} width={24} />
-                    <UINewTypography color="common.white" variant="bodySemiBold" sx={{ textWrap: 'no-wrap' }}>
-                      Start Video Call
-                    </UINewTypography>
-                  </Box>
-                </UIThemeShadowButton> */}
               </Box>
             </Grid>
           ))}

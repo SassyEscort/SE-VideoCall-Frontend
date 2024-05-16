@@ -18,9 +18,8 @@ import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
 import AuthCommon from '../AuthCommon';
 import GuestSignupSuccess from '../GuestSignupSuccess';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
-import { ErrorBox } from '../AuthCommon.styled';
+import { ErrorBox, UITypographyText } from '../AuthCommon.styled';
 import InfoIcon from '@mui/icons-material/Info';
-import { Typography } from '@mui/material';
 
 export type SignupParams = {
   name: string;
@@ -142,7 +141,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                     </Box>
                     <Box display="flex" flexDirection="column" gap={3} sx={{ width: isLg ? '400px' : 'auto' }}>
                       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                        <Typography sx={{ lineHeight: '25.6px', fontSize: '16px', fontWeight: '600' }}> Username</Typography>
+                        <UITypographyText>Username</UITypographyText>
                         <UIStyledInputText
                           fullWidth
                           id="name"
@@ -162,7 +161,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                         />
                       </Box>
                       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                        <Typography sx={{ lineHeight: '25.6px', fontSize: '16px', fontWeight: '600' }}>Email address</Typography>
+                        <UITypographyText>Email address</UITypographyText>
                         <UIStyledInputText
                           fullWidth
                           id="email"
@@ -183,7 +182,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                       </Box>
                       <Box display="flex" gap={1.5} flexDirection="column">
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                          <Typography sx={{ lineHeight: '25.6px', fontSize: '16px', fontWeight: '600' }}>Password</Typography>
+                          <UITypographyText>Password</UITypographyText>
                           <UIStyledInputText
                             fullWidth
                             type={showPassword ? 'text' : 'password'}

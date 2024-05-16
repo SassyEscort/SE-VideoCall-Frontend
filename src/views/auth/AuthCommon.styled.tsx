@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const AuthCommonBox = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -120,4 +121,10 @@ export const ErrorBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.error[100],
   color: theme.palette.error[400],
   justifyContent: 'center'
+}));
+
+export const UITypographyText = styled(UINewTypography)(() => ({
+  lineHeight: '25.6px',
+  fontSize: '16px',
+  fontWeight: '600'
 }));
