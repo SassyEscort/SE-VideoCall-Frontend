@@ -6,6 +6,7 @@ import Header from './Header';
 import Nav from '../navbar';
 import { useRouter } from 'next/navigation';
 import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
+import { ProtectedLayoutMainContainer } from './protectedLayout.styled';
 
 export type MainLayoutType = TopNavItemVariantProps & {
   children: ReactNode;
@@ -59,22 +60,10 @@ const MainLayoutNav = (props: MainLayoutType) => {
           <StyledRoot>
             <Nav openNav={open} onCloseNav={() => setOpen(true)} />
             <Main>
-              <Box
-                sx={{
-                  backgroundColor: 'rgba(255, 72, 179, 0.3)',
-                  height: '412px',
-                  width: '584px',
-                  borderRadius: '50%',
-                  filter: 'blur(100px)',
-                  position: 'absolute',
-                  zIndex: '-1',
-                  right: 72,
-                  top: '-232px'
-                }}
-              />
+              <ProtectedLayoutMainContainer>
               <Box px={{ md: 2 }} paddingTop={{ md: 3.875 }} paddingBottom={{ md: 13 }}>
                 <>{props.children}</>
-              </Box>
+              </ProtectedLayoutMainContainer>
             </Main>
           </StyledRoot>
         </Box>

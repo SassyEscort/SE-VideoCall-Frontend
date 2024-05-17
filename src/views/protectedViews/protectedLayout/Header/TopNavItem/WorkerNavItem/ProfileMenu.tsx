@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
+import { ProfileMenuMainContainer } from './ProfileMenu.styled';
 
 const ProfileMenu = ({
   open,
@@ -46,17 +47,7 @@ const ProfileMenu = ({
           }
         }}
       >
-        <Box
-          py="7px"
-          sx={{
-            width: '100%',
-            minWidth: '130px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            '& .MuiMenuItem-root ': { width: '100%' }
-          }}
-        >
+        <ProfileMenuMainContainer>
           <MenuItem component={Link} prefetch={false} shallow={true} href="/escort/profile">
             <ListItemIcon>
               <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
@@ -96,7 +87,7 @@ const ProfileMenu = ({
               </Typography>
             </ListItemText>
           </MenuItem>
-        </Box>
+        </ProfileMenuMainContainer>
       </Menu>
       {/* <WorkerChangePasswordV2 open={openEdit} onClose={handleCloseEdit} /> */}
     </>

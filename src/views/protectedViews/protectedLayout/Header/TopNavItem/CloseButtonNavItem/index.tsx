@@ -1,29 +1,18 @@
 import CancelRounded from '@mui/icons-material/CancelRounded';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import Toolbar from '@mui/material/Toolbar';
 import Link from 'next/link';
+import { CloseButtonNavItemContainer, ToolBarContainer } from './CloseButtonNavItem.styled';
 
 const CloseButtonNavItem = ({ handleClickClose }: { handleClickClose: () => void }) => {
   return (
     <>
-      <AppBar
-        position="fixed"
-        sx={{
-          backgroundColor: 'white.main',
-          pr: '0 !important',
-          boxShadow: 'none',
-          borderBottom: '1px solid',
-          borderColor: 'secondary.light'
-        }}
-      >
-        <Toolbar
+      <CloseButtonNavItemContainer>
+        <ToolBarContainer
           disableGutters
           sx={{
             px: { xs: 2, lg: 5 },
-            py: { xs: 1, sm: 2 },
-            justifyContent: 'space-between'
+            py: { xs: 1, sm: 2 }
           }}
         >
           <Box component={Link} prefetch={false} shallow={true} href="/" height={{ xs: 40, sm: 60 }}>
@@ -38,8 +27,8 @@ const CloseButtonNavItem = ({ handleClickClose }: { handleClickClose: () => void
               }}
             />
           </IconButton>
-        </Toolbar>
-      </AppBar>
+        </ToolBarContainer>
+      </CloseButtonNavItemContainer>
       <Box sx={{ height: { xs: 56, sm: 92 } }}></Box>
     </>
   );
