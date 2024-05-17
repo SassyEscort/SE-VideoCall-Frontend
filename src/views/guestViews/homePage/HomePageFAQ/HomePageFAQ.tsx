@@ -1,7 +1,5 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import {
   FAQConatainer,
   FAQMainContainer,
@@ -13,6 +11,7 @@ import {
 } from './HomePageFAQ.styled';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { FormattedMessage } from 'react-intl';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 const HomePageFAQ = () => {
   return (
@@ -40,127 +39,191 @@ const HomePageFAQ = () => {
               <FAQConatainer>
                 <StyledAccordion defaultExpanded>
                   <StyledAccordionSummary aria-controls="panel1-content" id="panel1-header" expandIcon={<ExpandMoreIcon />}>
-                    <Typography variant="bodySemiBold" sx={{ color: 'secondary.100' }}>
-                      How do I find the right model for me?
-                    </Typography>
+                    <UINewTypography variant="bodySemiBold" sx={{ color: 'secondary.100' }}>
+                      <FormattedMessage id="HowDoesTheCredit" />
+                    </UINewTypography>
                   </StyledAccordionSummary>
-                  <Typography variant="bodyRegular">
+                  <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
-                      With our intuitive search and filter tools, finding your match is simple. You can filter models by interests,
-                      languages spoken, location, and more to find someone who meets your preferences.
+                      <FormattedMessage id="OurPlatformOperates" />
                     </StyledAccordionDetails>
-                  </Typography>
+                  </UINewTypography>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <Typography variant="bodySemiBold">
+                  <UINewTypography variant="bodySemiBold">
                     <StyledAccordionSummary
                       sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      Can I communicate with models before booking a video call?
+                      <FormattedMessage id="IsThePlatformSecure" />
                     </StyledAccordionSummary>
-                  </Typography>
+                  </UINewTypography>
                   <Box component="ul">
-                    <StyledAccordionDetails></StyledAccordionDetails>
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="wePrioritizeTheSecurity" />
+                    </StyledAccordionDetails>
                   </Box>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <Typography variant="bodySemiBold">
+                  <UINewTypography variant="bodySemiBold">
                     <StyledAccordionSummary
                       sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      How do I sign up and start using the platform?
+                      <FormattedMessage id="CanITrustIheIdentity" />
                     </StyledAccordionSummary>
-                  </Typography>
-                  <Typography variant="bodyRegular">
-                    <StyledAccordionDetails></StyledAccordionDetails>
-                  </Typography>
+                  </UINewTypography>
+                  <UINewTypography variant="bodyRegular">
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="WeVerifyTheIdentities" />
+                    </StyledAccordionDetails>
+                  </UINewTypography>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <Typography variant="bodySemiBold">
+                  <UINewTypography variant="bodySemiBold">
                     <StyledAccordionSummary
                       sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      Who are the escorts?
+                      <FormattedMessage id="AreThereAnyRestrictions" />
                     </StyledAccordionSummary>
-                  </Typography>
+                  </UINewTypography>
                   <Box component="ul">
-                    <StyledAccordionDetails></StyledAccordionDetails>
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="WeHaveStrictGuidelines" />
+                    </StyledAccordionDetails>
                   </Box>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <Typography variant="bodySemiBold">
+                  <UINewTypography variant="bodySemiBold">
                     <StyledAccordionSummary
                       sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      Is my personal information safe with you?
+                      <FormattedMessage id="HowDoITop" />
                     </StyledAccordionSummary>
-                  </Typography>
-                  <Typography variant="bodyRegular">
-                    <StyledAccordionDetails></StyledAccordionDetails>
-                  </Typography>
+                  </UINewTypography>
+                  <UINewTypography variant="bodyRegular">
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="YouCanEasilyTopUp" />
+                    </StyledAccordionDetails>
+                  </UINewTypography>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <Typography variant="bodySemiBold">
+                  <UINewTypography variant="bodySemiBold">
                     <StyledAccordionSummary
                       sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      What happens if I’m not satisfied with my experience?
+                      <FormattedMessage id="WhatMeasuresAre" />
                     </StyledAccordionSummary>
-                  </Typography>
-                  <Typography variant="bodyRegular">
-                    <StyledAccordionDetails></StyledAccordionDetails>
-                  </Typography>
+                  </UINewTypography>
+                  <UINewTypography variant="bodyRegular">
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="WeEmployRigorousAge" />
+                    </StyledAccordionDetails>
+                  </UINewTypography>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <Typography variant="bodySemiBold">
+                  <UINewTypography variant="bodySemiBold">
                     <StyledAccordionSummary
                       sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      How does payment work?
+                      <FormattedMessage id="IsThereARefund" />
                     </StyledAccordionSummary>
-                  </Typography>
+                  </UINewTypography>
                   <Box component="ul">
-                    <StyledAccordionDetails></StyledAccordionDetails>
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="WeDoNotOfferRefunds" />
+                    </StyledAccordionDetails>
                   </Box>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <Typography variant="bodySemiBold">
+                  <UINewTypography variant="bodySemiBold">
                     <StyledAccordionSummary
                       sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      Are there any rules I need to follow when interacting with models?
+                      <FormattedMessage id="HowAreDisputesResolved" />
                     </StyledAccordionSummary>
-                  </Typography>
+                  </UINewTypography>
                   <Box component="ul">
-                    <StyledAccordionDetails></StyledAccordionDetails>
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="InTheEventOfDispute" />
+                    </StyledAccordionDetails>
+                  </Box>
+                </StyledAccordion>
+                <StyledAccordion>
+                  <UINewTypography variant="bodySemiBold">
+                    <StyledAccordionSummary
+                      sx={{ color: 'secondary.100' }}
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <FormattedMessage id="DoINeedToDownload" />
+                    </StyledAccordionSummary>
+                  </UINewTypography>
+                  <Box component="ul">
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="OurPlatformIsEntirely" />
+                    </StyledAccordionDetails>
+                  </Box>
+                </StyledAccordion>
+                <StyledAccordion>
+                  <UINewTypography variant="bodySemiBold">
+                    <StyledAccordionSummary
+                      sx={{ color: 'secondary.100' }}
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <FormattedMessage id="CanIPreviewOrBrowse" />
+                    </StyledAccordionSummary>
+                  </UINewTypography>
+                  <Box component="ul">
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="YouCanBrowseThrough" />
+                    </StyledAccordionDetails>
+                  </Box>
+                </StyledAccordion>
+                <StyledAccordion>
+                  <UINewTypography variant="bodySemiBold">
+                    <StyledAccordionSummary
+                      sx={{ color: 'secondary.100' }}
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <FormattedMessage id="IsThereMobileApp" />
+                    </StyledAccordionSummary>
+                  </UINewTypography>
+                  <Box component="ul">
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="WeOfferResponsiveWeb" />
+                    </StyledAccordionDetails>
                   </Box>
                 </StyledAccordion>
               </FAQConatainer>
