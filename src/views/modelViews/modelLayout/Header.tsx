@@ -27,8 +27,9 @@ const HeaderModelComponent = () => {
   const [openSidebar, setOpenSidebar] = useState(false);
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
-  const [openForgetPassLink, setOpenForgetPassLink] = useState(true);
-  const [openChangePassword, setIsOpenChangePassword] = useState(email ? true : false);
+  const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  // const [openChangePassword, setIsOpenChangePassword] = useState(email ? true : false);
+  const [openChangePassword, setIsOpenChangePassword] = useState(true);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -164,64 +165,16 @@ const HeaderModelComponent = () => {
         </Toolbar>
       </AppBar>
       <SideBarModelMenu open={openSidebar} toggleDrawer={toggleDrawer} />
-      <UIStyledDialog
-        scroll="body"
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        open={open}
-        onClose={handleSignupClose}
-        maxWidth="md"
-        fullWidth
-      >
+      <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
       </UIStyledDialog>
-      <UIStyledDialog
-        scroll="body"
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        open={openLogin}
-        onClose={handleLoginClose}
-        maxWidth="md"
-        fullWidth
-      >
+      <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
         <ModelSignin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
       </UIStyledDialog>
-      <UIStyledDialog
-        scroll="body"
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        open={openForgetPassLink}
-        onClose={handleResetPasswordLinkClose}
-        maxWidth="md"
-        fullWidth
-      >
+      <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <ModelForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
-      <UIStyledDialog
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        scroll="body"
-        open={openChangePassword}
-        onClose={handleChangePasswordClose}
-        maxWidth="md"
-        fullWidth
-      >
+      <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
         <ModelNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
       </UIStyledDialog>
     </HomeMainModelContainer>

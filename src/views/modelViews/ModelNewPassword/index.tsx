@@ -2,7 +2,6 @@
 
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
@@ -19,6 +18,7 @@ import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import AuthModelCommon from '../modelSignup/AuthModelCommon';
 import CustomPasswordRegex from 'views/auth/customPasswordRegex';
+import { IconeButtonBox, ModelNewPasswordBox, SetupNewPasswordBox } from './ModelNewPassword.styled';
 
 export type ResetPasswordParams = {
   email: string;
@@ -90,21 +90,9 @@ const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
               image="images/model/model-signup/model-signup.webp"
               mobileImage="images/model/model-signup/model-signup.webp"
             >
-              <Box
-                position="relative"
-                width="100%"
-                gap={4}
-                display="flex"
-                flexDirection="column"
-                sx={{
-                  pl: { xs: 2, md: 4 },
-                  maxWidth: { xs: '100%', md: '400px' },
-                  pt: { xs: 0, sm: '64px', md: 0 },
-                  pr: { xs: 2, md: 0 }
-                }}
-              >
+              <ModelNewPasswordBox id="hello">
                 <Box sx={{ pt: { xs: 0, sm: '50px' } }}>
-                  <Box display="flex" flexDirection="column" gap="12px" alignItems="center" justifyContent="center">
+                  <SetupNewPasswordBox>
                     <UINewTypography
                       variant="MediumSemiBoldText"
                       color="common.white"
@@ -118,21 +106,11 @@ const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                         {email}
                       </UINewTypography>
                     </UINewTypography>
-                  </Box>
+                  </SetupNewPasswordBox>
                   <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
-                    <IconButton
-                      size="large"
-                      sx={{
-                        color: 'common.white',
-                        position: 'absolute',
-                        top: 0,
-                        right: { xs: 0, md: '-72px' },
-                        display: 'block'
-                      }}
-                      onClick={onClose}
-                    >
+                    <IconeButtonBox size="large" onClick={onClose}>
                       <CloseIcon />
-                    </IconButton>
+                    </IconeButtonBox>
                   </Box>
                 </Box>
                 <Box display="flex" flexDirection="column" gap={3}>
@@ -220,7 +198,7 @@ const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                     </Box>
                   </Box>
                 </Box>
-              </Box>
+              </ModelNewPasswordBox>
             </AuthModelCommon>
           </Box>
         );
