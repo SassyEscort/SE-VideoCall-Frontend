@@ -112,59 +112,60 @@ const HomeModelTopBanner = () => {
             </ButtonContainer>
           </DetailContainer>
 
-        <ImageContainer>
-          <Image
-            alt="home_model"
-            width={isSm && isSmDown ? 300 : isSmDown ? 347 : 639}
-            height={isSmDown ? 300 : 519}
-            src="/images/modelHomePage/Model-Hero-area.webp"
-            style={{ borderRadius: '12px', right: 0 }}
-            priority
-          />
-        </ImageContainer>
-      </BannerContainer>
-      <NewDialogBox
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        open={open}
-        onClose={handleSignupClose}
-        maxWidth="md"
-        fullWidth
-      >
-        <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </NewDialogBox>
-      <NewDialogBox
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        open={openLogin}
-        onClose={handleLoginClose}
-        maxWidth="md"
-        fullWidth
-      >
-        <GuestLogin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
-      </NewDialogBox>
-      <NewDialogBox
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        open={openForgetPassLink}
-        onClose={handleResetPasswordLinkClose}
-        maxWidth="md"
-        fullWidth
-      >
-        <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
-      </NewDialogBox>
+          <ImageContainer>
+            <Image
+              alt="home_model"
+              width={isSm && isSmDown ? 300 : isSmDown ? 347 : 639}
+              height={isSmDown ? 300 : 519}
+              src="/images/modelHomePage/Model-Hero-area.webp"
+              style={{ borderRadius: '12px', right: 0 }}
+              priority
+            />
+          </ImageContainer>
+        </BannerContainer>
+        <NewDialogBox
+          PaperProps={{
+            sx: {
+              maxWidth: 920,
+              borderRadius: '12px'
+            }
+          }}
+          open={open}
+          onClose={handleSignupClose}
+          maxWidth="md"
+          fullWidth
+        >
+          <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
+        </NewDialogBox>
+        <NewDialogBox
+          PaperProps={{
+            sx: {
+              maxWidth: 920,
+              borderRadius: '12px'
+            }
+          }}
+          open={openLogin}
+          onClose={handleLoginClose}
+          maxWidth="md"
+          fullWidth
+        >
+          <GuestLogin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
+        </NewDialogBox>
+        <NewDialogBox
+          PaperProps={{
+            sx: {
+              maxWidth: 920,
+              borderRadius: '12px'
+            }
+          }}
+          open={openForgetPassLink}
+          onClose={handleResetPasswordLinkClose}
+          maxWidth="md"
+          fullWidth
+        >
+          <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
+        </NewDialogBox>
+      </HomeMainModelContainer>
     </>
   );
 };
