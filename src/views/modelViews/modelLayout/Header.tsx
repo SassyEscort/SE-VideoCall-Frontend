@@ -28,8 +28,7 @@ const HeaderModelComponent = () => {
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  // const [openChangePassword, setIsOpenChangePassword] = useState(email ? true : false);
-  const [openChangePassword, setIsOpenChangePassword] = useState(true);
+  const [openChangePassword, setIsOpenChangePassword] = useState(email ? true : false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);

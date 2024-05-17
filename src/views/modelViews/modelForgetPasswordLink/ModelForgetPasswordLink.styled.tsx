@@ -16,7 +16,7 @@ export const ForgetPasswordLinkMainContainer = styled(Box)(({ theme }) => ({
     gap: theme.spacing(4)
   },
   [theme.breakpoints.up('sm')]: {
-    paddingTop: theme.spacing(15.8125),
+    paddingTop: '126.5px',
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(0),
     maxWidth: '400px',
