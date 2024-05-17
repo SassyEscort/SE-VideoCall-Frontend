@@ -14,10 +14,37 @@ import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import { FormattedMessage } from 'react-intl';
 import HomeMainModelContainer from './homeModelContainer';
 import SideBarModelMenu from './SideBarModelMenu';
+import ModelSignup from '../modelSignup';
+import ModelSignin from '../modelSignin';
+import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 
 const HeaderModelComponent = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openSidebar, setOpenSidebar] = useState(false);
+  const [open, setIsOpen] = useState(false);
+  const [openLogin, setIsOpenLogin] = useState(false);
+  const [, setOpenForgetPassLink] = useState(false);
+
+  const handleSignupOpen = () => {
+    setIsOpen(true);
+    setIsOpenLogin(false);
+  };
+  const handleLoginOpen = () => {
+    setIsOpen(false);
+    setIsOpenLogin(true);
+  };
+
+  const handleSignupClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleLoginClose = () => {
+    setIsOpenLogin(false);
+  };
+  const handleResetPasswordLinkOpen = () => {
+    setIsOpenLogin(false);
+    setOpenForgetPassLink(true);
+  };
 
   const toggleDrawer = (open: boolean) => {
     setOpenSidebar(open);
@@ -97,17 +124,15 @@ const HeaderModelComponent = () => {
                 </IconButton>
               )}
               {isMdUp && (
-                <Link prefetch={false} href="/">
-                  <Box display="flex" alignItems="center" gap={1}>
-                    <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
-                    <Typography variant="buttonLargeMenu" color="text.secondary">
-                      <FormattedMessage id="LogIn" />
-                    </Typography>
-                  </Box>
-                </Link>
+                <Box display="flex" alignItems="center" gap={1} onClick={handleLoginOpen}>
+                  <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
+                  <Typography variant="buttonLargeMenu" color="text.secondary">
+                    <FormattedMessage id="LogIn" />
+                  </Typography>
+                </Box>
               )}
               {isMdUp && (
-                <UIThemeShadowButton variant="contained">
+                <UIThemeShadowButton variant="contained" onClick={handleSignupOpen}>
                   <Typography variant="body">
                     <FormattedMessage id="JoinForFREE" />
                   </Typography>
@@ -118,6 +143,36 @@ const HeaderModelComponent = () => {
         </Toolbar>
       </AppBar>
       <SideBarModelMenu open={openSidebar} toggleDrawer={toggleDrawer} />
+      <UIStyledDialog
+        scroll="body"
+        PaperProps={{
+          sx: {
+            maxWidth: 920,
+            borderRadius: '12px'
+          }
+        }}
+        open={open}
+        onClose={handleSignupClose}
+        maxWidth="md"
+        fullWidth
+      >
+        <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
+      </UIStyledDialog>
+      <UIStyledDialog
+        scroll="body"
+        PaperProps={{
+          sx: {
+            maxWidth: 920,
+            borderRadius: '12px'
+          }
+        }}
+        open={openLogin}
+        onClose={handleLoginClose}
+        maxWidth="md"
+        fullWidth
+      >
+        <ModelSignin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
+      </UIStyledDialog>
     </HomeMainModelContainer>
   );
 };

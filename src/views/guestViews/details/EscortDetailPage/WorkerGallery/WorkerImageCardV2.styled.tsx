@@ -10,7 +10,7 @@ export const WorkerImageCardContainerBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2.5),
   width: '100%',
   [theme.breakpoints.up('sm')]: {
-    paddingTop: theme.spacing(5)
+    paddingTop: theme.spacing(7)
   },
   [theme.breakpoints.down('sm')]: {
     paddingTop: theme.spacing(12)

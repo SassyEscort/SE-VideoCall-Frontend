@@ -28,7 +28,7 @@ export const ImgWorkerCard = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     minHeight: '272px',
-    maxWidth: '100%'
+    maxWidth: '175px'
   }
 }));
 export const HeartIconWorkerCard = styled(Box)(({ theme }) => ({
@@ -39,7 +39,11 @@ export const HeartIconWorkerCard = styled(Box)(({ theme }) => ({
   color: '#E9E8EB',
   justifyContent: 'flex-end',
   paddingTop: theme.spacing(1.5),
-  paddingRight: theme.spacing(1.5)
+  paddingRight: theme.spacing(1.5),
+  [theme.breakpoints.down('sm')]: {
+    minHeight: '272px',
+    maxWidth: '175px'
+  }
 }));
 
 export const LiveIconFirstBoxWorkerCard = styled(Box)(({ theme }) => ({

@@ -18,7 +18,7 @@ import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
 import AuthCommon from '../AuthCommon';
 import GuestSignupSuccess from '../GuestSignupSuccess';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
-import { ErrorBox } from '../AuthCommon.styled';
+import { ErrorBox, UITypographyText } from '../AuthCommon.styled';
 import InfoIcon from '@mui/icons-material/Info';
 
 export type SignupParams = {
@@ -29,6 +29,7 @@ export type SignupParams = {
 
 const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
   const isSm = useMediaQuery(theme.breakpoints.down(330));
+  const isLg = useMediaQuery(theme.breakpoints.up('lg'));
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [redirectSeconds, setRedirectSeconds] = useState(3);
@@ -110,8 +111,8 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
               >
                 {activeStep === 0 ? (
                   <>
-                    <Box>
-                      <UINewTypography variant="MediumSemiBoldText" color="common.white">
+                    <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
+                      <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ lineHeight: '38.4px' }}>
                         Join Now for Free
                       </UINewTypography>
                       <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
@@ -122,7 +123,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             position: 'absolute',
                             top: 0,
                             right: { xs: 0, md: '-84px' },
-                            display: { xs: 'none', sm: 'block' }
+                            display: { sm: 'block' }
                           }}
                           onClick={onClose}
                         >
@@ -138,9 +139,9 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                         </ErrorBox>
                       )}
                     </Box>
-                    <Box display="flex" flexDirection="column" gap={3}>
+                    <Box display="flex" flexDirection="column" gap={3} sx={{ width: isLg ? '400px' : 'auto' }}>
                       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                        <UINewTypography variant="bodySemiBold">Username</UINewTypography>
+                        <UITypographyText>Username</UITypographyText>
                         <UIStyledInputText
                           fullWidth
                           id="name"
@@ -160,7 +161,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                         />
                       </Box>
                       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                        <UINewTypography variant="bodySemiBold">Email address</UINewTypography>
+                        <UITypographyText>Email address</UITypographyText>
                         <UIStyledInputText
                           fullWidth
                           id="email"
@@ -181,7 +182,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                       </Box>
                       <Box display="flex" gap={1.5} flexDirection="column">
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                          <UINewTypography variant="bodySemiBold">Password</UINewTypography>
+                          <UITypographyText>Password</UITypographyText>
                           <UIStyledInputText
                             fullWidth
                             type={showPassword ? 'text' : 'password'}
@@ -205,7 +206,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             }}
                           />
                         </Box>
-                        <MenuItem sx={{ p: 0 }}>
+                        <MenuItem sx={{ p: 0, gap: 1 }}>
                           <Checkbox sx={{ p: 0, pr: 1 }} />
                           <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
                             Remember me
@@ -213,8 +214,8 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                         </MenuItem>
                       </Box>
                     </Box>
-                    <Box display="flex" flexDirection="column" width="100%" gap="28px">
-                      <StyleButtonV2 variant="contained" type="submit" loading={loading}>
+                    <Box display="flex" flexDirection="column" width="100%" gap={isSm ? '33px' : '29px'}>
+                      <StyleButtonV2 variant="contained" type="submit" loading={loading} sx={{ width: isLg ? '400px' : 'auto' }}>
                         <UINewTypography variant="buttonLargeBold">Sign Up</UINewTypography>
                       </StyleButtonV2>
                       <Box display="flex" flexDirection="column" gap={3}>

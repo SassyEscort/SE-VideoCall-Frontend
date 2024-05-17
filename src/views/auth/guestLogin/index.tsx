@@ -38,6 +38,7 @@ const GuestLogin = ({
   const route = useRouter();
   const { push } = route;
   const isSm = useMediaQuery(theme.breakpoints.down(330));
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState('');
@@ -89,7 +90,11 @@ const GuestLogin = ({
                 }}
               >
                 <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
-                  <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ whiteSpace: { sm: 'nowrap' } }}>
+                  <UINewTypography
+                    variant="MediumSemiBoldText"
+                    color="common.white"
+                    sx={{ whiteSpace: { sm: 'nowrap' }, lineHeight: '38.4px' }}
+                  >
                     Log in to your account
                   </UINewTypography>
                   <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
@@ -117,7 +122,7 @@ const GuestLogin = ({
                   )}
                 </Box>
                 <Box display="flex" flexDirection="column" gap={3}>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, width: isSmDown ? 'auto' : '400px' }}>
                     <UINewTypography variant="bodySemiBold">Username / Email address</UINewTypography>
                     <UIStyledInputText
                       fullWidth
@@ -138,7 +143,7 @@ const GuestLogin = ({
                     />
                   </Box>
                   <Box display="flex" gap={1.5} flexDirection="column">
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, width: isSmDown ? 'auto' : '400px' }}>
                       <UINewTypography variant="bodySemiBold">Password</UINewTypography>
                       <UIStyledInputText
                         fullWidth
@@ -190,7 +195,7 @@ const GuestLogin = ({
                   </Box>
                 </Box>
                 <Box display="flex" flexDirection="column" gap="52px" justifyContent="space-between">
-                  <Box display="flex" flexDirection="column" width="100%">
+                  <Box display="flex" flexDirection="column" width="100%" sx={{ width: isSmDown ? 'auto' : '400px' }}>
                     <StyleButtonV2 variant="contained" type="submit" loading={loading}>
                       <UINewTypography variant="buttonLargeBold">Login</UINewTypography>
                     </StyleButtonV2>
