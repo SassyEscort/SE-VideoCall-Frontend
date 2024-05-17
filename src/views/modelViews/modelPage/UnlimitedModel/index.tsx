@@ -11,6 +11,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
 import { Box } from '@mui/material';
+import { FormattedMessage } from 'react-intl';
 
 const UnlimitedModel = () => {
   return (
@@ -29,7 +30,7 @@ const UnlimitedModel = () => {
                       fontWeight: { xs: 600, sm: 700 }
                     }}
                   >
-                    Unlimited Earning Potential
+                    <FormattedMessage id="UnlimitedEarningPotential" />
                   </UINewTypography>
                   <UINewTypography
                     variant="bodyRegular"
@@ -38,14 +39,15 @@ const UnlimitedModel = () => {
                       textAlign: 'center'
                     }}
                   >
-                    Turn your talent into earnings with no upper limit. Our platform offers the freedom to earn as much as you want, based
-                    on your availability and the effort you put in.
+                    <FormattedMessage id="TurnYourTalentInto" />
                   </UINewTypography>
                 </PhotoshootExpTitle>
 
                 <PhotoshootExpButton>
                   <Link prefetch={false} href="/register">
-                    <UIThemeButton variant="contained">Join for FREE</UIThemeButton>
+                    <UIThemeButton variant="contained">
+                      <FormattedMessage id="JoinForFREE" />
+                    </UIThemeButton>
                   </Link>
                 </PhotoshootExpButton>
               </PhotoshootExpContainer>

@@ -17,10 +17,10 @@ import {
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
 import ModelSignup from 'views/modelViews/modelSignup';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import ModelSignin from 'views/modelViews/modelSignin';
+import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
+import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import ModelForgetPasswordLink from 'views/modelViews/modelForgetPasswordLink';
 
 const HomeModelTopBanner = () => {
