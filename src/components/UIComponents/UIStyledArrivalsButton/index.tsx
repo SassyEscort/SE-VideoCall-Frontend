@@ -3,11 +3,12 @@ import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 
 export const UIStyledArrivalsButton = styled(Button)(({ theme }) => ({
-  borderRadius: '4px',
+  display: 'flex',
+  borderRadius: '8px',
   width: '100%',
   height: '40px',
   backgroundColor: theme.palette.primary[700],
-  color: theme.palette.text.primary,
+  color: theme.palette.primary[400],
   fontSize: '16px',
   fontWeight: 400,
   whiteSpace: 'nowrap',

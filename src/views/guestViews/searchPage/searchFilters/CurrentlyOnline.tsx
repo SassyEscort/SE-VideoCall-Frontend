@@ -11,6 +11,7 @@ const CurrentlyOnline = () => {
             <LiveIconSecBoxWorkerCard />
           </LiveIconFirstBoxWorkerCard>
         }
+        sx={{ width: '100%', maxWidth: { lg: '203px', sm: '240px' } }}
       >
         <UINewTypography>
           <FormattedMessage id="CurrentlyOnline" />

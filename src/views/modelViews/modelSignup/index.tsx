@@ -21,9 +21,9 @@ import AuthModelCommon from './AuthModelCommon';
 import ModelSignupSuccess from './ModelSignupSuccess';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { ErrorBox } from 'views/auth/AuthCommon.styled';
 import InfoIcon from '@mui/icons-material/Info';
-import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 
 export type ModelSignupParams = {
   name: string;
@@ -42,6 +42,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
   const [loading, setLoading] = useState(false);
 
   const [alert, setAlert] = useState('');
+  const isLg = useMediaQuery(theme.breakpoints.up('lg'));
 
   useEffect(() => {
     if (activeStep > 0) {
@@ -242,7 +243,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                       </Box>
                     </Box>
                     <Box display="flex" flexDirection="column" width="100%" gap="28px">
-                      <StyleButtonV2 variant="contained" type="submit" loading={loading}>
+                      <StyleButtonV2 variant="contained" type="submit" loading={loading} sx={{ width: isLg ? '400px' : 'auto' }}>
                         <UINewTypography variant="buttonLargeBold">Sign Up</UINewTypography>
                       </StyleButtonV2>
                       <Box display="flex" flexDirection="column" gap={3}>

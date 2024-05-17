@@ -1,28 +1,39 @@
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import AgeFilter from './AgeFilter';
 import CountryFilter from './CountryFilter';
-import Box from '@mui/material/Box';
 import CurrentlyOnline from './CurrentlyOnline';
 import NewArrivals from './NewArrivals';
-import { useMediaQuery } from '@mui/material';
-import theme from 'themes/theme';
+import Price from './Price';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import {
+  FirstBoxMainContainer,
+  SearchBarMainContainer,
+  SearchBarSubMainContainer,
+  SecondBoxMainContainer,
+  ThiredBoxMainContainer
+} from '../Search.styled';
 
 const SearchFilters = () => {
-  const isSm = useMediaQuery(theme.breakpoints.down(330));
+  const isMobile = useMediaQuery('(max-width:600px)');
+
   return (
     <HomeMainContainer>
-      <Box pt={{ xs: 7, sm: 10 }} pb={{ xs: 3, sm: 4 }} sx={{ width: '100%', maxWidth: '711px' }}>
-        <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} gap={{ xs: 1.5, sm: 4 }}>
-          <Box display="flex" gap={{ xs: 1.5, sm: 4 }} width="100%" maxWidth={{ xs: '267px', sm: '305px' }}>
-            <CountryFilter />
-            <AgeFilter />
-          </Box>
-          <Box display="flex" gap={{ xs: 1.5, sm: 4 }} width="100%" flexWrap={isSm ? 'wrap' : 'nowrap'}>
-            <CurrentlyOnline />
+      <SearchBarMainContainer>
+        <SearchBarSubMainContainer>
+          <FirstBoxMainContainer>
             <NewArrivals />
-          </Box>
-        </Box>
-      </Box>
+            {isMobile && <CurrentlyOnline />}
+          </FirstBoxMainContainer>
+          <SecondBoxMainContainer>
+            <CountryFilter />
+          </SecondBoxMainContainer>
+          <ThiredBoxMainContainer>
+            <AgeFilter />
+            <Price />
+            {!isMobile && <CurrentlyOnline />}
+          </ThiredBoxMainContainer>
+        </SearchBarSubMainContainer>
+      </SearchBarMainContainer>
     </HomeMainContainer>
   );
 };
