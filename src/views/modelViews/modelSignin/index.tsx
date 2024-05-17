@@ -10,7 +10,6 @@ import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import * as yup from 'yup';
-import { LoginUserParams } from 'services/guestAuth/types';
 import { signIn } from 'next-auth/react';
 import getCustomErrorMessage from 'utils/error.utils';
 import { useRouter } from 'next/navigation';
@@ -20,6 +19,7 @@ import theme from 'themes/theme';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import AuthModelCommon from '../modelSignup/AuthModelCommon';
 import { ErrorBox } from 'views/auth/AuthCommon.styled';
+import { LoginModelParams } from 'services/modelAuth/types';
 
 export type LoginParams = {
   email: string;
@@ -45,12 +45,12 @@ const ModelSignin = ({
     email: yup.string().required('Email is required'),
     password: yup.string().required('Password is required')
   });
-  const handleFormSubmit = async (values: LoginUserParams) => {
+  const handleFormSubmit = async (values: LoginModelParams) => {
     try {
       setLoading(true);
-      const res = await signIn('login', { redirect: false, email: values.email, password: values.password });
+      const res = await signIn('providerModel', { redirect: false, email: values.email, password: values.password });
       if (res?.status === 200) {
-        push('/profile');
+        push('/model/profile');
         onClose();
       } else if (res?.error) {
         setAlert(res.error === 'CredentialsSignin' ? 'Invalid email or password' : 'Something went wrong! Please try again');
@@ -69,7 +69,7 @@ const ModelSignin = ({
         password: ''
       }}
       validationSchema={validationSchema}
-      onSubmit={(values: LoginUserParams) => handleFormSubmit(values)}
+      onSubmit={(values: LoginModelParams) => handleFormSubmit(values)}
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (

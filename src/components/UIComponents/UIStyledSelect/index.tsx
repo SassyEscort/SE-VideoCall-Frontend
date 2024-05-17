@@ -3,9 +3,9 @@ import Select from '@mui/material/Select';
 import { styled } from '@mui/material/styles';
 
 export const UIStyledSelect = styled(Select)(({ theme }) => ({
-  borderRadius: '4px',
+  display: 'flex',
+  borderRadius: '8px',
   width: '100%',
-
   height: '40px',
   backgroundColor: theme.palette.primary[700],
   '&:hover': {
@@ -18,8 +18,8 @@ export const UIStyledSelect = styled(Select)(({ theme }) => ({
     display: 'flex',
     gap: theme.spacing(1)
   },
-  '& .mui-hfutr2-MuiSvgIcon-root-MuiSelect-icon': {
-    color: `${theme.palette.secondary[200]} !important`
+  '& .MuiSvgIcon-root': {
+    color: 'rgba(183, 181, 185, 1)'
   }
 }));
 
