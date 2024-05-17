@@ -2,13 +2,14 @@ import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from 'next
 import { getServerSession, type NextAuthOptions, type User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { authServices } from 'services/guestAuth/authuser.services';
+import { authModelServices } from 'services/modelAuth/authmodel.services';
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET_KEY,
   providers: [
     CredentialsProvider({
-      id: 'login',
-      name: 'login',
+      id: 'providerGuest',
+      name: 'providerGuest',
       credentials: {
         email: { name: 'email', label: 'Email', type: 'text', placeholder: 'Enter Email' },
         password: { name: 'password', label: 'Password', type: 'password', placeholder: 'Enter Password' }
@@ -27,6 +28,37 @@ export const authOptions: NextAuthOptions = {
               id: user.data.customer_id.toString(),
               name: user.data.customer_name,
               email: user.data.customer_email,
+              image: JSON.stringify(user.data)
+            } as User;
+          }
+          return null;
+        } catch (e: any) {
+          const errorMessage = e?.response.data.message;
+          throw new Error(errorMessage);
+        }
+      }
+    }),
+    CredentialsProvider({
+      id: 'providerModel',
+      name: 'providerModel',
+      credentials: {
+        email: { name: 'email', label: 'Email', type: 'text', placeholder: 'Enter Email' },
+        password: { name: 'password', label: 'Password', type: 'password', placeholder: 'Enter Password' }
+      },
+      async authorize(credentials) {
+        try {
+          const user = await authModelServices.loginModel({
+            email: credentials?.email ?? '',
+            password: credentials?.password ?? ''
+          });
+
+          if (user && typeof user !== 'string' && user.data) {
+            user.data.token = user.data.token;
+
+            return {
+              id: user.data.id.toString(),
+              name: user.data.name,
+              email: user.data.email,
               image: JSON.stringify(user.data)
             } as User;
           }

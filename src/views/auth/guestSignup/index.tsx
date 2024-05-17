@@ -20,6 +20,8 @@ import GuestSignupSuccess from '../GuestSignupSuccess';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { ErrorBox, UITypographyText } from '../AuthCommon.styled';
 import InfoIcon from '@mui/icons-material/Info';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export type SignupParams = {
   name: string;
@@ -28,6 +30,8 @@ export type SignupParams = {
 };
 
 const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
+  const route = useRouter();
+  const { push } = route;
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
   const [loading, setLoading] = useState(false);
@@ -80,6 +84,16 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
           if (data.code === 200) {
             toast.success('Signed up successfully!');
             setActiveStep(1);
+            const loginResponse = await signIn('providerGuest', {
+              redirect: false,
+              email: values.email,
+              password: values.password
+            });
+            if (loginResponse?.status === 200) {
+              push('/profile');
+            } else {
+              setAlert('Login after signup failed. Please log in manually.');
+            }
           } else {
             setAlert(data.error);
           }

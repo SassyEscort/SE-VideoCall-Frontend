@@ -49,7 +49,7 @@ const GuestLogin = ({
   const handleFormSubmit = async (values: LoginUserParams) => {
     try {
       setLoading(true);
-      const res = await signIn('login', { redirect: false, email: values.email, password: values.password });
+      const res = await signIn('providerGuest', { redirect: false, email: values.email, password: values.password });
       if (res?.status === 200) {
         push('/profile');
         onClose();

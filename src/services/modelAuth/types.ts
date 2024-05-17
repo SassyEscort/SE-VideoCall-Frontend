@@ -1,18 +1,18 @@
 import { GenericResponse } from 'types/commonApiTypes';
 
-export type LoginUserParams = {
+export type LoginModelParams = {
   email: string;
   password: string;
 };
 
-export type LoginUserData = {
+export type LoginModelData = {
   token: string;
   id: number;
-  name: number;
+  name: string;
   email: string;
   verification_step: string;
 };
 
-export type LoginUserResponse = GenericResponse & {
-  data: LoginUserData;
+export type LoginModelResponse = GenericResponse & {
+  data: LoginModelData;
 };
