@@ -27,7 +27,7 @@ const HeaderModelComponent = () => {
   const [openSidebar, setOpenSidebar] = useState(false);
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
-  const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  const [openForgetPassLink, setOpenForgetPassLink] = useState(true);
   const [openChangePassword, setIsOpenChangePassword] = useState(email ? true : false);
 
   const handleSignupOpen = () => {

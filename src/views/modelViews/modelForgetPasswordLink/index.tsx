@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RiMailLine } from 'components/common/customRemixIcons';
@@ -15,6 +14,17 @@ import { useState } from 'react';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import AuthModelCommon from '../modelSignup/AuthModelCommon';
 import CheckInbox from './CheckInbox';
+import {
+  ForgetPasswordLinkMainContainer,
+  IconBoxConatiner,
+  IconButtonConatiner,
+  InputTypeFristEmailBox,
+  InputTypeSecondEmailBox,
+  RememberpasswordSecondBox,
+  RememberpasswordfirstBox,
+  RequestlinkBox,
+  RestePasswordBox
+} from './ModelForgetPasswordLink.styled';
 
 export type ForgetPasswordParams = {
   id: string;
@@ -62,50 +72,27 @@ const ModelForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
               image="images/model/model-signup/model-signup.webp"
               mobileImage="images/model/model-signup/model-signup.webp"
             >
-              <Box
-                position="relative"
-                width="100%"
-                display="flex"
-                flexDirection="column"
-                justifyContent="space-between"
-                sx={{
-                  pt: { xs: 0, sm: '126.5px' },
-                  pl: { xs: 2, md: 4 },
-                  pr: { xs: 2, md: 0 },
-                  maxWidth: { xs: '100%', md: '400px' },
-                  gap: { xs: 5, sm: 4 }
-                }}
-              >
+              <ForgetPasswordLinkMainContainer>
                 {activeStep === 0 ? (
                   <>
                     <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
-                      <Box display="flex" flexDirection="column" gap="12px" alignItems="center">
+                      <RestePasswordBox>
                         <UINewTypography variant="MediumSemiBoldText" color="common.white">
                           Reset password
                         </UINewTypography>
                         <UINewTypography variant="bodyRegular" color="secondary.200" textAlign="center">
                           Enter your email and we&apos;ll send you instructions on how to reset your password.
                         </UINewTypography>
-                      </Box>
-                      <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
-                        <IconButton
-                          size="large"
-                          sx={{
-                            color: 'common.white',
-                            position: 'absolute',
-                            top: 0,
-                            right: { xs: 0, md: '-84px' },
-                            display: { sm: 'block' }
-                          }}
-                          onClick={onClose}
-                        >
+                      </RestePasswordBox>
+                      <IconBoxConatiner>
+                        <IconButtonConatiner size="large" onClick={onClose}>
                           <CloseIcon />
-                        </IconButton>
-                      </Box>
+                        </IconButtonConatiner>
+                      </IconBoxConatiner>
                     </Box>
 
-                    <Box display="flex" flexDirection="column" gap={3}>
-                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                    <InputTypeFristEmailBox>
+                      <InputTypeSecondEmailBox>
                         <UINewTypography variant="bodySemiBold">Email address</UINewTypography>
                         <UIStyledInputText
                           fullWidth
@@ -124,21 +111,21 @@ const ModelForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                             endAdornment: <RiMailLine color="#86838A" />
                           }}
                         />
-                      </Box>
-                    </Box>
+                      </InputTypeSecondEmailBox>
+                    </InputTypeFristEmailBox>
 
-                    <Box display="flex" flexDirection="column" width="100%" gap="28px">
+                    <RequestlinkBox>
                       <StyleButtonV2 variant="contained" type="submit" loading={loading}>
                         <UINewTypography variant="buttonLargeBold">Request link</UINewTypography>
                       </StyleButtonV2>
-                    </Box>
+                    </RequestlinkBox>
                   </>
                 ) : (
                   <CheckInbox onClose={onClose} email={values.email} />
                 )}
-                <Box display="flex" flexDirection="column" gap={3} pb={3} sx={{ paddingTop: { xs: 0, md: '90px' } }}>
+                <RememberpasswordfirstBox>
                   <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                  <Box display="flex" gap={1} alignItems="center" justifyContent="center">
+                  <RememberpasswordSecondBox>
                     <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
                       Remember password?
                     </UINewTypography>
@@ -150,9 +137,9 @@ const ModelForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                     >
                       Log in instead!
                     </UINewTypography>
-                  </Box>
-                </Box>
-              </Box>
+                  </RememberpasswordSecondBox>
+                </RememberpasswordfirstBox>
+              </ForgetPasswordLinkMainContainer>
             </AuthModelCommon>
           </Box>
         );

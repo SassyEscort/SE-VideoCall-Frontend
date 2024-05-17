@@ -12,7 +12,6 @@ import {
   InlineBox,
   InlineBoxRelative,
   InlineBoxRelativeNocolor,
-  NewDialogBox,
   TypographyBox
 } from './HomeModelTopBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
@@ -22,6 +21,7 @@ import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestLogin from 'views/auth/guestLogin';
 import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
 import ModelSignup from 'views/modelViews/modelSignup';
+import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 
 const HomeModelTopBanner = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -123,48 +123,15 @@ const HomeModelTopBanner = () => {
             />
           </ImageContainer>
         </BannerContainer>
-        <NewDialogBox
-          PaperProps={{
-            sx: {
-              maxWidth: 920,
-              borderRadius: '12px'
-            }
-          }}
-          open={open}
-          onClose={handleSignupClose}
-          maxWidth="md"
-          fullWidth
-        >
+        <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
           <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-        </NewDialogBox>
-        <NewDialogBox
-          PaperProps={{
-            sx: {
-              maxWidth: 920,
-              borderRadius: '12px'
-            }
-          }}
-          open={openLogin}
-          onClose={handleLoginClose}
-          maxWidth="md"
-          fullWidth
-        >
+        </UIStyledDialog>
+        <UIStyledDialog open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
           <GuestLogin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
-        </NewDialogBox>
-        <NewDialogBox
-          PaperProps={{
-            sx: {
-              maxWidth: 920,
-              borderRadius: '12px'
-            }
-          }}
-          open={openForgetPassLink}
-          onClose={handleResetPasswordLinkClose}
-          maxWidth="md"
-          fullWidth
-        >
+        </UIStyledDialog>
+        <UIStyledDialog open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
           <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
-        </NewDialogBox>
+        </UIStyledDialog>
       </HomeMainModelContainer>
     </>
   );
