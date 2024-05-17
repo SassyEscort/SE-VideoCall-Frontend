@@ -15,7 +15,7 @@ export const AuthModelCommonBox = styled(Box)(({ theme }) => ({
 
 export const AuthModelImageMobileBox = styled(Box)(({ theme }) => ({
   width: '100%',
-  height: 676,
+  height: '100%',
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   position: 'absolute',
@@ -33,7 +33,7 @@ export const AuthModelImageMobileBox = styled(Box)(({ theme }) => ({
 
 export const AuthModelImageBox = styled(Box)(({ theme }) => ({
   width: '100%',
-  height: 676,
+  height: '100%',
   maxWidth: '420px',
   backgroundSize: 'calc(100% - 320px) 100%, cover',
   backgroundPosition: 'right',

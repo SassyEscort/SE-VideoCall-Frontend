@@ -17,11 +17,11 @@ import {
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestLogin from 'views/auth/guestLogin';
 import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
 import ModelSignup from 'views/modelViews/modelSignup';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import ModelSignin from 'views/modelViews/modelSignin';
+import ModelForgetPasswordLink from 'views/modelViews/modelForgetPasswordLink';
 
 const HomeModelTopBanner = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -127,10 +127,10 @@ const HomeModelTopBanner = () => {
           <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
         </UIStyledDialog>
         <UIStyledDialog open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
-          <GuestLogin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
+          <ModelSignin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
         </UIStyledDialog>
         <UIStyledDialog open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
-          <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
+          <ModelForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
         </UIStyledDialog>
       </HomeMainModelContainer>
     </>
