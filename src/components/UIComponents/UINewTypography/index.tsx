@@ -94,6 +94,8 @@ const UINewTypography = styled(Typography)(({ theme }) => ({
       lineHeight: '25.6px'
     }
   }
+
+  
 }));
 
 export default UINewTypography;
