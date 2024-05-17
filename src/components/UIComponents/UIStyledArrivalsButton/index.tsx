@@ -6,7 +6,7 @@ export const UIStyledArrivalsButton = styled(Button)(({ theme }) => ({
   display: 'flex',
   borderRadius: '8px',
   width: '100%',
-  height: '40px',
+  height: '48px',
   backgroundColor: theme.palette.primary[700],
   color: theme.palette.primary[400],
   fontSize: '16px',

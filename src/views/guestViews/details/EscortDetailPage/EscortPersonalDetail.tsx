@@ -42,7 +42,7 @@ const EscortPersonalDetail = () => {
         </DetailsMainBox>
 
         <DetailsTypographyBox>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: isSmDown ? 2 : 3 }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
               <Box>
                 <UINewTypography variant="captionBold">My Appearance</UINewTypography>

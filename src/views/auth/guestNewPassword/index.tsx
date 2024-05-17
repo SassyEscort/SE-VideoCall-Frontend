@@ -140,7 +140,7 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                     </IconButton>
                   </Box>
                 </Box>
-                <Box display="flex" flexDirection="column" gap={3} sx={{ fontSize: '16px', lineHeight: '25.6px' }}>
+                <Box display="flex" flexDirection="column" gap={3}>
                   <Box display="flex" gap={1.5} flexDirection="column">
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                       <UINewTypography variant="bodySemiBold">New password</UINewTypography>

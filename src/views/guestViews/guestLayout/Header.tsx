@@ -1,7 +1,6 @@
 'use client';
 import Box from '@mui/material/Box';
 import Link from 'next/link';
-import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 import IconButton from '@mui/material/IconButton';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -19,6 +18,7 @@ import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestNewPassword from 'views/auth/guestNewPassword';
 import GuestLogin from 'views/auth/guestLogin';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 const HeaderGuestComponent = () => {
   const url = new URL(window.location.href);
@@ -120,9 +120,9 @@ const HeaderGuestComponent = () => {
             {isMdUp && (
               <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }}>
                 <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" loading="lazy" />
-                <Typography variant="buttonLargeMenu">
+                <UINewTypography variant="buttonLargeMenu">
                   <FormattedMessage id="Search" />
-                </Typography>
+                </UINewTypography>
               </Box>
             )}
           </Box>
@@ -131,9 +131,9 @@ const HeaderGuestComponent = () => {
             <Box display="flex" alignItems="center" gap={{ xs: 2.5, sm: 4.5 }}>
               {isMdUp && (
                 <Link prefetch={false} href="/model">
-                  <Typography variant="buttonLargeMenu" color="text.secondary">
+                  <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                     <FormattedMessage id="RegisterAsModel" />
-                  </Typography>
+                  </UINewTypography>
                 </Link>
               )}
               {!isMdUp && (
@@ -153,17 +153,17 @@ const HeaderGuestComponent = () => {
                 <Link prefetch={false} href="/">
                   <Box display="flex" alignItems="center" gap={1} onClick={handleLoginOpen}>
                     <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
-                    <Typography variant="buttonLargeMenu" color="text.secondary">
+                    <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                       <FormattedMessage id="LogIn" />
-                    </Typography>
+                    </UINewTypography>
                   </Box>
                 </Link>
               )}
               {isMdUp && (
                 <UIThemeShadowButton variant="contained" onClick={handleSignupOpen}>
-                  <Typography variant="body">
+                  <UINewTypography variant="body" width={'195px'} lineHeight={'150%'}>
                     <FormattedMessage id="JoinForFREE" />
-                  </Typography>
+                  </UINewTypography>
                 </UIThemeShadowButton>
               )}
             </Box>
