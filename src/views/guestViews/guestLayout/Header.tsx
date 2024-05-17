@@ -171,64 +171,16 @@ const HeaderGuestComponent = () => {
         </Toolbar>
       </AppBar>
       <SideBarGuestMenu open={openSidebar} toggleDrawer={toggleDrawer} />
-      <UIStyledDialog
-        scroll="body"
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        open={open}
-        onClose={handleSignupClose}
-        maxWidth="md"
-        fullWidth
-      >
+      <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
       </UIStyledDialog>
-      <UIStyledDialog
-        scroll="body"
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        open={openLogin}
-        onClose={handleLoginClose}
-        maxWidth="md"
-        fullWidth
-      >
+      <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
         <GuestLogin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
       </UIStyledDialog>
-      <UIStyledDialog
-        scroll="body"
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        open={openForgetPassLink}
-        onClose={handleResetPasswordLinkClose}
-        maxWidth="md"
-        fullWidth
-      >
+      <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
-      <UIStyledDialog
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        scroll="body"
-        open={openChangePassword}
-        onClose={handleChangePasswordClose}
-        maxWidth="md"
-        fullWidth
-      >
+      <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
         <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
       </UIStyledDialog>
     </HomeMainContainer>
