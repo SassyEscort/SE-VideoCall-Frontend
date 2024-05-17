@@ -18,7 +18,7 @@ import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import AuthModelCommon from '../modelSignup/AuthModelCommon';
 import CustomPasswordRegex from 'views/auth/customPasswordRegex';
-import { IconeButtonBox, ModelNewPasswordBox, SetupNewPasswordBox } from './ModelNewPassword.styled';
+import { IconeButtonBox, ModelNewPasswordBox, SetYourNewPasswordBox, SetupNewPasswordBox } from './ModelNewPassword.styled';
 
 export type ResetPasswordParams = {
   email: string;
@@ -93,13 +93,9 @@ const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
               <ModelNewPasswordBox id="hello">
                 <Box sx={{ pt: { xs: 0, sm: '50px' } }}>
                   <SetupNewPasswordBox>
-                    <UINewTypography
-                      variant="MediumSemiBoldText"
-                      color="common.white"
-                      sx={{ display: 'flex', whiteSpace: { xs: 'normal', sm: 'nowrap' }, marginTop: { xs: '100px', sm: 0 } }}
-                    >
+                    <SetYourNewPasswordBox variant="MediumSemiBoldText" color="common.white">
                       Setup your new password
-                    </UINewTypography>
+                    </SetYourNewPasswordBox>
                     <UINewTypography variant="bodyRegular" color="secondary.200" textAlign="center">
                       For the account{' '}
                       <UINewTypography variant="bodySemiBold" color="secondary.200">

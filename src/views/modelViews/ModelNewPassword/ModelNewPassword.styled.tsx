@@ -1,4 +1,5 @@
 import { Box, IconButton, styled } from '@mui/material';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const ModelNewPasswordBox = styled(Box)(({ theme }) => ({
   position: 'relative',
@@ -39,4 +40,18 @@ export const SetupNewPasswordBox = styled(IconButton)(({ theme }) => ({
   gap: '12px',
   alignItems: 'center',
   justifyContent: 'center'
+}));
+
+export const SetYourNewPasswordBox = styled(UINewTypography)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '12px',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginTop: theme.spacing(0),
+  whiteSpace: 'nowrap',
+  [theme.breakpoints.down('sm')]: {
+    marginTop: '100px',
+    whiteSpace: 'normal'
+  }
 }));
