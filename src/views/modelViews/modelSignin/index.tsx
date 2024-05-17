@@ -48,9 +48,9 @@ const ModelSignin = ({
   const handleFormSubmit = async (values: LoginModelParams) => {
     try {
       setLoading(true);
-      const res = await signIn('loginModel', { redirect: false, email: values.email, password: values.password });
+      const res = await signIn('providerModel', { redirect: false, email: values.email, password: values.password });
       if (res?.status === 200) {
-        push('/hello');
+        push('/model/profile');
         onClose();
       } else if (res?.error) {
         setAlert(res.error === 'CredentialsSignin' ? 'Invalid email or password' : 'Something went wrong! Please try again');

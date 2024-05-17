@@ -7,7 +7,6 @@ import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { RiEyeLine, RiEyeOffLine, RiMailLine, RiUserFillLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
@@ -20,6 +19,11 @@ import { toast } from 'react-toastify';
 import { ModelAuthService } from 'services/modelAuth/modelAuth.service';
 import AuthModelCommon from './AuthModelCommon';
 import ModelSignupSuccess from './ModelSignupSuccess';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { ErrorBox } from 'views/auth/AuthCommon.styled';
+import InfoIcon from '@mui/icons-material/Info';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 
 export type ModelSignupParams = {
   name: string;
@@ -28,11 +32,16 @@ export type ModelSignupParams = {
 };
 
 const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
+  const route = useRouter();
+  const { push } = route;
   const isSm = useMediaQuery(theme.breakpoints.down(330));
 
   const [showPassword, setShowPassword] = useState(false);
   const [redirectSeconds, setRedirectSeconds] = useState(3);
   const [activeStep, setActiveStep] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  const [alert, setAlert] = useState('');
 
   useEffect(() => {
     if (activeStep > 0) {
@@ -71,11 +80,30 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
         password: ''
       }}
       validationSchema={validationSchema}
-      onSubmit={async (values) => {
-        const data = await ModelAuthService.modelSignup(values);
-        if (data.code === 200) {
-          setActiveStep(1);
-          toast.success('Signed up successfully!');
+      onSubmit={async (values, { setSubmitting }) => {
+        try {
+          setLoading(true);
+          const data = await ModelAuthService.modelSignup(values);
+          if (data.code === 200) {
+            setActiveStep(1);
+            const loginResponse = await signIn('providerModel', {
+              redirect: false,
+              email: values.email,
+              password: values.password
+            });
+            if (loginResponse?.status === 200) {
+              push('/model/profile');
+              onClose();
+            } else {
+              setAlert('Login after signup failed. Please log in manually.');
+            }
+            toast.success('Signed up successfully!');
+          }
+        } catch (error) {
+          setAlert('An error occurred during signup or login. Please try again.');
+        } finally {
+          setLoading(false);
+          setSubmitting(false);
         }
       }}
     >
@@ -123,7 +151,14 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                         </IconButton>
                       </Box>
                     </Box>
-
+                    <Box sx={{ color: 'primary.300' }}>
+                      {alert && (
+                        <ErrorBox>
+                          <InfoIcon />
+                          <UINewTypography>{alert}</UINewTypography>
+                        </ErrorBox>
+                      )}
+                    </Box>
                     <Box display="flex" flexDirection="column" gap={3}>
                       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                         <UINewTypography variant="bodySemiBold">Name</UINewTypography>
@@ -207,9 +242,9 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                       </Box>
                     </Box>
                     <Box display="flex" flexDirection="column" width="100%" gap="28px">
-                      <UIThemeButton variant="contained" type="submit">
+                      <StyleButtonV2 variant="contained" type="submit" loading={loading}>
                         <UINewTypography variant="buttonLargeBold">Sign Up</UINewTypography>
-                      </UIThemeButton>
+                      </StyleButtonV2>
                       <Box display="flex" flexDirection="column" gap={3}>
                         <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                         <Box display="flex" gap={1} alignItems="center" justifyContent="center" pb={3}>
