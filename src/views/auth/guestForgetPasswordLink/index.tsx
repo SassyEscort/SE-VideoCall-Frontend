@@ -75,7 +75,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                   <>
                     <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
                       <Box display="flex" flexDirection="column" gap="12px" alignItems="center">
-                        <UINewTypography variant="MediumSemiBoldText" color="common.white">
+                        <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ fontWeight: '600', lineHeight: '41.6px' }}>
                           Reset password
                         </UINewTypography>
                         <UINewTypography variant="bodyRegular" color="secondary.200" textAlign="center">
@@ -101,7 +101,9 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
 
                     <Box display="flex" flexDirection="column" gap={3}>
                       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                        <UINewTypography variant="bodySemiBold">Email address</UINewTypography>
+                        <UINewTypography variant="bodySemiBold" sx={{ lineHeight: '25.6px' }}>
+                          Email address
+                        </UINewTypography>
                         <UIStyledInputText
                           fullWidth
                           id="email"
@@ -113,7 +115,8 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                           helperText={touched.email && errors.email}
                           sx={{
                             border: '2px solid',
-                            borderColor: 'secondary.light'
+                            borderColor: 'secondary.light',
+                            width: { sm: '400px' }
                           }}
                           InputProps={{
                             endAdornment: <RiMailLine color="#86838A" />
@@ -123,15 +126,17 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                     </Box>
 
                     <Box display="flex" flexDirection="column" width="100%" gap="28px">
-                      <StyleButtonV2 variant="contained" type="submit" loading={loading}>
-                        <UINewTypography variant="buttonLargeBold">Request link</UINewTypography>
+                      <StyleButtonV2 variant="contained" type="submit" loading={loading} sx={{ width: { sm: '400px' } }}>
+                        <UINewTypography variant="buttonLargeBold" sx={{ lineHeight: '19.2px !important ', fontSize: '16px !important' }}>
+                          Request link
+                        </UINewTypography>
                       </StyleButtonV2>
                     </Box>
                   </>
                 ) : (
                   <CheckInbox onClose={onClose} email={values.email} />
                 )}
-                <Box display="flex" flexDirection="column" gap={3} pb={3} sx={{ paddingTop: { xs: 0, md: '90px' } }}>
+                <Box display="flex" flexDirection="column" gap={isSm ? 0 : 3} pb={3} sx={{ paddingTop: { xs: 0, md: '90px' } }}>
                   <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                   <Box display="flex" gap={1} alignItems="center" justifyContent="center">
                     <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>

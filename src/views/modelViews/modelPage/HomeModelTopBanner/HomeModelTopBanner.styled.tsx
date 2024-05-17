@@ -39,7 +39,7 @@ export const BannerContainer = styled(Box)(({ theme }) => ({
 export const DetailContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(8),
+  gap: theme.spacing(6),
   [theme.breakpoints.down('sm')]: {
     paddingTop: theme.spacing(12)
   },

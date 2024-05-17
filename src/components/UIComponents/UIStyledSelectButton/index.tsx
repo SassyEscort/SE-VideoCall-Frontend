@@ -6,7 +6,7 @@ export const UIStyledSelectButton = styled(Button)(({ theme }) => ({
   display: 'flex',
   borderRadius: '8px',
   width: '100%',
-  height: '40px',
+  height: '48px !important',
   backgroundColor: theme.palette.primary[700],
   color: theme.palette.text.primary,
   fontSize: '16px',

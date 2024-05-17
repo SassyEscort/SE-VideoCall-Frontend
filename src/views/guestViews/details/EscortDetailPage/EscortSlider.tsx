@@ -55,7 +55,7 @@ export const EscortSlider = () => {
         <Box sx={{ maxWidth: '1084px', width: '100%', cursor: 'pointer' }}>
           <Swiper modules={[Navigation, Thumbs, FreeMode]} slidesPerView={1}>
             {workerPhotos.slice(0, 4).map((imageSrc, index) => (
-              <SwiperSlide key={index} style={{ paddingTop: 12 }}>
+              <SwiperSlide key={index} style={{ paddingTop: 24 }}>
                 <Box onClick={() => handleOpenImage(index)}>
                   <EscortSwiperPhotoContainer image={imageSrc.photo} isMain={true} isMobile={false} coordinates={imageSrc.cords ?? ''} />
                 </Box>
@@ -77,7 +77,7 @@ export const EscortSlider = () => {
             {workerPhotos.slice(0, 4).map((imageSrc, index) => (
               <SwiperSlide
                 onClick={() => handleOpenImage(index + 1)}
-                style={{ paddingTop: 12, width: '100%', minWidth: '148px' }}
+                style={{ paddingTop: index === 0 ? '24px' : '12px', width: '100%', minWidth: '148px' }}
                 key={index}
               >
                 <EscortSwiperPhotoContainer image={imageSrc.photo} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />

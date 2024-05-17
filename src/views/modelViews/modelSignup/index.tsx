@@ -35,6 +35,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
   const route = useRouter();
   const { push } = route;
   const isSm = useMediaQuery(theme.breakpoints.down(330));
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [showPassword, setShowPassword] = useState(false);
   const [redirectSeconds, setRedirectSeconds] = useState(3);
@@ -132,8 +133,8 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
               >
                 {activeStep === 0 ? (
                   <>
-                    <Box>
-                      <UINewTypography variant="MediumSemiBoldText" color="common.white">
+                    <Box marginTop={isSmDown ? '100px' : undefined}>
+                      <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ lineHeight: '38.4px' }}>
                         Join Now for Free
                       </UINewTypography>
                       <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
@@ -174,7 +175,8 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           helperText={touched.name && errors.name}
                           sx={{
                             border: '2px solid',
-                            borderColor: 'secondary.light'
+                            borderColor: 'secondary.light',
+                            width: isSmDown ? 'auto' : '400px'
                           }}
                           InputProps={{
                             endAdornment: <RiUserFillLine color="#86838A" />
@@ -194,7 +196,8 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           helperText={touched.email && errors.email}
                           sx={{
                             border: '2px solid',
-                            borderColor: 'secondary.light'
+                            borderColor: 'secondary.light',
+                            width: isSmDown ? 'auto' : '400px'
                           }}
                           InputProps={{
                             endAdornment: <RiMailLine color="#86838A" />
@@ -216,7 +219,8 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             helperText={touched.password && errors.password}
                             sx={{
                               border: '2px solid',
-                              borderColor: 'secondary.light'
+                              borderColor: 'secondary.light',
+                              width: isSmDown ? 'auto' : '400px'
                             }}
                             InputProps={{
                               endAdornment: (
