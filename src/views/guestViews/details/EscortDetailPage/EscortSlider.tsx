@@ -107,7 +107,7 @@ export const EscortSlider = () => {
           >
             <Box display="flex" alignItems="center" gap="10px">
               <Image src="/images/workercards/video-call.svg" alt="video-call" height={24} width={24} />
-              <UINewTypography color="common.white" variant="bodySemiBold" sx={{ textWrap: 'no-wrap' }}>
+              <UINewTypography color="common.white" variant="bodySemiBold" sx={{ textWrap: 'no-wrap', lineHeight: '120%' }}>
                 Start Video Call
               </UINewTypography>
             </Box>

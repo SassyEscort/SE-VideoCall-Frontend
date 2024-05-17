@@ -18,7 +18,7 @@ import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
 import AuthCommon from '../AuthCommon';
 import GuestSignupSuccess from '../GuestSignupSuccess';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
-import { ErrorBox } from '../AuthCommon.styled';
+import { ErrorBox, UITypographyText } from '../AuthCommon.styled';
 import InfoIcon from '@mui/icons-material/Info';
 
 export type SignupParams = {
@@ -111,7 +111,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
               >
                 {activeStep === 0 ? (
                   <>
-                    <Box>
+                    <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
                       <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ lineHeight: '38.4px' }}>
                         Join Now for Free
                       </UINewTypography>
@@ -141,7 +141,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                     </Box>
                     <Box display="flex" flexDirection="column" gap={3} sx={{ width: isLg ? '400px' : 'auto' }}>
                       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                        <UINewTypography variant="bodySemiBold">Username</UINewTypography>
+                        <UITypographyText>Username</UITypographyText>
                         <UIStyledInputText
                           fullWidth
                           id="name"
@@ -161,7 +161,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                         />
                       </Box>
                       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                        <UINewTypography variant="bodySemiBold">Email address</UINewTypography>
+                        <UITypographyText>Email address</UITypographyText>
                         <UIStyledInputText
                           fullWidth
                           id="email"
@@ -182,7 +182,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                       </Box>
                       <Box display="flex" gap={1.5} flexDirection="column">
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                          <UINewTypography variant="bodySemiBold">Password</UINewTypography>
+                          <UITypographyText>Password</UITypographyText>
                           <UIStyledInputText
                             fullWidth
                             type={showPassword ? 'text' : 'password'}

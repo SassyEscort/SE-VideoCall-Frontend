@@ -71,15 +71,7 @@ const EscortPersonalDetail = () => {
               </Box>
               <DetailsChipBox>
                 <UINewChip
-                  icon={
-                    <Box
-                      height={isSmDown ? 16 : 20}
-                      width={isSmDown ? 16 : 20}
-                      component="img"
-                      src={`/images/details-icon/coin-icon.svg`}
-                      alt={'language'}
-                    />
-                  }
+                  icon={<Box height={16} width={16} component="img" src={`/images/details-icon/coin-icon.svg`} alt={'language'} />}
                   label="20 credits/hr"
                 />
               </DetailsChipBox>

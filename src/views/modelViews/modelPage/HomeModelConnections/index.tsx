@@ -26,14 +26,14 @@ const HomeModelConnections = () => {
 
   return (
     <>
-      {isSmDown ? <VectorLinesMobile /> : <VectorLines />}
       <HomeMainModelContainer>
         <Box
           sx={{
             position: 'relative',
-            mt: isSmDown ? '96px' : '112px'
+            mt: isSmDown ? '96px' : '170px'
           }}
         >
+          {isSmDown ? <VectorLinesMobile /> : <VectorLines />}
           <DullCircles />
           <DullCircles2 />
           <DullCircles3 />
@@ -59,7 +59,7 @@ const HomeModelConnections = () => {
                     width={24}
                     height={24}
                     src="/images/home-search-img.png"
-                    style={{ width: isSmDown ? 20 : 24, height: isSmDown ? 20 : 24 }}
+                    style={{ width: isSmDown ? 14 : 17, height: isSmDown ? 14 : 17 }}
                   />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
@@ -85,8 +85,8 @@ const HomeModelConnections = () => {
                     alt="home_model"
                     width={24}
                     height={24}
-                    src="/images/home-choose-your-model-img.png"
-                    style={{ width: isSmDown ? 20 : 24, height: isSmDown ? 20 : 24 }}
+                    src="/images/icons/doller.png"
+                    style={{ width: isSmDown ? 14 : 17, height: isSmDown ? 14 : 17 }}
                   />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
@@ -112,8 +112,8 @@ const HomeModelConnections = () => {
                     alt="home_model"
                     width={24}
                     height={24}
-                    src="/images/home-connect-instantly-img.png"
-                    style={{ width: isSmDown ? 20 : 24, height: isSmDown ? 20 : 24 }}
+                    src="/images/icons/lock.png"
+                    style={{ width: isSmDown ? 14 : 17, height: isSmDown ? 14 : 17 }}
                   />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
@@ -148,8 +148,8 @@ const HomeModelConnections = () => {
                     alt="home_model"
                     width={24}
                     height={24}
-                    src="/images/home-search-img.png"
-                    style={{ width: isSmDown ? 20 : 24, height: isSmDown ? 20 : 24 }}
+                    src="/images/icons/earth.png"
+                    style={{ width: isSmDown ? 14 : 17, height: isSmDown ? 14 : 17 }}
                   />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
@@ -175,8 +175,8 @@ const HomeModelConnections = () => {
                     alt="home_model"
                     width={24}
                     height={24}
-                    src="/images/home-choose-your-model-img.png"
-                    style={{ width: isSmDown ? 20 : 24, height: isSmDown ? 20 : 24 }}
+                    src="/images/icons/user.png"
+                    style={{ width: isSmDown ? 14 : 17, height: isSmDown ? 14 : 17 }}
                   />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
@@ -202,8 +202,8 @@ const HomeModelConnections = () => {
                     alt="home_model"
                     width={24}
                     height={24}
-                    src="/images/home-connect-instantly-img.png"
-                    style={{ width: isSmDown ? 20 : 24, height: isSmDown ? 20 : 24 }}
+                    src="/images/icons/users.png"
+                    style={{ width: isSmDown ? 14 : 17, height: isSmDown ? 14 : 17 }}
                   />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>

@@ -16,30 +16,32 @@ const EscortExplore = () => {
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   return (
     <>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, mt: isSmDown ? 12 : 15 }}>
-        <ExploreEscortText>
-          <HomeExploreBox>
-            <UINewTypography
-              textAlign="center"
-              color="text.secondary"
-              sx={{ fontSize: { xs: '24px', sm: '40px' }, fontWeight: 700, lineHeight: { xs: '32px', sm: '52px' } }}
-            >
-              <FormattedMessage id="ExploreYourChoices" />
-            </UINewTypography>
-            <SubTitle>
-              <FormattedMessage id="SelectTheCompanion" />
-            </SubTitle>
-          </HomeExploreBox>
-        </ExploreEscortText>
-        <Box sx={{ width: '100%', maxWidth: '711px' }}>
-          <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} gap={{ xs: 1.5, sm: 4 }}>
-            <Box display="flex" gap={{ xs: 1.5, sm: 4 }} width="100%" maxWidth={{ xs: '267px', sm: '305px' }}>
-              <CountryFilter />
-              <AgeFilter />
-            </Box>
-            <Box display="flex" gap={{ xs: 1.5, sm: 4 }} width="100%" flexWrap={isSm ? 'wrap' : 'nowrap'}>
-              <CurrentlyOnline />
-              <NewArrivals />
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, mt: isSmDown ? 12 : 15 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+          <ExploreEscortText>
+            <HomeExploreBox>
+              <UINewTypography
+                textAlign="center"
+                color="text.secondary"
+                sx={{ fontSize: { xs: '24px', sm: '40px' }, fontWeight: 700, lineHeight: { xs: '32px', sm: '52px' } }}
+              >
+                <FormattedMessage id="ExploreYourChoices" />
+              </UINewTypography>
+              <SubTitle>
+                <FormattedMessage id="SelectTheCompanion" />
+              </SubTitle>
+            </HomeExploreBox>
+          </ExploreEscortText>
+          <Box sx={{ width: '100%', maxWidth: '711px' }}>
+            <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} gap={{ xs: 1.5, sm: 4 }}>
+              <Box display="flex" gap={{ xs: 1.5, sm: 4 }} width="100%" maxWidth={{ xs: '267px', sm: '305px' }}>
+                <CountryFilter />
+                <AgeFilter />
+              </Box>
+              <Box display="flex" gap={{ xs: 1.5, sm: 4 }} width="100%" flexWrap={isSm ? 'wrap' : 'nowrap'}>
+                <CurrentlyOnline />
+                <NewArrivals />
+              </Box>
             </Box>
           </Box>
         </Box>
