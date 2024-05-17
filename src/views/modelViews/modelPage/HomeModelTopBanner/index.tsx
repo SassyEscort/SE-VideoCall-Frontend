@@ -18,16 +18,15 @@ import {
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestLogin from 'views/auth/guestLogin';
 import ModelSignup from 'views/modelViews/modelSignup';
+import ModelSignin from 'views/modelViews/modelSignin';
 
 const HomeModelTopBanner = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
-  const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  // const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -43,10 +42,10 @@ const HomeModelTopBanner = () => {
     setIsOpenLogin(true);
   };
 
-  const handleLoginResetPasswordOpen = () => {
-    setOpenForgetPassLink(false);
-    setIsOpenLogin(true);
-  };
+  // const handleLoginResetPasswordOpen = () => {
+  //   setOpenForgetPassLink(false);
+  //   setIsOpenLogin(true);
+  // };
 
   const handleLoginClose = () => {
     setIsOpenLogin(false);
@@ -54,12 +53,12 @@ const HomeModelTopBanner = () => {
 
   const handleResetPasswordLinkOpen = () => {
     setIsOpenLogin(false);
-    setOpenForgetPassLink(true);
+    // setOpenForgetPassLink(true);
   };
 
-  const handleResetPasswordLinkClose = () => {
-    setOpenForgetPassLink(false);
-  };
+  // const handleResetPasswordLinkClose = () => {
+  //   setOpenForgetPassLink(false);
+  // };
 
   return (
     <>
@@ -70,7 +69,11 @@ const HomeModelTopBanner = () => {
               Join our premier
               {(!isSmDown || isSm) && ' platform and connect with a'} &nbsp;
               <Box component="span" position="relative">
-                {isSmDown && !isSm && <InlineBoxRelativeNocolor>platform and connect</InlineBoxRelativeNocolor>}
+                {isSmDown && !isSm && (
+                  <InlineBoxRelativeNocolor>
+                    <FormattedMessage id="PlatformAndConnect" />
+                  </InlineBoxRelativeNocolor>
+                )}
                 <InlineBoxRelative>
                   {isSmDown && !isSm && (
                     <UINewTypography variant="MediumSemiBoldText" color="common.white" textAlign="center">
@@ -121,48 +124,16 @@ const HomeModelTopBanner = () => {
           />
         </ImageContainer>
       </BannerContainer>
-      <NewDialogBox
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        open={open}
-        onClose={handleSignupClose}
-        maxWidth="md"
-        fullWidth
-      >
+      <NewDialogBox open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
       </NewDialogBox>
-      <NewDialogBox
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        open={openLogin}
-        onClose={handleLoginClose}
-        maxWidth="md"
-        fullWidth
-      >
-        <GuestLogin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
+      <NewDialogBox open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
+        <ModelSignin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
       </NewDialogBox>
-      <NewDialogBox
-        PaperProps={{
-          sx: {
-            maxWidth: 920,
-            borderRadius: '12px'
-          }
-        }}
-        open={openForgetPassLink}
-        onClose={handleResetPasswordLinkClose}
-        maxWidth="md"
-        fullWidth
-      >
+      {/* Dont,t remove add model forget model in this */}
+      {/* <NewDialogBox open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
-      </NewDialogBox>
+      </NewDialogBox> */}
     </>
   );
 };

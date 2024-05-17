@@ -174,5 +174,28 @@ export const MainChildContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  textAlign: 'center'
+  textAlign: 'center',
+  marginTop: theme.spacing(7),
+  flexDirection: 'row',
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    gap: theme.spacing(5)
+  }
+}));
+
+export const ChildMainContainer = styled(Box)(({ theme }) => ({
+  position: 'relative',
+  marginTop: theme.spacing(21.25),
+  [theme.breakpoints.down('sm')]: {
+    marginTop: theme.spacing(12)
+  }
+}));
+
+export const TypographyMainContainer = styled(Box)(({ theme }) => ({
+  width: '100%',
+  maxWidth: '314px',
+  marginTop: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    marginTop: theme.spacing(1.75)
+  }
 }));

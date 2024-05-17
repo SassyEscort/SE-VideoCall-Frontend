@@ -1,5 +1,3 @@
-import Box from '@mui/material/Box';
-import Image from 'next/image';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -7,6 +5,7 @@ import {
   BoxImageBackground,
   BoxImageBackgroundChild,
   BoxMain,
+  ChildMainContainer,
   DullCircles,
   DullCircles2,
   DullCircles3,
@@ -16,10 +15,14 @@ import {
   MainChildContainer,
   TextMainTitleTyporaphy,
   TextTitleTyporaphy,
+  TypographyMainContainer,
   VectorLines,
   VectorLinesMobile
 } from './HomeModelConnections.styled';
 import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
+import { FormattedMessage } from 'react-intl';
+import { HomeModelConnectionsTypography } from 'components/UIComponents/UIthemeTypography/HomeConnections.styled';
+import { UIThemeNextImage } from 'components/UIComponents/UIThemeImageNext';
 
 const HomeModelConnections = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -27,12 +30,7 @@ const HomeModelConnections = () => {
   return (
     <>
       <HomeMainModelContainer>
-        <Box
-          sx={{
-            position: 'relative',
-            mt: isSmDown ? '96px' : '170px'
-          }}
-        >
+        <ChildMainContainer>
           {isSmDown ? <VectorLinesMobile /> : <VectorLines />}
           <DullCircles />
           <DullCircles2 />
@@ -40,190 +38,116 @@ const HomeModelConnections = () => {
           <DullCircles4 />
           <DullCircles5 />
           <HomeMainBox>
-            <TextMainTitleTyporaphy>Why Join us?</TextMainTitleTyporaphy>
-            <TextTitleTyporaphy>Empowering you, Empowering your career.</TextTitleTyporaphy>
+            <TextMainTitleTyporaphy>
+              <FormattedMessage id="WhyJoinUs" />
+            </TextMainTitleTyporaphy>
+            <TextTitleTyporaphy>
+              <FormattedMessage id="EmpoweringYouEmpoweringYourCareer" />
+            </TextTitleTyporaphy>
           </HomeMainBox>
 
-          <MainChildContainer
-            sx={{
-              mt: isSmDown ? 7 : 7,
-              flexDirection: isSmDown ? 'column' : 'row',
-              gap: isSmDown ? 5 : 0
-            }}
-          >
+          <MainChildContainer>
             <BoxMain>
               <BoxImageBackground>
                 <BoxImageBackgroundChild>
-                  <Image
-                    alt="home_model"
-                    width={24}
-                    height={24}
-                    src="/images/home-search-img.png"
-                    style={{ width: isSmDown ? 14 : 17, height: isSmDown ? 14 : 17 }}
-                  />
+                  <UIThemeNextImage alt="home_model" width={17} height={17} src="/images/home-search-img.png" />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
-              <UINewTypography variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'} sx={{ mt: { xs: 2, sm: 2.75 } }}>
-                Work on Your Terms
-              </UINewTypography>
-              <Box sx={{ width: '100%', maxWidth: '314px', mt: isSmDown ? 1.75 : 2 }}>
-                <UINewTypography
-                  variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                  sx={{
-                    width: '100%'
-                  }}
-                >
-                  Enjoy the freedom to set your own hours and work from anywhere in the world. You control your schedule.
+              <HomeModelConnectionsTypography variant={isSmDown ? 'body' : 'h6'}>
+                <FormattedMessage id="WorkOnYourTerms" />
+              </HomeModelConnectionsTypography>
+              <TypographyMainContainer>
+                <UINewTypography variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
+                  <FormattedMessage id="EnjoyTheFreedom" />
                 </UINewTypography>
-              </Box>
+              </TypographyMainContainer>
             </BoxMain>
 
             <BoxMain>
               <BoxImageBackground>
                 <BoxImageBackgroundChild>
-                  <Image
-                    alt="home_model"
-                    width={24}
-                    height={24}
-                    src="/images/icons/doller.png"
-                    style={{ width: isSmDown ? 14 : 17, height: isSmDown ? 14 : 17 }}
-                  />
+                  <UIThemeNextImage alt="home_model" width={15} height={20} src="/images/icons/doller.png" />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
-              <UINewTypography variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'} sx={{ mt: { xs: 2, sm: 2.75 } }}>
-                Competitive Earnings
-              </UINewTypography>
-              <Box sx={{ width: '100%', maxWidth: '314px', mt: isSmDown ? 1.75 : 2 }}>
-                <UINewTypography
-                  variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                  sx={{
-                    width: '100%'
-                  }}
-                >
-                  Benefit from competitive pay rates and a transparent payout system. Our platform enables you to enhance your earnings.
+              <HomeModelConnectionsTypography variant={isSmDown ? 'body' : 'h6'}>
+                <FormattedMessage id="CompetitiveEarnings" />
+              </HomeModelConnectionsTypography>
+              <TypographyMainContainer>
+                <UINewTypography variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
+                  <FormattedMessage id="BenefitFrom" />
                 </UINewTypography>
-              </Box>
+              </TypographyMainContainer>
             </BoxMain>
 
             <BoxMain>
               <BoxImageBackground>
                 <BoxImageBackgroundChild>
-                  <Image
-                    alt="home_model"
-                    width={24}
-                    height={24}
-                    src="/images/icons/lock.png"
-                    style={{ width: isSmDown ? 14 : 17, height: isSmDown ? 14 : 17 }}
-                  />
+                  <UIThemeNextImage alt="home_model" width={17} height={20} src="/images/icons/lock.png" />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
-              <UINewTypography variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'} sx={{ mt: { xs: 2, sm: 2.75 } }}>
-                Your Privacy, Our Priority
-              </UINewTypography>
+              <HomeModelConnectionsTypography variant={isSmDown ? 'body' : 'h6'}>
+                <FormattedMessage id="YourPrivacyOurPriority" />
+              </HomeModelConnectionsTypography>
 
-              <Box sx={{ width: '100%', maxWidth: '314px', mt: isSmDown ? 1.75 : 2 }}>
-                <UINewTypography
-                  variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                  sx={{
-                    width: '100%'
-                  }}
-                >
-                  We are committed to maintaining a safe & secure environ. Advanced privacy settings allow you to manage what you share.
+              <TypographyMainContainer>
+                <UINewTypography variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
+                  <FormattedMessage id="WeAreCommitted" />
                 </UINewTypography>
-              </Box>
+              </TypographyMainContainer>
             </BoxMain>
           </MainChildContainer>
 
-          <MainChildContainer
-            sx={{
-              mt: isSmDown ? 7 : 6,
-              flexDirection: isSmDown ? 'column' : 'row',
-              gap: isSmDown ? 5 : 0
-            }}
-          >
+          <MainChildContainer>
             <BoxMain>
               <BoxImageBackground>
                 <BoxImageBackgroundChild>
-                  <Image
-                    alt="home_model"
-                    width={24}
-                    height={24}
-                    src="/images/icons/earth.png"
-                    style={{ width: isSmDown ? 14 : 17, height: isSmDown ? 14 : 17 }}
-                  />
+                  <UIThemeNextImage alt="home_model" width={21} height={21} src="/images/icons/earth.png" />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
-              <UINewTypography variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'} sx={{ mt: { xs: 2, sm: 2.75 } }}>
-                Connect with a Global Audience
-              </UINewTypography>
-              <Box sx={{ width: '100%', maxWidth: '314px', mt: isSmDown ? 1.75 : 2 }}>
-                <UINewTypography
-                  variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                  sx={{
-                    width: '100%'
-                  }}
-                >
-                  Expand your reach & connect with clients from all over the world. We offers you establish a diverse & expansive clientele.
+              <HomeModelConnectionsTypography variant={isSmDown ? 'body' : 'h6'}>
+                <FormattedMessage id="ConnectWithAGlobalAudience" />
+              </HomeModelConnectionsTypography>
+              <TypographyMainContainer>
+                <UINewTypography variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
+                  <FormattedMessage id="ExpandYourReach" />
                 </UINewTypography>
-              </Box>
+              </TypographyMainContainer>
             </BoxMain>
 
             <BoxMain>
               <BoxImageBackground>
                 <BoxImageBackgroundChild>
-                  <Image
-                    alt="home_model"
-                    width={24}
-                    height={24}
-                    src="/images/icons/user.png"
-                    style={{ width: isSmDown ? 14 : 17, height: isSmDown ? 14 : 17 }}
-                  />
+                  <UIThemeNextImage alt="home_model" width={15} height={21} src="/images/icons/user.png" />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
-              <UINewTypography variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'} sx={{ mt: { xs: 2, sm: 2.75 } }}>
-                24/7 Live Support
-              </UINewTypography>
-              <Box sx={{ width: '100%', maxWidth: '314px', mt: isSmDown ? 1.75 : 2 }}>
-                <UINewTypography
-                  variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                  sx={{
-                    width: '100%'
-                  }}
-                >
-                  Day or night, our dedicated support team is just a click away. Whether you have a quick question or need assistance.
+              <HomeModelConnectionsTypography variant={isSmDown ? 'body' : 'h6'}>
+                <FormattedMessage id="24LiveSupport" />
+              </HomeModelConnectionsTypography>
+              <TypographyMainContainer>
+                <UINewTypography variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
+                  <FormattedMessage id="DayOrNight" />
                 </UINewTypography>
-              </Box>
+              </TypographyMainContainer>
             </BoxMain>
 
             <BoxMain>
               <BoxImageBackground>
                 <BoxImageBackgroundChild>
-                  <Image
-                    alt="home_model"
-                    width={24}
-                    height={24}
-                    src="/images/icons/users.png"
-                    style={{ width: isSmDown ? 14 : 17, height: isSmDown ? 14 : 17 }}
-                  />
+                  <UIThemeNextImage alt="home_model" width={21} height={21} src="/images/icons/users.png" />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
-              <UINewTypography variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'} sx={{ mt: { xs: 2, sm: 2.75 } }}>
-                Join a Thriving Community
-              </UINewTypography>
+              <HomeModelConnectionsTypography variant={isSmDown ? 'body' : 'h6'}>
+                <FormattedMessage id="JoinAThrivingCommunity" />
+              </HomeModelConnectionsTypography>
 
-              <Box sx={{ width: '100%', maxWidth: '314px', mt: isSmDown ? 1.75 : 2 }}>
-                <UINewTypography
-                  variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                  sx={{
-                    width: '100%'
-                  }}
-                >
-                  Become part of a supportive network of peers who share your passions & ambitions. Support, inspire, & collaborate
+              <TypographyMainContainer>
+                <UINewTypography variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
+                  <FormattedMessage id="BecomePartOfASupportive" />
                 </UINewTypography>
-              </Box>
+              </TypographyMainContainer>
             </BoxMain>
           </MainChildContainer>
-        </Box>
+        </ChildMainContainer>
       </HomeMainModelContainer>
     </>
   );
