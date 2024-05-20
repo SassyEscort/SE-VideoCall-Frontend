@@ -5,6 +5,8 @@ import React from 'react';
 import {
   CallHistoryMainContainer,
   CallHistoryText,
+  ImgBoxContainer,
+  SecImgBoxContainer,
   SecondContainer,
   SecondSubContainer,
   SecondSubFirstBox,
@@ -51,16 +53,7 @@ const CallHistory = () => {
                       </SecondSubFirstPartSecondBoxSecText>
                     </SecondSubFirstPartSecondBoxFirstText>
                     <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
-                      <Box
-                        component="img"
-                        src="/images/workercards/dollar-img.png"
-                        sx={{
-                          width: '100%',
-                          maxWidth: '16px',
-                          height: '100%',
-                          maxHeight: '16px'
-                        }}
-                      />
+                      <ImgBoxContainer src="/images/workercards/dollar-img.png" />
                       <UINewTypography variant="captionLargeBold" color="#E9E8EB">
                         20 credits/hr
                       </UINewTypography>
@@ -76,16 +69,7 @@ const CallHistory = () => {
                       Credits used:
                     </UINewTypography>
                     <SecondSubFirstPartThiredBoxText>
-                      <Box
-                        component="img"
-                        src="/images/workercards/dollar-img.png"
-                        sx={{
-                          width: '100%',
-                          maxWidth: '16px',
-                          height: '100%',
-                          maxHeight: '16px'
-                        }}
-                      />
+                      <ImgBoxContainer src="/images/workercards/dollar-img.png" />
                       <UINewTypography variant="buttonLargeMenu" color="text.primary">
                         35
                       </UINewTypography>
@@ -96,16 +80,7 @@ const CallHistory = () => {
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '12px' }}>
                 <UIThemeShadowButton variant="contained" sx={{ width: '100%', maxWidth: { xs: '363px', sm: '173px' } }}>
                   <Box sx={{ display: 'flex', gap: 1.25 }}>
-                    <Box
-                      component="img"
-                      src="/images/home-connect-instantly-img.png"
-                      sx={{
-                        width: '100%',
-                        maxWidth: '24px',
-                        height: '100%',
-                        maxHeight: '24px'
-                      }}
-                    />
+                    <SecImgBoxContainer src="/images/home-connect-instantly-img.png" />
                     <Box sx={{ whiteSpace: 'nowrap' }}>
                       <UINewTypography variant="bodySemiBold" color="white.main">
                         Call again
