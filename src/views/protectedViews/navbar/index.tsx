@@ -31,7 +31,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
 
   const modifiedPath = router.split('/profile').join('').split('/').join('');
 
-  const tabIndex = maindashboardTabIndex[modifiedPath] || -1;
+  const tabIndex = maindashboardTabIndex[modifiedPath] || 2;
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
