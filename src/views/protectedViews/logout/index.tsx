@@ -1,6 +1,4 @@
 'use client';
-import * as React from 'react';
-
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
@@ -17,19 +15,19 @@ import {
   DialogTitleBox
 } from './Logout.styled';
 import theme from 'themes/theme';
+import { signOut } from 'next-auth/react';
 
-const Logout = () => {
-  const [open, setOpen] = React.useState(true);
+const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleConfirmLogout = async () => {
+    await signOut({ callbackUrl: '/' });
   };
 
   return (
     <Dialog
       open={open}
-      onClose={handleClose}
+      onClose={onClose}
       fullWidth
       sx={{
         '& .MuiDialog-paper': {
@@ -48,7 +46,7 @@ const Logout = () => {
 
         <IconButton
           aria-label="close"
-          onClick={handleClose}
+          onClick={onClose}
           sx={{
             color: (theme) => theme.palette.text.secondary
           }}
@@ -72,7 +70,7 @@ const Logout = () => {
               <UINewTypography variant="h5">Are you sure you want to log out?</UINewTypography>
             </DialogContentBoxQuestion>
             <DialogContentBoxButton>
-              <UIThemeButton variant="contained" sx={{ width: '100%', maxWidth: '231px' }}>
+              <UIThemeButton variant="contained" sx={{ width: '100%', maxWidth: '231px' }} onClick={handleConfirmLogout}>
                 <UINewTypography variant="buttonLargeBold" color={'primary.200'}>
                   Confirm
                 </UINewTypography>
