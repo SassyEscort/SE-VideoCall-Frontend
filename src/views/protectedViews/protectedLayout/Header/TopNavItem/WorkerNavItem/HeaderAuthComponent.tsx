@@ -1,5 +1,3 @@
-import Link from 'next/link';
-import Image from 'next/image';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -8,14 +6,14 @@ import LanguageDropdown from 'components/common/LanguageDropdown';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import ProfileMenu from './ProfileMenu';
-import { MouseEvent, useState } from 'react';
+import { useState } from 'react';
 
 export type NotificationFilters = {
   page: number;
   isRead?: number;
 };
 
-const HeaderAuthComponent = ({ toggleDrawer }: { toggleDrawer: (open: boolean) => void }) => {
+const HeaderAuthComponent = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -30,12 +28,6 @@ const HeaderAuthComponent = ({ toggleDrawer }: { toggleDrawer: (open: boolean) =
   return (
     <>
       <Box display="flex" alignItems="center" gap={{ xs: 2.5, sm: 4.5 }}>
-        {!isMdUp && (
-          <Box display="flex" alignItems="center" gap={1} component={Link} prefetch={false} href="/search">
-            <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" loading="lazy" />
-            hello
-          </Box>
-        )}
         <Box display="flex">
           <LanguageDropdown />
         </Box>
@@ -48,19 +40,21 @@ const HeaderAuthComponent = ({ toggleDrawer }: { toggleDrawer: (open: boolean) =
           </Box>
         )}
 
-        <IconButton sx={{ height: 24, width: 24 }}>
-          <>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row-reverse',
-                position: 'relative'
-              }}
-            >
-              <Box component="img" src="/images/header/heart.png" />
-            </Box>
-          </>
-        </IconButton>
+        {isMdUp && (
+          <IconButton sx={{ height: 24, width: 24 }}>
+            <>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row-reverse',
+                  position: 'relative'
+                }}
+              >
+                <Box component="img" src="/images/header/heart.png" />
+              </Box>
+            </>
+          </IconButton>
+        )}
         <IconButton sx={{ height: 24, width: 24 }}>
           <>
             <Box
@@ -74,19 +68,9 @@ const HeaderAuthComponent = ({ toggleDrawer }: { toggleDrawer: (open: boolean) =
               <Box component="img" src="/images/header/noti.png" />
             </Box>
           </>
-          {/* <Box component="img" src="/images/header/noti.png" /> */}
         </IconButton>
         <Box display="flex" alignItems="center" gap={1}>
-          <Box
-            display="flex"
-            alignItems="center"
-            gap={1}
-            sx={{ cursor: 'pointer' }}
-            onClick={(event: MouseEvent<HTMLElement>) => {
-              !isMdUp ? toggleDrawer(true) : setOpenProfileMenu(true);
-              setAnchorEl(event.currentTarget);
-            }}
-          >
+          <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }}>
             <IconButton
               id="profile-menu"
               aria-controls={openProfileMenu ? 'profile-menu' : undefined}

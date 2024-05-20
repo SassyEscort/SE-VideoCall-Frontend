@@ -11,27 +11,23 @@ export const MainDashboardTabs = [
   },
   {
     name: 'Favourites',
-    path: '/profile/credits',
+    path: '/profile/favourites',
     img: '/images/profile-vector/Vector-2.png'
   },
   {
     name: 'Calls History',
-    path: '/profile/billing',
+    path: '/profile/Call',
     img: '/images/profile-vector/Vector-3.png'
   },
   {
     name: 'Credit',
-    path: '/profile/promotions',
+    path: '/profile/credit',
     img: '/images/profile-vector/Vector-4.png'
   },
   {
     name: 'Billing History',
     path: '/profile/billing',
     img: '/images/profile-vector/Vector-5.png'
-  }
-  // {
-  //   name: 'Logout',
-  //   path: '/profile/photos',
-  //   img: '/images/dashboard/photosvideo.png'
-  // }
+  },
+
 ];

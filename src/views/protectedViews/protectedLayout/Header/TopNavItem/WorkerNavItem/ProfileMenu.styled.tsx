@@ -1,0 +1,36 @@
+import { Toolbar } from '@mui/material';
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
+
+export const ProfileMenuMainContainer = styled(Box)(({ theme }) => ({
+  width: '100%',
+  minWidth: '130px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  '& .MuiMenuItem-root ': { width: '100%' },
+  paddingTop: theme.spacing(0.875),
+  paddingBottom: theme.spacing(0.875)
+}));
+
+export const WorkerNavItemContainer = styled(Toolbar)(({ theme }) => ({
+  justifyContent: 'space-between',
+  [theme.breakpoints.down('md')]: {
+    paddingRight: '15px',
+    paddingLeft: '15px',
+    paddingTop: theme.spacing(2.25),
+    paddingBottom: theme.spacing(2.25)
+  },
+  [theme.breakpoints.up('sm')]: {
+    paddingTop: '15px',
+    paddingBottom: '17px'
+  },
+  [theme.breakpoints.up('md')]: {
+    paddingRight: theme.spacing(16.75),
+    paddingLeft: theme.spacing(16.75)
+  }
+}));
+
+// px: { xs: '15px', lg: '134px' },
+// pt: { xs: '18px', sm: '15px' },
+// pb: { xs: '18px', sm: '17px' },

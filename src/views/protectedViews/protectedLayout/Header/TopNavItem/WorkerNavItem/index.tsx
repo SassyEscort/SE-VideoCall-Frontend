@@ -1,30 +1,16 @@
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
 import HeaderAuthComponent from './HeaderAuthComponent';
-import SideBarMenu from '../SideBarMenu';
-// import MoreFilters from '@/components/SearchPage/MoreFilters';
 import Image from 'next/image';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { WorkerNavItemContainer } from './ProfileMenu.styled';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import theme from 'themes/theme';
 
 const WorkerNavItem = () => {
-  const [openSidebar, setOpenSidebar] = useState(false);
-  // const [openFilterModal, setOpenFilterModal] = useState(false);
-
-  const toggleDrawer = (open: boolean) => {
-    setOpenSidebar(open);
-  };
-
-  // const handleOpenFilterModal = () => {
-  //   setOpenFilterModal(true);
-  // };
-
-  // const handleCloseFilterModal = () => {
-  //   setOpenFilterModal(false);
-  // };
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
     <>
@@ -36,15 +22,7 @@ const WorkerNavItem = () => {
           boxShadow: 'none'
         }}
       >
-        <Toolbar
-          disableGutters
-          sx={{
-            px: { xs: '15px', lg: '134px' },
-            pt: { xs: '18px', sm: '15px' },
-            pb: { xs: '18px', sm: '17px' },
-            justifyContent: 'space-between'
-          }}
-        >
+        <WorkerNavItemContainer disableGutters>
           <Box display="flex" gap={6}>
             <Box
               component={Link}
@@ -66,19 +44,18 @@ const WorkerNavItem = () => {
                 loading="lazy"
               />
             </Box>
-            <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }}>
-              <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" loading="lazy" />
-              <Typography variant="buttonLargeMenu">Search</Typography>
-            </Box>
+            {isMdUp && (
+              <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }}>
+                <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" loading="lazy" />
+                <Typography variant="buttonLargeMenu">Search</Typography>
+              </Box>
+            )}
           </Box>
           <Box display="flex" gap={2}>
-            <HeaderAuthComponent toggleDrawer={toggleDrawer} />
+            <HeaderAuthComponent />
           </Box>
-        </Toolbar>
+        </WorkerNavItemContainer>
       </AppBar>
-      <SideBarMenu open={openSidebar} toggleDrawer={toggleDrawer} />
-      <Box sx={{ height: { xs: 72, sm: 68 } }}></Box>
-      {/* <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} /> */}
     </>
   );
 };

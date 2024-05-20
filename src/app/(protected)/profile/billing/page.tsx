@@ -2,7 +2,7 @@
 
 import BillingHistory from 'views/protectedViews/BillingHistory';
 
-const index = () => {
+const BillingPage = () => {
   return (
     <>
       <BillingHistory />
@@ -10,4 +10,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default BillingPage;

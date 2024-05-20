@@ -49,3 +49,10 @@ export const SelectedTab = styled(Box)(({ theme }) => ({
   opacity: 0.8,
   color: theme.palette.primary.main
 }));
+
+export const NavBarBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  gap: theme.spacing(4)
+}));

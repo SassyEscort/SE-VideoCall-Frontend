@@ -1,20 +1,13 @@
 import Link from 'next/link';
 import Box from '@mui/material/Box';
 import { MainDashboardTabs } from 'constants/escortConstants';
-import { CommonMenuBox, MainDashboardSideMenuMainBox, SelectedTab } from './nav.styled';
+import { CommonMenuBox, MainDashboardSideMenuMainBox, NavBarBoxContainer, SelectedTab } from './nav.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 const Navbar = ({ tabIndex }: { tabIndex: number }) => {
   return (
     <MainDashboardSideMenuMainBox>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          gap: 4
-        }}
-      >
+      <NavBarBoxContainer>
         {MainDashboardTabs.map((tab, index) =>
           index === tabIndex - 1 ? (
             <Link prefetch={false} href={tab.path} key={index} style={{ textDecoration: 'none' }}>
@@ -44,7 +37,7 @@ const Navbar = ({ tabIndex }: { tabIndex: number }) => {
           <Box component="img" src="/images/profile-vector/Vector-6.png" />
           <UINewTypography variant="buttonLargeMenu">Logout</UINewTypography>
         </CommonMenuBox>
-      </Box>
+      </NavBarBoxContainer>
     </MainDashboardSideMenuMainBox>
   );
 };
