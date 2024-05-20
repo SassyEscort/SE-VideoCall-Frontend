@@ -7,7 +7,6 @@ import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSha
 import {
   InputTypeBoxOne,
   InputTypeBoxSecond,
-  UIStyledDropDownInputText,
   VerificationStep2MainContainer,
   VerificationStep2MainContainerSecond,
   VerificationStep2MainContainerThree
@@ -31,7 +30,9 @@ const VerificationStep2 = () => {
         idNumber: ''
       }}
       validationSchema={validationVerificationSchema}
-      onSubmit={(values) => {}}
+      onSubmit={(values) => {
+        // console.log('hello', values);
+      }}
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
@@ -56,7 +57,7 @@ const VerificationStep2 = () => {
                   <UINewTypography>*</UINewTypography>
                 </Box>
                 <Box sx={{ maxWidth: '390px' }}>
-                  <UIStyledDropDownInputText
+                  <UIStyledInputText
                     fullWidth
                     id="idType"
                     name="idType"
