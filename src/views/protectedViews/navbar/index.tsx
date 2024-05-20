@@ -45,7 +45,6 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
         PaperProps={{
           sx: {
             border: 'none',
-            backgroundColor: 'transparent',
             width: 299,
             position: 'static'
           }
