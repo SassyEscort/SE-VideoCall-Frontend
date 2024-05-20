@@ -3,6 +3,7 @@ import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard'
 import { ButtonMainBox, WorkerCardMainBox } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UIThemeBorderButton from 'components/UIComponents/UIStyledBorderButton';
+import { FormattedMessage } from 'react-intl';
 
 const HomeImageCard = () => {
   return (
@@ -18,7 +19,9 @@ const HomeImageCard = () => {
           ))}
         </Grid>
         <ButtonMainBox>
-          <UIThemeBorderButton variant="outlined">Load More</UIThemeBorderButton>
+          <UIThemeBorderButton variant="outlined">
+            <FormattedMessage id="LoadMore" />
+          </UIThemeBorderButton>
         </ButtonMainBox>
       </WorkerCardMainBox>
     </HomeMainContainer>

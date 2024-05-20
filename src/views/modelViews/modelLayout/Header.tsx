@@ -153,7 +153,7 @@ const HeaderModelComponent = () => {
                 </Box>
               )}
               {isMdUp && (
-                <UIThemeShadowButton variant="contained" onClick={handleSignupOpen}>
+                <UIThemeShadowButton variant="contained" onClick={handleSignupOpen} sx={{ width: '195px' }}>
                   <Typography variant="body">
                     <FormattedMessage id="JoinForFREE" />
                   </Typography>

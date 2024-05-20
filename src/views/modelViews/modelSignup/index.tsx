@@ -246,7 +246,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                         </MenuItem>
                       </Box>
                     </Box>
-                    <Box display="flex" flexDirection="column" width="100%" gap="28px">
+                    <Box display="flex" flexDirection="column" width="100%" gap="24px">
                       <StyleButtonV2 variant="contained" type="submit" loading={loading} sx={{ width: isLg ? '400px' : 'auto' }}>
                         <UINewTypography variant="buttonLargeBold">Sign Up</UINewTypography>
                       </StyleButtonV2>
