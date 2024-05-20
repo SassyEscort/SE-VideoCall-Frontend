@@ -12,12 +12,3 @@ export const ProtectedLayoutMainContainer = styled(Box)(({ theme }) => ({
   right: theme.spacing(9),
   top: '-232px'
 }));
-// backgroundColor: 'rgba(255, 72, 179, 0.3)',
-// height: '412px',
-// width: '584px',
-// borderRadius: '50%',
-// filter: 'blur(100px)',
-// position: 'absolute',
-// zIndex: '-1',
-// right: 72,
-// top: '-232px'

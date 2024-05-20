@@ -30,7 +30,3 @@ export const WorkerNavItemContainer = styled(Toolbar)(({ theme }) => ({
     paddingLeft: theme.spacing(16.75)
   }
 }));
-
-// px: { xs: '15px', lg: '134px' },
-// pt: { xs: '18px', sm: '15px' },
-// pb: { xs: '18px', sm: '17px' },

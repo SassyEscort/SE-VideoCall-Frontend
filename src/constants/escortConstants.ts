@@ -28,6 +28,6 @@ export const MainDashboardTabs = [
     name: 'Billing History',
     path: '/profile/billing',
     img: '/images/profile-vector/Vector-5.png'
-  },
+  }
 
 ];
