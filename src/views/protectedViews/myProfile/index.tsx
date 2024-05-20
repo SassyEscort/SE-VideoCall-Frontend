@@ -35,9 +35,7 @@ const MyProfile = () => {
         password: ''
       }}
       validationSchema={validationSchema}
-      onSubmit={(values) => {
-        console.log('hello', values);
-      }}
+      onSubmit={(values) => {}}
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
