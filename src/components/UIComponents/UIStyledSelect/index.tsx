@@ -24,7 +24,7 @@ export const UIStyledSelect = styled(Select)(({ theme }) => ({
 }));
 
 export const StyledSelectInputLabel = styled(InputLabel)(({ theme }) => ({
-  top: '-9px',
+  top: '-4px',
   color: theme.palette.secondary[200],
   '&.MuiInputLabel-shrink': { top: 0 }
 }));
