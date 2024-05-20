@@ -71,5 +71,9 @@
   "CanIPreviewOrBrowse": "¿Puedo previsualizar o navegar por los perfiles de los modelos antes de realizar una llamada de video?",
   "YouCanBrowseThrough": "Sí, puede navegar por los perfiles de los modelos disponibles, ver sus fotos, leer sus biografías y ver sus tarifas antes de decidir iniciar una llamada de video.",
   "IsThereMobileApp": "¿Hay una aplicación móvil disponible para la plataforma?",
-  "WeOfferResponsiveWeb": "Actualmente, ofrecemos una plataforma basada en la web receptiva optimizada para dispositivos móviles, garantizando una experiencia fluida en teléfonos inteligentes. Aunque aún no hay una aplicación dedicada, puede acceder a la plataforma de manera conveniente desde cualquier navegador móvil."
+  "WeOfferResponsiveWeb": "Actualmente, ofrecemos una plataforma basada en la web receptiva optimizada para dispositivos móviles, garantizando una experiencia fluida en teléfonos inteligentes. Aunque aún no hay una aplicación dedicada, puede acceder a la plataforma de manera conveniente desde cualquier navegador móvil.",
+  "WooHooYourProfile": "¡WooHoo! Tu perfil ha sido creado.",
+  "YourProfileIsNowLive": "Tu perfil ya está activo, y puedes empezar a conectar con clientes de todo el mundo.",
+  "StartBySetting": "Empieza configurando tus tarifas y método de pago en tu panel de control.",
+  "GoToYourDashboard": "Ir a tu Panel de Control"
 }

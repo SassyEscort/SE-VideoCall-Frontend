@@ -72,5 +72,9 @@
   "CanIPreviewOrBrowse": "Can I preview or browse models before making a video call?",
   "YouCanBrowseThrough": "Yes, you can browse through profiles of available models, view their photos, read their bios, and see their rates before deciding to initiate a video call.",
   "IsThereMobileApp": "Is there a mobile app available for the platform?",
-  "WeOfferResponsiveWeb": "Currently, we offer a responsive web-based platform optimized for mobile devices, ensuring a seamless experience on smartphones. While there’s no dedicated app yet, you can access the platform conveniently from any mobile browser"
+  "WeOfferResponsiveWeb": "Currently, we offer a responsive web-based platform optimized for mobile devices, ensuring a seamless experience on smartphones. While there’s no dedicated app yet, you can access the platform conveniently from any mobile browser",
+  "WooHooYourProfile": "WooHoo! Your profile has been created.",
+  "YourProfileIsNowLive": "Your profile is now live, and you can start connecting with clients worldwide.",
+  "StartBySetting": "Start by setting your rates and payout method in your dashboard.",
+  "GoToYourDashboard": "Go to your Dashboard"
 }
