@@ -5,6 +5,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import UINewChip from 'components/UIComponents/UINewChip';
 import theme from 'themes/theme';
 import { UINewTooltip } from 'components/UIComponents/UINewTooltip/UINewTooltip.styled';
+import { FormattedMessage } from 'react-intl';
 
 const EscortPersonalDetail = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -28,14 +29,16 @@ const EscortPersonalDetail = () => {
                   color="#E9E8EB"
                   sx={{ fontSize: { xs: '32px', sm: '40px' }, lineHeight: { xs: '43.2px', sm: '54px' } }}
                 >
-                  Lexi Lane
+                  <FormattedMessage id="LexiLane" />
                 </UINewTypography>
                 <UINewTypography variant="SubtitleSmallMedium" sx={{ fontSize: '14px', lineHeight: '19.6px' }}>
-                  Last active 2hrs ago
+                  <FormattedMessage id="LastActive" />
                 </UINewTypography>
               </DetailsChildBox>
               <Box>
-                <NewTypography variant="subtitle">Life is short. Take the trip, buy the shoes, eat the cake, and LOVE ❤️.</NewTypography>
+                <NewTypography variant="subtitle">
+                  <FormattedMessage id="LifeIsShort" />
+                </NewTypography>
               </Box>
             </Box>
           </DetailsChildBox>
@@ -45,7 +48,9 @@ const EscortPersonalDetail = () => {
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: isSmDown ? 2 : 3 }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
               <Box>
-                <UINewTypography variant="captionBold">My Appearance</UINewTypography>
+                <UINewTypography variant="captionBold">
+                  <FormattedMessage id="MyAppearance" />
+                </UINewTypography>
               </Box>
               <DetailsChipBox>
                 <UINewTooltip title={'Hello'} placement="top">
@@ -67,7 +72,9 @@ const EscortPersonalDetail = () => {
 
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
               <Box>
-                <UINewTypography variant="captionBold">Rates</UINewTypography>
+                <UINewTypography variant="captionBold">
+                  <FormattedMessage id="Rates" />
+                </UINewTypography>
               </Box>
               <DetailsChipBox>
                 <UINewChip

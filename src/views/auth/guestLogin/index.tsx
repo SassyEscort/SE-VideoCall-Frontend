@@ -203,7 +203,6 @@ const GuestLogin = ({
                   <Box display="flex" flexDirection="column" width="100%" sx={{ width: isSmDown ? 'auto' : '400px' }}>
                     <StyleButtonV2 variant="contained" type="submit" loading={loading}>
                       <UINewTypography variant="buttonLargeBold">
-                        {' '}
                         <FormattedMessage id="Login" />
                       </UINewTypography>
                     </StyleButtonV2>

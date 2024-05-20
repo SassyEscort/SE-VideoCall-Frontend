@@ -24,6 +24,7 @@ import { useRouter } from 'next/navigation';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { ErrorBox } from 'views/auth/AuthCommon.styled';
 import InfoIcon from '@mui/icons-material/Info';
+import { FormattedMessage } from 'react-intl';
 
 export type ModelSignupParams = {
   name: string;
@@ -135,7 +136,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                   <>
                     <Box marginTop={isSmDown ? '100px' : undefined}>
                       <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ lineHeight: '38.4px' }}>
-                        Join Now for Free
+                        <FormattedMessage id="JoinNowForFree" />
                       </UINewTypography>
                       <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
                         <IconButton
@@ -163,7 +164,9 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                     </Box>
                     <Box display="flex" flexDirection="column" gap={3}>
                       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                        <UINewTypography variant="bodySemiBold">Name</UINewTypography>
+                        <UINewTypography variant="bodySemiBold">
+                          <FormattedMessage id="Name" />
+                        </UINewTypography>
                         <UIStyledInputText
                           fullWidth
                           id="name"
@@ -184,7 +187,9 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                         />
                       </Box>
                       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                        <UINewTypography variant="bodySemiBold">Email address</UINewTypography>
+                        <UINewTypography variant="bodySemiBold">
+                          <FormattedMessage id="EmailAddress" />
+                        </UINewTypography>
                         <UIStyledInputText
                           fullWidth
                           id="email"
@@ -206,7 +211,9 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                       </Box>
                       <Box display="flex" gap={1.5} flexDirection="column">
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                          <UINewTypography variant="bodySemiBold">Password</UINewTypography>
+                          <UINewTypography variant="bodySemiBold">
+                            <FormattedMessage id="Password" />
+                          </UINewTypography>
                           <UIStyledInputText
                             fullWidth
                             type={showPassword ? 'text' : 'password'}
@@ -234,27 +241,35 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                         <MenuItem sx={{ p: 0 }}>
                           <Checkbox sx={{ p: 0, pr: 1 }} />
                           <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
-                            Remember me
+                            <FormattedMessage id="RememberMe" />
                           </UINewTypography>
                         </MenuItem>
                         <MenuItem sx={{ display: 'flex', alignItems: 'flex-start', p: 0 }}>
                           <Checkbox sx={{ p: 0, pr: 1 }} />
                           <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
-                            By clicking, you agree to our <span style={{ color: '#FFE500' }}>terms of service</span> and
-                            <span style={{ color: '#FFE500' }}> privacy policy.</span>
+                            <FormattedMessage id="ByClickingYouAgree" />
+                            <span style={{ color: '#FFE500' }}>
+                              <FormattedMessage id="TermsOfService" />
+                            </span>
+                            <FormattedMessage id="And" />
+                            <span style={{ color: '#FFE500' }}>
+                              <FormattedMessage id="PrivacyPolicy" />
+                            </span>
                           </UINewTypography>
                         </MenuItem>
                       </Box>
                     </Box>
                     <Box display="flex" flexDirection="column" width="100%" gap="24px">
                       <StyleButtonV2 variant="contained" type="submit" loading={loading} sx={{ width: isLg ? '400px' : 'auto' }}>
-                        <UINewTypography variant="buttonLargeBold">Sign Up</UINewTypography>
+                        <UINewTypography variant="buttonLargeBold">
+                          <FormattedMessage id="SignUp" />
+                        </UINewTypography>
                       </StyleButtonV2>
                       <Box display="flex" flexDirection="column" gap={3}>
                         <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                         <Box display="flex" gap={1} alignItems="center" justifyContent="center" pb={3}>
                           <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
-                            Remember password?
+                            <FormattedMessage id="RememberPassword" />
                           </UINewTypography>
                           <UINewTypography
                             whiteSpace="nowrap"
@@ -262,7 +277,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             sx={{ color: 'text.secondary', cursor: 'pointer' }}
                             onClick={onLoginOpen}
                           >
-                            Log in instead!
+                            <FormattedMessage id="LogInInstead" />
                           </UINewTypography>
                         </Box>
                       </Box>
