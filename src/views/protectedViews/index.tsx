@@ -1,7 +1,16 @@
-import React from 'react';
+'use client';
+
+import MainLayoutNav from './protectedLayout';
+import MyProfile from './myProfile';
 
 const ProfilePage = () => {
-  return <div>Welcome To Profile Page</div>;
+  return (
+    <>
+      <MainLayoutNav variant={'worker'} enlargedFooter={true}>
+        <MyProfile />
+      </MainLayoutNav>
+    </>
+  );
 };
 
 export default ProfilePage;
