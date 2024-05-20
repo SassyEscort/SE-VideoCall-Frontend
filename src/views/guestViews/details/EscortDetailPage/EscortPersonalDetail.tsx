@@ -1,6 +1,15 @@
 import { Box, useMediaQuery } from '@mui/material';
 import React from 'react';
-import { DetailsChildBox, DetailsChipBox, DetailsMainBox, DetailsTypographyBox, NewTypography } from './Escort.styled';
+import {
+  DetailSubTypographyBox,
+  DetailsChildBox,
+  DetailsChildTypographyBox,
+  DetailsChipBox,
+  DetailsMainBox,
+  DetailsTypographyBox,
+  NameMainBox,
+  NewTypography
+} from './Escort.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UINewChip from 'components/UIComponents/UINewChip';
 import theme from 'themes/theme';
@@ -22,7 +31,7 @@ const EscortPersonalDetail = () => {
       >
         <DetailsMainBox sx={{ marginTop: isSmDown ? '8px' : undefined }}>
           <DetailsChildBox>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: isSmDown ? 2 : 3 }}>
+            <NameMainBox>
               <DetailsChildBox>
                 <UINewTypography
                   variant="MediumSemiBold"
@@ -40,13 +49,13 @@ const EscortPersonalDetail = () => {
                   <FormattedMessage id="LifeIsShort" />
                 </NewTypography>
               </Box>
-            </Box>
+            </NameMainBox>
           </DetailsChildBox>
         </DetailsMainBox>
 
         <DetailsTypographyBox>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: isSmDown ? 2 : 3 }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+          <DetailSubTypographyBox>
+            <DetailsChildTypographyBox>
               <Box>
                 <UINewTypography variant="captionBold">
                   <FormattedMessage id="MyAppearance" />
@@ -68,9 +77,9 @@ const EscortPersonalDetail = () => {
                   label="English, Spanish"
                 />
               </DetailsChipBox>
-            </Box>
+            </DetailsChildTypographyBox>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+            <DetailsChildTypographyBox>
               <Box>
                 <UINewTypography variant="captionBold">
                   <FormattedMessage id="Rates" />
@@ -82,8 +91,8 @@ const EscortPersonalDetail = () => {
                   label="20 credits/hr"
                 />
               </DetailsChipBox>
-            </Box>
-          </Box>
+            </DetailsChildTypographyBox>
+          </DetailSubTypographyBox>
         </DetailsTypographyBox>
       </Box>
     </>

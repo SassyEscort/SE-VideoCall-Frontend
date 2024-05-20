@@ -134,7 +134,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
               >
                 {activeStep === 0 ? (
                   <>
-                    <Box marginTop={isSmDown ? '100px' : undefined}>
+                    <Box marginTop={isSmDown ? '100px' : '0px'}>
                       <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ lineHeight: '38.4px' }}>
                         <FormattedMessage id="JoinNowForFree" />
                       </UINewTypography>
