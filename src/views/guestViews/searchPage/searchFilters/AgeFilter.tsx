@@ -4,11 +4,14 @@ import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { StyledSelectInputLabel, UIStyledSelect } from 'components/UIComponents/UIStyledSelect';
 import { AGES } from 'constants/searchConstants';
+import { FormattedMessage } from 'react-intl';
 
 const AgeFilter = () => {
   return (
     <FormControl id="age" sx={{ width: '100%', maxWidth: { lg: '203px', sm: '235px' } }}>
-      <StyledSelectInputLabel>Age Range</StyledSelectInputLabel>
+      <StyledSelectInputLabel>
+        <FormattedMessage id="AgeRange" />
+      </StyledSelectInputLabel>
       <UIStyledSelect MenuProps={{ disableScrollLock: true }} label="age range" name="age" labelId="age" IconComponent={ExpandMore}>
         {AGES.map((age, key: number) => {
           return (

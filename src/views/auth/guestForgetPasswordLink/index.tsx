@@ -15,6 +15,7 @@ import { useState } from 'react';
 import AuthCommon from '../AuthCommon';
 import CheckInbox from './CheckInbox';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
+import { FormattedMessage } from 'react-intl';
 
 export type ForgetPasswordParams = {
   email: string;
@@ -76,10 +77,12 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                     <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
                       <Box display="flex" flexDirection="column" gap="12px" alignItems="center">
                         <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ fontWeight: '600', lineHeight: '41.6px' }}>
-                          Reset password
+                          <FormattedMessage id="ResetPassword" />
                         </UINewTypography>
                         <UINewTypography variant="bodyRegular" color="secondary.200" textAlign="center">
-                          Enter your email and we&apos;ll send you instructions on how to reset your password.
+                          <FormattedMessage id="EnterYourEmail" />
+                          &apos;
+                          <FormattedMessage id="SendYouInstructions" />
                         </UINewTypography>
                       </Box>
                       <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
@@ -102,7 +105,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                     <Box display="flex" flexDirection="column" gap={3}>
                       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                         <UINewTypography variant="bodySemiBold" sx={{ lineHeight: '25.6px' }}>
-                          Email address
+                          <FormattedMessage id="EmailAddress" />
                         </UINewTypography>
                         <UIStyledInputText
                           fullWidth
@@ -128,7 +131,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                     <Box display="flex" flexDirection="column" width="100%" gap="28px">
                       <StyleButtonV2 variant="contained" type="submit" loading={loading} sx={{ width: { sm: '400px' } }}>
                         <UINewTypography variant="buttonLargeBold" sx={{ lineHeight: '19.2px !important ', fontSize: '16px !important' }}>
-                          Request link
+                          <FormattedMessage id="RequestLink" />
                         </UINewTypography>
                       </StyleButtonV2>
                     </Box>
@@ -140,7 +143,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                   <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                   <Box display="flex" gap={1} alignItems="center" justifyContent="center">
                     <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
-                      Remember password?
+                      <FormattedMessage id="RememberPassword" />
                     </UINewTypography>
                     <UINewTypography
                       whiteSpace="nowrap"
@@ -148,7 +151,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                       sx={{ color: 'text.secondary', cursor: 'pointer' }}
                       onClick={onLoginOpen}
                     >
-                      Log in instead!
+                      <FormattedMessage id="LogInInstead" />
                     </UINewTypography>
                   </Box>
                 </Box>
