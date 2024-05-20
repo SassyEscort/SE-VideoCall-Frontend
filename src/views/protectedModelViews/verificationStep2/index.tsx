@@ -30,9 +30,7 @@ const VerificationStep2 = () => {
         idNumber: ''
       }}
       validationSchema={validationVerificationSchema}
-      onSubmit={(values) => {
-        // console.log('hello', values);
-      }}
+      onSubmit={(values) => {}}
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
