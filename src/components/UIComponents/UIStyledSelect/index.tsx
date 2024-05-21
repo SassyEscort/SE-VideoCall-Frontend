@@ -8,6 +8,7 @@ export const UIStyledSelect = styled(Select)(({ theme }) => ({
   width: '100%',
   height: '48px',
   backgroundColor: theme.palette.primary[700],
+
   '&:hover': {
     '.MuiOutlinedInput-notchedOutline': {
       borderColor: theme.palette.secondary[700]

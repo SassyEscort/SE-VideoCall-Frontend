@@ -112,5 +112,12 @@
   "ResetPassword": "Reset password",
   "EnterYourEmail": "Enter your email and we",
   "SendYouInstructions": "ll send you instructions on how to reset your password.",
-  "RequestLink": "Request link"
+  "RequestLink": "Request link",
+  "PleaseProvide": "Please provide your documents",
+  "WeUseThisData": "We use this data to verify if you are eligible to generate income on the platform.",
+  "IdType": "ID type",
+  "IdNumber": "ID number",
+  "Back": "Back",
+  "Next": "Next",
+  "UploadDocuments": "Upload documents"
 }
