@@ -27,6 +27,7 @@ import { useFormik } from 'formik';
 import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
 import { UIStyledSelectItemContainer } from 'components/UIComponents/UINewSelectItem';
 import { FormattedMessage } from 'react-intl';
+import { VerificationPayload } from 'services/modelAuth/types';
 
 export type VerificationStepSecond = {
   idType: string;
@@ -50,12 +51,28 @@ const VerificationStep2 = () => {
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      handleSubmitForm(values);
+      const inputPayload: VerificationPayload = {
+        id: '1',
+        is_document: true,
+        photos: [
+          {
+            url: 'url',
+            type: 'image',
+            id: 'string',
+            cords: 'string',
+            is_favourite: 0,
+            is_document: 1,
+            document_type: values.idType,
+            document_number: values.idNumber
+          }
+        ]
+      };
+      handleSubmitForm(inputPayload);
     }
   });
 
-  const handleSubmitForm = async (values: VerificationStepSecond) => {
-    await VerificationStepService.verificationtepSecond(values);
+  const handleSubmitForm = async (inputPayload: VerificationPayload) => {
+    await VerificationStepService.verificationtepSecond(inputPayload);
   };
 
   return (
