@@ -6,6 +6,8 @@ import Header from './Header';
 import Nav from '../navbar';
 import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
 import { ProtectedLayoutMainContainer } from './protectedLayout.styled';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import theme from 'themes/theme';
 
 export type MainLayoutType = TopNavItemVariantProps & {
   children: ReactNode;
@@ -15,7 +17,11 @@ export type MainLayoutType = TopNavItemVariantProps & {
 const StyledRoot = styled('div')({
   display: 'flex',
   minHeight: '100vh',
-  overflow: 'hidden'
+  overflow: 'hidden',
+  '@media (max-width: 1023px)': {
+    flexDirection: 'column',
+    gap: '32px'
+  }
 });
 
 const Main = styled('div')(() => ({
@@ -27,6 +33,8 @@ const Main = styled('div')(() => ({
 const MainLayoutNav = (props: MainLayoutType) => {
   const [open, setOpen] = useState(false);
 
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
+
   return (
     <HomeMainModelContainer>
       <Box minHeight="100vh" display="flex" flexDirection="column">
@@ -35,7 +43,7 @@ const MainLayoutNav = (props: MainLayoutType) => {
           <StyledRoot>
             <Nav openNav={open} onCloseNav={() => setOpen(true)} />
             <Main>
-              <ProtectedLayoutMainContainer />
+              {isMdUp && <ProtectedLayoutMainContainer />}
               <Box px={{ md: 2 }} paddingTop={{ md: 3.875 }} paddingBottom={{ md: 13 }}>
                 <>{props.children}</>
               </Box>
