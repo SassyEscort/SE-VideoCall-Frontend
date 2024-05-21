@@ -1,5 +1,22 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import UINewTypography from 'components/UIComponents/UINewTypography';
+
+export const ParentBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(14),
+  width: '100%',
+  justifyContent: 'center',
+  alignItems: 'center',
+  paddingRight: theme.spacing(2),
+  paddingLeft: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(4),
+    display: 'flex',
+    justifyContent: 'space-between'
+  }
+}));
 
 export const VerificationStep2MainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -8,9 +25,7 @@ export const VerificationStep2MainContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(7),
   justifyContent: 'center',
   alignItems: 'center',
-  width: '100%',
-  paddingRight: theme.spacing(2),
-  paddingLeft: theme.spacing(2)
+  width: '100%'
 }));
 
 export const VerificationStep2MainContainerSecond = styled(Box)(({ theme }) => ({
@@ -60,4 +75,34 @@ export const InputTypeBoxSecond = styled(Box)(({ theme }) => ({
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2)
   }
+}));
+
+export const ButtonBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: '100%',
+  maxWidth: '824px',
+
+  [theme.breakpoints.down('sm')]: {
+    display: 'flex',
+    justifyContent: 'space-between'
+  }
+}));
+
+export const BackButtonBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1)
+}));
+
+export const UploaddocumentsButtonBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1)
+}));
+
+export const UINewTypographyTextMenuItem = styled(UINewTypography)(({ theme }) => ({
+  paddingLeft: theme.spacing(2),
+  paddingTop: theme.spacing(2.5),
+  paddingBottom: theme.spacing(2),
+  width: '100%',
+  maxWidth: '390px'
 }));
