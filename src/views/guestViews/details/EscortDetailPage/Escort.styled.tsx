@@ -82,3 +82,27 @@ export const ExploreEscortText = styled(Box)(() => ({
   alignItems: 'center',
   justifyContent: 'center'
 }));
+
+export const NameMainBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(3),
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(2)
+  }
+}));
+
+export const DetailSubTypographyBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(3),
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(2)
+  }
+}));
+
+export const DetailsChildTypographyBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(1.5)
+}));

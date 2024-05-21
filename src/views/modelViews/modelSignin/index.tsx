@@ -20,6 +20,7 @@ import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import AuthModelCommon from '../modelSignup/AuthModelCommon';
 import { ErrorBox } from 'views/auth/AuthCommon.styled';
 import { LoginModelParams } from 'services/modelAuth/types';
+import { FormattedMessage } from 'react-intl';
 
 export type LoginParams = {
   email: string;
@@ -94,7 +95,7 @@ const ModelSignin = ({
               >
                 <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
                   <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ whiteSpace: { sm: 'nowrap' } }}>
-                    Log in to your account
+                    <FormattedMessage id="LogInToYourAccount" />
                   </UINewTypography>
                   <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
                     <IconButton
@@ -122,7 +123,9 @@ const ModelSignin = ({
                 </Box>
                 <Box display="flex" flexDirection="column" gap={3}>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                    <UINewTypography variant="bodySemiBold">Username / Email address</UINewTypography>
+                    <UINewTypography variant="bodySemiBold">
+                      <FormattedMessage id="UsernameEmail" />
+                    </UINewTypography>
                     <UIStyledInputText
                       fullWidth
                       id="email"
@@ -143,7 +146,9 @@ const ModelSignin = ({
                   </Box>
                   <Box display="flex" gap={1.5} flexDirection="column">
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                      <UINewTypography variant="bodySemiBold">Password</UINewTypography>
+                      <UINewTypography variant="bodySemiBold">
+                        <FormattedMessage id="Password" />
+                      </UINewTypography>
                       <UIStyledInputText
                         fullWidth
                         type={showPassword ? 'text' : 'password'}
@@ -179,7 +184,7 @@ const ModelSignin = ({
                       <Box>
                         <Checkbox sx={{ p: 0, pr: 1 }} />
                         <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}>
-                          Remember me
+                          <FormattedMessage id="RememberMe" />
                         </UINewTypography>
                       </Box>
                       <UINewTypography
@@ -188,7 +193,7 @@ const ModelSignin = ({
                         sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}
                         onClick={onFogotPasswordLinkOpen}
                       >
-                        Forgot Password?
+                        <FormattedMessage id="ForgotPassword" />
                       </UINewTypography>
                     </MenuItem>
                   </Box>
@@ -196,7 +201,9 @@ const ModelSignin = ({
                 <Box display="flex" flexDirection="column" gap="52px" justifyContent="space-between">
                   <Box display="flex" flexDirection="column" width="100%">
                     <StyleButtonV2 variant="contained" type="submit" loading={loading}>
-                      <UINewTypography variant="buttonLargeBold">Login</UINewTypography>
+                      <UINewTypography variant="buttonLargeBold">
+                        <FormattedMessage id="LogIn" />
+                      </UINewTypography>
                     </StyleButtonV2>
                   </Box>
                   <Box display="flex" flexDirection="column" gap={3}>
@@ -209,10 +216,12 @@ const ModelSignin = ({
                       pb={3}
                       sx={{ flexDirection: { xs: 'column', sm: 'row' } }}
                     >
-                      <UINewTypography variant="buttonLargeMenu">Don’t have an account?</UINewTypography>
+                      <UINewTypography variant="buttonLargeMenu">
+                        <FormattedMessage id="DontHaveAccount" />
+                      </UINewTypography>
 
                       <UINewTypography variant="body" sx={{ color: 'text.secondary', cursor: 'pointer' }} onClick={onSignupOpen}>
-                        Join for free now!
+                        <FormattedMessage id="JoinForFreeNow" />
                       </UINewTypography>
                     </Box>
                   </Box>

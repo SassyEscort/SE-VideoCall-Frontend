@@ -18,6 +18,7 @@ import { VideoAcceptType } from 'constants/workerVerification';
 import { WorkerBlurBox, WorkerImageCardContainerBox, WorkerImageCardGridBox } from './WorkerGallery/WorkerImageCardV2.styled';
 import { UIThemeGroupTabs } from 'components/UIComponents/ThemeGroupTabs/ThemeGroupTabs.styled';
 import { UIThemeTab } from 'components/UIComponents/ThemeTab/ThemeTab.styled';
+import { FormattedMessage } from 'react-intl';
 
 const EscortGalleryContainer = () => {
   const [show, setShow] = useState(false);
@@ -250,7 +251,9 @@ const EscortGalleryContainer = () => {
                     width: '100%'
                   }}
                 >
-                  <UINewTypography variant="body1">NoVideosAvailable</UINewTypography>
+                  <UINewTypography variant="body1">
+                    <FormattedMessage id="NoVideosAvailable" />
+                  </UINewTypography>
                 </Box>
               )}
             </WorkerImageCardGridBox>
@@ -266,8 +269,9 @@ const EscortGalleryContainer = () => {
               color: 'common.white'
             }}
           >
-            <UINewTypography variant="buttonLargeBold">ShowMore</UINewTypography>
-
+            <UINewTypography variant="buttonLargeBold">
+              <FormattedMessage id="ShowMore" />
+            </UINewTypography>
             <ExpandMoreIcon />
           </IconButton>
         ) : (
