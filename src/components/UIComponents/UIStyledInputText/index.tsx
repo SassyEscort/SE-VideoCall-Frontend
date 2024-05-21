@@ -22,7 +22,7 @@ export const UIStyledInputText = styled(TextField)(({ theme }) => ({
     borderRadius: theme.spacing(1),
     height: '100%',
     minHeight: '50px',
-    padding: '12px 16px ',
+    padding: '10px 16px ',
     '& .MuiOutlinedInput-input': {
       padding: 0
     }

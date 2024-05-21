@@ -111,5 +111,12 @@
   "Rates":"Rates",
   "StartVideoCall":"Start Video Call",
   "NoVideosAvailable":"No Videos Available",
-  "ShowMore":"Show More"
+  "ShowMore":"Show More",
+  "PleaseProvide": "Please provide your documents",
+  "WeUseThisData": "We use this data to verify if you are eligible to generate income on the platform.",
+  "IdType": "ID type",
+  "IdNumber": "ID number",
+  "Back": "Back",
+  "Next": "Next",
+  "UploadDocuments": "Upload documents"
 }
