@@ -128,3 +128,14 @@ export const UITypographyText = styled(UINewTypography)(() => ({
   fontSize: '16px',
   fontWeight: '600'
 }));
+
+export const UIButtonText = styled(UINewTypography)(() => ({
+  fontSize: '16px',
+  fontWeight: '700',
+  lineHeight: '19.2px'
+}));
+
+export const ModelUITextConatiner = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'column'
+}));

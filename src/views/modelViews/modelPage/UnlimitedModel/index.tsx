@@ -27,7 +27,9 @@ const UnlimitedModel = () => {
                     sx={{
                       color: 'text.secondary',
                       textAlign: 'center',
-                      fontWeight: { xs: 600, sm: 700 }
+                      fontWeight: { xs: 600, sm: 700 },
+                      fontSize: '48px',
+                      lineHeight: '150%'
                     }}
                   >
                     <FormattedMessage id="UnlimitedEarningPotential" />
