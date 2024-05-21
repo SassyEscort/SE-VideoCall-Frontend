@@ -18,7 +18,7 @@ const UnlimitedModel = () => {
     <Box sx={{ mt: 15 }}>
       <HomeMainModelContainer>
         <PhotoshootExpMainContainer>
-          <Banner height={'701px'}>
+          <Banner>
             <PhotoshootExpWrap>
               <PhotoshootExpContainer>
                 <PhotoshootExpTitle>
