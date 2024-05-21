@@ -41,6 +41,7 @@ export const DetailContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(6),
   [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(4.5),
     paddingTop: theme.spacing(12)
   },
   [theme.breakpoints.only('md')]: {

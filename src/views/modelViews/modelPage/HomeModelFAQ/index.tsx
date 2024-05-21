@@ -13,6 +13,7 @@ import {
 } from './HomeModelFAQ.styled';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { FormattedMessage } from 'react-intl';
+import { ModelUITextConatiner } from 'views/auth/AuthCommon.styled';
 
 const HomeModelFAQ = () => {
   return (
@@ -27,7 +28,7 @@ const HomeModelFAQ = () => {
           }}
         >
           <FAQConatainer sx={{ width: '100%', maxWidth: '824px' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+            <ModelUITextConatiner sx={{ gap: 7 }}>
               <FAQMainContainer>
                 <FAQTitle>
                   <FormattedMessage id="FAQs" />
@@ -164,7 +165,7 @@ const HomeModelFAQ = () => {
                   </Box>
                 </StyledAccordion>
               </FAQConatainer>
-            </Box>
+            </ModelUITextConatiner>
           </FAQConatainer>
         </Box>
       </HomeMainContainer>

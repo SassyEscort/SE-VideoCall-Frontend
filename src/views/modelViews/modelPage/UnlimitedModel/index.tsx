@@ -18,7 +18,7 @@ const UnlimitedModel = () => {
     <Box sx={{ mt: 15 }}>
       <HomeMainModelContainer>
         <PhotoshootExpMainContainer>
-          <Banner>
+          <Banner height={'701px'}>
             <PhotoshootExpWrap>
               <PhotoshootExpContainer>
                 <PhotoshootExpTitle>
@@ -27,7 +27,9 @@ const UnlimitedModel = () => {
                     sx={{
                       color: 'text.secondary',
                       textAlign: 'center',
-                      fontWeight: { xs: 600, sm: 700 }
+                      fontWeight: { xs: 600, sm: 700 },
+                      fontSize: '48px',
+                      lineHeight: '150%'
                     }}
                   >
                     <FormattedMessage id="UnlimitedEarningPotential" />
