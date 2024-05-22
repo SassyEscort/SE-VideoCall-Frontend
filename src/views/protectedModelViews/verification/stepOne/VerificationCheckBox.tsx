@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Radio from '@mui/material/Radio';
-import { UIStyledFormLabel } from 'components/UIComponents/UIStyledFormLabel';
+import { UIStyledFormLabelContainer } from 'components/UIComponents/UIStyledFormLabel';
 import { UIStyledRadioGroup } from 'components/UIComponents/UIStyledRadio';
 import theme from 'themes/theme';
 
@@ -22,7 +22,7 @@ const UINewCheckBox: React.FC<RadioButtonProps> = ({
   disabled
 }: RadioButtonProps) => (
   <UIStyledRadioGroup>
-    <UIStyledFormLabel
+    <UIStyledFormLabelContainer
       sx={{
         backgroundColor:
           variant === 'outlined'
