@@ -8,32 +8,20 @@ import { RiArrowLeftLine, RiArrowRightLine } from 'components/common/customRemix
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
-import { getUserDataClient } from 'utils/getSessionData';
-import { useEffect, useState } from 'react';
-import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import * as Yup from 'yup';
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
 import { StepOneContainer } from './VerficationStepOne.styled';
 
-const VerificationStepOne = ({ handleNext }: { handleNext: () => void }) => {
-  const [token, setToken] = useState(0);
-  const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      setToken(data.id);
-    };
-
-    userToken();
-    const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(57);
-      setModelDetails(modelData.data);
-    };
-    modelDetails();
-  }, []);
-
+const VerificationStepOne = ({
+  handleNext,
+  modelDetails,
+  token
+}: {
+  handleNext: () => void;
+  modelDetails: ModelDetailsResponse;
+  token: number;
+}) => {
   const initialValuesPerStep: VerificationStep1Type = {
     id: token,
     gender: modelDetails?.gender || '',

@@ -15,7 +15,7 @@ const UIStyledStepper = styled(Stepper)(({ theme }) => ({
   },
 
   '& .mui-style-1fu8gtm-MuiSvgIcon-root-MuiStepIcon-root': {
-    color: theme.palette.secondary.light
+    color: theme.palette.text.disabled
   },
   '& .mui-style-1fu8gtm-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed': {
     color: theme.palette.primary[400]
@@ -26,12 +26,17 @@ const UIStyledStepper = styled(Stepper)(({ theme }) => ({
   },
   '& .MuiStepConnector-line': {
     borderTopWidth: '3px',
-    borderColor: theme.palette.secondary.light
+    borderColor: theme.palette.text.disabled,
+    border: '2px dashed',
+    marginTop: '-3px',
+    borderRadius: '10px',
+    boxSizing: 'border-box'
   },
   '& .mui-style-1fu8gtm-MuiSvgIcon-root-MuiStepIcon-root.Mui-active ': {
     color: theme.palette.primary[400]
   },
   '& .MuiStepConnector-root.Mui-active .MuiStepConnector-line': {
+    border: '2px inset',
     borderColor: theme.palette.primary[400]
   },
   '& .MuiStepConnector-root.Mui-completed .MuiStepConnector-line': {
