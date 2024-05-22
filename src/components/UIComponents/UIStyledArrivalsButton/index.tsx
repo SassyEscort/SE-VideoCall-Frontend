@@ -10,7 +10,7 @@ export const UIStyledArrivalsButton = styled(Button)(({ theme }) => ({
   backgroundColor: theme.palette.primary[700],
   color: theme.palette.primary[400],
   fontSize: '16px',
-  fontWeight: 400,
+  fontWeight: 700,
   whiteSpace: 'nowrap',
   lineHeight: '21.86px',
   '&:hover': {

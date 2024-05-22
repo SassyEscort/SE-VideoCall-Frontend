@@ -111,5 +111,13 @@
       "Rates": "Tarifas",
       "StartVideoCall": "Iniciar videollamada",
       "NoVideosAvailable": "No hay videos disponibles",
-      "ShowMore": "Mostrar más"
+      "ShowMore": "Mostrar más",
+      "PleaseProvide": "Por favor proporcione sus documentos",
+      "WeUseThisData": "Usamos estos datos para verificar si es elegible para generar ingresos en la plataforma.",
+      "IdType": "Tipo de identificación",
+      "IdNumber": "Número de identificación",
+      "Back": "Atrás",
+      "Next": "Siguiente",
+      "UploadDocuments": "Subir documentos",
+      "QuestionsAnswer":"¿Preguntas? Tenemos respuestas"
     }

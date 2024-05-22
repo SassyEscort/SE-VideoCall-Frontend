@@ -10,12 +10,14 @@ import {
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
-import { Box } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
+import theme from 'themes/theme';
 
 const UnlimitedModel = () => {
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <Box sx={{ mt: 15 }}>
+    <Box sx={{ mt: isSmDown ? 9 : 15 }}>
       <HomeMainModelContainer>
         <PhotoshootExpMainContainer>
           <Banner>
@@ -27,9 +29,8 @@ const UnlimitedModel = () => {
                     sx={{
                       color: 'text.secondary',
                       textAlign: 'center',
-                      fontWeight: { xs: 600, sm: 700 },
-                      fontSize: '48px',
-                      lineHeight: '150%'
+                      fontSize: isSmDown ? '24px !important' : '48px !important',
+                      lineHeight: isSmDown ? '36px !important' : '72px'
                     }}
                   >
                     <FormattedMessage id="UnlimitedEarningPotential" />

@@ -267,7 +267,14 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                       </StyleButtonV2>
                       <ModelUITextConatiner gap={3}>
                         <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                        <Box display="flex" gap={1} alignItems="center" justifyContent="center" pb={3}>
+                        <Box
+                          display="flex"
+                          gap={1}
+                          alignItems="center"
+                          justifyContent="center"
+                          pb={3}
+                          sx={{ flexDirection: isSm ? 'column' : 'row' }}
+                        >
                           <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
                             <FormattedMessage id="RememberPassword" />
                           </UINewTypography>

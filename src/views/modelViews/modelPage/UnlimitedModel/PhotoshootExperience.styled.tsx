@@ -43,7 +43,7 @@ export const PhotoshootExpContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: theme.spacing(3),
+  gap: theme.spacing(5),
   borderRadius: '12px',
   background: 'transparent',
   backdropFilter: 'blur(0px)',
@@ -60,7 +60,7 @@ export const PhotoshootExpTitle = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: theme.spacing(1),
+  gap: theme.spacing(1.5),
   width: '100%',
   maxWidth: '665px'
 }));
