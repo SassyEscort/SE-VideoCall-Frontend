@@ -1,7 +1,19 @@
+'use client';
+
 import React from 'react';
+import VerificationStepPromise from './verificationStep2Document';
 
 const ModelPage = () => {
-  return <div>Welcome To Model Dashboard Page</div>;
+  return (
+    <>
+      <VerificationStepPromise
+      // activeStep={activeStep}
+      // workerPhotos={WorkerPhotos}
+      // handleNext={handleNext}
+      // handlePrevVerificationStep={handlePrevVerificationStep}
+      />
+    </>
+  );
 };
 
 export default ModelPage;
