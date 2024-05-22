@@ -21,9 +21,9 @@ import { CommonServices } from 'services/commonApi/commonApi.services';
 import moment from 'moment';
 import { FormControl, MenuItem } from '@mui/material';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { UIStyledSelect } from 'components/UIComponents/UIStyledSelect';
 import UINewCheckBox from './VerificationCheckBox';
 import { UIStyledDatePicker } from 'components/UIComponents/UIStyledDatePicker';
+import { UIStyledSelectItemContainer } from 'components/UIComponents/UINewSelectItem';
 
 export type VerificationBasicDetailsType = {
   values: VerificationStep1Type;
@@ -292,29 +292,23 @@ const VerificationBasicDetails = ({ values, errors, touched, handleChange, setFi
           </DateOfBirthMainContainer>
           <StepTwoInputOuterMainBox>
             <UINewTypography variant="bodySemiBold">
-              {' '}
               <FormattedMessage id="Nationality" /> *
             </UINewTypography>
             <FormControl fullWidth>
-              <UIStyledSelect
+              <UIStyledSelectItemContainer
+                sx={{ '&.MuiInputBase-root': { backgroundColor: 'secondary.500' } }}
                 name="nationality_id"
                 onChange={handleChange}
                 value={values.nationality_id}
                 error={touched.nationality_id && Boolean(errors.nationality_id)}
                 IconComponent={ExpandMore}
-                sx={{
-                  '& .MuiSelect-icon': {
-                    right: '10px !important',
-                    color: 'secondary.700'
-                  }
-                }}
               >
                 {nationality.map((type, index: number) => (
                   <MenuItem key={index} value={type.id}>
                     {type.name}
                   </MenuItem>
                 ))}
-              </UIStyledSelect>
+              </UIStyledSelectItemContainer>
               {touched.nationality_id && errors.nationality_id && <FormHelperText error>{errors.nationality_id}</FormHelperText>}
             </FormControl>
           </StepTwoInputOuterMainBox>
