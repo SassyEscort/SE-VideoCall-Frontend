@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const PhotoshootExpMainContainer = styled(Box)(() => ({
   position: 'relative',
@@ -72,5 +73,16 @@ export const PhotoshootExpButton = styled(Box)(({ theme }) => ({
   gap: theme.spacing(3),
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column'
+  }
+}));
+
+export const UnlimitedModelText = styled(UINewTypography)(({ theme }) => ({
+  color: 'text.secondary',
+  textAlign: 'center',
+  fontSize: '48px !important',
+  lineHeight: '72px',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '24px !important',
+    lineHeight: '36px !important'
   }
 }));

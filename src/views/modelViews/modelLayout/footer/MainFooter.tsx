@@ -1,8 +1,7 @@
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FooterSubICon } from './MainFooter.styled';
+import { DividerUILine, FooterSubICon, ModelFooterHead, ModelUITextConatinerText } from './MainFooter.styled';
 import { FooterCityList } from './footer.constants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
@@ -17,30 +16,11 @@ const MainFooter = () => {
     <>
       <Box sx={{ width: '100%', mt: '23px' }}>
         <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-          <Divider
-            orientation="horizontal"
-            flexItem
-            sx={{
-              borderColor: '#232027',
-              width: '100%',
-              maxWidth: isSmDown ? '363px' : '1244px',
-              textAlign: 'center',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          />
+          <DividerUILine orientation="horizontal" flexItem />
         </Box>
         <Box mt={'32px'}>
           <Box sx={{ display: 'flex', flexDirection: isSmDown ? 'column' : 'row', justifyContent: 'space-between', px: 1.5 }}>
-            <ModelUITextConatiner
-              sx={{
-                alignItems: isSmDown ? 'center' : 'flex-start',
-                textAlign: isSmDown ? 'center' : 'start',
-                marginBottom: isSmDown ? 3 : 0,
-                gap: 1
-              }}
-            >
+            <ModelUITextConatinerText>
               <Link prefetch={false} href="/">
                 <Image
                   src="/images/logo-footer.png"
@@ -54,21 +34,11 @@ const MainFooter = () => {
                 />
               </Link>
               <Box>
-                <UINewTypography
-                  variant="bodySmall"
-                  sx={{
-                    width: '100%',
-                    maxWidth: { xs: '297px' },
-                    display: 'flex',
-                    textAlign: isSmDown ? 'center' : 'start',
-                    alignItems: 'flex-start',
-                    lineHeight: '140%'
-                  }}
-                >
+                <ModelFooterHead variant="bodySmall">
                   <FormattedMessage id="OurPlatformIsLoved" />
-                </UINewTypography>
+                </ModelFooterHead>
               </Box>
-            </ModelUITextConatiner>
+            </ModelUITextConatinerText>
 
             <Box sx={{ display: 'flex', gap: 10, justifyContent: 'center', mt: 3 }}>
               <FooterSubICon sx={{ flexDirection: 'column', display: 'flex', textAlign: 'left' }}>

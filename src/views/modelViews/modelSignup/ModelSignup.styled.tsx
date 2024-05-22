@@ -67,3 +67,15 @@ export const SecContainerAuthModelSignupSuccessContainer = styled(Box)(({ theme 
   gap: theme.spacing(1),
   paddingBottom: theme.spacing(4)
 }));
+
+export const ModelSignUpUIRemember = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: theme.spacing(1),
+  paddingBottom: theme.spacing(3),
+  flexDirection: 'row',
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column'
+  }
+}));

@@ -5,7 +5,8 @@ import {
   PhotoshootExpContainer,
   PhotoshootExpMainContainer,
   PhotoshootExpTitle,
-  PhotoshootExpWrap
+  PhotoshootExpWrap,
+  UnlimitedModelText
 } from './PhotoshootExperience.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
@@ -24,17 +25,9 @@ const UnlimitedModel = () => {
             <PhotoshootExpWrap>
               <PhotoshootExpContainer>
                 <PhotoshootExpTitle>
-                  <UINewTypography
-                    variant="h2"
-                    sx={{
-                      color: 'text.secondary',
-                      textAlign: 'center',
-                      fontSize: isSmDown ? '24px !important' : '48px !important',
-                      lineHeight: isSmDown ? '36px !important' : '72px'
-                    }}
-                  >
+                  <UnlimitedModelText variant="h2">
                     <FormattedMessage id="UnlimitedEarningPotential" />
-                  </UINewTypography>
+                  </UnlimitedModelText>
                   <UINewTypography
                     variant="bodyRegular"
                     sx={{
