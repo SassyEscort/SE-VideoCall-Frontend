@@ -27,6 +27,7 @@ import {
   UpConatiner
 } from './ModelReviewDetails.styled';
 import { Box } from '@mui/material';
+import { FormattedMessage } from 'react-intl';
 
 const ModelReviewDetails = () => {
   return (
@@ -35,10 +36,10 @@ const ModelReviewDetails = () => {
         <UpConatiner>
           <SecondMainContainer>
             <UINewTypography variant="h2" color={'text.primary'}>
-              Review your details
+              <FormattedMessage id="ReviewYourDetails" />
             </UINewTypography>
             <UINewTypography variant="bodyRegular" color={'text.secondary'}>
-              Make sure you filled the correct details
+              <FormattedMessage id="MakesureYouFilled" />
             </UINewTypography>
           </SecondMainContainer>
 
@@ -46,7 +47,7 @@ const ModelReviewDetails = () => {
             <ForMainContainer>
               <BasicDetailsConatiner>
                 <UINewTypography variant="h6" color={'text.primary'}>
-                  Basic Details
+                  <FormattedMessage id="BasicDetails" />
                 </UINewTypography>
               </BasicDetailsConatiner>
               <FirstColumnContainer>
@@ -54,23 +55,23 @@ const ModelReviewDetails = () => {
                   <CloumnContainer>
                     <LeftCloumnConatinerGap>
                       <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
-                        Your Gender
+                        <FormattedMessage id="YourGender" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                        Female
+                        <FormattedMessage id="Female" />
                       </UINewTypography>
                     </LeftCloumnConatinerGap>
                     <LeftCloumnConatinerGap>
                       <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
-                        Country
+                        <FormattedMessage id="Country" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                        Netherland
+                        <FormattedMessage id="Netherland" />
                       </UINewTypography>
                     </LeftCloumnConatinerGap>
                     <LeftCloumnConatinerGap>
                       <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
-                        DOB
+                        <FormattedMessage id="DOB" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
                         30/12/1990
