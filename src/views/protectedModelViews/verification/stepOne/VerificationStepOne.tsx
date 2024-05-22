@@ -24,6 +24,7 @@ import UINewCheckBox from './VerificationCheckBox';
 import { UIStyledDatePicker } from 'components/UIComponents/UIStyledDatePicker';
 import { UIStyledSelectItemContainer } from 'components/UIComponents/UINewSelectItem';
 import UIStyledAutocomplete from 'components/UIComponents/UIStyledAutocomplete';
+import { TokenIdType } from '..';
 
 export type VerificationBasicDetailsType = {
   values: VerificationStep1Type;
@@ -38,6 +39,7 @@ export type VerificationBasicDetailsType = {
     value: any,
     shouldValidate?: boolean | undefined
   ) => Promise<void | FormikErrors<VerificationStep1Type>>;
+  token: TokenIdType;
 };
 
 export type MultipleOptionName = {
@@ -45,7 +47,15 @@ export type MultipleOptionName = {
   name: string;
 };
 
-const VerificationBasicDetails = ({ values, errors, touched, handleChange, setFieldValue, handleBlur }: VerificationBasicDetailsType) => {
+const VerificationBasicDetails = ({
+  values,
+  errors,
+  touched,
+  handleChange,
+  setFieldValue,
+  handleBlur,
+  token
+}: VerificationBasicDetailsType) => {
   const [countries, setCountries] = useState<MultipleOptionString[]>([]);
   const [nationality, setNationality] = useState<MultipleOptionString[]>([]);
   const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
@@ -55,20 +65,19 @@ const VerificationBasicDetails = ({ values, errors, touched, handleChange, setFi
 
   useEffect(() => {
     const countryData = async () => {
-      const data = await CommonServices.getCountry();
+      const data = await CommonServices.getCountry(token.token);
       setCountries(data.data);
     };
     countryData();
 
     const nationalityData = async () => {
-      const data = await CommonServices.getNationality();
+      const data = await CommonServices.getNationality(token.token);
       setNationality(data.data);
     };
     nationalityData();
 
     const languagesData = async () => {
-      const data = await CommonServices.getLanguages();
-
+      const data = await CommonServices.getLanguages(token.token);
       setLanguages(data.data);
     };
     languagesData();
