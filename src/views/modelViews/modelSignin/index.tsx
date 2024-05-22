@@ -18,8 +18,9 @@ import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import AuthModelCommon from '../modelSignup/AuthModelCommon';
-import { ErrorBox } from 'views/auth/AuthCommon.styled';
+import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from 'views/auth/AuthCommon.styled';
 import { LoginModelParams } from 'services/modelAuth/types';
+import { FormattedMessage } from 'react-intl';
 
 export type LoginParams = {
   email: string;
@@ -93,8 +94,12 @@ const ModelSignin = ({
                 }}
               >
                 <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
-                  <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ whiteSpace: { sm: 'nowrap' } }}>
-                    Log in to your account
+                  <UINewTypography
+                    variant="MediumSemiBoldText"
+                    color="common.white"
+                    sx={{ whiteSpace: { sm: 'nowrap' }, lineHeight: '38.4px' }}
+                  >
+                    <FormattedMessage id="LogInToYourAccount" />
                   </UINewTypography>
                   <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
                     <IconButton
@@ -120,9 +125,11 @@ const ModelSignin = ({
                     </ErrorBox>
                   )}
                 </Box>
-                <Box display="flex" flexDirection="column" gap={3}>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                    <UINewTypography variant="bodySemiBold">Username / Email address</UINewTypography>
+                <ModelUITextConatiner gap={3}>
+                  <ModelUITextConatiner sx={{ gap: 0.5 }}>
+                    <UITypographyText>
+                      <FormattedMessage id="UsernameEmail" />
+                    </UITypographyText>
                     <UIStyledInputText
                       fullWidth
                       id="email"
@@ -140,10 +147,12 @@ const ModelSignin = ({
                         endAdornment: <RiUserFillLine color="#86838A" />
                       }}
                     />
-                  </Box>
-                  <Box display="flex" gap={1.5} flexDirection="column">
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                      <UINewTypography variant="bodySemiBold">Password</UINewTypography>
+                  </ModelUITextConatiner>
+                  <ModelUITextConatiner gap={1.5}>
+                    <ModelUITextConatiner sx={{ gap: 0.5 }}>
+                      <UITypographyText>
+                        <FormattedMessage id="Password" />
+                      </UITypographyText>
                       <UIStyledInputText
                         fullWidth
                         type={showPassword ? 'text' : 'password'}
@@ -166,7 +175,7 @@ const ModelSignin = ({
                           )
                         }}
                       />
-                    </Box>
+                    </ModelUITextConatiner>
                     <MenuItem
                       sx={{
                         display: 'flex',
@@ -179,7 +188,7 @@ const ModelSignin = ({
                       <Box>
                         <Checkbox sx={{ p: 0, pr: 1 }} />
                         <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}>
-                          Remember me
+                          <FormattedMessage id="RememberMe" />
                         </UINewTypography>
                       </Box>
                       <UINewTypography
@@ -188,18 +197,20 @@ const ModelSignin = ({
                         sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}
                         onClick={onFogotPasswordLinkOpen}
                       >
-                        Forgot Password?
+                        <FormattedMessage id="ForgotPassword" />
                       </UINewTypography>
                     </MenuItem>
-                  </Box>
-                </Box>
+                  </ModelUITextConatiner>
+                </ModelUITextConatiner>
                 <Box display="flex" flexDirection="column" gap="52px" justifyContent="space-between">
                   <Box display="flex" flexDirection="column" width="100%">
                     <StyleButtonV2 variant="contained" type="submit" loading={loading}>
-                      <UINewTypography variant="buttonLargeBold">Login</UINewTypography>
+                      <UIButtonText>
+                        <FormattedMessage id="LogIn" />
+                      </UIButtonText>
                     </StyleButtonV2>
                   </Box>
-                  <Box display="flex" flexDirection="column" gap={3}>
+                  <ModelUITextConatiner gap={3}>
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                     <Box
                       display="flex"
@@ -209,13 +220,15 @@ const ModelSignin = ({
                       pb={3}
                       sx={{ flexDirection: { xs: 'column', sm: 'row' } }}
                     >
-                      <UINewTypography variant="buttonLargeMenu">Don’t have an account?</UINewTypography>
+                      <UINewTypography variant="buttonLargeMenu">
+                        <FormattedMessage id="DontHaveAccount" />
+                      </UINewTypography>
 
                       <UINewTypography variant="body" sx={{ color: 'text.secondary', cursor: 'pointer' }} onClick={onSignupOpen}>
-                        Join for free now!
+                        <FormattedMessage id="JoinForFreeNow" />
                       </UINewTypography>
                     </Box>
-                  </Box>
+                  </ModelUITextConatiner>
                 </Box>
               </Box>
             </AuthModelCommon>

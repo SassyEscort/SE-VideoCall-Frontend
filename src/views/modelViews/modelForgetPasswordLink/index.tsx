@@ -25,6 +25,7 @@ import {
   RequestlinkBox,
   RestePasswordBox
 } from './ModelForgetPasswordLink.styled';
+import { FormattedMessage } from 'react-intl';
 
 export type ForgetPasswordParams = {
   id: string;
@@ -78,10 +79,12 @@ const ModelForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                     <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
                       <RestePasswordBox>
                         <UINewTypography variant="MediumSemiBoldText" color="common.white">
-                          Reset password
+                          <FormattedMessage id="ResetPassword" />
                         </UINewTypography>
                         <UINewTypography variant="bodyRegular" color="secondary.200" textAlign="center">
-                          Enter your email and we&apos;ll send you instructions on how to reset your password.
+                          <FormattedMessage id="EnterYourEmail" />
+                          &apos;
+                          <FormattedMessage id="SendYouInstructions" />
                         </UINewTypography>
                       </RestePasswordBox>
                       <IconBoxConatiner>
@@ -93,7 +96,9 @@ const ModelForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
 
                     <InputTypeFristEmailBox>
                       <InputTypeSecondEmailBox>
-                        <UINewTypography variant="bodySemiBold">Email address</UINewTypography>
+                        <UINewTypography variant="bodySemiBold">
+                          <FormattedMessage id="EmailAddress" />
+                        </UINewTypography>
                         <UIStyledInputText
                           fullWidth
                           id="email"
@@ -116,7 +121,9 @@ const ModelForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
 
                     <RequestlinkBox>
                       <StyleButtonV2 variant="contained" type="submit" loading={loading}>
-                        <UINewTypography variant="buttonLargeBold">Request link</UINewTypography>
+                        <UINewTypography variant="buttonLargeBold">
+                          <FormattedMessage id="RequestLink" />
+                        </UINewTypography>
                       </StyleButtonV2>
                     </RequestlinkBox>
                   </>
@@ -135,7 +142,7 @@ const ModelForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                       sx={{ color: 'text.secondary', cursor: 'pointer' }}
                       onClick={onLoginOpen}
                     >
-                      Log in instead!
+                      <FormattedMessage id="LogInInstead" />
                     </UINewTypography>
                   </RememberpasswordSecondBox>
                 </RememberpasswordfirstBox>

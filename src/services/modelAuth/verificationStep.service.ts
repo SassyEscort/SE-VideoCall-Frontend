@@ -9,6 +9,8 @@ import {
   ImageUploadPayload,
   Payload
 } from 'views/protectedModelViews/verificationStep2Document/type';
+import { getUserTokenClient } from 'utils/getSessionData';
+import { VerificationPayload } from './types';
 
 export const imageKitObj = {
   publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_KEY!,
@@ -51,13 +53,25 @@ export class VerificationStepService {
     }
   };
 
+  static verificationtepSecond = async (params: VerificationPayload) => {
+    try {
+      const token = await getUserTokenClient();
+      const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/photos`, params, {
+        headers: { 'Content-Type': 'application/json', Authorization: token }
+      });
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data || { error_message: error.message };
+    }
+  };
+
   static uploadModelPhotos = async (payload: Payload) => {
     const token = await getUserTokenServer();
     try {
       const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/photos`, payload, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
       });
-
       return res.data;
     } catch (err: any) {
       const error: AxiosError = err;

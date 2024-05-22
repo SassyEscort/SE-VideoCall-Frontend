@@ -16,13 +16,13 @@ export const UIStyledInputText = styled(TextField)(({ theme }) => ({
       borderBottom: 'none'
     },
     border: '2px solid',
-    borderColor: theme.palette.secondary.light
+    borderColor: theme.palette.primary[700]
   },
   '& .MuiInputBase-root': {
     borderRadius: theme.spacing(1),
     height: '100%',
     minHeight: '50px',
-    padding: '12px 16px ',
+    padding: '10px 16px ',
     '& .MuiOutlinedInput-input': {
       padding: 0
     }

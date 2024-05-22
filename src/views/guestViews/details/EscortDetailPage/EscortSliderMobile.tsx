@@ -26,6 +26,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
+import { FormattedMessage } from 'react-intl';
 
 const EscortSliderMobile = () => {
   const isLg = useMediaQuery(theme.breakpoints.up('sm'));
@@ -106,7 +107,7 @@ const EscortSliderMobile = () => {
             <Box display="flex" alignItems="center" gap="10px">
               <Image src="/images/workercards/video-call.svg" alt="video-call" height={20} width={20} />
               <UINewTypography color="common.white" variant="bodySemiBold" sx={{ textWrap: 'no-wrap' }}>
-                Start Video Call
+                <FormattedMessage id="StartVideoCall" />
               </UINewTypography>
             </Box>
           </UIThemeShadowButton>

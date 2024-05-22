@@ -16,7 +16,7 @@ import { signIn } from 'next-auth/react';
 import getCustomErrorMessage from 'utils/error.utils';
 import { useRouter } from 'next/navigation';
 import InfoIcon from '@mui/icons-material/Info';
-import { ErrorBox } from '../AuthCommon.styled';
+import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
@@ -122,11 +122,11 @@ const GuestLogin = ({
                     </ErrorBox>
                   )}
                 </Box>
-                <Box display="flex" flexDirection="column" gap={3}>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, width: isSmDown ? 'auto' : '400px' }}>
-                    <UINewTypography variant="bodySemiBold">
+                <ModelUITextConatiner gap={3}>
+                  <ModelUITextConatiner sx={{ gap: 0.5, width: isSmDown ? 'auto' : '400px' }}>
+                    <UITypographyText>
                       <FormattedMessage id="UsernameEmail" />
-                    </UINewTypography>
+                    </UITypographyText>
                     <UIStyledInputText
                       fullWidth
                       id="email"
@@ -144,12 +144,12 @@ const GuestLogin = ({
                         endAdornment: <RiUserFillLine color="#86838A" />
                       }}
                     />
-                  </Box>
-                  <Box display="flex" gap={1.5} flexDirection="column">
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, width: isSmDown ? 'auto' : '400px' }}>
-                      <UINewTypography variant="bodySemiBold">
+                  </ModelUITextConatiner>
+                  <ModelUITextConatiner gap={1.5}>
+                    <ModelUITextConatiner sx={{ gap: 0.5, width: isSmDown ? 'auto' : '400px' }}>
+                      <UITypographyText>
                         <FormattedMessage id="Password" />
-                      </UINewTypography>
+                      </UITypographyText>
                       <UIStyledInputText
                         fullWidth
                         type={showPassword ? 'text' : 'password'}
@@ -172,7 +172,7 @@ const GuestLogin = ({
                           )
                         }}
                       />
-                    </Box>
+                    </ModelUITextConatiner>
                     <MenuItem
                       sx={{
                         display: 'flex',
@@ -197,18 +197,17 @@ const GuestLogin = ({
                         <FormattedMessage id="ForgotPassword" />
                       </UINewTypography>
                     </MenuItem>
-                  </Box>
-                </Box>
-                <Box display="flex" flexDirection="column" gap="52px" justifyContent="space-between">
-                  <Box display="flex" flexDirection="column" width="100%" sx={{ width: isSmDown ? 'auto' : '400px' }}>
+                  </ModelUITextConatiner>
+                </ModelUITextConatiner>
+                <ModelUITextConatiner gap="52px" justifyContent="space-between">
+                  <ModelUITextConatiner width="100%" sx={{ width: isSmDown ? 'auto' : '400px' }}>
                     <StyleButtonV2 variant="contained" type="submit" loading={loading}>
-                      <UINewTypography variant="buttonLargeBold">
-                        {' '}
+                      <UIButtonText>
                         <FormattedMessage id="Login" />
-                      </UINewTypography>
+                      </UIButtonText>
                     </StyleButtonV2>
-                  </Box>
-                  <Box display="flex" flexDirection="column" gap={3}>
+                  </ModelUITextConatiner>
+                  <ModelUITextConatiner gap={3}>
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                     <Box
                       display="flex"
@@ -226,8 +225,8 @@ const GuestLogin = ({
                         <FormattedMessage id="JoinForFreeNow" />
                       </UINewTypography>
                     </Box>
-                  </Box>
-                </Box>
+                  </ModelUITextConatiner>
+                </ModelUITextConatiner>
               </Box>
             </AuthCommon>
           </Box>
