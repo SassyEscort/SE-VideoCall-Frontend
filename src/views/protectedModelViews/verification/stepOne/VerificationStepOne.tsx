@@ -11,7 +11,6 @@ import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import UINewRadioButtonsGroup from 'components/UIComponents/UIRadioButtonGroup';
 import { GENDER } from 'constants/workerVerification';
 import FormHelperText from '@mui/material/FormHelperText';
-import Autocomplete from '@mui/material/Autocomplete';
 import { RiArrowDownSLine, RiCalendar2Line } from 'components/common/customRemixIcons';
 import Box from '@mui/material/Box';
 import { FormikErrors, FormikTouched } from 'formik';
@@ -24,6 +23,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import UINewCheckBox from './VerificationCheckBox';
 import { UIStyledDatePicker } from 'components/UIComponents/UIStyledDatePicker';
 import { UIStyledSelectItemContainer } from 'components/UIComponents/UINewSelectItem';
+import UIStyledAutocomplete from 'components/UIComponents/UIStyledAutocomplete';
 
 export type VerificationBasicDetailsType = {
   values: VerificationStep1Type;
@@ -133,7 +133,7 @@ const VerificationBasicDetails = ({ values, errors, touched, handleChange, setFi
             <UINewTypography variant="bodySemiBold">
               <FormattedMessage id="Country" /> *
             </UINewTypography>
-            <Autocomplete
+            <UIStyledAutocomplete
               id="country"
               options={countries || []}
               getOptionLabel={(option) => option.name || ''}
@@ -141,19 +141,6 @@ const VerificationBasicDetails = ({ values, errors, touched, handleChange, setFi
               disablePortal
               onChange={(_, newValue) => {
                 handleCity(newValue ? newValue.id : null);
-              }}
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  padding: { xs: '0px important' }
-                },
-
-                '& .MuiAutocomplete-inputRoot': {
-                  paddingRight: {
-                    xs: '13px !important',
-                    sm: '16px !important'
-                  },
-                  padding: 0
-                }
               }}
               renderInput={(params) => (
                 <UIStyledInputText
