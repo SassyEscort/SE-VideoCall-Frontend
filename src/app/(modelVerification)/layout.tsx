@@ -4,7 +4,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Box>
       <main>
-        <Box sx={{ mt: 10 }}>{children}</Box>
+        <Box>{children}</Box>
       </main>
     </Box>
   );

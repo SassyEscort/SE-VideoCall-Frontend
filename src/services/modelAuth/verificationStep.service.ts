@@ -1,16 +1,15 @@
 import axios, { AxiosError } from 'axios';
 import { ErrorMessage } from 'constants/common.constants';
 import { toast } from 'react-toastify';
-import { getUserTokenServer } from 'utils/getSessionData';
 import {
   CustomFile,
   ImagekitTokenResponse,
   ImageUplaodBody,
   ImageUploadPayload,
   Payload
-} from 'views/protectedModelViews/verificationStep2Document/type';
-import { getUserTokenClient } from 'utils/getSessionData';
+} from 'views/protectedModelViews/verification/verificationStep2Document/type';
 import { VerificationPayload } from './types';
+import { TokenIdType } from 'views/protectedModelViews/verification';
 
 export const imageKitObj = {
   publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_KEY!,
@@ -53,11 +52,10 @@ export class VerificationStepService {
     }
   };
 
-  static verificationtepSecond = async (params: VerificationPayload) => {
+  static verificationtepSecond = async (params: VerificationPayload, token: TokenIdType) => {
     try {
-      const token = await getUserTokenClient();
       const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/photos`, params, {
-        headers: { 'Content-Type': 'application/json', Authorization: token }
+        headers: { 'Content-Type': 'application/json', Authorization: token.token }
       });
       return res.data;
     } catch (err: any) {
@@ -66,11 +64,10 @@ export class VerificationStepService {
     }
   };
 
-  static uploadModelPhotos = async (payload: Payload) => {
-    const token = await getUserTokenServer();
+  static uploadModelPhotos = async (payload: Payload, token: TokenIdType) => {
     try {
       const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/photos`, payload, {
-        headers: { 'Content-Type': 'application/json', Authorization: token }
+        headers: { 'Content-Type': 'application/json', Authorization: token.token }
       });
       return res.data;
     } catch (err: any) {

@@ -1,12 +1,13 @@
 'use client';
 
-import { useMemo, useCallback, useEffect, memo, useState, ChangeEvent } from 'react';
+import { useMemo, useCallback, useEffect, memo, useState, ChangeEvent, SetStateAction } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { IKUpload } from 'imagekitio-react';
 import { FormikErrors, FormikTouched } from 'formik';
 import { DragAndDropMultipleImageCloseButton } from './DragAndDropMultipleImage.styled';
 import UINewTypography from '../UINewTypography';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
 export type UploadFileControlType = {
   errors: string | undefined;
@@ -19,7 +20,7 @@ export type UploadFileControlType = {
   setFieldTouched: (field: string, val: boolean) => void;
   name: string;
   accept?: string;
-  workerPhotos: any[];
+  modelDetails: ModelDetailsResponse | undefined;
   title?: string;
 };
 
@@ -31,7 +32,7 @@ const DragAndDropV2 = ({
   accept,
   errors,
   touched,
-  workerPhotos,
+  modelDetails,
   withoutFilterImageTouched,
   title
 }: UploadFileControlType) => {
@@ -48,7 +49,7 @@ const DragAndDropV2 = ({
   };
 
   useEffect(() => {
-    workerPhotos?.map((image) => {
+    modelDetails?.photos?.map((image: { type: string; photo: SetStateAction<string> }) => {
       if (image.type === 'file_1' && name === 'file1') {
         setUploadedImageURL(image.photo);
       }
@@ -65,7 +66,7 @@ const DragAndDropV2 = ({
         setUploadedImageURL(image.photo);
       }
     });
-  }, [name, workerPhotos]);
+  }, [name, modelDetails]);
 
   const highlight = useCallback(() => {
     const dropArea = document.getElementById(dropAreaId);

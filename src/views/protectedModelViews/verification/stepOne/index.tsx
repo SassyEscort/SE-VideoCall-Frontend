@@ -12,6 +12,7 @@ import * as Yup from 'yup';
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
 import { StepOneContainer } from './VerficationStepOne.styled';
+import { TokenIdType } from '..';
 
 const VerificationStepOne = ({
   handleNext,
@@ -20,10 +21,10 @@ const VerificationStepOne = ({
 }: {
   handleNext: () => void;
   modelDetails: ModelDetailsResponse;
-  token: number;
+  token: TokenIdType;
 }) => {
   const initialValuesPerStep: VerificationStep1Type = {
-    id: token,
+    id: token.id,
     gender: modelDetails?.gender || '',
     name: modelDetails?.name || '',
     country_id: modelDetails?.country_id || '',
@@ -75,6 +76,7 @@ const VerificationStepOne = ({
           }}
         >
           <VerificationBasicDetails
+            token={token}
             values={values}
             errors={errors}
             touched={touched}

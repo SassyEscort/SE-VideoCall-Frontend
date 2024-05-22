@@ -6,6 +6,7 @@ import { MainMakeSure, Step7MainBox, Step7UploadImagBox } from './LastStepPromis
 import DragAndDropPromiseV2 from 'components/UIComponents/DragAndDropImage/DragAndDropPromiseV2';
 import { List, ListItem } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
+import { ModelDetailsResponse } from '../verificationTypes';
 
 export type UploadPhotoWithoutFilter = {
   errors: string | undefined;
@@ -17,7 +18,7 @@ export type UploadPhotoWithoutFilter = {
   handleNext: () => void;
   touched: FormikTouched<unknown>;
   activeStep: number;
-  workerPhotos: unknown[];
+  modelDetails: ModelDetailsResponse | undefined;
 };
 
 const WorkerPhotosWithoutFilterNew = ({
@@ -28,7 +29,7 @@ const WorkerPhotosWithoutFilterNew = ({
   errors,
   accept,
   touched,
-  workerPhotos
+  modelDetails
 }: UploadPhotoWithoutFilter) => {
   return (
     <>
@@ -65,7 +66,7 @@ const WorkerPhotosWithoutFilterNew = ({
                 setFieldTouched={setFieldTouched}
                 errors={errors}
                 accept={accept}
-                workerPhotos={workerPhotos}
+                modelDetails={modelDetails}
               />
             </Box>
 

@@ -16,21 +16,27 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { Payload } from './type';
 import VerificationStep2Instruction from './VerificationStep2Instruction';
+import { ModelDetailsResponse } from '../verificationTypes';
+import { TokenIdType } from '..';
 
 export type VerificationStepPromiseType = {
   activeStep: number;
-  //   workerPhotos: WorkerPhotos[];
-  handlePrevVerificationStep: () => void;
+  modelDetails: ModelDetailsResponse | undefined;
+  handlePrev: () => void;
   handleNext: () => void;
+  token: TokenIdType;
+  handleDocuPrev: () => void;
 };
 
-const VerificationStepPromise = ({ activeStep, handlePrevVerificationStep, handleNext }: VerificationStepPromiseType) => {
+const VerificationStepPromise = ({
+  activeStep,
+  handlePrev,
+  handleNext,
+  token,
+  modelDetails,
+  handleDocuPrev
+}: VerificationStepPromiseType) => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
-
-  // const mutationImageUpload = VerificationStepService.imageKitUplaodApi();
-  //   const mutationUploadPhotoWithoutFilter = usePutUploadPhotoWithoutFilter({
-  //     workerId: Number(query.id)
-  //   });
 
   const validationSchema = Yup.object().shape({
     photoWithoutFilter: Yup.mixed().required('Please upload your documents')
@@ -48,7 +54,7 @@ const VerificationStepPromise = ({ activeStep, handlePrevVerificationStep, handl
         try {
           const mutationImageUpload = await VerificationStepService.imageKitUplaodApi(values.photoWithoutFilter as File);
           const payload: Payload = {
-            id: '1',
+            id: token as unknown as string,
             is_document: false,
             photos: [
               {
@@ -63,7 +69,7 @@ const VerificationStepPromise = ({ activeStep, handlePrevVerificationStep, handl
               }
             ]
           };
-          const response = await VerificationStepService.uploadModelPhotos(payload);
+          const response = await VerificationStepService.uploadModelPhotos(payload, token);
           if (response.data.success) {
             handleNext();
           } else {
@@ -87,7 +93,7 @@ const VerificationStepPromise = ({ activeStep, handlePrevVerificationStep, handl
               accept="image/*"
               handleNext={handleSubmit}
               activeStep={activeStep}
-              //   workerPhotos={workerPhotos}
+              modelDetails={modelDetails}
             />
 
             <Box
@@ -110,7 +116,7 @@ const VerificationStepPromise = ({ activeStep, handlePrevVerificationStep, handl
               }}
             >
               <StepButtonNext>
-                <UIThemeButton variant="outlined" onClick={handlePrevVerificationStep}>
+                <UIThemeButton variant="outlined" onClick={handleDocuPrev}>
                   <ArrowBackIcon />
                   <UINewTypography variant="body">
                     {isSmDown ? <FormattedMessage id="Back" /> : <FormattedMessage id="PreviousStep" />}
