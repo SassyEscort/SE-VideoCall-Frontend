@@ -2,9 +2,8 @@ import { styled } from '@mui/material';
 import { UIStyledSelect } from '../UIStyledSelect';
 
 export const UIStyledSelectItemContainer = styled(UIStyledSelect)(({ theme }) => ({
-  border: '5px',
+  border: '2px solid',
   '&.MuiInputBase-root': {
-    border: '5px',
     backgroundColor: theme.palette.common.black,
     borderColor: theme.palette.secondary.light,
     '&:hover .MuiOutlinedInput-notchedOutline': {
