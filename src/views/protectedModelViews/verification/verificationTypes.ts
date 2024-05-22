@@ -1,3 +1,5 @@
+import { Photo } from './verificationStep2Document/type';
+
 export type MultipleOptionString = {
   id: string;
   name: string;
@@ -30,6 +32,7 @@ export type ModelDetailsResponse = {
   dob: string;
   nationality_id: string;
   languages: LanagueRes[];
+  photos: Photo[];
 };
 
 export interface FileBody {

@@ -28,6 +28,8 @@ import { VerificationStepService } from 'services/modelAuth/verificationStep.ser
 import { UIStyledSelectItemContainer } from 'components/UIComponents/UINewSelectItem';
 import { FormattedMessage } from 'react-intl';
 import { VerificationPayload } from 'services/modelAuth/types';
+import { TokenIdType } from '..';
+import { toast } from 'react-toastify';
 
 export type VerificationStepSecond = {
   idType: string;
@@ -39,7 +41,17 @@ const validationSchema = yup.object({
   idNumber: yup.string().required('Idnumber  is required')
 });
 
-const VerificationStep2 = () => {
+const VerificationStep2 = ({
+  token,
+  handleNext,
+  handlePrev,
+  handleChaneDocuModal
+}: {
+  token: TokenIdType;
+  handleNext: () => void;
+  handlePrev: () => void;
+  handleChaneDocuModal: (val: boolean) => void;
+}) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
   const initialValues = {
@@ -72,7 +84,12 @@ const VerificationStep2 = () => {
   });
 
   const handleSubmitForm = async (inputPayload: VerificationPayload) => {
-    await VerificationStepService.verificationtepSecond(inputPayload);
+    const response = await VerificationStepService.verificationtepSecond(inputPayload, token);
+    if (response.data.success) {
+      handleChaneDocuModal(true);
+    } else {
+      toast.error(response.data.message);
+    }
   };
 
   return (

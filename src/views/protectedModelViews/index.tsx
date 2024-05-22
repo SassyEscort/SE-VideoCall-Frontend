@@ -1,7 +1,13 @@
-import React from 'react';
+'use client';
+
+import VerificationContainer from './verification';
 
 const ModelPage = () => {
-  return <div>Welcome To Model Dashboard Page</div>;
+  return (
+    <>
+      <VerificationContainer />
+    </>
+  );
 };
 
 export default ModelPage;
