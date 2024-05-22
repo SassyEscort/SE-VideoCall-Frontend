@@ -134,5 +134,9 @@
   "BasicDetails": "Basic Details",
   "Your Gender": "Your Gender",
   "Female": "Female",
-  "Netherland": "Netherland"
+  "Netherland": "Netherland",
+  "Bio": "Bio",
+  "Language": "Language",
+  "Documents": "Documents",
+  "IdFront": "ID Front"
 }

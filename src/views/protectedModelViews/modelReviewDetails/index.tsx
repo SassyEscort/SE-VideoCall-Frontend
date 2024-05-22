@@ -58,7 +58,7 @@ const ModelReviewDetails = () => {
                         <FormattedMessage id="YourGender" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                        <FormattedMessage id="Female" />
+                        Female
                       </UINewTypography>
                     </LeftCloumnConatinerGap>
                     <LeftCloumnConatinerGap>
@@ -66,7 +66,7 @@ const ModelReviewDetails = () => {
                         <FormattedMessage id="Country" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                        <FormattedMessage id="Netherland" />
+                        Netherland
                       </UINewTypography>
                     </LeftCloumnConatinerGap>
                     <LeftCloumnConatinerGap>
@@ -79,7 +79,7 @@ const ModelReviewDetails = () => {
                     </LeftCloumnConatinerGap>
                     <LeftCloumnConatinerGap>
                       <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
-                        Nationality
+                        <FormattedMessage id="Nationality" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
                         Dutch
@@ -89,7 +89,7 @@ const ModelReviewDetails = () => {
                   <RightSideConatiner>
                     <RightSideConatinerGap>
                       <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
-                        Name
+                        <FormattedMessage id="Name" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
                         Aesha Finn
@@ -97,7 +97,7 @@ const ModelReviewDetails = () => {
                     </RightSideConatinerGap>
                     <RightSideConatinerGap>
                       <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
-                        Bio
+                        <FormattedMessage id="Bio" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
                         Life is short. Take the trip, buy the shoes, eat the cake, and LOVE ❤️.
@@ -105,7 +105,7 @@ const ModelReviewDetails = () => {
                     </RightSideConatinerGap>
                     <RightSideConatinerGap>
                       <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
-                        Language
+                        <FormattedMessage id="Language" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
                         English, Spanish
@@ -118,7 +118,7 @@ const ModelReviewDetails = () => {
             <ButtonContainer>
               <UIThemeButton variant="outlined">
                 <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                  Edit
+                  <FormattedMessage id="Edit" />
                 </UINewTypography>
               </UIThemeButton>
             </ButtonContainer>
@@ -129,13 +129,13 @@ const ModelReviewDetails = () => {
           <Box sx={{ display: 'flex', flexDirection: 'cloumn', gap: 6, width: '100%' }}>
             <DocumentLeftContainer>
               <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
-                Documents
+                <FormattedMessage id="Documents" />
               </UINewTypography>
               <IDtype>
                 <Passport>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                     <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
-                      ID type
+                      <FormattedMessage id="IdType" />
                     </UINewTypography>
                     <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
                       Passport
@@ -143,7 +143,7 @@ const ModelReviewDetails = () => {
                   </Box>
                   <IDnumber>
                     <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
-                      ID number
+                      <FormattedMessage id="IdNumber" />
                     </UINewTypography>
                     <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
                       23456789875
@@ -153,7 +153,7 @@ const ModelReviewDetails = () => {
                 <FontIdRight>
                   <Box>
                     <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
-                      ID Front
+                      <FormattedMessage id="IdFront" />
                     </UINewTypography>
                   </Box>
                   <Box>
@@ -166,7 +166,7 @@ const ModelReviewDetails = () => {
           <EditButton>
             <UIThemeButton variant="outlined">
               <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                Edit
+                <FormattedMessage id="Edit" />
               </UINewTypography>
             </UIThemeButton>
           </EditButton>
