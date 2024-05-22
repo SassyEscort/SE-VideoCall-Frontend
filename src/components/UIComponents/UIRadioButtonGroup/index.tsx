@@ -1,10 +1,10 @@
 import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Radio from '@mui/material/Radio';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import UINewTypography from '../UINewTypography';
+import { UIStyledFormLabelContainer } from '../UIStyledFormLabel';
+import FormControl from '@mui/material/FormControl';
 
 export type MultipleOptions = {
   id: number | string;
@@ -28,13 +28,17 @@ export default function UINewRadioButtonsGroup({ label, options, defaultValue, o
         onChange={(event) => onChange(event.target.value)}
         sx={{
           display: 'flex',
-          alignItems: 'flex-start',
           gap: '12px',
           flexDirection: 'row'
         }}
       >
         {options.map((option) => (
-          <FormControlLabel
+          <UIStyledFormLabelContainer
+            sx={{
+              backgroundColor: option.id == defaultValue ? 'primary.200' : '#232027 !important',
+              color: option.id == defaultValue ? '#FF68C0 !important' : '#B7B5B9 !important',
+              fontWeight: option.id == defaultValue ? 'bold !important' : 'normal !important'
+            }}
             key={option.id}
             value={option.id}
             control={
@@ -58,19 +62,6 @@ export default function UINewRadioButtonsGroup({ label, options, defaultValue, o
                 {option.name}
               </UINewTypography>
             }
-            sx={{
-              backgroundColor: option.id == defaultValue ? 'primary.200' : '#232027 !important',
-              color: option.id == defaultValue ? '#FF68C0 !important' : '#B7B5B9 !important',
-              width: '188.75px',
-              height: '46px',
-              m: 0,
-              padding: '10px 12px',
-              gap: '6px',
-              borderRadius: '8px',
-              border: '1px solid',
-              borderColor: '#232027',
-              fontWeight: option.id == defaultValue ? 'bold !important' : 'normal !important'
-            }}
           />
         ))}
       </RadioGroup>

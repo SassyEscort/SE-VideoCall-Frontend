@@ -69,3 +69,11 @@ export const StepTwoInputOuterMainBox = styled(Box)(({ theme }) => ({
   height: '100%',
   maxHeight: theme.spacing(16)
 }));
+
+export const StepOneContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(4),
+  alignItems: 'center',
+  paddingTop: theme.spacing(4)
+}));

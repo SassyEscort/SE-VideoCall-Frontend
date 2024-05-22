@@ -303,7 +303,7 @@ const VerificationBasicDetails = ({ values, errors, touched, handleChange, setFi
                 error={touched.nationality_id && Boolean(errors.nationality_id)}
                 IconComponent={ExpandMore}
               >
-                {nationality.map((type, index: number) => (
+                {nationality?.map((type, index: number) => (
                   <MenuItem key={index} value={type.id}>
                     {type.name}
                   </MenuItem>
@@ -319,7 +319,7 @@ const VerificationBasicDetails = ({ values, errors, touched, handleChange, setFi
           <FormattedMessage id="PreferredLanguage" />*
         </UINewTypography>
         <Box width="100%" display="flex" gap={1.5} flexWrap="wrap">
-          {languages.map((lang, index) => (
+          {languages?.map((lang, index) => (
             <UINewCheckBox
               value={lang.id.toString()}
               onChange={handleLanguageChange}

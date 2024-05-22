@@ -16,6 +16,7 @@ import { ModelDetailsService } from 'services/modelDetails/modelDetails.services
 import * as Yup from 'yup';
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
+import { StepOneContainer } from './VerficationStepOne.styled';
 
 const VerificationStepOne = ({ handleNext }: { handleNext: () => void }) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
@@ -81,17 +82,17 @@ const VerificationStepOne = ({ handleNext }: { handleNext: () => void }) => {
       }}
     >
       {({ values, errors, touched, handleChange, setFieldValue, handleSubmit, handleBlur }) => (
-        <Box
+        <StepOneContainer
           component="form"
           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit();
           }}
-          display="flex"
-          gap={4}
-          pt={4}
-          flexDirection="column"
-          alignItems="center"
+          // display="flex"
+          // gap={4}
+          // pt={4}
+          // flexDirection="column"
+          // alignItems="center"
         >
           <VerificationBasicDetails
             values={values}
@@ -122,7 +123,7 @@ const VerificationStepOne = ({ handleNext }: { handleNext: () => void }) => {
               <RiArrowRightLine />
             </StyleButtonV2>
           </Box>
-        </Box>
+        </StepOneContainer>
       )}
     </Formik>
   );
