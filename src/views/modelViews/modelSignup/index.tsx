@@ -22,7 +22,7 @@ import ModelSignupSuccess from './ModelSignupSuccess';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
-import { ErrorBox } from 'views/auth/AuthCommon.styled';
+import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from 'views/auth/AuthCommon.styled';
 import InfoIcon from '@mui/icons-material/Info';
 import { FormattedMessage } from 'react-intl';
 
@@ -162,11 +162,11 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                         </ErrorBox>
                       )}
                     </Box>
-                    <Box display="flex" flexDirection="column" gap={3}>
-                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                        <UINewTypography variant="bodySemiBold">
+                    <ModelUITextConatiner gap={3}>
+                      <ModelUITextConatiner gap={0.5}>
+                        <UITypographyText>
                           <FormattedMessage id="Name" />
-                        </UINewTypography>
+                        </UITypographyText>
                         <UIStyledInputText
                           fullWidth
                           id="name"
@@ -185,11 +185,11 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             endAdornment: <RiUserFillLine color="#86838A" />
                           }}
                         />
-                      </Box>
-                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                        <UINewTypography variant="bodySemiBold">
+                      </ModelUITextConatiner>
+                      <ModelUITextConatiner gap={0.5}>
+                        <UITypographyText>
                           <FormattedMessage id="EmailAddress" />
-                        </UINewTypography>
+                        </UITypographyText>
                         <UIStyledInputText
                           fullWidth
                           id="email"
@@ -208,12 +208,12 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             endAdornment: <RiMailLine color="#86838A" />
                           }}
                         />
-                      </Box>
-                      <Box display="flex" gap={1.5} flexDirection="column">
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                          <UINewTypography variant="bodySemiBold">
+                      </ModelUITextConatiner>
+                      <ModelUITextConatiner gap={1.5}>
+                        <ModelUITextConatiner gap={0.5}>
+                          <UITypographyText>
                             <FormattedMessage id="Password" />
-                          </UINewTypography>
+                          </UITypographyText>
                           <UIStyledInputText
                             fullWidth
                             type={showPassword ? 'text' : 'password'}
@@ -237,7 +237,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                               )
                             }}
                           />
-                        </Box>
+                        </ModelUITextConatiner>
                         <MenuItem sx={{ p: 0 }}>
                           <Checkbox sx={{ p: 0, pr: 1 }} />
                           <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
@@ -257,15 +257,15 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             </span>
                           </UINewTypography>
                         </MenuItem>
-                      </Box>
-                    </Box>
-                    <Box display="flex" flexDirection="column" width="100%" gap="24px">
+                      </ModelUITextConatiner>
+                    </ModelUITextConatiner>
+                    <ModelUITextConatiner width="100%" gap={isSmDown ? '32px' : '24px'}>
                       <StyleButtonV2 variant="contained" type="submit" loading={loading} sx={{ width: isLg ? '400px' : 'auto' }}>
-                        <UINewTypography variant="buttonLargeBold">
+                        <UIButtonText>
                           <FormattedMessage id="SignUp" />
-                        </UINewTypography>
+                        </UIButtonText>
                       </StyleButtonV2>
-                      <Box display="flex" flexDirection="column" gap={3}>
+                      <ModelUITextConatiner gap={3}>
                         <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                         <Box display="flex" gap={1} alignItems="center" justifyContent="center" pb={3}>
                           <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
@@ -280,8 +280,8 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             <FormattedMessage id="LogInInstead" />
                           </UINewTypography>
                         </Box>
-                      </Box>
-                    </Box>
+                      </ModelUITextConatiner>
+                    </ModelUITextConatiner>
                   </>
                 ) : (
                   <ModelSignupSuccess />
