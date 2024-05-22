@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useCallback, useEffect, memo, useState, ChangeEvent, SetStateAction } from 'react';
+import { useMemo, useCallback, useEffect, memo, useState, ChangeEvent } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { IKUpload } from 'imagekitio-react';
@@ -36,37 +36,33 @@ const DragAndDropV2 = ({
   withoutFilterImageTouched,
   title
 }: UploadFileControlType) => {
-  // const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
   const [uploadedImageURL, setUploadedImageURL] = useState('');
   const dropAreaId = useMemo(() => name + '_dropable', [name]);
-  // const dynamicImageHeight = uploadedImageURL ? '308px' : '308px';
-  // const dynamicImageHeightResponsive = uploadedImageURL ? '390px' : '390px';
 
   const preventDefaults = (e: Event) => {
     e.preventDefault();
     e.stopPropagation();
   };
 
-  useEffect(() => {
-    modelDetails?.photos?.map((image: { type: string; photo: SetStateAction<string> }) => {
-      if (image.type === 'file_1' && name === 'file1') {
-        setUploadedImageURL(image.photo);
-      }
-      if (image.type === 'file_2' && name === 'file2') {
-        setUploadedImageURL(image.photo);
-      }
-      if (image.type === 'file_3' && name === 'file3') {
-        setUploadedImageURL(image.photo);
-      }
-      if (image.type === 'file_4' && name === 'file4') {
-        setUploadedImageURL(image.photo);
-      }
-      if (image.type === 'Regular' && name === 'photoWithoutFilter') {
-        setUploadedImageURL(image.photo);
-      }
-    });
-  }, [name, modelDetails]);
+  // useEffect(() => {
+  //   modelDetails?.photos?.map((image: { type: string; photo: SetStateAction<string> }) => {
+  //     if (image.type === 'file_1' && name === 'file1') {
+  //       setUploadedImageURL(image.photo);
+  //     }
+  //     if (image.type === 'file_2' && name === 'file2') {
+  //       setUploadedImageURL(image.photo);
+  //     }
+  //     if (image.type === 'file_3' && name === 'file3') {
+  //       setUploadedImageURL(image.photo);
+  //     }
+  //     if (image.type === 'file_4' && name === 'file4') {
+  //       setUploadedImageURL(image.photo);
+  //     }
+  //     if (image.type === 'Regular' && name === 'photoWithoutFilter') {
+  //       setUploadedImageURL(image.photo);
+  //     }
+  //   });
+  // }, [name, modelDetails]);
 
   const highlight = useCallback(() => {
     const dropArea = document.getElementById(dropAreaId);

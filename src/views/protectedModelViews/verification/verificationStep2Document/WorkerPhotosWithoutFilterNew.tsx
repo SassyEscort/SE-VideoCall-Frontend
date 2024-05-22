@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box';
 import { FormikErrors, FormikTouched } from 'formik';
-// import { WorkerPhotos } from '@/types/api/workerVerification/WorkerDetails';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { MainMakeSure, Step7MainBox, Step7UploadImagBox } from './LastStepPromise.styled';
 import DragAndDropPromiseV2 from 'components/UIComponents/DragAndDropImage/DragAndDropPromiseV2';
