@@ -8,8 +8,6 @@ import { RiArrowLeftLine, RiArrowRightLine } from 'components/common/customRemix
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
-import { useMediaQuery } from '@mui/material';
-import theme from 'themes/theme';
 import { getUserDataClient } from 'utils/getSessionData';
 import { useEffect, useState } from 'react';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
@@ -19,7 +17,6 @@ import { FormattedMessage } from 'react-intl';
 import { StepOneContainer } from './VerficationStepOne.styled';
 
 const VerificationStepOne = ({ handleNext }: { handleNext: () => void }) => {
-  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const [token, setToken] = useState(0);
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
 
@@ -88,11 +85,6 @@ const VerificationStepOne = ({ handleNext }: { handleNext: () => void }) => {
             e.preventDefault();
             handleSubmit();
           }}
-          // display="flex"
-          // gap={4}
-          // pt={4}
-          // flexDirection="column"
-          // alignItems="center"
         >
           <VerificationBasicDetails
             values={values}
