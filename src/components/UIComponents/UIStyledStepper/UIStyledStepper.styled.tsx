@@ -26,8 +26,7 @@ const UIStyledStepper = styled(Stepper)(({ theme }) => ({
   },
   '& .MuiStepConnector-line': {
     borderTopWidth: '3px',
-    borderColor: theme.palette.secondary.light,
-    borderStyle: 'dashed'
+    borderColor: theme.palette.secondary.light
   },
   '& .mui-style-1fu8gtm-MuiSvgIcon-root-MuiStepIcon-root.Mui-active ': {
     color: theme.palette.primary[400]

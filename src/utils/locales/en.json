@@ -74,5 +74,16 @@
   "IsThereMobileApp": "Is there a mobile app available for the platform?",
   "WeOfferResponsiveWeb": "Currently, we offer a responsive web-based platform optimized for mobile devices, ensuring a seamless experience on smartphones. While there’s no dedicated app yet, you can access the platform conveniently from any mobile browser",
   "Back": "Back",
-  "Next":"Next"
+  "Next":"Next",
+  "IAmA":"I am a",
+  "Name":"Name",
+  "BioData":"Please write a brief introduction about yourself in at least five sentences, using a minimum of 300 characters. Keep it friendly and avoid sharing contact information, rates, or stars in this section—use the appropriate areas for those details.",
+  "Country":"Country",
+  "Email":"Email",
+  "Edit":"Edit",
+  "Verify":"Verify",
+  "DOB":"Date of birth",
+  "DOBCantChange":"DOB cant be changed after being verified",
+  "Nationality":"Nationality",
+  "PreferredLanguage":"Preferred speaking language"
 }

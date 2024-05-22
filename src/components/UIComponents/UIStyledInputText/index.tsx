@@ -16,7 +16,7 @@ export const UIStyledInputText = styled(TextField)(({ theme }) => ({
       borderBottom: 'none'
     },
     border: '2px solid',
-    borderColor: theme.palette.secondary.light
+    borderColor: theme.palette.primary[700]
   },
   '& .MuiInputBase-root': {
     borderRadius: theme.spacing(1),
