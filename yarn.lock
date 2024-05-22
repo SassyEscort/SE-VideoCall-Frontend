@@ -3418,6 +3418,19 @@ ignore@^5.2.0, ignore@^5.2.4:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.3.1.tgz#5073e554cd42c5b33b394375f538b8593e34d4ef"
   integrity sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==
 
+imagekit-javascript@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/imagekit-javascript/-/imagekit-javascript-3.0.1.tgz#b974e2c3c1d3e4f772594cc8c88fdafcd5c40241"
+  integrity sha512-//pvycASq98lfa68y04Q0/P6lRS5HTa015fFHi91c4mOgruqssrJIrAC1W2/8fBjS8eiJtehZruDtXJVtrmT+A==
+
+imagekitio-react@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/imagekitio-react/-/imagekitio-react-4.1.0.tgz#11d551930c746ae10b0ccc7702fbd2a5fbcdea70"
+  integrity sha512-Vyb0s+2vbBwiexeWds69tMOn2evAGPRK7mYezMoBWr9CZCuINYlOGGhfn1Yt8yYncOBaXqyKTuUfnqhbsBlKMw==
+  dependencies:
+    imagekit-javascript "^3.0.0"
+    prop-types "^15.7.2"
+
 immutable@^4.0.0:
   version "4.3.5"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.3.5.tgz#f8b436e66d59f99760dc577f5c99a4fd2a5cc5a0"
@@ -4302,7 +4315,7 @@ pretty-format@^3.8.0:
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-3.8.0.tgz#bfbed56d5e9a776645f4b1ff7aa1a3ac4fa3c385"
   integrity sha512-WuxUnVtlWL1OfZFQFuqvnvs6MiAGk9UNsBostyBOB0Is9wb5uRESevA6rnl/rkksXaGX3GzZhPup5d6Vp1nFew==
 
-prop-types@^15.6.2, prop-types@^15.8.1:
+prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -4339,7 +4352,7 @@ react-dom@18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-react-easy-crop@5.0.7:
+react-easy-crop@^5.0.7:
   version "5.0.7"
   resolved "https://registry.yarnpkg.com/react-easy-crop/-/react-easy-crop-5.0.7.tgz#b20cc2ea606a3731576101251a8190434cef1cf6"
   integrity sha512-6d5IUt09M3HwdDGwrcjPVgfrOfYWAOku8sCTn/xU7b1vkEg+lExMLwW8UbR39L8ybQi0hJZTU57yprF9h5Q5Ig==

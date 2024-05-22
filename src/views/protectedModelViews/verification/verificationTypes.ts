@@ -31,3 +31,21 @@ export type ModelDetailsResponse = {
   nationality_id: string;
   languages: LanagueRes[];
 };
+
+export interface FileBody {
+  type: string;
+  file: File | File[] | string | null;
+  cords?: string | string[];
+  id?: number;
+  isFavorite?: number;
+}
+
+export interface MultipleImageUplaodBody {
+  file: File[];
+  publicKey: string;
+  signature: string;
+  expire: number;
+  token: string;
+  fileName: string;
+  folder: string;
+}
