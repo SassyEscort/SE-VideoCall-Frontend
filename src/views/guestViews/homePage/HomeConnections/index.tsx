@@ -24,7 +24,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 
 const HomeConnections = () => {
-  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm')); 
   const isMdDown = useMediaQuery(theme.breakpoints.down('lg'));
 
   return (

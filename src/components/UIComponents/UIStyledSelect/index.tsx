@@ -8,6 +8,7 @@ export const UIStyledSelect = styled(Select)(({ theme }) => ({
   width: '100%',
   height: '48px',
   backgroundColor: theme.palette.primary[700],
+
   '&:hover': {
     '.MuiOutlinedInput-notchedOutline': {
       borderColor: theme.palette.secondary[700]
@@ -24,7 +25,7 @@ export const UIStyledSelect = styled(Select)(({ theme }) => ({
 }));
 
 export const StyledSelectInputLabel = styled(InputLabel)(({ theme }) => ({
-  top: '-9px',
+  top: '-4px',
   color: theme.palette.secondary[200],
   '&.MuiInputLabel-shrink': { top: 0 }
 }));

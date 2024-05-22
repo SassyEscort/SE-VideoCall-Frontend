@@ -105,7 +105,7 @@ const MainFooter = () => {
                     </Link>
                   </UINewTypography>
                   <UINewTypography variant="SubtitleSmallRegular">
-                    <Link prefetch={false} href="/terms-and-conditions">
+                    <Link prefetch={false} href="/model">
                       <FormattedMessage id="RegisterAsAModel" />
                     </Link>
                   </UINewTypography>

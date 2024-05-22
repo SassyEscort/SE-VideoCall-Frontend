@@ -69,18 +69,19 @@ const HomeModelTopBanner = () => {
           <DetailContainer>
             <DetailSubContainer>
               <InlineBox>
-                Join our premier
+                <FormattedMessage id="JoinOurPremier" />
                 {(!isSmDown || isSm) && ' platform and connect with a'} &nbsp;
                 <Box component="span" position="relative">
                   {isSmDown && !isSm && <InlineBoxRelativeNocolor>platform and connect</InlineBoxRelativeNocolor>}
                   <InlineBoxRelative>
                     {isSmDown && !isSm && (
                       <UINewTypography variant="MediumSemiBoldText" color="common.white" textAlign="center">
-                        with a &nbsp;
+                        <FormattedMessage id="WithA" />
+                        &nbsp;
                       </UINewTypography>
                     )}
                     <Box component="span" sx={{ zIndex: 1, position: 'relative', textWrap: isSm ? 'wrap' : 'nowrap' }}>
-                      global audience. &nbsp;
+                      <FormattedMessage id="GlobalAudience" /> &nbsp;
                     </Box>
                     <Image
                       alt="word_underline"

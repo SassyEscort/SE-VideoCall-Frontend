@@ -1,10 +1,20 @@
 import { Box, useMediaQuery } from '@mui/material';
 import React from 'react';
-import { DetailsChildBox, DetailsChipBox, DetailsMainBox, DetailsTypographyBox, NewTypography } from './Escort.styled';
+import {
+  DetailSubTypographyBox,
+  DetailsChildBox,
+  DetailsChildTypographyBox,
+  DetailsChipBox,
+  DetailsMainBox,
+  DetailsTypographyBox,
+  NameMainBox,
+  NewTypography
+} from './Escort.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UINewChip from 'components/UIComponents/UINewChip';
 import theme from 'themes/theme';
 import { UINewTooltip } from 'components/UIComponents/UINewTooltip/UINewTooltip.styled';
+import { FormattedMessage } from 'react-intl';
 
 const EscortPersonalDetail = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -21,31 +31,35 @@ const EscortPersonalDetail = () => {
       >
         <DetailsMainBox sx={{ marginTop: isSmDown ? '8px' : undefined }}>
           <DetailsChildBox>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: isSmDown ? 2 : 3 }}>
+            <NameMainBox>
               <DetailsChildBox>
                 <UINewTypography
                   variant="MediumSemiBold"
                   color="#E9E8EB"
                   sx={{ fontSize: { xs: '32px', sm: '40px' }, lineHeight: { xs: '43.2px', sm: '54px' } }}
                 >
-                  Lexi Lane
+                  <FormattedMessage id="LexiLane" />
                 </UINewTypography>
                 <UINewTypography variant="SubtitleSmallMedium" sx={{ fontSize: '14px', lineHeight: '19.6px' }}>
-                  Last active 2hrs ago
+                  <FormattedMessage id="LastActive" />
                 </UINewTypography>
               </DetailsChildBox>
               <Box>
-                <NewTypography variant="subtitle">Life is short. Take the trip, buy the shoes, eat the cake, and LOVE ❤️.</NewTypography>
+                <NewTypography variant="subtitle">
+                  <FormattedMessage id="LifeIsShort" />
+                </NewTypography>
               </Box>
-            </Box>
+            </NameMainBox>
           </DetailsChildBox>
         </DetailsMainBox>
 
         <DetailsTypographyBox>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: isSmDown ? 2 : 3 }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+          <DetailSubTypographyBox>
+            <DetailsChildTypographyBox>
               <Box>
-                <UINewTypography variant="captionBold">My Appearance</UINewTypography>
+                <UINewTypography variant="captionBold">
+                  <FormattedMessage id="MyAppearance" />
+                </UINewTypography>
               </Box>
               <DetailsChipBox>
                 <UINewTooltip title={'Hello'} placement="top">
@@ -63,11 +77,13 @@ const EscortPersonalDetail = () => {
                   label="English, Spanish"
                 />
               </DetailsChipBox>
-            </Box>
+            </DetailsChildTypographyBox>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+            <DetailsChildTypographyBox>
               <Box>
-                <UINewTypography variant="captionBold">Rates</UINewTypography>
+                <UINewTypography variant="captionBold">
+                  <FormattedMessage id="Rates" />
+                </UINewTypography>
               </Box>
               <DetailsChipBox>
                 <UINewChip
@@ -75,8 +91,8 @@ const EscortPersonalDetail = () => {
                   label="20 credits/hr"
                 />
               </DetailsChipBox>
-            </Box>
-          </Box>
+            </DetailsChildTypographyBox>
+          </DetailSubTypographyBox>
         </DetailsTypographyBox>
       </Box>
     </>

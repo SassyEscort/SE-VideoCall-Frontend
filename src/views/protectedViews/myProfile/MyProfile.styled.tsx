@@ -6,7 +6,6 @@ export const MyProfileContainerMain = styled(Box)(({ theme }) => ({
     paddingLeft: theme.spacing(1.875),
     paddingRight: theme.spacing(1.875)
   },
-  paddingTop: theme.spacing(4),
   display: 'flex',
   gap: theme.spacing(7),
   flexDirection: 'column'

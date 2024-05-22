@@ -25,3 +25,11 @@ export const getUserDataClient = async () => {
   const data = JSON.parse(details!);
   return data;
 };
+
+export const getLoggedInUser = async () => {
+  const session = await getAuthUser();
+  if (session) {
+    return Boolean(session);
+  }
+  return false;
+};

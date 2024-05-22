@@ -18,10 +18,11 @@ import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
 import AuthCommon from '../AuthCommon';
 import GuestSignupSuccess from '../GuestSignupSuccess';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
-import { ErrorBox, UITypographyText } from '../AuthCommon.styled';
+import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
 import InfoIcon from '@mui/icons-material/Info';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { FormattedMessage } from 'react-intl';
 
 export type SignupParams = {
   name: string;
@@ -127,7 +128,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                   <>
                     <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
                       <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ lineHeight: '38.4px' }}>
-                        Join Now for Free
+                        <FormattedMessage id="JoinNowForFree" />
                       </UINewTypography>
                       <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
                         <IconButton
@@ -153,9 +154,11 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                         </ErrorBox>
                       )}
                     </Box>
-                    <Box display="flex" flexDirection="column" gap={3} sx={{ width: isLg ? '400px' : 'auto' }}>
-                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                        <UITypographyText>Username</UITypographyText>
+                    <ModelUITextConatiner gap={3} sx={{ width: isLg ? '400px' : 'auto' }}>
+                      <ModelUITextConatiner sx={{ gap: 0.5 }}>
+                        <UITypographyText>
+                          <FormattedMessage id="Username" />
+                        </UITypographyText>
                         <UIStyledInputText
                           fullWidth
                           id="name"
@@ -173,9 +176,11 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             endAdornment: <RiUserFillLine color="#86838A" />
                           }}
                         />
-                      </Box>
-                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                        <UITypographyText>Email address</UITypographyText>
+                      </ModelUITextConatiner>
+                      <ModelUITextConatiner sx={{ gap: 0.5 }}>
+                        <UITypographyText>
+                          <FormattedMessage id="EmailAddress" />
+                        </UITypographyText>
                         <UIStyledInputText
                           fullWidth
                           id="email"
@@ -193,10 +198,12 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             endAdornment: <RiMailLine color="#86838A" />
                           }}
                         />
-                      </Box>
-                      <Box display="flex" gap={1.5} flexDirection="column">
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                          <UITypographyText>Password</UITypographyText>
+                      </ModelUITextConatiner>
+                      <ModelUITextConatiner gap={1.5}>
+                        <ModelUITextConatiner sx={{ gap: 0.5 }}>
+                          <UITypographyText>
+                            <FormattedMessage id="Password" />
+                          </UITypographyText>
                           <UIStyledInputText
                             fullWidth
                             type={showPassword ? 'text' : 'password'}
@@ -219,24 +226,26 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                               )
                             }}
                           />
-                        </Box>
+                        </ModelUITextConatiner>
                         <MenuItem sx={{ p: 0, gap: 1 }}>
                           <Checkbox sx={{ p: 0, pr: 1 }} />
                           <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
-                            Remember me
+                            <FormattedMessage id="RememberMe" />
                           </UINewTypography>
                         </MenuItem>
-                      </Box>
-                    </Box>
-                    <Box display="flex" flexDirection="column" width="100%" gap={isSm ? '33px' : '29px'}>
+                      </ModelUITextConatiner>
+                    </ModelUITextConatiner>
+                    <ModelUITextConatiner width="100%" gap={isSm ? '33px' : '29px'}>
                       <StyleButtonV2 variant="contained" type="submit" loading={loading} sx={{ width: isLg ? '400px' : 'auto' }}>
-                        <UINewTypography variant="buttonLargeBold">Sign Up</UINewTypography>
+                        <UIButtonText>
+                          <FormattedMessage id="SignUp" />
+                        </UIButtonText>
                       </StyleButtonV2>
-                      <Box display="flex" flexDirection="column" gap={3}>
+                      <ModelUITextConatiner gap={3}>
                         <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                         <Box display="flex" gap={1} alignItems="center" justifyContent="center" pb={3}>
                           <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
-                            Remember password?
+                            <FormattedMessage id="RememberPassword" />
                           </UINewTypography>
                           <UINewTypography
                             whiteSpace="nowrap"
@@ -244,11 +253,11 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             sx={{ color: 'text.secondary', cursor: 'pointer' }}
                             onClick={onLoginOpen}
                           >
-                            Log in instead!
+                            <FormattedMessage id="LogInInstead" />
                           </UINewTypography>
                         </Box>
-                      </Box>
-                    </Box>
+                      </ModelUITextConatiner>
+                    </ModelUITextConatiner>
                   </>
                 ) : (
                   <GuestSignupSuccess redirectSeconds={redirectSeconds} />

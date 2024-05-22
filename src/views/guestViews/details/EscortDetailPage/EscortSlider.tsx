@@ -25,6 +25,7 @@ import UIStyledShadowButtonLike from 'components/UIComponents/UIStyledShadowButt
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { DullCirclesEscort, DullCirclesEscort2 } from './Escort.styled';
+import { FormattedMessage } from 'react-intl';
 
 const workerPhotos = [
   { photo: '/images/workerImageSlider/swiper01.png', type: 'type1', isHide: false, isFavorite: 1, cords: '1,2' },
@@ -108,7 +109,7 @@ export const EscortSlider = () => {
             <Box display="flex" alignItems="center" gap="10px">
               <Image src="/images/workercards/video-call.svg" alt="video-call" height={24} width={24} />
               <UINewTypography color="common.white" variant="bodySemiBold" sx={{ textWrap: 'no-wrap', lineHeight: '120%' }}>
-                Start Video Call
+                <FormattedMessage id="StartVideoCall" />
               </UINewTypography>
             </Box>
           </UIThemeShadowButton>

@@ -145,3 +145,17 @@ export const SecondSubFirstPartThiredBoxText = styled(Box)(({ theme }) => ({
   maxHeight: '19px',
   gap: theme.spacing(1)
 }));
+
+export const ImgBoxContainer = styled('img')(() => ({
+  width: '100%',
+  maxWidth: '16px',
+  height: '100%',
+  maxHeight: '16px'
+}));
+
+export const SecImgBoxContainer = styled('img')(() => ({
+  width: '100%',
+  maxWidth: '24px',
+  height: '100%',
+  maxHeight: '24px'
+}));

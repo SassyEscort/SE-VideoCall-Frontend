@@ -7,3 +7,8 @@ export const GENDER: MultipleOptions[] = [
   { id: 'Female', name: 'Female' },
   { id: 'Trans', name: 'Trans' }
 ];
+interface VerificationStep {
+  name: string;
+}
+
+export const VerificationStepSecond: VerificationStep[] = [{ name: 'ID Card' }, { name: 'Password' }, { name: `Driver's License` }];

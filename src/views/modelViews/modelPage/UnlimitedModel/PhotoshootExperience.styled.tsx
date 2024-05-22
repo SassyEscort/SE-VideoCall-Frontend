@@ -23,6 +23,8 @@ export const Banner = styled(Box)(({ theme }) => ({
   backgroundPosition: 'center',
   overflow: 'hidden',
   width: '100%',
+  height: '100%',
+  maxHeight: '701px',
   alignItems: 'end',
   position: 'relative',
   borderRadius: '12px',

@@ -1,23 +1,31 @@
 import React from 'react';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {
+  CreditContainer,
+  FavoriteBorderIconContainer,
   FirstSubContainerImgWorkerCard,
   HeartIconWorkerCard,
   ImgWorkerCard,
-  LiveIconFirstBoxWorkerCard,
   LiveIconSecBoxWorkerCard,
+  LiveIconWorkerCard,
   MainWorkerCard,
+  NameCardContainer,
+  ProfileCardContainer,
   SecondMainContainerWorkerCard,
   SecondSubContainerImgWorkerCard,
   SecondSubContainerWorkerCard,
   SeconderContainerWorkerCard,
-  SubContainertWorkerCard
+  SubContainertWorkerCard,
+  WorkerCardContainer
 } from './WorkerCard.styled';
-import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import { useMediaQuery } from '@mui/material';
+import theme from 'themes/theme';
 
 const WorkerCard = () => {
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
+
   return (
     <MainWorkerCard>
       <ImgWorkerCard
@@ -28,41 +36,53 @@ const WorkerCard = () => {
         }}
       />
       <HeartIconWorkerCard>
-        <FavoriteBorderIcon sx={{ width: { xs: '20px', sm: '24px' }, height: { xs: '20px', sm: '24px' } }} />
+        <FavoriteBorderIconContainer />
       </HeartIconWorkerCard>
 
-      <Box sx={{ display: 'flex', width: '100%', height: '100%', alignItems: 'end', maxWidth: '300px' }}>
+      <WorkerCardContainer>
         <SeconderContainerWorkerCard>
           <SubContainertWorkerCard>
-            <Box sx={{ display: 'flex', gap: 1 }}>
-              <UINewTypography variant="newTitle" color="#ffff">
-                Kat Winter
-              </UINewTypography>
-              <LiveIconFirstBoxWorkerCard>
-                <LiveIconSecBoxWorkerCard></LiveIconSecBoxWorkerCard>
-              </LiveIconFirstBoxWorkerCard>
-              <FirstSubContainerImgWorkerCard src="/images/workercards/flag-img.png" />
-            </Box>
+            <ProfileCardContainer>
+              <NameCardContainer>
+                <UINewTypography variant="newTitle" color="#ffff">
+                  Kat Winter
+                </UINewTypography>
+                <LiveIconWorkerCard>
+                  <LiveIconSecBoxWorkerCard></LiveIconSecBoxWorkerCard>
+                </LiveIconWorkerCard>
+                <FirstSubContainerImgWorkerCard src="/images/workercards/flag-img.png" />
+              </NameCardContainer>
+              {!isMobile && (
+                <CreditContainer>
+                  <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
+                  <UINewTypography variant="captionLargeBold" color="#E9E8EB">
+                    20 credits/hr
+                  </UINewTypography>
+                </CreditContainer>
+              )}
+            </ProfileCardContainer>
             <SecondMainContainerWorkerCard>
               <SecondSubContainerWorkerCard>
                 <UINewTypography variant="SubtitleSmallMedium" color="#B7B5B9" sx={{ lineHeight: '120%' }}>
                   24
                 </UINewTypography>
                 <Divider orientation="vertical" flexItem sx={{ borderColor: '#B7B5B9', lineHeight: '120%' }} />
-                <UINewTypography variant="SubtitleSmallMedium" color="#B7B5B9">
+                <UINewTypography variant="SubtitleSmallMedium" color="#B7B5B9" sx={{ whiteSpace: isMobile ? 'normal' : 'nowrap' }}>
                   English, Spanish
                 </UINewTypography>
               </SecondSubContainerWorkerCard>
-              <Box sx={{ display: 'flex', gap: 1, whiteSpace: 'nowrap' }}>
+            </SecondMainContainerWorkerCard>
+            {isMobile && (
+              <CreditContainer sx={{ marginTop: isSmallScreen ? 3 : 1 }}>
                 <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
                 <UINewTypography variant="captionLargeBold" color="#E9E8EB">
                   20 credits/hr
                 </UINewTypography>
-              </Box>
-            </SecondMainContainerWorkerCard>
+              </CreditContainer>
+            )}
           </SubContainertWorkerCard>
         </SeconderContainerWorkerCard>
-      </Box>
+      </WorkerCardContainer>
     </MainWorkerCard>
   );
 };

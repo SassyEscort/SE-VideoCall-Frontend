@@ -4,11 +4,14 @@ import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { StyledSelectInputLabel, UIStyledSelect } from 'components/UIComponents/UIStyledSelect';
 import { PRICE } from 'constants/searchConstants';
+import { FormattedMessage } from 'react-intl';
 
 const Price = () => {
   return (
     <FormControl id="price" fullWidth sx={{ display: 'flex', width: '100%', maxWidth: { lg: '203px', sm: '235px' } }}>
-      <StyledSelectInputLabel>Price</StyledSelectInputLabel>
+      <StyledSelectInputLabel>
+        <FormattedMessage id="Price" />
+      </StyledSelectInputLabel>
       <UIStyledSelect MenuProps={{ disableScrollLock: true }} label="price" name="price" labelId="price" IconComponent={ExpandMore}>
         {PRICE.map((price, key: number) => {
           return (
