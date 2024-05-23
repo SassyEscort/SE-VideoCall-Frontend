@@ -40,7 +40,7 @@ const VerificationContainer = () => {
 
   useEffect(() => {
     const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(token.id, token.token);
+      const modelData = await ModelDetailsService.getModelDetails(token.token);
       setModelDetails(modelData.data);
     };
     modelDetails();

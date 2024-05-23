@@ -167,7 +167,7 @@ const VerificationStep2 = ({
         </VerificationStep2MainContainer>
         <ButtonBox>
           <BackButtonBox>
-            <UIThemeButton variant="outlined">
+            <UIThemeButton variant="outlined" onClick={handlePrev}>
               <ArrowBackOutlinedIcon />
 
               <UINewTypography variant="buttonLargeBold" color="text.secondary">
