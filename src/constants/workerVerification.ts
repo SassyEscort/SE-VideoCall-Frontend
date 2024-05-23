@@ -12,3 +12,7 @@ interface VerificationStep {
 }
 
 export const VerificationStepSecond: VerificationStep[] = [{ name: 'ID Card' }, { name: 'Password' }, { name: `Driver's License` }];
+
+export enum PHOTO_TYPE {
+  MODEL_PHOTO = 'Model_Photo'
+}

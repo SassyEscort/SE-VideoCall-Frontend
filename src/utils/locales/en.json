@@ -154,5 +154,10 @@
   "Bio": "Bio",
   "Language": "Language",
   "Documents": "Documents",
-  "IdFront": "ID Front"
+  "IdFront": "ID Front",
+  "UploadPhotos":"Please upload your recent photos or videos",
+  "UploadPics":"Upload your photos (min 2 and max 30)",
+  "UploadPicDesc":"When uploading photos, adhere to a 3:4 ratio like 600px by 800px for the thumbnail view. Ensure a minimum resolution of 600 X 600 pixels for clarity. Remember that clicked images will display in their original ratios. You can always add more photos later through your profile.",
+  "FeaturePhotos":"Feature Photos",
+  "Gallery":"Gallery (max 30 photos)"
 }

@@ -2180,9 +2180,9 @@ axios@1.6.2:
     proxy-from-env "^1.1.0"
 
 axios@^1.6.5:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-1.7.1.tgz#522145622a09dfaf49359837db9649ff245a35b9"
-  integrity sha512-+LV37nQcd1EpFalkXksWNBiA17NZ5m5/WspmHGmZmdx1qBOg/VNq/c4eRJiA9VQQHBOs+N0ZhhdU10h2TyNK7Q==
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.7.2.tgz#b625db8a7051fbea61c35a3cbb3a1daa7b9c7621"
+  integrity sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==
   dependencies:
     follow-redirects "^1.15.6"
     form-data "^4.0.0"
@@ -3437,8 +3437,6 @@ imagekit-javascript@^3.0.0:
   resolved "https://registry.yarnpkg.com/imagekit-javascript/-/imagekit-javascript-3.0.1.tgz#b974e2c3c1d3e4f772594cc8c88fdafcd5c40241"
   integrity sha512-//pvycASq98lfa68y04Q0/P6lRS5HTa015fFHi91c4mOgruqssrJIrAC1W2/8fBjS8eiJtehZruDtXJVtrmT+A==
 
-<<<<<<< HEAD
-=======
 imagekit@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/imagekit/-/imagekit-5.0.1.tgz#28ab7d6ea406e02f7349745a60829e09412b9e74"
@@ -3451,8 +3449,7 @@ imagekit@^5.0.1:
     tslib "^2.4.0"
     uuid "^8.3.2"
 
->>>>>>> 27561bfe72c3c7692c77c9c8f2f94d5c421abc4b
-imagekitio-react@^4.1.0:
+imagekitio-react@4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/imagekitio-react/-/imagekitio-react-4.1.0.tgz#11d551930c746ae10b0ccc7702fbd2a5fbcdea70"
   integrity sha512-Vyb0s+2vbBwiexeWds69tMOn2evAGPRK7mYezMoBWr9CZCuINYlOGGhfn1Yt8yYncOBaXqyKTuUfnqhbsBlKMw==
@@ -4381,7 +4378,7 @@ react-dom@18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-react-easy-crop@^5.0.7:
+react-easy-crop@5.0.7:
   version "5.0.7"
   resolved "https://registry.yarnpkg.com/react-easy-crop/-/react-easy-crop-5.0.7.tgz#b20cc2ea606a3731576101251a8190434cef1cf6"
   integrity sha512-6d5IUt09M3HwdDGwrcjPVgfrOfYWAOku8sCTn/xU7b1vkEg+lExMLwW8UbR39L8ybQi0hJZTU57yprF9h5Q5Ig==
@@ -5150,7 +5147,7 @@ yaml@^1.10.0:
   resolved "https://registry.yarnpkg.com/yaml/-/yaml-1.10.2.tgz#2301c5ffbf12b467de8da2333a459e29e7920e4b"
   integrity sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==
 
-yet-another-react-lightbox@^3.18.0:
+yet-another-react-lightbox@3.18.0:
   version "3.18.0"
   resolved "https://registry.yarnpkg.com/yet-another-react-lightbox/-/yet-another-react-lightbox-3.18.0.tgz#aa8696f371b4437e526e557597dc9306e0d3100e"
   integrity sha512-Zf3Stgp+gSAZe5Uy45OJDDxxXoE+fENZjJnAa7HD+yb/5xAhBQqqz8K7u4kAuj12lexEOASks2wHeYaZ+yUVnQ==

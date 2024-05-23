@@ -10,6 +10,7 @@ import {
 } from 'views/protectedModelViews/verification/verificationStep2Document/type';
 import { VerificationPayload } from './types';
 import { TokenIdType } from 'views/protectedModelViews/verification';
+import { FileBody } from 'views/protectedModelViews/verification/verificationTypes';
 
 export const imageKitObj = {
   publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_KEY!,
@@ -74,5 +75,42 @@ export class VerificationStepService {
       const error: AxiosError = err;
       return error.response?.data || { error_message: error.message };
     }
+  };
+
+  static multipleImageKitUplaodApi = async (fileData: FileBody[]) => {
+    const payload: ImageUploadPayload[] = [];
+    for (const data of fileData) {
+      if (Array.isArray(data.file)) {
+        for (const value of data.file) {
+          const getToken = await this.imageKitAuthApi();
+
+          const body = {
+            file: value,
+            publicKey: imageKitObj.publicKey,
+            signature: getToken.signature,
+            expire: getToken.expire,
+            token: getToken.token,
+            fileName: Date.now() + (value.name || 'name'),
+            folder: imageKitObj.folder
+          };
+
+          const responseData = await axios.post(imageKitObj.uploadApi, body, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          });
+
+          payload.push({
+            photosURL: responseData?.data?.url,
+            type: data?.type
+          });
+        }
+      }
+    }
+    const uploadBody = {
+      uploadPhotos: payload
+    };
+
+    return uploadBody;
   };
 }

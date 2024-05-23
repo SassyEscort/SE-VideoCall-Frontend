@@ -10,6 +10,7 @@ import PhotoItem from './PhotoItem';
 import UploadGalleryPhotos from '../dragAndDropMultipleImage/UploadGalleryPhotos';
 import { VerificationFormStep5TypeV2, WorkerPhotos } from '.';
 import { GalleryMainContainer, GalleryTitleContainer, UploadItem, UploadMultipleContainer } from './UploadMultiplePhoto.styled';
+import { FormattedMessage } from 'react-intl';
 
 export type UploadMultiplePhotos = {
   errors: FormikErrors<VerificationFormStep5TypeV2>;
@@ -37,9 +38,10 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos }:
   const width = isSmUp ? 145 : 159;
 
   const [existingPhotos, setExistingPhotos] = useState<UploadPhotos[]>([]);
+  console.log(existingPhotos, 'existingPhotos');
+
   const [uploadedImagesURL, setUploadedImagesURL] = useState<UploadPhotos[]>([]);
   const [thumbnailImageId, setThumbnailImageId] = useState<number | undefined>(undefined);
-  console.log(uploadedImagesURL, 'uploadedImagesURL');
 
   const removeImage = (name: string) => {
     let index = existingPhotos?.findIndex((photo) => photo.photoURL === name);
@@ -153,28 +155,28 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos }:
 
   const handleExistingPhotos = useCallback((photos: WorkerPhotos[]) => {
     photos?.sort(sortExistingPhotos);
-    setExistingPhotos(
-      photos
-        ?.filter((photo) => photo.type !== 'Regular')
-        ?.map((photo, index) => {
-          if (photo.type === 'file_5')
-            return {
-              id: photo.id,
-              name: `file5Existing[${index - 4}]`,
-              photoURL: photo.photo,
-              cords: photo.cords
-            };
-          else {
-            return {
-              id: photo.id,
-              name: `file${photo.type.split('_')[1]}`,
-              photoURL: photo.photo,
-              cords: photo.cords,
-              isFavorite: photo.isFavorite === 1
-            };
-          }
-        })
-    );
+    // setExistingPhotos(
+    //   photos
+    //     ?.filter((photo) => photo.type !== 'Regular')
+    //     ?.map((photo, index) => {
+    //       if (photo.type === 'file_5')
+    //         return {
+    //           id: photo.id,
+    //           name: `file5Existing[${index - 4}]`,
+    //           photoURL: photo.photo,
+    //           cords: photo.cords
+    //         };
+    //       else {
+    //         return {
+    //           id: photo.id,
+    //           name: `file${photo.type.split('_')[1]}`,
+    //           photoURL: photo.photo,
+    //           cords: photo.cords,
+    //           isFavorite: photo.isFavorite === 1
+    //         };
+    //       }
+    //     })
+    // );
   }, []);
 
   useEffect(() => {
@@ -189,7 +191,7 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos }:
     <UploadMultipleContainer>
       <Box paddingBottom={4} pt={4}>
         <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
-          UploadYourRecentPhotos
+          <FormattedMessage id="UploadPhotos" />
         </UINewTypography>
       </Box>
       <Box
@@ -206,13 +208,15 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos }:
       >
         <UploadItem>
           <UINewTypography variant="h6" color="text.secondary">
-            Upload15Photos
+            <FormattedMessage id="UploadPics" />
           </UINewTypography>
-          <UINewTypography variant="SubtitleSmallRegular">WhenUploading</UINewTypography>
+          <UINewTypography variant="SubtitleSmallRegular">
+            <FormattedMessage id="UploadPicDesc" />
+          </UINewTypography>
         </UploadItem>
         <GalleryMainContainer>
           <UINewTypography variant="h6" color="text.secondary">
-            FeaturePhotos
+            <FormattedMessage id="FeaturePhotos" />
           </UINewTypography>
           <UploadFeaturePhotos
             name="file"
@@ -223,9 +227,9 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos }:
             values={values}
             handleUploadPhotos={handleUploadPhotos}
           />
-          {[...uploadedImagesURL].length > 0 && (
+          {[...existingPhotos, ...uploadedImagesURL].length > 0 && (
             <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-              {[...uploadedImagesURL]?.map((photo, index) => {
+              {[...existingPhotos, ...uploadedImagesURL]?.map((photo, index) => {
                 if (photo.name === 'file1' || photo.name === 'file2' || photo.name === 'file3' || photo.name === 'file4') {
                   return (
                     <PhotoItem
@@ -250,7 +254,7 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos }:
         <GalleryMainContainer>
           <GalleryTitleContainer>
             <UINewTypography variant="h6" color="text.secondary">
-              Gallery
+              <FormattedMessage id="Gallery" />
             </UINewTypography>
           </GalleryTitleContainer>
           <UploadGalleryPhotos
@@ -260,9 +264,9 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos }:
             values={values}
             handleUploadPhotos={handleUploadPhotos}
           />
-          {[...uploadedImagesURL]?.filter((photo) => photo?.name?.includes('file5')).length > 0 && (
+          {[...existingPhotos, ...uploadedImagesURL]?.filter((photo) => photo?.name?.includes('file5')).length > 0 && (
             <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-              {[...uploadedImagesURL]?.map((photo, index) => {
+              {[...existingPhotos, ...uploadedImagesURL]?.map((photo, index) => {
                 if (photo.name.includes('file5'))
                   return (
                     <PhotoItem

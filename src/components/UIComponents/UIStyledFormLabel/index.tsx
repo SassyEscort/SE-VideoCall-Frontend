@@ -9,8 +9,5 @@ export const UIStyledFormLabelContainer = styled(FormControlLabel)(({ theme }) =
   gap: '6px',
   borderRadius: '8px',
   border: '1px solid',
-  borderColor: '#232027',
-  '& .MuiSvgIcon-root': {
-    display: 'none'
-  }
+  borderColor: '#232027'
 }));
