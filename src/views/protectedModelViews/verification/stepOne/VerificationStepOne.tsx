@@ -81,7 +81,7 @@ const VerificationBasicDetails = ({
       setLanguages(data.data);
     };
     languagesData();
-  }, []);
+  }, [token.token]);
 
   const handleGender = (val: string) => {
     setFieldValue('gender', val);

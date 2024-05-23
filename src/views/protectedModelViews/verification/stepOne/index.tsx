@@ -13,6 +13,7 @@ import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
 import { StepOneContainer } from './VerficationStepOne.styled';
 import { TokenIdType } from '..';
+import { toast } from 'react-toastify';
 
 const VerificationStepOne = ({
   handleNext,
@@ -63,8 +64,12 @@ const VerificationStepOne = ({
       initialValues={initialValuesPerStep}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
-        await ModelVerificationService.verificationStepOne(values);
-        handleNext();
+        const response = await ModelVerificationService.verificationStepOne(values, token.token);
+        if (response.data.success) {
+          handleNext();
+        } else {
+          toast.error(response.data.message);
+        }
       }}
     >
       {({ values, errors, touched, handleChange, setFieldValue, handleSubmit, handleBlur }) => (
