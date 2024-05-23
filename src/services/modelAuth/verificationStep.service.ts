@@ -1,16 +1,12 @@
 import axios, { AxiosError } from 'axios';
 import { ErrorMessage } from 'constants/common.constants';
 import { toast } from 'react-toastify';
-import {
-  CustomFile,
-  ImagekitTokenResponse,
-  ImageUplaodBody,
-  ImageUploadPayload,
-  Payload
-} from 'views/protectedModelViews/verification/verificationStep2Document/type';
+import { CustomFile, ImagekitTokenResponse, ImageUplaodBody } from 'views/protectedModelViews/verification/verificationStep2Document/type';
 import { VerificationPayload } from './types';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { FileBody } from 'views/protectedModelViews/verification/verificationTypes';
+import { ImagePayload, ImageUploadPayload, PhotoUpload } from 'views/protectedModelViews/verification/stepThree/uploadImage';
+import { PHOTO_TYPE } from 'constants/workerVerification';
 
 export const imageKitObj = {
   publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_KEY!,
@@ -46,7 +42,7 @@ export class VerificationStepService {
 
       return {
         photosURL: response.data.url
-      } as unknown as ImageUploadPayload;
+      } as unknown as PhotoUpload;
     } catch (error) {
       toast.error(ErrorMessage);
       return ErrorMessage;
@@ -65,7 +61,7 @@ export class VerificationStepService {
     }
   };
 
-  static uploadModelPhotos = async (payload: Payload, token: TokenIdType) => {
+  static uploadModelPhotos = async (payload: ImagePayload, token: TokenIdType) => {
     try {
       const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/photos`, payload, {
         headers: { 'Content-Type': 'application/json', Authorization: token.token }
@@ -101,6 +97,12 @@ export class VerificationStepService {
           });
 
           payload.push({
+            link: responseData?.data?.url,
+            cords: '',
+            is_favourite: 0,
+            is_document: 0,
+            document_type: PHOTO_TYPE.MODEL_PHOTO,
+            document_number: null,
             photosURL: responseData?.data?.url,
             type: data?.type
           });

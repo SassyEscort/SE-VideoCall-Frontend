@@ -65,7 +65,14 @@ const VerificationContainer = () => {
           handlePrev={handlePrev}
         />
       )}
-      {activeStep === 3 && <UploadImage token={token} handleNext={handleNext} handlePrevVerificationStep={handlePrev} />}
+      {activeStep === 3 && (
+        <UploadImage
+          workerPhotos={modelDetails?.photos ?? []}
+          token={token}
+          handleNext={handleNext}
+          handlePrevVerificationStep={handlePrev}
+        />
+      )}
     </>
   );
 };

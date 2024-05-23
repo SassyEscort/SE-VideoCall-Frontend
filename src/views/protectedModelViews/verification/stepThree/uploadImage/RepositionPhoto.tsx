@@ -17,6 +17,7 @@ import Slide from '@mui/material/Slide';
 import { RiZoomInLine, RiZoomOutFill } from 'components/common/customRemixIcons';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
+import { FormattedMessage } from 'react-intl';
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -84,11 +85,11 @@ const RepositionPhoto = ({
             <Close sx={{ color: 'text.secondary' }} />
           </IconButton>
           <UINewTypography variant="h6" color="text.secondary">
-            RepositionPhoto
+            <FormattedMessage id="RepositionPhoto" />
           </UINewTypography>
         </Box>
         <UIThemeButton variant="contained" size="small" onClick={handleClickSave}>
-          Save
+          <FormattedMessage id="Save" />
         </UIThemeButton>
       </RepositionPhotoHeader>
       <DialogContent dividers sx={{ borderTopColor: 'primary.700' }}>

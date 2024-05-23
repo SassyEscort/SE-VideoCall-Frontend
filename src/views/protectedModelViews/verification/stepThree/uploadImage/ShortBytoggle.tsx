@@ -1,20 +1,19 @@
 import MenuItem from '@mui/material/MenuItem';
 import UIStyledPopover from 'components/UIComponents/UIStyledPopover';
+import { FormattedMessage } from 'react-intl';
 
 const ImageShotByMenu = ({
   anchorEl,
   isFeaturePhoto,
   videoTypeCondition,
   handleClose,
-  handleOpenRepositionModal,
-  handleClickThimbnailPhoto
+  handleOpenRepositionModal
 }: {
   anchorEl: null | HTMLElement;
   isFeaturePhoto: boolean;
   videoTypeCondition: boolean;
   handleClose: () => void;
   handleOpenRepositionModal: () => void;
-  handleClickThimbnailPhoto: () => void;
 }) => {
   const open = Boolean(anchorEl);
 
@@ -28,8 +27,14 @@ const ImageShotByMenu = ({
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
     >
-      {!videoTypeCondition && <MenuItem onClick={handleOpenRepositionModal}>Reposition</MenuItem>}
-      {isFeaturePhoto && <MenuItem onClick={handleClickThimbnailPhoto}>Make this thumbnail photo</MenuItem>}
+      {!videoTypeCondition && (
+        <MenuItem onClick={handleOpenRepositionModal}>
+          <FormattedMessage id="Reposition" />
+        </MenuItem>
+      )}
+      <MenuItem>
+        <FormattedMessage id="MakeThumbnail" />
+      </MenuItem>
     </UIStyledPopover>
   );
 };

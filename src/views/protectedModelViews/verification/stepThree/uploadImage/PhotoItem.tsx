@@ -2,7 +2,6 @@ import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
 import { Area } from 'react-easy-crop';
 import { FormikErrors } from 'formik';
-// import useFavouritePhoto from '@/services/hooks/Profile/usePostFavouriteProfilePhoto';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { VideoAcceptType } from 'constants/workerVerification';
 import {
@@ -16,6 +15,7 @@ import ImageShotByMenu from './ShortBytoggle';
 import { VerificationFormStep5TypeV2 } from '.';
 import { UploadPhotos } from './ModelMultiplePhoto';
 import { VideoBox } from './UploadMultiplePhoto.styled';
+import { FormattedMessage } from 'react-intl';
 
 const PhotoItem = ({
   image,
@@ -52,8 +52,6 @@ const PhotoItem = ({
   const videoTypeCondition =
     VideoAcceptType.includes(image.photoURL.substring(image.photoURL.lastIndexOf('.') + 1)) || image.photoURL.startsWith('video-blob:');
 
-  // const mutationThumbnailePhoto = useFavouritePhoto({ isAdmin: false });
-
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -71,30 +69,6 @@ const PhotoItem = ({
     setOpenRepositionModal(true);
     handleClose();
   };
-
-  // const handleClickThimbnailPhoto = () => {
-  //   if (handleClickThumbnailImageId) {
-  //     if (image.id)
-  //       mutationThumbnailePhoto.mutate(
-  //         { photoId: image.id },
-  //         {
-  //           onSuccess: (res) => {
-  //             if (res.success) {
-  //               handleClickThumbnailImageId(image.id, image.name);
-  //               toast.success('ProfilePictureUpdated');
-  //             }
-  //           }
-  //         }
-  //       );
-
-  //     if (!image.id) {
-  //       setValue('isFavorite', image.name);
-  //       handleClickThumbnailImageId(undefined, image.name);
-  //     }
-  //   }
-
-  //   handleClose();
-  // };
 
   const handleRemoveImage = (name: string) => {
     setCroppedImage('');
@@ -175,7 +149,6 @@ const PhotoItem = ({
                 videoTypeCondition={videoTypeCondition}
                 handleClose={handleClose}
                 handleOpenRepositionModal={handleOpenRepositionModal}
-                // handleClickThimbnailPhoto={handleClickThimbnailPhoto}
               />
             </Box>
           )}
@@ -187,7 +160,9 @@ const PhotoItem = ({
                   left: isEdit ? 45 : 'inherited'
                 }}
               >
-                <UINewTypography variant="SubtitleSmallRegular">ThumbnailPhoto</UINewTypography>
+                <UINewTypography variant="SubtitleSmallRegular">
+                  <FormattedMessage id="ThumbnailPhoto" />
+                </UINewTypography>
               </DragAndDropMultipleImageThumbnailPhoto>
             </Box>
           )}
@@ -197,7 +172,7 @@ const PhotoItem = ({
           <VideoBox height={height} width={width}>
             <Box
               component="img"
-              src="/images/dashboard/play_icon.svg"
+              src="/images/verification/play-icon.svg"
               sx={{
                 position: 'absolute'
               }}
