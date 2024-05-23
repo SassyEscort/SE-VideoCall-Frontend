@@ -13,3 +13,14 @@ export const VerificationHeaderBox = styled(Box)(({ theme }) => ({
     paddingBottom: '17px'
   }
 }));
+
+export const UINewTypographyBox = styled(Box)(({ theme }) => ({
+  top: 0,
+  left: 0,
+  bottom: 0,
+  right: 0,
+  position: 'absolute',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+}));
