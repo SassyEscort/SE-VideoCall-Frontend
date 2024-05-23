@@ -2,6 +2,7 @@ import * as React from 'react';
 import CircularProgress, { CircularProgressProps, circularProgressClasses } from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import { UINewTypographyBox } from './Header.styled';
 
 interface CircularProgressWithLabelProps extends CircularProgressProps {
   value: number;
@@ -38,22 +39,11 @@ const CircularProgressWithLabel: React.FC<CircularProgressWithLabelProps> = (pro
         }}
       />
 
-      <Box
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: 'absolute',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-      >
+      <UINewTypographyBox>
         <UINewTypography variant="SubtitleLargeBold" color="text.secondary">
           {`${currentStepClamped} of ${totalSteps}`}
         </UINewTypography>
-      </Box>
+      </UINewTypographyBox>
     </Box>
   );
 };
