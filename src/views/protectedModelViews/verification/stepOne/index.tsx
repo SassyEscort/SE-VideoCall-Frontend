@@ -14,6 +14,8 @@ import { FormattedMessage } from 'react-intl';
 import { StepOneContainer } from './VerficationStepOne.styled';
 import { TokenIdType } from '..';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
+import { ErrorMessage } from 'constants/common.constants';
 
 const VerificationStepOne = ({
   handleNext,
@@ -35,6 +37,8 @@ const VerificationStepOne = ({
     nationality_id: modelDetails?.nationality_id || '',
     model_languages: modelDetails?.languages?.map((language) => ({ id: language.language_id, name: language.language_name })) || []
   };
+
+  const [loading, setLoading] = useState(false);
 
   const validationSchema = Yup.object({
     gender: Yup.string().required('Gender is required'),
@@ -63,12 +67,20 @@ const VerificationStepOne = ({
       enableReinitialize
       initialValues={initialValuesPerStep}
       validationSchema={validationSchema}
-      onSubmit={async (values) => {
-        const response = await ModelVerificationService.verificationStepOne(values, token.token);
-        if (response.data.success) {
-          handleNext();
-        } else {
-          toast.error(response.data.message);
+      onSubmit={async (values, { setSubmitting }) => {
+        try {
+          setLoading(true);
+          const response = await ModelVerificationService.verificationStepOne(values, token.token);
+          if (response.data) {
+            handleNext();
+          } else {
+            toast.error(response.message);
+          }
+        } catch (error) {
+          toast.error(ErrorMessage);
+        } finally {
+          setLoading(false);
+          setSubmitting(false);
         }
       }}
     >
@@ -103,7 +115,7 @@ const VerificationStepOne = ({
                 <FormattedMessage id="Back" />
               </UINewTypography>
             </UIThemeButton>
-            <StyleButtonV2 type="submit" variant="contained" id="user-info-submit-button">
+            <StyleButtonV2 type="submit" variant="contained" id="user-info-submit-button" loading={loading}>
               <UINewTypography variant="body">
                 <FormattedMessage id="Next" />
               </UINewTypography>
