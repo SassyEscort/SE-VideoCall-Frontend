@@ -154,5 +154,12 @@
   "Bio": "Bio",
   "Language": "Language",
   "Documents": "Documents",
-  "IdFront": "ID Front"
+  "IdFront": "ID Front",
+  "LetStartWith": "Let’s start with your basic details",
+  "NextDocuments": "Next - Documents",
+  "NextPhotos": "Next - Photos",
+  "Photos": "Photos",
+  "NextFinalReview": "Next - Final Review",
+  "OnboardingCompleted": "Onboarding completed",
+  "YourProfile": "Your profile has been created"
 }

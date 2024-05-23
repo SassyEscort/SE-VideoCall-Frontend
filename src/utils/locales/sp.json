@@ -132,5 +132,12 @@
   "Username": "Nombre de usuario",
   "EmailAddress": "Dirección de correo electrónico",
   "Password": "Contraseña",
-  "RememberMe": "Recuérdame"
+  "RememberMe": "Recuérdame",
+  "LetStartWith": "Comencemos con tus datos básicos",
+  "NextDocuments": "Siguiente - Documentos",
+  "NextPhotos": "Siguiente - Fotos",
+  "Photos": "Fotos",
+  "NextFinalReview": "Siguiente - Revisión final",
+  "OnboardingCompleted": "Onboarding completado",
+  "YourProfile": "Tu perfil ha sido creado"
 }

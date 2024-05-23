@@ -5,7 +5,7 @@ import React from 'react';
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
 
 import * as yup from 'yup';
-import { VerificationStepSecond } from 'constants/workerVerification';
+import { DocumentList } from 'constants/workerVerification';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
@@ -63,6 +63,7 @@ const VerificationStep2 = ({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
+      const selectedDocument = DocumentList.find((item) => item.key === values.idType)?.value;
       const inputPayload: VerificationPayload = {
         id: '1',
         is_document: true,
@@ -74,7 +75,7 @@ const VerificationStep2 = ({
             cords: 'string',
             is_favourite: 0,
             is_document: 1,
-            document_type: values.idType,
+            document_type: selectedDocument ?? '',
             document_number: values.idNumber
           }
         ]
@@ -85,10 +86,10 @@ const VerificationStep2 = ({
 
   const handleSubmitForm = async (inputPayload: VerificationPayload) => {
     const response = await VerificationStepService.verificationtepSecond(inputPayload, token);
-    if (response.data.success) {
+    if (response?.data?.success) {
       handleChaneDocuModal(true);
     } else {
-      toast.error(response.data.message);
+      toast.error(response?.data?.message);
     }
   };
 
@@ -131,10 +132,10 @@ const VerificationStep2 = ({
                     }
                   }}
                 >
-                  {VerificationStepSecond.map((type, index: number) => (
-                    <MenuItem key={index} value={type.name}>
+                  {DocumentList.map((type, index: number) => (
+                    <MenuItem key={index} value={type.key}>
                       <UINewTypographyTextMenuItem variant="bodySemiBold" color={'text.primary'}>
-                        {type.name}
+                        {type.key}
                       </UINewTypographyTextMenuItem>
                     </MenuItem>
                   ))}
