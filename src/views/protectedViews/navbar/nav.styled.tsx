@@ -21,8 +21,10 @@ export const CommonMenuBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
   color: theme.palette.common.white,
   width: '100%',
-  opacity: 0.8,
-  cursor: 'pointer'
+  cursor: 'pointer',
+  '& .MuiButtonBase-root': {
+    opacity: 1
+  }
 }));
 
 export const MainMenuBox = styled(Box)(() => ({
@@ -46,7 +48,6 @@ export const SelectedTab = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   width: '100%',
-  opacity: 0.8,
   color: theme.palette.primary.main,
   [theme.breakpoints.up('md')]: {
     gap: theme.spacing(1)

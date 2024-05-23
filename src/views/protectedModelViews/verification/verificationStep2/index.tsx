@@ -1,5 +1,5 @@
 'use client';
-import { Box, FormHelperText, MenuItem, useMediaQuery } from '@mui/material';
+import { Box, Divider, FormHelperText, MenuItem, Paper, useMediaQuery } from '@mui/material';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import React from 'react';
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
@@ -132,13 +132,26 @@ const VerificationStep2 = ({
                     }
                   }}
                 >
-                  {DocumentList.map((type, index: number) => (
-                    <MenuItem key={index} value={type.key}>
-                      <UINewTypographyTextMenuItem variant="bodySemiBold" color={'text.primary'}>
-                        {type.key}
-                      </UINewTypographyTextMenuItem>
-                    </MenuItem>
-                  ))}
+                  <Box sx={{ backgroundColor: 'secondary.dark', borderRadius: 1 }}>
+                    {DocumentList.map((type, index: number) => (
+                      <React.Fragment key={index}>
+                        <Paper sx={{ backgroundColor: 'inherit' }}>
+                          <MenuItem divider={true} value={type.key}>
+                            <UINewTypographyTextMenuItem
+                              variant="bodySemiBold"
+                              color={'text.primary'}
+                              sx={{ paddingTop: '14px', paddingBottom: '10px' }}
+                            >
+                              {type.key}
+                            </UINewTypographyTextMenuItem>
+                          </MenuItem>
+                        </Paper>
+                        {index < DocumentList.length - 1 && (
+                          <Divider sx={{ borderColor: 'primary.700', width: '358px', margin: '0 auto' }} />
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </Box>
                 </UIStyledSelectItemContainer>
                 {touched.idType && errors.idType && <FormHelperText error>{errors.idType}</FormHelperText>}
               </Box>
