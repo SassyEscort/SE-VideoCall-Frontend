@@ -131,7 +131,7 @@ const VerificationStep2 = ({
                     }
                   }}
                 >
-                  <Box sx={{ backgroundColor: '#1E0815', borderRadius: '8px' }}>
+                  <Box sx={{ backgroundColor: 'secondary.dark', borderRadius: '8px' }}>
                     {VerificationStepSecond.map((type, index: number) => (
                       <React.Fragment key={index}>
                         <Paper sx={{ backgroundColor: 'inherit' }}>
