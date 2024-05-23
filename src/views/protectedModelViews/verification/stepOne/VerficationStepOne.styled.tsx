@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 
 export const StepTwoContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(2),
+  gap: theme.spacing(4),
   flexDirection: 'column',
   width: '100%',
   maxWidth: '824px'
