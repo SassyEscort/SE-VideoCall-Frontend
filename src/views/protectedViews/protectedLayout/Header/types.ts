@@ -11,6 +11,8 @@ export type HeaderTabsType = {
 };
 
 export type TopNavItemVariantProps =
-  | { variant: "closeButton"; handleClickClose: () => void }
-  | { variant: "guest" }
-  | { variant: "worker" };
+  | { variant: 'closeButton'; handleClickClose: () => void }
+  | { variant: 'guest' }
+  | { variant: 'worker' }
+  | { variant: 'dashboard' };
+  

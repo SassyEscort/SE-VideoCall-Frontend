@@ -1,13 +1,13 @@
+'use client';
 import { ReactNode, useState } from 'react';
-import { TopNavItemVariantProps } from './Header/types';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
-import Header from './Header';
-import Nav from '../navbar';
 import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
-import { ProtectedLayoutMainContainer } from './protectedLayout.styled';
+import ModelNav from '../dashboardNavbar';
+import { TopNavItemVariantProps } from 'views/protectedViews/protectedLayout/Header/types';
+import { ProtectedDashboardLayoutMainContainer } from './protectedDashboardLayout.styled';
 
 export type MainLayoutType = TopNavItemVariantProps & {
   children: ReactNode;
@@ -38,12 +38,11 @@ const MainLayoutNav = (props: MainLayoutType) => {
   return (
     <HomeMainModelContainer>
       <Box minHeight="100vh" display="flex" flexDirection="column">
-        <Header {...props} onOpenNav={() => setOpen(true)} />
         <Box sx={{ width: '100%' }}>
           <StyledRoot>
-            <Nav openNav={open} onCloseNav={() => setOpen(true)} />
+            <ModelNav openNav={open} onCloseNav={() => setOpen(true)} />
             <Main>
-              {isMdUp && <ProtectedLayoutMainContainer />}
+              {isMdUp && <ProtectedDashboardLayoutMainContainer />}
               <Box px={{ md: 2 }} paddingTop={{ md: 3.875 }} paddingBottom={{ md: 13 }}>
                 <>{props.children}</>
               </Box>
