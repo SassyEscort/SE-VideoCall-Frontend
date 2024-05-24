@@ -81,7 +81,7 @@ const VerificationBasicDetails = ({
       setLanguages(data.data);
     };
     languagesData();
-  }, []);
+  }, [token.token]);
 
   const handleGender = (val: string) => {
     setFieldValue('gender', val);
@@ -116,6 +116,9 @@ const VerificationBasicDetails = ({
 
   return (
     <StepTwoContainer>
+      <UINewTypography variant="h2" color="text.secondary" textAlign="center">
+        <FormattedMessage id="LetsStartWithYourBasic" />
+      </UINewTypography>
       <StepTwoBox sx={{ gap: 0 }}>
         <UINewTypography variant="h6" color="text.secondary">
           <FormattedMessage id="IAmA" />
