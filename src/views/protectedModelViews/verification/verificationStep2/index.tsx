@@ -1,11 +1,11 @@
 'use client';
-import { Box, Divider, FormHelperText, MenuItem, Paper, useMediaQuery } from '@mui/material';
+import { Box, FormHelperText, MenuItem, useMediaQuery } from '@mui/material';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
-import React from 'react';
+import { useState } from 'react';
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
 
 import * as yup from 'yup';
-import { VerificationStepSecond } from 'constants/workerVerification';
+import { DocumentList } from 'constants/workerVerification';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
@@ -30,6 +30,8 @@ import { FormattedMessage } from 'react-intl';
 import { VerificationPayload } from 'services/modelAuth/types';
 import { TokenIdType } from '..';
 import { toast } from 'react-toastify';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
+import { ErrorMessage } from 'constants/common.constants';
 
 export type VerificationStepSecond = {
   idType: string;
@@ -54,6 +56,8 @@ const VerificationStep2 = ({
 }) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const [loading, setLoading] = useState(false);
+
   const initialValues = {
     idType: '',
     idNumber: ''
@@ -63,6 +67,7 @@ const VerificationStep2 = ({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
+      const selectedDocument = DocumentList.find((item) => item.key === values.idType)?.value;
       const inputPayload: VerificationPayload = {
         id: '1',
         is_document: true,
@@ -74,7 +79,7 @@ const VerificationStep2 = ({
             cords: 'string',
             is_favourite: 0,
             is_document: 1,
-            document_type: values.idType,
+            document_type: selectedDocument ?? '',
             document_number: values.idNumber
           }
         ]
@@ -84,11 +89,18 @@ const VerificationStep2 = ({
   });
 
   const handleSubmitForm = async (inputPayload: VerificationPayload) => {
-    const response = await VerificationStepService.verificationtepSecond(inputPayload, token);
-    if (response.data.success) {
-      handleChaneDocuModal(true);
-    } else {
-      toast.error(response.data.message);
+    try {
+      setLoading(true);
+      const response = await VerificationStepService.verificationtepSecond(inputPayload, token);
+      if (response?.success) {
+        handleChaneDocuModal(true);
+      } else {
+        toast.error(response?.message);
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -131,26 +143,27 @@ const VerificationStep2 = ({
                     }
                   }}
                 >
-                  <Box sx={{ backgroundColor: 'secondary.dark', borderRadius: 1 }}>
-                    {VerificationStepSecond.map((type, index: number) => (
-                      <React.Fragment key={index}>
-                        <Paper sx={{ backgroundColor: 'inherit' }}>
-                          <MenuItem divider={true} value={type.name}>
-                            <UINewTypographyTextMenuItem
-                              variant="bodySemiBold"
-                              color={'text.primary'}
-                              sx={{ paddingTop: '14px', paddingBottom: '10px' }}
-                            >
-                              {type.name}
-                            </UINewTypographyTextMenuItem>
-                          </MenuItem>
-                        </Paper>
-                        {index < VerificationStepSecond.length - 1 && (
-                          <Divider sx={{ borderColor: 'primary.700', width: '358px', margin: '0 auto' }} />
-                        )}
-                      </React.Fragment>
-                    ))}
-                  </Box>
+                  {DocumentList.map((type, index: number) => (
+                    <MenuItem
+                      value={type.key}
+                      divider={true}
+                      key={index}
+                      id="hello"
+                      sx={{
+                        '& .MuiPaper-root-MuiPopover-paper-MuiMenu-paper': {
+                          backgroundColor: 'red !important'
+                        }
+                      }}
+                    >
+                      <UINewTypographyTextMenuItem
+                        variant="bodySemiBold"
+                        color={'text.primary'}
+                        sx={{ paddingTop: '14px', paddingBottom: '10px' }}
+                      >
+                        {type.key}
+                      </UINewTypographyTextMenuItem>
+                    </MenuItem>
+                  ))}
                 </UIStyledSelectItemContainer>
                 {touched.idType && errors.idType && <FormHelperText error>{errors.idType}</FormHelperText>}
               </Box>
@@ -189,13 +202,13 @@ const VerificationStep2 = ({
             </UIThemeButton>
           </BackButtonBox>
           <UploaddocumentsButtonBox>
-            <UIThemeButton variant="contained" type="submit">
+            <StyleButtonV2 variant="contained" type="submit" loading={loading}>
               <ArrowForwardOutlinedIcon />
 
               <UINewTypography variant="buttonLargeBold" color="primary.200">
                 {isSm ? <FormattedMessage id="Next" /> : <FormattedMessage id="UploadDocuments" />}
               </UINewTypography>
-            </UIThemeButton>
+            </StyleButtonV2>
           </UploaddocumentsButtonBox>
         </ButtonBox>
       </ParentBox>

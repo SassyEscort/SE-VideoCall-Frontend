@@ -11,7 +11,7 @@ export const BannerContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
 
   [theme.breakpoints.down('sm')]: {
-    gap: '48px',
+    gap: '44px',
     flexDirection: 'column'
   },
   [theme.breakpoints.up('lg')]: {

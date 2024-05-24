@@ -14,8 +14,11 @@ import {
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { FormattedMessage } from 'react-intl';
 import { ModelUITextConatiner } from 'views/auth/AuthCommon.styled';
+import { useMediaQuery } from '@mui/material';
+import theme from 'themes/theme';
 
 const HomeModelFAQ = () => {
+  const isSmdown = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <>
       <HomeMainContainer>
@@ -24,15 +27,13 @@ const HomeModelFAQ = () => {
             display: 'flex',
             justifyContent: 'center',
             width: '100%',
-            mt: { xs: '96px', sm: '120px' }
+            mt: { xs: '72px', sm: '120px' }
           }}
         >
           <FAQConatainer sx={{ width: '100%', maxWidth: '824px' }}>
             <ModelUITextConatiner sx={{ gap: 7 }}>
               <FAQMainContainer>
-                <FAQTitle>
-                  <FormattedMessage id="FAQs" />
-                </FAQTitle>
+                <FAQTitle>{isSmdown ? <FormattedMessage id="FAQs" /> : <FormattedMessage id="QuestionsAnswer" />}</FAQTitle>
                 <FAQSubTitle>
                   <FormattedMessage id="YourQueriesResolved" />
                 </FAQSubTitle>

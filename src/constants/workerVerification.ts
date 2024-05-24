@@ -7,6 +7,7 @@ export const GENDER: MultipleOptions[] = [
   { id: 'Female', name: 'Female' },
   { id: 'Trans', name: 'Trans' }
 ];
+<<<<<<< HEAD
 
 interface VerificationStep {
   name: string;
@@ -18,3 +19,16 @@ interface price {
   price: number;
 }
 export const priceValueMenuItme: price[] = [{ price: 4.99 }, { price: 2.99 }, { price: 5.99 }];
+=======
+
+export type DocumentKeyValueList = {
+  key: string;
+  value: string;
+};
+
+export const DocumentList: DocumentKeyValueList[] = [
+  { key: 'ID Card', value: 'Id_Card' },
+  { key: 'Driver License', value: 'Driving_License' },
+  { key: 'Passport', value: 'Passport' }
+];
+>>>>>>> 61303fd1e456fd3bb4a579e34277cee64258f557

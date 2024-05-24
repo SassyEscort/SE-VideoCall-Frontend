@@ -1,3 +1,4 @@
+'use client';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Link from 'next/link';
@@ -8,6 +9,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
+import { ModelUITextConatiner } from 'views/auth/AuthCommon.styled';
 
 const MainFooter = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -32,10 +34,8 @@ const MainFooter = () => {
         </Box>
         <Box mt={'32px'}>
           <Box sx={{ display: 'flex', flexDirection: isSmDown ? 'column' : 'row', justifyContent: 'space-between', px: 1.5 }}>
-            <Box
+            <ModelUITextConatiner
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
                 alignItems: isSmDown ? 'center' : 'flex-start',
                 textAlign: isSmDown ? 'center' : 'start',
                 marginBottom: isSmDown ? 3 : 0,
@@ -46,11 +46,10 @@ const MainFooter = () => {
                 <Image
                   src="/images/logo-footer.png"
                   width={146}
-                  height={56}
+                  height={64}
                   alt="sassy_logo"
                   style={{
-                    width: 'auto',
-                    height: isSmDown ? '56px' : '64px'
+                    width: 'auto'
                   }}
                   loading="lazy"
                 />
@@ -70,14 +69,14 @@ const MainFooter = () => {
                   <FormattedMessage id="OurPlatformIsLoved" />
                 </UINewTypography>
               </Box>
-            </Box>
+            </ModelUITextConatiner>
 
             <Box sx={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
               <FooterSubICon sx={{ flexDirection: 'column', display: 'flex', textAlign: 'left' }}>
                 <UINewTypography sx={{ mb: '6px' }} variant="captionBold">
                   <FormattedMessage id="Menu" />
                 </UINewTypography>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <ModelUITextConatiner sx={{ gap: 1 }}>
                   <UINewTypography variant="SubtitleSmallRegular">
                     <Link prefetch={false} href="/affiliate/program">
                       <FormattedMessage id="Home" />
@@ -109,7 +108,7 @@ const MainFooter = () => {
                       <FormattedMessage id="RegisterAsAModel" />
                     </Link>
                   </UINewTypography>
-                </Box>
+                </ModelUITextConatiner>
               </FooterSubICon>
 
               <FooterSubICon sx={{ flexDirection: 'column', display: 'flex', textAlign: 'left' }}>
