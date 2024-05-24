@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const CallHistoryMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -158,4 +159,13 @@ export const SecImgBoxContainer = styled('img')(() => ({
   maxWidth: '24px',
   height: '100%',
   maxHeight: '24px'
+}));
+
+export const CallHistoryName = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '20px',
+  lineHeight: '25px',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '16px !important',
+    lineHeight: '20px !important'
+  }
 }));
