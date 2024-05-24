@@ -155,5 +155,15 @@
   "Language": "Language",
   "Documents": "Documents",
   "IdFront": "ID Front",
-  "LetsStartWithYourBasic": "Lets start with your basic details"
+  "LetsStartWithYourBasic": "Lets start with your basic details",
+  "VideoCallPrices": "Video Call prices",
+  "PriceMinute": "Price / Minute",
+  "CancelChanges": "Cancel changes",
+  "Save": "Save",
+  "Withdraw": "Withdraw",
+  "USD": "USD",
+  "RecentWithdrawls": "RecentWithdrawls",
+  "To Silicon Valley bank": "To Silicon Valley bank",
+  "ShowTracking": "ShowTracking",
+  "Completed": "Completed"
 }
