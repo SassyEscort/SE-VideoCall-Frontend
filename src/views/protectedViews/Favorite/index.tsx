@@ -1,8 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-import Image from 'next/image';
 import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
 import { FavoritesText } from './Favorites.styled';
 import MainLayoutNav from '../protectedLayout';
@@ -21,24 +19,6 @@ const Favorites = () => {
             </UINewTypography>
           </FavoritesText>
           <WorkerCard />
-        </Box>
-        <Box sx={{ width: '100%', maxWidth: { xs: '175px', sm: '300px' } }}>
-          <UIThemeShadowButton
-            sx={{
-              padding: 0,
-              maxWidth: '100%',
-              '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } }
-            }}
-            fullWidth
-            variant="contained"
-          >
-            <Box display="flex" alignItems="center" gap="10px">
-              <Image src="/images/workercards/video-call.svg" alt="video-call" height={24} width={24} />
-              <UINewTypography color="common.white" variant="bodySemiBold" sx={{ textWrap: 'no-wrap' }}>
-                Start Video Call
-              </UINewTypography>
-            </Box>
-          </UIThemeShadowButton>
         </Box>
       </Box>
     </MainLayoutNav>
