@@ -83,7 +83,10 @@ export const SeconderContainerWorkerCard = styled(Box)(({ theme }) => ({
   maxHeight: '109px',
   borderRadius: theme.spacing(1.5),
   [theme.breakpoints.up('sm')]: {
-    padding: theme.spacing(2)
+    paddingTop: theme.spacing(1.5),
+    paddingBottom: theme.spacing(1.5),
+    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(1.5)
   },
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(1.5)

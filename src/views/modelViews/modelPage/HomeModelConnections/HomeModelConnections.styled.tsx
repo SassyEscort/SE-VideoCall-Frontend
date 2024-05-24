@@ -175,7 +175,7 @@ export const MainChildContainer = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between',
   alignItems: 'center',
   textAlign: 'center',
-  marginTop: theme.spacing(7),
+  marginTop: theme.spacing(5),
   flexDirection: 'row',
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',

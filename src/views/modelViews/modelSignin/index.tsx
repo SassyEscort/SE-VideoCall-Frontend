@@ -39,6 +39,8 @@ const ModelSignin = ({
   const route = useRouter();
   const { push } = route;
   const isSm = useMediaQuery(theme.breakpoints.down(330));
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const isLg = useMediaQuery(theme.breakpoints.up('lg'));
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState('');
@@ -141,7 +143,8 @@ const ModelSignin = ({
                       helperText={touched.email && errors.email}
                       sx={{
                         border: '2px solid',
-                        borderColor: 'secondary.light'
+                        borderColor: 'secondary.light',
+                        width: isSmDown ? 'auto' : '400px'
                       }}
                       InputProps={{
                         endAdornment: <RiUserFillLine color="#86838A" />
@@ -165,7 +168,8 @@ const ModelSignin = ({
                         helperText={touched.password && errors.password}
                         sx={{
                           border: '2px solid',
-                          borderColor: 'secondary.light'
+                          borderColor: 'secondary.light',
+                          width: isSmDown ? 'auto' : '400px'
                         }}
                         InputProps={{
                           endAdornment: (
@@ -202,14 +206,14 @@ const ModelSignin = ({
                     </MenuItem>
                   </ModelUITextConatiner>
                 </ModelUITextConatiner>
-                <Box display="flex" flexDirection="column" gap="52px" justifyContent="space-between">
-                  <Box display="flex" flexDirection="column" width="100%">
-                    <StyleButtonV2 variant="contained" type="submit" loading={loading}>
+                <ModelUITextConatiner gap="52px" justifyContent="space-between">
+                  <ModelUITextConatiner width="100%">
+                    <StyleButtonV2 variant="contained" type="submit" loading={loading} sx={{ width: isLg ? '400px' : 'auto' }}>
                       <UIButtonText>
                         <FormattedMessage id="LogIn" />
                       </UIButtonText>
                     </StyleButtonV2>
-                  </Box>
+                  </ModelUITextConatiner>
                   <ModelUITextConatiner gap={3}>
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                     <Box
@@ -229,7 +233,7 @@ const ModelSignin = ({
                       </UINewTypography>
                     </Box>
                   </ModelUITextConatiner>
-                </Box>
+                </ModelUITextConatiner>
               </Box>
             </AuthModelCommon>
           </Box>

@@ -39,7 +39,7 @@ export const Banner = styled(Box)(({ theme }) => ({
     marginTop: '96px'
   },
   [theme.breakpoints.up('sm')]: {
-    marginTop: '125px'
+    marginTop: '120px'
   }
 }));
 

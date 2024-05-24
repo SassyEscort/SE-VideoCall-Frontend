@@ -42,6 +42,20 @@ export const FAQTitle = styled(Typography)(({ theme }) => ({
   }
 }));
 
+export const ModelFAQTitle = styled(Typography)(({ theme }) => ({
+  color: theme.palette.text.secondary,
+  textAlign: 'center',
+  fontWeight: 700,
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '24px',
+    lineHeight: '32px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '38px',
+    lineHeight: '47.5px'
+  }
+}));
+
 export const FAQSubTitle = styled(Typography)(({ theme }) => ({
   color: theme.palette.secondary[100],
   textAlign: 'center',
@@ -76,15 +90,15 @@ export const StyledAccordion = styled((props: AccordionProps) => <Accordion disa
 
 export const StyledAccordionSummary = styled((props: AccordionSummaryProps) => <AccordionSummary {...props} />)(({ theme }) => ({
   color: theme.palette.text.primary,
-  padding: '0px',
+  paddingTop: '8px',
+  paddingBottom: '8px',
+  paddingRight: 0,
+  paddingLeft: 0,
   '&.MuiAccordionSummary-root': {
     minHeight: '0px !important '
   },
   '& .MuiSvgIcon-root': {
     color: theme.palette.text.primary
-  },
-  '& .mui-1betqn-MuiAccordionSummary-content': {
-    marginTop: 8
   }
 }));
 
