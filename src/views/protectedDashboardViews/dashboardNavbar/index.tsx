@@ -1,24 +1,24 @@
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Navbar from './Navbar';
 import { usePathname } from 'next/navigation';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import Tabs from '@mui/material/Tabs';
 import { useState } from 'react';
 import Divider from '@mui/material/Divider';
-import { MainDashboardTabs } from 'constants/escortConstants';
 import {
   CommonMenuBox,
   MobileComponentBoxContainer,
   MobileComponentSecBoxContainer,
   MobileTextStyleContainer,
   SelectedTab
-} from '../../protectedDashboardViews/dashboardNavbar/nav.styled';
+} from './nav.styled';
 import Link from 'next/link';
+import { DashboardModelTabs } from 'constants/modelConstants';
+import ModelNavbar from './modelNavbar';
 
-Nav.propTypes = {
+ModelNav.propTypes = {
   openNav: PropTypes.bool,
   onCloseNav: PropTypes.func
 };
@@ -28,17 +28,16 @@ interface NavProps {
   onCloseNav: () => void;
 }
 
-export default function Nav({ openNav, onCloseNav }: NavProps) {
+export default function ModelNav({ openNav, onCloseNav }: NavProps) {
   const router = usePathname();
 
   const maindashboardTabIndex: { [key: string]: number } = {
     dashboard: 1,
-    profile: 2,
+    earnings: 2,
     favourites: 3,
-    Call: 4,
-    credit: 5,
-    billing: 6,
-    logout: 7
+    payouts: 4,
+    helpandinfo: 5,
+    logout: 6
   };
 
   const modifiedPath = router.split('/profile').join('').split('/').join('');
@@ -69,7 +68,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
         }}
         sx={{ height: '100%', width: 299 }}
       >
-        <Navbar tabIndex={tabIndex} />
+        <ModelNavbar tabIndex={tabIndex} />
       </Drawer>
       {isMdDown && (
         <MobileComponentBoxContainer>
@@ -80,7 +79,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
             scrollButtons={false}
             aria-label="scrollable prevent tabs example"
           >
-            {MainDashboardTabs.map((tab, index) => {
+            {DashboardModelTabs.map((tab, index) => {
               return index === tabIndex - 1 ? (
                 <CommonMenuBox key={index} sx={{ color: 'text.primary' }}>
                   <Link prefetch={false} href={tab.path} style={{ textDecoration: 'none' }}>
@@ -112,7 +111,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
               );
             })}
           </Tabs>
-          <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: '24px' }} />
+          <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
         </MobileComponentBoxContainer>
       )}
     </Box>

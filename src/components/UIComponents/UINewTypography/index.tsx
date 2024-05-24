@@ -1,3 +1,4 @@
+'use client';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 
@@ -94,8 +95,6 @@ const UINewTypography = styled(Typography)(({ theme }) => ({
       lineHeight: '25.6px'
     }
   }
-
-  
 }));
 
 export default UINewTypography;
