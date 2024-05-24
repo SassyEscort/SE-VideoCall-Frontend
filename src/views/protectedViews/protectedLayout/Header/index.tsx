@@ -1,4 +1,4 @@
-import DashboardNavItem from 'views/protectedDashboardViews/DashboardNavItem';
+import DashboardNavItem from 'views/protectedDashboardViews/dashboardNavItem';
 import WorkerNavItem from './TopNavItem/WorkerNavItem';
 import { TopNavItemVariantProps } from './types';
 

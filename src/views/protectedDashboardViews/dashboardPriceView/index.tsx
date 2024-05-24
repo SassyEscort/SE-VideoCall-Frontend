@@ -5,11 +5,19 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { priceValueMenuItme } from 'constants/workerVerification';
 import * as yup from 'yup';
 import React, { Fragment } from 'react';
-import { UINewTypographyTextMenuItem } from '../verificationStep2/VerificationStep2.styled';
+import { UINewTypographyTextMenuItem } from '../../protectedModelViews/verification/verificationStep2/VerificationStep2.styled';
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { useFormik } from 'formik';
-import { ButtonConatiner, MainConatiner, Minute, PriceMinute, SecondConatiner, SelectMenucontainer, VideoCall } from './Price.styled';
+import {
+  ButtonConatiner,
+  MainConatiner,
+  Minute,
+  PriceMinute,
+  SecondConatiner,
+  SelectMenucontainer,
+  VideoCall
+} from './DashboardPriceView.styled';
 import theme from 'themes/theme';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { FormattedMessage } from 'react-intl';
@@ -25,7 +33,7 @@ const validationSchema = yup.object({
   price: yup.string().required('Price title is required')
 });
 
-const PriceView = () => {
+const DashboardPriceView = () => {
   const { errors, values, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues,
     validationSchema,
@@ -112,4 +120,4 @@ const PriceView = () => {
   );
 };
 
-export default PriceView;
+export default DashboardPriceView;

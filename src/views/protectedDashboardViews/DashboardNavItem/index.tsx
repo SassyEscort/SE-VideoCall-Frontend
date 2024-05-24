@@ -1,10 +1,10 @@
 'use client';
 import Link from 'next/link';
-import HeaderAuthComponent from './HeaderAuthComponent';
 import Image from 'next/image';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import { WorkerNavItemContainer } from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/ProfileMenu.styled';
+import DashboadrHeaderAuthComponent from './HeaderAuthComponent';
 
 const DashboardNavItem = () => {
   return (
@@ -41,7 +41,7 @@ const DashboardNavItem = () => {
             </Box>
           </Box>
           <Box display="flex" gap={2}>
-            <HeaderAuthComponent />
+            <DashboadrHeaderAuthComponent />
           </Box>
         </WorkerNavItemContainer>
       </AppBar>
