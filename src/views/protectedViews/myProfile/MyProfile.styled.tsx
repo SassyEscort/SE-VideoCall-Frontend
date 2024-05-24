@@ -27,8 +27,5 @@ export const DisableButtonBox = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between',
   width: '100%',
   maxWidth: '613px',
-  paddingTop: theme.spacing(1.125),
-  paddingRight: theme.spacing(2.5),
-  paddingBottom: theme.spacing(1.125),
-  paddingLeft: theme.spacing(2.5)
+  padding: theme.spacing(2)
 }));
