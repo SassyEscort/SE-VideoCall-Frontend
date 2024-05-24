@@ -34,8 +34,8 @@ const Payouts = () => {
         </UINewTypography>
       </BoxMessage>
       <SecondMainContainer>
-        <FirstUsdBox className="ok">
-          <SecondUsdBox className="pl">
+        <FirstUsdBox>
+          <SecondUsdBox>
             <UsdBox>
               <Box component={'img'} src="/images/payout/pay.webp" alt="usd" sx={{ borderRadius: '50%' }} />
               <UINewTypography variant="SubtitleSmallMedium">
