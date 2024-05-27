@@ -2,11 +2,12 @@
 import VerificationHeader from './header';
 import VerificationStepOne from './stepOne';
 import UIStepper from '../../../components/common/stepper';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ModelDetailsResponse } from './verificationTypes';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import Box from '@mui/material/Box';
+import UploadImage from './stepThree/uploadImage';
 import DocumentMainContainer from './documentContainer';
 import CircularProgressWithLabel from './header/CircularProgressWithLabel';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -59,6 +60,14 @@ const VerificationContainer = () => {
     };
     modelDetails();
   }, [token.id, token.token]);
+
+  const handleModelApiChange = useCallback(() => {
+    const modelDetails = async () => {
+      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      setModelDetails(modelData.data);
+    };
+    modelDetails();
+  }, [token.token]);
 
   return (
     <>
@@ -159,11 +168,20 @@ const VerificationContainer = () => {
       )}
       {(activeStep === 1 || activeStep === 2) && (
         <DocumentMainContainer
+          handleModelApiChange={handleModelApiChange}
           token={token}
           activeStep={activeStep}
           handleNext={handleNext}
           modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
           handlePrev={handlePrev}
+        />
+      )}
+      {activeStep === 3 && (
+        <UploadImage
+          workerPhotos={modelDetails?.photos ?? []}
+          token={token}
+          handleNext={handleNext}
+          handlePrevVerificationStep={handlePrev}
         />
       )}
     </>
