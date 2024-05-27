@@ -46,8 +46,10 @@ const VerificationStepPromise = ({
   });
 
   const initialValues = {
-    photoWithoutFilter: null as File | null
+    photoWithoutFilter:
+      modelDetails?.documents?.filter((x) => x?.document_type === PHOTO_TYPE.MODEL_PHOTO)[0]?.link || (null as File | null)
   };
+
   return (
     <Formik
       enableReinitialize
@@ -73,7 +75,7 @@ const VerificationStepPromise = ({
             document_upload_step: true
           };
           const response = await VerificationStepService.uploadModelPhotos(payload, token);
-          if (response.data.success) {
+          if (response?.data) {
             handleNext();
           } else {
             toast.error(response?.message);
