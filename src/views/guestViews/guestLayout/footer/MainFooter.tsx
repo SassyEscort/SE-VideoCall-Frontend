@@ -78,7 +78,7 @@ const MainFooter = () => {
                 </UINewTypography>
                 <ModelUITextConatiner sx={{ gap: 1 }}>
                   <UINewTypography variant="SubtitleSmallRegular">
-                    <Link prefetch={false} href="/affiliate/program">
+                    <Link prefetch={false} href="/">
                       <FormattedMessage id="Home" />
                     </Link>
                   </UINewTypography>

@@ -2,7 +2,6 @@ import Image from 'next/image';
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
-import Typography from '@mui/material/Typography';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
@@ -12,6 +11,8 @@ import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestNewPassword from 'views/auth/guestNewPassword';
 import { useState } from 'react';
 import GuestLogin from 'views/auth/guestLogin';
+import Link from 'next/link';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 const SideBarGuestMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer: (open: boolean) => void }) => {
   const url = new URL(window.location.href);
@@ -72,9 +73,11 @@ const SideBarGuestMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
         <Box display="flex" gap={3} flexDirection="column">
           <SideBarBox>
             <MenuItem>
-              <Typography variant="bodySemiBold" color="text.secondary">
-                Register as Model
-              </Typography>
+              <Link href="/model">
+                <UINewTypography variant="bodySemiBold" color="text.secondary">
+                  Register as Model
+                </UINewTypography>
+              </Link>
             </MenuItem>
             <Divider orientation="horizontal" flexItem sx={{ borderColor: 'secondary.800', mr: '23px', ml: '23px' }} />
             <MenuItem>
@@ -82,9 +85,9 @@ const SideBarGuestMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
                 <Image priority src="/images/header/loginCircle.svg" width={20} height={20} alt="login" />
               </ListItemIcon>
               <ListItemText>
-                <Typography variant="bodySemiBold" color="text.secondary" onClick={handleLoginOpen}>
+                <UINewTypography variant="bodySemiBold" color="text.secondary" onClick={handleLoginOpen}>
                   Login
-                </Typography>
+                </UINewTypography>
               </ListItemText>
             </MenuItem>
             <MenuItem>
@@ -92,9 +95,9 @@ const SideBarGuestMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
                 <Image priority src="/images/header/userLine.svg" width={20} height={20} alt="sign_up" />
               </ListItemIcon>
               <ListItemText>
-                <Typography variant="bodySemiBold" color="text.secondary" onClick={handleSignupOpen}>
+                <UINewTypography variant="bodySemiBold" color="text.secondary" onClick={handleSignupOpen}>
                   Signup
-                </Typography>
+                </UINewTypography>
               </ListItemText>
             </MenuItem>
           </SideBarBox>
