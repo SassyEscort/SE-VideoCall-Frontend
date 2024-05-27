@@ -23,7 +23,8 @@ export type TokenIdType = {
 };
 
 const VerificationContainer = () => {
-  const [activeStep, setActiveStep] = useState(3);
+  const [activeStep, setActiveStep] = useState(0);
+
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
   const [progressValue, setProgressValue] = useState(14.28);
@@ -38,6 +39,10 @@ const VerificationContainer = () => {
 
   const handleNext = () => {
     setActiveStep((prev) => prev + 1);
+  };
+
+  const handleNextDocment = () => {
+    setActiveStep(3);
   };
 
   const handlePrev = () => {
@@ -74,7 +79,7 @@ const VerificationContainer = () => {
       <VerificationHeader activeStep={activeStep} />
       {!isMdDown && (
         <Box sx={{ backgroundColor: 'secondary.500' }} pt={4} pb={4}>
-          <UIStepper steps={VERIFICATION_STEPS} activeStep={1} />
+          <UIStepper steps={VERIFICATION_STEPS} activeStep={activeStep} />
         </Box>
       )}
       {isMdDown && activeStep !== 7 && (
@@ -168,6 +173,7 @@ const VerificationContainer = () => {
       )}
       {(activeStep === 1 || activeStep === 2) && (
         <DocumentMainContainer
+          handleNextDocment={handleNextDocment}
           handleModelApiChange={handleModelApiChange}
           token={token}
           activeStep={activeStep}
