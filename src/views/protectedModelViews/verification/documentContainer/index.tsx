@@ -10,18 +10,30 @@ export type VerificationStepPromiseType = {
   handlePrev: () => void;
   handleNext: () => void;
   token: TokenIdType;
+  handleModelApiChange: () => void;
 };
 
-const DocumentMainContainer = ({ activeStep, handlePrev, handleNext, token, modelDetails }: VerificationStepPromiseType) => {
+const DocumentMainContainer = ({
+  activeStep,
+  handlePrev,
+  handleNext,
+  token,
+  modelDetails,
+  handleModelApiChange
+}: VerificationStepPromiseType) => {
   const [open, setOpen] = useState(false);
+  const [stepData, setStepData] = useState(0);
 
   const handleChaneDocuModal = (val: boolean) => {
     setOpen(val);
   };
 
   const handleDocuPrev = () => {
+    setStepData(1);
     setOpen(false);
+    handleModelApiChange();
   };
+
   return (
     <>
       {open ? (
@@ -34,7 +46,14 @@ const DocumentMainContainer = ({ activeStep, handlePrev, handleNext, token, mode
           handleDocuPrev={handleDocuPrev}
         />
       ) : (
-        <VerificationStep2 token={token} handleNext={handleNext} handlePrev={handlePrev} handleChaneDocuModal={handleChaneDocuModal} />
+        <VerificationStep2
+          token={token}
+          handleNext={handleNext}
+          stepData={stepData}
+          handlePrev={handlePrev}
+          handleChaneDocuModal={handleChaneDocuModal}
+          modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
+        />
       )}
     </>
   );

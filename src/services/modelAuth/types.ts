@@ -18,7 +18,7 @@ export type LoginModelResponse = GenericResponse & {
 };
 
 export type Photo = {
-  url: string;
+  link: string;
   type: string;
   id: string;
   cords: string;
@@ -30,8 +30,9 @@ export type Photo = {
 
 export type VerificationPayload = {
   id: string;
-  is_document: true;
+  is_document: boolean;
   photos: Photo[];
+  document_upload_step: boolean;
 };
 
 export type VerificationStepSecond = {
