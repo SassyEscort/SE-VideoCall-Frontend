@@ -45,8 +45,9 @@ const VerificationStepPromise = ({
   });
 
   const initialValues = {
-    photoWithoutFilter: null as File | null
+    photoWithoutFilter: modelDetails?.documents?.filter((x) => x?.document_type === 'Model_Photo')[0]?.link || (null as File | null)
   };
+
   return (
     <Formik
       enableReinitialize
@@ -61,19 +62,19 @@ const VerificationStepPromise = ({
             is_document: false,
             photos: [
               {
-                url: typeof mutationImageUpload === 'string' ? '' : mutationImageUpload.url,
+                link: typeof mutationImageUpload === 'string' ? '' : mutationImageUpload.photosURL,
                 type: 'image',
                 id: typeof mutationImageUpload === 'string' ? '' : mutationImageUpload?.fileId,
                 cords: '',
-                is_favourite: 1,
-                is_document: 0,
+                is_favourite: 0,
+                is_document: 1,
                 document_type: 'Model_Photo',
                 document_number: null
               }
             ]
           };
           const response = await VerificationStepService.uploadModelPhotos(payload, token);
-          if (response.data.success) {
+          if (response?.data) {
             handleNext();
           } else {
             toast.error(response?.message);

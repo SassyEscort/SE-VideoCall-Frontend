@@ -2,7 +2,7 @@
 import VerificationHeader from './header';
 import VerificationStepOne from './stepOne';
 import UIStepper from '../../../components/common/stepper';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ModelDetailsResponse } from './verificationTypes';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { getUserDataClient } from 'utils/getSessionData';
@@ -22,7 +22,7 @@ export type TokenIdType = {
 };
 
 const VerificationContainer = () => {
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(1);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
   const [progressValue, setProgressValue] = useState(14.28);
@@ -59,6 +59,14 @@ const VerificationContainer = () => {
     };
     modelDetails();
   }, [token.id, token.token]);
+
+  const handleModelApiChange = useCallback(() => {
+    const modelDetails = async () => {
+      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      setModelDetails(modelData.data);
+    };
+    modelDetails();
+  }, [token.token]);
 
   return (
     <>
@@ -159,6 +167,7 @@ const VerificationContainer = () => {
       )}
       {(activeStep === 1 || activeStep === 2) && (
         <DocumentMainContainer
+          handleModelApiChange={handleModelApiChange}
           token={token}
           activeStep={activeStep}
           handleNext={handleNext}

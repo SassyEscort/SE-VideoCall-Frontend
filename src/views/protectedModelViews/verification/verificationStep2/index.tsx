@@ -1,7 +1,7 @@
 'use client';
 import { Box, FormHelperText, MenuItem, useMediaQuery } from '@mui/material';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
 
 import * as yup from 'yup';
@@ -32,6 +32,7 @@ import { TokenIdType } from '..';
 import { toast } from 'react-toastify';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { ErrorMessage } from 'constants/common.constants';
+import { ModelDetailsResponse } from '../verificationTypes';
 
 export type VerificationStepSecond = {
   idType: string;
@@ -47,12 +48,16 @@ const VerificationStep2 = ({
   token,
   handleNext,
   handlePrev,
-  handleChaneDocuModal
+  handleChaneDocuModal,
+  modelDetails,
+  stepData
 }: {
   token: TokenIdType;
   handleNext: () => void;
   handlePrev: () => void;
   handleChaneDocuModal: (val: boolean) => void;
+  modelDetails: ModelDetailsResponse;
+  stepData: number;
 }) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -63,7 +68,7 @@ const VerificationStep2 = ({
     idNumber: ''
   };
 
-  const { errors, values, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+  const { errors, values, touched, handleBlur, handleChange, handleSubmit, setValues } = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
@@ -73,7 +78,7 @@ const VerificationStep2 = ({
         is_document: true,
         photos: [
           {
-            url: 'url',
+            link: 'url',
             type: 'image',
             id: 'string',
             cords: 'string',
@@ -82,7 +87,8 @@ const VerificationStep2 = ({
             document_type: selectedDocument ?? '',
             document_number: values.idNumber
           }
-        ]
+        ],
+        document_upload_step: true
       };
       handleSubmitForm(inputPayload);
     }
@@ -92,7 +98,7 @@ const VerificationStep2 = ({
     try {
       setLoading(true);
       const response = await VerificationStepService.verificationtepSecond(inputPayload, token);
-      if (response?.success) {
+      if (response?.data) {
         handleChaneDocuModal(true);
       } else {
         toast.error(response?.message);
@@ -103,6 +109,20 @@ const VerificationStep2 = ({
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (modelDetails && modelDetails.documents && modelDetails.documents.length > 0) {
+      setValues({
+        idType: DocumentList.find((item) => item.value === modelDetails.documents[0].document_type)?.key || '',
+        idNumber: modelDetails.documents[0].document_number
+      });
+    } else {
+      setValues({
+        idType: '',
+        idNumber: ''
+      });
+    }
+  }, [modelDetails, setValues]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -146,9 +166,8 @@ const VerificationStep2 = ({
                   {DocumentList.map((type, index: number) => (
                     <MenuItem
                       value={type.key}
-                      divider={true}
+                      // divider={true}
                       key={index}
-                      id="hello"
                       sx={{
                         '& .MuiPaper-root-MuiPopover-paper-MuiMenu-paper': {
                           backgroundColor: 'red !important'
