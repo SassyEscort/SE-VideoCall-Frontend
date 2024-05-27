@@ -30,11 +30,11 @@ const VerificationStepOne = ({
     id: token.id,
     gender: modelDetails?.gender || '',
     name: modelDetails?.name || '',
-    country_id: modelDetails?.country_id || '',
+    country_id: modelDetails?.country?.id || '',
     bio: modelDetails?.bio || '',
     email: modelDetails?.email || '',
     dob: modelDetails?.dob || '',
-    nationality_id: modelDetails?.nationality_id || '',
+    nationality_id: modelDetails?.nationality?.id || '',
     model_languages: modelDetails?.languages?.map((language) => ({ id: language.language_id, name: language.language_name })) || []
   };
 

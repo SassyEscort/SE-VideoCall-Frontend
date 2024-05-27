@@ -11,7 +11,7 @@ import { ModelDetailsResponse } from 'views/protectedModelViews/verification/ver
 
 export type UploadFileControlType = {
   errors: string | undefined;
-  value: File;
+  value: File | string;
   setValue: (field: string, value: File | null, shouldValidate?: boolean | undefined) => Promise<void | FormikErrors<any | any>>;
   withoutFilterImageTouched?: FormikTouched<any>;
   touched?: FormikTouched<{
@@ -44,25 +44,9 @@ const DragAndDropV2 = ({
     e.stopPropagation();
   };
 
-  // useEffect(() => {
-  //   modelDetails?.photos?.map((image: { type: string; photo: SetStateAction<string> }) => {
-  //     if (image.type === 'file_1' && name === 'file1') {
-  //       setUploadedImageURL(image.photo);
-  //     }
-  //     if (image.type === 'file_2' && name === 'file2') {
-  //       setUploadedImageURL(image.photo);
-  //     }
-  //     if (image.type === 'file_3' && name === 'file3') {
-  //       setUploadedImageURL(image.photo);
-  //     }
-  //     if (image.type === 'file_4' && name === 'file4') {
-  //       setUploadedImageURL(image.photo);
-  //     }
-  //     if (image.type === 'Regular' && name === 'photoWithoutFilter') {
-  //       setUploadedImageURL(image.photo);
-  //     }
-  //   });
-  // }, [name, modelDetails]);
+  useEffect(() => {
+    setUploadedImageURL(typeof value === 'string' ? value : URL.createObjectURL(value));
+  }, [value]);
 
   const highlight = useCallback(() => {
     const dropArea = document.getElementById(dropAreaId);
@@ -182,7 +166,7 @@ const DragAndDropV2 = ({
           name={name}
           publicKey={process.env.NEXT_PUBLIC_IMAGE_KIT_KEY}
           urlEndpoint={process.env.NEXT_PUBLIC_IMAGE_KIT_URL}
-          fileName={value && value.name ? value.name : 'my-upload'}
+          fileName={typeof value === 'object' && 'name' in value ? value.name : 'my-upload'}
           useUniqueFileName={false}
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             if (e.target.files && e.target.files.length) {

@@ -14,10 +14,11 @@ import { FormattedMessage } from 'react-intl';
 import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
-import { Payload } from './type';
 import VerificationStep2Instruction from './VerificationStep2Instruction';
 import { ModelDetailsResponse } from '../verificationTypes';
 import { TokenIdType } from '..';
+import { PHOTO_TYPE } from 'constants/workerVerification';
+import { ImagePayload } from '../stepThree/uploadImage';
 import { useState } from 'react';
 
 export type VerificationStepPromiseType = {
@@ -45,8 +46,10 @@ const VerificationStepPromise = ({
   });
 
   const initialValues = {
-    photoWithoutFilter: null as File | null
+    photoWithoutFilter:
+      modelDetails?.documents?.filter((x) => x?.document_type === PHOTO_TYPE.MODEL_PHOTO)[0]?.link || (null as File | null)
   };
+
   return (
     <Formik
       enableReinitialize
@@ -56,24 +59,23 @@ const VerificationStepPromise = ({
         try {
           setLoading(true);
           const mutationImageUpload = await VerificationStepService.imageKitUplaodApi(values.photoWithoutFilter as File);
-          const payload: Payload = {
-            id: token as unknown as string,
+          const payload: ImagePayload = {
             is_document: false,
             photos: [
               {
-                url: typeof mutationImageUpload === 'string' ? '' : mutationImageUpload.url,
+                link: typeof mutationImageUpload === 'string' ? '' : String(mutationImageUpload.photosURL),
                 type: 'image',
-                id: typeof mutationImageUpload === 'string' ? '' : mutationImageUpload?.fileId,
                 cords: '',
-                is_favourite: 1,
-                is_document: 0,
-                document_type: 'Model_Photo',
+                is_favourite: 0,
+                is_document: 1,
+                document_type: PHOTO_TYPE.MODEL_PHOTO,
                 document_number: null
               }
-            ]
+            ],
+            document_upload_step: true
           };
           const response = await VerificationStepService.uploadModelPhotos(payload, token);
-          if (response.data.success) {
+          if (response?.data) {
             handleNext();
           } else {
             toast.error(response?.message);

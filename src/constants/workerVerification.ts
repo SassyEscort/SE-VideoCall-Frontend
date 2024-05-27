@@ -8,6 +8,9 @@ export const GENDER: MultipleOptions[] = [
   { id: 'Trans', name: 'Trans' }
 ];
 
+export enum PHOTO_TYPE {
+  MODEL_PHOTO = 'Model_Photo'
+}
 export type DocumentKeyValueList = {
   key: string;
   value: string;
