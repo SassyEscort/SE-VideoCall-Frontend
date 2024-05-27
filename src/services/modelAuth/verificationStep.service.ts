@@ -103,7 +103,7 @@ export class VerificationStepService {
 
           payload.push({
             link: responseData?.data?.url,
-            cords: '',
+            cords: data.cords ? String(data.cords) : '',
             is_favourite: 0,
             is_document: 0,
             document_type: PHOTO_TYPE.MODEL_PHOTO,

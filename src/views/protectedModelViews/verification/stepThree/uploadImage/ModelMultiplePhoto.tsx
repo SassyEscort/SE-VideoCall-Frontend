@@ -86,6 +86,12 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
 
   const handleBlobThumbnail = (id: number | undefined, image: UploadPhotos) => {
     image.id = undefined;
+    workerPhotos.forEach((x) => {
+      if (x.favourite) {
+        x.favourite = 0;
+      }
+    });
+    setValue('file5Existing', workerPhotos);
     setThumbnailImageId(id);
   };
 
@@ -106,7 +112,7 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
                 photoURL: URL.createObjectURL(data),
                 name: `file5[${index}]`,
                 cords: (values.cords5 && values.cords5[index]) || '',
-                isFavorite: false
+                isFavorite: index === 0 && thumbnailImageId === undefined ? true : false
               });
             }
           }
@@ -183,6 +189,8 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
 
         <GalleryMainContainer>
           <UploadGalleryPhotos
+            errors={errors}
+            touched={touched}
             name="file"
             setValue={setValue}
             accept="image/*,video/mp4,video/MP4,video/WebM,video/quicktime,video/avi"

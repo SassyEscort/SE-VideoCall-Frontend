@@ -1,6 +1,6 @@
 import { useMemo, useCallback, useEffect, memo, useState } from 'react';
 import { IKUpload } from 'imagekitio-react';
-import { FormikErrors } from 'formik';
+import { FormikErrors, FormikTouched } from 'formik';
 import { DragAndDropImageMainContainer, DragAndDropImageNoImageBox } from './DragAndDropMultipleImage.styled';
 import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
@@ -20,9 +20,11 @@ export type UploadFileControlType = {
   accept?: string;
   values?: VerificationFormStep5TypeV2;
   handleUploadPhotos: (values: VerificationFormStep5TypeV2) => void;
+  errors: FormikErrors<VerificationFormStep5TypeV2>;
+  touched: FormikTouched<VerificationFormStep5TypeV2>;
 };
 
-const UploadGalleryPhotos = ({ setValue, name, accept, values, handleUploadPhotos }: UploadFileControlType) => {
+const UploadGalleryPhotos = ({ setValue, name, accept, values, handleUploadPhotos, errors, touched }: UploadFileControlType) => {
   const [uploadedFiles, setUploadedFiles] = useState<VerificationFormStep5TypeV2>();
 
   const dropAreaId = useMemo(() => name + '_dropable', [name]);
@@ -124,7 +126,7 @@ const UploadGalleryPhotos = ({ setValue, name, accept, values, handleUploadPhoto
   }, [dropAreaId, handleDrop, highlight, unhighlight]);
 
   return (
-    <Box>
+    <Box pt="18px">
       <DragAndDropImageMainContainer id={name + '_dropable'}>
         <IKUpload
           multiple
@@ -163,6 +165,11 @@ const UploadGalleryPhotos = ({ setValue, name, accept, values, handleUploadPhoto
           </>
         </DragAndDropImageNoImageBox>
       </DragAndDropImageMainContainer>
+      {errors && touched && errors.file5 && (
+        <UINewTypography variant="bodySmall" color={'error.main'}>
+          <FormattedMessage id="PleaseUpload" />
+        </UINewTypography>
+      )}
     </Box>
   );
 };
