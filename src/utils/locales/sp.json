@@ -165,5 +165,18 @@
   "RecentWithdrawls": "RetirosRecientes",
   "To Silicon Valley bank": "Al banco Silicon Valley",
   "ShowTracking": "MostrarSeguimiento",
-  "Completed": "Completado"
+  "Completed": "Completado",
+  "UploadPhotos": "Por favor, sube tus fotos o videos recientes",
+  "UploadPics": "Sube tus fotos (mínimo 2 y máximo 30)",
+  "UploadPicDesc": "Al subir fotos, adhiérete a una proporción de 3:4, como 600px por 800px para la vista en miniatura. Asegúrate de una resolución mínima de 600 x 600 píxeles para mayor claridad. Recuerda que las imágenes mostradas mantendrán sus proporciones originales. Siempre puedes añadir más fotos más tarde a través de tu perfil.",
+  "FeaturePhotos": "Fotos destacadas",
+  "Gallery": "Galería (máximo 30 fotos)",
+  "ThumbnailPhoto": "Foto en miniatura",
+  "Drag": "Arrastrar",
+  "Drop": "Soltar",
+  "ToUpload": "para subir",
+  "Reposition": "Reposicionar",
+  "MakeThumbnail": "Hacer esta foto en miniatura",
+  "RepositionPhoto": "Reposicionar foto"
+
 }
