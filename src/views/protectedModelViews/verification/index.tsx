@@ -15,6 +15,7 @@ import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import ModelReviewDetails from '../modelReviewDetails';
+import ProfileCreated from './profileCreated';
 
 const VERIFICATION_STEPS = ['Basic Details', 'Documents', 'Photos', 'Review'];
 
@@ -186,9 +187,8 @@ const VerificationContainer = () => {
         />
       )}
       {activeStep === 4 && <ModelReviewDetails modelDetails={modelDetails ?? ({} as ModelDetailsResponse)} />}
+      {activeStep === 5 && <ProfileCreated />}
     </>
   );
 };
-0;
-
 export default VerificationContainer;
