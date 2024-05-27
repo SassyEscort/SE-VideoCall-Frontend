@@ -18,3 +18,8 @@ export const DocumentList: DocumentKeyValueList[] = [
   { key: 'Driver License', value: 'Driving_License' },
   { key: 'Passport', value: 'Passport' }
 ];
+
+interface price {
+  price: number;
+}
+export const priceValueMenuItme: price[] = [{ price: 4.99 }, { price: 2.99 }, { price: 5.99 }];
