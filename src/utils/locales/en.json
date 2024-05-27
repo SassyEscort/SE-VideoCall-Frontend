@@ -165,5 +165,7 @@
   "USD": "USD",
   "RecentWithdrawls": "RecentWithdrawls",
   "To Silicon Valley bank": "To Silicon Valley bank",
-  "ShowTracking": "ShowTracking"
+  "ShowTracking": "ShowTracking",
+  "LetStartWith":"Let Start With",
+  "RegisterAsAModel":"Register As A Model"
 }

@@ -141,7 +141,7 @@ const HeaderGuestComponent = () => {
                   <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
                 </Box>
               )}
-              <Box display="flex">
+              <Box display="flex" sx={{ cursor: 'pointer' }}>
                 <LanguageDropdown />
               </Box>
               {!isMdUp && (
