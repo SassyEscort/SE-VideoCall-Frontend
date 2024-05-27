@@ -3,6 +3,7 @@ import React from 'react';
 import {
   BillingHistoryMainContainer,
   BillingHistoryTextContainer,
+  BillingUIContainer,
   DividerContainer,
   FirstTextContainer,
   TextAndBoxContainer,
@@ -23,16 +24,16 @@ const BillingHistory = () => {
         <BillingHistoryMainContainer>
           <TextMainContainer>
             <FirstTextContainer>
-              <Box sx={{ display: 'flex', gap: 1.5, flexDirection: 'column' }}>
+              <BillingUIContainer sx={{ gap: 1.5 }}>
                 <UINewTypography variant="buttonLargeMenu" color="success.100">
                   + 100 credits
                 </UINewTypography>
-                <UINewTypography variant="SubtitleSmallMedium" color="text.primary">
+                <UINewTypography variant="SubtitleSmallMedium" color="text.primary" lineHeight="125%">
                   05:28 PM, 12 Apr 2024
                 </UINewTypography>
-              </Box>
+              </BillingUIContainer>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <UINewTypography variant="h6" color="text.secondary">
+                <UINewTypography variant="h6" color="text.secondary" lineHeight="125%">
                   $120.99
                 </UINewTypography>
               </Box>
@@ -42,14 +43,14 @@ const BillingHistory = () => {
 
           <TextMainContainer>
             <FirstTextContainer>
-              <Box sx={{ display: 'flex', gap: 1.5, flexDirection: 'column' }}>
+              <BillingUIContainer sx={{ gap: 1.5 }}>
                 <UINewTypography variant="buttonLargeMenu" color="error.300">
                   + 100 credits
                 </UINewTypography>
                 <UINewTypography variant="SubtitleSmallMedium" color="text.primary">
                   05:28 PM, 12 Apr 2024
                 </UINewTypography>
-              </Box>
+              </BillingUIContainer>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <UINewTypography variant="h6" color="text.secondary">
                   View details

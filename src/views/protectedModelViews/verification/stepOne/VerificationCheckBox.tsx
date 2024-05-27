@@ -33,7 +33,9 @@ const UINewCheckBox: React.FC<RadioButtonProps> = ({
               ? theme.palette.primary.main
               : theme.palette.secondary.dark,
 
-        color: variant === 'outlined' ? (checked ? '#FF68C0' : '#B7B5B9') : 'secondary.main'
+        color: variant === 'outlined' ? (checked ? '#FF68C0' : '#B7B5B9') : 'secondary.main',
+        marginLeft: '0px',
+        marginRight: '0px'
       }}
       value={value}
       control={<Radio checked={false} />}

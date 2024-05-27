@@ -47,3 +47,8 @@ export const DividerContainer = styled(Divider)(({ theme }) => ({
   width: '100%',
   maxWidth: '929px'
 }));
+
+export const BillingUIContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column'
+}));

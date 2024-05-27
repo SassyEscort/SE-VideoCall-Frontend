@@ -67,7 +67,9 @@ const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
         <DialogContentFristBox>
           <DialogContentSecondBox>
             <DialogContentBoxQuestion>
-              <UINewTypography variant="h5">Are you sure you want to log out?</UINewTypography>
+              <UINewTypography variant="h5" lineHeight="120%">
+                Are you sure you want to log out?
+              </UINewTypography>
             </DialogContentBoxQuestion>
             <DialogContentBoxButton>
               <UIThemeButton variant="contained" sx={{ width: '100%', maxWidth: '231px' }} onClick={handleConfirmLogout}>

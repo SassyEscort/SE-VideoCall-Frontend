@@ -192,7 +192,7 @@ const VerificationBasicDetails = ({
             error={touched.bio && Boolean(errors.bio)}
             helperText={touched.bio && errors.bio}
             sx={{
-              '& .MuiInputBase-input': { color: 'secondary.700' },
+              '& .MuiInputBase-input': { color: 'secondary.700', margin: '16px 12px' },
               maxWidth: '792px',
               '& .MuiOutlinedInput-root': {
                 padding: '0px !important'

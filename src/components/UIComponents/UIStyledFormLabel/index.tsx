@@ -9,5 +9,7 @@ export const UIStyledFormLabelContainer = styled(FormControlLabel)(({ theme }) =
   gap: '6px',
   borderRadius: theme.spacing(1),
   border: '1px solid',
-  borderColor: theme.palette.primary[700]
+  borderColor: theme.palette.primary[700],
+  marginLeft: '0px',
+  marginRight: '0px'
 }));
