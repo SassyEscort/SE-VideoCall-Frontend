@@ -30,13 +30,7 @@ import { Box } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 import { ModelDetailsResponse } from '../verification/verificationTypes';
 
-const ModelReviewDetails = ({ modelDetails }: { modelDetails: ModelDetailsResponse }) => {
-  const languages = modelDetails?.languages?.map((list) => {
-    return list?.language_name?.split(',')?.join(',');
-  });
-
-  const lang = languages?.join(',');
-
+const ModelReviewDetails = ({ modelDetails, handleNext }: { modelDetails: ModelDetailsResponse; handleNext: () => void }) => {
   const documentType =
     modelDetails?.documents?.length && modelDetails?.documents[0]?.document_type ? modelDetails?.documents[0]?.document_type : '';
 
@@ -123,7 +117,7 @@ const ModelReviewDetails = ({ modelDetails }: { modelDetails: ModelDetailsRespon
                         <FormattedMessage id="Language" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                        {lang}
+                        <FormattedMessage id="English" />
                       </UINewTypography>
                     </RightSideConatinerGap>
                   </RightSideConatiner>
@@ -185,6 +179,11 @@ const ModelReviewDetails = ({ modelDetails }: { modelDetails: ModelDetailsRespon
           </EditButton>
         </DocumentsConatiner>
       </DocumentSecondConatiner>
+      <Box mt={4}>
+        <UIThemeButton onClick={handleNext} variant="contained">
+          <FormattedMessage id="Submit" />
+        </UIThemeButton>
+      </Box>
     </MainContainer>
   );
 };
