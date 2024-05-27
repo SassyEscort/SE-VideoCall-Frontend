@@ -57,7 +57,6 @@ export type VerificationFormStep5TypeV2 = {
 };
 
 export type VerificationStepUploadType = {
-  activeStep: number;
   workerPhotos: WorkerPhotos[];
   handleNext: () => void;
   handlePrevVerificationStep: () => void;
@@ -65,6 +64,7 @@ export type VerificationStepUploadType = {
 };
 
 export interface ImagePayload {
+  is_document: boolean;
   document_upload_step: boolean;
   photos: ImageUploadPayload[];
 }
@@ -158,6 +158,7 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
         newReq.uploadPhotos = uploadPhotos;
 
         const payload: ImagePayload = {
+          is_document: false,
           document_upload_step: false,
           photos: uploadPhotos.filter((x) => x.link !== undefined)
         };
