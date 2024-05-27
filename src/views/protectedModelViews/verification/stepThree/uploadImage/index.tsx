@@ -14,6 +14,7 @@ import { PHOTO_TYPE } from 'constants/workerVerification';
 import { ErrorMessage } from 'constants/common.constants';
 import { FormattedMessage } from 'react-intl';
 import { useState } from 'react';
+import * as Yup from 'yup';
 
 export type WorkerPhotos = {
   id: number;
@@ -84,6 +85,14 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
       ? 'file' + workerPhotos?.filter((x) => x.favourite === 1)[0]?.type?.split('_')[1]
       : 'file1'
   };
+
+  console.log(initialValuesPerStep, 'initialValuesPerStep');
+
+  const validationSchema = Yup.object({
+    file5: Yup.array().when('file5Existing', (file5Existing: WorkerPhotos[][], schema) => {
+      return file5Existing[0].length >= 2 ? schema.notRequired() : schema.required('Please upload photos between 2 to 30 photo');
+    })
+  });
 
   const handleSubmit = async (values: VerificationFormStep5TypeV2) => {
     setLoading(true);
@@ -157,6 +166,8 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
         const newReq = mutationImageUpload;
         newReq.uploadPhotos = uploadPhotos;
 
+        console.log(uploadPhotos, 'uploadPhotos');
+
         const payload: ImagePayload = {
           is_document: false,
           document_upload_step: false,
@@ -180,6 +191,7 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
   return (
     <Formik
       enableReinitialize
+      validationSchema={validationSchema}
       initialValues={initialValuesPerStep}
       onSubmit={(values) => {
         handleSubmit(values);
