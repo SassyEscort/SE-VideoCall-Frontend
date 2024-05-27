@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
 export const MainConatiner = styled(Box)(({ theme }) => ({
   paddingTop: theme.spacing(4),
@@ -130,4 +131,15 @@ export const Pending = styled(UINewTypography)(({ theme }) => ({
   textAlign: 'center',
   padding: '4px 12px',
   borderColor: theme.palette.primary['600']
+}));
+
+export const ButtonBox = styled(UIThemeButton)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    marginLeft: theme.spacing(2),
+    marginBottom: theme.spacing(2)
+  },
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(0),
+    marginBottom: theme.spacing(0)
+  }
 }));

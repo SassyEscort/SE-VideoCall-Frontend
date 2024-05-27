@@ -2,10 +2,10 @@
 import { Box, Divider } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React from 'react';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import {
   BoxMessage,
+  ButtonBox,
   DollerBox,
   FirstToSiliconValleyBank,
   FirstToSiliconValleyBankMainConatiner,
@@ -52,14 +52,11 @@ const Payouts = () => {
             </DollerBox>
           </SecondUsdBox>
 
-          <UIThemeButton
-            variant="contained"
-            sx={{ marginLeft: { xs: '16px' }, marginBottom: { xs: '16px' }, sm: { marginLeft: 0, marginBottom: 0 } }}
-          >
+          <ButtonBox variant="contained">
             <UINewTypography variant="buttonLargeBold" color={'primary.200'}>
               <FormattedMessage id="Withdraw" />
             </UINewTypography>
-          </UIThemeButton>
+          </ButtonBox>
         </FirstUsdBox>
         <RecentWithdrawlsMainContainer>
           <SecondRecentWithdrawlsMainContainer>
