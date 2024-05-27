@@ -31,14 +31,12 @@ const PayoutFAQS = () => {
                 <StyledAccordion defaultExpanded>
                   <StyledAccordionSummary aria-controls="panel1-content" id="panel1-header" expandIcon={<ExpandMoreIcon />}>
                     <UINewTypography variant="bodySemiBold" sx={{ color: 'secondary.100' }}>
-                      <FormattedMessage id="wePrioritizeTheSecurity" />
-                      How do I find the right model for me?
+                      <FormattedMessage id="HowdoIFindThe" />
                     </UINewTypography>
                   </StyledAccordionSummary>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
-                      With our intuitive search and filter tools, finding your match is simple. You can filter models by interests,
-                      languages spoken, location, and more to find someone who meets your preferences.
+                      <FormattedMessage id="WithOurIntuitiveSearchAnd" />
                     </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
@@ -51,7 +49,7 @@ const PayoutFAQS = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      Can I communicate with models before booking a video call?
+                      <FormattedMessage id="CanIcommunicateWith" />
                     </StyledAccordionSummary>
                   </UINewTypography>
                   <Box component="ul">
@@ -69,7 +67,7 @@ const PayoutFAQS = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      How do I sign up and start using the platform?
+                      <FormattedMessage id="HowDoISign" />
                     </StyledAccordionSummary>
                   </UINewTypography>
                   <UINewTypography variant="bodyRegular">
@@ -87,7 +85,7 @@ const PayoutFAQS = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      Who are the escorts?
+                      <FormattedMessage id="WhoAretheEscorts" />
                     </StyledAccordionSummary>
                   </UINewTypography>
                   <Box component="ul">
@@ -105,7 +103,7 @@ const PayoutFAQS = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      Is my personal information safe with you?
+                      <FormattedMessage id="IsMyPersonalInformation" />
                     </StyledAccordionSummary>
                   </UINewTypography>
                   <UINewTypography variant="bodyRegular">
@@ -123,7 +121,7 @@ const PayoutFAQS = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      What happens if I’m not satisfied with my experience?
+                      <FormattedMessage id="WhatHappensIf" />
                     </StyledAccordionSummary>
                   </UINewTypography>
                   <UINewTypography variant="bodyRegular">
@@ -141,7 +139,7 @@ const PayoutFAQS = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      How does payment work?
+                      <FormattedMessage id="HowDoesPaymentWork" />
                     </StyledAccordionSummary>
                   </UINewTypography>
                   <Box component="ul">
@@ -159,7 +157,7 @@ const PayoutFAQS = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      Are there any rules I need to follow when interacting with models?
+                      <FormattedMessage id="AreThereAnyRules" />
                     </StyledAccordionSummary>
                   </UINewTypography>
                   <Box component="ul">
