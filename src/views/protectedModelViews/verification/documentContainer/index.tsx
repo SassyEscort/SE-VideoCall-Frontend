@@ -36,7 +36,7 @@ const DocumentMainContainer = ({
 
   return (
     <>
-      {!open ? (
+      {open ? (
         <VerificationStepPromise
           token={token}
           activeStep={activeStep}

@@ -46,7 +46,8 @@ const VerificationStepPromise = ({
   });
 
   const initialValues = {
-    photoWithoutFilter: modelDetails?.documents?.filter((x) => x?.document_type === 'Model_Photo')[0]?.link || (null as File | null)
+    photoWithoutFilter:
+      modelDetails?.documents?.filter((x) => x?.document_type === PHOTO_TYPE.MODEL_PHOTO)[0]?.link || (null as File | null)
   };
 
   return (

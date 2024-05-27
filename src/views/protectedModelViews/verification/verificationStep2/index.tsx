@@ -166,7 +166,6 @@ const VerificationStep2 = ({
                   {DocumentList.map((type, index: number) => (
                     <MenuItem
                       value={type.key}
-                      // divider={true}
                       key={index}
                       sx={{
                         '& .MuiPaper-root-MuiPopover-paper-MuiMenu-paper': {
