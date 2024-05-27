@@ -67,7 +67,7 @@ export const LiveIconSecBoxWorkerCard = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '8px',
   height: '100%',
-  minHeight: '8px',
+  maxHeight: '8px',
   border: '1px solid',
   borderColor: theme.palette.success[100],
   borderRadius: '50%',
@@ -83,7 +83,10 @@ export const SeconderContainerWorkerCard = styled(Box)(({ theme }) => ({
   maxHeight: '109px',
   borderRadius: theme.spacing(1.5),
   [theme.breakpoints.up('sm')]: {
-    padding: theme.spacing(2)
+    paddingTop: theme.spacing(1.5),
+    paddingBottom: theme.spacing(1.5),
+    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(1.5)
   },
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(1.5)
@@ -107,7 +110,7 @@ export const FirstSubContainerImgWorkerCard = styled('img')(() => ({
   maxWidth: '16px',
   height: '100%',
   maxHeight: '8px',
-  marginTop: '6px'
+  marginTop: '3px'
 }));
 
 export const SecondMainContainerWorkerCard = styled(Box)(({ theme }) => ({
@@ -196,11 +199,11 @@ export const FavoriteBorderIconContainer = styled(FavoriteBorderIcon)(({ theme }
 export const LiveIconWorkerCard = styled(LiveIconFirstBoxWorkerCard)(({ theme }) => ({
   display: 'flex',
   width: '100%',
-  minWidth: '8px',
-  height: '0%',
-  minHeight: '8px',
-  border: '1px solid',
-  borderColor: theme.palette.success[100],
+  minWidth: '12px',
+  height: '0',
+  maxHeight: '12px',
+  border: '1px',
+  borderColor: theme.palette.secondary[400],
   borderRadius: '50%',
-  backgroundColor: theme.palette.success[100]
+  backgroundColor: theme.palette.secondary[400]
 }));

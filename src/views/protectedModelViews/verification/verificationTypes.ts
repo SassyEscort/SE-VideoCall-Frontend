@@ -1,4 +1,4 @@
-import { Photo } from './verificationStep2Document/type';
+import { WorkerPhotos } from './stepThree/uploadImage';
 
 export type MultipleOptionString = {
   id: string;
@@ -33,7 +33,7 @@ export type ModelDetailsResponse = {
   email: string;
   dob: string;
   languages: LanagueRes[];
-  photos: Photo[];
+  photos: WorkerPhotos[];
 };
 
 export interface DocumentDataPhoto {
@@ -44,4 +44,21 @@ export interface DocumentDataPhoto {
   id: number;
   is_document: number;
   link: string;
+}
+export interface FileBody {
+  type: string;
+  file: File | File[] | string | null;
+  cords?: string | string[];
+  id?: number;
+  isFavorite?: number;
+}
+
+export interface MultipleImageUplaodBody {
+  file: File[];
+  publicKey: string;
+  signature: string;
+  expire: number;
+  token: string;
+  fileName: string;
+  folder: string;
 }

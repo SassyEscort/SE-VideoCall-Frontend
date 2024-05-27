@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import Box from '@mui/material/Box';
 import { MainDashboardTabs } from 'constants/escortConstants';
-import { CommonMenuBox, MainDashboardSideMenuMainBox, NavBarBoxContainer, SelectedTab } from './nav.styled';
+
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Logout from '../logout';
 import { useState } from 'react';
+import { CommonMenuBox, MainDashboardSideMenuMainBox, NavBarBoxContainer, SelectedTab } from './nav.styled';
 
 const Navbar = ({ tabIndex }: { tabIndex: number }) => {
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);

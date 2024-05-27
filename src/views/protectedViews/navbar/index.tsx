@@ -15,7 +15,7 @@ import {
   MobileComponentSecBoxContainer,
   MobileTextStyleContainer,
   SelectedTab
-} from './nav.styled';
+} from '../../protectedDashboardViews/dashboardNavbar/nav.styled';
 import Link from 'next/link';
 
 Nav.propTypes = {

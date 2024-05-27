@@ -4,6 +4,7 @@ import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import React from 'react';
 import {
   CallHistoryMainContainer,
+  CallHistoryName,
   CallHistoryText,
   ImgBoxContainer,
   SecImgBoxContainer,
@@ -39,9 +40,9 @@ const CallHistory = () => {
                   <WorkerImg src="/images/workercards/workercard-img.jpeg" />
                   <SecondSubFirstPartSecondBox>
                     <SecondSubFirstPartSecondBoxFirstText>
-                      <UINewTypography variant="h6" color="white.main" whiteSpace="nowrap">
+                      <CallHistoryName variant="h6" color="white.main" whiteSpace="nowrap">
                         Kat Winter
-                      </UINewTypography>
+                      </CallHistoryName>
                       <SecondSubFirstPartSecondBoxSecText>
                         <UINewTypography variant="SubtitleSmallMedium" color="text.primary">
                           24

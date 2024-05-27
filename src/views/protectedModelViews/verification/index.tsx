@@ -7,6 +7,7 @@ import { ModelDetailsResponse } from './verificationTypes';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import Box from '@mui/material/Box';
+import UploadImage from './stepThree/uploadImage';
 import DocumentMainContainer from './documentContainer';
 import CircularProgressWithLabel from './header/CircularProgressWithLabel';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -173,6 +174,14 @@ const VerificationContainer = () => {
           handleNext={handleNext}
           modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
           handlePrev={handlePrev}
+        />
+      )}
+      {activeStep === 3 && (
+        <UploadImage
+          workerPhotos={modelDetails?.photos ?? []}
+          token={token}
+          handleNext={handleNext}
+          handlePrevVerificationStep={handlePrev}
         />
       )}
     </>

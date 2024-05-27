@@ -2,7 +2,7 @@ import { styled } from '@mui/material';
 import { UIStyledSelect } from '../UIStyledSelect';
 
 export const UIStyledSelectItemContainer = styled(UIStyledSelect)(({ theme }) => ({
-  border: '2px solid',
+  border: '2px',
   '&.MuiInputBase-root': {
     backgroundColor: theme.palette.common.black,
     borderColor: theme.palette.secondary.light,
