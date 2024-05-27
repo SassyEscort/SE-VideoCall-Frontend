@@ -44,6 +44,14 @@ const DragAndDropV2 = ({
     e.stopPropagation();
   };
 
+  useEffect(() => {
+    modelDetails?.documents?.map((doc) => {
+      if (doc?.link) {
+        setUploadedImageURL(doc.link);
+      }
+    });
+  }, [modelDetails?.documents]);
+
   const highlight = useCallback(() => {
     const dropArea = document.getElementById(dropAreaId);
     if (dropArea) dropArea.classList.add('highlight');

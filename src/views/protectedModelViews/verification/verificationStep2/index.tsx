@@ -1,7 +1,7 @@
 'use client';
 import { Box, FormHelperText, MenuItem, useMediaQuery } from '@mui/material';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
 
 import * as yup from 'yup';
@@ -32,7 +32,7 @@ import { TokenIdType } from '..';
 import { toast } from 'react-toastify';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { ErrorMessage } from 'constants/common.constants';
-import { ModelDetailsResponse } from '../verificationTypes';
+import { DocumentDataPhoto, ModelDetailsResponse } from '../verificationTypes';
 
 export type VerificationStepSecond = {
   idType: string;
@@ -50,7 +50,8 @@ const VerificationStep2 = ({
   handlePrev,
   handleChaneDocuModal,
   modelDetails,
-  stepData
+  stepData,
+  handleModelApiChange
 }: {
   token: TokenIdType;
   handleNext: () => void;
@@ -58,14 +59,20 @@ const VerificationStep2 = ({
   handleChaneDocuModal: (val: boolean) => void;
   modelDetails: ModelDetailsResponse;
   stepData: number;
+  handleModelApiChange: () => void;
 }) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const modelDocuments = useMemo(() => {
+    if (modelDetails?.documents?.length) return modelDetails.documents[0];
+    else return {} as DocumentDataPhoto;
+  }, [modelDetails]);
 
   const [loading, setLoading] = useState(false);
 
   const initialValues = {
-    idType: '',
-    idNumber: ''
+    idType: modelDocuments.id || '',
+    idNumber: modelDocuments.document_number || ''
   };
 
   const { errors, values, touched, handleBlur, handleChange, handleSubmit, setValues } = useFormik({
@@ -78,7 +85,7 @@ const VerificationStep2 = ({
         is_document: true,
         photos: [
           {
-            link: 'url',
+            link: modelDocuments.link,
             type: 'image',
             id: 'string',
             cords: 'string',
@@ -100,6 +107,7 @@ const VerificationStep2 = ({
       const response = await VerificationStepService.verificationtepSecond(inputPayload, token);
       if (response?.data) {
         handleChaneDocuModal(true);
+        handleModelApiChange();
       } else {
         toast.error(response?.message);
       }
