@@ -19,6 +19,7 @@ import { ModelDetailsResponse } from '../verificationTypes';
 import { TokenIdType } from '..';
 import { PHOTO_TYPE } from 'constants/workerVerification';
 import { ImagePayload } from '../stepThree/uploadImage';
+import { useState } from 'react';
 
 export type VerificationStepPromiseType = {
   activeStep: number;
@@ -38,6 +39,7 @@ const VerificationStepPromise = ({
   handleDocuPrev
 }: VerificationStepPromiseType) => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const [loading, setLoading] = useState(false);
 
   const validationSchema = Yup.object().shape({
     photoWithoutFilter: Yup.mixed().required('Please upload your documents')
@@ -53,6 +55,7 @@ const VerificationStepPromise = ({
       validationSchema={validationSchema}
       onSubmit={async (values) => {
         try {
+          setLoading(true);
           const mutationImageUpload = await VerificationStepService.imageKitUplaodApi(values.photoWithoutFilter as File);
           const payload: ImagePayload = {
             is_document: false,
@@ -73,10 +76,12 @@ const VerificationStepPromise = ({
           if (response.data.success) {
             handleNext();
           } else {
-            toast.error(response.data.message);
+            toast.error(response?.message);
           }
         } catch (error) {
           toast.error(ErrorMessage);
+        } finally {
+          setLoading(false);
         }
       }}
     >
@@ -122,7 +127,7 @@ const VerificationStepPromise = ({
                     {isSmDown ? <FormattedMessage id="Back" /> : <FormattedMessage id="PreviousStep" />}
                   </UINewTypography>
                 </UIThemeButton>
-                <StyleButtonV2 id="verification-button" type="submit" variant="contained" loading={false}>
+                <StyleButtonV2 id="verification-button" type="submit" variant="contained" loading={loading}>
                   <UINewTypography variant="body">
                     {isSmDown ? <FormattedMessage id="Next" /> : <FormattedMessage id="NextStep" />}
                   </UINewTypography>

@@ -15,7 +15,7 @@ import {
   MobileComponentSecBoxContainer,
   MobileTextStyleContainer,
   SelectedTab
-} from './nav.styled';
+} from '../../protectedDashboardViews/dashboardNavbar/nav.styled';
 import Link from 'next/link';
 
 Nav.propTypes = {
@@ -94,7 +94,9 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
                           filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)'
                         }}
                       />
-                      <MobileTextStyleContainer label={tab.name} />
+                      <Box sx={{ color: 'primary.400' }}>
+                        <MobileTextStyleContainer label={tab.name} />
+                      </Box>
                     </SelectedTab>
                   </Link>
                 </CommonMenuBox>

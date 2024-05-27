@@ -3437,7 +3437,7 @@ imagekit-javascript@^3.0.0:
   resolved "https://registry.yarnpkg.com/imagekit-javascript/-/imagekit-javascript-3.0.1.tgz#b974e2c3c1d3e4f772594cc8c88fdafcd5c40241"
   integrity sha512-//pvycASq98lfa68y04Q0/P6lRS5HTa015fFHi91c4mOgruqssrJIrAC1W2/8fBjS8eiJtehZruDtXJVtrmT+A==
 
-imagekit@^5.0.1:
+imagekit@5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/imagekit/-/imagekit-5.0.1.tgz#28ab7d6ea406e02f7349745a60829e09412b9e74"
   integrity sha512-TKi2k61KcB2q7yp+MAC1IXfrrC/434oZN5AJ7IJjGxrwOSieSTpXMK0GLbA9hwNv1oODjVAWolBX9gKjtmfHrw==

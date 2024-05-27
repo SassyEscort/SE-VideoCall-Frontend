@@ -145,6 +145,7 @@
   "Back": "Back",
   "Next": "Next",
   "UploadDocuments": "Upload documents",
+  "QuestionsAnswer": "Questions? We have answers",
   "ReviewYourDetails": "Review your details",
   "MakesureYouFilled": "Make sure you filled the correct details",
   "BasicDetails": "Basic Details",
@@ -167,5 +168,14 @@
   "Reposition":"Reposition",
   "MakeThumbnail":"Make this thumbnail photo",
   "RepositionPhoto":"Reposition photo",
-  "Save":"Save"
+  "LetsStartWithYourBasic": "Lets start with your basic details",
+  "VideoCallPrices": "Video Call prices",
+  "PriceMinute": "Price / Minute",
+  "CancelChanges": "Cancel changes",
+  "Save": "Save",
+  "Withdraw": "Withdraw",
+  "USD": "USD",
+  "RecentWithdrawls": "RecentWithdrawls",
+  "To Silicon Valley bank": "To Silicon Valley bank",
+  "ShowTracking": "ShowTracking"
 }

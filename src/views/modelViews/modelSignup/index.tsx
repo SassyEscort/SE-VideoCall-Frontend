@@ -25,6 +25,7 @@ import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from 'views/auth/AuthCommon.styled';
 import InfoIcon from '@mui/icons-material/Info';
 import { FormattedMessage } from 'react-intl';
+import { ModelSignUpUIRemember } from './ModelSignup.styled';
 
 export type ModelSignupParams = {
   name: string;
@@ -267,7 +268,8 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                       </StyleButtonV2>
                       <ModelUITextConatiner gap={3}>
                         <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                        <Box display="flex" gap={1} alignItems="center" justifyContent="center" pb={3}>
+
+                        <ModelSignUpUIRemember>
                           <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
                             <FormattedMessage id="RememberPassword" />
                           </UINewTypography>
@@ -279,7 +281,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           >
                             <FormattedMessage id="LogInInstead" />
                           </UINewTypography>
-                        </Box>
+                        </ModelSignUpUIRemember>
                       </ModelUITextConatiner>
                     </ModelUITextConatiner>
                   </>

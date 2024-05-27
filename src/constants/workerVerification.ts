@@ -7,12 +7,22 @@ export const GENDER: MultipleOptions[] = [
   { id: 'Female', name: 'Female' },
   { id: 'Trans', name: 'Trans' }
 ];
-interface VerificationStep {
-  name: string;
-}
-
-export const VerificationStepSecond: VerificationStep[] = [{ name: 'ID Card' }, { name: 'Password' }, { name: `Driver's License` }];
 
 export enum PHOTO_TYPE {
   MODEL_PHOTO = 'Model_Photo'
 }
+export type DocumentKeyValueList = {
+  key: string;
+  value: string;
+};
+
+export const DocumentList: DocumentKeyValueList[] = [
+  { key: 'ID Card', value: 'Id_Card' },
+  { key: 'Driver License', value: 'Driving_License' },
+  { key: 'Passport', value: 'Passport' }
+];
+
+interface price {
+  price: number;
+}
+export const priceValueMenuItme: price[] = [{ price: 4.99 }, { price: 2.99 }, { price: 5.99 }];
