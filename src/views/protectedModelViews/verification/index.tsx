@@ -14,6 +14,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
+import ModelReviewDetails from '../modelReviewDetails';
 
 const VERIFICATION_STEPS = ['Basic Details', 'Documents', 'Photos', 'Review'];
 
@@ -184,6 +185,7 @@ const VerificationContainer = () => {
           handlePrevVerificationStep={handlePrev}
         />
       )}
+      {activeStep === 4 && <ModelReviewDetails modelDetails={modelDetails ?? ({} as ModelDetailsResponse)} />}
     </>
   );
 };

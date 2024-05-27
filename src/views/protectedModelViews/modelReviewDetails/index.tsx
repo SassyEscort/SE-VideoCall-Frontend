@@ -28,8 +28,23 @@ import {
 } from './ModelReviewDetails.styled';
 import { Box } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
+import { ModelDetailsResponse } from '../verification/verificationTypes';
 
-const ModelReviewDetails = () => {
+const ModelReviewDetails = ({ modelDetails }: { modelDetails: ModelDetailsResponse }) => {
+  const languages = modelDetails?.languages?.map((list) => {
+    return list?.language_name?.split(',')?.join(',');
+  });
+
+  const lang = languages?.join(',');
+
+  const documentType =
+    modelDetails?.documents?.length && modelDetails?.documents[0]?.document_type ? modelDetails?.documents[0]?.document_type : '';
+
+  const documentNumber =
+    modelDetails?.documents?.length && modelDetails?.documents[0]?.document_number ? modelDetails?.documents[0]?.document_number : '';
+
+  const documentLink = modelDetails?.documents?.length && modelDetails?.documents[0]?.link ? modelDetails?.documents[0]?.link : '';
+
   return (
     <MainContainer>
       <DocumentSecondConatiner>
@@ -58,7 +73,7 @@ const ModelReviewDetails = () => {
                         <FormattedMessage id="YourGender" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                        Female
+                        {modelDetails?.gender}
                       </UINewTypography>
                     </LeftCloumnConatinerGap>
                     <LeftCloumnConatinerGap>
@@ -66,7 +81,7 @@ const ModelReviewDetails = () => {
                         <FormattedMessage id="Country" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                        Netherland
+                        {modelDetails?.country?.name}
                       </UINewTypography>
                     </LeftCloumnConatinerGap>
                     <LeftCloumnConatinerGap>
@@ -74,7 +89,7 @@ const ModelReviewDetails = () => {
                         <FormattedMessage id="DOB" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                        30/12/1990
+                        {modelDetails?.dob}
                       </UINewTypography>
                     </LeftCloumnConatinerGap>
                     <LeftCloumnConatinerGap>
@@ -82,7 +97,7 @@ const ModelReviewDetails = () => {
                         <FormattedMessage id="Nationality" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                        Dutch
+                        {modelDetails?.nationality?.name}
                       </UINewTypography>
                     </LeftCloumnConatinerGap>
                   </CloumnContainer>
@@ -92,7 +107,7 @@ const ModelReviewDetails = () => {
                         <FormattedMessage id="Name" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                        Aesha Finn
+                        {modelDetails?.name}
                       </UINewTypography>
                     </RightSideConatinerGap>
                     <RightSideConatinerGap>
@@ -100,7 +115,7 @@ const ModelReviewDetails = () => {
                         <FormattedMessage id="Bio" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                        Life is short. Take the trip, buy the shoes, eat the cake, and LOVE ❤️.
+                        {modelDetails?.bio}
                       </UINewTypography>
                     </RightSideConatinerGap>
                     <RightSideConatinerGap>
@@ -108,7 +123,7 @@ const ModelReviewDetails = () => {
                         <FormattedMessage id="Language" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                        English, Spanish
+                        {lang}
                       </UINewTypography>
                     </RightSideConatinerGap>
                   </RightSideConatiner>
@@ -138,7 +153,7 @@ const ModelReviewDetails = () => {
                       <FormattedMessage id="IdType" />
                     </UINewTypography>
                     <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                      Passport
+                      {documentType}
                     </UINewTypography>
                   </Box>
                   <IDnumber>
@@ -146,7 +161,7 @@ const ModelReviewDetails = () => {
                       <FormattedMessage id="IdNumber" />
                     </UINewTypography>
                     <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                      23456789875
+                      {documentNumber}
                     </UINewTypography>
                   </IDnumber>
                 </Passport>
@@ -156,9 +171,7 @@ const ModelReviewDetails = () => {
                       <FormattedMessage id="IdFront" />
                     </UINewTypography>
                   </Box>
-                  <Box>
-                    <img src="images/model/passport_img.webp" />
-                  </Box>
+                  <Box> {<img src={documentLink} width={'265.39px'} />} </Box>
                 </FontIdRight>
               </IDtype>
             </DocumentLeftContainer>
