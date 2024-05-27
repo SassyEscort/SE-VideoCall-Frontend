@@ -43,7 +43,9 @@ const LanguageDropdown = () => {
           }
         }}
         endAdornment={
-          <KeyboardArrowDownRoundedIcon sx={{ height: 16, width: 16, color: 'common.white', paddingRight: '0px !important' }} />
+          <KeyboardArrowDownRoundedIcon
+            sx={{ height: 16, width: 16, color: 'common.white', paddingRight: '0px !important', cursor: 'pointer' }}
+          />
         }
         renderValue={(value) => {
           const imagePath = FLAG_IMAGES[value].replace('g/', '\\');

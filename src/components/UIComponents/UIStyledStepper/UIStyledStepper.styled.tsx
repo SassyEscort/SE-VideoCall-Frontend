@@ -40,6 +40,7 @@ const UIStyledStepper = styled(Stepper)(({ theme }) => ({
     borderColor: theme.palette.primary[400]
   },
   '& .MuiStepConnector-root.Mui-completed .MuiStepConnector-line': {
+    border: '2px inset',
     borderColor: theme.palette.primary[400]
   }
 }));

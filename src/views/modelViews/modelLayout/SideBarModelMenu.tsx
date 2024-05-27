@@ -3,11 +3,11 @@ import Image from 'next/image';
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
-import Typography from '@mui/material/Typography';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import { IconSideBar, SideBarBox } from './ModelLayout.styled';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 const SideBarModelMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer: (open: boolean) => void }) => {
   return (
@@ -19,10 +19,10 @@ const SideBarModelMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
         <Box display="flex" gap={3} flexDirection="column">
           <SideBarBox>
             <MenuItem>
-              <Link prefetch={true} href="/">
-                <Typography variant="bodySemiBold" color="text.secondary">
-                  Register as Model
-                </Typography>
+              <Link href="/">
+                <UINewTypography variant="bodySemiBold" color="text.secondary">
+                  Looking for a Model?
+                </UINewTypography>
               </Link>
             </MenuItem>
             <Divider orientation="horizontal" flexItem sx={{ borderColor: 'secondary.800', mr: '23px', ml: '23px' }} />
@@ -32,9 +32,9 @@ const SideBarModelMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
                   <Image priority src="/images/header/loginCircle.svg" width={20} height={20} alt="login" />
                 </ListItemIcon>
                 <ListItemText>
-                  <Typography variant="bodySemiBold" color="text.secondary">
+                  <UINewTypography variant="bodySemiBold" color="text.secondary">
                     Login
-                  </Typography>
+                  </UINewTypography>
                 </ListItemText>
               </MenuItem>
             </Link>
@@ -44,9 +44,9 @@ const SideBarModelMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
                   <Image priority src="/images/header/userLine.svg" width={20} height={20} alt="sign_up" />
                 </ListItemIcon>
                 <ListItemText>
-                  <Typography variant="bodySemiBold" color="text.secondary">
+                  <UINewTypography variant="bodySemiBold" color="text.secondary">
                     Signup
-                  </Typography>
+                  </UINewTypography>
                 </ListItemText>
               </MenuItem>
             </Link>
