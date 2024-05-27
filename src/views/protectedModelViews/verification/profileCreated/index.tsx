@@ -7,6 +7,7 @@ import Image from 'next/image';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ChildContainer, Container, ImageContainer, TypographyContainer, TypographyContainer2 } from './profileCreated.styled';
+import Link from 'next/link';
 
 const ProfileCreated = () => {
   return (
@@ -33,11 +34,13 @@ const ProfileCreated = () => {
               </UINewTypography>
             </Box>
             <Box>
-              <UIThemeButton variant="contained">
-                <UINewTypography variant="buttonLargeBold">
-                  <FormattedMessage id="GoToYourDashboard" />
-                </UINewTypography>
-              </UIThemeButton>
+              <Link href={'/model'}>
+                <UIThemeButton variant="contained">
+                  <UINewTypography variant="buttonLargeBold">
+                    <FormattedMessage id="GoToYourDashboard" />
+                  </UINewTypography>
+                </UIThemeButton>
+              </Link>
             </Box>
           </TypographyContainer2>
         </ChildContainer>
