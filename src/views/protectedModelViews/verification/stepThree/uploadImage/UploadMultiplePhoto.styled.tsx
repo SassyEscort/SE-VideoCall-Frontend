@@ -96,3 +96,23 @@ export const UploadItem = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
   alignSelf: 'stretch'
 }));
+
+export const CroppedItem = styled(Box)(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: 2,
+  overflow: 'hidden'
+}));
+
+export const ModelMultiplePhotoItem = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.secondary[500],
+  width: '100%',
+  maxWidth: 824,
+  padding: '24px 16px',
+  [theme.breakpoints.down('sm')]: {
+    padding: '24px 10px'
+  },
+  flexDirection: 'column',
+  borderRadius: theme.spacing(3)
+}));

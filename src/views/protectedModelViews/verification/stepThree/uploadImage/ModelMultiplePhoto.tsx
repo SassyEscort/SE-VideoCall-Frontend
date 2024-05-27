@@ -8,7 +8,7 @@ import { VideoAcceptType } from 'constants/workerVerification';
 import PhotoItem from './PhotoItem';
 import UploadGalleryPhotos from '../dragAndDropMultipleImage/UploadGalleryPhotos';
 import { VerificationFormStep5TypeV2, WorkerPhotos } from '.';
-import { GalleryMainContainer, UploadItem, UploadMultipleContainer } from './UploadMultiplePhoto.styled';
+import { GalleryMainContainer, ModelMultiplePhotoItem, UploadItem, UploadMultipleContainer } from './UploadMultiplePhoto.styled';
 import { FormattedMessage } from 'react-intl';
 import { TokenIdType } from '../..';
 
@@ -171,18 +171,7 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
           <FormattedMessage id="UploadPhotos" />
         </UINewTypography>
       </Box>
-      <Box
-        display="flex"
-        gap={3}
-        sx={{
-          backgroundColor: 'secondary.500',
-          width: '100%',
-          maxWidth: 824,
-          padding: { xs: '24px 10px', sm: '24px 16px' },
-          flexDirection: 'column',
-          borderRadius: 3
-        }}
-      >
+      <ModelMultiplePhotoItem>
         <UploadItem>
           <UINewTypography variant="h6" color="text.secondary">
             <FormattedMessage id="UploadPics" />
@@ -222,7 +211,7 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
             })}
           </Box>
         </GalleryMainContainer>
-      </Box>
+      </ModelMultiplePhotoItem>
     </UploadMultipleContainer>
   );
 };

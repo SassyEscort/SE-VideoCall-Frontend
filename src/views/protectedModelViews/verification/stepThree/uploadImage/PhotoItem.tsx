@@ -14,7 +14,7 @@ import { getRepositionImage } from 'utils/getRepositionImage';
 import ImageShotByMenu from './ShortBytoggle';
 import { VerificationFormStep5TypeV2 } from '.';
 import { UploadPhotos } from './ModelMultiplePhoto';
-import { VideoBox } from './UploadMultiplePhoto.styled';
+import { CroppedItem, VideoBox } from './UploadMultiplePhoto.styled';
 import { FormattedMessage } from 'react-intl';
 import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
 import { TokenIdType } from '../..';
@@ -220,15 +220,10 @@ const PhotoItem = ({
             </Box>
           </VideoBox>
         ) : (
-          <Box
+          <CroppedItem
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
               height: height,
               width: width,
-              borderRadius: 2,
-              overflow: 'hidden',
               ...(croppedImage
                 ? {
                     backgroundImage: `url(${croppedImage})`,
