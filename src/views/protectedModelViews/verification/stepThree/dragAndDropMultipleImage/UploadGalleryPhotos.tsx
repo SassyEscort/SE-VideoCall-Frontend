@@ -8,6 +8,7 @@ import { VideoAcceptType } from 'constants/workerVerification';
 import { RiUpload2Line } from 'components/common/customRemixIcons';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { VerificationFormStep5TypeV2 } from '../uploadImage';
+import { FormattedMessage } from 'react-intl';
 
 export type UploadFileControlType = {
   setValue: (
@@ -153,9 +154,10 @@ const UploadGalleryPhotos = ({ setValue, name, accept, values, handleUploadPhoto
           <>
             <RiUpload2Line style={{ height: 64, width: 64 }} />
             <UINewTypography variant="buttonLargeBold" color="primary.400">
-              Drag &amp; Drop
+              <FormattedMessage id="Drag" /> &amp; <FormattedMessage id="Drop" />
               <UINewTypography variant="buttonLargeBold" color="text.primary">
-                ToUploadGalleryPhotos
+                {' '}
+                <FormattedMessage id="ToUpload" />
               </UINewTypography>
             </UINewTypography>
           </>

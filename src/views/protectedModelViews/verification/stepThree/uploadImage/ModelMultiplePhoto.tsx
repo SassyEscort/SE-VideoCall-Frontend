@@ -10,6 +10,7 @@ import UploadGalleryPhotos from '../dragAndDropMultipleImage/UploadGalleryPhotos
 import { VerificationFormStep5TypeV2, WorkerPhotos } from '.';
 import { GalleryMainContainer, UploadItem, UploadMultipleContainer } from './UploadMultiplePhoto.styled';
 import { FormattedMessage } from 'react-intl';
+import { TokenIdType } from '../..';
 
 export type UploadMultiplePhotos = {
   errors: FormikErrors<VerificationFormStep5TypeV2>;
@@ -22,6 +23,7 @@ export type UploadMultiplePhotos = {
   touched: FormikTouched<VerificationFormStep5TypeV2>;
   workerPhotos: WorkerPhotos[];
   isEdit?: boolean;
+  token: TokenIdType;
 };
 export type UploadPhotos = {
   id?: number;
@@ -31,19 +33,20 @@ export type UploadPhotos = {
   isFavorite?: boolean;
 };
 
-const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos }: UploadMultiplePhotos) => {
+const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, token }: UploadMultiplePhotos) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const height = isSmUp ? 193 : 210;
   const width = isSmUp ? 145 : 159;
 
   const [existingPhotos, setExistingPhotos] = useState<UploadPhotos[]>([]);
-
   const [uploadedImagesURL, setUploadedImagesURL] = useState<UploadPhotos[]>([]);
+  const [thumbnailImageId, setThumbnailImageId] = useState<number | undefined>(undefined);
 
   const removeImage = (name: string) => {
     let index = existingPhotos?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
       existingPhotos?.splice(index, 1);
+      setValue('file5Existing', existingPhotos?.splice(index, 1));
     }
     index = uploadedImagesURL?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
@@ -57,6 +60,33 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos }:
 
     index = uploadedImagesURL?.findIndex((photo) => photo.name === name);
     if (index !== -1) uploadedImagesURL[index].cords = cords;
+  };
+
+  const handleClickThumbnailImageId = (id: number | undefined, name: string) => {
+    setThumbnailImageId(id);
+    if (!id) {
+      name = name && 'file_' + name.split('file')[1];
+      workerPhotos
+        .filter((photo) => photo.type !== name)
+        .map((photo) => {
+          if (photo.favourite === 1) {
+            photo.favourite = 0;
+          }
+        });
+
+      handleExistingPhotos(workerPhotos.filter((photo) => photo.type !== name));
+    } else {
+      workerPhotos.map((photo) => {
+        if (photo.id === id) photo.favourite = 1;
+        else photo.favourite = 0;
+      });
+      handleExistingPhotos(workerPhotos);
+    }
+  };
+
+  const handleBlobThumbnail = (id: number | undefined, image: UploadPhotos) => {
+    image.id = undefined;
+    setThumbnailImageId(id);
   };
 
   const handleUploadPhotos = useCallback(
@@ -75,7 +105,8 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos }:
               imageUrls.push({
                 photoURL: URL.createObjectURL(data),
                 name: `file5[${index}]`,
-                cords: (values.cords5 && values.cords5[index]) || ''
+                cords: (values.cords5 && values.cords5[index]) || '',
+                isFavorite: false
               });
             }
           }
@@ -91,42 +122,47 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos }:
   );
 
   const sortExistingPhotos = (file1: WorkerPhotos, file2: WorkerPhotos): number => {
-    if (file1.favourite === 1 && file2.favourite === 0) {
-      return -1;
-    } else if (file1.favourite === 0 && file2.favourite === 1) {
-      return 1;
+    if (file1.favourite !== file2.favourite) {
+      return file2.favourite - file1.favourite;
     } else {
-      return 0;
+      return file2.id - file1.id;
     }
   };
 
   const handleExistingPhotos = useCallback((photos: WorkerPhotos[]) => {
     photos?.sort(sortExistingPhotos);
-    setExistingPhotos(
-      photos
-        ?.filter((photo) => !photo.is_document)
-        ?.map((photo, index) => {
-          if (photo.type === 'file_5')
-            return {
-              name: `file5Existing[${index - 4}]`,
-              photoURL: photo.link,
-              cords: photo.cords
-            };
-          else {
-            return {
-              name: `file${photo?.type?.split('_')[1]}`,
-              photoURL: photo.link,
-              cords: photo.cords,
-              isFavorite: photo.favourite === 1
-            };
-          }
-        })
-    );
+    const existedPhoto = photos
+      ?.filter((photo) => !photo.is_document)
+      ?.map((photo, index) => {
+        if (photo.type === 'file_5')
+          return {
+            id: photo.id,
+            name: `file5Existing[${index - 4}]`,
+            photoURL: photo.link,
+            cords: photo.cords
+          };
+        else {
+          return {
+            id: photo.id,
+            name: `file${photo?.type?.split('_')[1]}`,
+            photoURL: photo.link,
+            cords: photo.cords,
+            isFavorite: photo.favourite === 1
+          };
+        }
+      });
+    setExistingPhotos(existedPhoto);
+    setValue('file5Existing', existedPhoto);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     handleExistingPhotos(workerPhotos);
   }, [handleExistingPhotos, workerPhotos]);
+
+  useEffect(() => {
+    setThumbnailImageId(workerPhotos.filter((x) => x.favourite === 1)[0]?.id);
+  }, [workerPhotos]);
 
   return (
     <UploadMultipleContainer>
@@ -169,14 +205,18 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos }:
               return (
                 <PhotoItem
                   key={index}
+                  token={token}
                   image={photo}
                   isEdit={false}
                   isFeaturePhoto={false}
+                  thumbnailImageId={thumbnailImageId}
                   height={height}
                   width={width}
                   setValue={setValue}
                   removeImage={removeImage}
                   handleChangeFile5Cords={handleChangeFile5Cords}
+                  handleClickThumbnailImageId={handleClickThumbnailImageId}
+                  handleBlobThumbnail={handleBlobThumbnail}
                 />
               );
             })}

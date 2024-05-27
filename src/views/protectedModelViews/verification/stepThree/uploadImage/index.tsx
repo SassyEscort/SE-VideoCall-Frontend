@@ -16,6 +16,7 @@ import { FormattedMessage } from 'react-intl';
 import { useState } from 'react';
 
 export type WorkerPhotos = {
+  id: number;
   link: string;
   type: string;
   cords: string;
@@ -67,6 +68,11 @@ export interface ImagePayload {
   document_upload_step: boolean;
   photos: ImageUploadPayload[];
 }
+
+export type ThumbnailPayload = {
+  model_photo_id: number;
+};
+
 const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, token }: VerificationStepUploadType) => {
   const [loading, setLoading] = useState(false);
 
@@ -81,7 +87,6 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
 
   const handleSubmit = async (values: VerificationFormStep5TypeV2) => {
     setLoading(true);
-
     const allFiles: FileBody[] = [
       {
         type: 'file_5',
@@ -122,7 +127,8 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
           ...values.file5Existing
             .filter((x) => x !== null)
             .map((photo) => ({
-              link: String(photo.photo),
+              id: photo.id || 0,
+              link: photo.link,
               type: 'file_5',
               cords: photo.cords,
               is_document: 0,
@@ -135,16 +141,17 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
         const uploadPhotos: ImageUploadPayload[] = [];
 
         if (uploadFile5)
-          uploadFile5.forEach((x) => {
-            uploadPhotos.push({
-              link: String(x.photosURL),
-              type: 'file_5',
-              cords: x.cords,
-              is_favourite: 0,
-              is_document: 0,
-              document_type: PHOTO_TYPE.MODEL_PHOTO,
-              document_number: null
-            });
+          uploadFile5.forEach((x, i) => {
+            if (x.photosURL !== null)
+              uploadPhotos.push({
+                link: x.link ? String(x.link) : String(x.photosURL),
+                type: 'file_5',
+                cords: x.cords,
+                is_favourite: i === 0 && x.is_favourite === 0 ? 1 : 0,
+                is_document: 0,
+                document_type: PHOTO_TYPE.MODEL_PHOTO,
+                document_number: null
+              });
           });
 
         const newReq = mutationImageUpload;
@@ -152,15 +159,14 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
 
         const payload: ImagePayload = {
           document_upload_step: false,
-          photos: uploadPhotos
+          photos: uploadPhotos.filter((x) => x.link !== undefined)
         };
 
         const response = await VerificationStepService.uploadModelPhotos(payload, token);
 
-        if (response.data.success) {
+        if (response.code === 200) {
+          toast.success(response.message);
           handleNext();
-        } else {
-          toast.error(response.message);
         }
       }
     } catch (error) {
@@ -172,6 +178,7 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
 
   return (
     <Formik
+      enableReinitialize
       initialValues={initialValuesPerStep}
       onSubmit={(values) => {
         handleSubmit(values);
@@ -180,7 +187,14 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
       {({ values, errors, touched, setFieldValue, handleSubmit }) => (
         <Box component="form" onSubmit={handleSubmit}>
           <Box>
-            <ModelMultiplePhoto values={values} setValue={setFieldValue} errors={errors} touched={touched} workerPhotos={workerPhotos} />
+            <ModelMultiplePhoto
+              token={token}
+              values={values}
+              setValue={setFieldValue}
+              errors={errors}
+              touched={touched}
+              workerPhotos={workerPhotos}
+            />
             <UploadBox>
               <UploadMultipleBox>
                 <UIThemeButton variant="outlined" onClick={handlePrevVerificationStep}>

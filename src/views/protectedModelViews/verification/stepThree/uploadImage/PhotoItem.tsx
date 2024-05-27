@@ -16,6 +16,9 @@ import { VerificationFormStep5TypeV2 } from '.';
 import { UploadPhotos } from './ModelMultiplePhoto';
 import { VideoBox } from './UploadMultiplePhoto.styled';
 import { FormattedMessage } from 'react-intl';
+import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
+import { TokenIdType } from '../..';
+import { toast } from 'react-toastify';
 
 const PhotoItem = ({
   image,
@@ -27,7 +30,9 @@ const PhotoItem = ({
   setValue,
   removeImage,
   handleChangeFile5Cords,
-  handleClickThumbnailImageId
+  handleClickThumbnailImageId,
+  token,
+  handleBlobThumbnail
 }: {
   image: UploadPhotos;
   isEdit: boolean;
@@ -43,14 +48,18 @@ const PhotoItem = ({
   removeImage: (name: string, photoId?: number) => void;
   handleChangeFile5Cords?: (name: string, cords: string) => void;
   handleClickThumbnailImageId?: (id: number | undefined, name: string) => void;
+  token: TokenIdType;
+  handleBlobThumbnail: (id: number | undefined, image: UploadPhotos) => void;
 }) => {
   const [openRepositionModal, setOpenRepositionModal] = useState(false);
   const [croppedImage, setCroppedImage] = useState('');
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [thumbnail, setThumbnail] = useState(false);
 
   const open = Boolean(anchorEl);
   const videoTypeCondition =
-    VideoAcceptType.includes(image.photoURL.substring(image.photoURL.lastIndexOf('.') + 1)) || image.photoURL.startsWith('video-blob:');
+    VideoAcceptType.includes(image?.photoURL?.substring(image?.photoURL?.lastIndexOf('.') + 1)) ||
+    image?.photoURL?.startsWith('video-blob:');
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -67,6 +76,26 @@ const PhotoItem = ({
 
   const handleOpenRepositionModal = () => {
     setOpenRepositionModal(true);
+    handleClose();
+  };
+
+  const handleClickThumbnailPhoto = async () => {
+    if (handleClickThumbnailImageId) {
+      if (image.id) {
+        const response = await VerificationStepService.modelThumbnailPhoto({ model_photo_id: image.id }, token);
+        if (response.code === 200) {
+          toast.success(response.message);
+        }
+      }
+
+      if (!image.id) {
+        setThumbnail(true);
+        image.isFavorite = true;
+        setValue('is_favourite', image.name);
+        toast.success('Image marked as thumbnail');
+      }
+    }
+
     handleClose();
   };
 
@@ -120,6 +149,14 @@ const PhotoItem = ({
     fetchCroppedImage();
   }, [image.cords, image.photoURL]);
 
+  useEffect(() => {
+    if (thumbnail) {
+      handleBlobThumbnail(undefined, image);
+      image.isFavorite = true;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [image, thumbnail]);
+
   return (
     <>
       <Box>
@@ -149,6 +186,7 @@ const PhotoItem = ({
                 videoTypeCondition={videoTypeCondition}
                 handleClose={handleClose}
                 handleOpenRepositionModal={handleOpenRepositionModal}
+                handleClickThumbnailPhoto={handleClickThumbnailPhoto}
               />
             </Box>
           )}

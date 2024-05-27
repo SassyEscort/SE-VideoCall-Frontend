@@ -7,13 +7,15 @@ const ImageShotByMenu = ({
   isFeaturePhoto,
   videoTypeCondition,
   handleClose,
-  handleOpenRepositionModal
+  handleOpenRepositionModal,
+  handleClickThumbnailPhoto
 }: {
   anchorEl: null | HTMLElement;
   isFeaturePhoto: boolean;
   videoTypeCondition: boolean;
   handleClose: () => void;
   handleOpenRepositionModal: () => void;
+  handleClickThumbnailPhoto: () => void;
 }) => {
   const open = Boolean(anchorEl);
 
@@ -32,7 +34,7 @@ const ImageShotByMenu = ({
           <FormattedMessage id="Reposition" />
         </MenuItem>
       )}
-      <MenuItem>
+      <MenuItem onClick={handleClickThumbnailPhoto}>
         <FormattedMessage id="MakeThumbnail" />
       </MenuItem>
     </UIStyledPopover>

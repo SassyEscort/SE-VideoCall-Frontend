@@ -5,7 +5,12 @@ import { CustomFile, ImagekitTokenResponse, ImageUplaodBody } from 'views/protec
 import { VerificationPayload } from './types';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { FileBody } from 'views/protectedModelViews/verification/verificationTypes';
-import { ImagePayload, ImageUploadPayload, PhotoUpload } from 'views/protectedModelViews/verification/stepThree/uploadImage';
+import {
+  ImagePayload,
+  ImageUploadPayload,
+  PhotoUpload,
+  ThumbnailPayload
+} from 'views/protectedModelViews/verification/stepThree/uploadImage';
 import { PHOTO_TYPE } from 'constants/workerVerification';
 
 export const imageKitObj = {
@@ -114,5 +119,17 @@ export class VerificationStepService {
     };
 
     return uploadBody;
+  };
+
+  static modelThumbnailPhoto = async (payload: ThumbnailPayload, token: TokenIdType) => {
+    try {
+      const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/mark-thumbnail`, payload, {
+        headers: { 'Content-Type': 'application/json', Authorization: token.token }
+      });
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data || { error_message: error.message };
+    }
   };
 }
