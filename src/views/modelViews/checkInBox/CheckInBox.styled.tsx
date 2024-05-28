@@ -5,7 +5,9 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 export const MianDailogConatiner = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
     backgroundColor: theme.palette.secondary['800'],
-    borderRadius: '12px'
+    borderRadius: '12px',
+    maxWidth: '920px',
+    height: '676px'
   },
   '& .MuiDialog-container': {
     backdropFilter: 'blur(24px)'

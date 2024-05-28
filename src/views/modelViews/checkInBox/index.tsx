@@ -23,9 +23,7 @@ const CheckInboxVerify = ({ onOpen, onClose, email }: { onOpen: boolean; onClose
       fullWidth
       sx={{
         '& .MuiDialog-paper': {
-          border: isMdDown ? 'solid 0px' : 'solid 1px #FF68C0A3',
-          maxWidth: '920px',
-          height: '676px'
+          border: isMdDown ? 'solid 0px' : 'solid 1px #FF68C0A3'
         },
         '& .MuiDialog-container': {
           backgroundColor: isMdDown ? '#07030E' : '#07030e99 !important'
