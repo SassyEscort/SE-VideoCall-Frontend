@@ -209,5 +209,9 @@
   "UploadHighQualilty": "Upload high quality photos or videos of yourself",
   "CheckYourInbox": "Check your inbox",
   "AVerificationLink":"A verification link has been emailed to",
-  "CompleteYourProfile":"Complete your Profile"
+  "CompleteYourProfile":"Complete your Profile",
+  "LogOut": "Log out",
+  "AreYouSure": "Are you sure you want to log out?",
+  "Confirm": "Confirm",
+  "Cancel": "Cancel"
 }

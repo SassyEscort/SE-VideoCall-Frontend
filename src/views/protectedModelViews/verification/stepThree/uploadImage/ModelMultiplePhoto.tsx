@@ -24,6 +24,7 @@ export type UploadMultiplePhotos = {
   workerPhotos: WorkerPhotos[];
   isEdit?: boolean;
   token: TokenIdType;
+  handleModelApiChange: () => void;
 };
 export type UploadPhotos = {
   id?: number;
@@ -33,7 +34,7 @@ export type UploadPhotos = {
   isFavorite?: boolean;
 };
 
-const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, token }: UploadMultiplePhotos) => {
+const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, token, handleModelApiChange }: UploadMultiplePhotos) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const height = isSmUp ? 193 : 210;
   const width = isSmUp ? 145 : 159;
@@ -65,6 +66,13 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
   const handleClickThumbnailImageId = (id: number | undefined, name: string) => {
     setThumbnailImageId(id);
     if (!id) {
+      setValue('is_favorite', name);
+      workerPhotos.forEach((x) => {
+        if (x.favourite) {
+          x.favourite = 0;
+        }
+      });
+      setThumbnailImageId(id);
       name = name && 'file_' + name.split('file')[1];
       workerPhotos
         .filter((photo) => photo.type !== name)
@@ -85,6 +93,9 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
   };
 
   const handleBlobThumbnail = (id: number | undefined, image: UploadPhotos) => {
+    setThumbnailImageId(id);
+    setValue('is_favourite', image.name);
+    image.isFavorite = true;
     image.id = undefined;
     workerPhotos.forEach((x) => {
       if (x.favourite) {
@@ -92,7 +103,6 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
       }
     });
     setValue('file5Existing', workerPhotos);
-    setThumbnailImageId(id);
   };
 
   const handleUploadPhotos = useCallback(
@@ -131,7 +141,7 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
     if (file1.favourite !== file2.favourite) {
       return file2.favourite - file1.favourite;
     } else {
-      return file2.id - file1.id;
+      return file1.id - file2.id;
     }
   };
 
@@ -204,6 +214,8 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
             {[...existingPhotos, ...uploadedImagesURL]?.map((photo, index) => {
               return (
                 <PhotoItem
+                  handleModelApiChange={handleModelApiChange}
+                  values={values}
                   key={index}
                   token={token}
                   image={photo}

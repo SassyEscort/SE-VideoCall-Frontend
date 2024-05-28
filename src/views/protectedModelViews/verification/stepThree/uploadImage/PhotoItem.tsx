@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Area } from 'react-easy-crop';
 import { FormikErrors } from 'formik';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -32,7 +32,9 @@ const PhotoItem = ({
   handleChangeFile5Cords,
   handleClickThumbnailImageId,
   token,
-  handleBlobThumbnail
+  handleBlobThumbnail,
+  values,
+  handleModelApiChange
 }: {
   image: UploadPhotos;
   isEdit: boolean;
@@ -50,6 +52,8 @@ const PhotoItem = ({
   handleClickThumbnailImageId?: (id: number | undefined, name: string) => void;
   token: TokenIdType;
   handleBlobThumbnail: (id: number | undefined, image: UploadPhotos) => void;
+  values: VerificationFormStep5TypeV2;
+  handleModelApiChange: () => void;
 }) => {
   const [openRepositionModal, setOpenRepositionModal] = useState(false);
   const [croppedImage, setCroppedImage] = useState('');
@@ -79,16 +83,19 @@ const PhotoItem = ({
     handleClose();
   };
 
-  const handleClickThumbnailPhoto = async () => {
+  const handleClickThumbnailPhoto = useCallback(async () => {
     if (handleClickThumbnailImageId) {
       if (image.id) {
         const response = await VerificationStepService.modelThumbnailPhoto({ model_photo_id: image.id }, token);
         if (response.code === 200) {
+          handleModelApiChange();
           toast.success(response.message);
         }
       }
 
       if (!image.id) {
+        handleBlobThumbnail(undefined, image);
+        image.id = undefined;
         setThumbnail(true);
         image.isFavorite = true;
         setValue('is_favourite', image.name);
@@ -97,7 +104,8 @@ const PhotoItem = ({
     }
 
     handleClose();
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [image, token, thumbnail]);
 
   const handleRemoveImage = (name: string) => {
     setCroppedImage('');
@@ -152,10 +160,9 @@ const PhotoItem = ({
   useEffect(() => {
     if (thumbnail) {
       handleBlobThumbnail(undefined, image);
-      image.isFavorite = true;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [image, thumbnail]);
+  }, []);
 
   return (
     <>
@@ -190,7 +197,8 @@ const PhotoItem = ({
               />
             </Box>
           )}
-          {((thumbnailImageId !== undefined && image.id !== undefined && thumbnailImageId === image.id) || image.isFavorite) && (
+          {((thumbnailImageId !== undefined && image.id !== undefined && thumbnailImageId === image.id) ||
+            (values.is_favourite === image.name && thumbnailImageId === undefined)) && (
             <Box sx={{ position: 'relative' }}>
               <DragAndDropMultipleImageThumbnailPhoto
                 sx={{
