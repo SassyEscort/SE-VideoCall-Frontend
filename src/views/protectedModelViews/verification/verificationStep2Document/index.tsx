@@ -6,20 +6,23 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import * as Yup from 'yup';
 import WorkerPhotosWithoutFilterNew from './WorkerPhotosWithoutFilterNew';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { StepButtonNext } from './LastStepPromise.styled';
 import { FormattedMessage } from 'react-intl';
 import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
 import { toast } from 'react-toastify';
-import { ErrorMessage } from 'constants/common.constants';
+import { ErrorMessage, MAX_FILE_SIZE, SUPPORTED_FORMATS } from 'constants/common.constants';
 import VerificationStep2Instruction from './VerificationStep2Instruction';
-import { ModelDetailsResponse } from '../verificationTypes';
+import { DocumentDataPhoto, ModelDetailsResponse } from '../verificationTypes';
 import { TokenIdType } from '..';
-import { PHOTO_TYPE } from 'constants/workerVerification';
+import { useMemo, useState } from 'react';
 import { ImagePayload } from '../stepThree/uploadImage';
-import { useState } from 'react';
+
+export type VerificationPhotoWithoutFilter = {
+  photoWithoutFilter: File | string;
+};
 
 export type VerificationStepPromiseType = {
   activeStep: number;
@@ -28,7 +31,25 @@ export type VerificationStepPromiseType = {
   handleNext: () => void;
   token: TokenIdType;
   handleDocuPrev: () => void;
+  handleModelApiChange: () => void;
 };
+
+export type DocumentUploadPayload = {
+  id: number;
+  link: string;
+  type: string;
+  cords: string;
+  is_favourite: number;
+  is_document: number;
+  document_type: string;
+  document_number: string;
+  photosURL?: string;
+};
+export interface DocumentImagePayload {
+  is_document: boolean;
+  document_upload_step: boolean;
+  photos: DocumentUploadPayload[];
+}
 
 const VerificationStepPromise = ({
   activeStep,
@@ -36,18 +57,30 @@ const VerificationStepPromise = ({
   handleNext,
   token,
   modelDetails,
-  handleDocuPrev
+  handleDocuPrev,
+  handleModelApiChange
 }: VerificationStepPromiseType) => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [loading, setLoading] = useState(false);
 
   const validationSchema = Yup.object().shape({
-    photoWithoutFilter: Yup.mixed().required('Please upload your documents')
+    photoWithoutFilter: Yup.mixed()
+      .required('Please upload your document')
+      .test('fileSize', 'File size is too large', (value) => {
+        return value && (value as File).size <= MAX_FILE_SIZE;
+      })
+      .test('fileFormat', 'Unsupported Format', (value) => {
+        return value && SUPPORTED_FORMATS.includes((value as File).type);
+      })
   });
 
-  const initialValues = {
-    photoWithoutFilter:
-      modelDetails?.documents?.filter((x) => x?.document_type === PHOTO_TYPE.MODEL_PHOTO)[0]?.link || (null as File | null)
+  const modelDocuments = useMemo(() => {
+    if (modelDetails?.documents?.length) return modelDetails.documents[0];
+    else return {} as DocumentDataPhoto;
+  }, [modelDetails]);
+
+  const initialValues: VerificationPhotoWithoutFilter = {
+    photoWithoutFilter: modelDocuments?.link || ''
   };
 
   return (
@@ -59,17 +92,19 @@ const VerificationStepPromise = ({
         try {
           setLoading(true);
           const mutationImageUpload = await VerificationStepService.imageKitUplaodApi(values.photoWithoutFilter as File);
+
           const payload: ImagePayload = {
-            is_document: false,
+            is_document: true,
             photos: [
               {
-                link: typeof mutationImageUpload === 'string' ? '' : String(mutationImageUpload.photosURL),
+                id: Number(modelDetails?.documents[0].id) ?? 0,
+                link: typeof mutationImageUpload !== 'string' ? String(mutationImageUpload.photosURL) : '',
                 type: 'image',
                 cords: '',
                 is_favourite: 0,
                 is_document: 1,
-                document_type: PHOTO_TYPE.MODEL_PHOTO,
-                document_number: null
+                document_type: modelDetails?.documents[0].document_type ?? '',
+                document_number: Number(modelDetails?.documents[0].document_number) ?? 0
               }
             ],
             document_upload_step: true
@@ -77,6 +112,7 @@ const VerificationStepPromise = ({
           const response = await VerificationStepService.uploadModelPhotos(payload, token);
           if (response?.data) {
             handleNext();
+            handleModelApiChange();
           } else {
             toast.error(response?.message);
           }
@@ -133,7 +169,7 @@ const VerificationStepPromise = ({
                   <UINewTypography variant="body">
                     {isSmDown ? <FormattedMessage id="Next" /> : <FormattedMessage id="NextStep" />}
                   </UINewTypography>
-                  <ArrowRightAltIcon />
+                  <ArrowForwardOutlinedIcon />
                 </StyleButtonV2>
               </StepButtonNext>
             </Box>

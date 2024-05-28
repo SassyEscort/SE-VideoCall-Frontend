@@ -176,6 +176,9 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
         <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
           <FormattedMessage id="UploadPhotos" />
         </UINewTypography>
+        <UINewTypography marginTop={1.5} display="flex" justifyContent="center" lineHeight="160%">
+          <FormattedMessage id="UploadHighQualilty" />
+        </UINewTypography>
       </Box>
       <ModelMultiplePhotoItem>
         <UploadItem>

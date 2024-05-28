@@ -111,9 +111,9 @@
   "PleaseUploadYourDocuments": "Please upload your documents",
   "MakeSureToFollowThese": "Make sure to follow these",
   "MaximumFileSize": "Maximum file size:",
-  "15MB": "15 MB",
+  "5MB": "5 MB",
   "SupportedFormats": "Supported formats:",
-  "JPEGJPG": "JPEG, JPG, PNG, BMP",
+  "JPEGJPG": "JPEG, JPG, PNG, BMP, PDF",
   "MaximumResolution": "Maximum resolution:",
   "640px480px": "640px * 480px",
   "ID": "ID",
@@ -204,5 +204,7 @@
   "FlirtbateReservesTheRight": "Flirtbate reserves the right to deduct money or withhold entire payments from performers for a breach of contract or for breaking the following rules:",
   "UnauthorizedUseOfPerformer": "Unauthorized use of Performer accounts (used by another person than its registered owner, especially if the unauthorized user is unverified or has been previously banned).",
   "UnauthorizedUseOfMemberAccount": "Unauthorized use of Member account, for example if the account holder did not give permission for the use of his/her account to another individual. Sanctions may be utilized (such as withholding funds, deductions and terminating the account) against all persons who profit from this activity.",
-  "IfTheModelIsProven": "If the Model is proven to have provided a prerecorded medium in place of a live performance and attempted to deceive the paying visitors with this practice. For such acts, the payout for the given period and any pending payment shall be withheld."
+  "IfTheModelIsProven": "If the Model is proven to have provided a prerecorded medium in place of a live performance and attempted to deceive the paying visitors with this practice. For such acts, the payout for the given period and any pending payment shall be withheld.",
+  "YourBio":"Your Bio",
+  "UploadHighQualilty":"Upload high quality photos or videos of yourself"
 }

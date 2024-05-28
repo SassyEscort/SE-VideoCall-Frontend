@@ -36,13 +36,23 @@ const DragAndDropV2 = ({
   withoutFilterImageTouched,
   title
 }: UploadFileControlType) => {
-  const [uploadedImageURL, setUploadedImageURL] = useState('');
+  const [uploadedFileURL, setUploadedFileURL] = useState('');
+  const [uploadedFileName, setUploadedFileName] = useState('');
+  const [isPDF, setIsPDF] = useState(false);
   const dropAreaId = useMemo(() => name + '_dropable', [name]);
 
   const preventDefaults = (e: Event) => {
     e.preventDefault();
     e.stopPropagation();
   };
+
+  useEffect(() => {
+    modelDetails?.documents?.map((doc) => {
+      if (doc?.link) {
+        setUploadedFileURL(doc.link);
+      }
+    });
+  }, [modelDetails?.documents]);
 
   const highlight = useCallback(() => {
     const dropArea = document.getElementById(dropAreaId);
@@ -76,8 +86,10 @@ const DragAndDropV2 = ({
           setValue(name, null);
           return;
         }
-        const imageURL = URL.createObjectURL(file);
-        setUploadedImageURL(imageURL);
+        const fileURL = URL.createObjectURL(file);
+        setIsPDF(file.type === 'application/pdf');
+        setUploadedFileURL(fileURL);
+        setUploadedFileName(file.name);
         setValue(name, file);
       }
     },
@@ -86,13 +98,17 @@ const DragAndDropV2 = ({
 
   const handleSelect = async (file: File) => {
     setFieldTouched(name, true);
-    const imageURL = URL.createObjectURL(file);
-    setUploadedImageURL(imageURL);
+    const fileURL = URL.createObjectURL(file);
+    setIsPDF(file.type === 'application/pdf');
+    setUploadedFileURL(fileURL);
+    setUploadedFileName(file.name);
     setValue(name, file);
   };
 
-  const handleRemoveImage = () => {
-    setUploadedImageURL('');
+  const handleRemoveFile = () => {
+    setUploadedFileURL('');
+    setUploadedFileName('');
+    setIsPDF(false);
     setFieldTouched(name, true);
     setValue(name, null);
   };
@@ -115,9 +131,9 @@ const DragAndDropV2 = ({
 
   return (
     <Box>
-      {uploadedImageURL && (
+      {uploadedFileURL && (
         <Box sx={{ position: 'relative' }}>
-          <DragAndDropMultipleImageCloseButton size="small" onClick={handleRemoveImage}>
+          <DragAndDropMultipleImageCloseButton size="small" onClick={handleRemoveFile}>
             <Box component="img" src="/images/home/close-icon.svg" />
           </DragAndDropMultipleImageCloseButton>
         </Box>
@@ -133,12 +149,13 @@ const DragAndDropV2 = ({
           borderRadius: '8px',
           overflow: 'hidden',
 
-          ...(uploadedImageURL
+          ...(uploadedFileURL
             ? {
-                backgroundImage: `url(${uploadedImageURL})`,
+                backgroundImage: !isPDF ? `url(${uploadedFileURL})` : 'none',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
-                backgroundPosition: 'center'
+                backgroundPosition: 'center',
+                backgroundColor: isPDF ? '#232027' : 'none'
               }
             : {
                 '&:before': {
@@ -188,19 +205,24 @@ const DragAndDropV2 = ({
             cursor: 'pointer'
           }}
         >
-          {uploadedImageURL ? (
-            <Box>
+          {uploadedFileURL ? (
+            isPDF ? (
               <Box
-                display="flex"
-                flexDirection="column"
-                alignItems="center"
-                justifyContent="center"
-                borderRadius="16px 0px"
-                height="100%"
-                width="100%"
-                gap="8px"
-              />
-            </Box>
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '100%',
+                  gap: '8px'
+                }}
+              >
+                <Box component="img" src="/images/icons/pdf-icon.svg" sx={{ height: '64px', width: '64px' }} />
+                <UINewTypography variant="bodySmall">{uploadedFileName}</UINewTypography>
+              </Box>
+            ) : (
+              <></>
+            )
           ) : (
             <>
               <Box component="img" src="/images/home/upload.png" sx={{ height: '64px', width: '64px' }} />
