@@ -188,6 +188,7 @@ const VerificationContainer = () => {
         <UploadImage
           workerPhotos={modelDetails?.photos ?? []}
           token={token}
+          handleModelApiChange={handleModelApiChange}
           handleNext={handleNext}
           handlePrevVerificationStep={handlePrev}
         />
