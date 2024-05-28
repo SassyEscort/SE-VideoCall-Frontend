@@ -160,7 +160,7 @@ const DashboardPriceView = ({ token }: { token: string }) => {
               disabled={!disable}
               loading={loading}
             >
-              <UINewTypography variant="buttonSmallBold" color={disable ? 'white' : '#58535E'}>
+              <UINewTypography variant="buttonSmallBold" color={disable ? '#000' : '#58535E'}>
                 <FormattedMessage id="Save" />
               </UINewTypography>
             </UIThemeButton>
