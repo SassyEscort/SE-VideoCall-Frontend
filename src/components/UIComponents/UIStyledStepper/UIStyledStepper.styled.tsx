@@ -16,7 +16,7 @@ const UIStyledStepper = styled(Stepper)(({ theme }) => ({
   '& .MuiStepLabel-alternativeLabel': {
     color: theme.palette.text.secondary
   },
-  '& .mui-1978btl-MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
+  '& .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
     marginTop: '8px'
   },
 
