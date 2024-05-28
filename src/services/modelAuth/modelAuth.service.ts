@@ -48,4 +48,21 @@ export class ModelAuthService {
       return { error: error } as GenericResponse;
     }
   };
+
+  static modelForgetPasswordLinkStep = async (emailid: string, token: string): Promise<GenericResponse> => {
+    try {
+      const res = await axios.post<ForgetPasswordParams, GenericResponseData>(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/email-verification-link`,
+        { email: emailid },
+        {
+          headers: { 'Content-Type': 'application/json', Authorization: token }
+        }
+      );
+
+      return res.data;
+    } catch (err: any) {
+      const error: string = err;
+      return { error: error } as GenericResponse;
+    }
+  };
 }
