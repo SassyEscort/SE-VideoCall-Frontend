@@ -1,5 +1,4 @@
 'use client';
-import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -7,29 +6,24 @@ import { DialogTitle, useMediaQuery } from '@mui/material';
 
 import theme from 'themes/theme';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { DialogTitleBox } from './basicRules.styled';
+import { DialogBoxContainer, DialogTitleBox } from './basicRules.styled';
 import { FormattedMessage } from 'react-intl';
 
 const BasicRules = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <Dialog
+    <DialogBoxContainer
       open={open}
       onClose={onClose}
       scroll="body"
       fullWidth
       sx={{
         '& .MuiDialog-paper': {
-          backgroundColor: '#07030E',
-          borderRadius: '12px',
-          border: isMdDown ? 'solid 0px' : 'solid 1px #FF68C0A3',
-          maxWidth: '920px',
-          height: '1147px'
+          border: isMdDown ? 'solid 0px' : 'solid 1px #FF68C0A3'
         },
         '& .MuiDialog-container': {
-          backgroundColor: isMdDown ? '#07030E' : '#07030e99 !important',
-          backdropFilter: 'blur(24px)'
+          backgroundColor: isMdDown ? '#07030E' : '#07030e99 !important'
         }
       }}
     >
@@ -125,7 +119,7 @@ const BasicRules = ({ open, onClose }: { open: boolean; onClose: () => void }) =
           </UINewTypography>
         </li>
       </DialogContent>
-    </Dialog>
+    </DialogBoxContainer>
   );
 };
 
