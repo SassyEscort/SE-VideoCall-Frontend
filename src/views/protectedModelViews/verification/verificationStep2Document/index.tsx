@@ -13,7 +13,7 @@ import { StepButtonNext } from './LastStepPromise.styled';
 import { FormattedMessage } from 'react-intl';
 import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
 import { toast } from 'react-toastify';
-import { ErrorMessage } from 'constants/common.constants';
+import { ErrorMessage, MAX_FILE_SIZE, SUPPORTED_FORMATS } from 'constants/common.constants';
 import VerificationStep2Instruction from './VerificationStep2Instruction';
 import { DocumentDataPhoto, ModelDetailsResponse } from '../verificationTypes';
 import { TokenIdType } from '..';
@@ -64,7 +64,14 @@ const VerificationStepPromise = ({
   const [loading, setLoading] = useState(false);
 
   const validationSchema = Yup.object().shape({
-    photoWithoutFilter: Yup.mixed().required('Please upload your documents')
+    photoWithoutFilter: Yup.mixed()
+      .required('Please upload your document')
+      .test('fileSize', 'File size is too large', (value) => {
+        return value && (value as File).size <= MAX_FILE_SIZE;
+      })
+      .test('fileFormat', 'Unsupported Format', (value) => {
+        return value && SUPPORTED_FORMATS.includes((value as File).type);
+      })
   });
 
   const modelDocuments = useMemo(() => {
