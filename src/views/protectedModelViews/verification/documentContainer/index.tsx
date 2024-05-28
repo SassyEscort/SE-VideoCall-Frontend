@@ -46,9 +46,11 @@ const DocumentMainContainer = ({
           modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
           handlePrev={handlePrev}
           handleDocuPrev={handleDocuPrev}
+          handleModelApiChange={handleModelApiChange}
         />
       ) : (
         <VerificationStep2
+          handleModelApiChange={handleModelApiChange}
           token={token}
           handleNext={handleNext}
           stepData={stepData}
