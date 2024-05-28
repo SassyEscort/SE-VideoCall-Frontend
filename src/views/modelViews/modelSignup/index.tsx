@@ -43,6 +43,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
   const [redirectSeconds, setRedirectSeconds] = useState(3);
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [isAgreeChecked, setIsAgreeChecked] = useState(false);
 
   const [alert, setAlert] = useState('');
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
@@ -111,7 +112,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
         }
       }}
     >
-      {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
+      {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isValid }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
             <AuthModelCommon
@@ -246,7 +247,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           </UINewTypography>
                         </MenuItem>
                         <MenuItem sx={{ display: 'flex', alignItems: 'flex-start', p: 0 }}>
-                          <Checkbox sx={{ p: 0, pr: 1 }} />
+                          <Checkbox sx={{ p: 0, pr: 1 }} checked={isAgreeChecked} onChange={(e) => setIsAgreeChecked(e.target.checked)} />
                           <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
                             <FormattedMessage id="ByClickingYouAgree" />
                             <span style={{ color: '#FFE500' }}>
@@ -261,7 +262,13 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                       </ModelUITextConatiner>
                     </ModelUITextConatiner>
                     <ModelUITextConatiner width="100%" gap={isSmDown ? '32px' : '24px'}>
-                      <StyleButtonV2 variant="contained" type="submit" loading={loading} sx={{ width: isLg ? '400px' : 'auto' }}>
+                      <StyleButtonV2
+                        variant="contained"
+                        type="submit"
+                        disabled={!isAgreeChecked || !isValid || loading}
+                        loading={loading}
+                        sx={{ width: isLg ? '400px' : 'auto' }}
+                      >
                         <UIButtonText>
                           <FormattedMessage id="SignUp" />
                         </UIButtonText>
