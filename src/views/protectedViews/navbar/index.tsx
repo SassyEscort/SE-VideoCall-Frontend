@@ -17,6 +17,8 @@ import {
   SelectedTab
 } from '../../protectedDashboardViews/dashboardNavbar/nav.styled';
 import Link from 'next/link';
+import UINewTypography from 'components/UIComponents/UINewTypography';
+import Logout from '../logout';
 
 Nav.propTypes = {
   openNav: PropTypes.bool,
@@ -31,6 +33,8 @@ interface NavProps {
 export default function Nav({ openNav, onCloseNav }: NavProps) {
   const router = usePathname();
 
+  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
+
   const maindashboardTabIndex: { [key: string]: number } = {
     dashboard: 1,
     profile: 2,
@@ -39,6 +43,14 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
     credit: 5,
     billing: 6,
     logout: 7
+  };
+
+  const handleOpenLogout = () => {
+    setIsLogoutOpen(true);
+  };
+
+  const handleCloseLogout = () => {
+    setIsLogoutOpen(false);
   };
 
   const modifiedPath = router.split('/profile').join('').split('/').join('');
@@ -111,6 +123,11 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
                 </CommonMenuBox>
               );
             })}
+            <CommonMenuBox sx={{ cursor: 'pointer', color: 'text.primary' }} onClick={handleOpenLogout}>
+              <Box component="img" src="/images/profile-vector/Vector-6.png" />
+              <UINewTypography variant="buttonLargeMenu">Logout</UINewTypography>
+            </CommonMenuBox>
+            <Logout open={isLogoutOpen} onClose={handleCloseLogout} />
           </Tabs>
           <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: '24px' }} />
         </MobileComponentBoxContainer>

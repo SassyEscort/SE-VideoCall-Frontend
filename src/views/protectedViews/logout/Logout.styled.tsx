@@ -1,4 +1,4 @@
-import { Box, DialogTitle, styled } from '@mui/material';
+import { Box, Dialog, DialogTitle, styled } from '@mui/material';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
 export const DialogTitleBox = styled(DialogTitle)(({ theme }) => ({
@@ -62,4 +62,24 @@ export const DialogContentBoxUIThemeButton = styled(UIThemeButton)(() => ({
   width: '100%',
   maxWidth: '231px',
   backgroundColor: '#D4D3D6 !important'
+}));
+
+export const DialogContentMain = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialog-paper': {
+    backgroundColor: '#07030E',
+    borderRadius: '12px',
+    border: 'solid 1px #232027'
+  },
+  '& .MuiDialog-container': {
+    backgroundColor: '#07030e99 !important',
+    backdropFilter: 'blur(24px)'
+  },
+  [theme.breakpoints.down('md')]: {
+    '& .MuiDialog-paper': {
+      border: 'solid 0px'
+    },
+    '& .MuiDialog-container': {
+      backgroundColor: '#07030E'
+    }
+  }
 }));
