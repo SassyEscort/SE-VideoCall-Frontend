@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 const UIStyledStepper = styled(Stepper)(({ theme }) => ({
   '& .MuiStepLabel-label': {
     fontWeight: 500,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.disabled,
     fontSize: '14px',
     fontStyle: 'normal',
     lineHeight: '140%',
@@ -13,12 +13,22 @@ const UIStyledStepper = styled(Stepper)(({ theme }) => ({
   '& .MuiStepIcon-text': {
     display: 'none'
   },
+  '& .MuiStepLabel-alternativeLabel': {
+    color: theme.palette.text.secondary
+  },
+  '& .mui-1978btl-MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
+    marginTop: '8px'
+  },
+
+  '& .Mui-disabled': {
+    color: theme.palette.text.disabled
+  },
 
   '& .mui-style-1fu8gtm-MuiSvgIcon-root-MuiStepIcon-root': {
     color: theme.palette.text.disabled
   },
   '& .mui-style-1fu8gtm-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed': {
-    color: theme.palette.primary[400]
+    color: theme.palette.text.secondary
   },
   '& .MuiStep-root': {
     paddingLeft: '6.5px',
