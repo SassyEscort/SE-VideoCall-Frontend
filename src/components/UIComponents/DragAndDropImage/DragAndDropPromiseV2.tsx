@@ -49,7 +49,7 @@ const DragAndDropV2 = ({
   useEffect(() => {
     modelDetails?.documents?.map((doc) => {
       if (doc?.link) {
-        setUploadedImageURL(doc.link);
+        setUploadedFileURL(doc.link);
       }
     });
   }, [modelDetails?.documents]);
