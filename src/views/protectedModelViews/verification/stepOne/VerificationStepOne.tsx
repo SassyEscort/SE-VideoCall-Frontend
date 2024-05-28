@@ -25,6 +25,10 @@ import { UIStyledDatePicker } from 'components/UIComponents/UIStyledDatePicker';
 import { UIStyledSelectItemContainer } from 'components/UIComponents/UINewSelectItem';
 import UIStyledAutocomplete from 'components/UIComponents/UIStyledAutocomplete';
 import { TokenIdType } from '..';
+import { ModelAuthService } from 'services/modelAuth/modelAuth.service';
+import { toast } from 'react-toastify';
+import CheckInboxVerify from 'views/modelViews/checkInBox';
+import { GuestStyleComponent } from 'views/guestViews/guestLayout/GuestLayout.styled';
 
 export type VerificationBasicDetailsType = {
   values: VerificationStep1Type;
@@ -62,6 +66,11 @@ const VerificationBasicDetails = ({
 
   const [charCount, setCharCount] = useState(values.bio.length || 0);
   const maxCharCount = 1000;
+
+  const [isEditable, setIsEditable] = useState(false);
+  const handleEditClick = () => {
+    setIsEditable(true);
+  };
 
   useEffect(() => {
     const countryData = async () => {
@@ -111,6 +120,27 @@ const VerificationBasicDetails = ({
         updatedLanguagesData.splice(checkedLangIndex, 1);
         setFieldValue('model_languages', updatedLanguagesData);
       }
+    }
+  };
+
+  const [activeStep, setActiveStep] = useState(0);
+  const [openForgetPassLink, setOpenForgetPassLink] = useState(true);
+  const handleResetPasswordLinkClose = () => {
+    setOpenForgetPassLink(false);
+    setActiveStep(0);
+  };
+  const sendLinkVerify = async () => {
+    try {
+      const data = await ModelAuthService.modelForgetPasswordLinkStep(values.email, token.token);
+      if (data.code === 200) {
+        setOpenForgetPassLink(true);
+        toast.success(data.message);
+        setActiveStep(1);
+      } else {
+        toast.error(data.error);
+      }
+    } catch (error) {
+      toast.error('An error occurred. Please try again.');
     }
   };
 
@@ -220,6 +250,7 @@ const VerificationBasicDetails = ({
               <FormattedMessage id="Email" /> *
             </UINewTypography>
             <UIStyledInputText
+              disabled={!isEditable}
               fullWidth
               name="email"
               value={values.email}
@@ -229,13 +260,34 @@ const VerificationBasicDetails = ({
               helperText={touched.email && errors.email}
               InputProps={{
                 endAdornment: (
-                  <Box sx={{ display: 'flex', gap: 2 }}>
-                    <UINewTypography color={'text.secondary'} variant="buttonSmallBold">
+                  <Box sx={{ display: 'flex', gap: 2, cursor: 'pointer' }}>
+                    <UINewTypography color={'text.secondary'} variant="buttonSmallBold" onClick={handleEditClick}>
                       <FormattedMessage id="Edit" />
                     </UINewTypography>
-                    <UINewTypography color="primary.600" variant="buttonSmallBold">
-                      <FormattedMessage id="Verify" />
-                    </UINewTypography>
+                    <>
+                      <UINewTypography
+                        color="primary.600"
+                        variant="buttonSmallBold"
+                        onClick={() => {
+                          sendLinkVerify();
+                          setActiveStep(1);
+                        }}
+                      >
+                        <FormattedMessage id="Verify" />
+                      </UINewTypography>
+
+                      {activeStep === 1 && (
+                        <GuestStyleComponent
+                          scroll="body"
+                          open={openForgetPassLink}
+                          onClose={handleResetPasswordLinkClose}
+                          maxWidth="md"
+                          fullWidth
+                        >
+                          <CheckInboxVerify onOpen={openForgetPassLink} onClose={handleResetPasswordLinkClose} email={values.email} />
+                        </GuestStyleComponent>
+                      )}
+                    </>
                   </Box>
                 )
               }}

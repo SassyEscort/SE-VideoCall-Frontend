@@ -1,0 +1,68 @@
+'use client';
+import Box from '@mui/material/Box';
+import Image from 'next/image';
+import CloseIcon from '@mui/icons-material/Close';
+import { DialogContent, IconButton, useMediaQuery } from '@mui/material';
+import theme from 'themes/theme';
+import {
+  AVerificationLink,
+  CheckYourInbox,
+  DialogContentSecondBox,
+  DialogtitleContainer,
+  EmailText,
+  MianDailogConatiner
+} from './CheckInBox.styled';
+
+const CheckInboxVerify = ({ onOpen, onClose, email }: { onOpen: boolean; onClose: () => void; email: string }) => {
+  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+  return (
+    <MianDailogConatiner
+      open={onOpen}
+      onClose={onClose}
+      fullWidth
+      sx={{
+        '& .MuiDialog-paper': {
+          border: isMdDown ? 'solid 0px' : 'solid 1px #232027'
+        },
+        '& .MuiDialog-container': {
+          backgroundColor: isMdDown ? '#07030E' : '#07030e99 !important'
+        }
+      }}
+    >
+      <Box sx={{ width: '100%', maxWidth: '920px' }}>
+        <DialogtitleContainer id="responsive-modal-title">
+          <IconButton
+            aria-label="close"
+            onClick={onClose}
+            sx={{
+              color: (theme) => theme.palette.text.secondary
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogtitleContainer>
+
+        <Box>
+          <DialogContent sx={{ p: 0 }}>
+            <DialogContentSecondBox>
+              <Image src="/images/auth/check-email.png" width={175} height={123} alt="check-email.png" />
+              <CheckYourInbox variant="h2" color="text.secondary">
+                Check your inbox
+              </CheckYourInbox>
+              <AVerificationLink variant="bodyRegular" color="secondary.200">
+                A verification link has been emailed to
+                <Box>
+                  <EmailText variant="bodySemiBold" color="text.primary">
+                    {email}
+                  </EmailText>
+                </Box>
+              </AVerificationLink>
+            </DialogContentSecondBox>
+          </DialogContent>
+        </Box>
+      </Box>
+    </MianDailogConatiner>
+  );
+};
+
+export default CheckInboxVerify;
