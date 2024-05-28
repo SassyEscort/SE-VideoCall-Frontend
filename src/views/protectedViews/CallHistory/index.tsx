@@ -65,7 +65,7 @@ const CallHistory = () => {
                   </SecondSubFirstPartSecondBox>
                 </SecondSubFirstPartBox>
                 {!isSmDown && (
-                  <SecondSubFirstPartThiredBox>
+                  <SecondSubFirstPartThiredBox marginRight={{ sm: '32px' }}>
                     <UINewTypography variant="buttonLargeMenu" color="text.primary">
                       Duration: 30 mins
                     </UINewTypography>
