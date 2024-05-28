@@ -3,11 +3,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import UINewTypography from '@mui/material/UINewTypography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import { WorkerNavItemContainer } from 'views/protectedDashboardViews/dashboardNavItem/DashboardMenu.styled';
 import ModelHeaderAuthComponent from './ModelHeaderAuthComponent';
+import { FormattedMessage } from 'react-intl';
 
 const ModelNavItem = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -47,7 +48,9 @@ const ModelNavItem = () => {
             {isMdUp && (
               <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }}>
                 <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" loading="lazy" />
-                <Typography variant="buttonLargeMenu">Search</Typography>
+                <UINewTypography variant="buttonLargeMenu">
+                  <FormattedMessage id="Search" />
+                </UINewTypography>
               </Box>
             )}
           </Box>
