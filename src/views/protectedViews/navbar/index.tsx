@@ -99,7 +99,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
                     <SelectedTab>
                       <Box
                         component="img"
-                        width={20}
+                        width={16}
                         height="auto"
                         src={tab.img}
                         sx={{
@@ -129,7 +129,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
             </CommonMenuBox>
             <Logout open={isLogoutOpen} onClose={handleCloseLogout} />
           </Tabs>
-          <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: '24px' }} />
+          <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
         </MobileComponentBoxContainer>
       )}
     </Box>

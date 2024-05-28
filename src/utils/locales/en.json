@@ -213,5 +213,8 @@
   "LogOut": "Log out",
   "AreYouSure": "Are you sure you want to log out?",
   "Confirm": "Confirm",
-  "Cancel": "Cancel"
+  "Cancel": "Cancel",
+  "PrivacyStatement":"Privacy statement",
+  "CookieStatement":"Cookie statement",
+  "TermsConditions":"Terms and conditions"
 }

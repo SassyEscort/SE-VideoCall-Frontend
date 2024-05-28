@@ -124,7 +124,7 @@ const MainFooter = () => {
                       shallow={true}
                       href={`/escorts/city${val.link}`}
                     >
-                      {val.name}
+                      <FormattedMessage id={val.name} />
                     </Box>
                   </UINewTypography>
                 ))}
