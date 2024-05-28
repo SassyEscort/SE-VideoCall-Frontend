@@ -13,6 +13,7 @@ import {
   MianDailogConatiner,
   TextContainer
 } from './CheckInBox.styled';
+import { FormattedMessage } from 'react-intl';
 
 const CheckInboxVerify = ({ onOpen, onClose, email }: { onOpen: boolean; onClose: () => void; email: string }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -47,10 +48,10 @@ const CheckInboxVerify = ({ onOpen, onClose, email }: { onOpen: boolean; onClose
           <DialogContentSecondBox>
             <Image src="/images/auth/check-email.png" width={175} height={123} alt="check-email.png" />
             <CheckYourInbox variant="h2" color="text.secondary">
-              Check your inbox
+              <FormattedMessage id="CheckYourInbox" />
             </CheckYourInbox>
             <AVerificationLink variant="bodyRegular" color="secondary.200">
-              A verification link has been emailed to
+              <FormattedMessage id="AVerificationLink" />
               <Box>
                 <EmailText variant="bodySemiBold" color="text.primary">
                   {email}

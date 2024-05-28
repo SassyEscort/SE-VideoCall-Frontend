@@ -9,6 +9,12 @@ import theme from 'themes/theme';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Link from 'next/link';
+import { FormattedMessage } from 'react-intl';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import { useEffect, useState } from 'react';
+import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+import { getUserDataClient } from 'utils/getSessionData';
 
 export type NotificationFilters = {
   page: number;
@@ -17,6 +23,26 @@ export type NotificationFilters = {
 
 const ModelHeaderAuthComponent = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
+
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
+
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      setToken({ id: data.id, token: data.token });
+    };
+
+    userToken();
+  }, []);
+
+  useEffect(() => {
+    const modelDetails = async () => {
+      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      setModelDetails(modelData.data);
+    };
+    modelDetails();
+  }, [token.id, token.token]);
 
   const uploadedImageURL = '/images/headerv2/profilePic.png';
 
@@ -55,7 +81,7 @@ const ModelHeaderAuthComponent = () => {
             </IconButton>
             {isMdUp && (
               <Typography variant="buttonLargeMenu" color="text.secondary">
-                Fana
+                {modelDetails?.name}
               </Typography>
             )}
           </Box>
@@ -63,7 +89,7 @@ const ModelHeaderAuthComponent = () => {
         <Link href="/model/profile">
           <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>
             <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
-              Complete your Profile
+              <FormattedMessage id="CompleteYourProfile" />
             </UINewTypography>
           </UIThemeButton>
         </Link>
