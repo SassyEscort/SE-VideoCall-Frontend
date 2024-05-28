@@ -43,3 +43,8 @@ export type VerificationStepSecond = {
 export type VerificationStepResponse = GenericResponse & {
   data: VerificationStepSecond[];
 };
+
+export type PriceValue = {
+  id: number;
+  price_per_minute: string;
+};
