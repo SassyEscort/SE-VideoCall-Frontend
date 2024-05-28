@@ -1,48 +1,44 @@
 'use client';
-import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Divider, useMediaQuery } from '@mui/material';
+import { Box, Divider } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import {
   DialogContentBoxButton,
   DialogContentBoxQuestion,
   DialogContentBoxUIThemeButton,
   DialogContentFristBox,
+  DialogContentMain,
   DialogContentSecondBox,
   DialogTitleBox
 } from './Logout.styled';
-import theme from 'themes/theme';
 import { signOut } from 'next-auth/react';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { FormattedMessage } from 'react-intl';
 
 const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
-  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+  const [loading, setLoading] = useState(false);
 
   const handleConfirmLogout = async () => {
-    await signOut({ callbackUrl: '/' });
+    setLoading(true);
+    try {
+      await signOut({ callbackUrl: '/' });
+    } catch (error) {
+      toast.error('Error during sign-out:');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      fullWidth
-      sx={{
-        '& .MuiDialog-paper': {
-          backgroundColor: '#07030E',
-          borderRadius: '12px',
-          border: isMdDown ? 'solid 0px' : 'solid 1px #232027'
-        },
-        '& .MuiDialog-container': {
-          backgroundColor: isMdDown ? '#07030E' : '#07030e99 !important',
-          backdropFilter: 'blur(24px)'
-        }
-      }}
-    >
+    <DialogContentMain open={open} onClose={onClose} fullWidth>
       <DialogTitleBox id="responsive-modal-title">
-        <UINewTypography variant="h6">Log out</UINewTypography>
+        <UINewTypography variant="h6">
+          <FormattedMessage id="LogOut" />
+        </UINewTypography>
 
         <IconButton
           aria-label="close"
@@ -68,25 +64,25 @@ const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
           <DialogContentSecondBox>
             <DialogContentBoxQuestion>
               <UINewTypography variant="h5" lineHeight="120%">
-                Are you sure you want to log out?
+                <FormattedMessage id="AreYouSure" />
               </UINewTypography>
             </DialogContentBoxQuestion>
             <DialogContentBoxButton>
-              <UIThemeButton variant="contained" sx={{ width: '100%', maxWidth: '231px' }} onClick={handleConfirmLogout}>
+              <StyleButtonV2 variant="contained" sx={{ width: '100%', maxWidth: '231px' }} onClick={handleConfirmLogout} loading={loading}>
                 <UINewTypography variant="buttonLargeBold" color={'primary.200'}>
-                  Confirm
+                  <FormattedMessage id="Confirm" />
                 </UINewTypography>
-              </UIThemeButton>
-              <DialogContentBoxUIThemeButton>
+              </StyleButtonV2>
+              <DialogContentBoxUIThemeButton onClick={onClose}>
                 <UINewTypography variant="buttonLargeBold" color={'primary.200'}>
-                  Cancel
+                  <FormattedMessage id="Cancel" />
                 </UINewTypography>
               </DialogContentBoxUIThemeButton>
             </DialogContentBoxButton>
           </DialogContentSecondBox>
         </DialogContentFristBox>
       </DialogContent>
-    </Dialog>
+    </DialogContentMain>
   );
 };
 
