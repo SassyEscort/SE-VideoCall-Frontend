@@ -58,7 +58,7 @@ const VerificationStepOne = ({
 
     bio: Yup.string()
       .required('Bio is required')
-      .min(300, 'Bio should be atleast 300 characters')
+      .min(50, 'Bio should be atleast 50 characters')
       .max(1000, 'Bio should be atmost 300 characters')
   });
 
