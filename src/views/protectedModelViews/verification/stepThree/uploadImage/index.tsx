@@ -32,7 +32,7 @@ export type ImageUploadPayload = {
   link: string;
   type: string;
   cords: string;
-  is_favourite: number;
+  is_favourite: number | string;
   is_document: number;
   document_type: string;
   document_number: null | number;
@@ -55,6 +55,7 @@ export type VerificationFormStep5TypeV2 = {
   cords5?: string[] | null;
   file5Existing: WorkerPhotos[];
   isFavorite?: string;
+  is_favourite?: string;
 };
 
 export type VerificationStepUploadType = {
@@ -62,6 +63,7 @@ export type VerificationStepUploadType = {
   handleNext: () => void;
   handlePrevVerificationStep: () => void;
   token: TokenIdType;
+  handleModelApiChange: () => void;
 };
 
 export interface ImagePayload {
@@ -74,7 +76,7 @@ export type ThumbnailPayload = {
   model_photo_id: number;
 };
 
-const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, token }: VerificationStepUploadType) => {
+const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, token, handleModelApiChange }: VerificationStepUploadType) => {
   const [loading, setLoading] = useState(false);
 
   const initialValuesPerStep: VerificationFormStep5TypeV2 = {
@@ -83,7 +85,8 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
     file5Existing: workerPhotos || ([] as WorkerPhotos[]),
     isFavorite: workerPhotos?.filter((x) => x.favourite === 1)[0]?.type
       ? 'file' + workerPhotos?.filter((x) => x.favourite === 1)[0]?.type?.split('_')[1]
-      : 'file1'
+      : 'file5[0]',
+    is_favourite: 'file5[0]'
   };
 
   const handleSubmit = async (values: VerificationFormStep5TypeV2) => {
@@ -135,7 +138,7 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
               is_document: 0,
               document_type: PHOTO_TYPE.MODEL_PHOTO,
               document_number: null,
-              is_favourite: photo.favourite
+              is_favourite: String(values.isFavorite)
             }))
         ];
 
@@ -148,7 +151,7 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
                 link: x.link ? String(x.link) : String(x.photosURL),
                 type: 'file_5',
                 cords: x.cords,
-                is_favourite: i === 0 && x.is_favourite === 0 ? 1 : 0,
+                is_favourite: Number(values.is_favourite?.split('[')[1].split(']')[0]) === i ? 1 : 0,
                 is_document: 0,
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
                 document_number: null
@@ -190,6 +193,7 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
         <Box component="form" onSubmit={handleSubmit}>
           <Box>
             <ModelMultiplePhoto
+              handleModelApiChange={handleModelApiChange}
               token={token}
               values={values}
               setValue={setFieldValue}
