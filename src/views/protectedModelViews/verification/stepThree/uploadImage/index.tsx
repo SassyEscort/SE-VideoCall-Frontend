@@ -28,13 +28,14 @@ export type WorkerPhotos = {
 };
 
 export type ImageUploadPayload = {
+  id?: number;
   link: string;
   type: string;
   cords: string;
   is_favourite: number;
   is_document: number;
   document_type: string;
-  document_number: null;
+  document_number: null | number;
   photosURL?: string;
 };
 

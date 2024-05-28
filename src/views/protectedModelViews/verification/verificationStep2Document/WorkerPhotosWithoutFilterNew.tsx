@@ -93,7 +93,7 @@ const WorkerPhotosWithoutFilterNew = ({
                       <UINewTypography variant="bodyRegular" sx={{ lineHeight: '24px', color: '#86838A' }}>
                         <FormattedMessage id="MaximumFileSize" />{' '}
                         <span style={{ color: '#E9E8EB' }}>
-                          <FormattedMessage id="15MB" />
+                          <FormattedMessage id="5MB" />
                         </span>
                       </UINewTypography>
                     </ListItem>
@@ -102,14 +102,6 @@ const WorkerPhotosWithoutFilterNew = ({
                         <FormattedMessage id="SupportedFormats" />{' '}
                         <span style={{ color: '#E9E8EB' }}>
                           <FormattedMessage id="JPEGJPG" />
-                        </span>
-                      </UINewTypography>
-                    </ListItem>
-                    <ListItem sx={{ display: 'list-item' }}>
-                      <UINewTypography variant="bodyRegular" sx={{ lineHeight: '24px', color: '#86838A' }}>
-                        <FormattedMessage id="MaximumResolution" />{' '}
-                        <span style={{ color: '#E9E8EB' }}>
-                          <FormattedMessage id="640px480px" />
                         </span>
                       </UINewTypography>
                     </ListItem>
