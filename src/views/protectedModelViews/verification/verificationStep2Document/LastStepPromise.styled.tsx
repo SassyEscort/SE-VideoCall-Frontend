@@ -22,7 +22,7 @@ export const Step7InnerBox = styled(Box)(({ theme }) => ({
 }));
 
 export const Step7UploadImagBox = styled(Box)(({ theme }) => ({
-  padding: '24px 16px',
+  padding: '24px 16px 0px',
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(2.25),

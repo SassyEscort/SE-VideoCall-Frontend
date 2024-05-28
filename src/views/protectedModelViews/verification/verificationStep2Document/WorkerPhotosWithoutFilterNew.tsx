@@ -83,6 +83,7 @@ const WorkerPhotosWithoutFilterNew = ({
                       listStyleType: 'disc',
                       listStylePosition: 'inside',
                       pb: 0,
+                      paddingTop: 0,
                       '& li:last-child': {
                         pb: 0
                       }

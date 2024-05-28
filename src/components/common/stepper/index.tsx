@@ -18,7 +18,13 @@ const UIStepper = ({ steps, activeStep }: { steps: string[]; activeStep: number 
         }
         return (
           <Step key={index} {...stepProps}>
-            <StepLabel>{label}</StepLabel>
+            <StepLabel
+              sx={{
+                '& .MuiSvgIcon-root': { width: '20px', height: '20px' }
+              }}
+            >
+              {label}
+            </StepLabel>
           </Step>
         );
       })}

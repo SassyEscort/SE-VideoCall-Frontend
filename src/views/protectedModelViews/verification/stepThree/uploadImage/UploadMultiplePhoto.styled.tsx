@@ -70,8 +70,8 @@ export const VideoBox = styled(Box)(({ theme }) => ({
 export const UploadBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
-  mt: theme.spacing(4),
-  mb: theme.spacing(8)
+  marginTop: theme.spacing(8),
+  marginBottom: theme.spacing(8)
 }));
 
 export const UploadMultipleBox = styled(Box)(() => ({

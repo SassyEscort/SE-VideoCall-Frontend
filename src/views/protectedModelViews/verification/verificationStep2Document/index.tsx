@@ -6,7 +6,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import * as Yup from 'yup';
 import WorkerPhotosWithoutFilterNew from './WorkerPhotosWithoutFilterNew';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { StepButtonNext } from './LastStepPromise.styled';
@@ -169,7 +169,7 @@ const VerificationStepPromise = ({
                   <UINewTypography variant="body">
                     {isSmDown ? <FormattedMessage id="Next" /> : <FormattedMessage id="NextStep" />}
                   </UINewTypography>
-                  <ArrowRightAltIcon />
+                  <ArrowForwardOutlinedIcon />
                 </StyleButtonV2>
               </StepButtonNext>
             </Box>

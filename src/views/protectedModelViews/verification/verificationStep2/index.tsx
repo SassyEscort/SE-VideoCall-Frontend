@@ -229,11 +229,10 @@ const VerificationStep2 = ({
           </BackButtonBox>
           <UploaddocumentsButtonBox>
             <StyleButtonV2 variant="contained" type="submit" loading={loading}>
-              <ArrowForwardOutlinedIcon />
-
               <UINewTypography variant="buttonLargeBold" color="primary.200">
                 {isSm ? <FormattedMessage id="Next" /> : <FormattedMessage id="UploadDocuments" />}
               </UINewTypography>
+              <ArrowForwardOutlinedIcon />
             </StyleButtonV2>
           </UploaddocumentsButtonBox>
         </ButtonBox>
