@@ -34,7 +34,8 @@ const PhotoItem = ({
   token,
   handleBlobThumbnail,
   values,
-  handleModelApiChange
+  handleModelApiChange,
+  index
 }: {
   image: UploadPhotos;
   isEdit: boolean;
@@ -49,11 +50,12 @@ const PhotoItem = ({
   ) => Promise<void | FormikErrors<VerificationFormStep5TypeV2>>;
   removeImage: (name: string, photoId?: number) => void;
   handleChangeFile5Cords?: (name: string, cords: string) => void;
-  handleClickThumbnailImageId?: (id: number | undefined, name: string) => void;
+  handleClickThumbnailImageId?: (id: number | undefined, name: string, photoIndex: number) => void;
   token: TokenIdType;
-  handleBlobThumbnail: (id: number | undefined, image: UploadPhotos) => void;
+  handleBlobThumbnail: (id: number | undefined, image: UploadPhotos, photoIndex: number) => void;
   values: VerificationFormStep5TypeV2;
   handleModelApiChange: () => void;
+  index: number;
 }) => {
   const [openRepositionModal, setOpenRepositionModal] = useState(false);
   const [croppedImage, setCroppedImage] = useState('');
@@ -85,6 +87,7 @@ const PhotoItem = ({
 
   const handleClickThumbnailPhoto = useCallback(async () => {
     if (handleClickThumbnailImageId) {
+      handleClickThumbnailImageId(image.id, image.name, index);
       if (image.id) {
         const response = await VerificationStepService.modelThumbnailPhoto({ model_photo_id: image.id }, token);
         if (response.code === 200) {
@@ -94,18 +97,17 @@ const PhotoItem = ({
       }
 
       if (!image.id) {
-        handleBlobThumbnail(undefined, image);
+        handleBlobThumbnail(undefined, image, index);
         image.id = undefined;
         setThumbnail(true);
         image.isFavorite = true;
-        setValue('is_favourite', image.name);
         toast.success('Image marked as thumbnail');
       }
     }
 
     handleClose();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [image, token, thumbnail]);
+  }, [image, index, token]);
 
   const handleRemoveImage = (name: string) => {
     setCroppedImage('');
@@ -159,7 +161,7 @@ const PhotoItem = ({
 
   useEffect(() => {
     if (thumbnail) {
-      handleBlobThumbnail(undefined, image);
+      handleBlobThumbnail(undefined, image, index);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -197,8 +199,9 @@ const PhotoItem = ({
               />
             </Box>
           )}
-          {((thumbnailImageId !== undefined && image.id !== undefined && thumbnailImageId === image.id) ||
-            (values.is_favourite === image.name && thumbnailImageId === undefined)) && (
+          {((thumbnailImageId !== undefined && image.id !== undefined && thumbnailImageId === image?.id) ||
+            (values?.is_favourite === image?.name && thumbnailImageId === undefined) ||
+            (Number(values?.is_favourite?.split('[')[1].split(']')[0]) === index && thumbnailImageId === undefined)) && (
             <Box sx={{ position: 'relative' }}>
               <DragAndDropMultipleImageThumbnailPhoto
                 sx={{

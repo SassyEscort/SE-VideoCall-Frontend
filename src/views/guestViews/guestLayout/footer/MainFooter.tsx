@@ -105,7 +105,7 @@ const MainFooter = () => {
                   </UINewTypography>
                   <UINewTypography variant="SubtitleSmallRegular">
                     <Link prefetch={false} href="/model">
-                      <FormattedMessage id="RegisterAsAModel" />
+                      <FormattedMessage id="RegisterAsModel" />
                     </Link>
                   </UINewTypography>
                 </ModelUITextConatiner>
@@ -124,7 +124,7 @@ const MainFooter = () => {
                       shallow={true}
                       href={`/escorts/city${val.link}`}
                     >
-                      {val.name}
+                      <FormattedMessage id={val.name} />
                     </Box>
                   </UINewTypography>
                 ))}

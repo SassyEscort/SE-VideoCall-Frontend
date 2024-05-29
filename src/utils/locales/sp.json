@@ -167,7 +167,6 @@
   "ShowTracking": "MostrarSeguimiento",
   "Completed": "Completado",
   "LetStartWith": "Empecemos con",
-  "RegisterAsAModel": "Regístrate como modelo",
   "HowdoIFindThe": "¿Cómo encuentro el modelo adecuado para mí?",
   "WithOurIntuitiveSearchAnd": "Con nuestras herramientas de búsqueda y filtro intuitivas, encontrar tu pareja es simple. Puedes filtrar modelos por intereses, idiomas hablados, ubicación y más para encontrar a alguien que cumpla con tus preferencias.",
   "CanIcommunicateWith": "¿Puedo comunicarme con los modelos antes de reservar una videollamada?",
@@ -217,5 +216,15 @@
   "Payout": "Pago",
   "NoBankInformationAdded": "No se ha añadido información bancaria",
   "PleaseAddYour": "Por favor, añada sus datos bancarios para solicitar su pago. De lo contrario, no podremos procesar su solicitud.",
-  "Add bank details": "Agregar detalles bancarios"
+  "Add bank details": "Agregar detalles bancarios",
+  "Profile": "Perfil",
+  "ProfileDetails": "detalles del perfil",
+  "Prices": "Precios",
+  "PrivacyStatement": "Declaración de privacidad",
+  "CookieStatement": "Declaración de cookies",
+  "TermsConditions": "Términos y condiciones",
+  "Signup": "Inscribirse",
+  "Dashboard": "Panel",
+  "UploadHighQuality": "Sube fotos o videos de alta calidad de ti mismo",
+  "GalleryTitle": "Galería"
 }
