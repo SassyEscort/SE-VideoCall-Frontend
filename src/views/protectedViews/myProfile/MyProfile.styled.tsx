@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const MyProfileContainerMain = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
@@ -28,4 +29,10 @@ export const DisableButtonBox = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '613px',
   padding: theme.spacing(2)
+}));
+
+export const ProfileTextHeader = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '16px !important',
+  fontWeight: '600 !important',
+  lineHeight: '25.6px !important'
 }));
