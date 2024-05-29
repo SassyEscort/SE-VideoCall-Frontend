@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { Area } from 'react-easy-crop';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { VideoAcceptType } from 'constants/workerVerification';
@@ -85,4 +85,4 @@ const PreviewGallery = ({ image, isEdit, height, width }: { image: UploadPhotos;
   );
 };
 
-export default PreviewGallery;
+export default memo(PreviewGallery);
