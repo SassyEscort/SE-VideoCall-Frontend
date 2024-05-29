@@ -26,3 +26,10 @@ interface price {
   price: number;
 }
 export const priceValueMenuItme: price[] = [{ price: 4.99 }, { price: 2.99 }, { price: 5.99 }];
+
+export enum MODEL_ACTIVE_STEP {
+  BASIC_DETAILS = 'Basic_Details',
+  UPLOAD_DOCUMENTS = 'Upload_Documents',
+  UPLOAD_PHOTOS = 'Upload_Photos',
+  ONBOARDED = 'Onboarded'
+}

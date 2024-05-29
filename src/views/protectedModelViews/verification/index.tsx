@@ -16,6 +16,7 @@ import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import ModelReviewDetails from '../modelReviewDetails';
 import ProfileCreated from './profileCreated';
+import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 
 const VERIFICATION_STEPS = ['Basic Details', 'Documents', 'Photos', 'Review'];
 
@@ -75,6 +76,18 @@ const VerificationContainer = () => {
     };
     modelDetails();
   }, [token.token]);
+
+  useEffect(() => {
+    if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.BASIC_DETAILS) {
+      setActiveStep(0);
+    } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_DOCUMENTS) {
+      setActiveStep(1);
+    } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_PHOTOS) {
+      setActiveStep(2);
+    } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED) {
+      setActiveStep(5);
+    }
+  }, [modelDetails?.verification_step]);
 
   return (
     <>
@@ -171,7 +184,12 @@ const VerificationContainer = () => {
         </Box>
       )}
       {activeStep === 0 && (
-        <VerificationStepOne token={token} handleNext={handleNext} modelDetails={modelDetails ?? ({} as ModelDetailsResponse)} />
+        <VerificationStepOne
+          token={token}
+          handleNext={handleNext}
+          modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
+          handleModelApiChange={handleModelApiChange}
+        />
       )}
       {(activeStep === 1 || activeStep === 2) && (
         <DocumentMainContainer

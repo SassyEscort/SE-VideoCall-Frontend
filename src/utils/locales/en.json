@@ -81,7 +81,7 @@
   "Email": "Email",
   "Edit": "Edit",
   "Verify": "Verify",
-  "DOB": "Date of birth",
+  "DOB": "DOB",
   "DOBCantChange": "DOB cant be changed after being verified",
   "Nationality": "Nationality",
   "PreferredLanguage": "Preferred speaking language",
@@ -206,5 +206,6 @@
   "UnauthorizedUseOfMemberAccount": "Unauthorized use of Member account, for example if the account holder did not give permission for the use of his/her account to another individual. Sanctions may be utilized (such as withholding funds, deductions and terminating the account) against all persons who profit from this activity.",
   "IfTheModelIsProven": "If the Model is proven to have provided a prerecorded medium in place of a live performance and attempted to deceive the paying visitors with this practice. For such acts, the payout for the given period and any pending payment shall be withheld.",
   "YourBio":"Your Bio",
-  "UploadHighQualilty":"Upload high quality photos or videos of yourself"
+  "UploadHighQualilty":"Upload high quality photos or videos of yourself",
+  "GalleryTitle":"Gallery"
 }

@@ -2,7 +2,7 @@
 
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BasicDetailsConatiner,
   ButtonContainer,
@@ -18,6 +18,8 @@ import {
   IDtype,
   LeftCloumnConatinerGap,
   MainContainer,
+  ModelGalleryBox,
+  ModelGalleryTitleBox,
   Passport,
   RightSideConatiner,
   RightSideConatinerGap,
@@ -26,11 +28,18 @@ import {
   ThreeMainContainer,
   UpConatiner
 } from './ModelReviewDetails.styled';
-import { Box } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
+import moment from 'moment';
 import { ModelDetailsResponse } from '../verification/verificationTypes';
+import theme from 'themes/theme';
+import { UploadPhotos } from '../verification/stepThree/uploadImage/ModelMultiplePhoto';
+import PreviewGallery from '../verification/stepThree/uploadImage/PreviewGallery';
 
 const ModelReviewDetails = ({ modelDetails, handleNext }: { modelDetails: ModelDetailsResponse; handleNext: () => void }) => {
+  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  const height = isSmUp ? 193 : 210;
+  const width = isSmUp ? 145 : 159;
   const documentType =
     modelDetails?.documents?.length && modelDetails?.documents[0]?.document_type ? modelDetails?.documents[0]?.document_type : '';
 
@@ -38,6 +47,32 @@ const ModelReviewDetails = ({ modelDetails, handleNext }: { modelDetails: ModelD
     modelDetails?.documents?.length && modelDetails?.documents[0]?.document_number ? modelDetails?.documents[0]?.document_number : '';
 
   const documentLink = modelDetails?.documents?.length && modelDetails?.documents[0]?.link ? modelDetails?.documents[0]?.link : '';
+
+  const [existingPhotos, setExistingPhotos] = useState<UploadPhotos[]>([]);
+
+  useEffect(() => {
+    const existedPhoto = modelDetails?.photos
+      ?.filter((photo) => !photo.is_document)
+      ?.map((photo, index) => {
+        if (photo.type === 'file_5')
+          return {
+            id: photo.id,
+            name: `file5Existing[${index - 4}]`,
+            photoURL: photo.link,
+            cords: photo.cords
+          };
+        else {
+          return {
+            id: photo.id,
+            name: `file${photo?.type?.split('_')[1]}`,
+            photoURL: photo.link,
+            cords: photo.cords,
+            isFavorite: photo.favourite === 1
+          };
+        }
+      });
+    setExistingPhotos(existedPhoto);
+  }, [modelDetails?.photos]);
 
   return (
     <MainContainer>
@@ -83,7 +118,7 @@ const ModelReviewDetails = ({ modelDetails, handleNext }: { modelDetails: ModelD
                         <FormattedMessage id="DOB" />
                       </UINewTypography>
                       <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                        {modelDetails?.dob}
+                        {moment(modelDetails?.dob).format('l')}
                       </UINewTypography>
                     </LeftCloumnConatinerGap>
                     <LeftCloumnConatinerGap>
@@ -126,7 +161,7 @@ const ModelReviewDetails = ({ modelDetails, handleNext }: { modelDetails: ModelD
             </ForMainContainer>
             <ButtonContainer>
               <UIThemeButton variant="outlined">
-                <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
+                <UINewTypography variant="buttonLargeBold" color={'text.primary'}>
                   <FormattedMessage id="Edit" />
                 </UINewTypography>
               </UIThemeButton>
@@ -137,12 +172,12 @@ const ModelReviewDetails = ({ modelDetails, handleNext }: { modelDetails: ModelD
         <DocumentsConatiner>
           <Box sx={{ display: 'flex', flexDirection: 'cloumn', gap: 6, width: '100%' }}>
             <DocumentLeftContainer>
-              <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
+              <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
                 <FormattedMessage id="Documents" />
               </UINewTypography>
               <IDtype>
                 <Passport>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                     <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
                       <FormattedMessage id="IdType" />
                     </UINewTypography>
@@ -165,25 +200,45 @@ const ModelReviewDetails = ({ modelDetails, handleNext }: { modelDetails: ModelD
                       <FormattedMessage id="IdFront" />
                     </UINewTypography>
                   </Box>
-                  <Box> {<img src={documentLink} width={'265.39px'} />} </Box>
+                  <Box component={'img'} src={documentLink} width={'265.39px'}></Box>
                 </FontIdRight>
               </IDtype>
             </DocumentLeftContainer>
           </Box>
           <EditButton>
             <UIThemeButton variant="outlined">
-              <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
+              <UINewTypography variant="buttonLargeBold" color={'text.primary'}>
                 <FormattedMessage id="Edit" />
               </UINewTypography>
             </UIThemeButton>
           </EditButton>
         </DocumentsConatiner>
       </DocumentSecondConatiner>
-      <Box mt={4}>
-        <UIThemeButton onClick={handleNext} variant="contained">
-          <FormattedMessage id="Submit" />
-        </UIThemeButton>
-      </Box>
+      <DocumentSecondConatiner>
+        <ModelGalleryTitleBox>
+          <UINewTypography variant="h6">
+            <FormattedMessage id="GalleryTitle" />
+          </UINewTypography>
+          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+            {modelDetails?.photos?.length &&
+              existingPhotos?.map((photo, index) => {
+                return <PreviewGallery key={index} image={photo} isEdit={false} height={height} width={width} />;
+              })}
+          </Box>
+        </ModelGalleryTitleBox>
+        <ModelGalleryBox>
+          <UIThemeButton variant="outlined">
+            <UINewTypography variant="buttonLargeBold" color="text.primary">
+              <FormattedMessage id="Edit" />
+            </UINewTypography>
+          </UIThemeButton>
+          <UIThemeButton variant="contained">
+            <UINewTypography variant="buttonLargeBold" color="secondary.main">
+              <FormattedMessage id="Submit" />
+            </UINewTypography>
+          </UIThemeButton>
+        </ModelGalleryBox>
+      </DocumentSecondConatiner>
     </MainContainer>
   );
 };
