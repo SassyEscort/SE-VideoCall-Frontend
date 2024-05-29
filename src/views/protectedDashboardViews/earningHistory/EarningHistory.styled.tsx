@@ -25,3 +25,27 @@ export const EarningHistorySubContainer = styled(Box)(({ theme }) => ({
     flexDirection: 'column'
   }
 }));
+
+export const EarningHistoryFirstBoxContainer = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '33px'
+}));
+
+export const EarningHistorySecBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(7)
+}));
+
+export const EarningHistoryThirdBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '44px'
+}));
+
+export const EarningHistoryLastBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  maxWidth: '741px'
+}));
