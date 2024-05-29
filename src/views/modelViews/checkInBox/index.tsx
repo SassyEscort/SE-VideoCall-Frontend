@@ -10,8 +10,10 @@ import {
   DialogContentSecondBox,
   DialogtitleContainer,
   EmailText,
-  MianDailogConatiner
+  MianDailogConatiner,
+  TextContainer
 } from './CheckInBox.styled';
+import { FormattedMessage } from 'react-intl';
 
 const CheckInboxVerify = ({ onOpen, onClose, email }: { onOpen: boolean; onClose: () => void; email: string }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -22,45 +24,43 @@ const CheckInboxVerify = ({ onOpen, onClose, email }: { onOpen: boolean; onClose
       fullWidth
       sx={{
         '& .MuiDialog-paper': {
-          border: isMdDown ? 'solid 0px' : 'solid 1px #232027'
+          border: isMdDown ? 'solid 0px' : 'solid 1px #FF68C0A3'
         },
         '& .MuiDialog-container': {
           backgroundColor: isMdDown ? '#07030E' : '#07030e99 !important'
         }
       }}
     >
-      <Box sx={{ width: '100%', maxWidth: '920px' }}>
-        <DialogtitleContainer id="responsive-modal-title">
-          <IconButton
-            aria-label="close"
-            onClick={onClose}
-            sx={{
-              color: (theme) => theme.palette.text.secondary
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </DialogtitleContainer>
+      <DialogtitleContainer id="responsive-modal-title">
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            color: (theme) => theme.palette.text.secondary
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </DialogtitleContainer>
 
-        <Box>
-          <DialogContent sx={{ p: 0 }}>
-            <DialogContentSecondBox>
-              <Image src="/images/auth/check-email.png" width={175} height={123} alt="check-email.png" />
-              <CheckYourInbox variant="h2" color="text.secondary">
-                Check your inbox
-              </CheckYourInbox>
-              <AVerificationLink variant="bodyRegular" color="secondary.200">
-                A verification link has been emailed to
-                <Box>
-                  <EmailText variant="bodySemiBold" color="text.primary">
-                    {email}
-                  </EmailText>
-                </Box>
-              </AVerificationLink>
-            </DialogContentSecondBox>
-          </DialogContent>
-        </Box>
-      </Box>
+      <TextContainer>
+        <DialogContent sx={{ p: 0 }}>
+          <DialogContentSecondBox>
+            <Image src="/images/auth/check-email.png" width={175} height={123} alt="check-email.png" />
+            <CheckYourInbox variant="h2" color="text.secondary">
+              <FormattedMessage id="CheckYourInbox" />
+            </CheckYourInbox>
+            <AVerificationLink variant="bodyRegular" color="secondary.200">
+              <FormattedMessage id="AVerificationLink" />
+              <Box>
+                <EmailText variant="bodySemiBold" color="text.primary">
+                  {email}
+                </EmailText>
+              </Box>
+            </AVerificationLink>
+          </DialogContentSecondBox>
+        </DialogContent>
+      </TextContainer>
     </MianDailogConatiner>
   );
 };

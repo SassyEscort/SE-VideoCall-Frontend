@@ -35,7 +35,7 @@ export class ModelAuthService {
   static modelForgetPasswordLink = async (params: ForgetPasswordParams): Promise<GenericResponse> => {
     try {
       const res = await axios.post<ForgetPasswordParams, GenericResponseData>(
-        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/customer/reset-password-email`,
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/email-verification-link`,
         params,
         {
           headers: { 'Content-Type': 'application/json' }

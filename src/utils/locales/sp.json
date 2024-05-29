@@ -205,5 +205,22 @@
   "UnauthorizedUseOfMemberAccount": "Neovlaštena upotreba članskog računa, na primjer ako vlasnik računa nije dao dopuštenje za korištenje svog računa drugoj osobi. Sankcije mogu biti korištene (kao što su zadržavanje sredstava, odbici i ukidanje računa) protiv svih osoba koje profitiraju od ove aktivnosti.",
   "IfTheModelIsProven": "Ako se dokaže da je Model koristio unaprijed snimljeni medij umjesto prijenosa uživo i pokušao prevariti posjetitelje koji plaćaju ovom praksom. Za takve postupke, isplata za dani period i bilo koja neisplaćena plaćanja bit će zadržana.",
   "YourBio": "Tu biografía",
-  "UploadHighQualilty": "Sube fotos o videos de alta calidad de ti mismo"
+  "UploadHighQualilty": "Sube fotos o videos de alta calidad de ti mismo",
+  "CheckYourInbox": "Revisa tu correo",
+  "AVerificationLink": "Se ha enviado un enlace de verificación por correo electrónico a",
+  "CompleteYourProfile": "Completa tu perfil",
+  "LogOut": "Cerrar sesión",
+  "AreYouSure": "¿Estás seguro de que quieres cerrar sesión?",
+  "Confirm": "Confirmar",
+  "Cancel": "Cancelar",
+  "Profile": "Perfil",
+  "ProfileDetails": "detalles del perfil",
+  "Prices": "Precios",
+  "PrivacyStatement": "Declaración de privacidad",
+  "CookieStatement": "Declaración de cookies",
+  "TermsConditions": "Términos y condiciones",
+  "Signup": "Inscribirse",
+  "Dashboard": "Panel",
+  "UploadHighQuality": "Sube fotos o videos de alta calidad de ti mismo",
+  "GalleryTitle": "Galería"
 }

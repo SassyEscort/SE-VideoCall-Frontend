@@ -6,10 +6,8 @@ import { RiMailLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
 import * as yup from 'yup';
-import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
-import { toast } from 'react-toastify';
 import { useState } from 'react';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import AuthModelCommon from '../modelSignup/AuthModelCommon';
@@ -26,11 +24,13 @@ import {
   RestePasswordBox
 } from './ModelForgetPasswordLink.styled';
 import { FormattedMessage } from 'react-intl';
+import { ModelAuthService } from 'services/modelAuth/modelAuth.service';
+import { toast } from 'react-toastify';
 
 export type ForgetPasswordParams = {
-  id: string;
   email: string;
 };
+
 const ModelForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
   const isSm = useMediaQuery(theme.breakpoints.down(330));
 
@@ -50,7 +50,7 @@ const ModelForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
       onSubmit={async (values, { setSubmitting }) => {
         try {
           setLoading(true);
-          const data = await GuestAuthService.guestForgetPasswordLink(values);
+          const data = await ModelAuthService.modelForgetPasswordLink(values);
           if (data.code === 200) {
             toast.success('Reset password link sent successfully!');
             setActiveStep(1);

@@ -1,25 +1,33 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SideMenu from './SideMenu';
 import MainLayoutNav from './protectedDashboardLayout';
 import Box from '@mui/material/Box';
 import { MenuItem, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import DashboardPriceView from './dashboardPriceView';
-
+import { getUserDataClient } from 'utils/getSessionData';
+export type TokenIdType = {
+  token: string;
+};
 const DashboardProfile = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [menuItem, setMenuItem] = useState('Profile Details');
+  const [token, setToken] = useState<TokenIdType>({ token: '' });
+
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      setToken({ token: data.token });
+    };
+    userToken();
+  }, []);
   const MyProfileModelTabs = [{ name: 'Profile Details' }, { name: 'Photos' }, { name: 'Prices' }];
 
   const renderComponent = () => {
     switch (menuItem) {
-      case 'Profile Details':
-        return <DashboardPriceView />;
-      case 'Photos':
-        return <DashboardPriceView />;
       case 'Prices':
-        return <DashboardPriceView />;
+        return <DashboardPriceView token={token.token} />;
       default:
         return null;
     }
