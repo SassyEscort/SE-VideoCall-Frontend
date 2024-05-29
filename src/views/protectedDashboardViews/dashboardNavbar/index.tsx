@@ -14,7 +14,6 @@ import {
   MobileTextStyleContainer,
   SelectedTab
 } from './nav.styled';
-import Link from 'next/link';
 import { DashboardModelTabs } from 'constants/modelConstants';
 import ModelNavbar from './modelNavbar';
 
@@ -82,31 +81,27 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
             {DashboardModelTabs.map((tab, index) => {
               return index === tabIndex - 1 ? (
                 <CommonMenuBox key={index} sx={{ color: 'text.primary' }}>
-                  <Link prefetch={false} href={tab.path} style={{ textDecoration: 'none' }}>
-                    <SelectedTab>
-                      <Box
-                        component="img"
-                        width={20}
-                        height="auto"
-                        src={tab.img}
-                        sx={{
-                          filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)'
-                        }}
-                      />
-                      <Box sx={{ color: 'primary.400' }}>
-                        <MobileTextStyleContainer label={tab.name} />
-                      </Box>
-                    </SelectedTab>
-                  </Link>
+                  <SelectedTab>
+                    <Box
+                      component="img"
+                      width={20}
+                      height="auto"
+                      src={tab.img}
+                      sx={{
+                        filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)'
+                      }}
+                    />
+                    <Box sx={{ color: 'primary.400' }}>
+                      <MobileTextStyleContainer label={tab.name} />
+                    </Box>
+                  </SelectedTab>
                 </CommonMenuBox>
               ) : (
                 <CommonMenuBox key={index} sx={{ color: 'text.primary' }}>
-                  <Link prefetch={false} href={tab.path} style={{ textDecoration: 'none' }}>
-                    <MobileComponentSecBoxContainer>
-                      <Box component="img" src={tab.img} width={20} height="auto" />
-                      <MobileTextStyleContainer label={tab.name} />
-                    </MobileComponentSecBoxContainer>
-                  </Link>
+                  <MobileComponentSecBoxContainer>
+                    <Box component="img" src={tab.img} width={20} height="auto" />
+                    <MobileTextStyleContainer label={tab.name} />
+                  </MobileComponentSecBoxContainer>
                 </CommonMenuBox>
               );
             })}
