@@ -9,7 +9,6 @@ import { FormattedMessage } from 'react-intl';
 import { FooterButton } from './MainFooter.styled';
 
 const Footer = () => {
-  // const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Banner>
       <TextContainerMain>
