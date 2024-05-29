@@ -25,7 +25,7 @@ const PayoutBankInformation = () => {
         <FormattedMessage id={isSm ? 'Payout' : 'YourPaymentMethod'} />
       </Payout>
       <SecondConatiner>
-        <Box component="img" src="/images/payout/frame.png" />
+        <Box component="img" src="/images/payout/frame.webp" />
         <ThreeConatiner>
           <NoBoxInfoBox>
             <NoBankInformationAdded variant="h3" color={'text.secondary'}>
