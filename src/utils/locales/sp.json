@@ -212,5 +212,8 @@
   "LogOut": "Cerrar sesión",
   "AreYouSure": "¿Estás seguro de que quieres cerrar sesión?",
   "Confirm": "Confirmar",
-  "Cancel": "Cancelar"
+  "Cancel": "Cancelar",
+  "Profile": "Perfil",
+  "ProfileDetails": "detalles del perfil",
+  "Prices": "Precios"
 }
