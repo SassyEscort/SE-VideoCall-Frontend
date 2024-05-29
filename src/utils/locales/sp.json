@@ -219,5 +219,9 @@
   "CookieStatement": "Declaración de cookies",
   "TermsConditions": "Términos y condiciones",
   "Signup": "Inscribirse",
-  "Dashboard": "Panel"
+  "Dashboard": "Panel",
+  "RequestPayout": "Solicitar Pago",
+  "PaymentMethods": "Métodos de Pago",
+  "PayoutHistory": "Historial de Pagos",
+  "ModifyPhotos": "Subir o Modificar tus fotos"
 }
