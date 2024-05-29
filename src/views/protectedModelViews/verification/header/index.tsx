@@ -11,15 +11,13 @@ import { VerificationHeaderBox } from './Header.styled';
 import { FormattedMessage } from 'react-intl';
 
 const VerificationHeader = ({ activeStep }: { activeStep: number }) => {
-  const isMdDown = useMediaQuery(theme.breakpoints.up('md'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Box
       sx={{
         backgroundColor: 'secondary.dark',
-        width: '100%',
-        px: isMdDown ? 0 : 16.75
+        width: '100%'
       }}
     >
       <>
