@@ -23,9 +23,9 @@ import {
   ToSiliconValleyBankMainConatiner,
   UsdBox,
   Withdrawls
-} from './Payouts';
+} from './PayoutRequest';
 import { FormattedMessage } from 'react-intl';
-const Payouts = () => {
+const PayoutRequest = () => {
   return (
     <MainConatiner>
       <BoxMessage>
@@ -130,4 +130,4 @@ const Payouts = () => {
   );
 };
 
-export default Payouts;
+export default PayoutRequest;

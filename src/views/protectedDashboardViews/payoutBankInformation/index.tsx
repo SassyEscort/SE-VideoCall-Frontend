@@ -17,7 +17,7 @@ import {
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 const PayoutBankInformation = () => {
-  const isSm = useMediaQuery(theme.breakpoints.down(393));
+  const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <MainConatiner>
