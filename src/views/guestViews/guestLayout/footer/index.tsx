@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { Banner, BannerImg, SubTitleText, TextContainer, TextContainerMain, TitleText } from './footer.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import MainFooter from './MainFooter';
-import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
+import { FooterButton } from './MainFooter.styled';
 
 const Footer = () => {
   // const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -34,9 +34,9 @@ const Footer = () => {
               <Box sx={{ width: '100%', maxWidth: '195px' }}>
                 <Link prefetch={false} href="/">
                   <UIThemeShadowButton fullWidth variant="contained">
-                    <UINewTypography variant="buttonLargeBold" sx={{ lineHeight: '150%' }}>
+                    <FooterButton variant="buttonLargeBold">
                       <FormattedMessage id="JoinForFREE" />
-                    </UINewTypography>
+                    </FooterButton>
                   </UIThemeShadowButton>
                 </Link>
               </Box>
