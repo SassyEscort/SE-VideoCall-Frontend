@@ -213,7 +213,12 @@
   "AreYouSure": "¿Estás seguro de que quieres cerrar sesión?",
   "Confirm": "Confirmar",
   "Cancel": "Cancelar",
+  "Profile": "Perfil",
+  "ProfileDetails": "detalles del perfil",
+  "Prices": "Precios",
   "PrivacyStatement": "Declaración de privacidad",
   "CookieStatement": "Declaración de cookies",
-  "TermsConditions": "Términos y condiciones"
+  "TermsConditions": "Términos y condiciones",
+  "Signup": "Inscribirse",
+  "Dashboard": "Panel"
 }

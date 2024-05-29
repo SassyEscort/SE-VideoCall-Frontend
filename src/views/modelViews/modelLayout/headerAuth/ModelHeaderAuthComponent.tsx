@@ -44,6 +44,8 @@ const ModelHeaderAuthComponent = () => {
     modelDetails();
   }, [token.id, token.token]);
 
+  const isSmUP = useMediaQuery(theme.breakpoints.up('sm'));
+
   const uploadedImageURL = '/images/headerv2/profilePic.png';
 
   return (
@@ -86,13 +88,15 @@ const ModelHeaderAuthComponent = () => {
             )}
           </Box>
         </Box>
-        <Link href="/model/profile">
-          <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>
-            <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
-              <FormattedMessage id="CompleteYourProfile" />
-            </UINewTypography>
-          </UIThemeButton>
-        </Link>
+        {isSmUP && (
+          <Link href="/model/profile">
+            <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>
+              <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
+                <FormattedMessage id="CompleteYourProfile" />
+              </UINewTypography>
+            </UIThemeButton>
+          </Link>
+        )}
       </Box>
     </>
   );
