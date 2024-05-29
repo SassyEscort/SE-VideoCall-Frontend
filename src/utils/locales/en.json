@@ -218,7 +218,7 @@
   "Payout": "Payout",
   "NoBankInformationAdded": "No Bank Information added",
   "PleaseAddYour": "Please add your bank details to request your payout. Otherwise we won’t be able to process your request.",
-  "Add bank details": "Add bank details",
+  "AddBankDetails": "Add bank details",
   "Profile": "Profile",
   "ProfileDetails": "Profile Details",
   "Prices": "Prices",
@@ -226,5 +226,9 @@
   "CookieStatement": "Cookie statement",
   "TermsConditions": "Terms and conditions",
   "Signup": "Signup",
-  "Dashboard": "Dashboard"
+  "Dashboard": "Dashboard",
+  "BankName": "Bank Name",
+  "AccountName": "Account Name",
+  "IBANNumber": "IBAN Number",
+  "YourPaymentMethods": "Your Payment Methods"
 }
