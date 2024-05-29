@@ -14,6 +14,7 @@ import ModelSignin from '../modelSignin';
 import ModelForgetPasswordLink from '../modelForgetPasswordLink';
 import ModelNewPassword from '../ModelNewPassword';
 import { useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 const SideBarModelMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer: (open: boolean) => void }) => {
   const url = new URL(window.location.href);
@@ -72,7 +73,7 @@ const SideBarModelMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
             <MenuItem>
               <Link href="/">
                 <UINewTypography variant="bodySemiBold" color="text.secondary">
-                  Looking for a Model?
+                  <FormattedMessage id="LookingForAModel" />
                 </UINewTypography>
               </Link>
             </MenuItem>
@@ -83,7 +84,7 @@ const SideBarModelMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
               </ListItemIcon>
               <ListItemText onClick={handleLoginOpen}>
                 <UINewTypography variant="bodySemiBold" color="text.secondary">
-                  Login
+                  <FormattedMessage id="Login" />
                 </UINewTypography>
               </ListItemText>
             </MenuItem>
@@ -93,7 +94,7 @@ const SideBarModelMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
               </ListItemIcon>
               <ListItemText onClick={handleSignupOpen}>
                 <UINewTypography variant="bodySemiBold" color="text.secondary">
-                  Signup
+                  <FormattedMessage id="Signup" />
                 </UINewTypography>
               </ListItemText>
             </MenuItem>

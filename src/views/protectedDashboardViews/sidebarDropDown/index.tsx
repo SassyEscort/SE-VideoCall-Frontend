@@ -36,7 +36,7 @@ export default function SidebarDropDown() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        Dashboard
+        <FormattedMessage id="Dashboard" />
       </Button>
       <Menu
         id="basic-menu"
