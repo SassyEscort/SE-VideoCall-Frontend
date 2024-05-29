@@ -216,5 +216,8 @@
   "Cancel": "Cancel",
   "Profile": "Profile",
   "ProfileDetails": "Profile Details",
-  "Prices": "Prices"
+  "Prices": "Prices",
+  "PrivacyStatement":"Privacy statement",
+  "CookieStatement":"Cookie statement",
+  "TermsConditions":"Terms and conditions"
 }

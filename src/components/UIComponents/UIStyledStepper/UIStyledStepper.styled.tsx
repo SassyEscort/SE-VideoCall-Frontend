@@ -23,7 +23,9 @@ const UIStyledStepper = styled(Stepper)(({ theme }) => ({
   '& .Mui-disabled': {
     color: theme.palette.text.disabled
   },
-
+  '& .MuiStepLabel-label.Mui-active': {
+    color: theme.palette.text.secondary
+  },
   '& .mui-style-1fu8gtm-MuiSvgIcon-root-MuiStepIcon-root': {
     color: theme.palette.text.disabled
   },

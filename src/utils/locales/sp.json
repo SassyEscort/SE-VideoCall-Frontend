@@ -215,5 +215,8 @@
   "Cancel": "Cancelar",
   "Profile": "Perfil",
   "ProfileDetails": "detalles del perfil",
-  "Prices": "Precios"
+  "Prices": "Precios",
+  "PrivacyStatement": "Declaración de privacidad",
+  "CookieStatement": "Declaración de cookies",
+  "TermsConditions": "Términos y condiciones"
 }

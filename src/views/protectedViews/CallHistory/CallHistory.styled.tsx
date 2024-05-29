@@ -7,7 +7,10 @@ export const CallHistoryMainContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(7),
   width: '100%',
-  height: '100%'
+  height: '100%',
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(3)
+  }
 }));
 
 export const CallHistoryText = styled(Box)(({ theme }) => ({
