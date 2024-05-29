@@ -173,7 +173,12 @@ const VerificationContainer = () => {
         </Box>
       )}
       {activeStep === 0 && (
-        <VerificationStepOne token={token} handleNext={handleNext} modelDetails={modelDetails ?? ({} as ModelDetailsResponse)} />
+        <VerificationStepOne
+          isEdit={false}
+          token={token}
+          handleNext={handleNext}
+          modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
+        />
       )}
       {(activeStep === 1 || activeStep === 2) && (
         <DocumentMainContainer
@@ -188,6 +193,7 @@ const VerificationContainer = () => {
       )}
       {activeStep === 3 && (
         <UploadImage
+          isEdit={false}
           workerPhotos={modelDetails?.photos ?? []}
           token={token}
           handleModelApiChange={handleModelApiChange}

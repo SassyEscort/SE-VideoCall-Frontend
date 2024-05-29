@@ -20,11 +20,13 @@ import { ErrorMessage } from 'constants/common.constants';
 const VerificationStepOne = ({
   handleNext,
   modelDetails,
-  token
+  token,
+  isEdit
 }: {
   handleNext: () => void;
   modelDetails: ModelDetailsResponse;
   token: TokenIdType;
+  isEdit: boolean;
 }) => {
   const initialValuesPerStep: VerificationStep1Type = {
     id: token.id,
@@ -93,6 +95,7 @@ const VerificationStepOne = ({
           }}
         >
           <VerificationBasicDetails
+            isEdit={isEdit}
             token={token}
             values={values}
             errors={errors}

@@ -34,7 +34,16 @@ export type UploadPhotos = {
   isFavorite?: boolean;
 };
 
-const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, token, handleModelApiChange }: UploadMultiplePhotos) => {
+const ModelMultiplePhoto = ({
+  values,
+  setValue,
+  errors,
+  touched,
+  workerPhotos,
+  token,
+  handleModelApiChange,
+  isEdit
+}: UploadMultiplePhotos) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const height = isSmUp ? 193 : 210;
   const width = isSmUp ? 145 : 159;
@@ -182,14 +191,22 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
 
   return (
     <UploadMultipleContainer>
-      <Box paddingBottom={4} pt={4}>
-        <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
-          <FormattedMessage id="UploadPhotos" />
-        </UINewTypography>
-        <UINewTypography marginTop={1.5} display="flex" justifyContent="center" lineHeight="160%">
-          <FormattedMessage id="UploadHighQualilty" />
-        </UINewTypography>
-      </Box>
+      {!isEdit ? (
+        <Box paddingBottom={4} pt={4}>
+          <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
+            <FormattedMessage id="UploadPhotos" />
+          </UINewTypography>
+          <UINewTypography marginTop={1.5} display="flex" justifyContent="center" lineHeight="160%">
+            <FormattedMessage id="UploadHighQualilty" />
+          </UINewTypography>
+        </Box>
+      ) : (
+        <Box paddingBottom={4}>
+          <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
+            <FormattedMessage id="ModifyPhotos" />
+          </UINewTypography>
+        </Box>
+      )}
       <ModelMultiplePhotoItem>
         <UploadItem>
           <UINewTypography variant="h6" color="text.secondary">
@@ -210,6 +227,9 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
             values={values}
             handleUploadPhotos={handleUploadPhotos}
           />
+          <UINewTypography variant="h6">
+            <FormattedMessage id="Gallery" />
+          </UINewTypography>
           <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
             {[...existingPhotos, ...uploadedImagesURL]?.map((photo, index) => {
               return (

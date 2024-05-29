@@ -14,6 +14,7 @@ import {
   MobileTextStyleContainer,
   SelectedTab
 } from './nav.styled';
+import Link from 'next/link';
 import { DashboardModelTabs } from 'constants/modelConstants';
 import ModelNavbar from './modelNavbar';
 
@@ -33,13 +34,12 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
   const maindashboardTabIndex: { [key: string]: number } = {
     dashboard: 1,
     earnings: 2,
-    favourites: 3,
-    payouts: 4,
-    helpandinfo: 5,
-    logout: 6
+    payouts: 3,
+    'help-info': 4,
+    logout: 5
   };
 
-  const modifiedPath = router.split('/profile').join('').split('/').join('');
+  const modifiedPath = router.split('/model').join('').split('/').join('');
 
   const tabIndex = maindashboardTabIndex[modifiedPath] || 2;
 
@@ -81,27 +81,31 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
             {DashboardModelTabs.map((tab, index) => {
               return index === tabIndex - 1 ? (
                 <CommonMenuBox key={index} sx={{ color: 'text.primary' }}>
-                  <SelectedTab>
-                    <Box
-                      component="img"
-                      width={20}
-                      height="auto"
-                      src={tab.img}
-                      sx={{
-                        filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)'
-                      }}
-                    />
-                    <Box sx={{ color: 'primary.400' }}>
-                      <MobileTextStyleContainer label={tab.name} />
-                    </Box>
-                  </SelectedTab>
+                  <Link prefetch={false} href={tab.path} style={{ textDecoration: 'none' }}>
+                    <SelectedTab>
+                      <Box
+                        component="img"
+                        width={20}
+                        height="auto"
+                        src={tab.img}
+                        sx={{
+                          filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)'
+                        }}
+                      />
+                      <Box sx={{ color: 'primary.400' }}>
+                        <MobileTextStyleContainer label={tab.name} />
+                      </Box>
+                    </SelectedTab>
+                  </Link>
                 </CommonMenuBox>
               ) : (
                 <CommonMenuBox key={index} sx={{ color: 'text.primary' }}>
-                  <MobileComponentSecBoxContainer>
-                    <Box component="img" src={tab.img} width={20} height="auto" />
-                    <MobileTextStyleContainer label={tab.name} />
-                  </MobileComponentSecBoxContainer>
+                  <Link prefetch={false} href={tab.path} style={{ textDecoration: 'none' }}>
+                    <MobileComponentSecBoxContainer>
+                      <Box component="img" src={tab.img} width={20} height="auto" />
+                      <MobileTextStyleContainer label={tab.name} />
+                    </MobileComponentSecBoxContainer>
+                  </Link>
                 </CommonMenuBox>
               );
             })}

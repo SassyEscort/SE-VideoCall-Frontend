@@ -1,10 +1,10 @@
 import React from 'react';
-import DashboardProfile from 'views/protectedDashboardViews';
+import ModelProfile from 'views/protectedDashboardViews/modelProfile';
 
 const page = () => {
   return (
     <>
-      <DashboardProfile />
+      <ModelProfile />
     </>
   );
 };

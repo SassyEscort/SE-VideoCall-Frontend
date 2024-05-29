@@ -24,6 +24,7 @@ import { DashboardService } from 'services/modelAuth/dashboard.price.service';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { PriceValue } from 'services/modelAuth/types';
+import { TokenIdType } from 'views/protectedModelViews/verification';
 
 export type PricePerMinute = {
   price_per_minute_id: string;
@@ -39,7 +40,7 @@ const validationSchema = yup.object({
   price: yup.string().required('Price title is required')
 });
 
-const DashboardPriceView = ({ token }: { token: string }) => {
+const DashboardPriceView = ({ token }: { token: TokenIdType }) => {
   const [loading, setLoading] = useState(false);
   const [disable, setDisable] = useState(false);
   const [priceValue, setPriceValue] = useState<PriceValue[]>([]);
@@ -73,7 +74,7 @@ const DashboardPriceView = ({ token }: { token: string }) => {
   const handleSubmitForm = async (inputPayload: PricePerMinute) => {
     try {
       setLoading(true);
-      const response = await DashboardService.dashboardPrice(inputPayload, token);
+      const response = await DashboardService.dashboardPrice(inputPayload, token.token);
       if (response?.data) {
         toast.success(response?.message);
       } else {
