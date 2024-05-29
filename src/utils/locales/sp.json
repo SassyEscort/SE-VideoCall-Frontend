@@ -212,5 +212,10 @@
   "LogOut": "Cerrar sesión",
   "AreYouSure": "¿Estás seguro de que quieres cerrar sesión?",
   "Confirm": "Confirmar",
-  "Cancel": "Cancelar"
+  "Cancel": "Cancelar",
+  "YourPaymentMethod": "Su método de pago",
+  "Payout": "Pago",
+  "NoBankInformationAdded": "No se ha añadido información bancaria",
+  "PleaseAddYour": "Por favor, añada sus datos bancarios para solicitar su pago. De lo contrario, no podremos procesar su solicitud.",
+  "Add bank details": "Agregar detalles bancarios"
 }

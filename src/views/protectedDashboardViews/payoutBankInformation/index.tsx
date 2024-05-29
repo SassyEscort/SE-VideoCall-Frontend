@@ -1,50 +1,52 @@
-import { Box } from '@mui/material';
+'use client';
+import { Box, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import React from 'react';
-
+import {
+  AddBoxDetails,
+  AddIconAdd,
+  MainConatiner,
+  NoBankInformationAdded,
+  NoBoxInfoBox,
+  Payout,
+  PleaseAddYour,
+  SecondConatiner,
+  ThreeConatiner
+} from './PayoutBankInformation.styled';
+import theme from 'themes/theme';
+import { FormattedMessage } from 'react-intl';
 const PayoutBankInformation = () => {
-  return (
-    <Box>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          paddingTop: 4,
-          gap: 7
-          //   width: '100%',
-          //   maxWidth: '757px'
-        }}
-      >
-        <Box>
-          <UINewTypography variant="h2" color={'text.secondary'}>
-            Your Payment Method
-          </UINewTypography>
-        </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-          <Box component="img" src="/images/payout/frame.png" />
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              width: '100%',
-              maxWidth: '484px'
-            }}
-          >
-            <UINewTypography variant="h3" color={'text.secondary'}>
-              No Bank Information added
-            </UINewTypography>
+  const isSm = useMediaQuery(theme.breakpoints.down(393));
 
-            <UINewTypography variant="bodyRegular" color={'text.secondary'} sx={{ textAlign: 'center' }}>
-              Please add your bank details to request your payout. Otherwise we won’t be able to process your request.
-            </UINewTypography>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+  return (
+    <MainConatiner>
+      <Payout variant="h2" color={'text.secondary'}>
+        <FormattedMessage id={isSm ? 'Payout' : 'YourPaymentMethod'} />
+      </Payout>
+      <SecondConatiner>
+        <Box component="img" src="/images/payout/frame.png" />
+        <ThreeConatiner>
+          <NoBoxInfoBox>
+            <NoBankInformationAdded variant="h3" color={'text.secondary'}>
+              <FormattedMessage id="NoBankInformationAdded" />
+            </NoBankInformationAdded>
+
+            <PleaseAddYour variant="body1" color={'text.secondary'}>
+              <FormattedMessage id="PleaseAddYour" />
+            </PleaseAddYour>
+          </NoBoxInfoBox>
+          <AddBoxDetails>
+            <UIThemeButton variant="contained">
+              <UINewTypography variant="body" color={'primary.200'}>
+                <FormattedMessage id="AddBankDetails" />
+              </UINewTypography>
+              <AddIconAdd />
+            </UIThemeButton>
+          </AddBoxDetails>
+        </ThreeConatiner>
+      </SecondConatiner>
+    </MainConatiner>
   );
 };
 

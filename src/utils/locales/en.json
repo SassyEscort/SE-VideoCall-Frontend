@@ -208,10 +208,15 @@
   "YourBio": "Your Bio",
   "UploadHighQualilty": "Upload high quality photos or videos of yourself",
   "CheckYourInbox": "Check your inbox",
-  "AVerificationLink":"A verification link has been emailed to",
-  "CompleteYourProfile":"Complete your Profile",
+  "AVerificationLink": "A verification link has been emailed to",
+  "CompleteYourProfile": "Complete your Profile",
   "LogOut": "Log out",
   "AreYouSure": "Are you sure you want to log out?",
   "Confirm": "Confirm",
-  "Cancel": "Cancel"
+  "Cancel": "Cancel",
+  "YourPaymentMethod": "Your Payment Method",
+  "Payout": "Payout",
+  "NoBankInformationAdded": "No Bank Information added",
+  "PleaseAddYour": "Please add your bank details to request your payout. Otherwise we won’t be able to process your request.",
+  "Add bank details": "Add bank details"
 }
