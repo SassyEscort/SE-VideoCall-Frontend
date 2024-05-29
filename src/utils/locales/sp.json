@@ -212,6 +212,11 @@
   "AreYouSure": "¿Estás seguro de que quieres cerrar sesión?",
   "Confirm": "Confirmar",
   "Cancel": "Cancelar",
+  "YourPaymentMethod": "Su método de pago",
+  "Payout": "Pago",
+  "NoBankInformationAdded": "No se ha añadido información bancaria",
+  "PleaseAddYour": "Por favor, añada sus datos bancarios para solicitar su pago. De lo contrario, no podremos procesar su solicitud.",
+  "Add bank details": "Agregar detalles bancarios",
   "Profile": "Perfil",
   "ProfileDetails": "detalles del perfil",
   "Prices": "Precios",
@@ -223,5 +228,15 @@
   "RequestPayout": "Solicitar Pago",
   "PaymentMethods": "Métodos de Pago",
   "PayoutHistory": "Historial de Pagos",
-  "ModifyPhotos": "Subir o Modificar tus fotos"
+  "ModifyPhotos": "Subir o Modificar tus fotos",
+  "DataRange": "Rango de datos",
+  "AmountRange": "Rango de cantidad",
+  "EarningsHistory": "Historial de ganancias",
+  "TotalOf100Calls": "Total de 100 llamadas",
+  "UploadHighQuality": "Sube fotos o videos de alta calidad de ti mismo",
+  "GalleryTitle": "Galería",
+  "BankName": "Nombre del Banco",
+  "AccountName": "Nombre de la Cuenta",
+  "IBANNumber": "Número IBAN",
+  "YourPaymentMethods": "Sus Métodos de Pago"
 }

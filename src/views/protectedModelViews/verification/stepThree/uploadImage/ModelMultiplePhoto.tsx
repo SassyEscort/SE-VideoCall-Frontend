@@ -32,6 +32,7 @@ export type UploadPhotos = {
   photoURL: string;
   cords?: string;
   isFavorite?: boolean;
+  is_favourite?: string;
 };
 
 const ModelMultiplePhoto = ({
@@ -56,7 +57,7 @@ const ModelMultiplePhoto = ({
     let index = existingPhotos?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
       existingPhotos?.splice(index, 1);
-      setValue('file5Existing', existingPhotos?.splice(index, 1));
+      setValue('file5Existing', existingPhotos);
     }
     index = uploadedImagesURL?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
@@ -72,10 +73,11 @@ const ModelMultiplePhoto = ({
     if (index !== -1) uploadedImagesURL[index].cords = cords;
   };
 
-  const handleClickThumbnailImageId = (id: number | undefined, name: string) => {
+  const handleClickThumbnailImageId = (id: number | undefined, name: string, photoIndex: number) => {
+    const favFile = `file5[${photoIndex}]`;
     setThumbnailImageId(id);
     if (!id) {
-      setValue('is_favorite', name);
+      setValue('is_favourite', favFile);
       workerPhotos.forEach((x) => {
         if (x.favourite) {
           x.favourite = 0;
@@ -101,17 +103,12 @@ const ModelMultiplePhoto = ({
     }
   };
 
-  const handleBlobThumbnail = (id: number | undefined, image: UploadPhotos) => {
+  const handleBlobThumbnail = (id: number | undefined, image: UploadPhotos, photoIndex: number) => {
+    const favFile = `file5[${photoIndex}]`;
     setThumbnailImageId(id);
-    setValue('is_favourite', image.name);
     image.isFavorite = true;
+    image.name = favFile;
     image.id = undefined;
-    workerPhotos.forEach((x) => {
-      if (x.favourite) {
-        x.favourite = 0;
-      }
-    });
-    setValue('file5Existing', workerPhotos);
   };
 
   const handleUploadPhotos = useCallback(
@@ -131,7 +128,8 @@ const ModelMultiplePhoto = ({
                 photoURL: URL.createObjectURL(data),
                 name: `file5[${index}]`,
                 cords: (values.cords5 && values.cords5[index]) || '',
-                isFavorite: index === 0 && thumbnailImageId === undefined ? true : false
+                isFavorite: index === 0 && thumbnailImageId === undefined ? true : false,
+                is_favourite: values.is_favourite ? values.is_favourite : 'file5[0]'
               });
             }
           }
@@ -249,6 +247,7 @@ const ModelMultiplePhoto = ({
                   handleChangeFile5Cords={handleChangeFile5Cords}
                   handleClickThumbnailImageId={handleClickThumbnailImageId}
                   handleBlobThumbnail={handleBlobThumbnail}
+                  index={index}
                 />
               );
             })}

@@ -21,12 +21,14 @@ const VerificationStepOne = ({
   handleNext,
   modelDetails,
   token,
-  isEdit
+  isEdit,
+  handleModelApiChange
 }: {
   handleNext: () => void;
   modelDetails: ModelDetailsResponse;
   token: TokenIdType;
   isEdit: boolean;
+  handleModelApiChange: () => void;
 }) => {
   const initialValuesPerStep: VerificationStep1Type = {
     id: token.id,
@@ -75,6 +77,7 @@ const VerificationStepOne = ({
           const response = await ModelVerificationService.verificationStepOne(values, token.token);
           if (response.data) {
             handleNext();
+            handleModelApiChange();
           } else {
             toast.error(response.message);
           }

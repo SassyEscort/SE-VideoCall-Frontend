@@ -34,6 +34,7 @@ export type ModelDetailsResponse = {
   dob: string;
   languages: LanagueRes[];
   photos: WorkerPhotos[];
+  verification_step: string;
 };
 
 export interface DocumentDataPhoto {
