@@ -191,7 +191,7 @@ const ModelMultiplePhoto = ({
     <UploadMultipleContainer>
       {!isEdit ? (
         <Box paddingBottom={4} pt={4}>
-          <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
+          <UINewTypography variant="h3" sx={{ color: 'text.secondary' }}>
             <FormattedMessage id="UploadPhotos" />
           </UINewTypography>
           <UINewTypography marginTop={1.5} display="flex" justifyContent="center" lineHeight="160%">
@@ -199,8 +199,8 @@ const ModelMultiplePhoto = ({
           </UINewTypography>
         </Box>
       ) : (
-        <Box paddingBottom={4}>
-          <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
+        <Box paddingBottom={4} mt={3.875}>
+          <UINewTypography variant="h3" sx={{ color: 'text.secondary' }}>
             <FormattedMessage id="ModifyPhotos" />
           </UINewTypography>
         </Box>

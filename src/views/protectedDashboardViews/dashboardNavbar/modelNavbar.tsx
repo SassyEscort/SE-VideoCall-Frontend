@@ -5,7 +5,6 @@ import { DashboardModelTabs } from 'constants/modelConstants';
 import Logout from 'views/protectedViews/logout';
 import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
 import { CommonMenuBox, DashboardSidebarBox, MainDashboardSideMenuMainBox, NavBarBoxContainer, SelectedTab } from './nav.styled';
-import { Divider } from '@mui/material';
 import Link from 'next/link';
 
 const ModelNavbar = ({ tabIndex }: { tabIndex: number }) => {
@@ -70,7 +69,6 @@ const ModelNavbar = ({ tabIndex }: { tabIndex: number }) => {
             <Logout open={isLogoutOpen} onClose={handleCloseLogout} />
           </NavBarBoxContainer>
         </MainDashboardSideMenuMainBox>
-        <Divider orientation="vertical" flexItem sx={{ borderColor: 'primary.700' }} />
       </Box>
     </>
   );
