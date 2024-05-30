@@ -254,6 +254,8 @@
   "AccountName": "Account Name",
   "IBANNumber": "IBAN Number",
   "YourPaymentMethods": "Your Payment Methods",
+  "SiliconValleyBank": "Silicon Valley Bank",
+  "AddMoreBanks": "Add more banks",
   "HowHelp": "How we can help you?",
   "CallOn": "Call on",
   "BasicRules": "Basic Rules"
