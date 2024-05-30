@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import PreviewGallery from '../verification/stepThree/uploadImage/PreviewGallery';
 import { ModelDetailsResponse } from '../verification/verificationTypes';
 import { ModelGalleryTitleBox } from './ModelReviewDetails.styled';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import theme from 'themes/theme';
 import { UploadPhotos } from '../verification/stepThree/uploadImage/ModelMultiplePhoto';
 
@@ -15,7 +15,7 @@ const ModelGalleryReview = ({ modelDetails }: { modelDetails: ModelDetailsRespon
 
   const [existingPhotos, setExistingPhotos] = useState<UploadPhotos[]>([]);
 
-  useEffect(() => {
+  useMemo(() => {
     const existedPhoto = modelDetails?.photos
       ?.filter((photo) => !photo.is_document)
       ?.map((photo, index) => {

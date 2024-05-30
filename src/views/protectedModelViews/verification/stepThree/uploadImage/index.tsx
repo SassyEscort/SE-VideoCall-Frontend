@@ -249,7 +249,7 @@ const UploadImage = ({
             <UploadBox>
               <UploadMultipleBox>
                 <UIThemeButton
-                  sx={{ visibility: isEdit ? 'hidden' : 'visible' }}
+                  onClick={handlePrevVerificationStep}
                   disabled={values.file5 === null && isEdit ? true : false}
                   variant={values.file5 === null && isEdit ? 'contained' : 'outlined'}
                 >
@@ -259,7 +259,6 @@ const UploadImage = ({
                   </UINewTypography>
                 </UIThemeButton>
                 <StyleButtonV2
-                  sx={{ visibility: isEdit ? 'hidden' : 'visible' }}
                   id="photos-button"
                   type="submit"
                   variant="contained"

@@ -271,29 +271,31 @@ const ModelMultiplePhoto = ({
           </GalleryMainContainer>
         </ModelMultiplePhotoItem>
       </UploadMultipleContainer>
-      <UploadMultipleBox pt={12}>
-        <UIThemeButton
-          onClick={handleCancel}
-          disabled={(values.file5 === null || uploadedImagesURL.length === 0) && isEdit ? true : false}
-          variant={(values.file5 === null || uploadedImagesURL.length === 0) && isEdit ? 'contained' : 'outlined'}
-        >
-          <RiArrowLeftLine />
-          <UINewTypography variant="body">
-            <FormattedMessage id="CancelChanges" />
-          </UINewTypography>
-        </UIThemeButton>
-        <StyleButtonV2
-          id="photos-button"
-          type="submit"
-          variant="contained"
-          loading={loading}
-          disabled={(values.file5 === null || uploadedImagesURL.length === 0) && isEdit ? true : false}
-        >
-          <UINewTypography variant="body">
-            <FormattedMessage id="Save" />
-          </UINewTypography>
-        </StyleButtonV2>
-      </UploadMultipleBox>
+      {isEdit && (
+        <UploadMultipleBox pt={12}>
+          <UIThemeButton
+            onClick={handleCancel}
+            disabled={(values.file5 === null || uploadedImagesURL.length === 0) && isEdit ? true : false}
+            variant={(values.file5 === null || uploadedImagesURL.length === 0) && isEdit ? 'contained' : 'outlined'}
+          >
+            <RiArrowLeftLine />
+            <UINewTypography variant="body">
+              <FormattedMessage id="CancelChanges" />
+            </UINewTypography>
+          </UIThemeButton>
+          <StyleButtonV2
+            id="photos-button"
+            type="submit"
+            variant="contained"
+            loading={loading}
+            disabled={(values.file5 === null || uploadedImagesURL.length === 0) && isEdit ? true : false}
+          >
+            <UINewTypography variant="body">
+              <FormattedMessage id="Save" />
+            </UINewTypography>
+          </StyleButtonV2>
+        </UploadMultipleBox>
+      )}
     </>
   );
 };
