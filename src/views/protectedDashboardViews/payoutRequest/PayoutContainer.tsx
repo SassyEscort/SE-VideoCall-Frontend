@@ -3,7 +3,6 @@ import { Box, Divider } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React from 'react';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
-
 import { FormattedMessage } from 'react-intl';
 import {
   MainConatiner,
