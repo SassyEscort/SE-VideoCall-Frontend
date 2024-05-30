@@ -76,7 +76,7 @@ const ModelProfileContainer = ({
           handleModelApiChange={handleModelApiChange}
         />
       ) : (
-        <DashboardPriceView token={token} />
+        <DashboardPriceView token={token} modelDetails={modelDetails} handleModelApiChange={handleModelApiChange} />
       )}
     </Box>
   );

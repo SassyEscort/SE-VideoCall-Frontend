@@ -22,6 +22,11 @@ export type VerificationStep1Type = {
   model_languages: MultipleOptionString[];
 };
 
+export type VideCallPrices = {
+  price_per_minute: string;
+  price_per_minute_id: string;
+};
+
 export type ModelDetailsResponse = {
   id: number;
   gender: string;
@@ -35,6 +40,7 @@ export type ModelDetailsResponse = {
   languages: LanagueRes[];
   photos: WorkerPhotos[];
   verification_step: string;
+  video_call_prices: VideCallPrices[];
 };
 
 export interface DocumentDataPhoto {
