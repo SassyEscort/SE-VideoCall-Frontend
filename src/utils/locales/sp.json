@@ -215,5 +215,12 @@
   "Cancel": "Cancelar",
   "PrivacyStatement": "Declaración de privacidad",
   "CookieStatement": "Declaración de cookies",
-  "TermsConditions": "Términos y condiciones"
+  "TermsConditions": "Términos y condiciones",
+  "YourPastPayouts": "Tus pagos e facturas pasadas",
+  "InvoiceDate": "Fecha de la factura",
+  "Status": "Estado",
+  "Reset": "Reiniciar",
+  "TotalOfInvoices": "Total de 100 facturas",
+  "DownloadAll": "Descargar todo",
+  "Download": "Descargar"
 }
