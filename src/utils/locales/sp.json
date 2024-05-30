@@ -238,5 +238,8 @@
   "BankName": "Nombre del Banco",
   "AccountName": "Nombre de la Cuenta",
   "IBANNumber": "Número IBAN",
-  "YourPaymentMethods": "Sus Métodos de Pago"
+  "YourPaymentMethods": "Sus Métodos de Pago",
+  "HowHelp": "¿Cómo podemos ayudarte?",
+  "CallOn": "Llamar a",
+  "BasicRules": "Reglas Básicas"
 }

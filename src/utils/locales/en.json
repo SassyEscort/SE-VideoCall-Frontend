@@ -238,5 +238,8 @@
   "BankName": "Bank Name",
   "AccountName": "Account Name",
   "IBANNumber": "IBAN Number",
-  "YourPaymentMethods": "Your Payment Methods"
+  "YourPaymentMethods": "Your Payment Methods",
+  "HowHelp":"How we can help you?",
+  "CallOn":"Call on",
+  "BasicRules":"Basic Rules"
 }

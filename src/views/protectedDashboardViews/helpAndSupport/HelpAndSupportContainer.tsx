@@ -30,7 +30,7 @@ const HelpAndSupportContainer = ({ open, openDailog, closeDailog }: { open: bool
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 6.75 }}>
             <HeaderTextContainer>
               <UINewTypography variant="h2" color="text.secondary">
-                How we can help you?
+                <FormattedMessage id="HowHelp" />
               </UINewTypography>
             </HeaderTextContainer>
           </Box>
@@ -39,7 +39,7 @@ const HelpAndSupportContainer = ({ open, openDailog, closeDailog }: { open: bool
             <TextFirstBoxContainer>
               <TextSecondBoxContainer>
                 <UINewTypography variant="body" color="text.primary">
-                  Call on
+                  <FormattedMessage id="CallOn" />
                 </UINewTypography>
                 <UINewTypography variant="h3" color="text.secondary">
                   +91 9876543210
@@ -49,7 +49,7 @@ const HelpAndSupportContainer = ({ open, openDailog, closeDailog }: { open: bool
             <TextFirstBoxContainer>
               <TextSecondBoxContainer>
                 <UINewTypography variant="body" color="text.primary">
-                  Call on
+                  <FormattedMessage id="CallOn" />
                 </UINewTypography>
                 <UINewTypography variant="h3" color="text.secondary">
                   +91 9876543210
@@ -271,7 +271,7 @@ const HelpAndSupportContainer = ({ open, openDailog, closeDailog }: { open: bool
 
       <ButtonContainer variant="contained">
         <UINewTypography variant="body" color="primary.200" onClick={openDailog}>
-          Basic Rules
+          <FormattedMessage id="BasicRules" />
         </UINewTypography>
       </ButtonContainer>
       <BasicRules open={open} onClose={closeDailog} />
