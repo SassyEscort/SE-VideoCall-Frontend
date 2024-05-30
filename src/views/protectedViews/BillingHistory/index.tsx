@@ -4,10 +4,13 @@ import {
   BillingHistoryMainContainer,
   BillingHistoryTextContainer,
   BillingUIContainer,
+  DateTimeBilling,
   DividerContainer,
+  DollarBillingValue,
   FirstTextContainer,
   TextAndBoxContainer,
-  TextMainContainer
+  TextMainContainer,
+  ViewDetailsBilling
 } from './BillingHistory.styled';
 import MainLayoutNav from '../protectedLayout';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -28,14 +31,14 @@ const BillingHistory = () => {
                 <UINewTypography variant="buttonLargeMenu" color="success.100">
                   + 100 credits
                 </UINewTypography>
-                <UINewTypography variant="SubtitleSmallMedium" color="text.primary" lineHeight="125%">
+                <DateTimeBilling variant="SubtitleSmallMedium" color="text.primary">
                   05:28 PM, 12 Apr 2024
-                </UINewTypography>
+                </DateTimeBilling>
               </BillingUIContainer>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <UINewTypography variant="h6" color="text.secondary" lineHeight="125%">
+                <DollarBillingValue variant="h6" color="text.secondary">
                   $120.99
-                </UINewTypography>
+                </DollarBillingValue>
               </Box>
             </FirstTextContainer>
             <DividerContainer orientation="horizontal" flexItem />
@@ -47,14 +50,14 @@ const BillingHistory = () => {
                 <UINewTypography variant="buttonLargeMenu" color="error.300">
                   + 100 credits
                 </UINewTypography>
-                <UINewTypography variant="SubtitleSmallMedium" color="text.primary">
+                <DateTimeBilling variant="SubtitleSmallMedium" color="text.primary">
                   05:28 PM, 12 Apr 2024
-                </UINewTypography>
+                </DateTimeBilling>
               </BillingUIContainer>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <UINewTypography variant="h6" color="text.secondary">
+                <ViewDetailsBilling variant="h6" color="text.secondary">
                   View details
-                </UINewTypography>
+                </ViewDetailsBilling>
               </Box>
             </FirstTextContainer>
             <DividerContainer orientation="horizontal" flexItem />

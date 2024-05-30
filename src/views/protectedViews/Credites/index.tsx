@@ -6,8 +6,15 @@ import {
   BoxFirstTextContainer,
   BoxSecondTextContainer,
   BuyCreditsText,
+  CancelCreditValue,
+  CreditBestValue,
+  CreditBuyText,
+  CreditCardImage,
+  CreditCardText,
+  CreditMostPopular,
   CreditsMainContainer,
   CreditsSubContainer,
+  DollarCreditText,
   FirsTextMainContainer,
   FirsTextSubContainer,
   ImagMainContainer,
@@ -34,7 +41,7 @@ const Credits = () => {
                   Balance:
                 </UINewTypography>
                 <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
-                  <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
+                  <SecondSubContainerImgWorkerCard src="/images/workercards/coin-1.png" />
                   <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                     40
                   </UINewTypography>
@@ -49,114 +56,103 @@ const Credits = () => {
             <ImagSubContainer>
               <MainImagContainer src="/images/credits/credits-img-1.png" />
               <BoxFirstTextContainer>
-                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" sx={{ height: '16px' }} />
-                <UINewTypography variant="subtitle" color="text.secondary" sx={{ marginLeft: '6px' }}>
+                <CreditCardImage src="/images/workercards/coin-1.png" />
+                <CreditCardText variant="subtitle" color="text.secondary">
                   90 credits
-                </UINewTypography>
+                </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>
-                <UINewTypography variant="bodySmall" color="secondary.700" sx={{ display: 'flex', justifyContent: 'center' }}>
+                <CreditBuyText variant="bodySmall" color="secondary.700">
                   Buy Now at
-                </UINewTypography>
-                <UINewTypography color="text.secondary" sx={{ fontSize: '40px', fontWeight: 800, lineHeight: '48px' }}>
-                  $1.99
-                </UINewTypography>
+                </CreditBuyText>
+                <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
               </BoxSecondTextContainer>
             </ImagSubContainer>
 
             <ImagSubContainer>
               <MainImagContainer src="/images/credits/credits-img-2.png" />
               <BoxFirstTextContainer>
-                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" sx={{ height: '16px' }} />
-                <UINewTypography variant="subtitle" color="text.secondary" sx={{ marginLeft: '6px' }}>
+                <CreditCardImage src="/images/workercards/coin-1.png" />
+                <CreditCardText variant="subtitle" color="text.secondary">
                   90 credits
-                </UINewTypography>
+                </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>
-                <UINewTypography variant="bodySmall" color="secondary.700" sx={{ display: 'flex', justifyContent: 'center' }}>
+                <CreditBuyText variant="bodySmall" color="secondary.700">
                   Buy Now at
-                </UINewTypography>
-                <UINewTypography color="text.secondary" sx={{ fontSize: '40px', fontWeight: 800, lineHeight: '48px' }}>
-                  $1.99
-                </UINewTypography>
+                </CreditBuyText>
+                <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
               </BoxSecondTextContainer>
             </ImagSubContainer>
 
             <ImagSubContainer>
               <MainImagContainer src="/images/credits/credits-img-3.png" />
               <BoxFirstTextContainer>
-                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" sx={{ height: '16px' }} />
-                <UINewTypography variant="subtitle" color="text.secondary" sx={{ marginLeft: '6px' }}>
+                <CreditCardImage src="/images/workercards/coin-1.png" />
+                <CreditCardText variant="subtitle" color="text.secondary">
                   90 credits
-                </UINewTypography>
+                </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>
-                <UINewTypography variant="bodySmall" color="secondary.700" sx={{ display: 'flex', justifyContent: 'center' }}>
+                <CreditBuyText variant="bodySmall" color="secondary.700">
                   Buy Now at
-                </UINewTypography>
-                <UINewTypography color="text.secondary" sx={{ fontSize: '40px', fontWeight: 800, lineHeight: '48px' }}>
-                  $1.99
-                </UINewTypography>
+                </CreditBuyText>
+                <DollarCreditText color="text.secondary">$9.99</DollarCreditText>
+                <CancelCreditValue color="text.primary">$19.99</CancelCreditValue>
               </BoxSecondTextContainer>
               <TopTextContainer>
-                <UINewTypography color="text.secondary">Best Value</UINewTypography>
+                <CreditBestValue color="text.secondary">Best Value</CreditBestValue>
               </TopTextContainer>
             </ImagSubContainer>
 
             <ImagSubContainer>
               <MainImagContainer src="/images/credits/credits-img-4.png" />
               <BoxFirstTextContainer>
-                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" sx={{ height: '16px' }} />
-                <UINewTypography variant="subtitle" color="text.secondary" sx={{ marginLeft: '6px' }}>
+                <CreditCardImage src="/images/workercards/coin-1.png" />
+                <CreditCardText variant="subtitle" color="text.secondary">
                   90 credits
-                </UINewTypography>
+                </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>
-                <UINewTypography variant="bodySmall" color="secondary.700" sx={{ display: 'flex', justifyContent: 'center' }}>
+                <CreditBuyText variant="bodySmall" color="secondary.700">
                   Buy Now at
-                </UINewTypography>
-                <UINewTypography color="text.secondary" sx={{ fontSize: '40px', fontWeight: 800, lineHeight: '48px' }}>
-                  $1.99
-                </UINewTypography>
+                </CreditBuyText>
+                <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
               </BoxSecondTextContainer>
               <TopTextContainer>
-                <UINewTypography color="text.secondary">Most Popular</UINewTypography>
+                <CreditMostPopular color="text.secondary">Most Popular</CreditMostPopular>
               </TopTextContainer>
             </ImagSubContainer>
 
             <ImagSubContainer>
               <MainImagContainer src="/images/credits/credits-img-5.png" />
               <BoxFirstTextContainer>
-                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" sx={{ height: '16px' }} />
-                <UINewTypography variant="subtitle" color="text.secondary" sx={{ marginLeft: '6px' }}>
+                <CreditCardImage src="/images/workercards/coin-1.png" />
+                <CreditCardText variant="subtitle" color="text.secondary">
                   90 credits
-                </UINewTypography>
+                </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>
-                <UINewTypography variant="bodySmall" color="secondary.700" sx={{ display: 'flex', justifyContent: 'center' }}>
+                <CreditBuyText variant="bodySmall" color="secondary.700">
                   Buy Now at
-                </UINewTypography>
-                <UINewTypography color="text.secondary" sx={{ fontSize: '40px', fontWeight: 800, lineHeight: '48px' }}>
-                  $1.99
-                </UINewTypography>
+                </CreditBuyText>
+                <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
               </BoxSecondTextContainer>
             </ImagSubContainer>
 
             <ImagSubContainer>
               <MainImagContainer src="/images/credits/credits-img-6.png" />
               <BoxFirstTextContainer>
-                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" sx={{ height: '16px' }} />
-                <UINewTypography variant="subtitle" color="text.secondary" sx={{ marginLeft: '6px' }}>
+                <CreditCardImage src="/images/workercards/coin-1.png" />
+                <CreditCardText variant="subtitle" color="text.secondary">
                   90 credits
-                </UINewTypography>
+                </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>
-                <UINewTypography variant="bodySmall" color="secondary.700" sx={{ display: 'flex', justifyContent: 'center' }}>
+                <CreditBuyText variant="bodySmall" color="secondary.700">
                   Buy Now at
-                </UINewTypography>
-                <UINewTypography color="text.secondary" sx={{ fontSize: '40px', fontWeight: 800, lineHeight: '48px' }}>
-                  $1.99
-                </UINewTypography>
+                </CreditBuyText>
+                <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
               </BoxSecondTextContainer>
             </ImagSubContainer>
           </ImagMainContainer>

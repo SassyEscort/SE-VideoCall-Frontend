@@ -337,7 +337,7 @@ const VerificationBasicDetails = ({
                 }
               }}
             />
-            <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
+            <UINewTypography variant="SubtitleSmallRegular" color="secondary.700" fontWeight={500}>
               <FormattedMessage id="DOBCantChange" />
             </UINewTypography>
           </DateOfBirthMainContainer>
