@@ -14,6 +14,7 @@ import { PHOTO_TYPE } from 'constants/workerVerification';
 import { ErrorMessage } from 'constants/common.constants';
 import { FormattedMessage } from 'react-intl';
 import { useState } from 'react';
+import * as Yup from 'yup';
 
 export type WorkerPhotos = {
   id: number;
@@ -25,6 +26,7 @@ export type WorkerPhotos = {
   document_type: string;
   document_number: null;
   photo?: string;
+  photoURL?: string;
 };
 
 export type ImageUploadPayload = {
@@ -61,9 +63,10 @@ export type VerificationFormStep5TypeV2 = {
 export type VerificationStepUploadType = {
   workerPhotos: WorkerPhotos[];
   handleNext: () => void;
-  handlePrevVerificationStep: () => void;
+  handlePrevVerificationStep?: () => void;
   token: TokenIdType;
   handleModelApiChange: () => void;
+  isEdit: boolean;
 };
 
 export interface ImagePayload {
@@ -76,7 +79,14 @@ export type ThumbnailPayload = {
   model_photo_id: number;
 };
 
-const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, token, handleModelApiChange }: VerificationStepUploadType) => {
+const UploadImage = ({
+  workerPhotos,
+  handleNext,
+  handlePrevVerificationStep,
+  token,
+  handleModelApiChange,
+  isEdit
+}: VerificationStepUploadType) => {
   const [loading, setLoading] = useState(false);
 
   const initialValuesPerStep: VerificationFormStep5TypeV2 = {
@@ -88,6 +98,38 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
       : 'file5[0]',
     is_favourite: 'file5[0]'
   };
+
+  const validationSchema = Yup.object({
+    file5Existing: Yup.array().default([]),
+    file5: Yup.array()
+      .default([])
+      .when('file5Existing', (file5Existing, schema) => {
+        if (file5Existing[0] && file5Existing[0].length >= 2) {
+          return schema.notRequired();
+        }
+        return schema.test('file5-combined-length', function (value) {
+          const { file5Existing } = this.parent;
+          if (value && value.filter((x) => x !== null).length > 0) {
+            const firstFileIndex = value.findIndex((x) => x !== null);
+            const videoIndex = value.findIndex((file) => file && file.type === 'video/mp4');
+
+            if ((videoIndex > -1 && (firstFileIndex === -1 || videoIndex < firstFileIndex)) || videoIndex === 0) {
+              return this.createError({ message: 'Video cannot be uploaded for a thumbnail photo.', path: 'file5' });
+            }
+          }
+          0;
+
+          const filteredFile5 = (value || []).filter((x) => x !== null);
+          const combinedLength = file5Existing.length + filteredFile5.length;
+
+          if (combinedLength < 2 || combinedLength > 30) {
+            return this.createError({ message: 'Please upload between 2 to 30 photos', path: 'file5' });
+          }
+
+          return true;
+        });
+      })
+  });
 
   const handleSubmit = async (values: VerificationFormStep5TypeV2) => {
     setLoading(true);
@@ -132,7 +174,7 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
             .filter((x) => x !== null)
             .map((photo) => ({
               id: photo.id || 0,
-              link: photo.link,
+              link: photo.photoURL ? photo.photoURL : photo.link,
               type: 'file_5',
               cords: photo.cords,
               is_document: 0,
@@ -143,7 +185,6 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
         ];
 
         const uploadPhotos: ImageUploadPayload[] = [];
-
         if (uploadFile5)
           uploadFile5.forEach((x, i) => {
             if (x.photosURL !== null)
@@ -172,6 +213,7 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
         if (response.code === 200) {
           toast.success(response.message);
           handleNext();
+          handleModelApiChange();
         }
       }
     } catch (error) {
@@ -183,6 +225,7 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
 
   return (
     <Formik
+      validationSchema={validationSchema}
       enableReinitialize
       initialValues={initialValuesPerStep}
       onSubmit={(values) => {
@@ -193,6 +236,7 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
         <Box component="form" onSubmit={handleSubmit}>
           <Box>
             <ModelMultiplePhoto
+              isEdit={isEdit}
               handleModelApiChange={handleModelApiChange}
               token={token}
               values={values}
@@ -204,16 +248,32 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
             <UploadBox>
               <UploadMultipleBox>
                 <UIThemeButton variant="outlined" onClick={handlePrevVerificationStep}>
-                  <RiArrowLeftLine />
-                  <UINewTypography variant="body">
-                    <FormattedMessage id="Back" />
-                  </UINewTypography>
+                  {isEdit ? (
+                    <UINewTypography variant="body">
+                      <FormattedMessage id="CancelChanges" />
+                    </UINewTypography>
+                  ) : (
+                    <>
+                      <RiArrowLeftLine />
+                      <UINewTypography variant="body">
+                        <FormattedMessage id="Back" />
+                      </UINewTypography>
+                    </>
+                  )}
                 </UIThemeButton>
                 <StyleButtonV2 id="photos-button" type="submit" variant="contained" loading={loading}>
-                  <UINewTypography variant="body">
-                    <FormattedMessage id="Next" />
-                  </UINewTypography>
-                  <RiArrowRightLine />
+                  {isEdit ? (
+                    <UINewTypography variant="body">
+                      <FormattedMessage id="Save" />
+                    </UINewTypography>
+                  ) : (
+                    <>
+                      <UINewTypography variant="body">
+                        <FormattedMessage id="Next" />
+                      </UINewTypography>
+                      <RiArrowRightLine />
+                    </>
+                  )}
                 </StyleButtonV2>
               </UploadMultipleBox>
             </UploadBox>

@@ -34,13 +34,12 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
   const maindashboardTabIndex: { [key: string]: number } = {
     dashboard: 1,
     earnings: 2,
-    favourites: 3,
-    payouts: 4,
-    helpandinfo: 5,
-    logout: 6
+    payouts: 3,
+    'help-info': 4,
+    logout: 5
   };
 
-  const modifiedPath = router.split('/profile').join('').split('/').join('');
+  const modifiedPath = router.split('/model').join('').split('/').join('');
 
   const tabIndex = maindashboardTabIndex[modifiedPath] || 2;
 

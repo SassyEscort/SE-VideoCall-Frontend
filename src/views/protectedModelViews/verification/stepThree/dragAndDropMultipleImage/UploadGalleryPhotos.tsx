@@ -25,6 +25,7 @@ export type UploadFileControlType = {
 };
 
 const UploadGalleryPhotos = ({ setValue, name, accept, values, handleUploadPhotos, errors, touched }: UploadFileControlType) => {
+  const fileNullError = errors.file5?.startsWith('file5');
   const [uploadedFiles, setUploadedFiles] = useState<VerificationFormStep5TypeV2>();
 
   const dropAreaId = useMemo(() => name + '_dropable', [name]);
@@ -165,9 +166,9 @@ const UploadGalleryPhotos = ({ setValue, name, accept, values, handleUploadPhoto
           </>
         </DragAndDropImageNoImageBox>
       </DragAndDropImageMainContainer>
-      {errors && touched && errors.file5 && (
+      {errors && touched.file5 && errors.file5 && (
         <UINewTypography variant="bodySmall" color={'error.main'}>
-          <FormattedMessage id="PleaseUpload" />
+          {fileNullError ? <FormattedMessage id="PleaseUpload" /> : errors.file5}
         </UINewTypography>
       )}
     </Box>

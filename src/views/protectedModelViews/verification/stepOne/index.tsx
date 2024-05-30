@@ -20,11 +20,15 @@ import { ErrorMessage } from 'constants/common.constants';
 const VerificationStepOne = ({
   handleNext,
   modelDetails,
-  token
+  token,
+  isEdit,
+  handleModelApiChange
 }: {
   handleNext: () => void;
   modelDetails: ModelDetailsResponse;
   token: TokenIdType;
+  isEdit: boolean;
+  handleModelApiChange: () => void;
 }) => {
   const initialValuesPerStep: VerificationStep1Type = {
     id: token.id,
@@ -73,6 +77,7 @@ const VerificationStepOne = ({
           const response = await ModelVerificationService.verificationStepOne(values, token.token);
           if (response.data) {
             handleNext();
+            handleModelApiChange();
           } else {
             toast.error(response.message);
           }
@@ -93,6 +98,7 @@ const VerificationStepOne = ({
           }}
         >
           <VerificationBasicDetails
+            isEdit={isEdit}
             token={token}
             values={values}
             errors={errors}
