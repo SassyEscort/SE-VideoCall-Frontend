@@ -47,8 +47,8 @@ export default function UINewRadioButtonsGroup({ label, options, defaultValue, o
                 checkedIcon={<CheckCircle />}
                 sx={{
                   color: option.id == defaultValue ? 'primary.400' : 'secondary.200',
-                  width: '24px',
-                  height: '24px'
+                  width: '20px',
+                  height: '20px'
                 }}
               />
             }
