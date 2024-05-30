@@ -1,23 +1,35 @@
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Box from '@mui/material/Box';
-import CountryFilter from 'views/guestViews/searchPage/searchFilters/CountryFilter';
-import AgeFilter from 'views/guestViews/searchPage/searchFilters/AgeFilter';
-import CurrentlyOnline from 'views/guestViews/searchPage/searchFilters/CurrentlyOnline';
-import NewArrivals from 'views/guestViews/searchPage/searchFilters/NewArrivals';
+
 import HomeImageCard from 'views/guestViews/homePage/homeImageCards';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { HomeExploreBox, SubTitle } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
-import { ExploreEscortText } from './Escort.styled';
+import {
+  DetailsChildTypographyBox,
+  ExploreEscortText,
+  FirstBoxContainer,
+  SearchMainContainer,
+  SearchSubContainer,
+  SecondBoxContainer,
+  ThirdBoxContainer
+} from './Escort.styled';
+import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
+
+import NewArrivals from 'views/guestViews/searchPage/searchFilters/NewArrivals';
+import CurrentlyOnline from 'views/guestViews/searchPage/searchFilters/CurrentlyOnline';
+import CountryFilter from 'views/guestViews/searchPage/searchFilters/CountryFilter';
+import AgeFilter from 'views/guestViews/searchPage/searchFilters/AgeFilter';
+import Price from 'views/guestViews/searchPage/searchFilters/Price';
 
 const EscortExplore = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const isSm = useMediaQuery(theme.breakpoints.down(330));
+  const isMobile = useMediaQuery('(max-width:600px)');
   return (
     <>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, mt: isSmDown ? 12 : 15 }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+      <DetailsChildTypographyBox sx={{ gap: 4.25, mt: isSmDown ? 12 : 15 }}>
+        <DetailsChildTypographyBox sx={{ gap: 7 }}>
           <ExploreEscortText>
             <HomeExploreBox>
               <UINewTypography
@@ -32,23 +44,29 @@ const EscortExplore = () => {
               </SubTitle>
             </HomeExploreBox>
           </ExploreEscortText>
-          <Box sx={{ width: '100%', maxWidth: '711px' }}>
-            <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} gap={{ xs: 1.5, sm: 4 }}>
-              <Box display="flex" gap={{ xs: 1.5, sm: 4 }} width="100%" maxWidth={{ xs: '267px', sm: '305px' }}>
-                <CountryFilter />
-                <AgeFilter />
-              </Box>
-              <Box display="flex" gap={{ xs: 1.5, sm: 4 }} width="100%" flexWrap={isSm ? 'wrap' : 'nowrap'}>
-                <CurrentlyOnline />
-                <NewArrivals />
-              </Box>
-            </Box>
-          </Box>
-        </Box>
+          <HomeMainContainer>
+            <SearchMainContainer>
+              <SearchSubContainer>
+                <FirstBoxContainer>
+                  <NewArrivals />
+                  {isMobile && <CurrentlyOnline />}
+                </FirstBoxContainer>
+                <SecondBoxContainer>
+                  <CountryFilter />
+                </SecondBoxContainer>
+                <ThirdBoxContainer>
+                  <AgeFilter />
+                  <Price />
+                  {!isMobile && <CurrentlyOnline />}
+                </ThirdBoxContainer>
+              </SearchSubContainer>
+            </SearchMainContainer>
+          </HomeMainContainer>
+        </DetailsChildTypographyBox>
         <Box>
           <HomeImageCard />
         </Box>
-      </Box>
+      </DetailsChildTypographyBox>
     </>
   );
 };

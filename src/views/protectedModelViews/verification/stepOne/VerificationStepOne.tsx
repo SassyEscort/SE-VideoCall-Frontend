@@ -351,7 +351,7 @@ const VerificationBasicDetails = ({
             </UINewTypography>
             <FormControl fullWidth>
               <UIStyledSelectItemContainer
-                sx={{ '&.MuiInputBase-root': { backgroundColor: 'secondary.500' } }}
+                sx={{ '&.MuiInputBase-root': { backgroundColor: 'secondary.500' }, height: '50px' }}
                 name="nationality_id"
                 onChange={handleChange}
                 value={values.nationality_id}

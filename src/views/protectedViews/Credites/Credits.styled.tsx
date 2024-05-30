@@ -141,7 +141,8 @@ export const CreditCardImage = styled('img')(() => ({
 export const DollarCreditText = styled(UINewTypography)(({ theme }) => ({
   fontSize: '40px',
   fontWeight: 800,
-  lineHeight: '48px'
+  lineHeight: '48px',
+  marginTop: 0.5
 }));
 
 export const CreditBuyText = styled(UINewTypography)(({ theme }) => ({
