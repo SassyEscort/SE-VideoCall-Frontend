@@ -230,5 +230,7 @@
   "BankName": "Bank Name",
   "AccountName": "Account Name",
   "IBANNumber": "IBAN Number",
-  "YourPaymentMethods": "Your Payment Methods"
+  "YourPaymentMethods": "Your Payment Methods",
+  "SiliconValleyBank": "Silicon Valley Bank",
+  "AddMoreBanks": "Add more banks"
 }
