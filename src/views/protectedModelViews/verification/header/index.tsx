@@ -25,7 +25,6 @@ const VerificationHeader = ({ activeStep }: { activeStep: number }) => {
           <Box display="flex" alignItems="center" justifyContent="center">
             <UIThemeButton
               sx={{
-                gap: 1.5,
                 pr: 1,
                 pl: '15px'
               }}
@@ -52,7 +51,6 @@ const VerificationHeader = ({ activeStep }: { activeStep: number }) => {
           <Box display="flex" gap={1.5} alignItems="center">
             <UIThemeButton
               sx={{
-                gap: 1.5,
                 pl: 1,
                 pr: 1.75,
                 '&.Mui-disabled': {
