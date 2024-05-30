@@ -16,6 +16,7 @@ import { TokenIdType } from '..';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { ErrorMessage } from 'constants/common.constants';
+import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
 
 const VerificationStepOne = ({
   handleNext,
@@ -66,6 +67,18 @@ const VerificationStepOne = ({
       .max(1000, 'Bio should be atmost 1000 characters')
   });
 
+  const verifyEmail = async () => {
+    const url = new URL(window.location.href);
+    const email = url.searchParams.get('email');
+    const verificationCode = url.searchParams.get('code');
+
+    const payload = {
+      email: String(email),
+      verification_code: String(verificationCode)
+    };
+    await VerificationStepService.modelVerifyEmail(payload, token.token);
+  };
+
   return (
     <Formik
       enableReinitialize
@@ -75,6 +88,10 @@ const VerificationStepOne = ({
         try {
           setLoading(true);
           const response = await ModelVerificationService.verificationStepOne(values, token.token);
+          const url = new URL(window.location.href);
+          if (url.searchParams.get('email')) {
+            verifyEmail();
+          }
           if (response.data) {
             handleNext();
             handleModelApiChange();
