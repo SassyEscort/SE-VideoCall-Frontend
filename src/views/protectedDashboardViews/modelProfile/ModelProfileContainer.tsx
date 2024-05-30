@@ -68,7 +68,13 @@ const ModelProfileContainer = ({
           handleNext={handleSave}
         />
       ) : menuId === 1 ? (
-        <VerificationStepOne isEdit={true} modelDetails={modelDetails} token={token} handleNext={handleSaveDetails} />
+        <VerificationStepOne
+          isEdit={true}
+          modelDetails={modelDetails}
+          token={token}
+          handleNext={handleSaveDetails}
+          handleModelApiChange={handleModelApiChange}
+        />
       ) : (
         <DashboardPriceView token={token} />
       )}
