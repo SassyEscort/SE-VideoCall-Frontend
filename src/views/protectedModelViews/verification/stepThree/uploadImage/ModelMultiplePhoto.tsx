@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import { FormikErrors, FormikTouched } from 'formik';
-import { useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import theme from 'themes/theme';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -8,9 +8,18 @@ import { VideoAcceptType } from 'constants/workerVerification';
 import PhotoItem from './PhotoItem';
 import UploadGalleryPhotos from '../dragAndDropMultipleImage/UploadGalleryPhotos';
 import { VerificationFormStep5TypeV2, WorkerPhotos } from '.';
-import { GalleryMainContainer, ModelMultiplePhotoItem, UploadItem, UploadMultipleContainer } from './UploadMultiplePhoto.styled';
+import {
+  GalleryMainContainer,
+  ModelMultiplePhotoItem,
+  UploadItem,
+  UploadMultipleBox,
+  UploadMultipleContainer
+} from './UploadMultiplePhoto.styled';
 import { FormattedMessage } from 'react-intl';
 import { TokenIdType } from '../..';
+import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
+import { RiArrowLeftLine } from 'components/common/customRemixIcons';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 
 export type UploadMultiplePhotos = {
   errors: FormikErrors<VerificationFormStep5TypeV2>;
@@ -25,6 +34,7 @@ export type UploadMultiplePhotos = {
   isEdit?: boolean;
   token: TokenIdType;
   handleModelApiChange: () => void;
+  loading: boolean;
 };
 export type UploadPhotos = {
   id?: number;
@@ -43,7 +53,8 @@ const ModelMultiplePhoto = ({
   workerPhotos,
   token,
   handleModelApiChange,
-  isEdit
+  isEdit,
+  loading
 }: UploadMultiplePhotos) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const height = isSmUp ? 193 : 210;
@@ -187,75 +198,104 @@ const ModelMultiplePhoto = ({
     setThumbnailImageId(workerPhotos.filter((x) => x.favourite === 1)[0]?.id);
   }, [workerPhotos]);
 
-  return (
-    <UploadMultipleContainer>
-      {!isEdit ? (
-        <Box paddingBottom={4} pt={4}>
-          <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
-            <FormattedMessage id="UploadPhotos" />
-          </UINewTypography>
-          <UINewTypography marginTop={1.5} display="flex" justifyContent="center" lineHeight="160%">
-            <FormattedMessage id="UploadHighQualilty" />
-          </UINewTypography>
-        </Box>
-      ) : (
-        <Box paddingBottom={4}>
-          <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
-            <FormattedMessage id="ModifyPhotos" />
-          </UINewTypography>
-        </Box>
-      )}
-      <ModelMultiplePhotoItem>
-        <UploadItem>
-          <UINewTypography variant="h6" color="text.secondary">
-            <FormattedMessage id="UploadPics" />
-          </UINewTypography>
-          <UINewTypography variant="SubtitleSmallRegular">
-            <FormattedMessage id="UploadPicDesc" />
-          </UINewTypography>
-        </UploadItem>
+  const handleCancel = () => {
+    setUploadedImagesURL([]);
+  };
 
-        <GalleryMainContainer>
-          <UploadGalleryPhotos
-            errors={errors}
-            touched={touched}
-            name="file"
-            setValue={setValue}
-            accept="image/*,video/mp4,video/MP4,video/WebM,video/quicktime,video/avi"
-            values={values}
-            handleUploadPhotos={handleUploadPhotos}
-          />
-          <UINewTypography variant="h6">
-            <FormattedMessage id="Gallery" />
-          </UINewTypography>
-          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-            {[...existingPhotos, ...uploadedImagesURL]?.map((photo, index) => {
-              return (
-                <PhotoItem
-                  handleModelApiChange={handleModelApiChange}
-                  values={values}
-                  key={index}
-                  token={token}
-                  image={photo}
-                  isEdit={false}
-                  isFeaturePhoto={false}
-                  thumbnailImageId={thumbnailImageId}
-                  height={height}
-                  width={width}
-                  setValue={setValue}
-                  removeImage={removeImage}
-                  handleChangeFile5Cords={handleChangeFile5Cords}
-                  handleClickThumbnailImageId={handleClickThumbnailImageId}
-                  handleBlobThumbnail={handleBlobThumbnail}
-                  index={index}
-                />
-              );
-            })}
+  return (
+    <>
+      <UploadMultipleContainer>
+        {!isEdit ? (
+          <Box paddingBottom={4} pt={4}>
+            <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
+              <FormattedMessage id="UploadPhotos" />
+            </UINewTypography>
+            <UINewTypography marginTop={1.5} display="flex" justifyContent="center" lineHeight="160%">
+              <FormattedMessage id="UploadHighQualilty" />
+            </UINewTypography>
           </Box>
-        </GalleryMainContainer>
-      </ModelMultiplePhotoItem>
-    </UploadMultipleContainer>
+        ) : (
+          <Box paddingBottom={4}>
+            <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
+              <FormattedMessage id="ModifyPhotos" />
+            </UINewTypography>
+          </Box>
+        )}
+        <ModelMultiplePhotoItem>
+          <UploadItem>
+            <UINewTypography variant="h6" color="text.secondary">
+              <FormattedMessage id="UploadPics" />
+            </UINewTypography>
+            <UINewTypography variant="SubtitleSmallRegular">
+              <FormattedMessage id="UploadPicDesc" />
+            </UINewTypography>
+          </UploadItem>
+
+          <GalleryMainContainer>
+            <UploadGalleryPhotos
+              errors={errors}
+              touched={touched}
+              name="file"
+              setValue={setValue}
+              accept="image/*,video/mp4,video/MP4,video/WebM,video/quicktime,video/avi"
+              values={values}
+              handleUploadPhotos={handleUploadPhotos}
+            />
+            <UINewTypography variant="h6">
+              <FormattedMessage id="Gallery" />
+            </UINewTypography>
+            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+              {[...existingPhotos, ...uploadedImagesURL]?.map((photo, index) => {
+                return (
+                  <PhotoItem
+                    handleModelApiChange={handleModelApiChange}
+                    values={values}
+                    key={index}
+                    token={token}
+                    image={photo}
+                    isEdit={false}
+                    isFeaturePhoto={false}
+                    thumbnailImageId={thumbnailImageId}
+                    height={height}
+                    width={width}
+                    setValue={setValue}
+                    removeImage={removeImage}
+                    handleChangeFile5Cords={handleChangeFile5Cords}
+                    handleClickThumbnailImageId={handleClickThumbnailImageId}
+                    handleBlobThumbnail={handleBlobThumbnail}
+                    index={index}
+                  />
+                );
+              })}
+            </Box>
+          </GalleryMainContainer>
+        </ModelMultiplePhotoItem>
+      </UploadMultipleContainer>
+      <UploadMultipleBox pt={12}>
+        <UIThemeButton
+          onClick={handleCancel}
+          disabled={(values.file5 === null || uploadedImagesURL.length === 0) && isEdit ? true : false}
+          variant={(values.file5 === null || uploadedImagesURL.length === 0) && isEdit ? 'contained' : 'outlined'}
+        >
+          <RiArrowLeftLine />
+          <UINewTypography variant="body">
+            <FormattedMessage id="CancelChanges" />
+          </UINewTypography>
+        </UIThemeButton>
+        <StyleButtonV2
+          id="photos-button"
+          type="submit"
+          variant="contained"
+          loading={loading}
+          disabled={(values.file5 === null || uploadedImagesURL.length === 0) && isEdit ? true : false}
+        >
+          <UINewTypography variant="body">
+            <FormattedMessage id="Save" />
+          </UINewTypography>
+        </StyleButtonV2>
+      </UploadMultipleBox>
+    </>
   );
 };
 
-export default ModelMultiplePhoto;
+export default memo(ModelMultiplePhoto);

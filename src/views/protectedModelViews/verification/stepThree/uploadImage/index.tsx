@@ -236,6 +236,7 @@ const UploadImage = ({
         <Box component="form" onSubmit={handleSubmit}>
           <Box>
             <ModelMultiplePhoto
+              loading={loading}
               isEdit={isEdit}
               handleModelApiChange={handleModelApiChange}
               token={token}
@@ -247,33 +248,28 @@ const UploadImage = ({
             />
             <UploadBox>
               <UploadMultipleBox>
-                <UIThemeButton variant="outlined" onClick={handlePrevVerificationStep}>
-                  {isEdit ? (
-                    <UINewTypography variant="body">
-                      <FormattedMessage id="CancelChanges" />
-                    </UINewTypography>
-                  ) : (
-                    <>
-                      <RiArrowLeftLine />
-                      <UINewTypography variant="body">
-                        <FormattedMessage id="Back" />
-                      </UINewTypography>
-                    </>
-                  )}
+                <UIThemeButton
+                  sx={{ visibility: isEdit ? 'hidden' : 'visible' }}
+                  disabled={values.file5 === null && isEdit ? true : false}
+                  variant={values.file5 === null && isEdit ? 'contained' : 'outlined'}
+                >
+                  <RiArrowLeftLine />
+                  <UINewTypography variant="body">
+                    <FormattedMessage id="Back" />
+                  </UINewTypography>
                 </UIThemeButton>
-                <StyleButtonV2 id="photos-button" type="submit" variant="contained" loading={loading}>
-                  {isEdit ? (
-                    <UINewTypography variant="body">
-                      <FormattedMessage id="Save" />
-                    </UINewTypography>
-                  ) : (
-                    <>
-                      <UINewTypography variant="body">
-                        <FormattedMessage id="Next" />
-                      </UINewTypography>
-                      <RiArrowRightLine />
-                    </>
-                  )}
+                <StyleButtonV2
+                  sx={{ visibility: isEdit ? 'hidden' : 'visible' }}
+                  id="photos-button"
+                  type="submit"
+                  variant="contained"
+                  loading={loading}
+                  disabled={values.file5 === null && isEdit ? true : false}
+                >
+                  <UINewTypography variant="body">
+                    <FormattedMessage id="Next" />
+                  </UINewTypography>
+                  <RiArrowRightLine />
                 </StyleButtonV2>
               </UploadMultipleBox>
             </UploadBox>
