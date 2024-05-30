@@ -5,7 +5,8 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const SiderBarMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  paddingTop: theme.spacing(4)
+  paddingTop: theme.spacing(4),
+  width: '100%'
 }));
 
 export const SiderBarFirstBox = styled(Box)(({ theme }) => ({

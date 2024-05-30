@@ -2,7 +2,6 @@ import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React from 'react';
 import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
-import { Divider } from '@mui/material';
 import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
 import {
   SiderBarCircaleBox,
@@ -16,8 +15,8 @@ import {
 
 const SideMenu = () => {
   return (
-    <SiderBarMainContainer>
-      <HomeMainModelContainer>
+    <HomeMainModelContainer>
+      <SiderBarMainContainer>
         <SiderBarFirstBox>
           <SiderBarFirstBox>
             <Box sx={{ display: 'flex', gap: 2 }}>
@@ -52,11 +51,10 @@ const SideMenu = () => {
                 </Box>
               </SiderBarSecondTextBox>
             </Box>
-            <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
           </SiderBarFirstBox>
         </SiderBarFirstBox>
-      </HomeMainModelContainer>
-    </SiderBarMainContainer>
+      </SiderBarMainContainer>
+    </HomeMainModelContainer>
   );
 };
 
