@@ -1,5 +1,4 @@
 import { Box, useMediaQuery } from '@mui/material';
-import React from 'react';
 import {
   DetailSubTypographyBox,
   DetailsChildBox,
@@ -15,8 +14,9 @@ import UINewChip from 'components/UIComponents/UINewChip';
 import theme from 'themes/theme';
 import { UINewTooltip } from 'components/UIComponents/UINewTooltip/UINewTooltip.styled';
 import { FormattedMessage } from 'react-intl';
+import { GuestDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
-const EscortPersonalDetail = () => {
+const EscortPersonalDetail = ({ guestData }: { guestData: GuestDetailsResponse }) => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
@@ -38,7 +38,7 @@ const EscortPersonalDetail = () => {
                   color="#E9E8EB"
                   sx={{ fontSize: { xs: '32px', sm: '40px' }, lineHeight: { xs: '43.2px', sm: '54px' } }}
                 >
-                  <FormattedMessage id="LexiLane" />
+                  {guestData?.data?.name}
                 </UINewTypography>
                 <UINewTypography variant="SubtitleSmallMedium" sx={{ fontSize: '14px', lineHeight: '19.6px' }}>
                   <FormattedMessage id="LastActive" />

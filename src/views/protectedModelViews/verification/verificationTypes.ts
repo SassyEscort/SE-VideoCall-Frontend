@@ -37,6 +37,10 @@ export type ModelDetailsResponse = {
   verification_step: string;
 };
 
+export type GuestDetailsResponse = {
+  data: ModelDetailsResponse;
+};
+
 export interface DocumentDataPhoto {
   cords: string;
   document_number: string;
