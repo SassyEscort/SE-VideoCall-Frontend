@@ -199,8 +199,8 @@ const ModelMultiplePhoto = ({
           </UINewTypography>
         </Box>
       ) : (
-        <Box paddingBottom={4}>
-          <UINewTypography variant="h3" sx={{ color: 'text.secondary', mt: 3.875 }}>
+        <Box paddingBottom={4} mt={3.875}>
+          <UINewTypography variant="h3" sx={{ color: 'text.secondary' }}>
             <FormattedMessage id="ModifyPhotos" />
           </UINewTypography>
         </Box>
