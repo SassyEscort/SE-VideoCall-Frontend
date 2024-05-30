@@ -67,9 +67,11 @@ const VerificationStepPromise = ({
     photoWithoutFilter: Yup.mixed()
       .required('Please upload your document')
       .test('fileSize', 'File size is too large', (value) => {
+        if (typeof value === 'string') return true;
         return value && (value as File).size <= MAX_FILE_SIZE;
       })
       .test('fileFormat', 'Unsupported Format', (value) => {
+        if (typeof value === 'string') return true;
         return value && SUPPORTED_FORMATS.includes((value as File).type);
       })
   });
