@@ -25,6 +25,7 @@ import {
   TopTextContainer
 } from './Credits.styled';
 import MainLayoutNav from '../protectedLayout';
+import { FormattedMessage } from 'react-intl';
 
 const Credits = () => {
   return (
@@ -34,22 +35,24 @@ const Credits = () => {
           <TextMainContainer>
             <FirsTextMainContainer>
               <UINewTypography variant="h2" color="text.secondary">
-                Credit
+                <FormattedMessage id="Credit" />
               </UINewTypography>
               <FirsTextSubContainer>
                 <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                  Balance:
+                  <FormattedMessage id="Balance" />
                 </UINewTypography>
                 <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
                   <SecondSubContainerImgWorkerCard src="/images/workercards/coin-1.png" />
                   <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                    40
+                    <FormattedMessage id="40" />
                   </UINewTypography>
                 </Box>
               </FirsTextSubContainer>
             </FirsTextMainContainer>
             <SecondTextSubContainer>
-              <BuyCreditsText>Buy Credits and have non stop video calls with your favourite models.</BuyCreditsText>
+              <BuyCreditsText>
+                <FormattedMessage id="BuyCredits" />
+              </BuyCreditsText>
             </SecondTextSubContainer>
           </TextMainContainer>
           <ImagMainContainer>
@@ -58,12 +61,12 @@ const Credits = () => {
               <BoxFirstTextContainer>
                 <CreditCardImage src="/images/workercards/coin-1.png" />
                 <CreditCardText variant="subtitle" color="text.secondary">
-                  90 credits
+                  <FormattedMessage id="90Credits" />
                 </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>
                 <CreditBuyText variant="bodySmall" color="secondary.700">
-                  Buy Now at
+                  <FormattedMessage id="BuyNowAt" />
                 </CreditBuyText>
                 <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
               </BoxSecondTextContainer>
@@ -74,12 +77,12 @@ const Credits = () => {
               <BoxFirstTextContainer>
                 <CreditCardImage src="/images/workercards/coin-1.png" />
                 <CreditCardText variant="subtitle" color="text.secondary">
-                  90 credits
+                  <FormattedMessage id="90Credits" />
                 </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>
                 <CreditBuyText variant="bodySmall" color="secondary.700">
-                  Buy Now at
+                  <FormattedMessage id="BuyNowAt" />
                 </CreditBuyText>
                 <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
               </BoxSecondTextContainer>
@@ -90,18 +93,20 @@ const Credits = () => {
               <BoxFirstTextContainer>
                 <CreditCardImage src="/images/workercards/coin-1.png" />
                 <CreditCardText variant="subtitle" color="text.secondary">
-                  90 credits
+                  <FormattedMessage id="90Credits" />
                 </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>
                 <CreditBuyText variant="bodySmall" color="secondary.700">
-                  Buy Now at
+                  <FormattedMessage id="BuyNowAt" />
                 </CreditBuyText>
                 <DollarCreditText color="text.secondary">$9.99</DollarCreditText>
                 <CancelCreditValue color="text.primary">$19.99</CancelCreditValue>
               </BoxSecondTextContainer>
               <TopTextContainer>
-                <CreditBestValue color="text.secondary">Best Value</CreditBestValue>
+                <CreditBestValue color="text.secondary">
+                  <FormattedMessage id="BestValue" />
+                </CreditBestValue>
               </TopTextContainer>
             </ImagSubContainer>
 
@@ -110,17 +115,19 @@ const Credits = () => {
               <BoxFirstTextContainer>
                 <CreditCardImage src="/images/workercards/coin-1.png" />
                 <CreditCardText variant="subtitle" color="text.secondary">
-                  90 credits
+                  <FormattedMessage id="90Credits" />
                 </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>
                 <CreditBuyText variant="bodySmall" color="secondary.700">
-                  Buy Now at
+                  <FormattedMessage id="BuyNowAt" />
                 </CreditBuyText>
                 <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
               </BoxSecondTextContainer>
               <TopTextContainer>
-                <CreditMostPopular color="text.secondary">Most Popular</CreditMostPopular>
+                <CreditMostPopular color="text.secondary">
+                  <FormattedMessage id="MostPopular" />
+                </CreditMostPopular>
               </TopTextContainer>
             </ImagSubContainer>
 
@@ -129,12 +136,12 @@ const Credits = () => {
               <BoxFirstTextContainer>
                 <CreditCardImage src="/images/workercards/coin-1.png" />
                 <CreditCardText variant="subtitle" color="text.secondary">
-                  90 credits
+                  <FormattedMessage id="90Credits" />
                 </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>
                 <CreditBuyText variant="bodySmall" color="secondary.700">
-                  Buy Now at
+                  <FormattedMessage id="BuyNowAt" />
                 </CreditBuyText>
                 <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
               </BoxSecondTextContainer>
@@ -145,12 +152,12 @@ const Credits = () => {
               <BoxFirstTextContainer>
                 <CreditCardImage src="/images/workercards/coin-1.png" />
                 <CreditCardText variant="subtitle" color="text.secondary">
-                  90 credits
+                  <FormattedMessage id="90Credits" />
                 </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>
                 <CreditBuyText variant="bodySmall" color="secondary.700">
-                  Buy Now at
+                  <FormattedMessage id="BuyNowAt" />
                 </CreditBuyText>
                 <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
               </BoxSecondTextContainer>
