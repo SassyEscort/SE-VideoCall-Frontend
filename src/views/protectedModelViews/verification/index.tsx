@@ -187,6 +187,7 @@ const VerificationContainer = () => {
       )}
       {activeStep === 0 && (
         <VerificationStepOne
+          isEdit={false}
           token={token}
           handleNext={handleNext}
           modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
@@ -206,6 +207,7 @@ const VerificationContainer = () => {
       )}
       {activeStep === 3 && (
         <UploadImage
+          isEdit={false}
           workerPhotos={modelDetails?.photos ?? []}
           token={token}
           handleModelApiChange={handleModelApiChange}

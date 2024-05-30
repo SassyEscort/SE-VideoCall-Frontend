@@ -73,7 +73,7 @@ const WorkerCard = () => {
               </SecondSubContainerWorkerCard>
             </SecondMainContainerWorkerCard>
             {isMobile && (
-              <CreditContainer sx={{ marginTop: isSmallScreen ? 3 : 1 }}>
+              <CreditContainer sx={{ marginTop: isSmallScreen ? 2.5 : 1 }}>
                 <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
                 <UINewTypography variant="captionLargeBold" color="#E9E8EB">
                   20 credits/hr

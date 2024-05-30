@@ -29,10 +29,10 @@ const PayoutPaymentConatiner = () => {
         <MainThreeBox>
           <MainForBox>
             <SmallAndBigScreen>
-              <Box component={'img'} src="/images/payout/home.png" sx={{ width: 48, height: 48, color: 'text.secondary' }} />
+              <Box component={'img'} src="/images/payout/home.png" sx={{ width: '38px', height: '42px', color: 'text.secondary' }} />
               <IamgeBigScreenNone>
                 <SmallScreenImg>
-                  <Box component={'img'} src="/images/payout/edit.webp" sx={{ width: '24px', height: '24px' }} />
+                  <Box component={'img'} src="/images/payout/edit.webp" sx={{ width: '18px', height: '18px' }} />
                   <Box component={'img'} src="/images/payout/delete.webp" sx={{ width: '16px', height: '18px' }} />
                 </SmallScreenImg>
               </IamgeBigScreenNone>
@@ -47,7 +47,7 @@ const PayoutPaymentConatiner = () => {
                 </UINewTypography>
               </SiliconFristBox>
               <DeleteEditBox>
-                <Box component={'img'} src="/images/payout/edit.webp" sx={{ width: '24px', height: '24px' }} />
+                <Box component={'img'} src="/images/payout/edit.webp" sx={{ width: '18px', height: '18px' }} />
                 <Box component={'img'} src="/images/payout/delete.webp" sx={{ width: '16px', height: '18px' }} />
               </DeleteEditBox>
             </SiliconBox>
