@@ -21,11 +21,13 @@ const VerificationStepOne = ({
   handleNext,
   modelDetails,
   token,
+  isEdit,
   handleModelApiChange
 }: {
   handleNext: () => void;
   modelDetails: ModelDetailsResponse;
   token: TokenIdType;
+  isEdit: boolean;
   handleModelApiChange: () => void;
 }) => {
   const initialValuesPerStep: VerificationStep1Type = {
@@ -96,6 +98,7 @@ const VerificationStepOne = ({
           }}
         >
           <VerificationBasicDetails
+            isEdit={isEdit}
             token={token}
             values={values}
             errors={errors}

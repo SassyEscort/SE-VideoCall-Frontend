@@ -222,6 +222,10 @@
   "Profile": "Profile",
   "ProfileDetails": "Profile Details",
   "Prices": "Prices",
+  "RequestPayout":"Request Payout",
+  "PaymentMethods":"Payment Methods",
+  "PayoutHistory":"Payout History",
+  "ModifyPhotos":"Upload or Modify your photos",
   "PrivacyStatement": "Privacy statement",
   "CookieStatement": "Cookie statement",
   "TermsConditions": "Terms and conditions",
@@ -234,5 +238,8 @@
   "BankName": "Bank Name",
   "AccountName": "Account Name",
   "IBANNumber": "IBAN Number",
-  "YourPaymentMethods": "Your Payment Methods"
+  "YourPaymentMethods": "Your Payment Methods",
+  "HowHelp":"How we can help you?",
+  "CallOn":"Call on",
+  "BasicRules":"Basic Rules"
 }

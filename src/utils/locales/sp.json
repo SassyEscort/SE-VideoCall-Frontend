@@ -225,6 +225,10 @@
   "TermsConditions": "Términos y condiciones",
   "Signup": "Inscribirse",
   "Dashboard": "Panel",
+  "RequestPayout": "Solicitar Pago",
+  "PaymentMethods": "Métodos de Pago",
+  "PayoutHistory": "Historial de Pagos",
+  "ModifyPhotos": "Subir o Modificar tus fotos",
   "DataRange": "Rango de datos",
   "AmountRange": "Rango de cantidad",
   "EarningsHistory": "Historial de ganancias",
@@ -234,5 +238,8 @@
   "BankName": "Nombre del Banco",
   "AccountName": "Nombre de la Cuenta",
   "IBANNumber": "Número IBAN",
-  "YourPaymentMethods": "Sus Métodos de Pago"
+  "YourPaymentMethods": "Sus Métodos de Pago",
+  "HowHelp": "¿Cómo podemos ayudarte?",
+  "CallOn": "Llamar a",
+  "BasicRules": "Reglas Básicas"
 }

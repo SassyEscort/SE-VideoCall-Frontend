@@ -63,9 +63,10 @@ export type VerificationFormStep5TypeV2 = {
 export type VerificationStepUploadType = {
   workerPhotos: WorkerPhotos[];
   handleNext: () => void;
-  handlePrevVerificationStep: () => void;
+  handlePrevVerificationStep?: () => void;
   token: TokenIdType;
   handleModelApiChange: () => void;
+  isEdit: boolean;
 };
 
 export interface ImagePayload {
@@ -78,7 +79,14 @@ export type ThumbnailPayload = {
   model_photo_id: number;
 };
 
-const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, token, handleModelApiChange }: VerificationStepUploadType) => {
+const UploadImage = ({
+  workerPhotos,
+  handleNext,
+  handlePrevVerificationStep,
+  token,
+  handleModelApiChange,
+  isEdit
+}: VerificationStepUploadType) => {
   const [loading, setLoading] = useState(false);
 
   const initialValuesPerStep: VerificationFormStep5TypeV2 = {
@@ -228,6 +236,7 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
         <Box component="form" onSubmit={handleSubmit}>
           <Box>
             <ModelMultiplePhoto
+              isEdit={isEdit}
               handleModelApiChange={handleModelApiChange}
               token={token}
               values={values}
@@ -239,16 +248,32 @@ const UploadImage = ({ workerPhotos, handleNext, handlePrevVerificationStep, tok
             <UploadBox>
               <UploadMultipleBox>
                 <UIThemeButton variant="outlined" onClick={handlePrevVerificationStep}>
-                  <RiArrowLeftLine />
-                  <UINewTypography variant="body">
-                    <FormattedMessage id="Back" />
-                  </UINewTypography>
+                  {isEdit ? (
+                    <UINewTypography variant="body">
+                      <FormattedMessage id="CancelChanges" />
+                    </UINewTypography>
+                  ) : (
+                    <>
+                      <RiArrowLeftLine />
+                      <UINewTypography variant="body">
+                        <FormattedMessage id="Back" />
+                      </UINewTypography>
+                    </>
+                  )}
                 </UIThemeButton>
                 <StyleButtonV2 id="photos-button" type="submit" variant="contained" loading={loading}>
-                  <UINewTypography variant="body">
-                    <FormattedMessage id="Next" />
-                  </UINewTypography>
-                  <RiArrowRightLine />
+                  {isEdit ? (
+                    <UINewTypography variant="body">
+                      <FormattedMessage id="Save" />
+                    </UINewTypography>
+                  ) : (
+                    <>
+                      <UINewTypography variant="body">
+                        <FormattedMessage id="Next" />
+                      </UINewTypography>
+                      <RiArrowRightLine />
+                    </>
+                  )}
                 </StyleButtonV2>
               </UploadMultipleBox>
             </UploadBox>
