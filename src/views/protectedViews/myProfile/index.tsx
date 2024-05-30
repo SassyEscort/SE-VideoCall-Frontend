@@ -4,10 +4,11 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import React from 'react';
-import { DisableButtonBox, InputTypeBox, MyProfileContainerMain } from './MyProfile.styled';
+import { DisableButtonBox, InputTypeBox, MyProfileContainerMain, ProfileTextHeader } from './MyProfile.styled';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
+import theme from 'themes/theme';
 
 export type MyProfile = {
   username: string;
@@ -27,6 +28,7 @@ const MyProfile = () => {
         'Invalid Password! Does not meet requirements (this password has appeared in a data breach elsewhere and should never be used on any website)'
       )
   });
+  const isSmDown = theme.breakpoints.down(330);
   return (
     <Formik
       initialValues={{
@@ -50,9 +52,9 @@ const MyProfile = () => {
                 <InputTypeBox>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                     <Box>
-                      <UINewTypography variant="bodySemiBold" color="text.primary">
+                      <ProfileTextHeader variant="bodySemiBold" color="text.primary">
                         Username
-                      </UINewTypography>
+                      </ProfileTextHeader>
                     </Box>
                     <Box>
                       <UIStyledInputText
@@ -72,9 +74,9 @@ const MyProfile = () => {
                 <InputTypeBox>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                     <Box>
-                      <UINewTypography variant="bodySemiBold" color="text.primary">
+                      <ProfileTextHeader variant="bodySemiBold" color="text.primary">
                         Email
-                      </UINewTypography>
+                      </ProfileTextHeader>
                     </Box>
                     <Box>
                       <UIStyledInputText
@@ -106,9 +108,9 @@ const MyProfile = () => {
                 <InputTypeBox>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                     <Box>
-                      <UINewTypography variant="bodySemiBold" color="text.primary">
+                      <ProfileTextHeader variant="bodySemiBold" color="text.primary">
                         Password
-                      </UINewTypography>
+                      </ProfileTextHeader>
                     </Box>
                     <Box>
                       <UIStyledInputText
@@ -137,7 +139,7 @@ const MyProfile = () => {
               </Box>
             </Box>
             <DisableButtonBox>
-              <Box>
+              <Box paddingRight={isSmDown ? '16px' : 0}>
                 <UIThemeButton variant="contained" disabled>
                   <UINewTypography variant="buttonSmallBold" color={'text.disabled'}>
                     Cancel changes

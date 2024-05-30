@@ -123,3 +123,60 @@ export const BuyCreditsText = styled(UINewTypography)(({ theme }) => ({
     lineHeight: '48px'
   }
 }));
+
+export const CreditCardText = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '20px !important',
+  fontWeight: '500 !important',
+  lineHeight: '24px !important',
+  marginLeft: '6px'
+}));
+
+export const CreditCardImage = styled('img')(() => ({
+  display: 'flex',
+  width: '100%',
+  height: '16px',
+  maxWidth: '16px'
+}));
+
+export const DollarCreditText = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '40px',
+  fontWeight: 800,
+  lineHeight: '48px'
+}));
+
+export const CreditBuyText = styled(UINewTypography)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center'
+}));
+
+export const CreditBestValue = styled(UINewTypography)(({ theme }) => ({
+  width: '92px',
+  height: '30px',
+  borderRadius: '4px',
+  backgroundColor: '#D12288',
+  fontSize: '14px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+}));
+
+export const CreditMostPopular = styled(UINewTypography)(({ theme }) => ({
+  width: '110px',
+  height: '30px',
+  borderRadius: '4px',
+  backgroundColor: '#D12288',
+  fontSize: '14px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center'
+}));
+
+export const CancelCreditValue = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '24px',
+  fontWeight: 500,
+  lineHeight: '28px',
+  textDecoration: 'line-through',
+  width: '76px',
+  height: '29px',
+  marginLeft: '20px'
+}));

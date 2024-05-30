@@ -32,9 +32,19 @@ export type UploadPhotos = {
   photoURL: string;
   cords?: string;
   isFavorite?: boolean;
+  is_favourite?: string;
 };
 
-const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, token, handleModelApiChange }: UploadMultiplePhotos) => {
+const ModelMultiplePhoto = ({
+  values,
+  setValue,
+  errors,
+  touched,
+  workerPhotos,
+  token,
+  handleModelApiChange,
+  isEdit
+}: UploadMultiplePhotos) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const height = isSmUp ? 193 : 210;
   const width = isSmUp ? 145 : 159;
@@ -47,7 +57,7 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
     let index = existingPhotos?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
       existingPhotos?.splice(index, 1);
-      setValue('file5Existing', existingPhotos?.splice(index, 1));
+      setValue('file5Existing', existingPhotos);
     }
     index = uploadedImagesURL?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
@@ -63,10 +73,11 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
     if (index !== -1) uploadedImagesURL[index].cords = cords;
   };
 
-  const handleClickThumbnailImageId = (id: number | undefined, name: string) => {
+  const handleClickThumbnailImageId = (id: number | undefined, name: string, photoIndex: number) => {
+    const favFile = `file5[${photoIndex}]`;
     setThumbnailImageId(id);
     if (!id) {
-      setValue('is_favorite', name);
+      setValue('is_favourite', favFile);
       workerPhotos.forEach((x) => {
         if (x.favourite) {
           x.favourite = 0;
@@ -92,17 +103,12 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
     }
   };
 
-  const handleBlobThumbnail = (id: number | undefined, image: UploadPhotos) => {
+  const handleBlobThumbnail = (id: number | undefined, image: UploadPhotos, photoIndex: number) => {
+    const favFile = `file5[${photoIndex}]`;
     setThumbnailImageId(id);
-    setValue('is_favourite', image.name);
     image.isFavorite = true;
+    image.name = favFile;
     image.id = undefined;
-    workerPhotos.forEach((x) => {
-      if (x.favourite) {
-        x.favourite = 0;
-      }
-    });
-    setValue('file5Existing', workerPhotos);
   };
 
   const handleUploadPhotos = useCallback(
@@ -122,7 +128,8 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
                 photoURL: URL.createObjectURL(data),
                 name: `file5[${index}]`,
                 cords: (values.cords5 && values.cords5[index]) || '',
-                isFavorite: index === 0 && thumbnailImageId === undefined ? true : false
+                isFavorite: index === 0 && thumbnailImageId === undefined ? true : false,
+                is_favourite: values.is_favourite ? values.is_favourite : 'file5[0]'
               });
             }
           }
@@ -182,14 +189,22 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
 
   return (
     <UploadMultipleContainer>
-      <Box paddingBottom={4} pt={4}>
-        <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
-          <FormattedMessage id="UploadPhotos" />
-        </UINewTypography>
-        <UINewTypography marginTop={1.5} display="flex" justifyContent="center" lineHeight="160%">
-          <FormattedMessage id="UploadHighQualilty" />
-        </UINewTypography>
-      </Box>
+      {!isEdit ? (
+        <Box paddingBottom={4} pt={4}>
+          <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
+            <FormattedMessage id="UploadPhotos" />
+          </UINewTypography>
+          <UINewTypography marginTop={1.5} display="flex" justifyContent="center" lineHeight="160%">
+            <FormattedMessage id="UploadHighQualilty" />
+          </UINewTypography>
+        </Box>
+      ) : (
+        <Box paddingBottom={4}>
+          <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
+            <FormattedMessage id="ModifyPhotos" />
+          </UINewTypography>
+        </Box>
+      )}
       <ModelMultiplePhotoItem>
         <UploadItem>
           <UINewTypography variant="h6" color="text.secondary">
@@ -210,6 +225,9 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
             values={values}
             handleUploadPhotos={handleUploadPhotos}
           />
+          <UINewTypography variant="h6">
+            <FormattedMessage id="Gallery" />
+          </UINewTypography>
           <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
             {[...existingPhotos, ...uploadedImagesURL]?.map((photo, index) => {
               return (
@@ -229,6 +247,7 @@ const ModelMultiplePhoto = ({ values, setValue, errors, touched, workerPhotos, t
                   handleChangeFile5Cords={handleChangeFile5Cords}
                   handleClickThumbnailImageId={handleClickThumbnailImageId}
                   handleBlobThumbnail={handleBlobThumbnail}
+                  index={index}
                 />
               );
             })}

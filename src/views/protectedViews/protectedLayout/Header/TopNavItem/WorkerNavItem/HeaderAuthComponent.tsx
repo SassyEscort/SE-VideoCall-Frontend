@@ -7,6 +7,7 @@ import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import ProfileMenu from './ProfileMenu';
 import { useState } from 'react';
+import Link from 'next/link';
 
 export type NotificationFilters = {
   page: number;
@@ -71,29 +72,31 @@ const HeaderAuthComponent = () => {
         </IconButton>
         <Box display="flex" alignItems="center" gap={1}>
           <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }}>
-            <IconButton
-              id="profile-menu"
-              aria-controls={openProfileMenu ? 'profile-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={openProfileMenu}
-              disableFocusRipple
-              disableRipple
-              sx={{ p: 0 }}
-            >
-              <Avatar
-                alt="User Photo"
-                src={uploadedImageURL}
-                sx={{
-                  height: 24,
-                  width: 24
-                }}
-              />
-            </IconButton>
-            {isMdUp && (
-              <Typography variant="buttonLargeMenu" color="text.secondary">
-                Fana
-              </Typography>
-            )}
+            <Link href="/profile">
+              <IconButton
+                id="profile-menu"
+                aria-controls={openProfileMenu ? 'profile-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={openProfileMenu}
+                disableFocusRipple
+                disableRipple
+                sx={{ p: 1 }}
+              >
+                <Avatar
+                  alt="User Photo"
+                  src={uploadedImageURL}
+                  sx={{
+                    height: 24,
+                    width: 24
+                  }}
+                />
+              </IconButton>
+              {isMdUp && (
+                <Typography variant="buttonLargeMenu" color="text.secondary">
+                  Fana
+                </Typography>
+              )}
+            </Link>
           </Box>
           <ProfileMenu profilePic={uploadedImageURL} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
         </Box>

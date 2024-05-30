@@ -1,7 +1,7 @@
 export const MainDashboardTabs = [
   {
     name: 'Home',
-    path: '/profile/dashboard',
+    path: '/',
     img: '/images/profile-vector/Vector.png'
   },
   {

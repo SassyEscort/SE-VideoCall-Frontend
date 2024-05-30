@@ -84,7 +84,7 @@ export const CloumnContainer = styled(Box)(({ theme }) => ({
 
 export const LeftCloumnConatinerGap = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(0.5),
+  gap: theme.spacing(1),
   flexDirection: 'column'
 }));
 
@@ -107,7 +107,7 @@ export const Passport = styled(Box)(({ theme }) => ({
 export const IDnumber = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(0.5)
+  gap: theme.spacing(1)
 }));
 export const RightSideConatiner = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -119,7 +119,7 @@ export const RightSideConatiner = styled(Box)(({ theme }) => ({
 
 export const RightSideConatinerGap = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(0.5),
+  gap: theme.spacing(1),
   flexDirection: 'column'
 }));
 
@@ -165,4 +165,22 @@ export const FontIdRight = styled(Box)(({ theme }) => ({
 
 export const EditButton = styled(Box)(() => ({
   display: 'flex'
+}));
+
+export const ModelGalleryBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  gap: theme.spacing(12)
+}));
+
+export const ModelGalleryTitleBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  gap: theme.spacing(1.5),
+  paddingTop: theme.spacing(8),
+  paddingLeft: theme.spacing(2),
+  width: '100%'
 }));

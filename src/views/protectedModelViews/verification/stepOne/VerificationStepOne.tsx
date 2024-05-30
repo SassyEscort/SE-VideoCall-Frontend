@@ -44,6 +44,7 @@ export type VerificationBasicDetailsType = {
     shouldValidate?: boolean | undefined
   ) => Promise<void | FormikErrors<VerificationStep1Type>>;
   token: TokenIdType;
+  isEdit: boolean;
 };
 
 export type MultipleOptionName = {
@@ -58,7 +59,8 @@ const VerificationBasicDetails = ({
   handleChange,
   setFieldValue,
   handleBlur,
-  token
+  token,
+  isEdit
 }: VerificationBasicDetailsType) => {
   const [countries, setCountries] = useState<MultipleOptionString[]>([]);
   const [nationality, setNationality] = useState<MultipleOptionString[]>([]);
@@ -146,9 +148,11 @@ const VerificationBasicDetails = ({
 
   return (
     <StepTwoContainer>
-      <UINewTypography variant="h2" color="text.secondary" textAlign="center">
-        <FormattedMessage id="LetsStartWithYourBasic" />
-      </UINewTypography>
+      {!isEdit && (
+        <UINewTypography variant="h2" color="text.secondary" textAlign="center">
+          <FormattedMessage id="LetsStartWithYourBasic" />
+        </UINewTypography>
+      )}
       <StepTwoBox sx={{ gap: 0 }}>
         <UINewTypography variant="h6" color="text.secondary">
           <FormattedMessage id="IAmA" />
@@ -337,7 +341,7 @@ const VerificationBasicDetails = ({
                 }
               }}
             />
-            <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
+            <UINewTypography variant="SubtitleSmallRegular" color="secondary.700" fontWeight={500}>
               <FormattedMessage id="DOBCantChange" />
             </UINewTypography>
           </DateOfBirthMainContainer>
