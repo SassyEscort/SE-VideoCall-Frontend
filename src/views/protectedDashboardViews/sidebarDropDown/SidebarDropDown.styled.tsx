@@ -5,7 +5,6 @@ export const SidebarDropDownMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
   maxWidth: '180px',
-  height: '100%',
   borderRadius: '12px',
   padding: '14px 16px',
   backgroundColor: theme.palette.secondary[500],
