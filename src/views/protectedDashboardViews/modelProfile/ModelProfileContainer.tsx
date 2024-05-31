@@ -42,42 +42,59 @@ const ModelProfileContainer = ({
   const modelPhotos = useMemo(() => modelDetails?.photos?.filter((data) => !data.is_document), [modelDetails?.photos]);
 
   return (
-    <Box display="flex" gap={1}>
-      <SidebarDropDownMainContainer>
-        {profileMenuList.map((list, index) => (
-          <>
-            <MenuItem onClick={() => handleMenu(list.id)} key={index}>
-              {menuId === index ? (
-                <UINewTypography variant="buttonLargeMenu" color="primary.400">
-                  {list.menuName}
-                </UINewTypography>
-              ) : (
-                <UINewTypography variant="buttonLargeMenu">{list.menuName}</UINewTypography>
-              )}
-            </MenuItem>
-            <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-          </>
-        ))}
-      </SidebarDropDownMainContainer>
-      {menuId === 0 ? (
-        <UploadImage
-          isEdit={true}
-          workerPhotos={modelPhotos ?? []}
-          token={token}
-          handleModelApiChange={handleModelApiChange}
-          handleNext={handleSave}
-        />
-      ) : menuId === 1 ? (
-        <VerificationStepOne
-          isEdit={true}
-          modelDetails={modelDetails}
-          token={token}
-          handleNext={handleSaveDetails}
-          handleModelApiChange={handleModelApiChange}
-        />
-      ) : (
-        <DashboardPriceView token={token} modelDetails={modelDetails} handleModelApiChange={handleModelApiChange} />
-      )}
+    <Box sx={{ display: 'flex' }}>
+      <Divider orientation="vertical" flexItem sx={{ borderColor: 'primary.700' }} />
+      <Box display="flex">
+        <Box sx={{ display: 'flex' }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '55px' }}>
+              <UINewTypography variant="h5" color="text.secondary" ml="24px" mt={3.93}>
+                <FormattedMessage id="MyProfile" />
+              </UINewTypography>
+
+              <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', width: '100%' }} />
+            </Box>
+            <SidebarDropDownMainContainer>
+              {profileMenuList.map((list, index) => (
+                <>
+                  <MenuItem onClick={() => handleMenu(list.id)} key={index}>
+                    {menuId === index ? (
+                      <UINewTypography variant="buttonLargeMenu" color="primary.400">
+                        {list.menuName}
+                      </UINewTypography>
+                    ) : (
+                      <UINewTypography variant="buttonLargeMenu">{list.menuName}</UINewTypography>
+                    )}
+                  </MenuItem>
+                  <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                </>
+              ))}
+            </SidebarDropDownMainContainer>
+          </Box>
+          <Divider orientation="vertical" flexItem sx={{ borderColor: 'primary.700' }} />
+        </Box>
+        <Box sx={{ display: 'flex', ml: 1 }}>
+          {menuId === 0 ? (
+            <UploadImage
+              isEdit={true}
+              workerPhotos={modelPhotos ?? []}
+              token={token}
+              handleModelApiChange={handleModelApiChange}
+              handleNext={handleSave}
+            />
+          ) : menuId === 1 ? (
+            <VerificationStepOne
+              isEdit={true}
+              modelDetails={modelDetails}
+              token={token}
+              handleNext={handleSaveDetails}
+              handleModelApiChange={handleModelApiChange}
+            />
+          ) : (
+            <DashboardPriceView token={token} modelDetails={modelDetails} handleModelApiChange={handleModelApiChange} />
+          )}
+        </Box>
+      </Box>
     </Box>
   );
 };

@@ -37,17 +37,19 @@ const MainLayoutNav = (props: MainLayoutType) => {
 
   return (
     <HomeMainModelContainer>
-      <Box minHeight="100vh" display="flex" flexDirection="column">
-        <Box sx={{ width: '100%' }}>
-          <StyledRoot>
-            <ModelNav openNav={open} onCloseNav={() => setOpen(true)} />
-            <Main>
-              {isMdUp && <ProtectedDashboardLayoutMainContainer />}
-              <Box px={{ md: 2 }} paddingTop={{ md: 3.875 }} paddingBottom={{ md: 13 }}>
-                <>{props.children}</>
-              </Box>
-            </Main>
-          </StyledRoot>
+      <Box sx={{ display: 'flex' }}>
+        <Box minHeight="100vh" display="flex" flexDirection="column">
+          <Box sx={{ width: '100%', display: 'flex' }}>
+            <StyledRoot>
+              <ModelNav openNav={open} onCloseNav={() => setOpen(true)} />
+              <Main>
+                {isMdUp && <ProtectedDashboardLayoutMainContainer />}
+                <Box paddingBottom={{ md: 13 }}>
+                  <>{props.children}</>
+                </Box>
+              </Main>
+            </StyledRoot>
+          </Box>
         </Box>
       </Box>
     </HomeMainModelContainer>
