@@ -161,8 +161,8 @@ const DashboardPriceView = ({
             </PriceMinute>
           </VideoCall>
           <ButtonConatiner>
-            <UIThemeButton variant={disable ? 'outlined' : 'contained'} disabled={!disable} loading={loading}>
-              <UINewTypography variant="buttonSmallBold" onClick={handleReset}>
+            <UIThemeButton variant={disable ? 'outlined' : 'contained'} disabled={!disable} loading={loading} onClick={handleReset}>
+              <UINewTypography variant="buttonSmallBold">
                 <FormattedMessage id="CancelChanges" />
               </UINewTypography>
             </UIThemeButton>
