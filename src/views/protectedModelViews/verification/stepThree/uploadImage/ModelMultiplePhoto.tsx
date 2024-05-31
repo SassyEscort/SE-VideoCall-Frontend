@@ -217,7 +217,7 @@ const ModelMultiplePhoto = ({
           </Box>
         ) : (
           !isSmDown && (
-            <Box paddingBottom={4}>
+            <Box paddingBottom={4} pt={4}>
               <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
                 <FormattedMessage id="ModifyPhotos" />
               </UINewTypography>
