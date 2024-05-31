@@ -57,6 +57,7 @@ const ModelMultiplePhoto = ({
   loading
 }: UploadMultiplePhotos) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const height = isSmUp ? 193 : 210;
   const width = isSmUp ? 145 : 159;
 
@@ -215,11 +216,13 @@ const ModelMultiplePhoto = ({
             </UINewTypography>
           </Box>
         ) : (
-          <Box paddingBottom={4}>
-            <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
-              <FormattedMessage id="ModifyPhotos" />
-            </UINewTypography>
-          </Box>
+          !isSmDown && (
+            <Box paddingBottom={4}>
+              <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
+                <FormattedMessage id="ModifyPhotos" />
+              </UINewTypography>
+            </Box>
+          )
         )}
         <ModelMultiplePhotoItem>
           <UploadItem>

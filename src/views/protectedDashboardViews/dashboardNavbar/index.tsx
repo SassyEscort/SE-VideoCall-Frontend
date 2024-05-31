@@ -9,6 +9,7 @@ import { useState } from 'react';
 import Divider from '@mui/material/Divider';
 import {
   CommonMenuBox,
+  DullCirclesNav,
   MobileComponentBoxContainer,
   MobileComponentSecBoxContainer,
   MobileTextStyleContainer,
@@ -55,9 +56,12 @@ export default function ModelNav({ openNav, onCloseNav, modelDetails }: NavProps
   };
 
   return (
-    <Box component="nav" sx={{ flexShrink: { lg: 0 } }}>
-      <SideMenu modelDetails={modelDetails} />
-      <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: 3 }} />
+    <Box component="nav" sx={{ flexShrink: { lg: 0 }, position: 'relative' }}>
+      {isMdDown && <DullCirclesNav />}
+
+      {!isMdDown && <SideMenu modelDetails={modelDetails} />}
+
+      {!isMdDown && <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: 3 }} />}
 
       <Drawer
         variant={isMdUp ? 'permanent' : 'temporary'}
