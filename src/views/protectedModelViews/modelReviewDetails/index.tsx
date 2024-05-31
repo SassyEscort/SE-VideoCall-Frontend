@@ -13,11 +13,13 @@ import ModelBasicDetailReview from './ModelBasicDetailReview';
 const ModelReviewDetails = ({
   modelDetails,
   handleNext,
-  token
+  token,
+  handleEdit
 }: {
   modelDetails: ModelDetailsResponse;
   handleNext: () => void;
   token: TokenIdType;
+  handleEdit: (step: number) => void;
 }) => {
   const modelReviewSubmit = async () => {
     await VerificationStepService.modelReview(token.token);
@@ -26,16 +28,16 @@ const ModelReviewDetails = ({
 
   return (
     <MainContainer>
-      <ModelBasicDetailReview modelDetails={modelDetails} />
+      <ModelBasicDetailReview modelDetails={modelDetails} handleEdit={handleEdit} />
       <DocumentSecondConatiner>
         <ModelGalleryReview modelDetails={modelDetails} />
         <ModelGalleryBox>
-          <UIThemeButton variant="outlined">
+          <UIThemeButton variant="outlined" onClick={() => handleEdit(3)}>
             <UINewTypography variant="buttonLargeBold" color="text.primary">
               <FormattedMessage id="Edit" />
             </UINewTypography>
           </UIThemeButton>
-          <UIThemeButton variant="contained" onClick={modelReviewSubmit}>
+          <UIThemeButton id="review-button" variant="contained" onClick={modelReviewSubmit}>
             <UINewTypography variant="buttonLargeBold" color="secondary.main">
               <FormattedMessage id="Submit" />
             </UINewTypography>

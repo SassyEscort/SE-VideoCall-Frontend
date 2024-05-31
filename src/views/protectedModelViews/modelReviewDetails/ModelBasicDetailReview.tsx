@@ -27,7 +27,13 @@ import {
   EditButton
 } from './ModelReviewDetails.styled';
 
-const ModelBasicDetailReview = ({ modelDetails }: { modelDetails: ModelDetailsResponse }) => {
+const ModelBasicDetailReview = ({
+  modelDetails,
+  handleEdit
+}: {
+  modelDetails: ModelDetailsResponse;
+  handleEdit: (step: number) => void;
+}) => {
   const documentType =
     modelDetails?.documents?.length && modelDetails?.documents[0]?.document_type ? modelDetails?.documents[0]?.document_type : '';
 
@@ -121,7 +127,7 @@ const ModelBasicDetailReview = ({ modelDetails }: { modelDetails: ModelDetailsRe
             </FirstColumnContainer>
           </ForMainContainer>
           <ButtonContainer>
-            <UIThemeButton variant="outlined">
+            <UIThemeButton variant="outlined" onClick={() => handleEdit(0)}>
               <UINewTypography variant="buttonLargeBold" color={'text.primary'}>
                 <FormattedMessage id="Edit" />
               </UINewTypography>
@@ -167,7 +173,7 @@ const ModelBasicDetailReview = ({ modelDetails }: { modelDetails: ModelDetailsRe
           </DocumentLeftContainer>
         </Box>
         <EditButton>
-          <UIThemeButton variant="outlined">
+          <UIThemeButton variant="outlined" onClick={() => handleEdit(1)}>
             <UINewTypography variant="buttonLargeBold" color={'text.primary'}>
               <FormattedMessage id="Edit" />
             </UINewTypography>
