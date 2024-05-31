@@ -20,6 +20,8 @@ import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 
 const VERIFICATION_STEPS = ['Basic Details', 'Documents', 'Photos', 'Review'];
 
+const submitButtonIds = ['basic-details-button', 'document-id-button', 'document-photo-button', 'photos-button', 'review-button'];
+
 export type TokenIdType = {
   id: number;
   token: string;
@@ -31,6 +33,7 @@ const VerificationContainer = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
   const [progressValue, setProgressValue] = useState(14.28);
+  const [isLoading, setIsLoading] = useState(false);
 
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -50,6 +53,10 @@ const VerificationContainer = () => {
 
   const handlePrev = () => {
     setActiveStep((prev) => prev - 1);
+  };
+
+  const handleEdit = (step: number) => {
+    setActiveStep(step);
   };
 
   useEffect(() => {
@@ -79,6 +86,17 @@ const VerificationContainer = () => {
     modelDetails();
   }, [token.token]);
 
+  const handleNextHeaderStep = () => {
+    const button = document.getElementById(submitButtonIds[activeStep]);
+    if (button) {
+      setIsLoading(true);
+      button.click();
+    }
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+  };
+
   useEffect(() => {
     if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.BASIC_DETAILS) {
       setActiveStep(0);
@@ -93,7 +111,12 @@ const VerificationContainer = () => {
 
   return (
     <>
-      <VerificationHeader activeStep={activeStep} />
+      <VerificationHeader
+        activeStep={activeStep}
+        handleNextHeaderStep={handleNextHeaderStep}
+        handlePrev={handlePrev}
+        isLoading={isLoading}
+      />
       {!isMdDown && (
         <Box sx={{ backgroundColor: 'secondary.500' }} pt={4} pb={4}>
           <UIStepper steps={VERIFICATION_STEPS} activeStep={activeStep} />
@@ -216,7 +239,12 @@ const VerificationContainer = () => {
         />
       )}
       {activeStep === 4 && (
-        <ModelReviewDetails handleNext={handleNext} modelDetails={modelDetails ?? ({} as ModelDetailsResponse)} token={token} />
+        <ModelReviewDetails
+          handleNext={handleNext}
+          modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
+          token={token}
+          handleEdit={handleEdit}
+        />
       )}
       {activeStep === 5 && <ProfileCreated />}
     </>

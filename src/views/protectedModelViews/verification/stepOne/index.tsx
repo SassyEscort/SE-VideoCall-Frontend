@@ -17,6 +17,7 @@ import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { ErrorMessage } from 'constants/common.constants';
 import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
+import { scrollToError } from 'utils/scrollUtils';
 
 const VerificationStepOne = ({
   handleNext,
@@ -93,6 +94,7 @@ const VerificationStepOne = ({
             verifyEmail();
           }
           if (response.data) {
+            toast.success(response.message);
             handleNext();
             handleModelApiChange();
           } else {
@@ -111,6 +113,7 @@ const VerificationStepOne = ({
           component="form"
           onSubmit={(e) => {
             e.preventDefault();
+            scrollToError('.Mui-error');
             handleSubmit();
           }}
         >
@@ -138,7 +141,7 @@ const VerificationStepOne = ({
                 <FormattedMessage id="Back" />
               </UINewTypography>
             </UIThemeButton>
-            <StyleButtonV2 type="submit" variant="contained" id="user-info-submit-button" loading={loading}>
+            <StyleButtonV2 id="basic-details-button" type="submit" variant="contained" loading={loading}>
               <UINewTypography variant="body">
                 <FormattedMessage id="Next" />
               </UINewTypography>
