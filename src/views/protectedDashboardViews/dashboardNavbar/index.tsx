@@ -17,6 +17,7 @@ import {
 import Link from 'next/link';
 import { DashboardModelTabs } from 'constants/modelConstants';
 import ModelNavbar from './modelNavbar';
+import SideMenu from '../SideMenu';
 
 ModelNav.propTypes = {
   openNav: PropTypes.bool,
@@ -53,6 +54,9 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
 
   return (
     <Box component="nav" sx={{ flexShrink: { lg: 0 } }}>
+      <SideMenu />
+      <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: 3 }} />
+
       <Drawer
         variant={isMdUp ? 'permanent' : 'temporary'}
         open={isMdUp ? true : openNav}

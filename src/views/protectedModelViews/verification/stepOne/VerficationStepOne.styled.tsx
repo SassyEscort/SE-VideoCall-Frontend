@@ -73,7 +73,10 @@ export const StepTwoInputOuterMainBox = styled(Box)(({ theme }) => ({
 export const StepOneContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(4),
+  gap: theme.spacing(8),
   alignItems: 'center',
-  paddingTop: theme.spacing(4)
+  paddingTop: theme.spacing(4),
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(4)
+  }
 }));

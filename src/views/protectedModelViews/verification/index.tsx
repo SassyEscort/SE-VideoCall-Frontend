@@ -215,7 +215,9 @@ const VerificationContainer = () => {
           handlePrevVerificationStep={handlePrev}
         />
       )}
-      {activeStep === 4 && <ModelReviewDetails handleNext={handleNext} modelDetails={modelDetails ?? ({} as ModelDetailsResponse)} />}
+      {activeStep === 4 && (
+        <ModelReviewDetails handleNext={handleNext} modelDetails={modelDetails ?? ({} as ModelDetailsResponse)} token={token} />
+      )}
       {activeStep === 5 && <ProfileCreated />}
     </>
   );

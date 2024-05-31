@@ -15,6 +15,7 @@ import {
   SecondSubContainerWorkerCard,
   SeconderContainerWorkerCard,
   SubContainertWorkerCard,
+  UITypographyBox,
   WorkerCardContainer
 } from './WorkerCard.styled';
 import Divider from '@mui/material/Divider';
@@ -63,17 +64,17 @@ const WorkerCard = () => {
             </ProfileCardContainer>
             <SecondMainContainerWorkerCard>
               <SecondSubContainerWorkerCard>
-                <UINewTypography variant="SubtitleSmallMedium" color="#B7B5B9" sx={{ lineHeight: '120%' }}>
+                <UITypographyBox variant="SubtitleSmallMedium" color="#B7B5B9">
                   24
-                </UINewTypography>
-                <Divider orientation="vertical" flexItem sx={{ borderColor: '#B7B5B9', lineHeight: '120%' }} />
-                <UINewTypography variant="SubtitleSmallMedium" color="#B7B5B9" sx={{ whiteSpace: isMobile ? 'normal' : 'nowrap' }}>
+                </UITypographyBox>
+                <Divider orientation="vertical" flexItem sx={{ borderColor: '#B7B5B9' }} />
+                <UITypographyBox variant="SubtitleSmallMedium" color="#B7B5B9" sx={{ whiteSpace: isMobile ? 'normal' : 'nowrap' }}>
                   English, Spanish
-                </UINewTypography>
+                </UITypographyBox>
               </SecondSubContainerWorkerCard>
             </SecondMainContainerWorkerCard>
             {isMobile && (
-              <CreditContainer sx={{ marginTop: isSmallScreen ? 2.5 : 1 }}>
+              <CreditContainer sx={{ marginTop: isSmallScreen ? 1.5 : 1 }}>
                 <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
                 <UINewTypography variant="captionLargeBold" color="#E9E8EB">
                   20 credits/hr

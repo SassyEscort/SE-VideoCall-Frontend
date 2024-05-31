@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const MainWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -154,10 +155,7 @@ export const ButtonMainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   marginTop: theme.spacing(6),
-  width: '100%',
-  [theme.breakpoints.down('sm')]: {
-    marginTop: theme.spacing(3)
-  }
+  width: '100%'
 }));
 
 export const WorkerCardContainer = styled(Box)(() => ({
@@ -201,9 +199,19 @@ export const LiveIconWorkerCard = styled(LiveIconFirstBoxWorkerCard)(({ theme })
   width: '100%',
   minWidth: '12px',
   height: '0',
-  maxHeight: '12px',
+  minHeight: '12px',
   border: '1px',
   borderColor: theme.palette.secondary[400],
   borderRadius: '50%',
   backgroundColor: theme.palette.secondary[400]
+}));
+
+export const UITypographyBox = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '14px',
+  fontWeight: 500,
+  lineHeight: '16.8px',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '12px !important',
+    lineHeight: '14.4px !important'
+  }
 }));
