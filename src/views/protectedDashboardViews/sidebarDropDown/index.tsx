@@ -2,16 +2,16 @@
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { UIDashboardSelect } from 'components/UIComponents/UIDashboardSelect';
 import { FormattedMessage } from 'react-intl';
-import Divider from '@mui/material/Divider';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import UploadImage from 'views/protectedModelViews/verification/stepThree/uploadImage';
 import VerificationStepOne from 'views/protectedModelViews/verification/stepOne';
 import DashboardPriceView from '../dashboardPriceView';
+import { SelectDropdown } from './SidebarDropDown.styled';
+import { Box, SelectChangeEvent } from '@mui/material';
 
 const profileMenuList = [
   { menuName: <FormattedMessage id="Profile" />, id: 0 },
@@ -29,8 +29,8 @@ const MobileSidebar = ({
   handleModelApiChange: () => void;
 }) => {
   const [menuId, setMenuId] = useState(0);
-  const handleMenu = (id: number) => {
-    setMenuId(id);
+  const handleMenu = (event: SelectChangeEvent<unknown>) => {
+    setMenuId(Number(event.target.value));
   };
   const handleSave = () => {
     setMenuId(0);
@@ -43,30 +43,43 @@ const MobileSidebar = ({
 
   return (
     <FormControl id="age" sx={{ width: '100%', maxWidth: '365px' }}>
-      <UIDashboardSelect MenuProps={{ disableScrollLock: true }} name="age" labelId="age" IconComponent={ExpandMore}>
-        {profileMenuList.map((list, index) => (
-          <>
-            <MenuItem onClick={() => handleMenu(list.id)} key={index}>
-              {menuId === index ? (
-                <UINewTypography variant="buttonLargeMenu" color="primary.400">
-                  {list.menuName}
-                </UINewTypography>
-              ) : (
-                <UINewTypography variant="buttonLargeMenu">{list.menuName}</UINewTypography>
-              )}
-            </MenuItem>
-            <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-          </>
+      <Box sx={{ mb: 3 }}>
+        <UINewTypography variant="h2" color="text.secondary">
+          My Profile
+        </UINewTypography>
+      </Box>
+      <SelectDropdown
+        value={menuId}
+        onChange={handleMenu}
+        displayEmpty
+        IconComponent={ExpandMore}
+        renderValue={(selected) => {
+          return profileMenuList.find((menu) => menu.id === selected)?.menuName;
+        }}
+        MenuProps={{ disableScrollLock: true }}
+      >
+        {profileMenuList.map((list) => (
+          <MenuItem key={list.id} value={list.id}>
+            {menuId === list.id ? (
+              <UINewTypography variant="buttonLargeMenu" color="primary.400">
+                {list.menuName}
+              </UINewTypography>
+            ) : (
+              <UINewTypography variant="buttonLargeMenu">{list.menuName}</UINewTypography>
+            )}
+          </MenuItem>
         ))}
-      </UIDashboardSelect>
+      </SelectDropdown>
       {menuId === 0 ? (
-        <UploadImage
-          isEdit={true}
-          workerPhotos={modelPhotos ?? []}
-          token={token}
-          handleModelApiChange={handleModelApiChange}
-          handleNext={handleSave}
-        />
+        <Box mt={2}>
+          <UploadImage
+            isEdit={true}
+            workerPhotos={modelPhotos ?? []}
+            token={token}
+            handleModelApiChange={handleModelApiChange}
+            handleNext={handleSave}
+          />
+        </Box>
       ) : menuId === 1 ? (
         <VerificationStepOne
           isEdit={true}

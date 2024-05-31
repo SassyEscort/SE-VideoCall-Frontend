@@ -100,3 +100,15 @@ export const DashboardSidebarBox = styled(Box)(() => ({
   width: '100%',
   minWidth: '268px'
 }));
+
+export const DullCirclesNav = styled(Box)(() => ({
+  backgroundColor: 'rgba(255, 72, 179, 0.3)',
+  height: '412px',
+  width: '584px',
+  borderRadius: '50%',
+  filter: 'blur(100px)',
+  position: 'absolute',
+  zIndex: '-1',
+  top: '-200px',
+  right: '-100px'
+}));
