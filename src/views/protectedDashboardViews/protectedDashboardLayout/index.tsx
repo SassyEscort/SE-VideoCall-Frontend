@@ -8,10 +8,12 @@ import theme from 'themes/theme';
 import ModelNav from '../dashboardNavbar';
 import { TopNavItemVariantProps } from 'views/protectedViews/protectedLayout/Header/types';
 import { ProtectedDashboardLayoutMainContainer } from './protectedDashboardLayout.styled';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
 export type MainLayoutType = TopNavItemVariantProps & {
   children: ReactNode;
   enlargedFooter?: boolean;
+  modelDetails: ModelDetailsResponse;
 };
 
 const StyledRoot = styled('div')({
@@ -41,7 +43,7 @@ const MainLayoutNav = (props: MainLayoutType) => {
         <Box minHeight="100vh" display="flex" flexDirection="column">
           <Box sx={{ width: '100%', display: 'flex' }}>
             <StyledRoot>
-              <ModelNav openNav={open} onCloseNav={() => setOpen(true)} />
+              <ModelNav modelDetails={props.modelDetails} openNav={open} onCloseNav={() => setOpen(true)} />
               <Main>
                 {isMdUp && <ProtectedDashboardLayoutMainContainer />}
                 <Box paddingBottom={{ md: 13 }}>

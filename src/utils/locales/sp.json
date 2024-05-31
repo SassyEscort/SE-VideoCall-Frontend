@@ -148,7 +148,7 @@
   "ReviewYourDetails": "Revisa tus detalles",
   "MakesureYouFilled": "Asegúrate de haber completado los detalles correctos",
   "BasicDetails": "Detalles básicos",
-  "Your Gender": "Tu género",
+  "YourGender": "Tu género",
   "Female": "Femenino",
   "Netherland": "Países Bajos",
   "Bio": "Biografía",
@@ -262,5 +262,9 @@
   "MyProfile": "Mi perfil",
   "NextDocuments": "Siguientes Documentos",
   "NextPhotos": "Siguientes Fotos",
-  "NextFinalReview": "Siguiente Revisión Final"
+  "NextFinalReview": "Siguiente Revisión Final",
+  "SetOrModifyYourPrices": "Establecer o Modificar sus precios",
+  "Male": "Male",
+  "Trans": "Tarns",
+  "RequestAPayout": "Solicitar un Pago"
 }

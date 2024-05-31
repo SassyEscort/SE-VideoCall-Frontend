@@ -208,6 +208,7 @@ const VerificationStep2 = ({
               </Box>
               <Box sx={{ maxWidth: '390px' }}>
                 <UIStyledInputText
+                  type="number"
                   fullWidth
                   id="idNumber"
                   name="idNumber"

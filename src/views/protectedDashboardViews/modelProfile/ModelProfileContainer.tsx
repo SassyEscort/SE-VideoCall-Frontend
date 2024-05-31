@@ -51,7 +51,6 @@ const ModelProfileContainer = ({
               <UINewTypography variant="h5" color="text.secondary" ml="24px" mt={3.93}>
                 <FormattedMessage id="MyProfile" />
               </UINewTypography>
-
               <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', width: '100%' }} />
             </Box>
             <SidebarDropDownMainContainer>
@@ -91,7 +90,7 @@ const ModelProfileContainer = ({
               handleModelApiChange={handleModelApiChange}
             />
           ) : (
-            <DashboardPriceView token={token} />
+            <DashboardPriceView token={token} modelDetails={modelDetails} handleModelApiChange={handleModelApiChange} />
           )}
         </Box>
       </Box>

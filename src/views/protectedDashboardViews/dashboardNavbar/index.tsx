@@ -9,6 +9,7 @@ import { useState } from 'react';
 import Divider from '@mui/material/Divider';
 import {
   CommonMenuBox,
+  DullCirclesNav,
   MobileComponentBoxContainer,
   MobileComponentSecBoxContainer,
   MobileTextStyleContainer,
@@ -18,6 +19,7 @@ import Link from 'next/link';
 import { DashboardModelTabs } from 'constants/modelConstants';
 import ModelNavbar from './modelNavbar';
 import SideMenu from '../SideMenu';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
 ModelNav.propTypes = {
   openNav: PropTypes.bool,
@@ -27,9 +29,10 @@ ModelNav.propTypes = {
 interface NavProps {
   openNav: boolean;
   onCloseNav: () => void;
+  modelDetails: ModelDetailsResponse;
 }
 
-export default function ModelNav({ openNav, onCloseNav }: NavProps) {
+export default function ModelNav({ openNav, onCloseNav, modelDetails }: NavProps) {
   const router = usePathname();
 
   const maindashboardTabIndex: { [key: string]: number } = {
@@ -53,9 +56,12 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
   };
 
   return (
-    <Box component="nav" sx={{ flexShrink: { lg: 0 } }}>
-      <SideMenu />
-      <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: 3 }} />
+    <Box component="nav" sx={{ flexShrink: { lg: 0 }, position: 'relative' }}>
+      {isMdDown && <DullCirclesNav />}
+
+      {!isMdDown && <SideMenu modelDetails={modelDetails} />}
+
+      {!isMdDown && <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: 3 }} />}
 
       <Drawer
         variant={isMdUp ? 'permanent' : 'temporary'}
