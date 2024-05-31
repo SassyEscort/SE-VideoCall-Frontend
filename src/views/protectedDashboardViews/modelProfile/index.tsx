@@ -39,7 +39,7 @@ const ModelProfile = () => {
   }, [token.token]);
 
   return (
-    <DashboardProfile>
+    <DashboardProfile modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}>
       <ModelProfileContainer
         modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
         token={token}

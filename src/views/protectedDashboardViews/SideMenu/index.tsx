@@ -12,8 +12,9 @@ import {
   SiderBarSecondTextBox,
   SiderBarThiredBox
 } from './SideMenu.styled';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
-const SideMenu = () => {
+const SideMenu = ({ modelDetails }: { modelDetails: ModelDetailsResponse }) => {
   return (
     <HomeMainModelContainer>
       <SiderBarMainContainer>
@@ -39,7 +40,7 @@ const SideMenu = () => {
               <SiderBarSecondTextBox>
                 <Box>
                   <UINewTypography variant="newTitle" color="text.primary">
-                    Aesha Finn
+                    {modelDetails?.name}
                   </UINewTypography>
                 </Box>
                 <Box sx={{ display: 'flex', marginLeft: '-4px' }}>

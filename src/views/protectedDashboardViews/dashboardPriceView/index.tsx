@@ -66,10 +66,10 @@ const DashboardPriceView = ({
   });
 
   useEffect(() => {
-    if (values.price) {
-      setDisable(true);
-    } else {
+    if (!values.price) {
       setDisable(false);
+    } else {
+      setDisable(true);
     }
   }, [values.price]);
 
