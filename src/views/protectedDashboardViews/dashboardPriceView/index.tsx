@@ -97,6 +97,7 @@ const DashboardPriceView = ({
       setLoading(false);
     }
   };
+
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <form onSubmit={handleSubmit}>
@@ -135,10 +136,10 @@ const DashboardPriceView = ({
                     }
                   }}
                 >
-                  {priceValue.map((type, index: number) => (
+                  {priceValue?.map((type, index: number) => (
                     <MenuItem
-                      value={type.id}
-                      key={type.id}
+                      value={type?.id}
+                      key={type?.id}
                       sx={{
                         '& .MuiPaper-root-MuiPopover-paper-MuiMenu-paper': {
                           backgroundColor: 'red !important'
@@ -160,7 +161,7 @@ const DashboardPriceView = ({
             </PriceMinute>
           </VideoCall>
           <ButtonConatiner>
-            <UIThemeButton>
+            <UIThemeButton variant={disable ? 'outlined' : 'contained'} disabled={!disable} loading={loading}>
               <UINewTypography variant="buttonSmallBold" onClick={handleReset}>
                 <FormattedMessage id="CancelChanges" />
               </UINewTypography>
