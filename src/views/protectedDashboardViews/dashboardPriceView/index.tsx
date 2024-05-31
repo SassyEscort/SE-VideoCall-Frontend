@@ -149,8 +149,8 @@ const DashboardPriceView = ({ token }: { token: TokenIdType }) => {
             </PriceMinute>
           </VideoCall>
           <ButtonConatiner>
-            <UIThemeButton variant="outlined" sx={{ border: '#07030E !important' }}>
-              <UINewTypography variant="buttonSmallBold" color={'#58535E'} onClick={handleReset}>
+            <UIThemeButton variant="outlined" sx={{ border: '#07030E !important' }} onClick={handleReset}>
+              <UINewTypography variant="buttonSmallBold" color={'#58535E'}>
                 <FormattedMessage id="CancelChanges" />
               </UINewTypography>
             </UIThemeButton>
