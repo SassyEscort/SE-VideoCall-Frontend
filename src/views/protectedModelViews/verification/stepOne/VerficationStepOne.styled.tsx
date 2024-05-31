@@ -1,12 +1,16 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const StepTwoContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(4),
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '824px'
+  maxWidth: '824px',
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(2)
+  }
 }));
 
 export const StepTwoBox = styled(Box)(({ theme }) => ({
@@ -78,5 +82,25 @@ export const StepOneContainer = styled(Box)(({ theme }) => ({
   paddingTop: theme.spacing(4),
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(4)
+  }
+}));
+
+export const VerificationUITypography = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '20px !important',
+  lineHeight: '28px !important'
+}));
+
+export const VerificationHeaderText = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '16px !important',
+  lineHeight: '25.6px !important'
+}));
+
+export const StepTwoMainConatiner = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: theme.spacing(1.5),
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(2.5),
+    flexDirection: 'column'
   }
 }));
