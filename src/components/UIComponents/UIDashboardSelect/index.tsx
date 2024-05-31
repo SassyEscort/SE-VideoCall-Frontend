@@ -3,12 +3,12 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import { styled } from '@mui/material/styles';
 
-export const UIStyledSelect = styled(Select)(({ theme }) => ({
+export const UIDashboardSelect = styled(Select)(({ theme }) => ({
   display: 'flex',
   borderRadius: '8px',
   width: '100%',
   height: '48px',
-  backgroundColor: theme.palette.primary[700],
+  backgroundColor: theme.palette.secondary[500],
 
   '&:hover': {
     '.MuiOutlinedInput-notchedOutline': {
