@@ -26,7 +26,7 @@ export type TokenIdType = {
 };
 
 const VerificationContainer = () => {
-  const [activeStep, setActiveStep] = useState(4);
+  const [activeStep, setActiveStep] = useState(0);
 
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
@@ -79,17 +79,17 @@ const VerificationContainer = () => {
     modelDetails();
   }, [token.token]);
 
-  // useEffect(() => {
-  //   if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.BASIC_DETAILS) {
-  //     setActiveStep(0);
-  //   } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_DOCUMENTS) {
-  //     setActiveStep(1);
-  //   } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_PHOTOS) {
-  //     setActiveStep(2);
-  //   } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED) {
-  //     setActiveStep(5);
-  //   }
-  // }, [modelDetails?.verification_step]);
+  useEffect(() => {
+    if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.BASIC_DETAILS) {
+      setActiveStep(0);
+    } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_DOCUMENTS) {
+      setActiveStep(1);
+    } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_PHOTOS) {
+      setActiveStep(2);
+    } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED) {
+      setActiveStep(5);
+    }
+  }, [modelDetails?.verification_step]);
 
   return (
     <>
