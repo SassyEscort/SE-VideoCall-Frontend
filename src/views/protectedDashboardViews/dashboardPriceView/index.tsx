@@ -25,6 +25,7 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { PriceValue } from 'services/modelAuth/types';
 import { TokenIdType } from 'views/protectedModelViews/verification';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
 export type PricePerMinute = {
   price_per_minute_id: string;
@@ -32,15 +33,23 @@ export type PricePerMinute = {
 export type VerificationStepSecond = {
   price: string;
 };
-const initialValues = {
-  price: ''
-};
 
 const validationSchema = yup.object({
   price: yup.string().required('Price title is required')
 });
 
-const DashboardPriceView = ({ token }: { token: TokenIdType }) => {
+const DashboardPriceView = ({
+  token,
+  modelDetails,
+  handleModelApiChange
+}: {
+  token: TokenIdType;
+  modelDetails: ModelDetailsResponse;
+  handleModelApiChange: () => void;
+}) => {
+  const initialValues = {
+    price: (modelDetails?.video_call_prices?.length && modelDetails?.video_call_prices[0]?.price_per_minute_id) || ''
+  };
   const [loading, setLoading] = useState(false);
   const [disable, setDisable] = useState(false);
   const [priceValue, setPriceValue] = useState<PriceValue[]>([]);
@@ -57,20 +66,22 @@ const DashboardPriceView = ({ token }: { token: TokenIdType }) => {
   });
 
   useEffect(() => {
-    if (values.price) {
-      setDisable(true);
-    } else {
+    if (!values.price) {
       setDisable(false);
+    } else {
+      setDisable(true);
     }
   }, [values.price]);
 
   useEffect(() => {
+    handleModelApiChange();
     const priceData = async () => {
       const data = await DashboardService.dashboardGetPriceDetails();
       setPriceValue(data.data);
     };
     priceData();
   }, []);
+
   const handleSubmitForm = async (inputPayload: PricePerMinute) => {
     try {
       setLoading(true);
@@ -86,12 +97,13 @@ const DashboardPriceView = ({ token }: { token: TokenIdType }) => {
       setLoading(false);
     }
   };
+
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <form onSubmit={handleSubmit}>
       <MainConatiner>
         <UINewTypography variant="h2" color={'text.secondary'}>
-          {isSm ? '' : 'Set or Modify your prices'}
+          <FormattedMessage id={isSm ? 'MyProfile' : 'SetOrModifyYourPrices'} />
         </UINewTypography>
         <SecondConatiner>
           <VideoCall>
@@ -124,10 +136,10 @@ const DashboardPriceView = ({ token }: { token: TokenIdType }) => {
                     }
                   }}
                 >
-                  {priceValue.map((type, index: number) => (
+                  {priceValue?.map((type, index: number) => (
                     <MenuItem
-                      value={type.price_per_minute}
-                      key={type.id}
+                      value={type?.id}
+                      key={type?.id}
                       sx={{
                         '& .MuiPaper-root-MuiPopover-paper-MuiMenu-paper': {
                           backgroundColor: 'red !important'
@@ -149,8 +161,8 @@ const DashboardPriceView = ({ token }: { token: TokenIdType }) => {
             </PriceMinute>
           </VideoCall>
           <ButtonConatiner>
-            <UIThemeButton variant="outlined" sx={{ border: '#07030E !important' }} onClick={handleReset}>
-              <UINewTypography variant="buttonSmallBold" color={'#58535E'}>
+            <UIThemeButton variant={disable ? 'outlined' : 'contained'} disabled={!disable} loading={loading} onClick={handleReset}>
+              <UINewTypography variant="buttonSmallBold">
                 <FormattedMessage id="CancelChanges" />
               </UINewTypography>
             </UIThemeButton>

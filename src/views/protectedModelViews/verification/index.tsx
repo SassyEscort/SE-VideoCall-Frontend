@@ -103,7 +103,7 @@ const VerificationContainer = () => {
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_DOCUMENTS) {
       setActiveStep(1);
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_PHOTOS) {
-      setActiveStep(3);
+      setActiveStep(2);
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED) {
       setActiveStep(5);
     }
