@@ -262,5 +262,6 @@
   "Male": "Male",
   "Trans": "Tarns",
   "SiliconValleyBank": "Silicon Valley Bank",
-  "AddMoreBanks": "Add more banks"
+  "AddMoreBanks": "Add more banks",
+  "RequestAPayout": "Request a payout"
 }
