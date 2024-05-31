@@ -6,10 +6,15 @@ import ModelProfileContainer from './ModelProfileContainer';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { getUserDataClient } from 'utils/getSessionData';
+import { useMediaQuery } from '@mui/material';
+import theme from 'themes/theme';
+import MobileSidebar from '../sidebarDropDown';
 
 const ModelProfile = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
+
+  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
     const userToken = async () => {
@@ -40,11 +45,19 @@ const ModelProfile = () => {
 
   return (
     <DashboardProfile>
-      <ModelProfileContainer
-        modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
-        token={token}
-        handleModelApiChange={handleModelApiChange}
-      />
+      {isMdDown ? (
+        <MobileSidebar
+          modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
+          token={token}
+          handleModelApiChange={handleModelApiChange}
+        />
+      ) : (
+        <ModelProfileContainer
+          modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
+          token={token}
+          handleModelApiChange={handleModelApiChange}
+        />
+      )}
     </DashboardProfile>
   );
 };

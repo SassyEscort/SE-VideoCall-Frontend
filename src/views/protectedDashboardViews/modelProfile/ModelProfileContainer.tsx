@@ -43,22 +43,39 @@ const ModelProfileContainer = ({
 
   return (
     <Box display="flex" gap={1}>
-      <SidebarDropDownMainContainer>
-        {profileMenuList.map((list, index) => (
-          <>
-            <MenuItem onClick={() => handleMenu(list.id)} key={index}>
-              {menuId === index ? (
-                <UINewTypography variant="buttonLargeMenu" color="primary.400">
-                  {list.menuName}
-                </UINewTypography>
-              ) : (
-                <UINewTypography variant="buttonLargeMenu">{list.menuName}</UINewTypography>
-              )}
-            </MenuItem>
-            <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-          </>
-        ))}
-      </SidebarDropDownMainContainer>
+      <Box
+        sx={{
+          textAlign: 'center'
+        }}
+      >
+        <Box
+          sx={{
+            paddingBottom: '32px'
+          }}
+        >
+          <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
+            My Profile
+          </UINewTypography>
+        </Box>
+        <Box>
+          <SidebarDropDownMainContainer>
+            {profileMenuList.map((list, index) => (
+              <>
+                <MenuItem onClick={() => handleMenu(list.id)} key={index}>
+                  {menuId === index ? (
+                    <UINewTypography variant="buttonLargeMenu" color="primary.400">
+                      {list.menuName}
+                    </UINewTypography>
+                  ) : (
+                    <UINewTypography variant="buttonLargeMenu">{list.menuName}</UINewTypography>
+                  )}
+                </MenuItem>
+                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+              </>
+            ))}
+          </SidebarDropDownMainContainer>
+        </Box>
+      </Box>
       {menuId === 0 ? (
         <UploadImage
           isEdit={true}
