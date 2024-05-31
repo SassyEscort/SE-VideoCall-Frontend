@@ -142,7 +142,7 @@ export const DollarCreditText = styled(UINewTypography)(({ theme }) => ({
   fontSize: '40px',
   fontWeight: 800,
   lineHeight: '48px',
-  marginTop: 0.5
+  marginTop: '4px'
 }));
 
 export const CreditBuyText = styled(UINewTypography)(({ theme }) => ({
