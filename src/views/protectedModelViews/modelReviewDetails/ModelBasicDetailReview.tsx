@@ -26,8 +26,11 @@ import {
   FontIdRight,
   EditButton
 } from './ModelReviewDetails.styled';
+import { useEffect, useState } from 'react';
 
 const ModelBasicDetailReview = ({ modelDetails }: { modelDetails: ModelDetailsResponse }) => {
+  const [languageNames, setLanguageNames] = useState('');
+
   const documentType =
     modelDetails?.documents?.length && modelDetails?.documents[0]?.document_type ? modelDetails?.documents[0]?.document_type : '';
 
@@ -35,6 +38,14 @@ const ModelBasicDetailReview = ({ modelDetails }: { modelDetails: ModelDetailsRe
     modelDetails?.documents?.length && modelDetails?.documents[0]?.document_number ? modelDetails?.documents[0]?.document_number : '';
 
   const documentLink = modelDetails?.documents?.length && modelDetails?.documents[0]?.link ? modelDetails?.documents[0]?.link : '';
+  useEffect(() => {
+    const names = modelDetails?.languages
+      ?.map((language) => language?.language_name)
+      .sort()
+      .join(', ');
+
+    setLanguageNames(names);
+  }, [modelDetails]);
 
   return (
     <DocumentSecondConatiner>
@@ -113,7 +124,7 @@ const ModelBasicDetailReview = ({ modelDetails }: { modelDetails: ModelDetailsRe
                       <FormattedMessage id="Language" />
                     </UINewTypography>
                     <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                      <FormattedMessage id="English" />
+                      {languageNames}
                     </UINewTypography>
                   </RightSideConatinerGap>
                 </RightSideConatiner>
