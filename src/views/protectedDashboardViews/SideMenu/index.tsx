@@ -15,6 +15,7 @@ import {
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
 const SideMenu = ({ modelDetails }: { modelDetails: ModelDetailsResponse }) => {
+  const firstChar = modelDetails?.name ? modelDetails.name.charAt(0).toUpperCase() : '';
   return (
     <HomeMainModelContainer>
       <SiderBarMainContainer>
@@ -24,17 +25,8 @@ const SideMenu = ({ modelDetails }: { modelDetails: ModelDetailsResponse }) => {
               <SiderBarSecondBox>
                 <SiderBarThiredBox>
                   <SiderBarCircaleBox></SiderBarCircaleBox>
-                  <SiderBarCircaleTextBox>A</SiderBarCircaleTextBox>
+                  <SiderBarCircaleTextBox>{firstChar}</SiderBarCircaleTextBox>
                 </SiderBarThiredBox>
-                <Box
-                  component="img"
-                  src="/images/model/dashboard-edit-img.png"
-                  sx={{
-                    width: '20px',
-                    height: '20px',
-                    position: 'absolute'
-                  }}
-                />
               </SiderBarSecondBox>
 
               <SiderBarSecondTextBox>
