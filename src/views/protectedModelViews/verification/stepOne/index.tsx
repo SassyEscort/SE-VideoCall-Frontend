@@ -133,48 +133,74 @@ const VerificationStepOne = ({
         }
       }}
     >
-      {({ values, errors, touched, handleChange, setFieldValue, handleSubmit, handleBlur }) => (
-        <StepOneContainer
-          component="form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            scrollToError('.Mui-error');
-            handleSubmit();
-          }}
-        >
-          <VerificationBasicDetails
-            isEdit={isEdit}
-            token={token}
-            values={values}
-            errors={errors}
-            touched={touched}
-            handleBlur={handleBlur}
-            handleChange={handleChange}
-            setFieldValue={setFieldValue}
-          />
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              width: '100%',
-              maxWidth: '824px'
+      {({ values, errors, touched, handleChange, setFieldValue, handleSubmit, handleBlur, handleReset }) => {
+        const changedValues = Object.keys(values).reduce((acc, key) => {
+          if (values[key as keyof VerificationStep1Type] !== initialValuesPerStep[key as keyof VerificationStep1Type]) {
+            return true;
+          } else {
+            return false;
+          }
+        }, {});
+
+        return (
+          <StepOneContainer
+            component="form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              scrollToError('.Mui-error');
+              handleSubmit();
             }}
           >
-            <UIThemeButton variant="outlined" disabled={true}>
-              <RiArrowLeftLine />
-              <UINewTypography variant="body">
-                <FormattedMessage id="Back" />
-              </UINewTypography>
-            </UIThemeButton>
-            <StyleButtonV2 id="basic-details-button" type="submit" variant="contained" loading={loading}>
-              <UINewTypography variant="body">
-                <FormattedMessage id="Next" />
-              </UINewTypography>
-              <RiArrowRightLine />
-            </StyleButtonV2>
-          </Box>
-        </StepOneContainer>
-      )}
+            <VerificationBasicDetails
+              isEdit={isEdit}
+              token={token}
+              values={values}
+              errors={errors}
+              touched={touched}
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              setFieldValue={setFieldValue}
+            />
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '100%',
+                maxWidth: '824px'
+              }}
+            >
+              <UIThemeButton
+                onClick={isEdit && handleReset}
+                variant={changedValues && isEdit ? 'outlined' : 'contained'}
+                disabled={changedValues && isEdit ? false : true}
+              >
+                <RiArrowLeftLine />
+                {isEdit ? (
+                  <UINewTypography variant="body">
+                    <FormattedMessage id="CancelChanges" />
+                  </UINewTypography>
+                ) : (
+                  <UINewTypography variant="body">
+                    <FormattedMessage id="Back" />
+                  </UINewTypography>
+                )}
+              </UIThemeButton>
+              <StyleButtonV2 id="basic-details-button" type="submit" variant="contained" loading={loading}>
+                {isEdit ? (
+                  <UINewTypography variant="body">
+                    <FormattedMessage id="Save" />
+                  </UINewTypography>
+                ) : (
+                  <UINewTypography variant="body">
+                    <FormattedMessage id="Next" />
+                  </UINewTypography>
+                )}
+                <RiArrowRightLine />
+              </StyleButtonV2>
+            </Box>
+          </StepOneContainer>
+        );
+      }}
     </Formik>
   );
 };

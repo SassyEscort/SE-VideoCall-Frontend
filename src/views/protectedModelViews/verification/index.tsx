@@ -17,6 +17,7 @@ import { FormattedMessage } from 'react-intl';
 import ModelReviewDetails from '../modelReviewDetails';
 import ProfileCreated from './profileCreated';
 import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
+import { useRouter } from 'next/navigation';
 
 const VERIFICATION_STEPS = ['Basic Details', 'Documents', 'Photos', 'Review'];
 
@@ -28,6 +29,7 @@ export type TokenIdType = {
 };
 
 const VerificationContainer = () => {
+  const router = useRouter();
   const [activeStep, setActiveStep] = useState(0);
 
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -103,10 +105,13 @@ const VerificationContainer = () => {
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_DOCUMENTS) {
       setActiveStep(1);
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_PHOTOS) {
-      setActiveStep(2);
+      setActiveStep(3);
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED) {
-      setActiveStep(5);
+      setActiveStep(4);
+    } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.IN_REVIEW) {
+      router.push('/model/dashboard');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modelDetails?.verification_step]);
 
   return (
