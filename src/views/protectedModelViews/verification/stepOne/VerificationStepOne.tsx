@@ -48,6 +48,7 @@ export type VerificationBasicDetailsType = {
   ) => Promise<void | FormikErrors<VerificationStep1Type>>;
   token: TokenIdType;
   isEdit: boolean;
+  isEmailVerified: number;
 };
 
 export type MultipleOptionName = {
@@ -63,7 +64,8 @@ const VerificationBasicDetails = ({
   setFieldValue,
   handleBlur,
   token,
-  isEdit
+  isEdit,
+  isEmailVerified
 }: VerificationBasicDetailsType) => {
   const [countries, setCountries] = useState<MultipleOptionString[]>([]);
   const [nationality, setNationality] = useState<MultipleOptionString[]>([]);

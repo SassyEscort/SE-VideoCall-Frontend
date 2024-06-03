@@ -14,7 +14,7 @@ import { FormattedMessage } from 'react-intl';
 import { StepOneContainer } from './VerficationStepOne.styled';
 import { TokenIdType } from '..';
 import { toast } from 'react-toastify';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ErrorMessage } from 'constants/common.constants';
 import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
 import { scrollToError } from 'utils/scrollUtils';
@@ -32,6 +32,12 @@ const VerificationStepOne = ({
   isEdit: boolean;
   handleModelApiChange: () => void;
 }) => {
+  const isEmailVerified = modelDetails?.email_verified;
+  console.log(isEmailVerified === 0, 'isEmailVerified');
+
+  const url = new URL(window.location.href);
+  const email = url.searchParams.get('email');
+
   const initialValuesPerStep: VerificationStep1Type = {
     id: token.id,
     gender: modelDetails?.gender || '',
@@ -69,16 +75,27 @@ const VerificationStepOne = ({
   });
 
   const verifyEmail = async () => {
-    const url = new URL(window.location.href);
-    const email = url.searchParams.get('email');
     const verificationCode = url.searchParams.get('code');
 
     const payload = {
       email: String(email),
       verification_code: String(verificationCode)
     };
-    await VerificationStepService.modelVerifyEmail(payload, token.token);
+    const res = await VerificationStepService.modelVerifyEmail(payload, token.token);
+    if (res.data) {
+      toast.success(res.message);
+    } else {
+      toast.error(res.message);
+    }
   };
+
+  useEffect(() => {
+    if (email && token.token && isEmailVerified === 0) {
+      verifyEmail();
+      handleModelApiChange();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email, isEmailVerified, token]);
 
   return (
     <Formik
@@ -89,10 +106,6 @@ const VerificationStepOne = ({
         try {
           setLoading(true);
           const response = await ModelVerificationService.verificationStepOne(values, token.token);
-          const url = new URL(window.location.href);
-          if (url.searchParams.get('email')) {
-            verifyEmail();
-          }
           if (response.data) {
             toast.success(response.message);
             handleNext();
@@ -118,6 +131,7 @@ const VerificationStepOne = ({
           }}
         >
           <VerificationBasicDetails
+            isEmailVerified={isEmailVerified}
             isEdit={isEdit}
             token={token}
             values={values}

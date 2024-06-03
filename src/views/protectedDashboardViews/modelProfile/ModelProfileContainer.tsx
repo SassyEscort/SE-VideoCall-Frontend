@@ -25,7 +25,10 @@ const ModelProfileContainer = ({
   token: TokenIdType;
   handleModelApiChange: () => void;
 }) => {
-  const [menuId, setMenuId] = useState(0);
+  const url = new URL(window.location.href);
+  const verificationCode = url.searchParams.get('code');
+
+  const [menuId, setMenuId] = useState(verificationCode ? 1 : 0);
 
   const handleMenu = (id: number) => {
     setMenuId(id);
