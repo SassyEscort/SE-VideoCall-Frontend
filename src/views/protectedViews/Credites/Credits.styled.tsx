@@ -64,7 +64,7 @@ export const ImagSubContainer = styled(Box)(({ theme }) => ({
   height: '100%',
   maxHeight: '325px',
   [theme.breakpoints.up('md')]: {
-    flexBasis: 'calc(33.333% - 16px)' // 3 cards per row with space between
+    flexBasis: 'calc(33.333% - 16px)'
   }
 }));
 
