@@ -14,10 +14,11 @@ import { FormattedMessage } from 'react-intl';
 import { StepOneContainer } from './VerficationStepOne.styled';
 import { TokenIdType } from '..';
 import { toast } from 'react-toastify';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ErrorMessage } from 'constants/common.constants';
 import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
 import { scrollToError } from 'utils/scrollUtils';
+import { useRouter } from 'next/navigation';
 
 const VerificationStepOne = ({
   handleNext,
@@ -32,8 +33,7 @@ const VerificationStepOne = ({
   isEdit: boolean;
   handleModelApiChange: () => void;
 }) => {
-  const isEmailVerified = modelDetails?.email_verified;
-  console.log(isEmailVerified === 0, 'isEmailVerified');
+  const router = useRouter();
 
   const url = new URL(window.location.href);
   const email = url.searchParams.get('email');
@@ -74,20 +74,32 @@ const VerificationStepOne = ({
       .max(1000, 'Bio should be atmost 1000 characters')
   });
 
-  const verifyEmail = async () => {
+  const verifyEmail = useCallback(async () => {
     const verificationCode = url.searchParams.get('code');
 
     const payload = {
       email: String(email),
       verification_code: String(verificationCode)
     };
-    const res = await VerificationStepService.modelVerifyEmail(payload, token.token);
-    if (res.data) {
-      toast.success(res.message);
-    } else {
-      toast.error(res.message);
+    try {
+      if (token && payload) {
+        const res = await VerificationStepService.modelVerifyEmail(payload, token.token);
+        if (res.data) {
+          if (url.pathname === '/model/profile') {
+            router.push('/model/profile');
+          } else {
+            router.push('/model/dashboard');
+          }
+          toast.success(res.message);
+        } else {
+          toast.error(res.message);
+        }
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email, token.token, url.pathname]);
 
   useEffect(() => {
     if (email && token.token) {
@@ -95,7 +107,7 @@ const VerificationStepOne = ({
       handleModelApiChange();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email, isEmailVerified, token]);
+  }, [email, token]);
 
   return (
     <Formik
@@ -131,7 +143,6 @@ const VerificationStepOne = ({
           }}
         >
           <VerificationBasicDetails
-            isEmailVerified={isEmailVerified}
             isEdit={isEdit}
             token={token}
             values={values}

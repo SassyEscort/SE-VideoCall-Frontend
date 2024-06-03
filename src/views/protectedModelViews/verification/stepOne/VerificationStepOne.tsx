@@ -12,7 +12,7 @@ import {
 } from './VerficationStepOne.styled';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import UINewRadioButtonsGroup from 'components/UIComponents/UIRadioButtonGroup';
-import { GENDER } from 'constants/workerVerification';
+import { EMAIL_SOURCE, GENDER } from 'constants/workerVerification';
 import FormHelperText from '@mui/material/FormHelperText';
 import { RiArrowDownSLine, RiCalendar2Line } from 'components/common/customRemixIcons';
 import Box from '@mui/material/Box';
@@ -48,7 +48,6 @@ export type VerificationBasicDetailsType = {
   ) => Promise<void | FormikErrors<VerificationStep1Type>>;
   token: TokenIdType;
   isEdit: boolean;
-  isEmailVerified: number;
 };
 
 export type MultipleOptionName = {
@@ -64,8 +63,7 @@ const VerificationBasicDetails = ({
   setFieldValue,
   handleBlur,
   token,
-  isEdit,
-  isEmailVerified
+  isEdit
 }: VerificationBasicDetailsType) => {
   const [countries, setCountries] = useState<MultipleOptionString[]>([]);
   const [nationality, setNationality] = useState<MultipleOptionString[]>([]);
@@ -137,8 +135,11 @@ const VerificationBasicDetails = ({
     setActiveStep(0);
   };
   const sendLinkVerify = async () => {
+    const url = new URL(window.location.href);
+    let source;
+    source = url.pathname === '/model/dashboard' ? EMAIL_SOURCE.ONBOARDED : EMAIL_SOURCE.DETAILS;
     try {
-      const data = await ModelAuthService.modelForgetPasswordLinkStep(values.email, token.token);
+      const data = await ModelAuthService.modelForgetPasswordLinkStep(values.email, token.token, source);
       if (data.code === 200) {
         setOpenForgetPassLink(true);
         toast.success(data.message);
