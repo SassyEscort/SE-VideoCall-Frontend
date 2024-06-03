@@ -188,7 +188,7 @@ const VerificationStep2 = ({
                       <UINewTypographyTextMenuItem
                         variant="bodySemiBold"
                         color={'text.primary'}
-                        sx={{ paddingTop: '14px', paddingBottom: '10px' }}
+                        sx={{ paddingTop: '12px', paddingBottom: '12px' }}
                       >
                         {type.key}
                       </UINewTypographyTextMenuItem>

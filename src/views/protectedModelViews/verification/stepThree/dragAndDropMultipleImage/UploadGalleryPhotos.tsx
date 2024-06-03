@@ -127,7 +127,7 @@ const UploadGalleryPhotos = ({ setValue, name, accept, values, handleUploadPhoto
   }, [dropAreaId, handleDrop, highlight, unhighlight]);
 
   return (
-    <Box pt="18px">
+    <Box pt={{ xs: '24px', md: '18px' }}>
       <DragAndDropImageMainContainer id={name + '_dropable'}>
         <IKUpload
           multiple
@@ -159,7 +159,6 @@ const UploadGalleryPhotos = ({ setValue, name, accept, values, handleUploadPhoto
             <UINewTypography variant="buttonLargeBold" color="primary.400">
               <FormattedMessage id="Drag" /> &amp; <FormattedMessage id="Drop" />
               <UINewTypography variant="buttonLargeBold" color="text.primary">
-                {' '}
                 <FormattedMessage id="ToUpload" />
               </UINewTypography>
             </UINewTypography>

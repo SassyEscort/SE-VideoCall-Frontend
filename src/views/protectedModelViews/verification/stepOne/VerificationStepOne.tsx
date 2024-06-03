@@ -365,7 +365,7 @@ const VerificationBasicDetails = ({
                 IconComponent={ExpandMore}
               >
                 {nationality?.map((type, index: number) => (
-                  <MenuItem key={index} value={type.id}>
+                  <MenuItem key={index} value={type.id} sx={{ padding: '12px 16px' }}>
                     {type.name}
                   </MenuItem>
                 ))}

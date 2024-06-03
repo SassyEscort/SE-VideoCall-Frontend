@@ -8,6 +8,8 @@ import { FormikErrors, FormikTouched } from 'formik';
 import { DragAndDropMultipleImageCloseButton } from './DragAndDropMultipleImage.styled';
 import UINewTypography from '../UINewTypography';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import { useMediaQuery } from '@mui/material';
+import theme from 'themes/theme';
 
 export type UploadFileControlType = {
   errors: string | undefined;
@@ -36,6 +38,8 @@ const DragAndDropV2 = ({
   withoutFilterImageTouched,
   title
 }: UploadFileControlType) => {
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const isXSScreen = useMediaQuery(theme.breakpoints.down(330));
   const docLink = modelDetails?.documents
     ?.filter((x) => x.link !== 'null' || x.link !== null)
     ?.map((x) => x.link)
@@ -142,7 +146,7 @@ const DragAndDropV2 = ({
           alignItems: 'center',
           justifyContent: 'center',
           height: '308px',
-          width: '390px',
+          width: isXSScreen ? '290px' : isSmDown ? '363px' : '390px',
           borderRadius: '8px',
           overflow: 'hidden',
 

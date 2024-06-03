@@ -11,6 +11,7 @@ import { VerificationFormStep5TypeV2, WorkerPhotos } from '.';
 import {
   GalleryMainContainer,
   ModelMultiplePhotoItem,
+  UIPhotosHeader,
   UploadItem,
   UploadMultipleBox,
   UploadMultipleContainer
@@ -208,9 +209,9 @@ const ModelMultiplePhoto = ({
       <UploadMultipleContainer>
         {!isEdit ? (
           <Box paddingBottom={4} pt={4}>
-            <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
+            <UIPhotosHeader variant="h3" sx={{ color: '#E9E8EB' }}>
               <FormattedMessage id="UploadPhotos" />
-            </UINewTypography>
+            </UIPhotosHeader>
             <UINewTypography marginTop={1.5} display="flex" justifyContent="center" lineHeight="160%">
               <FormattedMessage id="UploadHighQualilty" />
             </UINewTypography>
@@ -247,7 +248,7 @@ const ModelMultiplePhoto = ({
             <UINewTypography variant="h6">
               <FormattedMessage id="Gallery" />
             </UINewTypography>
-            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+            <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
               {[...existingPhotos, ...uploadedImagesURL]?.map((photo, index) => {
                 return (
                   <PhotoItem

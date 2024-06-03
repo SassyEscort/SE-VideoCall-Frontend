@@ -91,12 +91,18 @@ export const ButtonBox = styled(Box)(({ theme }) => ({
 
 export const BackButtonBox = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(1)
+  gap: theme.spacing(1),
+  width: '100%',
+  maxWidth: '130px'
 }));
 
 export const UploaddocumentsButtonBox = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(1)
+  gap: theme.spacing(1),
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    maxWidth: '130px'
+  }
 }));
 
 export const UINewTypographyTextMenuItem = styled(UINewTypography)(({ theme }) => ({

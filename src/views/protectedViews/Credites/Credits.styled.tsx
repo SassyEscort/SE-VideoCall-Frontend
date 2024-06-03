@@ -51,7 +51,10 @@ export const ImagMainContainer = styled(Box)(({ theme }) => ({
   height: '100%',
   maxHeight: '674px',
   gap: theme.spacing(2),
-  flexWrap: 'wrap'
+  flexWrap: 'wrap',
+  [theme.breakpoints.up('md')]: {
+    justifyContent: 'space-between'
+  }
 }));
 
 export const ImagSubContainer = styled(Box)(({ theme }) => ({
@@ -59,7 +62,10 @@ export const ImagSubContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '299px',
   height: '100%',
-  maxHeight: '325px'
+  maxHeight: '325px',
+  [theme.breakpoints.up('md')]: {
+    flexBasis: 'calc(33.333% - 16px)' // 3 cards per row with space between
+  }
 }));
 
 export const MainImagContainer = styled('img')(({ theme }) => ({

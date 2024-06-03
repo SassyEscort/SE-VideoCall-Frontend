@@ -67,7 +67,7 @@ export const StepTwoInputOuterMainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(0.5),
-  justifyContent: 'center',
+  justifyContent: 'flex-start',
   width: '100%',
   maxWidth: theme.spacing(48.75),
   height: '100%',
