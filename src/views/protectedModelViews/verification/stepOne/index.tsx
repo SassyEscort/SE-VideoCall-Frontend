@@ -90,7 +90,7 @@ const VerificationStepOne = ({
   };
 
   useEffect(() => {
-    if (email && token.token && isEmailVerified === 0) {
+    if (email && token.token) {
       verifyEmail();
       handleModelApiChange();
     }
