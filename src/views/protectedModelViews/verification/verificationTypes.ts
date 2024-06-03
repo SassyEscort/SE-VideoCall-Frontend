@@ -41,6 +41,7 @@ export type ModelDetailsResponse = {
   photos: WorkerPhotos[];
   verification_step: string;
   video_call_prices: VideCallPrices[];
+  email_verified: number;
 };
 
 export interface DocumentDataPhoto {
