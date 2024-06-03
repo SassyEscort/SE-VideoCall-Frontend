@@ -2,12 +2,16 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import Avatar from '@mui/material/Avatar';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProfileMenu from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/ProfileMenu';
+import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import { getUserDataClient } from 'utils/getSessionData';
+import { SiderBarCircaleBoxHeader, SiderBarCircaleTextBoxHeader, SiderBarSecondBox, SiderBarThiredBox } from '../SideMenu/SideMenu.styled';
 
 export type NotificationFilters = {
   page: number;
@@ -18,13 +22,33 @@ const DashboadrHeaderAuthComponent = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const uploadedImageURL = '/images/headerv2/profilePic.png';
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
 
   const handleCloseMenu = () => {
     setOpenProfileMenu(false);
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      setToken({ id: data.id, token: data.token });
+    };
+
+    userToken();
+  }, []);
+
+  useEffect(() => {
+    const modelDetails = async () => {
+      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      setModelDetails(modelData.data);
+    };
+    if (token.token) {
+      modelDetails();
+    }
+  }, [token.id, token.token]);
+  const firstChar = modelDetails?.name ? modelDetails.name.charAt(0).toUpperCase() : '';
 
   return (
     <>
@@ -58,22 +82,20 @@ const DashboadrHeaderAuthComponent = () => {
               disableRipple
               sx={{ p: 0 }}
             >
-              <Avatar
-                alt="User Photo"
-                src={uploadedImageURL}
-                sx={{
-                  height: 24,
-                  width: 24
-                }}
-              />
+              <SiderBarSecondBox>
+                <SiderBarThiredBox>
+                  <SiderBarCircaleBoxHeader></SiderBarCircaleBoxHeader>
+                  <SiderBarCircaleTextBoxHeader>{firstChar}</SiderBarCircaleTextBoxHeader>
+                </SiderBarThiredBox>
+              </SiderBarSecondBox>
             </IconButton>
             {isMdUp && (
               <Typography variant="buttonLargeMenu" color="text.secondary">
-                Fana
+                {modelDetails?.name}
               </Typography>
             )}
           </Box>
-          <ProfileMenu profilePic={uploadedImageURL} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
+          <ProfileMenu profilePic={firstChar} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
         </Box>
       </Box>
     </>

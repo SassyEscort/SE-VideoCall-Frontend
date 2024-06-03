@@ -1,42 +1,26 @@
 'use client';
-import { FormHelperText, MenuItem } from '@mui/material';
-import { UIStyledSelectItemContainer } from 'components/UIComponents/UINewSelectItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import * as yup from 'yup';
-import React, { useEffect, useState } from 'react';
-import { UINewTypographyTextMenuItem } from '../../protectedModelViews/verification/verificationStep2/VerificationStep2.styled';
-import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
+import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import {
-  ButtonConatiner,
-  MainConatiner,
-  Minute,
-  PriceMinute,
-  SecondConatiner,
-  SelectMenucontainer,
-  VideoCall
-} from './DashboardPriceView.styled';
+import { ButtonConatiner, MainConatiner, Minute, PriceMinute, SecondConatiner, VideoCall } from './DashboardPriceView.styled';
 import theme from 'themes/theme';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { FormattedMessage } from 'react-intl';
 import { DashboardService } from 'services/modelAuth/dashboard.price.service';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
-import { PriceValue } from 'services/modelAuth/types';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 
 export type PricePerMinute = {
-  price_per_minute_id: string;
+  price_per_minute: number;
 };
 export type VerificationStepSecond = {
   price: string;
 };
-
-const validationSchema = yup.object({
-  price: yup.string().required('Price title is required')
-});
 
 const DashboardPriceView = ({
   token,
@@ -48,18 +32,41 @@ const DashboardPriceView = ({
   handleModelApiChange: () => void;
 }) => {
   const initialValues = {
-    price: (modelDetails?.video_call_prices?.length && modelDetails?.video_call_prices[0]?.price_per_minute_id) || ''
+    price: (modelDetails?.video_call_prices?.length && modelDetails?.video_call_prices[0]?.price_per_minute) || ''
   };
+  const [minPrice, setMinPrice] = useState<number>(0);
+  const [maxPrice, setMaxPrice] = useState<number>(0);
   const [loading, setLoading] = useState(false);
   const [disable, setDisable] = useState(false);
-  const [priceValue, setPriceValue] = useState<PriceValue[]>([]);
 
-  const { errors, values, touched, handleBlur, handleChange, handleSubmit, handleReset } = useFormik({
+  const fetchPriceDetails = async () => {
+    try {
+      const res = await DashboardService.dashboardGetPriceDetails();
+      setMinPrice(res?.data?.min_price);
+      setMaxPrice(res?.data?.max_price);
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
+
+  useEffect(() => {
+    fetchPriceDetails();
+  }, []);
+
+  const validationSchema = yup.object({
+    price: yup
+      .number()
+      .required('Price title is required')
+      .min(minPrice, `Price must be at least ${minPrice}`)
+      .max(maxPrice, `Price must be at most ${maxPrice}`)
+  });
+
+  const { errors, values, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
       const inputPayload: PricePerMinute = {
-        price_per_minute_id: values.price
+        price_per_minute: Number(values.price)
       };
       handleSubmitForm(inputPayload);
     }
@@ -72,15 +79,6 @@ const DashboardPriceView = ({
       setDisable(true);
     }
   }, [values.price]);
-
-  useEffect(() => {
-    handleModelApiChange();
-    const priceData = async () => {
-      const data = await DashboardService.dashboardGetPriceDetails();
-      setPriceValue(data.data);
-    };
-    priceData();
-  }, []);
 
   const handleSubmitForm = async (inputPayload: PricePerMinute) => {
     try {
@@ -120,53 +118,22 @@ const DashboardPriceView = ({
                   *
                 </UINewTypography>
               </Minute>
-              <SelectMenucontainer>
-                <UIStyledSelectItemContainer
-                  fullWidth
-                  id="price"
-                  name="price"
-                  value={values.price}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.price && Boolean(errors.price)}
-                  IconComponent={KeyboardArrowDownSharpIcon}
-                  sx={{
-                    '& .MuiOutlinedInput-notchedOutline': {
-                      borderColor: touched.price && errors.price ? 'error.main' : 'secondary.light'
-                    }
-                  }}
-                >
-                  {priceValue?.map((type, index: number) => (
-                    <MenuItem
-                      value={type?.id}
-                      key={type?.id}
-                      sx={{
-                        '& .MuiPaper-root-MuiPopover-paper-MuiMenu-paper': {
-                          backgroundColor: 'red !important'
-                        }
-                      }}
-                    >
-                      <UINewTypographyTextMenuItem
-                        variant="bodySemiBold"
-                        color={'text.primary'}
-                        sx={{ paddingTop: '14px', paddingBottom: '10px' }}
-                      >
-                        {type.price_per_minute}
-                      </UINewTypographyTextMenuItem>
-                    </MenuItem>
-                  ))}
-                </UIStyledSelectItemContainer>
-                {touched.price && errors.price && <FormHelperText error>{errors.price}</FormHelperText>}
-              </SelectMenucontainer>
+              <UIStyledInputText
+                fullWidth
+                id="price"
+                name="price"
+                value={values.price}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.price && Boolean(errors.price)}
+                helperText={touched.price && errors.price}
+                variant="outlined"
+                margin="normal"
+              />
             </PriceMinute>
           </VideoCall>
           <ButtonConatiner>
-            <UIThemeButton variant={disable ? 'outlined' : 'contained'} disabled={!disable} loading={loading} onClick={handleReset}>
-              <UINewTypography variant="buttonSmallBold">
-                <FormattedMessage id="CancelChanges" />
-              </UINewTypography>
-            </UIThemeButton>
-            <UIThemeButton
+            <StyleButtonV2
               variant={disable ? 'contained' : 'outlined'}
               type="submit"
               sx={{ border: '#07030E !important' }}
@@ -176,7 +143,7 @@ const DashboardPriceView = ({
               <UINewTypography variant="buttonSmallBold" color={disable ? '#000' : '#58535E'}>
                 <FormattedMessage id="Save" />
               </UINewTypography>
-            </UIThemeButton>
+            </StyleButtonV2>
           </ButtonConatiner>
         </SecondConatiner>
       </MainConatiner>
