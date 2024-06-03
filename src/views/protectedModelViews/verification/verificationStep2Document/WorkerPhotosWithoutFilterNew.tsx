@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import { FormikErrors, FormikTouched } from 'formik';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { MainMakeSure, Step7MainBox, Step7UploadImagBox } from './LastStepPromise.styled';
+import { MainMakeSure, Step7MainBox, Step7UploadImagBox, UIRulesHeader } from './LastStepPromise.styled';
 import DragAndDropPromiseV2 from 'components/UIComponents/DragAndDropImage/DragAndDropPromiseV2';
 import { List, ListItem } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
@@ -46,7 +46,7 @@ const WorkerPhotosWithoutFilterNew = ({
       </Box>
       <Step7MainBox>
         <Step7UploadImagBox>
-          <Box display="flex" flexDirection="column" alignItems="center" gap={3} alignSelf=" stretch">
+          <Box display="flex" flexDirection="column" alignItems="center" gap={2.5} alignSelf=" stretch">
             <UINewTypography variant="h6">
               <FormattedMessage id="ID" />
             </UINewTypography>
@@ -71,9 +71,9 @@ const WorkerPhotosWithoutFilterNew = ({
 
             <MainMakeSure>
               <Box>
-                <UINewTypography variant="bodySemiBold" color="#86838A">
+                <UIRulesHeader variant="bodySemiBold" color="#86838A">
                   <FormattedMessage id="MakeSureToFollowThese" />
-                </UINewTypography>
+                </UIRulesHeader>
                 <Box>
                   <List
                     sx={{
@@ -90,7 +90,7 @@ const WorkerPhotosWithoutFilterNew = ({
                     }}
                   >
                     <ListItem sx={{ display: 'list-item' }}>
-                      <UINewTypography variant="bodyRegular" sx={{ lineHeight: '24px', color: '#86838A' }}>
+                      <UINewTypography variant="bodyRegular" sx={{ lineHeight: '25.6px', color: '#86838A' }}>
                         <FormattedMessage id="MaximumFileSize" />{' '}
                         <span style={{ color: '#E9E8EB' }}>
                           <FormattedMessage id="5MB" />
@@ -98,8 +98,8 @@ const WorkerPhotosWithoutFilterNew = ({
                       </UINewTypography>
                     </ListItem>
                     <ListItem sx={{ display: 'list-item' }}>
-                      <UINewTypography variant="bodyRegular" sx={{ lineHeight: '24px', color: '#86838A' }}>
-                        <FormattedMessage id="SupportedFormats" />{' '}
+                      <UINewTypography variant="bodyRegular" sx={{ lineHeight: '25.6px', color: '#86838A' }}>
+                        <FormattedMessage id="SupportedFormats" />
                         <span style={{ color: '#E9E8EB' }}>
                           <FormattedMessage id="JPEGJPG" />
                         </span>
