@@ -5,11 +5,14 @@ import {
   StepTwoBox,
   StepTwoContainer,
   StepTwoInputOuterBox,
-  StepTwoInputOuterMainBox
+  StepTwoInputOuterMainBox,
+  StepTwoMainConatiner,
+  VerificationHeaderText,
+  VerificationUITypography
 } from './VerficationStepOne.styled';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import UINewRadioButtonsGroup from 'components/UIComponents/UIRadioButtonGroup';
-import { GENDER } from 'constants/workerVerification';
+import { EMAIL_SOURCE, GENDER } from 'constants/workerVerification';
 import FormHelperText from '@mui/material/FormHelperText';
 import { RiArrowDownSLine, RiCalendar2Line } from 'components/common/customRemixIcons';
 import Box from '@mui/material/Box';
@@ -132,8 +135,11 @@ const VerificationBasicDetails = ({
     setActiveStep(0);
   };
   const sendLinkVerify = async () => {
+    const url = new URL(window.location.href);
+    let source;
+    source = url.pathname === '/model/dashboard' ? EMAIL_SOURCE.ONBOARDED : EMAIL_SOURCE.DETAILS;
     try {
-      const data = await ModelAuthService.modelForgetPasswordLinkStep(values.email, token.token);
+      const data = await ModelAuthService.modelForgetPasswordLinkStep(values.email, token.token, source);
       if (data.code === 200) {
         setOpenForgetPassLink(true);
         toast.success(data.message);
@@ -154,18 +160,18 @@ const VerificationBasicDetails = ({
         </UINewTypography>
       )}
       <StepTwoBox sx={{ gap: 0 }}>
-        <UINewTypography variant="h6" color="text.secondary">
+        <VerificationUITypography variant="h6" color="text.secondary">
           <FormattedMessage id="IAmA" />
-        </UINewTypography>
+        </VerificationUITypography>
         <UINewRadioButtonsGroup options={GENDER} defaultValue={values.gender} onChange={handleGender} />
         {touched.gender && errors.gender && <FormHelperText error>{errors.gender}</FormHelperText>}
       </StepTwoBox>
       <StepTwoBox sx={{ gap: 2.5 }}>
-        <Box display="flex" gap={1.5} sx={{ flexDirection: { xs: 'column', sm: 'row' } }}>
+        <StepTwoMainConatiner>
           <StepTwoInputOuterMainBox>
-            <UINewTypography variant="bodySemiBold">
+            <VerificationHeaderText variant="bodySemiBold">
               <FormattedMessage id="Name" /> *
-            </UINewTypography>
+            </VerificationHeaderText>
             <UIStyledInputText
               name="name"
               value={values.name}
@@ -176,9 +182,9 @@ const VerificationBasicDetails = ({
             />
           </StepTwoInputOuterMainBox>
           <StepTwoInputOuterMainBox>
-            <UINewTypography variant="bodySemiBold">
+            <VerificationHeaderText variant="bodySemiBold">
               <FormattedMessage id="Country" /> *
-            </UINewTypography>
+            </VerificationHeaderText>
             <UIStyledAutocomplete
               id="country"
               options={countries || []}
@@ -204,17 +210,20 @@ const VerificationBasicDetails = ({
                           width: '24px'
                         }}
                       />
-                    )
+                    ),
+                    style: {
+                      paddingRight: '13px'
+                    }
                   }}
                 />
               )}
             />
           </StepTwoInputOuterMainBox>
-        </Box>
+        </StepTwoMainConatiner>
         <StepTwoInputOuterBox sx={{ maxWidth: '792px' }}>
-          <UINewTypography variant="bodySemiBold">
+          <VerificationHeaderText variant="bodySemiBold">
             <FormattedMessage id="YourBio" /> *
-          </UINewTypography>
+          </VerificationHeaderText>
           <UIStyledInputText
             name="bio"
             rows={6.4}
@@ -226,7 +235,7 @@ const VerificationBasicDetails = ({
             error={touched.bio && Boolean(errors.bio)}
             helperText={touched.bio && errors.bio}
             sx={{
-              '& .MuiInputBase-input': { color: 'secondary.700', margin: '16px 12px' },
+              '& .MuiInputBase-input': { color: 'secondary.700', margin: '12px 16px' },
               maxWidth: '792px',
               '& .MuiOutlinedInput-root': {
                 padding: '0px !important'
@@ -250,9 +259,9 @@ const VerificationBasicDetails = ({
       <StepTwoBox>
         <Box display="flex" gap={1.5}>
           <StepTwoInputOuterMainBox sx={{ maxWidth: '100%' }}>
-            <UINewTypography variant="bodySemiBold">
+            <VerificationHeaderText variant="bodySemiBold">
               <FormattedMessage id="Email" /> *
-            </UINewTypography>
+            </VerificationHeaderText>
             <UIStyledInputText
               disabled={!isEditable}
               fullWidth
@@ -300,11 +309,11 @@ const VerificationBasicDetails = ({
         </Box>
       </StepTwoBox>
       <StepTwoBox>
-        <Box display="flex" gap={1.5} sx={{ flexDirection: { xs: 'column', sm: 'row' } }}>
+        <StepTwoMainConatiner>
           <DateOfBirthMainContainer>
-            <UINewTypography variant="bodySemiBold">
+            <VerificationHeaderText variant="bodySemiBold">
               <FormattedMessage id="DOB" />*
-            </UINewTypography>
+            </VerificationHeaderText>
             <UIStyledDatePicker
               format="YYYY-MM-DD"
               value={values.dob ? moment(values.dob, 'YYYY-MM-DD') : null}
@@ -346,12 +355,12 @@ const VerificationBasicDetails = ({
             </UINewTypography>
           </DateOfBirthMainContainer>
           <StepTwoInputOuterMainBox>
-            <UINewTypography variant="bodySemiBold">
+            <VerificationHeaderText variant="bodySemiBold">
               <FormattedMessage id="Nationality" /> *
-            </UINewTypography>
+            </VerificationHeaderText>
             <FormControl fullWidth>
               <UIStyledSelectItemContainer
-                sx={{ '&.MuiInputBase-root': { backgroundColor: 'secondary.500' } }}
+                sx={{ '&.MuiInputBase-root': { backgroundColor: 'secondary.500' }, height: '50px' }}
                 name="nationality_id"
                 onChange={handleChange}
                 value={values.nationality_id}
@@ -359,7 +368,7 @@ const VerificationBasicDetails = ({
                 IconComponent={ExpandMore}
               >
                 {nationality?.map((type, index: number) => (
-                  <MenuItem key={index} value={type.id}>
+                  <MenuItem key={index} value={type.id} sx={{ padding: '12px 16px' }}>
                     {type.name}
                   </MenuItem>
                 ))}
@@ -367,12 +376,12 @@ const VerificationBasicDetails = ({
               {touched.nationality_id && errors.nationality_id && <FormHelperText error>{errors.nationality_id}</FormHelperText>}
             </FormControl>
           </StepTwoInputOuterMainBox>
-        </Box>
+        </StepTwoMainConatiner>
       </StepTwoBox>
       <StepTwoBox>
-        <UINewTypography variant="h6" color="text.secondary">
+        <VerificationUITypography variant="h6" color="text.secondary">
           <FormattedMessage id="PreferredLanguage" />*
-        </UINewTypography>
+        </VerificationUITypography>
         <Box width="100%" display="flex" gap={1.5} flexWrap="wrap">
           {languages?.map((lang, index) => (
             <UINewCheckBox

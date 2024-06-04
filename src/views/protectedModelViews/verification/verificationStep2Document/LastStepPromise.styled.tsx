@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const Step7MainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -22,7 +23,7 @@ export const Step7InnerBox = styled(Box)(({ theme }) => ({
 }));
 
 export const Step7UploadImagBox = styled(Box)(({ theme }) => ({
-  padding: '24px 16px 0px',
+  padding: '24px 16px 0px 16px',
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(2.25),
@@ -50,7 +51,9 @@ export const StepButtonNext = styled(Box)(({ theme }) => ({
   maxWidth: '824px',
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(11.75),
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingRight: '16px',
+    paddingLeft: '16px'
   }
 }));
 
@@ -60,7 +63,11 @@ export const MainMakeSure = styled(Box)(({ theme }) => ({
   borderRadius: '8px',
   padding: '16px',
   [theme.breakpoints.down('sm')]: {
-    padding: '16px 12px 16px 12px',
     maxWidth: '363px'
   }
+}));
+
+export const UIRulesHeader = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '16px !important',
+  lineHeight: '25.6px !important'
 }));

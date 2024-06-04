@@ -12,16 +12,17 @@ import {
   FirstBoxSecondContainer,
   SecondImage,
   FirstImageWithoutBlur,
-  TypographyBox
+  TypographyBox,
+  SomeInstructionsUI
 } from './verificationStep2Instructions.styled';
 
 const VerificationStep2Instruction = () => {
   return (
     <InstructionMainContainer>
       <HeaderTextContainer>
-        <UINewTypography variant="buttonLargeBold">
+        <SomeInstructionsUI variant="buttonLargeBold">
           <FormattedMessage id="SomeInstructions" />
-        </UINewTypography>
+        </SomeInstructionsUI>
       </HeaderTextContainer>
       <InstructionSubContainer>
         <FirstBoxMainContainer>

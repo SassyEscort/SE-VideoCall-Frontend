@@ -37,7 +37,7 @@ export const FirstBoxMainContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
-    gap: theme.spacing(3)
+    gap: theme.spacing(4)
   },
   [theme.breakpoints.up('sm')]: {
     flexDirection: 'row',
@@ -90,4 +90,9 @@ export const TypographyBox = styled(Box)(() => ({
   display: 'flex',
   height: '100%',
   maxHeight: '48px'
+}));
+
+export const SomeInstructionsUI = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '16px !important',
+  lineHeight: '19.2px !important'
 }));

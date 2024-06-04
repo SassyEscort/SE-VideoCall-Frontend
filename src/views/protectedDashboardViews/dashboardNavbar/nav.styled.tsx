@@ -71,7 +71,6 @@ export const MobileComponentBoxContainer = styled(Box)(({ theme }) => ({
   '& .MuiButtonBase-root': {
     paddingLeft: '12px',
     paddingRight: '32px',
-    paddingTop: '24px',
     paddingBottom: '24px'
   },
   [theme.breakpoints.down('sm')]: {
@@ -100,4 +99,16 @@ export const DashboardSidebarBox = styled(Box)(() => ({
   justifyContent: 'space-between',
   width: '100%',
   minWidth: '268px'
+}));
+
+export const DullCirclesNav = styled(Box)(() => ({
+  backgroundColor: 'rgba(255, 72, 179, 0.3)',
+  height: '412px',
+  width: '584px',
+  borderRadius: '50%',
+  filter: 'blur(100px)',
+  position: 'absolute',
+  zIndex: '-1',
+  top: '-200px',
+  right: '-100px'
 }));

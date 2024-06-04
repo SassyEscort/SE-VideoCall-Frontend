@@ -5,7 +5,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 export const ParentBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(14),
+  gap: theme.spacing(8),
   width: '100%',
   justifyContent: 'center',
   alignItems: 'center',
@@ -21,7 +21,7 @@ export const ParentBox = styled(Box)(({ theme }) => ({
 export const VerificationStep2MainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  paddingTop: theme.spacing(3.75),
+  paddingTop: theme.spacing(4),
   gap: theme.spacing(7),
   justifyContent: 'center',
   alignItems: 'center',
@@ -91,12 +91,18 @@ export const ButtonBox = styled(Box)(({ theme }) => ({
 
 export const BackButtonBox = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(1)
+  gap: theme.spacing(1),
+  width: '100%',
+  maxWidth: '130px'
 }));
 
 export const UploaddocumentsButtonBox = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(1)
+  gap: theme.spacing(1),
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    maxWidth: '130px'
+  }
 }));
 
 export const UINewTypographyTextMenuItem = styled(UINewTypography)(({ theme }) => ({
@@ -105,4 +111,14 @@ export const UINewTypographyTextMenuItem = styled(UINewTypography)(({ theme }) =
   paddingBottom: theme.spacing(2),
   width: '100%',
   maxWidth: '390px'
+}));
+
+export const VerificationTwoHeaderText = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '16px !important',
+  lineHeight: '25.6px !important'
+}));
+
+export const VerificationButtonText = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '16px !important',
+  lineHeight: '19.2px !important'
 }));

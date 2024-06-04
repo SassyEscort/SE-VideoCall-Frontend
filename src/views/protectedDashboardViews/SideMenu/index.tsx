@@ -2,7 +2,6 @@ import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React from 'react';
 import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
-import { Divider } from '@mui/material';
 import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
 import {
   SiderBarCircaleBox,
@@ -13,34 +12,27 @@ import {
   SiderBarSecondTextBox,
   SiderBarThiredBox
 } from './SideMenu.styled';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
-const SideMenu = () => {
+const SideMenu = ({ modelDetails }: { modelDetails: ModelDetailsResponse }) => {
+  const firstChar = modelDetails?.name ? modelDetails.name.charAt(0).toUpperCase() : '';
   return (
-    <SiderBarMainContainer>
-      <HomeMainModelContainer>
+    <HomeMainModelContainer>
+      <SiderBarMainContainer>
         <SiderBarFirstBox>
           <SiderBarFirstBox>
             <Box sx={{ display: 'flex', gap: 2 }}>
               <SiderBarSecondBox>
                 <SiderBarThiredBox>
                   <SiderBarCircaleBox></SiderBarCircaleBox>
-                  <SiderBarCircaleTextBox>A</SiderBarCircaleTextBox>
+                  <SiderBarCircaleTextBox>{firstChar}</SiderBarCircaleTextBox>
                 </SiderBarThiredBox>
-                <Box
-                  component="img"
-                  src="/images/model/dashboard-edit-img.png"
-                  sx={{
-                    width: '20px',
-                    height: '20px',
-                    position: 'absolute'
-                  }}
-                />
               </SiderBarSecondBox>
 
               <SiderBarSecondTextBox>
                 <Box>
                   <UINewTypography variant="newTitle" color="text.primary">
-                    Aesha Finn
+                    {modelDetails?.name}
                   </UINewTypography>
                 </Box>
                 <Box sx={{ display: 'flex', marginLeft: '-4px' }}>
@@ -52,11 +44,10 @@ const SideMenu = () => {
                 </Box>
               </SiderBarSecondTextBox>
             </Box>
-            <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
           </SiderBarFirstBox>
         </SiderBarFirstBox>
-      </HomeMainModelContainer>
-    </SiderBarMainContainer>
+      </SiderBarMainContainer>
+    </HomeMainModelContainer>
   );
 };
 

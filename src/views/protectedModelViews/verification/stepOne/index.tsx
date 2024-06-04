@@ -14,8 +14,11 @@ import { FormattedMessage } from 'react-intl';
 import { StepOneContainer } from './VerficationStepOne.styled';
 import { TokenIdType } from '..';
 import { toast } from 'react-toastify';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ErrorMessage } from 'constants/common.constants';
+import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
+import { scrollToError } from 'utils/scrollUtils';
+import { useRouter } from 'next/navigation';
 
 const VerificationStepOne = ({
   handleNext,
@@ -30,6 +33,11 @@ const VerificationStepOne = ({
   isEdit: boolean;
   handleModelApiChange: () => void;
 }) => {
+  const router = useRouter();
+
+  const url = new URL(window.location.href);
+  const email = url.searchParams.get('email');
+
   const initialValuesPerStep: VerificationStep1Type = {
     id: token.id,
     gender: modelDetails?.gender || '',
@@ -66,6 +74,41 @@ const VerificationStepOne = ({
       .max(1000, 'Bio should be atmost 1000 characters')
   });
 
+  const verifyEmail = useCallback(async () => {
+    const verificationCode = url.searchParams.get('code');
+
+    const payload = {
+      email: String(email),
+      verification_code: String(verificationCode)
+    };
+    try {
+      if (token && payload) {
+        const res = await VerificationStepService.modelVerifyEmail(payload, token.token);
+        if (res.data) {
+          if (url.pathname === '/model/profile') {
+            router.push('/model/profile');
+          } else {
+            router.push('/model/dashboard');
+          }
+          toast.success(res.message);
+        } else {
+          toast.error(res.message);
+        }
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email, token.token, url.pathname]);
+
+  useEffect(() => {
+    if (email && token.token) {
+      verifyEmail();
+      handleModelApiChange();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email, token]);
+
   return (
     <Formik
       enableReinitialize
@@ -76,6 +119,7 @@ const VerificationStepOne = ({
           setLoading(true);
           const response = await ModelVerificationService.verificationStepOne(values, token.token);
           if (response.data) {
+            toast.success(response.message);
             handleNext();
             handleModelApiChange();
           } else {
@@ -89,47 +133,74 @@ const VerificationStepOne = ({
         }
       }}
     >
-      {({ values, errors, touched, handleChange, setFieldValue, handleSubmit, handleBlur }) => (
-        <StepOneContainer
-          component="form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit();
-          }}
-        >
-          <VerificationBasicDetails
-            isEdit={isEdit}
-            token={token}
-            values={values}
-            errors={errors}
-            touched={touched}
-            handleBlur={handleBlur}
-            handleChange={handleChange}
-            setFieldValue={setFieldValue}
-          />
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              width: '100%',
-              maxWidth: '824px'
+      {({ values, errors, touched, handleChange, setFieldValue, handleSubmit, handleBlur, handleReset }) => {
+        const changedValues = Object.keys(values).reduce((acc, key) => {
+          if (values[key as keyof VerificationStep1Type] !== initialValuesPerStep[key as keyof VerificationStep1Type]) {
+            return true;
+          } else {
+            return false;
+          }
+        }, {});
+
+        return (
+          <StepOneContainer
+            component="form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              scrollToError('.Mui-error');
+              handleSubmit();
             }}
           >
-            <UIThemeButton variant="outlined" disabled={true}>
-              <RiArrowLeftLine />
-              <UINewTypography variant="body">
-                <FormattedMessage id="Back" />
-              </UINewTypography>
-            </UIThemeButton>
-            <StyleButtonV2 type="submit" variant="contained" id="user-info-submit-button" loading={loading}>
-              <UINewTypography variant="body">
-                <FormattedMessage id="Next" />
-              </UINewTypography>
-              <RiArrowRightLine />
-            </StyleButtonV2>
-          </Box>
-        </StepOneContainer>
-      )}
+            <VerificationBasicDetails
+              isEdit={isEdit}
+              token={token}
+              values={values}
+              errors={errors}
+              touched={touched}
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              setFieldValue={setFieldValue}
+            />
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '100%',
+                maxWidth: '824px'
+              }}
+            >
+              <UIThemeButton
+                onClick={isEdit && handleReset}
+                variant={changedValues && isEdit ? 'outlined' : 'contained'}
+                disabled={changedValues && isEdit ? false : true}
+              >
+                <RiArrowLeftLine />
+                {isEdit ? (
+                  <UINewTypography variant="body">
+                    <FormattedMessage id="CancelChanges" />
+                  </UINewTypography>
+                ) : (
+                  <UINewTypography variant="body">
+                    <FormattedMessage id="Back" />
+                  </UINewTypography>
+                )}
+              </UIThemeButton>
+              <StyleButtonV2 id="basic-details-button" type="submit" variant="contained" loading={loading}>
+                {isEdit ? (
+                  <UINewTypography variant="body">
+                    <FormattedMessage id="Save" />
+                  </UINewTypography>
+                ) : (
+                  <UINewTypography variant="body">
+                    <FormattedMessage id="Next" />
+                  </UINewTypography>
+                )}
+                <RiArrowRightLine />
+              </StyleButtonV2>
+            </Box>
+          </StepOneContainer>
+        );
+      }}
     </Formik>
   );
 };

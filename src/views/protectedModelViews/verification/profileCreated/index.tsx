@@ -34,7 +34,7 @@ const ProfileCreated = () => {
               </UINewTypography>
             </Box>
             <Box>
-              <Link href={'/model'}>
+              <Link href={'/model/dashboard'}>
                 <UIThemeButton variant="contained">
                   <UINewTypography variant="buttonLargeBold">
                     <FormattedMessage id="GoToYourDashboard" />

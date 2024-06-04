@@ -12,5 +12,8 @@ export const UIStyledNewFormLableContainer = styled(FormControlLabel)(({ theme }
   borderColor: theme.palette.primary[700],
   '& .MuiSvgIcon-root': {
     display: 'none'
+  },
+  [theme.breakpoints.down('sm')]: {
+    width: '160px'
   }
 }));

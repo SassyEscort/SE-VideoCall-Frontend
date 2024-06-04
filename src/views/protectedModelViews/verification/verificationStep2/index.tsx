@@ -19,9 +19,11 @@ import {
   ParentBox,
   UINewTypographyTextMenuItem,
   UploaddocumentsButtonBox,
+  VerificationButtonText,
   VerificationStep2MainContainer,
   VerificationStep2MainContainerSecond,
-  VerificationStep2MainContainerThree
+  VerificationStep2MainContainerThree,
+  VerificationTwoHeaderText
 } from './VerificationStep2.styled';
 import { useFormik } from 'formik';
 import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
@@ -150,9 +152,9 @@ const VerificationStep2 = ({
           <VerificationStep2MainContainerThree>
             <InputTypeBoxOne>
               <Box sx={{ display: 'flex', gap: 0.5 }}>
-                <UINewTypography variant="bodySemiBold" color="text.primary">
+                <VerificationTwoHeaderText variant="bodySemiBold" color="text.primary">
                   <FormattedMessage id="IdType" />
-                </UINewTypography>
+                </VerificationTwoHeaderText>
                 <UINewTypography>*</UINewTypography>
               </Box>
               <Box sx={{ maxWidth: '390px', borderRadius: '15px' }}>
@@ -168,7 +170,9 @@ const VerificationStep2 = ({
                   sx={{
                     '& .MuiOutlinedInput-notchedOutline': {
                       borderColor: touched.idType && errors.idType ? 'error.main' : 'secondary.light'
-                    }
+                    },
+                    '& .MuiSelect-select': { padding: '0px' },
+                    height: '50px'
                   }}
                 >
                   {DocumentList.map((type, index: number) => (
@@ -184,7 +188,7 @@ const VerificationStep2 = ({
                       <UINewTypographyTextMenuItem
                         variant="bodySemiBold"
                         color={'text.primary'}
-                        sx={{ paddingTop: '14px', paddingBottom: '10px' }}
+                        sx={{ paddingTop: 1.5, paddingBottom: 1.5 }}
                       >
                         {type.key}
                       </UINewTypographyTextMenuItem>
@@ -197,13 +201,14 @@ const VerificationStep2 = ({
 
             <InputTypeBoxSecond>
               <Box sx={{ display: 'flex', gap: 0.5 }}>
-                <UINewTypography variant="bodySemiBold" color="text.primary">
+                <VerificationTwoHeaderText variant="bodySemiBold" color="text.primary">
                   <FormattedMessage id="IdNumber" />
-                </UINewTypography>
+                </VerificationTwoHeaderText>
                 <UINewTypography>*</UINewTypography>
               </Box>
               <Box sx={{ maxWidth: '390px' }}>
                 <UIStyledInputText
+                  type="number"
                   fullWidth
                   id="idNumber"
                   name="idNumber"
@@ -222,16 +227,16 @@ const VerificationStep2 = ({
             <UIThemeButton variant="outlined" onClick={handlePrev}>
               <ArrowBackOutlinedIcon />
 
-              <UINewTypography variant="buttonLargeBold" color="text.secondary">
+              <VerificationButtonText variant="buttonLargeBold" color="text.secondary">
                 <FormattedMessage id="Back" />
-              </UINewTypography>
+              </VerificationButtonText>
             </UIThemeButton>
           </BackButtonBox>
           <UploaddocumentsButtonBox>
             <StyleButtonV2 variant="contained" type="submit" loading={loading}>
-              <UINewTypography variant="buttonLargeBold" color="primary.200">
+              <VerificationButtonText variant="buttonLargeBold" color="primary.200">
                 {isSm ? <FormattedMessage id="Next" /> : <FormattedMessage id="UploadDocuments" />}
-              </UINewTypography>
+              </VerificationButtonText>
               <ArrowForwardOutlinedIcon />
             </StyleButtonV2>
           </UploaddocumentsButtonBox>

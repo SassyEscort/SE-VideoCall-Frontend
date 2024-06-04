@@ -20,6 +20,11 @@ export const imageKitObj = {
   uploadApi: 'https://upload.imagekit.io/api/v1/files/upload'
 };
 
+export type EmailVerify = {
+  email: string;
+  verification_code: string;
+};
+
 export class VerificationStepService {
   static imageKitAuthApi = async () => {
     const res = await axios.get<ImagekitTokenResponse>(`${process.env.NEXT_PUBLIC_API_BASE_URL_IMAGE}/api/imagekit`, {
@@ -126,6 +131,34 @@ export class VerificationStepService {
       const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/mark-thumbnail`, payload, {
         headers: { 'Content-Type': 'application/json', Authorization: token.token }
       });
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data || { error_message: error.message };
+    }
+  };
+
+  static modelVerifyEmail = async (payload: EmailVerify, token: string) => {
+    try {
+      const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/verify-email`, payload, {
+        headers: { 'Content-Type': 'application/json', Authorization: token }
+      });
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data || { error_message: error.message };
+    }
+  };
+
+  static modelReview = async (token: string) => {
+    try {
+      const res = await axios.put(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/review`,
+        {},
+        {
+          headers: { 'Content-Type': 'application/json', Authorization: token }
+        }
+      );
       return res.data;
     } catch (err: any) {
       const error: AxiosError = err;
