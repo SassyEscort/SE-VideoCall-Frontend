@@ -14,9 +14,12 @@ import UINewChip from 'components/UIComponents/UINewChip';
 import theme from 'themes/theme';
 import { UINewTooltip } from 'components/UIComponents/UINewTooltip/UINewTooltip.styled';
 import { FormattedMessage } from 'react-intl';
-import { GuestDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import moment from 'moment';
 
-const EscortPersonalDetail = ({ guestData }: { guestData: GuestDetailsResponse }) => {
+const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }) => {
+  console.log(guestData, 'guestDataguestDataguestData');
+
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
@@ -38,16 +41,14 @@ const EscortPersonalDetail = ({ guestData }: { guestData: GuestDetailsResponse }
                   color="#E9E8EB"
                   sx={{ fontSize: { xs: '32px', sm: '40px' }, lineHeight: { xs: '43.2px', sm: '54px' } }}
                 >
-                  {guestData?.data?.name}
+                  {guestData?.name}
                 </UINewTypography>
                 <UINewTypography variant="SubtitleSmallMedium" sx={{ fontSize: '14px', lineHeight: '19.6px' }}>
                   <FormattedMessage id="LastActive" />
                 </UINewTypography>
               </DetailsChildBox>
               <Box>
-                <NewTypography variant="subtitle">
-                  <FormattedMessage id="LifeIsShort" />
-                </NewTypography>
+                <NewTypography variant="subtitle">{guestData?.bio}</NewTypography>
               </Box>
             </NameMainBox>
           </DetailsChildBox>
@@ -62,15 +63,15 @@ const EscortPersonalDetail = ({ guestData }: { guestData: GuestDetailsResponse }
                 </UINewTypography>
               </Box>
               <DetailsChipBox>
-                <UINewTooltip title={'Hello'} placement="top">
+                <UINewTooltip title="Age" placement="top">
                   <UINewChip
                     icon={<Box height={20} width={20} component="img" src={`/images/details-icon/age-icon.svg`} alt={'language'} />}
-                    label="24"
+                    label={moment().diff(guestData?.dob, 'years')}
                   />
                 </UINewTooltip>
                 <UINewChip
                   icon={<Box height={20} width={20} component="img" src={`/images/details-icon/gender-icon.svg`} alt={'language'} />}
-                  label="Female"
+                  label={guestData?.gender}
                 />
                 <UINewChip
                   icon={<Box height={20} width={20} component="img" src={`/images/details-icon/language-icon.svg`} alt={'language'} />}

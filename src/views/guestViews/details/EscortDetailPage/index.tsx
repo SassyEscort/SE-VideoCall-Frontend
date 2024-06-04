@@ -10,18 +10,18 @@ import EscortPersonalDetail from './EscortPersonalDetail';
 import EscortExplore from './EscortExplore';
 import { GuestDetailsService } from 'services/guestDetails/guestDetails.services';
 import { useEffect, useState } from 'react';
-import { GuestDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
 const EscortDetailPage = ({ userName }: { userName: string }) => {
-  const [guestData, setGuestData] = useState();
+  const [guestData, setGuestData] = useState<ModelDetailsResponse>();
   const isLgDown = useMediaQuery(theme.breakpoints.down('lg'));
 
   useEffect(() => {
     const fetchGuestData = async () => {
       try {
         const data = await GuestDetailsService.GuestModelDetails(userName);
-        setGuestData(data);
-        console.log(data, 'guestData');
+        setGuestData(data.data);
+        console.log(data.data, 'guestData');
       } catch (error) {
         console.error('Failed to fetch guest data:', error);
       }
@@ -35,7 +35,7 @@ const EscortDetailPage = ({ userName }: { userName: string }) => {
       <HomeMainContainer>
         {!isLgDown && <EscortSlider />}
         {isLgDown && <EscortSliderMobile />}
-        <EscortPersonalDetail guestData={guestData ?? ({} as GuestDetailsResponse)} />
+        <EscortPersonalDetail guestData={guestData ?? ({} as ModelDetailsResponse)} />
         <EscortGalleryContainer />
         <EscortExplore />
       </HomeMainContainer>
