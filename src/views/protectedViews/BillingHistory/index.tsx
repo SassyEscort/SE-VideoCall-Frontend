@@ -14,14 +14,15 @@ import {
 } from './BillingHistory.styled';
 import MainLayoutNav from '../protectedLayout';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import { FormattedMessage } from 'react-intl';
 
 const BillingHistory = () => {
   return (
     <MainLayoutNav variant={'worker'} enlargedFooter={true}>
       <TextAndBoxContainer>
         <BillingHistoryTextContainer>
-          <UINewTypography variant="h2" color="text.secondary">
-            Billing History
+          <UINewTypography variant="h2" color="text.secondary" whiteSpace={'nowrap'}>
+            <FormattedMessage id="BillingHistory" />
           </UINewTypography>
         </BillingHistoryTextContainer>
         <BillingHistoryMainContainer>
@@ -29,7 +30,7 @@ const BillingHistory = () => {
             <FirstTextContainer>
               <BillingUIContainer sx={{ gap: 1.5 }}>
                 <UINewTypography variant="buttonLargeMenu" color="success.100">
-                  + 100 credits
+                  + 100 <FormattedMessage id="Credits" />
                 </UINewTypography>
                 <DateTimeBilling variant="SubtitleSmallMedium" color="text.primary">
                   05:28 PM, 12 Apr 2024
@@ -48,7 +49,7 @@ const BillingHistory = () => {
             <FirstTextContainer>
               <BillingUIContainer sx={{ gap: 1.5 }}>
                 <UINewTypography variant="buttonLargeMenu" color="error.300">
-                  + 100 credits
+                  + 100 <FormattedMessage id="Credits" />
                 </UINewTypography>
                 <DateTimeBilling variant="SubtitleSmallMedium" color="text.primary">
                   05:28 PM, 12 Apr 2024
@@ -56,7 +57,7 @@ const BillingHistory = () => {
               </BillingUIContainer>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <ViewDetailsBilling variant="h6" color="text.secondary">
-                  View details
+                  <FormattedMessage id="ViewDetails" />
                 </ViewDetailsBilling>
               </Box>
             </FirstTextContainer>

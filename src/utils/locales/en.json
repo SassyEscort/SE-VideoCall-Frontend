@@ -234,11 +234,9 @@
   "Prices": "Prices",
   "Signup": "Signup",
   "Dashboard": "Dashboard",
-  "Credit": "Credit",
   "Balance": "Balance:",
-  "40": "40",
   "BuyCredits": "Buy Credits and have non stop video calls with your favourite models.",
-  "90Credits": "90 Credits",
+  "Credits": " Credits",
   "BuyNowAt": "Buy Now at",
   "BestValue": "BestValue",
   "MostPopular": "Most Popular",
@@ -266,5 +264,14 @@
   "Trans": "Tarns",
   "SiliconValleyBank": "Silicon Valley Bank",
   "AddMoreBanks": "Add more banks",
-  "RequestAPayout": "Request a payout"
+  "RequestAPayout": "Request a payout",
+  "Change":"Change",
+  "Favourites":"Favourites",
+  "Models":"models",
+  "CallsHistory":"Calls History",
+  "BillingHistory":"Billing History",
+  "ViewDetails":"View details",
+  "MailUs":"Mail us",
+  "OnboardingCompleted":"Onboarding Completed",
+  "YourProfile":"Your Profile has been created"
 }

@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import theme from 'themes/theme';
 
 export const GalleryMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -131,5 +132,16 @@ export const UIPhotosHeader = styled(UINewTypography)(({ theme }) => ({
     fontSize: '26px !important',
     fontWeight: 600,
     lineHeight: '36.4px !important'
+  }
+}));
+
+export const UploadMultiplePhotos = styled(Box)(() => ({
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  [theme.breakpoints.down('sm')]: {
+    padding: '0px 12px 0px 12px'
   }
 }));
