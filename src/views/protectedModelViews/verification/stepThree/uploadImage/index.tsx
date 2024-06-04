@@ -103,7 +103,7 @@ const UploadImage = ({
     file5Existing: Yup.array().default([]),
     file5: Yup.array()
       .default([])
-      .when('file5Existing', (file5Existing, schema) => {
+      .when('file5Existing', (file5Existing: WorkerPhotos[][], schema) => {
         const fileSizeCheck = function (this: Yup.TestContext<Yup.AnyObject>, value: any[]) {
           const filteredFile5 = (value || []).filter((x) => x !== null);
           const invalidSizeFiles = filteredFile5.filter((file) => file && file.size >= MAX_FILE_SIZE);
@@ -116,7 +116,7 @@ const UploadImage = ({
         if (file5Existing[0] && file5Existing[0].length >= 2) {
           return schema.test('file-size-check', fileSizeCheck).notRequired();
         }
-        return schema.test('file5-combined-length', function (this: Yup.TestContext<Yup.AnyObject>, value: any[]) {
+        return schema.test('file5-combined-length', function (this: Yup.TestContext<Yup.AnyObject>, value: File[]) {
           const { file5Existing } = this.parent;
           if (value && value.filter((x) => x !== null).length > 0) {
             const firstFileIndex = value.findIndex((x) => x !== null);
@@ -244,7 +244,7 @@ const UploadImage = ({
         handleSubmit(values);
       }}
     >
-      {({ values, errors, touched, setFieldValue, handleSubmit, handleReset }) => (
+      {({ values, errors, touched, setFieldValue, handleSubmit }) => (
         <Box component="form" onSubmit={handleSubmit}>
           <Box>
             <ModelMultiplePhoto
