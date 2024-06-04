@@ -99,7 +99,7 @@ const WorkerPhotosWithoutFilterNew = ({
                     </ListItem>
                     <ListItem sx={{ display: 'list-item' }}>
                       <UINewTypography variant="bodyRegular" sx={{ lineHeight: '25.6px', color: '#86838A' }}>
-                        <FormattedMessage id="SupportedFormats" />
+                        <FormattedMessage id="SupportedFormats" />{' '}
                         <span style={{ color: '#E9E8EB' }}>
                           <FormattedMessage id="JPEGJPG" />
                         </span>

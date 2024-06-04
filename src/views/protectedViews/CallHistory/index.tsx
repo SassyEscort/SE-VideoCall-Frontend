@@ -3,9 +3,12 @@ import Box from '@mui/material/Box';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import React from 'react';
 import {
+  CallAgainBox,
+  CallHistoryCreditBox,
   CallHistoryMainContainer,
   CallHistoryName,
   CallHistoryText,
+  CreditUsedBox,
   ImgBoxContainer,
   SecImgBoxContainer,
   SecondContainer,
@@ -23,16 +26,16 @@ import {
 import MainLayoutNav from '../protectedLayout';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import theme from 'themes/theme';
+import { FormattedMessage } from 'react-intl';
 
 const CallHistory = () => {
-  const isSm = useMediaQuery(theme.breakpoints.down('sm'));
   const isSmDown = useMediaQuery(theme.breakpoints.down(330));
   return (
     <MainLayoutNav variant={'worker'} enlargedFooter={true}>
       <CallHistoryMainContainer>
         <CallHistoryText>
           <UINewTypography variant="h2" color="text.secondary">
-            Calls History
+            <FormattedMessage id="CallsHistory" />
           </UINewTypography>
         </CallHistoryText>
         <SecondContainer>
@@ -56,12 +59,12 @@ const CallHistory = () => {
                         </UINewTypography>
                       </SecondSubFirstPartSecondBoxSecText>
                     </SecondSubFirstPartSecondBoxFirstText>
-                    <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, marginTop: isSm ? '8px' : 'auto' }}>
+                    <CallHistoryCreditBox>
                       <ImgBoxContainer src="/images/workercards/dollar-img.png" />
                       <UINewTypography variant="captionLargeBold" color="#E9E8EB">
                         20 credits/hr
                       </UINewTypography>
-                    </Box>
+                    </CallHistoryCreditBox>
                   </SecondSubFirstPartSecondBox>
                 </SecondSubFirstPartBox>
                 {!isSmDown && (
@@ -69,7 +72,7 @@ const CallHistory = () => {
                     <UINewTypography variant="buttonLargeMenu" color="text.primary">
                       Duration: 30 mins
                     </UINewTypography>
-                    <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1.5 }}>
+                    <CreditUsedBox>
                       <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
                         Credits used:
                       </UINewTypography>
@@ -79,7 +82,7 @@ const CallHistory = () => {
                           35
                         </UINewTypography>
                       </SecondSubFirstPartThiredBoxText>
-                    </Box>
+                    </CreditUsedBox>
                   </SecondSubFirstPartThiredBox>
                 )}
               </SecondSubFirstBox>
@@ -88,7 +91,7 @@ const CallHistory = () => {
                   <UINewTypography variant="buttonLargeMenu" color="text.primary">
                     Duration: 30 mins
                   </UINewTypography>
-                  <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1.5 }}>
+                  <CreditUsedBox>
                     <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
                       Credits used:
                     </UINewTypography>
@@ -98,10 +101,10 @@ const CallHistory = () => {
                         35
                       </UINewTypography>
                     </SecondSubFirstPartThiredBoxText>
-                  </Box>
+                  </CreditUsedBox>
                 </SecondSubFirstPartThiredBox>
               )}
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '12px' }}>
+              <CallAgainBox>
                 <UIThemeShadowButton variant="contained" sx={{ width: '100%', maxWidth: { xs: '363px', sm: '173px' } }}>
                   <Box sx={{ display: 'flex', gap: 1.25 }}>
                     <SecImgBoxContainer src="/images/home-connect-instantly-img.png" />
@@ -112,7 +115,7 @@ const CallHistory = () => {
                     </Box>
                   </Box>
                 </UIThemeShadowButton>
-              </Box>
+              </CallAgainBox>
             </SecondSubTextMainContainer>
           </SecondSubContainer>
           <Divider

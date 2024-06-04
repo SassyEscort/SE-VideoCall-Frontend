@@ -172,3 +172,26 @@ export const CallHistoryName = styled(UINewTypography)(({ theme }) => ({
     lineHeight: '20px !important'
   }
 }));
+
+export const CallHistoryCreditBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: theme.spacing(1),
+  whiteSpace: 'nowrap',
+  [theme.breakpoints.down('sm')]: {
+    marginTop: theme.spacing(1)
+  }
+}));
+
+export const CallAgainBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginTop: theme.spacing(1.5)
+}));
+
+export const CreditUsedBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: theme.spacing(1.5)
+}));

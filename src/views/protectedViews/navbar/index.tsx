@@ -11,7 +11,7 @@ import Divider from '@mui/material/Divider';
 import { MainDashboardTabs } from 'constants/escortConstants';
 import {
   CommonMenuBox,
-  MobileComponentBoxContainer,
+  MobileComponentBox,
   MobileComponentSecBoxContainer,
   MobileTextStyleContainer,
   SelectedTab
@@ -84,7 +84,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
         <Navbar tabIndex={tabIndex} />
       </Drawer>
       {isMdDown && (
-        <MobileComponentBoxContainer>
+        <MobileComponentBox>
           <Tabs
             value={value}
             variant="scrollable"
@@ -130,7 +130,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
             <Logout open={isLogoutOpen} onClose={handleCloseLogout} />
           </Tabs>
           <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-        </MobileComponentBoxContainer>
+        </MobileComponentBox>
       )}
     </Box>
   );

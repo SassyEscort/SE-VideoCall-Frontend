@@ -49,10 +49,10 @@ const HelpAndSupportContainer = ({ open, openDailog, closeDailog }: { open: bool
             <TextFirstBoxContainer>
               <TextSecondBoxContainer>
                 <UINewTypography variant="body" color="text.primary">
-                  <FormattedMessage id="CallOn" />
+                  <FormattedMessage id="MailUs" />
                 </UINewTypography>
                 <UINewTypography variant="h3" color="text.secondary">
-                  +91 9876543210
+                  help@sassy.com
                 </UINewTypography>
               </TextSecondBoxContainer>
             </TextFirstBoxContainer>

@@ -14,7 +14,7 @@ import {
   UIPhotosHeader,
   UploadItem,
   UploadMultipleBox,
-  UploadMultipleContainer
+  UploadMultiplePhotos
 } from './UploadMultiplePhoto.styled';
 import { FormattedMessage } from 'react-intl';
 import { TokenIdType } from '../..';
@@ -206,7 +206,7 @@ const ModelMultiplePhoto = ({
 
   return (
     <>
-      <UploadMultipleContainer>
+      <UploadMultiplePhotos>
         {!isEdit ? (
           <Box paddingBottom={4} pt={4}>
             <UIPhotosHeader variant="h3" sx={{ color: '#E9E8EB' }}>
@@ -274,7 +274,7 @@ const ModelMultiplePhoto = ({
             </Box>
           </GalleryMainContainer>
         </ModelMultiplePhotoItem>
-      </UploadMultipleContainer>
+      </UploadMultiplePhotos>
       {isEdit && (
         <UploadMultipleBox pt={12}>
           <UIThemeButton

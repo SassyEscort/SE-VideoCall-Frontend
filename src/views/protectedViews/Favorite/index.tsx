@@ -6,6 +6,7 @@ import { FavoritesText } from './Favorites.styled';
 import MainLayoutNav from '../protectedLayout';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
+import { FormattedMessage } from 'react-intl';
 
 const Favorites = () => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
@@ -15,10 +16,10 @@ const Favorites = () => {
         <Box sx={{ display: 'flex', gap: isSm ? 6 : 7, flexDirection: 'column' }}>
           <FavoritesText>
             <UINewTypography variant="h2" color="text.secondary">
-              Favourites
+              <FormattedMessage id="Favourites" />
             </UINewTypography>
             <UINewTypography variant="bodyUltraLarge" color="text.primary">
-              2 models
+              2 <FormattedMessage id="Models" />
             </UINewTypography>
           </FavoritesText>
           <WorkerCard />

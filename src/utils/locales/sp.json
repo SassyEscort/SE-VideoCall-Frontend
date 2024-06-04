@@ -232,11 +232,9 @@
   "Download": "Descargar",
   "Signup": "Inscribirse",
   "Dashboard": "Panel",
-  "Credit": "Crédito",
   "Balance": "Saldo:",
-  "40": "40",
   "BuyCredits": "Compra Créditos y ten videollamadas sin parar con tus modelos favoritas.",
-  "90Credits": "90 Créditos",
+  "Credits": "Créditos",
   "BuyNowAt": "Compra Ahora en",
   "BestValue": "Mejor Valor",
   "MostPopular": "Más Popular",
@@ -266,5 +264,14 @@
   "SetOrModifyYourPrices": "Establecer o Modificar sus precios",
   "Male": "Male",
   "Trans": "Tarns",
-  "RequestAPayout": "Solicitar un Pago"
+  "RequestAPayout": "Solicitar un Pago",
+  "Change":"Cambio",
+  "Favourites": "Favoritos",
+  "Models": "2 modelos",
+  "CallsHistory": "Historial de llamadas",
+  "BillingHistory": "Historial de facturación",
+  "ViewDetails": "Ver detalles",
+  "MailUs":"Contáctanos",
+  "OnboardingCompleted": "Onboarding Completado",
+  "YourProfile": "Tu perfil ha sido creado"
 }
