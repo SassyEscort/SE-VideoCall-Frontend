@@ -179,7 +179,7 @@ export const CallHistoryCreditBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
   whiteSpace: 'nowrap',
   [theme.breakpoints.down('sm')]: {
-    marginTop: 8
+    marginTop: theme.spacing(1)
   }
 }));
 
@@ -187,7 +187,7 @@ export const CallAgainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: '12px'
+  marginTop: theme.spacing(1.5)
 }));
 
 export const CreditUsedBox = styled(Box)(({ theme }) => ({

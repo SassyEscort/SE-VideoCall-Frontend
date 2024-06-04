@@ -41,14 +41,14 @@ export const TypographyContainer2 = styled(Box)(({ theme }) => ({
   textAlign: 'center'
 }));
 
-export const ImageContainerProfile = styled(Box)(() => ({
+export const ImageContainerProfile = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
-  marginBottom: '32px',
-  marginTop: '56px',
+  marginBottom: theme.spacing(4),
+  marginTop: theme.spacing(7),
   [theme.breakpoints.down('sm')]: {
-    marginBottom: '12px',
-    marginTop: '32px !important'
+    marginBottom: theme.spacing(1.5),
+    marginTop: `${theme.spacing(4)} !important`
   }
 }));
 
