@@ -47,7 +47,10 @@ const VerificationStepOne = ({
     email: modelDetails?.email || '',
     dob: modelDetails?.dob || '',
     nationality_id: modelDetails?.nationality?.id || '',
-    model_languages: modelDetails?.languages?.map((language) => ({ id: language.language_id, name: language.language_name })) || []
+    model_languages:
+      modelDetails?.languages
+        ?.filter((x) => x.language_id)
+        .map((language) => ({ id: language.language_id, name: language.language_name })) || []
   };
 
   const [loading, setLoading] = useState(false);

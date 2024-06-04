@@ -87,7 +87,7 @@ const VerificationStep2 = ({
         is_document: true,
         photos: [
           {
-            link: modelDocuments.link,
+            link: modelDocuments.link !== null ? modelDocuments.link : null,
             type: 'image',
             id: 'string',
             cords: 'string',

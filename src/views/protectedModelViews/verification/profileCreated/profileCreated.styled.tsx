@@ -47,7 +47,6 @@ export const ImageContainerProfile = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(4),
   marginTop: theme.spacing(7),
   [theme.breakpoints.down('sm')]: {
-    marginBottom: theme.spacing(1.5),
     marginTop: `${theme.spacing(4)} !important`
   }
 }));
