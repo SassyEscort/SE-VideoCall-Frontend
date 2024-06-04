@@ -19,7 +19,6 @@ import {
 import { FormattedMessage } from 'react-intl';
 import { TokenIdType } from '../..';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
-import { RiArrowLeftLine } from 'components/common/customRemixIcons';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 
 export type UploadMultiplePhotos = {
@@ -170,12 +169,13 @@ const ModelMultiplePhoto = ({
     const existedPhoto = photos
       ?.filter((photo) => !photo.is_document)
       ?.map((photo, index) => {
-        if (photo.type === 'file_5')
+        if (photo.id)
           return {
             id: photo.id,
-            name: `file5Existing[${index - 4}]`,
+            name: `file5Existing[${index}]`,
             photoURL: photo.link,
-            cords: photo.cords
+            cords: photo.cords,
+            isFavorite: photo.favourite === 1
           };
         else {
           return {
@@ -201,6 +201,8 @@ const ModelMultiplePhoto = ({
   }, [workerPhotos]);
 
   const handleCancel = () => {
+    setValue('cords5', null);
+    handleExistingPhotos(workerPhotos);
     setUploadedImagesURL([]);
   };
 
@@ -279,10 +281,9 @@ const ModelMultiplePhoto = ({
         <UploadMultipleBox pt={12}>
           <UIThemeButton
             onClick={handleCancel}
-            disabled={(values.file5 === null || uploadedImagesURL.length === 0) && isEdit ? true : false}
+            disabled={values.file5 === null && !values.cords5 && isEdit ? true : false}
             variant={(values.file5 === null || uploadedImagesURL.length === 0) && isEdit ? 'contained' : 'outlined'}
           >
-            <RiArrowLeftLine />
             <UINewTypography variant="body">
               <FormattedMessage id="CancelChanges" />
             </UINewTypography>
@@ -292,7 +293,7 @@ const ModelMultiplePhoto = ({
             type="submit"
             variant="contained"
             loading={loading}
-            disabled={(values.file5 === null || uploadedImagesURL.length === 0) && isEdit ? true : false}
+            disabled={values.file5 === null && !values.cords5 && isEdit ? true : false}
           >
             <UINewTypography variant="body">
               <FormattedMessage id="Save" />

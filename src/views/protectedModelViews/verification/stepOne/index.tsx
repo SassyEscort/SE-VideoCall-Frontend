@@ -174,28 +174,38 @@ const VerificationStepOne = ({
                 variant={changedValues && isEdit ? 'outlined' : 'contained'}
                 disabled={changedValues && isEdit ? false : true}
               >
-                <RiArrowLeftLine />
                 {isEdit ? (
                   <UINewTypography variant="body">
                     <FormattedMessage id="CancelChanges" />
                   </UINewTypography>
                 ) : (
-                  <UINewTypography variant="body">
-                    <FormattedMessage id="Back" />
-                  </UINewTypography>
+                  <>
+                    <RiArrowLeftLine />
+                    <UINewTypography variant="body">
+                      <FormattedMessage id="Back" />
+                    </UINewTypography>
+                  </>
                 )}
               </UIThemeButton>
-              <StyleButtonV2 id="basic-details-button" type="submit" variant="contained" loading={loading}>
+              <StyleButtonV2
+                id="basic-details-button"
+                type="submit"
+                variant="contained"
+                loading={loading}
+                disabled={changedValues && isEdit ? false : !isEdit ? false : true}
+              >
                 {isEdit ? (
                   <UINewTypography variant="body">
                     <FormattedMessage id="Save" />
                   </UINewTypography>
                 ) : (
-                  <UINewTypography variant="body">
-                    <FormattedMessage id="Next" />
-                  </UINewTypography>
+                  <>
+                    <UINewTypography variant="body">
+                      <FormattedMessage id="Next" />
+                    </UINewTypography>
+                    <RiArrowRightLine />
+                  </>
                 )}
-                <RiArrowRightLine />
               </StyleButtonV2>
             </Box>
           </StepOneContainer>
