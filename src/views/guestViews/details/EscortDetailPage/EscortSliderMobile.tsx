@@ -27,20 +27,14 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
+import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
 
-const EscortSliderMobile = () => {
+const EscortSliderMobile = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] }) => {
   const isLg = useMediaQuery(theme.breakpoints.up('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const [advancedExampleOpen, setAdvancedExampleOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [liked, setLiked] = useState(false);
-
-  const workerPhotos = [
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type1', isHide: false, isFavorite: 1, cords: '1,2' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '3,4' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '7,8' }
-  ];
 
   const handleOpenImage = (index: any) => {
     setCurrentIndex(index);
@@ -56,10 +50,10 @@ const EscortSliderMobile = () => {
       <Box>
         <Box sx={{ width: '100%', cursor: 'pointer' }}>
           <Swiper modules={[Navigation, Thumbs, FreeMode]} slidesPerView={1}>
-            {workerPhotos.slice(0, 4).map((imageSrc, index) => (
+            {workerPhotos.map((imageSrc, index) => (
               <SwiperSlide key={index} style={{ paddingTop: 20 }}>
                 <Box onClick={() => handleOpenImage(index)}>
-                  <EscortSwiperPhotoContainer image={imageSrc.photo} isMain={true} isMobile={false} coordinates={imageSrc.cords ?? ''} />
+                  <EscortSwiperPhotoContainer image={imageSrc.link} isMain={true} isMobile={false} coordinates={imageSrc.cords ?? ''} />
                 </Box>
               </SwiperSlide>
             ))}
@@ -74,13 +68,13 @@ const EscortSliderMobile = () => {
           }}
         >
           <Swiper spaceBetween={6} slidesPerView={3} freeMode={true} watchSlidesProgress={true} modules={[Navigation, Thumbs, FreeMode]}>
-            {workerPhotos.slice(0, 4).map((imageSrc, index) => (
+            {workerPhotos.map((imageSrc, index) => (
               <SwiperSlide
                 onClick={() => handleOpenImage(index + 1)}
                 style={{ paddingTop: 8, width: '100%', minWidth: '86px' }}
                 key={index}
               >
-                <EscortSwiperPhotoContainer image={imageSrc.photo} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
+                <EscortSwiperPhotoContainer image={imageSrc.link} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
               </SwiperSlide>
             ))}
           </Swiper>

@@ -18,9 +18,12 @@ import { ModelDetailsResponse } from 'views/protectedModelViews/verification/ver
 import moment from 'moment';
 
 const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }) => {
-  console.log(guestData, 'guestDataguestDataguestData');
-
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const languages = guestData?.languages
+    ?.map((language) => language?.language_name)
+    .sort()
+    .join(', ');
 
   return (
     <>
@@ -69,14 +72,18 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
                     label={moment().diff(guestData?.dob, 'years')}
                   />
                 </UINewTooltip>
-                <UINewChip
-                  icon={<Box height={20} width={20} component="img" src={`/images/details-icon/gender-icon.svg`} alt={'language'} />}
-                  label={guestData?.gender}
-                />
-                <UINewChip
-                  icon={<Box height={20} width={20} component="img" src={`/images/details-icon/language-icon.svg`} alt={'language'} />}
-                  label="English, Spanish"
-                />
+                <UINewTooltip title="Gender" placement="top">
+                  <UINewChip
+                    icon={<Box height={20} width={20} component="img" src={`/images/details-icon/gender-icon.svg`} alt={'language'} />}
+                    label={guestData?.gender}
+                  />
+                </UINewTooltip>
+                <UINewTooltip title="Languages" placement="top">
+                  <UINewChip
+                    icon={<Box height={20} width={20} component="img" src={`/images/details-icon/language-icon.svg`} alt={'language'} />}
+                    label={languages}
+                  />
+                </UINewTooltip>
               </DetailsChipBox>
             </DetailsChildTypographyBox>
 

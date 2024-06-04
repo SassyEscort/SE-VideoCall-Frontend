@@ -26,15 +26,9 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { DullCirclesEscort, DullCirclesEscort2 } from './Escort.styled';
 import { FormattedMessage } from 'react-intl';
+import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
 
-const workerPhotos = [
-  { photo: '/images/workerImageSlider/swiper01.png', type: 'type1', isHide: false, isFavorite: 1, cords: '1,2' },
-  { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '3,4' },
-  { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '7,8' }
-];
-
-export const EscortSlider = () => {
+export const EscortSlider = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] }) => {
   const [advancedExampleOpen, setAdvancedExampleOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [liked, setLiked] = useState(false);
@@ -58,7 +52,7 @@ export const EscortSlider = () => {
             {workerPhotos.slice(0, 4).map((imageSrc, index) => (
               <SwiperSlide key={index} style={{ paddingTop: 24 }}>
                 <Box onClick={() => handleOpenImage(index)}>
-                  <EscortSwiperPhotoContainer image={imageSrc.photo} isMain={true} isMobile={false} coordinates={imageSrc.cords ?? ''} />
+                  <EscortSwiperPhotoContainer image={imageSrc.link} isMain={true} isMobile={false} coordinates={imageSrc.cords ?? ''} />
                 </Box>
               </SwiperSlide>
             ))}
@@ -81,7 +75,7 @@ export const EscortSlider = () => {
                 style={{ paddingTop: index === 0 ? '24px' : '12px', width: '100%', minWidth: '148px' }}
                 key={index}
               >
-                <EscortSwiperPhotoContainer image={imageSrc.photo} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
+                <EscortSwiperPhotoContainer image={imageSrc.link} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -133,7 +127,7 @@ export const EscortSlider = () => {
         close={() => setAdvancedExampleOpen(false)}
         index={currentIndex}
         slides={workerPhotos.map((imageSrc) => ({
-          src: `${imageSrc.photo}`
+          src: `${imageSrc.link}`
         }))}
         plugins={[Captions, Fullscreen, Slideshow, Thumbnails, Video, Zoom]}
       />
