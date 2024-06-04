@@ -110,7 +110,7 @@ const CallHistory = () => {
                     <SecImgBoxContainer src="/images/home-connect-instantly-img.png" />
                     <Box sx={{ whiteSpace: 'nowrap' }}>
                       <UINewTypography variant="bodySemiBold" color="white.main">
-                        Call again
+                        <FormattedMessage id="CallAgain" />
                       </UINewTypography>
                     </Box>
                   </Box>

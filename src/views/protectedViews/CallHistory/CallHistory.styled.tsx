@@ -18,7 +18,8 @@ export const CallHistoryText = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '233px',
   height: '100%',
-  maxHeight: '48px'
+  maxHeight: '48px',
+  whiteSpace: 'nowrap'
 }));
 
 export const SecondContainer = styled(Box)(({ theme }) => ({
