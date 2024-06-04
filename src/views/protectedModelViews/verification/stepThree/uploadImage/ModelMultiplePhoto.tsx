@@ -201,9 +201,11 @@ const ModelMultiplePhoto = ({
   }, [workerPhotos]);
 
   const handleCancel = () => {
-    setValue('cords5', null);
-    handleExistingPhotos(workerPhotos);
     setUploadedImagesURL([]);
+    setValue('cords5', null);
+    if (values.cords5) {
+      handleExistingPhotos(workerPhotos);
+    }
   };
 
   return (
@@ -281,7 +283,7 @@ const ModelMultiplePhoto = ({
         <UploadMultipleBox pt={12}>
           <UIThemeButton
             onClick={handleCancel}
-            disabled={values.file5 === null && !values.cords5 && isEdit ? true : false}
+            disabled={Boolean(values.file5 === null && !values.cords5 && isEdit)}
             variant={(values.file5 === null || uploadedImagesURL.length === 0) && isEdit ? 'contained' : 'outlined'}
           >
             <UINewTypography variant="body">
@@ -293,7 +295,7 @@ const ModelMultiplePhoto = ({
             type="submit"
             variant="contained"
             loading={loading}
-            disabled={values.file5 === null && !values.cords5 && isEdit ? true : false}
+            disabled={Boolean(values.file5 === null && !values.cords5 && isEdit)}
           >
             <UINewTypography variant="body">
               <FormattedMessage id="Save" />
