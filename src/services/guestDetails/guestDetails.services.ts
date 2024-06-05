@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
-// export type GuestModelDetailsParams = {
-//   userName: string;
-// };
-
 export type GuestModelDetailsResponse = {
   data: ModelDetailsResponse;
   code: number;

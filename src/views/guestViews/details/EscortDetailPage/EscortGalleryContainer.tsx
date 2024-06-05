@@ -29,8 +29,6 @@ const enum FILE_TYPES {
 }
 
 const EscortGalleryContainer = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] }) => {
-  console.log(workerPhotos, 'workerPhotosworkerPhotosworkerPhotos');
-
   const [show, setShow] = useState(false);
   const [advancedExampleOpen, setAdvancedExampleOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -38,34 +36,6 @@ const EscortGalleryContainer = ({ workerPhotos }: { workerPhotos: WorkerPhotos[]
   const handleShow = () => {
     setShow(!show);
   };
-
-  // const workerPhotos = [
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type1', isHide: false, isFavorite: 1, cords: '1,2' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '3,4' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-  //   { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '7,8' }
-  // ];
 
   const photos = useMemo(() => workerPhotos.filter((data) => ImageTypes.some((file) => data?.photo?.endsWith(file))), [workerPhotos]);
 

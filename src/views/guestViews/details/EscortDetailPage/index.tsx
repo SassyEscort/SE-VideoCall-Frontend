@@ -41,7 +41,6 @@ const EscortDetailPage = () => {
         {!isLgDown && <EscortSlider workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])} />}
         {isLgDown && <EscortSliderMobile workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])} />}
         <EscortPersonalDetail guestData={guestData ?? ({} as ModelDetailsResponse)} />
-        {/* <EscortGalleryContainer workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])} /> */}
         <EscortExplore />
       </HomeMainContainer>
     </>
