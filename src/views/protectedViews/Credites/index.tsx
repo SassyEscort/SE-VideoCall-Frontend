@@ -44,7 +44,7 @@ const Credits = () => {
                 <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
                   <SecondSubContainerImgWorkerCard src="/images/workercards/coin-1.png" />
                   <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                    <FormattedMessage id="40" />
+                    40
                   </UINewTypography>
                 </Box>
               </FirsTextSubContainer>
@@ -61,7 +61,7 @@ const Credits = () => {
               <BoxFirstTextContainer>
                 <CreditCardImage src="/images/workercards/coin-1.png" />
                 <CreditCardText variant="subtitle" color="text.secondary">
-                  <FormattedMessage id="90Credits" />
+                  90 <FormattedMessage id="Credits" />
                 </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>
@@ -77,7 +77,7 @@ const Credits = () => {
               <BoxFirstTextContainer>
                 <CreditCardImage src="/images/workercards/coin-1.png" />
                 <CreditCardText variant="subtitle" color="text.secondary">
-                  <FormattedMessage id="90Credits" />
+                  90 <FormattedMessage id="Credits" />
                 </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>
@@ -93,7 +93,7 @@ const Credits = () => {
               <BoxFirstTextContainer>
                 <CreditCardImage src="/images/workercards/coin-1.png" />
                 <CreditCardText variant="subtitle" color="text.secondary">
-                  <FormattedMessage id="90Credits" />
+                  90 <FormattedMessage id="Credits" />
                 </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>
@@ -115,7 +115,7 @@ const Credits = () => {
               <BoxFirstTextContainer>
                 <CreditCardImage src="/images/workercards/coin-1.png" />
                 <CreditCardText variant="subtitle" color="text.secondary">
-                  <FormattedMessage id="90Credits" />
+                  90 <FormattedMessage id="Credits" />
                 </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>
@@ -136,7 +136,7 @@ const Credits = () => {
               <BoxFirstTextContainer>
                 <CreditCardImage src="/images/workercards/coin-1.png" />
                 <CreditCardText variant="subtitle" color="text.secondary">
-                  <FormattedMessage id="90Credits" />
+                  90 <FormattedMessage id="Credits" />
                 </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>
@@ -152,7 +152,7 @@ const Credits = () => {
               <BoxFirstTextContainer>
                 <CreditCardImage src="/images/workercards/coin-1.png" />
                 <CreditCardText variant="subtitle" color="text.secondary">
-                  <FormattedMessage id="90Credits" />
+                  90 <FormattedMessage id="Credits" />
                 </CreditCardText>
               </BoxFirstTextContainer>
               <BoxSecondTextContainer>

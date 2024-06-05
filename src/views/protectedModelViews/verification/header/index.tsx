@@ -10,7 +10,17 @@ import theme from 'themes/theme';
 import { VerificationHeaderBox } from './Header.styled';
 import { FormattedMessage } from 'react-intl';
 
-const VerificationHeader = ({ activeStep }: { activeStep: number }) => {
+const VerificationHeader = ({
+  activeStep,
+  handleNextHeaderStep,
+  handlePrev,
+  isLoading
+}: {
+  activeStep: number;
+  handleNextHeaderStep: () => void;
+  handlePrev: () => void;
+  isLoading: boolean;
+}) => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
@@ -24,6 +34,7 @@ const VerificationHeader = ({ activeStep }: { activeStep: number }) => {
         <VerificationHeaderBox>
           <Box display="flex" alignItems="center" justifyContent="center">
             <UIThemeButton
+              onClick={handlePrev}
               sx={{
                 pr: 1,
                 pl: '15px'
@@ -50,6 +61,8 @@ const VerificationHeader = ({ activeStep }: { activeStep: number }) => {
           </Box>
           <Box display="flex" gap={1.5} alignItems="center">
             <UIThemeButton
+              onClick={handleNextHeaderStep}
+              loading={isLoading}
               sx={{
                 pl: 1,
                 pr: 1.75,

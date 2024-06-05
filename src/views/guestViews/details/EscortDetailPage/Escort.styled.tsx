@@ -106,3 +106,47 @@ export const DetailsChildTypographyBox = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(1.5)
 }));
+
+export const SearchMainContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  maxWidth: '1244px',
+  [theme.breakpoints.up('sm')]: {
+    paddingTop: theme.spacing(2)
+  }
+}));
+
+export const SearchSubContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    flexDirection: 'row',
+    gap: theme.spacing(1.5),
+    flexWrap: 'wrap'
+  },
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    gap: theme.spacing(1.5)
+  },
+  [theme.breakpoints.up('md')]: {
+    flexWrap: 'noWrap'
+  }
+}));
+
+export const FirstBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1.5)
+}));
+
+export const SecondBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1.5),
+  width: '100%',
+  maxWidth: '442px'
+}));
+
+export const ThirdBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1.5),
+  width: '100%'
+}));

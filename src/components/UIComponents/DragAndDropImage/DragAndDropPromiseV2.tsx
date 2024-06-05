@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { IKUpload } from 'imagekitio-react';
 import { FormikErrors, FormikTouched } from 'formik';
-import { DragAndDropMultipleImageCloseButton } from './DragAndDropMultipleImage.styled';
+import { DragAndDropContainer, DragAndDropMultipleImageCloseButton } from './DragAndDropMultipleImage.styled';
 import UINewTypography from '../UINewTypography';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
@@ -36,7 +36,12 @@ const DragAndDropV2 = ({
   withoutFilterImageTouched,
   title
 }: UploadFileControlType) => {
-  const [uploadedFileURL, setUploadedFileURL] = useState('');
+  const docLink = modelDetails?.documents
+    ?.filter((x) => x.link !== 'null' || x.link !== null)
+    ?.map((x) => x.link)
+    ?.join('');
+
+  const [uploadedFileURL, setUploadedFileURL] = useState(docLink !== 'null' ? docLink : '');
   const [uploadedFileName, setUploadedFileName] = useState('');
   const [isPDF, setIsPDF] = useState(false);
   const dropAreaId = useMemo(() => name + '_dropable', [name]);
@@ -45,14 +50,6 @@ const DragAndDropV2 = ({
     e.preventDefault();
     e.stopPropagation();
   };
-
-  useEffect(() => {
-    modelDetails?.documents?.map((doc) => {
-      if (doc?.link) {
-        setUploadedFileURL(doc.link);
-      }
-    });
-  }, [modelDetails?.documents]);
 
   const highlight = useCallback(() => {
     const dropArea = document.getElementById(dropAreaId);
@@ -138,41 +135,13 @@ const DragAndDropV2 = ({
           </DragAndDropMultipleImageCloseButton>
         </Box>
       )}
-      <Box
-        sx={{
-          position: 'relative',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '308px',
-          width: '390px',
-          borderRadius: '8px',
-          overflow: 'hidden',
-
-          ...(uploadedFileURL
-            ? {
-                backgroundImage: !isPDF ? `url(${uploadedFileURL})` : 'none',
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundColor: isPDF ? '#232027' : 'none'
-              }
-            : {
-                '&:before': {
-                  content: '""',
-                  position: 'absolute',
-                  border: '4px dashed',
-                  top: '-1px',
-                  bottom: '-1px',
-                  left: '-1px',
-                  right: '-1px',
-                  borderRadius: '12px',
-                  borderColor: errors && (touched || withoutFilterImageTouched?.photoWithoutFilter) ? 'error.main' : '#86838A'
-                },
-                cursor: 'pointer'
-              })
-        }}
-        id={name + '_dropable'}
+      <DragAndDropContainer
+        id={dropAreaId}
+        isPDF={isPDF}
+        uploadedFileURL={uploadedFileURL ?? ''}
+        errors={errors}
+        touched={touched}
+        withoutFilterImageTouched={withoutFilterImageTouched}
       >
         <IKUpload
           id={name}
@@ -246,7 +215,7 @@ const DragAndDropV2 = ({
             </>
           )}
         </Box>
-      </Box>
+      </DragAndDropContainer>
       {errors && (touched || withoutFilterImageTouched?.photoWithoutFilter) && (
         <Typography variant="bodySmall" color={'error.main'}>
           {errors}

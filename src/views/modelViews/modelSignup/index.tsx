@@ -18,7 +18,6 @@ import theme from 'themes/theme';
 import { toast } from 'react-toastify';
 import { ModelAuthService } from 'services/modelAuth/modelAuth.service';
 import AuthModelCommon from './AuthModelCommon';
-import ModelSignupSuccess from './ModelSignupSuccess';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
@@ -41,7 +40,6 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
 
   const [showPassword, setShowPassword] = useState(false);
   const [redirectSeconds, setRedirectSeconds] = useState(3);
-  const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [isAgreeChecked, setIsAgreeChecked] = useState(false);
 
@@ -49,20 +47,17 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
 
   useEffect(() => {
-    if (activeStep > 0) {
-      const timer = setTimeout(() => {
-        setRedirectSeconds((prevSeconds) => prevSeconds - 1);
-      }, 1000);
+    const timer = setTimeout(() => {
+      setRedirectSeconds((prevSeconds) => prevSeconds - 1);
+    }, 1000);
 
-      if (redirectSeconds === 0 && activeStep > 0) {
-        clearTimeout(timer);
-        onLoginOpen();
-      }
-
-      return () => clearTimeout(timer);
+    if (redirectSeconds === 0) {
+      clearTimeout(timer);
     }
+
+    return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeStep, redirectSeconds]);
+  }, [redirectSeconds]);
 
   const validationSchema = yup.object({
     name: yup.string().required('Username is required').min(2, 'Username is too short').max(20, 'Username is too long'),
@@ -90,7 +85,6 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
           setLoading(true);
           const data = await ModelAuthService.modelSignup(values);
           if (data.code === 200) {
-            setActiveStep(1);
             const loginResponse = await signIn('providerModel', {
               redirect: false,
               email: values.email,
@@ -123,7 +117,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
               <Box
                 position="relative"
                 width="100%"
-                height={activeStep > 0 ? '620px' : 'auto'}
+                height="auto"
                 gap={4}
                 display="flex"
                 flexDirection="column"
@@ -134,7 +128,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                   maxWidth: { xs: '100%', md: '400px' }
                 }}
               >
-                {activeStep === 0 ? (
+                {
                   <>
                     <Box marginTop={isSmDown ? '100px' : '0px'}>
                       <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ lineHeight: '38.4px' }}>
@@ -292,9 +286,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                       </ModelUITextConatiner>
                     </ModelUITextConatiner>
                   </>
-                ) : (
-                  <ModelSignupSuccess />
-                )}
+                }
               </Box>
             </AuthModelCommon>
           </Box>

@@ -236,6 +236,7 @@ const UploadImage = ({
         <Box component="form" onSubmit={handleSubmit}>
           <Box>
             <ModelMultiplePhoto
+              loading={loading}
               isEdit={isEdit}
               handleModelApiChange={handleModelApiChange}
               token={token}
@@ -246,36 +247,32 @@ const UploadImage = ({
               workerPhotos={workerPhotos}
             />
             <UploadBox>
-              <UploadMultipleBox>
-                <UIThemeButton variant="outlined" onClick={handlePrevVerificationStep}>
-                  {isEdit ? (
+              {!isEdit && (
+                <UploadMultipleBox>
+                  <UIThemeButton
+                    onClick={handlePrevVerificationStep}
+                    disabled={values.file5 === null && isEdit ? true : false}
+                    variant={values.file5 === null && isEdit ? 'contained' : 'outlined'}
+                  >
+                    <RiArrowLeftLine />
                     <UINewTypography variant="body">
-                      <FormattedMessage id="CancelChanges" />
+                      <FormattedMessage id="Back" />
                     </UINewTypography>
-                  ) : (
-                    <>
-                      <RiArrowLeftLine />
-                      <UINewTypography variant="body">
-                        <FormattedMessage id="Back" />
-                      </UINewTypography>
-                    </>
-                  )}
-                </UIThemeButton>
-                <StyleButtonV2 id="photos-button" type="submit" variant="contained" loading={loading}>
-                  {isEdit ? (
+                  </UIThemeButton>
+                  <StyleButtonV2
+                    id="photos-button"
+                    type="submit"
+                    variant="contained"
+                    loading={loading}
+                    disabled={values.file5 === null && isEdit ? true : false}
+                  >
                     <UINewTypography variant="body">
-                      <FormattedMessage id="Save" />
+                      <FormattedMessage id="Next" />
                     </UINewTypography>
-                  ) : (
-                    <>
-                      <UINewTypography variant="body">
-                        <FormattedMessage id="Next" />
-                      </UINewTypography>
-                      <RiArrowRightLine />
-                    </>
-                  )}
-                </StyleButtonV2>
-              </UploadMultipleBox>
+                    <RiArrowRightLine />
+                  </StyleButtonV2>
+                </UploadMultipleBox>
+              )}
             </UploadBox>
           </Box>
         </Box>

@@ -167,7 +167,7 @@ const VerificationStepPromise = ({
                     {isSmDown ? <FormattedMessage id="Back" /> : <FormattedMessage id="PreviousStep" />}
                   </UINewTypography>
                 </UIThemeButton>
-                <StyleButtonV2 id="verification-button" type="submit" variant="contained" loading={loading}>
+                <StyleButtonV2 id="document-id-button" type="submit" variant="contained" loading={loading}>
                   <UINewTypography variant="body">
                     {isSmDown ? <FormattedMessage id="Next" /> : <FormattedMessage id="NextStep" />}
                   </UINewTypography>

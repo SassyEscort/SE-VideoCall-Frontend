@@ -1,10 +1,12 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import UINewTypography from 'components/UIComponents/UINewTypography';
+import theme from 'themes/theme';
 
 export const GalleryMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(2)
+  gap: theme.spacing(3)
 }));
 
 export const GalleryTitleContainer = styled(Box)(({ theme }) => ({
@@ -71,7 +73,12 @@ export const UploadBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   marginTop: theme.spacing(8),
-  marginBottom: theme.spacing(8)
+  marginBottom: theme.spacing(8),
+  [theme.breakpoints.down('sm')]: {
+    marginTop: theme.spacing(4),
+    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(2)
+  }
 }));
 
 export const UploadMultipleBox = styled(Box)(() => ({
@@ -115,4 +122,26 @@ export const ModelMultiplePhotoItem = styled(Box)(({ theme }) => ({
   },
   flexDirection: 'column',
   borderRadius: theme.spacing(3)
+}));
+
+export const UIPhotosHeader = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '38px !important',
+  fontWeight: 700,
+  lineHeight: '47.5px !important',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '26px !important',
+    fontWeight: 600,
+    lineHeight: '36.4px !important'
+  }
+}));
+
+export const UploadMultiplePhotos = styled(Box)(() => ({
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  [theme.breakpoints.down('sm')]: {
+    padding: '0px 12px 0px 12px'
+  }
 }));

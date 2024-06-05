@@ -31,5 +31,11 @@ export enum MODEL_ACTIVE_STEP {
   BASIC_DETAILS = 'Basic_Details',
   UPLOAD_DOCUMENTS = 'Upload_Documents',
   UPLOAD_PHOTOS = 'Upload_Photos',
-  ONBOARDED = 'Onboarded'
+  ONBOARDED = 'Onboarded',
+  IN_REVIEW = 'In_Review'
+}
+
+export enum EMAIL_SOURCE {
+  DETAILS = 'details',
+  ONBOARDED = 'onboarded'
 }

@@ -6,12 +6,12 @@ export const SearchBarMainContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '1244px',
   [theme.breakpoints.up('sm')]: {
-    paddingTop: theme.spacing(10),
-    paddingBottom: theme.spacing(4)
+    paddingTop: theme.spacing(9),
+    paddingBottom: theme.spacing(4.25)
   },
   [theme.breakpoints.down('sm')]: {
-    paddingTop: theme.spacing(7),
-    paddingBottom: theme.spacing(3)
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4)
   }
 }));
 
