@@ -18,7 +18,7 @@ const WorkerImageCardV2 = ({
 }) => {
   const imageUrlRef = useRef<HTMLElement>();
 
-  const videoTypeCondition = VideoAcceptType.includes(image.substring(image.lastIndexOf('.') + 1));
+  const videoTypeCondition = VideoAcceptType?.includes(image?.substring(image?.lastIndexOf('.') + 1));
 
   useImageOptimize(imageUrlRef, image ?? '', videoTypeCondition ? 'IMG' : 'BG', videoTypeCondition ? true : false, false, coordinates);
 

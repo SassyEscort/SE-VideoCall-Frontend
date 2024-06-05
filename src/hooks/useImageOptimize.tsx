@@ -1,4 +1,5 @@
 import { MutableRefObject, useEffect, useState } from 'react';
+import { Area } from 'react-easy-crop';
 
 function useImageOptimize(
   imageUrlRef: MutableRefObject<HTMLElement | undefined>,
@@ -18,7 +19,7 @@ function useImageOptimize(
       const height = imageUrlRef.current.clientHeight;
 
       setImageUrl(
-        photo.split('/images')[0] + `/images/` + (coordinates ? '' : !noResize ? `:h-${height + 100}` : '') + photo.split('/images')[1]
+        photo.split('/images')[0] + `/images/tr:` + +(coordinates ? '' : !noResize ? `:h-${height + 100}` : '') + photo.split('/images')[1]
       );
     }
   }, [coordinates, imageUrlRef, isWaterMark, noResize, photo]);
@@ -31,7 +32,16 @@ function useImageOptimize(
       }
     };
 
-    setImage(imageUrl);
+    const finalCroppedImage = async () => {
+      const existingCords: Area | undefined = coordinates && JSON.parse(coordinates).cords;
+
+      if (existingCords) {
+        const croppedImage = `${photo}?tr=w-${existingCords.width},h-${existingCords.height},cm-extract,x-${existingCords.x},y-${existingCords.y}`;
+        setImage(croppedImage);
+      } else setImage(imageUrl);
+    };
+
+    finalCroppedImage();
   }, [coordinates, imageUrl, imageUrlRef, photo, type]);
 }
 

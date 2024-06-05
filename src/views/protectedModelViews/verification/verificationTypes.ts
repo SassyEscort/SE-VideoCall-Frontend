@@ -44,6 +44,20 @@ export type ModelDetailsResponse = {
   email_verified: number;
 };
 
+export type GuestDetailsResponse = {
+  data: ModelDetailsResponse;
+};
+
+export type GuestModelDetailsResponse = {
+  code: number;
+  data: ModelDetailsResponse;
+  response?: {
+    data?: {
+      message: string;
+    };
+  };
+};
+
 export interface DocumentDataPhoto {
   cords: string;
   document_number: string;

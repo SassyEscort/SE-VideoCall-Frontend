@@ -19,8 +19,16 @@ import { WorkerBlurBox, WorkerImageCardContainerBox, WorkerImageCardGridBox } fr
 import { UIThemeGroupTabs } from 'components/UIComponents/ThemeGroupTabs/ThemeGroupTabs.styled';
 import { UIThemeTab } from 'components/UIComponents/ThemeTab/ThemeTab.styled';
 import { FormattedMessage } from 'react-intl';
+import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
 
-const EscortGalleryContainer = () => {
+const ImageTypes = ['.gif', '.jpg', '.jpeg', '.png', '.bmp', '.webp', '.avif', '.svg'];
+
+const enum FILE_TYPES {
+  IMAGE = 'image',
+  VIDEO = 'video'
+}
+
+const EscortGalleryContainer = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] }) => {
   const [show, setShow] = useState(false);
   const [advancedExampleOpen, setAdvancedExampleOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -29,64 +37,9 @@ const EscortGalleryContainer = () => {
     setShow(!show);
   };
 
-  const workerPhotos = [
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type1', isHide: false, isFavorite: 1, cords: '1,2' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '3,4' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '5,6' },
-    { photo: '/images/workerImageSlider/swiper01.png', type: 'type2', isHide: false, isFavorite: 1, cords: '7,8' }
-  ];
+  const photos = useMemo(() => workerPhotos.filter((data) => ImageTypes.some((file) => data?.photo?.endsWith(file))), [workerPhotos]);
 
-  const photos = useMemo(
-    () =>
-      workerPhotos.filter(
-        (data) =>
-          data.type !== PICTURE_TYPES.REGULAR &&
-          !data.isHide &&
-          data.type === 'file_5' &&
-          ImageTypes.some((file) => data.photo.endsWith(file))
-      ),
-    [workerPhotos]
-  );
-
-  const enum FILE_TYPES {
-    IMAGE = 'image',
-    VIDEO = 'video'
-  }
-
-  const enum PICTURE_TYPES {
-    REGULAR = 'Regular'
-  }
-
-  const ImageTypes = ['.gif', '.jpg', '.jpeg', '.png', '.bmp', '.webp', '.avif', '.svg'];
-
-  const videos = useMemo(
-    () =>
-      workerPhotos.filter(
-        (data) => data.type !== PICTURE_TYPES.REGULAR && !data.isHide && VideoAcceptType.some((file) => data.photo.endsWith(file))
-      ),
-    [workerPhotos]
-  );
+  const videos = useMemo(() => workerPhotos.filter((data) => VideoAcceptType.some((file) => data?.photo?.endsWith(file))), [workerPhotos]);
 
   const [activeTab, setActiveTab] = useState(0);
 
@@ -102,7 +55,7 @@ const EscortGalleryContainer = () => {
   const workerImagesSlides =
     activeTab === 0
       ? workerPhotos.map((data) => {
-          if (VideoAcceptType.some((file) => data.photo.endsWith(file))) {
+          if (VideoAcceptType.some((file) => data?.photo?.endsWith(file))) {
             return {
               type: FILE_TYPES.VIDEO as const,
               width: 1280,
@@ -121,7 +74,7 @@ const EscortGalleryContainer = () => {
         })
       : activeTab === 1
         ? photos.map((data) => {
-            if (VideoAcceptType.some((file) => data.photo.endsWith(file))) {
+            if (VideoAcceptType.some((file) => data?.photo?.endsWith(file))) {
               return {
                 type: FILE_TYPES.VIDEO as const,
                 width: 1280,
@@ -139,7 +92,7 @@ const EscortGalleryContainer = () => {
             };
           })
         : videos.map((data) => {
-            if (VideoAcceptType.some((file) => data.photo.endsWith(file))) {
+            if (VideoAcceptType.some((file) => data?.photo?.endsWith(file))) {
               return {
                 type: FILE_TYPES.VIDEO as const,
                 width: 1280,
@@ -202,7 +155,7 @@ const EscortGalleryContainer = () => {
                     <WorkerImageCardV2
                       key={index}
                       index={index}
-                      image={photo.photo}
+                      image={photo.link}
                       coordinates={photo.cords ?? ''}
                       handleOpenImage={handleOpenImage}
                     />
@@ -220,7 +173,7 @@ const EscortGalleryContainer = () => {
                   (index < 18 || show) && (
                     <WorkerImageCardV2
                       key={index}
-                      image={photo.photo}
+                      image={photo.link}
                       index={index}
                       coordinates={photo.cords ?? ''}
                       handleOpenImage={handleOpenImage}
@@ -238,7 +191,7 @@ const EscortGalleryContainer = () => {
                 videos.map(
                   (video, index) =>
                     (index < 18 || show) && (
-                      <WorkerImageCardV2 key={index} image={video.photo} index={index} handleOpenImage={handleOpenImage} />
+                      <WorkerImageCardV2 key={index} image={video.link} index={index} handleOpenImage={handleOpenImage} />
                     )
                 )
               ) : (
