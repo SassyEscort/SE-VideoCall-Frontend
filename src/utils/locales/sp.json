@@ -265,14 +265,15 @@
   "Male": "Male",
   "Trans": "Tarns",
   "RequestAPayout": "Solicitar un Pago",
-  "Change":"Cambio",
+  "Change": "Cambio",
   "Favourites": "Favoritos",
   "Models": "2 modelos",
   "CallsHistory": "Historial de llamadas",
   "BillingHistory": "Historial de facturación",
   "ViewDetails": "Ver detalles",
-  "MailUs":"Contáctanos",
+  "MailUs": "Contáctanos",
   "OnboardingCompleted": "Onboarding Completado",
   "YourProfile": "Tu perfil ha sido creado",
-  "CallAgain":"Llama de nuevo"
+  "CallAgain": "Llama de nuevo",
+  "PlatformRules": "Reglas de la plataforma"
 }
