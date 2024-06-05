@@ -91,7 +91,7 @@ const MainFooter = () => {
                       component={Link}
                       prefetch={false}
                       shallow={true}
-                      href={`/escorts/city${val.link}`}
+                      href={`/model${val.link}`}
                     >
                       {val.name}
                     </Box>
