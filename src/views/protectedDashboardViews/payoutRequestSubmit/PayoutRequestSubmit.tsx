@@ -64,3 +64,22 @@ export const FiveBox = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '465px'
 }));
+
+export const FirstBoxRequestSubmit = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(6)
+}));
+
+export const SecondBoxRequestSubmit = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
+  },
+  [theme.breakpoints.up('sm')]: {
+    display: 'none'
+  }
+}));
