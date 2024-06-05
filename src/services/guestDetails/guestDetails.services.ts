@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
-export type GuestModelDetailsParams = {
-  userName: string;
-};
+// export type GuestModelDetailsParams = {
+//   userName: string;
+// };
 
 export type GuestModelDetailsResponse = {
   data: ModelDetailsResponse;
@@ -15,7 +15,7 @@ export type GuestModelDetailsResponse = {
   };
 };
 export class GuestDetailsService {
-  static GuestModelDetails = async (userName: string): Promise<GuestModelDetailsResponse> => {
+  static GuestModelDetails = async (): Promise<GuestModelDetailsResponse> => {
     try {
       const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/guest?user_name=mina-3f5a55`;
 

@@ -1,7 +1,7 @@
 import EscortDetailPage from 'views/guestViews/details/EscortDetailPage';
 
-const WorkerDetailPage = ({ userName }: { userName: string }) => {
-  return <>{<EscortDetailPage userName={userName} />}</>;
+const WorkerDetailPage = () => {
+  return <>{<EscortDetailPage />}</>;
 };
 
 export default WorkerDetailPage;

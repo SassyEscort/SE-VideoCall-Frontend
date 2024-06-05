@@ -13,14 +13,14 @@ import { ModelDetailsResponse } from 'views/protectedModelViews/verification/ver
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
 import { toast } from 'react-toastify';
 
-const EscortDetailPage = ({ userName }: { userName: string }) => {
+const EscortDetailPage = () => {
   const [guestData, setGuestData] = useState<ModelDetailsResponse>();
   const isLgDown = useMediaQuery(theme.breakpoints.down('lg'));
 
   useEffect(() => {
     const fetchGuestData = async () => {
       try {
-        const data = await GuestDetailsService.GuestModelDetails(userName);
+        const data = await GuestDetailsService.GuestModelDetails();
 
         if (data.code === 200) {
           setGuestData(data.data);
@@ -33,7 +33,7 @@ const EscortDetailPage = ({ userName }: { userName: string }) => {
     };
 
     fetchGuestData();
-  }, [userName]);
+  }, []);
 
   return (
     <>
