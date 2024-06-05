@@ -9,6 +9,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import theme from 'themes/theme';
+import { FormattedMessage } from 'react-intl';
 
 export type MyProfile = {
   username: string;
@@ -45,7 +46,7 @@ const MyProfile = () => {
             <Box component="form" onSubmit={handleSubmit}>
               <Box sx={{ mb: 3 }}>
                 <UINewTypography variant="h2" color="text.secondary">
-                  My Profile
+                  <FormattedMessage id="MyProfile" />
                 </UINewTypography>
               </Box>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -53,7 +54,7 @@ const MyProfile = () => {
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                     <Box>
                       <ProfileTextHeader variant="bodySemiBold" color="text.primary">
-                        Username
+                        <FormattedMessage id="Username" />
                       </ProfileTextHeader>
                     </Box>
                     <Box>
@@ -75,7 +76,7 @@ const MyProfile = () => {
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                     <Box>
                       <ProfileTextHeader variant="bodySemiBold" color="text.primary">
-                        Email
+                        <FormattedMessage id="Email" />
                       </ProfileTextHeader>
                     </Box>
                     <Box>
@@ -92,10 +93,10 @@ const MyProfile = () => {
                           endAdornment: (
                             <Box sx={{ display: 'flex', gap: 2 }}>
                               <UINewTypography color={'text.secondary'} variant="buttonSmallBold">
-                                Edit
+                                <FormattedMessage id="Edit" />
                               </UINewTypography>
                               <UINewTypography color="primary.600" variant="buttonSmallBold">
-                                Verify
+                                <FormattedMessage id="Verify" />
                               </UINewTypography>
                             </Box>
                           )
@@ -109,7 +110,7 @@ const MyProfile = () => {
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                     <Box>
                       <ProfileTextHeader variant="bodySemiBold" color="text.primary">
-                        Password
+                        <FormattedMessage id="Password" />
                       </ProfileTextHeader>
                     </Box>
                     <Box>
@@ -127,7 +128,7 @@ const MyProfile = () => {
                           endAdornment: (
                             <Box>
                               <UINewTypography variant="buttonSmallBold" color="text.secondary">
-                                Change
+                                <FormattedMessage id="Change" />
                               </UINewTypography>
                             </Box>
                           )
@@ -142,14 +143,14 @@ const MyProfile = () => {
               <Box paddingRight={isSmDown ? '16px' : 0}>
                 <UIThemeButton variant="contained" disabled>
                   <UINewTypography variant="buttonSmallBold" color={'text.disabled'}>
-                    Cancel changes
+                    <FormattedMessage id="CancelChanges" />
                   </UINewTypography>
                 </UIThemeButton>
               </Box>
               <Box>
                 <UIThemeButton variant="contained" disabled>
                   <UINewTypography variant="buttonSmallBold" color={'text.disabled'}>
-                    Save
+                    <FormattedMessage id="Save" />
                   </UINewTypography>
                 </UIThemeButton>
               </Box>

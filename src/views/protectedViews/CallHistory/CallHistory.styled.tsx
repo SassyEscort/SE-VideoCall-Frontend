@@ -18,7 +18,8 @@ export const CallHistoryText = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '233px',
   height: '100%',
-  maxHeight: '48px'
+  maxHeight: '48px',
+  whiteSpace: 'nowrap'
 }));
 
 export const SecondContainer = styled(Box)(({ theme }) => ({
@@ -171,4 +172,27 @@ export const CallHistoryName = styled(UINewTypography)(({ theme }) => ({
     fontSize: '16px !important',
     lineHeight: '20px !important'
   }
+}));
+
+export const CallHistoryCreditBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: theme.spacing(1),
+  whiteSpace: 'nowrap',
+  [theme.breakpoints.down('sm')]: {
+    marginTop: theme.spacing(1)
+  }
+}));
+
+export const CallAgainBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginTop: theme.spacing(1.5)
+}));
+
+export const CreditUsedBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: theme.spacing(1.5)
 }));

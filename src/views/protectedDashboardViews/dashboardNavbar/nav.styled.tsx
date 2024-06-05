@@ -112,3 +112,20 @@ export const DullCirclesNav = styled(Box)(() => ({
   top: '-200px',
   right: '-100px'
 }));
+
+export const MobileComponentBox = styled(Box)(({ theme }) => ({
+  '& .MuiTabs-indicator': {
+    display: 'none'
+  },
+  '& .MuiButtonBase-root': {
+    paddingLeft: theme.spacing(1.5),
+    paddingRight: theme.spacing(4),
+    paddingBottom: theme.spacing(1.5)
+  },
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: 420
+  },
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: 768
+  }
+}));

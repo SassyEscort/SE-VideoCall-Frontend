@@ -18,7 +18,7 @@ export type LoginModelResponse = GenericResponse & {
 };
 
 export type Photo = {
-  link: string;
+  link: string | null;
   type: string;
   id: string;
   cords: string;
