@@ -35,10 +35,9 @@ const PayoutRequestSubmit = ({ open, onClose }: { open: boolean; onClose: () => 
               </UINewTypography>
               <UINewTypography variant="bodyRegular" sx={{ textAlign: 'center' }}>
                 <FormattedMessage id="TheRequestWill" />
-
-                <span style={{ color: '#FFE500' }}>
+                <Box component={'span'} sx={{ color: 'primary.600' }}>
                   <FormattedMessage id="ContactAdmin" />
-                </span>
+                </Box>
               </UINewTypography>
             </FiveBox>
           </ForBox>
