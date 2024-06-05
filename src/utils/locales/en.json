@@ -266,5 +266,9 @@
   "Trans": "Tarns",
   "SiliconValleyBank": "Silicon Valley Bank",
   "AddMoreBanks": "Add more banks",
-  "RequestAPayout": "Request a payout"
+  "RequestAPayout": "Request a payout",
+  "GetPaidIn": "Get paid in",
+  "Remarks": "Remarks",
+  "YourBalance": "Your Balance",
+  "ChooseYourBank": "Choose your bank"
 }

@@ -1,7 +1,7 @@
 'use client';
 import { Box, Divider } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import React from 'react';
+import React, { useState } from 'react';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import { FormattedMessage } from 'react-intl';
 import {
@@ -25,8 +25,18 @@ import {
   Pendingconatiner,
   Pending
 } from './PayoutRequest';
+import PayoutWidthDraw from '../payoutWithDraw';
 
 const PayoutContainer = () => {
+  const [open, setIsOpen] = useState(false);
+
+  const openDailog = () => {
+    setIsOpen(true);
+  };
+
+  const closeDailog = () => {
+    setIsOpen(false);
+  };
   return (
     <MainConatiner>
       <BoxMessage>
@@ -53,7 +63,7 @@ const PayoutContainer = () => {
             </DollerBox>
           </SecondUsdBox>
 
-          <ButtonBox variant="contained">
+          <ButtonBox variant="contained" onClick={openDailog}>
             <UINewTypography variant="buttonLargeBold" color={'primary.200'}>
               <FormattedMessage id="Withdraw" />
             </UINewTypography>
@@ -127,6 +137,7 @@ const PayoutContainer = () => {
           </SecondRecentWithdrawlsMainContainer>
         </RecentWithdrawlsMainContainer>
       </SecondMainContainer>
+      <PayoutWidthDraw open={open} onClose={closeDailog} />
     </MainConatiner>
   );
 };

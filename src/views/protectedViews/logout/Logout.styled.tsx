@@ -5,7 +5,6 @@ export const DialogTitleBox = styled(DialogTitle)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  padding: '20px 24px',
   paddingTop: theme.spacing(2.5),
   paddingBottom: theme.spacing(2.5),
   paddingLeft: theme.spacing(3),
