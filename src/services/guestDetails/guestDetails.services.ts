@@ -7,20 +7,24 @@ export type GuestModelDetailsParams = {
 
 export type GuestModelDetailsResponse = {
   data: ModelDetailsResponse;
+  code: number;
+  response: {
+    data: {
+      message: string;
+    };
+  };
 };
 export class GuestDetailsService {
   static GuestModelDetails = async (userName: string): Promise<GuestModelDetailsResponse> => {
     try {
-      // const queryParams = new URLSearchParams({ userName });
       const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/guest?user_name=mina-3f5a55`;
 
-      const res = await axios.get<GuestModelDetailsParams, GuestModelDetailsResponse>(url, {
+      const res = await axios.get<GuestModelDetailsResponse>(url, {
         headers: { 'Content-Type': 'application/json' }
       });
 
       return res.data;
-    } catch (err: any) {
-      const error = err;
+    } catch (error) {
       return error as GuestModelDetailsResponse;
     }
   };

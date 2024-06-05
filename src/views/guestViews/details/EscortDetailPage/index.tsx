@@ -11,6 +11,7 @@ import { GuestDetailsService } from 'services/guestDetails/guestDetails.services
 import { useEffect, useState } from 'react';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
+import { toast } from 'react-toastify';
 
 const EscortDetailPage = ({ userName }: { userName: string }) => {
   const [guestData, setGuestData] = useState<ModelDetailsResponse>();
@@ -20,10 +21,14 @@ const EscortDetailPage = ({ userName }: { userName: string }) => {
     const fetchGuestData = async () => {
       try {
         const data = await GuestDetailsService.GuestModelDetails(userName);
-        setGuestData(data.data);
-        console.log(data.data, 'guestData');
+
+        if (data.code === 200) {
+          setGuestData(data.data);
+        } else {
+          toast.error(data?.response?.data?.message);
+        }
       } catch (error) {
-        console.error('Failed to fetch guest data:', error);
+        toast.error('An error occurred. Please try again.');
       }
     };
 

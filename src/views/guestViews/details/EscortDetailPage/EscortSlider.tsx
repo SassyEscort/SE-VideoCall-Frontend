@@ -1,13 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
+import type { Swiper as SwiperType } from 'swiper';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import { useState } from 'react';
-import Lightbox from 'yet-another-react-lightbox';
-import Captions from 'yet-another-react-lightbox/plugins/captions';
-import Fullscreen from 'yet-another-react-lightbox/plugins/fullscreen';
-import Slideshow from 'yet-another-react-lightbox/plugins/slideshow';
-import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
-import Video from 'yet-another-react-lightbox/plugins/video';
-import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import 'yet-another-react-lightbox/plugins/captions.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
 import 'swiper/css';
@@ -29,14 +23,8 @@ import { FormattedMessage } from 'react-intl';
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
 
 export const EscortSlider = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] }) => {
-  const [advancedExampleOpen, setAdvancedExampleOpen] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [liked, setLiked] = useState(false);
-
-  const handleOpenImage = (index: any) => {
-    setCurrentIndex(index);
-    setAdvancedExampleOpen(true);
-  };
 
   const handleLikeClick = () => {
     setLiked(!liked);
@@ -48,10 +36,10 @@ export const EscortSlider = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] })
       <DullCirclesEscort2 />
       <Box sx={{ display: 'flex', gap: '12px' }}>
         <Box sx={{ maxWidth: '1084px', width: '100%', cursor: 'pointer' }}>
-          <Swiper modules={[Navigation, Thumbs, FreeMode]} slidesPerView={1}>
+          <Swiper thumbs={{ swiper: thumbsSwiper }} modules={[Navigation, Thumbs, FreeMode]} slidesPerView={1}>
             {workerPhotos.slice(0, 4).map((imageSrc, index) => (
               <SwiperSlide key={index} style={{ paddingTop: 24 }}>
-                <Box onClick={() => handleOpenImage(index)}>
+                <Box>
                   <EscortSwiperPhotoContainer image={imageSrc.link} isMain={true} isMobile={false} coordinates={imageSrc.cords ?? ''} />
                 </Box>
               </SwiperSlide>
@@ -68,13 +56,17 @@ export const EscortSlider = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] })
             '& .swiper-wrapper': { display: 'flex', flexDirection: 'column' }
           }}
         >
-          <Swiper spaceBetween={12} slidesPerView={3} freeMode={true} watchSlidesProgress={true} modules={[Navigation, Thumbs, FreeMode]}>
+          <Swiper
+            onSwiper={setThumbsSwiper}
+            loop={true}
+            spaceBetween={12}
+            slidesPerView={3}
+            freeMode={true}
+            watchSlidesProgress={true}
+            modules={[Navigation, Thumbs, FreeMode]}
+          >
             {workerPhotos.slice(0, 4).map((imageSrc, index) => (
-              <SwiperSlide
-                onClick={() => handleOpenImage(index + 1)}
-                style={{ paddingTop: index === 0 ? '24px' : '12px', width: '100%', minWidth: '148px' }}
-                key={index}
-              >
+              <SwiperSlide style={{ paddingTop: index === 0 ? '24px' : '12px', width: '100%', minWidth: '148px' }} key={index}>
                 <EscortSwiperPhotoContainer image={imageSrc.link} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
               </SwiperSlide>
             ))}
@@ -122,15 +114,6 @@ export const EscortSlider = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] })
           </UIStyledShadowButtonLike>
         </Box>
       </Box>
-      <Lightbox
-        open={advancedExampleOpen}
-        close={() => setAdvancedExampleOpen(false)}
-        index={currentIndex}
-        slides={workerPhotos.map((imageSrc) => ({
-          src: `${imageSrc.link}`
-        }))}
-        plugins={[Captions, Fullscreen, Slideshow, Thumbnails, Video, Zoom]}
-      />
     </>
   );
 };
