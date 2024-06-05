@@ -10,6 +10,7 @@ import PayoutWithdrawContainer from './PayoutWithdrawContainer';
 
 const PayoutWidthDraw = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <>
       {!isSm ? (

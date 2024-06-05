@@ -278,5 +278,8 @@
   "MailUs": "Mail us",
   "OnboardingCompleted": "Onboarding Completed",
   "YourProfile": "Your Profile has been created",
-  "CallAgain": "Call again"
+  "CallAgain": "Call again",
+  "YourRequestHasBeenSubmitted": "Your Request has been submitted",
+  "TheRequestWill": "The request will processed by the admin within 24 hours. For any help and support,",
+  "ContactAdmin": "Contact admin"
 }

@@ -265,14 +265,17 @@
   "Male": "Male",
   "Trans": "Tarns",
   "RequestAPayout": "Solicitar un Pago",
-  "Change":"Cambio",
+  "Change": "Cambio",
   "Favourites": "Favoritos",
   "Models": "2 modelos",
   "CallsHistory": "Historial de llamadas",
   "BillingHistory": "Historial de facturación",
   "ViewDetails": "Ver detalles",
-  "MailUs":"Contáctanos",
+  "MailUs": "Contáctanos",
   "OnboardingCompleted": "Onboarding Completado",
   "YourProfile": "Tu perfil ha sido creado",
-  "CallAgain":"Llama de nuevo"
+  "CallAgain": "Llama de nuevo",
+  "YourRequestHasBeenSubmitted": "Su solicitud ha sido enviada",
+  "TheRequestWill": "La solicitud será procesada por el administrador dentro de las 24 horas. Para cualquier ayuda y soporte,",
+  "ContactAdmin": "Contactar al administrador"
 }

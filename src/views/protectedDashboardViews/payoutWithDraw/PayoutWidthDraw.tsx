@@ -4,7 +4,7 @@ import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 export const DialogContentMain = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
     backgroundColor: theme.palette.secondary[800],
-    borderRadius: '12px',
+    borderRadius: theme.spacing(1.5),
     maxWidth: '648px'
   },
   '& .MuiDialog-container': {
@@ -111,7 +111,7 @@ export const PayoutDetails = styled(Box)(({ theme }) => ({
   background: theme.palette.primary[200],
   border: '1px solid ',
   borderColor: theme.palette.primary[400],
-  borderRadius: '8px',
+  borderRadius: theme.spacing(1),
   [theme.breakpoints.down('sm')]: {
     display: 'flex',
     flexDirection: 'column',
@@ -152,7 +152,7 @@ export const PayoutDetailSecondBox = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between',
   alignItems: 'center',
   background: theme.palette.primary[700],
-  borderRadius: '8px',
+  borderRadius: theme.spacing(1),
   [theme.breakpoints.down('sm')]: {
     display: 'flex',
     flexDirection: 'column',
@@ -212,8 +212,8 @@ export const SamllScreenFirstBox = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between',
   alignItems: 'center',
   [theme.breakpoints.down('sm')]: {
-    paddingLeft: '15px',
-    paddingRight: '15px'
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
   },
   [theme.breakpoints.up('sm')]: {
     display: 'none'
@@ -226,7 +226,6 @@ export const ExpandIcon = styled(ExpandMoreOutlinedIcon)(({ theme }) => ({
 }));
 
 export const dividerBox = styled(Divider)(({ theme }) => ({
-  px: 1,
   paddingLeft: theme.spacing(1),
   paddingRight: theme.spacing(1),
   border: '1px solid',
