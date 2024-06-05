@@ -29,7 +29,7 @@ const HeaderGuestComponent = () => {
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  const [openChangePassword, setIsOpenChangePassword] = useState(email ? true : false);
+  const [openChangePassword, setIsOpenChangePassword] = useState(email && url.pathname !== '/profile' ? true : false);
 
   const toggleDrawer = (open: boolean) => {
     setOpenSidebar(open);

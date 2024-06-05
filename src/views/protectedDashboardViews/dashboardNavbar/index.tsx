@@ -10,7 +10,7 @@ import Divider from '@mui/material/Divider';
 import {
   CommonMenuBox,
   DullCirclesNav,
-  MobileComponentBoxContainer,
+  MobileComponentBox,
   MobileComponentSecBoxContainer,
   MobileTextStyleContainer,
   SelectedTab
@@ -80,7 +80,7 @@ export default function ModelNav({ openNav, onCloseNav, modelDetails }: NavProps
         <ModelNavbar tabIndex={tabIndex} />
       </Drawer>
       {isMdDown && (
-        <MobileComponentBoxContainer>
+        <MobileComponentBox>
           <Tabs
             value={value}
             variant="scrollable"
@@ -121,7 +121,7 @@ export default function ModelNav({ openNav, onCloseNav, modelDetails }: NavProps
             })}
           </Tabs>
           <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-        </MobileComponentBoxContainer>
+        </MobileComponentBox>
       )}
     </Box>
   );

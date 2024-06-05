@@ -18,5 +18,10 @@ export const DashboardModelTabs = [
     name: 'Help and Info',
     img: '/images/profile-vector/Vector-7.png',
     path: '/model/help-info'
+  },
+  {
+    name: 'App',
+    img: '/images/profile-vector/Vector-8.png',
+    path: '/model/app'
   }
 ];

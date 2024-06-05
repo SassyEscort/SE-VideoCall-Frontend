@@ -1,17 +1,17 @@
 'use client';
 import React, { ReactNode } from 'react';
 import MainLayoutNav from './protectedDashboardLayout';
-import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import DashboardContainer from './dashboardNavbar/DashboardContainer';
 
 const DashboardProfile = ({ children, modelDetails }: { children: ReactNode; modelDetails?: ModelDetailsResponse }) => {
   return (
     <>
-      <HomeMainModelContainer>
+      <DashboardContainer>
         <MainLayoutNav variant={'worker'} enlargedFooter={true} modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}>
           {children}
         </MainLayoutNav>
-      </HomeMainModelContainer>
+      </DashboardContainer>
     </>
   );
 };
