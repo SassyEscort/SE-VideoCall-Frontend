@@ -11,7 +11,9 @@ export const MainDailgConatiner = styled(Dialog)(({ theme }) => ({
     backdropFilter: 'blur(24px)'
   },
   [theme.breakpoints.down('sm')]: {
-    backgroundColor: ''
+    '& .MuiDialog-paper': {
+      backgroundColor: 'transparent'
+    }
   }
 }));
 
@@ -19,11 +21,16 @@ export const DialogTitleBox = styled(DialogTitle)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  padding: '20px 24px',
   paddingTop: theme.spacing(2.5),
   paddingBottom: theme.spacing(2.5),
   paddingLeft: theme.spacing(3),
-  paddingRight: theme.spacing(3)
+  paddingRight: theme.spacing(3),
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875),
+    paddingBottom: theme.spacing(6),
+    paddingTop: theme.spacing(0)
+  }
 }));
 
 export const MainDailgFristBox = styled(Box)(({ theme }) => ({

@@ -114,6 +114,7 @@ export const DullCirclesNav = styled(Box)(() => ({
 }));
 
 export const MobileComponentBox = styled(Box)(({ theme }) => ({
+  paddingLeft: theme.spacing(2),
   '& .MuiTabs-indicator': {
     display: 'none'
   },

@@ -11,7 +11,7 @@ const PayoutRequestSubmit = ({ open, onClose }: { open: boolean; onClose: () => 
   return (
     <MainDailgConatiner open={true} onClose={onClose} fullWidth>
       <DialogTitleBox id="responsive-modal-title">
-        <UINewTypography variant="h6">
+        <UINewTypography variant="h6" color={'text.primary'}>
           <FormattedMessage id="RequestAPayout" />
         </UINewTypography>
 
@@ -31,11 +31,13 @@ const PayoutRequestSubmit = ({ open, onClose }: { open: boolean; onClose: () => 
             <Box component={'img'} src="/images/payout/payoutSuccess.webp" sx={{ width: '214px', height: '169px' }} />
             <FiveBox>
               <UINewTypography variant="h3" color={'text.secondary'} sx={{ textAlign: 'center' }}>
-                Your Request has been submitted
+                <FormattedMessage id="YourRequestHasBeenSubmitted" />
               </UINewTypography>
               <UINewTypography variant="bodyRegular" sx={{ textAlign: 'center' }}>
-                The request will processed by the admin within 24 hours. For any help and support,
-                <span style={{ color: '#FFE500' }}>Contact admin</span>
+                <FormattedMessage id="TheRequestWill" />
+                <Box component={'span'} sx={{ color: 'primary.600' }}>
+                  <FormattedMessage id="ContactAdmin" />
+                </Box>
               </UINewTypography>
             </FiveBox>
           </ForBox>
