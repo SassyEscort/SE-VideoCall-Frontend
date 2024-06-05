@@ -42,10 +42,10 @@ const MobileSidebar = ({
   const modelPhotos = useMemo(() => modelDetails?.photos?.filter((data) => !data.is_document), [modelDetails?.photos]);
 
   return (
-    <FormControl id="age" sx={{ width: '100%', maxWidth: '365px' }}>
+    <FormControl id="age" sx={{ width: '100%' }}>
       <Box sx={{ mb: 3 }}>
         <UINewTypography variant="h2" color="text.secondary">
-          My Profile
+          <FormattedMessage id="MyProfile" />
         </UINewTypography>
       </Box>
       <SelectDropdown
