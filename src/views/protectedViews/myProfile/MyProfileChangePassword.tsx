@@ -139,10 +139,6 @@ const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; 
                       onBlur={handleBlur}
                       error={touched.currentPassword && Boolean(errors.currentPassword)}
                       helperText={touched.currentPassword && errors.currentPassword}
-                      sx={{
-                        border: '2px solid',
-                        borderColor: 'secondary.light'
-                      }}
                       InputProps={{
                         endAdornment: (
                           <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setShowPassword(!currentPassword)}>
@@ -166,10 +162,6 @@ const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; 
                       onBlur={handleBlur}
                       error={touched.newPassword && Boolean(errors.newPassword)}
                       helperText={touched.newPassword && errors.newPassword}
-                      sx={{
-                        border: '2px solid',
-                        borderColor: 'secondary.light'
-                      }}
                       InputProps={{
                         endAdornment: (
                           <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setNewPassword(!newPassword)}>
@@ -193,10 +185,6 @@ const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; 
                       onBlur={handleBlur}
                       error={touched.repeatPassword && Boolean(errors.repeatPassword)}
                       helperText={touched.repeatPassword && errors.repeatPassword}
-                      sx={{
-                        border: '2px solid',
-                        borderColor: 'secondary.light'
-                      }}
                       InputProps={{
                         endAdornment: (
                           <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setRepeatPassword(!repeatPassword)}>
