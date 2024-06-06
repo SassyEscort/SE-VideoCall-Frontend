@@ -35,6 +35,7 @@ import { toast } from 'react-toastify';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { ErrorMessage } from 'constants/common.constants';
 import { DocumentDataPhoto, ModelDetailsResponse } from '../verificationTypes';
+import VerificationStepPromise from '../verificationStep2Document';
 
 export type VerificationStepSecond = {
   idType: string;
@@ -53,7 +54,11 @@ const VerificationStep2 = ({
   handleChaneDocuModal,
   modelDetails,
   stepData,
-  handleModelApiChange
+  handleModelApiChange,
+  activeStep,
+  handleNextDocment,
+  handleDocuPrev,
+  open
 }: {
   token: TokenIdType;
   handleNext: () => void;
@@ -62,6 +67,10 @@ const VerificationStep2 = ({
   modelDetails: ModelDetailsResponse;
   stepData: number;
   handleModelApiChange: () => void;
+  activeStep: number;
+  handleNextDocment: () => void;
+  handleDocuPrev: () => void;
+  open: boolean;
 }) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -135,114 +144,125 @@ const VerificationStep2 = ({
   }, [modelDetails, setValues]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <ParentBox>
-        <VerificationStep2MainContainer>
-          <VerificationStep2MainContainerSecond>
-            <Box>
-              <UINewTypography variant="h2" color={'text.secondary'}>
-                <FormattedMessage id="PleaseProvide" />
+    <>
+      <form onSubmit={handleSubmit}>
+        <ParentBox>
+          <VerificationStep2MainContainer>
+            <VerificationStep2MainContainerSecond>
+              <Box>
+                <UINewTypography variant="h2" color={'text.secondary'}>
+                  <FormattedMessage id="PleaseProvide" />
+                </UINewTypography>
+              </Box>
+              <UINewTypography variant="bodyRegular" color={'text.primary'}>
+                <FormattedMessage id="WeUseThisData" />
               </UINewTypography>
-            </Box>
-            <UINewTypography variant="bodyRegular" color={'text.primary'}>
-              <FormattedMessage id="WeUseThisData" />
-            </UINewTypography>
-          </VerificationStep2MainContainerSecond>
+            </VerificationStep2MainContainerSecond>
 
-          <VerificationStep2MainContainerThree>
-            <InputTypeBoxOne>
-              <Box sx={{ display: 'flex', gap: 0.5 }}>
-                <VerificationTwoHeaderText variant="bodySemiBold" color="text.primary">
-                  <FormattedMessage id="IdType" />
-                </VerificationTwoHeaderText>
-                <UINewTypography>*</UINewTypography>
-              </Box>
-              <Box sx={{ maxWidth: '390px', borderRadius: '15px' }}>
-                <UIStyledSelectItemContainer
-                  fullWidth
-                  id="idType"
-                  name="idType"
-                  value={values.idType}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.idType && Boolean(errors.idType)}
-                  IconComponent={KeyboardArrowDownSharpIcon}
-                  sx={{
-                    '& .MuiOutlinedInput-notchedOutline': {
-                      borderColor: touched.idType && errors.idType ? 'error.main' : 'secondary.light'
-                    },
-                    '& .MuiSelect-select': { padding: '0px' },
-                    height: '50px'
-                  }}
-                >
-                  {DocumentList.map((type, index: number) => (
-                    <MenuItem
-                      value={type.key}
-                      key={index}
-                      sx={{
-                        '& .MuiPaper-root-MuiPopover-paper-MuiMenu-paper': {
-                          backgroundColor: 'red !important'
-                        }
-                      }}
-                    >
-                      <UINewTypographyTextMenuItem
-                        variant="bodySemiBold"
-                        color={'text.primary'}
-                        sx={{ paddingTop: 1.5, paddingBottom: 1.5 }}
+            <VerificationStep2MainContainerThree>
+              <InputTypeBoxOne>
+                <Box sx={{ display: 'flex', gap: 0.5 }}>
+                  <VerificationTwoHeaderText variant="bodySemiBold" color="text.primary">
+                    <FormattedMessage id="IdType" />
+                  </VerificationTwoHeaderText>
+                  <UINewTypography>*</UINewTypography>
+                </Box>
+                <Box sx={{ maxWidth: '390px', borderRadius: '15px' }}>
+                  <UIStyledSelectItemContainer
+                    fullWidth
+                    id="idType"
+                    name="idType"
+                    value={values.idType}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.idType && Boolean(errors.idType)}
+                    IconComponent={KeyboardArrowDownSharpIcon}
+                    sx={{
+                      '& .MuiOutlinedInput-notchedOutline': {
+                        borderColor: touched.idType && errors.idType ? 'error.main' : 'secondary.light'
+                      },
+                      '& .MuiSelect-select': { padding: '0px' },
+                      height: '50px'
+                    }}
+                  >
+                    {DocumentList.map((type, index: number) => (
+                      <MenuItem
+                        value={type.key}
+                        key={index}
+                        sx={{
+                          '& .MuiPaper-root-MuiPopover-paper-MuiMenu-paper': {
+                            backgroundColor: 'red !important'
+                          }
+                        }}
                       >
-                        {type.key}
-                      </UINewTypographyTextMenuItem>
-                    </MenuItem>
-                  ))}
-                </UIStyledSelectItemContainer>
-                {touched.idType && errors.idType && <FormHelperText error>{errors.idType}</FormHelperText>}
-              </Box>
-            </InputTypeBoxOne>
+                        <UINewTypographyTextMenuItem
+                          variant="bodySemiBold"
+                          color={'text.primary'}
+                          sx={{ paddingTop: 1.5, paddingBottom: 1.5 }}
+                        >
+                          {type.key}
+                        </UINewTypographyTextMenuItem>
+                      </MenuItem>
+                    ))}
+                  </UIStyledSelectItemContainer>
+                  {touched.idType && errors.idType && <FormHelperText error>{errors.idType}</FormHelperText>}
+                </Box>
+              </InputTypeBoxOne>
 
-            <InputTypeBoxSecond>
-              <Box sx={{ display: 'flex', gap: 0.5 }}>
-                <VerificationTwoHeaderText variant="bodySemiBold" color="text.primary">
-                  <FormattedMessage id="IdNumber" />
-                </VerificationTwoHeaderText>
-                <UINewTypography>*</UINewTypography>
-              </Box>
-              <Box sx={{ maxWidth: '390px' }}>
-                <UIStyledInputText
-                  type="number"
-                  fullWidth
-                  id="idNumber"
-                  name="idNumber"
-                  value={values.idNumber}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.idNumber && Boolean(errors.idNumber)}
-                  helperText={touched.idNumber && errors.idNumber}
-                />
-              </Box>
-            </InputTypeBoxSecond>
-          </VerificationStep2MainContainerThree>
-        </VerificationStep2MainContainer>
-        <ButtonBox>
-          <BackButtonBox>
-            <UIThemeButton variant="outlined" onClick={handlePrev}>
-              <ArrowBackOutlinedIcon />
+              <InputTypeBoxSecond>
+                <Box sx={{ display: 'flex', gap: 0.5 }}>
+                  <VerificationTwoHeaderText variant="bodySemiBold" color="text.primary">
+                    <FormattedMessage id="IdNumber" />
+                  </VerificationTwoHeaderText>
+                  <UINewTypography>*</UINewTypography>
+                </Box>
+                <Box sx={{ maxWidth: '390px' }}>
+                  <UIStyledInputText
+                    type="number"
+                    fullWidth
+                    id="idNumber"
+                    name="idNumber"
+                    value={values.idNumber}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.idNumber && Boolean(errors.idNumber)}
+                    helperText={touched.idNumber && errors.idNumber}
+                  />
+                </Box>
+              </InputTypeBoxSecond>
+            </VerificationStep2MainContainerThree>
+          </VerificationStep2MainContainer>
+          <ButtonBox>
+            <BackButtonBox>
+              <UIThemeButton variant="outlined" onClick={handlePrev}>
+                <ArrowBackOutlinedIcon />
 
-              <VerificationButtonText variant="buttonLargeBold" color="text.secondary">
-                <FormattedMessage id="Back" />
-              </VerificationButtonText>
-            </UIThemeButton>
-          </BackButtonBox>
-          <UploaddocumentsButtonBox>
-            <StyleButtonV2 variant="contained" type="submit" loading={loading}>
-              <VerificationButtonText variant="buttonLargeBold" color="primary.200">
-                {isSm ? <FormattedMessage id="Next" /> : <FormattedMessage id="UploadDocuments" />}
-              </VerificationButtonText>
-              <ArrowForwardOutlinedIcon />
-            </StyleButtonV2>
-          </UploaddocumentsButtonBox>
-        </ButtonBox>
-      </ParentBox>
-    </form>
+                <VerificationButtonText variant="buttonLargeBold" color="text.secondary">
+                  <FormattedMessage id="Back" />
+                </VerificationButtonText>
+              </UIThemeButton>
+            </BackButtonBox>
+            <UploaddocumentsButtonBox>
+              <StyleButtonV2 variant="contained" type="submit" loading={loading}>
+                <VerificationButtonText variant="buttonLargeBold" color="primary.200">
+                  {isSm ? <FormattedMessage id="Next" /> : <FormattedMessage id="UploadDocuments" />}
+                </VerificationButtonText>
+                <ArrowForwardOutlinedIcon />
+              </StyleButtonV2>
+            </UploaddocumentsButtonBox>
+          </ButtonBox>
+        </ParentBox>
+      </form>
+      <VerificationStepPromise
+        token={token}
+        activeStep={activeStep}
+        handleNext={handleNextDocment}
+        modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
+        handlePrev={handlePrev}
+        handleDocuPrev={handleDocuPrev}
+        handleModelApiChange={handleModelApiChange}
+      />
+    </>
   );
 };
 
