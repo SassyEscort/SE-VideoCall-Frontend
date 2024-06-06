@@ -38,8 +38,12 @@ const EscortDetailPage = () => {
   return (
     <>
       <HomeMainContainer>
-        {!isLgDown && <EscortSlider workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])} />}
-        {isLgDown && <EscortSliderMobile workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])} />}
+        {isLgDown ? (
+          <EscortSliderMobile workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])} />
+        ) : (
+          <EscortSlider workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])} />
+        )}
+
         <EscortPersonalDetail guestData={guestData ?? ({} as ModelDetailsResponse)} />
         <EscortExplore />
       </HomeMainContainer>
