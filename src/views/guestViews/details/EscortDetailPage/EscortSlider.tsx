@@ -18,7 +18,13 @@ import Image from 'next/image';
 import UIStyledShadowButtonLike from 'components/UIComponents/UIStyledShadowButtonLike';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { DullCirclesEscort, DullCirclesEscort2 } from './Escort.styled';
+import {
+  DullCirclesEscort,
+  DullCirclesEscort2,
+  FirstSwiperInnerContainer,
+  FirstSwiperMainContainer,
+  SwiperContainer
+} from './Escort.styled';
 import { FormattedMessage } from 'react-intl';
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
 
@@ -34,45 +40,34 @@ export const EscortSlider = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] })
     <>
       <DullCirclesEscort />
       <DullCirclesEscort2 />
-      <Box sx={{ display: 'flex', gap: '12px' }}>
-        <Box sx={{ maxWidth: '1084px', width: '100%', cursor: 'pointer' }}>
-          <Swiper thumbs={{ swiper: thumbsSwiper }} modules={[Navigation, Thumbs, FreeMode]} slidesPerView={1}>
-            {workerPhotos.slice(0, 4).map((imageSrc, index) => (
-              <SwiperSlide key={index} style={{ paddingTop: 24 }}>
-                <Box>
+      <FirstSwiperMainContainer>
+        <FirstSwiperInnerContainer>
+          <Swiper thumbs={{ swiper: thumbsSwiper }} modules={[Navigation, Thumbs, FreeMode]} slidesPerView={1} style={{ height: '100%' }}>
+            {workerPhotos.map((imageSrc, index) => (
+              <SwiperSlide key={index} style={{ paddingTop: 24, height: '100%' }}>
+                <Box sx={{ height: '100%' }}>
                   <EscortSwiperPhotoContainer image={imageSrc.link} isMain={true} isMobile={false} coordinates={imageSrc.cords ?? ''} />
                 </Box>
               </SwiperSlide>
             ))}
           </Swiper>
-        </Box>
-
-        <Box
-          sx={{
-            maxWidth: '148px',
-            height: '100%',
-            width: '100%',
-            cursor: 'pointer',
-            '& .swiper-wrapper': { display: 'flex', flexDirection: 'column' }
-          }}
-        >
+        </FirstSwiperInnerContainer>
+        <SwiperContainer>
           <Swiper
             onSwiper={setThumbsSwiper}
-            loop={true}
             spaceBetween={12}
             slidesPerView={3}
-            freeMode={true}
             watchSlidesProgress={true}
             modules={[Navigation, Thumbs, FreeMode]}
           >
-            {workerPhotos.slice(0, 4).map((imageSrc, index) => (
+            {workerPhotos.map((imageSrc, index) => (
               <SwiperSlide style={{ paddingTop: index === 0 ? '24px' : '12px', width: '100%', minWidth: '148px' }} key={index}>
                 <EscortSwiperPhotoContainer image={imageSrc.link} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
               </SwiperSlide>
             ))}
           </Swiper>
-        </Box>
-      </Box>
+        </SwiperContainer>
+      </FirstSwiperMainContainer>
       <Box
         sx={{
           display: 'flex',
