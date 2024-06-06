@@ -178,3 +178,22 @@ export const FirstSwiperInnerContainer = styled(Box)(({ theme }) => ({
   cursor: 'pointer',
   height: '100%'
 }));
+
+export const FirstSwiperBlurContainer = styled(Box)(({ theme }) => ({
+  zIndex: 1,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  position: 'relative',
+  height: '100%',
+  width: '100%'
+}));
+
+export const SecondSwiperBlurContainer = styled(Box)(({ theme }) => ({
+  filter: 'blur(10px)',
+  zIndex: 1,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  position: 'absolute',
+  height: '100%',
+  width: '100%'
+}));

@@ -21,8 +21,10 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import {
   DullCirclesEscort,
   DullCirclesEscort2,
+  FirstSwiperBlurContainer,
   FirstSwiperInnerContainer,
   FirstSwiperMainContainer,
+  SecondSwiperBlurContainer,
   SwiperContainer
 } from './Escort.styled';
 import { FormattedMessage } from 'react-intl';
@@ -45,9 +47,14 @@ export const EscortSlider = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] })
           <Swiper thumbs={{ swiper: thumbsSwiper }} modules={[Navigation, Thumbs, FreeMode]} slidesPerView={1} style={{ height: '100%' }}>
             {workerPhotos.map((imageSrc, index) => (
               <SwiperSlide key={index} style={{ paddingTop: 24, height: '100%' }}>
-                <Box sx={{ height: '100%' }}>
+                <FirstSwiperBlurContainer>
+                  <SecondSwiperBlurContainer
+                    sx={{
+                      backgroundImage: `url(${imageSrc.link})`
+                    }}
+                  />
                   <EscortSwiperPhotoContainer image={imageSrc.link} isMain={true} isMobile={false} coordinates={imageSrc.cords ?? ''} />
-                </Box>
+                </FirstSwiperBlurContainer>
               </SwiperSlide>
             ))}
           </Swiper>

@@ -22,12 +22,14 @@ const EscortSwiperPhotoContainer = ({
       sx={{
         backgroundImage: `url(${image})`,
         backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
+        backgroundSize: isMdDown && !isMain ? 'cover' : 'contain',
         backgroundPosition: 'center',
         height: isMain && !isMobile ? '100%' : isMdDown && !isMain ? '90px' : '156px',
         width: '100%',
         minHeight: isMain && !isMdDown ? 660 : isMdDown && !isMain ? '90px' : isMdDown && isMain ? 430 : 0,
-        borderRadius: 2
+        borderRadius: 2,
+        zIndex: 2,
+        position: 'relative'
       }}
     />
   );
