@@ -13,6 +13,7 @@ import CheckInboxVerify from 'views/modelViews/checkInBox';
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ErrorMessage } from 'constants/common.constants';
+import MyProfileChangePassword from './MyProfileChangePassword';
 
 const MyProfileContainer = ({
   values,
@@ -37,6 +38,7 @@ const MyProfileContainer = ({
   const [open, setOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [isVerified, setIsVerified] = useState(false);
+  const [openModel, setOpenModel] = useState(false);
 
   const sendLinkVerify = async () => {
     try {
@@ -55,6 +57,10 @@ const MyProfileContainer = ({
 
   const handleClose = () => {
     setActiveStep(0);
+  };
+
+  const handleClsoeModel = () => {
+    setOpenModel(false);
   };
 
   const verifyEmail = useCallback(async () => {
@@ -89,6 +95,10 @@ const MyProfileContainer = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, email]);
+
+  const changePasswordOpenModel = () => {
+    setOpenModel(true);
+  };
 
   return (
     <>
@@ -187,7 +197,7 @@ const MyProfileContainer = ({
                 helperText={touched.password && errors.password}
                 InputProps={{
                   endAdornment: (
-                    <Box>
+                    <Box onClick={changePasswordOpenModel} sx={{ cursor: 'pointer' }}>
                       <UINewTypography variant="buttonSmallBold" color="text.secondary">
                         <FormattedMessage id="Change" />
                       </UINewTypography>
@@ -199,6 +209,7 @@ const MyProfileContainer = ({
           </Box>
         </InputTypeBox>
       </Box>
+      <MyProfileChangePassword onOpen={openModel} onClose={handleClsoeModel} token={token} />
     </>
   );
 };
