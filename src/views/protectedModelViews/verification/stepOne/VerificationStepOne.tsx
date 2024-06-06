@@ -65,14 +65,16 @@ const VerificationBasicDetails = ({
   token,
   isEdit
 }: VerificationBasicDetailsType) => {
+  const maxCharCount = 1000;
+
   const [countries, setCountries] = useState<MultipleOptionString[]>([]);
   const [nationality, setNationality] = useState<MultipleOptionString[]>([]);
   const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
-
   const [charCount, setCharCount] = useState(values.bio.length || 0);
-  const maxCharCount = 1000;
-
   const [isEditable, setIsEditable] = useState(false);
+  const [activeStep, setActiveStep] = useState(0);
+  const [openForgetPassLink, setOpenForgetPassLink] = useState(true);
+
   const handleEditClick = () => {
     setIsEditable(true);
   };
@@ -128,12 +130,11 @@ const VerificationBasicDetails = ({
     }
   };
 
-  const [activeStep, setActiveStep] = useState(0);
-  const [openForgetPassLink, setOpenForgetPassLink] = useState(true);
   const handleResetPasswordLinkClose = () => {
     setOpenForgetPassLink(false);
     setActiveStep(0);
   };
+
   const sendLinkVerify = async () => {
     const url = new URL(window.location.href);
     let source;

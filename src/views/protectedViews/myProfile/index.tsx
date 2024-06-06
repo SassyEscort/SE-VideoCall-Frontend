@@ -6,12 +6,12 @@ import React, { useEffect, useState } from 'react';
 import { DisableButtonBox, MyProfileContainerMain } from './MyProfile.styled';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import MyProfileContainer from './MyProfileContainer';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
+import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 
 export type MyProfile = {
   username: string;
@@ -22,18 +22,11 @@ const MyProfile = () => {
   const isSmDown = theme.breakpoints.down(330);
 
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
 
   const validationSchema = yup.object({
     username: yup.string().required('Username is required').min(2, 'Username is too short').max(20, 'Username is too long'),
-    email: yup.string().email('Enter a valid email').required('Email is required'),
-    password: yup
-      .string()
-      .required('Password is required')
-      .min(8, 'Password must be at least 8 characters')
-      .matches(
-        PASSWORD_PATTERN,
-        'Invalid Password! Does not meet requirements (this password has appeared in a data breach elsewhere and should never be used on any website)'
-      )
+    email: yup.string().email('Enter a valid email').required('Email is required')
   });
 
   useEffect(() => {
@@ -45,12 +38,23 @@ const MyProfile = () => {
     userToken();
   }, []);
 
+  useEffect(() => {
+    const customerDetails = async () => {
+      const customerData = await CustomerDetailsService.customerModelDetails(token.token);
+      setCustomerDetails(customerData.data);
+    };
+    if (token.token) {
+      customerDetails();
+    }
+  }, [token.id, token.token]);
+
   return (
     <Formik
+      enableReinitialize
       initialValues={{
-        username: '',
-        email: '',
-        password: ''
+        username: customerDetails?.customer_user_name || '',
+        email: customerDetails?.customer_email || '',
+        password: 'test123'
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {}}

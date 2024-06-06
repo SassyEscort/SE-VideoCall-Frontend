@@ -37,20 +37,22 @@ const VerificationStepOne = ({
 
   const url = new URL(window.location.href);
   const email = url.searchParams.get('email');
+  const nationalityId = modelDetails?.nationality?.id != '-1' ? modelDetails?.nationality?.id : '';
+  const countryId = modelDetails?.country?.id != '-1' ? modelDetails?.country?.id : '';
 
   const initialValuesPerStep: VerificationStep1Type = {
     id: token.id,
     gender: modelDetails?.gender || '',
     name: modelDetails?.name || '',
-    country_id: modelDetails?.country?.id || '',
+    country_id: countryId,
     bio: modelDetails?.bio || '',
     email: modelDetails?.email || '',
     dob: modelDetails?.dob || '',
-    nationality_id: modelDetails?.nationality?.id || '',
+    nationality_id: nationalityId,
     model_languages:
       modelDetails?.languages
-        ?.filter((x) => x.language_id)
-        .map((language) => ({ id: language.language_id, name: language.language_name })) || []
+        ?.filter((x) => x?.language_id)
+        .map((language) => ({ id: language?.language_id, name: language?.language_name })) || []
   };
 
   const [loading, setLoading] = useState(false);
@@ -64,13 +66,11 @@ const VerificationStepOne = ({
         return moment().diff(moment(date), 'years') >= 18;
       })
       .required('DobIsRequired'),
-
     nationality_id: Yup.string().required('Nationality is required'),
     model_languages: Yup.array().required('Language is required').min(1, 'Atleast one language is required'),
     country_id: Yup.string()
       .required('Country is required')
       .test('is-not-zero', 'Country is required', (value) => value !== '0'),
-
     bio: Yup.string()
       .required('Bio is required')
       .min(50, 'Bio should be atleast 50 characters')

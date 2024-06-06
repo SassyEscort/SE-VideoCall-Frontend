@@ -39,6 +39,7 @@ const MyProfileContainer = ({
   const [activeStep, setActiveStep] = useState(0);
   const [isVerified, setIsVerified] = useState(false);
   const [openModel, setOpenModel] = useState(false);
+  const [isEditable, setIsEditable] = useState(false);
 
   const sendLinkVerify = async () => {
     try {
@@ -61,6 +62,9 @@ const MyProfileContainer = ({
 
   const handleClsoeModel = () => {
     setOpenModel(false);
+  };
+  const handleEditClick = () => {
+    setIsEditable(true);
   };
 
   const verifyEmail = useCallback(async () => {
@@ -140,6 +144,7 @@ const MyProfileContainer = ({
             <Box>
               <UIStyledInputText
                 fullWidth
+                disabled={!isEditable}
                 id="email"
                 name="email"
                 value={values.email}
@@ -150,7 +155,7 @@ const MyProfileContainer = ({
                 InputProps={{
                   endAdornment: (
                     <Box sx={{ display: 'flex', gap: 2, cursor: 'pointer' }}>
-                      <UINewTypography color={'text.secondary'} variant="buttonSmallBold">
+                      <UINewTypography color={'text.secondary'} variant="buttonSmallBold" onClick={handleEditClick}>
                         <FormattedMessage id="Edit" />
                       </UINewTypography>
 

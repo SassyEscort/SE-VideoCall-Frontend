@@ -56,6 +56,7 @@ const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; 
   });
   return (
     <Formik
+      enableReinitialize
       initialValues={{
         currentPassword: '',
         newPassword: '',
@@ -72,15 +73,29 @@ const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; 
             toast.error(data);
           } else {
             toast.success(data.message);
+            onClose();
           }
         } catch (error) {
           toast.error('An error occurred. Please try again.');
         }
       }}
     >
-      {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
+      {({ values, errors, touched, handleChange, handleBlur, handleSubmit, handleReset }) => {
         return (
-          <MainDialogBox open={onOpen} onClose={onClose} fullWidth>
+          <MainDialogBox
+            open={onOpen}
+            onClose={() => {
+              handleReset();
+              onClose();
+            }}
+            fullWidth
+            scroll="body"
+            sx={{
+              '& .MuiPaper-root-MuiDialog-paper.MuiDialog-paperScrollBody': {
+                maxWidth: '100%'
+              }
+            }}
+          >
             <Box component="form" onSubmit={handleSubmit}>
               <DialogTitleBox id="responsive-modal-title">
                 <UINewTypography variant="h6">
@@ -89,7 +104,10 @@ const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; 
 
                 <IconButton
                   aria-label="close"
-                  onClick={onClose}
+                  onClick={() => {
+                    handleReset();
+                    onClose();
+                  }}
                   sx={{
                     color: (theme) => theme.palette.text.secondary
                   }}
