@@ -150,3 +150,31 @@ export const ThirdBoxContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1.5),
   width: '100%'
 }));
+
+export const SwiperContainer = styled(Box)(() => ({
+  maxWidth: '148px',
+  maxHeight: 'calc(728px - 10px)',
+  height: '100%',
+  width: '100%',
+  cursor: 'pointer',
+  overflow: 'auto',
+  '& .swiper-wrapper': { display: 'flex', flexDirection: 'column' },
+  '&::-webkit-scrollbar': {
+    width: '1px',
+    display: 'none'
+  }
+}));
+
+export const FirstSwiperMainContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1.5),
+  height: '100%',
+  maxHeight: '728px'
+}));
+
+export const FirstSwiperInnerContainer = styled(Box)(({ theme }) => ({
+  maxWidth: '1084px',
+  width: '100%',
+  cursor: 'pointer',
+  height: '100%'
+}));
