@@ -278,5 +278,9 @@
   "PlatformRules": "Reglas de la plataforma",
   "YourRequestHasBeenSubmitted": "Su solicitud ha sido enviada",
   "TheRequestWill": "La solicitud será procesada por el administrador dentro de las 24 horas. Para cualquier ayuda y soporte,",
-  "ContactAdmin": "Contactar al administrador"
+  "ContactAdmin": "Contactar al administrador",
+  "ChangePassword": "Cambiar contraseña",
+  "EnterCurrentPassword": "Ingresar contraseña actual",
+  "EnterNewPassword": "Ingresar nueva contraseña",
+  "RepeatNewPassword": "Repetir nueva contraseña"
 }

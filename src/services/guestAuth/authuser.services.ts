@@ -17,6 +17,11 @@ export type GenericRes = {
   message: string;
 };
 
+export type ChangePassParams = {
+  old_password: string;
+  new_password: string;
+};
+
 export class authServices {
   static loginUser = async (params: LoginUserParams): Promise<LoginUserResponse | string> => {
     try {
@@ -48,6 +53,17 @@ export class authServices {
       return res.data;
     } catch (error) {
       return error as GenericRes;
+    }
+  };
+
+  static changePassword = async (params: ChangePassParams, token: string): Promise<GenericRes | string> => {
+    try {
+      const res = await axios.post<GenericRes>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/customer/update-password`, params, {
+        headers: { 'Content-Type': 'application/json', Authorization: token }
+      });
+      return res.data;
+    } catch (err: any) {
+      return err.response?.data.message as string;
     }
   };
 }

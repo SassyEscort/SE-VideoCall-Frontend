@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -11,6 +10,11 @@ import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { useState } from 'react';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
+import { FormattedMessage } from 'react-intl';
+import { DialogTitleBox, DividerBox, FirstBox, InputBox, InputBoxMain, MainDialogBox } from './ChangePassword.styled';
+import { authServices } from 'services/guestAuth/authuser.services';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import { toast } from 'react-toastify';
 
 export type ChangePasswordParams = {
   currentPassword: string;
@@ -18,7 +22,7 @@ export type ChangePasswordParams = {
   repeatPassword: string;
 };
 
-const MyProfileChangePassword = ({ onClose }: { onClose: () => void }) => {
+const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; onClose: () => void; token: TokenIdType }) => {
   const [currentPassword, setShowPassword] = useState(false);
   const [newPassword, setNewPassword] = useState(false);
   const [repeatPassword, setRepeatPassword] = useState(false);
@@ -44,6 +48,7 @@ const MyProfileChangePassword = ({ onClose }: { onClose: () => void }) => {
       .string()
       .required('Repeat Password is required')
       .min(8, 'Password must be at least 8 characters')
+      .oneOf([yup.ref('newPassword')], 'Passwords must match')
       .matches(
         PASSWORD_PATTERN,
         'Invalid Password! Does not meet requirements (this password has appeared in a data breach elsewhere and should never be used on any website)'
@@ -51,144 +56,154 @@ const MyProfileChangePassword = ({ onClose }: { onClose: () => void }) => {
   });
   return (
     <Formik
+      enableReinitialize
       initialValues={{
         currentPassword: '',
         newPassword: '',
         repeatPassword: ''
       }}
       validationSchema={validationSchema}
-      onSubmit={(values) => {
-        //submit
+      onSubmit={async (values) => {
+        try {
+          const data = await authServices.changePassword(
+            { old_password: values.currentPassword, new_password: values.newPassword },
+            token.token
+          );
+          if (typeof data === 'string') {
+            toast.error(data);
+          } else {
+            toast.success(data.message);
+            onClose();
+          }
+        } catch (error) {
+          toast.error('An error occurred. Please try again.');
+        }
       }}
     >
-      {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
+      {({ values, errors, touched, handleChange, handleBlur, handleSubmit, handleReset }) => {
         return (
-          <Box component="form" onSubmit={handleSubmit}>
-            <Box
-              position="relative"
-              width="100%"
-              gap={4}
-              display="flex"
-              flexDirection="column"
-              sx={{
-                pt: { xs: 0, sm: '50px' },
-                pl: { xs: 2, md: 4 },
-                pr: { xs: 2, md: 0 },
-                maxWidth: { xs: '100%', md: '400px' }
-              }}
-            >
-              <Box>
-                <UINewTypography variant="MediumSemiBoldText" color="common.white">
-                  Change Password
+          <MainDialogBox
+            open={onOpen}
+            onClose={() => {
+              handleReset();
+              onClose();
+            }}
+            fullWidth
+            scroll="body"
+            sx={{
+              '& .MuiPaper-root-MuiDialog-paper.MuiDialog-paperScrollBody': {
+                maxWidth: '100%'
+              }
+            }}
+          >
+            <Box component="form" onSubmit={handleSubmit}>
+              <DialogTitleBox id="responsive-modal-title">
+                <UINewTypography variant="h6">
+                  <FormattedMessage id="ChangePassword" />
                 </UINewTypography>
-                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
-                  <IconButton
-                    size="large"
-                    sx={{
-                      color: 'common.white',
-                      position: 'absolute',
-                      top: 0,
-                      right: { xs: 0, md: '-84px' },
-                      display: { xs: 'none', sm: 'block' }
-                    }}
-                    onClick={onClose}
-                  >
-                    <CloseIcon />
-                  </IconButton>
-                </Box>
-              </Box>
 
-              <Box display="flex" flexDirection="column" gap={3}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                  <UINewTypography variant="bodySemiBold">Current Password</UINewTypography>
-                  <UIStyledInputText
-                    fullWidth
-                    type={currentPassword ? 'text' : 'password'}
-                    id="currentPassword"
-                    name="currentPassword"
-                    value={values.currentPassword}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={touched.currentPassword && Boolean(errors.currentPassword)}
-                    helperText={touched.currentPassword && errors.currentPassword}
+                <IconButton
+                  aria-label="close"
+                  onClick={() => {
+                    handleReset();
+                    onClose();
+                  }}
+                  sx={{
+                    color: (theme) => theme.palette.text.secondary
+                  }}
+                >
+                  <CloseIcon />
+                </IconButton>
+              </DialogTitleBox>
+              <FirstBox>
+                <Box>
+                  <DividerBox
                     sx={{
-                      border: '2px solid',
-                      borderColor: 'secondary.light'
-                    }}
-                    InputProps={{
-                      endAdornment: (
-                        <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setShowPassword(!currentPassword)}>
-                          {currentPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
-                        </Box>
-                      )
+                      display: { sm: 'block', display: 'none' }
                     }}
                   />
                 </Box>
-              </Box>
 
-              <Box display="flex" flexDirection="column" gap={3}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                  <UINewTypography variant="bodySemiBold">Enter New Password</UINewTypography>
-                  <UIStyledInputText
-                    fullWidth
-                    type={newPassword ? 'text' : 'password'}
-                    id="newPassword"
-                    name="newPassword"
-                    value={values.newPassword}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={touched.newPassword && Boolean(errors.newPassword)}
-                    helperText={touched.newPassword && errors.newPassword}
-                    sx={{
-                      border: '2px solid',
-                      borderColor: 'secondary.light'
-                    }}
-                    InputProps={{
-                      endAdornment: (
-                        <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setNewPassword(!newPassword)}>
-                          {newPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
-                        </Box>
-                      )
-                    }}
-                  />
-                </Box>
-              </Box>
+                <InputBoxMain>
+                  <InputBox>
+                    <UINewTypography variant="bodySemiBold">
+                      <FormattedMessage id="EnterCurrentPassword" />
+                    </UINewTypography>
+                    <UIStyledInputText
+                      fullWidth
+                      type={currentPassword ? 'text' : 'password'}
+                      id="currentPassword"
+                      name="currentPassword"
+                      value={values.currentPassword}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={touched.currentPassword && Boolean(errors.currentPassword)}
+                      helperText={touched.currentPassword && errors.currentPassword}
+                      InputProps={{
+                        endAdornment: (
+                          <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setShowPassword(!currentPassword)}>
+                            {currentPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
+                          </Box>
+                        )
+                      }}
+                    />
+                  </InputBox>
+                  <InputBox>
+                    <UINewTypography variant="bodySemiBold">
+                      <FormattedMessage id="EnterNewPassword" />
+                    </UINewTypography>
+                    <UIStyledInputText
+                      fullWidth
+                      type={newPassword ? 'text' : 'password'}
+                      id="newPassword"
+                      name="newPassword"
+                      value={values.newPassword}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={touched.newPassword && Boolean(errors.newPassword)}
+                      helperText={touched.newPassword && errors.newPassword}
+                      InputProps={{
+                        endAdornment: (
+                          <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setNewPassword(!newPassword)}>
+                            {newPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
+                          </Box>
+                        )
+                      }}
+                    />
+                  </InputBox>
+                  <InputBox>
+                    <UINewTypography variant="bodySemiBold">
+                      <FormattedMessage id="RepeatNewPassword" />
+                    </UINewTypography>
+                    <UIStyledInputText
+                      fullWidth
+                      type={repeatPassword ? 'text' : 'password'}
+                      id="repeatPassword"
+                      name="repeatPassword"
+                      value={values.repeatPassword}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={touched.repeatPassword && Boolean(errors.repeatPassword)}
+                      helperText={touched.repeatPassword && errors.repeatPassword}
+                      InputProps={{
+                        endAdornment: (
+                          <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setRepeatPassword(!repeatPassword)}>
+                            {repeatPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
+                          </Box>
+                        )
+                      }}
+                    />
+                  </InputBox>
 
-              <Box display="flex" flexDirection="column" gap={3}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                  <UINewTypography variant="bodySemiBold">Repeat New Password</UINewTypography>
-                  <UIStyledInputText
-                    fullWidth
-                    type={repeatPassword ? 'text' : 'password'}
-                    id="repeatPassword"
-                    name="repeatPassword"
-                    value={values.repeatPassword}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={touched.repeatPassword && Boolean(errors.repeatPassword)}
-                    helperText={touched.repeatPassword && errors.repeatPassword}
-                    sx={{
-                      border: '2px solid',
-                      borderColor: 'secondary.light'
-                    }}
-                    InputProps={{
-                      endAdornment: (
-                        <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setRepeatPassword(!repeatPassword)}>
-                          {repeatPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
-                        </Box>
-                      )
-                    }}
-                  />
-                </Box>
-              </Box>
-              <Box display="flex" flexDirection="column" gap={3}>
-                <UIThemeButton variant="contained" type="submit">
-                  <UINewTypography variant="buttonLargeBold">Change Password</UINewTypography>
-                </UIThemeButton>
-              </Box>
+                  <UIThemeButton variant="contained" type="submit">
+                    <UINewTypography variant="buttonLargeBold">
+                      <FormattedMessage id="ChangePassword" />
+                    </UINewTypography>
+                  </UIThemeButton>
+                </InputBoxMain>
+              </FirstBox>
             </Box>
-          </Box>
+          </MainDialogBox>
         );
       }}
     </Formik>
