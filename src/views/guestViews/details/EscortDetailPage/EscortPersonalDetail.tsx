@@ -25,7 +25,7 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
     .sort()
     .join(', ');
 
-  const videoCallPrice = guestData?.video_call_prices[0]?.price_per_minute;
+  const videoCallPrice = guestData?.video_call_prices?.length ? guestData?.video_call_prices[0]?.price_per_minute : 0;
 
   return (
     <>
