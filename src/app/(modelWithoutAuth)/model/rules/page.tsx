@@ -1,4 +1,4 @@
-import ModelRules from 'views/protectedDashboardViews/modelRules';
+import ModelRules from 'views/modelViews/modelRules';
 
 const page = () => {
   return (
