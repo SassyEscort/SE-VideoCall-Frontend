@@ -19,6 +19,8 @@ import { DocumentDataPhoto, ModelDetailsResponse } from '../verificationTypes';
 import { TokenIdType } from '..';
 import { useMemo, useState } from 'react';
 import { ImagePayload } from '../stepThree/uploadImage';
+import { VerificationStepSecond } from 'services/modelAuth/types';
+import { DocumentList } from 'constants/workerVerification';
 
 export type VerificationPhotoWithoutFilter = {
   photoWithoutFilter: File | string;
@@ -32,6 +34,7 @@ export type VerificationStepPromiseType = {
   token: TokenIdType;
   handleDocuPrev: () => void;
   handleModelApiChange: () => void;
+  docValues: VerificationStepSecond;
 };
 
 export type DocumentUploadPayload = {
@@ -58,7 +61,8 @@ const VerificationStepPromise = ({
   token,
   modelDetails,
   handleDocuPrev,
-  handleModelApiChange
+  handleModelApiChange,
+  docValues
 }: VerificationStepPromiseType) => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [loading, setLoading] = useState(false);
@@ -94,7 +98,7 @@ const VerificationStepPromise = ({
         try {
           setLoading(true);
           const mutationImageUpload = await VerificationStepService.imageKitUplaodApi(values.photoWithoutFilter as File);
-
+          const selectedDocument = DocumentList.find((item) => item.key === docValues.idType)?.value;
           const payload: ImagePayload = {
             is_document: true,
             photos: [
@@ -105,8 +109,8 @@ const VerificationStepPromise = ({
                 cords: '',
                 is_favourite: 0,
                 is_document: 1,
-                document_type: modelDetails?.documents[0].document_type ?? '',
-                document_number: Number(modelDetails?.documents[0].document_number) ?? 0
+                document_type: String(selectedDocument) ?? modelDetails?.documents[0].document_type,
+                document_number: docValues.idNumber ? Number(docValues.idNumber) : Number(modelDetails?.documents[0].document_number) ?? 0
               }
             ],
             document_upload_step: true

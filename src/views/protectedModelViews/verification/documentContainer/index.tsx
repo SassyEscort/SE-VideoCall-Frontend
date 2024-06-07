@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import VerificationStep2 from '../verificationStep2';
-import VerificationStepPromise from '../verificationStep2Document';
 import { ModelDetailsResponse } from '../verificationTypes';
 import { TokenIdType } from '..';
 
@@ -38,27 +37,19 @@ const DocumentMainContainer = ({
 
   return (
     <>
-      {open ? (
-        <VerificationStepPromise
-          token={token}
-          activeStep={activeStep}
-          handleNext={handleNextDocment}
-          modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
-          handlePrev={handlePrev}
-          handleDocuPrev={handleDocuPrev}
-          handleModelApiChange={handleModelApiChange}
-        />
-      ) : (
-        <VerificationStep2
-          handleModelApiChange={handleModelApiChange}
-          token={token}
-          handleNext={handleNext}
-          stepData={stepData}
-          handlePrev={handlePrev}
-          handleChaneDocuModal={handleChaneDocuModal}
-          modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
-        />
-      )}
+      <VerificationStep2
+        open={open}
+        activeStep={activeStep}
+        handleNextDocment={handleNextDocment}
+        handleDocuPrev={handleDocuPrev}
+        handleModelApiChange={handleModelApiChange}
+        token={token}
+        handleNext={handleNext}
+        stepData={stepData}
+        handlePrev={handlePrev}
+        handleChaneDocuModal={handleChaneDocuModal}
+        modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
+      />
     </>
   );
 };

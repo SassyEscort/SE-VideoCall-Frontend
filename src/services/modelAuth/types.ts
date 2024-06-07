@@ -36,7 +36,7 @@ export type VerificationPayload = {
 };
 
 export type VerificationStepSecond = {
-  idType: string;
+  idType: string | number;
   idNumber: string;
 };
 
