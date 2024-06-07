@@ -183,7 +183,7 @@ const UploadImage = ({
         const uploadFile5: ImageUploadPayload[] = [
           ...values.file5Existing
             .filter((x) => x !== null)
-            .map((photo, i) => ({
+            .map((photo) => ({
               id: photo.id || 0,
               link: photo.photoURL ? photo.photoURL : photo.link,
               type: 'file_5',
@@ -191,7 +191,7 @@ const UploadImage = ({
               is_document: 0,
               document_type: PHOTO_TYPE.MODEL_PHOTO,
               document_number: null,
-              is_favourite: Number(values.is_favourite?.split('[')[1].split(']')[0]) === i ? 1 : 0
+              is_favourite: String(values.is_favourite)
             })),
           ...mutationImageUpload.uploadPhotos?.filter((x) => !x.is_document)
         ];
@@ -204,7 +204,7 @@ const UploadImage = ({
                 link: x.link ? String(x.link) : String(x.photosURL),
                 type: 'file_5',
                 cords: x.cords,
-                is_favourite: x.is_favourite,
+                is_favourite: Number(values.is_favourite?.split('[')[1].split(']')[0]) === i ? 1 : 0,
                 is_document: 0,
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
                 document_number: null
