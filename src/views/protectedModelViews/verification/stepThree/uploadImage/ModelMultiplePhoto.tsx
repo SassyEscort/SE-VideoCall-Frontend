@@ -251,9 +251,11 @@ const ModelMultiplePhoto = ({
               values={values}
               handleUploadPhotos={handleUploadPhotos}
             />
-            <UINewTypography variant="h6">
-              <FormattedMessage id="Gallery" />
-            </UINewTypography>
+            {(values.file5Existing.length > 0 || values.file5) && (
+              <UINewTypography variant="h6">
+                <FormattedMessage id="Gallery" />
+              </UINewTypography>
+            )}
             <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
               {[...existingPhotos, ...uploadedImagesURL]?.map((photo, index) => {
                 return (

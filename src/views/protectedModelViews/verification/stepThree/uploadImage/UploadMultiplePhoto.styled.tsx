@@ -116,7 +116,7 @@ export const ModelMultiplePhotoItem = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.secondary[500],
   width: '100%',
   maxWidth: 824,
-  padding: '24px 16px',
+  padding: '24px 16px 0px 16px',
   [theme.breakpoints.down('sm')]: {
     padding: '24px 10px'
   },
