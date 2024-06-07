@@ -42,6 +42,7 @@ export type ModelDetailsResponse = {
   verification_step: string;
   video_call_prices: VideCallPrices[];
   email_verified: number;
+  updated_at: string;
 };
 
 export type GuestDetailsResponse = {
