@@ -11,7 +11,6 @@ import {
 import { FormattedMessage } from 'react-intl';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
-  ButtonContainer,
   FAQTitle,
   HeaderTextContainer,
   HelpAndSupportMainContainer,
@@ -20,9 +19,8 @@ import {
   TextFirstBoxContainer,
   TextSecondBoxContainer
 } from './helpAndSupport.styled';
-import BasicRules from './basicRules';
 
-const HelpAndSupportContainer = ({ open, openDailog, closeDailog }: { open: boolean; openDailog: () => void; closeDailog: () => void }) => {
+const HelpAndSupportContainer = () => {
   return (
     <HelpAndSupportMainContainer>
       <HelpAndSupportSubContainer>
@@ -268,13 +266,6 @@ const HelpAndSupportContainer = ({ open, openDailog, closeDailog }: { open: bool
           </FAQConatainer>
         </Box>
       </HelpAndSupportSubContainer>
-
-      <ButtonContainer variant="contained">
-        <UINewTypography variant="body" color="primary.200" onClick={openDailog}>
-          <FormattedMessage id="BasicRules" />
-        </UINewTypography>
-      </ButtonContainer>
-      <BasicRules open={open} onClose={closeDailog} />
     </HelpAndSupportMainContainer>
   );
 };

@@ -25,6 +25,8 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
     .sort()
     .join(', ');
 
+  const videoCallPrice = guestData?.video_call_prices[0]?.price_per_minute;
+
   return (
     <>
       <Box
@@ -96,7 +98,7 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
               <DetailsChipBox>
                 <UINewChip
                   icon={<Box height={16} width={16} component="img" src={`/images/details-icon/coin-icon.svg`} alt={'language'} />}
-                  label="20 credits/hr"
+                  label={Number(videoCallPrice) === -1 ? 'N/A' : `$${videoCallPrice}`}
                 />
               </DetailsChipBox>
             </DetailsChildTypographyBox>

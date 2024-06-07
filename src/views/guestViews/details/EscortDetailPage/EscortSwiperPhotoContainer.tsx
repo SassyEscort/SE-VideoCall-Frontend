@@ -24,7 +24,7 @@ const EscortSwiperPhotoContainer = ({
         backgroundRepeat: 'no-repeat',
         backgroundSize: isMdDown && !isMain ? 'cover' : 'contain',
         backgroundPosition: 'center',
-        height: isMain && !isMobile ? '100%' : isMdDown && !isMain ? '90px' : '156px',
+        height: isMain && !isMobile ? '100%' : isMdDown && !isMain ? '90px' : '165px',
         width: '100%',
         minHeight: isMain && !isMdDown ? 660 : isMdDown && !isMain ? '90px' : isMdDown && isMain ? 430 : 0,
         borderRadius: 2,
