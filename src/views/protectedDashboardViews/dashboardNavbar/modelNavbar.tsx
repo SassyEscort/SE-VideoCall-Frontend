@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { DashboardModelTabs } from 'constants/modelConstants';
 import Logout from 'views/protectedViews/logout';
 import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
+import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined';
 import { CommonMenuBox, DashboardSidebarBox, MainDashboardSideMenuMainBox, NavBarBoxContainer, SelectedTab } from './nav.styled';
 import Link from 'next/link';
 
@@ -33,6 +34,8 @@ const ModelNavbar = ({ tabIndex }: { tabIndex: number }) => {
                           component="img"
                           src={tab.img}
                           sx={{
+                            height: '24px',
+                            width: '24px',
                             filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)'
                           }}
                         />
@@ -40,7 +43,11 @@ const ModelNavbar = ({ tabIndex }: { tabIndex: number }) => {
                           {tab.name}
                         </UINewTypography>
                       </Box>
-                      <ArrowDropDownRoundedIcon />
+                      {index === tabIndex - 1 ? (
+                        <ArrowRightOutlinedIcon sx={{ height: '24px', width: '24px' }} />
+                      ) : (
+                        <ArrowDropDownRoundedIcon />
+                      )}
                     </Box>
                   </SelectedTab>
                 </Link>

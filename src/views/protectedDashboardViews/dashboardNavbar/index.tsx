@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import Tabs from '@mui/material/Tabs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Divider from '@mui/material/Divider';
 import {
   CommonMenuBox,
@@ -19,6 +19,9 @@ import Link from 'next/link';
 import { DashboardModelTabs } from 'constants/modelConstants';
 import ModelNavbar from './modelNavbar';
 import SideMenu from '../SideMenu';
+import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+import { getUserDataClient } from 'utils/getSessionData';
+import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
 ModelNav.propTypes = {
@@ -29,10 +32,9 @@ ModelNav.propTypes = {
 interface NavProps {
   openNav: boolean;
   onCloseNav: () => void;
-  modelDetails: ModelDetailsResponse;
 }
 
-export default function ModelNav({ openNav, onCloseNav, modelDetails }: NavProps) {
+export default function ModelNav({ openNav, onCloseNav }: NavProps) {
   const router = usePathname();
 
   const maindashboardTabIndex: { [key: string]: number } = {
@@ -55,11 +57,33 @@ export default function ModelNav({ openNav, onCloseNav, modelDetails }: NavProps
     setValue(newValue);
   };
 
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
+
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      setToken({ id: data.id, token: data.token });
+    };
+
+    userToken();
+  }, []);
+
+  useEffect(() => {
+    const modelDetails = async () => {
+      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      setModelDetails(modelData.data);
+    };
+    if (token.token) {
+      modelDetails();
+    }
+  }, [token.id, token.token]);
+
   return (
     <Box component="nav" sx={{ flexShrink: { lg: 0 }, position: 'relative' }}>
       {isMdDown && <DullCirclesNav />}
 
-      {!isMdDown && <SideMenu modelDetails={modelDetails} />}
+      {!isMdDown && <SideMenu modelDetails={modelDetails ?? ({} as ModelDetailsResponse)} />}
 
       {!isMdDown && <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: 3 }} />}
 

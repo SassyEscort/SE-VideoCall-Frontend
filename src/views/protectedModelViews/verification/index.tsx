@@ -35,13 +35,14 @@ const VerificationContainer = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
   const [progressValue, setProgressValue] = useState(14.28);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
-    const stepProgress = 100 / 7;
-    const activeStepNew = activeStep + 1;
+    const stepProgress = 100 / 4;
+    const activeStepNew = activeStep < 4 ? activeStep + 1 : 4;
     setProgressValue(activeStepNew * stepProgress);
   }, [activeStep]);
 
@@ -105,9 +106,9 @@ const VerificationContainer = () => {
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_DOCUMENTS) {
       setActiveStep(1);
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_PHOTOS) {
-      setActiveStep(3);
+      setActiveStep(2);
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED) {
-      setActiveStep(4);
+      setActiveStep(3);
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.IN_REVIEW) {
       router.push('/model/dashboard');
     }
@@ -173,16 +174,6 @@ const VerificationContainer = () => {
             {isMdDown && activeStep === 2 && (
               <>
                 <UINewTypography variant="button" sx={{ lineHeight: '140%', color: 'text.secondary' }}>
-                  <FormattedMessage id="PleaseProvide" />
-                </UINewTypography>
-                <UINewTypography variant="SubtitleSmallMedium">
-                  <FormattedMessage id="NextPhotos" />
-                </UINewTypography>
-              </>
-            )}
-            {isMdDown && activeStep === 3 && (
-              <>
-                <UINewTypography variant="button" sx={{ lineHeight: '140%', color: 'text.secondary' }}>
                   <FormattedMessage id="Photos" />
                 </UINewTypography>
                 <UINewTypography variant="SubtitleSmallMedium">
@@ -190,7 +181,7 @@ const VerificationContainer = () => {
                 </UINewTypography>
               </>
             )}
-            {isMdDown && activeStep === 4 && (
+            {isMdDown && activeStep === 3 && (
               <>
                 <UINewTypography variant="button" sx={{ lineHeight: '140%', color: 'text.secondary' }}>
                   <FormattedMessage id="ReviewYourDetails" />
@@ -200,7 +191,7 @@ const VerificationContainer = () => {
                 </UINewTypography>
               </>
             )}
-            {isMdDown && activeStep === 5 && (
+            {isMdDown && activeStep === 4 && (
               <>
                 <UINewTypography variant="button" sx={{ lineHeight: '140%', color: 'text.secondary' }}>
                   <FormattedMessage id="OnboardingCompleted" />
@@ -222,7 +213,7 @@ const VerificationContainer = () => {
           handleModelApiChange={handleModelApiChange}
         />
       )}
-      {(activeStep === 1 || activeStep === 2) && (
+      {activeStep === 1 && (
         <DocumentMainContainer
           handleNextDocment={handleNextDocment}
           handleModelApiChange={handleModelApiChange}
@@ -233,7 +224,7 @@ const VerificationContainer = () => {
           handlePrev={handlePrev}
         />
       )}
-      {activeStep === 3 && (
+      {activeStep === 2 && (
         <UploadImage
           isEdit={false}
           workerPhotos={modelDetails?.photos ?? []}
@@ -243,7 +234,7 @@ const VerificationContainer = () => {
           handlePrevVerificationStep={handlePrev}
         />
       )}
-      {activeStep === 4 && (
+      {activeStep === 3 && (
         <ModelReviewDetails
           handleNext={handleNext}
           modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
@@ -251,7 +242,7 @@ const VerificationContainer = () => {
           handleEdit={handleEdit}
         />
       )}
-      {activeStep === 5 && <ProfileCreated />}
+      {activeStep === 4 && <ProfileCreated />}
     </>
   );
 };
