@@ -43,6 +43,8 @@ const ModelBasicDetailReview = ({
     modelDetails?.documents?.length && modelDetails?.documents[0]?.document_number ? modelDetails?.documents[0]?.document_number : '';
 
   const documentLink = modelDetails?.documents?.length && modelDetails?.documents[0]?.link ? modelDetails?.documents[0]?.link : '';
+  const documentLinkPdf = documentLink.includes('.pdf');
+
   useEffect(() => {
     const names = modelDetails?.languages
       ?.map((language) => language?.language_name)
@@ -177,7 +179,11 @@ const ModelBasicDetailReview = ({
                     <FormattedMessage id="IdFront" />
                   </UINewTypography>
                 </Box>
-                <Box component={'img'} src={documentLink} width={'265.39px'}></Box>
+                {documentLinkPdf ? (
+                  <Box component={'img'} src={'/images/icons/pdf-icon.svg'} width={'100px'} height={'100px'}></Box>
+                ) : (
+                  <Box component={'img'} src={documentLink} width={'265.39px'}></Box>
+                )}
               </FontIdRight>
             </IDtype>
           </DocumentLeftContainer>
