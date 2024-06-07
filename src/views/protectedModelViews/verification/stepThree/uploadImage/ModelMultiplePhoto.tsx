@@ -65,8 +65,10 @@ const ModelMultiplePhoto = ({
   const [existingPhotos, setExistingPhotos] = useState<UploadPhotos[]>([]);
   const [uploadedImagesURL, setUploadedImagesURL] = useState<UploadPhotos[]>([]);
   const [thumbnailImageId, setThumbnailImageId] = useState<number | undefined>(undefined);
+  const [isDelete, setIsDelete] = useState(false);
 
   const removeImage = (name: string) => {
+    setIsDelete(true);
     let index = existingPhotos?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
       existingPhotos?.splice(index, 1);
@@ -175,12 +177,13 @@ const ModelMultiplePhoto = ({
             id: photo.id,
             name: `file5Existing[${index - 4}]`,
             photoURL: photo.link,
-            cords: photo.cords
+            cords: photo.cords,
+            isFavorite: photo.favourite === 1
           };
         else {
           return {
             id: photo.id,
-            name: `file${photo?.type?.split('_')[1]}`,
+            name: `file${index}`,
             photoURL: photo.link,
             cords: photo.cords,
             isFavorite: photo.favourite === 1
@@ -202,6 +205,9 @@ const ModelMultiplePhoto = ({
 
   const handleCancel = () => {
     setUploadedImagesURL([]);
+    if (isDelete) {
+      handleExistingPhotos(workerPhotos);
+    }
   };
 
   return (
@@ -279,8 +285,10 @@ const ModelMultiplePhoto = ({
         <UploadMultipleBox pt={12}>
           <UIThemeButton
             onClick={handleCancel}
-            disabled={(values.file5 === null || uploadedImagesURL.length === 0) && isEdit ? true : false}
-            variant={(values.file5 === null || uploadedImagesURL.length === 0) && isEdit ? 'contained' : 'outlined'}
+            disabled={
+              (values.file5 === null || uploadedImagesURL.length === 0) && !isDelete && isEdit ? true : isDelete && isEdit ? false : false
+            }
+            variant={(values.file5 === null || uploadedImagesURL.length === 0) && !isDelete && isEdit ? 'contained' : 'outlined'}
           >
             <RiArrowLeftLine />
             <UINewTypography variant="body">
@@ -292,7 +300,9 @@ const ModelMultiplePhoto = ({
             type="submit"
             variant="contained"
             loading={loading}
-            disabled={(values.file5 === null || uploadedImagesURL.length === 0) && isEdit ? true : false}
+            disabled={
+              (values.file5 === null || uploadedImagesURL.length === 0) && !isDelete && isEdit ? true : isDelete && isEdit ? false : false
+            }
           >
             <UINewTypography variant="body">
               <FormattedMessage id="Save" />

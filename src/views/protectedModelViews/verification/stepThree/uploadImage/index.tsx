@@ -169,7 +169,6 @@ const UploadImage = ({
       if (values.file5 || workerPhotos.length > 0) {
         const mutationImageUpload = await VerificationStepService.multipleImageKitUplaodApi(allFilesToUpload);
         const uploadFile5: ImageUploadPayload[] = [
-          ...mutationImageUpload.uploadPhotos?.filter((x) => !x.is_document),
           ...values.file5Existing
             .filter((x) => x !== null)
             .map((photo) => ({
@@ -181,7 +180,8 @@ const UploadImage = ({
               document_type: PHOTO_TYPE.MODEL_PHOTO,
               document_number: null,
               is_favourite: String(values.isFavorite)
-            }))
+            })),
+          ...mutationImageUpload.uploadPhotos?.filter((x) => !x.is_document)
         ];
 
         const uploadPhotos: ImageUploadPayload[] = [];
