@@ -32,7 +32,7 @@ const ModelReviewDetails = ({
       <DocumentSecondConatiner>
         <ModelGalleryReview modelDetails={modelDetails} />
         <ModelGalleryBox>
-          <UIThemeButton variant="outlined" onClick={() => handleEdit(3)}>
+          <UIThemeButton variant="outlined" onClick={() => handleEdit(2)}>
             <UINewTypography variant="buttonLargeBold" color="text.primary">
               <FormattedMessage id="Edit" />
             </UINewTypography>
