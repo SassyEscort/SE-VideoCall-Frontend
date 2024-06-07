@@ -16,6 +16,7 @@ import { UINewTooltip } from 'components/UIComponents/UINewTooltip/UINewTooltip.
 import { FormattedMessage } from 'react-intl';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import moment from 'moment';
+import { getLastActive } from 'utils/dateAndTime';
 
 const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }) => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -49,7 +50,7 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
                   {guestData?.name}
                 </UINewTypography>
                 <UINewTypography variant="SubtitleSmallMedium" sx={{ fontSize: '14px', lineHeight: '19.6px' }}>
-                  <FormattedMessage id="LastActive" />
+                  <FormattedMessage id="LastActive" /> {getLastActive(guestData?.updated_at ?? '')}
                 </UINewTypography>
               </DetailsChildBox>
               <Box>
