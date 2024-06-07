@@ -32,7 +32,10 @@ const DashboardPriceView = ({
   handleModelApiChange: () => void;
 }) => {
   const initialValues = {
-    price: (modelDetails?.video_call_prices?.length && modelDetails?.video_call_prices[0]?.price_per_minute) || ''
+    price:
+      modelDetails?.video_call_prices?.length && Number(modelDetails?.video_call_prices[0]?.price_per_minute) !== -1
+        ? modelDetails?.video_call_prices[0]?.price_per_minute
+        : ''
   };
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(0);
@@ -73,11 +76,7 @@ const DashboardPriceView = ({
   });
 
   useEffect(() => {
-    if (!values.price) {
-      setDisable(false);
-    } else {
-      setDisable(true);
-    }
+    setDisable(values.price !== '');
   }, [values.price]);
 
   const handleSubmitForm = async (inputPayload: PricePerMinute) => {
@@ -93,6 +92,7 @@ const DashboardPriceView = ({
       toast.error(ErrorMessage);
     } finally {
       setLoading(false);
+      handleModelApiChange();
     }
   };
 
