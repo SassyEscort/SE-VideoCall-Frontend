@@ -44,7 +44,7 @@ const ModelProfile = () => {
   }, [token.token]);
 
   return (
-    <DashboardProfile modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}>
+    <DashboardProfile>
       {isMdDown ? (
         <MobileSidebar
           modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}

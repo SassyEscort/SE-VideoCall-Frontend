@@ -13,8 +13,8 @@ export const MainDialogBox = styled(Dialog)(({ theme }) => ({
     }
   },
   '& .MuiDialog-container': {
-    backgroundColor: '#07030e99 !important',
-    backdropFilter: 'blur(24px)'
+    backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
+    backdropFilter: 'blur(12px)'
   },
   [theme.breakpoints.down('sm')]: {
     '& .MuiDialog-paper': {
