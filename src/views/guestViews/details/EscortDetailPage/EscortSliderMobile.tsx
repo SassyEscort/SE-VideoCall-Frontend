@@ -1,4 +1,5 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
+import type { Swiper as SwiperType } from 'swiper';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import 'yet-another-react-lightbox/plugins/captions.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
@@ -11,13 +12,6 @@ import 'yet-another-react-lightbox';
 import Box from '@mui/material/Box';
 import EscortSwiperPhotoContainer from './EscortSwiperPhotoContainer';
 import { useState } from 'react';
-import Lightbox from 'yet-another-react-lightbox';
-import Captions from 'yet-another-react-lightbox/plugins/captions';
-import Fullscreen from 'yet-another-react-lightbox/plugins/fullscreen';
-import Slideshow from 'yet-another-react-lightbox/plugins/slideshow';
-import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
-import Video from 'yet-another-react-lightbox/plugins/video';
-import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Image from 'next/image';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -28,18 +22,13 @@ import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
+import { FirstSwiperBlurContainer, SecondSwiperBlurContainer } from './Escort.styled';
 
 const EscortSliderMobile = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] }) => {
   const isLg = useMediaQuery(theme.breakpoints.up('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
-  const [advancedExampleOpen, setAdvancedExampleOpen] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [liked, setLiked] = useState(false);
-
-  const handleOpenImage = (index: any) => {
-    setCurrentIndex(index);
-    setAdvancedExampleOpen(true);
-  };
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
   const handleLikeClick = () => {
     setLiked(!liked);
@@ -49,12 +38,17 @@ const EscortSliderMobile = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] }) 
     <>
       <Box>
         <Box sx={{ width: '100%', cursor: 'pointer' }}>
-          <Swiper modules={[Navigation, Thumbs, FreeMode]} slidesPerView={1}>
+          <Swiper thumbs={{ swiper: thumbsSwiper }} modules={[Navigation, Thumbs, FreeMode]} slidesPerView={1}>
             {workerPhotos.map((imageSrc, index) => (
               <SwiperSlide key={index} style={{ paddingTop: 20 }}>
-                <Box onClick={() => handleOpenImage(index)}>
+                <FirstSwiperBlurContainer>
+                  <SecondSwiperBlurContainer
+                    sx={{
+                      backgroundImage: `url(${imageSrc.link})`
+                    }}
+                  />
                   <EscortSwiperPhotoContainer image={imageSrc.link} isMain={true} isMobile={false} coordinates={imageSrc.cords ?? ''} />
-                </Box>
+                </FirstSwiperBlurContainer>
               </SwiperSlide>
             ))}
           </Swiper>
@@ -67,13 +61,16 @@ const EscortSliderMobile = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] }) 
             cursor: 'pointer'
           }}
         >
-          <Swiper spaceBetween={6} slidesPerView={3} freeMode={true} watchSlidesProgress={true} modules={[Navigation, Thumbs, FreeMode]}>
+          <Swiper
+            onSwiper={setThumbsSwiper}
+            spaceBetween={6}
+            slidesPerView={3}
+            freeMode={true}
+            watchSlidesProgress={true}
+            modules={[Navigation, Thumbs, FreeMode]}
+          >
             {workerPhotos.map((imageSrc, index) => (
-              <SwiperSlide
-                onClick={() => handleOpenImage(index + 1)}
-                style={{ paddingTop: 8, width: '100%', minWidth: '86px' }}
-                key={index}
-              >
+              <SwiperSlide style={{ paddingTop: 8, width: '100%', minWidth: '86px' }} key={index}>
                 <EscortSwiperPhotoContainer image={imageSrc.link} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
               </SwiperSlide>
             ))}
@@ -119,15 +116,6 @@ const EscortSliderMobile = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] }) 
           </UIStyledShadowButtonLike>
         </Box>
       </Box>
-      <Lightbox
-        open={advancedExampleOpen}
-        close={() => setAdvancedExampleOpen(false)}
-        index={currentIndex}
-        slides={workerPhotos.map((imageSrc) => ({
-          src: `${imageSrc.photo}`
-        }))}
-        plugins={[Captions, Fullscreen, Slideshow, Thumbnails, Video, Zoom]}
-      />
     </>
   );
 };

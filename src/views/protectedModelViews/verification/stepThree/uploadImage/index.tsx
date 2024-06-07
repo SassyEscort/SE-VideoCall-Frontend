@@ -11,7 +11,7 @@ import { VerificationStepService } from 'services/modelAuth/verificationStep.ser
 import { toast } from 'react-toastify';
 import { TokenIdType } from '../..';
 import { PHOTO_TYPE } from 'constants/workerVerification';
-import { ErrorMessage } from 'constants/common.constants';
+import { ErrorMessage, MAX_FILE_SIZE } from 'constants/common.constants';
 import { FormattedMessage } from 'react-intl';
 import { useState } from 'react';
 import * as Yup from 'yup';
@@ -103,11 +103,20 @@ const UploadImage = ({
     file5Existing: Yup.array().default([]),
     file5: Yup.array()
       .default([])
-      .when('file5Existing', (file5Existing, schema) => {
+      .when('file5Existing', (file5Existing: WorkerPhotos[][], schema) => {
+        const fileSizeCheck = function (this: Yup.TestContext<Yup.AnyObject>, value: any[]) {
+          const filteredFile5 = (value || []).filter((x) => x !== null);
+          const invalidSizeFiles = filteredFile5.filter((file) => file && file.size >= MAX_FILE_SIZE);
+          if (invalidSizeFiles.length > 0) {
+            return this.createError({ message: 'Photo/video should be less than 5MB', path: 'file5' });
+          }
+          return true;
+        };
+
         if (file5Existing[0] && file5Existing[0].length >= 2) {
-          return schema.notRequired();
+          return schema.test('file-size-check', fileSizeCheck).notRequired();
         }
-        return schema.test('file5-combined-length', function (value) {
+        return schema.test('file5-combined-length', function (this: Yup.TestContext<Yup.AnyObject>, value: File[]) {
           const { file5Existing } = this.parent;
           if (value && value.filter((x) => x !== null).length > 0) {
             const firstFileIndex = value.findIndex((x) => x !== null);
@@ -117,11 +126,14 @@ const UploadImage = ({
               return this.createError({ message: 'Video cannot be uploaded for a thumbnail photo.', path: 'file5' });
             }
           }
-          0;
 
           const filteredFile5 = (value || []).filter((x) => x !== null);
           const combinedLength = file5Existing.length + filteredFile5.length;
 
+          const invalidSizeFiles = filteredFile5.filter((file) => file && file.size >= MAX_FILE_SIZE);
+          if (invalidSizeFiles.length > 0) {
+            return this.createError({ message: 'Photo/video should be less than 5MB', path: 'file5' });
+          }
           if (combinedLength < 2 || combinedLength > 30) {
             return this.createError({ message: 'Please upload between 2 to 30 photos', path: 'file5' });
           }
@@ -171,7 +183,7 @@ const UploadImage = ({
         const uploadFile5: ImageUploadPayload[] = [
           ...values.file5Existing
             .filter((x) => x !== null)
-            .map((photo) => ({
+            .map((photo, i) => ({
               id: photo.id || 0,
               link: photo.photoURL ? photo.photoURL : photo.link,
               type: 'file_5',
@@ -179,7 +191,7 @@ const UploadImage = ({
               is_document: 0,
               document_type: PHOTO_TYPE.MODEL_PHOTO,
               document_number: null,
-              is_favourite: String(values.isFavorite)
+              is_favourite: Number(values.is_favourite?.split('[')[1].split(']')[0]) === i ? 1 : 0
             })),
           ...mutationImageUpload.uploadPhotos?.filter((x) => !x.is_document)
         ];
@@ -192,7 +204,7 @@ const UploadImage = ({
                 link: x.link ? String(x.link) : String(x.photosURL),
                 type: 'file_5',
                 cords: x.cords,
-                is_favourite: Number(values.is_favourite?.split('[')[1].split(']')[0]) === i ? 1 : 0,
+                is_favourite: x.is_favourite,
                 is_document: 0,
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
                 document_number: null
@@ -249,23 +261,13 @@ const UploadImage = ({
             <UploadBox>
               {!isEdit && (
                 <UploadMultipleBox>
-                  <UIThemeButton
-                    onClick={handlePrevVerificationStep}
-                    disabled={values.file5 === null && isEdit ? true : false}
-                    variant={values.file5 === null && isEdit ? 'contained' : 'outlined'}
-                  >
+                  <UIThemeButton onClick={handlePrevVerificationStep} variant="outlined">
                     <RiArrowLeftLine />
                     <UINewTypography variant="body">
                       <FormattedMessage id="Back" />
                     </UINewTypography>
                   </UIThemeButton>
-                  <StyleButtonV2
-                    id="photos-button"
-                    type="submit"
-                    variant="contained"
-                    loading={loading}
-                    disabled={values.file5 === null && isEdit ? true : false}
-                  >
+                  <StyleButtonV2 id="photos-button" type="submit" variant="contained" loading={loading}>
                     <UINewTypography variant="body">
                       <FormattedMessage id="Next" />
                     </UINewTypography>
