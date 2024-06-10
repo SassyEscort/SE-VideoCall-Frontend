@@ -1,28 +1,14 @@
-import { alpha } from '@mui/material/styles';
-import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
+import { StyledIconButton } from './AccountPopover.styled';
+import { useState } from 'react';
 
 export default function AccountPopover() {
+  const [open, setOpen] = useState(false);
   return (
     <>
-      <IconButton
-        sx={{
-          p: 0,
-          ...(Boolean(open) && {
-            '&:before': {
-              zIndex: 1,
-              content: "''",
-              width: '100%',
-              height: '100%',
-              borderRadius: '50%',
-              position: 'absolute',
-              bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8)
-            }
-          })
-        }}
-      >
+      <StyledIconButton open={open} onClick={() => setOpen(!open)}>
         <Avatar src={'/images/admin/avatar.jpg'} alt="photoURL" />
-      </IconButton>
+      </StyledIconButton>
     </>
   );
 }

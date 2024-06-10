@@ -1,17 +1,9 @@
-import { styled, alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import { Avatar, Box } from '@mui/material';
+import { StyledAccount } from './Nav.styled';
 
 const NAV_WIDTH = 280;
-
-const StyledAccount = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(2, 2.5),
-  borderRadius: Number(theme.shape.borderRadius) * 1.5,
-  backgroundColor: alpha(theme.palette.grey[500], 0.12)
-}));
 
 interface NavProps {
   openNav: boolean;
