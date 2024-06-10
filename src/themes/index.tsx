@@ -12,9 +12,9 @@ type ThemeCustomizationProps = {
 };
 
 export default function ThemeCustomization({ children }: ThemeCustomizationProps) {
-  const url = new URL(window.location.href);
+  const url = global.window && new URL(window.location.href);
 
-  const adminPath = url.pathname.startsWith('/admin');
+  const adminPath = url?.pathname?.startsWith('/admin');
 
   return (
     <StyledEngineProvider injectFirst>

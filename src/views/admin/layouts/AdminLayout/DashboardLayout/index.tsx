@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, ReactNode } from 'react';
 import { styled } from '@mui/material/styles';
 import Header from './header';

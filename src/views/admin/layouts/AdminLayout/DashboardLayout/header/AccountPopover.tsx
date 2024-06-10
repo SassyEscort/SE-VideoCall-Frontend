@@ -1,3 +1,4 @@
+'use client';
 import Avatar from '@mui/material/Avatar';
 import { StyledIconButton } from './AccountPopover.styled';
 import { useState } from 'react';

@@ -1,3 +1,4 @@
+'use client';
 import { AppBar, IconButton, Toolbar, styled } from '@mui/material';
 
 export const StyledIconButton = styled(IconButton)(({ open }: { open: boolean }) => ({

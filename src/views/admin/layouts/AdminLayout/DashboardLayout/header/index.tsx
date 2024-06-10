@@ -1,3 +1,4 @@
+'use client';
 import PropTypes from 'prop-types';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountPopover from './AccountPopover';
