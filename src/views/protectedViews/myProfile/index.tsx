@@ -12,6 +12,7 @@ import MyProfileContainer from './MyProfileContainer';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
+import { EMAIL_REGEX } from 'constants/regexConstants';
 
 export type MyProfile = {
   username: string;
@@ -26,7 +27,7 @@ const MyProfile = () => {
 
   const validationSchema = yup.object({
     username: yup.string().required('Username is required').min(2, 'Username is too short').max(20, 'Username is too long'),
-    email: yup.string().email('Enter a valid email').required('Email is required')
+    email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required')
   });
 
   useEffect(() => {
