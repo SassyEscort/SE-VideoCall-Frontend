@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import AdminLoginLayout from '../layouts/AdminLayout/AdminLoginLayout';

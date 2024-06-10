@@ -1,4 +1,3 @@
-'use client';
 import { ReactNode } from 'react';
 import { StyledContent, StyledRoot, StyledSection } from './AdminLoginLayout.styled';
 import Container from '@mui/material/Container';
