@@ -1,5 +1,4 @@
 'use client';
-import Box from '@mui/material/Box';
 import { Formik } from 'formik';
 import VerificationBasicDetails from './VerificationStepOne';
 import { ModelDetailsResponse, VerificationStep1Type } from '../verificationTypes';
@@ -11,7 +10,7 @@ import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import * as Yup from 'yup';
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
-import { StepOneContainer } from './VerficationStepOne.styled';
+import { FooterBtnConatiner, StepOneContainer } from './VerficationStepOne.styled';
 import { TokenIdType } from '..';
 import { toast } from 'react-toastify';
 import { useCallback, useEffect, useState } from 'react';
@@ -164,14 +163,7 @@ const VerificationStepOne = ({
               handleChange={handleChange}
               setFieldValue={setFieldValue}
             />
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                width: '100%',
-                maxWidth: '824px'
-              }}
-            >
+            <FooterBtnConatiner>
               <UIThemeButton
                 onClick={isEdit && handleReset}
                 variant={changedValues && isEdit ? 'outlined' : 'contained'}
@@ -200,7 +192,7 @@ const VerificationStepOne = ({
                 )}
                 <RiArrowRightLine />
               </StyleButtonV2>
-            </Box>
+            </FooterBtnConatiner>
           </StepOneContainer>
         );
       }}

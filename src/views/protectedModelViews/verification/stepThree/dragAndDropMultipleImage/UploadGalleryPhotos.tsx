@@ -157,7 +157,7 @@ const UploadGalleryPhotos = ({ setValue, name, accept, values, handleUploadPhoto
           <>
             <RiUpload2Line style={{ height: 64, width: 64 }} />
             <UINewTypography variant="buttonLargeBold" color="primary.400">
-              <FormattedMessage id="Drag" /> &amp; <FormattedMessage id="Drop" />
+              <FormattedMessage id="Drag" /> &amp; <FormattedMessage id="Drop" />{' '}
               <UINewTypography variant="buttonLargeBold" color="text.primary">
                 <FormattedMessage id="ToUpload" />
               </UINewTypography>
