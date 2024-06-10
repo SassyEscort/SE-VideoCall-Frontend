@@ -282,5 +282,7 @@
   "ChangePassword": "Cambiar contraseña",
   "EnterCurrentPassword": "Ingresar contraseña actual",
   "EnterNewPassword": "Ingresar nueva contraseña",
-  "RepeatNewPassword": "Repetir nueva contraseña"
+  "RepeatNewPassword": "Repetir nueva contraseña",
+  "DownloadApp": "Descargar aplicación",
+  "DownloadTheApp": "Descarga la aplicación para aceptar las videollamadas"
 }

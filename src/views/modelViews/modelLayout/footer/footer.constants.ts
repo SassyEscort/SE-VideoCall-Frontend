@@ -1,6 +1,6 @@
 export const FooterCityList = [
-  { name: 'Platform rules', link: '/rules' },
-  { name: 'Privacy statement', link: '/Rotterdam' },
-  { name: 'Cookie statement', link: '/Amsterdam' },
-  { name: 'Terms and conditions', link: '/Den-Haag' }
+  { name: 'PlatformRules', link: '/rules' },
+  { name: 'PrivacyStatement', link: '/Rotterdam' },
+  { name: 'CookieStatement', link: '/Amsterdam' },
+  { name: 'TermsConditions', link: '/Den-Haag' }
 ];
