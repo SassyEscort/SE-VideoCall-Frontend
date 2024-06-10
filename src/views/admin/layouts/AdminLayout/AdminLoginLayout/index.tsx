@@ -13,7 +13,7 @@ export default function AdminLoginLayout({ children }: AdminLoginLayoutProps) {
     <>
       <StyledRoot>
         <StyledSection>
-          <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
+          <Typography variant="h3" sx={{ px: 5, mt: 5, mb: 5 }}>
             Hi, Welcome Back
           </Typography>
           <Image height={360} width={480} src="/images/admin/illustration_login.png" alt="login" />

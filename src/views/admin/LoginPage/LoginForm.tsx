@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Stack from '@mui/material/Stack';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -12,27 +12,63 @@ import * as yup from 'yup';
 import { LoadingButton } from '@mui/lab';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { Box } from '@mui/material';
+import { ErrorBox } from 'views/auth/AuthCommon.styled';
+import UINewTypography from 'components/UIComponents/UINewTypography';
+import InfoIcon from '@mui/icons-material/Info';
+import getCustomErrorMessage from 'utils/error.utils';
+import { AdminLoginParams } from 'services/adminAuth/types';
+import { toast } from 'react-toastify';
 
 export default function LoginForm() {
+  const route = useRouter();
+  const { push } = route;
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState('');
 
   const validationSchema = yup.object({
     email: yup.string().email('Enter a valid email').required('Email is required'),
     password: yup.string().min(6, 'Password should be of minimum 6 characters length').required('Password is required')
   });
 
+  const handleFormSubmit = async (values: AdminLoginParams) => {
+    try {
+      setLoading(true);
+      const res = await signIn('providerAdmin', { redirect: false, email: values.email, password: values.password });
+      if (res?.status === 200) {
+        push('/admin');
+        toast.success('Login successfully');
+      } else if (res?.error) {
+        setAlert(res.error === 'CredentialsSignin' ? 'Invalid email or password' : 'Something went wrong! Please try again');
+      }
+    } catch (error: any) {
+      setAlert(getCustomErrorMessage(error));
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={validationSchema}
-        onSubmit={async (values, { setSubmitting }) => {
-          setSubmitting(false);
-        }}
+        onSubmit={(values: AdminLoginParams) => handleFormSubmit(values)}
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
-            <Stack spacing={3}>
+            <Box sx={{ color: 'primary.300' }}>
+              {alert && (
+                <ErrorBox>
+                  <InfoIcon />
+                  <UINewTypography>{alert}</UINewTypography>
+                </ErrorBox>
+              )}
+            </Box>
+            <Stack spacing={3} sx={{ mt: 3 }}>
               <TextField
                 inputProps={{ autoFocus: true }}
                 name="email"
@@ -66,7 +102,7 @@ export default function LoginForm() {
             </Stack>
 
             <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 3 }}>
-              <LoadingButton fullWidth size="large" type="submit" variant="contained">
+              <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={loading}>
                 Login
               </LoadingButton>
             </Stack>

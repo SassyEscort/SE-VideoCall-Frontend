@@ -1,8 +1,8 @@
 import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession, type NextAuthOptions, type User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { adminAuthServices } from 'services/adminAuth/authmodel.services';
 import { authServices } from 'services/guestAuth/authuser.services';
-import { authModelServices } from 'services/modelAuth/authmodel.services';
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET_KEY,
@@ -39,15 +39,15 @@ export const authOptions: NextAuthOptions = {
       }
     }),
     CredentialsProvider({
-      id: 'providerModel',
-      name: 'providerModel',
+      id: 'providerAdmin',
+      name: 'providerAdmin',
       credentials: {
         email: { name: 'email', label: 'Email', type: 'text', placeholder: 'Enter Email' },
         password: { name: 'password', label: 'Password', type: 'password', placeholder: 'Enter Password' }
       },
       async authorize(credentials) {
         try {
-          const user = await authModelServices.loginModel({
+          const user = await adminAuthServices.AdminLogin({
             email: credentials?.email ?? '',
             password: credentials?.password ?? ''
           });
