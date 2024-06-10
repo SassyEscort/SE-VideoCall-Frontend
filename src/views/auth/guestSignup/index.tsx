@@ -10,7 +10,7 @@ import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useState } from 'react';
 import * as yup from 'yup';
-import { PASSWORD_PATTERN } from 'constants/regexConstants';
+import { EMAIL_REGEX, PASSWORD_PATTERN } from 'constants/regexConstants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import { toast } from 'react-toastify';
@@ -59,7 +59,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
 
   const validationSchema = yup.object({
     name: yup.string().required('Username is required').min(2, 'Username is too short').max(20, 'Username is too long'),
-    email: yup.string().email('Enter a valid email').required('Email is required'),
+    email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required'),
     password: yup
       .string()
       .required('Password is required')

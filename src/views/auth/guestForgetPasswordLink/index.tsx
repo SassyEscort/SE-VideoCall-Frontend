@@ -17,6 +17,7 @@ import CheckInbox from './CheckInbox';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { FormattedMessage } from 'react-intl';
 import { ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
+import { EMAIL_REGEX } from 'constants/regexConstants';
 
 export type ForgetPasswordParams = {
   email: string;
@@ -29,7 +30,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
   const [loading, setLoading] = useState(false);
 
   const validationSchema = yup.object({
-    email: yup.string().email('Enter a valid email').required('Email is required')
+    email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required')
   });
 
   return (

@@ -237,14 +237,13 @@ const ModelMultiplePhoto = ({
               <FormattedMessage id="UploadPics" />
             </UINewTypography>
           </UploadItem>
-
           <GalleryMainContainer>
             <UploadGalleryPhotos
               errors={errors}
               touched={touched}
               name="file"
               setValue={setValue}
-              accept="image/*,video/mp4,video/MP4,video/WebM,video/quicktime,video/avi"
+              accept="image/jpeg,image/png,image/jpg,image/avif,image/webp, image/bmp,image/svg,video/mp4,video/MP4,video/WebM,video/quicktime,video/avi"
               values={values}
               handleUploadPhotos={handleUploadPhotos}
             />

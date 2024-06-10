@@ -18,6 +18,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
 import { scrollToError } from 'utils/scrollUtils';
 import { useRouter } from 'next/navigation';
+import { EMAIL_REGEX } from 'constants/regexConstants';
 
 const VerificationStepOne = ({
   handleNext,
@@ -59,7 +60,7 @@ const VerificationStepOne = ({
   const validationSchema = Yup.object({
     gender: Yup.string().required('Gender is required'),
     name: Yup.string().required('Name is required').min(2, 'Name is too short').max(20, 'Name is too long'),
-    email: Yup.string().email('Enter a valid email').required('Email is required'),
+    email: Yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required'),
     dob: Yup.date()
       .test('dob', 'AgeGreaterThan18', function (date) {
         return moment().diff(moment(date), 'years') >= 18;
