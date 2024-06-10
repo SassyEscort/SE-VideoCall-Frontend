@@ -93,7 +93,7 @@ const MainFooter = () => {
                       shallow={true}
                       href={`/model${val.link}`}
                     >
-                      {val.name}
+                      <FormattedMessage id={val.name} />
                     </Box>
                   </UINewTypography>
                 ))}
