@@ -31,12 +31,13 @@ const WorkerNavItem = () => {
               href="/"
               height={{ xs: '36px', md: '40px' }}
               width={{ xs: '110px', md: '129px' }}
+              sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
             >
               <Image
                 src="/images/header/headerlogo.png"
                 alt="sassy_logo"
                 width={146}
-                height={56}
+                height={36}
                 style={{
                   width: '100%',
                   height: 'auto'

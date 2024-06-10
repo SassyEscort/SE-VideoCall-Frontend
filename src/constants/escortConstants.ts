@@ -20,7 +20,7 @@ export const MainDashboardTabs = [
     img: '/images/profile-vector/Vector-3.png'
   },
   {
-    name: 'Credit',
+    name: 'Credits',
     path: '/profile/credit',
     img: '/images/profile-vector/Vector-4.png'
   },
@@ -29,5 +29,4 @@ export const MainDashboardTabs = [
     path: '/profile/billing',
     img: '/images/profile-vector/Vector-5.png'
   }
-
 ];
