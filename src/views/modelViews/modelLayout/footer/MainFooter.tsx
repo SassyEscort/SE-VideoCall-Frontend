@@ -25,7 +25,7 @@ const MainFooter = () => {
                 <Image
                   src="/images/logo-footer.png"
                   width={220}
-                  height={43}
+                  height={44}
                   alt="sassy_logo"
                   style={{
                     width: 'auto'
