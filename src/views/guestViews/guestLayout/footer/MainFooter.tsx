@@ -45,16 +45,7 @@ const MainFooter = () => {
                 }}
               >
                 <Link prefetch={false} href="/">
-                  <Image
-                    src="/images/logo-footer.png"
-                    width={146}
-                    height={64}
-                    alt="sassy_logo"
-                    style={{
-                      width: 'auto'
-                    }}
-                    loading="lazy"
-                  />
+                  <Image src="/images/logo-footer.png" width={219.87} height={43.68} alt="sassy_logo" loading="lazy" />
                 </Link>
                 <Box>
                   <UINewTypography
@@ -68,7 +59,7 @@ const MainFooter = () => {
                       lineHeight: '140%'
                     }}
                   >
-                    <FormattedMessage id="OurPlatformIsLoved" />
+                    <FormattedMessage id="InstantConnections" />
                   </UINewTypography>
                 </Box>
               </ModelUITextConatiner>

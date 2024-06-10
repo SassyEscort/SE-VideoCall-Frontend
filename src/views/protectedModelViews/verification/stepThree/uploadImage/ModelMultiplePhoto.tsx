@@ -236,9 +236,6 @@ const ModelMultiplePhoto = ({
             <UINewTypography variant="h6" color="text.secondary">
               <FormattedMessage id="UploadPics" />
             </UINewTypography>
-            <UINewTypography variant="SubtitleSmallRegular">
-              <FormattedMessage id="UploadPicDesc" />
-            </UINewTypography>
           </UploadItem>
 
           <GalleryMainContainer>
