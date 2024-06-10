@@ -1,3 +1,4 @@
+'use client';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -9,7 +10,9 @@ export const StepTwoContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '824px',
   [theme.breakpoints.down('sm')]: {
-    gap: theme.spacing(2)
+    gap: theme.spacing(2),
+    paddingLeft: theme.spacing(2.625),
+    paddingRight: theme.spacing(2.625)
   }
 }));
 
@@ -102,5 +105,16 @@ export const StepTwoMainConatiner = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(2.5),
     flexDirection: 'column'
+  }
+}));
+
+export const FooterBtnConatiner = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: '100%',
+  maxWidth: '824px',
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2)
   }
 }));

@@ -20,7 +20,6 @@ export const FAQTitle = styled(Typography)(({ theme }) => ({
 export const HelpAndSupportMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  marginLeft: theme.spacing(3),
   gap: theme.spacing(7)
 }));
 
