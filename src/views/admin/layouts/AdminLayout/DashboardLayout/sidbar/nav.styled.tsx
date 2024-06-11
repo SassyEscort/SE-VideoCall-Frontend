@@ -7,8 +7,8 @@ export const MainDashboardSideMenuMainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  marginTop: 32,
-  marginBottom: 20,
+  marginTop: theme.spacing(4),
+  marginBottom: theme.spacing(2.5),
   width: '100%',
   maxWidth: 299,
   height: 'calc(100vh - 112px)',
@@ -28,21 +28,21 @@ export const CommonMenuBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const MainMenuBox = styled(Box)(() => ({
+export const MainMenuBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: 2,
+  gap: theme.spacing(2),
   alignSelf: 'stretch'
 }));
 
-export const MainMenuBoxChlid = styled(Box)(() => ({
+export const MainMenuBoxChlid = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: 1
+  gap: theme.spacing(1)
 }));
 
 export const SelectedTab = styled(Box)(({ theme }) => ({
@@ -67,8 +67,8 @@ export const MobileComponentBoxContainer = styled(Box)(({ theme }) => ({
     display: 'none'
   },
   '& .MuiButtonBase-root': {
-    paddingLeft: '12px',
-    paddingRight: '32px'
+    paddingLeft: theme.spacing(1.5),
+    paddingRight: theme.spacing(4)
   },
   [theme.breakpoints.down('sm')]: {
     maxWidth: 420

@@ -30,12 +30,7 @@ export default function AdminSidbar() {
 
   const maindashboardTabIndex: { [key: string]: number } = {
     dashboard: 1,
-    profile: 2,
-    favourites: 3,
-    Call: 4,
-    credit: 5,
-    billing: 6,
-    logout: 7
+    model: 2
   };
 
   const modifiedPath = router.split('/profile').join('').split('/').join('');
