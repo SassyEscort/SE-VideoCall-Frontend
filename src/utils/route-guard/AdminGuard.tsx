@@ -28,9 +28,7 @@ const AdminGuard = ({ children }: GuardProps) => {
       }
     };
     fetchData();
-
-    // eslint-disable-next-line
-  }, [session]);
+  }, [router]);
 
   if (status == 'loading' || !session?.user) return <Loader />;
 
