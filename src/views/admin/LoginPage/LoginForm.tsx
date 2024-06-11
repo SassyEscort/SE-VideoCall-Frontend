@@ -102,14 +102,14 @@ export default function LoginForm() {
             </Stack>
 
             <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 3 }}>
-              <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={loading}>
+              <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={loading} sx={{ backgroundColor: '#D52A83' }}>
                 Login
               </LoadingButton>
             </Stack>
           </form>
         )}
       </Formik>
-      <Typography sx={{ color: 'primary.main', textAlign: 'center' }}>
+      <Typography sx={{ color: 'primary.main', textAlign: 'center', fontWeight: 700 }}>
         <Link prefetch={false} href="/admin/forgot-password" passHref shallow={true}>
           <MuiLink
             sx={{

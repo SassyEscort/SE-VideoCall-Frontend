@@ -20,11 +20,11 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
             <Avatar src="/images/admin/avatar.jpg" alt="photoURL" />
 
             <Box sx={{ ml: 2 }}>
-              <Typography variant="subtitle2" color="text.primary" sx={{ textTransform: 'capitalize' }}>
+              <Typography variant="subtitle2" color="black.main" sx={{ textTransform: 'capitalize' }}>
                 Name
               </Typography>
 
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.primary">
                 Email
               </Typography>
             </Box>
