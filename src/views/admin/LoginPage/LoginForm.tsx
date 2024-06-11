@@ -102,7 +102,14 @@ export default function LoginForm() {
             </Stack>
 
             <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 3 }}>
-              <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={loading} sx={{ backgroundColor: '#D52A83' }}>
+              <LoadingButton
+                fullWidth
+                size="large"
+                type="submit"
+                variant="contained"
+                loading={loading}
+                sx={{ backgroundColor: 'secondary.1000' }}
+              >
                 Login
               </LoadingButton>
             </Stack>
