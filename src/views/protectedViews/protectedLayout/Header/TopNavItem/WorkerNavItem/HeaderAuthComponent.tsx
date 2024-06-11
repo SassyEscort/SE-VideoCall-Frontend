@@ -6,8 +6,11 @@ import LanguageDropdown from 'components/common/LanguageDropdown';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import ProfileMenu from './ProfileMenu';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
+import { getUserDataClient } from 'utils/getSessionData';
 
 export type NotificationFilters = {
   page: number;
@@ -25,6 +28,28 @@ const HeaderAuthComponent = () => {
     setOpenProfileMenu(false);
     setAnchorEl(null);
   };
+
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
+
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      setToken({ id: data.id, token: data.token });
+    };
+
+    userToken();
+  }, []);
+
+  useEffect(() => {
+    const customerDetails = async () => {
+      const customerData = await CustomerDetailsService.customerModelDetails(token.token);
+      setCustomerDetails(customerData.data);
+    };
+    if (token.token) {
+      customerDetails();
+    }
+  }, [token.id, token.token]);
 
   return (
     <>
@@ -93,7 +118,7 @@ const HeaderAuthComponent = () => {
               </IconButton>
               {isMdUp && (
                 <Typography variant="buttonLargeMenu" color="text.secondary">
-                  Fana
+                  {customerDetails?.customer_name || ''}
                 </Typography>
               )}
             </Link>

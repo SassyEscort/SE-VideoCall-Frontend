@@ -32,6 +32,7 @@ import { ModelAuthService } from 'services/modelAuth/modelAuth.service';
 import { toast } from 'react-toastify';
 import CheckInboxVerify from 'views/modelViews/checkInBox';
 import { GuestStyleComponent } from 'views/guestViews/guestLayout/GuestLayout.styled';
+import { ErrorMessage } from 'constants/common.constants';
 
 export type VerificationBasicDetailsType = {
   values: VerificationStep1Type;
@@ -149,7 +150,7 @@ const VerificationBasicDetails = ({
         toast.error(data.error);
       }
     } catch (error) {
-      toast.error('An error occurred. Please try again.');
+      toast.error(ErrorMessage);
     }
   };
 

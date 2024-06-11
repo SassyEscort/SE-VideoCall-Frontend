@@ -12,10 +12,26 @@ import { useEffect, useState } from 'react';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
 import { toast } from 'react-toastify';
+import { ErrorMessage } from 'constants/common.constants';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import { getUserDataClient } from 'utils/getSessionData';
 
 const EscortDetailPage = () => {
   const [guestData, setGuestData] = useState<ModelDetailsResponse>();
+
   const isLgDown = useMediaQuery(theme.breakpoints.down('lg'));
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      if (data) {
+        setToken({ id: data.id, token: data.token });
+      }
+    };
+
+    userToken();
+  }, []);
 
   useEffect(() => {
     const fetchGuestData = async () => {
@@ -28,7 +44,7 @@ const EscortDetailPage = () => {
           toast.error(data?.response?.data?.message);
         }
       } catch (error) {
-        toast.error('An error occurred. Please try again.');
+        toast.error(ErrorMessage);
       }
     };
 
@@ -39,9 +55,9 @@ const EscortDetailPage = () => {
     <>
       <HomeMainContainer>
         {isLgDown ? (
-          <EscortSliderMobile workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])} />
+          <EscortSliderMobile workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])} modelId={guestData?.id ?? 0} token={token} />
         ) : (
-          <EscortSlider workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])} />
+          <EscortSlider workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])} modelId={guestData?.id ?? 0} token={token} />
         )}
 
         <EscortPersonalDetail guestData={guestData ?? ({} as ModelDetailsResponse)} />

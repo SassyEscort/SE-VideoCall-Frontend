@@ -18,6 +18,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { Typography } from '@mui/material';
+import { ErrorMessage } from 'constants/common.constants';
 
 export type ResetPasswordParams = {
   email: string;
@@ -73,7 +74,7 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
             }
           }
         } catch (error) {
-          toast.error('An error occurred. Please try again.');
+          toast.error(ErrorMessage);
         } finally {
           setLoading(false);
           setSubmitting(false);

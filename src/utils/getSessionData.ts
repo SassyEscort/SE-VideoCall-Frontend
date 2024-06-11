@@ -21,8 +21,12 @@ export const getUserTokenClient = async () => {
 export const getUserDataClient = async () => {
   const session = await getSession();
   const details = session?.user?.image;
-  const data = JSON.parse(details!);
-  return data;
+  if (details) {
+    const data = JSON.parse(details!);
+    return data;
+  } else {
+    return '';
+  }
 };
 
 export const getLoggedInUser = async () => {

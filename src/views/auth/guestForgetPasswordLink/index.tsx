@@ -17,6 +17,7 @@ import CheckInbox from './CheckInbox';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { FormattedMessage } from 'react-intl';
 import { ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
+import { ErrorMessage } from 'constants/common.constants';
 import { EMAIL_REGEX } from 'constants/regexConstants';
 
 export type ForgetPasswordParams = {
@@ -50,7 +51,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
             toast.error(data.error);
           }
         } catch (error) {
-          toast.error('An error occurred. Please try again.');
+          toast.error(ErrorMessage);
         } finally {
           setLoading(false);
           setSubmitting(false);
@@ -60,7 +61,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
-            <AuthCommon onClose={onClose} image="images/auth/auth-model.webp" mobileImage="images/auth/auth-model.webp">
+            <AuthCommon onClose={onClose} image="/images/auth/auth-model.webp" mobileImage="/images/auth/auth-model.webp">
               <Box
                 position="relative"
                 width="100%"

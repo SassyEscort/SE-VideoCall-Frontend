@@ -23,6 +23,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FormattedMessage } from 'react-intl';
+import { ErrorMessage } from 'constants/common.constants';
 
 export type SignupParams = {
   name: string;
@@ -99,7 +100,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
             setAlert(data.error);
           }
         } catch (error) {
-          toast.error('An error occurred. Please try again.');
+          toast.error(ErrorMessage);
         } finally {
           setLoading(false);
           setSubmitting(false);

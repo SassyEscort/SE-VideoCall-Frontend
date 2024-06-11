@@ -107,7 +107,12 @@ const SideBarGuestMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
       </GuestStyleComponent>
       <GuestStyleComponent open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
-        <GuestLogin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
+        <GuestLogin
+          onClose={handleLoginClose}
+          onSignupOpen={handleSignupOpen}
+          onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+          image="/images/auth/auth-model.webp"
+        />
       </GuestStyleComponent>
       <GuestStyleComponent open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
