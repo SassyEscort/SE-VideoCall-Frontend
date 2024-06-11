@@ -102,8 +102,8 @@ const HeaderGuestComponent = () => {
               prefetch={true}
               shallow={true}
               href="/"
-              height={{ xs: '27px', md: '36px' }}
-              width={{ xs: '136px', md: '182px' }}
+              height={{ xs: '26px', md: '36px', sm: '36px' }}
+              width={{ xs: '120px', md: '182px', sm: '182px' }}
               display={'flex'}
             >
               <Image
