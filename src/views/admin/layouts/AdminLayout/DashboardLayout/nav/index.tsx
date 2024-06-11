@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import { Avatar, Box } from '@mui/material';
 import { StyledAccount } from './Nav.styled';
+import AdminSidbar from '../sidbar';
 
 const NAV_WIDTH = 280;
 
@@ -30,6 +31,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
             </Box>
           </StyledAccount>
         </Link>
+        <AdminSidbar />
       </Box>
     </>
   );
