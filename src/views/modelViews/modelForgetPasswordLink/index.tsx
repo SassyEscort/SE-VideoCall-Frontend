@@ -27,6 +27,7 @@ import { FormattedMessage } from 'react-intl';
 import { ModelAuthService } from 'services/modelAuth/modelAuth.service';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
+import { EMAIL_REGEX } from 'constants/regexConstants';
 
 export type ForgetPasswordParams = {
   email: string;
@@ -39,7 +40,7 @@ const ModelForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
   const [loading, setLoading] = useState(false);
 
   const validationSchema = yup.object({
-    email: yup.string().email('Enter a valid email').required('Email is required')
+    email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required')
   });
 
   return (

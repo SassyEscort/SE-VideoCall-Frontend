@@ -35,7 +35,7 @@ const Credits = () => {
           <TextMainContainer>
             <FirsTextMainContainer>
               <UINewTypography variant="h2" color="text.secondary">
-                <FormattedMessage id="Credit" />
+                <FormattedMessage id="Credits" />
               </UINewTypography>
               <FirsTextSubContainer>
                 <UINewTypography variant="buttonLargeMenu" color="text.secondary">

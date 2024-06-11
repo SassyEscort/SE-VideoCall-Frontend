@@ -26,6 +26,7 @@ const DashboardNavItem = () => {
               href="/"
               height={{ xs: '36px', md: '40px' }}
               width={{ xs: '110px', md: '129px' }}
+              sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
             >
               <Image
                 src="/images/header/headerlogo.png"

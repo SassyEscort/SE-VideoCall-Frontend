@@ -24,8 +24,8 @@ const MainFooter = () => {
               <Link prefetch={false} href="/">
                 <Image
                   src="/images/logo-footer.png"
-                  width={146}
-                  height={64}
+                  width={220}
+                  height={44}
                   alt="sassy_logo"
                   style={{
                     width: 'auto'
@@ -35,7 +35,7 @@ const MainFooter = () => {
               </Link>
               <Box>
                 <ModelFooterHead variant="bodySmall">
-                  <FormattedMessage id="OurPlatformIsLoved" />
+                  <FormattedMessage id="InstantConnections" />
                 </ModelFooterHead>
               </Box>
             </ModelUITextConatinerText>

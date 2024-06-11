@@ -21,6 +21,7 @@ import AuthModelCommon from '../modelSignup/AuthModelCommon';
 import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from 'views/auth/AuthCommon.styled';
 import { LoginModelParams } from 'services/modelAuth/types';
 import { FormattedMessage } from 'react-intl';
+import { EMAIL_REGEX } from 'constants/regexConstants';
 
 export type LoginParams = {
   email: string;
@@ -45,7 +46,7 @@ const ModelSignin = ({
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState('');
   const validationSchema = yup.object({
-    email: yup.string().required('Email is required'),
+    email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required'),
     password: yup.string().required('Password is required')
   });
   const handleFormSubmit = async (values: LoginModelParams) => {

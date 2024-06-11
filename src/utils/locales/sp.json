@@ -124,7 +124,7 @@
   "MakeSureYourFace": "Asegúrate de que tu cara esté claramente visible en tu documento",
   "JoinOurPremier": "Únete a nuestro premier",
   "WithA ": "con un",
-  "GlobalAudience.": "audiencia global.",
+  "GlobalAudience": "audiencia global.",
   "Name": "Nombre",
   "ByClickingYouAgree": "Al hacer clic, aceptas nuestros ",
   "TermsOfService": "términos de servicio",
@@ -284,5 +284,9 @@
   "EnterNewPassword": "Ingresar nueva contraseña",
   "RepeatNewPassword": "Repetir nueva contraseña",
   "DownloadApp": "Descargar aplicación",
-  "DownloadTheApp": "Descarga la aplicación para aceptar las videollamadas"
+  "DownloadTheApp": "Descarga la aplicación para aceptar las videollamadas",
+  "InstantConnections": "Conexiones instantáneas, recuerdos duraderos",
+  "ExperienceThe": "Experimenta la magia de",
+  "Of": "de",
+  "LiveInteractions": "Interacciones en vivo"
 }

@@ -122,8 +122,8 @@
   "AvoidPatches": "Avoid patches, blur or anything on your face",
   "MakeSureYourFace": " Make sure your face is clearly visible on your document",
   "JoinOurPremier": "Join our premier",
-  "WithA ": "with a",
-  "GlobalAudience.": "global audience.",
+  "WithA": "with a",
+  "GlobalAudience": "global audience.",
   "Name": "Name",
   "ByClickingYouAgree": "By clicking, you agree to our ",
   "TermsOfService": "terms of service  ",
@@ -288,5 +288,9 @@
   "CookieStatement": "Cookie statement",
   "TermsConditions": "Terms and conditions",
   "DownloadApp": "Download app",
-  "DownloadTheApp": "Download the app to accept the video calls"
+  "DownloadTheApp": "Download the app to accept the video calls",
+  "InstantConnections": "Instant Connections, Lasting Memories",
+  "ExperienceThe": "Experience the Magic",
+  "Of": "of",
+  "LiveInteractions": "Live Interactions"
 }

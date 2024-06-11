@@ -16,8 +16,6 @@ import GuestLogin from 'views/auth/guestLogin';
 const HomeTopBanner = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
-  const isMd = useMediaQuery(theme.breakpoints.only('md'));
-  const isTablet = useMediaQuery(theme.breakpoints.only('sm'));
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
@@ -67,16 +65,16 @@ const HomeTopBanner = () => {
         >
           <Box display="flex" flexDirection="column" width="100%" gap={3} alignItems={{ xs: 'center', sm: 'flex-start' }}>
             <InlineBox>
-              <FormattedMessage id="UnlockTheGateway" /> {(!isSmDown || isSm) && 'to'} &nbsp;
+              <FormattedMessage id="ExperienceThe" /> {!isSmDown && 'of'} {!isSmDown || (isSm && 'of')} &nbsp;
               <Box component="span" position="relative">
                 <InlineBoxRelative>
                   {isSmDown && !isSm && (
                     <UINewTypography variant="MediumSemiBoldText" color="common.white" textAlign="center">
-                      <FormattedMessage id="To" /> &nbsp;
+                      <FormattedMessage id="Of" /> &nbsp;
                     </UINewTypography>
                   )}
                   <Box component="span" sx={{ zIndex: 1, position: 'relative', textWrap: isSm ? 'wrap' : 'nowrap' }}>
-                    <FormattedMessage id="Unforgettable" /> &nbsp;
+                    <FormattedMessage id="LiveInteractions" /> &nbsp;
                   </Box>
                   <Image
                     alt="word_underline"
@@ -92,17 +90,7 @@ const HomeTopBanner = () => {
                     }}
                     priority
                   />
-                  {!isSmDown && !isMd && !isTablet && (
-                    <UINewTypography variant="h1" color="common.white">
-                      <FormattedMessage id="Encounters" />
-                    </UINewTypography>
-                  )}
                 </InlineBoxRelative>
-                {(isSmDown || isMd || isTablet) && (
-                  <InlineBox>
-                    <FormattedMessage id="Encounters" />
-                  </InlineBox>
-                )}
               </Box>
             </InlineBox>
             <TypographyBox>

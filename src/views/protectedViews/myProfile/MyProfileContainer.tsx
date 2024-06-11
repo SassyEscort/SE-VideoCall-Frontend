@@ -42,14 +42,17 @@ const MyProfileContainer = ({
   const [isEditable, setIsEditable] = useState(false);
 
   const sendLinkVerify = async () => {
+    touched.email = true;
     try {
-      const data = await authServices.emailVerifyLink({ email: values.email }, token.token);
-      if (data.code === 200) {
-        setOpen(true);
-        setActiveStep(1);
-        toast.success(data.message);
-      } else {
-        toast.error(data.error);
+      if (!errors.email) {
+        const data = await authServices.emailVerifyLink({ email: values.email }, token.token);
+        if (data.code === 200) {
+          setOpen(true);
+          setActiveStep(1);
+          toast.success(data.message);
+        } else {
+          toast.error(data.error);
+        }
       }
     } catch (error) {
       toast.error(ErrorMessage);

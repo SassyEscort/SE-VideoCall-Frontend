@@ -21,6 +21,7 @@ import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { FormattedMessage } from 'react-intl';
+import { EMAIL_REGEX } from 'constants/regexConstants';
 
 export type LoginParams = {
   email: string;
@@ -46,7 +47,7 @@ const GuestLogin = ({
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState('');
   const validationSchema = yup.object({
-    email: yup.string().required('Email is required'),
+    email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required'),
     password: yup.string().required('Password is required')
   });
   const handleFormSubmit = async (values: LoginUserParams) => {

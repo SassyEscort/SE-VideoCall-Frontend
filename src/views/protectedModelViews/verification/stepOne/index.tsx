@@ -1,5 +1,4 @@
 'use client';
-import Box from '@mui/material/Box';
 import { Formik } from 'formik';
 import VerificationBasicDetails from './VerificationStepOne';
 import { ModelDetailsResponse, VerificationStep1Type } from '../verificationTypes';
@@ -11,7 +10,7 @@ import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import * as Yup from 'yup';
 import moment from 'moment';
 import { FormattedMessage } from 'react-intl';
-import { StepOneContainer } from './VerficationStepOne.styled';
+import { FooterBtnConatiner, StepOneContainer } from './VerficationStepOne.styled';
 import { TokenIdType } from '..';
 import { toast } from 'react-toastify';
 import { useCallback, useEffect, useState } from 'react';
@@ -19,6 +18,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
 import { scrollToError } from 'utils/scrollUtils';
 import { useRouter } from 'next/navigation';
+import { EMAIL_REGEX } from 'constants/regexConstants';
 
 const VerificationStepOne = ({
   handleNext,
@@ -60,7 +60,7 @@ const VerificationStepOne = ({
   const validationSchema = Yup.object({
     gender: Yup.string().required('Gender is required'),
     name: Yup.string().required('Name is required').min(2, 'Name is too short').max(20, 'Name is too long'),
-    email: Yup.string().email('Enter a valid email').required('Email is required'),
+    email: Yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required'),
     dob: Yup.date()
       .test('dob', 'AgeGreaterThan18', function (date) {
         return moment().diff(moment(date), 'years') >= 18;
@@ -164,14 +164,7 @@ const VerificationStepOne = ({
               handleChange={handleChange}
               setFieldValue={setFieldValue}
             />
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                width: '100%',
-                maxWidth: '824px'
-              }}
-            >
+            <FooterBtnConatiner>
               <UIThemeButton
                 onClick={isEdit && handleReset}
                 variant={changedValues && isEdit ? 'outlined' : 'contained'}
@@ -210,7 +203,7 @@ const VerificationStepOne = ({
                   </>
                 )}
               </StyleButtonV2>
-            </Box>
+            </FooterBtnConatiner>
           </StepOneContainer>
         );
       }}

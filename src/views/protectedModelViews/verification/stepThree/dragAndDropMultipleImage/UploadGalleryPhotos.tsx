@@ -1,3 +1,4 @@
+'use client';
 import { useMemo, useCallback, useEffect, memo, useState } from 'react';
 import { IKUpload } from 'imagekitio-react';
 import { FormikErrors, FormikTouched } from 'formik';
