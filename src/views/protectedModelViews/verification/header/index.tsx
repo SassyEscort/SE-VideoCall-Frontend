@@ -50,11 +50,11 @@ const VerificationHeader = ({
             <Image
               src="/images/header/headerlogo.png"
               alt="sassy_logo"
-              width={146}
-              height={56}
+              width={182}
+              height={36}
               style={{
-                width: 'auto',
-                height: isSmDown ? 30 : 40
+                width: '182px',
+                height: isSmDown ? 27 : 36
               }}
               loading="lazy"
             />

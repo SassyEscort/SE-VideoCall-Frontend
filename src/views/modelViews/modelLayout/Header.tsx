@@ -97,13 +97,14 @@ const HeaderModelComponent = () => {
               prefetch={true}
               shallow={true}
               href="/"
-              height={{ xs: '36px', md: '40px' }}
-              width={{ xs: '110px', md: '129px' }}
+              height={{ xs: '27px', md: '36px' }}
+              width={{ xs: '136px', md: '182px' }}
+              display={'flex'}
             >
               <Image
                 src="/images/header/headerlogo.png"
-                width={146}
-                height={56}
+                width={182}
+                height={36}
                 alt="sassy_logo"
                 style={{
                   width: '100%',
