@@ -10,8 +10,8 @@ import { authOptions } from 'utils/authOptions';
 export async function GET(request: Request) {
   const session = await getServerSession(authOptions);
   if (session) {
-    return NextResponse.json({ protected: true });
+    return NextResponse.json({ protected: true, user: session.user });
   } else {
-    return NextResponse.json({ protected: false });
+    return NextResponse.json({ protected: false, user: null });
   }
 }

@@ -1,11 +1,11 @@
-import AuthGuard from 'utils/route-guard/AuthGuard';
+import ModelGuard from 'utils/route-guard/ModelGuard';
 import ModelPage from 'views/protectedModelViews';
 
 const Home = () => {
   return (
-    <AuthGuard>
+    <ModelGuard>
       <ModelPage />
-    </AuthGuard>
+    </ModelGuard>
   );
 };
 

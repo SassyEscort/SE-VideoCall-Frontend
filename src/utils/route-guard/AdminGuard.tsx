@@ -23,12 +23,12 @@ const AdminGuard = ({ children }: GuardProps) => {
     const fetchData = async () => {
       const res: any = await fetch('/api/auth/protected');
       const json = await res?.json();
-      if (!json?.protected) {
+      if (!json?.protected || json.user.provider !== 'providerAdmin') {
         router.push('/admin/login');
       }
     };
     fetchData();
-  }, [router]);
+  }, [router, session?.user]);
 
   if (status == 'loading' || !session?.user) return <Loader />;
 
