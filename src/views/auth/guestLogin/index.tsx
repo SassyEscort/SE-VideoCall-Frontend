@@ -30,11 +30,13 @@ export type LoginParams = {
 const GuestLogin = ({
   onClose,
   onSignupOpen,
-  onFogotPasswordLinkOpen
+  onFogotPasswordLinkOpen,
+  image
 }: {
   onClose: () => void;
   onSignupOpen: () => void;
   onFogotPasswordLinkOpen: () => void;
+  image: string;
 }) => {
   const route = useRouter();
   const { push } = route;
@@ -76,7 +78,7 @@ const GuestLogin = ({
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
-            <AuthCommon onClose={onClose} image="images/auth/auth-model.webp" mobileImage="images/auth/auth-model.webp">
+            <AuthCommon onClose={onClose} image={image} mobileImage="images/auth/auth-model.webp">
               <Box
                 position="relative"
                 width="100%"

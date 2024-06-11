@@ -201,7 +201,12 @@ const HomeTopBanner = () => {
         maxWidth="md"
         fullWidth
       >
-        <GuestLogin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
+        <GuestLogin
+          onClose={handleLoginClose}
+          onSignupOpen={handleSignupOpen}
+          onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+          image="/images/auth/auth-model.webp"
+        />
       </Dialog>
       <Dialog
         sx={{

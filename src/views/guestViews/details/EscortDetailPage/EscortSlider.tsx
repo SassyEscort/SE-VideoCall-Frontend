@@ -29,13 +29,67 @@ import {
 } from './Escort.styled';
 import { FormattedMessage } from 'react-intl';
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
+import { toast } from 'react-toastify';
+import { ErrorMessage } from 'constants/common.constants';
+import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import GuestLogin from 'views/auth/guestLogin';
+import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
+import GuestSignup from 'views/auth/guestSignup';
 
-export const EscortSlider = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] }) => {
+export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: WorkerPhotos[]; modelId: number; token: TokenIdType }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [liked, setLiked] = useState(false);
+  const [open, setIsOpen] = useState(false);
+  const [openLogin, setIsOpenLogin] = useState(false);
+  const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
 
-  const handleLikeClick = () => {
-    setLiked(!liked);
+  const handleSignupOpen = () => {
+    setIsOpen(true);
+    setIsOpenLogin(false);
+  };
+
+  const handleSignupClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleLoginOpen = () => {
+    setIsOpen(false);
+    setIsOpenLogin(true);
+  };
+
+  const handleLoginResetPasswordOpen = () => {
+    setOpenForgetPassLink(false);
+    setIsOpenLogin(true);
+  };
+
+  const handleLoginClose = () => {
+    setIsOpenLogin(false);
+  };
+
+  const handleResetPasswordLinkOpen = () => {
+    setIsOpenLogin(false);
+    setOpenForgetPassLink(true);
+  };
+
+  const handleResetPasswordLinkClose = () => {
+    setOpenForgetPassLink(false);
+  };
+  const handleLikeClick = async () => {
+    try {
+      if (token.token) {
+        const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
+        if (data) {
+          toast.success(data?.message);
+          setLiked(true);
+        }
+      } else {
+        setIsOpenLogin(true);
+      }
+    } catch (erro) {
+      toast.error(ErrorMessage);
+    }
   };
 
   return (
@@ -115,6 +169,21 @@ export const EscortSlider = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] })
             {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </UIStyledShadowButtonLike>
         </Box>
+
+        <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+          <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
+        </UIStyledDialog>
+        <UIStyledDialog open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
+          <GuestLogin
+            onClose={handleLoginClose}
+            onSignupOpen={handleSignupOpen}
+            onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+            image="/images/auth/auth-model.webp"
+          />
+        </UIStyledDialog>
+        <UIStyledDialog open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
+          <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
+        </UIStyledDialog>
       </Box>
     </>
   );

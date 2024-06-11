@@ -175,7 +175,12 @@ const HeaderGuestComponent = () => {
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
       </UIStyledDialog>
       <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
-        <GuestLogin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
+        <GuestLogin
+          onClose={handleLoginClose}
+          onSignupOpen={handleSignupOpen}
+          onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+          image="/images/auth/auth-model.webp"
+        />
       </UIStyledDialog>
       <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
