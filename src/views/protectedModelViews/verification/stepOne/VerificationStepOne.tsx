@@ -21,9 +21,8 @@ import { MultipleOptionString, VerificationStep1Type } from '../verificationType
 import { useEffect, useState } from 'react';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import moment from 'moment';
-import { FormControl, MenuItem } from '@mui/material';
+import { FormControl, MenuItem, TextField } from '@mui/material';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import UINewCheckBox from './VerificationCheckBox';
 import { UIStyledDatePicker } from 'components/UIComponents/UIStyledDatePicker';
 import { UIStyledSelectItemContainer } from 'components/UIComponents/UINewSelectItem';
 import UIStyledAutocomplete from 'components/UIComponents/UIStyledAutocomplete';
@@ -32,6 +31,7 @@ import { ModelAuthService } from 'services/modelAuth/modelAuth.service';
 import { toast } from 'react-toastify';
 import CheckInboxVerify from 'views/modelViews/checkInBox';
 import { GuestStyleComponent } from 'views/guestViews/guestLayout/GuestLayout.styled';
+import { ModelVerificationService } from 'services/modelVerification/modelVerification.services';
 
 export type VerificationBasicDetailsType = {
   values: VerificationStep1Type;
@@ -65,6 +65,8 @@ const VerificationBasicDetails = ({
   token,
   isEdit
 }: VerificationBasicDetailsType) => {
+  console.log(values.model_languages, 'model');
+
   const maxCharCount = 1000;
 
   const [countries, setCountries] = useState<MultipleOptionString[]>([]);
@@ -74,6 +76,7 @@ const VerificationBasicDetails = ({
   const [isEditable, setIsEditable] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(true);
+  const [selectedLanguages, setSelectedLanguages] = useState(values.model_languages || []);
 
   const handleEditClick = () => {
     setIsEditable(true);
@@ -113,21 +116,9 @@ const VerificationBasicDetails = ({
     setCharCount(inputText.length);
   };
 
-  const handleLanguageChange = (checked: boolean, val: string) => {
-    let updatedLanguagesData = [...values.model_languages];
-    const checkedLangIndex = updatedLanguagesData.findIndex((lang) => lang.id == val);
-
-    if (checked) {
-      if (checkedLangIndex == -1) {
-        updatedLanguagesData.push(...languages.filter((lang) => lang.id == val));
-        setFieldValue('model_languages', updatedLanguagesData);
-      }
-    } else {
-      if (checkedLangIndex != -1) {
-        updatedLanguagesData.splice(checkedLangIndex, 1);
-        setFieldValue('model_languages', updatedLanguagesData);
-      }
-    }
+  const handleLanguageChange = (event, newValue) => {
+    setSelectedLanguages(newValue);
+    // setFieldValue('model_languages', newValue);
   };
 
   const handleResetPasswordLinkClose = () => {
@@ -135,18 +126,45 @@ const VerificationBasicDetails = ({
     setActiveStep(0);
   };
 
+  const [customLanguages, setCustomLanguages] = useState([]);
+  console.log(customLanguages, 'customLanguages');
+
+  const handleCustomLanguageChange = async (event, value) => {
+    console.log(value[0], 'valuevalue');
+
+    const data = await ModelVerificationService.modelCountry({ country: value[0] }, token);
+    console.log(data, 'datadata');
+
+    const isCustomLanguage = value.some((val) => !languages.find((lang) => lang.name === val.name));
+
+    if (isCustomLanguage) {
+      const newCustomLanguages = value
+        .filter((val) => !languages.find((lang) => lang.name === val.name))
+        .map((val, index) => ({ id: customLanguages.length + index, name: val }));
+      console.log(newCustomLanguages, 'newCustomLanguages');
+
+      setCustomLanguages([...customLanguages, ...newCustomLanguages]);
+      setFieldValue('model_languages', [...customLanguages, ...newCustomLanguages]);
+    }
+
+    handleLanguageChange(event, value);
+  };
+
   const sendLinkVerify = async () => {
+    touched.email = true;
     const url = new URL(window.location.href);
     let source;
     source = url.pathname === '/model/dashboard' ? EMAIL_SOURCE.ONBOARDED : EMAIL_SOURCE.DETAILS;
     try {
-      const data = await ModelAuthService.modelForgetPasswordLinkStep(values.email, token.token, source);
-      if (data.code === 200) {
-        setOpenForgetPassLink(true);
-        toast.success(data.message);
-        setActiveStep(1);
-      } else {
-        toast.error(data.error);
+      if (!errors.email) {
+        const data = await ModelAuthService.modelForgetPasswordLinkStep(values.email, token.token, source);
+        if (data.code === 200) {
+          setOpenForgetPassLink(true);
+          toast.success(data.message);
+          setActiveStep(1);
+        } else {
+          toast.error(data.error);
+        }
       }
     } catch (error) {
       toast.error('An error occurred. Please try again.');
@@ -383,22 +401,45 @@ const VerificationBasicDetails = ({
         <VerificationUITypography variant="h6" color="text.secondary">
           <FormattedMessage id="PreferredLanguage" />*
         </VerificationUITypography>
-        <Box width="100%" display="flex" gap={1.5} flexWrap="wrap">
-          {languages?.map((lang, index) => (
-            <UINewCheckBox
-              value={lang.id.toString()}
-              onChange={handleLanguageChange}
-              checked={Boolean(values.model_languages.find((x) => x.id == lang.id))}
-              label={lang.name}
-              key={index}
-            />
-          ))}
-          {touched.model_languages && errors.model_languages && (
-            <Box width="100%">
-              <FormHelperText error>{errors.model_languages as string}</FormHelperText>
-            </Box>
-          )}
-        </Box>
+        <FormControl fullWidth>
+          <UIStyledAutocomplete
+            multiple
+            id="languages"
+            options={[...languages, ...customLanguages]}
+            getOptionLabel={(option) => option.name || ''}
+            value={selectedLanguages}
+            disablePortal
+            freeSolo
+            onChange={handleCustomLanguageChange}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                InputProps={{
+                  ...params.InputProps,
+                  type: 'search',
+                  endAdornment: (
+                    <RiArrowDownSLine
+                      style={{
+                        color: '#86838A',
+                        height: '24px',
+                        width: '24px'
+                      }}
+                    />
+                  ),
+                  style: {
+                    paddingRight: '13px'
+                  }
+                }}
+              />
+            )}
+          />
+        </FormControl>
+        {touched.model_languages && errors.model_languages && (
+          <Box width="100%">
+            <FormHelperText error>{errors.model_languages as string}</FormHelperText>
+          </Box>
+        )}
       </StepTwoBox>
     </StepTwoContainer>
   );
