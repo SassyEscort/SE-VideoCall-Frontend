@@ -27,5 +27,10 @@ export const AdminConstantsTabs = [
         icon: <SupervisorAccountIcon />
       }
     ]
+  },
+  {
+    name: 'Payout',
+    path: '/admin/payout',
+    icon: <LineAxis />
   }
 ];
