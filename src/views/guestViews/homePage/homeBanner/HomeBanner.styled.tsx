@@ -115,14 +115,11 @@ export const HomeExploreBox = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   textAlign: 'center',
-  maxWidth: 320,
   gap: theme.spacing(1.5),
   [theme.breakpoints.only('sm')]: {
-    maxWidth: 385,
     gap: theme.spacing(2)
   },
   [theme.breakpoints.up('sm')]: {
-    maxWidth: 688,
     gap: theme.spacing(2)
   }
 }));

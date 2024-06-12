@@ -3,19 +3,9 @@ import Box from '@mui/material/Box';
 import { MainDashboardTabs } from 'constants/escortConstants';
 
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import Logout from '../logout';
-import { useState } from 'react';
 import { CommonMenuBox, MainDashboardSideMenuMainBox, NavBarBoxContainer, SelectedTab } from './nav.styled';
 
 const Navbar = ({ tabIndex }: { tabIndex: number }) => {
-  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
-  const handleOpenLogout = () => {
-    setIsLogoutOpen(true);
-  };
-
-  const handleCloseLogout = () => {
-    setIsLogoutOpen(false);
-  };
   return (
     <MainDashboardSideMenuMainBox>
       <NavBarBoxContainer>
@@ -44,11 +34,6 @@ const Navbar = ({ tabIndex }: { tabIndex: number }) => {
             </>
           )
         )}
-        <CommonMenuBox sx={{ cursor: 'pointer', color: 'text.primary' }} onClick={handleOpenLogout}>
-          <Box component="img" src="/images/profile-vector/Vector-6.png" />
-          <UINewTypography variant="buttonLargeMenu">Logout</UINewTypography>
-        </CommonMenuBox>
-        <Logout open={isLogoutOpen} onClose={handleCloseLogout} />
       </NavBarBoxContainer>
     </MainDashboardSideMenuMainBox>
   );

@@ -14,7 +14,7 @@ import { useSession } from 'next-auth/react';
 
 // ==============================|| AUTH GUARD ||============================== //
 
-const AuthGuard = ({ children }: GuardProps) => {
+const ModelGuard = ({ children }: GuardProps) => {
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -22,8 +22,8 @@ const AuthGuard = ({ children }: GuardProps) => {
     const fetchData = async () => {
       const res: any = await fetch('/api/auth/protected');
       const json = await res?.json();
-      if (!json?.protected) {
-        router.push('/');
+      if (!json?.protected || json.user.provider !== 'providerModel') {
+        router.push('/model');
       }
     };
     fetchData();
@@ -36,4 +36,4 @@ const AuthGuard = ({ children }: GuardProps) => {
   return <>{children}</>;
 };
 
-export default AuthGuard;
+export default ModelGuard;

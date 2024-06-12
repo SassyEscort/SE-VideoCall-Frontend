@@ -1,11 +1,11 @@
 import Box from '@mui/material/Box';
-import AuthGuard from 'utils/route-guard/AuthGuard';
+import GuestGuard from 'utils/route-guard/GuestGuard';
 import Footer from 'views/guestViews/guestLayout/footer';
 import HeaderGuestComponent from 'views/guestViews/guestLayout/Header';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <AuthGuard>
+    <GuestGuard>
       <Box>
         <HeaderGuestComponent />
         <main>
@@ -13,6 +13,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </main>
         <Footer />
       </Box>
-    </AuthGuard>
+    </GuestGuard>
   );
 }

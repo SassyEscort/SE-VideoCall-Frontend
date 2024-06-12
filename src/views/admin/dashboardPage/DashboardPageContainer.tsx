@@ -7,7 +7,7 @@ export default function DashboardPageContainer() {
   return (
     <MainLayout>
       <Container maxWidth="xl">
-        <Typography variant="h5" gutterBottom sx={{ mb: 5 }}>
+        <Typography variant="h5" color="primary.main" gutterBottom sx={{ mb: 5 }}>
           Hi, Welcome back 👋
         </Typography>
       </Container>

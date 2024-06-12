@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import LanguageDropdown from 'components/common/LanguageDropdown';
-import { useMediaQuery } from '@mui/material';
+import { Menu, MenuItem, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { useEffect, useState } from 'react';
 import ProfileMenu from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/ProfileMenu';
@@ -12,6 +12,10 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { getUserDataClient } from 'utils/getSessionData';
 import { SiderBarCircaleBoxHeader, SiderBarCircaleTextBoxHeader, SiderBarSecondBox, SiderBarThiredBox } from '../SideMenu/SideMenu.styled';
+import { CommonMenuBox } from '../dashboardNavbar/nav.styled';
+import UINewTypography from 'components/UIComponents/UINewTypography';
+import Logout from 'views/protectedViews/logout';
+import { FormattedMessage } from 'react-intl';
 
 export type NotificationFilters = {
   page: number;
@@ -24,10 +28,28 @@ const DashboadrHeaderAuthComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
+  const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorElLogout);
+  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
+
+  const handleOpenLogout = () => {
+    setIsLogoutOpen(true);
+  };
+
+  const handleCloseLogoutt = () => {
+    setIsLogoutOpen(false);
+  };
 
   const handleCloseMenu = () => {
     setOpenProfileMenu(false);
     setAnchorEl(null);
+  };
+
+  const handleClickLogout = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElLogout(event.currentTarget);
+  };
+  const handleCloseLogout = () => {
+    setAnchorElLogout(null);
   };
 
   useEffect(() => {
@@ -72,7 +94,7 @@ const DashboadrHeaderAuthComponent = () => {
           </>
         </IconButton>
         <Box display="flex" alignItems="center" gap={1}>
-          <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }}>
+          <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }} onClick={handleClickLogout}>
             <IconButton
               id="profile-menu"
               aria-controls={openProfileMenu ? 'profile-menu' : undefined}
@@ -95,6 +117,26 @@ const DashboadrHeaderAuthComponent = () => {
               </Typography>
             )}
           </Box>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorElLogout}
+            open={open}
+            onClose={handleCloseLogout}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button'
+            }}
+            sx={{ '& .MuiMenu-paper > ul': { backgroundColor: '#1E0815 !important' } }}
+          >
+            <MenuItem>
+              <CommonMenuBox sx={{ cursor: 'pointer', color: 'text.primary' }} onClick={handleOpenLogout}>
+                <Box component="img" src="/images/profile-vector/Vector-6.png" height={16} mr={1} />
+                <UINewTypography variant="buttonLargeMenu">
+                  <FormattedMessage id="LogOut" />
+                </UINewTypography>
+              </CommonMenuBox>
+              <Logout open={isLogoutOpen} onClose={handleCloseLogoutt} />
+            </MenuItem>
+          </Menu>
           <ProfileMenu profilePic={firstChar} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
         </Box>
       </Box>
