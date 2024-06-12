@@ -10,7 +10,7 @@ const LoginPageContainer = () => (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Box component="img" width={220} height={44} src="/images/header/headerlogo.png"></Box>
       </Box>
-      <Typography variant="h4" color="black.main" textAlign="center" mb={3}>
+      <Typography variant="h4" color="black.main" textAlign="center" fontWeight={700} mb={3}>
         Login to Flirtbate Admin
       </Typography>
     </Box>
