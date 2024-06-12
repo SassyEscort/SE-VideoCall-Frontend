@@ -5,10 +5,10 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 export const MainConatiner = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center',
   flexDirection: 'column',
   paddingTop: theme.spacing(4),
   gap: theme.spacing(7),
+  paddingLeft: theme.spacing(3),
   [theme.breakpoints.down('sm')]: {
     display: 'flex',
     justifyContent: 'flex-start',
@@ -18,10 +18,13 @@ export const MainConatiner = styled(Box)(({ theme }) => ({
 
 export const SecondConatiner = styled(Box)(({ theme }) => ({
   display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
   flexDirection: 'column',
-  width: '100%'
+  paddingLeft: theme.spacing(17.3125),
+  width: '100%',
+  maxWidth: '484px',
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(0)
+  }
 }));
 
 export const ThreeConatiner = styled(Box)(({ theme }) => ({
