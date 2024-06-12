@@ -27,9 +27,10 @@ export const StatusBox = styled(Box)(() => ({
   minHeight: '25px'
 }));
 
-export const MainBox = styled(Box)(() => ({
+export const MainBox = styled(Box)(({ theme }) => ({
   width: '100%',
-  maxWidth: '741px'
+  maxWidth: '741px',
+  paddingLeft: theme.spacing(3)
 }));
 
 export const TypographyBox = styled(Box)(({ theme }) => ({
