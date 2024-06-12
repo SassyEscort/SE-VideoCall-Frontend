@@ -6,15 +6,18 @@ export const SidebarDropDownMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
   maxWidth: '180px',
-  borderRadius: '12px',
-  padding: '14px 16px',
+  borderRadius: theme.spacing(1.5),
+  paddingLeft: theme.spacing(2),
+  paddingRight: theme.spacing(2),
+  paddingTop: theme.spacing(1.75),
+  paddingBottom: theme.spacing(1.75),
   backgroundColor: theme.palette.secondary[500],
   flexDirection: 'column'
 }));
 
 export const SelectDropdown = styled(Select)(({ theme }) => ({
   display: 'flex',
-  borderRadius: '8px',
+  borderRadius: theme.spacing(1),
   width: '100%',
   height: '48px',
   backgroundColor: theme.palette.secondary[500],
@@ -28,7 +31,7 @@ export const SelectDropdown = styled(Select)(({ theme }) => ({
     padding: theme.spacing(1, 2),
     display: 'flex',
     gap: theme.spacing(1),
-    color: '#FF68C0'
+    color: theme.palette.primary[400]
   },
   '& .MuiSvgIcon-root': {
     color: 'rgba(183, 181, 185, 1)'

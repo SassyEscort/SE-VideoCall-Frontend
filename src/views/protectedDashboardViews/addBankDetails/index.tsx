@@ -54,8 +54,7 @@ const AddbankDetails = () => {
             account_name: values.account_name,
             iban_number: values.iban_number
           };
-          const data = await PayoutService.bankDetails(BankDetailsObject, 'token.token');
-          console.log(data, 'iban_number');
+          await PayoutService.bankDetails(BankDetailsObject, 'token.token');
         } catch (error) {
           toast.error(ErrorMessage);
         }
