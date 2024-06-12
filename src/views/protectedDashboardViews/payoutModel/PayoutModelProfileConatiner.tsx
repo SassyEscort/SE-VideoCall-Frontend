@@ -1,16 +1,25 @@
 'use client';
-import { MenuItem, Divider } from '@mui/material';
+import { MenuItem } from '@mui/material';
 import { SidebarDropDownMainContainer } from '../sidebarDropDown/SidebarDropDown.styled';
 import { useState } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import Box from '@mui/system/Box';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { FormattedMessage } from 'react-intl';
 import PayoutBankInformation from '../payoutBankInformation';
 import PayoutContainer from '../payoutRequest/PayoutContainer';
 import PayoutsAndInvoices from '../payoutsAndInvoicesTable';
 import PayoutFAQS from '../payoutFAQS';
+import {
+  FiveBox,
+  ForBox,
+  FristDivider,
+  MainConatiner,
+  MenuListText,
+  SecondBox,
+  SecondDivider,
+  ThirdBox
+} from './PayoutModelProfileConatiner.styled';
 
 const payoutMenuList = [
   { menuName: <FormattedMessage id="RequestPayout" />, id: 0 },
@@ -34,17 +43,17 @@ const PayoutModelProfileConatiner = ({
   };
 
   return (
-    <Box sx={{ display: 'flex', width: '100%' }}>
-      <Divider orientation="vertical" flexItem sx={{ borderColor: 'primary.700' }} />
-      <Box display="flex" width="100%">
-        <Box sx={{ display: 'flex' }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '55px' }}>
-              <UINewTypography variant="h5" color="text.secondary" ml="24px" mt={3.93}>
+    <MainConatiner>
+      <FristDivider orientation="vertical" flexItem />
+      <SecondBox>
+        <ThirdBox>
+          <ForBox>
+            <FiveBox>
+              <UINewTypography variant="h5" color="text.secondary" ml={3} mt={3.93}>
                 <FormattedMessage id="MyProfile" />
               </UINewTypography>
-              <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', width: '100%' }} />
-            </Box>
+              <SecondDivider orientation="horizontal" flexItem />
+            </FiveBox>
             <SidebarDropDownMainContainer>
               {payoutMenuList.map((list, index) => (
                 <>
@@ -57,14 +66,14 @@ const PayoutModelProfileConatiner = ({
                       <UINewTypography variant="buttonLargeMenu">{list.menuName}</UINewTypography>
                     )}
                   </MenuItem>
-                  <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                  <FristDivider orientation="horizontal" flexItem />
                 </>
               ))}
             </SidebarDropDownMainContainer>
-          </Box>
-          <Divider orientation="vertical" flexItem sx={{ borderColor: 'primary.700' }} />
-        </Box>
-        <Box sx={{ display: 'flex', width: '100%' }}>
+          </ForBox>
+          <FristDivider orientation="vertical" flexItem />
+        </ThirdBox>
+        <MenuListText>
           {menuId === 0 ? (
             <PayoutContainer />
           ) : menuId === 1 ? (
@@ -74,9 +83,9 @@ const PayoutModelProfileConatiner = ({
           ) : (
             <PayoutFAQS />
           )}
-        </Box>
-      </Box>
-    </Box>
+        </MenuListText>
+      </SecondBox>
+    </MainConatiner>
   );
 };
 

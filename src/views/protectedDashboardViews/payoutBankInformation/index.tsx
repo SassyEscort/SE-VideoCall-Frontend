@@ -39,17 +39,17 @@ const PayoutBankInformation = () => {
             <Box component="img" src="/images/payout/frame.webp" />
             <ThreeConatiner>
               <NoBoxInfoBox>
-                <NoBankInformationAdded variant="h3" color={'text.secondary'}>
+                <NoBankInformationAdded variant="h3" color="text.secondary">
                   <FormattedMessage id="NoBankInformationAdded" />
                 </NoBankInformationAdded>
 
-                <PleaseAddYour variant="body1" color={'text.secondary'}>
+                <PleaseAddYour variant="body1" color="text.secondary">
                   <FormattedMessage id="PleaseAddYour" />
                 </PleaseAddYour>
               </NoBoxInfoBox>
               <AddBoxDetails>
                 <UIThemeButton variant="contained" onClick={handleBankDetails}>
-                  <UINewTypography variant="body" color={'primary.200'}>
+                  <UINewTypography variant="body" color="primary.200">
                     <FormattedMessage id="AddBankDetails" />
                   </UINewTypography>
                   <AddIconAdd />
