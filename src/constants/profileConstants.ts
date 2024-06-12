@@ -18,3 +18,9 @@ export enum MENU_TABS {
   PAYOUTS = 'Payouts',
   HELP_INFO = 'Help and Info'
 }
+
+export enum MODEL_ACTION {
+  PENDING = 'Pending',
+  APPROVE = 'Approved',
+  REJECT = 'Rejected'
+}

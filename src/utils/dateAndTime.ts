@@ -5,6 +5,11 @@ export const formatFullDateWithoutTime = (str: string, def?: string) => {
   return moment(str).format('DD MMM YYYY');
 };
 
+export const formatFullDate = (str: string, def?: string) => {
+  if (!str) return def ?? '';
+  return moment(str).format('DD MMM YYYY hh:mm A');
+};
+
 export const getLastActive = (lastActiveTime: string, def?: string) => {
   if (!lastActiveTime) return def ?? '';
 
