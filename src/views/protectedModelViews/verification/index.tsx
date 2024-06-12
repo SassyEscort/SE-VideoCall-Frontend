@@ -5,7 +5,7 @@ import UIStepper from '../../../components/common/stepper';
 import { useCallback, useEffect, useState } from 'react';
 import { ModelDetailsResponse } from './verificationTypes';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
-import { getUserDataClient } from 'utils/getSessionData';
+import { getUserDataClientNew } from 'utils/getSessionData';
 import Box from '@mui/material/Box';
 import UploadImage from './stepThree/uploadImage';
 import DocumentMainContainer from './documentContainer';
@@ -64,8 +64,12 @@ const VerificationContainer = () => {
 
   useEffect(() => {
     const userToken = async () => {
-      const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
+      const data: any = await getUserDataClientNew();
+
+      const pictureData = JSON.parse(data.picture);
+      const token = pictureData.token;
+
+      setToken({ id: data.id, token: token });
     };
 
     userToken();
@@ -79,7 +83,7 @@ const VerificationContainer = () => {
     if (token.token) {
       modelDetails();
     }
-  }, [token.id, token.token]);
+  }, [token, token.id]);
 
   const handleModelApiChange = useCallback(() => {
     const modelDetails = async () => {
@@ -87,7 +91,7 @@ const VerificationContainer = () => {
       setModelDetails(modelData.data);
     };
     modelDetails();
-  }, [token.token]);
+  }, [token]);
 
   const handleNextHeaderStep = () => {
     const button = document.getElementById(submitButtonIds[activeStep]);

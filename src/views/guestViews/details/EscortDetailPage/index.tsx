@@ -14,7 +14,7 @@ import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/u
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { getUserDataClient } from 'utils/getSessionData';
+import { getUserDataClientNew } from 'utils/getSessionData';
 
 const EscortDetailPage = () => {
   const [guestData, setGuestData] = useState<ModelDetailsResponse>();
@@ -24,10 +24,12 @@ const EscortDetailPage = () => {
 
   useEffect(() => {
     const userToken = async () => {
-      const data = await getUserDataClient();
-      if (data) {
-        setToken({ id: data.id, token: data.token });
-      }
+      const data: any = await getUserDataClientNew();
+
+      const pictureData = JSON.parse(data.picture);
+      const token = pictureData.token;
+
+      setToken({ id: data.id, token: token });
     };
 
     userToken();

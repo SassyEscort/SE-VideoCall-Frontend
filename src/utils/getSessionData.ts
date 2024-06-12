@@ -29,6 +29,16 @@ export const getUserDataClient = async () => {
   }
 };
 
+export const getUserDataClientNew = async () => {
+  const session = await getSession();
+  const details = session?.user;
+  if (details) {
+    return details;
+  } else {
+    return '';
+  }
+};
+
 export const getLoggedInUser = async () => {
   const session = await getAuthUser();
   return Boolean(session);

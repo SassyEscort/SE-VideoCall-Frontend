@@ -20,7 +20,7 @@ import { DashboardModelTabs } from 'constants/modelConstants';
 import ModelNavbar from './modelNavbar';
 import SideMenu from '../SideMenu';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
-import { getUserDataClient } from 'utils/getSessionData';
+import { getUserDataClientNew } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
@@ -62,8 +62,12 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
 
   useEffect(() => {
     const userToken = async () => {
-      const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
+      const data: any = await getUserDataClientNew();
+
+      const pictureData = JSON.parse(data.picture);
+      const token = pictureData.token;
+
+      setToken({ id: data.id, token: token });
     };
 
     userToken();

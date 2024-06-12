@@ -10,7 +10,7 @@ import ProfileMenu from 'views/protectedViews/protectedLayout/Header/TopNavItem/
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
-import { getUserDataClient } from 'utils/getSessionData';
+import { getUserDataClientNew } from 'utils/getSessionData';
 import { SiderBarCircaleBoxHeader, SiderBarCircaleTextBoxHeader, SiderBarSecondBox, SiderBarThiredBox } from '../SideMenu/SideMenu.styled';
 import { CommonMenuBox } from '../dashboardNavbar/nav.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -54,8 +54,12 @@ const DashboadrHeaderAuthComponent = () => {
 
   useEffect(() => {
     const userToken = async () => {
-      const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
+      const data: any = await getUserDataClientNew();
+
+      const pictureData = JSON.parse(data.picture);
+      const token = pictureData.token;
+
+      setToken({ id: data.id, token: token });
     };
 
     userToken();

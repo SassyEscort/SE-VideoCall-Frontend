@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import MyProfileContainer from './MyProfileContainer';
-import { getUserDataClient } from 'utils/getSessionData';
+import { getUserDataClientNew } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { EMAIL_REGEX } from 'constants/regexConstants';
@@ -32,8 +32,12 @@ const MyProfile = () => {
 
   useEffect(() => {
     const userToken = async () => {
-      const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
+      const data: any = await getUserDataClientNew();
+
+      const pictureData = JSON.parse(data.picture);
+      const token = pictureData.token;
+
+      setToken({ id: data.id, token: token });
     };
 
     userToken();
