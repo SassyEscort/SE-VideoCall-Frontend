@@ -29,7 +29,8 @@ export const authOptions: NextAuthOptions = {
               id: user.data.customer_id.toString(),
               name: user.data.customer_name,
               email: user.data.customer_email,
-              image: JSON.stringify(user.data)
+              image: JSON.stringify(user.data),
+              role: 'Guest'
             } as User;
           }
           return null;
@@ -60,7 +61,8 @@ export const authOptions: NextAuthOptions = {
               id: user.data.id.toString(),
               name: user.data.name,
               email: user.data.email,
-              image: JSON.stringify(user.data)
+              image: JSON.stringify(user.data),
+              role: 'Model'
             } as User;
           }
           return null;
@@ -91,7 +93,8 @@ export const authOptions: NextAuthOptions = {
               id: user.data.id.toString(),
               name: user.data.name,
               email: user.data.email,
-              image: JSON.stringify(user.data)
+              image: JSON.stringify(user.data),
+              role: 'Admin'
             } as User;
           }
           return null;
@@ -111,15 +114,13 @@ export const authOptions: NextAuthOptions = {
         token.provider = account?.provider;
       }
       return token;
+    },
+    session: ({ session, token }) => {
+      if (token) {
+        session.user = token;
+      }
+      return session;
     }
-    // session: ({ session, token }) => {
-    //   if (token) {
-    //     session.user. = token.id;
-    //     session.provider = token.provider;
-    //     session.token = token;
-    //   }
-    //   return session;
-    // }
   },
   session: {
     strategy: 'jwt',

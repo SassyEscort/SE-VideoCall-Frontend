@@ -26,6 +26,7 @@ import {
 import { FormattedMessage } from 'react-intl';
 import { ModelAuthService } from 'services/modelAuth/modelAuth.service';
 import { toast } from 'react-toastify';
+import { ErrorMessage } from 'constants/common.constants';
 import { EMAIL_REGEX } from 'constants/regexConstants';
 
 export type ForgetPasswordParams = {
@@ -59,7 +60,7 @@ const ModelForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
             toast.error(data.error);
           }
         } catch (error) {
-          toast.error('An error occurred. Please try again.');
+          toast.error(ErrorMessage);
         } finally {
           setLoading(false);
           setSubmitting(false);

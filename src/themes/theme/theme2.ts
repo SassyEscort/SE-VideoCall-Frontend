@@ -19,6 +19,7 @@ declare module '@mui/material/styles' {
     700: string;
     800: string;
     900: string;
+    1000: string;
   }
 
   interface SimplePaletteColorOptions {
@@ -31,6 +32,7 @@ declare module '@mui/material/styles' {
     700?: string;
     800?: string;
     900?: string;
+    1000?: string;
   }
 
   interface TypographyVariants {
@@ -182,7 +184,8 @@ const theme2 = createTheme({
       400: '#79E02852',
       600: '#B7B5B952',
       800: '#07030E',
-      900: '#D4D3D63D'
+      900: '#D4D3D63D',
+      1000: '#D52A83'
     },
 
     white: {

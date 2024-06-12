@@ -19,6 +19,7 @@ import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import AuthModelCommon from '../modelSignup/AuthModelCommon';
 import CustomPasswordRegex from 'views/auth/customPasswordRegex';
 import { IconeButtonBox, ModelNewPasswordBox, SetYourNewPasswordBox, SetupNewPasswordBox } from './ModelNewPassword.styled';
+import { ErrorMessage } from 'constants/common.constants';
 
 export type ResetPasswordParams = {
   email: string;
@@ -74,7 +75,7 @@ const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
             }
           }
         } catch (error) {
-          toast.error('An error occurred. Please try again.');
+          toast.error(ErrorMessage);
         } finally {
           setLoading(false);
           setSubmitting(false);

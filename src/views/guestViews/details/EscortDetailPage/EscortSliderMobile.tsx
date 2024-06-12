@@ -23,15 +23,71 @@ import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
 import { FirstSwiperBlurContainer, SecondSwiperBlurContainer } from './Escort.styled';
+import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 
-const EscortSliderMobile = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] }) => {
+import { toast } from 'react-toastify';
+import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
+import GuestLogin from 'views/auth/guestLogin';
+import GuestSignup from 'views/auth/guestSignup';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import { ErrorMessage } from 'constants/common.constants';
+
+const EscortSliderMobile = ({ workerPhotos, modelId, token }: { workerPhotos: WorkerPhotos[]; modelId: number; token: TokenIdType }) => {
   const isLg = useMediaQuery(theme.breakpoints.up('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const [liked, setLiked] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
-  const handleLikeClick = () => {
-    setLiked(!liked);
+  const [open, setIsOpen] = useState(false);
+  const [openLogin, setIsOpenLogin] = useState(false);
+  const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+
+  const handleSignupOpen = () => {
+    setIsOpen(true);
+    setIsOpenLogin(false);
+  };
+
+  const handleSignupClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleLoginOpen = () => {
+    setIsOpen(false);
+    setIsOpenLogin(true);
+  };
+
+  const handleLoginResetPasswordOpen = () => {
+    setOpenForgetPassLink(false);
+    setIsOpenLogin(true);
+  };
+
+  const handleLoginClose = () => {
+    setIsOpenLogin(false);
+  };
+
+  const handleResetPasswordLinkOpen = () => {
+    setIsOpenLogin(false);
+    setOpenForgetPassLink(true);
+  };
+
+  const handleResetPasswordLinkClose = () => {
+    setOpenForgetPassLink(false);
+  };
+  const handleLikeClick = async () => {
+    try {
+      if (token.token) {
+        const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
+        if (data) {
+          toast.success(data?.message);
+          setLiked(true);
+        }
+      } else {
+        setIsOpenLogin(true);
+      }
+    } catch (erro) {
+      toast.error(ErrorMessage);
+    }
   };
 
   return (
@@ -116,6 +172,20 @@ const EscortSliderMobile = ({ workerPhotos }: { workerPhotos: WorkerPhotos[] }) 
           </UIStyledShadowButtonLike>
         </Box>
       </Box>
+      <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+        <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
+      </UIStyledDialog>
+      <UIStyledDialog open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
+        <GuestLogin
+          onClose={handleLoginClose}
+          onSignupOpen={handleSignupOpen}
+          onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+          image="/images/auth/auth-model.webp"
+        />
+      </UIStyledDialog>
+      <UIStyledDialog open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
+        <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
+      </UIStyledDialog>
     </>
   );
 };

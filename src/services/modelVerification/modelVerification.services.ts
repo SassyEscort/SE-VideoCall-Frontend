@@ -18,6 +18,10 @@ export interface DropdownAPIRes extends GenericRes {
   data: MultipleOptionString;
 }
 
+export interface DropdownLanguageAPIRes extends GenericRes {
+  data: LanagueRes;
+}
+
 export class ModelVerificationService {
   static verificationStepOne = async (values: VerificationStep1Type, token: string) => {
     try {
@@ -45,7 +49,7 @@ export class ModelVerificationService {
     }
   };
 
-  static modelLanguage = async (values: Language, token: string): Promise<DropdownAPIRes> => {
+  static modelLanguage = async (values: Language, token: string): Promise<DropdownLanguageAPIRes> => {
     try {
       const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/language`, values, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
@@ -54,7 +58,7 @@ export class ModelVerificationService {
       return res.data;
     } catch (err: any) {
       const error: AxiosError = err;
-      return error.response?.data as DropdownAPIRes;
+      return error.response?.data as DropdownLanguageAPIRes;
     }
   };
 

@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import { Avatar, Box } from '@mui/material';
 import { StyledAccount } from './Nav.styled';
+import AdminSidbar from '../sidbar';
 
 const NAV_WIDTH = 280;
 
@@ -20,16 +21,17 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
             <Avatar src="/images/admin/avatar.jpg" alt="photoURL" />
 
             <Box sx={{ ml: 2 }}>
-              <Typography variant="subtitle2" color="text.primary" sx={{ textTransform: 'capitalize' }}>
+              <Typography variant="subtitle2" color="primary.main" sx={{ textTransform: 'capitalize' }}>
                 Name
               </Typography>
 
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.primary">
                 Email
               </Typography>
             </Box>
           </StyledAccount>
         </Link>
+        <AdminSidbar />
       </Box>
     </>
   );

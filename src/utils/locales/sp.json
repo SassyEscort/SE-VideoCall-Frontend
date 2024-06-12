@@ -216,7 +216,7 @@
   "Payout": "Pago",
   "NoBankInformationAdded": "No se ha añadido información bancaria",
   "PleaseAddYour": "Por favor, añada sus datos bancarios para solicitar su pago. De lo contrario, no podremos procesar su solicitud.",
-  "Add bank details": "Agregar detalles bancarios",
+  "AddBankDetails": "Agregar detalles bancarios",
   "Profile": "Perfil",
   "ProfileDetails": "detalles del perfil",
   "Prices": "Precios",
@@ -288,5 +288,7 @@
   "InstantConnections": "Conexiones instantáneas, recuerdos duraderos",
   "ExperienceThe": "Experimenta la magia de",
   "Of": "de",
-  "LiveInteractions": "Interacciones en vivo"
+  "LiveInteractions": "Interacciones en vivo",
+  "ExploreFrom": "Explora desde el mundo de diversa belleza y encanto.",
+  "PastPayouts": "Pagos Pasados"
 }

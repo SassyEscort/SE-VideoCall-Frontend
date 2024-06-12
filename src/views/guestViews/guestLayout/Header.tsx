@@ -102,8 +102,8 @@ const HeaderGuestComponent = () => {
               prefetch={true}
               shallow={true}
               href="/"
-              height={{ xs: '27px', md: '36px' }}
-              width={{ xs: '136px', md: '182px' }}
+              height={{ xs: '26px', md: '36px', sm: '36px' }}
+              width={{ xs: '120px', md: '182px', sm: '182px' }}
               display={'flex'}
             >
               <Image
@@ -176,7 +176,12 @@ const HeaderGuestComponent = () => {
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
       </UIStyledDialog>
       <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
-        <GuestLogin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
+        <GuestLogin
+          onClose={handleLoginClose}
+          onSignupOpen={handleSignupOpen}
+          onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+          image="/images/auth/auth-model.webp"
+        />
       </UIStyledDialog>
       <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />

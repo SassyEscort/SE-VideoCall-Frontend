@@ -15,6 +15,7 @@ import { DialogTitleBox, DividerBox, FirstBox, InputBox, InputBoxMain, MainDialo
 import { authServices } from 'services/guestAuth/authuser.services';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { toast } from 'react-toastify';
+import { ErrorMessage } from 'constants/common.constants';
 
 export type ChangePasswordParams = {
   currentPassword: string;
@@ -76,7 +77,7 @@ const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; 
             onClose();
           }
         } catch (error) {
-          toast.error('An error occurred. Please try again.');
+          toast.error(ErrorMessage);
         }
       }}
     >

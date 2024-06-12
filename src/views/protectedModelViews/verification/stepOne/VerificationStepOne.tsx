@@ -31,6 +31,7 @@ import { toast } from 'react-toastify';
 import CheckInboxVerify from 'views/modelViews/checkInBox';
 import { GuestStyleComponent } from 'views/guestViews/guestLayout/GuestLayout.styled';
 import { ModelVerificationService } from 'services/modelVerification/modelVerification.services';
+import { ErrorMessage } from 'constants/common.constants';
 
 export type VerificationBasicDetailsType = {
   values: VerificationStep1Type;
@@ -240,7 +241,7 @@ const VerificationBasicDetails = ({
         }
       }
     } catch (error) {
-      toast.error('An error occurred. Please try again.');
+      toast.error(ErrorMessage);
     }
   };
 

@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { FavouriteDetailsRes } from 'services/customerDetails/customerDetails.services';
 import { GenericResponse, GenericResponseData } from 'types/commonApiTypes';
 import { ForgetPasswordParams } from 'views/auth/guestForgetPasswordLink';
 import { LoginParams } from 'views/auth/guestLogin';
@@ -59,9 +60,8 @@ export class GuestAuthService {
         }
       );
       return res.data;
-    } catch (err: any) {
-      const error: string = err;
-      return { error: error } as GenericResponse;
+    } catch (error) {
+      return error as FavouriteDetailsRes;
     }
   };
 }

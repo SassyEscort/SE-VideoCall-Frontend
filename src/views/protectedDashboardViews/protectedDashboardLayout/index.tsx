@@ -38,7 +38,7 @@ const MainLayoutNav = (props: MainLayoutType) => {
     <>
       <Box minHeight="100vh" display="flex" flexDirection="column">
         <Box sx={{ width: '100%', display: 'flex' }}>
-          <StyledRoot>
+          <StyledRoot sx={{ width: '100%' }}>
             <ModelNav openNav={open} onCloseNav={() => setOpen(true)} />
             <Main>
               {isMdUp && <ProtectedDashboardLayoutMainContainer />}
