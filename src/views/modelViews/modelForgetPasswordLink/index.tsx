@@ -54,7 +54,7 @@ const ModelForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
           setLoading(true);
           const data = await ModelAuthService.modelForgetPasswordLink(values);
           if (data.code === 200) {
-            toast.success('Reset password link sent successfully!');
+            toast.success('Success');
             setActiveStep(1);
           } else {
             toast.error(data.error);

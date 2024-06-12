@@ -50,7 +50,7 @@ const PayoutModelProfileConatiner = ({
           <ForBox>
             <FiveBox>
               <UINewTypography variant="h5" color="text.secondary" ml={3} mt={3.93}>
-                <FormattedMessage id="MyProfile" />
+                <FormattedMessage id="Payout" />
               </UINewTypography>
               <SecondDivider orientation="horizontal" flexItem />
             </FiveBox>

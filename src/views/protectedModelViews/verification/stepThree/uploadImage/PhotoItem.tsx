@@ -92,7 +92,7 @@ const PhotoItem = ({
         const response = await VerificationStepService.modelThumbnailPhoto({ model_photo_id: image.id }, token);
         if (response.code === 200) {
           handleModelApiChange();
-          toast.success(response.message);
+          toast.success('Success');
         }
       }
 
@@ -101,7 +101,7 @@ const PhotoItem = ({
         image.id = undefined;
         setThumbnail(true);
         image.isFavorite = true;
-        toast.success('Image marked as thumbnail');
+        toast.success('Success');
       }
     }
 

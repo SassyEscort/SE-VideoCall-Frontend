@@ -9,10 +9,14 @@ export const MainConatiner = styled(Box)(({ theme }) => ({
   paddingTop: theme.spacing(4),
   gap: theme.spacing(7),
   paddingLeft: theme.spacing(3),
+  width: '100%',
+  maxWidth: '757px',
   [theme.breakpoints.down('sm')]: {
     display: 'flex',
     justifyContent: 'flex-start',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    paddingLeft: theme.spacing(6.125),
+    paddingRight: theme.spacing(6.125)
   }
 }));
 
@@ -22,6 +26,7 @@ export const SecondConatiner = styled(Box)(({ theme }) => ({
   paddingLeft: theme.spacing(17.3125),
   width: '100%',
   maxWidth: '484px',
+  alignItems: 'center',
   [theme.breakpoints.down('sm')]: {
     paddingLeft: theme.spacing(0)
   }
@@ -73,6 +78,8 @@ export const Payout = styled(UINewTypography)(({ theme }) => ({
 }));
 
 export const NoBankInformationAdded = styled(UINewTypography)(({ theme }) => ({
+  textWrap: 'nowrap',
+  paddingInline: '55px',
   [theme.breakpoints.down('sm')]: {
     fontSize: '24px !important'
   }

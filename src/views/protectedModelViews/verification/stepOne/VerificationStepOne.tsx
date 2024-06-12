@@ -144,7 +144,7 @@ const VerificationBasicDetails = ({
       const data = await ModelAuthService.modelForgetPasswordLinkStep(values.email, token.token, source);
       if (data.code === 200) {
         setOpenForgetPassLink(true);
-        toast.success(data.message);
+        toast.success('Success');
         setActiveStep(1);
       } else {
         toast.error(data.error);

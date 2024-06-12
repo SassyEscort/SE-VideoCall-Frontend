@@ -24,7 +24,9 @@ export const FAQSeconndContainer = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   width: '100%',
   paddingTop: theme.spacing(4),
-  paddingLeft: theme.spacing(3)
+  [theme.breakpoints.up('sm')]: {
+    paddingLeft: theme.spacing(3)
+  }
 }));
 
 export const FAQConatainer = styled(Box)(({ theme }) => ({

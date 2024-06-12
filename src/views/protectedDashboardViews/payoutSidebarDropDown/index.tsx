@@ -39,7 +39,7 @@ const PayoutMobileSidebar = ({
     <FormControl id="age" sx={{ width: '100%' }}>
       <Box sx={{ mb: 3 }}>
         <UINewTypography variant="h2" color="text.secondary">
-          <FormattedMessage id="MyProfile" />
+          <FormattedMessage id="Payout" />
         </UINewTypography>
       </Box>
       <SelectDropdown

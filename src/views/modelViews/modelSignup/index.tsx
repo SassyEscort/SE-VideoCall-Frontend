@@ -96,7 +96,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
             } else {
               setAlert('Login after signup failed. Please log in manually.');
             }
-            toast.success('Signed up successfully!');
+            toast.success('Success');
           } else {
             setAlert(data.message);
           }
