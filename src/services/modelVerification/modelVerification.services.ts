@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { GenericRes } from 'services/guestAuth/authuser.services';
-import { MultipleOptionString, VerificationStep1Type } from 'views/protectedModelViews/verification/verificationTypes';
+import { LanagueRes, MultipleOptionString, VerificationStep1Type } from 'views/protectedModelViews/verification/verificationTypes';
 
 export type Country = {
   country: string;
