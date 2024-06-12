@@ -24,7 +24,6 @@ import ModelListHead from './ModelListHead';
 import { PaginationSortByOption } from 'components/common/CustomPaginations/type';
 import PaginationSortBy from 'components/common/CustomPaginations/PaginationSortBy';
 import { PAGE_SIZE } from 'constants/pageConstants';
-import { useSession } from 'next-auth/react';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import TablePager from 'components/common/CustomPaginations/TablePager';
 import Popover from '@mui/material/Popover';
@@ -33,6 +32,8 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { adminModelServices, ModelListing } from 'services/adminModel/adminModel.services';
+import { getUserDataClient } from 'utils/getSessionData';
+import { TokenIdType } from 'views/protectedModelViews/verification';
 
 export type WorkersPaginationType = {
   page: number;
@@ -58,28 +59,12 @@ export type TokenIdTypeAdmin = {
 };
 
 export default function ModelPageContainer() {
-  const Mydata = useSession();
-
-  function getAdminToken(data: any) {
-    if (data?.data?.user?.picture) {
-      try {
-        const pictureData = JSON.parse(data.data.user.picture);
-        return pictureData.token;
-      } catch (error) {
-        return null;
-      }
-    } else {
-      return null;
-    }
-  }
-
-  const adminToken = getAdminToken(Mydata);
-
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selected, setSelected] = useState<ModelListing>();
   const [modelData, setModelData] = useState<ModelListing[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [totalRecords, setTotalRecords] = useState(0);
 
   const currentMoment = moment();
@@ -101,22 +86,35 @@ export default function ModelPageContainer() {
     setFilters(value);
   }, []);
 
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      if (data) {
+        setToken({ id: data.id, token: data.token });
+      }
+    };
+
+    userToken();
+  }, []);
+
   const fetchModelData = async () => {
     setIsLoading(false);
-    const data = await adminModelServices.getModelList(adminToken, filters.pageSize, filters.page);
-    setTotalRecords(data.aggregate.total_rows);
-    setModelData(data.model_details);
+    if (token.token) {
+      const data = await adminModelServices.getModelList(token.token, filters.pageSize, filters.page);
+      setTotalRecords(data.aggregate.total_rows);
+      setModelData(data.model_details);
+    }
   };
 
   useEffect(() => {
     fetchModelData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [token.token]);
 
   const handleModelListRefetch = useCallback(() => {
     fetchModelData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [adminToken, filters.page, filters.pageSize]);
+  }, [token, filters.page, filters.pageSize]);
 
   const handleChangePage = useCallback(
     (value: number) => {
@@ -166,13 +164,13 @@ export default function ModelPageContainer() {
   };
 
   const handleApproveClick = async () => {
-    await adminModelServices.modelAction(adminToken, Number(selected?.id), MODEL_ACTION.APPROVE);
+    await adminModelServices.modelAction(token.token, Number(selected?.id), MODEL_ACTION.APPROVE);
     handleModelListRefetch();
     handleCloseMenu();
   };
 
   const handleRejectClick = async () => {
-    await adminModelServices.modelAction(adminToken, Number(selected?.id), MODEL_ACTION.REJECT);
+    await adminModelServices.modelAction(token.token, Number(selected?.id), MODEL_ACTION.REJECT);
     handleModelListRefetch();
     handleCloseMenu();
   };
