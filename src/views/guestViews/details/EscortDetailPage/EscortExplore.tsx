@@ -37,7 +37,7 @@ const EscortExplore = () => {
                 color="text.secondary"
                 sx={{ fontSize: { xs: '24px', sm: '40px' }, fontWeight: 700, lineHeight: { xs: '32px', sm: '52px' } }}
               >
-                <FormattedMessage id="ExploreYourChoices" />
+                <FormattedMessage id="ExploreFrom" />
               </UINewTypography>
               <SubTitle>
                 <FormattedMessage id="SelectTheCompanion" />
