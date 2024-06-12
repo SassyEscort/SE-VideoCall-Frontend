@@ -3,6 +3,7 @@ import { WorkerPhotos } from './stepThree/uploadImage';
 export type MultipleOptionString = {
   id: string;
   name: string;
+  isAddOption?: boolean;
 };
 
 export type LanagueRes = {
