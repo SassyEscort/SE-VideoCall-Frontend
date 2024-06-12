@@ -1,3 +1,4 @@
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
@@ -17,14 +18,12 @@ import FormHelperText from '@mui/material/FormHelperText';
 import { RiArrowDownSLine, RiCalendar2Line } from 'components/common/customRemixIcons';
 import Box from '@mui/material/Box';
 import { FormikErrors, FormikTouched } from 'formik';
-import { MultipleOptionString, VerificationStep1Type } from '../verificationTypes';
-import { useEffect, useState } from 'react';
+import { VerificationStep1Type } from '../verificationTypes';
+import { useCallback, useEffect, useState } from 'react';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import moment from 'moment';
-import { FormControl, MenuItem, TextField } from '@mui/material';
-import ExpandMore from '@mui/icons-material/ExpandMore';
+import { FormControl, createFilterOptions } from '@mui/material';
 import { UIStyledDatePicker } from 'components/UIComponents/UIStyledDatePicker';
-import { UIStyledSelectItemContainer } from 'components/UIComponents/UINewSelectItem';
 import UIStyledAutocomplete from 'components/UIComponents/UIStyledAutocomplete';
 import { TokenIdType } from '..';
 import { ModelAuthService } from 'services/modelAuth/modelAuth.service';
@@ -50,9 +49,16 @@ export type VerificationBasicDetailsType = {
   isEdit: boolean;
 };
 
-export type MultipleOptionName = {
-  id: number;
+export type MultipleOptionString = {
+  id: string;
   name: string;
+  isAddOption?: boolean;
+};
+
+export type FilterInput = {
+  name: string;
+  inputValue: string;
+  id: number;
 };
 
 const VerificationBasicDetails = ({
@@ -65,9 +71,8 @@ const VerificationBasicDetails = ({
   token,
   isEdit
 }: VerificationBasicDetailsType) => {
-  console.log(values.model_languages, 'model');
-
   const maxCharCount = 1000;
+  const filter = createFilterOptions<MultipleOptionString>();
 
   const [countries, setCountries] = useState<MultipleOptionString[]>([]);
   const [nationality, setNationality] = useState<MultipleOptionString[]>([]);
@@ -76,25 +81,13 @@ const VerificationBasicDetails = ({
   const [isEditable, setIsEditable] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(true);
-  const [selectedLanguages, setSelectedLanguages] = useState(values.model_languages || []);
+  const [customLanguages, setCustomLanguages] = useState<MultipleOptionString[]>([]);
 
   const handleEditClick = () => {
     setIsEditable(true);
   };
 
-  useEffect(() => {
-    const countryData = async () => {
-      const data = await CommonServices.getCountry(token.token);
-      setCountries(data.data);
-    };
-    countryData();
-
-    const nationalityData = async () => {
-      const data = await CommonServices.getNationality(token.token);
-      setNationality(data.data);
-    };
-    nationalityData();
-
+  const handleLanguageApiChange = useCallback(() => {
     const languagesData = async () => {
       const data = await CommonServices.getLanguages(token.token);
       setLanguages(data.data);
@@ -102,12 +95,78 @@ const VerificationBasicDetails = ({
     languagesData();
   }, [token.token]);
 
+  const handleNationalityApiChange = useCallback(async () => {
+    const nationalityData = async () => {
+      const data = await CommonServices.getNationality(token.token);
+      setNationality(data.data);
+      return data.data;
+    };
+    return await nationalityData();
+  }, [token.token]);
+
+  const handleCountryApiChange = useCallback(() => {
+    const countryData = async () => {
+      const data = await CommonServices.getCountry(token.token);
+      setCountries(data.data);
+    };
+    countryData();
+  }, [token.token]);
+
+  useEffect(() => {
+    handleCountryApiChange();
+    handleNationalityApiChange();
+    handleLanguageApiChange();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token.token]);
+
   const handleGender = (val: string) => {
     setFieldValue('gender', val);
   };
 
-  const handleCity = (val: string | null) => {
-    setFieldValue('country_id', val);
+  const handleCountry = async (val: string | MultipleOptionString | (string | MultipleOptionString)[] | null) => {
+    if (val !== null) {
+      if (typeof val !== 'string') {
+        if (Array.isArray(val)) {
+          const firstVal = val[0];
+          if (typeof firstVal !== 'string' && firstVal.name) {
+            const res = await ModelVerificationService.modelCountry({ country: firstVal.name }, token.token);
+            setFieldValue('country_id', res.data.id);
+            if (res.code === 200) {
+              handleCountryApiChange();
+            }
+          }
+        } else if (val.name) {
+          const res = await ModelVerificationService.modelCountry({ country: val.name }, token.token);
+          setFieldValue('country_id', res.data.id);
+          if (res.code === 200) {
+            handleCountryApiChange();
+          }
+        }
+      }
+    }
+  };
+
+  const handleNationality = async (val: string | MultipleOptionString | (string | MultipleOptionString)[] | null) => {
+    if (val !== null) {
+      if (typeof val !== 'string') {
+        if (Array.isArray(val)) {
+          const firstVal = val[0];
+          if (typeof firstVal !== 'string' && firstVal.name) {
+            const res = await ModelVerificationService.modelNationality({ nationality: firstVal.name }, token.token);
+            setFieldValue('nationality_id', res.data.id);
+            if (res.code === 200) {
+              handleNationalityApiChange();
+            }
+          }
+        } else if (val.name) {
+          const res = await ModelVerificationService.modelNationality({ nationality: val.name }, token.token);
+          setFieldValue('nationality_id', res.data.id);
+          if (res.code === 200) {
+            handleNationalityApiChange();
+          }
+        }
+      }
+    }
   };
 
   const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -116,38 +175,52 @@ const VerificationBasicDetails = ({
     setCharCount(inputText.length);
   };
 
-  const handleLanguageChange = (event, newValue) => {
-    setSelectedLanguages(newValue);
-    // setFieldValue('model_languages', newValue);
-  };
-
   const handleResetPasswordLinkClose = () => {
     setOpenForgetPassLink(false);
     setActiveStep(0);
   };
 
-  const [customLanguages, setCustomLanguages] = useState([]);
-  console.log(customLanguages, 'customLanguages');
+  const handleCustomLanguageChange = async (value: string | MultipleOptionString | (string | MultipleOptionString)[] | null) => {
+    if (value && value !== null) {
+      let valueArray = Array.isArray(value) ? value : [value];
 
-  const handleCustomLanguageChange = async (event, value) => {
-    console.log(value[0], 'valuevalue');
+      if (valueArray.length) {
+        const lastLanguage = (valueArray[valueArray.length - 1] as MultipleOptionString).name;
+        const newLang = languages.filter((lang) => lang.name === lastLanguage);
 
-    const data = await ModelVerificationService.modelCountry({ country: value[0] }, token);
-    console.log(data, 'datadata');
+        if (!newLang.length) {
+          const res = await ModelVerificationService.modelLanguage({ language: lastLanguage }, token.token);
+          if (res.code === 200) {
+            (valueArray[valueArray.length - 1] as MultipleOptionString).id = res.data.language_id;
+            handleLanguageApiChange();
+          }
+        }
+        const isCustomLanguage = valueArray.some((val) => !languages.find((lang) => lang.name === (val as MultipleOptionString).name));
 
-    const isCustomLanguage = value.some((val) => !languages.find((lang) => lang.name === val.name));
+        if (isCustomLanguage) {
+          const newCustomLanguages = valueArray
+            .filter((val) => !languages.find((lang) => lang.name === (val as MultipleOptionString).name))
+            .map((val, index) => ({
+              id: customLanguages.length + index,
+              name: (val as MultipleOptionString).name
+            }));
+          if (Array.isArray(customLanguages) && Array.isArray(newCustomLanguages)) {
+            const formattedNewCustomLanguages = newCustomLanguages.map((item) => ({
+              id: String(item.id),
+              name: item.name
+            }));
 
-    if (isCustomLanguage) {
-      const newCustomLanguages = value
-        .filter((val) => !languages.find((lang) => lang.name === val.name))
-        .map((val, index) => ({ id: customLanguages.length + index, name: val }));
-      console.log(newCustomLanguages, 'newCustomLanguages');
-
-      setCustomLanguages([...customLanguages, ...newCustomLanguages]);
-      setFieldValue('model_languages', [...customLanguages, ...newCustomLanguages]);
+            setCustomLanguages([...customLanguages, ...formattedNewCustomLanguages]);
+          }
+        }
+        if (typeof valueArray !== 'string' && Array.isArray(valueArray)) {
+          if (Array.isArray(valueArray)) {
+            const filteredArray = valueArray.filter((item): item is MultipleOptionString => typeof item !== 'string');
+            setFieldValue('model_languages', filteredArray);
+          }
+        }
+      }
     }
-
-    handleLanguageChange(event, value);
   };
 
   const sendLinkVerify = async () => {
@@ -207,11 +280,33 @@ const VerificationBasicDetails = ({
             <UIStyledAutocomplete
               id="country"
               options={countries || []}
-              getOptionLabel={(option) => option.name || ''}
-              value={countries?.find((c) => c.id == values.country_id) || null}
+              getOptionLabel={(option) => (typeof option === 'string' ? option : option.name)}
+              value={countries?.find((c) => c.id == values.country_id) || ''}
               disablePortal
+              filterOptions={(options, params) => {
+                const filtered = filter(options, params);
+
+                const customOptions = filtered.map((option) => {
+                  if (typeof option === 'string') {
+                    return { id: '', name: option };
+                  } else {
+                    return option;
+                  }
+                });
+
+                if (params.inputValue !== '') {
+                  customOptions.push({
+                    id: '',
+                    name: params.inputValue.charAt(0).toUpperCase() + params.inputValue.slice(1),
+                    isAddOption: true
+                  });
+                }
+
+                return customOptions;
+              }}
+              renderOption={(props, option) => <li {...props}>{option?.isAddOption ? `Add "${option.name}"` : option.name}</li>}
               onChange={(_, newValue) => {
-                handleCity(newValue ? newValue.id : null);
+                handleCountry(newValue);
               }}
               renderInput={(params) => (
                 <UIStyledInputText
@@ -378,21 +473,61 @@ const VerificationBasicDetails = ({
               <FormattedMessage id="Nationality" /> *
             </VerificationHeaderText>
             <FormControl fullWidth>
-              <UIStyledSelectItemContainer
-                sx={{ '&.MuiInputBase-root': { backgroundColor: 'secondary.500' }, height: '50px' }}
-                name="nationality_id"
-                onChange={handleChange}
-                value={values.nationality_id}
-                error={touched.nationality_id && Boolean(errors.nationality_id)}
-                IconComponent={ExpandMore}
-              >
-                {nationality?.map((type, index: number) => (
-                  <MenuItem key={index} value={type.id} sx={{ padding: '12px 16px' }}>
-                    {type.name}
-                  </MenuItem>
-                ))}
-              </UIStyledSelectItemContainer>
-              {touched.nationality_id && errors.nationality_id && <FormHelperText error>{errors.nationality_id}</FormHelperText>}
+              <UIStyledAutocomplete
+                id="nationality"
+                options={nationality}
+                getOptionLabel={(option) => (typeof option === 'string' ? option : option.name)}
+                value={nationality?.find((c) => c.id == values.nationality_id || c.name == values.nationality_id) ?? ''}
+                disablePortal
+                onChange={(_, newValue) => {
+                  handleNationality(newValue);
+                }}
+                filterOptions={(options, params) => {
+                  const filtered = filter(options, params);
+
+                  const customOptions = filtered.map((option) => {
+                    if (typeof option === 'string') {
+                      return { id: '', name: option };
+                    } else {
+                      return option;
+                    }
+                  });
+
+                  if (params.inputValue !== '') {
+                    customOptions.push({
+                      id: '',
+                      name: params.inputValue.charAt(0).toUpperCase() + params.inputValue.slice(1),
+                      isAddOption: true
+                    });
+                  }
+
+                  return customOptions;
+                }}
+                renderOption={(props, option) => <li {...props}>{option?.isAddOption ? `Add "${option.name}"` : option.name}</li>}
+                renderInput={(params) => (
+                  <UIStyledInputText
+                    {...params}
+                    error={touched.nationality_id && Boolean(errors.nationality_id)}
+                    helperText={touched.nationality_id && errors.nationality_id}
+                    InputProps={{
+                      ...params.InputProps,
+                      type: 'search',
+                      endAdornment: (
+                        <RiArrowDownSLine
+                          style={{
+                            color: '#86838A',
+                            height: '24px',
+                            width: '24px'
+                          }}
+                        />
+                      ),
+                      style: {
+                        paddingRight: '13px'
+                      }
+                    }}
+                  />
+                )}
+              />
             </FormControl>
           </StepTwoInputOuterMainBox>
         </StepTwoMainConatiner>
@@ -403,18 +538,42 @@ const VerificationBasicDetails = ({
         </VerificationUITypography>
         <FormControl fullWidth>
           <UIStyledAutocomplete
+            sx={{ '& .MuiInputBase-root': { padding: '4px' } }}
             multiple
             id="languages"
-            options={[...languages, ...customLanguages]}
-            getOptionLabel={(option) => option.name || ''}
-            value={selectedLanguages}
+            options={languages}
+            getOptionLabel={(option) => (typeof option === 'string' ? option : option.name)}
+            value={values.model_languages}
             disablePortal
             freeSolo
-            onChange={handleCustomLanguageChange}
+            filterOptions={(options, params) => {
+              const filtered = filter(options, params);
+
+              const customOptions = filtered.map((option) => {
+                if (typeof option === 'string') {
+                  return { id: '', name: option };
+                } else {
+                  return option;
+                }
+              });
+
+              if (params.inputValue !== '') {
+                customOptions.push({
+                  id: '',
+                  name: params.inputValue.charAt(0).toUpperCase() + params.inputValue.slice(1),
+                  isAddOption: true
+                });
+              }
+
+              return customOptions;
+            }}
+            onChange={(_, newValue) => {
+              handleCustomLanguageChange(newValue);
+            }}
+            renderOption={(props, option) => <li {...props}>{option?.isAddOption ? `Add "${option.name}"` : option.name}</li>}
             renderInput={(params) => (
-              <TextField
+              <UIStyledInputText
                 {...params}
-                variant="outlined"
                 InputProps={{
                   ...params.InputProps,
                   type: 'search',

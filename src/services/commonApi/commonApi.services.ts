@@ -3,7 +3,7 @@ import axios, { AxiosError } from 'axios';
 export class CommonServices {
   static getCountry = async (token: string) => {
     try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/country`, {
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/country?limit=1000`, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
       });
 
@@ -16,7 +16,7 @@ export class CommonServices {
 
   static getNationality = async (token: string) => {
     try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/nationality`, {
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/nationality?limit=1000`, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
       });
 
@@ -29,7 +29,7 @@ export class CommonServices {
 
   static getLanguages = async (token: string) => {
     try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/languages`, {
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/languages?limit=1000`, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
       });
 
