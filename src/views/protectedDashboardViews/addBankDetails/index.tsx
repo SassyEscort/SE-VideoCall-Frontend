@@ -18,31 +18,48 @@ import theme from 'themes/theme';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { FormattedMessage } from 'react-intl';
+import { ErrorMessage } from 'constants/common.constants';
 
-export type BnakDetails = {
-  bankName: string;
-  accountName: string;
-  ibanNumber: string;
+import { toast } from 'react-toastify';
+import { PayoutService } from 'services/payout/payout.service';
+
+export type BnakDetailsParams = {
+  bank_name: string;
+  account_name: string;
+  iban_number: string;
 };
 const AddbankDetails = () => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
   const validationSchema = yup.object({
-    bankName: yup.string().required('bankName is required'),
-    accountName: yup.string().required('accountName is required'),
-    ibanNumber: yup
+    bank_name: yup.string().required('bankName is required'),
+    account_name: yup.string().required('accountName is required'),
+    iban_number: yup
       .string()
       .required('ibanNumber is required')
       .matches(/^[a-zA-Z0-9]*$/, 'Only alphanumeric characters are allowed in IBAN number.')
   });
+
   return (
     <Formik
       initialValues={{
-        bankName: '',
-        accountName: '',
-        ibanNumber: ''
+        bank_name: '',
+        account_name: '',
+        iban_number: ''
       }}
       validationSchema={validationSchema}
-      onSubmit={(values) => {}}
+      onSubmit={async (values) => {
+        try {
+          const BankDetailsObject = {
+            bank_name: values.bank_name,
+            account_name: values.account_name,
+            iban_number: values.iban_number
+          };
+          const data = await PayoutService.bankDetails(BankDetailsObject, 'token.token');
+          console.log(data, 'iban_number');
+        } catch (error) {
+          toast.error(ErrorMessage);
+        }
+      }}
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
@@ -65,13 +82,13 @@ const AddbankDetails = () => {
                     </UINewTypography>
                     <UIStyledInputText
                       fullWidth
-                      id="bankName"
-                      name="bankName"
-                      value={values.bankName}
+                      id="bank_name"
+                      name="bank_name"
+                      value={values.bank_name}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      error={touched.bankName && Boolean(errors.bankName)}
-                      helperText={touched.bankName && errors.bankName}
+                      error={touched.bank_name && Boolean(errors.bank_name)}
+                      helperText={touched.bank_name && errors.bank_name}
                     />
                   </InputBox>
                   <InputBox>
@@ -80,13 +97,13 @@ const AddbankDetails = () => {
                     </UINewTypography>
                     <UIStyledInputText
                       fullWidth
-                      id="accountName"
-                      name="accountName"
-                      value={values.accountName}
+                      id="account_name"
+                      name="account_name"
+                      value={values.account_name}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      error={touched.accountName && Boolean(errors.accountName)}
-                      helperText={touched.accountName && errors.accountName}
+                      error={touched.account_name && Boolean(errors.account_name)}
+                      helperText={touched.account_name && errors.account_name}
                     />
                   </InputBox>
                   <InputBox>
@@ -95,24 +112,24 @@ const AddbankDetails = () => {
                     </UINewTypography>
                     <UIStyledInputText
                       fullWidth
-                      id="ibanNumber"
-                      name="ibanNumber"
-                      value={values.ibanNumber}
+                      id="iban_number"
+                      name="iban_number"
+                      value={values.iban_number}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      error={touched.ibanNumber && Boolean(errors.ibanNumber)}
-                      helperText={touched.ibanNumber && errors.ibanNumber}
+                      error={touched.iban_number && Boolean(errors.iban_number)}
+                      helperText={touched.iban_number && errors.iban_number}
                     />
                   </InputBox>
                 </InputSecondBox>
               </InputMainBox>
               <ButtonBox>
-                <UIThemeButton variant="contained">
+                <UIThemeButton variant="contained" type="submit">
                   <UINewTypography color={'primary.200'} variant="body">
                     <FormattedMessage id="Confirm" />
                   </UINewTypography>
                 </UIThemeButton>
-                <UINewTypography variant="body" color={'primary.400'}>
+                <UINewTypography variant="body" color={'primary.400'} sx={{ cursor: 'pointer' }}>
                   <FormattedMessage id="Cancel" />
                 </UINewTypography>
               </ButtonBox>

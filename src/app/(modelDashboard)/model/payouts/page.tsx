@@ -1,9 +1,9 @@
-import Payouts from 'views/protectedDashboardViews/payoutRequest';
+import PayoutModel from 'views/protectedDashboardViews/payoutModel';
 
 const page = () => {
   return (
     <>
-      <Payouts />
+      <PayoutModel />
     </>
   );
 };

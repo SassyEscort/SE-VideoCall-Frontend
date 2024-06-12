@@ -10,6 +10,7 @@ export const FAQMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
+  alignItems: 'start',
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(1.5)
   },
@@ -22,7 +23,8 @@ export const FAQSeconndContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   width: '100%',
-  paddingTop: theme.spacing(4)
+  paddingTop: theme.spacing(4),
+  paddingLeft: theme.spacing(3)
 }));
 
 export const FAQConatainer = styled(Box)(({ theme }) => ({
