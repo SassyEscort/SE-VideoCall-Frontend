@@ -49,7 +49,7 @@ const MyProfileContainer = ({
         if (data.code === 200) {
           setOpen(true);
           setActiveStep(1);
-          toast.success(data.message);
+          toast.success('Success');
         } else {
           toast.error(data.error);
         }
@@ -83,7 +83,7 @@ const MyProfileContainer = ({
         const res = await authServices.emailVerify(payload, token.token);
 
         if (res.code === 200) {
-          toast.success(res.message);
+          toast.success('Success');
         } else {
           toast.error(res.message);
         }

@@ -73,7 +73,7 @@ const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; 
           if (typeof data === 'string') {
             toast.error(data);
           } else {
-            toast.success(data.message);
+            toast.success('Success');
             onClose();
           }
         } catch (error) {

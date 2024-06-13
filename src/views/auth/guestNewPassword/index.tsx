@@ -67,7 +67,7 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
             const data = await GuestAuthService.guestResetPassword(resetPasswordObject);
 
             if (data.code === 200) {
-              toast.success('Your password has been updated');
+              toast.success('Success');
               onClose();
             } else {
               toast.error(data.error);

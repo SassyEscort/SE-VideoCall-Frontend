@@ -1,6 +1,5 @@
 'use client';
 
-import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import InvoiceDate from './searchFilters/invoiceDate';
@@ -10,6 +9,7 @@ import {
   FilterMainBox,
   MainBox,
   ResetMainBox,
+  SecondBox,
   StackBox,
   TableBox,
   TypographyBox,
@@ -25,11 +25,11 @@ const PayoutsAndInvoices = () => {
     <>
       <HomeMainContainer>
         <MainBox>
-          <Box>
+          <SecondBox>
             <UINewTypographyBox variant="h2">
               <FormattedMessage id="YourPastPayouts" />
             </UINewTypographyBox>
-          </Box>
+          </SecondBox>
           <FilterDropdownBox>
             <StackBox direction="row">
               <PaginationSearch placeholder={'Search'} />
