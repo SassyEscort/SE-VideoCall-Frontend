@@ -170,14 +170,7 @@ export default function PayoutPageContainer() {
                   {isLoading ? (
                     <TableRow>
                       <TableCell colSpan={10}>
-                        <Box
-                          sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            p: 2
-                          }}
-                        >
+                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2 }}>
                           <CircularProgress />
                         </Box>
                       </TableCell>
@@ -234,14 +227,7 @@ export default function PayoutPageContainer() {
                   ) : (
                     <TableRow>
                       <TableCell colSpan={10}>
-                        <Box
-                          sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            p: 2
-                          }}
-                        >
+                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2 }}>
                           <Typography variant="body1">Payout history not found</Typography>
                         </Box>
                       </TableCell>
