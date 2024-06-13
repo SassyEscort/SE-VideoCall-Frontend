@@ -23,7 +23,8 @@ import {
   Showtracking,
   ShowtrackingBox,
   Pendingconatiner,
-  Pending
+  Pending,
+  TextDetail
 } from './PayoutRequest';
 import PayoutWidthDraw from '../payoutWithDraw';
 
@@ -40,9 +41,9 @@ const PayoutContainer = () => {
   return (
     <MainConatiner>
       <BoxMessage>
-        <UINewTypography variant="h2" color={'text.secondary'}>
+        <TextDetail variant="h2" color={'text.secondary'}>
           Good evening, Aesha
-        </UINewTypography>
+        </TextDetail>
       </BoxMessage>
       <SecondMainContainer>
         <FirstUsdBox>

@@ -17,11 +17,7 @@ export const AddBankDetailsSecondBox = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(6),
   width: '100%',
-  maxWidth: '390px',
-  [theme.breakpoints.down('sm')]: {
-    paddingLeft: '14px',
-    paddingRight: '14px'
-  }
+  maxWidth: '390px'
 }));
 
 export const InputMainBox = styled(Box)(({ theme }) => ({

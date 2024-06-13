@@ -81,7 +81,7 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
       if (token.token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
         if (data) {
-          toast.success(data?.message);
+          toast.success('Success');
           setLiked(true);
         }
       } else {

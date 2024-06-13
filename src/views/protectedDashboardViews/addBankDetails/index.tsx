@@ -22,13 +22,14 @@ import { ErrorMessage } from 'constants/common.constants';
 
 import { toast } from 'react-toastify';
 import { PayoutService } from 'services/payout/payout.service';
+import { TokenIdType } from 'views/protectedModelViews/verification';
 
-export type BnakDetailsParams = {
+export type BankDetailsParams = {
   bank_name: string;
   account_name: string;
   iban_number: string;
 };
-const AddbankDetails = () => {
+const AddbankDetails = ({ token }: { token: TokenIdType }) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
   const validationSchema = yup.object({
     bank_name: yup.string().required('bankName is required'),
@@ -54,86 +55,95 @@ const AddbankDetails = () => {
             account_name: values.account_name,
             iban_number: values.iban_number
           };
-          await PayoutService.bankDetails(BankDetailsObject, 'token.token');
+          const data = await PayoutService.bankDetails(BankDetailsObject, token.token);
+          if (data?.code === 200) {
+            toast.success('Success');
+          } else {
+            toast.error(data.error);
+          }
         } catch (error) {
           toast.error(ErrorMessage);
         }
       }}
     >
-      {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
+      {({ values, errors, touched, handleChange, handleBlur, handleSubmit, handleReset }) => {
         return (
-          <AddBankDetailsContainer>
+          <>
             <Box component="form" onSubmit={handleSubmit}>
-              <PayoutText variant="h2" color={'text.secondary'}>
-                <FormattedMessage id={isSm ? 'Payout' : 'YourPaymentMethods'} />
-              </PayoutText>
-            </Box>
-            <AddBankDetailsSecondBox>
-              <InputMainBox>
-                <AddBankDetail variant="h5" color={'secondary.200'}>
-                  <FormattedMessage id="AddBankDetails" />
-                </AddBankDetail>
+              <AddBankDetailsContainer>
+                <Box>
+                  <PayoutText variant="h2" color="text.secondary">
+                    <FormattedMessage id={isSm ? 'Payout' : 'YourPaymentMethods'} />
+                  </PayoutText>
+                </Box>
+                <AddBankDetailsSecondBox>
+                  <InputMainBox>
+                    <AddBankDetail variant="h5" color="secondary.200">
+                      <FormattedMessage id="AddBankDetails" />
+                    </AddBankDetail>
 
-                <InputSecondBox>
-                  <InputBox>
-                    <UINewTypography variant="bodySemiBold" color={'text.primary'}>
-                      <FormattedMessage id="BankName" />
+                    <InputSecondBox>
+                      <InputBox>
+                        <UINewTypography variant="bodySemiBold" color="text.primary">
+                          <FormattedMessage id="BankName" />
+                        </UINewTypography>
+                        <UIStyledInputText
+                          fullWidth
+                          id="bank_name"
+                          name="bank_name"
+                          value={values.bank_name}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.bank_name && Boolean(errors.bank_name)}
+                          helperText={touched.bank_name && errors.bank_name}
+                        />
+                      </InputBox>
+                      <InputBox>
+                        <UINewTypography variant="bodySemiBold" color="text.primary">
+                          <FormattedMessage id="AccountName" />
+                        </UINewTypography>
+                        <UIStyledInputText
+                          fullWidth
+                          id="account_name"
+                          name="account_name"
+                          value={values.account_name}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.account_name && Boolean(errors.account_name)}
+                          helperText={touched.account_name && errors.account_name}
+                        />
+                      </InputBox>
+                      <InputBox>
+                        <UINewTypography variant="bodySemiBold" color="text.primary">
+                          <FormattedMessage id="IBANNumber" />
+                        </UINewTypography>
+                        <UIStyledInputText
+                          fullWidth
+                          id="iban_number"
+                          name="iban_number"
+                          value={values.iban_number}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.iban_number && Boolean(errors.iban_number)}
+                          helperText={touched.iban_number && errors.iban_number}
+                        />
+                      </InputBox>
+                    </InputSecondBox>
+                  </InputMainBox>
+                  <ButtonBox>
+                    <UIThemeButton variant="contained" type="submit">
+                      <UINewTypography color="primary.200" variant="body">
+                        <FormattedMessage id="Confirm" />
+                      </UINewTypography>
+                    </UIThemeButton>
+                    <UINewTypography variant="body" color="primary.400" sx={{ cursor: 'pointer' }} onClick={handleReset}>
+                      <FormattedMessage id="Cancel" />
                     </UINewTypography>
-                    <UIStyledInputText
-                      fullWidth
-                      id="bank_name"
-                      name="bank_name"
-                      value={values.bank_name}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      error={touched.bank_name && Boolean(errors.bank_name)}
-                      helperText={touched.bank_name && errors.bank_name}
-                    />
-                  </InputBox>
-                  <InputBox>
-                    <UINewTypography variant="bodySemiBold" color={'text.primary'}>
-                      <FormattedMessage id="AccountName" />
-                    </UINewTypography>
-                    <UIStyledInputText
-                      fullWidth
-                      id="account_name"
-                      name="account_name"
-                      value={values.account_name}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      error={touched.account_name && Boolean(errors.account_name)}
-                      helperText={touched.account_name && errors.account_name}
-                    />
-                  </InputBox>
-                  <InputBox>
-                    <UINewTypography variant="bodySemiBold" color={'text.primary'}>
-                      <FormattedMessage id="IBANNumber" />
-                    </UINewTypography>
-                    <UIStyledInputText
-                      fullWidth
-                      id="iban_number"
-                      name="iban_number"
-                      value={values.iban_number}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      error={touched.iban_number && Boolean(errors.iban_number)}
-                      helperText={touched.iban_number && errors.iban_number}
-                    />
-                  </InputBox>
-                </InputSecondBox>
-              </InputMainBox>
-              <ButtonBox>
-                <UIThemeButton variant="contained" type="submit">
-                  <UINewTypography color={'primary.200'} variant="body">
-                    <FormattedMessage id="Confirm" />
-                  </UINewTypography>
-                </UIThemeButton>
-                <UINewTypography variant="body" color={'primary.400'} sx={{ cursor: 'pointer' }}>
-                  <FormattedMessage id="Cancel" />
-                </UINewTypography>
-              </ButtonBox>
-            </AddBankDetailsSecondBox>
-          </AddBankDetailsContainer>
+                  </ButtonBox>
+                </AddBankDetailsSecondBox>
+              </AddBankDetailsContainer>
+            </Box>
+          </>
         );
       }}
     </Formik>
