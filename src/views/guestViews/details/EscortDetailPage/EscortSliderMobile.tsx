@@ -78,9 +78,11 @@ const EscortSliderMobile = ({ workerPhotos, modelId, token }: { workerPhotos: Wo
     try {
       if (token.token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
-        if (data) {
+        if (data?.code === 200) {
           toast.success('Success');
           setLiked(true);
+        } else {
+          toast.error(ErrorMessage);
         }
       } else {
         setIsOpenLogin(true);

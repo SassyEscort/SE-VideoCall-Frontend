@@ -1,5 +1,4 @@
 'use client';
-
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { EscortSlider } from './EscortSlider';
 import { useMediaQuery } from '@mui/material';
@@ -17,6 +16,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 
 const EscortDetailPage = () => {
+  const userName = window.location.href.split('/details/')[1];
   const [guestData, setGuestData] = useState<ModelDetailsResponse>();
 
   const isLgDown = useMediaQuery(theme.breakpoints.down('lg'));
@@ -36,7 +36,7 @@ const EscortDetailPage = () => {
   useEffect(() => {
     const fetchGuestData = async () => {
       try {
-        const data = await GuestDetailsService.GuestModelDetails();
+        const data = await GuestDetailsService.GuestModelDetails(userName);
 
         if (data.code === 200) {
           setGuestData(data.data);
