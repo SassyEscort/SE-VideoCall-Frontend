@@ -19,7 +19,7 @@ const HomeImageCard = ({ modelListing }: { modelListing: ModelHomeListing[] }) =
                   component={Link}
                   prefetch={true}
                   shallow={true}
-                  href={`/details/${item.id}`}
+                  href={`/details/${item.user_name}`}
                   sx={{
                     textDecoration: 'none',
                     height: '100%'
