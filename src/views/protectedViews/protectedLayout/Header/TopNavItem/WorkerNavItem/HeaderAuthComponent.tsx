@@ -2,7 +2,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
-import LanguageDropdown from 'components/common/LanguageDropdown';
 import { Menu, MenuItem, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import ProfileMenu from './ProfileMenu';
@@ -76,9 +75,9 @@ const HeaderAuthComponent = () => {
   return (
     <>
       <Box display="flex" alignItems="center" gap={{ xs: 2.5, sm: 4.5 }}>
-        <Box display="flex">
+        {/* <Box display="flex">
           <LanguageDropdown />
-        </Box>
+        </Box> */}
         {isMdUp && (
           <Box alignItems="center" gap={1} display="flex">
             <Box component="img" src="/images/header/coin.png" />

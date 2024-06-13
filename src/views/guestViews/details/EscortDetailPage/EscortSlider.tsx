@@ -1,7 +1,7 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import 'yet-another-react-lightbox/plugins/captions.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
 import 'swiper/css';
@@ -17,6 +17,8 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import Image from 'next/image';
 import UIStyledShadowButtonLike from 'components/UIComponents/UIStyledShadowButtonLike';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {
   DullCirclesEscort,
@@ -37,6 +39,7 @@ import GuestLogin from 'views/auth/guestLogin';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestSignup from 'views/auth/guestSignup';
+import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
 export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: WorkerPhotos[]; modelId: number; token: TokenIdType }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
@@ -44,6 +47,7 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  const swiperRef = useRef<SwiperRef | any>();
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -92,6 +96,17 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
     }
   };
 
+  const handleNext = () => {
+    if (swiperRef.current) {
+      swiperRef.current.slideNext();
+    }
+  };
+  const handlePrevious = () => {
+    if (swiperRef.current) {
+      swiperRef.current.slidePrev();
+    }
+  };
+
   return (
     <>
       <DullCirclesEscort />
@@ -113,21 +128,45 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
             ))}
           </Swiper>
         </FirstSwiperInnerContainer>
-        <SwiperContainer>
-          <Swiper
-            onSwiper={setThumbsSwiper}
-            spaceBetween={12}
-            slidesPerView={3}
-            watchSlidesProgress={true}
-            modules={[Navigation, Thumbs, FreeMode]}
+        <Box display="flex" flexDirection="column" gap={1}>
+          <UIThemeButton
+            variant="contained"
+            onClick={handleNext}
+            sx={{
+              '&.MuiButton-contained': { backgroundColor: 'secondary.500', ':hover': { backgroundColor: 'secondary.500' } },
+              py: 0,
+              '&.MuiButton-root': { height: 'fit-content' }
+            }}
           >
-            {workerPhotos.map((imageSrc, index) => (
-              <SwiperSlide style={{ paddingTop: index === 0 ? '24px' : '12px', width: '100%', minWidth: '148px' }} key={index}>
-                <EscortSwiperPhotoContainer image={imageSrc.link} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </SwiperContainer>
+            <KeyboardArrowUpRoundedIcon sx={{ color: 'text.primary' }} />
+          </UIThemeButton>
+          <SwiperContainer>
+            <Swiper
+              onSwiper={setThumbsSwiper}
+              spaceBetween={12}
+              slidesPerView={3}
+              watchSlidesProgress={true}
+              modules={[Navigation, Thumbs, FreeMode]}
+            >
+              {workerPhotos.map((imageSrc, index) => (
+                <SwiperSlide style={{ paddingTop: index === 0 ? '0px' : '12px', width: '100%', minWidth: '148px' }} key={index}>
+                  <EscortSwiperPhotoContainer image={imageSrc.link} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </SwiperContainer>
+          <UIThemeButton
+            variant="contained"
+            onClick={handlePrevious}
+            sx={{
+              '&.MuiButton-contained': { backgroundColor: 'secondary.500', ':hover': { backgroundColor: 'secondary.500' } },
+              py: 0,
+              '&.MuiButton-root': { height: 'fit-content' }
+            }}
+          >
+            <KeyboardArrowDownRoundedIcon sx={{ color: 'text.primary' }} />
+          </UIThemeButton>
+        </Box>
       </FirstSwiperMainContainer>
       <Box
         sx={{

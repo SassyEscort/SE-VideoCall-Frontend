@@ -160,8 +160,11 @@ export const SwiperContainer = styled(Box)(() => ({
   overflow: 'auto',
   '& .swiper-wrapper': { display: 'flex', flexDirection: 'column' },
   '&::-webkit-scrollbar': {
-    width: '1px',
-    display: 'none'
+    background: 'transparent',
+    width: 12
+  },
+  '&::-webkit-scrollbar-thumb': {
+    background: '#100B19'
   }
 }));
 

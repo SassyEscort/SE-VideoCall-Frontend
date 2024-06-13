@@ -52,6 +52,14 @@ const HomeTopBanner = () => {
     setOpenForgetPassLink(false);
   };
 
+  const handleClickScroll = () => {
+    const element = document.querySelector(`#scroll-to-model`) as HTMLElement;
+    element?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
+
   return (
     <>
       <BannerContainer>
@@ -103,7 +111,7 @@ const HomeTopBanner = () => {
                 <FormattedMessage id="JoinForFREE" />
               </UINewTypography>
             </UIThemeShadowButton>
-            <UIThemeButton>
+            <UIThemeButton onClick={handleClickScroll}>
               <UINewTypography variant="bodySemiBold" sx={{ paddingTop: { xs: 2, sm: 0 }, lineHeight: '120%' }}>
                 <FormattedMessage id="ExploreModels" />
               </UINewTypography>
@@ -129,7 +137,15 @@ const HomeTopBanner = () => {
           />
         </Box>
       </BannerContainer>
-      <Box width="100%" pt={{ xs: '96px', lg: '120px' }} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+      <Box
+        id="scroll-to-model"
+        width="100%"
+        pt={{ xs: '96px', lg: '120px' }}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+      >
         <HomeExploreBox>
           <UINewTypography
             textAlign="center"
