@@ -17,7 +17,8 @@ import {
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import AddbankDetails from '../addBankDetails';
-const PayoutBankInformation = () => {
+import { TokenIdType } from 'views/protectedModelViews/verification';
+const PayoutBankInformation = ({ token }: { token: TokenIdType }) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [open, setOpen] = useState(false);
@@ -29,7 +30,7 @@ const PayoutBankInformation = () => {
   return (
     <>
       {open ? (
-        <AddbankDetails />
+        <AddbankDetails token={token} />
       ) : (
         <MainConatiner>
           <Payout variant="h2" color={'text.secondary'}>

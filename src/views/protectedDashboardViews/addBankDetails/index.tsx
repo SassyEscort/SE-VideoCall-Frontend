@@ -22,13 +22,14 @@ import { ErrorMessage } from 'constants/common.constants';
 
 import { toast } from 'react-toastify';
 import { PayoutService } from 'services/payout/payout.service';
+import { TokenIdType } from 'views/protectedModelViews/verification';
 
 export type BnakDetailsParams = {
   bank_name: string;
   account_name: string;
   iban_number: string;
 };
-const AddbankDetails = () => {
+const AddbankDetails = ({ token }: { token: TokenIdType }) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
   const validationSchema = yup.object({
     bank_name: yup.string().required('bankName is required'),
@@ -54,7 +55,7 @@ const AddbankDetails = () => {
             account_name: values.account_name,
             iban_number: values.iban_number
           };
-          const data = await PayoutService.bankDetails(BankDetailsObject, 'token.token');
+          const data = await PayoutService.bankDetails(BankDetailsObject, token.token);
           if (data?.code === 200) {
             toast.success('Success');
           } else {
