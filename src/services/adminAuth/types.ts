@@ -16,3 +16,11 @@ export type AdminLoginData = {
 export type AdminLoginResponse = GenericResponse & {
   data: AdminLoginData;
 };
+
+export type AdminForgotPasswordRequest = {
+  email: string;
+};
+
+export type AdminForgotPasswordResponse = GenericResponse & {
+  data: string;
+};

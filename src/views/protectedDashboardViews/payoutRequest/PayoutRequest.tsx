@@ -13,14 +13,19 @@ export const MainConatiner = styled(Box)(({ theme }) => ({
   paddingLeft: theme.spacing(3),
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(3),
-    paddingLeft: '15px',
-    paddingRight: '15px'
+    paddingLeft: theme.spacing(0)
   }
 }));
 
 export const BoxMessage = styled(Box)(({ theme }) => ({
   display: 'flex'
 }));
+export const TextDetail = styled(UINewTypography)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '24px !important'
+  }
+}));
+
 export const SecondMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
