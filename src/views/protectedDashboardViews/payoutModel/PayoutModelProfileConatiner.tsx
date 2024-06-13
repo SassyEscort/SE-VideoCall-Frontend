@@ -1,7 +1,7 @@
 'use client';
 import { MenuItem } from '@mui/material';
 import { SidebarDropDownMainContainer } from '../sidebarDropDown/SidebarDropDown.styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
@@ -20,6 +20,11 @@ import {
   SecondDivider,
   ThirdBox
 } from './PayoutModelProfileConatiner.styled';
+import PayoutPaymentConatiner from '../payoutPaymentContainer';
+import { toast } from 'react-toastify';
+import { PayoutService } from 'services/payout/payout.service';
+import { ErrorMessage } from 'constants/common.constants';
+import { BankDetailsListRes } from 'services/payout/types';
 
 const payoutMenuList = [
   { menuName: <FormattedMessage id="RequestPayout" />, id: 0 },
@@ -36,11 +41,38 @@ const PayoutModelProfileConatiner = ({
   token: TokenIdType;
   handleModelApiChange: () => void;
 }) => {
+  const [bankDetailsList, setBankDetailsList] = useState<BankDetailsListRes>();
   const [menuId, setMenuId] = useState(0);
+  const [menuProfileId, setMenuProfileId] = useState(0);
 
   const handleMenu = (id: number) => {
     setMenuId(id);
   };
+
+  useEffect(() => {
+    const fetchBankDetails = async () => {
+      try {
+        const BankListObject = {
+          limit: 5,
+          offset: 0
+        };
+        const data = await PayoutService.bankDetailsList(token.token, BankListObject);
+        if (data) {
+          setBankDetailsList(data);
+        }
+      } catch (error) {
+        toast.error(ErrorMessage);
+      }
+    };
+
+    fetchBankDetails();
+  }, [token.token]);
+
+  useEffect(() => {
+    if (bankDetailsList?.data?.bank_details.length) {
+      setMenuProfileId(1);
+    }
+  }, [bankDetailsList]);
 
   return (
     <MainConatiner>
@@ -77,7 +109,11 @@ const PayoutModelProfileConatiner = ({
           {menuId === 0 ? (
             <PayoutContainer />
           ) : menuId === 1 ? (
-            <PayoutBankInformation token={token} />
+            menuProfileId === 0 ? (
+              <PayoutBankInformation token={token} />
+            ) : (
+              <PayoutPaymentConatiner bankDetailsList={bankDetailsList ?? ({} as BankDetailsListRes)} />
+            )
           ) : menuId === 2 ? (
             <PayoutsAndInvoices />
           ) : (
