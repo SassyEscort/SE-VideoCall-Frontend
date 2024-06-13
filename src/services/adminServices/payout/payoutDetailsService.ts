@@ -26,13 +26,12 @@ export type payoutResponse = {
   message: string;
 };
 export class payoutDetailsService {
-  static getPayoutDetails = async (token: string): Promise<payoutResponse> => {
+  static getPayoutDetails = async (token: string, limit: number, offset: number): Promise<payoutResponse> => {
     try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/payouts`, {
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/payouts?limit=${limit}&offset=${offset}`, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImFkbWluMSIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE4MTczODk3LCJleHAiOjE3MTgyNjAyOTd9.zjaWWPX5bzmPuZec7tu7eaDXYBB22IJE9Sya4I1QON4'
+          Authorization: token
         }
       });
 

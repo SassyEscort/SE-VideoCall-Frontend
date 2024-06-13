@@ -15,9 +15,24 @@ import Box from '@mui/material/Box';
 import { Chip, CircularProgress, IconButton, MenuItem, Popover } from '@mui/material';
 import moment from 'moment';
 import { MoreVert, Visibility } from '@mui/icons-material';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { payoutDetailsService } from 'services/adminServices/payout/payoutDetailsService';
 import PayoutModel from './PayoutModel';
+import { getUserDataClient } from 'utils/getSessionData';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import { PaginationSortByOption } from 'components/common/CustomPaginations/type';
+import PaginationSortBy from 'components/common/CustomPaginations/PaginationSortBy';
+import { PAGE_SIZE } from 'constants/pageConstants';
+import PaginationSearch from 'components/common/CustomPaginations/PaginationSearch';
+import TablePager from 'components/common/CustomPaginations/TablePager';
+
+export type PaginationType = {
+  page: number;
+  pageSize: number;
+  orderField: string;
+  orderType: string;
+  filterText: string;
+};
 
 export default function PayoutPageContainer() {
   const [selectedPayoutData, setSelectedPayoutData] = useState(null);
@@ -26,14 +41,42 @@ export default function PayoutPageContainer() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [creditModalOpen, setCreditModalOpen] = useState(false);
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [totalRecords, setTotalRecords] = useState(0);
+
+  const [filters, setFilters] = useState<PaginationType>({
+    page: 0,
+    pageSize: PAGE_SIZE,
+    orderField: 'newest',
+    orderType: 'desc',
+    filterText: ''
+  });
+
+  const SORT_BY_OPTIONS: PaginationSortByOption[] = [
+    { value: 'name', label: 'Name' },
+    { value: 'email', label: 'Email' },
+    { value: 'amount', label: 'Amount' }
+  ];
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+
+      if (data) {
+        setToken({ id: data.id, token: data.token });
+      }
+    };
+
+    userToken();
+  }, [token.token]);
 
   const handelFetch = async () => {
     setIsLoading(true);
-    const res = await payoutDetailsService.getPayoutDetails();
+    const res = await payoutDetailsService.getPayoutDetails(token.token, filters.pageSize, filters.page);
 
     if (res) {
       if (res.code == 200) {
         setData(res?.data?.payout_details);
+        setTotalRecords(res.data.aggregate.total_rows);
       }
     }
     setIsLoading(false);
@@ -54,9 +97,48 @@ export default function PayoutPageContainer() {
     setCreditModalOpen(false);
   };
 
+  const handleChangeFilter = useCallback((value: PaginationType) => {
+    setFilters(value);
+  }, []);
+
+  const handleChangePage = useCallback(
+    (value: number) => {
+      handleChangeFilter({ ...filters, page: value });
+    },
+    [filters, handleChangeFilter]
+  );
+
+  const handleChangePageSize = useCallback(
+    (value: number) => {
+      handleChangeFilter({ ...filters, pageSize: value, page: 1 });
+    },
+    [filters, handleChangeFilter]
+  );
+
+  const handleChangeOrderBy = useCallback(
+    (field: string, type: string) => {
+      handleChangeFilter({
+        ...filters,
+        orderType: type,
+        orderField: field,
+        page: 1
+      });
+    },
+    [filters, handleChangeFilter]
+  );
+
+  const handleChangeSearch = useCallback(
+    (val: string) => {
+      handleChangeFilter({ ...filters, filterText: val, page: 1 });
+    },
+    [filters, handleChangeFilter]
+  );
+
   useEffect(() => {
     handelFetch();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token.token, filters.page, filters.pageSize]);
+
   return (
     <MainLayout>
       <Container maxWidth="xl">
@@ -65,7 +147,17 @@ export default function PayoutPageContainer() {
             Payout History
           </Typography>
         </Stack>
-
+        <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent="space-between" mb={1}>
+          <PaginationSearch placeholder="Search..." handleChangeSearch={handleChangeSearch} />
+        </Stack>
+        <Box sx={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
+          <PaginationSortBy
+            sortByOptions={SORT_BY_OPTIONS}
+            orderField={filters.orderField}
+            orderType={filters.orderType}
+            handleChangeOrderBy={handleChangeOrderBy}
+          />
+        </Box>
         <Card>
           <Paper sx={{ overflow: 'hidden' }}>
             <TableContainer sx={{ width: '100%' }}>
@@ -155,6 +247,17 @@ export default function PayoutPageContainer() {
                 </TableBody>
               </Table>
             </TableContainer>
+            {data && data.length > 0 && (
+              <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
+                <TablePager
+                  page={filters.page}
+                  rowsPerPage={filters.pageSize}
+                  handleChangePage={handleChangePage}
+                  handleChangePageSize={handleChangePageSize}
+                  totalRecords={totalRecords}
+                />
+              </Box>
+            )}
           </Paper>
         </Card>
       </Container>

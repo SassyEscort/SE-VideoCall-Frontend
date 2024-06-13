@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { ErrorMessage } from 'constants/common.constants';
+import axios, { AxiosError } from 'axios';
 
 export type withdrawParams = {
   withdrawal_amt: string;
@@ -13,18 +12,18 @@ export type withdrawresponse = {
 };
 
 export class withdrawMinAmountServices {
-  static withdrawMinAmount = async (params: withdrawParams): Promise<withdrawresponse | string> => {
+  static withdrawMinAmount = async (params: withdrawParams, token: string): Promise<withdrawresponse> => {
     try {
       const res = await axios.post<withdrawresponse>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/model/withdrawal-amount`, params, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImFkbWluMSIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE4MTczODk3LCJleHAiOjE3MTgyNjAyOTd9.zjaWWPX5bzmPuZec7tu7eaDXYBB22IJE9Sya4I1QON4'
+          Authorization: token
         }
       });
       return res.data;
-    } catch (error) {
-      return ErrorMessage;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as withdrawresponse;
     }
   };
 }

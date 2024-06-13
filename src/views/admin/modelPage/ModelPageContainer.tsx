@@ -101,25 +101,23 @@ export default function ModelPageContainer() {
     setIsLoading(false);
     if (token.token) {
       const data = await adminModelServices.getModelList(token.token, filters.pageSize, filters.page);
-      setTotalRecords(data.aggregate.total_rows);
-      setModelData(data.model_details);
+      setTotalRecords(data?.aggregate?.total_rows);
+      setModelData(data?.model_details);
     }
   };
-
-  useEffect(() => {
-    fetchModelData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.token]);
 
   const handleModelListRefetch = useCallback(() => {
     fetchModelData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, filters.page, filters.pageSize]);
+  }, [token]);
+  useEffect(() => {
+    fetchModelData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token.token, filters.page, filters.pageSize]);
 
   const handleChangePage = useCallback(
     (value: number) => {
-      const offset = filters.pageSize * value - filters.pageSize;
-      handleChangeFilter({ ...filters, page: offset });
+      handleChangeFilter({ ...filters, page: value });
     },
     [filters, handleChangeFilter]
   );
@@ -223,8 +221,8 @@ export default function ModelPageContainer() {
                           </Box>
                         </TableCell>
                       </TableRow>
-                    ) : modelData.length ? (
-                      modelData.map((item, index) => (
+                    ) : modelData?.length ? (
+                      modelData?.map((item, index) => (
                         <TableRow
                           key={index}
                           sx={{
@@ -290,7 +288,7 @@ export default function ModelPageContainer() {
                   </TableBody>
                 </Table>
               </TableContainer>
-              {modelData && modelData.length > 0 && (
+              {modelData && modelData?.length > 0 && (
                 <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
                   <TablePager
                     page={filters.page}

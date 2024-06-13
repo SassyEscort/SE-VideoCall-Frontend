@@ -15,11 +15,12 @@ import InputAdornment from '@mui/material/InputAdornment';
 import MainLayout from '../layouts/AdminLayout/DashboardLayout';
 import { withdrawMinAmountServices } from 'services/adminServices/withdrawconfiguration/withdrawConfiguration.services';
 import { getUserDataClient } from 'utils/getSessionData';
+import { toast } from 'react-toastify';
 
 export default function WithdrawConfigurationContainer() {
   const [data, setData] = useState('100');
   const [isLoading, setIsLoading] = useState(false);
-  const [token, setToken] = useState({ token: '' });
+  const [token, setToken] = useState('');
 
   const validationSchema = yup.object({
     withdrawal_amt: yup.number().required('minimum withdraw amount is required')
@@ -28,20 +29,26 @@ export default function WithdrawConfigurationContainer() {
   const handleFormSubmit = async (values: any) => {
     setIsLoading(true);
 
-    const res = await withdrawMinAmountServices.withdrawMinAmount(values);
+    const res = await withdrawMinAmountServices.withdrawMinAmount(values, token);
     if (res) {
-      setData(values.withdrawal_amt);
+      if (res.code === 200) {
+        setData(values.withdrawal_amt);
+        toast.success(res.message);
+      } else {
+        toast.error(res.message);
+      }
     }
     setIsLoading(false);
   };
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
-      setToken({ token: data.token });
+      setToken(data.token);
     };
 
     userToken();
   }, []);
+
   return (
     <>
       <MainLayout>
