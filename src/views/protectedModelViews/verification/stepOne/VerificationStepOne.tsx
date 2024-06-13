@@ -126,19 +126,29 @@ const VerificationBasicDetails = ({
 
   const handleCountry = async (val: string | MultipleOptionString | (string | MultipleOptionString)[] | null) => {
     if (val !== null) {
-      if (typeof val !== 'string') {
+      let selectedCountry: MultipleOptionString | undefined;
+      if (Array.isArray(val)) {
+        selectedCountry = val[0] as MultipleOptionString;
+      } else {
+        selectedCountry = val as MultipleOptionString;
+      }
+      const existingCountry = countries.find((country) => country.name === selectedCountry?.name);
+      if (typeof val !== 'string' && existingCountry) setFieldValue('country_id', val.id);
+      if (typeof val !== 'string' && !existingCountry) {
         if (Array.isArray(val)) {
           const firstVal = val[0];
           if (typeof firstVal !== 'string' && firstVal.name) {
             const res = await ModelVerificationService.modelCountry({ country: firstVal.name }, token.token);
             setFieldValue('country_id', res.data.id);
+
             if (res.code === 200) {
               handleCountryApiChange();
             }
           }
         } else if (val.name) {
           const res = await ModelVerificationService.modelCountry({ country: val.name }, token.token);
-          setFieldValue('country_id', res.data.id);
+          setFieldValue('country_id', res?.data?.id);
+
           if (res.code === 200) {
             handleCountryApiChange();
           }
@@ -149,7 +159,17 @@ const VerificationBasicDetails = ({
 
   const handleNationality = async (val: string | MultipleOptionString | (string | MultipleOptionString)[] | null) => {
     if (val !== null) {
-      if (typeof val !== 'string') {
+      let selectedNationality: MultipleOptionString | undefined;
+      if (Array.isArray(val)) {
+        selectedNationality = val[0] as MultipleOptionString;
+      } else {
+        selectedNationality = val as MultipleOptionString;
+      }
+
+      const existingNationality = nationality.find((nationality) => nationality.name === selectedNationality?.name);
+      if (typeof val !== 'string' && existingNationality) setFieldValue('nationality_id', val.id);
+
+      if (typeof val !== 'string' && !existingNationality) {
         if (Array.isArray(val)) {
           const firstVal = val[0];
           if (typeof firstVal !== 'string' && firstVal.name) {
