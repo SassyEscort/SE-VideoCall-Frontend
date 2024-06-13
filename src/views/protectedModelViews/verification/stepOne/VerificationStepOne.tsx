@@ -55,7 +55,9 @@ export type MultipleOptionString = {
   name: string;
   isAddOption?: boolean;
 };
-
+const isMultipleOptionString = (val: any): val is MultipleOptionString => {
+  return typeof val === 'object' && val !== null && 'id' in val && 'name' in val;
+};
 export type FilterInput = {
   name: string;
   inputValue: string;
@@ -133,7 +135,7 @@ const VerificationBasicDetails = ({
         selectedCountry = val as MultipleOptionString;
       }
       const existingCountry = countries.find((country) => country.name === selectedCountry?.name);
-      if (typeof val !== 'string' && existingCountry) setFieldValue('country_id', val.id);
+      if (isMultipleOptionString(val) && existingCountry) setFieldValue('country_id', val.id);
       if (typeof val !== 'string' && !existingCountry) {
         if (Array.isArray(val)) {
           const firstVal = val[0];
@@ -167,7 +169,7 @@ const VerificationBasicDetails = ({
       }
 
       const existingNationality = nationality.find((nationality) => nationality.name === selectedNationality?.name);
-      if (typeof val !== 'string' && existingNationality) setFieldValue('nationality_id', val.id);
+      if (isMultipleOptionString(val) && existingNationality) setFieldValue('nationality_id', val.id);
 
       if (typeof val !== 'string' && !existingNationality) {
         if (Array.isArray(val)) {
