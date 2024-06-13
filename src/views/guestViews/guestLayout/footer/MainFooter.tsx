@@ -82,7 +82,7 @@ const MainFooter = () => {
                     </UINewTypography>
 
                     <UINewTypography variant="SubtitleSmallRegular">
-                      <Link prefetch={false} href="/privacy-statement">
+                      <Link prefetch={false} href="/faq">
                         <FormattedMessage id="FAQs" />
                       </Link>
                     </UINewTypography>

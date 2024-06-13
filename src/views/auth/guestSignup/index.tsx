@@ -252,8 +252,8 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           pb={3}
                           sx={{ flexDirection: isSm ? 'column' : 'row' }}
                         >
-                          <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
-                            <FormattedMessage id="RememberPassword" />
+                          <UINewTypography variant="buttonLargeMenu" color="text.secondary" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
+                            <FormattedMessage id="HaveAnAccount" />
                           </UINewTypography>
                           <UINewTypography
                             whiteSpace="nowrap"
