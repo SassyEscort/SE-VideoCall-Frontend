@@ -2,7 +2,7 @@ import Popover from '@mui/material/Popover';
 import { styled } from '@mui/system';
 import DialogContent from '@mui/material/DialogContent';
 
-export const DetailsDialogContent = styled(DialogContent)(({ theme }) => ({
+export const DetailsDialogContent = styled(DialogContent)(() => ({
   '& td': {
     minWidth: '130px',
     wordBreak: 'break-all',

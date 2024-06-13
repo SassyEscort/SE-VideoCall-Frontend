@@ -16,6 +16,7 @@ import MainLayout from '../layouts/AdminLayout/DashboardLayout';
 import { withdrawMinAmountServices } from 'services/adminServices/withdrawconfiguration/withdrawConfiguration.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import { toast } from 'react-toastify';
+import { ErrorMessage } from 'constants/common.constants';
 
 export default function WithdrawConfigurationContainer() {
   const [data, setData] = useState('100');
@@ -33,9 +34,9 @@ export default function WithdrawConfigurationContainer() {
     if (res) {
       if (res.code === 200) {
         setData(values.withdrawal_amt);
-        toast.success('Successfully updated withdraw amount');
+        toast.success('Success');
       } else {
-        toast.error('Something went wrong');
+        toast.error(ErrorMessage);
       }
     }
     setIsLoading(false);
