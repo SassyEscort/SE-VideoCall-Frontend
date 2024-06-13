@@ -80,9 +80,11 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
     try {
       if (token.token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
-        if (data) {
-          toast.success(data?.message);
+        if (data?.code === 200) {
+          toast.success('Success');
           setLiked(true);
+        } else {
+          toast.error(ErrorMessage);
         }
       } else {
         setIsOpenLogin(true);
