@@ -1,13 +1,8 @@
 import axios, { AxiosError } from 'axios';
+import { PaginationAggregation } from 'services/adminModel/adminModel.services';
 
 export type Language = {
   language_name: string;
-};
-
-export type Aggregate = {
-  total_rows: number;
-  page_size: number;
-  offset: number;
 };
 
 export type ModelHomeListing = {
@@ -26,7 +21,7 @@ export type ModelHomeListing = {
 
 export type ModelListingRes = {
   model_details: ModelHomeListing[];
-  aggregate: Aggregate;
+  aggregate: PaginationAggregation;
 };
 
 export class ModelListingService {
