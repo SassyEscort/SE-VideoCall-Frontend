@@ -145,7 +145,7 @@ const theme2 = createTheme({
   palette: {
     mode: 'light',
     text: {
-      primary: '#B7B5B9',
+      primary: '#000000DE',
       secondary: '#E9E8EB',
       disabled: '#58535E'
     },

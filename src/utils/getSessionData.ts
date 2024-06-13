@@ -1,6 +1,17 @@
 import { getSession } from 'next-auth/react';
 import { getAuthUser } from './authOptions';
 
+export type SessionAuth = {
+  name?: string | null | undefined;
+  email?: string | null | undefined;
+  image?: string | null | undefined;
+  picture?: string | null | undefined;
+};
+
+export type SessionResponse = {
+  user: SessionAuth;
+};
+
 export const getUserTokenServer = async () => {
   const details = await getUserDataServer();
   return details.token;
@@ -20,12 +31,15 @@ export const getUserTokenClient = async () => {
 
 export const getUserDataClient = async () => {
   const session = await getSession();
-  const details = session?.user?.image;
-  if (details) {
-    const data = JSON.parse(details!);
-    return data;
-  } else {
-    return '';
+  if (session) {
+    const sessionNew = session as SessionResponse;
+    const details = sessionNew?.user?.picture;
+    if (details) {
+      const data = JSON.parse(details!);
+      return data;
+    } else {
+      return null;
+    }
   }
 };
 
