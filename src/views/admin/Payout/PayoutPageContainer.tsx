@@ -28,6 +28,7 @@ import TablePager from 'components/common/CustomPaginations/TablePager';
 
 export type PaginationType = {
   page: number;
+  offset: number;
   pageSize: number;
   orderField: string;
   orderType: string;
@@ -46,6 +47,7 @@ export default function PayoutPageContainer() {
 
   const [filters, setFilters] = useState<PaginationType>({
     page: 0,
+    offset: 0,
     pageSize: PAGE_SIZE,
     orderField: 'newest',
     orderType: 'desc',
@@ -71,7 +73,7 @@ export default function PayoutPageContainer() {
 
   const handelFetch = async () => {
     setIsLoading(true);
-    const res = await payoutDetailsService.getPayoutDetails(token.token, filters.pageSize, filters.page);
+    const res = await payoutDetailsService.getPayoutDetails(token.token, filters.pageSize, filters.offset);
 
     if (res) {
       if (res.code == 200) {
@@ -103,7 +105,8 @@ export default function PayoutPageContainer() {
 
   const handleChangePage = useCallback(
     (value: number) => {
-      handleChangeFilter({ ...filters, page: value });
+      const offset = (value - 1) * filters.pageSize;
+      handleChangeFilter({ ...filters, page: value, offset: offset });
     },
     [filters, handleChangeFilter]
   );

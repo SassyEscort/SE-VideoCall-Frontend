@@ -37,6 +37,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 
 export type WorkersPaginationType = {
   page: number;
+  offset: number;
   pageSize: number;
   orderField: string;
   orderType: string;
@@ -74,6 +75,7 @@ export default function ModelPageContainer() {
   const [filters, setFilters] = useState<WorkersPaginationType>({
     page: 0,
     pageSize: PAGE_SIZE,
+    offset: 0,
     orderField: 'newest',
     orderType: 'desc',
     filterText: '',
@@ -100,7 +102,7 @@ export default function ModelPageContainer() {
   const fetchModelData = async () => {
     setIsLoading(false);
     if (token.token) {
-      const data = await adminModelServices.getModelList(token.token, filters.pageSize, filters.page);
+      const data = await adminModelServices.getModelList(token.token, filters.pageSize, filters.offset);
       setTotalRecords(data?.aggregate?.total_rows);
       setModelData(data?.model_details);
     }
@@ -117,7 +119,8 @@ export default function ModelPageContainer() {
 
   const handleChangePage = useCallback(
     (value: number) => {
-      handleChangeFilter({ ...filters, page: value });
+      const offset = (value - 1) * filters.pageSize;
+      handleChangeFilter({ ...filters, page: value, offset: offset });
     },
     [filters, handleChangeFilter]
   );
