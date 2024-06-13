@@ -22,7 +22,7 @@ import { BankDetailsListRes, PayoutService } from 'services/payout/payout.servic
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 
-export type BnakListParams = {
+export type BankListParams = {
   limit: number;
   offset: number;
 };

@@ -40,12 +40,10 @@ export const SecondBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(3),
-  paddingLeft: theme.spacing(3),
-  paddingRight: theme.spacing(3),
   paddingBottom: theme.spacing(4),
-  [theme.breakpoints.down('sm')]: {
-    paddingLeft: theme.spacing(1.875),
-    paddingRight: theme.spacing(1.875)
+  [theme.breakpoints.up('sm')]: {
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3)
   }
 }));
 

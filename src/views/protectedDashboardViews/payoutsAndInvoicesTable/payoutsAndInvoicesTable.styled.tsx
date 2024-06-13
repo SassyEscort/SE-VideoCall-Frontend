@@ -30,7 +30,15 @@ export const StatusBox = styled(Box)(() => ({
 export const MainBox = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '741px',
-  paddingLeft: theme.spacing(3)
+  [theme.breakpoints.up('sm')]: {
+    paddingLeft: theme.spacing(3)
+  }
+}));
+
+export const SecondBox = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    paddingTop: theme.spacing(4)
+  }
 }));
 
 export const TypographyBox = styled(Box)(({ theme }) => ({

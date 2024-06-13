@@ -40,7 +40,7 @@ export default function LoginForm() {
       const res = await signIn('providerAdmin', { redirect: false, email: values.email, password: values.password });
       if (res?.status === 200) {
         push('/admin');
-        toast.success('Login successfully');
+        toast.success('Success');
       } else if (res?.error) {
         setAlert(res.error === 'CredentialsSignin' ? 'Invalid email or password' : 'Something went wrong! Please try again');
       }

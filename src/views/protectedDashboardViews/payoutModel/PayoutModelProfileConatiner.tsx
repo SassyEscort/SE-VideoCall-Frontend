@@ -50,7 +50,7 @@ const PayoutModelProfileConatiner = ({
           <ForBox>
             <FiveBox>
               <UINewTypography variant="h5" color="text.secondary" ml={3} mt={3.93}>
-                <FormattedMessage id="MyProfile" />
+                <FormattedMessage id="Payout" />
               </UINewTypography>
               <SecondDivider orientation="horizontal" flexItem />
             </FiveBox>
@@ -77,7 +77,7 @@ const PayoutModelProfileConatiner = ({
           {menuId === 0 ? (
             <PayoutContainer />
           ) : menuId === 1 ? (
-            <PayoutBankInformation />
+            <PayoutBankInformation token={token} />
           ) : menuId === 2 ? (
             <PayoutsAndInvoices />
           ) : (

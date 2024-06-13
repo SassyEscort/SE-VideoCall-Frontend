@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { GenericRes } from 'services/guestAuth/authuser.services';
-import { BnakDetailsParams } from 'views/protectedDashboardViews/addBankDetails';
-import { BnakListParams } from 'views/protectedDashboardViews/payoutPaymentContainer';
+import { BankDetailsParams } from 'views/protectedDashboardViews/addBankDetails';
+import { BankListParams } from 'views/protectedDashboardViews/payoutPaymentContainer';
 
 export type AddBAnkDetails = {
   id: number;
@@ -33,22 +33,22 @@ export type BankDetailsRes = {
 export interface BankDetailsListRes extends GenericRes {
   data: BankDetailsRes;
 }
-export interface AddBAnkDetailsRes extends GenericRes {
+export interface AddBankDetailsRes extends GenericRes {
   data: AddBAnkDetails;
 }
 export class PayoutService {
-  static bankDetails = async (params: BnakDetailsParams, token: string): Promise<AddBAnkDetailsRes> => {
+  static bankDetails = async (params: BankDetailsParams, token: string): Promise<AddBankDetailsRes> => {
     try {
       const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/bank-details`, params, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
       });
       return res.data;
     } catch (error) {
-      return error as AddBAnkDetailsRes;
+      return error as AddBankDetailsRes;
     }
   };
 
-  static bankDetailsList = async (params: BnakListParams): Promise<BankDetailsListRes> => {
+  static bankDetailsList = async (params: BankListParams): Promise<BankDetailsListRes> => {
     try {
       const res = await axios.get(
         process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/bank-details?limit=${params.limit}&offset=${params.offset}`,

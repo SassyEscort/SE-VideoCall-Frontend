@@ -84,7 +84,7 @@ const DashboardPriceView = ({
       setLoading(true);
       const response = await DashboardService.dashboardPrice(inputPayload, token.token);
       if (response?.data) {
-        toast.success(response?.message);
+        toast.success('Success');
       } else {
         toast.error(response?.message?.message);
       }

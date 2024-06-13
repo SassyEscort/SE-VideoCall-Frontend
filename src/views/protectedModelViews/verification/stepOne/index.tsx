@@ -93,7 +93,7 @@ const VerificationStepOne = ({
           } else {
             router.push('/model/dashboard');
           }
-          toast.success(res.message);
+          toast.success('Success');
         } else {
           toast.error(res.message);
         }
@@ -122,7 +122,7 @@ const VerificationStepOne = ({
           setLoading(true);
           const response = await ModelVerificationService.verificationStepOne(values, token.token);
           if (response.data) {
-            toast.success(response.message);
+            toast.success('Success');
             handleNext();
             handleModelApiChange();
           } else {

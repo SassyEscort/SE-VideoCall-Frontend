@@ -49,7 +49,6 @@ export const SelectedTab = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   width: '100%',
-  color: theme.palette.primary.main,
   [theme.breakpoints.up('md')]: {
     gap: theme.spacing(1)
   }

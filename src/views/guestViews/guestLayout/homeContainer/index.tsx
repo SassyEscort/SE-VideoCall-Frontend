@@ -5,7 +5,7 @@ const HomeMainContainer = ({ children }: { children: ReactNode }) => (
   <Box
     sx={{
       width: '100%',
-      px: { xs: '14.5px', lg: 0 },
+      px: { lg: 0 },
       display: 'flex',
       justifyContent: 'center'
     }}
