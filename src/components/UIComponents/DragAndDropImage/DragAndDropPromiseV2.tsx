@@ -217,7 +217,7 @@ const DragAndDropV2 = ({
         </Box>
       </DragAndDropContainer>
       {errors && (touched || withoutFilterImageTouched?.photoWithoutFilter) && (
-        <Typography variant="bodySmall" color={'error.main'}>
+        <Typography className="Mui-error" variant="bodySmall" color={'error.main'}>
           {errors}
         </Typography>
       )}
