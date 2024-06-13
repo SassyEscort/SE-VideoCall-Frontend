@@ -6,6 +6,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 export const MainWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  cursor: 'pointer',
   position: 'relative',
   width: '100%',
   height: '100%',
@@ -144,7 +145,6 @@ export const SecondSubContainerImgWorkerCard = styled('img')(() => ({
 
 export const WorkerCardMainBox = styled(Box)(({ theme }) => ({
   width: '100%',
-
   [theme.breakpoints.down(330)]: {
     paddingLeft: theme.spacing(0.5),
     paddingRight: theme.spacing(0.5)

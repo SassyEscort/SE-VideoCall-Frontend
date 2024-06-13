@@ -5,6 +5,7 @@ import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UIThemeBorderButton from 'components/UIComponents/UIStyledBorderButton';
 import { FormattedMessage } from 'react-intl';
 import { ModelHomeListing } from 'services/modelListing/modelListing.services';
+import Link from 'next/link';
 
 const HomeImageCard = ({ modelListing }: { modelListing: ModelHomeListing[] }) => {
   return (
@@ -14,7 +15,18 @@ const HomeImageCard = ({ modelListing }: { modelListing: ModelHomeListing[] }) =
           {modelListing.map((item, index) => (
             <Grid item key={index} xs={6} sm={4} md={3} lg={3}>
               <Box display="flex" gap={2} flexDirection="column">
-                <WorkerCard modelDetails={item} />
+                <Box
+                  component={Link}
+                  prefetch={true}
+                  shallow={true}
+                  href={`/details/${item.id}`}
+                  sx={{
+                    textDecoration: 'none',
+                    height: '100%'
+                  }}
+                >
+                  <WorkerCard modelDetails={item} />
+                </Box>
               </Box>
             </Grid>
           ))}
