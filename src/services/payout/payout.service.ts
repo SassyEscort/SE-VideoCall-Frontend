@@ -40,7 +40,7 @@ export class PayoutService {
   static bankDetails = async (params: BnakDetailsParams, token: string): Promise<AddBAnkDetailsRes> => {
     try {
       const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/bank-details`, params, {
-        headers: { 'Content-Type': 'application/josn', Authorization: token }
+        headers: { 'Content-Type': 'application/json', Authorization: token }
       });
       return res.data;
     } catch (error) {
@@ -54,7 +54,7 @@ export class PayoutService {
         process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/bank-details?limit=${params.limit}&offset=${params.offset}`,
         {
           headers: {
-            'Content-Type': 'application/josn'
+            'Content-Type': 'application/json'
           }
         }
       );
