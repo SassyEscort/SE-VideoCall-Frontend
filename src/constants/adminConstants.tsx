@@ -2,6 +2,8 @@ import CampaignIcon from '@mui/icons-material/Campaign';
 import LineAxis from '@mui/icons-material/LineAxis';
 import EuroIcon from '@mui/icons-material/Euro';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import PaymentsIcon from '@mui/icons-material/Payments';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 export const AdminConstantsTabs = [
   {
@@ -31,6 +33,11 @@ export const AdminConstantsTabs = [
   {
     name: 'Payout',
     path: '/admin/payout',
-    icon: <LineAxis />
+    icon: <PaymentsIcon />
+  },
+  {
+    name: 'Withdraw Configuration',
+    path: '/admin/withdraw-configuration',
+    icon: <SettingsIcon />
   }
 ];

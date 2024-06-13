@@ -9,8 +9,8 @@ export default function PayoutListHead() {
         <TableCell>Name</TableCell>
         <TableCell>Email</TableCell>
         <TableCell>Amount</TableCell>
+        <TableCell>Bank Name</TableCell>
         <TableCell>State</TableCell>
-        <TableCell>isActive</TableCell>
         <TableCell>Created At</TableCell>
         <TableCell>Action</TableCell>
       </TableRow>

@@ -12,28 +12,48 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
-import { CircularProgress, IconButton, Popover } from '@mui/material';
+import { Chip, CircularProgress, IconButton, MenuItem, Popover } from '@mui/material';
 import moment from 'moment';
 import { MoreVert, Visibility } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
-import { MenuItem } from '@mui/base/MenuItem';
-import { payoutDetailsService } from 'services/payout/payoutDetailsService';
+import { payoutDetailsService } from 'services/adminServices/payout/payoutDetailsService';
+import PayoutModel from './PayoutModel';
 
 export default function PayoutPageContainer() {
+  const [selectedPayoutData, setSelectedPayoutData] = useState(null);
   const [data, setData] = useState<any>([]);
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [creditModalOpen, setCreditModalOpen] = useState(false);
+
   const handelFetch = async () => {
     setIsLoading(true);
     const res = await payoutDetailsService.getPayoutDetails();
+
     if (res) {
-      // setData(res);
-      // console.log(res);
-      console.log('fetch call');
+      if (res.code == 200) {
+        setData(res?.data?.payout_details);
+      }
     }
     setIsLoading(false);
   };
+
+  const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setOpen(null);
+    setAnchorEl(null);
+  };
+  const handleOpenCredit = (value: any) => {
+    setSelectedPayoutData(value);
+    setCreditModalOpen(true);
+  };
+  const handleCloseCredit = () => {
+    setCreditModalOpen(false);
+  };
+
   useEffect(() => {
     handelFetch();
   }, []);
@@ -67,9 +87,7 @@ export default function PayoutPageContainer() {
                         </Box>
                       </TableCell>
                     </TableRow>
-                  ) : // ) : paymentsTransaction.length ? (
-                  data.length ? (
-                    // paymentsTransaction.map((item, index) => (
+                  ) : data?.length ? (
                     data.map((item: any, index: any) => (
                       <TableRow
                         key={index}
@@ -78,31 +96,29 @@ export default function PayoutPageContainer() {
                         }}
                       >
                         <TableCell component="th" scope="row">
-                          {item?.name || '-'}
+                          {item.name || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.email || '-'}
+                          {item.email || '-'}
                         </TableCell>
-                        <TableCell component="th" scope="row">
-                          {item?.amount || '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          {item?.state || '-'}
-                        </TableCell>
-                        <TableCell sx={{ textAlign: 'left' }}>{item.payoutAmt ? `€${item.payoutAmt.toFixed(2)}` : '-'}</TableCell>
+                        <TableCell sx={{ textAlign: 'left' }}>{item.amount ? `€${item.amount.toFixed(2)}` : '-'}</TableCell>
 
-                        {/* <TableCell sx={{ textAlign: 'center' }}>
-                          {item.status === PAYMENTS_VALUE_TYPE.PENDING ? (
-                            <Chip label="Pending" color="warning" sx={{ width: '72px' }} />
-                          ) : item.status === PAYMENTS_VALUE_TYPE.APPROVE ? (
-                            <Chip label="Approve" color="success" sx={{ width: '72px' }} />
-                          ) : item.status === PAYMENTS_VALUE_TYPE.REJECT ? (
-                            <Chip label="Reject" color="error" sx={{ width: '72px' }} />
+                        <TableCell component="th" scope="row">
+                          {item.bank_name || '-'}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {item.state === 'Pending' ? (
+                            <Chip label="Pending" color="warning" />
+                          ) : item.state === 'Approve' ? (
+                            <Chip label="Approve" color="success" />
+                          ) : item.state === 'Reject' ? (
+                            <Chip label="Reject" color="error" />
                           ) : (
                             '-'
                           )}
-                        </TableCell> */}
-                        <TableCell>{item?.createdDate ? moment(item?.createdDate).format('MMMM DD, YYYY') : '-'}</TableCell>
+                        </TableCell>
+
+                        <TableCell>{item?.created_at ? moment(item?.created_at).format('MMMM DD, YYYY') : '-'}</TableCell>
                         <TableCell>
                           <IconButton
                             aria-label="more"
@@ -111,8 +127,8 @@ export default function PayoutPageContainer() {
                             aria-expanded={open ? 'true' : undefined}
                             aria-haspopup="true"
                             onClick={(e) => {
-                              // setSelectedPayoutData(item);
-                              // handleOpenMenu(e);
+                              setSelectedPayoutData(item);
+                              handleOpenMenu(e);
                             }}
                           >
                             <MoreVert />
@@ -139,24 +155,13 @@ export default function PayoutPageContainer() {
                 </TableBody>
               </Table>
             </TableContainer>
-            {/* {paymentsTransaction && paymentsTransaction.length > 0 && (
-              <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
-                <TablePager
-                  page={filters.page}
-                  rowsPerPage={filters.pageSize}
-                  handleChangePage={handleChangePage}
-                  handleChangePageSize={handleChangePageSize}
-                  totalRecords={totalRecords}
-                />
-              </Box>
-            )} */}
           </Paper>
         </Card>
       </Container>
       <Popover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
-        // onClose={handleCloseMenu}
+        onClose={handleCloseMenu}
         anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         PaperProps={{
@@ -173,27 +178,16 @@ export default function PayoutPageContainer() {
       >
         <MenuItem
           onClick={() => {
-            // if (!selectedPayoutData) return;
-            // handleOpenCredit(selectedPayoutData);
-            // handleCloseMenu();
+            if (!selectedPayoutData) return;
+            handleOpenCredit(selectedPayoutData);
+            handleCloseMenu();
           }}
         >
           <Visibility sx={{ mr: 2 }} />
           View Details
         </MenuItem>
-        {/* {selectedPayoutData?.status === PAYMENTS_VALUE_TYPE.PENDING && (
-          <>
-            <MenuItem onClick={handleApproveClick}>
-              <CheckIcon sx={{ mr: 2, color: 'success.main' }} />
-              Approve
-            </MenuItem>
-            <MenuItem onClick={handleOpenRejectClick}>
-              <CloseIcon sx={{ mr: 2, color: 'error.main' }} />
-              Reject
-            </MenuItem>
-          </>
-        )} */}
       </Popover>
+      <PayoutModel open={creditModalOpen} onClose={handleCloseCredit} selectedPayoutData={selectedPayoutData} />
     </MainLayout>
   );
 }
