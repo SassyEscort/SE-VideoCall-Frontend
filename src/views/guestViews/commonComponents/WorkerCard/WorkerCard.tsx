@@ -3,6 +3,7 @@ import {
   CreditContainer,
   FavoriteBorderIconContainer,
   FirstSubContainerImgWorkerCard,
+  FirstSubContainerWithoutImg,
   HeartIconWorkerCard,
   ImgWorkerCard,
   LiveIconSecBoxWorkerCard,
@@ -70,9 +71,7 @@ const WorkerCard = ({ modelDetails }: { modelDetails: ModelHomeListing }) => {
                     </OfflineIconWorkerCard>
                   </>
                 )}
-                <FirstSubContainerImgWorkerCard
-                  src={modelFlag ?? 'https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg'}
-                />
+                {modelFlag ? <FirstSubContainerImgWorkerCard src={modelFlag} /> : <FirstSubContainerWithoutImg />}
               </NameCardContainer>
               {!isMobile && (
                 <CreditContainer>

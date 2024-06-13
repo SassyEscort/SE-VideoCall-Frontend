@@ -115,6 +115,15 @@ export const FirstSubContainerImgWorkerCard = styled('img')(() => ({
   marginTop: '3px'
 }));
 
+export const FirstSubContainerWithoutImg = styled(Box)(() => ({
+  display: 'flex',
+  width: '100%',
+  maxWidth: '16px',
+  height: '100%',
+  maxHeight: '8px',
+  marginTop: '3px'
+}));
+
 export const SecondMainContainerWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(3.5),
