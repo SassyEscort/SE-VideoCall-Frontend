@@ -12,7 +12,7 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
-import { Chip, CircularProgress, IconButton, MenuItem, Popover } from '@mui/material';
+import { Chip, CircularProgress, IconButton, MenuItem } from '@mui/material';
 import moment from 'moment';
 import { MoreVert, Visibility } from '@mui/icons-material';
 import { useCallback, useEffect, useState } from 'react';
@@ -25,6 +25,7 @@ import PaginationSortBy from 'components/common/CustomPaginations/PaginationSort
 import { PAGE_SIZE } from 'constants/pageConstants';
 import PaginationSearch from 'components/common/CustomPaginations/PaginationSearch';
 import TablePager from 'components/common/CustomPaginations/TablePager';
+import { StyledPopover } from './Payout.styled';
 
 export type PaginationType = {
   page: number;
@@ -250,23 +251,12 @@ export default function PayoutPageContainer() {
           </Paper>
         </Card>
       </Container>
-      <Popover
+      <StyledPopover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleCloseMenu}
         anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        PaperProps={{
-          sx: {
-            p: 1,
-            width: 170,
-            '& .MuiMenuItem-root': {
-              px: 1,
-              typography: 'body2',
-              borderRadius: 0.75
-            }
-          }
-        }}
       >
         <MenuItem
           onClick={() => {
@@ -278,7 +268,7 @@ export default function PayoutPageContainer() {
           <Visibility sx={{ mr: 2 }} />
           View Details
         </MenuItem>
-      </Popover>
+      </StyledPopover>
       <PayoutModel open={creditModalOpen} onClose={handleCloseCredit} selectedPayoutData={selectedPayoutData} />
     </MainLayout>
   );

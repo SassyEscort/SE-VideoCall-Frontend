@@ -33,9 +33,9 @@ export default function WithdrawConfigurationContainer() {
     if (res) {
       if (res.code === 200) {
         setData(values.withdrawal_amt);
-        toast.success(res.message);
+        toast.success('Successfully updated withdraw amount');
       } else {
-        toast.error(res.message);
+        toast.error('Something went wrong');
       }
     }
     setIsLoading(false);
@@ -55,7 +55,7 @@ export default function WithdrawConfigurationContainer() {
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
             <Typography variant="h4" gutterBottom>
-              Affiliate Configuration
+              Model Amount Configuration
             </Typography>
           </Stack>
 
