@@ -215,3 +215,26 @@ export const UITypographyBox = styled(UINewTypography)(({ theme }) => ({
     lineHeight: '14.4px !important'
   }
 }));
+
+export const OfflineIconSecBoxWorkerCard = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  maxWidth: '8px',
+  height: '100%',
+  maxHeight: '8px',
+  border: '4px solid',
+  borderColor: theme.palette.secondary.light,
+  borderRadius: '50%'
+}));
+
+export const OfflineIconWorkerCard = styled(LiveIconFirstBoxWorkerCard)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  minWidth: '12px',
+  height: '0',
+  minHeight: '12px',
+  border: '1px',
+  borderColor: '#86838A52',
+  borderRadius: '50%',
+  backgroundColor: '#86838A52'
+}));

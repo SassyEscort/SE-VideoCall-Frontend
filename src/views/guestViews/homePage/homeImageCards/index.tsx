@@ -4,16 +4,17 @@ import { ButtonMainBox, WorkerCardMainBox } from 'views/guestViews/commonCompone
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UIThemeBorderButton from 'components/UIComponents/UIStyledBorderButton';
 import { FormattedMessage } from 'react-intl';
+import { ModelHomeListing } from 'services/modelListing/modelListing.services';
 
-const HomeImageCard = () => {
+const HomeImageCard = ({ modelListing }: { modelListing: ModelHomeListing[] }) => {
   return (
     <HomeMainContainer>
       <WorkerCardMainBox>
         <Grid container spacing={{ xs: '13px', md: '15px' }} rowGap={{ xs: 0.875, lg: 2.125 }}>
-          {Array.from({ length: 24 }, (_, index) => (
-            <Grid key={index} item xs={6} sm={4} md={3} lg={3}>
+          {modelListing.map((item, index) => (
+            <Grid item key={index} xs={6} sm={4} md={3} lg={3}>
               <Box display="flex" gap={2} flexDirection="column">
-                <WorkerCard />
+                <WorkerCard modelDetails={item} />
               </Box>
             </Grid>
           ))}
