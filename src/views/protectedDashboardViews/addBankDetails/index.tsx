@@ -24,7 +24,7 @@ import { toast } from 'react-toastify';
 import { PayoutService } from 'services/payout/payout.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 
-export type BnakDetailsParams = {
+export type BankDetailsParams = {
   bank_name: string;
   account_name: string;
   iban_number: string;
@@ -72,19 +72,19 @@ const AddbankDetails = ({ token }: { token: TokenIdType }) => {
             <Box component="form" onSubmit={handleSubmit}>
               <AddBankDetailsContainer>
                 <Box>
-                  <PayoutText variant="h2" color={'text.secondary'}>
+                  <PayoutText variant="h2" color="text.secondary">
                     <FormattedMessage id={isSm ? 'Payout' : 'YourPaymentMethods'} />
                   </PayoutText>
                 </Box>
                 <AddBankDetailsSecondBox>
                   <InputMainBox>
-                    <AddBankDetail variant="h5" color={'secondary.200'}>
+                    <AddBankDetail variant="h5" color="secondary.200">
                       <FormattedMessage id="AddBankDetails" />
                     </AddBankDetail>
 
                     <InputSecondBox>
                       <InputBox>
-                        <UINewTypography variant="bodySemiBold" color={'text.primary'}>
+                        <UINewTypography variant="bodySemiBold" color="text.primary">
                           <FormattedMessage id="BankName" />
                         </UINewTypography>
                         <UIStyledInputText
@@ -99,7 +99,7 @@ const AddbankDetails = ({ token }: { token: TokenIdType }) => {
                         />
                       </InputBox>
                       <InputBox>
-                        <UINewTypography variant="bodySemiBold" color={'text.primary'}>
+                        <UINewTypography variant="bodySemiBold" color="text.primary">
                           <FormattedMessage id="AccountName" />
                         </UINewTypography>
                         <UIStyledInputText
@@ -114,7 +114,7 @@ const AddbankDetails = ({ token }: { token: TokenIdType }) => {
                         />
                       </InputBox>
                       <InputBox>
-                        <UINewTypography variant="bodySemiBold" color={'text.primary'}>
+                        <UINewTypography variant="bodySemiBold" color="text.primary">
                           <FormattedMessage id="IBANNumber" />
                         </UINewTypography>
                         <UIStyledInputText
@@ -132,11 +132,11 @@ const AddbankDetails = ({ token }: { token: TokenIdType }) => {
                   </InputMainBox>
                   <ButtonBox>
                     <UIThemeButton variant="contained" type="submit">
-                      <UINewTypography color={'primary.200'} variant="body">
+                      <UINewTypography color="primary.200" variant="body">
                         <FormattedMessage id="Confirm" />
                       </UINewTypography>
                     </UIThemeButton>
-                    <UINewTypography variant="body" color={'primary.400'} sx={{ cursor: 'pointer' }} onClick={handleReset}>
+                    <UINewTypography variant="body" color="primary.400" sx={{ cursor: 'pointer' }} onClick={handleReset}>
                       <FormattedMessage id="Cancel" />
                     </UINewTypography>
                   </ButtonBox>
