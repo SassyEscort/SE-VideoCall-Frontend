@@ -67,7 +67,7 @@ const PayoutMobileSidebar = ({
       {menuId === 0 ? (
         <PayoutContainer />
       ) : menuId === 1 ? (
-        <PayoutBankInformation />
+        <PayoutBankInformation token={token} />
       ) : menuId === 2 ? (
         <PayoutsAndInvoices />
       ) : (
