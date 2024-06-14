@@ -10,10 +10,8 @@ export const MainSecondBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(8),
-  paddingLeft: theme.spacing(3),
-  [theme.breakpoints.down('sm')]: {
-    paddingLeft: '15px',
-    paddingRight: '22px'
+  [theme.breakpoints.up('sm')]: {
+    paddingLeft: theme.spacing(3)
   }
 }));
 

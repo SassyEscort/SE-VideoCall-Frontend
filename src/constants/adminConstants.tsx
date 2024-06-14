@@ -4,6 +4,7 @@ import EuroIcon from '@mui/icons-material/Euro';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import SettingsIcon from '@mui/icons-material/Settings';
+import PaidIcon from '@mui/icons-material/Paid';
 
 export const AdminConstantsTabs = [
   {
@@ -43,6 +44,6 @@ export const AdminConstantsTabs = [
   {
     name: 'Model Commission',
     path: '/admin/model-commission',
-    icon: <SettingsIcon />
+    icon: <PaidIcon />
   }
 ];

@@ -14,9 +14,12 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
+import { usePathname } from 'next/navigation';
 
 const EscortDetailPage = () => {
-  const userName = window.location.href.split('/details/')[1];
+  const path = usePathname();
+  const userName = path.split('/')[2];
+
   const [guestData, setGuestData] = useState<ModelDetailsResponse>();
 
   const isLgDown = useMediaQuery(theme.breakpoints.down('lg'));
@@ -36,12 +39,13 @@ const EscortDetailPage = () => {
   useEffect(() => {
     const fetchGuestData = async () => {
       try {
-        const data = await GuestDetailsService.GuestModelDetails(userName);
-
-        if (data.code === 200) {
-          setGuestData(data.data);
-        } else {
-          toast.error(data?.response?.data?.message);
+        if (userName) {
+          const data = await GuestDetailsService.GuestModelDetails(userName);
+          if (data.code === 200) {
+            setGuestData(data.data);
+          } else {
+            toast.error(data?.response?.data?.message);
+          }
         }
       } catch (error) {
         toast.error(ErrorMessage);
@@ -49,7 +53,7 @@ const EscortDetailPage = () => {
     };
 
     fetchGuestData();
-  }, []);
+  }, [userName]);
 
   return (
     <>

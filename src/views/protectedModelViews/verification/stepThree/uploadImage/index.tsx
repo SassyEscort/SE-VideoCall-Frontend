@@ -245,7 +245,7 @@ const UploadImage = ({
       }}
     >
       {({ values, errors, touched, setFieldValue, handleSubmit }) => (
-        <Box component="form" onSubmit={handleSubmit}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
           <Box>
             <ModelMultiplePhoto
               loading={loading}
@@ -269,7 +269,7 @@ const UploadImage = ({
                   </UIThemeButton>
                   <StyleButtonV2 id="photos-button" type="submit" variant="contained" loading={loading}>
                     <UINewTypography variant="body">
-                      <FormattedMessage id="Next" />
+                      <FormattedMessage id="NextStep" />
                     </UINewTypography>
                     <RiArrowRightLine />
                   </StyleButtonV2>

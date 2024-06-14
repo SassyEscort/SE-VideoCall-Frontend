@@ -197,7 +197,7 @@ const VerificationStepOne = ({
                 ) : (
                   <>
                     <UINewTypography variant="body">
-                      <FormattedMessage id="Next" />
+                      <FormattedMessage id="NextStep" />
                     </UINewTypography>
                     <RiArrowRightLine />
                   </>

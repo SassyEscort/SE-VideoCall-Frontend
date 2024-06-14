@@ -8,6 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import {
   ChildContainer,
   Container,
+  FristBoxContent,
   GoToYourDashboardButton,
   ImageContainerProfile,
   ProfileCreatedText,
@@ -27,19 +28,25 @@ const ProfileCreated = () => {
               <Image width={286} height={212} src="/images/model/super.png" alt="profileCreated" />
             </ImageContainerProfile>
             <TypographyContainer>
-              <ProfileCreatedText variant="h3" color={'text.secondary'}>
+              <ProfileCreatedText variant="h3" color="text.secondary">
                 <FormattedMessage id="WooHooYourProfile" />
               </ProfileCreatedText>
-              <ProfileLiveText variant="bodyRegular" color={'text.secondary'}>
-                <FormattedMessage id="YourProfileIsNowLive" />
+              <ProfileLiveText variant="bodyRegular" color="text.secondary">
+                <FormattedMessage id="YourProfileIsUnder" />
               </ProfileLiveText>
             </TypographyContainer>
           </Box>
           <TypographyContainer2>
             <Box>
-              <ProfileLiveText variant="bodyRegular" color={'text.secondary'}>
-                <FormattedMessage id="StartBySetting" />
+              <ProfileLiveText variant="bodyRegular" color="text.secondary">
+                <FormattedMessage id="DownloadOurApp" />
               </ProfileLiveText>
+
+              <FristBoxContent>
+                <Box component={'img'} src="/images/app-logo/google-pay.png" sx={{ width: '120px', height: '120px' }} />
+
+                <Box component={'img'} src="/images/app-logo/app-store.png" sx={{ width: '120px', height: '120px' }} />
+              </FristBoxContent>
             </Box>
             <Box>
               <Link href={'/model/dashboard'}>

@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
-import LanguageDropdown from 'components/common/LanguageDropdown';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
@@ -51,9 +50,9 @@ const ModelHeaderAuthComponent = () => {
   return (
     <>
       <Box display="flex" alignItems="center" gap={{ xs: 2.5, sm: 4.5 }}>
-        <Box display="flex">
+        {/* <Box display="flex">
           <LanguageDropdown />
-        </Box>
+        </Box> */}
 
         <IconButton sx={{ height: 24, width: 24 }}>
           <>

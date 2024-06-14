@@ -1,6 +1,7 @@
 import { styled } from '@mui/material';
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
 export const DetailsMainBox = styled(Box)(() => ({
   width: '100%',
@@ -160,8 +161,12 @@ export const SwiperContainer = styled(Box)(() => ({
   overflow: 'auto',
   '& .swiper-wrapper': { display: 'flex', flexDirection: 'column' },
   '&::-webkit-scrollbar': {
-    width: '1px',
-    display: 'none'
+    background: 'transparent',
+    width: 12
+  },
+  '&::-webkit-scrollbar-thumb': {
+    background: '#100B19',
+    border: '1px solid #B7B5B91F'
   }
 }));
 
@@ -196,4 +201,12 @@ export const SecondSwiperBlurContainer = styled(Box)(({ theme }) => ({
   position: 'absolute',
   height: '100%',
   width: '100%'
+}));
+
+export const SideSwiperButton = styled(UIThemeButton)(({ theme }) => ({
+  '&.MuiButton-contained': { backgroundColor: theme.palette.secondary[500], ':hover': { backgroundColor: theme.palette.secondary[500] } },
+  paddingTop: theme.spacing(0),
+  paddingBottom: theme.spacing(0),
+  '&.MuiButton-root': { height: 'fit-content' },
+  border: '1px solid #B7B5B91F'
 }));

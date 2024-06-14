@@ -138,6 +138,15 @@ export const Pending = styled(UINewTypography)(({ theme }) => ({
   borderColor: theme.palette.primary['600']
 }));
 
+export const PendingSecond = styled(UINewTypography)(({ theme }) => ({
+  color: theme.palette.success['100'],
+  borderRadius: '48px',
+  border: '1px solid',
+  textAlign: 'center',
+  padding: '4px 12px',
+  borderColor: theme.palette.success['100']
+}));
+
 export const ButtonBox = styled(UIThemeButton)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     marginLeft: theme.spacing(2),

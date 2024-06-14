@@ -24,6 +24,7 @@ const HomeContainer = () => {
       <SearchFilters />
       <HomeImageCard modelListing={modelListing} />
       <HomeConnections />
+      {/* <HomePageFAQ /> */}
     </>
   );
 };
