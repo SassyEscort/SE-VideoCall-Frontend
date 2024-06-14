@@ -89,7 +89,7 @@ const MobileSidebar = ({
           handleModelApiChange={handleModelApiChange}
         />
       ) : (
-        <DashboardPriceView token={token} modelDetails={modelDetails} handleModelApiChange={handleModelApiChange} />
+        <DashboardPriceView isEdit={true} token={token} modelDetails={modelDetails} handleModelApiChange={handleModelApiChange} />
       )}
     </FormControl>
   );

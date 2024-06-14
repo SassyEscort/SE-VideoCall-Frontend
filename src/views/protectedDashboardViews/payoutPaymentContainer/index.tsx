@@ -2,7 +2,7 @@
 import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import {
   ButtonConatinerBox,
@@ -18,35 +18,17 @@ import {
   SmallScreenImg
 } from './PayoutPaymentConatiner';
 import { FormattedMessage } from 'react-intl';
-import { BankDetailsListRes, PayoutService } from 'services/payout/payout.service';
-import { toast } from 'react-toastify';
-import { ErrorMessage } from 'constants/common.constants';
+import { BankDetailsListRes } from 'services/payout/types';
 
 export type BankListParams = {
   limit: number;
   offset: number;
 };
 
-const PayoutPaymentConatiner = () => {
-  const [bankDetailsList, setBankDetailsList] = useState<BankDetailsListRes>();
-  useEffect(() => {
-    const fetchBankDetails = async () => {
-      try {
-        const BankListObject = {
-          limit: 5,
-          offset: 0
-        };
-        const data = await PayoutService.bankDetailsList(BankListObject);
-        if (data) {
-          setBankDetailsList(data);
-        }
-      } catch (error) {
-        toast.error(ErrorMessage);
-      }
-    };
-
-    fetchBankDetails();
-  }, []);
+export type BankDetaildDeleteParam = {
+  id: number;
+};
+const PayoutPaymentConatiner = ({ bankDetailsList }: { bankDetailsList: BankDetailsListRes }) => {
   return (
     <MainConatinerBox>
       <MainSecondBox>
