@@ -172,7 +172,7 @@ const HomeTopBanner = () => {
         </Box>
       ) : (
         <FristBoxContainer>
-          <UINewTypography variant="MediumSemiBold" color="text.secondary" width={'610px'}>
+          <UINewTypography variant="MediumSemiBold" color="text.secondary" width={'610px'} marginTop="64px">
             <FormattedMessage id="ExploreYourChoicesFrom" />
           </UINewTypography>
           <TextBoxContainer color="secondary.100">
