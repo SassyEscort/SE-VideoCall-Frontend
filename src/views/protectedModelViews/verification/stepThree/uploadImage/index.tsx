@@ -245,7 +245,7 @@ const UploadImage = ({
       }}
     >
       {({ values, errors, touched, setFieldValue, handleSubmit }) => (
-        <Box component="form" onSubmit={handleSubmit}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
           <Box>
             <ModelMultiplePhoto
               loading={loading}

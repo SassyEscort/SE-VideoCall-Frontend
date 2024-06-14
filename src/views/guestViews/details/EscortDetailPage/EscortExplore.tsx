@@ -1,6 +1,5 @@
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Box from '@mui/material/Box';
-
 import HomeImageCard from 'views/guestViews/homePage/homeImageCards';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
@@ -16,16 +15,29 @@ import {
   ThirdBoxContainer
 } from './Escort.styled';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
-
 import NewArrivals from 'views/guestViews/searchPage/searchFilters/NewArrivals';
 import CurrentlyOnline from 'views/guestViews/searchPage/searchFilters/CurrentlyOnline';
 import CountryFilter from 'views/guestViews/searchPage/searchFilters/CountryFilter';
 import AgeFilter from 'views/guestViews/searchPage/searchFilters/AgeFilter';
 import Price from 'views/guestViews/searchPage/searchFilters/Price';
+import { useState, useEffect } from 'react';
+import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
 
 const EscortExplore = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isMobile = useMediaQuery('(max-width:600px)');
+
+  const [modelListing, setModelListing] = useState<ModelHomeListing[]>([]);
+
+  const getModelListing = async () => {
+    const getModel = await ModelListingService.getModelListing();
+    setModelListing(getModel.model_details);
+  };
+
+  useEffect(() => {
+    getModelListing();
+  }, []);
+
   return (
     <>
       <DetailsChildTypographyBox sx={{ gap: 4.25, mt: isSmDown ? 12 : 15 }}>
@@ -64,7 +76,7 @@ const EscortExplore = () => {
           </HomeMainContainer>
         </DetailsChildTypographyBox>
         <Box>
-          <HomeImageCard />
+          <HomeImageCard modelListing={modelListing} />
         </Box>
       </DetailsChildTypographyBox>
     </>

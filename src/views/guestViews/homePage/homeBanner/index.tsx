@@ -10,7 +10,9 @@ import {
   TypographyBox,
   HomeExploreBox,
   SubTitle,
-  TextBoxContainer
+  TextBoxContainer,
+  ModelsHeadingBox,
+  FristBoxContainer
 } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
@@ -71,6 +73,14 @@ const HomeTopBanner = () => {
     userToken();
   }, []);
 
+  const handleClickScroll = () => {
+    const element = document.querySelector(`#scroll-to-model`) as HTMLElement;
+    element?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
+
   return (
     <>
       {!isLogin ? (
@@ -119,8 +129,8 @@ const HomeTopBanner = () => {
                 </TypographyBox>
               </Box>
               <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems={{ xs: 'center', sm: 'flex-start' }}>
-                <UIThemeShadowButton onClick={handleSignupOpen} variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
-                  <UINewTypography variant="body" sx={{ lineHeight: '150%' }}>
+                <UIThemeShadowButton onClick={handleClickScroll} variant="contained">
+                  <UINewTypography variant="bodySemiBold" sx={{ paddingTop: { xs: 2, sm: 0 }, lineHeight: '120%' }}>
                     <FormattedMessage id="ExploreModels" />
                   </UINewTypography>
                 </UIThemeShadowButton>
@@ -145,14 +155,7 @@ const HomeTopBanner = () => {
               />
             </Box>
           </BannerContainer>
-          <Box
-            width="100%"
-            pt={{ xs: '96px', lg: '120px' }}
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-          >
+          <ModelsHeadingBox id="scroll-to-model" pt={{ xs: '96px', lg: '120px' }}>
             <HomeExploreBox>
               <UINewTypography
                 textAlign="center"
@@ -165,27 +168,15 @@ const HomeTopBanner = () => {
                 <FormattedMessage id="SelectTheCompanion" />
               </SubTitle>
             </HomeExploreBox>
-          </Box>
+          </ModelsHeadingBox>
         </Box>
       ) : (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-            height: '100%',
-            maxHeight: '152px',
-            gap: 2,
-            textAlign: 'center',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-        >
+        <FristBoxContainer>
           <UINewTypography variant="MediumSemiBold" color="text.secondary" width={'610px'}>
             Explore your choices from the world of diverse beauty.
           </UINewTypography>
           <TextBoxContainer color="secondary.100">Select the companion who aligns with your desires.</TextBoxContainer>
-        </Box>
+        </FristBoxContainer>
       )}
       <Dialog
         sx={{

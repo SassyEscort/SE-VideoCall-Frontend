@@ -13,28 +13,27 @@ import { LoadingButton } from '@mui/lab';
 import { useEffect, useState } from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
 import MainLayout from '../layouts/AdminLayout/DashboardLayout';
-import { withdrawMinAmountServices } from 'services/adminServices/withdrawconfiguration/withdrawConfiguration.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
-import { TokenIdType } from 'views/protectedModelViews/verification';
+import { modelCommissionAmountServices } from 'services/adminServices/modelCommission/modelCommission.services';
 
-export default function WithdrawConfigurationContainer() {
-  const [data, setData] = useState('100');
+export default function ModelCommissionContainer() {
+  const [data, setData] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [token, setToken] = useState('');
 
   const validationSchema = yup.object({
-    withdrawal_amt: yup.number().required('minimum withdraw amount is required')
+    percentage: yup.number().required('minimum commission amount is required')
   });
 
   const handleFormSubmit = async (values: any) => {
     setIsLoading(true);
 
-    const res = await withdrawMinAmountServices.withdrawMinAmount(values, token.token);
+    const res = await modelCommissionAmountServices.modelCommissionMinAmount(values, token);
     if (res) {
       if (res.code === 200) {
-        setData(values.withdrawal_amt);
+        setData(values.percentage);
         toast.success('Success');
       } else {
         toast.error(ErrorMessage);
@@ -45,11 +44,11 @@ export default function WithdrawConfigurationContainer() {
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
+      setToken(data.token);
     };
 
     userToken();
-  }, [token]);
+  }, []);
 
   return (
     <>
@@ -57,14 +56,14 @@ export default function WithdrawConfigurationContainer() {
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
             <Typography variant="h4" gutterBottom>
-              Model Amount Configuration
+              Model Commission
             </Typography>
           </Stack>
 
           <Formik
             enableReinitialize
             initialValues={{
-              withdrawal_amt: parseFloat(data) || 100
+              percentage: parseFloat(data) || ''
             }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
@@ -76,12 +75,12 @@ export default function WithdrawConfigurationContainer() {
                 <Grid container spacing={2} width={'100%'}>
                   <Grid item xs={12} lg={6}>
                     <TextField
-                      name="withdrawal_amt"
+                      name="percentage"
                       label="Min Withdraw Amount"
                       type="number"
-                      value={values.withdrawal_amt}
-                      error={Boolean(touched.withdrawal_amt && errors.withdrawal_amt)}
-                      helperText={touched.withdrawal_amt && errors.withdrawal_amt ? errors.withdrawal_amt : ''}
+                      value={values.percentage}
+                      error={Boolean(touched.percentage && errors.percentage)}
+                      helperText={touched.percentage && errors.percentage ? errors.percentage : ''}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       InputProps={{

@@ -32,7 +32,8 @@ export enum MODEL_ACTIVE_STEP {
   UPLOAD_DOCUMENTS = 'Upload_Documents',
   UPLOAD_PHOTOS = 'Upload_Photos',
   ONBOARDED = 'Onboarded',
-  IN_REVIEW = 'In_Review'
+  IN_REVIEW = 'In_Review',
+  VERIFIED = 'Verified'
 }
 
 export enum EMAIL_SOURCE {

@@ -39,5 +39,10 @@ export const AdminConstantsTabs = [
     name: 'Withdraw Configuration',
     path: '/admin/withdraw-configuration',
     icon: <SettingsIcon />
+  },
+  {
+    name: 'Model Commission',
+    path: '/admin/model-commission',
+    icon: <SettingsIcon />
   }
 ];

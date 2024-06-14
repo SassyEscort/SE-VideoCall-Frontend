@@ -11,9 +11,9 @@ export type GuestModelDetailsResponse = {
   };
 };
 export class GuestDetailsService {
-  static GuestModelDetails = async (): Promise<GuestModelDetailsResponse> => {
+  static GuestModelDetails = async (userName: string): Promise<GuestModelDetailsResponse> => {
     try {
-      const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/guest?user_name=queen-fc3093`;
+      const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/guest?user_name=${userName}`;
 
       const res = await axios.get<GuestModelDetailsResponse>(url, {
         headers: { 'Content-Type': 'application/json' }
