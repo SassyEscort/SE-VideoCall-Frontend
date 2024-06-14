@@ -27,6 +27,7 @@ import {
   FirstSwiperInnerContainer,
   FirstSwiperMainContainer,
   SecondSwiperBlurContainer,
+  SideSwiperButton,
   SwiperContainer
 } from './Escort.styled';
 import { FormattedMessage } from 'react-intl';
@@ -39,7 +40,6 @@ import GuestLogin from 'views/auth/guestLogin';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestSignup from 'views/auth/guestSignup';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
 export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: WorkerPhotos[]; modelId: number; token: TokenIdType }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
@@ -129,24 +129,21 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
           </Swiper>
         </FirstSwiperInnerContainer>
         <Box display="flex" flexDirection="column" gap={1}>
-          <UIThemeButton
-            variant="contained"
-            onClick={handleNext}
-            sx={{
-              '&.MuiButton-contained': { backgroundColor: 'secondary.500', ':hover': { backgroundColor: 'secondary.500' } },
-              py: 0,
-              '&.MuiButton-root': { height: 'fit-content' }
-            }}
-          >
+          <SideSwiperButton variant="contained" onClick={handlePrevious}>
             <KeyboardArrowUpRoundedIcon sx={{ color: 'text.primary' }} />
-          </UIThemeButton>
+          </SideSwiperButton>
           <SwiperContainer>
             <Swiper
-              onSwiper={setThumbsSwiper}
-              spaceBetween={12}
-              slidesPerView={3}
+              direction="vertical"
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper;
+                setThumbsSwiper;
+              }}
+              spaceBetween={0}
+              slidesPerView={6}
               watchSlidesProgress={true}
               modules={[Navigation, Thumbs, FreeMode]}
+              className="mySwiper"
             >
               {workerPhotos.map((imageSrc, index) => (
                 <SwiperSlide style={{ paddingTop: index === 0 ? '0px' : '12px', width: '100%', minWidth: '148px' }} key={index}>
@@ -155,17 +152,9 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
               ))}
             </Swiper>
           </SwiperContainer>
-          <UIThemeButton
-            variant="contained"
-            onClick={handlePrevious}
-            sx={{
-              '&.MuiButton-contained': { backgroundColor: 'secondary.500', ':hover': { backgroundColor: 'secondary.500' } },
-              py: 0,
-              '&.MuiButton-root': { height: 'fit-content' }
-            }}
-          >
+          <SideSwiperButton variant="contained" onClick={handleNext}>
             <KeyboardArrowDownRoundedIcon sx={{ color: 'text.primary' }} />
-          </UIThemeButton>
+          </SideSwiperButton>
         </Box>
       </FirstSwiperMainContainer>
       <Box
@@ -181,7 +170,6 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
               padding: 0,
               minWidth: '1084px',
               width: '100%',
-
               '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } }
             }}
             fullWidth
