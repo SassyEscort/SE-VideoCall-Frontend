@@ -18,7 +18,7 @@ export type DocumentKeyValueList = {
 
 export const DocumentList: DocumentKeyValueList[] = [
   { key: 'ID Card', value: 'Id_Card' },
-  { key: 'Driver License', value: 'Driving_License' },
+  { key: 'Driving License', value: 'Driving_License' },
   { key: 'Passport', value: 'Passport' }
 ];
 
@@ -33,7 +33,8 @@ export enum MODEL_ACTIVE_STEP {
   UPLOAD_PHOTOS = 'Upload_Photos',
   ONBOARDED = 'Onboarded',
   IN_REVIEW = 'In_Review',
-  ADD_PRICE = 'Add_Price'
+  ADD_PRICE = 'Add_Price',
+  VERIFIED = 'Verified'
 }
 
 export enum EMAIL_SOURCE {

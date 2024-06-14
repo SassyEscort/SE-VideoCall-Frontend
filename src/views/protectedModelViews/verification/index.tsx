@@ -112,7 +112,10 @@ const VerificationContainer = () => {
       setActiveStep(3);
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED) {
       setActiveStep(4);
-    } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.IN_REVIEW) {
+    } else if (
+      modelDetails?.verification_step === MODEL_ACTIVE_STEP.IN_REVIEW ||
+      modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED
+    ) {
       router.push('/model/dashboard');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

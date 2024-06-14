@@ -7,7 +7,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import LanguageDropdown from 'components/common/LanguageDropdown';
 import SideBarGuestMenu from './SideBarGuestMenu';
 import { useState } from 'react';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
@@ -142,9 +141,9 @@ const HeaderGuestComponent = () => {
                   <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
                 </Box>
               )}
-              <Box display="flex" sx={{ cursor: 'pointer' }}>
+              {/* <Box display="flex" sx={{ cursor: 'pointer' }}>
                 <LanguageDropdown />
-              </Box>
+              </Box> */}
               {!isMdUp && (
                 <IconButton onClick={() => toggleDrawer(true)}>
                   <Image height={24} width={24} priority alt="menufill" src="/images/header/menuFill.svg" />
@@ -163,8 +162,9 @@ const HeaderGuestComponent = () => {
               {isMdUp && (
                 <UIThemeShadowButton variant="contained" onClick={handleSignupOpen} sx={{ width: '195px' }}>
                   <UINewTypography variant="body" lineHeight={'150%'}>
-                    <FormattedMessage id="JoinForFREE" />
+                    <FormattedMessage id="SignUpNow" />
                   </UINewTypography>
+                  <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} />
                 </UIThemeShadowButton>
               )}
             </Box>

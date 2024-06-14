@@ -21,6 +21,7 @@ import { useMemo, useState } from 'react';
 import { ImagePayload } from '../stepThree/uploadImage';
 import { VerificationStepSecond } from 'services/modelAuth/types';
 import { DocumentList } from 'constants/workerVerification';
+import { scrollToError } from 'utils/scrollUtils';
 
 export type VerificationPhotoWithoutFilter = {
   photoWithoutFilter: File | string;
@@ -131,7 +132,15 @@ const VerificationStepPromise = ({
     >
       {({ values, errors, setFieldTouched, setFieldValue, handleSubmit, touched }) => (
         <>
-          <Box component="form" onSubmit={handleSubmit} id="profile-from">
+          <Box
+            component="form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit();
+              scrollToError('.Mui-error');
+            }}
+            id="profile-from"
+          >
             <WorkerPhotosWithoutFilterNew
               name="photoWithoutFilter"
               value={values.photoWithoutFilter as File}

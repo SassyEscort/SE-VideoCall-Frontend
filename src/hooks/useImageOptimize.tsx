@@ -19,7 +19,7 @@ function useImageOptimize(
       const height = imageUrlRef.current.clientHeight;
 
       setImageUrl(
-        photo.split('/images')[0] + `/images/tr:` + +(coordinates ? '' : !noResize ? `:h-${height + 100}` : '') + photo.split('/images')[1]
+        photo.split('/images')[0] + `/images/tr:` + (coordinates ? '' : !noResize ? `:h-${height + 100}` : '') + photo.split('/images')[1]
       );
     }
   }, [coordinates, imageUrlRef, isWaterMark, noResize, photo]);

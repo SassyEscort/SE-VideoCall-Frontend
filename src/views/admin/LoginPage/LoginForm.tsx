@@ -3,7 +3,6 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Stack from '@mui/material/Stack';
 import InputAdornment from '@mui/material/InputAdornment';
-import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import MuiLink from '@mui/material/Link';
@@ -21,6 +20,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import getCustomErrorMessage from 'utils/error.utils';
 import { AdminLoginParams } from 'services/adminAuth/types';
 import { toast } from 'react-toastify';
+import { LoginPageFirstTextBox } from './LoginPage.styled';
 
 export default function LoginForm() {
   const route = useRouter();
@@ -60,7 +60,7 @@ export default function LoginForm() {
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
-            <Box sx={{ color: 'primary.300' }}>
+            <Box sx={{ color: 'primary.main' }}>
               {alert && (
                 <ErrorBox>
                   <InfoIcon />
@@ -69,7 +69,7 @@ export default function LoginForm() {
               )}
             </Box>
             <Stack spacing={3} sx={{ mt: 3 }}>
-              <TextField
+              <LoginPageFirstTextBox
                 inputProps={{ autoFocus: true }}
                 name="email"
                 label="Email address"
@@ -80,7 +80,7 @@ export default function LoginForm() {
                 onBlur={handleBlur}
               />
 
-              <TextField
+              <LoginPageFirstTextBox
                 name="password"
                 label="Password"
                 value={values.password}

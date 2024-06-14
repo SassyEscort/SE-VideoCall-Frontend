@@ -25,10 +25,10 @@ const DownloadApp = () => {
       </MainConatiner>
       <ForBox>
         <Box>
-          <Box component={'img'} src="/images/app-logo/google-pay.webp" />
+          <Box component={'img'} src="/images/app-logo/google-pay.png" />
         </Box>
         <Box>
-          <Box component={'img'} src="/images/app-logo/app-store-badge.webp" />
+          <Box component={'img'} src="/images/app-logo/app-store.png" />
         </Box>
       </ForBox>
     </>

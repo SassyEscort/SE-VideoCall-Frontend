@@ -1,7 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
 import { FavoritesText } from './Favorites.styled';
 import MainLayoutNav from '../protectedLayout';
 import { useMediaQuery } from '@mui/material';
@@ -22,7 +21,6 @@ const Favorites = () => {
               2 <FormattedMessage id="Models" />
             </UINewTypography>
           </FavoritesText>
-          <WorkerCard />
         </Box>
       </Box>
     </MainLayoutNav>
