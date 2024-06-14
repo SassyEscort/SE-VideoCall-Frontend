@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { GenericResponse } from 'types/commonApiTypes';
 
 export type commissionParams = {
   percentage: string;
@@ -9,6 +10,14 @@ export type commissionResponse = {
   code: number;
   error: string | null;
   message: string;
+};
+
+export interface AdminCommissionResponseData {
+  percentage: string;
+}
+
+export type AdminCommissionResponse = GenericResponse & {
+  data: AdminCommissionResponseData;
 };
 
 export class modelCommissionAmountServices {
@@ -27,17 +36,17 @@ export class modelCommissionAmountServices {
     }
   };
 
-  static modelCommissionMinAmountGet = async (token: string): Promise<commissionParams> => {
+  static modelCommissionMinAmountGet = async (token: string): Promise<AdminCommissionResponse> => {
     try {
       const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/model/commission`;
 
-      const res = await axios.get<commissionParams>(url, {
+      const res = await axios.get<AdminCommissionResponse>(url, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
       });
 
       return res.data;
     } catch (error) {
-      return error as commissionParams;
+      return error as AdminCommissionResponse;
     }
   };
 }

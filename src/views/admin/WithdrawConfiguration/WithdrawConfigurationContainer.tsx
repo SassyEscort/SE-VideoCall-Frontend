@@ -13,27 +13,43 @@ import { LoadingButton } from '@mui/lab';
 import { useEffect, useState } from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
 import MainLayout from '../layouts/AdminLayout/DashboardLayout';
-import { withdrawMinAmountServices } from 'services/adminServices/withdrawconfiguration/withdrawConfiguration.services';
+import {
+  AdminWithdrawResponse,
+  withdrawMinAmountServices,
+  withdrawParams
+} from 'services/adminServices/withdrawconfiguration/withdrawConfiguration.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 
 export default function WithdrawConfigurationContainer() {
-  const [data, setData] = useState('100');
   const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useState('');
+  const [withdrawAmount, setWithdrawAmount] = useState<AdminWithdrawResponse>({} as AdminWithdrawResponse);
 
   const validationSchema = yup.object({
     withdrawal_amt: yup.number().required('minimum withdraw amount is required')
   });
 
-  const handleFormSubmit = async (values: any) => {
+  useEffect(() => {
+    const fetchCommissionAmount = async () => {
+      try {
+        const response = await withdrawMinAmountServices.modelWithdrawAmountGet(token);
+        setWithdrawAmount(response);
+      } catch (error) {
+        toast.error('Error fetching commission amount');
+      }
+    };
+
+    fetchCommissionAmount();
+  }, [token]);
+
+  const handleFormSubmit = async (values: withdrawParams) => {
     setIsLoading(true);
 
     const res = await withdrawMinAmountServices.withdrawMinAmount(values, token);
     if (res) {
       if (res.code === 200) {
-        setData(values.withdrawal_amt);
         toast.success('Success');
       } else {
         toast.error(ErrorMessage);
@@ -41,6 +57,7 @@ export default function WithdrawConfigurationContainer() {
     }
     setIsLoading(false);
   };
+
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -63,7 +80,7 @@ export default function WithdrawConfigurationContainer() {
           <Formik
             enableReinitialize
             initialValues={{
-              withdrawal_amt: parseFloat(data) || 100
+              withdrawal_amt: withdrawAmount?.data?.amount || ''
             }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
@@ -76,7 +93,7 @@ export default function WithdrawConfigurationContainer() {
                   <Grid item xs={12} lg={6}>
                     <TextField
                       name="withdrawal_amt"
-                      label="Min Withdraw Amount"
+                      label="Withdraw Amount"
                       type="number"
                       value={values.withdrawal_amt}
                       error={Boolean(touched.withdrawal_amt && errors.withdrawal_amt)}

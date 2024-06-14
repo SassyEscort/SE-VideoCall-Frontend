@@ -9,6 +9,7 @@ import Drawer from '@mui/material/Drawer';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import NavSection from 'components/Admin/nav-section';
+import { navRoleConfigIdType, navRoleConfigSubmenuIdType } from 'components/Admin/nav-section/type';
 
 const NAV_WIDTH = 280;
 
@@ -32,7 +33,7 @@ interface NavProps {
 
 export default function Nav({ openNav, onCloseNav }: NavProps) {
   const { pathname } = window.location;
-  const navConfig = getNavConfig();
+  const navConfig = getNavConfig() as unknown as (navRoleConfigIdType | navRoleConfigSubmenuIdType)[];
 
   useEffect(() => {
     if (openNav) {

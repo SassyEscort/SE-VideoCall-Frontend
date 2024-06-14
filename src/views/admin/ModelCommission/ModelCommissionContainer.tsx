@@ -16,42 +16,39 @@ import MainLayout from '../layouts/AdminLayout/DashboardLayout';
 import { getUserDataClient } from 'utils/getSessionData';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
-import { modelCommissionAmountServices } from 'services/adminServices/modelCommission/modelCommission.services';
+import {
+  AdminCommissionResponse,
+  commissionParams,
+  modelCommissionAmountServices
+} from 'services/adminServices/modelCommission/modelCommission.services';
 
 export default function ModelCommissionContainer() {
-  const [data, setData] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useState('');
-  const [commissionAmount, setCommissionAmount] = useState(null);
+  const [commissionAmount, setCommissionAmount] = useState<AdminCommissionResponse>({} as AdminCommissionResponse);
 
   const validationSchema = yup.object({
     percentage: yup.number().required('minimum commission amount is required')
   });
 
   useEffect(() => {
-    // Define the async function inside the useEffect
     const fetchCommissionAmount = async () => {
       try {
         const response = await modelCommissionAmountServices.modelCommissionMinAmountGet(token);
         setCommissionAmount(response);
       } catch (error) {
-        console.error('Error fetching commission amount:', error);
+        toast.error('Error fetching commission amount');
       }
     };
 
-    // Call the async function
     fetchCommissionAmount();
-  }, [token]); // Only re-run the effect if the token changes
+  }, [token]);
 
-  console.log(commissionAmount, 'commissionAmount');
-
-  const handleFormSubmit = async (values: any) => {
+  const handleFormSubmit = async (values: commissionParams) => {
     setIsLoading(true);
-
     const res = await modelCommissionAmountServices.modelCommissionMinAmount(values, token);
     if (res) {
       if (res.code === 200) {
-        setData(values.percentage);
         toast.success('Success');
       } else {
         toast.error(ErrorMessage);
@@ -59,6 +56,7 @@ export default function ModelCommissionContainer() {
     }
     setIsLoading(false);
   };
+
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -81,7 +79,7 @@ export default function ModelCommissionContainer() {
           <Formik
             enableReinitialize
             initialValues={{
-              percentage: parseFloat(data) || ''
+              percentage: commissionAmount?.data?.percentage || ''
             }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
@@ -94,7 +92,7 @@ export default function ModelCommissionContainer() {
                   <Grid item xs={12} lg={6}>
                     <TextField
                       name="percentage"
-                      label="Min Withdraw Amount"
+                      label="Model Commission"
                       type="number"
                       value={values.percentage}
                       error={Boolean(touched.percentage && errors.percentage)}

@@ -8,17 +8,30 @@ import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 import { StyledNavItem, StyledNavItemIcon } from './styles';
+import { navRoleConfigIdType, navRoleConfigSubmenuIdType, navRoleConfigSubmenuInfoType } from './type';
+
+interface NavItem {
+  title: string;
+  path?: string;
+  icon?: React.ReactNode;
+  info?: React.ReactNode;
+  submenu?: NavItem[];
+}
 
 NavSection.propTypes = {
   data: PropTypes.array
 };
 
-export default function NavSection({ data = [], ...other }) {
+interface NavSectionProps {
+  data: (navRoleConfigIdType | navRoleConfigSubmenuIdType)[];
+}
+
+export default function NavSection({ data = [], ...other }: NavSectionProps) {
   return (
     <Box {...other}>
       <List disablePadding sx={{ p: 1 }}>
         {data.map((item) => (
-          <NavItem key={item.title} item={item} />
+          <NavItem key={item.title} item={(item as unknown as navRoleConfigSubmenuInfoType) ?? ({} as navRoleConfigSubmenuInfoType)} />
         ))}
       </List>
     </Box>
@@ -29,7 +42,7 @@ NavItem.propTypes = {
   item: PropTypes.object
 };
 
-function NavItem({ item }) {
+function NavItem({ item }: { item: NavItem }) {
   const { title, path, icon, info, submenu } = item;
   const [open, setOpen] = useState(false);
 
@@ -44,7 +57,6 @@ function NavItem({ item }) {
           onClick={handleClick}
           sx={{
             '&.active': {
-              // color: "text.primary",
               bgcolor: 'action.selected',
               fontWeight: 'fontWeightBold'
             }
