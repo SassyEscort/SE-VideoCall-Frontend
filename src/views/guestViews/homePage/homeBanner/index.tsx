@@ -4,7 +4,15 @@ import Image from 'next/image';
 import Box from '@mui/material/Box';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { BannerContainer, InlineBox, InlineBoxRelative, TypographyBox, HomeExploreBox, SubTitle } from './HomeBanner.styled';
+import {
+  BannerContainer,
+  InlineBox,
+  InlineBoxRelative,
+  TypographyBox,
+  HomeExploreBox,
+  SubTitle,
+  ModelsHeadingBox
+} from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
 import { useState } from 'react';
@@ -50,6 +58,14 @@ const HomeTopBanner = () => {
 
   const handleResetPasswordLinkClose = () => {
     setOpenForgetPassLink(false);
+  };
+
+  const handleClickScroll = () => {
+    const element = document.querySelector(`#scroll-to-model`) as HTMLElement;
+    element?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
   };
 
   return (
@@ -103,7 +119,7 @@ const HomeTopBanner = () => {
                 <FormattedMessage id="JoinForFREE" />
               </UINewTypography>
             </UIThemeShadowButton>
-            <UIThemeButton>
+            <UIThemeButton onClick={handleClickScroll}>
               <UINewTypography variant="bodySemiBold" sx={{ paddingTop: { xs: 2, sm: 0 }, lineHeight: '120%' }}>
                 <FormattedMessage id="ExploreModels" />
               </UINewTypography>
@@ -129,7 +145,7 @@ const HomeTopBanner = () => {
           />
         </Box>
       </BannerContainer>
-      <Box width="100%" pt={{ xs: '96px', lg: '120px' }} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+      <ModelsHeadingBox id="scroll-to-model" pt={{ xs: '96px', lg: '120px' }}>
         <HomeExploreBox>
           <UINewTypography
             textAlign="center"
@@ -142,7 +158,7 @@ const HomeTopBanner = () => {
             <FormattedMessage id="SelectTheCompanion" />
           </SubTitle>
         </HomeExploreBox>
-      </Box>
+      </ModelsHeadingBox>
       <Dialog
         sx={{
           '& .MuiDialog-paper': {
