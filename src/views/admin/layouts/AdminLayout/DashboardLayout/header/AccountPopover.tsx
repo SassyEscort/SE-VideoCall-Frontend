@@ -1,12 +1,11 @@
 import { MouseEvent, useState } from 'react';
-import { alpha } from '@mui/material/styles';
 
-import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
 import Popover from '@mui/material/Popover';
 import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
+import { StyledIconButton } from './AccountPopover.styled';
 
 export default function AccountPopover() {
   const [open, setOpen] = useState<null | HTMLElement>(null);
@@ -21,25 +20,9 @@ export default function AccountPopover() {
 
   return (
     <>
-      <IconButton
-        onClick={handleOpen}
-        sx={{
-          p: 0,
-          ...(Boolean(open) && {
-            '&:before': {
-              zIndex: 1,
-              content: "''",
-              width: '100%',
-              height: '100%',
-              borderRadius: '50%',
-              position: 'absolute',
-              bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8)
-            }
-          })
-        }}
-      >
+      <StyledIconButton open={Boolean(open)} onClick={handleOpen}>
         <Avatar src={'/images/admin/avatar.jpg'} alt="photoURL" />
-      </IconButton>
+      </StyledIconButton>
       <Popover
         open={Boolean(open)}
         anchorEl={open}
