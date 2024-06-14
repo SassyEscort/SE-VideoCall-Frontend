@@ -1060,10 +1060,10 @@
   resolved "https://registry.yarnpkg.com/@cometchat/calls-sdk-javascript/-/calls-sdk-javascript-4.0.9.tgz#0948405c155056da9376a1e0101b270d11f12acd"
   integrity sha512-woE7SeSwwCfUgnHXpt+x9o7HeXgswg3P3m/p3wGvqFtGawbX3MoTPzbbBGgVcdoPX80FfR8yUJevDG8n4VAKtw==
 
-"@cometchat/chat-sdk-javascript@4.0.5":
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/@cometchat/chat-sdk-javascript/-/chat-sdk-javascript-4.0.5.tgz#aa00f8e34e5f095b16568cad98018de01394abc2"
-  integrity sha512-7So46vqRCBvSKW9W6sHEModi4qWGs1XJZYrnYj1A1LO5+ATvdG2s2sL0iicrimGatXhQGlh3f77JPO8mp4EReA==
+"@cometchat/chat-sdk-javascript@^4.0.6":
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/@cometchat/chat-sdk-javascript/-/chat-sdk-javascript-4.0.6.tgz#d6e868f3d9eac73cfad0d7656dff2b0ad9f59808"
+  integrity sha512-bxXXNU58MwMrpgMIskW1PSlPi+XkVjrZVn4XHP+sd+e6aIYvZyh7mAI7//4plZPyJZZD55OVQguOgIWGpbHnAw==
 
 "@cometchat/chat-uikit-react@4.3.7":
   version "4.3.7"
