@@ -42,12 +42,14 @@ const DashboardPriceView = ({
   modelDetails,
   handleModelApiChange,
   handleNext,
+  handlePrevVerificationStep,
   isEdit
 }: {
   token: TokenIdType;
   modelDetails: ModelDetailsResponse;
   handleModelApiChange: () => void;
   handleNext?: () => void;
+  handlePrevVerificationStep?: () => void;
   isEdit: boolean;
 }) => {
   const initialValues = {
@@ -148,13 +150,13 @@ const DashboardPriceView = ({
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-      <MainConatiner sx={{ alignItems: isEdit ? 'flex-start' : 'center' }}>
+      <MainConatiner sx={{ alignItems: isEdit ? 'flex-start' : 'center', gap: isEdit ? 8 : 1.5 }}>
         <UINewTypography variant="h2" color="text.secondary">
-          <FormattedMessage id={isSm ? 'MyProfile' : 'SetOrModifyYourPrices'} />
+          {isEdit ? <FormattedMessage id={isSm ? 'MyProfile' : 'SetOrModifyYourPrices'} /> : <FormattedMessage id={'SetupYour'} />}
         </UINewTypography>
         <SecondConatiner>
           <VideoCall sx={{ alignItems: isEdit ? 'flex-start' : 'center', maxWidth: isEdit ? '680px' : '680px' }}>
-            <UINewTypography variant="body" color="text.secondary">
+            <UINewTypography variant={isEdit ? `body` : `bodyRegular`} color={isEdit ? `text.secondary` : `text.primary`}>
               <FormattedMessage id="VideoCallPrices" />
             </UINewTypography>
 
@@ -203,7 +205,7 @@ const DashboardPriceView = ({
           </VideoCall>
           <ButtonConatiner>
             {!isEdit && (
-              <UIThemeButton>
+              <UIThemeButton onClick={handlePrevVerificationStep}>
                 <>
                   <RiArrowLeftLine />
                   <UINewTypography variant="body">

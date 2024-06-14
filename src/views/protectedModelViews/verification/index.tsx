@@ -256,6 +256,7 @@ const VerificationContainer = () => {
           isEdit={false}
           handleModelApiChange={handleModelApiChange}
           handleNext={handleNext}
+          handlePrevVerificationStep={handlePrev}
           modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
           token={token}
         />
