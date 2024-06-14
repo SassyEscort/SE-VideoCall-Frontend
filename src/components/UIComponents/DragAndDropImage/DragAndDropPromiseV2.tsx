@@ -84,7 +84,7 @@ const DragAndDropV2 = ({
           return;
         }
         const fileURL = URL.createObjectURL(file);
-        setIsPDF(file.type === 'application/pdf');
+        setIsPDF(file.type === 'application/pdf' || file.name.endsWith('.pdf'));
         setUploadedFileURL(fileURL);
         setUploadedFileName(file.name);
         setValue(name, file);
@@ -96,7 +96,7 @@ const DragAndDropV2 = ({
   const handleSelect = async (file: File) => {
     setFieldTouched(name, true);
     const fileURL = URL.createObjectURL(file);
-    setIsPDF(file.type === 'application/pdf');
+    setIsPDF(file.type === 'application/pdf' || file.name.endsWith('.pdf'));
     setUploadedFileURL(fileURL);
     setUploadedFileName(file.name);
     setValue(name, file);
@@ -124,6 +124,10 @@ const DragAndDropV2 = ({
       });
       dropArea.addEventListener('drop', handleDrop, false);
     }
+    if (uploadedFileURL) {
+      setIsPDF(uploadedFileURL.endsWith('.pdf'));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dropAreaId, handleDrop, highlight, unhighlight]);
 
   return (

@@ -90,8 +90,8 @@ const VerificationStep2 = ({
   useEffect(() => {
     if (modelDetails && modelDetails.documents && modelDetails.documents.length > 0) {
       setValues({
-        idType: DocumentList.find((item) => item.value === modelDetails.documents[0].document_type)?.key || '',
-        idNumber: modelDetails.documents[0].document_number
+        idType: DocumentList.find((item) => item.value === modelDetails.documents[0].document_type)?.key || values.idType,
+        idNumber: modelDetails.documents[0].document_number || values.idNumber
       });
     } else {
       setValues({
@@ -99,6 +99,7 @@ const VerificationStep2 = ({
         idNumber: ''
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modelDetails, setValues]);
 
   return (
@@ -217,7 +218,7 @@ const VerificationStep2 = ({
           docValues={values}
           token={token}
           activeStep={activeStep}
-          handleNext={handleNextDocment}
+          handleNext={handleNext}
           modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
           handlePrev={handlePrev}
           handleDocuPrev={handleDocuPrev}
