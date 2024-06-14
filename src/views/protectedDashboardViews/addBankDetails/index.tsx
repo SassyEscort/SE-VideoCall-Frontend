@@ -34,11 +34,11 @@ const AddbankDetails = ({ token }: { token: TokenIdType }) => {
   const [loading, setLoading] = useState(false);
 
   const validationSchema = yup.object({
-    bank_name: yup.string().required('bankName is required'),
+    bank_name: yup.string().required('IBANnumber is required'),
     account_name: yup.string().required('accountName is required'),
     iban_number: yup
       .string()
-      .required('ibanNumber is required')
+      .required('IBANnumber is required')
       .matches(/^[a-zA-Z0-9]*$/, 'Only alphanumeric characters are allowed in IBAN number.')
   });
 
