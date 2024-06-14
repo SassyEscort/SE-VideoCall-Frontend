@@ -173,9 +173,11 @@ const HomeTopBanner = () => {
       ) : (
         <FristBoxContainer>
           <UINewTypography variant="MediumSemiBold" color="text.secondary" width={'610px'}>
-            Explore your choices from the world of diverse beauty.
+            <FormattedMessage id="ExploreYourChoicesFrom" />
           </UINewTypography>
-          <TextBoxContainer color="secondary.100">Select the companion who aligns with your desires.</TextBoxContainer>
+          <TextBoxContainer color="secondary.100">
+            <FormattedMessage id="SelectTheCompanionWho" />
+          </TextBoxContainer>
         </FristBoxContainer>
       )}
       <Dialog

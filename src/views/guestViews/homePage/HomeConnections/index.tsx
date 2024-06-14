@@ -8,10 +8,14 @@ import {
   DullCircles3,
   DullCircles4,
   DullCircles5,
+  FirstTextTyporaphy,
   HomeMainBox,
+  ImgBoxContainer,
   MainChildContainer,
+  SeconBoxContainer,
   TextMainTitleTyporaphy,
   TextTitleTyporaphy,
+  ThirdBoxContainer,
   VectorLines,
   VectorLinesMobile
 } from './HomeConnections.styled';
@@ -85,10 +89,10 @@ const HomeConnections = () => {
                     />
                   </BoxImageBackgroundChild>
                 </BoxImageBackground>
-                <UINewTypography variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'} sx={{ mt: { xs: 2, sm: 2.75 } }}>
+                <FirstTextTyporaphy variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'}>
                   <FormattedMessage id="SignUpLogIn" />
-                </UINewTypography>
-                <Box sx={{ width: '100%', maxWidth: '314px', mt: isSmDown ? 1.75 : 2 }}>
+                </FirstTextTyporaphy>
+                <SeconBoxContainer sx={{ mt: isSmDown ? 1.75 : 2 }}>
                   <UINewTypography
                     variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
                     sx={{
@@ -97,7 +101,7 @@ const HomeConnections = () => {
                   >
                     <FormattedMessage id="CreateYourFreeAccount" />
                   </UINewTypography>
-                </Box>
+                </SeconBoxContainer>
               </BoxMain>
 
               <BoxMain>
@@ -112,10 +116,10 @@ const HomeConnections = () => {
                     />
                   </BoxImageBackgroundChild>
                 </BoxImageBackground>
-                <UINewTypography variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'} sx={{ mt: { xs: 2, sm: 2.75 } }}>
+                <FirstTextTyporaphy variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'}>
                   <FormattedMessage id="ChooseYourModel" />
-                </UINewTypography>
-                <Box sx={{ width: '100%', maxWidth: '314px', mt: isSmDown ? 1.75 : 2 }}>
+                </FirstTextTyporaphy>
+                <SeconBoxContainer sx={{ mt: isSmDown ? 1.75 : 2 }}>
                   <UINewTypography
                     variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
                     sx={{
@@ -124,16 +128,11 @@ const HomeConnections = () => {
                   >
                     <FormattedMessage id="WhetherYouAreSeekingPassionate" />
                   </UINewTypography>
-                </Box>
+                </SeconBoxContainer>
               </BoxMain>
-              <Box
-                component="img"
+              <ImgBoxContainer
                 src="/images/line.png"
                 sx={{
-                  position: 'absolute',
-                  top: '230px',
-                  left: 'calc(50% - 466px)',
-                  zIndex: 1,
                   display: isSmDown || isMdDown ? 'none' : 'block'
                 }}
               />
@@ -149,9 +148,9 @@ const HomeConnections = () => {
                     />
                   </BoxImageBackgroundChild>
                 </BoxImageBackground>
-                <UINewTypography variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'} sx={{ mt: { xs: 2, sm: 2.75 } }}>
+                <FirstTextTyporaphy variant={isSmDown ? 'body' : 'h6'} color={'#E9E8EB'}>
                   <FormattedMessage id="ConnectInstantly" />
-                </UINewTypography>
+                </FirstTextTyporaphy>
 
                 <Box sx={{ width: '100%', maxWidth: '314px', mt: isSmDown ? 1.75 : 2 }}>
                   <UINewTypography
@@ -166,14 +165,14 @@ const HomeConnections = () => {
               </BoxMain>
             </MainChildContainer>
 
-            <Box sx={{ mt: isSmDown ? 6 : 12, display: 'flex', justifyContent: 'center' }}>
+            <ThirdBoxContainer sx={{ mt: isSmDown ? 6 : 12 }}>
               <UIThemeShadowButton variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
                 <UINewTypography variant="buttonLargeBold" sx={{ lineHeight: '150%' }}>
                   <FormattedMessage id="SignUpNow" />
                 </UINewTypography>
                 <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} />
               </UIThemeShadowButton>
-            </Box>
+            </ThirdBoxContainer>
           </Box>
         ) : (
           ' '

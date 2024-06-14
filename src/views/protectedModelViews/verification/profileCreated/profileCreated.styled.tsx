@@ -73,3 +73,10 @@ export const GoToYourDashboardButton = styled(UINewTypography)(() => ({
   fontSize: '16px !important',
   lineHeight: '19.2px !important'
 }));
+
+export const FristBoxContent = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(4),
+  alignItems: 'center',
+  justifyContent: 'center'
+}));

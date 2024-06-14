@@ -8,6 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import {
   ChildContainer,
   Container,
+  FristBoxContent,
   GoToYourDashboardButton,
   ImageContainerProfile,
   ProfileCreatedText,
@@ -41,11 +42,11 @@ const ProfileCreated = () => {
                 <FormattedMessage id="DownloadOurApp" />
               </ProfileLiveText>
 
-              <Box sx={{ display: 'flex', gap: 4, alignItems: 'center', justifyContent: 'center' }}>
+              <FristBoxContent>
                 <Box component={'img'} src="/images/app-logo/google-pay.png" sx={{ width: '120px', height: '120px' }} />
 
                 <Box component={'img'} src="/images/app-logo/app-store.png" sx={{ width: '120px', height: '120px' }} />
-              </Box>
+              </FristBoxContent>
             </Box>
             <Box>
               <Link href={'/model/dashboard'}>
