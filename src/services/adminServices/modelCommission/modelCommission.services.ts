@@ -26,4 +26,18 @@ export class modelCommissionAmountServices {
       return error.response?.data as commissionResponse;
     }
   };
+
+  static modelCommissionMinAmountGet = async (token: string): Promise<commissionParams> => {
+    try {
+      const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/model/commission`;
+
+      const res = await axios.get<commissionParams>(url, {
+        headers: { 'Content-Type': 'application/json', Authorization: token }
+      });
+
+      return res.data;
+    } catch (error) {
+      return error as commissionParams;
+    }
+  };
 }

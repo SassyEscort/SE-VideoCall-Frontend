@@ -1,13 +1,29 @@
-'use client';
+/* eslint-disable react-hooks/exhaustive-deps */
+import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+import { styled, alpha } from '@mui/material/styles';
+import { getNavConfig } from './config';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-import { Avatar, Box } from '@mui/material';
-import { StyledAccount } from './Nav.styled';
-import AdminSidbar from '../sidbar';
-import { useEffect, useState } from 'react';
-import { getUserDataClient } from 'utils/getSessionData';
+import NavSection from 'components/Admin/nav-section';
 
 const NAV_WIDTH = 280;
+
+const StyledAccount = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(2, 2.5),
+  borderRadius: Number(theme.shape.borderRadius) * 1.5,
+  backgroundColor: alpha(theme.palette.grey[500], 0.12)
+}));
+
+Nav.propTypes = {
+  openNav: PropTypes.bool,
+  onCloseNav: PropTypes.func
+};
 
 interface NavProps {
   openNav: boolean;
@@ -15,37 +31,50 @@ interface NavProps {
 }
 
 export default function Nav({ openNav, onCloseNav }: NavProps) {
-  const [adminData, setAdminData] = useState({ name: '', email: '' });
+  const { pathname } = window.location;
+  const navConfig = getNavConfig();
 
   useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      setAdminData({ name: data.name, email: data.email });
-    };
-
-    userToken();
-  }, []);
+    if (openNav) {
+      onCloseNav();
+    }
+  }, [pathname]);
 
   const renderContent = (
     <>
+      <Box
+        sx={{
+          py: 3,
+          display: 'inline-flex',
+          textAlign: 'center',
+          justifyContent: 'center',
+          width: '100%'
+        }}
+      >
+        <Box component="img" src="/images/header/headerlogo.png" alt="logo" width={180} />
+      </Box>
+
       <Box sx={{ mb: 2, mx: 2.5 }}>
         <Link underline="none">
           <StyledAccount>
-            <Avatar src="/images/admin/avatar.jpg" alt="photoURL" />
+            <Avatar src="/assets/images/avatars/avatar_24.jpg" alt="photoURL" />
 
             <Box sx={{ ml: 2 }}>
-              <Typography variant="subtitle2" color="primary.main" sx={{ textTransform: 'capitalize' }}>
-                {adminData?.name}
+              <Typography variant="subtitle2" sx={{ color: 'text.primary', textTransform: 'capitalize' }}>
+                Admin
               </Typography>
 
-              <Typography variant="body2" color="text.primary">
-                {adminData?.email}
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                Admin
               </Typography>
             </Box>
           </StyledAccount>
         </Link>
-        <AdminSidbar />
       </Box>
+
+      <NavSection data={navConfig} />
+
+      <Box sx={{ flexGrow: 1 }} />
     </>
   );
 
@@ -57,7 +86,19 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
         width: { lg: NAV_WIDTH }
       }}
     >
-      {renderContent}
+      <Drawer
+        open
+        variant="permanent"
+        PaperProps={{
+          sx: {
+            width: NAV_WIDTH,
+            bgcolor: 'background.default',
+            borderRightStyle: 'dashed'
+          }
+        }}
+      >
+        {renderContent}
+      </Drawer>
     </Box>
   );
 }

@@ -1,8 +1,21 @@
 import { PaletteColorOptions, createTheme } from '@mui/material/styles';
 import { CSSProperties } from 'react';
-import { Manrope } from 'next/font/google';
+import { Roboto, Roboto_Slab } from 'next/font/google';
 
-const manropeFont = Manrope({ subsets: ['latin'] });
+const robotoFont = Roboto({
+  weight: ['300', '400', '500', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  display: 'swap'
+});
+
+const robotoSlabFont = Roboto_Slab({
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal'],
+  subsets: ['latin'],
+  display: 'swap'
+});
+
 declare module '@mui/material/styles' {
   interface PaletteOptions {
     white?: PaletteColorOptions;
@@ -12,27 +25,15 @@ declare module '@mui/material/styles' {
   interface PaletteColor {
     100: string;
     200: string;
-    300: string;
     400: string;
-    500: string;
-    600: string;
-    700: string;
     800: string;
-    900: string;
-    1000: string;
   }
 
   interface SimplePaletteColorOptions {
     100?: string;
     200?: string;
-    300?: string;
     400?: string;
-    500?: string;
-    600?: string;
-    700?: string;
     800?: string;
-    900?: string;
-    1000?: string;
   }
 
   interface TypographyVariants {
@@ -48,8 +49,6 @@ declare module '@mui/material/styles' {
     bodyBold: CSSProperties;
     bodyLarge: CSSProperties;
     bodyUltraLarge: CSSProperties;
-    SubtitleSmallMedium: CSSProperties;
-    newTitle: CSSProperties;
   }
 
   // allow configuration using `createTheme`
@@ -66,26 +65,6 @@ declare module '@mui/material/styles' {
     bodyBold?: CSSProperties;
     bodyLarge?: CSSProperties;
     bodyUltraLarge?: CSSProperties;
-    buttonLargeMenu?: CSSProperties;
-    bodySemiBold?: CSSProperties;
-    SubtitleSmallRegular?: CSSProperties;
-    captionBold?: CSSProperties;
-    buttonSmallBold?: CSSProperties;
-    bodyRegular?: CSSProperties;
-    buttonLargeBold?: CSSProperties;
-    SubtitleLargeBold?: CSSProperties;
-    subtitleLargeRegular?: CSSProperties;
-    SubtitleSmallMedium?: CSSProperties;
-    TypographyAttract?: CSSProperties;
-    TypographyPercentage?: CSSProperties;
-    SmallerText?: CSSProperties;
-    ExtraSmallerText?: CSSProperties;
-    MediumBold?: CSSProperties;
-    MediumSemiBold?: CSSProperties;
-    MediumSemiBoldText?: CSSProperties;
-    SmallText?: CSSProperties;
-    captionLargeBold?: CSSProperties;
-    newTitle?: CSSProperties;
   }
 }
 
@@ -104,26 +83,6 @@ declare module '@mui/material/Typography' {
     bodyBold: true;
     bodyLarge: true;
     bodyUltraLarge: true;
-    buttonLargeMenu: true;
-    bodySemiBold: true;
-    SubtitleSmallRegular: true;
-    captionBold: true;
-    buttonSmallBold: true;
-    bodyRegular: true;
-    buttonLargeBold: true;
-    SubtitleLargeBold: true;
-    subtitleLargeRegular: true;
-    SubtitleSmallMedium: true;
-    TypographyAttract: true;
-    SmallerText: true;
-    ExtraSmallerText: true;
-    MediumBold: true;
-    MediumSemiBold: true;
-    MediumSemiBoldText: true;
-    SmallText: true;
-    captionLargeBold: true;
-    TypographyPercentage: true;
-    newTitle: true;
   }
 }
 
@@ -141,53 +100,35 @@ declare module '@mui/material/Chip' {
   }
 }
 
-const theme2 = createTheme({
+const theme = createTheme({
   palette: {
     mode: 'light',
-    text: {
-      primary: '#000000DE',
-      secondary: '#E9E8EB',
-      disabled: '#58535E'
-    },
     primary: {
-      100: '#D12288',
-      200: '#290F1E',
-      900: '#E92F2F',
-      500: '#611441',
-      700: '#232027',
-      800: '#D12288',
-      400: '#FF68C0',
-      300: '#FF0000',
-      600: '#FFE500',
-      main: '#000'
+      100: 'rgba(213, 42, 142, 0.10)',
+      200: 'rgba(213, 42, 142, 0.20)',
+      700: 'rgba(213, 42, 142, 0.70)',
+      800: '#B02375',
+      main: '#D52A8E'
     },
     error: {
-      // 100: "rgba(255, 37, 37, 0.15)",
-      300: '#FF5959',
+      100: 'rgba(255, 37, 37, 0.15)',
+      300: 'rgba(255, 37, 37, 0.30)',
+      400: '#FF5959',
       main: '#FF2525'
     },
     success: {
       main: '#079C46',
-      100: '#79E028'
-      // 300: "rgba(7, 156, 70, 0.30)",
+      100: 'rgba(7, 156, 70, 0.15)',
+      300: 'rgba(7, 156, 70, 0.30)'
     },
     secondary: {
-      main: '#290F1E',
-      light: '#58535E',
-      dark: '#1E0815',
-      // light: "#e7e7e7",
-      100: '#EEEEEE',
-      200: '#B7B5B9',
-      500: '#100B19',
-      700: '#86838A',
-      300: '#DDDDDD',
-      400: '#79E02852',
-      600: '#B7B5B952',
-      800: '#07030E',
-      900: '#D4D3D63D',
-      1000: '#D52A83'
+      main: '#00000033',
+      dark: '#313131',
+      light: '#e7e7e7',
+      800: '#747474',
+      200: '#DCDCDC',
+      500: 'rgba(0, 0, 0, 0.5)'
     },
-
     white: {
       main: '#fff'
     },
@@ -209,55 +150,49 @@ const theme2 = createTheme({
     }
   },
   typography: {
-    fontFamily: `${manropeFont.style.fontFamily}, sans-serif`,
+    // fontFamily: "'Roboto Slab', sans-serif",
+    fontFamily: `${robotoFont.style.fontFamily}, sans-serif`,
     h1: {
-      fontSize: '48px',
-      fontWeight: 700,
-      lineHeight: '125%',
-      letterSpacing: '-0.5px'
-    },
-    h2: {
-      fontSize: '38px',
-      fontStyle: 'normal',
-      fontWeight: 700,
-      lineHeight: '125%'
-    },
-    h3: {
-      fontSize: '30px',
+      fontSize: '56px',
       fontStyle: 'normal',
       fontWeight: 600,
-      lineHeight: '140%',
-      letterSpacing: '-0.5px'
+      lineHeight: '110%',
+      letterSpacing: '-0.56px',
+      fontFamily: robotoSlabFont.style.fontFamily
+    },
+    h2: {
+      fontSize: '49px',
+      fontStyle: 'normal',
+      fontWeight: 600,
+      lineHeight: '120%',
+      fontFamily: robotoSlabFont.style.fontFamily
+    },
+    h3: {
+      fontSize: '39px',
+      fontStyle: 'normal',
+      fontWeight: 600,
+      lineHeight: '120%',
+      fontFamily: robotoSlabFont.style.fontFamily
     },
     h4: {
       fontSize: '31px',
       fontStyle: 'normal',
       fontWeight: 600,
-      lineHeight: '120%'
+      lineHeight: '120%',
+      fontFamily: robotoSlabFont.style.fontFamily
     },
     h5: {
-      fontSize: '24px',
+      fontSize: '25px',
       fontStyle: 'normal',
-      fontWeight: 700,
-      lineHeight: '140%',
-      letterSpacing: '0.5px'
-    },
-    h6: {
-      fontSize: '20px',
-      fontStyle: 'normal',
-      fontWeight: 700,
-      lineHeight: '140%'
+      fontWeight: 600,
+      lineHeight: '120%',
+      fontFamily: robotoSlabFont.style.fontFamily
     },
     subtitle: {
       fontSize: '20px',
       fontWeight: 500,
-      lineHeight: '120%'
-    },
-    subtitleLargeRegular: {
-      fontSize: '18px',
-      fontWeight: 400,
-      lineHeight: '160%',
-      letterSpacing: '0.3px'
+      lineHeight: '120%',
+      fontFamily: robotoSlabFont.style.fontFamily
     },
     bodyLargeBold: {
       fontSize: '18px',
@@ -281,26 +216,6 @@ const theme2 = createTheme({
       fontWeight: 700,
       textTransform: 'none'
     },
-    buttonSmallBold: {
-      fontSize: '14px',
-      lineHeight: '120%',
-      fontStyle: 'normal',
-      fontWeight: 700,
-      textTransform: 'none'
-    },
-    buttonLargeBold: {
-      fontSize: '16px',
-      lineHeight: '120%',
-      fontStyle: 'normal',
-      fontWeight: 700
-    },
-    bodyRegular: {
-      fontSize: '16px',
-      lineHeight: '160%',
-      fontWeight: 400,
-      fontStyle: 'normal',
-      letterSpacing: '0.1px'
-    },
     body1: {
       fontSize: '16px',
       lineHeight: '150%',
@@ -317,42 +232,16 @@ const theme2 = createTheme({
       fontWeight: 600,
       lineHeight: '120%'
     },
-    bodySemiBold: {
-      fontSize: '16px',
-      fontWeight: 600,
-      lineHeight: '160%',
-      fontStyle: 'normal'
-    },
     bodySmall: {
       fontSize: '14px',
       fontWeight: 400,
       lineHeight: '120%'
     },
-    SubtitleSmallRegular: {
-      fontSize: '14px',
-      fontStyle: 'normal',
-      letterSpacing: '0.3px',
-      fontWeight: 400,
-      lineHeight: '140%'
-    },
-    SubtitleLargeBold: {
-      fontSize: '18px',
-      fontStyle: 'normal',
-      fontWeight: 700,
-      lineHeight: '150%'
-    },
     caption: {
-      fontSize: '13px',
+      fontSize: '10px',
       fontStyle: 'normal',
       fontWeight: 400,
-      lineHeight: '18.2px%'
-    },
-    captionBold: {
-      fontSize: '13px',
-      fontWeight: 800,
-      lineHeight: '140%',
-      fontStyle: 'normal',
-      textTransform: 'uppercase'
+      lineHeight: '120%'
     },
     button: {
       fontSize: '20px',
@@ -361,21 +250,10 @@ const theme2 = createTheme({
       fontStyle: 'normal',
       textTransform: 'none'
     },
-    buttonLargeMenu: {
-      fontSize: '16px',
-      fontWeight: 500,
-      lineHeight: '120%',
-      fontStyle: 'normal'
-    },
     captionLarge: {
       fontSize: '12px',
       fontWeight: 500,
       lineHeight: '120%'
-    },
-    captionLargeBold: {
-      fontSize: '12px',
-      fontWeight: 400,
-      lineHeight: '140%'
     },
     captionLargeSemiBold: {
       fontSize: '12px',
@@ -386,62 +264,8 @@ const theme2 = createTheme({
       fontSize: '14px',
       fontWeight: 600,
       lineHeight: '120%'
-    },
-    SubtitleSmallMedium: {
-      fontSize: '14px',
-      fontWeight: 500,
-      lineHeight: '140%',
-      fontStyle: 'normal',
-      letterSpacing: '0.3px'
-    },
-    TypographyAttract: {
-      fontSize: '96px',
-      fontWeight: 300,
-      lineHeight: '110%',
-      fontStyle: 'normal'
-    },
-    TypographyPercentage: {
-      fontSize: '40px',
-      fontWeight: 300,
-      lineHeight: '110%'
-    },
-    SmallerText: {
-      fontSize: '10px',
-      fontWeight: 800,
-      lineHeight: '14px'
-    },
-    ExtraSmallerText: {
-      fontSize: '10px',
-      fontWeight: 600,
-      lineHeight: '14px'
-    },
-    MediumBold: {
-      fontSize: '28px',
-      fontWeight: 800,
-      lineHeight: '32px',
-      textTransform: 'uppercase'
-    },
-    SmallText: {
-      fontSize: '11px',
-      fontWeight: 500,
-      lineHeight: '16px'
-    },
-    MediumSemiBold: {
-      fontSize: '40px',
-      fontWeight: 700,
-      lineHeight: '52px'
-    },
-    MediumSemiBoldText: {
-      fontSize: '32px',
-      fontWeight: 700,
-      lineHeight: '50px'
-    },
-    newTitle: {
-      fontSize: '20px',
-      fontWeight: 600,
-      lineHeight: '24px'
     }
   }
 });
 
-export default theme2;
+export default theme;

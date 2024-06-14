@@ -22,10 +22,28 @@ export default function ModelCommissionContainer() {
   const [data, setData] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useState('');
+  const [commissionAmount, setCommissionAmount] = useState(null);
 
   const validationSchema = yup.object({
     percentage: yup.number().required('minimum commission amount is required')
   });
+
+  useEffect(() => {
+    // Define the async function inside the useEffect
+    const fetchCommissionAmount = async () => {
+      try {
+        const response = await modelCommissionAmountServices.modelCommissionMinAmountGet(token);
+        setCommissionAmount(response);
+      } catch (error) {
+        console.error('Error fetching commission amount:', error);
+      }
+    };
+
+    // Call the async function
+    fetchCommissionAmount();
+  }, [token]); // Only re-run the effect if the token changes
+
+  console.log(commissionAmount, 'commissionAmount');
 
   const handleFormSubmit = async (values: any) => {
     setIsLoading(true);
