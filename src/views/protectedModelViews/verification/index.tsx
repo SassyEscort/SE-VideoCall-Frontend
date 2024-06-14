@@ -18,8 +18,9 @@ import ModelReviewDetails from '../modelReviewDetails';
 import ProfileCreated from './profileCreated';
 import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 import { useRouter } from 'next/navigation';
+import DashboardPriceView from 'views/protectedDashboardViews/dashboardPriceView';
 
-const VERIFICATION_STEPS = ['Basic Details', 'Documents', 'Photos', 'Review'];
+const VERIFICATION_STEPS = ['Basic Details', 'Documents', 'Photos', 'Price', 'Review'];
 
 const submitButtonIds = ['basic-details-button', 'document-id-button', 'document-photo-button', 'photos-button', 'review-button'];
 
@@ -41,8 +42,8 @@ const VerificationContainer = () => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
-    const stepProgress = 100 / 4;
-    const activeStepNew = activeStep < 4 ? activeStep + 1 : 4;
+    const stepProgress = 100 / 5;
+    const activeStepNew = activeStep < 5 ? activeStep + 1 : 5;
     setProgressValue(activeStepNew * stepProgress);
   }, [activeStep]);
 
@@ -107,8 +108,10 @@ const VerificationContainer = () => {
       setActiveStep(1);
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_PHOTOS) {
       setActiveStep(2);
-    } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED) {
+    } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ADD_PRICE) {
       setActiveStep(3);
+    } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED) {
+      setActiveStep(4);
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.IN_REVIEW) {
       router.push('/model/dashboard');
     }
@@ -177,11 +180,21 @@ const VerificationContainer = () => {
                   <FormattedMessage id="Photos" />
                 </UINewTypography>
                 <UINewTypography variant="SubtitleSmallMedium">
-                  <FormattedMessage id="NextFinalReview" />
+                  <FormattedMessage id="NextVerification" />
                 </UINewTypography>
               </>
             )}
             {isMdDown && activeStep === 3 && (
+              <>
+                <UINewTypography variant="button" sx={{ lineHeight: '140%', color: 'text.secondary' }}>
+                  <FormattedMessage id="Price" />
+                </UINewTypography>
+                <UINewTypography variant="SubtitleSmallMedium">
+                  <FormattedMessage id="NextFinalReview" />
+                </UINewTypography>
+              </>
+            )}
+            {isMdDown && activeStep === 4 && (
               <>
                 <UINewTypography variant="button" sx={{ lineHeight: '140%', color: 'text.secondary' }}>
                   <FormattedMessage id="ReviewYourDetails" />
@@ -191,7 +204,7 @@ const VerificationContainer = () => {
                 </UINewTypography>
               </>
             )}
-            {isMdDown && activeStep === 4 && (
+            {isMdDown && activeStep === 5 && (
               <>
                 <UINewTypography variant="button" sx={{ lineHeight: '140%', color: 'text.secondary' }}>
                   <FormattedMessage id="OnboardingCompleted" />
@@ -234,7 +247,17 @@ const VerificationContainer = () => {
           handlePrevVerificationStep={handlePrev}
         />
       )}
+
       {activeStep === 3 && (
+        <DashboardPriceView
+          isEdit={false}
+          handleModelApiChange={handleModelApiChange}
+          handleNext={handleNext}
+          modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
+          token={token}
+        />
+      )}
+      {activeStep === 4 && (
         <ModelReviewDetails
           handleNext={handleNext}
           modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
@@ -242,7 +265,7 @@ const VerificationContainer = () => {
           handleEdit={handleEdit}
         />
       )}
-      {activeStep === 4 && <ProfileCreated />}
+      {activeStep === 5 && <ProfileCreated />}
     </>
   );
 };

@@ -29,10 +29,6 @@ export type BankDetaildDeleteParam = {
   id: number;
 };
 const PayoutPaymentConatiner = ({ bankDetailsList }: { bankDetailsList: BankDetailsListRes }) => {
-  const handleBankDetailsDelete = (id: number) => {
-    try {
-    } catch (error) {}
-  };
   return (
     <MainConatinerBox>
       <MainSecondBox>
@@ -64,12 +60,7 @@ const PayoutPaymentConatiner = ({ bankDetailsList }: { bankDetailsList: BankDeta
                     </SiliconFristBox>
                     <DeleteEditBox>
                       <Box component={'img'} src="/images/payout/edit.webp" sx={{ width: '18px', height: '18px' }} />
-                      <Box
-                        component={'img'}
-                        src="/images/payout/delete.webp"
-                        sx={{ width: '16px', height: '18px' }}
-                        onClick={handleBankDetailsDelete(list?.id)}
-                      />
+                      <Box component={'img'} src="/images/payout/delete.webp" sx={{ width: '16px', height: '18px' }} />
                     </DeleteEditBox>
                   </SiliconBox>
                 </MainForBox>

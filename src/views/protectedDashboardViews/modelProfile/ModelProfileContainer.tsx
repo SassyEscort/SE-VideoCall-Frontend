@@ -47,7 +47,7 @@ const ModelProfileContainer = ({
   return (
     <Box sx={{ display: 'flex' }}>
       <Divider orientation="vertical" flexItem sx={{ borderColor: 'primary.700' }} />
-      <Box display="flex">
+      <Box display="flex" width="100%">
         <Box sx={{ display: 'flex' }}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '55px' }}>
@@ -75,7 +75,7 @@ const ModelProfileContainer = ({
           </Box>
           <Divider orientation="vertical" flexItem sx={{ borderColor: 'primary.700' }} />
         </Box>
-        <Box sx={{ display: 'flex', ml: 1 }}>
+        <Box sx={{ display: 'flex', ml: 1, width: '100%' }}>
           {menuId === 0 ? (
             <UploadImage
               isEdit={true}
@@ -93,7 +93,7 @@ const ModelProfileContainer = ({
               handleModelApiChange={handleModelApiChange}
             />
           ) : (
-            <DashboardPriceView token={token} modelDetails={modelDetails} handleModelApiChange={handleModelApiChange} />
+            <DashboardPriceView token={token} modelDetails={modelDetails} handleModelApiChange={handleModelApiChange} isEdit={true} />
           )}
         </Box>
       </Box>

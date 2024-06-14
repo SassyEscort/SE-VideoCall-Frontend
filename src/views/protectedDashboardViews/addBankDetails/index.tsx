@@ -3,7 +3,7 @@ import { Box, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   AddBankDetail,
   AddBankDetailsContainer,
@@ -31,6 +31,8 @@ export type BankDetailsParams = {
 };
 const AddbankDetails = ({ token }: { token: TokenIdType }) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+  const [loading, setLoading] = useState(false);
+
   const validationSchema = yup.object({
     bank_name: yup.string().required('bankName is required'),
     account_name: yup.string().required('accountName is required'),
@@ -50,6 +52,7 @@ const AddbankDetails = ({ token }: { token: TokenIdType }) => {
       validationSchema={validationSchema}
       onSubmit={async (values) => {
         try {
+          setLoading(true);
           const BankDetailsObject = {
             bank_name: values.bank_name,
             account_name: values.account_name,
@@ -59,10 +62,12 @@ const AddbankDetails = ({ token }: { token: TokenIdType }) => {
           if (data?.code === 200) {
             toast.success('Success');
           } else {
-            toast.error(data.error);
+            toast.error(ErrorMessage);
           }
         } catch (error) {
           toast.error(ErrorMessage);
+        } finally {
+          setLoading(false);
         }
       }}
     >
@@ -131,7 +136,7 @@ const AddbankDetails = ({ token }: { token: TokenIdType }) => {
                     </InputSecondBox>
                   </InputMainBox>
                   <ButtonBox>
-                    <UIThemeButton variant="contained" type="submit">
+                    <UIThemeButton variant="contained" type="submit" loading={loading}>
                       <UINewTypography color="primary.200" variant="body">
                         <FormattedMessage id="Confirm" />
                       </UINewTypography>

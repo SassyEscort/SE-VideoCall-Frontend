@@ -22,6 +22,6 @@ export const DashboardModelTabs = [
   {
     name: 'App',
     img: '/images/profile-vector/Vector-8.png',
-    path: '/model/app'
+    path: '/model/download-app'
   }
 ];
