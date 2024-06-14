@@ -269,7 +269,7 @@ const UploadImage = ({
                   </UIThemeButton>
                   <StyleButtonV2 id="photos-button" type="submit" variant="contained" loading={loading}>
                     <UINewTypography variant="body">
-                      <FormattedMessage id="Next" />
+                      <FormattedMessage id="NextStep" />
                     </UINewTypography>
                     <RiArrowRightLine />
                   </StyleButtonV2>

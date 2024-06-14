@@ -145,10 +145,28 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
   }
 }));
 
+export const TextBoxContainer = styled(Typography)(({ theme }) => ({
+  fontSize: '20px',
+  fontWeight: 400,
+  lineHeight: '32px'
+}));
+
 export const ModelsHeadingBox = styled(Box)(() => ({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center'
+}));
+
+export const FristBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  height: '100%',
+  maxHeight: '152px',
+  gap: theme.spacing(2),
+  textAlign: 'center',
+  justifyContent: 'center',
+  alignItems: 'center'
 }));

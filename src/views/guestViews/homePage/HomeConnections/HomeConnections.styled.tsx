@@ -170,9 +170,35 @@ export const TextTitleTyporaphy = styled(Typography)(({ theme }) => ({
   }
 }));
 
-export const MainChildContainer = styled(Box)(({ theme }) => ({
+export const MainChildContainer = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
   textAlign: 'center'
+}));
+
+export const FirstTextTyporaphy = styled(Typography)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    marginTop: theme.spacing(2)
+  },
+  [theme.breakpoints.up('sm')]: {
+    marginTop: theme.spacing(2.75)
+  }
+}));
+
+export const SeconBoxContainer = styled(Box)(() => ({
+  width: '100%',
+  maxWidth: '314px'
+}));
+
+export const ImgBoxContainer = styled('img')(() => ({
+  position: 'absolute',
+  top: '230px',
+  left: 'calc(50% - 466px)',
+  zIndex: 1
+}));
+
+export const ThirdBoxContainer = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center'
 }));

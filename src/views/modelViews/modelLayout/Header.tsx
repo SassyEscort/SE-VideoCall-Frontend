@@ -9,8 +9,6 @@ import theme from 'themes/theme';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { useState } from 'react';
-import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-import { FormattedMessage } from 'react-intl';
 import HomeMainModelContainer from './homeModelContainer';
 import SideBarModelMenu from './SideBarModelMenu';
 import ModelSignup from '../modelSignup';
@@ -112,14 +110,14 @@ const HeaderModelComponent = () => {
                 priority
               />
             </Box>
-            {isMdUp && (
+            {/* {isMdUp && (
               <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }}>
                 <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" loading="lazy" />
                 <Typography variant="buttonLargeMenu">
                   <FormattedMessage id="Search" />
                 </Typography>
               </Box>
-            )}
+            )} */}
           </Box>
 
           <Box display="flex" gap={2}>
@@ -127,7 +125,7 @@ const HeaderModelComponent = () => {
               {isMdUp && (
                 <Link prefetch={false} href="/">
                   <Typography variant="buttonLargeMenu" color="text.secondary">
-                    <FormattedMessage id="LookingForAModel" />
+                    {/* <FormattedMessage id="LookingForAModel" /> */}
                   </Typography>
                 </Link>
               )}
@@ -144,21 +142,21 @@ const HeaderModelComponent = () => {
                   <Image height={24} width={24} priority alt="menufill" src="/images/header/menuFill.svg" />
                 </IconButton>
               )}
-              {isMdUp && (
+              {/* {isMdUp && (
                 <Box display="flex" alignItems="center" gap={1} onClick={handleLoginOpen} sx={{ cursor: 'pointer' }}>
                   <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
                   <Typography variant="buttonLargeMenu" color="text.secondary">
                     <FormattedMessage id="LogIn" />
                   </Typography>
                 </Box>
-              )}
-              {isMdUp && (
+              )} */}
+              {/* {isMdUp && (
                 <UIThemeShadowButton variant="contained" onClick={handleSignupOpen} sx={{ width: '195px' }}>
                   <Typography variant="body">
                     <FormattedMessage id="JoinForFREE" />
                   </Typography>
                 </UIThemeShadowButton>
-              )}
+              )} */}
             </Box>
           </Box>
         </Toolbar>
