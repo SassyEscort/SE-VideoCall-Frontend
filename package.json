@@ -54,7 +54,6 @@
     "react-dom": "18.2.0",
     "react-easy-crop": "5.0.7",
     "react-intl": "6.6.5",
-    "react-router-dom": "^6.23.1",
     "react-toastify": "10.0.5",
     "react-window": "1.8.10",
     "react18-input-otp": "1.1.4",
