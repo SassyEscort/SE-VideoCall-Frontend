@@ -36,12 +36,13 @@ const EscortDetailPage = () => {
   useEffect(() => {
     const fetchGuestData = async () => {
       try {
-        const data = await GuestDetailsService.GuestModelDetails(userName);
-
-        if (data.code === 200) {
-          setGuestData(data.data);
-        } else {
-          toast.error(data?.response?.data?.message);
+        if (userName) {
+          const data = await GuestDetailsService.GuestModelDetails(userName);
+          if (data.code === 200) {
+            setGuestData(data.data);
+          } else {
+            toast.error(data?.response?.data?.message);
+          }
         }
       } catch (error) {
         toast.error(ErrorMessage);
@@ -49,7 +50,7 @@ const EscortDetailPage = () => {
     };
 
     fetchGuestData();
-  }, []);
+  }, [userName]);
 
   return (
     <>
