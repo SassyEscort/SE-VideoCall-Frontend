@@ -2,16 +2,24 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import Image from 'next/image';
 import Box from '@mui/material/Box';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { BannerContainer, InlineBox, InlineBoxRelative, TypographyBox, HomeExploreBox, SubTitle } from './HomeBanner.styled';
+import {
+  BannerContainer,
+  InlineBox,
+  InlineBoxRelative,
+  TypographyBox,
+  HomeExploreBox,
+  SubTitle,
+  TextBoxContainer
+} from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestLogin from 'views/auth/guestLogin';
+import { getUserDataClient } from 'utils/getSessionData';
 
 const HomeTopBanner = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -19,6 +27,7 @@ const HomeTopBanner = () => {
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -52,97 +61,132 @@ const HomeTopBanner = () => {
     setOpenForgetPassLink(false);
   };
 
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      if (data) {
+        setIsLogin(true);
+      }
+    };
+    userToken();
+  }, []);
+
   return (
     <>
-      <BannerContainer>
-        <Box
-          display="flex"
-          flexDirection="column"
-          gap={{ xs: '36px', sm: 6 }}
-          width="100%"
-          maxWidth="652px"
-          pt={{ xs: '94px', md: '25px' }}
-        >
-          <Box display="flex" flexDirection="column" width="100%" gap={3} alignItems={{ xs: 'center', sm: 'flex-start' }}>
-            <InlineBox>
-              <FormattedMessage id="ExperienceThe" /> {!isSmDown && 'of'} {!isSmDown || (isSm && 'of')} &nbsp;
-              <Box component="span" position="relative">
-                <InlineBoxRelative>
-                  {isSmDown && !isSm && (
-                    <UINewTypography variant="MediumSemiBoldText" color="common.white" textAlign="center">
-                      <FormattedMessage id="Of" /> &nbsp;
-                    </UINewTypography>
-                  )}
-                  <Box component="span" sx={{ zIndex: 1, position: 'relative', textWrap: isSm ? 'wrap' : 'nowrap' }}>
-                    <FormattedMessage id="LiveInteractions" /> &nbsp;
+      {!isLogin ? (
+        <Box>
+          <BannerContainer>
+            <Box
+              display="flex"
+              flexDirection="column"
+              gap={{ xs: '36px', sm: 6 }}
+              width="100%"
+              maxWidth="652px"
+              pt={{ xs: '94px', md: '25px' }}
+            >
+              <Box display="flex" flexDirection="column" width="100%" gap={3} alignItems={{ xs: 'center', sm: 'flex-start' }}>
+                <InlineBox>
+                  <FormattedMessage id="ExperienceThe" /> {!isSmDown && 'of'} {!isSmDown || (isSm && 'of')} &nbsp;
+                  <Box component="span" position="relative">
+                    <InlineBoxRelative>
+                      {isSmDown && !isSm && (
+                        <UINewTypography variant="MediumSemiBoldText" color="common.white" textAlign="center">
+                          <FormattedMessage id="Of" /> &nbsp;
+                        </UINewTypography>
+                      )}
+                      <Box component="span" sx={{ zIndex: 1, position: 'relative', textWrap: isSm ? 'wrap' : 'nowrap' }}>
+                        <FormattedMessage id="LiveInteractions" /> &nbsp;
+                      </Box>
+                      <Image
+                        alt="word_underline"
+                        src="/images/home/line-vector.svg"
+                        width={100}
+                        height={32}
+                        style={{
+                          position: 'absolute',
+                          top: isSmDown ? 30 : 44,
+                          left: isSmDown && !isSm ? 80 : isSm ? 16 : 0,
+                          maxWidth: isSmDown ? '239.52px' : '354.18px',
+                          width: '100%'
+                        }}
+                        priority
+                      />
+                    </InlineBoxRelative>
                   </Box>
-                  <Image
-                    alt="word_underline"
-                    src="/images/home/line-vector.svg"
-                    width={100}
-                    height={32}
-                    style={{
-                      position: 'absolute',
-                      top: isSmDown ? 30 : 44,
-                      left: isSmDown && !isSm ? 80 : isSm ? 16 : 0,
-                      maxWidth: isSmDown ? '239.52px' : '354.18px',
-                      width: '100%'
-                    }}
-                    priority
-                  />
-                </InlineBoxRelative>
+                </InlineBox>
+                <TypographyBox>
+                  <FormattedMessage id="DiscoverTheThrill" />
+                </TypographyBox>
               </Box>
-            </InlineBox>
-            <TypographyBox>
-              <FormattedMessage id="DiscoverTheThrill" />
-            </TypographyBox>
-          </Box>
-          <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems={{ xs: 'center', sm: 'flex-start' }}>
-            <UIThemeShadowButton onClick={handleSignupOpen} variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
-              <UINewTypography variant="body" sx={{ lineHeight: '150%' }}>
-                <FormattedMessage id="JoinForFREE" />
-              </UINewTypography>
-            </UIThemeShadowButton>
-            <UIThemeButton>
-              <UINewTypography variant="bodySemiBold" sx={{ paddingTop: { xs: 2, sm: 0 }, lineHeight: '120%' }}>
-                <FormattedMessage id="ExploreModels" />
-              </UINewTypography>
-            </UIThemeButton>
-          </Box>
-        </Box>
+              <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems={{ xs: 'center', sm: 'flex-start' }}>
+                <UIThemeShadowButton onClick={handleSignupOpen} variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
+                  <UINewTypography variant="body" sx={{ lineHeight: '150%' }}>
+                    <FormattedMessage id="ExploreModels" />
+                  </UINewTypography>
+                </UIThemeShadowButton>
+              </Box>
+            </Box>
 
-        <Box
-          pr={{ xs: 3, sm: 0 }}
-          pl={{ xs: 3, sm: 0 }}
-          display="flex"
-          alignItems="flex-end"
-          justifyContent={{ xs: 'center', sm: 'flex-start', lg: 'flex-end' }}
-          pt={{ xs: 0, lg: '83px' }}
-        >
-          <Image
-            alt="home_model"
-            width={isSm && isSmDown ? 300 : isSmDown ? 347 : 462}
-            height={isSmDown ? 339 : 452}
-            src="/images/home/home-banner-model.webp"
-            style={{ borderRadius: '12px', right: 0 }}
-            priority
-          />
-        </Box>
-      </BannerContainer>
-      <Box width="100%" pt={{ xs: '96px', lg: '120px' }} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-        <HomeExploreBox>
-          <UINewTypography
-            textAlign="center"
-            color="text.secondary"
-            sx={{ fontSize: { xs: '24px', sm: '40px' }, fontWeight: 700, lineHeight: { xs: '32px', sm: '52px' } }}
+            <Box
+              pr={{ xs: 3, sm: 0 }}
+              pl={{ xs: 3, sm: 0 }}
+              display="flex"
+              alignItems="flex-end"
+              justifyContent={{ xs: 'center', sm: 'flex-start', lg: 'flex-end' }}
+              pt={{ xs: 0, lg: '83px' }}
+            >
+              <Image
+                alt="home_model"
+                width={isSm && isSmDown ? 300 : isSmDown ? 347 : 462}
+                height={isSmDown ? 339 : 452}
+                src="/images/home/home-banner-model.webp"
+                style={{ borderRadius: '12px', right: 0 }}
+                priority
+              />
+            </Box>
+          </BannerContainer>
+          <Box
+            width="100%"
+            pt={{ xs: '96px', lg: '120px' }}
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
           >
-            <FormattedMessage id="ExploreYourChoices" />
+            <HomeExploreBox>
+              <UINewTypography
+                textAlign="center"
+                color="text.secondary"
+                sx={{ fontSize: { xs: '24px', sm: '40px' }, fontWeight: 700, lineHeight: { xs: '32px', sm: '52px' } }}
+              >
+                <FormattedMessage id="ExploreYourChoices" />
+              </UINewTypography>
+              <SubTitle>
+                <FormattedMessage id="SelectTheCompanion" />
+              </SubTitle>
+            </HomeExploreBox>
+          </Box>
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            height: '100%',
+            maxHeight: '152px',
+            gap: 2,
+            textAlign: 'center',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          <UINewTypography variant="MediumSemiBold" color="text.secondary" width={'610px'}>
+            Explore your choices from the world of diverse beauty.
           </UINewTypography>
-          <SubTitle>
-            <FormattedMessage id="SelectTheCompanion" />
-          </SubTitle>
-        </HomeExploreBox>
-      </Box>
+          <TextBoxContainer color="secondary.100">Select the companion who aligns with your desires.</TextBoxContainer>
+        </Box>
+      )}
       <Dialog
         sx={{
           '& .MuiDialog-paper': {

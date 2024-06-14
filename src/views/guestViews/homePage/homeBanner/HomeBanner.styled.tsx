@@ -143,3 +143,9 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
     whiteSpace: 'normal'
   }
 }));
+
+export const TextBoxContainer = styled(Typography)(({ theme }) => ({
+  fontSize: '20px',
+  fontWeight: 400,
+  lineHeight: '32px'
+}));

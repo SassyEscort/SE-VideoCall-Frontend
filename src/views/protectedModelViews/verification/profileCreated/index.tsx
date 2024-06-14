@@ -27,19 +27,25 @@ const ProfileCreated = () => {
               <Image width={286} height={212} src="/images/model/super.png" alt="profileCreated" />
             </ImageContainerProfile>
             <TypographyContainer>
-              <ProfileCreatedText variant="h3" color={'text.secondary'}>
+              <ProfileCreatedText variant="h3" color="text.secondary">
                 <FormattedMessage id="WooHooYourProfile" />
               </ProfileCreatedText>
-              <ProfileLiveText variant="bodyRegular" color={'text.secondary'}>
-                <FormattedMessage id="YourProfileIsNowLive" />
+              <ProfileLiveText variant="bodyRegular" color="text.secondary">
+                <FormattedMessage id="YourProfileIsUnder" />
               </ProfileLiveText>
             </TypographyContainer>
           </Box>
           <TypographyContainer2>
             <Box>
-              <ProfileLiveText variant="bodyRegular" color={'text.secondary'}>
-                <FormattedMessage id="StartBySetting" />
+              <ProfileLiveText variant="bodyRegular" color="text.secondary">
+                <FormattedMessage id="DownloadOurApp" />
               </ProfileLiveText>
+
+              <Box sx={{ display: 'flex', gap: 4, alignItems: 'center', justifyContent: 'center' }}>
+                <Box component={'img'} src="/images/app-logo/google-pay.png" sx={{ width: '120px', height: '120px' }} />
+
+                <Box component={'img'} src="/images/app-logo/app-store.png" sx={{ width: '120px', height: '120px' }} />
+              </Box>
             </Box>
             <Box>
               <Link href={'/model/dashboard'}>

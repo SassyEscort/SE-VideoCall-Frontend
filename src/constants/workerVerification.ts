@@ -18,7 +18,7 @@ export type DocumentKeyValueList = {
 
 export const DocumentList: DocumentKeyValueList[] = [
   { key: 'ID Card', value: 'Id_Card' },
-  { key: 'Driver License', value: 'Driving_License' },
+  { key: 'Driving License', value: 'Driving_License' },
   { key: 'Passport', value: 'Passport' }
 ];
 

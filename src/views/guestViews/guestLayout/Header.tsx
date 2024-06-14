@@ -163,8 +163,9 @@ const HeaderGuestComponent = () => {
               {isMdUp && (
                 <UIThemeShadowButton variant="contained" onClick={handleSignupOpen} sx={{ width: '195px' }}>
                   <UINewTypography variant="body" lineHeight={'150%'}>
-                    <FormattedMessage id="JoinForFREE" />
+                    <FormattedMessage id="SignUpNow" />
                   </UINewTypography>
+                  <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} />
                 </UIThemeShadowButton>
               )}
             </Box>

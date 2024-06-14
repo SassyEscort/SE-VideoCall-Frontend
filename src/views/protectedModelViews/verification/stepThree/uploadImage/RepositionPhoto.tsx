@@ -85,7 +85,7 @@ const RepositionPhoto = ({
             <Close sx={{ color: 'text.secondary' }} />
           </IconButton>
           <UINewTypography variant="h6" color="text.secondary">
-            <FormattedMessage id="RepositionPhoto" />
+            <FormattedMessage id="CropPhoto" />
           </UINewTypography>
         </Box>
         <UIThemeButton variant="contained" size="small" onClick={handleClickSave}>

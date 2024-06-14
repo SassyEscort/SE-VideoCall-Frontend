@@ -17,7 +17,7 @@ export const Container = styled(Box)(({ theme }) => ({
 export const ChildContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(6)
+  gap: theme.spacing(7)
 }));
 
 export const ImageContainer = styled(Box)(() => ({
