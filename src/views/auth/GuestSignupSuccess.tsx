@@ -1,5 +1,4 @@
 import { Typography } from '@mui/material';
-import React from 'react';
 import {
   AuthSignupSuccessMainContainer,
   FirstImgAuthSignupSuccessContainer,
@@ -10,7 +9,7 @@ import {
   TextSubContainerAuthSignupSuccessContainer
 } from './AuthCommon.styled';
 
-const GuestSignupSuccess = () => {
+const GuestSignupSuccess = ({ redirectSeconds }: { redirectSeconds: number }) => {
   return (
     <AuthSignupSuccessMainContainer>
       <FirstImgAuthSignupSuccessContainer src="/images/auth/congratulations-img1.png" />
@@ -28,8 +27,13 @@ const GuestSignupSuccess = () => {
             Please wait a bit while we redirect you to your profile.
           </Typography>
         </TextContainerAuthSignupSuccessContainer>
-        <Typography variant="body" color="text.secondary" mt="48px" textAlign="center">
-          Redirecting in 2 Sec
+        <Typography
+          variant="body"
+          color="text.secondary"
+          textAlign="center"
+          sx={{ display: 'flex', marginTop: { xs: '68px', sm: '48px' }, justifyContent: 'center' }}
+        >
+          Redirecting in {redirectSeconds} Sec
         </Typography>
       </SecContainerAuthSignupSuccessContainer>
     </AuthSignupSuccessMainContainer>

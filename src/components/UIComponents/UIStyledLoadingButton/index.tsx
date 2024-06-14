@@ -59,7 +59,7 @@ const UIStyledButton = styled(Button)(({ theme }) => ({
   },
   '&.Mui-disabled': {
     backgroundColor: theme.palette.primary[700],
-    color: theme.palette.secondary.light
+    color: theme.palette.text.disabled
   }
 }));
 

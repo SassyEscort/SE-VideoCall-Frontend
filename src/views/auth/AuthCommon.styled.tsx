@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const AuthCommonBox = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -15,7 +16,7 @@ export const AuthCommonBox = styled(Box)(({ theme }) => ({
 
 export const AuthImageMobileBox = styled(Box)(({ theme }) => ({
   width: '100%',
-  height: 620,
+  height: '100%',
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   position: 'absolute',
@@ -33,7 +34,7 @@ export const AuthImageMobileBox = styled(Box)(({ theme }) => ({
 
 export const AuthImageBox = styled(Box)(({ theme }) => ({
   width: '100%',
-  height: 620,
+  height: '100%',
   maxWidth: '420px',
   backgroundSize: 'calc(100% - 320px) 100%, cover',
   backgroundPosition: 'right',
@@ -45,13 +46,16 @@ export const AuthImageBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const AuthSignupSuccessMainContainer = styled(Box)(() => ({
+export const AuthSignupSuccessMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
   maxWidth: '509px',
   alignItems: 'center',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  [theme.breakpoints.down('sm')]: {
+    paddingTop: '65px'
+  }
 }));
 
 export const FirstImgAuthSignupSuccessContainer = styled('img')(() => ({
@@ -106,4 +110,32 @@ export const TextSubContainerAuthSignupSuccessContainer = styled(Box)(() => ({
   maxHeight: '100px',
   textAlign: 'center',
   alignItems: 'center'
+}));
+
+export const ErrorBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'flex-start',
+  gap: theme.spacing(1.5),
+  alignSelf: 'stretch',
+  borderRadius: '16px 0px',
+  backgroundColor: theme.palette.error[100],
+  color: theme.palette.error[400],
+  justifyContent: 'center'
+}));
+
+export const UITypographyText = styled(UINewTypography)(() => ({
+  lineHeight: '25.6px',
+  fontSize: '16px',
+  fontWeight: '600'
+}));
+
+export const UIButtonText = styled(UINewTypography)(() => ({
+  fontSize: '16px',
+  fontWeight: '700',
+  lineHeight: '19.2px'
+}));
+
+export const ModelUITextConatiner = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'column'
 }));

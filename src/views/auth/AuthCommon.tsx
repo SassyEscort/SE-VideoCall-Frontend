@@ -8,11 +8,13 @@ const AuthCommon = ({
   onClose,
   image,
   mobileImage,
+  variant,
   children
 }: {
   onClose: () => void;
   image: string;
   mobileImage: string;
+  variant?: string;
   children: ReactNode;
 }) => {
   return (
@@ -39,6 +41,9 @@ const AuthCommon = ({
       <Box display="flex" gap={1.5}>
         <AuthImageBox
           sx={{
+            height: 'auto',
+            backgroundPosition: variant === 'resetPassword' ? { xs: 'center', md: 'right' } : 'right',
+            maxWidth: variant === 'resetPassword' ? 434 : 420,
             backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.47), rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.93)), url(${image})`
           }}
         />

@@ -3,10 +3,10 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
 export const UIStyledSelectButton = styled(Button)(({ theme }) => ({
-  borderRadius: '4px',
+  display: 'flex',
+  borderRadius: '8px',
   width: '100%',
-  minWidth: '187px',
-  height: '40px',
+  height: '48px !important',
   backgroundColor: theme.palette.primary[700],
   color: theme.palette.text.primary,
   fontSize: '16px',
@@ -25,9 +25,9 @@ export const LiveIconFirstBoxWorkerCard = styled(Box)(({ theme }) => ({
   height: '100%',
   minHeight: '24px',
   border: '1px',
-  borderColor: theme.palette.secondary[600],
+  borderColor: theme.palette.secondary[400],
   borderRadius: '50%',
-  backgroundColor: theme.palette.secondary[600],
+  backgroundColor: theme.palette.secondary[400],
   justifyContent: 'center',
   alignItems: 'center'
 }));
@@ -39,7 +39,7 @@ export const LiveIconSecBoxWorkerCard = styled(Box)(({ theme }) => ({
   height: '100%',
   minHeight: '16px',
   border: '1px',
-  borderColor: theme.palette.secondary[200],
+  borderColor: theme.palette.success[100],
   borderRadius: '50%',
-  backgroundColor: theme.palette.secondary[200]
+  backgroundColor: theme.palette.success[100]
 }));
