@@ -57,7 +57,7 @@ const HomeModelConnections = () => {
                 <FormattedMessage id="WorkOnYourTerms" />
               </HomeModelConnectionsTypography>
               <TypographyMainContainer>
-                <UINewTypography variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
+                <UINewTypography color="secondary.300" variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
                   <FormattedMessage id="EnjoyTheFreedom" />
                 </UINewTypography>
               </TypographyMainContainer>
@@ -73,7 +73,7 @@ const HomeModelConnections = () => {
                 <FormattedMessage id="CompetitiveEarnings" />
               </HomeModelConnectionsTypography>
               <TypographyMainContainer>
-                <UINewTypography variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
+                <UINewTypography color="secondary.300" variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
                   <FormattedMessage id="BenefitFrom" />
                 </UINewTypography>
               </TypographyMainContainer>
@@ -90,7 +90,7 @@ const HomeModelConnections = () => {
               </HomeModelConnectionsTypography>
 
               <TypographyMainContainer>
-                <UINewTypography variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
+                <UINewTypography color="secondary.300" variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
                   <FormattedMessage id="WeAreCommitted" />
                 </UINewTypography>
               </TypographyMainContainer>
@@ -108,7 +108,7 @@ const HomeModelConnections = () => {
                 <FormattedMessage id="ConnectWithAGlobalAudience" />
               </HomeModelConnectionsTypography>
               <TypographyMainContainer>
-                <UINewTypography variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
+                <UINewTypography color="secondary.300" variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
                   <FormattedMessage id="ExpandYourReach" />
                 </UINewTypography>
               </TypographyMainContainer>
@@ -124,7 +124,7 @@ const HomeModelConnections = () => {
                 <FormattedMessage id="24LiveSupport" />
               </HomeModelConnectionsTypography>
               <TypographyMainContainer>
-                <UINewTypography variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
+                <UINewTypography color="secondary.300" variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
                   <FormattedMessage id="DayOrNight" />
                 </UINewTypography>
               </TypographyMainContainer>
@@ -133,16 +133,16 @@ const HomeModelConnections = () => {
             <BoxMain>
               <BoxImageBackground>
                 <BoxImageBackgroundChild>
-                  <UIThemeNextImage alt="home_model" width={21} height={21} src="/images/icons/users.png" />
+                  <UIThemeNextImage alt="home_model" width={21} height={21} src="/images/icons/easy-access-img.png" />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
               <HomeModelConnectionsTypography variant={isSmDown ? 'body' : 'h6'}>
-                <FormattedMessage id="JoinAThrivingCommunity" />
+                <FormattedMessage id="EasyAccess" />
               </HomeModelConnectionsTypography>
 
               <TypographyMainContainer>
-                <UINewTypography variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
-                  <FormattedMessage id="BecomePartOfASupportive" />
+                <UINewTypography color="secondary.300" variant={isSmDown ? 'bodySmall' : 'bodyRegular'}>
+                  <FormattedMessage id="DownloadTheAppToAccept" />
                 </UINewTypography>
               </TypographyMainContainer>
             </BoxMain>

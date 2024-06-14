@@ -17,7 +17,7 @@ export const Container = styled(Box)(({ theme }) => ({
 export const ChildContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(6)
+  gap: theme.spacing(7)
 }));
 
 export const ImageContainer = styled(Box)(() => ({
@@ -72,4 +72,11 @@ export const ProfileLiveText = styled(UINewTypography)(() => ({
 export const GoToYourDashboardButton = styled(UINewTypography)(() => ({
   fontSize: '16px !important',
   lineHeight: '19.2px !important'
+}));
+
+export const FristBoxContent = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(4),
+  alignItems: 'center',
+  justifyContent: 'center'
 }));

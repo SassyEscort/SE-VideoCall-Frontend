@@ -6,6 +6,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 export const MainWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  cursor: 'pointer',
   position: 'relative',
   width: '100%',
   height: '100%',
@@ -114,6 +115,15 @@ export const FirstSubContainerImgWorkerCard = styled('img')(() => ({
   marginTop: '3px'
 }));
 
+export const FirstSubContainerWithoutImg = styled(Box)(() => ({
+  display: 'flex',
+  width: '100%',
+  maxWidth: '16px',
+  height: '100%',
+  maxHeight: '8px',
+  marginTop: '3px'
+}));
+
 export const SecondMainContainerWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(3.5),
@@ -144,7 +154,6 @@ export const SecondSubContainerImgWorkerCard = styled('img')(() => ({
 
 export const WorkerCardMainBox = styled(Box)(({ theme }) => ({
   width: '100%',
-
   [theme.breakpoints.down(330)]: {
     paddingLeft: theme.spacing(0.5),
     paddingRight: theme.spacing(0.5)
@@ -214,4 +223,27 @@ export const UITypographyBox = styled(UINewTypography)(({ theme }) => ({
     fontSize: '12px !important',
     lineHeight: '14.4px !important'
   }
+}));
+
+export const OfflineIconSecBoxWorkerCard = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  maxWidth: '8px',
+  height: '100%',
+  maxHeight: '8px',
+  border: '4px solid',
+  borderColor: theme.palette.secondary.light,
+  borderRadius: '50%'
+}));
+
+export const OfflineIconWorkerCard = styled(LiveIconFirstBoxWorkerCard)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  minWidth: '12px',
+  height: '0',
+  minHeight: '12px',
+  border: '1px',
+  borderColor: '#86838A52',
+  borderRadius: '50%',
+  backgroundColor: '#86838A52'
 }));

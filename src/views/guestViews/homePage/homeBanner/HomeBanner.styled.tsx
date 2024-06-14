@@ -70,6 +70,7 @@ export const InlineBox = styled(Box)(({ theme }) => ({
 export const TypographyBox = styled(Typography)(({ theme }) => ({
   fontWeight: 400,
   width: '100%',
+  maxWidth: '600px',
   color: theme.palette.secondary[100],
   [theme.breakpoints.down('sm')]: {
     maxWidth: '293px',
@@ -142,4 +143,30 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down(330)]: {
     whiteSpace: 'normal'
   }
+}));
+
+export const TextBoxContainer = styled(Typography)(({ theme }) => ({
+  fontSize: '20px',
+  fontWeight: 400,
+  lineHeight: '32px'
+}));
+
+export const ModelsHeadingBox = styled(Box)(() => ({
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center'
+}));
+
+export const FristBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  height: '100%',
+  maxHeight: '152px',
+  gap: theme.spacing(2),
+  textAlign: 'center',
+  justifyContent: 'center',
+  alignItems: 'center'
 }));

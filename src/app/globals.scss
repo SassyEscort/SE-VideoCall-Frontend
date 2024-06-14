@@ -224,3 +224,7 @@ html {
   display: flex;
   flex-direction: column;
 }
+
+.swiper-slide {
+  height: fit-content !important;
+}

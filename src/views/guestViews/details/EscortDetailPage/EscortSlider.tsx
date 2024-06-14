@@ -1,7 +1,7 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import 'yet-another-react-lightbox/plugins/captions.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
 import 'swiper/css';
@@ -17,6 +17,8 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import Image from 'next/image';
 import UIStyledShadowButtonLike from 'components/UIComponents/UIStyledShadowButtonLike';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {
   DullCirclesEscort,
@@ -25,6 +27,7 @@ import {
   FirstSwiperInnerContainer,
   FirstSwiperMainContainer,
   SecondSwiperBlurContainer,
+  SideSwiperButton,
   SwiperContainer
 } from './Escort.styled';
 import { FormattedMessage } from 'react-intl';
@@ -44,6 +47,7 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  const swiperRef = useRef<SwiperRef | any>();
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -80,15 +84,28 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
     try {
       if (token.token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
-        if (data) {
+        if (data?.code === 200) {
           toast.success('Success');
           setLiked(true);
+        } else {
+          toast.error(ErrorMessage);
         }
       } else {
         setIsOpenLogin(true);
       }
     } catch (erro) {
       toast.error(ErrorMessage);
+    }
+  };
+
+  const handleNext = () => {
+    if (swiperRef.current) {
+      swiperRef.current.slideNext();
+    }
+  };
+  const handlePrevious = () => {
+    if (swiperRef.current) {
+      swiperRef.current.slidePrev();
     }
   };
 
@@ -113,21 +130,34 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
             ))}
           </Swiper>
         </FirstSwiperInnerContainer>
-        <SwiperContainer>
-          <Swiper
-            onSwiper={setThumbsSwiper}
-            spaceBetween={12}
-            slidesPerView={3}
-            watchSlidesProgress={true}
-            modules={[Navigation, Thumbs, FreeMode]}
-          >
-            {workerPhotos.map((imageSrc, index) => (
-              <SwiperSlide style={{ paddingTop: index === 0 ? '24px' : '12px', width: '100%', minWidth: '148px' }} key={index}>
-                <EscortSwiperPhotoContainer image={imageSrc.link} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </SwiperContainer>
+        <Box display="flex" flexDirection="column" gap={1}>
+          <SideSwiperButton variant="contained" onClick={handlePrevious}>
+            <KeyboardArrowUpRoundedIcon sx={{ color: 'text.primary' }} />
+          </SideSwiperButton>
+          <SwiperContainer>
+            <Swiper
+              direction="vertical"
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper;
+                setThumbsSwiper;
+              }}
+              spaceBetween={0}
+              slidesPerView={6}
+              watchSlidesProgress={true}
+              modules={[Navigation, Thumbs, FreeMode]}
+              className="mySwiper"
+            >
+              {workerPhotos.map((imageSrc, index) => (
+                <SwiperSlide style={{ paddingTop: index === 0 ? '0px' : '12px', width: '100%', minWidth: '148px' }} key={index}>
+                  <EscortSwiperPhotoContainer image={imageSrc.link} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </SwiperContainer>
+          <SideSwiperButton variant="contained" onClick={handleNext}>
+            <KeyboardArrowDownRoundedIcon sx={{ color: 'text.primary' }} />
+          </SideSwiperButton>
+        </Box>
       </FirstSwiperMainContainer>
       <Box
         sx={{
@@ -142,7 +172,6 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
               padding: 0,
               minWidth: '1084px',
               width: '100%',
-
               '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } }
             }}
             fullWidth

@@ -21,11 +21,12 @@ import {
 import { getUserDataClient } from 'utils/getSessionData';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
+import { TokenIdType } from 'views/protectedModelViews/verification';
 
 export default function WithdrawConfigurationContainer() {
   const [isLoading, setIsLoading] = useState(false);
-  const [token, setToken] = useState('');
   const [withdrawAmount, setWithdrawAmount] = useState<AdminWithdrawResponse>({} as AdminWithdrawResponse);
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
 
   const validationSchema = yup.object({
     withdrawal_amt: yup.number().required('minimum withdraw amount is required')
@@ -34,7 +35,7 @@ export default function WithdrawConfigurationContainer() {
   useEffect(() => {
     const fetchCommissionAmount = async () => {
       try {
-        const response = await withdrawMinAmountServices.modelWithdrawAmountGet(token);
+        const response = await withdrawMinAmountServices.modelWithdrawAmountGet(token.token);
         setWithdrawAmount(response);
       } catch (error) {
         toast.error('Error fetching commission amount');
@@ -47,7 +48,7 @@ export default function WithdrawConfigurationContainer() {
   const handleFormSubmit = async (values: withdrawParams) => {
     setIsLoading(true);
 
-    const res = await withdrawMinAmountServices.withdrawMinAmount(values, token);
+    const res = await withdrawMinAmountServices.withdrawMinAmount(values, token.token);
     if (res) {
       if (res.code === 200) {
         toast.success('Success');
@@ -61,11 +62,11 @@ export default function WithdrawConfigurationContainer() {
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
-      setToken(data.token);
+      setToken({ id: data.id, token: data.token });
     };
 
     userToken();
-  }, []);
+  }, [token]);
 
   return (
     <>
