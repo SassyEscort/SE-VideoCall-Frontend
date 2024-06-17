@@ -4,12 +4,23 @@ import Footer from 'views/guestViews/guestLayout/footer';
 import HeaderGuestComponent from 'views/guestViews/guestLayout/Header';
 import Header from 'views/protectedViews/protectedLayout/Header';
 
+interface User {
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+  provider?: string;
+}
+
+interface AuthUser {
+  user?: User;
+}
+
 export default async function Layout({ children }: { children: React.ReactNode }) {
-  const authUser = await getLoggedInUser();
+  const authUser: AuthUser | null = await getLoggedInUser();
 
   return (
     <Box>
-      {authUser ? <Header variant="worker" /> : <HeaderGuestComponent />}
+      {authUser?.user?.provider === 'providerGuest' ? <Header variant="worker" /> : <HeaderGuestComponent />}
       <main>
         <Box sx={{ mt: 10 }}>{children}</Box>
       </main>
