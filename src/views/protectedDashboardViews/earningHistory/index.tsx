@@ -67,7 +67,7 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
               </UINewTypography>
 
               <EarningHistorySubContainer>
-                <Stack direction="row" alignItems="center" color="text.secondary" width="100%" maxWidth="312px">
+                <Stack direction="row" alignItems="center" color="text.secondary" width="100%">
                   <PaginationSearch placeholder={'Search'} />
                 </Stack>
 
