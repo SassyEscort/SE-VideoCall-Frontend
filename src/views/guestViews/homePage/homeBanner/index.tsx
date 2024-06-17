@@ -16,12 +16,13 @@ import {
 } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestLogin from 'views/auth/guestLogin';
-import { getUserDataClient } from 'utils/getSessionData';
+import { useSession } from 'next-auth/react';
+import { User } from 'app/(guest)/layout';
 
 const HomeTopBanner = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -29,7 +30,8 @@ const HomeTopBanner = () => {
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+
+  const { data: session } = useSession();
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -63,16 +65,6 @@ const HomeTopBanner = () => {
     setOpenForgetPassLink(false);
   };
 
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      if (data) {
-        setIsLogin(true);
-      }
-    };
-    userToken();
-  }, []);
-
   const handleClickScroll = () => {
     const element = document.querySelector(`#scroll-to-model`) as HTMLElement;
     element?.scrollIntoView({
@@ -83,7 +75,16 @@ const HomeTopBanner = () => {
 
   return (
     <>
-      {!isLogin ? (
+      {(session?.user as User)?.provider === 'providerGuest' ? (
+        <FristBoxContainer>
+          <UINewTypography variant="MediumSemiBold" color="text.secondary" width={'610px'} marginTop="64px">
+            <FormattedMessage id="ExploreYourChoicesFrom" />
+          </UINewTypography>
+          <TextBoxContainer color="secondary.100">
+            <FormattedMessage id="SelectTheCompanionWho" />
+          </TextBoxContainer>
+        </FristBoxContainer>
+      ) : (
         <Box>
           <BannerContainer>
             <Box
@@ -170,15 +171,6 @@ const HomeTopBanner = () => {
             </HomeExploreBox>
           </ModelsHeadingBox>
         </Box>
-      ) : (
-        <FristBoxContainer>
-          <UINewTypography variant="MediumSemiBold" color="text.secondary" width={'610px'} marginTop="64px">
-            <FormattedMessage id="ExploreYourChoicesFrom" />
-          </UINewTypography>
-          <TextBoxContainer color="secondary.100">
-            <FormattedMessage id="SelectTheCompanionWho" />
-          </TextBoxContainer>
-        </FristBoxContainer>
       )}
       <Dialog
         sx={{
