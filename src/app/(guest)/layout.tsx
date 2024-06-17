@@ -4,14 +4,14 @@ import Footer from 'views/guestViews/guestLayout/footer';
 import HeaderGuestComponent from 'views/guestViews/guestLayout/Header';
 import Header from 'views/protectedViews/protectedLayout/Header';
 
-interface User {
+export interface User {
   name?: string | null;
   email?: string | null;
   image?: string | null;
   provider?: string;
 }
 
-interface AuthUser {
+export interface AuthUser {
   user?: User;
 }
 
