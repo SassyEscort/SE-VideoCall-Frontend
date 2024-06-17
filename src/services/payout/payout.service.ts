@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BankDetailsParams } from 'views/protectedDashboardViews/addBankDetails';
-import { BankDetaildDeleteParam, BankListParams } from 'views/protectedDashboardViews/payoutPaymentContainer';
+import { BankListParams } from 'views/protectedDashboardViews/payoutPaymentContainer';
 import { AddBankDetailsRes, BankDetailsDeleteRes, BankDetailsListRes } from './types';
 
 export class PayoutService {
@@ -32,9 +32,9 @@ export class PayoutService {
     }
   };
 
-  static bankDetailsDelete = async (token: string, params: BankDetaildDeleteParam): Promise<BankDetailsDeleteRes> => {
+  static bankDetailsDelete = async (token: string, id: number): Promise<BankDetailsDeleteRes> => {
     try {
-      const res = await axios.delete(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/bank-details/${params.id}`, {
+      const res = await axios.delete(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/bank-details/${id}`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: token
