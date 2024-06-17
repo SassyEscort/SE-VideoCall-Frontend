@@ -14,6 +14,7 @@ import { ModelDetailsResponse } from 'views/protectedModelViews/verification/ver
 import { useEffect, useState } from 'react';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { getUserDataClient } from 'utils/getSessionData';
+import LanguageDropdown from 'components/common/LanguageDropdown';
 
 export type NotificationFilters = {
   page: number;
@@ -50,9 +51,9 @@ const ModelHeaderAuthComponent = () => {
   return (
     <>
       <Box display="flex" alignItems="center" gap={{ xs: 2.5, sm: 4.5 }}>
-        {/* <Box display="flex">
+        <Box display="flex">
           <LanguageDropdown />
-        </Box> */}
+        </Box>
 
         <IconButton sx={{ height: 24, width: 24 }}>
           <>

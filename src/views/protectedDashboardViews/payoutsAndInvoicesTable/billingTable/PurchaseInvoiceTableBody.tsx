@@ -5,23 +5,42 @@ import Button from '@mui/material/Button';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Box from '@mui/material/Box';
 import { StatusBox } from './statusDetails';
-import { sampleInvoiceType } from './BillingTable';
 import { FormattedMessage } from 'react-intl';
 import InvoiceModalV2 from '../InvoicePage/InvoiceModalV2';
+import { ModelPastPayoutDetailRes } from 'services/payout/payout.service';
+import moment from 'moment';
 import { useState } from 'react';
 
-const PurchaseInvoiceTableBodyV2 = ({ sampleInvoices }: { sampleInvoices: sampleInvoiceType[] }) => {
+export type invoiceDataType = {
+  map: any;
+  payout: any;
+  id: number;
+  model_id: number;
+  amount: number;
+  state: string;
+  created_at: string;
+  is_active: number;
+  name: string;
+  email: string;
+  bank_name: string;
+};
+
+const PurchaseInvoiceTableBodyV2 = ({ modelPayoutList }: { modelPayoutList: ModelPastPayoutDetailRes }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [invoiceData, setInvoiceData] = useState({} as invoiceDataType);
+
   const handleCloseModal = () => {
     setModalOpen(false);
   };
-  const handleOpenModal = () => {
+  const handleOpenModal = (item: invoiceDataType) => {
+    setInvoiceData(item);
     setModalOpen(true);
   };
+
   return (
     <TableBody>
-      {sampleInvoices.map((invoice) => (
-        <TableRow key={invoice.id}>
+      {modelPayoutList?.data?.payout_details.map((item) => (
+        <TableRow key={item.id}>
           <TableCell>
             <Box
               sx={{
@@ -33,46 +52,46 @@ const PurchaseInvoiceTableBodyV2 = ({ sampleInvoices }: { sampleInvoices: sample
               <Box component="img" src="/images/icons/bank-icon.svg" />
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <UINewTypography variant="bodyRegular" sx={{ whiteSpace: 'nowrap' }}>
-                  {invoice.bankName}
+                  {item.bank_name}
                 </UINewTypography>
                 <UINewTypography variant="bodyRegular" sx={{ whiteSpace: 'nowrap' }}>
-                  {invoice.accountNumber}
+                  **** **** **43 3214
                 </UINewTypography>
               </Box>
             </Box>
           </TableCell>
           <TableCell>
-            <UINewTypography variant="bodyRegular">${invoice.amount}</UINewTypography>
+            <UINewTypography variant="bodyRegular">${item.amount}</UINewTypography>
           </TableCell>
           <TableCell>
-            <UINewTypography variant="bodyRegular">{invoice.date}</UINewTypography>
+            <UINewTypography variant="bodyRegular">{moment(item.created_at).format('DD MMMM YYYY')}</UINewTypography>
           </TableCell>
           <TableCell>
-            <StatusBox status={invoice.status}>
+            <StatusBox status={item.state}>
               <UINewTypography
                 variant="captionLarge"
                 color={
-                  invoice.status === 'Pending'
+                  item.state === 'Pending'
                     ? '#FFE500'
-                    : invoice.status === 'Completed'
+                    : item.state === 'Completed'
                       ? '#79E028'
-                      : invoice.status === 'Cancelled'
+                      : item.state === 'Cancelled'
                         ? '#FF5959'
                         : '#FFF'
                 }
               >
-                {invoice.status}
+                {item.state}
               </UINewTypography>
             </StatusBox>
           </TableCell>
           <TableCell>
-            <Button onClick={handleOpenModal}>
+            <Button onClick={() => handleOpenModal(item)}>
               <UINewTypography variant="buttonLargeMenu">
                 <FormattedMessage id="Download" />
               </UINewTypography>
             </Button>
           </TableCell>
-          <InvoiceModalV2 sampleInvoices={sampleInvoices} open={modalOpen} onClose={handleCloseModal} />
+          <InvoiceModalV2 invoiceData={invoiceData} open={modalOpen} onClose={handleCloseModal} />
         </TableRow>
       ))}
     </TableBody>

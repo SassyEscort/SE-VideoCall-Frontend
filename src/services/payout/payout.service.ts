@@ -2,33 +2,8 @@ import axios from 'axios';
 import { GenericRes } from 'services/guestAuth/authuser.services';
 import { BankDetailsParams } from 'views/protectedDashboardViews/addBankDetails';
 import { BankListParams } from 'views/protectedDashboardViews/payoutPaymentContainer';
-
-export type AddBAnkDetails = {
-  id: number;
-  model_id: number;
-  bank_name: string;
-  account_name: string;
-  iban_number: string;
-};
-
-export type AddBankList = {
-  id: number;
-  model_id: number;
-  bank_name: string;
-  account_name: string;
-  iban_number: string;
-};
-
-export type AgricketList = {
-  total_rows: 100;
-  page_size: 20;
-  offset: 0;
-};
-
-export type BankDetailsRes = {
-  bank_details: AddBankList[];
-  aggregate: AgricketList;
-};
+import { BankDetailsRes, AddBAnkDetails, ModelPastPayoutDetail } from './types';
+import { ModelPastPayoutDetailParams } from 'views/protectedDashboardViews/payoutsAndInvoicesTable/billingTable/BillingTable';
 
 export interface BankDetailsListRes extends GenericRes {
   data: BankDetailsRes;
@@ -36,6 +11,10 @@ export interface BankDetailsListRes extends GenericRes {
 export interface AddBankDetailsRes extends GenericRes {
   data: AddBAnkDetails;
 }
+export interface ModelPastPayoutDetailRes extends GenericRes {
+  data: ModelPastPayoutDetail;
+}
+
 export class PayoutService {
   static bankDetails = async (params: BankDetailsParams, token: string): Promise<AddBankDetailsRes> => {
     try {
@@ -61,6 +40,20 @@ export class PayoutService {
       return res.data;
     } catch (error) {
       return error as BankDetailsListRes;
+    }
+  };
+
+  static modelPatPayoutList = async (params: ModelPastPayoutDetailParams, token: string): Promise<ModelPastPayoutDetailRes> => {
+    try {
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/payout?limit=${params.limit}&offset=${params.offset}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        }
+      });
+      return res.data;
+    } catch (error) {
+      return error as ModelPastPayoutDetailRes;
     }
   };
 }

@@ -18,6 +18,7 @@ import GuestNewPassword from 'views/auth/guestNewPassword';
 import GuestLogin from 'views/auth/guestLogin';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import LanguageDropdown from 'components/common/LanguageDropdown';
 
 const HeaderGuestComponent = () => {
   const url = new URL(window.location.href);
@@ -141,9 +142,9 @@ const HeaderGuestComponent = () => {
                   <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
                 </Box>
               )}
-              {/* <Box display="flex" sx={{ cursor: 'pointer' }}>
+              <Box display="flex" sx={{ cursor: 'pointer' }}>
                 <LanguageDropdown />
-              </Box> */}
+              </Box>
               {!isMdUp && (
                 <IconButton onClick={() => toggleDrawer(true)}>
                   <Image height={24} width={24} priority alt="menufill" src="/images/header/menuFill.svg" />

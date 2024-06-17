@@ -14,6 +14,7 @@ import { CommonMenuBox } from 'views/protectedDashboardViews/dashboardNavbar/nav
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Logout from 'views/protectedViews/logout';
 import { FormattedMessage } from 'react-intl';
+import LanguageDropdown from 'components/common/LanguageDropdown';
 
 export type NotificationFilters = {
   page: number;
@@ -75,9 +76,9 @@ const HeaderAuthComponent = () => {
   return (
     <>
       <Box display="flex" alignItems="center" gap={{ xs: 2.5, sm: 4.5 }}>
-        {/* <Box display="flex">
+        <Box display="flex">
           <LanguageDropdown />
-        </Box> */}
+        </Box>
         {isMdUp && (
           <Box alignItems="center" gap={1} display="flex">
             <Box component="img" src="/images/header/coin.png" />

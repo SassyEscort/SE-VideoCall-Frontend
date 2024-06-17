@@ -16,6 +16,7 @@ import ModelSignin from '../modelSignin';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import ModelForgetPasswordLink from '../modelForgetPasswordLink';
 import ModelNewPassword from '../ModelNewPassword';
+import LanguageDropdown from 'components/common/LanguageDropdown';
 
 const HeaderModelComponent = () => {
   const url = new URL(window.location.href);
@@ -134,9 +135,9 @@ const HeaderModelComponent = () => {
                   <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
                 </Box>
               )}
-              {/* <Box display="flex">
+              <Box display="flex">
                 <LanguageDropdown />
-              </Box> */}
+              </Box>
               {!isMdUp && (
                 <IconButton onClick={() => toggleDrawer(true)}>
                   <Image height={24} width={24} priority alt="menufill" src="/images/header/menuFill.svg" />

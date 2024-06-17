@@ -31,13 +31,13 @@ import {
 } from './InvoiceDownloadv2.styled';
 import TableHead from '@mui/material/TableHead';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { sampleInvoiceType } from '../billingTable/BillingTable';
 import { formatFullDateWithoutTime } from 'utils/dateAndTime';
 import moment from 'moment';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
+import { invoiceDataType } from '../billingTable/PurchaseInvoiceTableBody';
 
-const InvoiceDownloadV2 = ({ sampleInvoices }: { sampleInvoices: sampleInvoiceType[] }) => {
+const InvoiceDownloadV2 = ({ invoiceData }: { invoiceData: invoiceDataType }) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
@@ -48,10 +48,10 @@ const InvoiceDownloadV2 = ({ sampleInvoices }: { sampleInvoices: sampleInvoiceTy
             Invoice
           </UINewTypography>
           <UINewTypography variant="SmallText" color="secondary.light">
-            SINV-{sampleInvoices[0].id}
+            SINV-{invoiceData.id}
           </UINewTypography>
         </InvoiceDownloadMainContainer>
-        <Box component="img" src="/images/header/LogoLight.svg" height={{ xs: 40, sm: 42 }} width={{ sm: 136 }} />
+        <Box component="img" src="/images/header/headerlogo.png" height={{ xs: 30, sm: 32 }} width={{ sm: 'auto' }} />
       </HeaderInvoiceDownload>
       <InvoiceDownloadMainBox>
         <Divider orientation="horizontal" flexItem sx={{ borderColor: 'secondary.light' }} />
@@ -140,12 +140,12 @@ const InvoiceDownloadV2 = ({ sampleInvoices }: { sampleInvoices: sampleInvoiceTy
                 </InvoiceDownloadCreditCell>
                 <InvoiceDownloadAmountCell>
                   <UINewTypography variant="ExtraSmallerText" fontWeight="500" color="secondary.light">
-                    €{sampleInvoices[0].amount}
+                    €{invoiceData.amount}
                   </UINewTypography>
                 </InvoiceDownloadAmountCell>
                 <InvoiceDownloadAmountCell>
                   <UINewTypography variant="ExtraSmallerText" fontWeight="500" color="secondary.light">
-                    €{sampleInvoices[0].amount}
+                    €{invoiceData.amount}
                   </UINewTypography>
                 </InvoiceDownloadAmountCell>
               </TableRow>
@@ -165,7 +165,7 @@ const InvoiceDownloadV2 = ({ sampleInvoices }: { sampleInvoices: sampleInvoiceTy
                 </InvoiceDownloadLeftSCell>
                 <InvoiceDownloadRightSCell>
                   <UINewTypography variant="ExtraSmallerText" fontWeight="500" color="secondary.light">
-                    €{sampleInvoices[0].amount}
+                    €{invoiceData.amount}
                   </UINewTypography>
                 </InvoiceDownloadRightSCell>
               </TableRow>
@@ -177,7 +177,7 @@ const InvoiceDownloadV2 = ({ sampleInvoices }: { sampleInvoices: sampleInvoiceTy
                 </InvoiceDownloadLeftSCell>
                 <InvoiceDownloadRightSCell>
                   <UINewTypography variant="ExtraSmallerText" fontWeight="500" color="secondary.light">
-                    €{sampleInvoices[0].amount}
+                    €{invoiceData.amount}
                   </UINewTypography>
                 </InvoiceDownloadRightSCell>
               </TableRow>
@@ -189,7 +189,7 @@ const InvoiceDownloadV2 = ({ sampleInvoices }: { sampleInvoices: sampleInvoiceTy
                 </LeftTableInvoiceDownload>
                 <RightTableInvoiceDownload>
                   <UINewTypography variant="ExtraSmallerText" fontWeight="500" color="secondary.light">
-                    €{sampleInvoices[0].amount}
+                    €{invoiceData.amount}
                   </UINewTypography>
                 </RightTableInvoiceDownload>
               </TableRow>
@@ -202,7 +202,7 @@ const InvoiceDownloadV2 = ({ sampleInvoices }: { sampleInvoices: sampleInvoiceTy
                 </LastTopDataTableInvoiceDownload>
                 <LastDataTableInvoiceDownload>
                   <UINewTypography variant="ExtraSmallerText" fontWeight="700" color="primary.500">
-                    €{sampleInvoices[0].amount}
+                    €{invoiceData.amount}
                   </UINewTypography>
                 </LastDataTableInvoiceDownload>
               </TableRow>
