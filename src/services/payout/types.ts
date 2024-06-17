@@ -1,3 +1,5 @@
+import { GenericRes } from 'services/guestAuth/authuser.services';
+
 export type AddBAnkDetails = {
   id: number;
   model_id: number;
@@ -49,3 +51,23 @@ export type ModelPastPayoutDetail = {
   payout_details: PayoutDetails[];
   aggregate: ModelPastPayoutAggregate;
 };
+
+export type BankDetailsDelete = {
+  status: string;
+  message: string;
+};
+
+export interface BankDetailsListRes extends GenericRes {
+  data: BankDetailsRes;
+}
+export interface AddBankDetailsRes extends GenericRes {
+  data: AddBAnkDetails;
+}
+
+export interface BankDetailsDeleteRes extends GenericRes {
+  data: BankDetailsDelete;
+}
+
+export interface ModelPastPayoutDetailRes extends GenericRes {
+  data: ModelPastPayoutDetail;
+}

@@ -24,7 +24,8 @@ import {
   ShowtrackingBox,
   Pendingconatiner,
   Pending,
-  TextDetail
+  TextDetail,
+  PendingSecond
 } from './PayoutRequest';
 import PayoutWidthDraw from '../payoutWithDraw';
 
@@ -127,9 +128,9 @@ const PayoutContainer = () => {
                   <UINewTypography variant="body" color={'text.secondary'}>
                     - $12,000
                   </UINewTypography>
-                  <Pending variant="captionLarge">
+                  <PendingSecond variant="captionLarge">
                     <FormattedMessage id="Completed" />
-                  </Pending>
+                  </PendingSecond>
                 </Pendingconatiner>
               </FirstToSiliconValleyBankMainConatiner>
 

@@ -2,7 +2,7 @@
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { FormattedMessage } from 'react-intl';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
@@ -13,6 +13,11 @@ import PayoutContainer from '../payoutRequest/PayoutContainer';
 import PayoutBankInformation from '../payoutBankInformation';
 import PayoutsAndInvoices from '../payoutsAndInvoicesTable';
 import PayoutFAQS from '../payoutFAQS';
+import PayoutPaymentConatiner from '../payoutPaymentContainer';
+import { PayoutService } from 'services/payout/payout.service';
+import { toast } from 'react-toastify';
+import { ErrorMessage } from 'constants/common.constants';
+import { BankDetailsListRes } from 'services/payout/types';
 
 const profileMenuList = [
   { menuName: <FormattedMessage id="RequestPayout" />, id: 0 },
@@ -31,9 +36,37 @@ const PayoutMobileSidebar = ({
   handleModelApiChange: () => void;
 }) => {
   const [menuId, setMenuId] = useState(0);
+  const [bankDetailsList, setBankDetailsList] = useState<BankDetailsListRes>();
+  const [menuProfileId, setMenuProfileId] = useState(0);
+
   const handleMenu = (event: SelectChangeEvent<unknown>) => {
     setMenuId(Number(event.target.value));
   };
+
+  const fetchBankDetails = async () => {
+    try {
+      const BankListObject = {
+        limit: 5,
+        offset: 0
+      };
+      const data = await PayoutService.bankDetailsList(token.token, BankListObject);
+      if (data) {
+        setBankDetailsList(data);
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
+
+  useEffect(() => {
+    fetchBankDetails();
+  }, [token.token]);
+
+  useEffect(() => {
+    if (bankDetailsList?.data?.bank_details.length) {
+      setMenuProfileId(1);
+    }
+  }, [bankDetailsList]);
 
   return (
     <FormControl id="age" sx={{ width: '100%' }}>
@@ -67,7 +100,15 @@ const PayoutMobileSidebar = ({
       {menuId === 0 ? (
         <PayoutContainer />
       ) : menuId === 1 ? (
-        <PayoutBankInformation token={token} />
+        menuProfileId === 0 ? (
+          <PayoutBankInformation token={token} fetchBankDetails={fetchBankDetails} />
+        ) : (
+          <PayoutPaymentConatiner
+            bankDetailsList={bankDetailsList ?? ({} as BankDetailsListRes)}
+            token={token}
+            fetchBankDetails={fetchBankDetails}
+          />
+        )
       ) : menuId === 2 ? (
         <PayoutsAndInvoices />
       ) : (

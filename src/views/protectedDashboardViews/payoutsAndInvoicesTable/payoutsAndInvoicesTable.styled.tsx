@@ -55,7 +55,7 @@ export const TableBox = styled(Box)(({ theme }) => ({
 export const StackBox = styled(Stack)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'space-between',
-  color: theme.palette.text.secondary,
+  color: theme.palette.text.primary,
   width: '100%',
   maxWidth: '312px',
   [theme.breakpoints.down('sm')]: {

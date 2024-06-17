@@ -38,8 +38,11 @@ export type VerificationStepSecond = {
 };
 
 const validationSchema = yup.object({
-  idType: yup.string().required('Idtype title is required'),
-  idNumber: yup.string().required('Idnumber  is required')
+  idType: yup.string().required('ID type title is required'),
+  idNumber: yup
+    .string()
+    .required('ID number is required')
+    .matches(/^[a-zA-Z0-9]*$/, 'Only alphanumeric characters are allowed in ID number.')
 });
 
 const VerificationStep2 = ({
@@ -90,8 +93,8 @@ const VerificationStep2 = ({
   useEffect(() => {
     if (modelDetails && modelDetails.documents && modelDetails.documents.length > 0) {
       setValues({
-        idType: DocumentList.find((item) => item.value === modelDetails.documents[0].document_type)?.key || '',
-        idNumber: modelDetails.documents[0].document_number
+        idType: DocumentList.find((item) => item.value === modelDetails.documents[0].document_type)?.key || values.idType,
+        idNumber: modelDetails.documents[0].document_number || values.idNumber
       });
     } else {
       setValues({
@@ -99,6 +102,7 @@ const VerificationStep2 = ({
         idNumber: ''
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modelDetails, setValues]);
 
   return (
@@ -177,7 +181,7 @@ const VerificationStep2 = ({
                   </Box>
                   <Box sx={{ maxWidth: '390px' }}>
                     <UIStyledInputText
-                      type="number"
+                      type="text"
                       fullWidth
                       id="idNumber"
                       name="idNumber"
@@ -217,7 +221,7 @@ const VerificationStep2 = ({
           docValues={values}
           token={token}
           activeStep={activeStep}
-          handleNext={handleNextDocment}
+          handleNext={handleNext}
           modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
           handlePrev={handlePrev}
           handleDocuPrev={handleDocuPrev}

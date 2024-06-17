@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { PriceCommissionsRes } from './types';
 
 export class CommonServices {
   static getCountry = async (token: string) => {
@@ -37,6 +38,18 @@ export class CommonServices {
     } catch (err: any) {
       const error: AxiosError = err;
       return error.response?.data || { error_message: error.message };
+    }
+  };
+
+  static priceCommissions = async (token: string): Promise<PriceCommissionsRes> => {
+    try {
+      const res = await axios.get<PriceCommissionsRes>(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/commission`, {
+        headers: { 'Content-Type': 'application/json', Authorization: token }
+      });
+
+      return res.data;
+    } catch (error: any) {
+      return error as PriceCommissionsRes;
     }
   };
 }

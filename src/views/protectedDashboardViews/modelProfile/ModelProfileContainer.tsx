@@ -48,7 +48,7 @@ const ModelProfileContainer = ({
     <Box sx={{ display: 'flex' }}>
       <Divider orientation="vertical" flexItem sx={{ borderColor: 'primary.700' }} />
       <Box display="flex" width="100%">
-        <Box sx={{ display: 'flex' }} id="1">
+        <Box sx={{ display: 'flex' }}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '55px' }}>
               <UINewTypography variant="h5" color="text.secondary" ml="24px" mt={3.93}>
@@ -93,7 +93,7 @@ const ModelProfileContainer = ({
               handleModelApiChange={handleModelApiChange}
             />
           ) : (
-            <DashboardPriceView token={token} modelDetails={modelDetails} handleModelApiChange={handleModelApiChange} />
+            <DashboardPriceView token={token} modelDetails={modelDetails} handleModelApiChange={handleModelApiChange} isEdit={true} />
           )}
         </Box>
       </Box>

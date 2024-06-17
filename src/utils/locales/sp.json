@@ -162,8 +162,8 @@
   "Save": "Guardar",
   "Withdraw": "Retirar",
   "USD": "USD",
-  "RecentWithdrawls": "RetirosRecientes",
-  "To Silicon Valley bank": "Al banco Silicon Valley",
+  "RecentWithdrawls": "Retiros Recientes",
+  "ToSiliconValleyBank": "Al banco Silicon Valley",
   "ShowTracking": "MostrarSeguimiento",
   "Completed": "Completado",
   "LetStartWith": "Empecemos con",
@@ -291,6 +291,10 @@
   "LiveInteractions": "Interacciones en vivo",
   "ExploreFrom": "Explora desde el mundo de diversa belleza y encanto.",
   "PastPayouts": "Pagos Pasados",
+  "MinimumPrice": "El precio mínimo a establecer es ",
+  "YoullBeReceiving": "Recibirás:",
+  "NextVerification": "Siguiente - Verificación",
+  "SetupYour": "Establece tus precios y gana en tus propios términos",
   "CropPhoto": "Cortar Foto",
   "YourProfileIsUnder": "Su perfil está bajo revisión y se le notificará por correo cuando se apruebe su perfil.",
   "DownloadOurApp": "Descarga nuestra aplicación para aceptar la videollamada",
@@ -302,5 +306,7 @@
   "HaveAnAccount": "¿Ya tienes una cuenta?",
   "FrequentlyAskedQuestions": "Preguntas frecuentes",
   "ExploreYourChoicesFrom": "Explore sus opciones en el mundo de la belleza diversa.",
-  "SelectTheCompanionWho": "Seleccione la compañera que se alinea con sus deseos."
+  "SelectTheCompanionWho": "Seleccione la compañera que se alinea con sus deseos.",
+  "SignUpAsAUser": "Regístrate como usuario",
+  "RegisterAsAModel": "Regístrate como modelo"
 }

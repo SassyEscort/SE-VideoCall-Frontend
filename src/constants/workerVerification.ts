@@ -33,6 +33,7 @@ export enum MODEL_ACTIVE_STEP {
   UPLOAD_PHOTOS = 'Upload_Photos',
   ONBOARDED = 'Onboarded',
   IN_REVIEW = 'In_Review',
+  ADD_PRICE = 'Add_Price',
   VERIFIED = 'Verified'
 }
 
