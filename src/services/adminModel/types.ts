@@ -59,7 +59,7 @@ export interface ModelDetails {
   profile_status: string;
 }
 
-export interface ApiResponse {
+export interface ModelDetailResponse {
   message: string;
   code: number;
   error: string | null;

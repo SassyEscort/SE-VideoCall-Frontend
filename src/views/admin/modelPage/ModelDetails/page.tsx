@@ -9,7 +9,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 
 const ModelDetailsPage = () => {
   const { id: modelId } = useParams();
-  // const [modelData, setModelData] = useState(null);
+  const [modelData, setModelData] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
 
@@ -32,12 +32,12 @@ const ModelDetailsPage = () => {
     if (token.token) {
       const data = await adminModelServices.getModelDetails(token.token, Number(modelId));
       console.log(data, 'data');
-      console.log(isLoading, 'data');
-      // setModelData(data?.model_details);
-      setIsLoading(true);
+      console.log(isLoading, 'loading');
+      setModelData(data.data);
     }
+    setIsLoading(true);
   };
-
+  console.log('modelData', modelData);
   useEffect(() => {
     fetchModelData();
   }, [modelId]);
