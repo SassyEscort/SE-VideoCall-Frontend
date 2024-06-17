@@ -34,6 +34,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { adminModelServices, ModelListing } from 'services/adminModel/adminModel.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
+import { useRouter } from 'next/navigation';
 
 export type WorkersPaginationType = {
   page: number;
@@ -60,6 +61,7 @@ export type TokenIdTypeAdmin = {
 };
 
 export default function ModelPageContainer() {
+  const router = useRouter();
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selected, setSelected] = useState<ModelListing>();
@@ -174,6 +176,9 @@ export default function ModelPageContainer() {
     await adminModelServices.modelAction(token.token, Number(selected?.id), MODEL_ACTION.REJECT);
     handleModelListRefetch();
     handleCloseMenu();
+  };
+  const handelViewDetails = async () => {
+    router.push(`/admin/model/details/${selected?.id}`);
   };
 
   return (
@@ -323,7 +328,7 @@ export default function ModelPageContainer() {
             }
           }}
         >
-          <MenuItem>
+          <MenuItem onClick={handelViewDetails}>
             <VisibilityIcon sx={{ mr: 2 }} />
             View Details
           </MenuItem>
