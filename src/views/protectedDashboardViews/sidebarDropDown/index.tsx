@@ -14,7 +14,7 @@ import { SelectDropdown } from './SidebarDropDown.styled';
 import { Box, SelectChangeEvent } from '@mui/material';
 
 const profileMenuList = [
-  { menuName: <FormattedMessage id="Profile" />, id: 0 },
+  { menuName: <FormattedMessage id="Photos" />, id: 0 },
   { menuName: <FormattedMessage id="ProfileDetails" />, id: 1 },
   { menuName: <FormattedMessage id="Prices" />, id: 2 }
 ];
