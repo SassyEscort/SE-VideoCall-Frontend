@@ -76,7 +76,7 @@ const PayoutPaymentConatiner = ({
       ) : (
         <MainConatinerBox>
           <MainSecondBox>
-            <UINewTypography variant="h2" color={'text.secondary'}>
+            <UINewTypography variant="h2" color="text.secondary">
               <FormattedMessage id="YourPaymentMethods" />
             </UINewTypography>
             <MainThreeBox>
@@ -104,7 +104,7 @@ const PayoutPaymentConatiner = ({
                       </SmallAndBigScreen>
                       <SiliconBox>
                         <SiliconFristBox>
-                          <UINewTypography variant="h6" color={'text.secondary'}>
+                          <UINewTypography variant="h6" color="text.secondary">
                             {list?.bank_name}
                           </UINewTypography>
                           <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
@@ -129,7 +129,7 @@ const PayoutPaymentConatiner = ({
 
               <ButtonConatinerBox>
                 <UIThemeButton variant="contained" onClick={handleBankOpen}>
-                  <UINewTypography variant="body" color={'primary.200'}>
+                  <UINewTypography variant="body" color="primary.200">
                     <FormattedMessage id="AddMoreBanks" />
                   </UINewTypography>
                   <AddIcon sx={{ color: 'primary.200' }} />
