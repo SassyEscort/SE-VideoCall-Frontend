@@ -7,9 +7,9 @@ import Box from '@mui/material/Box';
 import { StatusBox } from './statusDetails';
 import { FormattedMessage } from 'react-intl';
 import InvoiceModalV2 from '../InvoicePage/InvoiceModalV2';
-import { ModelPastPayoutDetailRes } from 'services/payout/payout.service';
 import moment from 'moment';
 import { useState } from 'react';
+import { ModelPastPayoutDetailRes } from 'services/payout/types';
 
 export type invoiceDataType = {
   map: any;

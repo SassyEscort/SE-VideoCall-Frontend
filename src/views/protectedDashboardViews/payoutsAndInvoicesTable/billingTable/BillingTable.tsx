@@ -5,12 +5,13 @@ import InvoiceTableHeader from './InvoiceTableHeader';
 import PurchaseInvoiceTableBodyV2 from './PurchaseInvoiceTableBody';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import { useEffect, useState } from 'react';
-import { ModelPastPayoutDetailRes, PayoutService } from 'services/payout/payout.service';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { CircularProgress, TableCell, TableRow } from '@mui/material';
+import { PayoutService } from 'services/payout/payout.service';
+import { ModelPastPayoutDetailRes } from 'services/payout/types';
 
 export type ModelPastPayoutDetailParams = {
   limit: number;
