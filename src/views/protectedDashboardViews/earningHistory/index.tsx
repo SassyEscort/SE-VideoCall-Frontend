@@ -1,7 +1,7 @@
 'use client';
 import Stack from '@mui/material/Stack';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import PaginationSearch from './paginationSearch/PaginationSearch';
 import {
   DividerContainer,
