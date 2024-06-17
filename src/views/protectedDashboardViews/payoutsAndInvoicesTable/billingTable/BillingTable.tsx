@@ -12,6 +12,7 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { CircularProgress, TableCell, TableRow } from '@mui/material';
 import { PayoutService } from 'services/payout/payout.service';
 import { ModelPastPayoutDetailRes } from 'services/payout/types';
+import { BillingLoadingBox } from './BillingTable.styled';
 
 export type ModelPastPayoutDetailParams = {
   limit: number;
@@ -68,9 +69,9 @@ const BillingTable = () => {
             {isLoading ? (
               <TableRow>
                 <TableCell colSpan={10}>
-                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2 }}>
+                  <BillingLoadingBox>
                     <CircularProgress />
-                  </Box>
+                  </BillingLoadingBox>
                 </TableCell>
               </TableRow>
             ) : (
