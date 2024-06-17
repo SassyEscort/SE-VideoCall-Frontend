@@ -38,8 +38,11 @@ export type VerificationStepSecond = {
 };
 
 const validationSchema = yup.object({
-  idType: yup.string().required('Idtype title is required'),
-  idNumber: yup.string().required('Idnumber  is required')
+  idType: yup.string().required('ID type title is required'),
+  idNumber: yup
+    .string()
+    .required('ID number is required')
+    .matches(/^[a-zA-Z0-9]*$/, 'Only alphanumeric characters are allowed in ID number.')
 });
 
 const VerificationStep2 = ({
@@ -178,7 +181,7 @@ const VerificationStep2 = ({
                   </Box>
                   <Box sx={{ maxWidth: '390px' }}>
                     <UIStyledInputText
-                      type="number"
+                      type="text"
                       fullWidth
                       id="idNumber"
                       name="idNumber"

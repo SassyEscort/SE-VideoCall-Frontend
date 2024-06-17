@@ -3,7 +3,7 @@ import { Box, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   AddBankDetail,
   AddBankDetailsContainer,
@@ -29,18 +29,31 @@ export type BankDetailsParams = {
   account_name: string;
   iban_number: string;
 };
-const AddbankDetails = ({ token }: { token: TokenIdType }) => {
+const AddbankDetails = ({
+  token,
+  fetchBankDetails,
+  handleBankClose
+}: {
+  token: TokenIdType;
+  fetchBankDetails: () => void;
+  handleBankClose?: () => void;
+}) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
   const [loading, setLoading] = useState(false);
 
   const validationSchema = yup.object({
-    bank_name: yup.string().required('IBANnumber is required'),
-    account_name: yup.string().required('accountName is required'),
+    bank_name: yup.string().required('IBAN number is required'),
+    account_name: yup.string().required('Account name is required'),
     iban_number: yup
       .string()
-      .required('IBANnumber is required')
+      .required('IBAN number is required')
       .matches(/^[a-zA-Z0-9]*$/, 'Only alphanumeric characters are allowed in IBAN number.')
   });
+
+  const handleBankDetailsRefetch = useCallback(() => {
+    fetchBankDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   return (
     <Formik
@@ -59,8 +72,12 @@ const AddbankDetails = ({ token }: { token: TokenIdType }) => {
             iban_number: values.iban_number
           };
           const data = await PayoutService.bankDetails(BankDetailsObject, token.token);
+          if (handleBankClose) {
+            handleBankClose();
+          }
           if (data?.code === 200) {
             toast.success('Success');
+            handleBankDetailsRefetch();
           } else {
             toast.error(ErrorMessage);
           }

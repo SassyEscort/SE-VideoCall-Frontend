@@ -45,5 +45,5 @@ export const getUserDataClient = async () => {
 
 export const getLoggedInUser = async () => {
   const session = await getAuthUser();
-  return Boolean(session);
+  return session;
 };

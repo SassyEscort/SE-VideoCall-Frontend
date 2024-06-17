@@ -49,28 +49,30 @@ const PayoutModelProfileConatiner = ({
     setMenuId(id);
   };
 
-  useEffect(() => {
-    const fetchBankDetails = async () => {
-      try {
-        const BankListObject = {
-          limit: 5,
-          offset: 0
-        };
-        const data = await PayoutService.bankDetailsList(token.token, BankListObject);
-        if (data) {
-          setBankDetailsList(data);
-        }
-      } catch (error) {
-        toast.error(ErrorMessage);
+  const fetchBankDetails = async () => {
+    try {
+      const BankListObject = {
+        limit: 5,
+        offset: 0
+      };
+      const data = await PayoutService.bankDetailsList(token.token, BankListObject);
+      if (data) {
+        setBankDetailsList(data);
       }
-    };
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
 
+  useEffect(() => {
     fetchBankDetails();
   }, [token.token]);
 
   useEffect(() => {
     if (bankDetailsList?.data?.bank_details.length) {
       setMenuProfileId(1);
+    } else {
+      setMenuProfileId(0);
     }
   }, [bankDetailsList]);
 
@@ -110,9 +112,13 @@ const PayoutModelProfileConatiner = ({
             <PayoutContainer />
           ) : menuId === 1 ? (
             menuProfileId === 0 ? (
-              <PayoutBankInformation token={token} />
+              <PayoutBankInformation token={token} fetchBankDetails={fetchBankDetails} />
             ) : (
-              <PayoutPaymentConatiner bankDetailsList={bankDetailsList ?? ({} as BankDetailsListRes)} />
+              <PayoutPaymentConatiner
+                bankDetailsList={bankDetailsList ?? ({} as BankDetailsListRes)}
+                token={token}
+                fetchBankDetails={fetchBankDetails}
+              />
             )
           ) : menuId === 2 ? (
             <PayoutsAndInvoices />

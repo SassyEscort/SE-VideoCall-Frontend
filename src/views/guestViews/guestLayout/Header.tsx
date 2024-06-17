@@ -18,6 +18,7 @@ import GuestNewPassword from 'views/auth/guestNewPassword';
 import GuestLogin from 'views/auth/guestLogin';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import ProfileMenu from 'components/UIComponents/UIStyleHeader';
 
 const HeaderGuestComponent = () => {
   const url = new URL(window.location.href);
@@ -29,6 +30,17 @@ const HeaderGuestComponent = () => {
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const [openChangePassword, setIsOpenChangePassword] = useState(email && url.pathname !== '/profile' ? true : false);
+  const [openDropDown, setOpenDropDown] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const handleDropDownOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+    setOpenDropDown(true);
+  };
+
+  const handleDropDownClose = () => {
+    setOpenDropDown(false);
+  };
 
   const toggleDrawer = (open: boolean) => {
     setOpenSidebar(open);
@@ -160,7 +172,7 @@ const HeaderGuestComponent = () => {
                 </Link>
               )}
               {isMdUp && (
-                <UIThemeShadowButton variant="contained" onClick={handleSignupOpen} sx={{ width: '195px' }}>
+                <UIThemeShadowButton variant="contained" onClick={handleDropDownOpen} sx={{ width: '195px' }}>
                   <UINewTypography variant="body" lineHeight={'150%'}>
                     <FormattedMessage id="SignUpNow" />
                   </UINewTypography>
@@ -189,6 +201,7 @@ const HeaderGuestComponent = () => {
       <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
         <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
       </UIStyledDialog>
+      <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} />
     </HomeMainContainer>
   );
 };
