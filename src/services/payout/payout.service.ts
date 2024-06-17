@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BankDetailsParams } from 'views/protectedDashboardViews/addBankDetails';
-import { BankDetaildDeleteParam, BankListParams } from 'views/protectedDashboardViews/payoutPaymentContainer';
+import { BankListParams } from 'views/protectedDashboardViews/payoutPaymentContainer';
 import { AddBankDetailsRes, BankDetailsDeleteRes, BankDetailsListRes } from './types';
 
 export class PayoutService {
