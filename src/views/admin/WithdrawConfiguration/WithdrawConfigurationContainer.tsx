@@ -32,19 +32,6 @@ export default function WithdrawConfigurationContainer() {
     withdrawal_amt: yup.number().required('minimum withdraw amount is required')
   });
 
-  useEffect(() => {
-    const fetchCommissionAmount = async () => {
-      try {
-        const response = await withdrawMinAmountServices.modelWithdrawAmountGet(token.token);
-        setWithdrawAmount(response);
-      } catch (error) {
-        toast.error('Error fetching commission amount');
-      }
-    };
-
-    fetchCommissionAmount();
-  }, [token]);
-
   const handleFormSubmit = async (values: withdrawParams) => {
     setIsLoading(true);
 
@@ -66,7 +53,21 @@ export default function WithdrawConfigurationContainer() {
     };
 
     userToken();
-  }, [token]);
+  }, []);
+
+  useEffect(() => {
+    const fetchCommissionAmount = async () => {
+      try {
+        const response = await withdrawMinAmountServices.modelWithdrawAmountGet(token.token);
+        setWithdrawAmount(response);
+      } catch (error) {
+        toast.error('Error fetching commission amount');
+      }
+    };
+    if (token.token) {
+      fetchCommissionAmount();
+    }
+  }, [token.token]);
 
   return (
     <>

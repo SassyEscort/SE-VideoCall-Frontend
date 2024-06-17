@@ -21,32 +21,20 @@ import {
   commissionParams,
   modelCommissionAmountServices
 } from 'services/adminServices/modelCommission/modelCommission.services';
+import { TokenIdType } from 'views/protectedModelViews/verification';
 
 export default function ModelCommissionContainer() {
   const [isLoading, setIsLoading] = useState(false);
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [commissionAmount, setCommissionAmount] = useState<AdminCommissionResponse>({} as AdminCommissionResponse);
 
   const validationSchema = yup.object({
     percentage: yup.number().required('minimum commission amount is required')
   });
 
-  useEffect(() => {
-    const fetchCommissionAmount = async () => {
-      try {
-        const response = await modelCommissionAmountServices.modelCommissionMinAmountGet(token);
-        setCommissionAmount(response);
-      } catch (error) {
-        toast.error('Error fetching commission amount');
-      }
-    };
-
-    fetchCommissionAmount();
-  }, [token]);
-
   const handleFormSubmit = async (values: commissionParams) => {
     setIsLoading(true);
-    const res = await modelCommissionAmountServices.modelCommissionMinAmount(values, token);
+    const res = await modelCommissionAmountServices.modelCommissionMinAmount(values, token.token);
     if (res) {
       if (res.code === 200) {
         toast.success('Success');
@@ -60,11 +48,25 @@ export default function ModelCommissionContainer() {
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
-      setToken(data.token);
+      setToken({ id: data.id, token: data.token });
     };
 
     userToken();
   }, []);
+
+  useEffect(() => {
+    const fetchCommissionAmount = async () => {
+      try {
+        const response = await modelCommissionAmountServices.modelCommissionMinAmountGet(token.token);
+        setCommissionAmount(response);
+      } catch (error) {
+        toast.error('Error fetching commission amount');
+      }
+    };
+    if (token.token) {
+      fetchCommissionAmount();
+    }
+  }, [token.token]);
 
   return (
     <>
