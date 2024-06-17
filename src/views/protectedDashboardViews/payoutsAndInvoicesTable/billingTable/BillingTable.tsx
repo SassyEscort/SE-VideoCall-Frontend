@@ -43,7 +43,7 @@ const BillingTable = () => {
         };
         if (token.token) {
           setIsLoading(true);
-          const data = await PayoutService.modelPatPayoutList(ModelPayoutListObject, token.token);
+          const data = await PayoutService.modelPastPayoutList(ModelPayoutListObject, token.token);
           if (data) {
             setModelPayoutList(data);
           }
