@@ -46,16 +46,12 @@ const FaqPage = () => {
                   </StyledAccordion>
 
                   <StyledAccordion>
-                    <UINewTypography variant="bodySemiBold">
-                      <StyledAccordionSummary
-                        color="secondary.100"
-                        aria-controls="panel2-content"
-                        id="panel2-header"
-                        expandIcon={<ExpandMoreIcon />}
-                      >
+                    <StyledAccordionSummary aria-controls="panel2-content" id="panel2-header" expandIcon={<ExpandMoreIcon />}>
+                      <UINewTypography variant="bodySemiBold" color="secondary.100">
                         <FormattedMessage id="IsThePlatformSecure" />
-                      </StyledAccordionSummary>
-                    </UINewTypography>
+                      </UINewTypography>
+                    </StyledAccordionSummary>
+
                     <Box component="ul">
                       <StyledAccordionDetails>
                         <FormattedMessage id="wePrioritizeTheSecurity" />
@@ -64,16 +60,17 @@ const FaqPage = () => {
                   </StyledAccordion>
 
                   <StyledAccordion>
-                    <UINewTypography variant="bodySemiBold">
-                      <StyledAccordionSummary
-                        color="secondary.100"
-                        aria-controls="panel2-content"
-                        id="panel2-header"
-                        expandIcon={<ExpandMoreIcon />}
-                      >
+                    <StyledAccordionSummary
+                      color="secondary.100"
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <UINewTypography variant="bodySemiBold" color="secondary.100">
                         <FormattedMessage id="CanITrustIheIdentity" />
-                      </StyledAccordionSummary>
-                    </UINewTypography>
+                      </UINewTypography>
+                    </StyledAccordionSummary>
+
                     <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
                         <FormattedMessage id="WeVerifyTheIdentities" />
@@ -82,16 +79,17 @@ const FaqPage = () => {
                   </StyledAccordion>
 
                   <StyledAccordion>
-                    <UINewTypography variant="bodySemiBold">
-                      <StyledAccordionSummary
-                        color="secondary.100"
-                        aria-controls="panel2-content"
-                        id="panel2-header"
-                        expandIcon={<ExpandMoreIcon />}
-                      >
+                    <StyledAccordionSummary
+                      color="secondary.100"
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <UINewTypography variant="bodySemiBold" color="secondary.100">
                         <FormattedMessage id="AreThereAnyRestrictions" />
-                      </StyledAccordionSummary>
-                    </UINewTypography>
+                      </UINewTypography>
+                    </StyledAccordionSummary>
+
                     <Box component="ul">
                       <StyledAccordionDetails>
                         <FormattedMessage id="WeHaveStrictGuidelines" />
@@ -100,16 +98,16 @@ const FaqPage = () => {
                   </StyledAccordion>
 
                   <StyledAccordion>
-                    <UINewTypography variant="bodySemiBold">
-                      <StyledAccordionSummary
-                        color="secondary.100"
-                        aria-controls="panel2-content"
-                        id="panel2-header"
-                        expandIcon={<ExpandMoreIcon />}
-                      >
+                    <StyledAccordionSummary
+                      color="secondary.100"
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <UINewTypography variant="bodySemiBold" color="secondary.100">
                         <FormattedMessage id="HowDoITop" />
-                      </StyledAccordionSummary>
-                    </UINewTypography>
+                      </UINewTypography>
+                    </StyledAccordionSummary>
                     <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
                         <FormattedMessage id="YouCanEasilyTopUp" />
@@ -118,16 +116,17 @@ const FaqPage = () => {
                   </StyledAccordion>
 
                   <StyledAccordion>
-                    <UINewTypography variant="bodySemiBold">
-                      <StyledAccordionSummary
-                        color="secondary.100"
-                        aria-controls="panel2-content"
-                        id="panel2-header"
-                        expandIcon={<ExpandMoreIcon />}
-                      >
+                    <StyledAccordionSummary
+                      color="secondary.100"
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <UINewTypography variant="bodySemiBold" color="secondary.100">
                         <FormattedMessage id="WhatMeasuresAre" />
-                      </StyledAccordionSummary>
-                    </UINewTypography>
+                      </UINewTypography>
+                    </StyledAccordionSummary>
+
                     <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
                         <FormattedMessage id="WeEmployRigorousAge" />
@@ -136,16 +135,17 @@ const FaqPage = () => {
                   </StyledAccordion>
 
                   <StyledAccordion>
-                    <UINewTypography variant="bodySemiBold">
-                      <StyledAccordionSummary
-                        color="secondary.100"
-                        aria-controls="panel2-content"
-                        id="panel2-header"
-                        expandIcon={<ExpandMoreIcon />}
-                      >
+                    <StyledAccordionSummary
+                      color="secondary.100"
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <UINewTypography variant="bodySemiBold" color="secondary.100">
                         <FormattedMessage id="IsThereARefund" />
-                      </StyledAccordionSummary>
-                    </UINewTypography>
+                      </UINewTypography>
+                    </StyledAccordionSummary>
+
                     <Box component="ul">
                       <StyledAccordionDetails>
                         <FormattedMessage id="WeDoNotOfferRefunds" />
@@ -154,50 +154,55 @@ const FaqPage = () => {
                   </StyledAccordion>
 
                   <StyledAccordion>
-                    <UINewTypography variant="bodySemiBold">
-                      <StyledAccordionSummary
-                        color="secondary.100"
-                        aria-controls="panel2-content"
-                        id="panel2-header"
-                        expandIcon={<ExpandMoreIcon />}
-                      >
+                    <StyledAccordionSummary
+                      color="secondary.100"
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <UINewTypography variant="bodySemiBold" color="secondary.100">
                         <FormattedMessage id="HowAreDisputesResolved" />
-                      </StyledAccordionSummary>
-                    </UINewTypography>
+                      </UINewTypography>
+                    </StyledAccordionSummary>
+
                     <Box component="ul">
                       <StyledAccordionDetails>
                         <FormattedMessage id="InTheEventOfDispute" />
                       </StyledAccordionDetails>
                     </Box>
                   </StyledAccordion>
+
                   <StyledAccordion>
-                    <UINewTypography variant="bodySemiBold">
-                      <StyledAccordionSummary
-                        color="secondary.100"
-                        aria-controls="panel2-content"
-                        id="panel2-header"
-                        expandIcon={<ExpandMoreIcon />}
-                      >
+                    <StyledAccordionSummary
+                      color="secondary.100"
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <UINewTypography variant="bodySemiBold" color="secondary.100">
                         <FormattedMessage id="DoINeedToDownload" />
-                      </StyledAccordionSummary>
-                    </UINewTypography>
+                      </UINewTypography>
+                    </StyledAccordionSummary>
+
                     <Box component="ul">
                       <StyledAccordionDetails>
                         <FormattedMessage id="OurPlatformIsEntirely" />
                       </StyledAccordionDetails>
                     </Box>
                   </StyledAccordion>
+
                   <StyledAccordion>
-                    <UINewTypography variant="bodySemiBold">
-                      <StyledAccordionSummary
-                        color="secondary.100"
-                        aria-controls="panel2-content"
-                        id="panel2-header"
-                        expandIcon={<ExpandMoreIcon />}
-                      >
+                    <StyledAccordionSummary
+                      color="secondary.100"
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <UINewTypography variant="bodySemiBold" color="secondary.100">
                         <FormattedMessage id="CanIPreviewOrBrowse" />
-                      </StyledAccordionSummary>
-                    </UINewTypography>
+                      </UINewTypography>
+                    </StyledAccordionSummary>
+
                     <Box component="ul">
                       <StyledAccordionDetails>
                         <FormattedMessage id="YouCanBrowseThrough" />
@@ -205,16 +210,17 @@ const FaqPage = () => {
                     </Box>
                   </StyledAccordion>
                   <StyledAccordion>
-                    <UINewTypography variant="bodySemiBold">
-                      <StyledAccordionSummary
-                        color="secondary.100"
-                        aria-controls="panel2-content"
-                        id="panel2-header"
-                        expandIcon={<ExpandMoreIcon />}
-                      >
+                    <StyledAccordionSummary
+                      color="secondary.100"
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <UINewTypography variant="bodySemiBold" color="secondary.100">
                         <FormattedMessage id="IsThereMobileApp" />
-                      </StyledAccordionSummary>
-                    </UINewTypography>
+                      </UINewTypography>
+                    </StyledAccordionSummary>
+
                     <Box component="ul">
                       <StyledAccordionDetails>
                         <FormattedMessage id="WeOfferResponsiveWeb" />
