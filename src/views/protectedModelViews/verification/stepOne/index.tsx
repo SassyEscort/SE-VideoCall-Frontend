@@ -34,6 +34,7 @@ const VerificationStepOne = ({
   handleModelApiChange: () => void;
 }) => {
   const router = useRouter();
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const url = new URL(window.location.href);
   const email = url.searchParams.get('email');
@@ -150,6 +151,7 @@ const VerificationStepOne = ({
             component="form"
             onSubmit={(e) => {
               e.preventDefault();
+              setButtonClicked(true);
               scrollToError('.Mui-error');
               handleSubmit();
             }}
@@ -189,6 +191,7 @@ const VerificationStepOne = ({
                 variant="contained"
                 loading={loading}
                 disabled={changedValues && isEdit ? false : !isEdit ? false : true}
+                style={{ backgroundColor: buttonClicked ? (Object.keys(errors).length > 0 ? undefined : '#232027') : undefined }}
               >
                 {isEdit ? (
                   <UINewTypography variant="body">
