@@ -72,3 +72,9 @@ export const ViewDetailsBilling = styled(UINewTypography)(() => ({
 export const DateTimeBilling = styled(UINewTypography)(() => ({
   lineHeight: '17.5px !important'
 }));
+
+export const BillingHistoryBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(6)
+}));
