@@ -57,15 +57,15 @@ const CallHistory = () => {
                           <UINewTypography variant="SubtitleSmallMedium" color="text.primary" lineHeight="120%">
                             24
                           </UINewTypography>
-                          <Divider orientation="vertical" flexItem sx={{ borderColor: '#B7B5B9' }} />
-                          <UINewTypography variant="SubtitleSmallMedium" color="#B7B5B9" lineHeight="120%">
+                          <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
+                          <UINewTypography variant="SubtitleSmallMedium" color="text.primary" lineHeight="120%">
                             English, Spanish
                           </UINewTypography>
                         </SecondSubFirstPartSecondBoxSecText>
                       </SecondSubFirstPartSecondBoxFirstText>
                       <CallHistoryCreditBox>
                         <ImgBoxContainer src="/images/workercards/dollar-img.png" />
-                        <UINewTypography variant="captionLargeBold" color="#E9E8EB">
+                        <UINewTypography variant="captionLargeBold" color="text.secondary">
                           20 credits/hr
                         </UINewTypography>
                       </CallHistoryCreditBox>
