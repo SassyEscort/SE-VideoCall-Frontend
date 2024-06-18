@@ -29,17 +29,42 @@ export type BankDetailsRes = {
   aggregate: AgricketList;
 };
 
+export type PayoutDetails = {
+  map: any;
+  payout: any;
+  id: number;
+  model_id: number;
+  amount: number;
+  state: string;
+  created_at: string;
+  is_active: number;
+  name: string;
+  email: string;
+  bank_name: string;
+};
+
+export type ModelPastPayoutAggregate = {
+  total_rows: 100;
+  page_size: 10;
+  offset: 0;
+};
+
+export type ModelPastPayoutDetail = {
+  payout_details: PayoutDetails[];
+  aggregate: ModelPastPayoutAggregate;
+};
+
+export type BankDetailsDelete = {
+  status: string;
+  message: string;
+};
+
 export interface BankDetailsListRes extends GenericRes {
   data: BankDetailsRes;
 }
 export interface AddBankDetailsRes extends GenericRes {
   data: AddBAnkDetails;
 }
-
-export type BankDetailsDelete = {
-  status: string;
-  message: string;
-};
 
 export interface BankDetailsDeleteRes extends GenericRes {
   data: BankDetailsDelete;
@@ -61,4 +86,8 @@ export type BankDetailsEditRep = {
 
 export interface BankDetailsEditReponse extends GenericRes {
   data: BankDetailsEditRep;
+}
+
+export interface ModelPastPayoutDetailRes extends GenericRes {
+  data: ModelPastPayoutDetail;
 }

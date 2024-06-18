@@ -9,9 +9,9 @@ import html2canvas from 'html2canvas';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import InvoiceDownloadV2 from './InvoiceDownloadV2';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
-import { sampleInvoiceType } from '../billingTable/BillingTable';
+import { invoiceDataType } from '../billingTable/PurchaseInvoiceTableBody';
 
-const InvoiceModalV2 = ({ open, onClose, sampleInvoices }: { open: boolean; onClose: () => void; sampleInvoices: sampleInvoiceType[] }) => {
+const InvoiceModalV2 = ({ open, onClose, invoiceData }: { open: boolean; onClose: () => void; invoiceData: invoiceDataType }) => {
   const generatePDF = () => {
     const id = 'html-content';
     const containerId = 'invoice-image-container';
@@ -72,7 +72,7 @@ const InvoiceModalV2 = ({ open, onClose, sampleInvoices }: { open: boolean; onCl
         </IconButton>
       </DialogTitle>
       <DialogContent dividers sx={{ px: 0 }}>
-        <InvoiceDownloadV2 sampleInvoices={sampleInvoices} />
+        <InvoiceDownloadV2 invoiceData={invoiceData} />
 
         <Box pt={2} display="flex" alignItems="center" justifyContent="center">
           <UIThemeButton size="small" variant="contained" onClick={() => generatePDF()}>

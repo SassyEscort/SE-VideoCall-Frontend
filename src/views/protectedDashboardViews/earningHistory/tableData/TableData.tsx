@@ -3,12 +3,13 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import { ModelEarningHistoryResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
 export const DirectPurchaseTableHeader = [
   { id: 1, client: 'Rohit Vrikud', duration: '120 mins', credits: '1200', date: '21 April 2024', amount: '$ 12,000' }
 ];
 
-const TableData = () => {
+const TableData = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningHistoryResponse }) => {
   const headerToRender = DirectPurchaseTableHeader;
   return (
     <TableBody>

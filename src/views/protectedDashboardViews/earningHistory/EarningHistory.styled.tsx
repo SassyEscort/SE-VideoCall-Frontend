@@ -1,3 +1,4 @@
+import { Divider } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 
@@ -12,7 +13,10 @@ export const EarningHistoryMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '741px'
+  maxWidth: '741px',
+  [theme.breakpoints.up('md')]: {
+    marginLeft: theme.spacing(3)
+  }
 }));
 
 export const EarningHistorySubContainer = styled(Box)(({ theme }) => ({
@@ -47,5 +51,21 @@ export const EarningHistoryThirdBoxContainer = styled(Box)(({ theme }) => ({
 export const EarningHistoryLastBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
-  maxWidth: '741px'
+  maxWidth: '741px',
+  [theme.breakpoints.down('sm')]: {
+    marginTop: '70px'
+  }
+}));
+
+export const EarningHistoryPagination = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  width: '100%',
+  marginTop: theme.spacing(7)
+}));
+
+export const DividerContainer = styled(Divider)(({ theme }) => ({
+  borderColor: theme.palette.text.disabled,
+  height: '40px',
+  alignItems: 'center'
 }));
