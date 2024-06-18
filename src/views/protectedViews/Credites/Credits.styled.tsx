@@ -50,7 +50,7 @@ export const ImagMainContainer = styled(Box)(({ theme }) => ({
   maxWidth: '929px',
   height: '100%',
   maxHeight: '674px',
-  gap: theme.spacing(2),
+  gap: theme.spacing(3),
   flexWrap: 'wrap',
   [theme.breakpoints.up('md')]: {
     justifyContent: 'space-between'
@@ -92,6 +92,8 @@ export const BoxFirstTextContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const BoxSecondTextContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
   position: 'absolute',
   bottom: '10px',
   right: '10px',
@@ -99,7 +101,8 @@ export const BoxSecondTextContainer = styled(Box)(({ theme }) => ({
   paddingBottom: theme.spacing(0.5),
   paddingRight: theme.spacing(1),
   paddingLeft: theme.spacing(1),
-  borderRadius: '4px'
+  borderRadius: theme.spacing(0.5),
+  gap: theme.spacing(0.5)
 }));
 
 export const TopTextContainer = styled(Box)(({ theme }) => ({
@@ -147,8 +150,7 @@ export const CreditCardImage = styled('img')(() => ({
 export const DollarCreditText = styled(UINewTypography)(({ theme }) => ({
   fontSize: '40px',
   fontWeight: 800,
-  lineHeight: '48px',
-  marginTop: '4px'
+  lineHeight: '48px'
 }));
 
 export const CreditBuyText = styled(UINewTypography)(({ theme }) => ({
@@ -186,4 +188,15 @@ export const CancelCreditValue = styled(UINewTypography)(({ theme }) => ({
   width: '76px',
   height: '29px',
   marginLeft: '20px'
+}));
+
+export const FirstBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column'
+  },
+  [theme.breakpoints.up('sm')]: {
+    flexDirection: 'row'
+  }
 }));
