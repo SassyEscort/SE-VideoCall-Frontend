@@ -77,13 +77,14 @@ const ModelProfileContainer = ({
         </Box>
         <Box sx={{ display: 'flex', ml: 1, width: '100%' }}>
           {menuId === 0 ? (
-            <UploadImage
-              isEdit={true}
-              workerPhotos={modelPhotos ?? []}
-              token={token}
-              handleModelApiChange={handleModelApiChange}
-              handleNext={handleSave}
-            />
+            // <UploadImage
+            //   isEdit={true}
+            //   workerPhotos={modelPhotos ?? []}
+            //   token={token}
+            //   handleModelApiChange={handleModelApiChange}
+            //   handleNext={handleSave}
+            // />
+            <></>
           ) : menuId === 1 ? (
             <VerificationStepOne
               isEdit={true}
