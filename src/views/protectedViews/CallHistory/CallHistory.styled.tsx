@@ -1,3 +1,4 @@
+import { Divider } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -207,4 +208,11 @@ export const CallHistoryPaginationContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   width: '100%'
+}));
+
+export const DividerContainer = styled(Divider)(({ theme }) => ({
+  border: '1px solid',
+  borderColor: theme.palette.primary[700],
+  width: '100%',
+  maxWidth: '929px'
 }));

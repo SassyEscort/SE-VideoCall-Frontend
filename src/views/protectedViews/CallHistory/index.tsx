@@ -11,6 +11,7 @@ import {
   CallHistoryPaginationContainer,
   CallHistoryText,
   CreditUsedBox,
+  DividerContainer,
   ImgBoxContainer,
   SecImgBoxContainer,
   SecondContainer,
@@ -122,11 +123,7 @@ const CallHistory = () => {
                 </CallAgainBox>
               </SecondSubTextMainContainer>
             </SecondSubContainer>
-            <Divider
-              orientation="horizontal"
-              flexItem
-              sx={{ border: '1px solid', borderColor: 'primary.700', width: '100%', maxWidth: '929px' }}
-            />
+            <DividerContainer orientation="horizontal" flexItem />
           </SecondContainer>
         </CallHistoryMainContainer>
         <CallHistoryPaginationContainer>
