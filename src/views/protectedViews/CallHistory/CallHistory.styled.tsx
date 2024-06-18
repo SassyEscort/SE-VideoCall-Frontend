@@ -196,3 +196,15 @@ export const CreditUsedBox = styled(Box)(({ theme }) => ({
   flexDirection: 'row',
   gap: theme.spacing(1.5)
 }));
+
+export const CallHistoryBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(6)
+}));
+
+export const CallHistoryPaginationContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  width: '100%'
+}));
