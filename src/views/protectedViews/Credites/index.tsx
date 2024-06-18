@@ -17,6 +17,7 @@ import {
   DollarCreditText,
   FirsTextMainContainer,
   FirsTextSubContainer,
+  FirstBoxContainer,
   ImagMainContainer,
   ImagSubContainer,
   MainImagContainer,
@@ -56,112 +57,116 @@ const Credits = () => {
             </SecondTextSubContainer>
           </TextMainContainer>
           <ImagMainContainer>
-            <ImagSubContainer>
-              <MainImagContainer src="/images/credits/credits-img-1.png" />
-              <BoxFirstTextContainer>
-                <CreditCardImage src="/images/workercards/coin-1.png" />
-                <CreditCardText variant="subtitle" color="text.secondary">
-                  90 <FormattedMessage id="Credits" />
-                </CreditCardText>
-              </BoxFirstTextContainer>
-              <BoxSecondTextContainer>
-                <CreditBuyText variant="bodySmall" color="secondary.700">
-                  <FormattedMessage id="BuyNowAt" />
-                </CreditBuyText>
-                <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
-              </BoxSecondTextContainer>
-            </ImagSubContainer>
+            <FirstBoxContainer>
+              <ImagSubContainer>
+                <MainImagContainer src="/images/credits/credits-img-1.png" />
+                <BoxFirstTextContainer>
+                  <CreditCardImage src="/images/workercards/coin-1.png" />
+                  <CreditCardText variant="subtitle" color="text.secondary">
+                    90 <FormattedMessage id="Credits" />
+                  </CreditCardText>
+                </BoxFirstTextContainer>
+                <BoxSecondTextContainer>
+                  <CreditBuyText variant="bodySmall" color="secondary.700">
+                    <FormattedMessage id="BuyNowAt" />
+                  </CreditBuyText>
+                  <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
+                </BoxSecondTextContainer>
+              </ImagSubContainer>
 
-            <ImagSubContainer>
-              <MainImagContainer src="/images/credits/credits-img-2.png" />
-              <BoxFirstTextContainer>
-                <CreditCardImage src="/images/workercards/coin-1.png" />
-                <CreditCardText variant="subtitle" color="text.secondary">
-                  90 <FormattedMessage id="Credits" />
-                </CreditCardText>
-              </BoxFirstTextContainer>
-              <BoxSecondTextContainer>
-                <CreditBuyText variant="bodySmall" color="secondary.700">
-                  <FormattedMessage id="BuyNowAt" />
-                </CreditBuyText>
-                <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
-              </BoxSecondTextContainer>
-            </ImagSubContainer>
+              <ImagSubContainer>
+                <MainImagContainer src="/images/credits/credits-img-2.png" />
+                <BoxFirstTextContainer>
+                  <CreditCardImage src="/images/workercards/coin-1.png" />
+                  <CreditCardText variant="subtitle" color="text.secondary">
+                    90 <FormattedMessage id="Credits" />
+                  </CreditCardText>
+                </BoxFirstTextContainer>
+                <BoxSecondTextContainer>
+                  <CreditBuyText variant="bodySmall" color="secondary.700">
+                    <FormattedMessage id="BuyNowAt" />
+                  </CreditBuyText>
+                  <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
+                </BoxSecondTextContainer>
+              </ImagSubContainer>
 
-            <ImagSubContainer>
-              <MainImagContainer src="/images/credits/credits-img-3.png" />
-              <BoxFirstTextContainer>
-                <CreditCardImage src="/images/workercards/coin-1.png" />
-                <CreditCardText variant="subtitle" color="text.secondary">
-                  90 <FormattedMessage id="Credits" />
-                </CreditCardText>
-              </BoxFirstTextContainer>
-              <BoxSecondTextContainer>
-                <CreditBuyText variant="bodySmall" color="secondary.700">
-                  <FormattedMessage id="BuyNowAt" />
-                </CreditBuyText>
-                <DollarCreditText color="text.secondary">$9.99</DollarCreditText>
-                <CancelCreditValue color="text.primary">$19.99</CancelCreditValue>
-              </BoxSecondTextContainer>
-              <TopTextContainer>
-                <CreditBestValue color="text.secondary">
-                  <FormattedMessage id="BestValue" />
-                </CreditBestValue>
-              </TopTextContainer>
-            </ImagSubContainer>
+              <ImagSubContainer>
+                <MainImagContainer src="/images/credits/credits-img-3.png" />
+                <BoxFirstTextContainer>
+                  <CreditCardImage src="/images/workercards/coin-1.png" />
+                  <CreditCardText variant="subtitle" color="text.secondary">
+                    90 <FormattedMessage id="Credits" />
+                  </CreditCardText>
+                </BoxFirstTextContainer>
+                <BoxSecondTextContainer>
+                  <CreditBuyText variant="bodySmall" color="secondary.700">
+                    <FormattedMessage id="BuyNowAt" />
+                  </CreditBuyText>
+                  <DollarCreditText color="text.secondary">$9.99</DollarCreditText>
+                  <CancelCreditValue color="text.primary">$19.99</CancelCreditValue>
+                </BoxSecondTextContainer>
+                <TopTextContainer>
+                  <CreditBestValue color="text.secondary">
+                    <FormattedMessage id="BestValue" />
+                  </CreditBestValue>
+                </TopTextContainer>
+              </ImagSubContainer>
+            </FirstBoxContainer>
 
-            <ImagSubContainer>
-              <MainImagContainer src="/images/credits/credits-img-4.png" />
-              <BoxFirstTextContainer>
-                <CreditCardImage src="/images/workercards/coin-1.png" />
-                <CreditCardText variant="subtitle" color="text.secondary">
-                  90 <FormattedMessage id="Credits" />
-                </CreditCardText>
-              </BoxFirstTextContainer>
-              <BoxSecondTextContainer>
-                <CreditBuyText variant="bodySmall" color="secondary.700">
-                  <FormattedMessage id="BuyNowAt" />
-                </CreditBuyText>
-                <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
-              </BoxSecondTextContainer>
-              <TopTextContainer>
-                <CreditMostPopular color="text.secondary">
-                  <FormattedMessage id="MostPopular" />
-                </CreditMostPopular>
-              </TopTextContainer>
-            </ImagSubContainer>
+            <FirstBoxContainer>
+              <ImagSubContainer>
+                <MainImagContainer src="/images/credits/credits-img-4.png" />
+                <BoxFirstTextContainer>
+                  <CreditCardImage src="/images/workercards/coin-1.png" />
+                  <CreditCardText variant="subtitle" color="text.secondary">
+                    90 <FormattedMessage id="Credits" />
+                  </CreditCardText>
+                </BoxFirstTextContainer>
+                <BoxSecondTextContainer>
+                  <CreditBuyText variant="bodySmall" color="secondary.700">
+                    <FormattedMessage id="BuyNowAt" />
+                  </CreditBuyText>
+                  <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
+                </BoxSecondTextContainer>
+                <TopTextContainer>
+                  <CreditMostPopular color="text.secondary">
+                    <FormattedMessage id="MostPopular" />
+                  </CreditMostPopular>
+                </TopTextContainer>
+              </ImagSubContainer>
 
-            <ImagSubContainer>
-              <MainImagContainer src="/images/credits/credits-img-5.png" />
-              <BoxFirstTextContainer>
-                <CreditCardImage src="/images/workercards/coin-1.png" />
-                <CreditCardText variant="subtitle" color="text.secondary">
-                  90 <FormattedMessage id="Credits" />
-                </CreditCardText>
-              </BoxFirstTextContainer>
-              <BoxSecondTextContainer>
-                <CreditBuyText variant="bodySmall" color="secondary.700">
-                  <FormattedMessage id="BuyNowAt" />
-                </CreditBuyText>
-                <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
-              </BoxSecondTextContainer>
-            </ImagSubContainer>
+              <ImagSubContainer>
+                <MainImagContainer src="/images/credits/credits-img-5.png" />
+                <BoxFirstTextContainer>
+                  <CreditCardImage src="/images/workercards/coin-1.png" />
+                  <CreditCardText variant="subtitle" color="text.secondary">
+                    90 <FormattedMessage id="Credits" />
+                  </CreditCardText>
+                </BoxFirstTextContainer>
+                <BoxSecondTextContainer>
+                  <CreditBuyText variant="bodySmall" color="secondary.700">
+                    <FormattedMessage id="BuyNowAt" />
+                  </CreditBuyText>
+                  <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
+                </BoxSecondTextContainer>
+              </ImagSubContainer>
 
-            <ImagSubContainer>
-              <MainImagContainer src="/images/credits/credits-img-6.png" />
-              <BoxFirstTextContainer>
-                <CreditCardImage src="/images/workercards/coin-1.png" />
-                <CreditCardText variant="subtitle" color="text.secondary">
-                  90 <FormattedMessage id="Credits" />
-                </CreditCardText>
-              </BoxFirstTextContainer>
-              <BoxSecondTextContainer>
-                <CreditBuyText variant="bodySmall" color="secondary.700">
-                  <FormattedMessage id="BuyNowAt" />
-                </CreditBuyText>
-                <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
-              </BoxSecondTextContainer>
-            </ImagSubContainer>
+              <ImagSubContainer>
+                <MainImagContainer src="/images/credits/credits-img-6.png" />
+                <BoxFirstTextContainer>
+                  <CreditCardImage src="/images/workercards/coin-1.png" />
+                  <CreditCardText variant="subtitle" color="text.secondary">
+                    90 <FormattedMessage id="Credits" />
+                  </CreditCardText>
+                </BoxFirstTextContainer>
+                <BoxSecondTextContainer>
+                  <CreditBuyText variant="bodySmall" color="secondary.700">
+                    <FormattedMessage id="BuyNowAt" />
+                  </CreditBuyText>
+                  <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
+                </BoxSecondTextContainer>
+              </ImagSubContainer>
+            </FirstBoxContainer>
           </ImagMainContainer>
         </CreditsSubContainer>
       </CreditsMainContainer>
