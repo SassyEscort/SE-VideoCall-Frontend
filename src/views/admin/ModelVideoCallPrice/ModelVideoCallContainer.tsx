@@ -19,6 +19,7 @@ import {
   videoCallAmountServices,
   videoCallParams
 } from 'services/adminServices/videoCallConfiguration/videoCallConfiguration.services';
+import { DetailsBox } from './ModelVideo.styled';
 
 export default function ModelVideoCallContainer() {
   const [isLoading, setIsLoading] = useState(false);
@@ -88,33 +89,28 @@ export default function ModelVideoCallContainer() {
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            sx={{
-              display: 'flex',
-              gap: '1rem'
-            }}
-          >
-            <TextField
-              name="min_price"
-              label="Video call Amount"
-              type="number"
-              value={values.min_price}
-              error={Boolean(touched.min_price && errors.min_price)}
-              helperText={touched.min_price && errors.min_price ? errors.min_price : ''}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              InputProps={{
-                startAdornment: <InputAdornment position="start">€</InputAdornment>
-              }}
-              sx={{ width: '100%', maxWidth: '500px' }}
-            />
-            <DialogActions>
-              <LoadingButton loading={isLoading} size="large" type="submit" variant="contained" color="primary">
-                Save
-              </LoadingButton>
-            </DialogActions>
+          <Box component="form" onSubmit={handleSubmit}>
+            <DetailsBox>
+              <TextField
+                name="min_price"
+                label="Video call Amount"
+                type="number"
+                value={values.min_price}
+                error={Boolean(touched.min_price && errors.min_price)}
+                helperText={touched.min_price && errors.min_price ? errors.min_price : ''}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start">€</InputAdornment>
+                }}
+                sx={{ width: '100%', maxWidth: '500px' }}
+              />
+              <DialogActions>
+                <LoadingButton loading={isLoading} size="large" type="submit" variant="contained" color="primary">
+                  Save
+                </LoadingButton>
+              </DialogActions>
+            </DetailsBox>
           </Box>
         )}
       </Formik>
