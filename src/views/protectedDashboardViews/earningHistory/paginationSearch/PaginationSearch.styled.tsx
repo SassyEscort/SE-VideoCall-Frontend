@@ -8,13 +8,7 @@ export const StyledRoot = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   padding: '0 !important',
-  [theme.breakpoints.down('sm')]: {
-    width: '100%'
-  },
-  [theme.breakpoints.only('xs')]: {
-    width: '100%',
-    minWidth: '320px'
-  }
+  width: '100%'
 }));
 export const StyledSearch = styled(OutlinedInput)(({ theme }) => ({
   width: '100%',
