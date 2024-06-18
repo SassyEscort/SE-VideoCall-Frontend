@@ -9,6 +9,7 @@ import Link from 'next/link';
 import theme from 'themes/theme';
 import { VerificationHeaderBox } from './Header.styled';
 import { FormattedMessage } from 'react-intl';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 
 const VerificationHeader = ({
   activeStep,
@@ -60,7 +61,7 @@ const VerificationHeader = ({
             />
           </Box>
           <Box display="flex" gap={1.5} alignItems="center">
-            <UIThemeButton
+            <StyleButtonV2
               onClick={handleNextHeaderStep}
               loading={isLoading}
               sx={{
@@ -75,7 +76,7 @@ const VerificationHeader = ({
                 <FormattedMessage id="Next" />
               </UINewTypography>
               <RiArrowRightLine style={{ color: 'white' }} />
-            </UIThemeButton>
+            </StyleButtonV2>
           </Box>
         </VerificationHeaderBox>
       </>
