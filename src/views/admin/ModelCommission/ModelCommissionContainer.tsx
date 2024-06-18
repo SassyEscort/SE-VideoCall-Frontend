@@ -21,6 +21,7 @@ import {
 } from 'services/adminServices/modelCommission/modelCommission.services';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import WithdrawConfigurationContainer from '../WithdrawConfiguration/WithdrawConfigurationContainer';
+import ModelVideoCallContainer from '../ModelVideoCallPrice/ModelVideoCallContainer';
 
 export default function ModelCommissionContainer() {
   const [isLoading, setIsLoading] = useState(false);
@@ -119,6 +120,9 @@ export default function ModelCommissionContainer() {
         </Formik>
         <Box mt={5}>
           <WithdrawConfigurationContainer />
+        </Box>
+        <Box mt={5}>
+          <ModelVideoCallContainer />
         </Box>
       </MainLayout>
     </>
