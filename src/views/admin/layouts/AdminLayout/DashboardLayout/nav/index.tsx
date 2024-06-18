@@ -10,6 +10,8 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import NavSection from 'components/Admin/nav-section';
 import { navRoleConfigIdType, navRoleConfigSubmenuIdType } from 'components/Admin/nav-section/type';
+import useResponsive from 'hooks/useResponsive';
+import { useSession } from 'next-auth/react';
 
 const NAV_WIDTH = 280;
 
@@ -33,6 +35,10 @@ interface NavProps {
 
 export default function Nav({ openNav, onCloseNav }: NavProps) {
   const { pathname } = window.location;
+  const isDesktop = useResponsive('up', 'lg', 'xs');
+
+  const adminAuth = useSession();
+
   const navConfig = getNavConfig() as unknown as (navRoleConfigIdType | navRoleConfigSubmenuIdType)[];
 
   useEffect(() => {
@@ -58,15 +64,15 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
       <Box sx={{ mb: 2, mx: 2.5 }}>
         <Link underline="none">
           <StyledAccount>
-            <Avatar src="/assets/images/avatars/avatar_24.jpg" alt="photoURL" />
+            <Avatar src="/images/admin/avatar.jpg" alt="photoURL" />
 
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary', textTransform: 'capitalize' }}>
-                Admin
+                {adminAuth.data?.user?.name}
               </Typography>
 
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                Admin
+                {adminAuth.data?.user?.email}
               </Typography>
             </Box>
           </StyledAccount>
@@ -87,19 +93,34 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
         width: { lg: NAV_WIDTH }
       }}
     >
-      <Drawer
-        open
-        variant="permanent"
-        PaperProps={{
-          sx: {
-            width: NAV_WIDTH,
-            bgcolor: 'background.default',
-            borderRightStyle: 'dashed'
-          }
-        }}
-      >
-        {renderContent}
-      </Drawer>
+      {isDesktop ? (
+        <Drawer
+          open
+          variant="permanent"
+          PaperProps={{
+            sx: {
+              width: NAV_WIDTH,
+              bgcolor: 'background.default',
+              borderRightStyle: 'dashed'
+            }
+          }}
+        >
+          {renderContent}
+        </Drawer>
+      ) : (
+        <Drawer
+          open={openNav}
+          onClose={onCloseNav}
+          ModalProps={{
+            keepMounted: true
+          }}
+          PaperProps={{
+            sx: { width: NAV_WIDTH }
+          }}
+        >
+          {renderContent}
+        </Drawer>
+      )}
     </Box>
   );
 }
