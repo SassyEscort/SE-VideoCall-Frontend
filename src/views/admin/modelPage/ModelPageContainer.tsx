@@ -100,12 +100,13 @@ export default function ModelPageContainer() {
   }, []);
 
   const fetchModelData = async () => {
-    setIsLoading(false);
+    setIsLoading(true);
     if (token.token) {
       const data = await adminModelServices.getModelList(token.token, filters.pageSize, filters.offset);
       setTotalRecords(data?.aggregate?.total_rows);
       setModelData(data?.model_details);
     }
+    setIsLoading(false);
   };
 
   const handleModelListRefetch = useCallback(() => {
@@ -253,7 +254,7 @@ export default function ModelPageContainer() {
                           <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item.created_at, '-')}</TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item.updated_at, '-')}</TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{item.verification_step}</TableCell>
-                          <TableCell sx={{ textAlign: 'left' }}>{item.email_verified === 0 ? 'Yes' : 'No'}</TableCell>
+                          <TableCell sx={{ textAlign: 'left' }}>{item.email_verified === 0 ? 'No' : 'Yes'}</TableCell>
 
                           <TableCell>
                             <IconButton
