@@ -31,9 +31,6 @@ const UIStyledLoadingButtonV2 = styled(LoadingButton)(({ theme }) => ({
   '&.MuiButton-outlinedWhite:hover': {
     backgroundColor: theme.palette.primary[800]
   },
-  '&.MuiButton-contained:hover': {
-    backgroundColor: theme.palette.primary[800]
-  },
   '&.Mui-disabled': {
     backgroundColor: theme.palette.primary[700],
     color: theme.palette.secondary.light
