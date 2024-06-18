@@ -3,7 +3,7 @@ import { Box, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   AddBankDetail,
   AddBankDetailsContainer,
@@ -71,7 +71,7 @@ const AddbankDetails = ({
             account_name: values.account_name,
             iban_number: values.iban_number
           };
-          const data = await PayoutService.bankDetails(BankDetailsObject, token.token);
+          const data = await PayoutService.bankDetailsAdd(BankDetailsObject, token.token);
           if (handleBankClose) {
             handleBankClose();
           }

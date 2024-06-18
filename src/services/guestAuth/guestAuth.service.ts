@@ -45,8 +45,8 @@ export class GuestAuthService {
 
       return res.data;
     } catch (err: any) {
-      const error: string = err;
-      return { error: error } as GenericResponse;
+      const error: AxiosError = err;
+      return error.response?.data as GenericResponse;
     }
   };
 
