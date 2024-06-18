@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { BankDetailsParams } from 'views/protectedDashboardViews/addBankDetails';
 import { BankListParams } from 'views/protectedDashboardViews/payoutPaymentContainer';
-import { AddBankDetailsRes, BankDetailsDeleteRes, BankDetailsListRes } from './types';
+import { ModelPastPayoutDetailParams } from 'views/protectedDashboardViews/payoutsAndInvoicesTable/billingTable/BillingTable';
+
+import { AddBankDetailsRes, BankDetailsDeleteRes, BankDetailsListRes, ModelPastPayoutDetailRes } from './types';
 
 export class PayoutService {
   static bankDetails = async (params: BankDetailsParams, token: string): Promise<AddBankDetailsRes> => {
@@ -43,6 +45,20 @@ export class PayoutService {
       return res.data;
     } catch (error) {
       return error as BankDetailsDeleteRes;
+    }
+  };
+
+  static modelPastPayoutList = async (params: ModelPastPayoutDetailParams, token: string): Promise<ModelPastPayoutDetailRes> => {
+    try {
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/payout?limit=${params.limit}&offset=${params.offset}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        }
+      });
+      return res.data;
+    } catch (error) {
+      return error as ModelPastPayoutDetailRes;
     }
   };
 }
