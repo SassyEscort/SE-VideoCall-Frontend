@@ -18,20 +18,6 @@ export const MainWorkerCard = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     maxWidth: '300px',
     minHeight: '432px'
-  },
-  '& .image-container': {
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    width: '100%',
-    height: '100%',
-    maxWidth: 299,
-    minHeight: 432,
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: '100%',
-      minHeight: 236
-    },
-    borderRadius: 8
   }
 }));
 
@@ -50,7 +36,10 @@ export const ImgWorkerCard = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.only('xs')]: {
     maxWidth: '200px'
-  }
+  },
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center'
 }));
 export const HeartIconWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
