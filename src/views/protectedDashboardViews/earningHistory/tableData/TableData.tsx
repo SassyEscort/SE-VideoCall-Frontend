@@ -3,26 +3,22 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { ModelEarningHistoryResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import { ModelEarningHistoryPageDetailsRes } from 'services/modelEarningHistory/typs';
+import moment from 'moment';
 
-export const DirectPurchaseTableHeader = [
-  { id: 1, client: 'Rohit Vrikud', duration: '120 mins', credits: '1200', date: '21 April 2024', amount: '$ 12,000' }
-];
-
-const TableData = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningHistoryResponse }) => {
-  const headerToRender = DirectPurchaseTableHeader;
+const TableData = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningHistoryPageDetailsRes }) => {
   return (
     <TableBody>
-      {headerToRender.map((dp, index) => (
+      {modelEarningHistory?.data?.ledger_details.map((dp, index) => (
         <TableRow key={index}>
           <TableCell>
             <UINewTypography variant="bodySemiBold" color="text.secondary">
-              {dp.client}
+              client
             </UINewTypography>
           </TableCell>
           <TableCell>
             <UINewTypography variant="bodySemiBold" color="text.secondary">
-              {dp.duration}
+              duration
             </UINewTypography>
           </TableCell>{' '}
           <TableCell>
@@ -42,12 +38,12 @@ const TableData = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningH
           </TableCell>{' '}
           <TableCell>
             <UINewTypography variant="bodySemiBold" color="text.secondary">
-              {dp.date}
+              {moment(dp.created_at).format('DD MMMM YYYY')}
             </UINewTypography>
           </TableCell>
           <TableCell>
             <UINewTypography variant="bodySemiBold" color="text.secondary">
-              {dp.amount}
+              $ {dp.amount}
             </UINewTypography>
           </TableCell>
         </TableRow>
