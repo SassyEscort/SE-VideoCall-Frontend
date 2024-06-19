@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const MainWorkerCard = styled(Box)(({ theme }) => ({
@@ -200,6 +201,15 @@ export const CreditContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const FavoriteBorderIconContainer = styled(FavoriteBorderIcon)(({ theme }) => ({
+  width: '20px',
+  height: '20px',
+  [theme.breakpoints.up('sm')]: {
+    width: '24px',
+    height: '24px'
+  }
+}));
+
+export const FavoriteIconContainer = styled(FavoriteIcon)(({ theme }) => ({
   width: '20px',
   height: '20px',
   [theme.breakpoints.up('sm')]: {

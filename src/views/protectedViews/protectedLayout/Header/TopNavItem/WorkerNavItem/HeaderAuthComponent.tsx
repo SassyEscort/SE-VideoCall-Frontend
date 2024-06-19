@@ -90,8 +90,8 @@ const HeaderAuthComponent = () => {
         )}
 
         {isMdUp && (
-          <IconButton sx={{ height: 24, width: 24 }}>
-            <>
+          <Link href="/profile/favourites" style={{ textDecoration: 'none' }}>
+            <IconButton sx={{ height: 24, width: 24 }}>
               <Box
                 sx={{
                   display: 'flex',
@@ -101,22 +101,20 @@ const HeaderAuthComponent = () => {
               >
                 <Box component="img" src="/images/header/heart.png" />
               </Box>
-            </>
-          </IconButton>
+            </IconButton>
+          </Link>
         )}
         <IconButton sx={{ height: 24, width: 24 }}>
-          <>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row-reverse',
-                position: 'relative'
-              }}
-            >
-              <Box component="img" src="/images/header/dot.png" position="absolute" />
-              <Box component="img" src="/images/header/noti.png" />
-            </Box>
-          </>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row-reverse',
+              position: 'relative'
+            }}
+          >
+            <Box component="img" src="/images/header/dot.png" position="absolute" />
+            <Box component="img" src="/images/header/noti.png" />
+          </Box>
         </IconButton>
         <Box display="flex" alignItems="center" gap={1}>
           <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }} onClick={handleClickLogout}>

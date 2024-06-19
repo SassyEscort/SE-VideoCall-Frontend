@@ -24,7 +24,8 @@ const HomeContainer = () => {
       <HomePageMainContainer>
         <HomeTopBanner />
         <SearchFilters />
-        <HomeImageCard modelListing={modelListing} />
+        <HomeImageCard modelListing={modelListing} isFavPage={false} />
+
         <HomeConnections />
         {/* <HomePageFAQ /> */}
       </HomePageMainContainer>
