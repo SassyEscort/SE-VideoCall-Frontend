@@ -76,7 +76,7 @@ const EscortExplore = () => {
           </HomeMainContainer>
         </DetailsChildTypographyBox>
         <Box>
-          <HomeImageCard modelListing={modelListing} />
+          <HomeImageCard modelListing={modelListing} isFavPage={false} />
         </Box>
       </DetailsChildTypographyBox>
     </>

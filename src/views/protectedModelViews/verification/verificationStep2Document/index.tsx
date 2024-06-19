@@ -111,7 +111,7 @@ const VerificationStepPromise = ({
                 is_favourite: 0,
                 is_document: 1,
                 document_type: String(selectedDocument) ?? modelDetails?.documents[0].document_type,
-                document_number: docValues.idNumber ? Number(docValues.idNumber) : Number(modelDetails?.documents[0].document_number) ?? 0
+                document_number: docValues.idNumber ? docValues.idNumber : modelDetails?.documents[0].document_number ?? ''
               }
             ],
             document_upload_step: true

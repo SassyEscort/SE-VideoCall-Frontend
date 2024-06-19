@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import {
   CreditContainer,
   FavoriteBorderIconContainer,
+  FavoriteIconContainer,
   FirstSubContainerImgWorkerCard,
   FirstSubContainerWithoutImg,
   HeartIconWorkerCard,
@@ -19,6 +20,7 @@ import {
   SeconderContainerWorkerCard,
   SubContainertWorkerCard,
   UITypographyBox,
+  UITypographyBoxContainer,
   WorkerCardContainer
 } from './WorkerCard.styled';
 import Divider from '@mui/material/Divider';
@@ -30,8 +32,9 @@ import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
 import useImageOptimize from 'hooks/useImageOptimize';
 import { countryWithFlag } from 'constants/country';
+import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service';
 
-const WorkerCard = ({ modelDetails }: { modelDetails: ModelHomeListing }) => {
+const WorkerCard = ({ modelDetails, isFavPage }: { modelDetails: ModelHomeListing | ModelFavRes; isFavPage: boolean }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
 
@@ -47,9 +50,7 @@ const WorkerCard = ({ modelDetails }: { modelDetails: ModelHomeListing }) => {
   return (
     <MainWorkerCard>
       <ImgWorkerCard ref={imageUrlRef} />
-      <HeartIconWorkerCard>
-        <FavoriteBorderIconContainer />
-      </HeartIconWorkerCard>
+      <HeartIconWorkerCard>{isFavPage ? <FavoriteIconContainer /> : <FavoriteBorderIconContainer />}</HeartIconWorkerCard>
       <WorkerCardContainer>
         <SeconderContainerWorkerCard>
           <SubContainertWorkerCard>
@@ -76,12 +77,12 @@ const WorkerCard = ({ modelDetails }: { modelDetails: ModelHomeListing }) => {
               {!isMobile && (
                 <CreditContainer>
                   <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
-                  <UINewTypography variant="captionLargeBold" color="#E9E8EB">
+                  <UINewTypography variant="captionLargeBold" color="text.secondary">
                     {!modelDetails.price_per_minute ? (
                       <FormattedMessage id="NoPrice" />
                     ) : (
                       <>
-                        {modelDetails.price_per_minute} <FormattedMessage id="CreditsHR" />
+                        {modelDetails.price_per_minute} <FormattedMessage id="CreditsMin" />
                       </>
                     )}
                   </UINewTypography>
@@ -90,24 +91,22 @@ const WorkerCard = ({ modelDetails }: { modelDetails: ModelHomeListing }) => {
             </ProfileCardContainer>
             <SecondMainContainerWorkerCard>
               <SecondSubContainerWorkerCard>
-                <UITypographyBox variant="SubtitleSmallMedium" color="#B7B5B9">
+                <UITypographyBox variant="SubtitleSmallMedium" color="text.primary">
                   {moment().diff(modelDetails.dob, 'years')}
                 </UITypographyBox>
-                <Divider orientation="vertical" flexItem sx={{ borderColor: '#B7B5B9' }} />
-                <UITypographyBox variant="SubtitleSmallMedium" color="#B7B5B9" sx={{ whiteSpace: isMobile ? 'normal' : 'nowrap' }}>
-                  {languages}
-                </UITypographyBox>
+                <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
+                <UITypographyBoxContainer variant="SubtitleSmallMedium">{languages}</UITypographyBoxContainer>
               </SecondSubContainerWorkerCard>
             </SecondMainContainerWorkerCard>
             {isMobile && (
               <CreditContainer sx={{ marginTop: isSmallScreen ? 1.5 : 1 }}>
                 <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
-                <UINewTypography variant="captionLargeBold" color="#E9E8EB">
+                <UINewTypography variant="captionLargeBold" color="text.secondary">
                   {!modelDetails.price_per_minute ? (
                     <FormattedMessage id="NoPrice" />
                   ) : (
                     <>
-                      {modelDetails.price_per_minute} <FormattedMessage id="CreditsHR" />
+                      {modelDetails.price_per_minute} <FormattedMessage id="CreditsMin" />
                     </>
                   )}
                 </UINewTypography>

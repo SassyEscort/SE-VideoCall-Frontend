@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const MainWorkerCard = styled(Box)(({ theme }) => ({
@@ -32,6 +33,9 @@ export const ImgWorkerCard = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     minHeight: '252px',
     maxWidth: '175px'
+  },
+  [theme.breakpoints.only('xs')]: {
+    maxWidth: '200px'
   }
 }));
 export const HeartIconWorkerCard = styled(Box)(({ theme }) => ({
@@ -46,6 +50,9 @@ export const HeartIconWorkerCard = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     minHeight: '272px',
     maxWidth: '175px'
+  },
+  [theme.breakpoints.only('xs')]: {
+    maxWidth: '200px'
   }
 }));
 
@@ -100,7 +107,6 @@ export const SubContainertWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '268px',
   [theme.breakpoints.up('sm')]: {
     gap: theme.spacing(1)
   }
@@ -203,6 +209,15 @@ export const FavoriteBorderIconContainer = styled(FavoriteBorderIcon)(({ theme }
   }
 }));
 
+export const FavoriteIconContainer = styled(FavoriteIcon)(({ theme }) => ({
+  width: '20px',
+  height: '20px',
+  [theme.breakpoints.up('sm')]: {
+    width: '24px',
+    height: '24px'
+  }
+}));
+
 export const LiveIconWorkerCard = styled(LiveIconFirstBoxWorkerCard)(({ theme }) => ({
   display: 'flex',
   width: '100%',
@@ -242,4 +257,18 @@ export const OfflineIconWorkerCard = styled(Box)(() => ({
   minHeight: '12px',
   border: '1px',
   borderRadius: '50%'
+}));
+
+export const UITypographyBoxContainer = styled(UINewTypography)(({ theme }) => ({
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  width: '100%',
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '60px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '100px'
+  },
+  color: theme.palette.text.primary
 }));

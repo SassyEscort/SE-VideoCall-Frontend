@@ -37,7 +37,7 @@ export type ImageUploadPayload = {
   is_favourite: number | string;
   is_document: number;
   document_type: string;
-  document_number: null | number;
+  document_number: null | string;
   photosURL?: string;
 };
 

@@ -20,10 +20,10 @@ import MainTableLayout from './tableData/MainTableLayout';
 import { ResetMainBox } from '../payoutsAndInvoicesTable/payoutsAndInvoicesTable.styled';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { ModelEarningHistoryService } from 'services/modelEarningHistory/modelEarningHistory.services';
-import { ModelEarningHistoryResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
+import { ModelEarningHistoryPageDetailsRes } from 'services/modelEarningHistory/typs';
 
 export type earningParams = {
   category: string;
@@ -32,7 +32,7 @@ export type earningParams = {
   offset: number;
 };
 const EarningHistory = ({ token }: { token: TokenIdType }) => {
-  const [modelEarningHistory, setModelEarningHistory] = useState<ModelEarningHistoryResponse>();
+  const [modelEarningHistory, setModelEarningHistory] = useState<ModelEarningHistoryPageDetailsRes>();
 
   useEffect(() => {
     const fetchEarningHistoryDetails = async () => {
@@ -90,7 +90,7 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
           </EarningHistorySecBoxContainer>
 
           <EarningHistoryLastBoxContainer>
-            <MainTableLayout modelEarningHistory={modelEarningHistory ?? ({} as ModelEarningHistoryResponse)} />
+            <MainTableLayout modelEarningHistory={modelEarningHistory ?? ({} as ModelEarningHistoryPageDetailsRes)} />
           </EarningHistoryLastBoxContainer>
         </EarningHistoryFirstBoxContainer>
       </EarningHistoryMainContainer>

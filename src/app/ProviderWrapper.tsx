@@ -10,6 +10,7 @@ import '../app/globals.scss';
 import 'react-toastify/dist/ReactToastify.css';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import ModelLastActive from 'views/protectedModelViews/ModelLastAvtive';
 
 const manropeFont = Manrope({ subsets: ['latin'] });
 
@@ -20,7 +21,10 @@ const ProviderWrapper = ({ children }: { children: JSX.Element }) => {
         <LocalizationProvider dateAdapter={AdapterMoment}>
           <Locales>
             <>
-              <SessionProvider refetchInterval={0}>{children}</SessionProvider>
+              <SessionProvider refetchInterval={0}>
+                {children}
+                <ModelLastActive />
+              </SessionProvider>
               <ToastContainer
                 position="bottom-center"
                 autoClose={5000}

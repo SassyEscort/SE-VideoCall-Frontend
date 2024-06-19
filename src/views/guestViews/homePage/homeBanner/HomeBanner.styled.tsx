@@ -146,9 +146,17 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
 }));
 
 export const TextBoxContainer = styled(Typography)(({ theme }) => ({
-  fontSize: '20px',
-  fontWeight: 400,
-  lineHeight: '32px'
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: '32px',
+    whiteSpace: 'nowrap'
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '20px',
+    fontWeight: 400,
+    lineHeight: '32px'
+  }
 }));
 
 export const ModelsHeadingBox = styled(Box)(() => ({
@@ -169,4 +177,45 @@ export const FristBoxContainer = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   justifyContent: 'center',
   alignItems: 'center'
+}));
+
+export const SecondBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    alignItems: 'center'
+  }
+}));
+
+export const TopBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  [theme.breakpoints.down('sm')]: {
+    paddingTop: theme.spacing(6.75)
+  },
+  [theme.breakpoints.up('sm')]: {
+    paddingTop: theme.spacing(8)
+  }
+}));
+
+export const ThirdBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  [theme.breakpoints.up('sm')]: {
+    flexDirection: 'row',
+    alignItems: 'flex-start'
+  }
+}));
+
+export const TextContainer = styled(Typography)(({ theme }) => ({
+  lineHeight: '120%',
+  [theme.breakpoints.down('sm')]: {
+    paddingTop: theme.spacing(2)
+  },
+  [theme.breakpoints.up('sm')]: {
+    paddingTop: 0
+  }
 }));
