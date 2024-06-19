@@ -17,6 +17,7 @@ export type ModelHomeListing = {
   is_online: number;
   country: string;
   user_name: string;
+  cords: string;
   languages: Language[];
 };
 

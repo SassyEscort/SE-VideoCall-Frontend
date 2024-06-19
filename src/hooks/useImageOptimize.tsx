@@ -1,3 +1,4 @@
+import { VideoAcceptType } from 'constants/workerVerification';
 import { MutableRefObject, useEffect, useState } from 'react';
 import { Area } from 'react-easy-crop';
 
@@ -17,9 +18,18 @@ function useImageOptimize(
   useEffect(() => {
     if (imageUrlRef.current && photo) {
       const height = imageUrlRef.current.clientHeight;
+      const videoTypeCondition = VideoAcceptType.includes(photo.substring(photo.lastIndexOf('.') + 1));
 
       setImageUrl(
-        photo.split('/images')[0] + `/images/tr:` + (coordinates ? '' : !noResize ? `:h-${height + 100}` : '') + photo.split('/images')[1]
+        photo.split('/images')[0] +
+          `/images/tr:` +
+          `${
+            videoTypeCondition && isWaterMark
+              ? `l-text,i-Sassy,fs-45,tg-b,co-FFFFFF75,l-end`
+              : isWaterMark && `l-text,i-Sassy,co-FFFFFF75,tg-b,fs-45,pa-40,ia-left,ly-N0,lx-N0,l-end`
+          }` +
+          (coordinates ? '' : !noResize ? `:h-${height + 100}` : '') +
+          photo.split('/images')[1]
       );
     }
   }, [coordinates, imageUrlRef, isWaterMark, noResize, photo]);
