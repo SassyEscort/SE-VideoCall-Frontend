@@ -6,6 +6,8 @@ import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
 import { StyledIconButton } from './AccountPopover.styled';
+import { toast } from 'react-toastify';
+import { signOut } from 'next-auth/react';
 
 export default function AccountPopover() {
   const [open, setOpen] = useState<null | HTMLElement>(null);
@@ -16,6 +18,14 @@ export default function AccountPopover() {
 
   const handleClose = () => {
     setOpen(null);
+  };
+
+  const handleConfirmLogout = async () => {
+    try {
+      await signOut({ callbackUrl: '/admin/login' });
+    } catch (error) {
+      toast.error('Error during sign-out:');
+    }
   };
 
   return (
@@ -46,7 +56,9 @@ export default function AccountPopover() {
           <MenuItem>Change Password</MenuItem>
         </Stack>
         <Divider sx={{ borderStyle: 'dashed' }} />
-        <MenuItem sx={{ m: 1 }}>Logout</MenuItem>
+        <MenuItem sx={{ m: 1 }} onClick={handleConfirmLogout}>
+          Logout
+        </MenuItem>
       </Popover>
     </>
   );
