@@ -45,7 +45,7 @@ const WorkerCard = ({ modelDetails, isFavPage }: { modelDetails: ModelHomeListin
   const modelFlag = countryWithFlag.filter((country) => country.name === modelDetails?.country).map((data) => data.flag)[0];
   const imageUrlRef = useRef<HTMLElement>();
 
-  useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false);
+  useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails.cords);
 
   return (
     <MainWorkerCard>

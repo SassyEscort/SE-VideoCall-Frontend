@@ -12,6 +12,7 @@ export type ModelFavRes = {
   price_per_minute: number;
   user_name: string;
   is_online: number;
+  cords: string;
   languages: LanagueRes[];
 };
 

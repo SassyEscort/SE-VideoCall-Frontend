@@ -36,7 +36,10 @@ export const ImgWorkerCard = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.only('xs')]: {
     maxWidth: '200px'
-  }
+  },
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center'
 }));
 export const HeartIconWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
