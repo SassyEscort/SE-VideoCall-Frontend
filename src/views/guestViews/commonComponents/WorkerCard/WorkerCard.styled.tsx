@@ -47,6 +47,9 @@ export const ImgWorkerCard = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     minHeight: '252px',
     maxWidth: '175px'
+  },
+  [theme.breakpoints.only('xs')]: {
+    maxWidth: '200px'
   }
 }));
 export const HeartIconWorkerCard = styled(Box)(({ theme }) => ({
@@ -61,6 +64,9 @@ export const HeartIconWorkerCard = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     minHeight: '272px',
     maxWidth: '175px'
+  },
+  [theme.breakpoints.only('xs')]: {
+    maxWidth: '200px'
   }
 }));
 
@@ -115,7 +121,6 @@ export const SubContainertWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '268px',
   [theme.breakpoints.up('sm')]: {
     gap: theme.spacing(1)
   }
@@ -266,4 +271,18 @@ export const OfflineIconWorkerCard = styled(Box)(() => ({
   minHeight: '12px',
   border: '1px',
   borderRadius: '50%'
+}));
+
+export const UITypographyBoxContainer = styled(UINewTypography)(({ theme }) => ({
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  width: '100%',
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '60px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '100px'
+  },
+  color: theme.palette.text.primary
 }));

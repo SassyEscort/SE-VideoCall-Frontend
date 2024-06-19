@@ -20,6 +20,7 @@ import {
   SeconderContainerWorkerCard,
   SubContainertWorkerCard,
   UITypographyBox,
+  UITypographyBoxContainer,
   WorkerCardContainer
 } from './WorkerCard.styled';
 import Divider from '@mui/material/Divider';
@@ -76,7 +77,7 @@ const WorkerCard = ({ modelDetails, isFavPage }: { modelDetails: ModelHomeListin
               {!isMobile && (
                 <CreditContainer>
                   <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
-                  <UINewTypography variant="captionLargeBold" color="#E9E8EB">
+                  <UINewTypography variant="captionLargeBold" color="text.secondary">
                     {!modelDetails.price_per_minute ? (
                       <FormattedMessage id="NoPrice" />
                     ) : (
@@ -90,19 +91,17 @@ const WorkerCard = ({ modelDetails, isFavPage }: { modelDetails: ModelHomeListin
             </ProfileCardContainer>
             <SecondMainContainerWorkerCard>
               <SecondSubContainerWorkerCard>
-                <UITypographyBox variant="SubtitleSmallMedium" color="#B7B5B9">
+                <UITypographyBox variant="SubtitleSmallMedium" color="text.primary">
                   {moment().diff(modelDetails.dob, 'years')}
                 </UITypographyBox>
-                <Divider orientation="vertical" flexItem sx={{ borderColor: '#B7B5B9' }} />
-                <UITypographyBox variant="SubtitleSmallMedium" color="#B7B5B9" sx={{ whiteSpace: isMobile ? 'normal' : 'nowrap' }}>
-                  {languages}
-                </UITypographyBox>
+                <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
+                <UITypographyBoxContainer variant="SubtitleSmallMedium">{languages}</UITypographyBoxContainer>
               </SecondSubContainerWorkerCard>
             </SecondMainContainerWorkerCard>
             {isMobile && (
               <CreditContainer sx={{ marginTop: isSmallScreen ? 1.5 : 1 }}>
                 <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
-                <UINewTypography variant="captionLargeBold" color="#E9E8EB">
+                <UINewTypography variant="captionLargeBold" color="text.secondary">
                   {!modelDetails.price_per_minute ? (
                     <FormattedMessage id="NoPrice" />
                   ) : (
