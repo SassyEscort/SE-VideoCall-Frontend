@@ -17,10 +17,11 @@ export const MainDashboardSideMenuMainBox = styled(Box)(({ theme }) => ({
 
 export const CommonMenuBox = styled(Box)(({ theme }) => ({
   display: 'flex',
-  alignItems: 'center',
+  flexDirection: 'column',
   gap: theme.spacing(1),
   color: theme.palette.common.white,
   width: '100%',
+  maxWidth: '217px',
   cursor: 'pointer',
   '& .MuiButtonBase-root': {
     opacity: 1
