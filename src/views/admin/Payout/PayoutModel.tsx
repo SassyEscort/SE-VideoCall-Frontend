@@ -5,19 +5,20 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import moment from 'moment';
-import { Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
 import { DetailsDialogContent } from './Payout.styled';
+import { payoutDataResponse } from 'services/adminServices/payout/payoutDetailsService';
 
-const PayoutModel = ({ open, onClose, selectedPayoutData }: { open: boolean; onClose: () => void; selectedPayoutData: any | null }) => (
+const PayoutModel = ({
+  open,
+  onClose,
+  selectedPayoutData
+}: {
+  open: boolean;
+  onClose: () => void;
+  selectedPayoutData: payoutDataResponse | null;
+}) => (
   <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-    <DialogTitle
-      id="responsive-modal-title"
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-      }}
-    >
+    <DialogTitle id="responsive-modal-title" display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
       <Typography variant="subtitle">Payout History</Typography>
       <IconButton onClick={onClose}>
         <CloseIcon />
@@ -25,66 +26,40 @@ const PayoutModel = ({ open, onClose, selectedPayoutData }: { open: boolean; onC
     </DialogTitle>
     <DetailsDialogContent dividers>
       {selectedPayoutData && (
-        <>
-          <TableContainer>
-            <Table sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              <TableBody>
-                <TableRow>
-                  <TableCell>
-                    <Typography>
-                      <strong>Model Name</strong>
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography>{selectedPayoutData?.name || '-'}</Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <Typography>
-                      <strong>Bank Name</strong>
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography>{selectedPayoutData?.bank_name || '-'}</Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <Typography>
-                      <strong>Payout Amount</strong>
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography>{selectedPayoutData?.amount ? `€${selectedPayoutData.amount.toFixed(2)}` : '-'}</Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <Typography>
-                      <strong>Status</strong>
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography>{selectedPayoutData?.state || '-'}</Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <Typography>
-                      <strong>Created Date</strong>
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography>
-                      {selectedPayoutData?.created_at ? moment(selectedPayoutData.created_at).format('MMMM DD, YYYY hh:mm A') : '-'}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </>
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <tbody>
+            <tr>
+              <td>
+                <strong>Model Name</strong>
+              </td>
+              <td>{selectedPayoutData?.name || '-'}</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Bank Name</strong>
+              </td>
+              <td>{selectedPayoutData?.bank_name || '-'}</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Payout Amount</strong>
+              </td>
+              <td>{selectedPayoutData?.amount ? `€${selectedPayoutData.amount.toFixed(2)}` : '-'}</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Status</strong>
+              </td>
+              <td>{selectedPayoutData?.state || '-'}</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Created Date</strong>
+              </td>
+              <td>{selectedPayoutData?.created_at ? moment(selectedPayoutData.created_at).format('MMMM DD, YYYY hh:mm A') : '-'}</td>
+            </tr>
+          </tbody>
+        </table>
       )}
     </DetailsDialogContent>
   </Dialog>
