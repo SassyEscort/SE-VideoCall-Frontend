@@ -81,7 +81,7 @@ const WorkerCard = ({ modelDetails, isFavPage }: { modelDetails: ModelHomeListin
                       <FormattedMessage id="NoPrice" />
                     ) : (
                       <>
-                        {modelDetails.price_per_minute} <FormattedMessage id="CreditsHR" />
+                        {modelDetails.price_per_minute} <FormattedMessage id="CreditsMin" />
                       </>
                     )}
                   </UINewTypography>
@@ -107,7 +107,7 @@ const WorkerCard = ({ modelDetails, isFavPage }: { modelDetails: ModelHomeListin
                     <FormattedMessage id="NoPrice" />
                   ) : (
                     <>
-                      {modelDetails.price_per_minute} <FormattedMessage id="CreditsHR" />
+                      {modelDetails.price_per_minute} <FormattedMessage id="CreditsMin" />
                     </>
                   )}
                 </UINewTypography>
