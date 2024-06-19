@@ -62,7 +62,7 @@ export default function LoginForm() {
           <form onSubmit={handleSubmit}>
             <Box sx={{ color: 'primary.main' }}>
               {alert && (
-                <ErrorBox>
+                <ErrorBox p={1}>
                   <InfoIcon />
                   <UINewTypography>{alert}</UINewTypography>
                 </ErrorBox>
