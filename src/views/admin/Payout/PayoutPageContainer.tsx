@@ -16,7 +16,7 @@ import { Chip, CircularProgress, IconButton, MenuItem } from '@mui/material';
 import moment from 'moment';
 import { MoreVert, Visibility } from '@mui/icons-material';
 import { useCallback, useEffect, useState } from 'react';
-import { payoutDetailsService } from 'services/adminServices/payout/payoutDetailsService';
+import { payoutDataResponse, payoutDetailsService } from 'services/adminServices/payout/payoutDetailsService';
 import PayoutModel from './PayoutModel';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -37,7 +37,7 @@ export type PaginationType = {
 };
 
 export default function PayoutPageContainer() {
-  const [selectedPayoutData, setSelectedPayoutData] = useState(null);
+  const [selectedPayoutData, setSelectedPayoutData] = useState<payoutDataResponse | null>(null);
   const [data, setData] = useState<any>([]);
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
