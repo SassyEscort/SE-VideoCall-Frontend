@@ -48,7 +48,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
             toast.success('Success');
             setActiveStep(1);
           } else {
-            toast.error(data.error);
+            toast.error(data.message);
           }
         } catch (error) {
           toast.error(ErrorMessage);

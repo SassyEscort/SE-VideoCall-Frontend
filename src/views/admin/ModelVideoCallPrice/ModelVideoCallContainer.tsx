@@ -10,29 +10,33 @@ import { Formik } from 'formik';
 import { LoadingButton } from '@mui/lab';
 import { useEffect, useState } from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
-import {
-  AdminWithdrawResponse,
-  withdrawMinAmountServices,
-  withdrawParams
-} from 'services/adminServices/withdrawconfiguration/withdrawConfiguration.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { TokenIdType } from 'views/protectedModelViews/verification';
+import {
+  AdminVideoCallResponse,
+  videoCallAmountServices,
+  videoCallParams
+} from 'services/adminServices/videoCallConfiguration/videoCallConfiguration.services';
+import { DetailsBox } from './ModelVideo.styled';
 
-export default function WithdrawConfigurationContainer() {
+export default function ModelVideoCallContainer() {
   const [isLoading, setIsLoading] = useState(false);
-  const [withdrawAmount, setWithdrawAmount] = useState<AdminWithdrawResponse>({} as AdminWithdrawResponse);
+  const [videoCallAmount, setVideoCallAmount] = useState<AdminVideoCallResponse>({} as AdminVideoCallResponse);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
 
   const validationSchema = yup.object({
-    withdrawal_amt: yup.number().required('minimum withdraw amount is required')
+    min_price: yup
+      .number()
+      .moreThan(0.01, 'Minimum video call amount must be greater than 0.01')
+      .required('Minimum video call amount is required')
   });
 
-  const handleFormSubmit = async (values: withdrawParams) => {
+  const handleFormSubmit = async (values: videoCallParams) => {
     setIsLoading(true);
 
-    const res = await withdrawMinAmountServices.withdrawMinAmount(values, token.token);
+    const res = await videoCallAmountServices.withdrawMinAmount(values, token.token);
     if (res) {
       if (res.code === 200) {
         toast.success('Success');
@@ -55,10 +59,10 @@ export default function WithdrawConfigurationContainer() {
   useEffect(() => {
     const fetchCommissionAmount = async () => {
       try {
-        const response = await withdrawMinAmountServices.modelWithdrawAmountGet(token.token);
-        setWithdrawAmount(response);
+        const response = await videoCallAmountServices.modelVideoCallAmountGet(token.token);
+        setVideoCallAmount(response);
       } catch (error) {
-        toast.error('Error fetching commission amount');
+        toast.error('Error fetching video call amount');
       }
     };
     if (token.token) {
@@ -70,14 +74,14 @@ export default function WithdrawConfigurationContainer() {
     <>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
         <Typography variant="h4" gutterBottom>
-          Model Amount Configuration
+          Model video call price Configuration
         </Typography>
       </Stack>
 
       <Formik
         enableReinitialize
         initialValues={{
-          withdrawal_amt: withdrawAmount?.data?.amount || ''
+          min_price: videoCallAmount?.data?.min_price || ''
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
@@ -85,33 +89,28 @@ export default function WithdrawConfigurationContainer() {
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            sx={{
-              display: 'flex',
-              gap: '1rem'
-            }}
-          >
-            <TextField
-              name="withdrawal_amt"
-              label="Withdraw Amount"
-              type="number"
-              value={values.withdrawal_amt}
-              error={Boolean(touched.withdrawal_amt && errors.withdrawal_amt)}
-              helperText={touched.withdrawal_amt && errors.withdrawal_amt ? errors.withdrawal_amt : ''}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              InputProps={{
-                startAdornment: <InputAdornment position="start">€</InputAdornment>
-              }}
-              sx={{ width: '100%', maxWidth: '500px' }}
-            />
-            <DialogActions>
-              <LoadingButton loading={isLoading} size="large" type="submit" variant="contained" color="primary">
-                Save
-              </LoadingButton>
-            </DialogActions>
+          <Box component="form" onSubmit={handleSubmit}>
+            <DetailsBox>
+              <TextField
+                name="min_price"
+                label="Video call Amount"
+                type="number"
+                value={values.min_price}
+                error={Boolean(touched.min_price && errors.min_price)}
+                helperText={touched.min_price && errors.min_price ? errors.min_price : ''}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start">€</InputAdornment>
+                }}
+                sx={{ width: '100%', maxWidth: '500px' }}
+              />
+              <DialogActions>
+                <LoadingButton loading={isLoading} size="large" type="submit" variant="contained" color="primary">
+                  Save
+                </LoadingButton>
+              </DialogActions>
+            </DetailsBox>
           </Box>
         )}
       </Formik>

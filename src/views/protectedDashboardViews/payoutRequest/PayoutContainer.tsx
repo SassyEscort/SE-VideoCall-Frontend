@@ -90,7 +90,7 @@ const PayoutContainer = () => {
                     </UINewTypography>
                     <ShowtrackingBox>
                       <UINewTypography variant="captionLarge" color="text.primary">
-                        <FormattedMessage id=" ShowTracking" />
+                        <FormattedMessage id="ShowTracking" />
                       </UINewTypography>
                       <KeyboardArrowDownOutlinedIcon />
                     </ShowtrackingBox>

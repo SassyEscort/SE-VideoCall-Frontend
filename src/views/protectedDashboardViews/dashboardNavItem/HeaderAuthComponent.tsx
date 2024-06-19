@@ -15,6 +15,7 @@ import { CommonMenuBox } from '../dashboardNavbar/nav.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Logout from 'views/protectedViews/logout';
 import { FormattedMessage } from 'react-intl';
+import LanguageDropdown from 'components/common/LanguageDropdown';
 
 export type NotificationFilters = {
   page: number;
@@ -74,9 +75,9 @@ const DashboadrHeaderAuthComponent = () => {
   return (
     <>
       <Box display="flex" alignItems="center" gap={{ xs: 2.5, sm: 4.5 }}>
-        {/* <Box display="flex">
+        <Box display="flex">
           <LanguageDropdown />
-        </Box> */}
+        </Box>
 
         <IconButton sx={{ height: 24, width: 24 }}>
           <>

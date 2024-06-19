@@ -1,10 +1,18 @@
 import axios from 'axios';
 import { BankDetailsParams } from 'views/protectedDashboardViews/addBankDetails';
 import { BankListParams } from 'views/protectedDashboardViews/payoutPaymentContainer';
-import { AddBankDetailsRes, BankDetailsDeleteRes, BankDetailsListRes } from './types';
+import {
+  AddBankDetailsRes,
+  BackDetailsEditParams,
+  BankDetailsDeleteRes,
+  BankDetailsEditReponse,
+  BankDetailsListRes,
+  ModelPastPayoutDetailRes
+} from './types';
+import { ModelPastPayoutDetailParams } from 'views/protectedDashboardViews/payoutsAndInvoicesTable/billingTable/BillingTable';
 
 export class PayoutService {
-  static bankDetails = async (params: BankDetailsParams, token: string): Promise<AddBankDetailsRes> => {
+  static bankDetailsAdd = async (params: BankDetailsParams, token: string): Promise<AddBankDetailsRes> => {
     try {
       const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/bank-details`, params, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
@@ -43,6 +51,34 @@ export class PayoutService {
       return res.data;
     } catch (error) {
       return error as BankDetailsDeleteRes;
+    }
+  };
+
+  static bankDetailsEdit = async (token: string, id: number, params: BackDetailsEditParams): Promise<BankDetailsEditReponse> => {
+    try {
+      const res = await axios.patch(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/bank-details/${id}`, params, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        }
+      });
+      return res.data;
+    } catch (error) {
+      return error as BankDetailsEditReponse;
+    }
+  };
+
+  static modelPastPayoutList = async (params: ModelPastPayoutDetailParams, token: string): Promise<ModelPastPayoutDetailRes> => {
+    try {
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/payout?limit=${params.limit}&offset=${params.offset}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        }
+      });
+      return res.data;
+    } catch (error) {
+      return error as ModelPastPayoutDetailRes;
     }
   };
 }

@@ -24,7 +24,17 @@ import { ErrorMessage } from 'constants/common.constants';
 import { PayoutService } from 'services/payout/payout.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import AddbankDetails from '../addBankDetails';
+import AddBankDetailsModel from '../addBankDetails/addBankDetailsModel';
 
+export type BankDetailsEdit = {
+  id: number;
+  model_id: number;
+  bank_name: string;
+  account_name: string;
+  iban_number: string;
+  created_at: string;
+  is_active: number;
+};
 export type BankListParams = {
   limit: number;
   offset: number;
@@ -40,6 +50,8 @@ const PayoutPaymentConatiner = ({
   fetchBankDetails: () => void;
 }) => {
   const [openBank, setOpenBank] = useState(false);
+  const [open, setOpenModel] = useState(false);
+  const [editValue, setEditValue] = useState<BankDetailsEdit>();
   const handleBankDetailsRefetch = useCallback(() => {
     fetchBankDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -69,6 +81,15 @@ const PayoutPaymentConatiner = ({
     setOpenBank(false);
   };
 
+  const handleOpneModel = () => {
+    setOpenModel(true);
+  };
+  const onClose = () => {
+    setOpenModel(false);
+  };
+  const handleBankDetailsEdit = (list: BankDetailsEdit) => {
+    setEditValue(list);
+  };
   return (
     <>
       {openBank ? (
@@ -92,7 +113,14 @@ const PayoutPaymentConatiner = ({
                         />
                         <IamgeBigScreenNone>
                           <SmallScreenImg>
-                            <Box component={'img'} src="/images/payout/edit.webp" sx={{ width: '18px', height: '18px' }} />
+                            <Box
+                              component={'img'}
+                              src="/images/payout/edit.webp"
+                              sx={{ width: '18px', height: '18px' }}
+                              onClick={() => {
+                                handleBankDetailsEdit(list), handleOpneModel();
+                              }}
+                            />
                             <Box
                               component={'img'}
                               src="/images/payout/delete.webp"
@@ -112,7 +140,14 @@ const PayoutPaymentConatiner = ({
                           </UINewTypography>
                         </SiliconFristBox>
                         <DeleteEditBox>
-                          <Box component={'img'} src="/images/payout/edit.webp" sx={{ width: '18px', height: '18px', cursor: 'pointer' }} />
+                          <Box
+                            component={'img'}
+                            src="/images/payout/edit.webp"
+                            sx={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                            onClick={() => {
+                              handleBankDetailsEdit(list), handleOpneModel();
+                            }}
+                          />
 
                           <Box
                             component={'img'}
@@ -137,6 +172,13 @@ const PayoutPaymentConatiner = ({
               </ButtonConatinerBox>
             </MainThreeBox>
           </MainSecondBox>
+          <AddBankDetailsModel
+            open={open}
+            onClose={onClose}
+            token={token}
+            editValue={editValue ?? ({} as BankDetailsEdit)}
+            fetchBankDetails={fetchBankDetails}
+          />
         </MainConatinerBox>
       )}
     </>
