@@ -13,7 +13,9 @@ import {
   TextBoxContainer,
   ModelsHeadingBox,
   FristBoxContainer,
-  SecondBoxContainer
+  SecondBoxContainer,
+  TopBoxContainer,
+  ThirdBoxContainer
 } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
@@ -89,7 +91,7 @@ const HomeTopBanner = () => {
   return (
     <>
       {(session?.user as User)?.provider === 'providerGuest' ? (
-        <Box display="flex" pt={{ xs: '54px', md: '64px' }}>
+        <TopBoxContainer>
           <FristBoxContainer>
             <UINewTypography variant="MediumSemiBold" width="100%" maxWidth="710px" color="text.secondary">
               <FormattedMessage id="ExploreYourChoicesFrom" />
@@ -98,7 +100,7 @@ const HomeTopBanner = () => {
               <FormattedMessage id="SelectTheCompanionWho" />
             </TextBoxContainer>
           </FristBoxContainer>
-        </Box>
+        </TopBoxContainer>
       ) : (
         <>
           <BannerContainer>
@@ -144,7 +146,7 @@ const HomeTopBanner = () => {
                   <FormattedMessage id="DiscoverTheThrill" />
                 </TypographyBox>
               </Box>
-              <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems={{ xs: 'center', sm: 'flex-start' }}>
+              <ThirdBoxContainer>
                 {isSmDown ? (
                   <SecondBoxContainer>
                     <UIThemeShadowButton onClick={handleDropDownOpen} variant="contained">
@@ -164,7 +166,7 @@ const HomeTopBanner = () => {
                     </UINewTypography>
                   </UIThemeShadowButton>
                 )}
-              </Box>
+              </ThirdBoxContainer>
             </Box>
 
             <Box

@@ -187,3 +187,25 @@ export const SecondBoxContainer = styled(Box)(({ theme }) => ({
     alignItems: 'center'
   }
 }));
+
+export const TopBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  [theme.breakpoints.down('sm')]: {
+    paddingTop: theme.spacing(6.75)
+  },
+  [theme.breakpoints.up('sm')]: {
+    paddingTop: theme.spacing(8)
+  }
+}));
+
+export const ThirdBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  [theme.breakpoints.up('sm')]: {
+    flexDirection: 'row',
+    alignItems: 'flex-start'
+  }
+}));
