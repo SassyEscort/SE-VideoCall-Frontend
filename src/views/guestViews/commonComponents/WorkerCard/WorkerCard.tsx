@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import {
   CreditContainer,
   FavoriteBorderIconContainer,
+  FavoriteIconContainer,
   FirstSubContainerImgWorkerCard,
   FirstSubContainerWithoutImg,
   HeartIconWorkerCard,
@@ -30,8 +31,9 @@ import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
 import useImageOptimize from 'hooks/useImageOptimize';
 import { countryWithFlag } from 'constants/country';
+import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service';
 
-const WorkerCard = ({ modelDetails }: { modelDetails: ModelHomeListing }) => {
+const WorkerCard = ({ modelDetails, isFavPage }: { modelDetails: ModelHomeListing | ModelFavRes; isFavPage: boolean }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
 
@@ -47,9 +49,7 @@ const WorkerCard = ({ modelDetails }: { modelDetails: ModelHomeListing }) => {
   return (
     <MainWorkerCard>
       <ImgWorkerCard ref={imageUrlRef} />
-      <HeartIconWorkerCard>
-        <FavoriteBorderIconContainer />
-      </HeartIconWorkerCard>
+      <HeartIconWorkerCard>{isFavPage ? <FavoriteIconContainer /> : <FavoriteBorderIconContainer />}</HeartIconWorkerCard>
       <WorkerCardContainer>
         <SeconderContainerWorkerCard>
           <SubContainertWorkerCard>

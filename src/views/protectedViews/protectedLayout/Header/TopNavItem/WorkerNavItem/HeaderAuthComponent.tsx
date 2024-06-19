@@ -89,19 +89,21 @@ const HeaderAuthComponent = () => {
         )}
 
         {isMdUp && (
-          <IconButton sx={{ height: 24, width: 24 }}>
-            <>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row-reverse',
-                  position: 'relative'
-                }}
-              >
-                <Box component="img" src="/images/header/heart.png" />
-              </Box>
-            </>
-          </IconButton>
+          <Link href="/profile/favourites" style={{ textDecoration: 'none' }}>
+            <IconButton sx={{ height: 24, width: 24 }}>
+              <>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row-reverse',
+                    position: 'relative'
+                  }}
+                >
+                  <Box component="img" src="/images/header/heart.png" />
+                </Box>
+              </>
+            </IconButton>
+          </Link>
         )}
         <IconButton sx={{ height: 24, width: 24 }}>
           <>
