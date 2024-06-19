@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import React from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { SecondSubContainerImgWorkerCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import {
   BoxFirstTextContainer,
@@ -27,8 +27,37 @@ import {
 } from './Credits.styled';
 import MainLayoutNav from '../protectedLayout';
 import { FormattedMessage } from 'react-intl';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customerCredit.service';
+import { getUserDataClient } from 'utils/getSessionData';
 
 const Credits = () => {
+  const [favListing, setFavListing] = useState<ModelCreditRes[]>([]);
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      if (data) {
+        setToken({ id: data.id, token: data.token });
+      }
+    };
+    userToken();
+  }, []);
+
+  const getFavListing = useCallback(async () => {
+    if (token.token) {
+      const getModel = await CustomerCredit.getCustomerCredit(token.token);
+      setFavListing(getModel.data);
+    }
+  }, [token.token]);
+
+  useEffect(() => {
+    getFavListing();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
+  console.log(favListing, 'favListing');
+
   return (
     <MainLayoutNav variant={'worker'} enlargedFooter={true}>
       <CreditsMainContainer>
