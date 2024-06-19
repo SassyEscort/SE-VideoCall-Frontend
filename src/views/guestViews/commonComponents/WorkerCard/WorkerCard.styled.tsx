@@ -258,3 +258,17 @@ export const OfflineIconWorkerCard = styled(Box)(() => ({
   border: '1px',
   borderRadius: '50%'
 }));
+
+export const UITypographyBoxCona = styled(UINewTypography)(({ theme }) => ({
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  width: '100%',
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '60px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '100px'
+  },
+  color: theme.palette.text.primary
+}));

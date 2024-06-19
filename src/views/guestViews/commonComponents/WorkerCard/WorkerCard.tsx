@@ -20,6 +20,7 @@ import {
   SeconderContainerWorkerCard,
   SubContainertWorkerCard,
   UITypographyBox,
+  UITypographyBoxCona,
   WorkerCardContainer
 } from './WorkerCard.styled';
 import Divider from '@mui/material/Divider';
@@ -94,18 +95,7 @@ const WorkerCard = ({ modelDetails, isFavPage }: { modelDetails: ModelHomeListin
                   {moment().diff(modelDetails.dob, 'years')}
                 </UITypographyBox>
                 <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
-                <UITypographyBox
-                  variant="SubtitleSmallMedium"
-                  whiteSpace="nowrap"
-                  overflow="hidden"
-                  textOverflow="ellipsis"
-                  width="100%"
-                  maxWidth={{ xs: '60px', sm: '100px' }}
-                  color="text.primary"
-                  sx={{ whiteSpace: isMobile ? 'normal' : 'nowrap' }}
-                >
-                  {languages}
-                </UITypographyBox>
+                <UITypographyBoxCona variant="SubtitleSmallMedium">{languages}</UITypographyBoxCona>
               </SecondSubContainerWorkerCard>
             </SecondMainContainerWorkerCard>
             {isMobile && (
