@@ -69,7 +69,7 @@ const PayoutContainer = ({
       {(payoutStep === 0 || isSmUp) && (
         <>
           <BoxMessage>
-            <TextDetail variant="h2" color={'text.secondary'}>
+            <TextDetail variant="h2" color="text.secondary">
               <FormattedMessage id="GoodEvening" />, {modelDetails.name}
             </TextDetail>
           </BoxMessage>
@@ -83,17 +83,17 @@ const PayoutContainer = ({
                   </UINewTypography>
                 </UsdBox>
                 <DollerBox>
-                  <UINewTypography variant="h5" color={'text.secondary'}>
+                  <UINewTypography variant="h5" color="text.secondary">
                     $
                   </UINewTypography>
-                  <UINewTypography variant="h5" color={'text.secondary'}>
+                  <UINewTypography variant="h5" color="text.secondary">
                     10,000
                   </UINewTypography>
                 </DollerBox>
               </SecondUsdBox>
 
               <ButtonBox variant="contained" onClick={openDailog}>
-                <UINewTypography variant="buttonLargeBold" color={'primary.200'}>
+                <UINewTypography variant="buttonLargeBold" color="primary.200">
                   <FormattedMessage id="Withdraw" />
                 </UINewTypography>
               </ButtonBox>
@@ -101,7 +101,7 @@ const PayoutContainer = ({
             <RecentWithdrawlsMainContainer>
               <SecondRecentWithdrawlsMainContainer>
                 <Withdrawls>
-                  <UINewTypography variant="SubtitleSmallMedium" color={'text.primary'}>
+                  <UINewTypography variant="SubtitleSmallMedium" color="text.primary">
                     <FormattedMessage id="RecentWithdrawls" />
                   </UINewTypography>
                 </Withdrawls>
@@ -112,7 +112,7 @@ const PayoutContainer = ({
                         <Box component={'img'} src="/images/payout/home.png" />
                       </ImageBox>
                       <Showtracking>
-                        <UINewTypography variant="buttonLargeMenu" color={'text.secondary'}>
+                        <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                           <FormattedMessage id="ToSiliconValleyBank" />
                         </UINewTypography>
                         <ShowtrackingBox>
@@ -124,14 +124,14 @@ const PayoutContainer = ({
                       </Showtracking>
                     </FirstToSiliconValleyBank>
                     <Pendingconatiner>
-                      <UINewTypography variant="body" color={'text.secondary'}>
+                      <UINewTypography variant="body" color="text.secondary">
                         - $12,000
                       </UINewTypography>
                       <Pending variant="captionLarge">Pending</Pending>
                     </Pendingconatiner>
                   </FirstToSiliconValleyBankMainConatiner>
 
-                  <Divider sx={{ border: '1px solid #232027 ' }} />
+                  <Divider sx={{ border: '1px solid primary.700 ' }} />
                 </ToSiliconValleyBankMainConatiner>
                 <ToSiliconValleyBankMainConatiner>
                   <FirstToSiliconValleyBankMainConatiner>
@@ -140,7 +140,7 @@ const PayoutContainer = ({
                         <Box component={'img'} src="/images/payout/home.png" />
                       </ImageBox>
                       <Showtracking>
-                        <UINewTypography variant="buttonLargeMenu" color={'text.secondary'}>
+                        <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                           <FormattedMessage id="ToSiliconValleyBank" />
                         </UINewTypography>
                         <ShowtrackingBox>
@@ -152,7 +152,7 @@ const PayoutContainer = ({
                       </Showtracking>
                     </FirstToSiliconValleyBank>
                     <Pendingconatiner>
-                      <UINewTypography variant="body" color={'text.secondary'}>
+                      <UINewTypography variant="body" color="text.secondary">
                         - $12,000
                       </UINewTypography>
                       <PendingSecond variant="captionLarge">
