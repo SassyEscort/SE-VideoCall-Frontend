@@ -259,7 +259,7 @@ export const OfflineIconWorkerCard = styled(Box)(() => ({
   borderRadius: '50%'
 }));
 
-export const UITypographyBoxCona = styled(UINewTypography)(({ theme }) => ({
+export const UITypographyBoxContainer = styled(UINewTypography)(({ theme }) => ({
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
