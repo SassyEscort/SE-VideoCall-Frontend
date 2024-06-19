@@ -209,3 +209,13 @@ export const ThirdBoxContainer = styled(Box)(({ theme }) => ({
     alignItems: 'flex-start'
   }
 }));
+
+export const TextContainer = styled(Typography)(({ theme }) => ({
+  lineHeight: '120%',
+  [theme.breakpoints.down('sm')]: {
+    paddingTop: theme.spacing(2)
+  },
+  [theme.breakpoints.up('sm')]: {
+    paddingTop: 0
+  }
+}));

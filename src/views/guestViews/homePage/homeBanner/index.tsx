@@ -15,7 +15,8 @@ import {
   FristBoxContainer,
   SecondBoxContainer,
   TopBoxContainer,
-  ThirdBoxContainer
+  ThirdBoxContainer,
+  TextContainer
 } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
@@ -161,9 +162,9 @@ const HomeTopBanner = () => {
                   </SecondBoxContainer>
                 ) : (
                   <UIThemeShadowButton onClick={handleClickScroll} variant="contained">
-                    <UINewTypography variant="bodySemiBold" sx={{ paddingTop: { xs: 2, sm: 0 }, lineHeight: '120%' }}>
+                    <TextContainer>
                       <FormattedMessage id="ExploreModels" />
-                    </UINewTypography>
+                    </TextContainer>
                   </UIThemeShadowButton>
                 )}
               </ThirdBoxContainer>
