@@ -7,12 +7,12 @@ const DownloadApp = () => {
   return (
     <>
       <MainConatiner>
-        <Dwonload variant="h2" color={'text.secondary'}>
+        <Dwonload variant="h2" color="text.secondary">
           <FormattedMessage id="DownloadApp" />
         </Dwonload>
 
         <SecondBox>
-          <TextFirst variant="buttonLargeMenu" color={'secondary.200'}>
+          <TextFirst variant="buttonLargeMenu" color="secondary.200">
             <FormattedMessage id="DownloadTheApp" />
           </TextFirst>
 
