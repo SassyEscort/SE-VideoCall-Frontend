@@ -124,7 +124,7 @@ const DashboardPriceView = ({
       if (token.token) {
         const response = await DashboardService.dashboardPrice(inputPayload, token.token);
         if (response?.code === 200) {
-          toast.success('Success');
+          isEdit ? toast.success('Success') : '';
           if (handleNext) {
             handleNext();
           }

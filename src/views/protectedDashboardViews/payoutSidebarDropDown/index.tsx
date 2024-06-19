@@ -5,7 +5,6 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useEffect, useState } from 'react';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { FormattedMessage } from 'react-intl';
-import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { Box, SelectChangeEvent } from '@mui/material';
 import { SelectDropdown } from './PayoutSidebarDropDown';
@@ -18,6 +17,7 @@ import { PayoutService } from 'services/payout/payout.service';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { BankDetailsListRes } from 'services/payout/types';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
 const profileMenuList = [
   { menuName: <FormattedMessage id="RequestPayout" />, id: 0 },
@@ -26,15 +26,7 @@ const profileMenuList = [
   { menuName: <FormattedMessage id="FAQs" />, id: 3 }
 ];
 
-const PayoutMobileSidebar = ({
-  modelDetails,
-  token,
-  handleModelApiChange
-}: {
-  modelDetails: ModelDetailsResponse;
-  token: TokenIdType;
-  handleModelApiChange: () => void;
-}) => {
+const PayoutMobileSidebar = ({ token, modelDetails }: { token: TokenIdType; modelDetails: ModelDetailsResponse }) => {
   const [menuId, setMenuId] = useState(0);
   const [bankDetailsList, setBankDetailsList] = useState<BankDetailsListRes>();
   const [menuProfileId, setMenuProfileId] = useState(0);
@@ -98,7 +90,12 @@ const PayoutMobileSidebar = ({
         ))}
       </SelectDropdown>
       {menuId === 0 ? (
-        <PayoutContainer />
+        <PayoutContainer
+          bankDetailsList={bankDetailsList ?? ({} as BankDetailsListRes)}
+          token={token}
+          fetchBankDetails={fetchBankDetails}
+          modelDetails={modelDetails}
+        />
       ) : menuId === 1 ? (
         menuProfileId === 0 ? (
           <PayoutBankInformation token={token} fetchBankDetails={fetchBankDetails} />

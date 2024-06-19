@@ -1,10 +1,16 @@
 import { Box, styled } from '@mui/material';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const MainConatiner = styled(Box)(({ theme }) => ({
   paddingTop: theme.spacing(4),
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(6.25)
+  gap: theme.spacing(6.25),
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 }));
 
 export const SecondBox = styled(Box)(({ theme }) => ({
@@ -15,7 +21,9 @@ export const SecondBox = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   gap: theme.spacing(4.5),
-  paddingLeft: theme.spacing(2.5)
+  [theme.breakpoints.up('sm')]: {
+    paddingLeft: theme.spacing(2.5)
+  }
 }));
 
 export const ThreeBox = styled(Box)(({ theme }) => ({
@@ -30,7 +38,10 @@ export const ThreeBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1.11125),
   backgroundColor: '#232027D1',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '100%'
+  }
 }));
 
 export const ImageBox = styled('img')(({ theme }) => ({
@@ -48,5 +59,24 @@ export const ForBox = styled(Box)(({ theme }) => ({
   maxWidth: '268px',
   paddingLeft: theme.spacing(6),
   gap: theme.spacing(3.5),
-  display: 'flex'
+  display: 'flex',
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    paddingLeft: theme.spacing(0),
+    alignItems: 'center',
+    justifyContent: 'center',
+    maxWidth: '100%'
+  }
+}));
+
+export const TextFirst = styled(UINewTypography)(({ theme }) => ({
+  [theme.breakpoints.up('sm')]: {
+    textWrap: 'nowrap'
+  }
+}));
+
+export const Dwonload = styled(UINewTypography)(({ theme }) => ({
+  [theme.breakpoints.up('sm')]: {
+    paddingLeft: theme.spacing(3)
+  }
 }));
