@@ -6,8 +6,9 @@ import UIThemeBorderButton from 'components/UIComponents/UIStyledBorderButton';
 import { FormattedMessage } from 'react-intl';
 import { ModelHomeListing } from 'services/modelListing/modelListing.services';
 import Link from 'next/link';
+import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service';
 
-const HomeImageCard = ({ modelListing }: { modelListing: ModelHomeListing[] }) => {
+const HomeImageCard = ({ modelListing, isFavPage }: { modelListing: ModelHomeListing[] | ModelFavRes[]; isFavPage: boolean }) => {
   return (
     <HomeMainContainer>
       <WorkerCardMainBox>
@@ -25,7 +26,7 @@ const HomeImageCard = ({ modelListing }: { modelListing: ModelHomeListing[] }) =
                     height: '100%'
                   }}
                 >
-                  <WorkerCard modelDetails={item} />
+                  <WorkerCard modelDetails={item} isFavPage={isFavPage} />
                 </Box>
               </Box>
             </Grid>

@@ -315,5 +315,6 @@
   "History": "History",
   "Earnings": "Earnings",
   "SignUpAsAUser": "Sign up as a user",
-  "RegisterAsAModel": "Register as a model"
+  "RegisterAsAModel": "Register as a model",
+  "CreditsMin": "credits/min"
 }

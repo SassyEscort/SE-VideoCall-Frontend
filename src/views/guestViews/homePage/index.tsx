@@ -22,7 +22,7 @@ const HomeContainer = () => {
     <>
       <HomeTopBanner />
       <SearchFilters />
-      <HomeImageCard modelListing={modelListing} />
+      <HomeImageCard modelListing={modelListing} isFavPage={false} />
       <HomeConnections />
       {/* <HomePageFAQ /> */}
     </>
