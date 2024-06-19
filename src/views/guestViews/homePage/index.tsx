@@ -5,6 +5,7 @@ import HomeConnections from './HomeConnections';
 import HomeTopBanner from './homeBanner';
 import HomeImageCard from './homeImageCards';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
+import { HomePageMainContainer } from './Home.styled';
 
 const HomeContainer = () => {
   const [modelListing, setModelListing] = useState<ModelHomeListing[]>([]);
@@ -20,11 +21,13 @@ const HomeContainer = () => {
 
   return (
     <>
-      <HomeTopBanner />
-      <SearchFilters />
-      <HomeImageCard modelListing={modelListing} />
-      <HomeConnections />
-      {/* <HomePageFAQ /> */}
+      <HomePageMainContainer>
+        <HomeTopBanner />
+        <SearchFilters />
+        <HomeImageCard modelListing={modelListing} />
+        <HomeConnections />
+        {/* <HomePageFAQ /> */}
+      </HomePageMainContainer>
     </>
   );
 };

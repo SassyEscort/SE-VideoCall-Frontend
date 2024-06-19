@@ -146,9 +146,17 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
 }));
 
 export const TextBoxContainer = styled(Typography)(({ theme }) => ({
-  fontSize: '20px',
-  fontWeight: 400,
-  lineHeight: '32px'
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: '32px',
+    whiteSpace: 'nowrap'
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '20px',
+    fontWeight: 400,
+    lineHeight: '32px'
+  }
 }));
 
 export const ModelsHeadingBox = styled(Box)(() => ({
@@ -169,4 +177,13 @@ export const FristBoxContainer = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   justifyContent: 'center',
   alignItems: 'center'
+}));
+
+export const SecondBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    alignItems: 'center'
+  }
 }));

@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
-import { Menu, MenuItem, useMediaQuery } from '@mui/material';
+import { Divider, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import ProfileMenu from './ProfileMenu';
 import { useEffect, useState } from 'react';
@@ -15,6 +15,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import Logout from 'views/protectedViews/logout';
 import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
+import { WorkerHeaderMainContainer } from './ProfileMenu.styled';
 
 export type NotificationFilters = {
   page: number;
@@ -119,32 +120,30 @@ const HeaderAuthComponent = () => {
         </IconButton>
         <Box display="flex" alignItems="center" gap={1}>
           <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }} onClick={handleClickLogout}>
-            <Link href="/profile">
-              <IconButton
-                id="profile-menu"
-                aria-controls={openProfileMenu ? 'profile-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={openProfileMenu}
-                disableFocusRipple
-                disableRipple
-                sx={{ p: 1 }}
+            <IconButton
+              id="profile-menu"
+              aria-controls={openProfileMenu ? 'profile-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={openProfileMenu}
+              disableFocusRipple
+              disableRipple
+              sx={{ p: 1 }}
+            >
+              <Avatar
+                alt="User Photo"
+                sx={{
+                  height: 24,
+                  width: 24
+                }}
               >
-                <Avatar
-                  alt="User Photo"
-                  sx={{
-                    height: 24,
-                    width: 24
-                  }}
-                >
-                  {firstChar}
-                </Avatar>
-              </IconButton>
-              {isMdUp && (
-                <Typography variant="buttonLargeMenu" color="text.secondary">
-                  {customerDetails?.customer_name || ''}
-                </Typography>
-              )}
-            </Link>
+                {firstChar}
+              </Avatar>
+            </IconButton>
+            {isMdUp && (
+              <Typography variant="buttonLargeMenu" color="text.secondary">
+                {customerDetails?.customer_name || ''}
+              </Typography>
+            )}
           </Box>
           <Menu
             id="basic-menu"
@@ -157,11 +156,22 @@ const HeaderAuthComponent = () => {
             sx={{ '& .MuiMenu-paper > ul': { backgroundColor: '#1E0815 !important' } }}
           >
             <MenuItem>
-              <CommonMenuBox sx={{ color: 'text.primary' }} onClick={handleOpenLogout}>
-                <Box component="img" src="/images/profile-vector/Vector-6.png" height={16} mr={1} />
-                <UINewTypography variant="buttonLargeMenu">
-                  <FormattedMessage id="LogOut" />
-                </UINewTypography>
+              <CommonMenuBox sx={{ color: 'text.primary' }}>
+                <WorkerHeaderMainContainer>
+                  <Box component="img" src="/images/icons/userLine.png" width={24} height={24} mr={1} />
+                  <Link href="/profile" onClick={handleCloseLogout}>
+                    <UINewTypography variant="buttonLargeMenu">
+                      <FormattedMessage id="MyProfile" />
+                    </UINewTypography>
+                  </Link>
+                </WorkerHeaderMainContainer>
+                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                <WorkerHeaderMainContainer onClick={handleOpenLogout}>
+                  <Box component="img" src="/images/profile-vector/Vector-6.png" height={16} mr={1} />
+                  <UINewTypography variant="buttonLargeMenu">
+                    <FormattedMessage id="LogOut" />
+                  </UINewTypography>
+                </WorkerHeaderMainContainer>
               </CommonMenuBox>
               <Logout open={isLogoutOpen} onClose={handleCloseLogoutt} />
             </MenuItem>

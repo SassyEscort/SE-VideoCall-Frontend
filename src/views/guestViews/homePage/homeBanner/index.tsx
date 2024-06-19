@@ -12,7 +12,8 @@ import {
   SubTitle,
   TextBoxContainer,
   ModelsHeadingBox,
-  FristBoxContainer
+  FristBoxContainer,
+  SecondBoxContainer
 } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
@@ -23,6 +24,7 @@ import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestLogin from 'views/auth/guestLogin';
 import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
+import ProfileMenu from 'components/UIComponents/UIStyleHeader';
 
 const HomeTopBanner = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -30,8 +32,19 @@ const HomeTopBanner = () => {
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  const [openDropDown, setOpenDropDown] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const { data: session } = useSession();
+
+  const handleDropDownOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+    setOpenDropDown(true);
+  };
+
+  const handleDropDownClose = () => {
+    setOpenDropDown(false);
+  };
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -76,16 +89,18 @@ const HomeTopBanner = () => {
   return (
     <>
       {(session?.user as User)?.provider === 'providerGuest' ? (
-        <FristBoxContainer>
-          <UINewTypography variant="MediumSemiBold" color="text.secondary" width={'610px'} marginTop="64px">
-            <FormattedMessage id="ExploreYourChoicesFrom" />
-          </UINewTypography>
-          <TextBoxContainer color="secondary.100">
-            <FormattedMessage id="SelectTheCompanionWho" />
-          </TextBoxContainer>
-        </FristBoxContainer>
+        <Box display="flex" pt={{ xs: '54px', md: '64px' }}>
+          <FristBoxContainer>
+            <UINewTypography variant="MediumSemiBold" width="100%" maxWidth="710px" color="text.secondary">
+              <FormattedMessage id="ExploreYourChoicesFrom" />
+            </UINewTypography>
+            <TextBoxContainer color="secondary.100">
+              <FormattedMessage id="SelectTheCompanionWho" />
+            </TextBoxContainer>
+          </FristBoxContainer>
+        </Box>
       ) : (
-        <Box>
+        <>
           <BannerContainer>
             <Box
               display="flex"
@@ -130,11 +145,25 @@ const HomeTopBanner = () => {
                 </TypographyBox>
               </Box>
               <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems={{ xs: 'center', sm: 'flex-start' }}>
-                <UIThemeShadowButton onClick={handleClickScroll} variant="contained">
-                  <UINewTypography variant="bodySemiBold" sx={{ paddingTop: { xs: 2, sm: 0 }, lineHeight: '120%' }}>
-                    <FormattedMessage id="ExploreModels" />
-                  </UINewTypography>
-                </UIThemeShadowButton>
+                {isSmDown ? (
+                  <SecondBoxContainer>
+                    <UIThemeShadowButton onClick={handleDropDownOpen} variant="contained">
+                      <UINewTypography variant="bodySemiBold" sx={{ lineHeight: '120%' }}>
+                        <FormattedMessage id="SignUpNow" />
+                      </UINewTypography>
+                      <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} />
+                    </UIThemeShadowButton>
+                    <UINewTypography variant="bodySemiBold" onClick={handleClickScroll} sx={{ lineHeight: '120%' }}>
+                      <FormattedMessage id="ExploreModels" />
+                    </UINewTypography>
+                  </SecondBoxContainer>
+                ) : (
+                  <UIThemeShadowButton onClick={handleClickScroll} variant="contained">
+                    <UINewTypography variant="bodySemiBold" sx={{ paddingTop: { xs: 2, sm: 0 }, lineHeight: '120%' }}>
+                      <FormattedMessage id="ExploreModels" />
+                    </UINewTypography>
+                  </UIThemeShadowButton>
+                )}
               </Box>
             </Box>
 
@@ -170,7 +199,7 @@ const HomeTopBanner = () => {
               </SubTitle>
             </HomeExploreBox>
           </ModelsHeadingBox>
-        </Box>
+        </>
       )}
       <Dialog
         sx={{
@@ -249,6 +278,7 @@ const HomeTopBanner = () => {
       >
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </Dialog>
+      <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} />
     </>
   );
 };

@@ -2,7 +2,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import { Menu, MenuItem, useMediaQuery } from '@mui/material';
+import { Divider, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { useEffect, useState } from 'react';
 import ProfileMenu from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/ProfileMenu';
@@ -16,6 +16,8 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import Logout from 'views/protectedViews/logout';
 import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
+import Link from 'next/link';
+import { HeaderBoxContainer } from './DashboardMenu.styled';
 
 export type NotificationFilters = {
   page: number;
@@ -128,11 +130,22 @@ const DashboadrHeaderAuthComponent = () => {
             sx={{ '& .MuiMenu-paper > ul': { backgroundColor: '#1E0815 !important' } }}
           >
             <MenuItem>
-              <CommonMenuBox sx={{ cursor: 'pointer', color: 'text.primary' }} onClick={handleOpenLogout}>
-                <Box component="img" src="/images/profile-vector/Vector-6.png" height={16} mr={1} />
-                <UINewTypography variant="buttonLargeMenu">
-                  <FormattedMessage id="LogOut" />
-                </UINewTypography>
+              <CommonMenuBox sx={{ cursor: 'pointer', color: 'text.primary' }}>
+                <HeaderBoxContainer>
+                  <Box component="img" src="/images/icons/userLine.png" width={24} height={24} />
+                  <Link href="/model/dashboard" onClick={handleCloseLogout}>
+                    <UINewTypography variant="buttonLargeMenu">
+                      <FormattedMessage id="MyProfile" />
+                    </UINewTypography>
+                  </Link>
+                </HeaderBoxContainer>
+                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                <HeaderBoxContainer onClick={handleOpenLogout}>
+                  <Box component="img" src="/images/profile-vector/Vector-6.png" height={16} mr={1} />
+                  <UINewTypography variant="buttonLargeMenu">
+                    <FormattedMessage id="LogOut" />
+                  </UINewTypography>
+                </HeaderBoxContainer>
               </CommonMenuBox>
               <Logout open={isLogoutOpen} onClose={handleCloseLogoutt} />
             </MenuItem>

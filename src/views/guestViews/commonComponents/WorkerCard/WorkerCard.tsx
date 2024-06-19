@@ -76,7 +76,7 @@ const WorkerCard = ({ modelDetails }: { modelDetails: ModelHomeListing }) => {
               {!isMobile && (
                 <CreditContainer>
                   <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
-                  <UINewTypography variant="captionLargeBold" color="#E9E8EB">
+                  <UINewTypography variant="captionLargeBold" color="text.secondary">
                     {!modelDetails.price_per_minute ? (
                       <FormattedMessage id="NoPrice" />
                     ) : (
@@ -90,11 +90,20 @@ const WorkerCard = ({ modelDetails }: { modelDetails: ModelHomeListing }) => {
             </ProfileCardContainer>
             <SecondMainContainerWorkerCard>
               <SecondSubContainerWorkerCard>
-                <UITypographyBox variant="SubtitleSmallMedium" color="#B7B5B9">
+                <UITypographyBox variant="SubtitleSmallMedium" color="text.primary">
                   {moment().diff(modelDetails.dob, 'years')}
                 </UITypographyBox>
-                <Divider orientation="vertical" flexItem sx={{ borderColor: '#B7B5B9' }} />
-                <UITypographyBox variant="SubtitleSmallMedium" color="#B7B5B9" sx={{ whiteSpace: isMobile ? 'normal' : 'nowrap' }}>
+                <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
+                <UITypographyBox
+                  variant="SubtitleSmallMedium"
+                  whiteSpace="nowrap"
+                  overflow="hidden"
+                  textOverflow="ellipsis"
+                  width="100%"
+                  maxWidth={{ xs: '60px', sm: '100px' }}
+                  color="text.primary"
+                  sx={{ whiteSpace: isMobile ? 'normal' : 'nowrap' }}
+                >
                   {languages}
                 </UITypographyBox>
               </SecondSubContainerWorkerCard>
@@ -102,7 +111,7 @@ const WorkerCard = ({ modelDetails }: { modelDetails: ModelHomeListing }) => {
             {isMobile && (
               <CreditContainer sx={{ marginTop: isSmallScreen ? 1.5 : 1 }}>
                 <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
-                <UINewTypography variant="captionLargeBold" color="#E9E8EB">
+                <UINewTypography variant="captionLargeBold" color="text.secondary">
                   {!modelDetails.price_per_minute ? (
                     <FormattedMessage id="NoPrice" />
                   ) : (
