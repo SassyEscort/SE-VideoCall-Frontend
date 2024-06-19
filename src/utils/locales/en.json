@@ -81,10 +81,10 @@
   "Edit": "Edit",
   "Verify": "Verify",
   "DOB": "DOB",
-  "DOBCantChange": "DOB can't be changed after being verified",
+  "DOBCantChange": "DOB can't be changed after verification",
+  "WooHooYourProfile": "WooHoo! Your profile is under review.",
   "Nationality": "Nationality",
   "PreferredLanguage": "Preferred speaking language",
-  "WooHooYourProfile": "WooHoo! Your profile has been created.",
   "YourProfileIsNowLive": "Your profile is now live, and you can start connecting with clients worldwide.",
   "StartBySetting": "Start by setting your rates and payout method in your dashboard.",
   "GoToYourDashboard": "Go to your dashboard",
@@ -315,5 +315,6 @@
   "History": "History",
   "Earnings": "Earnings",
   "SignUpAsAUser": "Sign up as a user",
-  "RegisterAsAModel": "Register as a model"
+  "RegisterAsAModel": "Register as a model",
+  "GoodEvening": "Good evening"
 }

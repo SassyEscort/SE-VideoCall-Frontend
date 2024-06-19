@@ -34,13 +34,15 @@ const AddBankDetailsModel = ({
   onClose,
   token,
   editValue,
-  fetchBankDetails
+  fetchBankDetails,
+  cancelRemove
 }: {
   open: boolean;
   onClose: () => void;
   token: TokenIdType;
   editValue: BankDetailsEdit;
   fetchBankDetails: () => void;
+  cancelRemove: Boolean;
 }) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
   const [loading, setLoading] = useState(false);
@@ -176,8 +178,9 @@ const AddBankDetailsModel = ({
                             <FormattedMessage id="Confirm" />
                           </UINewTypography>
                         </UIThemeButton>
+
                         <UINewTypography variant="body" color="primary.400" sx={{ cursor: 'pointer' }} onClick={handleReset}>
-                          <FormattedMessage id="Cancel" />
+                          {cancelRemove ? `` : `${'Cancel'}`}
                         </UINewTypography>
                       </ButtonBox>
                     </AddBankDetailsSecondBox>

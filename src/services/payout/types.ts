@@ -91,3 +91,16 @@ export interface BankDetailsEditReponse extends GenericRes {
 export interface ModelPastPayoutDetailRes extends GenericRes {
   data: ModelPastPayoutDetail;
 }
+
+export type RequestPayout = {
+  id: number;
+  amount: number;
+  state: string;
+  created_at: string;
+  is_active: boolean;
+  bank_account_id: number;
+};
+
+export interface RequestPayoutRep extends GenericRes {
+  data: RequestPayout;
+}

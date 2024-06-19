@@ -7,8 +7,26 @@ import CloseIcon from '@mui/icons-material/Close';
 import { DialogContentMain, DialogTitleBox } from './PayoutWidthDraw';
 import theme from 'themes/theme';
 import PayoutWithdrawContainer from './PayoutWithdrawContainer';
+import { BankDetailsListRes } from 'services/payout/types';
+import { TokenIdType } from 'views/protectedModelViews/verification';
 
-const PayoutWidthDraw = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+const PayoutWidthDraw = ({
+  open,
+  onClose,
+  bankDetailsList,
+  token,
+  fetchBankDetails,
+  handlePayoutStep,
+  payoutStep
+}: {
+  open: boolean;
+  onClose: () => void;
+  bankDetailsList: BankDetailsListRes;
+  token: TokenIdType;
+  fetchBankDetails: () => void;
+  handlePayoutStep: () => void;
+  payoutStep: number;
+}) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
@@ -30,10 +48,19 @@ const PayoutWidthDraw = ({ open, onClose }: { open: boolean; onClose: () => void
               <CloseIcon />
             </IconButton>
           </DialogTitleBox>
-          <PayoutWithdrawContainer />
+          <PayoutWithdrawContainer bankDetailsList={bankDetailsList} token={token} fetchBankDetails={fetchBankDetails} />
         </DialogContentMain>
       ) : (
-        <PayoutWithdrawContainer />
+        (payoutStep === 1 || payoutStep === 2 || !isSm) && (
+          <PayoutWithdrawContainer
+            bankDetailsList={bankDetailsList}
+            token={token}
+            fetchBankDetails={fetchBankDetails}
+            payoutStep={payoutStep}
+            isSm={isSm}
+            handlePayoutStep={handlePayoutStep}
+          />
+        )
       )}
     </>
   );

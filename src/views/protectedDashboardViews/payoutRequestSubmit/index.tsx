@@ -15,7 +15,7 @@ const PayoutRequestSubmit = ({ open, onClose }: { open: boolean; onClose: () => 
   return (
     <>
       {!isSm ? (
-        <MainDailgConatiner open={true} onClose={onClose} fullWidth scroll="body">
+        <MainDailgConatiner open={open} onClose={onClose} fullWidth scroll="body">
           <DialogTitleBox id="responsive-modal-title">
             <UINewTypography variant="h6" color={'text.primary'}>
               <FormattedMessage id="RequestAPayout" />

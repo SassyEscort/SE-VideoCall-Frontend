@@ -52,6 +52,8 @@ const PayoutPaymentConatiner = ({
   const [openBank, setOpenBank] = useState(false);
   const [open, setOpenModel] = useState(false);
   const [editValue, setEditValue] = useState<BankDetailsEdit>();
+  const [cancelRemove, setCancelRemove] = useState(false);
+
   const handleBankDetailsRefetch = useCallback(() => {
     fetchBankDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,6 +92,9 @@ const PayoutPaymentConatiner = ({
   const handleBankDetailsEdit = (list: BankDetailsEdit) => {
     setEditValue(list);
   };
+  const hanleCancelRemove = () => {
+    setCancelRemove(true);
+  };
   return (
     <>
       {openBank ? (
@@ -105,7 +110,7 @@ const PayoutPaymentConatiner = ({
                 return (
                   <>
                     <MainForBox>
-                      <SmallAndBigScreen>
+                      <SmallAndBigScreen key={index}>
                         <Box
                           component={'img'}
                           src="/images/payout/home.png"
@@ -119,6 +124,7 @@ const PayoutPaymentConatiner = ({
                               sx={{ width: '18px', height: '18px' }}
                               onClick={() => {
                                 handleBankDetailsEdit(list), handleOpneModel();
+                                hanleCancelRemove();
                               }}
                             />
                             <Box
@@ -146,6 +152,7 @@ const PayoutPaymentConatiner = ({
                             sx={{ width: '18px', height: '18px', cursor: 'pointer' }}
                             onClick={() => {
                               handleBankDetailsEdit(list), handleOpneModel();
+                              hanleCancelRemove();
                             }}
                           />
 
@@ -178,6 +185,7 @@ const PayoutPaymentConatiner = ({
             token={token}
             editValue={editValue ?? ({} as BankDetailsEdit)}
             fetchBankDetails={fetchBankDetails}
+            cancelRemove={cancelRemove}
           />
         </MainConatinerBox>
       )}

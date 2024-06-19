@@ -122,7 +122,6 @@ const VerificationStepOne = ({
           setLoading(true);
           const response = await ModelVerificationService.verificationStepOne(values, token.token);
           if (response.data) {
-            toast.success('Success');
             handleNext();
             handleModelApiChange();
           } else {

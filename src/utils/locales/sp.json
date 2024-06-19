@@ -82,10 +82,8 @@
   "Edit": "Editar",
   "Verify": "Verificar",
   "DOB": "Fecha de nacimiento",
-  "DOBCantChange": "La fecha de nacimiento no se puede cambiar después de haber sido verificada.",
   "Nationality": "Nacionalidad",
   "PreferredLanguage": "Idioma preferido",
-  "WooHooYourProfile": "¡WooHoo! Tu perfil ha sido creado.",
   "YourProfileIsNowLive": "Tu perfil está ahora en vivo, y puedes empezar a conectarte con clientes de todo el mundo.",
   "StartBySetting": "Comienza estableciendo tus tarifas y método de pago en tu panel de control.",
   "GoToYourDashboard": "Ve a tu panel de control",
@@ -311,5 +309,8 @@
   "History": "Historia",
   "Earnings": "Ganancias",
   "SignUpAsAUser": "Regístrate como usuario",
-  "RegisterAsAModel": "Regístrate como modelo"
+  "RegisterAsAModel": "Regístrate como modelo",
+  "DOBCantChange": "La fecha de nacimiento no se puede cambiar después de la verificación",
+  "WooHooYourProfile": "¡WooHoo! Tu perfil está bajo revisión.",
+  "GoodEvening": "Buenas noches"
 }

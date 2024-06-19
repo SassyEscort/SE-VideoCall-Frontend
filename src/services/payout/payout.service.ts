@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { BankDetailsParams } from 'views/protectedDashboardViews/addBankDetails';
 import { BankListParams } from 'views/protectedDashboardViews/payoutPaymentContainer';
 import {
@@ -7,9 +7,11 @@ import {
   BankDetailsDeleteRes,
   BankDetailsEditReponse,
   BankDetailsListRes,
-  ModelPastPayoutDetailRes
+  ModelPastPayoutDetailRes,
+  RequestPayoutRep
 } from './types';
 import { ModelPastPayoutDetailParams } from 'views/protectedDashboardViews/payoutsAndInvoicesTable/billingTable/BillingTable';
+import { RequestPayoutParams } from 'views/protectedDashboardViews/payoutWithDraw/PayoutWithdrawContainer';
 
 export class PayoutService {
   static bankDetailsAdd = async (params: BankDetailsParams, token: string): Promise<AddBankDetailsRes> => {
@@ -79,6 +81,21 @@ export class PayoutService {
       return res.data;
     } catch (error) {
       return error as ModelPastPayoutDetailRes;
+    }
+  };
+
+  static requestPayout = async (params: RequestPayoutParams, token: string): Promise<RequestPayoutRep> => {
+    try {
+      const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/payout`, params, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        }
+      });
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return err.response?.data || { error_message: error.message };
     }
   };
 }

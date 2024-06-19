@@ -223,7 +223,6 @@ const UploadImage = ({
         const response = await VerificationStepService.uploadModelPhotos(payload, token);
 
         if (response.code === 200) {
-          toast.success('Success');
           handleNext();
           handleModelApiChange();
         }

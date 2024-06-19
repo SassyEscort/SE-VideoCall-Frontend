@@ -4,7 +4,6 @@ import { SidebarDropDownMainContainer } from '../sidebarDropDown/SidebarDropDown
 import { useEffect, useState } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { FormattedMessage } from 'react-intl';
 import PayoutBankInformation from '../payoutBankInformation';
 import PayoutContainer from '../payoutRequest/PayoutContainer';
@@ -25,6 +24,7 @@ import { toast } from 'react-toastify';
 import { PayoutService } from 'services/payout/payout.service';
 import { ErrorMessage } from 'constants/common.constants';
 import { BankDetailsListRes } from 'services/payout/types';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
 const payoutMenuList = [
   { menuName: <FormattedMessage id="RequestPayout" />, id: 0 },
@@ -32,15 +32,7 @@ const payoutMenuList = [
   { menuName: <FormattedMessage id="PastPayouts" />, id: 2 },
   { menuName: <FormattedMessage id="FAQs" />, id: 3 }
 ];
-const PayoutModelProfileConatiner = ({
-  modelDetails,
-  token,
-  handleModelApiChange
-}: {
-  modelDetails: ModelDetailsResponse;
-  token: TokenIdType;
-  handleModelApiChange: () => void;
-}) => {
+const PayoutModelProfileConatiner = ({ token, modelDetails }: { token: TokenIdType; modelDetails: ModelDetailsResponse }) => {
   const [bankDetailsList, setBankDetailsList] = useState<BankDetailsListRes>();
   const [menuId, setMenuId] = useState(0);
   const [menuProfileId, setMenuProfileId] = useState(0);
@@ -55,9 +47,11 @@ const PayoutModelProfileConatiner = ({
         limit: 5,
         offset: 0
       };
-      const data = await PayoutService.bankDetailsList(token.token, BankListObject);
-      if (data) {
-        setBankDetailsList(data);
+      if (token.token) {
+        const data = await PayoutService.bankDetailsList(token.token, BankListObject);
+        if (data) {
+          setBankDetailsList(data);
+        }
       }
     } catch (error) {
       toast.error(ErrorMessage);
@@ -109,7 +103,12 @@ const PayoutModelProfileConatiner = ({
         </ThirdBox>
         <MenuListText>
           {menuId === 0 ? (
-            <PayoutContainer />
+            <PayoutContainer
+              bankDetailsList={bankDetailsList ?? ({} as BankDetailsListRes)}
+              token={token}
+              fetchBankDetails={fetchBankDetails}
+              modelDetails={modelDetails}
+            />
           ) : menuId === 1 ? (
             menuProfileId === 0 ? (
               <PayoutBankInformation token={token} fetchBankDetails={fetchBankDetails} />

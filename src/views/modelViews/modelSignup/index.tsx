@@ -15,7 +15,6 @@ import * as yup from 'yup';
 import { EMAIL_REGEX, PASSWORD_PATTERN } from 'constants/regexConstants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
-import { toast } from 'react-toastify';
 import { ModelAuthService } from 'services/modelAuth/modelAuth.service';
 import AuthModelCommon from './AuthModelCommon';
 import { signIn } from 'next-auth/react';
@@ -96,7 +95,6 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
             } else {
               setAlert('Login after signup failed. Please log in manually.');
             }
-            toast.success('Success');
           } else {
             setAlert(data.message);
           }
