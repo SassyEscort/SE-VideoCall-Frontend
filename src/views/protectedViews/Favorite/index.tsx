@@ -22,7 +22,6 @@ const Favorites = () => {
         setToken({ id: data.id, token: data.token });
       }
     };
-
     userToken();
   }, []);
 
