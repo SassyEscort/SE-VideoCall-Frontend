@@ -10,3 +10,19 @@ export const FavoritesText = styled(Box)(({ theme }) => ({
   maxHeight: '77px',
   gap: theme.spacing(1.5)
 }));
+
+export const FavoriteBox = styled(Box)(({ theme }) => ({
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(6)
+}));
+
+export const FavoriteTextMainBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(6)
+  },
+  gap: theme.spacing(7)
+}));
