@@ -4,9 +4,9 @@ import InvoiceTableHeader from './TableHeader';
 import TableData from './TableData';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import { EarningHistoryPagination } from '../EarningHistory.styled';
-import { ModelEarningHistoryResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import { ModelEarningHistoryPageDetailsRes } from 'services/modelEarningHistory/typs';
 
-const MainTableLayout = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningHistoryResponse }) => {
+const MainTableLayout = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningHistoryPageDetailsRes }) => {
   return (
     <TableContainer>
       <Table>

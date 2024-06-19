@@ -86,9 +86,3 @@ export interface MultipleImageUplaodBody {
   fileName: string;
   folder: string;
 }
-
-export interface ModelEarningHistoryResponse {
-  amount: number;
-  credits: number;
-  created_at: string;
-}
