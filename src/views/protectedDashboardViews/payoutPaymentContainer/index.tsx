@@ -151,7 +151,8 @@ const PayoutPaymentConatiner = ({
                             src="/images/payout/edit.webp"
                             sx={{ width: '18px', height: '18px', cursor: 'pointer' }}
                             onClick={() => {
-                              handleBankDetailsEdit(list), handleOpneModel();
+                              handleBankDetailsEdit(list);
+                              handleOpneModel();
                               hanleCancelRemove();
                             }}
                           />
