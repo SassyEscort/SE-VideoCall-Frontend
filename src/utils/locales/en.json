@@ -318,5 +318,7 @@
   "RegisterAsAModel": "Register as a model",
   "GoodEvening": "Good evening",
   "CreditsMin": "credits/min",
-  "SaveAndReview":"Save and review"
+  "Availability": "Availability",
+  "NotAvailable": "Not Available",
+  "SaveAndReview": "Save and review"
 }
