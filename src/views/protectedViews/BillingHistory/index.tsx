@@ -78,7 +78,7 @@ const BillingHistory = () => {
           </BillingHistoryTextContainer>
           <BillingHistoryMainContainer>
             {guestBillingHistory?.map((list, index) => (
-              <TextMainContainer key={'index'}>
+              <TextMainContainer key={index}>
                 <FirstTextContainer>
                   <BillingUIContainer sx={{ gap: 1.5 }}>
                     <UINewTypography variant="buttonLargeMenu" color={list.category === 'Credit' ? 'success.100' : 'error.main'}>
