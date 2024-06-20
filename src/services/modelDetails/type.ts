@@ -1,3 +1,8 @@
+export type GetTotalEarningDataParams = {
+  start_date: string;
+  end_date: string;
+};
+
 export type ModelEarningResponse = {
   id: number;
   amount: number;

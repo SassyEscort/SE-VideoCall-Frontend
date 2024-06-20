@@ -106,13 +106,16 @@ const EarningOverview = () => {
 
   useEffect(() => {
     const modelEarning = async () => {
-      const modelData = await ModelDetailsService.getModelEarning(token.token);
+      const modelData = await ModelDetailsService.getModelEarning(token.token, {
+        start_date: fromDate ? fromDate.format('YYYY-MM-DD') : '',
+        end_date: toDate ? toDate.format('YYYY-MM-DD') : ''
+      });
       setModelEarning(modelData.data);
     };
     if (token.token) {
       modelEarning();
     }
-  }, [token.id, token.token]);
+  }, [fromDate, toDate, token.id, token.token]);
 
   return (
     <ProfileStatiscsMainContainer>
@@ -126,17 +129,17 @@ const EarningOverview = () => {
               <ProfileDOBoxMain>
                 <ProfileDOBox>
                   <StyledDatePicker
-                    value={moment(fromDate, 'DD-MM-YYYY')}
+                    value={moment(fromDate, 'YYYY-MM-DD')}
                     onChange={(e) => handleFromDateChange(e as Moment)}
-                    format="DD-MM-YYYY"
+                    format="YYYY-MM-DD"
                     maxDate={toDate}
                   />
                 </ProfileDOBox>
                 <ProfileDOBox>
                   <StyledDatePicker
-                    value={moment(toDate, 'DD-MM-YYYY')}
+                    value={moment(toDate, 'YYYY-MM-DD')}
                     onChange={(e) => handleToDateChange(e as Moment)}
-                    format="DD-MM-YYYY"
+                    format="YYYY-MM-DD"
                     minDate={fromDate!}
                   />
                 </ProfileDOBox>
