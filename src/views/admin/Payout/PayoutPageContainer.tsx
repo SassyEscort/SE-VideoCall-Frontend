@@ -144,7 +144,7 @@ export default function PayoutPageContainer() {
     },
     [filters, handleChangeFilter]
   );
-  const handelStatus = async (value: boolean) => {
+  const handelChangeStatus = async (value: boolean) => {
     await payoutDetailsService.payoutAction(token.token, Number(selectedPayoutData?.id), value);
     handleRefetch();
     handleCloseMenu();
@@ -281,11 +281,11 @@ export default function PayoutPageContainer() {
         </MenuItem>
         {selectedPayoutData?.state === PAYOUT_ACTION.PENDING && (
           <>
-            <MenuItem onClick={() => handelStatus(false)}>
+            <MenuItem onClick={() => handelChangeStatus(false)}>
               <CheckIcon sx={{ mr: 2, color: 'success.main' }} />
               Approve
             </MenuItem>
-            <MenuItem onClick={() => handelStatus(true)}>
+            <MenuItem onClick={() => handelChangeStatus(true)}>
               <CloseIcon sx={{ mr: 2, color: 'error.main' }} />
               Reject
             </MenuItem>
