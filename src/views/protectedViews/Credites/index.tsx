@@ -1,17 +1,13 @@
-import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import React from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { SecondSubContainerImgWorkerCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import {
   BoxFirstTextContainer,
   BoxSecondTextContainer,
   BuyCreditsText,
-  CancelCreditValue,
-  CreditBestValue,
   CreditBuyText,
   CreditCardImage,
   CreditCardText,
-  CreditMostPopular,
   CreditsMainContainer,
   CreditsSubContainer,
   DollarCreditText,
@@ -21,14 +17,42 @@ import {
   ImagMainContainer,
   ImagSubContainer,
   MainImagContainer,
+  SecondBoxContainer,
   SecondTextSubContainer,
-  TextMainContainer,
-  TopTextContainer
+  TextMainContainer
 } from './Credits.styled';
 import MainLayoutNav from '../protectedLayout';
 import { FormattedMessage } from 'react-intl';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customerCredit.service';
+import { getUserDataClient } from 'utils/getSessionData';
+import Grid from '@mui/material/Grid';
 
 const Credits = () => {
+  const [creditsListing, setCteditsListing] = useState<ModelCreditRes[]>([]);
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      if (data) {
+        setToken({ id: data.id, token: data.token });
+      }
+    };
+    userToken();
+  }, []);
+
+  const getCreditsListing = useCallback(async () => {
+    if (token.token) {
+      const getModel = await CustomerCredit.getCustomerCredit(token.token);
+      setCteditsListing(getModel.data);
+    }
+  }, [token.token]);
+
+  useEffect(() => {
+    getCreditsListing();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
   return (
     <MainLayoutNav variant={'worker'} enlargedFooter={true}>
       <CreditsMainContainer>
@@ -42,12 +66,12 @@ const Credits = () => {
                 <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                   <FormattedMessage id="Balance" />
                 </UINewTypography>
-                <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
+                <SecondBoxContainer>
                   <SecondSubContainerImgWorkerCard src="/images/workercards/coin-1.png" />
                   <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                     40
                   </UINewTypography>
-                </Box>
+                </SecondBoxContainer>
               </FirsTextSubContainer>
             </FirsTextMainContainer>
             <SecondTextSubContainer>
@@ -56,116 +80,29 @@ const Credits = () => {
               </BuyCreditsText>
             </SecondTextSubContainer>
           </TextMainContainer>
+
           <ImagMainContainer>
             <FirstBoxContainer>
-              <ImagSubContainer>
-                <MainImagContainer src="/images/credits/credits-img-1.png" />
-                <BoxFirstTextContainer>
-                  <CreditCardImage src="/images/workercards/coin-1.png" />
-                  <CreditCardText variant="subtitle" color="text.secondary">
-                    90 <FormattedMessage id="Credits" />
-                  </CreditCardText>
-                </BoxFirstTextContainer>
-                <BoxSecondTextContainer>
-                  <CreditBuyText variant="bodySmall" color="secondary.700">
-                    <FormattedMessage id="BuyNowAt" />
-                  </CreditBuyText>
-                  <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
-                </BoxSecondTextContainer>
-              </ImagSubContainer>
-
-              <ImagSubContainer>
-                <MainImagContainer src="/images/credits/credits-img-2.png" />
-                <BoxFirstTextContainer>
-                  <CreditCardImage src="/images/workercards/coin-1.png" />
-                  <CreditCardText variant="subtitle" color="text.secondary">
-                    90 <FormattedMessage id="Credits" />
-                  </CreditCardText>
-                </BoxFirstTextContainer>
-                <BoxSecondTextContainer>
-                  <CreditBuyText variant="bodySmall" color="secondary.700">
-                    <FormattedMessage id="BuyNowAt" />
-                  </CreditBuyText>
-                  <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
-                </BoxSecondTextContainer>
-              </ImagSubContainer>
-
-              <ImagSubContainer>
-                <MainImagContainer src="/images/credits/credits-img-3.png" />
-                <BoxFirstTextContainer>
-                  <CreditCardImage src="/images/workercards/coin-1.png" />
-                  <CreditCardText variant="subtitle" color="text.secondary">
-                    90 <FormattedMessage id="Credits" />
-                  </CreditCardText>
-                </BoxFirstTextContainer>
-                <BoxSecondTextContainer>
-                  <CreditBuyText variant="bodySmall" color="secondary.700">
-                    <FormattedMessage id="BuyNowAt" />
-                  </CreditBuyText>
-                  <DollarCreditText color="text.secondary">$9.99</DollarCreditText>
-                  <CancelCreditValue color="text.primary">$19.99</CancelCreditValue>
-                </BoxSecondTextContainer>
-                <TopTextContainer>
-                  <CreditBestValue color="text.secondary">
-                    <FormattedMessage id="BestValue" />
-                  </CreditBestValue>
-                </TopTextContainer>
-              </ImagSubContainer>
-            </FirstBoxContainer>
-
-            <FirstBoxContainer>
-              <ImagSubContainer>
-                <MainImagContainer src="/images/credits/credits-img-4.png" />
-                <BoxFirstTextContainer>
-                  <CreditCardImage src="/images/workercards/coin-1.png" />
-                  <CreditCardText variant="subtitle" color="text.secondary">
-                    90 <FormattedMessage id="Credits" />
-                  </CreditCardText>
-                </BoxFirstTextContainer>
-                <BoxSecondTextContainer>
-                  <CreditBuyText variant="bodySmall" color="secondary.700">
-                    <FormattedMessage id="BuyNowAt" />
-                  </CreditBuyText>
-                  <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
-                </BoxSecondTextContainer>
-                <TopTextContainer>
-                  <CreditMostPopular color="text.secondary">
-                    <FormattedMessage id="MostPopular" />
-                  </CreditMostPopular>
-                </TopTextContainer>
-              </ImagSubContainer>
-
-              <ImagSubContainer>
-                <MainImagContainer src="/images/credits/credits-img-5.png" />
-                <BoxFirstTextContainer>
-                  <CreditCardImage src="/images/workercards/coin-1.png" />
-                  <CreditCardText variant="subtitle" color="text.secondary">
-                    90 <FormattedMessage id="Credits" />
-                  </CreditCardText>
-                </BoxFirstTextContainer>
-                <BoxSecondTextContainer>
-                  <CreditBuyText variant="bodySmall" color="secondary.700">
-                    <FormattedMessage id="BuyNowAt" />
-                  </CreditBuyText>
-                  <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
-                </BoxSecondTextContainer>
-              </ImagSubContainer>
-
-              <ImagSubContainer>
-                <MainImagContainer src="/images/credits/credits-img-6.png" />
-                <BoxFirstTextContainer>
-                  <CreditCardImage src="/images/workercards/coin-1.png" />
-                  <CreditCardText variant="subtitle" color="text.secondary">
-                    90 <FormattedMessage id="Credits" />
-                  </CreditCardText>
-                </BoxFirstTextContainer>
-                <BoxSecondTextContainer>
-                  <CreditBuyText variant="bodySmall" color="secondary.700">
-                    <FormattedMessage id="BuyNowAt" />
-                  </CreditBuyText>
-                  <DollarCreditText color="text.secondary">$1.99</DollarCreditText>
-                </BoxSecondTextContainer>
-              </ImagSubContainer>
+              <Grid container sx={{ gap: 2 }}>
+                {creditsListing.map((listCredit, index) => (
+                  <ImagSubContainer key={index}>
+                    <MainImagContainer src={listCredit.link} />
+                    <BoxFirstTextContainer>
+                      <CreditCardImage src="/images/workercards/coin-1.png" />
+                      <CreditCardText variant="subtitle" color="text.secondary">
+                        {listCredit.credits}
+                        <FormattedMessage id="Credits" />
+                      </CreditCardText>
+                    </BoxFirstTextContainer>
+                    <BoxSecondTextContainer>
+                      <CreditBuyText variant="bodySmall" color="secondary.700">
+                        <FormattedMessage id="BuyNowAt" />
+                      </CreditBuyText>
+                      <DollarCreditText color="text.secondary">${listCredit.amount}</DollarCreditText>
+                    </BoxSecondTextContainer>
+                  </ImagSubContainer>
+                ))}
+              </Grid>
             </FirstBoxContainer>
           </ImagMainContainer>
         </CreditsSubContainer>

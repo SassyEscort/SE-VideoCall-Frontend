@@ -78,6 +78,7 @@ const MobileSidebar = ({
             token={token}
             handleModelApiChange={handleModelApiChange}
             handleNext={handleSave}
+            isReviewEdit={false}
           />
         </Box>
       ) : menuId === 1 ? (
@@ -87,6 +88,7 @@ const MobileSidebar = ({
           token={token}
           handleNext={handleSaveDetails}
           handleModelApiChange={handleModelApiChange}
+          isReviewEdit={false}
         />
       ) : (
         <DashboardPriceView isEdit={true} token={token} modelDetails={modelDetails} handleModelApiChange={handleModelApiChange} />

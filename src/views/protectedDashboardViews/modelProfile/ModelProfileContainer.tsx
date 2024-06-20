@@ -83,6 +83,7 @@ const ModelProfileContainer = ({
               token={token}
               handleModelApiChange={handleModelApiChange}
               handleNext={handleSave}
+              isReviewEdit={false}
             />
           ) : menuId === 1 ? (
             <VerificationStepOne
@@ -91,6 +92,7 @@ const ModelProfileContainer = ({
               token={token}
               handleNext={handleSaveDetails}
               handleModelApiChange={handleModelApiChange}
+              isReviewEdit={false}
             />
           ) : (
             <DashboardPriceView token={token} modelDetails={modelDetails} handleModelApiChange={handleModelApiChange} isEdit={true} />
