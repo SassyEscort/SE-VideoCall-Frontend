@@ -13,6 +13,8 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
 import { Chip, CircularProgress, IconButton, MenuItem } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 import moment from 'moment';
 import { MoreVert, Visibility } from '@mui/icons-material';
 import { useCallback, useEffect, useState } from 'react';
@@ -26,6 +28,7 @@ import { PAGE_SIZE } from 'constants/pageConstants';
 import PaginationSearch from 'components/common/CustomPaginations/PaginationSearch';
 import TablePager from 'components/common/CustomPaginations/TablePager';
 import { StyledPopover } from './Payout.styled';
+import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 
 export type PaginationType = {
   page: number;
@@ -38,7 +41,7 @@ export type PaginationType = {
 
 export default function PayoutPageContainer() {
   const [selectedPayoutData, setSelectedPayoutData] = useState<payoutDataResponse | null>(null);
-  const [data, setData] = useState<any>([]);
+  const [data, setData] = useState<payoutDataResponse[]>([]);
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -84,6 +87,10 @@ export default function PayoutPageContainer() {
     }
     setIsLoading(false);
   };
+  const handleRefetch = useCallback(() => {
+    if (token.token) handelFetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -92,7 +99,7 @@ export default function PayoutPageContainer() {
     setOpen(null);
     setAnchorEl(null);
   };
-  const handleOpenCredit = (value: any) => {
+  const handleOpenCredit = (value: payoutDataResponse) => {
     setSelectedPayoutData(value);
     setCreditModalOpen(true);
   };
@@ -137,12 +144,22 @@ export default function PayoutPageContainer() {
     },
     [filters, handleChangeFilter]
   );
+  const handleApproveClick = async () => {
+    await payoutDetailsService.payoutAction(token.token, Number(selectedPayoutData?.id), false);
+    handleRefetch();
+    handleCloseMenu();
+  };
+
+  const handleRejectClick = async () => {
+    await payoutDetailsService.payoutAction(token.token, Number(selectedPayoutData?.id), true);
+    handleRefetch();
+    handleCloseMenu();
+  };
 
   useEffect(() => {
-    handelFetch();
+    if (token.token) handelFetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.token, filters.page, filters.pageSize]);
-
   return (
     <MainLayout>
       <Container maxWidth="xl">
@@ -177,7 +194,7 @@ export default function PayoutPageContainer() {
                       </TableCell>
                     </TableRow>
                   ) : data?.length ? (
-                    data.map((item: any, index: any) => (
+                    data.map((item, index) => (
                       <TableRow
                         key={index}
                         sx={{
@@ -195,13 +212,13 @@ export default function PayoutPageContainer() {
                         <TableCell component="th" scope="row">
                           {item.bank_name || '-'}
                         </TableCell>
-                        <TableCell component="th" scope="row">
-                          {item.state === 'Pending' ? (
+                        <TableCell sx={{ textAlign: 'center' }}>
+                          {item.state === PAYOUT_ACTION.PENDING ? (
                             <Chip label="Pending" color="warning" />
-                          ) : item.state === 'Approve' ? (
-                            <Chip label="Approve" color="success" />
-                          ) : item.state === 'Reject' ? (
-                            <Chip label="Reject" color="error" />
+                          ) : item.state === PAYOUT_ACTION.APPROVE ? (
+                            <Chip label="Approved" color="success" />
+                          ) : item.state === PAYOUT_ACTION.REJECT ? (
+                            <Chip label="Rejected" color="error" />
                           ) : (
                             '-'
                           )}
@@ -268,6 +285,18 @@ export default function PayoutPageContainer() {
           <Visibility sx={{ mr: 2 }} />
           View Details
         </MenuItem>
+        {selectedPayoutData?.state === PAYOUT_ACTION.PENDING && (
+          <>
+            <MenuItem onClick={handleApproveClick}>
+              <CheckIcon sx={{ mr: 2, color: 'success.main' }} />
+              Approve
+            </MenuItem>
+            <MenuItem onClick={handleRejectClick}>
+              <CloseIcon sx={{ mr: 2, color: 'error.main' }} />
+              Reject
+            </MenuItem>
+          </>
+        )}
       </StyledPopover>
       <PayoutModel open={creditModalOpen} onClose={handleCloseCredit} selectedPayoutData={selectedPayoutData} />
     </MainLayout>

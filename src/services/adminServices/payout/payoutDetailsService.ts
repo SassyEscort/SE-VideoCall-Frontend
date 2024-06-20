@@ -41,4 +41,24 @@ export class payoutDetailsService {
       return error.response?.data as payoutResponse;
     }
   };
+
+  static payoutAction = async (token: string, payout_id: number, rejected: boolean): Promise<payoutResponse> => {
+    try {
+      const res = await axios.put(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/payouts/${payout_id}`,
+        { rejected: rejected },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+          }
+        }
+      );
+
+      return res.data.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as payoutResponse;
+    }
+  };
 }
