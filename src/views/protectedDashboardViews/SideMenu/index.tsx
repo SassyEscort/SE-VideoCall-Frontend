@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import React from 'react';
 import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
 import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
 import {
@@ -10,13 +9,45 @@ import {
   SiderBarMainContainer,
   SiderBarSecondBox,
   SiderBarSecondTextBox,
-  SiderBarThiredBox
+  SiderBarThiredBox,
+  StartView,
+  SwicthText,
+  SwitchBox,
+  TextViewStartBottom
 } from './SideMenu.styled';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
-import { Switch } from '@mui/material';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import { PayoutService } from 'services/payout/payout.service';
+import { toast } from 'react-toastify';
+import { ErrorMessage } from 'constants/common.constants';
+import { FormattedMessage } from 'react-intl';
 
-const SideMenu = ({ modelDetails }: { modelDetails: ModelDetailsResponse }) => {
+const SideMenu = ({
+  modelDetails,
+  token,
+  handleModelApiChange
+}: {
+  modelDetails: ModelDetailsResponse;
+  token: TokenIdType;
+  handleModelApiChange: () => void;
+}) => {
   const firstChar = modelDetails?.name ? modelDetails.name.charAt(0).toUpperCase() : '';
+
+  const handleAvailability = async () => {
+    try {
+      if (token.token) {
+        const data = await PayoutService.markOnline(token.token);
+        if (data.code === 200) {
+          toast.success('success');
+          handleModelApiChange();
+        } else {
+          toast.error(ErrorMessage);
+        }
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
   return (
     <HomeMainModelContainer>
       <SiderBarMainContainer>
@@ -37,68 +68,22 @@ const SideMenu = ({ modelDetails }: { modelDetails: ModelDetailsResponse }) => {
                   </UINewTypography>
                 </Box>
 
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-                  <Box sx={{ display: 'flex', marginLeft: '-4px' }}>
+                <SwicthText>
+                  <StartView>
                     <StarRateRoundedIcon htmlColor="#FFB800" sx={{ width: '16px', height: '16px' }} />
                     <StarRateRoundedIcon htmlColor="#FFB800" sx={{ width: '16px', height: '16px' }} />
                     <StarRateRoundedIcon htmlColor="#FFB800" sx={{ width: '16px', height: '16px' }} />
                     <StarRateRoundedIcon htmlColor="#FFB800" sx={{ width: '16px', height: '16px' }} />
                     <StarRateRoundedIcon htmlColor="#FFB800" sx={{ width: '16px', height: '16px' }} />
-                  </Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <Switch
-                      sx={{
-                        width: 30,
-                        height: 19,
-                        padding: 0,
-                        '& .MuiSwitch-switchBase': {
-                          transitionDuration: '300ms',
-                          '& .MuiTouchRipple-root': {
-                            height: 1.5,
-                            width: 1.5,
-                            left: '2px',
-                            top: '1.5px'
-                          },
-                          '&.Mui-checked': {
-                            border: 'none',
-                            transform: 'translateX(12px)',
-                            '& + .MuiSwitch-track': {
-                              border: 'none',
-                              backgroundColor: '#79E02833',
-                              opacity: 1
-                            },
-                            '&.MuiSwitch-switchBase .MuiSwitch-thumb': {
-                              boxShadow: 'none',
-                              height: 12,
-                              width: 12,
-                              backgroundColor: 'success.100'
-                            }
-                          }
-                        },
-                        '& .MuiSwitch-thumb': {
-                          position: 'relative',
-                          backgroundColor: 'text.primary',
-                          marginLeft: '-4px',
-                          bottom: '6px',
-                          width: 12,
-                          height: 12
-                        },
-                        '& .MuiSwitch-track': {
-                          border: '3px solid',
-                          borderColor: 'text.disabled',
-                          borderRadius: '12px',
-                          backgroundColor: 'secondary.light',
-                          opacity: 1
-                        }
-                      }}
-                    />
+                  </StartView>
+                  <TextViewStartBottom>
+                    <SwitchBox onClick={handleAvailability} checked={Boolean(modelDetails.is_online)} />
 
-                    <UINewTypography variant="SubtitleSmallMedium" color="secondary.700">
-                      Availability
-                      {/* Not Available */}
+                    <UINewTypography variant="SubtitleSmallMedium" color="secondary.700" sx={{ textWrap: 'nowrap' }}>
+                      {Boolean(modelDetails.is_online) ? <FormattedMessage id="Availability" /> : <FormattedMessage id="NotAvailable" />}
                     </UINewTypography>
-                  </Box>
-                </Box>
+                  </TextViewStartBottom>
+                </SwicthText>
               </SiderBarSecondTextBox>
             </Box>
           </SiderBarFirstBox>

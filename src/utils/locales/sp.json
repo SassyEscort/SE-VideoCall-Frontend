@@ -313,5 +313,7 @@
   "DOBCantChange": "La fecha de nacimiento no se puede cambiar después de la verificación",
   "WooHooYourProfile": "¡WooHoo! Tu perfil está bajo revisión.",
   "GoodEvening": "Buenas noches",
-  "CreditsMin": "créditos/min"
+  "CreditsMin": "créditos/min",
+  "Availability": "Disponibilidad",
+  "NotAvailable": "No Disponible"
 }

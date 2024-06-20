@@ -317,5 +317,7 @@
   "SignUpAsAUser": "Sign up as a user",
   "RegisterAsAModel": "Register as a model",
   "GoodEvening": "Good evening",
-  "CreditsMin": "credits/min"
+  "CreditsMin": "credits/min",
+  "Availability": "Availability",
+  "NotAvailable": "Not Available"
 }
