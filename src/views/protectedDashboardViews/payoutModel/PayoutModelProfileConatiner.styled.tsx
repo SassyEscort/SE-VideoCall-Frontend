@@ -23,7 +23,7 @@ export const ForBox = styled(Box)(({ theme }) => ({
 export const FiveBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(6.875)
+  gap: theme.spacing(7.75)
 }));
 
 export const MenuListText = styled(Box)(({ theme }) => ({

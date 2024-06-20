@@ -104,3 +104,9 @@ export type RequestPayout = {
 export interface RequestPayoutRep extends GenericRes {
   data: RequestPayout;
 }
+
+export type MarkOnline = {
+  message: string;
+  code: number;
+  error: string;
+};

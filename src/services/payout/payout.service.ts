@@ -7,6 +7,7 @@ import {
   BankDetailsDeleteRes,
   BankDetailsEditReponse,
   BankDetailsListRes,
+  MarkOnline,
   ModelPastPayoutDetailRes,
   RequestPayoutRep
 } from './types';
@@ -96,6 +97,24 @@ export class PayoutService {
     } catch (err: any) {
       const error: AxiosError = err;
       return err.response?.data || { error_message: error.message };
+    }
+  };
+
+  static markOnline = async (token: string): Promise<MarkOnline> => {
+    try {
+      const res = await axios.put(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/mark-online`,
+        {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+          }
+        }
+      );
+      return res.data;
+    } catch (error) {
+      return error as MarkOnline;
     }
   };
 }

@@ -44,6 +44,7 @@ export type ModelDetailsResponse = {
   video_call_prices: VideCallPrices[];
   email_verified: number;
   updated_at: string;
+  is_online: number;
 };
 
 export type GuestDetailsResponse = {
