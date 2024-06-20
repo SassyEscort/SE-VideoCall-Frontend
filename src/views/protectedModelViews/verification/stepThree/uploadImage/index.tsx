@@ -27,6 +27,8 @@ export type WorkerPhotos = {
   document_number: null;
   photo?: string;
   photoURL?: string;
+  file_id: string;
+  file_type: string;
 };
 
 export type ImageUploadPayload = {
@@ -39,6 +41,8 @@ export type ImageUploadPayload = {
   document_type: string;
   document_number: null | string;
   photosURL?: string;
+  file_id: string;
+  file_type: string;
 };
 
 export type PhotoUpload = {
@@ -50,6 +54,8 @@ export type PhotoUpload = {
   document_type: string;
   document_number: null;
   photo: string;
+  file_id: string;
+  file_type: string;
 };
 
 export type VerificationFormStep5TypeV2 = {
@@ -195,7 +201,9 @@ const UploadImage = ({
               is_document: 0,
               document_type: PHOTO_TYPE.MODEL_PHOTO,
               document_number: null,
-              is_favourite: String(values.is_favourite)
+              is_favourite: String(values.is_favourite),
+              file_id: photo.file_id,
+              file_type: photo.file_type
             })),
           ...mutationImageUpload.uploadPhotos?.filter((x) => !x.is_document)
         ];
@@ -211,7 +219,9 @@ const UploadImage = ({
                 is_favourite: Number(values.is_favourite?.split('[')[1].split(']')[0]) === i ? 1 : 0,
                 is_document: 0,
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
-                document_number: null
+                document_number: null,
+                file_id: x.file_id,
+                file_type: x.file_type
               });
           });
 

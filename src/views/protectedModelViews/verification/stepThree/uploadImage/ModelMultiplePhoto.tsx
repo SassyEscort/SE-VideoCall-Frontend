@@ -20,6 +20,7 @@ import { FormattedMessage } from 'react-intl';
 import { TokenIdType } from '../..';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
+import { sortExistingPhotos } from 'utils/photoUtils';
 
 export type UploadMultiplePhotos = {
   errors: FormikErrors<VerificationFormStep5TypeV2>;
@@ -157,14 +158,6 @@ const ModelMultiplePhoto = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [values]
   );
-
-  const sortExistingPhotos = (file1: WorkerPhotos, file2: WorkerPhotos): number => {
-    if (file1.favourite !== file2.favourite) {
-      return file2.favourite - file1.favourite;
-    } else {
-      return file1.id - file2.id;
-    }
-  };
 
   const handleExistingPhotos = useCallback((photos: WorkerPhotos[]) => {
     photos?.sort(sortExistingPhotos);
