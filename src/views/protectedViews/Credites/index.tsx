@@ -85,24 +85,22 @@ const Credits = () => {
             <FirstBoxContainer>
               <Grid container sx={{ gap: 2 }}>
                 {creditsListing.map((listCredit, index) => (
-                  <>
-                    <ImagSubContainer key={index}>
-                      <MainImagContainer src={listCredit.link} />
-                      <BoxFirstTextContainer>
-                        <CreditCardImage src="/images/workercards/coin-1.png" />
-                        <CreditCardText variant="subtitle" color="text.secondary">
-                          {listCredit.credits}
-                          <FormattedMessage id="Credits" />
-                        </CreditCardText>
-                      </BoxFirstTextContainer>
-                      <BoxSecondTextContainer>
-                        <CreditBuyText variant="bodySmall" color="secondary.700">
-                          <FormattedMessage id="BuyNowAt" />
-                        </CreditBuyText>
-                        <DollarCreditText color="text.secondary">${listCredit.amount}</DollarCreditText>
-                      </BoxSecondTextContainer>
-                    </ImagSubContainer>
-                  </>
+                  <ImagSubContainer key={index}>
+                    <MainImagContainer src={listCredit.link} />
+                    <BoxFirstTextContainer>
+                      <CreditCardImage src="/images/workercards/coin-1.png" />
+                      <CreditCardText variant="subtitle" color="text.secondary">
+                        {listCredit.credits}
+                        <FormattedMessage id="Credits" />
+                      </CreditCardText>
+                    </BoxFirstTextContainer>
+                    <BoxSecondTextContainer>
+                      <CreditBuyText variant="bodySmall" color="secondary.700">
+                        <FormattedMessage id="BuyNowAt" />
+                      </CreditBuyText>
+                      <DollarCreditText color="text.secondary">${listCredit.amount}</DollarCreditText>
+                    </BoxSecondTextContainer>
+                  </ImagSubContainer>
                 ))}
               </Grid>
             </FirstBoxContainer>
