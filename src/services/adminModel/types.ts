@@ -1,14 +1,16 @@
-export interface Nationality {
+import { GenericRes } from 'services/guestAuth/authuser.services';
+
+export type Nationality = {
   id: number;
   name: string;
-}
+};
 
-export interface Country {
+export type Country = {
   id: number;
   name: string;
-}
+};
 
-export interface Document {
+export type Document = {
   id: number;
   is_document: number;
   document_type: string;
@@ -16,9 +18,9 @@ export interface Document {
   cords: string;
   favourite: number;
   document_number: string | null;
-}
+};
 
-export interface Photo {
+export type Photo = {
   id: number;
   is_document: number;
   document_type: string;
@@ -26,19 +28,19 @@ export interface Photo {
   cords: string;
   favourite: number;
   document_number: string | null;
-}
+};
 
-export interface Language {
+export type Language = {
   language_name: string;
   language_id: number;
-}
+};
 
-export interface VideoCallPrice {
+export type VideoCallPrice = {
   price_per_minute: number;
   price_per_minute_id: number;
-}
+};
 
-export interface ModelDetails {
+export type ModelDetails = {
   id: number;
   name: string;
   email: string;
@@ -57,13 +59,8 @@ export interface ModelDetails {
   last_login: string;
   updated_at: string;
   profile_status: string;
-}
+};
 
-export interface ModelDetailResponse {
-  message: string;
-  code: number;
-  error: string | null;
+export interface ModelDetailsRes extends GenericRes {
   data: ModelDetails;
-
-  custom_code: string | null;
 }

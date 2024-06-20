@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { ModelDetailResponse } from './types';
+import { ModelDetailsRes } from './types';
 
 export type ModelListing = {
   country_id: number;
@@ -63,7 +63,7 @@ export class adminModelServices {
       return error.response?.data as ModelListingRes;
     }
   };
-  static getModelDetails = async (token: string, modelId: number): Promise<any> => {
+  static getModelDetails = async (token: string, modelId: number): Promise<ModelDetailsRes> => {
     try {
       const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/${modelId}`, {
         headers: {
@@ -72,10 +72,10 @@ export class adminModelServices {
         }
       });
 
-      return res.data.data;
+      return res.data;
     } catch (err: any) {
       const error: AxiosError = err;
-      return error.response?.data as any;
+      return error.response?.data as ModelDetailsRes;
     }
   };
 }
