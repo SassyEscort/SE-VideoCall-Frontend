@@ -70,11 +70,9 @@ const SideMenu = ({
 
                 <SwicthText>
                   <StartView>
-                    <StarRateRoundedIcon htmlColor="#FFB800" sx={{ width: '16px', height: '16px' }} />
-                    <StarRateRoundedIcon htmlColor="#FFB800" sx={{ width: '16px', height: '16px' }} />
-                    <StarRateRoundedIcon htmlColor="#FFB800" sx={{ width: '16px', height: '16px' }} />
-                    <StarRateRoundedIcon htmlColor="#FFB800" sx={{ width: '16px', height: '16px' }} />
-                    <StarRateRoundedIcon htmlColor="#FFB800" sx={{ width: '16px', height: '16px' }} />
+                    {[...Array(5)].map((_, index) => (
+                      <StarRateRoundedIcon key={index} htmlColor="#FFB800" sx={{ width: '16px', height: '16px' }} />
+                    ))}
                   </StartView>
                   <TextViewStartBottom>
                     <SwitchBox onClick={handleAvailability} checked={Boolean(modelDetails.is_online)} />
