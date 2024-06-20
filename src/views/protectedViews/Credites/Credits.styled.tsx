@@ -48,11 +48,10 @@ export const ImagMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '929px',
   height: '100%',
-  maxHeight: '674px',
   gap: theme.spacing(3),
   flexWrap: 'wrap',
+  overflow: 'hidden',
   [theme.breakpoints.up('md')]: {
     justifyContent: 'space-between'
   }

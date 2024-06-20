@@ -27,10 +27,16 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customerCredit.service';
 import { getUserDataClient } from 'utils/getSessionData';
 import Grid from '@mui/material/Grid';
+import { useRouter, useSearchParams } from 'next/navigation';
+import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import CreditsAdded from '../CreditsAdded/CreditsAdded';
 
 const Credits = () => {
+  const [open, setOpen] = useState(false);
   const [creditsListing, setCteditsListing] = useState<ModelCreditRes[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const router = useRouter();
+  const searchParams = useSearchParams();
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -47,7 +53,21 @@ const Credits = () => {
       setCteditsListing(getModel.data);
     }
   }, [token.token]);
-
+  const handleCreditClick = async (listCredit: ModelCreditRes) => {
+    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id);
+    if (res) {
+      router.push(res?.data?.url);
+    }
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  useEffect(() => {
+    const credit = searchParams.get('credit');
+    if (credit) {
+      setOpen(true);
+    }
+  }, [searchParams]);
   useEffect(() => {
     getCreditsListing();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -83,9 +103,9 @@ const Credits = () => {
 
           <ImagMainContainer>
             <FirstBoxContainer>
-              <Grid container sx={{ gap: 2 }}>
+              <Grid container sx={{ gap: 2, justifyContent: 'center' }}>
                 {creditsListing.map((listCredit, index) => (
-                  <ImagSubContainer key={index}>
+                  <ImagSubContainer key={index} onClick={() => handleCreditClick(listCredit)}>
                     <MainImagContainer src={listCredit.link} />
                     <BoxFirstTextContainer>
                       <CreditCardImage src="/images/workercards/coin-1.png" />
@@ -107,6 +127,9 @@ const Credits = () => {
           </ImagMainContainer>
         </CreditsSubContainer>
       </CreditsMainContainer>
+      <UIStyledDialog open={open} maxWidth="md" fullWidth>
+        <CreditsAdded onClose={handleClose} />
+      </UIStyledDialog>
     </MainLayoutNav>
   );
 };
