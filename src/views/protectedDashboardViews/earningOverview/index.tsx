@@ -115,57 +115,55 @@ const EarningOverview = () => {
   }, [token.id, token.token]);
 
   return (
-    <>
-      <ProfileStatiscsMainContainer>
-        <ProfileStatiscsContainer>
-          <UINewTypography variant="h5" color="text.secondary">
-            <FormattedMessage id="EarningsOverview" />
-          </UINewTypography>
-          <ProfileDOBMainContainer>
-            <ProfileDOBContainer>
-              {periodType === DATE_DURATION_TYPE.ALL_TIME && (
-                <ProfileDOBoxMain>
-                  <ProfileDOBox>
-                    <StyledDatePicker
-                      value={moment(fromDate, 'DD-MM-YYYY')}
-                      onChange={(e) => handleFromDateChange(e as Moment)}
-                      format="DD-MM-YYYY"
-                      maxDate={toDate}
-                    />
-                  </ProfileDOBox>
-                  <ProfileDOBox>
-                    <StyledDatePicker
-                      value={moment(toDate, 'DD-MM-YYYY')}
-                      onChange={(e) => handleToDateChange(e as Moment)}
-                      format="DD-MM-YYYY"
-                      minDate={fromDate!}
-                    />
-                  </ProfileDOBox>
-                </ProfileDOBoxMain>
-              )}
-              <FilterTimeDropdownV2 periodType={periodType} handleChange={handleChangePeriodType} />
-            </ProfileDOBContainer>
-          </ProfileDOBMainContainer>
-        </ProfileStatiscsContainer>
-        <ProfilePieMainContainer>
-          <ProfilePieContainer>
-            <ProfileBackSide>
-              <UINewTypography variant="buttonLargeBold" lineHeight="160%">
-                <FormattedMessage id="TotalEarnings" />
-              </UINewTypography>
-              <UINewTypography variant="h3">{modelEarning?.earnings}</UINewTypography>
-            </ProfileBackSide>
+    <ProfileStatiscsMainContainer>
+      <ProfileStatiscsContainer>
+        <UINewTypography variant="h5" color="text.secondary">
+          <FormattedMessage id="EarningsOverview" />
+        </UINewTypography>
+        <ProfileDOBMainContainer>
+          <ProfileDOBContainer>
+            {periodType === DATE_DURATION_TYPE.ALL_TIME && (
+              <ProfileDOBoxMain>
+                <ProfileDOBox>
+                  <StyledDatePicker
+                    value={moment(fromDate, 'DD-MM-YYYY')}
+                    onChange={(e) => handleFromDateChange(e as Moment)}
+                    format="DD-MM-YYYY"
+                    maxDate={toDate}
+                  />
+                </ProfileDOBox>
+                <ProfileDOBox>
+                  <StyledDatePicker
+                    value={moment(toDate, 'DD-MM-YYYY')}
+                    onChange={(e) => handleToDateChange(e as Moment)}
+                    format="DD-MM-YYYY"
+                    minDate={fromDate!}
+                  />
+                </ProfileDOBox>
+              </ProfileDOBoxMain>
+            )}
+            <FilterTimeDropdownV2 periodType={periodType} handleChange={handleChangePeriodType} />
+          </ProfileDOBContainer>
+        </ProfileDOBMainContainer>
+      </ProfileStatiscsContainer>
+      <ProfilePieMainContainer>
+        <ProfilePieContainer>
+          <ProfileBackSide>
+            <UINewTypography variant="buttonLargeBold" lineHeight="160%">
+              <FormattedMessage id="TotalEarnings" />
+            </UINewTypography>
+            <UINewTypography variant="h3">{modelEarning?.earnings}</UINewTypography>
+          </ProfileBackSide>
 
-            <ProfileBackSide>
-              <UINewTypography variant="buttonLargeBold" lineHeight="160%">
-                <FormattedMessage id="WithdrawnAmount" />
-              </UINewTypography>
-              <UINewTypography variant="h3">{modelEarning?.withdrawn_amount}</UINewTypography>
-            </ProfileBackSide>
-          </ProfilePieContainer>
-        </ProfilePieMainContainer>
-      </ProfileStatiscsMainContainer>
-    </>
+          <ProfileBackSide>
+            <UINewTypography variant="buttonLargeBold" lineHeight="160%">
+              <FormattedMessage id="WithdrawnAmount" />
+            </UINewTypography>
+            <UINewTypography variant="h3">{modelEarning?.withdrawn_amount}</UINewTypography>
+          </ProfileBackSide>
+        </ProfilePieContainer>
+      </ProfilePieMainContainer>
+    </ProfileStatiscsMainContainer>
   );
 };
 
