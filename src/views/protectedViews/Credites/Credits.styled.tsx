@@ -46,6 +46,7 @@ export const SecondTextSubContainer = styled(Box)(({ theme }) => ({
 
 export const ImagMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
+  flexDirection: 'column',
   width: '100%',
   maxWidth: '929px',
   height: '100%',
@@ -61,8 +62,8 @@ export const ImagSubContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
   width: '100%',
   maxWidth: '299px',
-  height: '100%',
-  maxHeight: '325px',
+  height: 'auto',
+  minHeight: '325px',
   [theme.breakpoints.up('md')]: {
     flexBasis: 'calc(33.333% - 16px)'
   }
@@ -80,9 +81,10 @@ export const MainImagContainer = styled('img')(({ theme }) => ({
 export const BoxFirstTextContainer = styled(Box)(({ theme }) => ({
   position: 'absolute',
   top: '50%',
-  left: '50%',
+  left: '75%',
   transform: 'translate(-50%, -50%)',
   display: 'flex',
+  width: '100%',
   alignItems: 'center',
   paddingTop: theme.spacing(0.5),
   paddingBottom: theme.spacing(0.5),
@@ -199,4 +201,10 @@ export const FirstBoxContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     flexDirection: 'row'
   }
+}));
+
+export const SecondBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: theme.spacing(1)
 }));
