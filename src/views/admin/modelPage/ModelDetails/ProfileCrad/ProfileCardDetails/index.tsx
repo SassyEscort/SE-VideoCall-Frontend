@@ -10,7 +10,7 @@ const ProfileCardDetails = ({ modelData }: { modelData: ModelDetailsRes }) => {
 
   return (
     <ProfileCradDetailsBox>
-      <StyledAvatar image={photo} color="secondary.light" isDiamond={false} verified={false} />
+      <StyledAvatar image={photo} color="secondary.light" />
       <ProfileCradDetailsTextBox>
         <UINewTypography variant="h4" color="secondary.dark">
           {modelData?.data ? modelData?.data?.name : ''}
