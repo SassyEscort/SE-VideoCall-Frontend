@@ -73,14 +73,20 @@ const PurchaseInvoiceTableBodyV2 = ({ modelPayoutList }: { modelPayoutList: Mode
                 color={
                   item.state === 'Pending'
                     ? '#FFE500'
-                    : item.state === 'Completed'
+                    : item.state === 'Approved'
                       ? '#79E028'
-                      : item.state === 'Cancelled'
+                      : item.state === 'Rejected'
                         ? '#FF5959'
                         : '#FFF'
                 }
               >
-                {item.state}
+                {item.state === 'Pending'
+                  ? 'Pending'
+                  : item.state === 'Approved'
+                    ? 'Completed'
+                    : item.state === 'Rejected'
+                      ? 'Cancel'
+                      : '-'}
               </UINewTypography>
             </StatusBox>
           </TableCell>

@@ -105,7 +105,7 @@ const PayoutContainer = ({
                     <FormattedMessage id="RecentWithdrawls" />
                   </UINewTypography>
                 </Withdrawls>
-                <ToSiliconValleyBankMainConatiner>
+                {/* <ToSiliconValleyBankMainConatiner>
                   <FirstToSiliconValleyBankMainConatiner>
                     <FirstToSiliconValleyBank>
                       <ImageBox>
@@ -132,7 +132,7 @@ const PayoutContainer = ({
                   </FirstToSiliconValleyBankMainConatiner>
 
                   <Divider sx={{ border: '1px solid primary.700 ' }} />
-                </ToSiliconValleyBankMainConatiner>
+                </ToSiliconValleyBankMainConatiner> */}
                 <ToSiliconValleyBankMainConatiner>
                   <FirstToSiliconValleyBankMainConatiner>
                     <FirstToSiliconValleyBank>

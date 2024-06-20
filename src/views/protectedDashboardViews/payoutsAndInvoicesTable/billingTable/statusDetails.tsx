@@ -13,11 +13,11 @@ export const StatusBox = styled(Box)<StatusBoxProps>(({ status }) => {
       borderColor = '#FFE500';
       backgroundColor = '#FFE5001F';
       break;
-    case 'Completed':
+    case 'Approved':
       borderColor = '#79E028';
       backgroundColor = '#15250A';
       break;
-    case 'Cancelled':
+    case 'Rejected':
       borderColor = '#FF5959';
       backgroundColor = '#2F0909';
       break;
@@ -27,7 +27,7 @@ export const StatusBox = styled(Box)<StatusBoxProps>(({ status }) => {
   }
 
   return {
-    padding: '4px 12px 4px 20px',
+    padding: '4px 12px',
     borderRadius: '48px',
     display: 'flex',
     alignItems: 'center',
@@ -36,6 +36,7 @@ export const StatusBox = styled(Box)<StatusBoxProps>(({ status }) => {
     height: '100%',
     minHeight: '25px',
     border: `1px solid ${borderColor}`,
-    backgroundColor: backgroundColor
+    backgroundColor: backgroundColor,
+    justifyContent: 'center'
   };
 });
