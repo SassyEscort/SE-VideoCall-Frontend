@@ -68,7 +68,7 @@ export type VerificationStepUploadType = {
   handleModelApiChange: () => void;
   isEdit: boolean;
   isReviewEdit: boolean;
-  handleEdit: (step: number) => void;
+  handleEdit?: (step: number) => void;
 };
 
 export interface ImagePayload {
@@ -228,7 +228,7 @@ const UploadImage = ({
 
         if (response.code === 200) {
           handleModelApiChange();
-          if (isReviewEdit) {
+          if (isReviewEdit && handleEdit) {
             handleEdit(4);
           } else {
             handleNext();

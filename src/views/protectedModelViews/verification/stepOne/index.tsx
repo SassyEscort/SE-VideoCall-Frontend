@@ -35,7 +35,7 @@ const VerificationStepOne = ({
   isEdit: boolean;
   handleModelApiChange: () => void;
   isReviewEdit: boolean;
-  handleEdit: (step: number) => void;
+  handleEdit?: (step: number) => void;
 }) => {
   const router = useRouter();
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -128,7 +128,7 @@ const VerificationStepOne = ({
           const response = await ModelVerificationService.verificationStepOne(values, token.token);
           if (response.data) {
             handleModelApiChange();
-            if (isReviewEdit) {
+            if (isReviewEdit && handleEdit) {
               handleEdit(4);
             } else {
               handleNext();
