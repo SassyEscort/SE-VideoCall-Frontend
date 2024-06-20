@@ -318,6 +318,9 @@
   "RegisterAsAModel": "Register as a model",
   "GoodEvening": "Good evening",
   "CreditsMin": "credits/min",
+  "EarningsOverview": "Earnings Overview",
+  "TotalEarnings": "Total Earnings",
+  "WithdrawnAmount": "Withdrawn Amount",
   "Availability": "Availability",
   "NotAvailable": "Not Available",
   "SaveAndReview": "Save and review"
