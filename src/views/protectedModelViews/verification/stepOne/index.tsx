@@ -25,13 +25,17 @@ const VerificationStepOne = ({
   modelDetails,
   token,
   isEdit,
-  handleModelApiChange
+  handleModelApiChange,
+  isReviewEdit,
+  handleEdit
 }: {
   handleNext: () => void;
   modelDetails: ModelDetailsResponse;
   token: TokenIdType;
   isEdit: boolean;
   handleModelApiChange: () => void;
+  isReviewEdit: boolean;
+  handleEdit: (step: number) => void;
 }) => {
   const router = useRouter();
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -123,8 +127,12 @@ const VerificationStepOne = ({
           setLoading(true);
           const response = await ModelVerificationService.verificationStepOne(values, token.token);
           if (response.data) {
-            handleNext();
             handleModelApiChange();
+            if (isReviewEdit) {
+              handleEdit(4);
+            } else {
+              handleNext();
+            }
           } else {
             toast.error(response.message);
           }
@@ -196,10 +204,17 @@ const VerificationStepOne = ({
                   <UINewTypography variant="body">
                     <FormattedMessage id="Save" />
                   </UINewTypography>
+                ) : isReviewEdit ? (
+                  <>
+                    <UINewTypography variant="body">
+                      <FormattedMessage id="SaveAndReview" />
+                    </UINewTypography>
+                    <RiArrowRightLine />
+                  </>
                 ) : (
                   <>
                     <UINewTypography variant="body">
-                      <FormattedMessage id="NextStep" />
+                      <FormattedMessage id="Next" />
                     </UINewTypography>
                     <RiArrowRightLine />
                   </>

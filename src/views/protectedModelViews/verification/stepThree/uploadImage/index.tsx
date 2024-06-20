@@ -67,6 +67,8 @@ export type VerificationStepUploadType = {
   token: TokenIdType;
   handleModelApiChange: () => void;
   isEdit: boolean;
+  isReviewEdit: boolean;
+  handleEdit: (step: number) => void;
 };
 
 export interface ImagePayload {
@@ -85,7 +87,9 @@ const UploadImage = ({
   handlePrevVerificationStep,
   token,
   handleModelApiChange,
-  isEdit
+  isEdit,
+  isReviewEdit,
+  handleEdit
 }: VerificationStepUploadType) => {
   const [loading, setLoading] = useState(false);
 
@@ -223,8 +227,12 @@ const UploadImage = ({
         const response = await VerificationStepService.uploadModelPhotos(payload, token);
 
         if (response.code === 200) {
-          handleNext();
           handleModelApiChange();
+          if (isReviewEdit) {
+            handleEdit(4);
+          } else {
+            handleNext();
+          }
         }
       }
     } catch (error) {
@@ -268,7 +276,7 @@ const UploadImage = ({
                   </UIThemeButton>
                   <StyleButtonV2 id="photos-button" type="submit" variant="contained" loading={loading}>
                     <UINewTypography variant="body">
-                      <FormattedMessage id="NextStep" />
+                      {isReviewEdit ? <FormattedMessage id="SaveAndReview" /> : <FormattedMessage id="Next" />}
                     </UINewTypography>
                     <RiArrowRightLine />
                   </StyleButtonV2>

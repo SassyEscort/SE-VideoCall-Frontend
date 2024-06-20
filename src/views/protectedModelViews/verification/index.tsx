@@ -31,13 +31,13 @@ export type TokenIdType = {
 
 const VerificationContainer = () => {
   const router = useRouter();
-  const [activeStep, setActiveStep] = useState(0);
 
+  const [activeStep, setActiveStep] = useState(0);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
   const [progressValue, setProgressValue] = useState(14.28);
-
   const [isLoading, setIsLoading] = useState(false);
+  const [isReviewEdit, setReviewEdit] = useState(false);
 
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -60,6 +60,7 @@ const VerificationContainer = () => {
   };
 
   const handleEdit = (step: number) => {
+    setReviewEdit(true);
     setActiveStep(step);
   };
 
@@ -227,6 +228,8 @@ const VerificationContainer = () => {
           handleNext={handleNext}
           modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
           handleModelApiChange={handleModelApiChange}
+          isReviewEdit={isReviewEdit}
+          handleEdit={handleEdit}
         />
       )}
       {activeStep === 1 && (
@@ -238,6 +241,8 @@ const VerificationContainer = () => {
           handleNext={handleNext}
           modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
           handlePrev={handlePrev}
+          isReviewEdit={isReviewEdit}
+          handleEdit={handleEdit}
         />
       )}
       {activeStep === 2 && (
@@ -248,6 +253,8 @@ const VerificationContainer = () => {
           handleModelApiChange={handleModelApiChange}
           handleNext={handleNext}
           handlePrevVerificationStep={handlePrev}
+          isReviewEdit={isReviewEdit}
+          handleEdit={handleEdit}
         />
       )}
 

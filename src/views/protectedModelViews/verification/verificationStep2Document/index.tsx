@@ -36,6 +36,8 @@ export type VerificationStepPromiseType = {
   handleDocuPrev: () => void;
   handleModelApiChange: () => void;
   docValues: VerificationStepSecond;
+  isReviewEdit: boolean;
+  handleEdit: (step: number) => void;
 };
 
 export type DocumentUploadPayload = {
@@ -63,7 +65,9 @@ const VerificationStepPromise = ({
   modelDetails,
   handleDocuPrev,
   handleModelApiChange,
-  docValues
+  docValues,
+  isReviewEdit,
+  handleEdit
 }: VerificationStepPromiseType) => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [loading, setLoading] = useState(false);
@@ -118,8 +122,12 @@ const VerificationStepPromise = ({
           };
           const response = await VerificationStepService.uploadModelPhotos(payload, token);
           if (response?.data) {
-            handleNext();
             handleModelApiChange();
+            if (isReviewEdit) {
+              handleEdit(4);
+            } else {
+              handleNext();
+            }
           } else {
             toast.error(response?.message);
           }
@@ -177,12 +185,12 @@ const VerificationStepPromise = ({
                 <UIThemeButton variant="outlined" onClick={handleDocuPrev}>
                   <ArrowBackIcon />
                   <UINewTypography variant="body">
-                    {isSmDown ? <FormattedMessage id="Back" /> : <FormattedMessage id="PreviousStep" />}
+                    <FormattedMessage id="Back" />
                   </UINewTypography>
                 </UIThemeButton>
                 <StyleButtonV2 id="document-id-button" type="submit" variant="contained" loading={loading}>
                   <UINewTypography variant="body">
-                    {isSmDown ? <FormattedMessage id="Next" /> : <FormattedMessage id="NextStep" />}
+                    {isReviewEdit ? <FormattedMessage id="SaveAndReview" /> : <FormattedMessage id="Next" />}
                   </UINewTypography>
                   <ArrowForwardOutlinedIcon />
                 </StyleButtonV2>
