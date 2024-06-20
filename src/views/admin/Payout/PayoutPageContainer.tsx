@@ -144,14 +144,8 @@ export default function PayoutPageContainer() {
     },
     [filters, handleChangeFilter]
   );
-  const handleApproveClick = async () => {
-    await payoutDetailsService.payoutAction(token.token, Number(selectedPayoutData?.id), false);
-    handleRefetch();
-    handleCloseMenu();
-  };
-
-  const handleRejectClick = async () => {
-    await payoutDetailsService.payoutAction(token.token, Number(selectedPayoutData?.id), true);
+  const handelStatus = async (value: boolean) => {
+    await payoutDetailsService.payoutAction(token.token, Number(selectedPayoutData?.id), value);
     handleRefetch();
     handleCloseMenu();
   };
@@ -287,11 +281,11 @@ export default function PayoutPageContainer() {
         </MenuItem>
         {selectedPayoutData?.state === PAYOUT_ACTION.PENDING && (
           <>
-            <MenuItem onClick={handleApproveClick}>
+            <MenuItem onClick={() => handelStatus(false)}>
               <CheckIcon sx={{ mr: 2, color: 'success.main' }} />
               Approve
             </MenuItem>
-            <MenuItem onClick={handleRejectClick}>
+            <MenuItem onClick={() => handelStatus(true)}>
               <CloseIcon sx={{ mr: 2, color: 'error.main' }} />
               Reject
             </MenuItem>
