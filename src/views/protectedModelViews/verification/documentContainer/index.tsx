@@ -11,6 +11,8 @@ export type VerificationStepPromiseType = {
   token: TokenIdType;
   handleModelApiChange: () => void;
   handleNextDocment: () => void;
+  isReviewEdit: boolean;
+  handleEdit: (step: number) => void;
 };
 
 const DocumentMainContainer = ({
@@ -20,7 +22,9 @@ const DocumentMainContainer = ({
   token,
   modelDetails,
   handleModelApiChange,
-  handleNextDocment
+  handleNextDocment,
+  isReviewEdit,
+  handleEdit
 }: VerificationStepPromiseType) => {
   const [open, setOpen] = useState(false);
   const [stepData, setStepData] = useState(0);
@@ -49,6 +53,8 @@ const DocumentMainContainer = ({
         handlePrev={handlePrev}
         handleChaneDocuModal={handleChaneDocuModal}
         modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
+        isReviewEdit={isReviewEdit}
+        handleEdit={handleEdit}
       />
     </>
   );
