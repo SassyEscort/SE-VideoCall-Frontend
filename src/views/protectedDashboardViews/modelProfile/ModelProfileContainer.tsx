@@ -50,7 +50,7 @@ const ModelProfileContainer = ({
       <Box display="flex" width="100%">
         <Box sx={{ display: 'flex' }}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '55px' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '62px' }}>
               <UINewTypography variant="h5" color="text.secondary" ml="24px" mt={3.93}>
                 <FormattedMessage id="MyProfile" />
               </UINewTypography>
@@ -83,6 +83,7 @@ const ModelProfileContainer = ({
               token={token}
               handleModelApiChange={handleModelApiChange}
               handleNext={handleSave}
+              isReviewEdit={false}
             />
           ) : menuId === 1 ? (
             <VerificationStepOne
@@ -91,6 +92,7 @@ const ModelProfileContainer = ({
               token={token}
               handleNext={handleSaveDetails}
               handleModelApiChange={handleModelApiChange}
+              isReviewEdit={false}
             />
           ) : (
             <DashboardPriceView token={token} modelDetails={modelDetails} handleModelApiChange={handleModelApiChange} isEdit={true} />

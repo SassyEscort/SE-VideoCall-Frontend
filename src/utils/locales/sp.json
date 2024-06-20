@@ -316,5 +316,11 @@
   "CreditsMin": "créditos/min",
   "Creditsadded": "Créditos agregados",
   "NewCredits": "Nuevos créditos agregados",
-  "NewBalance": "Nuevo equilibrio:"
+  "NewBalance": "Nuevo equilibrio:",
+  "EarningsOverview": "Resumen de Ganancias",
+  "TotalEarnings": "Ganancias Totales",
+  "WithdrawnAmount": "Cantidad Retirada",
+  "Availability": "Disponibilidad",
+  "NotAvailable": "No Disponible",
+  "SaveAndReview": "Guardar y revisar"
 }

@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import Tabs from '@mui/material/Tabs';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Divider from '@mui/material/Divider';
 import {
   CommonMenuBox,
@@ -69,7 +69,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
     userToken();
   }, []);
 
-  useEffect(() => {
+  const handleModelApiChange = useCallback(() => {
     const modelDetails = async () => {
       const modelData = await ModelDetailsService.getModelDetails(token.token);
       setModelDetails(modelData.data);
@@ -77,15 +77,20 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
     if (token.token) {
       modelDetails();
     }
+  }, [token.token]);
+  useEffect(() => {
+    handleModelApiChange();
   }, [token.id, token.token]);
 
   return (
     <Box component="nav" sx={{ flexShrink: { lg: 0 }, position: 'relative' }}>
       {isMdDown && <DullCirclesNav />}
 
-      {!isMdDown && <SideMenu modelDetails={modelDetails ?? ({} as ModelDetailsResponse)} />}
+      {!isMdDown && (
+        <SideMenu modelDetails={modelDetails ?? ({} as ModelDetailsResponse)} handleModelApiChange={handleModelApiChange} token={token} />
+      )}
 
-      {!isMdDown && <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: 3 }} />}
+      {!isMdDown && <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: 4 }} />}
 
       <Drawer
         variant={isMdUp ? 'permanent' : 'temporary'}

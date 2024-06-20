@@ -41,9 +41,11 @@ const PayoutMobileSidebar = ({ token, modelDetails }: { token: TokenIdType; mode
         limit: 5,
         offset: 0
       };
-      const data = await PayoutService.bankDetailsList(token.token, BankListObject);
-      if (data) {
-        setBankDetailsList(data);
+      if (token.token) {
+        const data = await PayoutService.bankDetailsList(token.token, BankListObject);
+        if (data) {
+          setBankDetailsList(data);
+        }
       }
     } catch (error) {
       toast.error(ErrorMessage);
