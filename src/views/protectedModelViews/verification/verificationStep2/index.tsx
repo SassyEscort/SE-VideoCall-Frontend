@@ -1,5 +1,5 @@
 'use client';
-import { Box, FormHelperText, MenuItem, useMediaQuery } from '@mui/material';
+import { Box, FormHelperText, MenuItem } from '@mui/material';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { useEffect, useMemo } from 'react';
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
@@ -9,7 +9,6 @@ import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import theme from 'themes/theme';
 import {
   BackButtonBox,
   ButtonBox,
@@ -56,7 +55,9 @@ const VerificationStep2 = ({
   activeStep,
   handleNextDocment,
   handleDocuPrev,
-  open
+  open,
+  isReviewEdit,
+  handleEdit
 }: {
   token: TokenIdType;
   handleNext: () => void;
@@ -69,9 +70,9 @@ const VerificationStep2 = ({
   handleNextDocment: () => void;
   handleDocuPrev: () => void;
   open: boolean;
+  isReviewEdit: boolean;
+  handleEdit: (step: number) => void;
 }) => {
-  const isSm = useMediaQuery(theme.breakpoints.down('sm'));
-
   const modelDocuments = useMemo(() => {
     if (modelDetails?.documents?.length) return modelDetails.documents[0];
     else return {} as DocumentDataPhoto;
@@ -208,7 +209,7 @@ const VerificationStep2 = ({
               <UploaddocumentsButtonBox>
                 <StyleButtonV2 variant="contained" type="submit">
                   <VerificationButtonText variant="buttonLargeBold" color="primary.200">
-                    {isSm ? <FormattedMessage id="Next" /> : <FormattedMessage id="UploadDocuments" />}
+                    <FormattedMessage id="Next" />
                   </VerificationButtonText>
                   <ArrowForwardOutlinedIcon />
                 </StyleButtonV2>
@@ -226,6 +227,8 @@ const VerificationStep2 = ({
           handlePrev={handlePrev}
           handleDocuPrev={handleDocuPrev}
           handleModelApiChange={handleModelApiChange}
+          isReviewEdit={isReviewEdit}
+          handleEdit={handleEdit}
         />
       )}
     </>

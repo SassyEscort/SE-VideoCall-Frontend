@@ -35,23 +35,29 @@ export class VerificationStepService {
 
   static imageKitUplaodApi = async (fileData: CustomFile): Promise<ImageUploadPayload | string> => {
     try {
-      const getToken = await this.imageKitAuthApi();
-      const body: ImageUplaodBody = {
-        file: fileData,
-        publicKey: imageKitObj.publicKey,
-        signature: getToken.signature,
-        expire: getToken.expire,
-        token: getToken.token,
-        fileName: Date.now().toString() + fileData.name,
-        folder: imageKitObj.folder
-      };
+      let imageRes;
+      if (typeof fileData !== 'string') {
+        const getToken = await this.imageKitAuthApi();
+        const body: ImageUplaodBody = {
+          file: fileData,
+          publicKey: imageKitObj.publicKey,
+          signature: getToken.signature,
+          expire: getToken.expire,
+          token: getToken.token,
+          fileName: Date.now().toString() + fileData.name,
+          folder: imageKitObj.folder
+        };
 
-      const response = await axios.post(imageKitObj.uploadApi, body, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
+        const response = await axios.post(imageKitObj.uploadApi, body, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        imageRes = response.data.url;
+      } else {
+        imageRes = fileData;
+      }
 
       return {
-        photosURL: response.data.url
+        photosURL: imageRes
       } as unknown as PhotoUpload;
     } catch (error) {
       toast.error(ErrorMessage);
