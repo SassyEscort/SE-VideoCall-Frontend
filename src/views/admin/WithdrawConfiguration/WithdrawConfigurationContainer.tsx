@@ -70,7 +70,7 @@ export default function WithdrawConfigurationContainer() {
     <>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
         <Typography variant="h4" gutterBottom>
-          Model Amount Configuration
+          Model minimum amount configuration
         </Typography>
       </Stack>
 

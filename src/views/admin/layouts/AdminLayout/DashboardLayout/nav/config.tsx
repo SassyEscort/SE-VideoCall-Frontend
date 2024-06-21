@@ -22,7 +22,7 @@ export const getNavConfig = (id?: number) => {
     },
     {
       title: 'Call Price',
-      path: '/admin/model-commission',
+      path: '/admin/call-price',
       icon: <PaidIcon />
     }
   ];

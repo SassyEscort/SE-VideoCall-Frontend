@@ -74,7 +74,7 @@ export default function ModelVideoCallContainer() {
     <>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
         <Typography variant="h4" gutterBottom>
-          Model video call price Configuration
+          Model minimum video call price configuration
         </Typography>
       </Stack>
 
