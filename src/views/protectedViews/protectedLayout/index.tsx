@@ -44,7 +44,7 @@ const MainLayoutNav = (props: MainLayoutType) => {
             <Nav openNav={open} onCloseNav={() => setOpen(true)} />
             <Main>
               {isMdUp && <ProtectedLayoutMainContainer />}
-              <Box px={{ md: 2 }} paddingTop={{ md: 3.875 }}>
+              <Box paddingTop={{ md: 3.875 }}>
                 <>{props.children}</>
               </Box>
             </Main>
