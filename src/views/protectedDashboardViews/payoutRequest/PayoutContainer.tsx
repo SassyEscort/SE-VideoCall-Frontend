@@ -23,9 +23,7 @@ import {
   Showtracking,
   ShowtrackingBox,
   Pendingconatiner,
-  Pending,
-  TextDetail,
-  PendingSecond
+  TextDetail
 } from './PayoutRequest';
 import PayoutWidthDraw from '../payoutWithDraw';
 import { BankDetailsListRes, ModelPastPayoutDetailRes } from 'services/payout/types';
@@ -35,6 +33,7 @@ import theme from 'themes/theme';
 import { PayoutService } from 'services/payout/payout.service';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
+import { StatusBox } from './statusDetails';
 
 const PayoutContainer = ({
   bankDetailsList,
@@ -49,7 +48,6 @@ const PayoutContainer = ({
 }) => {
   const [open, setIsOpen] = useState(false);
   const [payoutStep, setPayoutStep] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
   const [modelPayoutList, setModelPayoutList] = useState<ModelPastPayoutDetailRes>();
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const openDailog = () => {
@@ -58,8 +56,6 @@ const PayoutContainer = ({
     }
     setIsOpen(true);
   };
-  // console.log(bankDetailsList, 'bankDetailsList');
-  // console.log(modelDetails, 'modelDetails');
 
   const closeDailog = () => {
     setIsOpen(false);
@@ -76,20 +72,15 @@ const PayoutContainer = ({
           offset: 0
         };
         if (token.token) {
-          setIsLoading(true);
           const data = await PayoutService.modelPastPayoutList(ModelPayoutListObject, token.token);
           if (data) {
             setModelPayoutList(data);
-          }
-          if (data.code === 200) {
-            setIsLoading(false);
           }
         }
       } catch (error) {
         toast.error(ErrorMessage);
       }
     };
-    console.log(modelPayoutList, 'modelPayoutList');
 
     fetchModelPayout();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -145,7 +136,6 @@ const PayoutContainer = ({
                         </ImageBox>
                         <Showtracking>
                           <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                            {/* <FormattedMessage id="ToSiliconValleyBank" /> */}
                             {item.bank_name}
                           </UINewTypography>
                           <ShowtrackingBox>
@@ -160,9 +150,31 @@ const PayoutContainer = ({
                         <UINewTypography variant="body" color="text.secondary">
                           - {item.amount}
                         </UINewTypography>
-                        <PendingSecond variant="captionLarge">
+                        {/* <PendingSecond variant="captionLarge">
                           <FormattedMessage id="Completed" />
-                        </PendingSecond>
+                        </PendingSecond> */}
+                        <StatusBox status={item.state}>
+                          <UINewTypography
+                            variant="captionLarge"
+                            color={
+                              item.state === 'Pending'
+                                ? '#FFE500'
+                                : item.state === 'Approved'
+                                  ? '#79E028'
+                                  : item.state === 'Rejected'
+                                    ? '#FF5959'
+                                    : '#FFF'
+                            }
+                          >
+                            {item.state === 'Pending'
+                              ? 'Pending'
+                              : item.state === 'Approved'
+                                ? 'Completed'
+                                : item.state === 'Rejected'
+                                  ? 'Cancelled'
+                                  : '-'}
+                          </UINewTypography>
+                        </StatusBox>
                       </Pendingconatiner>
                     </FirstToSiliconValleyBankMainConatiner>
 

@@ -85,7 +85,7 @@ const PurchaseInvoiceTableBodyV2 = ({ modelPayoutList }: { modelPayoutList: Mode
                   : item.state === 'Approved'
                     ? 'Completed'
                     : item.state === 'Rejected'
-                      ? 'Cancel'
+                      ? 'Cancelled'
                       : '-'}
               </UINewTypography>
             </StatusBox>
