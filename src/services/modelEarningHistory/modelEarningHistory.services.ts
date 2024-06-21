@@ -7,7 +7,7 @@ export class ModelEarningHistoryService {
     try {
       const res = await axios.get(
         process.env.NEXT_PUBLIC_API_BASE_URL +
-          `/v1/model/ledger?category=${params.category}&details=${params.details}&limit=${params.limit}&offset=${params.offset}`,
+          `/v1/catalog/ledger?category=${params.category}&details=${params.details}&limit=${params.limit}&offset=${params.offset}`,
         {
           headers: { 'Content-Type': 'application/json', Authorization: token }
         }
