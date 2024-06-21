@@ -21,7 +21,7 @@ const HomeImageCard = ({
 }: {
   modelListing: ModelHomeListing[] | ModelFavRes[];
   isFavPage: boolean;
-  token: TokenIdType;
+  token?: TokenIdType;
 }) => {
   const [favModelId, setFavModelId] = useState(0);
   const [open, setIsOpen] = useState(false);
@@ -88,7 +88,7 @@ const HomeImageCard = ({
                   <WorkerCard
                     modelDetails={item}
                     isFavPage={isFavPage}
-                    token={token}
+                    token={token ?? ({} as TokenIdType)}
                     handleLoginLiked={handleLoginLiked}
                     handleLoginOpen={handleLoginOpen}
                     handleLike={handleLike}
@@ -108,7 +108,7 @@ const HomeImageCard = ({
                     <WorkerCard
                       modelDetails={item}
                       isFavPage={isFavPage}
-                      token={token}
+                      token={token ?? ({} as TokenIdType)}
                       handleLoginLiked={handleLoginLiked}
                       handleLoginOpen={handleLoginOpen}
                       handleLike={handleLike}
