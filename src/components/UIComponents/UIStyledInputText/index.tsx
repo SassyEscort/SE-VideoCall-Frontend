@@ -2,19 +2,21 @@ import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 
 export const UIStyledInputText = styled(TextField)(({ theme }) => ({
-  '& .MuiOutlinedInput-root': {
-    '&:hover .MuiOutlinedInput-notchedOutline': {
+  '&:hover': {
+    '& .MuiOutlinedInput-notchedOutline': {
       borderColor: theme.palette.primary[800]
-    },
-    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      borderColor: theme.palette.primary.main
     }
   },
+  '&.MuiFormControl-root': { border: 'none' },
   '& .MuiOutlinedInput-notchedOutline': {
-    borderColor: theme.palette.primary[700],
-    '&:hover': {
-      borderColor: theme.palette.primary[800]
-    }
+    ':after': {
+      borderBottom: 'none'
+    },
+    ':before': {
+      borderBottom: 'none'
+    },
+    border: '2px solid',
+    borderColor: theme.palette.primary[700]
   },
   '& .MuiInputBase-root': {
     borderRadius: theme.spacing(1),
@@ -23,6 +25,14 @@ export const UIStyledInputText = styled(TextField)(({ theme }) => ({
     padding: '12px 16px ',
     '& .MuiOutlinedInput-input': {
       padding: 0
+    }
+  },
+  '&.MuiInput-underline': {
+    ':after': {
+      borderBottom: 'none'
+    },
+    ':before': {
+      borderBottom: 'none'
     }
   },
   '& label': {
