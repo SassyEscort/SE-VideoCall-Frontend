@@ -34,6 +34,7 @@ import { PayoutService } from 'services/payout/payout.service';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { StatusBox } from './statusDetails';
+import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 
 const PayoutContainer = ({
   bankDetailsList,
@@ -150,9 +151,6 @@ const PayoutContainer = ({
                         <UINewTypography variant="body" color="text.secondary">
                           - {item.amount}
                         </UINewTypography>
-                        {/* <PendingSecond variant="captionLarge">
-                          <FormattedMessage id="Completed" />
-                        </PendingSecond> */}
                         <StatusBox status={item.state}>
                           <UINewTypography
                             variant="captionLarge"
@@ -183,6 +181,9 @@ const PayoutContainer = ({
                 ))}
               </SecondRecentWithdrawlsMainContainer>
             </RecentWithdrawlsMainContainer>
+            <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+              <UITheme2Pagination />
+            </Box>
           </SecondMainContainer>
         </>
       )}
