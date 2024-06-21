@@ -1,7 +1,7 @@
 'use client';
 import { Box, Divider, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import { FormattedMessage } from 'react-intl';
 import {
@@ -23,15 +23,18 @@ import {
   Showtracking,
   ShowtrackingBox,
   Pendingconatiner,
-  Pending,
-  TextDetail,
-  PendingSecond
+  TextDetail
 } from './PayoutRequest';
 import PayoutWidthDraw from '../payoutWithDraw';
-import { BankDetailsListRes } from 'services/payout/types';
+import { BankDetailsListRes, ModelPastPayoutDetailRes } from 'services/payout/types';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import theme from 'themes/theme';
+import { PayoutService } from 'services/payout/payout.service';
+import { toast } from 'react-toastify';
+import { ErrorMessage } from 'constants/common.constants';
+import { StatusBox } from './statusDetails';
+import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 
 const PayoutContainer = ({
   bankDetailsList,
@@ -46,9 +49,8 @@ const PayoutContainer = ({
 }) => {
   const [open, setIsOpen] = useState(false);
   const [payoutStep, setPayoutStep] = useState(0);
-
+  const [modelPayoutList, setModelPayoutList] = useState<ModelPastPayoutDetailRes>();
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-
   const openDailog = () => {
     if (!isSmUp) {
       setPayoutStep(1);
@@ -63,6 +65,27 @@ const PayoutContainer = ({
   const handlePayoutStep = () => {
     setPayoutStep((prev) => prev + 1);
   };
+  useEffect(() => {
+    const fetchModelPayout = async () => {
+      try {
+        const ModelPayoutListObject = {
+          limit: 5,
+          offset: 0
+        };
+        if (token.token) {
+          const data = await PayoutService.modelPastPayoutList(ModelPayoutListObject, token.token);
+          if (data) {
+            setModelPayoutList(data);
+          }
+        }
+      } catch (error) {
+        toast.error(ErrorMessage);
+      }
+    };
+
+    fetchModelPayout();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token.token, token.id]);
 
   return (
     <MainConatiner>
@@ -105,66 +128,62 @@ const PayoutContainer = ({
                     <FormattedMessage id="RecentWithdrawls" />
                   </UINewTypography>
                 </Withdrawls>
-                <ToSiliconValleyBankMainConatiner>
-                  <FirstToSiliconValleyBankMainConatiner>
-                    <FirstToSiliconValleyBank>
-                      <ImageBox>
-                        <Box component={'img'} src="/images/payout/home.png" />
-                      </ImageBox>
-                      <Showtracking>
-                        <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                          <FormattedMessage id="ToSiliconValleyBank" />
-                        </UINewTypography>
-                        <ShowtrackingBox>
-                          <UINewTypography variant="captionLarge" color="text.primary">
-                            <FormattedMessage id="ShowTracking" />
+                {modelPayoutList?.data?.payout_details.map((item) => (
+                  <ToSiliconValleyBankMainConatiner key={item.id}>
+                    <FirstToSiliconValleyBankMainConatiner>
+                      <FirstToSiliconValleyBank>
+                        <ImageBox>
+                          <Box component={'img'} src="/images/payout/home.png" />
+                        </ImageBox>
+                        <Showtracking>
+                          <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+                            {item.bank_name}
                           </UINewTypography>
-                          <KeyboardArrowDownOutlinedIcon />
-                        </ShowtrackingBox>
-                      </Showtracking>
-                    </FirstToSiliconValleyBank>
-                    <Pendingconatiner>
-                      <UINewTypography variant="body" color="text.secondary">
-                        - $12,000
-                      </UINewTypography>
-                      <Pending variant="captionLarge">Pending</Pending>
-                    </Pendingconatiner>
-                  </FirstToSiliconValleyBankMainConatiner>
-
-                  <Divider sx={{ border: '1px solid primary.700 ' }} />
-                </ToSiliconValleyBankMainConatiner>
-                <ToSiliconValleyBankMainConatiner>
-                  <FirstToSiliconValleyBankMainConatiner>
-                    <FirstToSiliconValleyBank>
-                      <ImageBox>
-                        <Box component={'img'} src="/images/payout/home.png" />
-                      </ImageBox>
-                      <Showtracking>
-                        <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                          <FormattedMessage id="ToSiliconValleyBank" />
+                          <ShowtrackingBox>
+                            <UINewTypography variant="captionLarge" color="text.primary">
+                              <FormattedMessage id="ShowTracking" />
+                            </UINewTypography>
+                            <KeyboardArrowDownOutlinedIcon />
+                          </ShowtrackingBox>
+                        </Showtracking>
+                      </FirstToSiliconValleyBank>
+                      <Pendingconatiner>
+                        <UINewTypography variant="body" color="text.secondary">
+                          - {item.amount}
                         </UINewTypography>
-                        <ShowtrackingBox>
-                          <UINewTypography variant="captionLarge" color="text.primary">
-                            <FormattedMessage id="ShowTracking" />
+                        <StatusBox status={item.state}>
+                          <UINewTypography
+                            variant="captionLarge"
+                            color={
+                              item.state === 'Pending'
+                                ? '#FFE500'
+                                : item.state === 'Approved'
+                                  ? '#79E028'
+                                  : item.state === 'Rejected'
+                                    ? '#FF5959'
+                                    : '#FFF'
+                            }
+                          >
+                            {item.state === 'Pending'
+                              ? 'Pending'
+                              : item.state === 'Approved'
+                                ? 'Completed'
+                                : item.state === 'Rejected'
+                                  ? 'Cancelled'
+                                  : '-'}
                           </UINewTypography>
-                          <KeyboardArrowDownOutlinedIcon />
-                        </ShowtrackingBox>
-                      </Showtracking>
-                    </FirstToSiliconValleyBank>
-                    <Pendingconatiner>
-                      <UINewTypography variant="body" color="text.secondary">
-                        - $12,000
-                      </UINewTypography>
-                      <PendingSecond variant="captionLarge">
-                        <FormattedMessage id="Completed" />
-                      </PendingSecond>
-                    </Pendingconatiner>
-                  </FirstToSiliconValleyBankMainConatiner>
+                        </StatusBox>
+                      </Pendingconatiner>
+                    </FirstToSiliconValleyBankMainConatiner>
 
-                  <Divider sx={{ border: '1px solid #232027 ' }} />
-                </ToSiliconValleyBankMainConatiner>
+                    <Divider sx={{ border: '1px solid #232027 ' }} />
+                  </ToSiliconValleyBankMainConatiner>
+                ))}
               </SecondRecentWithdrawlsMainContainer>
             </RecentWithdrawlsMainContainer>
+            <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+              <UITheme2Pagination />
+            </Box>
           </SecondMainContainer>
         </>
       )}
