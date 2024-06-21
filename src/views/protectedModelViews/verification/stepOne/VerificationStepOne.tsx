@@ -48,6 +48,7 @@ export type VerificationBasicDetailsType = {
   ) => Promise<void | FormikErrors<VerificationStep1Type>>;
   token: TokenIdType;
   isEdit: boolean;
+  isModelVerified: boolean;
 };
 
 export type MultipleOptionString = {
@@ -72,7 +73,8 @@ const VerificationBasicDetails = ({
   setFieldValue,
   handleBlur,
   token,
-  isEdit
+  isEdit,
+  isModelVerified
 }: VerificationBasicDetailsType) => {
   const maxCharCount = 1000;
   const filter = createFilterOptions<MultipleOptionString>();
@@ -455,6 +457,7 @@ const VerificationBasicDetails = ({
               onChange={(date) => {
                 setFieldValue('dob', date ? moment(date).format('YYYY-MM-DD') : null);
               }}
+              disabled={isModelVerified}
               maxDate={moment().subtract(18, 'years')}
               slots={{ openPickerIcon: RiCalendar2Line }}
               slotProps={{
