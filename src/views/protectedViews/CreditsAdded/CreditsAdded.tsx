@@ -18,13 +18,10 @@ import {
   ExploreButtonContainer,
   NewUIIconButton
 } from './CreditsAddded.styled';
-import { useSearchParams } from 'next/navigation';
+
 import { FormattedMessage } from 'react-intl';
 import Link from 'next/link';
-function CreditsAdded({ onClose }: { onClose: () => void }) {
-  const searchParams = useSearchParams();
-  const credit = searchParams.get('credit');
-  const balance = searchParams.get('balance');
+function CreditsAdded({ onClose, addedCredits, newBalance }: { onClose: () => void; addedCredits: number; newBalance: number }) {
   return (
     <CreditsAddedMainBox>
       <HeadingContainer>
@@ -44,7 +41,7 @@ function CreditsAdded({ onClose }: { onClose: () => void }) {
         </ImageContainer>
         <AddedCreditsContainer>
           <UINewTypographyNew>
-            {credit} <FormattedMessage id="NewCredits" />
+            {addedCredits} <FormattedMessage id="NewCredits" />
           </UINewTypographyNew>
         </AddedCreditsContainer>
         <NewBalanceDetailsConatainer>
@@ -54,7 +51,7 @@ function CreditsAdded({ onClose }: { onClose: () => void }) {
           <NewBalanceDetails>
             <Image alt="home_model" width={24} height={24} src="/images/workercards/dollar-img.png" />
             <UINewTypography sx={{ pl: '8px' }}>
-              {balance} <FormattedMessage id="Credits" />
+              {newBalance} <FormattedMessage id="Credits" />
             </UINewTypography>
           </NewBalanceDetails>
         </NewBalanceDetailsConatainer>
