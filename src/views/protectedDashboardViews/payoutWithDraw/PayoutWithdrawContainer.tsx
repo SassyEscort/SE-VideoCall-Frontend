@@ -60,7 +60,6 @@ const PayoutWithdrawContainer = ({
   handlePayoutStep?: () => void;
   amountSave: number;
 }) => {
-  console.log(amountSave, 'amountSave');
   const [open, setOpenModel] = useState(false);
   const [selectBank, setSelectBank] = useState<string | null>(null);
   const [selectedBankId, setSelectedBankId] = useState<number | null>(null);
@@ -144,7 +143,6 @@ const PayoutWithdrawContainer = ({
                 if (handlePayoutStep) {
                   handlePayoutStep();
                 }
-                toast.success('Success');
                 setOpenSubmitModel(true);
               } else {
                 toast.error(data?.message);
