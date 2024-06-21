@@ -14,20 +14,17 @@ const HomeImageCard = ({ modelListing, isFavPage }: { modelListing: ModelHomeLis
       <WorkerCardMainBox>
         <Grid container spacing={{ xs: '13px', md: '15px' }} rowGap={{ xs: 0.875, lg: 2.125 }}>
           {modelListing.map((item, index) => (
-            <Grid item key={index} xs={6} sm={4} md={3} lg={3}>
-              <Box display="flex" gap={2} flexDirection="column">
-                <Box
-                  component={Link}
-                  prefetch={true}
-                  shallow={true}
-                  href={`/details/${item.user_name}`}
-                  sx={{
-                    textDecoration: 'none',
-                    height: '100%'
-                  }}
-                >
-                  <WorkerCard modelDetails={item} isFavPage={isFavPage} />
-                </Box>
+            <Grid item key={index} xs={6} sm={4} md={isFavPage ? 4 : 3} lg={isFavPage ? 4 : 3}>
+              <Box
+                component={Link}
+                prefetch={true}
+                shallow={true}
+                href={`/details/${item.user_name}`}
+                sx={{
+                  textDecoration: 'none'
+                }}
+              >
+                <WorkerCard modelDetails={item} isFavPage={isFavPage} />
               </Box>
             </Grid>
           ))}
