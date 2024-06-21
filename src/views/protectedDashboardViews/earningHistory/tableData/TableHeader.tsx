@@ -8,7 +8,7 @@ export const DirectPurchaseTableHeader = [
   { id: 2, label: 'Duration' },
   { id: 3, label: 'Credits' },
   { id: 4, label: 'Data' },
-  { id: 5, label: 'Amountearned' }
+  { id: 5, label: 'Amount earned' }
 ];
 
 const InvoiceTableHeader = () => {

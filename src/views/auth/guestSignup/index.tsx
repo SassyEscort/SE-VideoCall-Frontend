@@ -84,7 +84,6 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
           setLoading(true);
           const data = await GuestAuthService.guestSignup(values);
           if (data.code === 200) {
-            toast.success('Success');
             setActiveStep(1);
             const loginResponse = await signIn('providerGuest', {
               redirect: false,

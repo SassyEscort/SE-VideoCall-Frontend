@@ -38,7 +38,6 @@ const SideMenu = ({
       if (token.token) {
         const data = await PayoutService.markOnline(token.token);
         if (data.code === 200) {
-          toast.success('success');
           handleModelApiChange();
         } else {
           toast.error(ErrorMessage);
