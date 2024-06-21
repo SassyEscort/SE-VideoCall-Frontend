@@ -159,7 +159,8 @@ export const PayoutDetailSecondBox = styled(Box)(({ theme }) => ({
     paddingLeft: theme.spacing(3),
     paddingBottom: theme.spacing(3),
     gap: theme.spacing(6)
-  }
+  },
+  cursor: 'pointer'
 }));
 
 export const PayoutDetailThreeBox = styled(Box)(({ theme }) => ({
