@@ -4,7 +4,7 @@ import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Box from '@mui/material/Box';
-import { StatusBox } from './statusDetails';
+import { NewStatusBox } from './statusDetails';
 import { FormattedMessage } from 'react-intl';
 import InvoiceModalV2 from '../InvoicePage/InvoiceModalV2';
 import moment from 'moment';
@@ -67,7 +67,7 @@ const PurchaseInvoiceTableBodyV2 = ({ modelPayoutList }: { modelPayoutList: Mode
             <UINewTypography variant="bodyRegular">{moment(item.created_at).format('DD MMMM YYYY')}</UINewTypography>
           </TableCell>
           <TableCell>
-            <StatusBox status={item.state}>
+            <NewStatusBox status={item.state}>
               <UINewTypography
                 variant="captionLarge"
                 color={
@@ -88,7 +88,7 @@ const PurchaseInvoiceTableBodyV2 = ({ modelPayoutList }: { modelPayoutList: Mode
                       ? 'Cancelled'
                       : '-'}
               </UINewTypography>
-            </StatusBox>
+            </NewStatusBox>
           </TableCell>
           <TableCell>
             <Button onClick={() => handleOpenModal(item)}>

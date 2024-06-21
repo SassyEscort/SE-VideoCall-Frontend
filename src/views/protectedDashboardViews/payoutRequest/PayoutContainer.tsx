@@ -34,8 +34,8 @@ import { ModelDetailsService } from 'services/modelDetails/modelDetails.services
 import { toast } from 'react-toastify';
 import { PayoutService } from 'services/payout/payout.service';
 import { ErrorMessage } from 'constants/common.constants';
-import { StatusBox } from './statusDetails';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
+import { NewStatusBox } from '../payoutsAndInvoicesTable/billingTable/statusDetails';
 
 export type PayoutPaginationType = {
   page: number;
@@ -194,7 +194,7 @@ const PayoutContainer = ({
                         <UINewTypography variant="body" color="text.secondary">
                           - ${item.amount}
                         </UINewTypography>
-                        <StatusBox status={item.state}>
+                        <NewStatusBox status={item.state}>
                           <UINewTypography
                             variant="captionLarge"
                             color={
@@ -215,7 +215,7 @@ const PayoutContainer = ({
                                   ? 'Cancelled'
                                   : '-'}
                           </UINewTypography>
-                        </StatusBox>
+                        </NewStatusBox>
                       </Pendingconatiner>
                     </FirstToSiliconValleyBankMainConatiner>
 
