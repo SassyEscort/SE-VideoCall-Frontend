@@ -57,12 +57,7 @@ const HeaderAuthComponent = () => {
 
     userToken();
   }, []);
-  const getCustomerCredit = async () => {
-    if (token.token) {
-      const getModel = await ModelDetailsService.getModelWithDraw(token.token);
-      setBalance(getModel?.data?.credits);
-    }
-  };
+
   useEffect(() => {
     const customerDetails = async () => {
       const customerData = await CustomerDetailsService.customerModelDetails(token.token);
@@ -70,6 +65,18 @@ const HeaderAuthComponent = () => {
     };
     if (token.token) {
       customerDetails();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token.id, token.token]);
+
+  useEffect(() => {
+    const getCustomerCredit = async () => {
+      if (token.token) {
+        const getModel = await ModelDetailsService.getModelWithDraw(token.token);
+        setBalance(getModel?.data?.credits);
+      }
+    };
+    if (token.token) {
       getCustomerCredit();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
