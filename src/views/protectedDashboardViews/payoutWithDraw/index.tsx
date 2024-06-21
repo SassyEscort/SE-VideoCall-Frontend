@@ -17,7 +17,8 @@ const PayoutWidthDraw = ({
   token,
   fetchBankDetails,
   handlePayoutStep,
-  payoutStep
+  payoutStep,
+  amountSave
 }: {
   open: boolean;
   onClose: () => void;
@@ -26,6 +27,7 @@ const PayoutWidthDraw = ({
   fetchBankDetails: () => void;
   handlePayoutStep: () => void;
   payoutStep: number;
+  amountSave: number;
 }) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -48,7 +50,12 @@ const PayoutWidthDraw = ({
               <CloseIcon />
             </IconButton>
           </DialogTitleBox>
-          <PayoutWithdrawContainer bankDetailsList={bankDetailsList} token={token} fetchBankDetails={fetchBankDetails} />
+          <PayoutWithdrawContainer
+            bankDetailsList={bankDetailsList}
+            token={token}
+            fetchBankDetails={fetchBankDetails}
+            amountSave={amountSave}
+          />
         </DialogContentMain>
       ) : (
         (payoutStep === 1 || payoutStep === 2 || !isSm) && (
@@ -59,6 +66,7 @@ const PayoutWidthDraw = ({
             payoutStep={payoutStep}
             isSm={isSm}
             handlePayoutStep={handlePayoutStep}
+            amountSave={amountSave}
           />
         )
       )}
