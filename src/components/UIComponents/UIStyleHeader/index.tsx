@@ -53,7 +53,7 @@ const ProfileMenu = ({
           <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
           <MenuItem component={Link} prefetch={false} shallow={true} href="/model">
             <ListItemIcon>
-              <Box component="img" src="/images/icons/register-model-img.png" sx={{ width: '24px', height: '24px' }} />
+              <Box component="img" src="/images/header/register-model-img.png" sx={{ width: '24px', height: '24px' }} />
             </ListItemIcon>
             <ListItemText>
               <Typography variant="bodyLight" color="text.secondary">
