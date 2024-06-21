@@ -7,15 +7,18 @@ import { EarningHistoryPagination } from '../EarningHistory.styled';
 import { ModelEarningHistoryPageDetailsRes } from 'services/modelEarningHistory/typs';
 
 const MainTableLayout = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningHistoryPageDetailsRes }) => {
+  const hasMoreThanTenItems = modelEarningHistory?.data?.length > 10;
   return (
     <TableContainer>
       <Table>
         <InvoiceTableHeader />
         <TableData modelEarningHistory={modelEarningHistory} />
       </Table>
-      <EarningHistoryPagination>
-        <UITheme2Pagination />
-      </EarningHistoryPagination>
+      {hasMoreThanTenItems && (
+        <EarningHistoryPagination>
+          <UITheme2Pagination />
+        </EarningHistoryPagination>
+      )}
     </TableContainer>
   );
 };

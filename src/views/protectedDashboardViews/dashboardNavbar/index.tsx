@@ -141,7 +141,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
                 <CommonMenuBox key={index} sx={{ color: 'text.primary' }}>
                   <Link prefetch={false} href={tab.path} style={{ textDecoration: 'none' }}>
                     <MobileComponentSecBoxContainer>
-                      <Box component="img" src={tab.img} width={20} height="auto" />
+                      <Box component="img" src={tab.img} width={20} height={20} />
                       <MobileTextStyleContainer label={tab.name} />
                     </MobileComponentSecBoxContainer>
                   </Link>

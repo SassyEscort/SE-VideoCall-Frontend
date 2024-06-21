@@ -99,9 +99,11 @@ const BillingHistory = () => {
             ))}
           </BillingHistoryMainContainer>
         </TextAndBoxContainer>
-        <CallHistoryPaginationContainer>
-          <UITheme2Pagination />
-        </CallHistoryPaginationContainer>
+        {guestBillingHistory && guestBillingHistory.length > 10 && (
+          <CallHistoryPaginationContainer>
+            <UITheme2Pagination />
+          </CallHistoryPaginationContainer>
+        )}
       </BillingHistoryBoxContainer>
     </MainLayoutNav>
   );

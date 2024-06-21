@@ -13,6 +13,7 @@ export type ModelEarningHistoryDetails = {
 };
 
 export type ModelEarningHistoryPageDetails = {
+  length: number;
   ledger_details: EarningHistoryDetails[];
   aggreate: ModelEarningHistoryDetails;
 };
