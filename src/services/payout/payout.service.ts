@@ -8,10 +8,10 @@ import {
   BankDetailsEditReponse,
   BankDetailsListRes,
   MarkOnline,
+  ModelPastPayoutDetailParams,
   ModelPastPayoutDetailRes,
   RequestPayoutRep
 } from './types';
-import { ModelPastPayoutDetailParams } from 'views/protectedDashboardViews/payoutsAndInvoicesTable/billingTable/BillingTable';
 import { RequestPayoutParams } from 'views/protectedDashboardViews/payoutWithDraw/PayoutWithdrawContainer';
 
 export class PayoutService {

@@ -5,7 +5,7 @@ interface StatusBoxProps {
   status: string;
 }
 
-export const StatusBox = styled(Box)<StatusBoxProps>(({ status }) => {
+export const NewStatusBox = styled(Box)<StatusBoxProps>(({ status }) => {
   let borderColor, backgroundColor;
 
   switch (status) {
@@ -31,7 +31,7 @@ export const StatusBox = styled(Box)<StatusBoxProps>(({ status }) => {
     borderRadius: '48px',
     display: 'flex',
     alignItems: 'center',
-    width: '100%',
+    minWidth: '87px',
     textAlign: 'center',
     height: '100%',
     minHeight: '25px',
