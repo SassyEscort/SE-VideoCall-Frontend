@@ -31,10 +31,10 @@ export const StatusBox = styled(Box)<StatusBoxProps>(({ status }) => {
     borderRadius: '48px',
     display: 'flex',
     alignItems: 'center',
-    width: '100%',
     textAlign: 'center',
     height: '100%',
     minHeight: '25px',
+    minWidth: '87px',
     border: `1px solid ${borderColor}`,
     backgroundColor: backgroundColor,
     justifyContent: 'center'

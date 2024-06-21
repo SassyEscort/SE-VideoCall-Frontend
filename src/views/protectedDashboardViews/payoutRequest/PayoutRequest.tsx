@@ -126,7 +126,8 @@ export const ShowtrackingBox = styled(Box)(({ theme }) => ({
 export const Pendingconatiner = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(1.25)
+  gap: theme.spacing(1.25),
+  alignItems: 'flex-end'
 }));
 
 export const Pending = styled(UINewTypography)(({ theme }) => ({

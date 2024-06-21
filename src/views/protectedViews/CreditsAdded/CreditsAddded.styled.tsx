@@ -1,18 +1,18 @@
+import { IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
-export const CreditsAddedMainBox = styled(Box)(({ theme }) => ({
+export const CreditsAddedMainBox = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   position: 'relative',
   height: '100%',
   width: '100%',
-  maxHeight: '600px',
-  maxWidth: '896px'
+  overflow: 'hidden'
 }));
 
-export const HeadingContainer = styled(Box)(({ theme }) => ({
+export const HeadingContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   height: '100%',
@@ -20,37 +20,34 @@ export const HeadingContainer = styled(Box)(({ theme }) => ({
   margin: '20px 24px 20px 24px'
 }));
 
-export const CreditsCloseIconContainer = styled(Box)(({ theme }) => ({
+export const CreditsCloseIconContainer = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'flex-end',
   justifyContent: 'flex-end'
 }));
 
-export const CreditsBodyContainer = styled(Box)(({ theme }) => ({
+export const CreditsBodyContainer = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'column'
 }));
 
-export const ImageContainer = styled(Box)(({ theme }) => ({
+export const ImageContainer = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'center',
   height: '226px',
   width: '217px',
   marginTop: '48px'
 }));
-export const AddedCreditsContainer = styled(Box)(({ theme }) => ({
+export const AddedCreditsContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'row',
   marginTop: '32px',
   height: '100%',
-  width: '100%',
-  maxWidth: '253px',
-  maxHeight: '34px',
   justifyContent: 'center'
 }));
 
-export const UINewTypographyNew = styled(UINewTypography)(({ theme }) => ({
+export const UINewTypographyNew = styled(UINewTypography)(() => ({
   height: '100%',
   width: '100%',
   margin: 0,
@@ -58,26 +55,33 @@ export const UINewTypographyNew = styled(UINewTypography)(({ theme }) => ({
   fontWeight: 600,
   lineHeight: '33.6px'
 }));
-export const NewBalanceDetailsConatainer = styled(Box)(({ theme }) => ({
+export const NewBalanceDetailsConatainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'row',
   height: '100%',
-  width: '100%',
   marginTop: '16px',
-  maxWidth: '229px',
-  maxHeight: '24px',
   justifyContent: 'space-around'
 }));
 
-export const NewBalanceDetails = styled(Box)(({ theme }) => ({
+export const NewBalanceDetails = styled(Box)(() => ({
   display: 'flex',
-  flexDirection: 'row'
+  flexDirection: 'row',
+  paddingLeft: '16px'
 }));
 
-export const ExploreButtonContainer = styled(Box)(({ theme }) => ({
+export const ExploreButtonContainer = styled(Box)(() => ({
   display: 'flex',
-  height: '39px',
+  height: '100%',
   marginTop: '56px',
   marginBottom: '56px',
-  width: '176px'
+  width: '100%',
+  justifyContent: 'center'
+}));
+
+export const NewUIIconButton = styled(IconButton)(({ theme }) => ({
+  color: theme.palette.common.white,
+  position: 'absolute',
+  top: '18px',
+  padding: '0',
+  right: '20px'
 }));

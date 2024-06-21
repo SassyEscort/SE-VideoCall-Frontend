@@ -124,7 +124,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
                     <SelectedTab>
                       <Box
                         component="img"
-                        width={20}
+                        width={16}
                         height="auto"
                         src={tab.img}
                         sx={{

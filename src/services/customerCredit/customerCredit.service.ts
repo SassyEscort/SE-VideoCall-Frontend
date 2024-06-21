@@ -13,6 +13,20 @@ export type ModelCreditResponse = {
   data: ModelCreditRes[];
 };
 
+export type ModelCreditURLRes = {
+  created_at: string;
+  customer_plan_id: number;
+  id: number;
+  payment_session_id: string;
+  role: string;
+  url: string;
+  wallet_id: number;
+};
+
+export type ModelCreditURLResponse = {
+  data: ModelCreditURLRes;
+};
+
 export class CustomerCredit {
   static getCustomerCredit = async (token: string): Promise<ModelCreditResponse> => {
     try {
@@ -27,6 +41,25 @@ export class CustomerCredit {
     } catch (err: any) {
       const error: AxiosError = err;
       return error.response?.data as ModelCreditResponse;
+    }
+  };
+
+  static modelCreditAmount = async (token: string, customer_plan_id: number): Promise<ModelCreditURLResponse> => {
+    try {
+      const res = await axios.post<ModelCreditURLResponse>(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/payment/stripe`,
+        { customer_plan_id: customer_plan_id },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+          }
+        }
+      );
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as ModelCreditURLResponse;
     }
   };
 }

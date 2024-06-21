@@ -8,7 +8,7 @@ export const dateDurationTypes: MultipleOptions[] = [
   { id: 'last24Hours', name: 'Last24Hours' },
   { id: 'yesterday', name: 'Yesterday' },
   { id: 'last7Days', name: 'Last7Days' },
-  { id: 'thisWeek', name: 'ThisWeek' },
+  { id: 'thisWeek', name: 'This Week' },
   { id: 'lastWeek', name: 'LastWeek' },
   { id: 'last30Days', name: 'Last30Days' },
   { id: 'thisMonth', name: 'ThisMonth' },

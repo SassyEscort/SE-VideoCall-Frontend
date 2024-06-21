@@ -211,7 +211,9 @@ export const ThirdBoxContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const TextContainer = styled(Typography)(({ theme }) => ({
-  lineHeight: '120%',
+  fontSize: '16px',
+  fontWeight: 700,
+  lineHeight: '24px',
   [theme.breakpoints.down('sm')]: {
     paddingTop: theme.spacing(2)
   },

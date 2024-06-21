@@ -131,3 +131,16 @@ export const MobileComponentBox = styled(Box)(({ theme }) => ({
     maxWidth: 768
   }
 }));
+
+export const SecondBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1.5),
+  alignItems: 'center'
+}));
+
+export const FirstBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: '100%',
+  minWidth: '268px'
+}));

@@ -1,6 +1,9 @@
 import axios, { AxiosError } from 'axios';
 import { GenericRes } from 'services/guestAuth/authuser.services';
-import { GuestModelEarningResponse } from './type';
+
+import { GetTotalEarningDataParams, GuestModelEarningResponse } from './type';
+import { encodeQuery } from 'utils/genericFunction';
+import { KeyPair } from 'types/KeyPair';
 
 export type ModelLastActiveRes = {
   last_active: string;
@@ -45,9 +48,10 @@ export class ModelDetailsService {
     }
   };
 
-  static getModelEarning = async (token: string) => {
+  static getModelEarning = async (token: string, params: GetTotalEarningDataParams) => {
+    const query = encodeQuery(params as unknown as KeyPair);
     try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/wallet`, {
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/wallet?${query}`, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
       });
 

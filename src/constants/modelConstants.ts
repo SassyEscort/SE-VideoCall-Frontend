@@ -1,27 +1,27 @@
 export const DashboardModelTabs = [
   {
     name: 'My Profile',
-    img: '/images/profile-vector/Vector-1.png',
+    img: '/images/icons/dashboard-img1.png',
     path: '/model/dashboard'
   },
   {
     name: 'Earnings',
-    img: '/images/profile-vector/Vector-4.png',
+    img: '/images/icons/dashboard-img2.png',
     path: '/model/earnings'
   },
   {
     name: 'Payouts',
-    img: '/images/profile-vector/Vector-5.png',
+    img: '/images/icons/dashboard-img3.png',
     path: '/model/payouts'
   },
   {
     name: 'Help and Info',
-    img: '/images/profile-vector/Vector-7.png',
+    img: '/images/icons/dashboard-img4.png',
     path: '/model/help-info'
   },
   {
     name: 'App',
-    img: '/images/profile-vector/Vector-8.png',
+    img: '/images/icons/dashboard-img6.svg',
     path: '/model/download-app'
   }
 ];
