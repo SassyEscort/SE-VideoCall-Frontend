@@ -219,7 +219,7 @@ const InvoiceDownloadV2 = ({ invoiceData }: { invoiceData: invoiceDataType }) =>
             color="secondary.light"
             sx={{ width: '100%', maxWidth: '225px' }}
           >
-            Sassy Escort
+            Flirtbate
           </UINewTypography>
 
           <UINewTypography variant="captionLarge" fontWeight="700" color="secondary.light">
