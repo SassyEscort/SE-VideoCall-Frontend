@@ -26,3 +26,10 @@ export const FavoriteTextMainBox = styled(Box)(({ theme }) => ({
   },
   gap: theme.spacing(7)
 }));
+
+export const LoadingBox = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: 2
+}));

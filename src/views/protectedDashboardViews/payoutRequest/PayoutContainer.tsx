@@ -1,7 +1,7 @@
 'use client';
 import { Box, Divider, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import { FormattedMessage } from 'react-intl';
 import {
@@ -37,6 +37,12 @@ import { ErrorMessage } from 'constants/common.constants';
 import { StatusBox } from './statusDetails';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 
+export type PayoutPaginationType = {
+  page: number;
+  offset: number;
+  pageSize: number;
+};
+
 const PayoutContainer = ({
   bankDetailsList,
   token,
@@ -52,8 +58,12 @@ const PayoutContainer = ({
   const [payoutStep, setPayoutStep] = useState(0);
   const [modelPayoutList, setModelPayoutList] = useState<ModelPastPayoutDetailRes>();
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-
   const [amountSave, setAmountSave] = useState(0);
+  const [filters, setFilters] = useState({
+    page: 0,
+    pageSize: 10,
+    offset: 0
+  });
 
   const openDailog = () => {
     if (!isSmUp) {
@@ -73,8 +83,8 @@ const PayoutContainer = ({
     const fetchModelPayout = async () => {
       try {
         const ModelPayoutListObject = {
-          limit: 5,
-          offset: 0
+          limit: filters.pageSize,
+          offset: filters.offset
         };
         if (token.token) {
           const data = await PayoutService.modelPastPayoutList(ModelPayoutListObject, token.token);
@@ -89,7 +99,7 @@ const PayoutContainer = ({
 
     fetchModelPayout();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.token, token.id]);
+  }, [token.token, token.id, filters]);
 
   const getAmount = async () => {
     try {
@@ -105,9 +115,19 @@ const PayoutContainer = ({
       toast.error(ErrorMessage);
     }
   };
-
+  const handleChangeFilter = useCallback((value: PayoutPaginationType) => {
+    setFilters(value);
+  }, []);
+  const handleChangePage = useCallback(
+    (event: React.ChangeEvent<unknown>, value: number) => {
+      const offset = (value - 1) * filters.pageSize;
+      handleChangeFilter({ ...filters, page: value, offset: offset });
+    },
+    [filters, handleChangeFilter]
+  );
   useEffect(() => {
     getAmount();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.token]);
 
   return (
@@ -205,7 +225,11 @@ const PayoutContainer = ({
               </SecondRecentWithdrawlsMainContainer>
             </RecentWithdrawlsMainContainer>
             <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-              <UITheme2Pagination />
+              <UITheme2Pagination
+                page={filters.page}
+                count={modelPayoutList ? Math.ceil(modelPayoutList.data.aggregate.total_rows / filters.pageSize) : 1}
+                onChange={handleChangePage}
+              />
             </Box>
           </SecondMainContainer>
         </>

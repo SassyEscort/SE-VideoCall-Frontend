@@ -4,7 +4,7 @@ import Table from '@mui/material/Table';
 import InvoiceTableHeader from './InvoiceTableHeader';
 import PurchaseInvoiceTableBodyV2 from './PurchaseInvoiceTableBody';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -14,15 +14,21 @@ import { PayoutService } from 'services/payout/payout.service';
 import { ModelPastPayoutDetailRes } from 'services/payout/types';
 import { BillingLoadingBox } from './BillingTable.styled';
 
-export type ModelPastPayoutDetailParams = {
-  limit: number;
+export type PaginationType = {
+  page: number;
   offset: number;
+  pageSize: number;
 };
 
 const BillingTable = () => {
   const [modelPayoutList, setModelPayoutList] = useState<ModelPastPayoutDetailRes>();
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isLoading, setIsLoading] = useState(false);
+  const [filters, setFilters] = useState({
+    page: 0,
+    pageSize: 10,
+    offset: 0
+  });
 
   useEffect(() => {
     const userToken = async () => {
@@ -40,8 +46,8 @@ const BillingTable = () => {
     const fetchModelPayout = async () => {
       try {
         const ModelPayoutListObject = {
-          limit: 10,
-          offset: 0
+          limit: filters.pageSize,
+          offset: filters.offset
         };
         if (token.token) {
           setIsLoading(true);
@@ -59,8 +65,17 @@ const BillingTable = () => {
     };
 
     fetchModelPayout();
-  }, [token.token, token.id]);
-
+  }, [token.token, token.id, filters]);
+  const handleChangeFilter = useCallback((value: PaginationType) => {
+    setFilters(value);
+  }, []);
+  const handleChangePage = useCallback(
+    (event: React.ChangeEvent<unknown>, value: number) => {
+      const offset = (value - 1) * filters.pageSize;
+      handleChangeFilter({ ...filters, page: value, offset: offset });
+    },
+    [filters, handleChangeFilter]
+  );
   return (
     <>
       <>
@@ -82,7 +97,11 @@ const BillingTable = () => {
         </TableContainer>
       </>
       <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-        <UITheme2Pagination />
+        <UITheme2Pagination
+          page={filters.page}
+          count={modelPayoutList ? Math.ceil(modelPayoutList.data.aggregate.total_rows / filters.pageSize) : 1}
+          onChange={handleChangePage}
+        />
       </Box>
     </>
   );

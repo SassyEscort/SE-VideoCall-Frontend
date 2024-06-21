@@ -1,18 +1,19 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { FavoriteBox, FavoriteTextMainBox, FavoritesText } from './Favorites.styled';
+import { FavoriteBox, FavoriteTextMainBox, FavoritesText, LoadingBox } from './Favorites.styled';
 import MainLayoutNav from '../protectedLayout';
 import { FormattedMessage } from 'react-intl';
 import { ModelFavRes, CustomerFavorite } from 'services/customerFavorite/customerFavorite.service';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import HomeImageCard from 'views/guestViews/homePage/homeImageCards';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Favorites = () => {
   const [favListing, setFavListing] = useState<ModelFavRes[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
-
+  const [isLoading, setIsLoading] = useState(false);
   const modelNumber = favListing.length;
 
   useEffect(() => {
@@ -27,8 +28,10 @@ const Favorites = () => {
 
   const getFavListing = useCallback(async () => {
     if (token.token) {
+      setIsLoading(true);
       const getModel = await CustomerFavorite.getCustomerFavorite(token.token);
       setFavListing(getModel.model_details);
+      setIsLoading(false);
     }
   }, [token.token]);
 
@@ -52,7 +55,13 @@ const Favorites = () => {
             </FavoritesText>
           </FavoriteTextMainBox>
         </Box>
-        <HomeImageCard modelListing={favListing} isFavPage={true} token={token} />
+        {isLoading ? (
+          <LoadingBox>
+            <CircularProgress />
+          </LoadingBox>
+        ) : (
+          <HomeImageCard modelListing={favListing} isFavPage={true} token={token} />
+        )}
       </FavoriteBox>
     </MainLayoutNav>
   );
