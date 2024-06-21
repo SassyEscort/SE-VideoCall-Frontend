@@ -19,6 +19,7 @@ import { VerificationStepService } from 'services/modelAuth/verificationStep.ser
 import { scrollToError } from 'utils/scrollUtils';
 import { useRouter } from 'next/navigation';
 import { EMAIL_REGEX } from 'constants/regexConstants';
+import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 
 const VerificationStepOne = ({
   handleNext,
@@ -44,6 +45,7 @@ const VerificationStepOne = ({
   const email = url.searchParams.get('email');
   const nationalityId = modelDetails?.nationality?.id != '-1' ? modelDetails?.nationality?.id : '';
   const countryId = modelDetails?.country?.id != '-1' ? modelDetails?.country?.id : '';
+  const isModelVerified = modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED;
 
   const initialValuesPerStep: VerificationStep1Type = {
     id: token.id,
@@ -172,6 +174,7 @@ const VerificationStepOne = ({
               handleBlur={handleBlur}
               handleChange={handleChange}
               setFieldValue={setFieldValue}
+              isModelVerified={isModelVerified}
             />
             <FooterBtnConatiner>
               <UIThemeButton
