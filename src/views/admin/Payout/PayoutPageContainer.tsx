@@ -156,7 +156,7 @@ export default function PayoutPageContainer() {
   }, [token.token, filters.page, filters.pageSize]);
   return (
     <MainLayout>
-      <Container maxWidth="xl">
+      <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
           <Typography variant="h4" gutterBottom>
             Payout History

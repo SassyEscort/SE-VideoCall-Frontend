@@ -70,7 +70,7 @@ export default function WithdrawConfigurationContainer() {
     <>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
         <Typography variant="h4" gutterBottom>
-          Model minimum amount configuration
+          Model minimum amount withdraw
         </Typography>
       </Stack>
 
@@ -103,7 +103,7 @@ export default function WithdrawConfigurationContainer() {
               onChange={handleChange}
               onBlur={handleBlur}
               InputProps={{
-                startAdornment: <InputAdornment position="start">€</InputAdornment>
+                startAdornment: <InputAdornment position="start">$</InputAdornment>
               }}
               sx={{ width: '100%', maxWidth: '500px' }}
             />

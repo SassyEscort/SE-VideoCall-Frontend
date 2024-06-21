@@ -16,7 +16,6 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Chip from '@mui/material/Chip';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import DashboardLayout from '../../../views/admin/layouts/AdminLayout/DashboardLayout';
 import moment from 'moment';
 import ReportFilters from 'components/Admin/ReportFilters/ReportFilters';
 import { formatFullDate } from 'utils/dateAndTime';
@@ -35,6 +34,7 @@ import { adminModelServices, ModelListing } from 'services/adminModel/adminModel
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { useRouter } from 'next/navigation';
+import MainLayout from '../../../views/admin/layouts/AdminLayout/DashboardLayout';
 
 export type WorkersPaginationType = {
   page: number;
@@ -184,7 +184,7 @@ export default function ModelPageContainer() {
 
   return (
     <>
-      <DashboardLayout>
+      <MainLayout>
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
             <Typography variant="h4" gutterBottom>
@@ -346,7 +346,7 @@ export default function ModelPageContainer() {
             </>
           )}
         </Popover>
-      </DashboardLayout>
+      </MainLayout>
     </>
   );
 }

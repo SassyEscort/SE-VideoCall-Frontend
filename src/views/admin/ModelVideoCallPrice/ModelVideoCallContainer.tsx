@@ -74,7 +74,7 @@ export default function ModelVideoCallContainer() {
     <>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
         <Typography variant="h4" gutterBottom>
-          Model minimum video call price configuration
+          Model minimum video call price
         </Typography>
       </Stack>
 
@@ -101,7 +101,7 @@ export default function ModelVideoCallContainer() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 InputProps={{
-                  startAdornment: <InputAdornment position="start">€</InputAdornment>
+                  startAdornment: <InputAdornment position="start">$</InputAdornment>
                 }}
                 sx={{ width: '100%', maxWidth: '500px' }}
               />
