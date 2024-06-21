@@ -55,7 +55,7 @@ export const SecondUsdBox = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   paddingTop: theme.spacing(2),
   paddingLeft: theme.spacing(2),
-  paddingBottom: theme.spacing(2),
+  paddingBottom: theme.spacing(3.125),
   gap: theme.spacing(3.125)
 }));
 
