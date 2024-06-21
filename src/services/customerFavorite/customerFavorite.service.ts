@@ -24,7 +24,7 @@ export type ModelFavResponse = {
 export class CustomerFavorite {
   static getCustomerFavorite = async (token: string): Promise<ModelFavResponse> => {
     try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/customer/favourite`, {
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/customer/favourite?limit=100&offset=0`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: token

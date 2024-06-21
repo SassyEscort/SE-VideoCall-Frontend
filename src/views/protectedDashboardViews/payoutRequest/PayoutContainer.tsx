@@ -1,7 +1,7 @@
 'use client';
 import { Box, Divider, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import { FormattedMessage } from 'react-intl';
 import {
@@ -32,6 +32,9 @@ import { BankDetailsListRes } from 'services/payout/types';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import theme from 'themes/theme';
+import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+import { toast } from 'react-toastify';
+import { ErrorMessage } from 'constants/common.constants';
 
 const PayoutContainer = ({
   bankDetailsList,
@@ -48,6 +51,7 @@ const PayoutContainer = ({
   const [payoutStep, setPayoutStep] = useState(0);
 
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  const [amountSave, setAmountSave] = useState(0);
 
   const openDailog = () => {
     if (!isSmUp) {
@@ -63,6 +67,25 @@ const PayoutContainer = ({
   const handlePayoutStep = () => {
     setPayoutStep((prev) => prev + 1);
   };
+
+  const getAmount = async () => {
+    try {
+      if (token.token) {
+        const data = await ModelDetailsService.getModelWithDraw(token.token);
+        if (data?.code === 200) {
+          setAmountSave(data.data.amount);
+        } else {
+          toast.error(ErrorMessage);
+        }
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
+
+  useEffect(() => {
+    getAmount();
+  }, [token.token]);
 
   return (
     <MainConatiner>
@@ -87,7 +110,7 @@ const PayoutContainer = ({
                     $
                   </UINewTypography>
                   <UINewTypography variant="h5" color="text.secondary">
-                    10,000
+                    {amountSave}
                   </UINewTypography>
                 </DollerBox>
               </SecondUsdBox>
