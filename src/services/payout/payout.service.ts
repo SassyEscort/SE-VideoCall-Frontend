@@ -11,9 +11,11 @@ import {
   ModelPastPayoutDetailRes,
   RequestPayoutRep
 } from './types';
-import { ModelPastPayoutDetailParams } from 'views/protectedDashboardViews/payoutsAndInvoicesTable/billingTable/BillingTable';
 import { RequestPayoutParams } from 'views/protectedDashboardViews/payoutWithDraw/PayoutWithdrawContainer';
-
+export type ModelPastPayoutDetailParams = {
+  limit: number;
+  offset: number;
+};
 export class PayoutService {
   static bankDetailsAdd = async (params: BankDetailsParams, token: string): Promise<AddBankDetailsRes> => {
     try {
