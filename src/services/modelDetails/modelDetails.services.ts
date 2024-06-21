@@ -1,6 +1,5 @@
 import axios, { AxiosError } from 'axios';
 import { GenericRes } from 'services/guestAuth/authuser.services';
-
 import { GetTotalEarningDataParams, GuestModelEarningResponse } from './type';
 import { encodeQuery } from 'utils/genericFunction';
 import { KeyPair } from 'types/KeyPair';

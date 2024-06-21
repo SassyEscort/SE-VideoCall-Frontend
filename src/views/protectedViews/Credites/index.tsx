@@ -30,11 +30,14 @@ import Grid from '@mui/material/Grid';
 import { useRouter, useSearchParams } from 'next/navigation';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import CreditsAdded from '../CreditsAdded/CreditsAdded';
+import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 
 const Credits = () => {
   const [open, setOpen] = useState(false);
-  const [creditsListing, setCteditsListing] = useState<ModelCreditRes[]>([]);
+  const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [balance, setBalance] = useState(0);
+  const [addedCredits, setAddedCredits] = useState(0);
   const router = useRouter();
   const searchParams = useSearchParams();
   useEffect(() => {
@@ -50,11 +53,19 @@ const Credits = () => {
   const getCreditsListing = useCallback(async () => {
     if (token.token) {
       const getModel = await CustomerCredit.getCustomerCredit(token.token);
-      setCteditsListing(getModel.data);
+      setCreditsListing(getModel.data);
+    }
+  }, [token.token]);
+
+  const getCustomerCredit = useCallback(async () => {
+    if (token.token) {
+      const getModel = await ModelDetailsService.getModelWithDraw(token.token);
+      setBalance(getModel?.data?.credits);
     }
   }, [token.token]);
   const handleCreditClick = async (listCredit: ModelCreditRes) => {
     const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id);
+    setAddedCredits(Number(listCredit.credits));
     if (res) {
       router.push(res?.data?.url);
     }
@@ -64,12 +75,15 @@ const Credits = () => {
   };
   useEffect(() => {
     const credit = searchParams.get('credit');
+    getCustomerCredit();
     if (credit) {
       setOpen(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
   useEffect(() => {
     getCreditsListing();
+    getCustomerCredit();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
@@ -89,7 +103,7 @@ const Credits = () => {
                 <SecondBoxContainer>
                   <SecondSubContainerImgWorkerCard src="/images/workercards/coin-1.png" />
                   <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                    40
+                    {balance}
                   </UINewTypography>
                 </SecondBoxContainer>
               </FirsTextSubContainer>
@@ -105,7 +119,7 @@ const Credits = () => {
             <FirstBoxContainer>
               <Grid container sx={{ gap: 2, justifyContent: 'center' }}>
                 {creditsListing.map((listCredit, index) => (
-                  <ImagSubContainer key={index} onClick={() => handleCreditClick(listCredit)}>
+                  <ImagSubContainer key={index} onClick={() => handleCreditClick(listCredit)} sx={{ cursor: 'pointer' }}>
                     <MainImagContainer src={listCredit.link} />
                     <BoxFirstTextContainer>
                       <CreditCardImage src="/images/workercards/coin-1.png" />
@@ -128,7 +142,7 @@ const Credits = () => {
         </CreditsSubContainer>
       </CreditsMainContainer>
       <UIStyledDialog open={open} maxWidth="md" fullWidth>
-        <CreditsAdded onClose={handleClose} />
+        <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} />
       </UIStyledDialog>
     </MainLayoutNav>
   );

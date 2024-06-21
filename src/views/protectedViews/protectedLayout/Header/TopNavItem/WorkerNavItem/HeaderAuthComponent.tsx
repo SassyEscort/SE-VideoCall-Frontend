@@ -16,6 +16,7 @@ import Logout from 'views/protectedViews/logout';
 import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import { WorkerHeaderMainContainer } from './ProfileMenu.styled';
+import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 
 export type NotificationFilters = {
   page: number;
@@ -31,6 +32,7 @@ const HeaderAuthComponent = () => {
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
+  const [balance, setBalance] = useState(0);
 
   const uploadedImageURL = '/images/headerv2/profilePic.png';
   const firstChar = customerDetails?.customer_name ? customerDetails.customer_name.charAt(0).toUpperCase() : '';
@@ -64,6 +66,20 @@ const HeaderAuthComponent = () => {
     if (token.token) {
       customerDetails();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token.id, token.token]);
+
+  useEffect(() => {
+    const getCustomerCredit = async () => {
+      if (token.token) {
+        const getModel = await ModelDetailsService.getModelWithDraw(token.token);
+        setBalance(getModel?.data?.credits);
+      }
+    };
+    if (token.token) {
+      getCustomerCredit();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.id, token.token]);
 
   const handleOpenLogout = () => {
@@ -84,7 +100,7 @@ const HeaderAuthComponent = () => {
           <Box alignItems="center" gap={1} display="flex">
             <Box component="img" src="/images/header/coin.png" />
             <Typography variant="buttonLargeMenu" color="text.secondary">
-              40
+              {balance}
             </Typography>
           </Box>
         )}
