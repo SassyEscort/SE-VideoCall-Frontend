@@ -18,7 +18,7 @@ export const MainSecondBox = styled(Box)(({ theme }) => ({
 export const MainThreeBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(6),
+  gap: theme.spacing(2.5),
   [theme.breakpoints.down('sm')]: {
     borderRadius: '8px'
   }
@@ -94,4 +94,13 @@ export const SmallScreenImg = styled(Box)(({ theme }) => ({
 export const ImgHome = styled(Box)(({ theme }) => ({
   width: 48,
   height: 48
+}));
+
+export const MapBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(6),
+  flexDirection: 'column',
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(4)
+  }
 }));

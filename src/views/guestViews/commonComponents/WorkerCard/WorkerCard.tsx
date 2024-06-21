@@ -33,8 +33,28 @@ import moment from 'moment';
 import useImageOptimize from 'hooks/useImageOptimize';
 import { countryWithFlag } from 'constants/country';
 import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import { toast } from 'react-toastify';
+import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
+import { ErrorMessage } from 'constants/common.constants';
 
-const WorkerCard = ({ modelDetails, isFavPage }: { modelDetails: ModelHomeListing | ModelFavRes; isFavPage: boolean }) => {
+const WorkerCard = ({
+  modelDetails,
+  isFavPage,
+  token,
+  handleLoginLiked,
+  handleLoginOpen,
+  handleLike,
+  liked
+}: {
+  modelDetails: ModelHomeListing | ModelFavRes;
+  isFavPage: boolean;
+  token: TokenIdType;
+  handleLoginLiked: (modelId: number) => void;
+  handleLoginOpen: () => void;
+  handleLike: (modelId: number) => void;
+  liked: boolean;
+}) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
 
@@ -47,10 +67,40 @@ const WorkerCard = ({ modelDetails, isFavPage }: { modelDetails: ModelHomeListin
 
   useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails.cords);
 
+  const handleLikeClick = async (modelId: number) => {
+    try {
+      if (token.token) {
+        const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
+        if (data?.code === 200) {
+          handleLoginLiked(modelId);
+          handleLike(modelId);
+        } else {
+          toast.error(ErrorMessage);
+        }
+      } else {
+        handleLoginOpen();
+      }
+    } catch (erro) {
+      toast.error(ErrorMessage);
+    }
+  };
+
   return (
     <MainWorkerCard>
       <ImgWorkerCard ref={imageUrlRef} />
-      <HeartIconWorkerCard>{isFavPage ? <FavoriteIconContainer /> : <FavoriteBorderIconContainer />}</HeartIconWorkerCard>
+      <HeartIconWorkerCard>
+        {isFavPage || liked ? (
+          <FavoriteIconContainer />
+        ) : (
+          <FavoriteBorderIconContainer
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleLikeClick(modelDetails.id);
+            }}
+          />
+        )}
+      </HeartIconWorkerCard>
       <WorkerCardContainer>
         <SeconderContainerWorkerCard>
           <SubContainertWorkerCard>

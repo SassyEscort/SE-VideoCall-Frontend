@@ -19,7 +19,6 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import InfoIcon from '@mui/icons-material/Info';
 import getCustomErrorMessage from 'utils/error.utils';
 import { AdminLoginParams } from 'services/adminAuth/types';
-import { toast } from 'react-toastify';
 import { LoginPageFirstTextBox } from './LoginPage.styled';
 
 export default function LoginForm() {
@@ -40,7 +39,6 @@ export default function LoginForm() {
       const res = await signIn('providerAdmin', { redirect: false, email: values.email, password: values.password });
       if (res?.status === 200) {
         push('/admin');
-        toast.success('Success');
       } else if (res?.error) {
         setAlert(res.error === 'CredentialsSignin' ? 'Invalid email or password' : 'Something went wrong! Please try again');
       }

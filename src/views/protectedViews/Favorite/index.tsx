@@ -52,7 +52,7 @@ const Favorites = () => {
             </FavoritesText>
           </FavoriteTextMainBox>
         </Box>
-        <HomeImageCard modelListing={favListing} isFavPage={true} />
+        <HomeImageCard modelListing={favListing} isFavPage={true} token={token} />
       </FavoriteBox>
     </MainLayoutNav>
   );
