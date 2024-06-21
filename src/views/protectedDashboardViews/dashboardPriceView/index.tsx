@@ -142,7 +142,7 @@ const DashboardPriceView = ({
 
   const handlePriceChange = (val: string) => {
     setIsChanged(true);
-    setFieldValue('price', Number(val));
+    setFieldValue('price', val);
     const inputCommissionValue = Number(val) - (Number(val) * commsionPercentage) / 100;
     setCommistionValue(Number(inputCommissionValue.toFixed(2)));
   };
