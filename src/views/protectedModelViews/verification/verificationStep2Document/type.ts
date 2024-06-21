@@ -37,6 +37,8 @@ export type ImageUploadPayload = {
   fileId: string;
   width: number;
   height: number;
+  file_id: string;
+  file_type: string;
 };
 
 export interface CustomFile extends File {
