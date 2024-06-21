@@ -8,14 +8,12 @@ import {
   BankDetailsEditReponse,
   BankDetailsListRes,
   MarkOnline,
+  ModelPastPayoutDetailParams,
   ModelPastPayoutDetailRes,
   RequestPayoutRep
 } from './types';
 import { RequestPayoutParams } from 'views/protectedDashboardViews/payoutWithDraw/PayoutWithdrawContainer';
-export type ModelPastPayoutDetailParams = {
-  limit: number;
-  offset: number;
-};
+
 export class PayoutService {
   static bankDetailsAdd = async (params: BankDetailsParams, token: string): Promise<AddBankDetailsRes> => {
     try {

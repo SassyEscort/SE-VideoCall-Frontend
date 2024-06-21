@@ -110,3 +110,8 @@ export type MarkOnline = {
   code: number;
   error: string;
 };
+
+export type ModelPastPayoutDetailParams = {
+  limit: number;
+  offset: number;
+};
