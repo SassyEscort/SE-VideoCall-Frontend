@@ -49,7 +49,8 @@ const PayoutWithdrawContainer = ({
   fetchBankDetails,
   payoutStep,
   isSm,
-  handlePayoutStep
+  handlePayoutStep,
+  amountSave
 }: {
   bankDetailsList: BankDetailsListRes;
   token: TokenIdType;
@@ -57,7 +58,9 @@ const PayoutWithdrawContainer = ({
   payoutStep?: number;
   isSm?: boolean;
   handlePayoutStep?: () => void;
+  amountSave: number;
 }) => {
+  console.log(amountSave, 'amountSave');
   const [open, setOpenModel] = useState(false);
   const [selectBank, setSelectBank] = useState<string | null>(null);
   const [selectedBankId, setSelectedBankId] = useState<number | null>(null);
@@ -202,7 +205,7 @@ const PayoutWithdrawContainer = ({
                                 <FormattedMessage id="YourBalance" />
                               </UINewTypography>
                               <UINewTypography variant="bodySemiBold" color="text.secondary" sx={{ textWrap: 'nowrap' }}>
-                                : $20.000
+                                : ${amountSave}
                               </UINewTypography>
                             </Box>
                           </ForBox>

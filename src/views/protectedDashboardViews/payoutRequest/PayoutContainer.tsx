@@ -220,6 +220,7 @@ const PayoutContainer = ({
           fetchBankDetails={fetchBankDetails}
           handlePayoutStep={handlePayoutStep}
           payoutStep={payoutStep}
+          amountSave={amountSave}
         />
       )}
     </MainConatiner>
