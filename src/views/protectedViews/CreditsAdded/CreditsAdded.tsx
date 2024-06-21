@@ -1,5 +1,5 @@
 'use client';
-import { Divider, IconButton } from '@mui/material';
+import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React from 'react';
 import CloseIcon from '@mui/icons-material/Close';
@@ -15,28 +15,26 @@ import {
   NewBalanceDetailsConatainer,
   AddedCreditsContainer,
   NewBalanceDetails,
-  ExploreButtonContainer
+  ExploreButtonContainer,
+  NewUIIconButton
 } from './CreditsAddded.styled';
+import { useSearchParams } from 'next/navigation';
+import { FormattedMessage } from 'react-intl';
+import Link from 'next/link';
 function CreditsAdded({ onClose }: { onClose: () => void }) {
+  const searchParams = useSearchParams();
+  const credit = searchParams.get('credit');
+  const balance = searchParams.get('balance');
   return (
     <CreditsAddedMainBox>
       <HeadingContainer>
         <UINewTypography variant="h6" color="common.white">
-          Credits added
+          <FormattedMessage id="Creditsadded" />
         </UINewTypography>
         <CreditsCloseIconContainer display="flex" alignItems="flex-end" justifyContent="flex-end">
-          <IconButton
-            sx={{
-              color: 'common.white',
-              position: 'absolute',
-              top: '18px',
-              padding: '0',
-              right: { xs: '19px' }
-            }}
-            onClick={onClose}
-          >
+          <NewUIIconButton onClick={onClose}>
             <CloseIcon />
-          </IconButton>
+          </NewUIIconButton>
         </CreditsCloseIconContainer>
       </HeadingContainer>
       <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
@@ -45,21 +43,29 @@ function CreditsAdded({ onClose }: { onClose: () => void }) {
           <Image alt="home_model" width={217} height={226} src="/images/credits/Frame.webp" />
         </ImageContainer>
         <AddedCreditsContainer>
-          <UINewTypographyNew>40 New Credits added</UINewTypographyNew>
+          <UINewTypographyNew>
+            {credit} <FormattedMessage id="NewCredits" />
+          </UINewTypographyNew>
         </AddedCreditsContainer>
         <NewBalanceDetailsConatainer>
-          <UINewTypography>New Balance: </UINewTypography>
+          <UINewTypography>
+            <FormattedMessage id="NewBalance" />
+          </UINewTypography>
           <NewBalanceDetails>
             <Image alt="home_model" width={24} height={24} src="/images/workercards/dollar-img.png" />
-            <UINewTypography sx={{ pl: '8px' }}>60 Credits</UINewTypography>
+            <UINewTypography sx={{ pl: '8px' }}>
+              {balance} <FormattedMessage id="Credits" />
+            </UINewTypography>
           </NewBalanceDetails>
         </NewBalanceDetailsConatainer>
-        <ExploreButtonContainer sx={{ display: 'flex', height: '39px', mt: '56px', mb: '56px', width: '176px' }}>
-          <UIThemeShadowButton variant="contained">
-            <UINewTypography variant="buttonLargeBold" color="white.main">
-              Explore More
-            </UINewTypography>
-          </UIThemeShadowButton>
+        <ExploreButtonContainer>
+          <Link prefetch={false} href="/">
+            <UIThemeShadowButton variant="contained" sx={{ p: '10px 29px', width: '176px' }}>
+              <UINewTypography variant="buttonLargeBold" color="white.main">
+                <FormattedMessage id="ExploreModels" />
+              </UINewTypography>
+            </UIThemeShadowButton>
+          </Link>
         </ExploreButtonContainer>
       </CreditsBodyContainer>
     </CreditsAddedMainBox>

@@ -1,6 +1,4 @@
 import axios, { AxiosError } from 'axios';
-import { ErrorMessage } from 'constants/common.constants';
-import { toast } from 'react-toastify';
 import { CustomFile, ImagekitTokenResponse, ImageUplaodBody } from 'views/protectedModelViews/verification/verificationStep2Document/type';
 import { VerificationPayload } from './types';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -33,9 +31,11 @@ export class VerificationStepService {
     return res.data;
   };
 
-  static imageKitUplaodApi = async (fileData: CustomFile): Promise<ImageUploadPayload | string> => {
+  static imageKitUplaodApi = async (fileData: CustomFile): Promise<ImageUploadPayload> => {
     try {
       let imageRes;
+      let file_id;
+      let file_type;
       if (typeof fileData !== 'string') {
         const getToken = await this.imageKitAuthApi();
         const body: ImageUplaodBody = {
@@ -51,17 +51,22 @@ export class VerificationStepService {
         const response = await axios.post(imageKitObj.uploadApi, body, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
+
         imageRes = response.data.url;
+        file_id = response.data.fileId;
+        file_type = response.data.fileType;
       } else {
         imageRes = fileData;
       }
 
       return {
-        photosURL: imageRes
+        photosURL: imageRes,
+        file_id: file_id,
+        file_type: file_type
       } as unknown as PhotoUpload;
-    } catch (error) {
-      toast.error(ErrorMessage);
-      return ErrorMessage;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as ImageUploadPayload;
     }
   };
 
@@ -120,7 +125,9 @@ export class VerificationStepService {
             document_type: PHOTO_TYPE.MODEL_PHOTO,
             document_number: null,
             photosURL: responseData?.data?.url,
-            type: data?.type
+            type: data?.type,
+            file_id: responseData.data.fileId,
+            file_type: responseData.data.fileType
           });
         }
       }

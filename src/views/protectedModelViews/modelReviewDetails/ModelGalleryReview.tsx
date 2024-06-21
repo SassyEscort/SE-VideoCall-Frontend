@@ -6,14 +6,17 @@ import { ModelDetailsResponse } from '../verification/verificationTypes';
 import { ModelGalleryTitleBox } from './ModelReviewDetails.styled';
 import { useMemo } from 'react';
 import theme from 'themes/theme';
+import { sortExistingPhotos } from 'utils/photoUtils';
 
 const ModelGalleryReview = ({ modelDetails }: { modelDetails: ModelDetailsResponse }) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const height = isSmUp ? 193 : 210;
   const width = isSmUp ? 145 : 159;
 
+  const sortedPhotos = modelDetails?.photos?.sort(sortExistingPhotos);
+
   const existedPhoto = useMemo(() => {
-    return modelDetails?.photos
+    return sortedPhotos
       ?.filter((photo) => !photo.is_document)
       ?.map((photo, index) => {
         return {
@@ -24,7 +27,7 @@ const ModelGalleryReview = ({ modelDetails }: { modelDetails: ModelDetailsRespon
           isFavorite: photo.favourite === 1
         };
       });
-  }, [modelDetails]);
+  }, [sortedPhotos]);
 
   return (
     <ModelGalleryTitleBox>
