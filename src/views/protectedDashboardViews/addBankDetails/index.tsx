@@ -2,7 +2,6 @@
 import { Box, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { useCallback, useState } from 'react';
 import {
   AddBankDetail,
@@ -23,6 +22,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import { toast } from 'react-toastify';
 import { PayoutService } from 'services/payout/payout.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 
 export type BankDetailsParams = {
   bank_name: string;
@@ -153,11 +153,11 @@ const AddbankDetails = ({
                     </InputSecondBox>
                   </InputMainBox>
                   <ButtonBox>
-                    <UIThemeButton variant="contained" type="submit" loading={loading}>
+                    <StyleButtonV2 variant="contained" type="submit" loading={loading}>
                       <UINewTypography color="primary.200" variant="body">
                         <FormattedMessage id="Confirm" />
                       </UINewTypography>
-                    </UIThemeButton>
+                    </StyleButtonV2>
                     <UINewTypography variant="body" color="primary.400" sx={{ cursor: 'pointer' }} onClick={handleReset}>
                       <FormattedMessage id="Cancel" />
                     </UINewTypography>

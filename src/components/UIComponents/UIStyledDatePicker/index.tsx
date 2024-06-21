@@ -4,9 +4,9 @@ import { DatePicker } from '@mui/x-date-pickers';
 export const UIStyledDatePicker = styled(DatePicker)(({ theme }) => ({
   width: '100%',
 
-  ':hover': {
+  '&:hover': {
     '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: theme.palette.primary.main
+      borderColor: theme.palette.primary[700]
     }
   },
   '& .MuiOutlinedInput-notchedOutline': {

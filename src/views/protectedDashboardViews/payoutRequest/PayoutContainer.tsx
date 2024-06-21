@@ -172,7 +172,7 @@ const PayoutContainer = ({
                       </FirstToSiliconValleyBank>
                       <Pendingconatiner>
                         <UINewTypography variant="body" color="text.secondary">
-                          - {item.amount}
+                          - ${item.amount}
                         </UINewTypography>
                         <StatusBox status={item.state}>
                           <UINewTypography
