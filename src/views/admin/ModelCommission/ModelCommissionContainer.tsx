@@ -73,7 +73,7 @@ export default function ModelCommissionContainer() {
       <MainLayout>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
           <Typography variant="h4" gutterBottom>
-            Model Commission
+            Model commission percentage
           </Typography>
         </Stack>
 
@@ -106,7 +106,7 @@ export default function ModelCommissionContainer() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 InputProps={{
-                  startAdornment: <InputAdornment position="start">€</InputAdornment>
+                  startAdornment: <InputAdornment position="start">%</InputAdornment>
                 }}
                 sx={{ width: '100%', maxWidth: '500px' }}
               />
