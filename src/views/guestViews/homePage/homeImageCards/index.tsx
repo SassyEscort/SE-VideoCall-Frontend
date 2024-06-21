@@ -82,7 +82,7 @@ const HomeImageCard = ({
       <WorkerCardMainBox>
         <Grid container spacing={{ xs: '13px', md: '15px' }} rowGap={{ xs: 0.875, lg: 2.125 }}>
           {modelListing.map((item, index) => (
-            <Grid item key={index} xs={6} sm={4} md={3} lg={3}>
+            <Grid item key={index} xs={6} sm={4} md={isFavPage ? 4 : 3} lg={isFavPage ? 4 : 3}>
               <Box display="flex" gap={2} flexDirection="column">
                 {favModelId === item.id ? (
                   <WorkerCard
