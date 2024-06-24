@@ -12,10 +12,12 @@ import { FormattedMessage } from 'react-intl';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   FAQTitle,
+  FirstBoxContainer,
   HeaderTextContainer,
   HelpAndSupportMainContainer,
   HelpAndSupportSubContainer,
   MobileBoxContainer,
+  SecBoxContainer,
   TextFirstBoxContainer,
   TextSecondBoxContainer
 } from './helpAndSupport.styled';
@@ -24,29 +26,29 @@ const HelpAndSupportContainer = () => {
   return (
     <HelpAndSupportMainContainer>
       <HelpAndSupportSubContainer>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 6.75 }}>
+        <FirstBoxContainer>
+          <SecBoxContainer>
             <HeaderTextContainer>
               <UINewTypography variant="h2" color="text.secondary">
                 <FormattedMessage id="HowHelp" />
               </UINewTypography>
             </HeaderTextContainer>
-          </Box>
+          </SecBoxContainer>
 
           <MobileBoxContainer>
             <TextFirstBoxContainer>
               <TextSecondBoxContainer>
-                <UINewTypography variant="body" color="text.primary">
+                <UINewTypography variant="body" color="text.primary" lineHeight="160%">
                   <FormattedMessage id="CallOn" />
                 </UINewTypography>
-                <UINewTypography variant="h3" color="text.secondary">
+                <UINewTypography variant="h3" color="text.secondary" whiteSpace="nowrap">
                   +91 9876543210
                 </UINewTypography>
               </TextSecondBoxContainer>
             </TextFirstBoxContainer>
             <TextFirstBoxContainer>
               <TextSecondBoxContainer>
-                <UINewTypography variant="body" color="text.primary">
+                <UINewTypography variant="body" color="text.primary" lineHeight="160%">
                   <FormattedMessage id="MailUs" />
                 </UINewTypography>
                 <UINewTypography variant="h3" color="text.secondary">
@@ -55,7 +57,7 @@ const HelpAndSupportContainer = () => {
               </TextSecondBoxContainer>
             </TextFirstBoxContainer>
           </MobileBoxContainer>
-        </Box>
+        </FirstBoxContainer>
 
         <Box
           sx={{

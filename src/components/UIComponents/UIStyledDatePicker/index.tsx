@@ -21,7 +21,7 @@ export const UIStyledDatePicker = styled(DatePicker)(({ theme }) => ({
     color: '#86838A'
   },
   ' .MuiOutlinedInput-input': {
-    pr: 0
+    padding: '12px 16px'
   },
   '& .MuiInputBase-root-MuiOutlinedInput-root': {
     pl: 0
