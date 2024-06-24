@@ -203,7 +203,7 @@ const UploadImage = ({
               document_number: null,
               is_favourite: String(values.is_favourite),
               file_id: photo.file_id,
-              file_type: photo.file_type
+              file_type: photo.file_type === 'non-image' ? 'Non_Image' : 'Image'
             })),
           ...mutationImageUpload.uploadPhotos?.filter((x) => !x.is_document)
         ];
@@ -221,7 +221,7 @@ const UploadImage = ({
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
                 document_number: null,
                 file_id: x.file_id,
-                file_type: x.file_type
+                file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image'
               });
           });
 
