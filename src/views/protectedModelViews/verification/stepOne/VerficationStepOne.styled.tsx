@@ -10,9 +10,7 @@ export const StepTwoContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '824px',
   [theme.breakpoints.down('sm')]: {
-    gap: theme.spacing(2),
-    paddingLeft: theme.spacing(2.625),
-    paddingRight: theme.spacing(2.625)
+    gap: theme.spacing(2)
   }
 }));
 
@@ -82,9 +80,11 @@ export const StepOneContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(8),
   alignItems: 'center',
-  paddingTop: theme.spacing(4),
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(4)
+  },
+  [theme.breakpoints.up('sm')]: {
+    paddingTop: theme.spacing(4)
   }
 }));
 
@@ -112,9 +112,5 @@ export const FooterBtnConatiner = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   width: '100%',
-  maxWidth: '824px',
-  [theme.breakpoints.down('sm')]: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2)
-  }
+  maxWidth: '824px'
 }));

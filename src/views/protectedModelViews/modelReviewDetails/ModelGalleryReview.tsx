@@ -1,9 +1,8 @@
-import { Box, useMediaQuery } from '@mui/material';
-import UINewTypography from 'components/UIComponents/UINewTypography';
+import { useMediaQuery } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 import PreviewGallery from '../verification/stepThree/uploadImage/PreviewGallery';
 import { ModelDetailsResponse } from '../verification/verificationTypes';
-import { ModelGalleryTitleBox } from './ModelReviewDetails.styled';
+import { GalleryTextContainer, GellaryTextContainer, ModelGalleryTitleBox } from './ModelReviewDetails.styled';
 import { useMemo } from 'react';
 import theme from 'themes/theme';
 import { sortExistingPhotos } from 'utils/photoUtils';
@@ -31,15 +30,15 @@ const ModelGalleryReview = ({ modelDetails }: { modelDetails: ModelDetailsRespon
 
   return (
     <ModelGalleryTitleBox>
-      <UINewTypography variant="h6">
+      <GalleryTextContainer color="text.secondary">
         <FormattedMessage id="GalleryTitle" />
-      </UINewTypography>
-      <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+      </GalleryTextContainer>
+      <GellaryTextContainer>
         {modelDetails?.photos?.length &&
           existedPhoto?.map((photo, index) => {
             return <PreviewGallery key={index} image={photo} isEdit={false} height={height} width={width} />;
           })}
-      </Box>
+      </GellaryTextContainer>
     </ModelGalleryTitleBox>
   );
 };

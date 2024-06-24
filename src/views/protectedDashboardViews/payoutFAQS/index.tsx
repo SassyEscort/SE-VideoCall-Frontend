@@ -9,7 +9,7 @@ import {
   FAQConatainer,
   FAQMainContainer,
   FAQSeconndContainer,
-  FAQTitle,
+  PayoutFAQTitle,
   SecondBox,
   StyledAccordion,
   StyledAccordionDetails,
@@ -24,7 +24,7 @@ const PayoutFAQS = () => {
           <FAQConatainer sx={{ width: '100%', maxWidth: '741px' }}>
             <SecondBox>
               <FAQMainContainer>
-                <FAQTitle>Payout FAQs</FAQTitle>
+                <PayoutFAQTitle>Payout FAQs</PayoutFAQTitle>
               </FAQMainContainer>
 
               <FAQConatainer>
