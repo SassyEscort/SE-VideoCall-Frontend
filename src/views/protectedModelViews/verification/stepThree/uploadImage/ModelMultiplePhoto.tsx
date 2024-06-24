@@ -282,6 +282,7 @@ const ModelMultiplePhoto = ({
                 ? 'contained'
                 : 'outlined'
             }
+            sx={{ px: '20px', py: '9px' }}
           >
             <UINewTypography variant="body">
               <FormattedMessage id="CancelChanges" />
@@ -293,6 +294,7 @@ const ModelMultiplePhoto = ({
             variant="contained"
             loading={loading}
             disabled={Boolean((values.file5 === null || uploadedImagesURL.length === 0) && !values.cords5) && Boolean(!isDelete && isEdit)}
+            sx={{ px: '20px', py: '9px' }}
           >
             <UINewTypography variant="body">
               <FormattedMessage id="Save" />

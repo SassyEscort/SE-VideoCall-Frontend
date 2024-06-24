@@ -181,6 +181,7 @@ const VerificationStepOne = ({
                 onClick={isEdit && handleReset}
                 variant={changedValues && isEdit ? 'outlined' : 'contained'}
                 disabled={changedValues && isEdit ? false : true}
+                sx={{ px: '20px', py: '9px' }}
               >
                 {isEdit ? (
                   <UINewTypography variant="body">
@@ -202,6 +203,7 @@ const VerificationStepOne = ({
                 loading={loading}
                 disabled={changedValues && isEdit ? false : !isEdit ? false : true}
                 style={{ backgroundColor: buttonClicked ? (Object.keys(errors).length > 0 ? undefined : 'primary.700') : undefined }}
+                sx={{ px: '20px', py: '9px' }}
               >
                 {isEdit ? (
                   <UINewTypography variant="body">

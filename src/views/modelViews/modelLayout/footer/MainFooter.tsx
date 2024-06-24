@@ -1,17 +1,67 @@
 import Box from '@mui/material/Box';
 import Link from 'next/link';
 import Image from 'next/image';
-import { DividerUILine, FooterSubICon, ModelFooterHead, ModelUITextConatinerText } from './MainFooter.styled';
+import { DividerUILine, FirstBoxContainerMain, FooterSubICon, ModelFooterHead, ModelUITextConatinerText } from './MainFooter.styled';
 import { FooterCityList } from './footer.constants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import { ModelUITextConatiner } from 'views/auth/AuthCommon.styled';
+import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import ModelSignup from 'views/modelViews/modelSignup';
+import ModelSignin from 'views/modelViews/modelSignin';
+import ModelForgetPasswordLink from 'views/modelViews/modelForgetPasswordLink';
+import ModelNewPassword from 'views/modelViews/ModelNewPassword';
+import { useState } from 'react';
 
 const MainFooter = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const url = new URL(window.location.href);
+  const email = url.searchParams.get('email');
 
+  const [open, setIsOpen] = useState(false);
+  const [openLogin, setIsOpenLogin] = useState(false);
+  const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  const [openChangePassword, setIsOpenChangePassword] = useState(email ? true : false);
+
+  const handleSignupOpen = () => {
+    setIsOpen(true);
+    setIsOpenLogin(false);
+  };
+  const handleLoginOpen = () => {
+    setIsOpen(false);
+    setIsOpenLogin(true);
+  };
+
+  const handleSignupClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleLoginClose = () => {
+    setIsOpenLogin(false);
+  };
+  const handleResetPasswordLinkOpen = () => {
+    setIsOpenLogin(false);
+    setOpenForgetPassLink(true);
+  };
+
+  const handleLoginResetPasswordOpen = () => {
+    setOpenForgetPassLink(false);
+    setIsOpenLogin(true);
+  };
+
+  const handleResetPasswordLinkClose = () => {
+    setOpenForgetPassLink(false);
+  };
+
+  const handleChangePasswordClose = () => {
+    setIsOpenChangePassword(false);
+  };
+  const handleLoginChangePasswordOpen = () => {
+    setIsOpenChangePassword(false);
+    setIsOpenLogin(true);
+  };
   return (
     <>
       <Box sx={{ width: '100%', mt: '23px' }}>
@@ -40,41 +90,37 @@ const MainFooter = () => {
               </Box>
             </ModelUITextConatinerText>
 
-            <Box sx={{ display: 'flex', gap: 10, justifyContent: 'center', mt: 3 }}>
+            <FirstBoxContainerMain>
               <FooterSubICon sx={{ flexDirection: 'column', display: 'flex', textAlign: 'left' }}>
                 <UINewTypography sx={{ mb: '6px' }} variant="captionBold">
                   <FormattedMessage id="Menu" />
                 </UINewTypography>
                 <ModelUITextConatiner sx={{ gap: 1 }}>
                   <UINewTypography variant="SubtitleSmallRegular">
-                    <Link prefetch={false} href="/affiliate/program">
+                    <Link prefetch={false} href="/">
                       <FormattedMessage id="Home" />
                     </Link>
                   </UINewTypography>
                   <UINewTypography variant="SubtitleSmallRegular">
                     <Link prefetch={false} href="https://blog.sassyescort.com/" target="_blank">
-                      <FormattedMessage id="HowItWorks" />
+                      <FormattedMessage id="WhyJoin" />
                     </Link>
                   </UINewTypography>
 
                   <UINewTypography variant="SubtitleSmallRegular">
-                    <Link prefetch={false} href="/privacy-statement">
+                    <Link prefetch={false} href="/faq">
                       <FormattedMessage id="FAQs" />
                     </Link>
                   </UINewTypography>
-                  <UINewTypography variant="SubtitleSmallRegular">
-                    <Link prefetch={false} href="/cookie-statement">
-                      <FormattedMessage id="SignUp" />
-                    </Link>
+                  <UINewTypography variant="SubtitleSmallRegular" onClick={handleSignupOpen}>
+                    <FormattedMessage id="SignUp" />
+                  </UINewTypography>
+                  <UINewTypography variant="SubtitleSmallRegular" onClick={handleLoginOpen}>
+                    <FormattedMessage id="LogIn" />
                   </UINewTypography>
                   <UINewTypography variant="SubtitleSmallRegular">
-                    <Link prefetch={false} href="/terms-and-conditions">
-                      <FormattedMessage id="LogIn" />
-                    </Link>
-                  </UINewTypography>
-                  <UINewTypography variant="SubtitleSmallRegular">
-                    <Link prefetch={false} href="/terms-and-conditions">
-                      <FormattedMessage id="RegisterAsModel" />
+                    <Link prefetch={false} href="/">
+                      <FormattedMessage id="LookingForA" />
                     </Link>
                   </UINewTypography>
                 </ModelUITextConatiner>
@@ -98,7 +144,7 @@ const MainFooter = () => {
                   </UINewTypography>
                 ))}
               </FooterSubICon>
-            </Box>
+            </FirstBoxContainerMain>
           </Box>
         </Box>
         <Box sx={{ textAlign: 'center', mt: isSmDown ? '32px' : '32px' }}>
@@ -107,6 +153,18 @@ const MainFooter = () => {
           </UINewTypography>
         </Box>
       </Box>
+      <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+        <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
+      </UIStyledDialog>
+      <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
+        <ModelSignin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
+      </UIStyledDialog>
+      <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
+        <ModelForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
+      </UIStyledDialog>
+      <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
+        <ModelNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
+      </UIStyledDialog>
     </>
   );
 };

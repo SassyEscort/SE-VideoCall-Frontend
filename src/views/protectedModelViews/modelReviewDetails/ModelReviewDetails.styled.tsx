@@ -1,4 +1,4 @@
-import { Box, styled } from '@mui/material';
+import { Box, Typography, styled } from '@mui/material';
 
 export const MainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -25,7 +25,7 @@ export const SecondMainContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  paddingTop: theme.spacing(3.75),
+  paddingTop: theme.spacing(4),
   gap: theme.spacing(1.5),
   [theme.breakpoints.down('sm')]: {
     display: 'none'
@@ -84,7 +84,7 @@ export const CloumnContainer = styled(Box)(({ theme }) => ({
 
 export const LeftCloumnConatinerGap = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(1),
+  gap: theme.spacing(0.5),
   flexDirection: 'column'
 }));
 
@@ -107,7 +107,7 @@ export const Passport = styled(Box)(({ theme }) => ({
 export const IDnumber = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(1)
+  gap: theme.spacing(0.5)
 }));
 export const RightSideConatiner = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -119,7 +119,7 @@ export const RightSideConatiner = styled(Box)(({ theme }) => ({
 
 export const RightSideConatinerGap = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(1),
+  gap: theme.spacing(0.5),
   flexDirection: 'column'
 }));
 
@@ -180,7 +180,69 @@ export const ModelGalleryTitleBox = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   flexDirection: 'column',
   gap: theme.spacing(1.5),
-  paddingTop: theme.spacing(8),
+  paddingTop: theme.spacing(7),
   paddingLeft: theme.spacing(2),
   width: '100%'
+}));
+
+export const FirstBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(6),
+  width: '100%'
+}));
+
+export const FirstTextContainer = styled(Typography)(({ theme }) => ({
+  fontSize: '20px',
+  lineHeight: '32px',
+  fontWeight: 700
+}));
+
+export const GellaryTextContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: 2,
+  flexWrap: 'wrap',
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(1.5)
+  },
+  [theme.breakpoints.up('sm')]: {
+    gap: theme.spacing(2)
+  }
+}));
+
+export const SecTextContainer = styled(Typography)(({ theme }) => ({
+  fontSize: '16px',
+  lineHeight: '25.6px',
+  fontWeight: 500
+}));
+
+export const ThirdTextContainer = styled(Typography)(({ theme }) => ({
+  fontSize: '16px',
+  lineHeight: '25.6px',
+  fontWeight: 700
+}));
+
+export const BtnTextContainer = styled(Typography)(({ theme }) => ({
+  fontSize: '16px',
+  lineHeight: '19.2px',
+  fontWeight: 700
+}));
+
+export const FourTextContainer = styled(Typography)(({ theme }) => ({
+  fontSize: '20px',
+  lineHeight: '32px',
+  fontWeight: 700
+}));
+
+export const GalleryTextContainer = styled(Typography)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '18px',
+    lineHeight: '25.2px',
+    fontWeight: 700
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '20px',
+    lineHeight: '28px',
+    fontWeight: 700
+  }
 }));
