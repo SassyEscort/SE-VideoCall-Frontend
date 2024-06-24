@@ -31,6 +31,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import CreditsAdded from '../CreditsAdded/CreditsAdded';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+import Loader from 'components/Loader';
 
 const Credits = () => {
   const [open, setOpen] = useState(false);
@@ -38,6 +39,7 @@ const Credits = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [balance, setBalance] = useState(0);
   const [addedCredits, setAddedCredits] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
   useEffect(() => {
@@ -64,11 +66,13 @@ const Credits = () => {
     }
   }, [token.token]);
   const handleCreditClick = async (listCredit: ModelCreditRes) => {
+    setIsLoading(true);
     const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id);
     setAddedCredits(Number(listCredit.credits));
     if (res) {
       router.push(res?.data?.url);
     }
+    setIsLoading(false);
   };
   const handleClose = () => {
     setOpen(false);
@@ -89,6 +93,7 @@ const Credits = () => {
 
   return (
     <MainLayoutNav variant={'worker'} enlargedFooter={true}>
+      {isLoading && <Loader />}
       <CreditsMainContainer>
         <CreditsSubContainer>
           <TextMainContainer>

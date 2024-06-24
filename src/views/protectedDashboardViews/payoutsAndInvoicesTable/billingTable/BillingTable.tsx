@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
 import InvoiceTableHeader from './InvoiceTableHeader';
@@ -12,7 +11,8 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { CircularProgress, TableCell, TableRow } from '@mui/material';
 import { PayoutService } from 'services/payout/payout.service';
 import { ModelPastPayoutDetailRes } from 'services/payout/types';
-import { BillingLoadingBox } from './BillingTable.styled';
+import { BillingLoadingBox, PaginationBox } from './BillingTable.styled';
+import PaginationInWords from 'components/UIComponents/PaginationINWords';
 
 export type PaginationType = {
   page: number;
@@ -24,9 +24,10 @@ const BillingTable = () => {
   const [modelPayoutList, setModelPayoutList] = useState<ModelPastPayoutDetailRes>();
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isLoading, setIsLoading] = useState(false);
+  const [total_rows, setTotalRows] = useState(0);
   const [filters, setFilters] = useState({
     page: 0,
-    pageSize: 10,
+    pageSize: 20,
     offset: 0
   });
 
@@ -54,6 +55,7 @@ const BillingTable = () => {
           const data = await PayoutService.modelPastPayoutList(ModelPayoutListObject, token.token);
           if (data) {
             setModelPayoutList(data);
+            setTotalRows(data.data.aggregate.total_rows);
           }
           if (data.code === 200) {
             setIsLoading(false);
@@ -96,13 +98,22 @@ const BillingTable = () => {
           </Table>
         </TableContainer>
       </>
-      <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-        <UITheme2Pagination
-          page={filters.page}
-          count={modelPayoutList ? Math.ceil(modelPayoutList.data.aggregate.total_rows / filters.pageSize) : 1}
-          onChange={handleChangePage}
-        />
-      </Box>
+      {total_rows > 0 && (
+        <PaginationBox>
+          <UITheme2Pagination
+            page={filters.page}
+            count={modelPayoutList ? Math.ceil(modelPayoutList.data.aggregate.total_rows / filters.pageSize) : 1}
+            onChange={handleChangePage}
+          />
+          <PaginationInWords
+            page={filters.page}
+            limit={filters.pageSize}
+            total_rows={total_rows}
+            offset={filters.offset}
+            isEscort={false}
+          />
+        </PaginationBox>
+      )}
     </>
   );
 };
