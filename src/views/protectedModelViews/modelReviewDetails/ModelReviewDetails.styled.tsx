@@ -240,7 +240,7 @@ export const GalleryTextContainer = styled(Typography)(({ theme }) => ({
     lineHeight: '25.2px',
     fontWeight: 700
   },
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.up('sm')]: {
     fontSize: '20px',
     lineHeight: '28px',
     fontWeight: 700
