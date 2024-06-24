@@ -323,5 +323,9 @@
   "Availability": "Disponibilidad",
   "NotAvailable": "No Disponible",
   "SaveAndReview": "Guardar y revisar",
-  "SignUpAsUser": "Registrarse como usuaria"
+  "SignUpAsUser": "Registrarse como usuaria",
+  "Showing": "Mostrando",
+  "calls": "llamadas",
+  "escorts": "escoltas",
+  "withdrawls": "retiros"
 }

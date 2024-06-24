@@ -63,7 +63,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
+      setToken({ id: data?.id, token: data.token });
     };
 
     userToken();
@@ -80,6 +80,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
   }, [token.token]);
   useEffect(() => {
     handleModelApiChange();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.id, token.token]);
 
   return (

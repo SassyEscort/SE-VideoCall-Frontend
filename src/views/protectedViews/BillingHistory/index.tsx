@@ -1,9 +1,10 @@
 import Box from '@mui/material/Box';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   BillingHistoryBoxContainer,
   BillingHistoryMainContainer,
   BillingHistoryTextContainer,
+  BillingPaginationBox,
   BillingUIContainer,
   DateTimeBilling,
   DividerContainer,
@@ -24,6 +25,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import moment from 'moment';
+import PaginationInWords from 'components/UIComponents/PaginationINWords';
 
 export type billingHistoryParams = {
   category: string;
@@ -31,10 +33,21 @@ export type billingHistoryParams = {
   limit: number;
   offset: number;
 };
+export type BillPaginationType = {
+  page: number;
+  offset: number;
+  limit: number;
+};
 
 const BillingHistory = () => {
   const [guestBillingHistory, setGuestBillingHistory] = useState<BillingHistoryDetails[]>();
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [total_rows, setTotalRows] = useState(0);
+  const [filters, setFilters] = useState<BillPaginationType>({
+    page: 0,
+    limit: 20,
+    offset: 0
+  });
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -50,13 +63,14 @@ const BillingHistory = () => {
         const params = {
           category: '',
           details: '',
-          limit: 20,
-          offset: 0
+          limit: filters.limit,
+          offset: filters.offset
         };
         if (token.token) {
           const data = await ModelBillingHistoryService.getBillingHistoryDetails(params, token.token);
           if (data) {
             setGuestBillingHistory(data.data.ledger_details);
+            setTotalRows(data.data.aggreate.total_rows);
           }
         }
       } catch (error) {
@@ -65,8 +79,17 @@ const BillingHistory = () => {
     };
 
     fetchEarningHistoryDetails();
-  }, [token.token]);
-
+  }, [filters.limit, filters.offset, token.token]);
+  const handleChangeFilter = useCallback((value: any) => {
+    setFilters(value);
+  }, []);
+  const handleChangePage = useCallback(
+    (event: React.ChangeEvent<unknown>, value: number) => {
+      const offset = (value - 1) * filters.limit;
+      handleChangeFilter({ ...filters, page: value, offset: offset });
+    },
+    [filters, handleChangeFilter]
+  );
   return (
     <MainLayoutNav variant={'worker'} enlargedFooter={true}>
       <BillingHistoryBoxContainer>
@@ -99,9 +122,24 @@ const BillingHistory = () => {
             ))}
           </BillingHistoryMainContainer>
         </TextAndBoxContainer>
-        {guestBillingHistory && guestBillingHistory.length > 10 && (
+        {total_rows > 0 && (
           <CallHistoryPaginationContainer>
-            <UITheme2Pagination />
+            {total_rows > 0 && (
+              <BillingPaginationBox>
+                <UITheme2Pagination
+                  page={filters.page}
+                  count={total_rows ? Math.ceil(total_rows / filters.limit) : 1}
+                  onChange={handleChangePage}
+                />
+                <PaginationInWords
+                  page={filters.page}
+                  limit={filters.limit}
+                  total_rows={total_rows}
+                  offset={filters.offset}
+                  isEscort={true}
+                />
+              </BillingPaginationBox>
+            )}
           </CallHistoryPaginationContainer>
         )}
       </BillingHistoryBoxContainer>

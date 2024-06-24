@@ -23,7 +23,8 @@ import {
   Showtracking,
   ShowtrackingBox,
   Pendingconatiner,
-  TextDetail
+  TextDetail,
+  PaginationMainBox
 } from './PayoutRequest';
 import PayoutWidthDraw from '../payoutWithDraw';
 import { BankDetailsListRes, ModelPastPayoutDetailRes } from 'services/payout/types';
@@ -36,6 +37,7 @@ import { PayoutService } from 'services/payout/payout.service';
 import { ErrorMessage } from 'constants/common.constants';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import { NewStatusBox } from '../payoutsAndInvoicesTable/billingTable/statusDetails';
+import PaginationInWords from 'components/UIComponents/PaginationINWords';
 
 export type PayoutPaginationType = {
   page: number;
@@ -59,7 +61,8 @@ const PayoutContainer = ({
   const [modelPayoutList, setModelPayoutList] = useState<ModelPastPayoutDetailRes>();
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const [amountSave, setAmountSave] = useState(0);
-  const [filters, setFilters] = useState({
+  const [total_rows, setTotalRows] = useState(0);
+  const [filters, setFilters] = useState<PayoutPaginationType>({
     page: 0,
     pageSize: 10,
     offset: 0
@@ -90,6 +93,7 @@ const PayoutContainer = ({
           const data = await PayoutService.modelPastPayoutList(ModelPayoutListObject, token.token);
           if (data) {
             setModelPayoutList(data);
+            setTotalRows(data.data.aggregate.total_rows);
           }
         }
       } catch (error) {
@@ -224,13 +228,22 @@ const PayoutContainer = ({
                 ))}
               </SecondRecentWithdrawlsMainContainer>
             </RecentWithdrawlsMainContainer>
-            <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-              <UITheme2Pagination
-                page={filters.page}
-                count={modelPayoutList ? Math.ceil(modelPayoutList.data.aggregate.total_rows / filters.pageSize) : 1}
-                onChange={handleChangePage}
-              />
-            </Box>
+            {total_rows > 0 && (
+              <PaginationMainBox>
+                <UITheme2Pagination
+                  page={filters.page}
+                  count={modelPayoutList ? Math.ceil(total_rows / filters.pageSize) : 1}
+                  onChange={handleChangePage}
+                />
+                <PaginationInWords
+                  page={filters.page}
+                  limit={filters.pageSize}
+                  total_rows={total_rows}
+                  offset={filters.offset}
+                  isEscort={false}
+                />
+              </PaginationMainBox>
+            )}
           </SecondMainContainer>
         </>
       )}
