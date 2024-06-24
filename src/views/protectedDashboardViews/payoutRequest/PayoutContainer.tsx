@@ -64,7 +64,7 @@ const PayoutContainer = ({
   const [total_rows, setTotalRows] = useState(0);
   const [filters, setFilters] = useState<PayoutPaginationType>({
     page: 0,
-    pageSize: 10,
+    pageSize: 20,
     offset: 0
   });
 
