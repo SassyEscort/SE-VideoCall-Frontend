@@ -8,7 +8,6 @@ export const BillingHistoryMainContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '929px',
   height: '100%',
-  maxHeight: '471px',
   gap: theme.spacing(3),
   flexDirection: 'column'
 }));
@@ -77,4 +76,13 @@ export const BillingHistoryBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(6)
+}));
+
+export const BillingPaginationBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  width: '100%',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: theme.spacing(2)
 }));

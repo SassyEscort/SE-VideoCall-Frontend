@@ -76,6 +76,14 @@ export const RecentWithdrawlsMainContainer = styled(Box)(({ theme }) => ({
   maxWidth: 740,
   width: '100%'
 }));
+export const PaginationMainBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  width: '100%',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: theme.spacing(2)
+}));
 
 export const SecondRecentWithdrawlsMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',

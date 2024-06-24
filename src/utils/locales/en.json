@@ -326,5 +326,9 @@
   "WithdrawnAmount": "Withdrawn Amount",
   "Availability": "Availability",
   "NotAvailable": "Not Available",
-  "SaveAndReview": "Save and review"
+  "SaveAndReview": "Save and review",
+  "Showing": "Showing",
+  "calls": "calls",
+  "escorts": "escorts",
+  "withdrawls": "withdrawls"
 }
