@@ -35,10 +35,15 @@ export type earningParams = {
   limit: number;
   offset: number;
 };
+export type EarningPaginationType = {
+  page: number;
+  offset: number;
+  limit: number;
+};
 const EarningHistory = ({ token }: { token: TokenIdType }) => {
   const [modelEarningHistory, setModelEarningHistory] = useState<ModelEarningHistoryPageDetailsRes>();
   const [total_rows, setTotalRows] = useState(0);
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<EarningPaginationType>({
     page: 0,
     limit: 20,
     offset: 0
@@ -65,7 +70,7 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
 
     fetchEarningHistoryDetails();
   }, [filters.limit, filters.offset, token.token]);
-  const handleChangeFilter = useCallback((value: any) => {
+  const handleChangeFilter = useCallback((value: EarningPaginationType) => {
     setFilters(value);
   }, []);
   const handleChangePage = useCallback(

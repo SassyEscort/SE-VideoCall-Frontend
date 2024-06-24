@@ -80,7 +80,7 @@ const BillingHistory = () => {
 
     fetchEarningHistoryDetails();
   }, [filters.limit, filters.offset, token.token]);
-  const handleChangeFilter = useCallback((value: any) => {
+  const handleChangeFilter = useCallback((value: BillPaginationType) => {
     setFilters(value);
   }, []);
   const handleChangePage = useCallback(
