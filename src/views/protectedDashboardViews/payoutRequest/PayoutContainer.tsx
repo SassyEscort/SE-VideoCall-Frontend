@@ -42,6 +42,7 @@ import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Paginat
 import { NewStatusBox } from '../payoutsAndInvoicesTable/billingTable/statusDetails';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import UIVerticalStepper from './VerticalStepper';
+import moment from 'moment';
 
 export type PayoutPaginationType = {
   page: number;
@@ -208,9 +209,13 @@ const PayoutContainer = ({
                                 <UIVerticalStepper
                                   steps={item.state === 'Rejected' ? REJECTED_STEPS : APPROVED_STEPS}
                                   activeStep={item.state === 'Approved' || item.state === 'Rejected' ? 2 : 1}
-                                  withDate={item.payout_logs ? item?.payout_logs[0]?.created_at : ' '}
+                                  withDate={item.payout_logs ? moment(item?.payout_logs[0]?.created_at).format('DD/MM/YYYY') : ' '}
                                   tarnsferDate={
-                                    item.payout_logs ? (item.payout_logs.length > 1 ? item?.payout_logs[1]?.created_at : ' ') : ''
+                                    item.payout_logs
+                                      ? item.payout_logs.length > 1
+                                        ? moment(item?.payout_logs[1]?.created_at).format('DD/MM/YYYY')
+                                        : ' '
+                                      : ''
                                   }
                                 />
                               </StyledAccordionDetails>
