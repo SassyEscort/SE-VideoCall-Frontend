@@ -49,9 +49,6 @@ const PayoutsAndInvoices = () => {
             <UINewTypography variant="SubtitleSmallMedium">
               <FormattedMessage id="TotalOfInvoices" />
             </UINewTypography>
-            {/* <UINewTypography variant="buttonLargeBold">
-              <FormattedMessage id="DownloadAll" />
-            </UINewTypography> */}
           </TypographyBox>
           <TableBox>
             <BillingTable />

@@ -157,12 +157,7 @@ const PayoutContainer = ({
           <SecondMainContainer>
             <FirstUsdBox>
               <SecondUsdBox>
-                <UsdBox>
-                  {/* <Box component={'img'} src="/images/payout/pay.webp" alt="usd" sx={{ borderRadius: '50%' }} />
-                  <UINewTypography variant="SubtitleSmallMedium">
-                    <FormattedMessage id="USD" />
-                  </UINewTypography> */}
-                </UsdBox>
+                <UsdBox></UsdBox>
                 <DollerBox>
                   <UINewTypography variant="h5" color="text.secondary">
                     $
