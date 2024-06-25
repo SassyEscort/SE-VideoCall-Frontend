@@ -112,7 +112,7 @@ export const StyledAccordionSummary = styled((props: AccordionSummaryProps) => <
 export const StyledAccordionDetails = styled((props: AccordionDetailsProps) => <AccordionDetails {...props} />)(({ theme }) => ({
   padding: '0px',
   color: theme.palette.secondary[300],
-  marginBottom: 24
+  marginBottom: theme.spacing(24)
 }));
 
 export const MainUINewTypography = styled(UINewTypography)(({ theme }) => ({
