@@ -45,7 +45,7 @@ const PayoutFAQS = () => {
                 <StyledAccordion>
                   <MainUINewTypography>
                     <StyledAccordionSummary
-                      sx={{ color: 'secondary.100' }}
+                      color="secondary.100"
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
@@ -63,7 +63,7 @@ const PayoutFAQS = () => {
                 <StyledAccordion>
                   <MainUINewTypography>
                     <StyledAccordionSummary
-                      sx={{ color: 'secondary.100' }}
+                      color="secondary.100"
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
@@ -81,7 +81,7 @@ const PayoutFAQS = () => {
                 <StyledAccordion>
                   <MainUINewTypography>
                     <StyledAccordionSummary
-                      sx={{ color: 'secondary.100' }}
+                      color="secondary.100"
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
@@ -99,7 +99,7 @@ const PayoutFAQS = () => {
                 <StyledAccordion>
                   <MainUINewTypography>
                     <StyledAccordionSummary
-                      sx={{ color: 'secondary.100' }}
+                      color="secondary.100"
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
@@ -117,7 +117,7 @@ const PayoutFAQS = () => {
                 <StyledAccordion>
                   <MainUINewTypography>
                     <StyledAccordionSummary
-                      sx={{ color: 'secondary.100' }}
+                      color="secondary.100"
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
@@ -153,7 +153,7 @@ const PayoutFAQS = () => {
                 <StyledAccordion>
                   <MainUINewTypography>
                     <StyledAccordionSummary
-                      sx={{ color: 'secondary.100' }}
+                      color="secondary.100"
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}

@@ -196,7 +196,7 @@ const PayoutContainer = ({
                           <ShowtrackingBox>
                             <StyledAccordion>
                               <StyledAccordionSummary aria-controls="panel1-content" id="panel1-header" expandIcon={<ExpandMoreIcon />}>
-                                <UINewTypography variant="captionLarge" sx={{ color: 'secondary.100' }}>
+                                <UINewTypography variant="captionLarge" color="secondary.100">
                                   <FormattedMessage id="ShowTracking" />
                                 </UINewTypography>
                               </StyledAccordionSummary>
