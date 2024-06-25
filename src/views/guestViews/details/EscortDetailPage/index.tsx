@@ -15,6 +15,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { usePathname } from 'next/navigation';
+import Box from '@mui/system/Box';
 
 const EscortDetailPage = () => {
   const path = usePathname();
@@ -58,14 +59,16 @@ const EscortDetailPage = () => {
   return (
     <>
       <HomeMainContainer>
-        {isLgDown ? (
-          <EscortSliderMobile workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])} modelId={guestData?.id ?? 0} token={token} />
-        ) : (
-          <EscortSlider workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])} modelId={guestData?.id ?? 0} token={token} />
-        )}
+        <Box sx={{ px: { xs: '15px', lg: '0' } }}>
+          {isLgDown ? (
+            <EscortSliderMobile workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])} modelId={guestData?.id ?? 0} token={token} />
+          ) : (
+            <EscortSlider workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])} modelId={guestData?.id ?? 0} token={token} />
+          )}
 
-        <EscortPersonalDetail guestData={guestData ?? ({} as ModelDetailsResponse)} />
-        <EscortExplore />
+          <EscortPersonalDetail guestData={guestData ?? ({} as ModelDetailsResponse)} />
+          <EscortExplore />
+        </Box>
       </HomeMainContainer>
     </>
   );

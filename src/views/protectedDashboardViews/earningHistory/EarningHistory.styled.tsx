@@ -61,7 +61,15 @@ export const EarningHistoryPagination = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   width: '100%',
-  marginTop: theme.spacing(7)
+  marginTop: theme.spacing(3.25)
+}));
+export const PaginationBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  width: '100%',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: theme.spacing(2)
 }));
 
 export const DividerContainer = styled(Divider)(({ theme }) => ({

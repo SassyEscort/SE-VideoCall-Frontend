@@ -24,7 +24,13 @@ import {
   Passport,
   IDnumber,
   FontIdRight,
-  EditButton
+  EditButton,
+  FirstBoxContainer,
+  FirstTextContainer,
+  SecTextContainer,
+  ThirdTextContainer,
+  BtnTextContainer,
+  FourTextContainer
 } from './ModelReviewDetails.styled';
 import { useEffect, useState } from 'react';
 
@@ -43,8 +49,7 @@ const ModelBasicDetailReview = ({
     modelDetails?.documents?.length && modelDetails?.documents[0]?.document_number ? modelDetails?.documents[0]?.document_number : '';
 
   const documentLink = modelDetails?.documents?.length && modelDetails?.documents[0]?.link ? modelDetails?.documents[0]?.link : '';
-  const documentLinkPdf = documentLink.includes('.pdf');
-
+  const documentLinkPdf = documentLink.includes('.pdf') || modelDetails?.documents[0]?.file_type === 'Non_Image';
   useEffect(() => {
     const names = modelDetails?.languages
       ?.map((language) => language?.language_name)
@@ -58,7 +63,7 @@ const ModelBasicDetailReview = ({
     <DocumentSecondConatiner>
       <UpConatiner>
         <SecondMainContainer>
-          <UINewTypography variant="h2" color={'text.primary'}>
+          <UINewTypography variant="h2" color={'text.secondary'}>
             <FormattedMessage id="ReviewYourDetails" />
           </UINewTypography>
           <UINewTypography variant="bodyRegular" color={'text.secondary'}>
@@ -69,70 +74,56 @@ const ModelBasicDetailReview = ({
         <ThreeMainContainer>
           <ForMainContainer>
             <BasicDetailsConatiner>
-              <UINewTypography variant="h6" color={'text.primary'}>
+              <FirstTextContainer color={'text.secondary'}>
                 <FormattedMessage id="BasicDetails" />
-              </UINewTypography>
+              </FirstTextContainer>
             </BasicDetailsConatiner>
             <FirstColumnContainer>
               <SecondColumnContainer>
                 <CloumnContainer>
                   <LeftCloumnConatinerGap>
-                    <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
+                    <SecTextContainer color={'text.primary'} whiteSpace="nowrap">
                       <FormattedMessage id="YourGender" />
-                    </UINewTypography>
-                    <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                      {modelDetails?.gender}
-                    </UINewTypography>
+                    </SecTextContainer>
+                    <ThirdTextContainer color={'text.secondary'}>{modelDetails?.gender}</ThirdTextContainer>
                   </LeftCloumnConatinerGap>
                   <LeftCloumnConatinerGap>
-                    <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
+                    <SecTextContainer color={'text.primary'}>
                       <FormattedMessage id="Country" />
-                    </UINewTypography>
-                    <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                      {modelDetails?.country?.name}
-                    </UINewTypography>
+                    </SecTextContainer>
+                    <ThirdTextContainer color={'text.secondary'}>{modelDetails?.country?.name}</ThirdTextContainer>
                   </LeftCloumnConatinerGap>
                   <LeftCloumnConatinerGap>
-                    <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
+                    <SecTextContainer color={'text.primary'}>
                       <FormattedMessage id="DOB" />
-                    </UINewTypography>
-                    <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                      {moment(modelDetails?.dob).format('l')}
-                    </UINewTypography>
+                    </SecTextContainer>
+                    <ThirdTextContainer color={'text.secondary'}>{moment(modelDetails?.dob).format('l')}</ThirdTextContainer>
                   </LeftCloumnConatinerGap>
                   <LeftCloumnConatinerGap>
-                    <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
+                    <SecTextContainer color={'text.primary'}>
                       <FormattedMessage id="Nationality" />
-                    </UINewTypography>
-                    <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                      {modelDetails?.nationality?.name}
-                    </UINewTypography>
+                    </SecTextContainer>
+                    <ThirdTextContainer color={'text.secondary'}>{modelDetails?.nationality?.name}</ThirdTextContainer>
                   </LeftCloumnConatinerGap>
                 </CloumnContainer>
                 <RightSideConatiner>
                   <RightSideConatinerGap>
-                    <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
+                    <SecTextContainer color={'text.primary'}>
                       <FormattedMessage id="Name" />
-                    </UINewTypography>
-                    <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                      {modelDetails?.name}
-                    </UINewTypography>
+                    </SecTextContainer>
+                    <ThirdTextContainer color={'text.secondary'}>{modelDetails?.name}</ThirdTextContainer>
                   </RightSideConatinerGap>
                   <RightSideConatinerGap>
-                    <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
+                    <SecTextContainer color={'text.primary'}>
                       <FormattedMessage id="Bio" />
-                    </UINewTypography>
-                    <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                      {modelDetails?.bio}
-                    </UINewTypography>
+                    </SecTextContainer>
+                    <ThirdTextContainer color={'text.secondary'}>{modelDetails?.bio}</ThirdTextContainer>
                   </RightSideConatinerGap>
                   <RightSideConatinerGap>
-                    <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
+                    <SecTextContainer color={'text.primary'}>
                       <FormattedMessage id="Language" />
-                    </UINewTypography>
-                    <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                      {languageNames}
-                    </UINewTypography>
+                    </SecTextContainer>
+                    <ThirdTextContainer color={'text.secondary'}>{languageNames}</ThirdTextContainer>
                   </RightSideConatinerGap>
                 </RightSideConatiner>
               </SecondColumnContainer>
@@ -140,44 +131,40 @@ const ModelBasicDetailReview = ({
           </ForMainContainer>
           <ButtonContainer>
             <UIThemeButton variant="outlined" onClick={() => handleEdit(0)}>
-              <UINewTypography variant="buttonLargeBold" color={'text.primary'}>
+              <BtnTextContainer color={'text.primary'}>
                 <FormattedMessage id="Edit" />
-              </UINewTypography>
+              </BtnTextContainer>
             </UIThemeButton>
           </ButtonContainer>
         </ThreeMainContainer>
       </UpConatiner>
 
       <DocumentsConatiner>
-        <Box sx={{ display: 'flex', flexDirection: 'cloumn', gap: 6, width: '100%' }}>
+        <FirstBoxContainer>
           <DocumentLeftContainer>
-            <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
+            <FourTextContainer color={'text.secondary'}>
               <FormattedMessage id="Documents" />
-            </UINewTypography>
+            </FourTextContainer>
             <IDtype>
               <Passport>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                  <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
-                    <FormattedMessage id="IdType" />
-                  </UINewTypography>
-                  <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                    {documentType}
-                  </UINewTypography>
-                </Box>
                 <IDnumber>
-                  <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
+                  <SecTextContainer color={'text.primary'}>
+                    <FormattedMessage id="IdType" />
+                  </SecTextContainer>
+                  <ThirdTextContainer color={'text.secondary'}>{documentType}</ThirdTextContainer>
+                </IDnumber>
+                <IDnumber>
+                  <SecTextContainer color={'text.primary'}>
                     <FormattedMessage id="IdNumber" />
-                  </UINewTypography>
-                  <UINewTypography variant="buttonLargeBold" color={'text.secondary'}>
-                    {documentNumber}
-                  </UINewTypography>
+                  </SecTextContainer>
+                  <ThirdTextContainer color={'text.secondary'}>{documentNumber}</ThirdTextContainer>
                 </IDnumber>
               </Passport>
               <FontIdRight>
                 <Box>
-                  <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
+                  <SecTextContainer color={'text.primary'}>
                     <FormattedMessage id="IdFront" />
-                  </UINewTypography>
+                  </SecTextContainer>
                 </Box>
                 {documentLinkPdf ? (
                   <Box component={'img'} src={'/images/icons/pdf-icon.svg'} width={'100px'} height={'100px'}></Box>
@@ -187,12 +174,12 @@ const ModelBasicDetailReview = ({
               </FontIdRight>
             </IDtype>
           </DocumentLeftContainer>
-        </Box>
+        </FirstBoxContainer>
         <EditButton>
           <UIThemeButton variant="outlined" onClick={() => handleEdit(1)}>
-            <UINewTypography variant="buttonLargeBold" color={'text.primary'}>
+            <BtnTextContainer color={'text.primary'}>
               <FormattedMessage id="Edit" />
-            </UINewTypography>
+            </BtnTextContainer>
           </UIThemeButton>
         </EditButton>
       </DocumentsConatiner>

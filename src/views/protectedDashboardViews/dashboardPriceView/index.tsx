@@ -178,7 +178,6 @@ const DashboardPriceView = ({
                       error={touched.price && Boolean(errors.price)}
                       helperText={touched.price && errors.price}
                       variant="outlined"
-                      margin="normal"
                     />
                   </RightSideBox>
 

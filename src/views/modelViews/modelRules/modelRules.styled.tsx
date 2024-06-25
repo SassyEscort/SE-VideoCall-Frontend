@@ -19,8 +19,8 @@ export const ContactUs = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   gap: '4px',
   [theme.breakpoints.up('sm')]: {
-    paddingTop: '49px',
-    paddingBottom: '50px'
+    paddingTop: '64px',
+    paddingBottom: '64px'
   },
   [theme.breakpoints.down('sm')]: {
     paddingTop: '68.5px',
@@ -54,7 +54,8 @@ export const ListContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(3),
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(1)
+  gap: theme.spacing(1),
+  marginBottom: theme.spacing(11)
 }));
 
 export const TypoListContainer = styled(Box)(({ theme }) => ({

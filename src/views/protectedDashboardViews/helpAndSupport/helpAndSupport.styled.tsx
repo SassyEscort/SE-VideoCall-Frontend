@@ -77,3 +77,16 @@ export const MobileBoxContainer = styled(Box)(({ theme }) => ({
     flexDirection: 'row'
   }
 }));
+
+export const FirstBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(4),
+  marginTop: theme.spacing(4)
+}));
+
+export const SecBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(6.75)
+}));

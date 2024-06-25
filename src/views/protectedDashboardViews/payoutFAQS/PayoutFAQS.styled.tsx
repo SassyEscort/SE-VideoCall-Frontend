@@ -48,17 +48,17 @@ export const SecondBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const FAQTitle = styled(Typography)(({ theme }) => ({
+export const PayoutFAQTitle = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
   textAlign: 'center',
   fontWeight: 700,
   [theme.breakpoints.down('sm')]: {
     fontSize: '24px',
-    lineHeight: '32px'
+    lineHeight: '30px'
   },
   [theme.breakpoints.up('sm')]: {
-    fontSize: '40px',
-    lineHeight: '52px'
+    fontSize: '38px',
+    lineHeight: '47.5px'
   }
 }));
 

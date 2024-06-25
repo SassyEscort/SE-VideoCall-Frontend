@@ -1,7 +1,7 @@
+import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import theme from 'themes/theme';
 
 export const GalleryMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -118,7 +118,7 @@ export const ModelMultiplePhotoItem = styled(Box)(({ theme }) => ({
   maxWidth: 824,
   padding: '24px 16px 0px 16px',
   [theme.breakpoints.down('sm')]: {
-    padding: '24px 10px'
+    padding: '24px 16px'
   },
   flexDirection: 'column',
   borderRadius: theme.spacing(3)
@@ -140,8 +140,17 @@ export const UploadMultiplePhotos = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  alignItems: 'center',
-  [theme.breakpoints.down('sm')]: {
-    padding: '0px 12px 0px 12px'
-  }
+  alignItems: 'center'
+}));
+
+export const UploadPhotostext = styled(Typography)(({ theme }) => ({
+  fontSize: '20px',
+  fontWeight: 700,
+  lineHeight: '28px'
+}));
+
+export const ModelMultiplePhotoSubBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(1.5)
 }));

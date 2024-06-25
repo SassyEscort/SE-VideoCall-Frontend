@@ -202,7 +202,7 @@ const PayoutWithdrawContainer = ({
                               <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: 'nowrap' }}>
                                 <FormattedMessage id="YourBalance" />
                               </UINewTypography>
-                              <UINewTypography variant="bodySemiBold" color="text.secondary" sx={{ textWrap: 'nowrap' }}>
+                              <UINewTypography variant="bodySemiBold" lineHeight="125%" color="text.secondary" sx={{ textWrap: 'nowrap' }}>
                                 : ${amountSave}
                               </UINewTypography>
                             </Box>
@@ -211,7 +211,12 @@ const PayoutWithdrawContainer = ({
                             <UIStyledInputText
                               fullWidth
                               type="number"
-                              sx={{ height: '70px' }}
+                              sx={{
+                                height: '70px',
+                                '& .MuiInputBase-root': {
+                                  padding: '16px 20px '
+                                }
+                              }}
                               id="amount"
                               name="amount"
                               value={values.amount}

@@ -63,7 +63,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
+      setToken({ id: data?.id, token: data.token });
     };
 
     userToken();
@@ -80,6 +80,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
   }, [token.token]);
   useEffect(() => {
     handleModelApiChange();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.id, token.token]);
 
   return (
@@ -90,7 +91,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
         <SideMenu modelDetails={modelDetails ?? ({} as ModelDetailsResponse)} handleModelApiChange={handleModelApiChange} token={token} />
       )}
 
-      {!isMdDown && <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: 4 }} />}
+      {!isMdDown && <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: 5.5 }} />}
 
       <Drawer
         variant={isMdUp ? 'permanent' : 'temporary'}
