@@ -1,7 +1,7 @@
 'use client';
-import { StepContent } from '@mui/material';
 import Box from '@mui/material/Box';
 import Step from '@mui/material/Step';
+import StepContent from '@mui/material/StepContent';
 import StepLabel from '@mui/material/StepLabel';
 import UIStyledVerticalStepper from 'components/UIComponents/UIVerticalStepper/UIStyledVerticalStepper.styled';
 
