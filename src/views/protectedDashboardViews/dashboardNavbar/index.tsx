@@ -91,7 +91,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
         <SideMenu modelDetails={modelDetails ?? ({} as ModelDetailsResponse)} handleModelApiChange={handleModelApiChange} token={token} />
       )}
 
-      {!isMdDown && <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: 5.5 }} />}
+      {!isMdDown && <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: 5 }} />}
 
       <Drawer
         variant={isMdUp ? 'permanent' : 'temporary'}
