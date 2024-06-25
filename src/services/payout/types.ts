@@ -59,7 +59,7 @@ export type ModelPastPayoutDetail = {
   aggregate: ModelPastPayoutAggregate;
 };
 
-export type ModelPastPayoutresDetail = {
+export type ModelPastPayoutResDetail = {
   payout_details: PayoutRes[];
   aggregate: ModelPastPayoutAggregate;
 };
@@ -99,7 +99,7 @@ export interface BankDetailsEditReponse extends GenericRes {
 }
 
 export interface ModelPastPayoutDetailRes extends GenericRes {
-  data: ModelPastPayoutresDetail;
+  data: ModelPastPayoutResDetail;
 }
 
 export type RequestPayout = {
