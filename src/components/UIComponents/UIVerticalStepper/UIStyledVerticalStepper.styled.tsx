@@ -20,9 +20,8 @@ const UIStyledVerticalStepper = styled(Stepper)(({ theme }) => ({
     color: theme.palette.text.secondary
   },
   '& .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
-    marginTop: '8px'
+    marginTop: theme.spacing(1)
   },
-
   '& .MuiStepContent-root': {
     borderLeft: '0',
     fontWeight: 500,
@@ -30,7 +29,7 @@ const UIStyledVerticalStepper = styled(Stepper)(({ theme }) => ({
     fontStyle: 'normal',
     lineHeight: '140%',
     letterSpacing: '0.3px',
-    paddingLeft: '13px',
+    paddingLeft: theme.spacing(1.625),
     minHeight: '16px'
   },
   '& .MuiStepLabel-label.Mui-active': {
@@ -47,8 +46,8 @@ const UIStyledVerticalStepper = styled(Stepper)(({ theme }) => ({
     color: theme.palette.text.secondary
   },
   '& .mui-1pe7n21-MuiStepConnector-root': {
-    marginLeft: '4px',
-    marginTop: '-17px'
+    marginLeft: theme.spacing(0.5),
+    marginTop: theme.spacing(-2.125)
   },
   '& .MuiStepConnector-line': {
     height: '40px',
