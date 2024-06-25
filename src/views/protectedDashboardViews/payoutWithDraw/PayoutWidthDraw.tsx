@@ -147,6 +147,8 @@ export const PayoutThreeBox = styled(Box)(({ theme }) => ({
 
 export const PayoutDetailSecondBox = styled(Box)(({ theme }) => ({
   display: 'flex',
+  height: '100%',
+  maxHeight: '103px',
   justifyContent: 'space-between',
   alignItems: 'center',
   background: theme.palette.primary[700],

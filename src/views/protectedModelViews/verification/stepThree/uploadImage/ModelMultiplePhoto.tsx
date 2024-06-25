@@ -11,10 +11,12 @@ import { VerificationFormStep5TypeV2, WorkerPhotos } from '.';
 import {
   GalleryMainContainer,
   ModelMultiplePhotoItem,
+  ModelMultiplePhotoSubBox,
   UIPhotosHeader,
   UploadItem,
   UploadMultipleBox,
-  UploadMultiplePhotos
+  UploadMultiplePhotos,
+  UploadPhotostext
 } from './UploadMultiplePhoto.styled';
 import { FormattedMessage } from 'react-intl';
 import { TokenIdType } from '../..';
@@ -61,7 +63,7 @@ const ModelMultiplePhoto = ({
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const height = isSmUp ? 193 : 210;
-  const width = isSmUp ? 145 : 159;
+  const width = isSmUp ? 145 : 149;
 
   const [existingPhotos, setExistingPhotos] = useState<UploadPhotos[]>([]);
   const [uploadedImagesURL, setUploadedImagesURL] = useState<UploadPhotos[]>([]);
@@ -227,9 +229,9 @@ const ModelMultiplePhoto = ({
         )}
         <ModelMultiplePhotoItem>
           <UploadItem>
-            <UINewTypography variant="h6" color="text.secondary">
+            <UploadPhotostext color="text.secondary">
               <FormattedMessage id="UploadPics" />
-            </UINewTypography>
+            </UploadPhotostext>
           </UploadItem>
           <GalleryMainContainer>
             <UploadGalleryPhotos
@@ -241,35 +243,37 @@ const ModelMultiplePhoto = ({
               values={values}
               handleUploadPhotos={handleUploadPhotos}
             />
-            {(values.file5Existing.length > 0 || values.file5) && (
-              <UINewTypography variant="h6">
-                <FormattedMessage id="Gallery" />
-              </UINewTypography>
-            )}
-            <ModelMultipleBoxContainer>
-              {[...existingPhotos, ...uploadedImagesURL]?.map((photo, index) => {
-                return (
-                  <PhotoItem
-                    handleModelApiChange={handleModelApiChange}
-                    values={values}
-                    key={index}
-                    token={token}
-                    image={photo}
-                    isEdit={false}
-                    isFeaturePhoto={false}
-                    thumbnailImageId={thumbnailImageId}
-                    height={height}
-                    width={width}
-                    setValue={setValue}
-                    removeImage={removeImage}
-                    handleChangeFile5Cords={handleChangeFile5Cords}
-                    handleClickThumbnailImageId={handleClickThumbnailImageId}
-                    handleBlobThumbnail={handleBlobThumbnail}
-                    index={index}
-                  />
-                );
-              })}
-            </ModelMultipleBoxContainer>
+            <ModelMultiplePhotoSubBox>
+              {(values.file5Existing.length > 0 || values.file5) && (
+                <UINewTypography variant="h6">
+                  <FormattedMessage id="Gallery" />
+                </UINewTypography>
+              )}
+              <ModelMultipleBoxContainer>
+                {[...existingPhotos, ...uploadedImagesURL]?.map((photo, index) => {
+                  return (
+                    <PhotoItem
+                      handleModelApiChange={handleModelApiChange}
+                      values={values}
+                      key={index}
+                      token={token}
+                      image={photo}
+                      isEdit={false}
+                      isFeaturePhoto={false}
+                      thumbnailImageId={thumbnailImageId}
+                      height={height}
+                      width={width}
+                      setValue={setValue}
+                      removeImage={removeImage}
+                      handleChangeFile5Cords={handleChangeFile5Cords}
+                      handleClickThumbnailImageId={handleClickThumbnailImageId}
+                      handleBlobThumbnail={handleBlobThumbnail}
+                      index={index}
+                    />
+                  );
+                })}
+              </ModelMultipleBoxContainer>
+            </ModelMultiplePhotoSubBox>
           </GalleryMainContainer>
         </ModelMultiplePhotoItem>
       </UploadMultiplePhotos>
