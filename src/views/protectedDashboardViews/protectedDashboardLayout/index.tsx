@@ -19,7 +19,7 @@ const StyledRoot = styled('div')({
   overflow: 'hidden',
   '@media (max-width: 1023px)': {
     flexDirection: 'column',
-    gap: '32px'
+    gap: '24px'
   }
 });
 
@@ -42,7 +42,7 @@ const MainLayoutNav = (props: MainLayoutType) => {
             <ModelNav openNav={open} onCloseNav={() => setOpen(true)} />
             <Main>
               {isMdUp && <ProtectedDashboardLayoutMainContainer />}
-              <Box paddingBottom={{ md: 13 }} paddingRight="14px">
+              <Box paddingBottom={{ md: 13 }} paddingRight="14px" paddingLeft={{ xs: '14px', sm: '0' }}>
                 {props.children}
               </Box>
             </Main>
