@@ -218,7 +218,7 @@ const ModelMultiplePhoto = ({
         ) : (
           !isSmDown && (
             <Box paddingBottom={4} pt={4}>
-              <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
+              <UINewTypography variant="h2" sx={{ color: '#E9E8EB' }}>
                 <FormattedMessage id="ModifyPhotos" />
               </UINewTypography>
             </Box>
@@ -245,7 +245,7 @@ const ModelMultiplePhoto = ({
                 <FormattedMessage id="Gallery" />
               </UINewTypography>
             )}
-            <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
+            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
               {[...existingPhotos, ...uploadedImagesURL]?.map((photo, index) => {
                 return (
                   <PhotoItem
@@ -273,7 +273,7 @@ const ModelMultiplePhoto = ({
         </ModelMultiplePhotoItem>
       </UploadMultiplePhotos>
       {isEdit && (
-        <UploadMultipleBox pt={12}>
+        <UploadMultipleBox pt={13}>
           <UIThemeButton
             onClick={handleCancel}
             disabled={Boolean((values.file5 === null || uploadedImagesURL.length === 0) && !values.cords5) && Boolean(!isDelete && isEdit)}
