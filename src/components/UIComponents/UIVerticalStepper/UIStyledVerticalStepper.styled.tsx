@@ -4,14 +4,14 @@ import { styled } from '@mui/material/styles';
 const UIStyledVerticalStepper = styled(Stepper)(({ theme }) => ({
   '& .MuiStepLabel-label': {
     fontWeight: 500,
-    color: theme.palette.text.disabled,
+    color: theme.palette.text.secondary,
     fontSize: '14px',
     fontStyle: 'normal',
     lineHeight: '140%',
     letterSpacing: '0.3px'
   },
-  '& .mui-15shpc-MuiStepLabel-root': {
-    padding: '0px'
+  '& .MuiStepLabel-root': {
+    padding: '0'
   },
   '& .MuiStepIcon-text': {
     display: 'none'
@@ -30,32 +30,36 @@ const UIStyledVerticalStepper = styled(Stepper)(({ theme }) => ({
     lineHeight: '140%',
     letterSpacing: '0.3px',
     paddingLeft: theme.spacing(1.625),
-    minHeight: '16px'
+    minHeight: '16px',
+    color: theme.palette.secondary[700]
   },
   '& .MuiStepLabel-label.Mui-active': {
     color: theme.palette.text.secondary
   },
-  '& .mui-style-1fu8gtm-MuiSvgIcon-root-MuiStepIcon-root': {
-    color: theme.palette.text.disabled
+  '& .MuiSvgIcon-root-MuiStepIcon-root': {
+    color: theme.palette.text.secondary
   },
-  '& .mui-15shpc-MuiStepLabel-root .MuiSvgIcon-root': {
+  '& .MuiStepLabel-label.Mui-completed': {
+    color: theme.palette.text.secondary
+  },
+  '& .MuiStepLabel-root .MuiSvgIcon-root': {
     width: '16px',
     height: '16px'
   },
-  '& .mui-style-1fu8gtm-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed': {
+  '& .MuiSvgIcon-root-MuiStepIcon-root.Mui-completed': {
     color: theme.palette.text.secondary
   },
-  '& .mui-1pe7n21-MuiStepConnector-root': {
+  '& .MuiStepConnector-root': {
     marginLeft: theme.spacing(0.5),
     marginTop: theme.spacing(-2.125)
   },
   '& .MuiStepConnector-line': {
     height: '40px',
-    borderColor: theme.palette.text.disabled,
+    borderColor: theme.palette.text.secondary,
     borderLeft: '2px dashed',
     margin: '-2px 3px'
   },
-  '& .mui-style-1fu8gtm-MuiSvgIcon-root-MuiStepIcon-root.Mui-active ': {
+  '& .MuiSvgIcon-root-MuiStepIcon-root.Mui-active ': {
     color: theme.palette.primary[400]
   },
   '& .MuiStepConnector-root.Mui-active .MuiStepConnector-line': {
@@ -63,8 +67,7 @@ const UIStyledVerticalStepper = styled(Stepper)(({ theme }) => ({
     borderColor: theme.palette.primary[400]
   },
   '& .MuiStepConnector-root.Mui-completed .MuiStepConnector-line': {
-    borderLeft: '2px inset',
-    borderColor: theme.palette.primary[400]
+    borderLeft: '2px inset'
   }
 }));
 
