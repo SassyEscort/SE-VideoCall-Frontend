@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import { FormattedMessage } from 'react-intl';
 import {
-  MainConatiner,
+  MainContainer,
   BoxMessage,
   SecondMainContainer,
   FirstUsdBox,
@@ -135,7 +135,7 @@ const PayoutContainer = ({
   }, [token.token]);
 
   return (
-    <MainConatiner>
+    <MainContainer>
       {(payoutStep === 0 || isSmUp) && (
         <>
           <BoxMessage>
@@ -147,10 +147,10 @@ const PayoutContainer = ({
             <FirstUsdBox>
               <SecondUsdBox>
                 <UsdBox>
-                  <Box component={'img'} src="/images/payout/pay.webp" alt="usd" sx={{ borderRadius: '50%' }} />
+                  {/* <Box component={'img'} src="/images/payout/pay.webp" alt="usd" sx={{ borderRadius: '50%' }} />
                   <UINewTypography variant="SubtitleSmallMedium">
                     <FormattedMessage id="USD" />
-                  </UINewTypography>
+                  </UINewTypography> */}
                 </UsdBox>
                 <DollerBox>
                   <UINewTypography variant="h5" color="text.secondary">
@@ -260,7 +260,7 @@ const PayoutContainer = ({
           amountSave={amountSave}
         />
       )}
-    </MainConatiner>
+    </MainContainer>
   );
 };
 

@@ -85,7 +85,7 @@ const BillingTable = () => {
           <Table>
             <InvoiceTableHeader />
             {isLoading ? (
-              <TableRow>
+              <TableRow sx={{ border: 'none' }}>
                 <TableCell colSpan={10}>
                   <BillingLoadingBox>
                     <CircularProgress />
