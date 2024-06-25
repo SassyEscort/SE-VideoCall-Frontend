@@ -51,7 +51,7 @@ const ModelProfileContainer = ({
         <Box sx={{ display: 'flex' }}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '62px' }}>
-              <UINewTypography variant="h5" color="text.secondary" ml="24px" mt={3.93}>
+              <UINewTypography variant="h5" lineHeight="125%" color="text.secondary" ml="24px" mt={6}>
                 <FormattedMessage id="MyProfile" />
               </UINewTypography>
               <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', width: '100%' }} />
@@ -59,7 +59,7 @@ const ModelProfileContainer = ({
             <SidebarDropDownMainContainer>
               {profileMenuList.map((list, index) => (
                 <>
-                  <MenuItem onClick={() => handleMenu(list.id)} key={index}>
+                  <MenuItem onClick={() => handleMenu(list.id)} key={index} sx={{ paddingLeft: '0', py: '12px' }}>
                     {menuId === index ? (
                       <UINewTypography variant="buttonLargeMenu" color="primary.400">
                         {list.menuName}
