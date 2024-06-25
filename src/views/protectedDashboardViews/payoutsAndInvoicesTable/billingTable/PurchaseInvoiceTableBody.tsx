@@ -94,14 +94,12 @@ const PurchaseInvoiceTableBodyV2 = ({ modelPayoutList }: { modelPayoutList: Mode
             </NewStatusBox>
           </TableCellMain>
           <TableCellMain align="center">
-            {item.state === 'Approved' ? (
+            {item.state === 'Approved' && (
               <Button onClick={() => handleOpenModal(item)}>
                 <UINewTypography variant="buttonLargeMenu">
                   <FormattedMessage id="Download" />
                 </UINewTypography>
               </Button>
-            ) : (
-              ''
             )}
           </TableCellMain>
           <InvoiceModalV2 invoiceData={invoiceData} open={modalOpen} onClose={handleCloseModal} />
