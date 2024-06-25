@@ -9,7 +9,7 @@ export const MainContainer = styled(Box)(({ theme }) => ({
 export const DocumentSecondConatiner = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(7),
+  gap: theme.spacing(6),
   width: '100%',
   maxWidth: '824px'
 }));
@@ -236,8 +236,8 @@ export const FourTextContainer = styled(Typography)(({ theme }) => ({
 
 export const GalleryTextContainer = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
-    fontSize: '18px',
-    lineHeight: '25.2px',
+    fontSize: '20px',
+    lineHeight: '32px',
     fontWeight: 700
   },
   [theme.breakpoints.up('sm')]: {

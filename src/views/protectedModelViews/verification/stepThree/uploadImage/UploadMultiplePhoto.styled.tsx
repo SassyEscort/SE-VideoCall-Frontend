@@ -140,7 +140,6 @@ export const UploadMultiplePhotos = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  alignItems: 'center',
   [theme.breakpoints.down('sm')]: {
     padding: '0px 12px 0px 12px'
   }

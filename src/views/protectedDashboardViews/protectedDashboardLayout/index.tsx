@@ -42,7 +42,7 @@ const MainLayoutNav = (props: MainLayoutType) => {
             <ModelNav openNav={open} onCloseNav={() => setOpen(true)} />
             <Main>
               {isMdUp && <ProtectedDashboardLayoutMainContainer />}
-              <Box paddingBottom={{ md: 13 }} paddingRight="14px" paddingLeft="14px">
+              <Box paddingBottom={{ md: 13 }} paddingRight="14px">
                 {props.children}
               </Box>
             </Main>

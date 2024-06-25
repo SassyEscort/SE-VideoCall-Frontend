@@ -21,6 +21,7 @@ import { TokenIdType } from '../..';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { sortExistingPhotos } from 'utils/photoUtils';
+import { ModelMultipleBoxContainer } from './RepositionPhoto.styled';
 
 export type UploadMultiplePhotos = {
   errors: FormikErrors<VerificationFormStep5TypeV2>;
@@ -208,7 +209,7 @@ const ModelMultiplePhoto = ({
       <UploadMultiplePhotos>
         {!isEdit ? (
           <Box paddingBottom={4} pt={4}>
-            <UIPhotosHeader variant="h3" sx={{ color: '#E9E8EB' }}>
+            <UIPhotosHeader variant="h3" sx={{ color: 'text.secondary' }}>
               <FormattedMessage id="UploadPhotos" />
             </UIPhotosHeader>
             <UINewTypography marginTop={1.5} display="flex" justifyContent="center" lineHeight="160%">
@@ -218,7 +219,7 @@ const ModelMultiplePhoto = ({
         ) : (
           !isSmDown && (
             <Box paddingBottom={4} pt={4}>
-              <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
+              <UINewTypography variant="h2" sx={{ color: 'text.secondary' }}>
                 <FormattedMessage id="ModifyPhotos" />
               </UINewTypography>
             </Box>
@@ -245,7 +246,7 @@ const ModelMultiplePhoto = ({
                 <FormattedMessage id="Gallery" />
               </UINewTypography>
             )}
-            <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
+            <ModelMultipleBoxContainer>
               {[...existingPhotos, ...uploadedImagesURL]?.map((photo, index) => {
                 return (
                   <PhotoItem
@@ -268,12 +269,12 @@ const ModelMultiplePhoto = ({
                   />
                 );
               })}
-            </Box>
+            </ModelMultipleBoxContainer>
           </GalleryMainContainer>
         </ModelMultiplePhotoItem>
       </UploadMultiplePhotos>
       {isEdit && (
-        <UploadMultipleBox pt={12}>
+        <UploadMultipleBox pt={13}>
           <UIThemeButton
             onClick={handleCancel}
             disabled={Boolean((values.file5 === null || uploadedImagesURL.length === 0) && !values.cords5) && Boolean(!isDelete && isEdit)}
