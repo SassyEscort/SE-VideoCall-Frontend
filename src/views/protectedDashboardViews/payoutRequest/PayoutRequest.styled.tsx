@@ -201,12 +201,14 @@ export const StyledAccordionSummary = styled((props: AccordionSummaryProps) => <
     color: theme.palette.text.primary
   },
   '& .mui-1betqn-MuiAccordionSummary-content': {
-    marginTop: 8
+    marginTop: 0,
+    marginBottom: 0
   }
 }));
 
 export const StyledAccordionDetails = styled((props: AccordionDetailsProps) => <AccordionDetails {...props} />)(({ theme }) => ({
   padding: '0px',
   color: theme.palette.secondary[300],
-  marginBottom: 24
+  marginBottom: 0,
+  marginTop: theme.spacing(1.5)
 }));
