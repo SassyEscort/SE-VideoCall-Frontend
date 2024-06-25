@@ -90,7 +90,7 @@ const WorkerCard = ({
       <ImgWorkerCard ref={imageUrlRef} />
       <HeartIconWorkerCard>
         {isFavPage || liked ? (
-          <FavoriteIconContainer sx={{ color: 'red' }} />
+          <FavoriteIconContainer sx={{ color: 'error.main' }} />
         ) : (
           <FavoriteBorderIconContainer
             onClick={(e) => {
