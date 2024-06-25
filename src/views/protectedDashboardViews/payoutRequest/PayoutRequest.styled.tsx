@@ -1,3 +1,6 @@
+import Accordion, { AccordionProps } from '@mui/material/Accordion';
+import AccordionDetails, { AccordionDetailsProps } from '@mui/material/AccordionDetails';
+import AccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -20,6 +23,7 @@ export const MainContainer = styled(Box)(({ theme }) => ({
 export const BoxMessage = styled(Box)(({ theme }) => ({
   display: 'flex'
 }));
+
 export const TextDetail = styled(UINewTypography)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     fontSize: '24px !important'
@@ -116,7 +120,8 @@ export const ImageBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+  maxHeight: '54px'
 }));
 
 export const Showtracking = styled(Box)(({ theme }) => ({
@@ -135,7 +140,8 @@ export const Pendingconatiner = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(1.25),
-  alignItems: 'flex-end'
+  alignItems: 'flex-end',
+  position: 'relative'
 }));
 
 export const Pending = styled(UINewTypography)(({ theme }) => ({
@@ -165,4 +171,42 @@ export const ButtonBox = styled(UIThemeButton)(({ theme }) => ({
     marginLeft: theme.spacing(0),
     marginBottom: theme.spacing(0)
   }
+}));
+
+export const StyledAccordion = styled((props: AccordionProps) => <Accordion disableGutters elevation={0} square {...props} />)(
+  ({ theme }) => ({
+    padding: '0px',
+    width: '100%',
+    borderColor: theme.palette.primary[700],
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: '12px 0px !important'
+    },
+    ':before': {
+      height: 0
+    },
+    '& .MuiPaper-root .MuiPaper-elevation .MuiPaper-elevation0 .MuiAccordion-root .mui-style-1xh3qms-MuiPaper-root-MuiAccordion-root': {
+      borderTop: '1px solid #265962'
+    }
+  })
+);
+
+export const StyledAccordionSummary = styled((props: AccordionSummaryProps) => <AccordionSummary {...props} />)(({ theme }) => ({
+  color: theme.palette.text.primary,
+  maxWidth: '106px',
+  padding: '0px',
+  '&.MuiAccordionSummary-root': {
+    minHeight: '0px !important '
+  },
+  '& .MuiSvgIcon-root': {
+    color: theme.palette.text.primary
+  },
+  '& .mui-1betqn-MuiAccordionSummary-content': {
+    marginTop: 8
+  }
+}));
+
+export const StyledAccordionDetails = styled((props: AccordionDetailsProps) => <AccordionDetails {...props} />)(({ theme }) => ({
+  padding: '0px',
+  color: theme.palette.secondary[300],
+  marginBottom: 24
 }));

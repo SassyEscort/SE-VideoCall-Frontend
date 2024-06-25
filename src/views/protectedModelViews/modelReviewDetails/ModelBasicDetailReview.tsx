@@ -49,8 +49,7 @@ const ModelBasicDetailReview = ({
     modelDetails?.documents?.length && modelDetails?.documents[0]?.document_number ? modelDetails?.documents[0]?.document_number : '';
 
   const documentLink = modelDetails?.documents?.length && modelDetails?.documents[0]?.link ? modelDetails?.documents[0]?.link : '';
-  const documentLinkPdf = documentLink.includes('.pdf');
-
+  const documentLinkPdf = documentLink.includes('.pdf') || modelDetails?.documents[0]?.file_type === 'Non_Image';
   useEffect(() => {
     const names = modelDetails?.languages
       ?.map((language) => language?.language_name)

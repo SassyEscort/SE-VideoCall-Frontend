@@ -69,6 +69,7 @@ export interface DocumentDataPhoto {
   id: number;
   is_document: number;
   link: string;
+  file_type?: string;
 }
 export interface FileBody {
   type: string;
