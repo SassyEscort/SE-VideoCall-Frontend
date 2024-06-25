@@ -326,5 +326,7 @@
   "WithdrawnAmount": "Withdrawn Amount",
   "Availability": "Availability",
   "NotAvailable": "Not Available",
-  "SaveAndReview": "Save and review"
+  "SaveAndReview": "Save and review",
+  "Notifications": "Notifications",
+  "YouHaveNoNotifications": "You have no notifications"
 }

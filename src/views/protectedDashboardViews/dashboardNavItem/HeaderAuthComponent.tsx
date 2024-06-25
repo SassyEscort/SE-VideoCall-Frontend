@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import { Divider, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import ProfileMenu from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/ProfileMenu';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -18,10 +18,19 @@ import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import Link from 'next/link';
 import { HeaderBoxContainer } from './DashboardMenu.styled';
+import NotificationModalV2 from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/NotificationModalV2';
+import { NotificationDetailsService } from 'services/notification/notification.services';
+import { Root } from 'services/notification/type';
 
 export type NotificationFilters = {
   page: number;
   isRead?: number;
+};
+
+export type NotificationFiltersDashboard = {
+  page: number;
+  offset: number;
+  pageSize: number;
 };
 
 const DashboadrHeaderAuthComponent = () => {
@@ -33,6 +42,15 @@ const DashboadrHeaderAuthComponent = () => {
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorElLogout);
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
+  const [openNotification, setOpenNotification] = useState<boolean>(false);
+  const [anchorElNotification, setAnchorElNotification] = useState<HTMLButtonElement | null>(null);
+  const [filters, setFilters] = useState<NotificationFiltersDashboard>({
+    page: 1,
+    pageSize: 10,
+    offset: 0
+  });
+  const [notificationDetails, setNotificationDetails] = useState<Root>();
+  const notificationCount = useRef(0);
 
   const handleOpenLogout = () => {
     setIsLogoutOpen(true);
@@ -54,6 +72,24 @@ const DashboadrHeaderAuthComponent = () => {
     setAnchorElLogout(null);
   };
 
+  const handleChangeFilter = (value: NotificationFiltersDashboard) => {
+    setFilters(value);
+  };
+
+  const handleOpenNotification = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setOpenNotification(true);
+    setAnchorElNotification(event.currentTarget);
+  };
+
+  const handleCloseNotification = () => {
+    setOpenNotification(false);
+    setAnchorElNotification(null);
+  };
+
+  const handleDeductNotificationCount = () => {
+    notificationCount.current = notificationCount.current - 1;
+  };
+
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -62,6 +98,25 @@ const DashboadrHeaderAuthComponent = () => {
 
     userToken();
   }, []);
+
+  const handleCallback = useCallback(async () => {
+    const notificationDetails = async () => {
+      const ModelPayoutListObject = {
+        limit: filters.pageSize,
+        offset: filters.offset
+      };
+      const modelData = await NotificationDetailsService.getNotificationDetails(token.token, ModelPayoutListObject);
+      setNotificationDetails(modelData);
+    };
+
+    if (token.token) {
+      await notificationDetails();
+    }
+  }, [filters, token.token]);
+
+  useEffect(() => {
+    handleCallback();
+  }, [handleCallback]);
 
   useEffect(() => {
     const modelDetails = async () => {
@@ -81,7 +136,7 @@ const DashboadrHeaderAuthComponent = () => {
           <LanguageDropdown />
         </Box>
 
-        <IconButton sx={{ height: 24, width: 24 }}>
+        <IconButton sx={{ height: 24, width: 24 }} onClick={handleOpenNotification}>
           <>
             <Box
               sx={{
@@ -153,6 +208,19 @@ const DashboadrHeaderAuthComponent = () => {
           <ProfileMenu profilePic={firstChar} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
         </Box>
       </Box>
+      {notificationDetails && (
+        <NotificationModalV2
+          notificationDetails={notificationDetails ?? ({} as Root)}
+          open={openNotification}
+          anchorEl={anchorElNotification}
+          filters={filters}
+          handleClose={handleCloseNotification}
+          handleChangeFilter={handleChangeFilter}
+          handleDeductNotificationCount={handleDeductNotificationCount}
+          token={token}
+          handleCallback={handleCallback}
+        />
+      )}
     </>
   );
 };
