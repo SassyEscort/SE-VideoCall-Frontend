@@ -21,6 +21,7 @@ import { TokenIdType } from '../..';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { sortExistingPhotos } from 'utils/photoUtils';
+import { ModelMultipleBoxContainer } from './RepositionPhoto.styled';
 
 export type UploadMultiplePhotos = {
   errors: FormikErrors<VerificationFormStep5TypeV2>;
@@ -245,7 +246,7 @@ const ModelMultiplePhoto = ({
                 <FormattedMessage id="Gallery" />
               </UINewTypography>
             )}
-            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+            <ModelMultipleBoxContainer>
               {[...existingPhotos, ...uploadedImagesURL]?.map((photo, index) => {
                 return (
                   <PhotoItem
@@ -268,7 +269,7 @@ const ModelMultiplePhoto = ({
                   />
                 );
               })}
-            </Box>
+            </ModelMultipleBoxContainer>
           </GalleryMainContainer>
         </ModelMultiplePhotoItem>
       </UploadMultiplePhotos>
