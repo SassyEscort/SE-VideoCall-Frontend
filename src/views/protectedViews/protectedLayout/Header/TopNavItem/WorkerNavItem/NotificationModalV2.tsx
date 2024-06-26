@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import { useState, useEffect } from 'react';
-import NotificationMoreMenu from './NotificationMoreMenu';
 import { NotificationFilters } from './HeaderAuthComponent';
 import CloseIcon from '@mui/icons-material/Close';
 import NotificationItemV2 from './NotificationItemV2';
@@ -41,14 +40,7 @@ const NotificationModalV2 = ({
   handleDeductNotificationCount: () => void;
   handleCallback: () => void;
 }) => {
-  const [openNotificationMore, setOpenNotificationMore] = useState(false);
-  const [anchorElNotificationMore, setAnchorElNotificationMore] = useState<null | HTMLElement>(null);
   const [existNotifications, setExistNotifications] = useState<Root>();
-
-  const handleCloseNotificationMore = () => {
-    setAnchorElNotificationMore(null);
-    setOpenNotificationMore(false);
-  };
 
   const handleClickNotification = (id: number) => {
     if (existNotifications?.data?.notifications) {
@@ -66,15 +58,6 @@ const NotificationModalV2 = ({
         handleDeductNotificationCount();
       }
     }
-  };
-
-  const handleClickReadAndClearAllNotifications = () => {
-    const filter = {
-      ...filters,
-      page: 1
-    };
-
-    handleChangeFilter(filter);
   };
 
   useEffect(() => {
@@ -132,12 +115,6 @@ const NotificationModalV2 = ({
           </Box>
         </ExistNotificationsMainBox>
       </DrawerBox>
-      <NotificationMoreMenu
-        open={openNotificationMore}
-        anchorEl={anchorElNotificationMore}
-        handleClose={handleCloseNotificationMore}
-        handleClickReadAndClearAllNotifications={handleClickReadAndClearAllNotifications}
-      />
     </>
   );
 };

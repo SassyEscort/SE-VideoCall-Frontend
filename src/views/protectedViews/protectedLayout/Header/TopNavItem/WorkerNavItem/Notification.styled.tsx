@@ -73,6 +73,12 @@ export const IconButtonBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(0.5)
 }));
 
+export const IconButtonBoxNew = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(1)
+}));
+
 export const IconButtonMainBox = styled(Box)(() => ({
   position: 'sticky',
   top: 0,

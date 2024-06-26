@@ -21,6 +21,8 @@ import NotificationModalV2 from './NotificationModalV2';
 import { NotificationDetailsService } from 'services/notification/notification.services';
 import { Root } from 'services/notification/type';
 import MyProfileChangePassword from 'views/protectedViews/myProfile/MyProfileChangePassword';
+import { IconButtonBoxInner, UnReadCountMain } from 'views/protectedDashboardViews/dashboardNavItem/DashboardMenu.styled';
+import { IconButtonBoxNew } from './Notification.styled';
 
 export type NotificationFilters = {
   page: number;
@@ -185,30 +187,18 @@ const HeaderAuthComponent = () => {
 
         <IconButton onClick={handleOpenNotification}>
           {unReadCount ? (
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row-reverse',
-                position: 'relative'
-              }}
-            >
+            <UnReadCountMain>
               <Box component="img" src="/images/header/dot.png" position="absolute" />
               <Box component="img" src="/images/header/noti.png" />
-            </Box>
+            </UnReadCountMain>
           ) : (
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row-reverse',
-                position: 'relative'
-              }}
-            >
+            <UnReadCountMain>
               <Box component="img" src="/images/header/noti.png" />
-            </Box>
+            </UnReadCountMain>
           )}
         </IconButton>
-        <Box display="flex" alignItems="center" gap={1}>
-          <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }} onClick={handleClickLogout}>
+        <IconButtonBoxNew>
+          <IconButtonBoxInner onClick={handleClickLogout}>
             <IconButton
               id="profile-menu"
               aria-controls={openProfileMenu ? 'profile-menu' : undefined}
@@ -233,7 +223,7 @@ const HeaderAuthComponent = () => {
                 {customerDetails?.customer_name || ''}
               </Typography>
             )}
-          </Box>
+          </IconButtonBoxInner>
           <Menu
             id="basic-menu"
             anchorEl={anchorElLogout}
@@ -274,7 +264,7 @@ const HeaderAuthComponent = () => {
           </Menu>
           <ProfileMenu profilePic={uploadedImageURL} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
           <MyProfileChangePassword onOpen={openChangePassword} onClose={handleCloseChnagePassword} token={token} />
-        </Box>
+        </IconButtonBoxNew>
       </Box>
       {notificationDetails && (
         <NotificationModalV2
