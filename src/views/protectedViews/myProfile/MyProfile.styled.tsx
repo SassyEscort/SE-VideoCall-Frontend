@@ -25,7 +25,7 @@ export const InputTypeBox = styled(Box)(({ theme }) => ({
 
 export const DisableButtonBox = styled(Box)(({ theme }) => ({
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-end',
   width: '100%',
   maxWidth: '613px',
   padding: theme.spacing(2)
