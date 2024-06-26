@@ -10,7 +10,6 @@ import {
   SecondMainContainer,
   FirstUsdBox,
   SecondUsdBox,
-  UsdBox,
   DollerBox,
   ButtonBox,
   RecentWithdrawlsMainContainer,
@@ -157,7 +156,6 @@ const PayoutContainer = ({
           <SecondMainContainer>
             <FirstUsdBox>
               <SecondUsdBox>
-                <UsdBox></UsdBox>
                 <DollerBox>
                   <UINewTypography variant="h5" color="text.secondary">
                     $
