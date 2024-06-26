@@ -34,7 +34,7 @@ const PayoutBankInformation = ({ token, fetchBankDetails }: { token: TokenIdType
       ) : (
         <MainConatiner>
           <Payout variant="h2" color={'text.secondary'}>
-            <FormattedMessage id={isSm ? 'Payout' : 'YourPaymentMethod'} />
+            {!isSm && <FormattedMessage id={'YourPaymentMethod'} />}
           </Payout>
           <SecondConatiner>
             <Box component="img" src="/images/payout/frame.webp" width="266px" />

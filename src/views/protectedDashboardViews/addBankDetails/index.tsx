@@ -4,13 +4,14 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { useCallback, useState } from 'react';
 import {
-  AddBankDetail,
   AddBankDetailsContainer,
   AddBankDetailsSecondBox,
+  AddBankTitle,
   ButtonBox,
   InputBox,
   InputMainBox,
   InputSecondBox,
+  LabelCreate,
   PayoutText
 } from './AddbankDetails';
 import theme from 'themes/theme';
@@ -95,20 +96,20 @@ const AddbankDetails = ({
               <AddBankDetailsContainer>
                 <Box>
                   <PayoutText variant="h2" color="text.secondary">
-                    <FormattedMessage id={isSm ? 'Payout' : 'YourPaymentMethods'} />
+                    {!isSm && <FormattedMessage id="YourPaymentMethods" />}
                   </PayoutText>
                 </Box>
                 <AddBankDetailsSecondBox>
                   <InputMainBox>
-                    <AddBankDetail variant="h5" color="secondary.200">
+                    <AddBankTitle>
                       <FormattedMessage id="AddBankDetails" />
-                    </AddBankDetail>
+                    </AddBankTitle>
 
                     <InputSecondBox>
                       <InputBox>
-                        <UINewTypography variant="bodySemiBold" color="text.primary">
+                        <LabelCreate>
                           <FormattedMessage id="BankName" />
-                        </UINewTypography>
+                        </LabelCreate>
                         <UIStyledInputText
                           fullWidth
                           id="bank_name"
@@ -121,9 +122,9 @@ const AddbankDetails = ({
                         />
                       </InputBox>
                       <InputBox>
-                        <UINewTypography variant="bodySemiBold" color="text.primary">
+                        <LabelCreate>
                           <FormattedMessage id="AccountName" />
-                        </UINewTypography>
+                        </LabelCreate>
                         <UIStyledInputText
                           fullWidth
                           id="account_name"
@@ -136,9 +137,9 @@ const AddbankDetails = ({
                         />
                       </InputBox>
                       <InputBox>
-                        <UINewTypography variant="bodySemiBold" color="text.primary">
+                        <LabelCreate>
                           <FormattedMessage id="IBANNumber" />
-                        </UINewTypography>
+                        </LabelCreate>
                         <UIStyledInputText
                           fullWidth
                           id="iban_number"

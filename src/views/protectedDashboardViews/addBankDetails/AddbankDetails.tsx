@@ -8,7 +8,9 @@ export const AddBankDetailsContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(8),
   paddingLeft: theme.spacing(3),
   [theme.breakpoints.down('sm')]: {
-    paddingLeft: '0px'
+    paddingLeft: '0px',
+    paddingTop: theme.spacing(1.375),
+    gap: theme.spacing(0)
   }
 }));
 
@@ -17,7 +19,10 @@ export const AddBankDetailsSecondBox = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(6),
   width: '100%',
-  maxWidth: '390px'
+  maxWidth: '390px',
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(4)
+  }
 }));
 
 export const InputMainBox = styled(Box)(({ theme }) => ({
@@ -58,8 +63,21 @@ export const PayoutText = styled(UINewTypography)(({ theme }) => ({
   }
 }));
 
-export const AddBankDetail = styled(UINewTypography)(({ theme }) => ({
+export const AddBankTitle = styled(Box)(({ theme }) => ({
+  fontSize: '24px',
+  fontWeight: 700,
+  lineHeight: '28.8px',
+  color: theme.palette.text.primary,
   [theme.breakpoints.down('sm')]: {
-    gap: theme.spacing(0)
+    fontSize: '16px',
+    gap: theme.spacing(0),
+    lineHeight: '25.6px'
   }
+}));
+
+export const LabelCreate = styled(Box)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 600,
+  lineHeight: '25.6px',
+  color: theme.palette.text.primary
 }));

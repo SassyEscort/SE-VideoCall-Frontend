@@ -353,5 +353,6 @@
   "CanIChangeMy": "¿Puedo cambiar mi método de pago después de enviar una solicitud?",
   "CanIScheduleRecurringPayouts": "¿Puedo programar pagos recurrentes?",
   "WhatHappensIfMy": "¿Qué sucede si mi solicitud de pago es rechazada?",
-  "IsThereACustomer": "¿Hay un equipo de soporte al cliente disponible para ayudar con consultas relacionadas con pagos?"
+  "IsThereACustomer": "¿Hay un equipo de soporte al cliente disponible para ayudar con consultas relacionadas con pagos?",
+  "PayoutFAQs": "Preguntas frecuentes sobre pagos"
 }

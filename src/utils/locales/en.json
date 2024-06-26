@@ -352,5 +352,6 @@
   "CanIChangeMy": "Can I change my payout method after submitting a request?",
   "CanIScheduleRecurringPayouts": "Can I schedule recurring payouts?",
   "WhatHappensIfMy": "What happens if my payout request is rejected?",
-  "IsThereACustomer": "Is there a customer support team available to assist with payout-related inquiries?"
+  "IsThereACustomer": "Is there a customer support team available to assist with payout-related inquiries?",
+  "PayoutFAQs": "Payout FAQs"
 }
