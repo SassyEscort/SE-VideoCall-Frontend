@@ -24,9 +24,13 @@ export const FAQSeconndContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   width: '100%',
-  paddingTop: theme.spacing(4),
   [theme.breakpoints.up('sm')]: {
-    paddingLeft: theme.spacing(3)
+    paddingLeft: theme.spacing(3),
+    paddingTop: theme.spacing(4)
+  },
+  [theme.breakpoints.down('sm')]: {
+    paddingTop: theme.spacing(1.375),
+    marginBottom: theme.spacing(6.625)
   }
 }));
 

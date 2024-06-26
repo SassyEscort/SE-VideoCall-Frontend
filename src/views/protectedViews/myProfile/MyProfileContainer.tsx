@@ -103,9 +103,9 @@ const MyProfileContainer = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, email]);
 
-  const changePasswordOpenModel = () => {
-    setOpenModel(true);
-  };
+  // const changePasswordOpenModel = () => {
+  //   setOpenModel(true);
+  // };
 
   return (
     <>
@@ -184,7 +184,7 @@ const MyProfileContainer = ({
             </Box>
           </Box>
         </InputTypeBox>
-
+        {/* 
         <InputTypeBox>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
             <Box>
@@ -215,7 +215,7 @@ const MyProfileContainer = ({
               />
             </Box>
           </Box>
-        </InputTypeBox>
+        </InputTypeBox> */}
       </Box>
       <MyProfileChangePassword onOpen={openModel} onClose={handleClsoeModel} token={token} />
     </>

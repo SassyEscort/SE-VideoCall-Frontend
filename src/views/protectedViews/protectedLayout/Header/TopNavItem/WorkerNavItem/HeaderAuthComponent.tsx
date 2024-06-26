@@ -17,6 +17,7 @@ import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import { WorkerHeaderMainContainer } from './ProfileMenu.styled';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+import MyProfileChangePassword from 'views/protectedViews/myProfile/MyProfileChangePassword';
 
 export type NotificationFilters = {
   page: number;
@@ -33,9 +34,18 @@ const HeaderAuthComponent = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
   const [balance, setBalance] = useState(0);
+  const [openChangePassword, setOpenChangePassword] = useState(false);
 
   const uploadedImageURL = '/images/headerv2/profilePic.png';
   const firstChar = customerDetails?.customer_name ? customerDetails.customer_name.charAt(0).toUpperCase() : '';
+
+  const handleOpenChangePassword = () => {
+    setOpenChangePassword(true);
+  };
+
+  const handleCloseChnagePassword = () => {
+    setOpenChangePassword(false);
+  };
 
   const handleClickLogout = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElLogout(event.currentTarget);
@@ -180,6 +190,13 @@ const HeaderAuthComponent = () => {
                   </Link>
                 </WorkerHeaderMainContainer>
                 <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                <WorkerHeaderMainContainer onClick={handleOpenChangePassword}>
+                  <Box component="img" src="/images/icons/changepassword-img.png" width={24} height={24} mr={1} />
+                  <UINewTypography variant="buttonLargeMenu">
+                    <FormattedMessage id="ChangePassword" />
+                  </UINewTypography>
+                </WorkerHeaderMainContainer>
+                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                 <WorkerHeaderMainContainer onClick={handleOpenLogout}>
                   <Box component="img" src="/images/profile-vector/Vector-6.png" height={16} mr={1} />
                   <UINewTypography variant="buttonLargeMenu">
@@ -191,6 +208,7 @@ const HeaderAuthComponent = () => {
             </MenuItem>
           </Menu>
           <ProfileMenu profilePic={uploadedImageURL} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
+          <MyProfileChangePassword onOpen={openChangePassword} onClose={handleCloseChnagePassword} token={token} />
         </Box>
       </Box>
     </>
