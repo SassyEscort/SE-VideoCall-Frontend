@@ -31,7 +31,8 @@ const UIStyledVerticalStepper = styled(Stepper)(({ theme }) => ({
     letterSpacing: '0.3px',
     paddingLeft: theme.spacing(1.625),
     minHeight: '16px',
-    color: theme.palette.secondary[700]
+    color: theme.palette.secondary[700],
+    marginTop: theme.spacing(0.25)
   },
   '& .MuiStepLabel-label.Mui-active': {
     color: theme.palette.text.secondary

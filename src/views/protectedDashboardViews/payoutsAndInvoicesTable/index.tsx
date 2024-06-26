@@ -19,8 +19,13 @@ import BillingTable from './billingTable/BillingTable';
 import PaginationSearch from './searchFilters/paginationSearch/PaginationSearch';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { Divider } from '@mui/material';
+import { useState } from 'react';
 
 const PayoutsAndInvoices = () => {
+  const [searchString, setSearchString] = useState('');
+  const handleChangeSearch = (val: string) => {
+    setSearchString(val);
+  };
   return (
     <>
       <HomeMainContainer>
@@ -32,7 +37,7 @@ const PayoutsAndInvoices = () => {
           </SecondBox>
           <FilterDropdownBox>
             <StackBox direction="row" color="text.secondary">
-              <PaginationSearch placeholder={'Search'} />
+              <PaginationSearch placeholder={'Search'} handleChangeSearch={handleChangeSearch} />
             </StackBox>
             <FilterMainBox>
               <InvoiceDate />
@@ -51,7 +56,7 @@ const PayoutsAndInvoices = () => {
             </UINewTypography>
           </TypographyBox>
           <TableBox>
-            <BillingTable />
+            <BillingTable searchString={searchString} />
           </TableBox>
         </MainBox>
       </HomeMainContainer>

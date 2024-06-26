@@ -124,4 +124,5 @@ export type MarkOnline = {
 export type ModelPastPayoutDetailParams = {
   limit: number;
   offset: number;
+  filter_text?: string;
 };

@@ -18,9 +18,10 @@ export type PaginationType = {
   page: number;
   offset: number;
   pageSize: number;
+  filter_text: string;
 };
 
-const BillingTable = () => {
+const BillingTable = ({ searchString }: { searchString: string }) => {
   const [modelPayoutList, setModelPayoutList] = useState<ModelPastPayoutDetailRes>();
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +29,8 @@ const BillingTable = () => {
   const [filters, setFilters] = useState({
     page: 0,
     pageSize: 20,
-    offset: 0
+    offset: 0,
+    filter_text: ''
   });
 
   useEffect(() => {
@@ -48,7 +50,8 @@ const BillingTable = () => {
       try {
         const ModelPayoutListObject = {
           limit: filters.pageSize,
-          offset: filters.offset
+          offset: filters.offset,
+          filter_text: filters.filter_text
         };
         if (token.token) {
           setIsLoading(true);
@@ -68,9 +71,11 @@ const BillingTable = () => {
 
     fetchModelPayout();
   }, [token.token, token.id, filters]);
+
   const handleChangeFilter = useCallback((value: PaginationType) => {
     setFilters(value);
   }, []);
+
   const handleChangePage = useCallback(
     (event: React.ChangeEvent<unknown>, value: number) => {
       const offset = (value - 1) * filters.pageSize;
@@ -78,6 +83,7 @@ const BillingTable = () => {
     },
     [filters, handleChangeFilter]
   );
+
   return (
     <>
       <>
@@ -98,6 +104,7 @@ const BillingTable = () => {
           </Table>
         </TableContainer>
       </>
+
       {total_rows > 0 && (
         <PaginationBox>
           <UITheme2Pagination
