@@ -1,4 +1,5 @@
 import { Box, Dialog, DialogTitle, styled } from '@mui/material';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
 export const DialogTitleBox = styled(DialogTitle)(({ theme }) => ({
@@ -81,4 +82,11 @@ export const DialogContentMain = styled(Dialog)(({ theme }) => ({
       backgroundColor: '#07030E'
     }
   }
+}));
+
+export const UINewTypographyAmount = styled(UINewTypography)(({ theme }) => ({
+  fontWeight: 700,
+  fontSize: '24px',
+  lineHeight: '30px',
+  color: theme.palette.text.secondary
 }));

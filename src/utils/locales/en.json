@@ -327,6 +327,8 @@
   "Availability": "Availability",
   "NotAvailable": "Not available",
   "SaveAndReview": "Save and review",
+  "Notifications": "Notifications",
+  "YouHaveNoNotifications": "You have no notifications",
   "LookingForA": "Looking for a model",
   "WhyJoin": "Why Join us",
   "Showing": "Showing",
@@ -359,5 +361,6 @@
   "ThankYouForTheCall": "Thank you for the call. We hope you enjoyed your connection with Kat Winter.",
   "ExploreOtherModels": "Explore other models",
   "RateYourVideoCall": "Rate your video call",
-  "SorryKatIs": "Sorry, Kat is currently engaged in another call."
+  "SorryKatIs": "Sorry, Kat is currently engaged in another call.",
+  "PayoutFAQs": "Payout FAQs"
 }

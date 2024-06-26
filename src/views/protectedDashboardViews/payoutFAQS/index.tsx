@@ -25,7 +25,9 @@ const PayoutFAQS = () => {
           <FAQConatainer sx={{ width: '100%', maxWidth: '741px' }}>
             <SecondBox>
               <FAQMainContainer>
-                <PayoutFAQTitle>Payout FAQs</PayoutFAQTitle>
+                <PayoutFAQTitle>
+                  <FormattedMessage id="PayoutFAQs" />
+                </PayoutFAQTitle>
               </FAQMainContainer>
 
               <FAQConatainer>

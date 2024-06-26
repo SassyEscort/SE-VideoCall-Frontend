@@ -26,7 +26,7 @@ const PayoutsAndInvoices = () => {
       <HomeMainContainer>
         <MainBox>
           <SecondBox>
-            <UINewTypographyBox variant="h2">
+            <UINewTypographyBox>
               <FormattedMessage id="YourPastPayouts" />
             </UINewTypographyBox>
           </SecondBox>

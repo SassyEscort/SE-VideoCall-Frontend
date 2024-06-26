@@ -16,7 +16,8 @@ export const MainContainer = styled(Box)(({ theme }) => ({
   paddingLeft: theme.spacing(3),
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(3),
-    paddingLeft: theme.spacing(0)
+    paddingLeft: theme.spacing(0),
+    paddingTop: theme.spacing(1.375)
   }
 }));
 
@@ -31,11 +32,14 @@ export const TextDetail = styled(UINewTypography)(({ theme }) => ({
 }));
 
 export const SecondMainContainer = styled(Box)(({ theme }) => ({
+  maxWidth: '741px',
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(6.125),
   width: '100%',
-  maxWidth: '741px'
+  gap: theme.spacing(6.125),
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(7)
+  }
 }));
 
 export const FirstUsdBox = styled(Box)(({ theme }) => ({
@@ -60,7 +64,10 @@ export const SecondUsdBox = styled(Box)(({ theme }) => ({
   paddingTop: theme.spacing(2),
   paddingLeft: theme.spacing(2),
   paddingBottom: theme.spacing(3.125),
-  gap: theme.spacing(3.125)
+  gap: theme.spacing(3.125),
+  [theme.breakpoints.down('sm')]: {
+    paddingBottom: theme.spacing(4)
+  }
 }));
 
 export const UsdBox = styled(Box)(({ theme }) => ({

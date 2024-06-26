@@ -67,7 +67,8 @@ const UIStyledVerticalStepper = styled(Stepper)(({ theme }) => ({
     borderColor: theme.palette.primary[400]
   },
   '& .MuiStepConnector-root.Mui-completed .MuiStepConnector-line': {
-    borderLeft: '2px inset'
+    borderLeft: '2px inset',
+    borderColor: theme.palette.primary[400]
   }
 }));
 
