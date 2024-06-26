@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
-export const MainConatiner = styled(Box)(({ theme }) => ({
+export const MainContainer = styled(Box)(({ theme }) => ({
   paddingTop: theme.spacing(4),
   display: 'flex',
   flexDirection: 'column',

@@ -5,12 +5,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FormattedMessage } from 'react-intl';
 import {
-  MainConatiner,
+  MainContainer,
   BoxMessage,
   SecondMainContainer,
   FirstUsdBox,
   SecondUsdBox,
-  UsdBox,
   DollerBox,
   ButtonBox,
   RecentWithdrawlsMainContainer,
@@ -146,7 +145,7 @@ const PayoutContainer = ({
   }, [token.token]);
 
   return (
-    <MainConatiner>
+    <MainContainer>
       {(payoutStep === 0 || isSmUp) && (
         <>
           <BoxMessage>
@@ -157,12 +156,6 @@ const PayoutContainer = ({
           <SecondMainContainer>
             <FirstUsdBox>
               <SecondUsdBox>
-                <UsdBox>
-                  <Box component={'img'} src="/images/payout/pay.webp" alt="usd" sx={{ borderRadius: '50%' }} />
-                  <UINewTypography variant="SubtitleSmallMedium">
-                    <FormattedMessage id="USD" />
-                  </UINewTypography>
-                </UsdBox>
                 <DollerBox>
                   <UINewTypography variant="h5" color="text.secondary">
                     $
@@ -201,7 +194,7 @@ const PayoutContainer = ({
                           <ShowtrackingBox>
                             <StyledAccordion>
                               <StyledAccordionSummary aria-controls="panel1-content" id="panel1-header" expandIcon={<ExpandMoreIcon />}>
-                                <UINewTypography variant="captionLarge" sx={{ color: 'secondary.100' }}>
+                                <UINewTypography variant="captionLarge" color="secondary.100">
                                   <FormattedMessage id="ShowTracking" />
                                 </UINewTypography>
                               </StyledAccordionSummary>
@@ -290,7 +283,7 @@ const PayoutContainer = ({
           amountSave={amountSave}
         />
       )}
-    </MainConatiner>
+    </MainContainer>
   );
 };
 

@@ -31,7 +31,7 @@ const PayoutsAndInvoices = () => {
             </UINewTypographyBox>
           </SecondBox>
           <FilterDropdownBox>
-            <StackBox direction="row">
+            <StackBox direction="row" color="text.secondary">
               <PaginationSearch placeholder={'Search'} />
             </StackBox>
             <FilterMainBox>
@@ -48,9 +48,6 @@ const PayoutsAndInvoices = () => {
           <TypographyBox>
             <UINewTypography variant="SubtitleSmallMedium">
               <FormattedMessage id="TotalOfInvoices" />
-            </UINewTypography>
-            <UINewTypography variant="buttonLargeBold">
-              <FormattedMessage id="DownloadAll" />
             </UINewTypography>
           </TypographyBox>
           <TableBox>

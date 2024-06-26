@@ -9,6 +9,7 @@ import {
   FAQConatainer,
   FAQMainContainer,
   FAQSeconndContainer,
+  MainUINewTypography,
   PayoutFAQTitle,
   SecondBox,
   StyledAccordion,
@@ -30,139 +31,156 @@ const PayoutFAQS = () => {
               <FAQConatainer>
                 <StyledAccordion defaultExpanded>
                   <StyledAccordionSummary aria-controls="panel1-content" id="panel1-header" expandIcon={<ExpandMoreIcon />}>
-                    <UINewTypography variant="bodySemiBold" sx={{ color: 'secondary.100' }}>
-                      <FormattedMessage id="HowdoIFindThe" />
-                    </UINewTypography>
+                    <MainUINewTypography>
+                      <FormattedMessage id="HowDoIRequestAPayout" />
+                    </MainUINewTypography>
                   </StyledAccordionSummary>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
-                      <FormattedMessage id="WithOurIntuitiveSearchAnd" />
+                      <FormattedMessage id="YouCanRequestAPayout" />
                     </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <UINewTypography variant="bodySemiBold">
+                  <MainUINewTypography>
                     <StyledAccordionSummary
-                      sx={{ color: 'secondary.100' }}
+                      color="secondary.100"
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <FormattedMessage id="CanIcommunicateWith" />
+                      <FormattedMessage id="IsThereAMinimumPayout" />
                     </StyledAccordionSummary>
-                  </UINewTypography>
+                  </MainUINewTypography>
                   <Box component="ul">
                     <StyledAccordionDetails>
-                      <FormattedMessage id="wePrioritizeTheSecurity" />
+                      <FormattedMessage id="YesThereIsA" />
                     </StyledAccordionDetails>
                   </Box>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <UINewTypography variant="bodySemiBold">
+                  <MainUINewTypography>
                     <StyledAccordionSummary
-                      sx={{ color: 'secondary.100' }}
+                      color="secondary.100"
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <FormattedMessage id="HowDoISign" />
+                      <FormattedMessage id="HowLongDoesItTake" />
                     </StyledAccordionSummary>
-                  </UINewTypography>
+                  </MainUINewTypography>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
-                      <FormattedMessage id="WeVerifyTheIdentities" />
+                      <FormattedMessage id="PayoutProcessingTimes" />
                     </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <UINewTypography variant="bodySemiBold">
+                  <MainUINewTypography>
                     <StyledAccordionSummary
-                      sx={{ color: 'secondary.100' }}
+                      color="secondary.100"
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <FormattedMessage id="WhoAretheEscorts" />
+                      <FormattedMessage id="IsThereALimitOn" />
                     </StyledAccordionSummary>
-                  </UINewTypography>
+                  </MainUINewTypography>
                   <Box component="ul">
                     <StyledAccordionDetails>
-                      <FormattedMessage id="WeHaveStrictGuidelines" />
+                      <FormattedMessage id="ThereIsTypically" />
                     </StyledAccordionDetails>
                   </Box>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <UINewTypography variant="bodySemiBold">
+                  <MainUINewTypography>
                     <StyledAccordionSummary
-                      sx={{ color: 'secondary.100' }}
+                      color="secondary.100"
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <FormattedMessage id="IsMyPersonalInformation" />
+                      <FormattedMessage id="WhatShouldIDoIf" />
                     </StyledAccordionSummary>
-                  </UINewTypography>
+                  </MainUINewTypography>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
-                      <FormattedMessage id="YouCanEasilyTopUp" />
+                      <FormattedMessage id="IfYouEncounter" />
                     </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <UINewTypography variant="bodySemiBold">
+                  <MainUINewTypography>
                     <StyledAccordionSummary
-                      sx={{ color: 'secondary.100' }}
+                      color="secondary.100"
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <FormattedMessage id="WhatHappensIf" />
+                      <FormattedMessage id="CanIChangeMy" />
                     </StyledAccordionSummary>
-                  </UINewTypography>
+                  </MainUINewTypography>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
-                      <FormattedMessage id="WeEmployRigorousAge" />
+                      <FormattedMessage id="InMostCases" />
                     </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <UINewTypography variant="bodySemiBold">
+                  <MainUINewTypography>
                     <StyledAccordionSummary
-                      sx={{ color: 'secondary.100' }}
+                      color="secondary.100"
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <FormattedMessage id="HowDoesPaymentWork" />
+                      <FormattedMessage id="CanIScheduleRecurringPayouts" />
                     </StyledAccordionSummary>
-                  </UINewTypography>
+                  </MainUINewTypography>
                   <Box component="ul">
                     <StyledAccordionDetails>
-                      <FormattedMessage id="WeDoNotOfferRefunds" />
+                      <FormattedMessage id="CurrentlyWe" />
                     </StyledAccordionDetails>
                   </Box>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <UINewTypography variant="bodySemiBold">
+                  <MainUINewTypography>
                     <StyledAccordionSummary
-                      sx={{ color: 'secondary.100' }}
+                      color="secondary.100"
                       aria-controls="panel2-content"
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <FormattedMessage id="AreThereAnyRules" />
+                      <FormattedMessage id="WhatHappensIfMy" />
                     </StyledAccordionSummary>
-                  </UINewTypography>
+                  </MainUINewTypography>
                   <Box component="ul">
                     <StyledAccordionDetails>
-                      <FormattedMessage id="InTheEventOfDispute" />
+                      <FormattedMessage id="IfYourPayout" />
+                    </StyledAccordionDetails>
+                  </Box>
+                </StyledAccordion>
+                <StyledAccordion>
+                  <MainUINewTypography>
+                    <StyledAccordionSummary
+                      color="secondary.100"
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <FormattedMessage id="IsThereACustomer" />
+                    </StyledAccordionSummary>
+                  </MainUINewTypography>
+                  <Box component="ul">
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="YesOurCustomer" />
                     </StyledAccordionDetails>
                   </Box>
                 </StyledAccordion>
