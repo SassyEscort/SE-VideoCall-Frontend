@@ -129,15 +129,16 @@ const DashboadrHeaderAuthComponent = () => {
   }, [token.id, token.token]);
   const firstChar = modelDetails?.name ? modelDetails.name.charAt(0).toUpperCase() : '';
 
+  const unReadCount = notificationDetails?.data?.aggregate?.total_rows && notificationDetails?.data?.aggregate?.total_rows > 0;
+
   return (
     <>
       <Box display="flex" alignItems="center" gap={{ xs: 2.5, sm: 4.5 }}>
         <Box display="flex">
           <LanguageDropdown />
         </Box>
-
-        <IconButton sx={{ height: 24, width: 24 }} onClick={handleOpenNotification}>
-          <>
+        <IconButton onClick={handleOpenNotification}>
+          {unReadCount ? (
             <Box
               sx={{
                 display: 'flex',
@@ -148,7 +149,17 @@ const DashboadrHeaderAuthComponent = () => {
               <Box component="img" src="/images/header/dot.png" position="absolute" />
               <Box component="img" src="/images/header/noti.png" />
             </Box>
-          </>
+          ) : (
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row-reverse',
+                position: 'relative'
+              }}
+            >
+              <Box component="img" src="/images/header/noti.png" />
+            </Box>
+          )}
         </IconButton>
         <Box display="flex" alignItems="center" gap={1}>
           <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }} onClick={handleClickLogout}>
