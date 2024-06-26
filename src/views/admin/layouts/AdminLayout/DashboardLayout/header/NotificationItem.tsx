@@ -55,11 +55,6 @@ const NotificationItem = ({
           <TypographyBox>
             <Typography variant="bodyLight" color="secondary.dark" textAlign="start" className="ellipsis-2" whiteSpace="pre-line">
               {notification.message}{' '}
-              {notificationType?.isReadMore && (
-                <Typography variant="body" color="primary.main">
-                  Read More
-                </Typography>
-              )}
             </Typography>
             <Typography variant="captionLarge" color="secondary.800">
               {formatFullDate(notification.created_at)}

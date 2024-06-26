@@ -17,7 +17,7 @@ import Logout from 'views/protectedViews/logout';
 import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import Link from 'next/link';
-import { HeaderBoxContainer } from './DashboardMenu.styled';
+import { HeaderBoxContainer, IconButtonBox, IconButtonBoxInner, UnReadCountMain } from './DashboardMenu.styled';
 import NotificationModalV2 from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/NotificationModalV2';
 import { NotificationDetailsService } from 'services/notification/notification.services';
 import { Root } from 'services/notification/type';
@@ -139,30 +139,18 @@ const DashboadrHeaderAuthComponent = () => {
         </Box>
         <IconButton onClick={handleOpenNotification}>
           {unReadCount ? (
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row-reverse',
-                position: 'relative'
-              }}
-            >
+            <UnReadCountMain>
               <Box component="img" src="/images/header/dot.png" position="absolute" />
               <Box component="img" src="/images/header/noti.png" />
-            </Box>
+            </UnReadCountMain>
           ) : (
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row-reverse',
-                position: 'relative'
-              }}
-            >
+            <UnReadCountMain>
               <Box component="img" src="/images/header/noti.png" />
-            </Box>
+            </UnReadCountMain>
           )}
         </IconButton>
-        <Box display="flex" alignItems="center" gap={1}>
-          <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }} onClick={handleClickLogout}>
+        <IconButtonBox>
+          <IconButtonBoxInner onClick={handleClickLogout}>
             <IconButton
               id="profile-menu"
               aria-controls={openProfileMenu ? 'profile-menu' : undefined}
@@ -184,7 +172,7 @@ const DashboadrHeaderAuthComponent = () => {
                 {modelDetails?.name}
               </Typography>
             )}
-          </Box>
+          </IconButtonBoxInner>
           <Menu
             id="basic-menu"
             anchorEl={anchorElLogout}
@@ -217,7 +205,7 @@ const DashboadrHeaderAuthComponent = () => {
             </MenuItem>
           </Menu>
           <ProfileMenu profilePic={firstChar} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
-        </Box>
+        </IconButtonBox>
       </Box>
       {notificationDetails && (
         <NotificationModalV2
