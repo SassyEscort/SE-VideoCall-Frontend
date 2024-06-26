@@ -1,17 +1,24 @@
 import { Box, styled } from '@mui/material';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const MainConatinerBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  paddingTop: theme.spacing(4)
+  paddingTop: theme.spacing(4),
+  [theme.breakpoints.down('sm')]: {
+    paddingTop: theme.spacing(1.375)
+  }
 }));
 
 export const MainSecondBox = styled(Box)(({ theme }) => ({
+  gap: theme.spacing(8),
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(8),
   [theme.breakpoints.up('sm')]: {
     paddingLeft: theme.spacing(3)
+  },
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(3)
   }
 }));
 
@@ -103,4 +110,22 @@ export const MapBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(4)
   }
+}));
+
+export const UINewTypographyTitle = styled(UINewTypography)(({ theme }) => ({
+  fontWeight: 700,
+  fontSize: '38px',
+  lineHeight: '47.5px',
+  color: theme.palette.text.secondary,
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '24px',
+    lineHeight: '30px'
+  }
+}));
+
+export const UINewTypographyBankName = styled(UINewTypography)(({ theme }) => ({
+  fontWeight: 700,
+  fontSize: '20px',
+  lineHeight: '24px',
+  color: theme.palette.text.secondary
 }));

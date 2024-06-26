@@ -42,6 +42,7 @@ import { NewStatusBox } from '../payoutsAndInvoicesTable/billingTable/statusDeta
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import UIVerticalStepper from './VerticalStepper';
 import moment from 'moment';
+import { UINewTypographyAmount } from 'views/protectedViews/logout/Logout.styled';
 
 export type PayoutPaginationType = {
   page: number;
@@ -157,12 +158,8 @@ const PayoutContainer = ({
             <FirstUsdBox>
               <SecondUsdBox>
                 <DollerBox>
-                  <UINewTypography variant="h5" color="text.secondary">
-                    $
-                  </UINewTypography>
-                  <UINewTypography variant="h5" color="text.secondary">
-                    {amountSave}
-                  </UINewTypography>
+                  <UINewTypographyAmount>$</UINewTypographyAmount>
+                  <UINewTypographyAmount>{amountSave}</UINewTypographyAmount>
                 </DollerBox>
               </SecondUsdBox>
 
