@@ -12,8 +12,10 @@ import {
   DialogContentMain,
   DialogTitleBox,
   FirstBoxContent,
+  FiveBoxContent,
   FourBoxContent,
   SecondBoxContent,
+  SixBoxContent,
   ThirdBoxContent
 } from './VideoCallEnded.styled';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
@@ -46,7 +48,7 @@ const VideoCallEnded = ({ open, onClose }: { open: boolean; onClose: () => void 
       </Box>
       <DialogContent sx={{ p: 0 }}>
         <DialogContentFristBox>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5, textAlign: 'center' }}>
+          <SixBoxContent>
             <FirstBoxContent>
               <ThirdBoxContent>
                 <SecondBoxContent>
@@ -69,7 +71,7 @@ const VideoCallEnded = ({ open, onClose }: { open: boolean; onClose: () => void 
                 <FormattedMessage id="ExploreOtherModels" />
               </UINewTypography>
             </FirstBoxContent>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+            <FiveBoxContent>
               <UINewTypography variant="bodyLight" color="text.primary">
                 <FormattedMessage id="RateYourVideoCall" />
               </UINewTypography>
@@ -78,8 +80,8 @@ const VideoCallEnded = ({ open, onClose }: { open: boolean; onClose: () => void 
                   <StarBorderRoundedIcon key={index} />
                 ))}
               </Box>
-            </Box>
-          </Box>
+            </FiveBoxContent>
+          </SixBoxContent>
         </DialogContentFristBox>
       </DialogContent>
     </DialogContentMain>

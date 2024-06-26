@@ -24,7 +24,7 @@ export const DialogContentFristBox = styled(Box)(({ theme }) => ({
 export const DialogContentSecondBox = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '486px',
-  gap: '48px',
+  gap: theme.spacing(6),
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -33,10 +33,10 @@ export const DialogContentSecondBox = styled(Box)(({ theme }) => ({
 
 export const DialogContentMain = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
-    backgroundColor: '#07030E',
-    borderRadius: '12px',
-    maxWidth: '648px',
-    border: 'solid 1px #232027'
+    backgroundColor: theme.palette.secondary[800],
+    borderRadius: theme.spacing(1.5),
+    border: 'solid 1px',
+    borderColor: theme.palette.primary[700]
   },
   '& .MuiTypography-root': {
     [theme.breakpoints.down('sm')]: {
@@ -52,7 +52,7 @@ export const DialogContentMain = styled(Dialog)(({ theme }) => ({
       border: 'solid 0px'
     },
     '& .MuiDialog-container': {
-      backgroundColor: '#07030E'
+      backgroundColor: theme.palette.secondary[800]
     }
   }
 }));

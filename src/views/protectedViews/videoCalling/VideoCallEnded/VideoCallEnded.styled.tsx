@@ -23,10 +23,11 @@ export const DialogContentFristBox = styled(Box)(({ theme }) => ({
 
 export const DialogContentMain = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
-    backgroundColor: '#07030E',
-    borderRadius: '12px',
+    backgroundColor: theme.palette.secondary[800],
+    borderRadius: theme.spacing(1.5),
     maxWidth: '648px',
-    border: 'solid 1px #232027'
+    border: 'solid 1px',
+    borderColor: theme.palette.primary[700]
   },
   '& .MuiTypography-root': {
     [theme.breakpoints.down('sm')]: {
@@ -42,7 +43,7 @@ export const DialogContentMain = styled(Dialog)(({ theme }) => ({
       border: 'solid 0px'
     },
     '& .MuiDialog-container': {
-      backgroundColor: '#07030E'
+      backgroundColor: theme.palette.secondary[800]
     }
   }
 }));
@@ -78,4 +79,17 @@ export const FourBoxContent = styled(Box)(() => ({
   height: '100%',
   maxHeight: '48px',
   whiteSpace: 'nowrap'
+}));
+
+export const FiveBoxContent = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(0.5)
+}));
+
+export const SixBoxContent = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(5),
+  textAlign: 'center'
 }));
