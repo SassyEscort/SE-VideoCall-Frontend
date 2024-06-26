@@ -100,7 +100,7 @@ export const StyledAccordion = styled((props: AccordionProps) => <Accordion disa
 );
 
 export const StyledAccordionSummary = styled((props: AccordionSummaryProps) => <AccordionSummary {...props} />)(({ theme }) => ({
-  color: theme.palette.text.primary,
+  color: theme.palette.secondary[100],
   padding: '0px',
   '&.MuiAccordionSummary-root': {
     minHeight: '0px !important '
