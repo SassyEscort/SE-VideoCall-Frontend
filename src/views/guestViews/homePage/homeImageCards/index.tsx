@@ -120,11 +120,13 @@ const HomeImageCard = ({
             </Grid>
           ))}
         </Grid>
-        <ButtonMainBox>
-          <UIThemeBorderButton variant="outlined">
-            <FormattedMessage id="LoadMore" />
-          </UIThemeBorderButton>
-        </ButtonMainBox>
+        {modelListing.length >= 10 && (
+          <ButtonMainBox>
+            <UIThemeBorderButton variant="outlined">
+              <FormattedMessage id="LoadMore" />
+            </UIThemeBorderButton>
+          </ButtonMainBox>
+        )}
       </WorkerCardMainBox>
       <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />

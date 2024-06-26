@@ -5,6 +5,7 @@ import Accordion, { AccordionProps } from '@mui/material/Accordion';
 import AccordionDetails, { AccordionDetailsProps } from '@mui/material/AccordionDetails';
 import AccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import { Typography } from '@mui/material';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const FAQMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -23,9 +24,13 @@ export const FAQSeconndContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   width: '100%',
-  paddingTop: theme.spacing(4),
   [theme.breakpoints.up('sm')]: {
-    paddingLeft: theme.spacing(3)
+    paddingLeft: theme.spacing(3),
+    paddingTop: theme.spacing(4)
+  },
+  [theme.breakpoints.down('sm')]: {
+    paddingTop: theme.spacing(1.375),
+    marginBottom: theme.spacing(6.625)
   }
 }));
 
@@ -112,4 +117,15 @@ export const StyledAccordionDetails = styled((props: AccordionDetailsProps) => <
   padding: '0px',
   color: theme.palette.secondary[300],
   marginBottom: 24
+}));
+
+export const MainUINewTypography = styled(UINewTypography)(({ theme }) => ({
+  fontSize: theme.spacing(2),
+  fontWeight: 600,
+  lineHeight: '25.6px',
+  color: theme.palette.secondary['100'],
+  [theme.breakpoints.down('sm')]: {
+    fontSize: theme.spacing(2),
+    color: theme.palette.text.secondary
+  }
 }));
