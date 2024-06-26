@@ -7,9 +7,6 @@ import {
   SecondBox,
   ThreeBox,
   ForBox,
-  FiveBox,
-  SixBox,
-  SevenBox,
   ChooseYourBankFristBox,
   ChooseYourBankSecondBox,
   ChooseYourBankthreeBox,
@@ -19,10 +16,14 @@ import {
   PayoutDetailFiveBox,
   PayoutDetailSixBox,
   FirstBox,
-  ImageBox,
   SmallScreenBox,
   SamllScreenFirstBox,
-  ExpandIcon
+  UINewTypographyTitleRequestPayout,
+  UINewTypographyAmount,
+  UINewTypographyChooseYourBank,
+  UINewTypographyBankName,
+  UINewTypographyRemarks,
+  UINewTypographyConfirm
 } from './PayoutWidthDraw';
 import CloseIcon from '@mui/icons-material/Close';
 import { DividerBox } from '../payoutRequestSubmit/PayoutRequestSubmit';
@@ -158,9 +159,9 @@ const PayoutWithdrawContainer = ({
                 <SmallScreenBox>
                   <SamllScreenFirstBox>
                     <Box>
-                      <UINewTypography variant="h6" color={'secondary.200'}>
+                      <UINewTypographyTitleRequestPayout>
                         <FormattedMessage id="RequestAPayout" />
-                      </UINewTypography>
+                      </UINewTypographyTitleRequestPayout>
                     </Box>
                     <Box>
                       <IconButton
@@ -184,27 +185,27 @@ const PayoutWithdrawContainer = ({
                       <SecondBox>
                         <ThreeBox>
                           <ForBox>
-                            <FiveBox>
-                              <UINewTypography color="text.primary" variant="SubtitleSmallMedium" sx={{ textWrap: 'nowrap' }}>
+                            {/* <FiveBox>
+                              <UINewTypographyGetPaidIn>
                                 <FormattedMessage id="GetPaidIn" />
-                              </UINewTypography>
+                              </UINewTypographyGetPaidIn>
                               <SixBox>
                                 <SevenBox>
                                   <ImageBox src="/images/payout/pay.webp" />
-                                  <UINewTypography color="text.primary" variant="SubtitleSmallMedium" sx={{ textWrap: 'nowrap' }}>
+                                  <UINewTypographyGetPaidIn>
                                     <FormattedMessage id="USD" />
-                                  </UINewTypography>
+                                  </UINewTypographyGetPaidIn>
                                 </SevenBox>
                                 <ExpandIcon />
                               </SixBox>
-                            </FiveBox>
+                            </FiveBox> */}
                             <Box>
                               <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: 'nowrap' }}>
                                 <FormattedMessage id="YourBalance" />
                               </UINewTypography>
-                              <UINewTypography variant="bodySemiBold" lineHeight="125%" color="text.secondary" sx={{ textWrap: 'nowrap' }}>
+                              <UINewTypographyAmount variant="bodySemiBold" color="text.secondary" sx={{ textWrap: 'nowrap' }}>
                                 : ${amountSave}
-                              </UINewTypography>
+                              </UINewTypographyAmount>
                             </Box>
                           </ForBox>
                           <Box>
@@ -230,9 +231,9 @@ const PayoutWithdrawContainer = ({
                         <ChooseYourBankFristBox>
                           <ChooseYourBankSecondBox>
                             <ChooseYourBankthreeBox>
-                              <UINewTypography color="text.primary" variant="SubtitleSmallMedium">
+                              <UINewTypographyChooseYourBank>
                                 <FormattedMessage id="ChooseYourBank" />
-                              </UINewTypography>
+                              </UINewTypographyChooseYourBank>
                               {bankDetailsList?.data?.bank_details?.map((bankList, index) => (
                                 <>
                                   <PayoutDetailSecondBox
@@ -254,9 +255,7 @@ const PayoutWithdrawContainer = ({
                                         color={'text.secondary'}
                                       />
                                       <PayoutDetailForBox>
-                                        <UINewTypography variant="h6" color="text.secondary">
-                                          {bankList?.bank_name}
-                                        </UINewTypography>
+                                        <UINewTypographyBankName>{bankList?.bank_name}</UINewTypographyBankName>
                                         <UINewTypography variant="buttonLargeMenu" color="text.primary">
                                           {bankList?.account_name}| {bankList?.iban_number}
                                         </UINewTypography>
@@ -290,9 +289,9 @@ const PayoutWithdrawContainer = ({
 
                           <PayoutDetailSixBox>
                             <Box>
-                              <UINewTypography variant="bodySemiBold" color="secondary.200">
+                              <UINewTypographyRemarks>
                                 <FormattedMessage id="Remarks" />
-                              </UINewTypography>
+                              </UINewTypographyRemarks>
                             </Box>
 
                             <UIStyledInputText
@@ -310,9 +309,9 @@ const PayoutWithdrawContainer = ({
                           </PayoutDetailSixBox>
 
                           <UIThemeButton variant="contained" sx={{ width: '100%' }} type="submit">
-                            <UINewTypography variant="buttonLargeBold" color="primary.200">
+                            <UINewTypographyConfirm>
                               <FormattedMessage id="Confirm" />
-                            </UINewTypography>
+                            </UINewTypographyConfirm>
                           </UIThemeButton>
                         </ChooseYourBankFristBox>
                       </SecondBox>
