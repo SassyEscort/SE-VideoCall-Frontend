@@ -353,5 +353,14 @@
   "CanIScheduleRecurringPayouts": "Can I schedule recurring payouts?",
   "WhatHappensIfMy": "What happens if my payout request is rejected?",
   "IsThereACustomer": "Is there a customer support team available to assist with payout-related inquiries?",
+  "VideoCalling": "Video Calling",
+  "Ringing": "Ringing.....",
+  "WeAreSorry": "We are sorry, Kat didn’t picked up",
+  "CallAgian": "Call agian",
+  "In": "in",
+  "ThankYouForTheCall": "Thank you for the call. We hope you enjoyed your connection with Kat Winter.",
+  "ExploreOtherModels": "Explore other models",
+  "RateYourVideoCall": "Rate your video call",
+  "SorryKatIs": "Sorry, Kat is currently engaged in another call.",
   "PayoutFAQs": "Payout FAQs"
 }
