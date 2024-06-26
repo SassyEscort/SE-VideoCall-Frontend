@@ -64,3 +64,17 @@ export type ModelDetails = {
 export interface ModelDetailsRes extends GenericRes {
   data: ModelDetails;
 }
+
+export type ModelFilterParams = {
+  token: string;
+  limit: number;
+  offset: number;
+  filter_text?: string;
+  from_date?: string;
+  to_date?: string;
+  sort_order?: string;
+  sort_field?: string;
+  verification_step?: string;
+  profile_status?: string;
+  is_active?: string;
+};
