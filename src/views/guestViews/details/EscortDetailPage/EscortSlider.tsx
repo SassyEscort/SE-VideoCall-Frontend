@@ -41,7 +41,17 @@ import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestSignup from 'views/auth/guestSignup';
 
-export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: WorkerPhotos[]; modelId: number; token: TokenIdType }) => {
+export const EscortSlider = ({
+  workerPhotos,
+  modelId,
+  token,
+  handleCallInitiate
+}: {
+  workerPhotos: WorkerPhotos[];
+  modelId: number;
+  token: TokenIdType;
+  handleCallInitiate: () => void;
+}) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [liked, setLiked] = useState(false);
   const [open, setIsOpen] = useState(false);
@@ -167,6 +177,7 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
       >
         <Box>
           <UIThemeShadowButton
+            onClick={handleCallInitiate}
             sx={{
               padding: 0,
               minWidth: '1084px',
