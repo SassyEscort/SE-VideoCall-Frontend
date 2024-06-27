@@ -48,7 +48,7 @@ export const InputSecondBox = styled(Box)(({ theme }) => ({
 export const InputBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(1)
+  gap: theme.spacing(0.5)
 }));
 
 export const ButtonBox = styled(Box)(({ theme }) => ({
