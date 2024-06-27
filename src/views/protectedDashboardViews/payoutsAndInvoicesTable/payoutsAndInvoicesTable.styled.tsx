@@ -95,3 +95,10 @@ export const ResetMainBox = styled(UINewTypography)(({ theme }) => ({
   alignItems: 'center',
   gap: theme.spacing(2)
 }));
+
+export const TableHederText = styled(UINewTypography)(({ theme }) => ({
+  fontWeight: 500,
+  fontSize: '16px',
+  lineHeight: '19.2px',
+  color: theme.palette.secondary[200]
+}));

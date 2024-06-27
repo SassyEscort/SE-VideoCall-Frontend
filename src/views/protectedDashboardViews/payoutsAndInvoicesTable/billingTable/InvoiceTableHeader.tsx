@@ -1,7 +1,7 @@
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import UINewTypography from 'components/UIComponents/UINewTypography';
 import { TableHeadMain } from './PurchaseInvoiceTableBody.styled';
+import { TableHederText } from '../payoutsAndInvoicesTable.styled';
 
 export const DirectPurchaseTableHeader = [
   { id: 1, label: 'Bank Account' },
@@ -27,9 +27,7 @@ const InvoiceTableHeader = () => {
               }
             }}
           >
-            <UINewTypography variant="SubtitleLargeBold" color="text.primary">
-              {dp.label}
-            </UINewTypography>
+            <TableHederText>{dp.label}</TableHederText>
           </TableCell>
         ))}
       </TableRow>
