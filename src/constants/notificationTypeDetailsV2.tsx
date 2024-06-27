@@ -1,24 +1,24 @@
-import Box from '@mui/material/Box';
+import { BoxIconNotification } from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/Notification.styled';
 import { NotificationTypeDetailsTypeV2 } from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/typeV2';
 
 export const NotificationTypeDetailsV2: NotificationTypeDetailsTypeV2 = {
   Credits_Credited: {
-    icon: <Box component="img" src="/images/notification/credits_credited.png" sx={{ width: '30px', height: '25px' }} />,
+    icon: <BoxIconNotification src="/images/notification/credits_credited.png" />,
     href: '/profile/billing',
     isReadMore: false
   },
   Password_Updated: {
-    icon: <Box component="img" src="/images/notification/password.png" sx={{ width: '30px', height: '25px' }} />,
+    icon: <BoxIconNotification src="/images/notification/password.png" />,
     href: '',
     isReadMore: true
   },
   Missed_Call: {
-    icon: <Box component="img" src="/images/notification/missed_call.png" sx={{ width: '30px', height: '25px' }} />,
+    icon: <BoxIconNotification src="/images/notification/missed_call.png" />,
     href: '',
     isReadMore: false
   },
   Credits_Redeemed: {
-    icon: <Box component="img" src="/images/notification/redeem.png" sx={{ width: '30px', height: '25px' }} />,
+    icon: <BoxIconNotification src="/images/notification/redeem.png" />,
     href: '',
     isReadMore: true
   }
