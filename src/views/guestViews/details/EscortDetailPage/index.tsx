@@ -14,7 +14,7 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Box from '@mui/system/Box';
 import { CometChatUIKitConstants } from '@cometchat/uikit-resources';
 import { CometChat } from '@cometchat/chat-sdk-javascript';
@@ -22,6 +22,8 @@ import CallFeature from 'views/protectedViews/callingFeature';
 
 const EscortDetailPage = () => {
   const path = usePathname();
+  const router = useRouter();
+
   const userName = path.split('/')[2];
 
   const [guestData, setGuestData] = useState<ModelDetailsResponse>();
@@ -73,7 +75,12 @@ const EscortDetailPage = () => {
     }
   };
 
-  const handleCancelCall = () => setCall(undefined);
+  const handleCancelCall = () => {
+    console.log('call');
+
+    setCall(undefined);
+    router.push('/');
+  };
 
   return (
     <>

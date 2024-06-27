@@ -11,6 +11,7 @@ const COMETCHAT_CONSTANTS = {
   REGION: process.env.NEXT_PUBLIC_COMET_CHAT_REGION!,
   AUTH_KEY: process.env.NEXT_PUBLIC_COMET_CHAT_AUTH_KEY!
 };
+
 const CallInitialize = () => {
   const token = useSession();
   const cometChatUID = (token?.data?.user as User)?.id;
@@ -44,7 +45,7 @@ const CallInitialize = () => {
 
     init();
   }, [cometChatUID]);
-  return null;
+  return <></>;
 };
 
 export default CallInitialize;

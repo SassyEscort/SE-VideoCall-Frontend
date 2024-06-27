@@ -12,7 +12,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import ModelLastActive from 'views/protectedModelViews/ModelLastAvtive';
 import { GoogleTagManager } from '@next/third-parties/google';
-import CallInitialize from 'views/protectedViews/callingFeature/CallInitialize';
 
 const manropeFont = Manrope({ subsets: ['latin'] });
 
@@ -26,7 +25,6 @@ const ProviderWrapper = ({ children }: { children: JSX.Element }) => {
               <SessionProvider refetchInterval={0}>
                 {children}
                 <GoogleTagManager gtmId={'GTM-P6BCQRQV'} />
-                <CallInitialize />
                 <ModelLastActive />
               </SessionProvider>
               <ToastContainer

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import ProviderWrapper from './ProviderWrapper';
+import CallInitialize from 'views/protectedViews/callingFeature/CallInitialize';
 
 export const metadata: Metadata = {
   title: 'flirtBate - SassyEscort',
@@ -14,7 +15,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ProviderWrapper>{children}</ProviderWrapper>
+        <ProviderWrapper>
+          <>
+            <CallInitialize />
+            {children}
+          </>
+        </ProviderWrapper>
       </body>
     </html>
   );

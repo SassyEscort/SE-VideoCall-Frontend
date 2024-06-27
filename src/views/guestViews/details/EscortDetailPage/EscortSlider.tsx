@@ -177,7 +177,7 @@ export const EscortSlider = ({
       >
         <Box>
           <UIThemeShadowButton
-            onClick={handleCallInitiate}
+            onClick={token.token ? handleCallInitiate : handleLoginOpen}
             sx={{
               padding: 0,
               minWidth: '1084px',
