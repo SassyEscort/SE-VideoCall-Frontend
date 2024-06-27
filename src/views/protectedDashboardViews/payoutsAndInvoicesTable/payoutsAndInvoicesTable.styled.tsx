@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Stack, TableRow } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -101,4 +101,10 @@ export const TableHederText = styled(UINewTypography)(({ theme }) => ({
   fontSize: '16px',
   lineHeight: '19.2px',
   color: theme.palette.secondary[200]
+}));
+
+export const StyledTableRow = styled(TableRow)(() => ({
+  border: 'none',
+  display: 'flex',
+  justifyContent: 'center'
 }));

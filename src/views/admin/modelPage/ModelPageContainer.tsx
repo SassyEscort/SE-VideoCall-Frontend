@@ -47,7 +47,7 @@ export type WorkersPaginationType = {
   pageSize: number;
   orderField: string;
   orderType: string;
-  filterText: string;
+  filter_Text: string;
   duration: string;
   fromDate: string;
   toDate: string;
@@ -110,7 +110,7 @@ export default function ModelPageContainer() {
     offset: 0,
     orderField: 'created_at',
     orderType: 'desc',
-    filterText: '',
+    filter_Text: '',
     duration: 'month',
     fromDate: fromDate,
     toDate: toDate,
@@ -141,7 +141,7 @@ export default function ModelPageContainer() {
         token: token.token,
         limit: filters.pageSize,
         offset: filters.offset,
-        filter_text: filters.filterText,
+        filter_text: filters.filter_Text,
         from_date: filters.fromDate,
         to_date: filters.toDate,
         sort_order: filters.orderType,
@@ -161,7 +161,7 @@ export default function ModelPageContainer() {
   const handleModelListRefetch = useCallback(() => {
     fetchModelData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, filters.filterText]);
+  }, [token, filters.filter_Text]);
 
   useEffect(() => {
     fetchModelData();
@@ -198,7 +198,7 @@ export default function ModelPageContainer() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedChangeSearch = useCallback(
     debounce((val: string) => {
-      handleChangeFilter({ ...filters, filterText: val, page: 1 });
+      handleChangeFilter({ ...filters, filter_Text: val, page: 1 });
     }, 500),
     [filters, handleChangeFilter]
   );
