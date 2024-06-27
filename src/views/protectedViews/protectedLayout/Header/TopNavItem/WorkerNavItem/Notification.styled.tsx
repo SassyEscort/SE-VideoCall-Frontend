@@ -118,3 +118,8 @@ export const DrawerBox = styled(Drawer)(({ theme }) => ({
     backgroundColor: '#1E0815'
   }
 }));
+
+export const BoxIconNotification = styled('img')(() => ({
+  width: '30px',
+  height: '25px'
+}));
