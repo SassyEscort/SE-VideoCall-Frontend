@@ -5,7 +5,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { DialogTitleBox, MainDailgConatiner } from './PayoutRequestSubmit';
+import { DialogTitleBox, MainDailgConatiner } from './PayoutRequestSubmit.styled';
 import theme from 'themes/theme';
 import Requestsubmit from './Requestsubmit';
 

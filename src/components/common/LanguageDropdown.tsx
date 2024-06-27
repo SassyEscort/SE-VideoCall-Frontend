@@ -28,7 +28,7 @@ const LanguageDropdown = () => {
           mt: '5px'
         },
         '& .mui-lleihv-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root': {
-          p: '0px !important'
+          padding: '0px !important'
         }
       }}
     >
@@ -38,6 +38,7 @@ const LanguageDropdown = () => {
         autoWidth
         size="small"
         sx={{
+          paddingRight: 0,
           '& .MuiSelect-icon': {
             display: 'none'
           }
