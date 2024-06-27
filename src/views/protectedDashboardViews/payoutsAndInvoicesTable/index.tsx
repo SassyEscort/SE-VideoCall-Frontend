@@ -11,6 +11,7 @@ import {
   ResetMainBox,
   SecondBox,
   StackBox,
+  StyledTableRow,
   TableBox,
   TypographyBox,
   UINewTypographyBox
@@ -18,7 +19,8 @@ import {
 import BillingTable from './billingTable/BillingTable';
 import PaginationSearch from './searchFilters/paginationSearch/PaginationSearch';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
-import { Divider, TableCell, TableRow } from '@mui/material';
+import Divider from '@mui/material/Divider';
+import TableCell from '@mui/material/TableCell';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
@@ -145,11 +147,11 @@ const PayoutsAndInvoices = () => {
           </TypographyBox>
           <TableBox>
             {isLoading ? (
-              <TableRow sx={{ border: 'none', display: 'flex', justifyContent: 'center' }}>
+              <StyledTableRow>
                 <TableCell colSpan={10} sx={{ border: 'none' }}>
                   <CircularProgress />
                 </TableCell>
-              </TableRow>
+              </StyledTableRow>
             ) : (
               <BillingTable modelPayoutList={modelPayoutList || ({} as ModelPastPayoutDetailRes)} />
             )}

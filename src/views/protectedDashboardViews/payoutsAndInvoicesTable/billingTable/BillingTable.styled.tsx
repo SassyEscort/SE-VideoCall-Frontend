@@ -1,4 +1,4 @@
-import { Box, styled } from '@mui/material';
+import { Box, TableContainer, styled } from '@mui/material';
 
 export const BillingLoadingBox = styled(Box)(() => ({
   display: 'flex',
@@ -21,4 +21,16 @@ export const NotFoundBox = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   padding: theme.spacing(2)
+}));
+
+export const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
+  paddingBottom: theme.spacing(4),
+  '& th': {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1)
+  },
+  '& td': {
+    paddingTop: theme.spacing(1.25),
+    paddingBottom: theme.spacing(1.25)
+  }
 }));

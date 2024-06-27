@@ -1,16 +1,15 @@
-import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
 import InvoiceTableHeader from './InvoiceTableHeader';
 import PurchaseInvoiceTableBodyV2 from './PurchaseInvoiceTableBody';
 import { ModelPastPayoutDetailRes } from 'services/payout/types';
 import { TableCell, TableRow } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { NotFoundBox } from './BillingTable.styled';
+import { NotFoundBox, StyledTableContainer } from './BillingTable.styled';
 
 const BillingTable = ({ modelPayoutList }: { modelPayoutList: ModelPastPayoutDetailRes }) => {
   return (
     <>
-      <TableContainer sx={{ pb: 4, '& th': { py: 1 }, '& td': { py: 1.25 } }}>
+      <StyledTableContainer>
         <Table>
           <InvoiceTableHeader />
           {modelPayoutList?.data?.payout_details.length > 0 ? (
@@ -25,7 +24,7 @@ const BillingTable = ({ modelPayoutList }: { modelPayoutList: ModelPastPayoutDet
             </TableRow>
           )}
         </Table>
-      </TableContainer>
+      </StyledTableContainer>
     </>
   );
 };
