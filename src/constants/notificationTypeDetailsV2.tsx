@@ -9,17 +9,17 @@ export const NotificationTypeDetailsV2: NotificationTypeDetailsTypeV2 = {
   },
   Password_Updated: {
     icon: <BoxIconNotification src="/images/notification/password.png" />,
-    href: '',
+    href: '/profile',
     isReadMore: true
   },
   Missed_Call: {
     icon: <BoxIconNotification src="/images/notification/missed_call.png" />,
-    href: '',
+    href: '/profile/Call',
     isReadMore: false
   },
   Credits_Redeemed: {
     icon: <BoxIconNotification src="/images/notification/redeem.png" />,
-    href: '',
+    href: '/profile/billing',
     isReadMore: true
   }
 };
