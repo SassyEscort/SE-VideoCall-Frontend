@@ -52,7 +52,7 @@ const UIStyledVerticalStepper = styled(Stepper)(({ theme }) => ({
   },
   '& .MuiStepConnector-root': {
     marginLeft: theme.spacing(0.5),
-    marginTop: theme.spacing(-2.125)
+    marginTop: theme.spacing(-2.375)
   },
   '& .MuiStepConnector-line': {
     height: '40px',
