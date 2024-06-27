@@ -1,6 +1,7 @@
 import { Box, Dialog, DialogTitle, Divider, styled } from '@mui/material';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 
 export const DialogContentMain = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
@@ -100,9 +101,20 @@ export const ChooseYourBankSecondBox = styled(Box)(({ theme }) => ({
 export const ChooseYourBankthreeBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  gap: theme.spacing(2.5)
+}));
+
+export const BigScreenGap = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
   gap: theme.spacing(2)
 }));
 
+export const SmallScreenGap = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2.5)
+}));
 export const UINewTypographyChooseYourBank = styled(UINewTypography)(({ theme }) => ({
   fontWeight: 500,
   fontSize: '14px',
@@ -261,12 +273,28 @@ export const UINewTypographyGetPaidIn = styled(UINewTypography)(({ theme }) => (
   textWrap: 'nowrap'
 }));
 
+export const UINewTypographyYourBalance = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 500,
+  lineHeight: '20px',
+  color: theme.palette.text.primary,
+  textWrap: 'nowrap'
+}));
 export const UINewTypographyAmount = styled(UINewTypography)(({ theme }) => ({
   fontSize: '16px',
   fontWeight: 600,
   lineHeight: '20px',
   color: theme.palette.text.secondary,
   textWrap: 'nowrap'
+}));
+
+export const UIStyledInputTextAmount = styled(UIStyledInputText)(({ theme }) => ({
+  height: '70px',
+  '& .MuiInputBase-root': {
+    padding: '16px 20px ',
+    fontWeight: 700,
+    fontSize: '24px'
+  }
 }));
 export const ExpandIcon = styled(ExpandMoreOutlinedIcon)(({ theme }) => ({
   width: '16px',

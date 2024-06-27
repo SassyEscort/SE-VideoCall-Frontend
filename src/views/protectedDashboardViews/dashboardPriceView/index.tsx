@@ -195,7 +195,7 @@ const DashboardPriceView = ({
                     <RightFirstText color="secondary.700">
                       <FormattedMessage id="YoullBeReceiving" />
                     </RightFirstText>
-                    <RightSecondText color="text.secondary">${commistionValue}</RightSecondText>
+                    <RightSecondText color="text.secondary">${commistionValue} / min</RightSecondText>
                   </RightSideFirstBox>
                 )}
               </InputBox>
