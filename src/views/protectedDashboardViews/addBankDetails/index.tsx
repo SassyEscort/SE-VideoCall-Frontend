@@ -43,8 +43,11 @@ const AddbankDetails = ({
   const [loading, setLoading] = useState(false);
 
   const validationSchema = yup.object({
-    bank_name: yup.string().required('IBAN number is required'),
-    account_name: yup.string().required('Account name is required'),
+    bank_name: yup.string().required('Bank name is required'),
+    account_name: yup
+      .string()
+      .matches(/^[A-Za-z\s]+$/, 'Only text is allowed')
+      .required('Account name is required'),
     iban_number: yup
       .string()
       .required('IBAN number is required')
