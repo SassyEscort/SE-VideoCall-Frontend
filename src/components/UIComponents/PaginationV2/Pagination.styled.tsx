@@ -2,7 +2,7 @@ import Pagination, { PaginationProps } from '@mui/material/Pagination';
 import { styled } from '@mui/material/styles';
 
 export const UITheme2Pagination = styled(({ ...props }: PaginationProps) => <Pagination {...props} />)(({ theme, ...props }) => {
-  const { page } = props;
+  const { page, count } = props;
   return {
     borderRadius: '4px',
     backgroundColor: theme.palette.common.black,
@@ -13,7 +13,8 @@ export const UITheme2Pagination = styled(({ ...props }: PaginationProps) => <Pag
     cursor: 'pointer',
 
     '& ul > li:last-child button': {
-      color: theme.palette.common.white
+      color: theme.palette.common.white,
+      display: page === count ? 'none' : 'flex'
     },
     '& ul > li:first-child button': {
       color: theme.palette.common.white,
@@ -34,7 +35,7 @@ export const UITheme2Pagination = styled(({ ...props }: PaginationProps) => <Pag
         fontWeight: 600,
         lineHeight: '160%',
         fontStyle: 'normal',
-        backgroundColor: theme.palette.secondary[800]
+        backgroundColor: theme.palette.primary[700]
       },
       '&.Mui-selected': {
         border: '1px solid',
