@@ -30,6 +30,7 @@ import { ModelPastPayoutDetailRes } from 'services/payout/types';
 import { PaginationBox } from './billingTable/BillingTable.styled';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
+import { debounce } from 'lodash';
 
 export type PaginationType = {
   page: number;
@@ -101,12 +102,17 @@ const PayoutsAndInvoices = () => {
     [filters, handleChangeFilter]
   );
 
-  const handleChangeSearch = useCallback(
-    (event: React.ChangeEvent<unknown>, value: string) => {
-      handleChangeFilter({ ...filters, page: 1, filter_text: value });
-    },
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedChangeSearch = useCallback(
+    debounce((val: string) => {
+      handleChangeFilter({ ...filters, filter_text: val, page: 1 });
+    }, 300),
     [filters, handleChangeFilter]
   );
+
+  const handleChangeSearch = (val: string) => {
+    debouncedChangeSearch(val);
+  };
 
   return (
     <>
@@ -119,7 +125,7 @@ const PayoutsAndInvoices = () => {
           </SecondBox>
           <FilterDropdownBox>
             <StackBox direction="row" color="text.secondary">
-              <PaginationSearch placeholder={'Search'} handleChangeSearch={() => handleChangeSearch} />
+              <PaginationSearch placeholder={'Search'} handleChangeSearch={handleChangeSearch} />
             </StackBox>
             <FilterMainBox>
               <InvoiceDate />
