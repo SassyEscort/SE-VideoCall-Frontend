@@ -32,7 +32,7 @@ export type TokenIdType = {
 const VerificationContainer = () => {
   const router = useRouter();
 
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(3);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
   const [progressValue, setProgressValue] = useState(14.28);
@@ -102,25 +102,25 @@ const VerificationContainer = () => {
     }, 2500);
   };
 
-  useEffect(() => {
-    if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.BASIC_DETAILS) {
-      setActiveStep(0);
-    } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_DOCUMENTS) {
-      setActiveStep(1);
-    } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_PHOTOS) {
-      setActiveStep(2);
-    } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ADD_PRICE) {
-      setActiveStep(3);
-    } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED) {
-      setActiveStep(4);
-    } else if (
-      modelDetails?.verification_step === MODEL_ACTIVE_STEP.IN_REVIEW ||
-      modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED
-    ) {
-      router.push('/model/dashboard');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modelDetails?.verification_step]);
+  // useEffect(() => {
+  //   if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.BASIC_DETAILS) {
+  //     setActiveStep(0);
+  //   } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_DOCUMENTS) {
+  //     setActiveStep(1);
+  //   } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_PHOTOS) {
+  //     setActiveStep(2);
+  //   } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ADD_PRICE) {
+  //     setActiveStep(3);
+  //   } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED) {
+  //     setActiveStep(4);
+  //   } else if (
+  //     modelDetails?.verification_step === MODEL_ACTIVE_STEP.IN_REVIEW ||
+  //     modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED
+  //   ) {
+  //     router.push('/model/dashboard');
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [modelDetails?.verification_step]);
 
   return (
     <>

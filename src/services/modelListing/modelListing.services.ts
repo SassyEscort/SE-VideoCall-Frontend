@@ -5,6 +5,17 @@ export type Language = {
   language_name: string;
 };
 
+export type ModelListingParams = {
+  fromAge: string;
+  toAge: string;
+  fromPrice: string;
+  toPrice: string;
+  language: string;
+  isOnline: string;
+  page: number;
+  pageSize: number;
+};
+
 export type ModelHomeListing = {
   id: number;
   name: string;
@@ -27,11 +38,15 @@ export type ModelListingRes = {
 };
 
 export class ModelListingService {
-  static getModelListing = async (): Promise<ModelListingRes> => {
+  static getModelListing = async (filters: ModelListingParams): Promise<ModelListingRes> => {
     try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/listing`, {
-        headers: { 'Content-Type': 'application/json' }
-      });
+      const res = await axios.get(
+        process.env.NEXT_PUBLIC_API_BASE_URL +
+          `/v1/model/listing?language=${filters.language}&is_online=${filters.isOnline}&min_age=${filters.fromAge}&max_age=${filters.toAge}`,
+        {
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
 
       return res.data.data;
     } catch (err: any) {

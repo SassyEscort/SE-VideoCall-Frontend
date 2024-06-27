@@ -8,7 +8,7 @@ import theme from 'themes/theme';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import SideBarGuestMenu from './SideBarGuestMenu';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import HomeMainContainer from './homeContainer';
 import { FormattedMessage } from 'react-intl';
@@ -20,6 +20,9 @@ import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import ProfileMenu from 'components/UIComponents/UIStyleHeader';
+import MoreFilters from '../searchPage/moreFilters';
+import { CommonServices } from 'services/commonApi/commonApi.services';
+import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
 
 const HeaderGuestComponent = () => {
   const url = new URL(window.location.href);
@@ -33,6 +36,8 @@ const HeaderGuestComponent = () => {
   const [openChangePassword, setIsOpenChangePassword] = useState(email && url.pathname !== '/profile' ? true : false);
   const [openDropDown, setOpenDropDown] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [openFilterModal, setOpenFilterModal] = useState(false);
+  const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
 
   const handleDropDownOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -88,6 +93,27 @@ const HeaderGuestComponent = () => {
     setIsOpenChangePassword(false);
   };
 
+  const handleOpenFilterModal = () => {
+    setOpenFilterModal(true);
+  };
+
+  const handleCloseFilterModal = () => {
+    setOpenFilterModal(false);
+  };
+
+  const handleLanguageApiChange = useCallback(() => {
+    const languagesData = async () => {
+      const data = await CommonServices.getLanguagesWithoutToken();
+      setLanguages(data.data);
+    };
+    languagesData();
+  }, []);
+
+  useEffect(() => {
+    handleLanguageApiChange();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <HomeMainContainer>
       <AppBar
@@ -131,7 +157,7 @@ const HeaderGuestComponent = () => {
               />
             </Box>
             {isMdUp && (
-              <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }}>
+              <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }} onClick={handleOpenFilterModal}>
                 <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" loading="lazy" />
                 <UINewTypography variant="buttonLargeMenu">
                   <FormattedMessage id="Search" />
@@ -203,6 +229,7 @@ const HeaderGuestComponent = () => {
         <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
       </UIStyledDialog>
       <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} />
+      <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
     </HomeMainContainer>
   );
 };

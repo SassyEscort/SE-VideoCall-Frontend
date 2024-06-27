@@ -326,5 +326,11 @@
   "WithdrawnAmount": "Withdrawn Amount",
   "Availability": "Availability",
   "NotAvailable": "Not Available",
-  "SaveAndReview": "Save and review"
+  "SaveAndReview": "Save and review",
+  "ResetFilter":"Reset filter",
+  "Apply":"Apply",
+  "FilterOnly": "Filter only",
+  "SearchFilter":"Search filter",
+  "Age":"Age"
+  
 }
