@@ -1,30 +1,28 @@
 import Box from '@mui/material/Box';
-import LockIcon from '@mui/icons-material/Lock';
 import { NotificationTypeDetailsTypeAdmin } from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/typeAdmin';
-import PhoneMissedIcon from '@mui/icons-material/PhoneMissed';
 
 export const NotificationTypeDetailsAdmin: NotificationTypeDetailsTypeAdmin = {
   Credits_Credited: {
     bgColor: 'success.300',
-    icon: <Box component="img" src="/images/notification/coin.png" />,
+    icon: <Box component="img" src="/images/notification/credits_credited.png" sx={{ width: '30px', height: '25px' }} />,
     href: '',
     isReadMore: false
   },
   Password_Updated: {
     bgColor: 'success.300',
-    icon: <LockIcon sx={{ color: '#EDED00' }} />,
+    icon: <Box component="img" src="/images/notification/password.png" sx={{ width: '30px', height: '25px' }} />,
     href: '',
     isReadMore: true
   },
   Missed_Call: {
     bgColor: 'success.300',
-    icon: <PhoneMissedIcon sx={{ color: '#FF7F7F' }} />,
+    icon: <Box component="img" src="/images/notification/missed_call.png" sx={{ width: '30px', height: '25px' }} />,
     href: '',
     isReadMore: false
   },
   Credits_Redeemed: {
     bgColor: 'success.300',
-    icon: <Box component="img" src="/images/notification/coin.png" />,
+    icon: <Box component="img" src="/images/notification/redeem.png" sx={{ width: '30px', height: '25px' }} />,
     href: '',
     isReadMore: true
   }

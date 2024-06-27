@@ -1,10 +1,10 @@
 import Box from '@mui/material/Box';
 import { NotificationTypeDetailsTypeV2 } from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/typeV2';
 
-export const NotificationTypeDetailsV2: NotificationTypeDetailsTypeV2 = {
+export const NotificationTypeDetailsModelV2: NotificationTypeDetailsTypeV2 = {
   Credits_Credited: {
     icon: <Box component="img" src="/images/notification/credits_credited.png" sx={{ width: '30px', height: '25px' }} />,
-    href: '/profile/billing',
+    href: '',
     isReadMore: false
   },
   Password_Updated: {
