@@ -73,12 +73,19 @@ export class PayoutService {
 
   static modelPastPayoutList = async (params: ModelPastPayoutDetailParams, token: string): Promise<ModelPastPayoutDetailRes> => {
     try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/payout?limit=${params.limit}&offset=${params.offset}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token
+      let query = '';
+      if (params.filter_text) {
+        query += `&filter_text=${params.filter_text}`;
+      }
+      const res = await axios.get(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/payout?limit=${params.limit}&offset=${params.offset}${query}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+          }
         }
-      });
+      );
       return res.data;
     } catch (error) {
       return error as ModelPastPayoutDetailRes;

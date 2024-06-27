@@ -64,17 +64,20 @@ const SORT_BY_OPTIONS: PaginationSortByOption[] = [
 ];
 
 const StatusOfPlan = [
+  { value: '', label: 'All' },
   { value: 'Pending', label: 'Pending' },
   { value: 'Approved', label: 'Approved' },
   { value: 'Rejected', label: 'Rejected' }
 ];
 
 const IS_ACTIVE = [
+  { value: '', label: 'All' },
   { value: 'true', label: 'True' },
   { value: 'false', label: 'False' }
 ];
 
 const verification_step = [
+  { value: '', label: 'All' },
   { value: 'Basic_Details', label: 'Basic Details' },
   { value: 'Upload_Documents', label: 'Upload Documents' },
   { value: 'Upload_Photos', label: 'Upload Photos' },
@@ -139,8 +142,8 @@ export default function ModelPageContainer() {
         limit: filters.pageSize,
         offset: filters.offset,
         filter_text: filters.filterText,
-        from_date: '',
-        to_date: '',
+        from_date: filters.fromDate,
+        to_date: filters.toDate,
         sort_order: filters.orderType,
         sort_field: filters.orderField,
         verification_step: filters.verificationStep,

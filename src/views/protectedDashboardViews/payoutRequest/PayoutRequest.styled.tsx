@@ -207,7 +207,7 @@ export const StyledAccordionSummary = styled((props: AccordionSummaryProps) => <
   '& .MuiSvgIcon-root': {
     color: theme.palette.text.primary
   },
-  '& .mui-1betqn-MuiAccordionSummary-content': {
+  '& .MuiAccordionSummary-content': {
     marginTop: 0,
     marginBottom: 0
   }
