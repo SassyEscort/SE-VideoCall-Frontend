@@ -42,7 +42,12 @@ import { NewStatusBox } from '../payoutsAndInvoicesTable/billingTable/statusDeta
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import UIVerticalStepper from './VerticalStepper';
 import moment from 'moment';
-import { UINewTypographyAmount } from 'views/protectedViews/logout/Logout.styled';
+import {
+  UINewTypographyAmount,
+  UINewTypographyDollar,
+  UINewTypographyWithDrawButtonText,
+  UINewTypographyWithDrawRecentWithdrawls
+} from 'views/protectedViews/logout/Logout.styled';
 
 export type PayoutPaginationType = {
   page: number;
@@ -158,23 +163,23 @@ const PayoutContainer = ({
             <FirstUsdBox>
               <SecondUsdBox>
                 <DollerBox>
-                  <UINewTypographyAmount>$</UINewTypographyAmount>
+                  <UINewTypographyDollar>$</UINewTypographyDollar>
                   <UINewTypographyAmount>{amountSave}</UINewTypographyAmount>
                 </DollerBox>
               </SecondUsdBox>
 
               <ButtonBox variant="contained" onClick={openDailog}>
-                <UINewTypography variant="buttonLargeBold" color="primary.200">
+                <UINewTypographyWithDrawButtonText>
                   <FormattedMessage id="Withdraw" />
-                </UINewTypography>
+                </UINewTypographyWithDrawButtonText>
               </ButtonBox>
             </FirstUsdBox>
             <RecentWithdrawlsMainContainer>
               <SecondRecentWithdrawlsMainContainer>
                 <Withdrawls>
-                  <UINewTypography variant="SubtitleSmallMedium" color="text.primary">
+                  <UINewTypographyWithDrawRecentWithdrawls>
                     <FormattedMessage id="RecentWithdrawls" />
-                  </UINewTypography>
+                  </UINewTypographyWithDrawRecentWithdrawls>
                 </Withdrawls>
 
                 {modelPayoutList?.data?.payout_details.map((item) => (
