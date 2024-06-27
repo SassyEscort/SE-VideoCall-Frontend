@@ -30,7 +30,7 @@ const BillingTable = ({ searchString }: { searchString: string }) => {
     page: 0,
     pageSize: 20,
     offset: 0,
-    filter_text: ''
+    filter_text: searchString
   });
 
   useEffect(() => {
@@ -83,6 +83,13 @@ const BillingTable = ({ searchString }: { searchString: string }) => {
     },
     [filters, handleChangeFilter]
   );
+
+  useEffect(() => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      filter_text: searchString
+    }));
+  }, [searchString]);
 
   return (
     <>
