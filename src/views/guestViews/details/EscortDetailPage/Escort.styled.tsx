@@ -227,3 +227,8 @@ export const SwiperSlidBoxContainer = styled(SwiperSlide)(({ theme }) => ({
   maxWidth: '146px',
   backgroundSize: 'cover'
 }));
+
+export const SecSwiperSlidBoxContainer = styled(SwiperSlide)(({ theme }) => ({
+  width: '100%',
+  maxWidth: '148px'
+}));

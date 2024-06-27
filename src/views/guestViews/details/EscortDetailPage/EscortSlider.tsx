@@ -26,6 +26,7 @@ import {
   FirstSwiperBlurContainer,
   FirstSwiperInnerContainer,
   FirstSwiperMainContainer,
+  SecSwiperSlidBoxContainer,
   SecondSwiperBlurContainer,
   SideBarBoxContainer,
   SideSwiperButton,
@@ -160,13 +161,13 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
               className="mySwiper"
             >
               {workerPhotos.map((imageSrc, index) => (
-                <SwiperSlide
-                  style={{ paddingTop: index === 0 ? '0px' : '12px', width: '100%', maxWidth: '148px' }}
+                <SecSwiperSlidBoxContainer
+                  style={{ paddingTop: index === 0 ? '0px' : '12px' }}
                   key={index}
                   onClick={() => handleSidebarImageClick(index)}
                 >
                   <EscortSwiperPhotoContainer image={imageSrc.link} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
-                </SwiperSlide>
+                </SecSwiperSlidBoxContainer>
               ))}
             </Swiper>
           </SwiperContainer>
