@@ -22,7 +22,7 @@ import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
-import { FirstSwiperBlurContainer, SecondSwiperBlurContainer } from './Escort.styled';
+import { FirstSwiperBlurContainer, SecondSwiperBlurContainer, SwiperSlidBoxContainer } from './Escort.styled';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 
@@ -128,9 +128,9 @@ const EscortSliderMobile = ({ workerPhotos, modelId, token }: { workerPhotos: Wo
             modules={[Navigation, Thumbs, FreeMode]}
           >
             {workerPhotos.map((imageSrc, index) => (
-              <SwiperSlide style={{ paddingTop: 8, width: '100%', minWidth: '86px' }} key={index}>
+              <SwiperSlidBoxContainer key={index}>
                 <EscortSwiperPhotoContainer image={imageSrc.link} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
-              </SwiperSlide>
+              </SwiperSlidBoxContainer>
             ))}
           </Swiper>
         </Box>

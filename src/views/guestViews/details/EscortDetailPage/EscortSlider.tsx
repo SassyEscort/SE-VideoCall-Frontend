@@ -26,7 +26,9 @@ import {
   FirstSwiperBlurContainer,
   FirstSwiperInnerContainer,
   FirstSwiperMainContainer,
+  SecSwiperSlidBoxContainer,
   SecondSwiperBlurContainer,
+  SideBarBoxContainer,
   SideSwiperButton,
   SwiperContainer
 } from './Escort.styled';
@@ -108,13 +110,25 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
     }
   };
 
+  const handleSidebarImageClick = (index: number) => {
+    if (swiperRef.current) {
+      swiperRef.current.slideTo(index);
+    }
+  };
+
   return (
     <>
       <DullCirclesEscort />
       <DullCirclesEscort2 />
       <FirstSwiperMainContainer>
         <FirstSwiperInnerContainer>
-          <Swiper thumbs={{ swiper: thumbsSwiper }} modules={[Navigation, Thumbs, FreeMode]} slidesPerView={1} style={{ height: '100%' }}>
+          <Swiper
+            ref={swiperRef}
+            thumbs={{ swiper: thumbsSwiper }}
+            modules={[Navigation, Thumbs, FreeMode]}
+            slidesPerView={1}
+            style={{ height: '100%' }}
+          >
             {workerPhotos.map((imageSrc, index) => (
               <SwiperSlide key={index} style={{ paddingTop: 24, height: '100%' }}>
                 <FirstSwiperBlurContainer>
@@ -129,7 +143,7 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
             ))}
           </Swiper>
         </FirstSwiperInnerContainer>
-        <Box display="flex" flexDirection="column" gap={1}>
+        <SideBarBoxContainer>
           <SideSwiperButton variant="contained" onClick={handlePrevious}>
             <KeyboardArrowUpRoundedIcon sx={{ color: 'text.primary' }} />
           </SideSwiperButton>
@@ -138,7 +152,7 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
               direction="vertical"
               onSwiper={(swiper) => {
                 swiperRef.current = swiper;
-                setThumbsSwiper;
+                setThumbsSwiper(swiper);
               }}
               spaceBetween={0}
               slidesPerView={6}
@@ -147,16 +161,20 @@ export const EscortSlider = ({ workerPhotos, modelId, token }: { workerPhotos: W
               className="mySwiper"
             >
               {workerPhotos.map((imageSrc, index) => (
-                <SwiperSlide style={{ paddingTop: index === 0 ? '0px' : '12px', width: '100%', minWidth: '148px' }} key={index}>
+                <SecSwiperSlidBoxContainer
+                  style={{ paddingTop: index === 0 ? '0px' : '12px' }}
+                  key={index}
+                  onClick={() => handleSidebarImageClick(index)}
+                >
                   <EscortSwiperPhotoContainer image={imageSrc.link} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
-                </SwiperSlide>
+                </SecSwiperSlidBoxContainer>
               ))}
             </Swiper>
           </SwiperContainer>
           <SideSwiperButton variant="contained" onClick={handleNext}>
             <KeyboardArrowDownRoundedIcon sx={{ color: 'text.primary' }} />
           </SideSwiperButton>
-        </Box>
+        </SideBarBoxContainer>
       </FirstSwiperMainContainer>
       <Box
         sx={{
