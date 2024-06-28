@@ -41,7 +41,7 @@ export const MainForBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.primary[700],
   padding: '24px 0px 24px 24px',
 
-  borderRadius: '8px',
+  borderRadius: theme.spacing(1),
   [theme.breakpoints.down('sm')]: {
     height: '175px'
   }

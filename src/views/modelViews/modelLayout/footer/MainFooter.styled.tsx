@@ -15,7 +15,7 @@ export const TextContainerMain = styled(Box)(({ theme }) => ({
 }));
 
 export const TextContainer = styled(Box)(({ theme }) => ({
-  marginTop: '100px',
+  marginTop: theme.spacing(12.5),
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
