@@ -77,3 +77,11 @@ export const DividerContainer = styled(Divider)(({ theme }) => ({
   height: '40px',
   alignItems: 'center'
 }));
+
+export const DataNotBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  padding: theme.spacing(2)
+}));

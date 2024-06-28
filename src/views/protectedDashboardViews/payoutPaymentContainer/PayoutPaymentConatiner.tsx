@@ -5,6 +5,7 @@ export const MainConatinerBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   paddingTop: theme.spacing(4),
+  width: '100%',
   [theme.breakpoints.down('sm')]: {
     paddingTop: theme.spacing(1.375)
   }

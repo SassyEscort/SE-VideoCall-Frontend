@@ -1,11 +1,11 @@
 'use client';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
 import Close from '@mui/icons-material/Close';
 import { memo } from 'react';
 import { StyledRoot, StyledSearch } from './PaginationSearch.styled';
 import useRebounceSearch from 'hooks/useRebounce';
+import { Box } from '@mui/material';
 
 export type PaginationSearchProps = {
   placeholder: string;
@@ -32,7 +32,7 @@ const PaginationSearch = ({ placeholder, handleChangeSearch }: PaginationSearchP
           sx={{ width: '100%', '&.Mui-focused': { width: '100%' }, color: 'text.secondary' }}
           startAdornment={
             <InputAdornment position="start">
-              <SearchIcon sx={{ color: 'text.secondary', width: 20, height: 20 }} />
+              <Box component="img" src="/images/payout/search-line.png" sx={{ color: 'text.primary', width: 20, height: 20 }} />
             </InputAdornment>
           }
           endAdornment={

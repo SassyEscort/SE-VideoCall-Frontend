@@ -48,6 +48,7 @@ import {
   UINewTypographyWithDrawButtonText,
   UINewTypographyWithDrawRecentWithdrawls
 } from 'views/protectedViews/logout/Logout.styled';
+import { NotFoundBox } from '../payoutsAndInvoicesTable/billingTable/BillingTable.styled';
 
 export type PayoutPaginationType = {
   page: number;
@@ -141,9 +142,17 @@ const PayoutContainer = ({
     (event: React.ChangeEvent<unknown>, value: number) => {
       const offset = (value - 1) * filters.pageSize;
       handleChangeFilter({ ...filters, page: value, offset: offset });
+      scrollToTable();
     },
     [filters, handleChangeFilter]
   );
+
+  const scrollToTable = () => {
+    const tableElement = document.getElementById('tableSection');
+    if (tableElement) {
+      tableElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   useEffect(() => {
     getAmount();
@@ -159,7 +168,7 @@ const PayoutContainer = ({
               <FormattedMessage id="GoodEvening" />, {modelDetails.name}
             </TextDetail>
           </BoxMessage>
-          <SecondMainContainer>
+          <SecondMainContainer id="tableSection">
             <FirstUsdBox>
               <SecondUsdBox>
                 <DollerBox>
@@ -182,76 +191,82 @@ const PayoutContainer = ({
                   </UINewTypographyWithDrawRecentWithdrawls>
                 </Withdrawls>
 
-                {modelPayoutList?.data?.payout_details.map((item) => (
-                  <ToSiliconValleyBankMainConatiner key={item.id}>
-                    <FirstToSiliconValleyBankMainConatiner>
-                      <FirstToSiliconValleyBank>
-                        <ImageBox>
-                          <Box component={'img'} src="/images/payout/home.png" />
-                        </ImageBox>
-                        <Showtracking>
-                          <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                            {item.bank_name}
+                {total_rows > 0 ? (
+                  modelPayoutList?.data?.payout_details.map((item) => (
+                    <ToSiliconValleyBankMainConatiner key={item.id}>
+                      <FirstToSiliconValleyBankMainConatiner>
+                        <FirstToSiliconValleyBank>
+                          <ImageBox>
+                            <Box component={'img'} src="/images/payout/home.png" />
+                          </ImageBox>
+                          <Showtracking>
+                            <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+                              {item.bank_name}
+                            </UINewTypography>
+                            <ShowtrackingBox>
+                              <StyledAccordion>
+                                <StyledAccordionSummary aria-controls="panel1-content" id="panel1-header" expandIcon={<ExpandMoreIcon />}>
+                                  <UINewTypography variant="captionLarge">
+                                    <FormattedMessage id="ShowTracking" />
+                                  </UINewTypography>
+                                </StyledAccordionSummary>
+                                <StyledAccordionDetails>
+                                  <UIVerticalStepper
+                                    steps={item.state === 'Rejected' ? REJECTED_STEPS : APPROVED_STEPS}
+                                    activeStep={item.state === 'Approved' || item.state === 'Rejected' ? 2 : 1}
+                                    withDate={item.payout_logs ? moment(item?.payout_logs[0]?.created_at).format('DD/MM/YYYY') : ' '}
+                                    tarnsferDate={
+                                      item.payout_logs
+                                        ? item.payout_logs.length > 1
+                                          ? moment(item?.payout_logs[1]?.created_at).format('DD/MM/YYYY')
+                                          : ' '
+                                        : ''
+                                    }
+                                  />
+                                </StyledAccordionDetails>
+                              </StyledAccordion>
+                            </ShowtrackingBox>
+                          </Showtracking>
+                        </FirstToSiliconValleyBank>
+                        <Pendingconatiner>
+                          <UINewTypography variant="body" color="text.secondary">
+                            - ${item.amount}
                           </UINewTypography>
-                          <ShowtrackingBox>
-                            <StyledAccordion>
-                              <StyledAccordionSummary aria-controls="panel1-content" id="panel1-header" expandIcon={<ExpandMoreIcon />}>
-                                <UINewTypography variant="captionLarge">
-                                  <FormattedMessage id="ShowTracking" />
-                                </UINewTypography>
-                              </StyledAccordionSummary>
-                              <StyledAccordionDetails>
-                                <UIVerticalStepper
-                                  steps={item.state === 'Rejected' ? REJECTED_STEPS : APPROVED_STEPS}
-                                  activeStep={item.state === 'Approved' || item.state === 'Rejected' ? 2 : 1}
-                                  withDate={item.payout_logs ? moment(item?.payout_logs[0]?.created_at).format('DD/MM/YYYY') : ' '}
-                                  tarnsferDate={
-                                    item.payout_logs
-                                      ? item.payout_logs.length > 1
-                                        ? moment(item?.payout_logs[1]?.created_at).format('DD/MM/YYYY')
-                                        : ' '
-                                      : ''
-                                  }
-                                />
-                              </StyledAccordionDetails>
-                            </StyledAccordion>
-                          </ShowtrackingBox>
-                        </Showtracking>
-                      </FirstToSiliconValleyBank>
-                      <Pendingconatiner>
-                        <UINewTypography variant="body" color="text.secondary">
-                          - ${item.amount}
-                        </UINewTypography>
-                        <NewStatusBox status={item.state} sx={{ maxHeight: '25px !important' }}>
-                          <UINewTypography
-                            variant="captionLarge"
-                            color={
-                              item.state === 'Pending'
-                                ? '#FFE500'
-                                : item.state === 'Approved'
-                                  ? '#79E028'
-                                  : item.state === 'Rejected'
-                                    ? '#FF5959'
-                                    : '#FFF'
-                            }
-                          >
-                            {item.state === 'Pending' ? (
-                              <FormattedMessage id="Pending" />
-                            ) : item.state === 'Approved' ? (
-                              <FormattedMessage id="Completed" />
-                            ) : item.state === 'Rejected' ? (
-                              <FormattedMessage id="Cancelled" />
-                            ) : (
-                              '-'
-                            )}
-                          </UINewTypography>
-                        </NewStatusBox>
-                      </Pendingconatiner>
-                    </FirstToSiliconValleyBankMainConatiner>
+                          <NewStatusBox status={item.state} sx={{ maxHeight: '25px !important' }}>
+                            <UINewTypography
+                              variant="captionLarge"
+                              color={
+                                item.state === 'Pending'
+                                  ? '#FFE500'
+                                  : item.state === 'Approved'
+                                    ? '#79E028'
+                                    : item.state === 'Rejected'
+                                      ? '#FF5959'
+                                      : '#FFF'
+                              }
+                            >
+                              {item.state === 'Pending' ? (
+                                <FormattedMessage id="Pending" />
+                              ) : item.state === 'Approved' ? (
+                                <FormattedMessage id="Completed" />
+                              ) : item.state === 'Rejected' ? (
+                                <FormattedMessage id="Cancelled" />
+                              ) : (
+                                '-'
+                              )}
+                            </UINewTypography>
+                          </NewStatusBox>
+                        </Pendingconatiner>
+                      </FirstToSiliconValleyBankMainConatiner>
 
-                    <Divider sx={{ border: '1px solid #232027 ' }} />
-                  </ToSiliconValleyBankMainConatiner>
-                ))}
+                      <Divider sx={{ border: '1px solid #232027 ' }} />
+                    </ToSiliconValleyBankMainConatiner>
+                  ))
+                ) : (
+                  <NotFoundBox>
+                    <UINewTypography variant="buttonLargeMenu">Data Not Found</UINewTypography>
+                  </NotFoundBox>
+                )}
               </SecondRecentWithdrawlsMainContainer>
             </RecentWithdrawlsMainContainer>
 

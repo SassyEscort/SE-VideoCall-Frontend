@@ -291,9 +291,11 @@ export const UINewTypographyAmount = styled(UINewTypography)(({ theme }) => ({
 export const UIStyledInputTextAmount = styled(UIStyledInputText)(({ theme }) => ({
   height: '70px',
   '& .MuiInputBase-root': {
-    padding: '16px 20px ',
+    padding: '16px 20px',
     fontWeight: 700,
-    fontSize: '24px'
+    fontSize: '24px !important',
+    lineHeight: '38.4px !important',
+    color: theme.palette.text.secondary
   }
 }));
 export const ExpandIcon = styled(ExpandMoreOutlinedIcon)(({ theme }) => ({
@@ -306,4 +308,11 @@ export const dividerBox = styled(Divider)(({ theme }) => ({
   paddingRight: theme.spacing(1),
   border: '1px solid',
   borderColor: theme.palette.primary[700]
+}));
+
+export const UINewTypographyPrice = styled(UINewTypography)(({ theme }) => ({
+  color: theme.palette.text.secondary,
+  fontSize: '24px',
+  fontWeight: 700,
+  lineHeight: '38.4px'
 }));

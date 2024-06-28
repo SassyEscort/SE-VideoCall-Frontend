@@ -7,6 +7,7 @@ import Status from './searchFilters/status';
 import {
   FilterDropdownBox,
   FilterMainBox,
+  FilterSecondBox,
   MainBox,
   ResetMainBox,
   SecondBox,
@@ -14,11 +15,13 @@ import {
   StyledTableRow,
   TableBox,
   TypographyBox,
+  TypographyBoxTotalOfInvoices,
   UINewTypographyBox
 } from './payoutsAndInvoicesTable.styled';
 import BillingTable from './billingTable/BillingTable';
 import PaginationSearch from './searchFilters/paginationSearch/PaginationSearch';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
+
 import Divider from '@mui/material/Divider';
 import TableCell from '@mui/material/TableCell';
 import { useCallback, useEffect, useState } from 'react';
@@ -100,6 +103,7 @@ const PayoutsAndInvoices = () => {
     (event: React.ChangeEvent<unknown>, value: number) => {
       const offset = (value - 1) * filters.pageSize;
       handleChangeFilter({ ...filters, page: value, offset: offset });
+      scrollToTable();
     },
     [filters, handleChangeFilter]
   );
@@ -116,10 +120,17 @@ const PayoutsAndInvoices = () => {
     debouncedChangeSearch(val);
   };
 
+  const scrollToTable = () => {
+    const tableElement = document.getElementById('tableSection');
+    if (tableElement) {
+      tableElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       <HomeMainContainer>
-        <MainBox>
+        <MainBox id="tableSection">
           <SecondBox>
             <UINewTypographyBox>
               <FormattedMessage id="YourPastPayouts" />
@@ -130,20 +141,23 @@ const PayoutsAndInvoices = () => {
               <PaginationSearch placeholder={'Search'} handleChangeSearch={handleChangeSearch} />
             </StackBox>
             <FilterMainBox>
-              <InvoiceDate />
-              <Status />
+              <FilterSecondBox>
+                <InvoiceDate />
+                <Status />
+              </FilterSecondBox>
+
+              <ResetMainBox>
+                <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.disabled', height: '40px', alignItems: 'center' }} />
+                <UINewTypography variant="bodyLight" color="text.disabled">
+                  <FormattedMessage id="Reset" />
+                </UINewTypography>
+              </ResetMainBox>
             </FilterMainBox>
-            <ResetMainBox>
-              <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.disabled', height: '40px', alignItems: 'center' }} />
-              <UINewTypography variant="bodyLight" color="text.disabled">
-                <FormattedMessage id="Reset" />
-              </UINewTypography>
-            </ResetMainBox>
           </FilterDropdownBox>
           <TypographyBox>
-            <UINewTypography variant="SubtitleSmallMedium">
+            <TypographyBoxTotalOfInvoices>
               <FormattedMessage id="TotalOfInvoices" />
-            </UINewTypography>
+            </TypographyBoxTotalOfInvoices>
           </TypographyBox>
           <TableBox>
             {isLoading ? (
