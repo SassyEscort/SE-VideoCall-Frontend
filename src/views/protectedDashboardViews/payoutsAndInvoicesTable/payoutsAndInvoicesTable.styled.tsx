@@ -6,14 +6,15 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 export const FilterDropdownBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  gap: theme.spacing(2),
+  gap: theme.spacing(6.125),
   marginTop: '44px',
   width: '100%',
   maxWidth: '741px',
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    marginTop: theme.spacing(6)
+    marginTop: theme.spacing(6),
+    gap: theme.spacing(2)
   }
 }));
 
@@ -87,6 +88,18 @@ export const FilterMainBox = styled(UINewTypography)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   width: '100%',
+  gap: theme.spacing(4),
+  [theme.breakpoints.down('sm')]: {
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    gap: theme.spacing(1)
+  }
+}));
+
+export const FilterSecondBox = styled(UINewTypography)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  width: '100%',
   gap: theme.spacing(2)
 }));
 
@@ -101,6 +114,13 @@ export const TableHederText = styled(UINewTypography)(({ theme }) => ({
   fontSize: '16px',
   lineHeight: '19.2px',
   color: theme.palette.secondary[200]
+}));
+
+export const TypographyBoxTotalOfInvoices = styled(Box)(({ theme }) => ({
+  fontWeight: 500,
+  fontSize: '14px',
+  lineHeight: '17.5px',
+  color: theme.palette.text.primary
 }));
 
 export const StyledTableRow = styled(TableRow)(() => ({

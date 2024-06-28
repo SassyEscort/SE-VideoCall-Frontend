@@ -25,9 +25,10 @@ import {
   UINewTypographyConfirm,
   UINewTypographyYourBalance,
   UINewTypographyAmount,
-  UIStyledInputTextAmount,
   BigScreenGap,
-  SmallScreenGap
+  SmallScreenGap,
+  UIStyledInputTextAmount,
+  UINewTypographyPrice
 } from './PayoutWidthDraw';
 import CloseIcon from '@mui/icons-material/Close';
 import { DividerBox } from '../payoutRequestSubmit/PayoutRequestSubmit.styled';
@@ -222,7 +223,11 @@ const PayoutWithdrawContainer = ({
                               error={touched.amount && Boolean(errors.amount)}
                               helperText={touched.amount && errors.amount}
                               InputProps={{
-                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <UINewTypographyPrice>$</UINewTypographyPrice>
+                                  </InputAdornment>
+                                )
                               }}
                             />
                           </Box>
