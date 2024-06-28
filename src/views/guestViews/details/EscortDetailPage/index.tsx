@@ -76,8 +76,6 @@ const EscortDetailPage = () => {
   };
 
   const handleCancelCall = () => {
-    console.log('call');
-
     setCall(undefined);
     router.push('/');
   };
