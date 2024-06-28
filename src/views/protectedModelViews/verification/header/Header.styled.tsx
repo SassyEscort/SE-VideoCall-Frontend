@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import Link from 'next/link';
 
 export const VerificationHeaderBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -23,4 +24,15 @@ export const UINewTypographyBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center'
+}));
+
+export const ImageBox = styled(Link)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  [theme.breakpoints.down('sm')]: {
+    height: '40px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    height: '40px'
+  }
 }));

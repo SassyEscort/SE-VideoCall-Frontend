@@ -204,7 +204,7 @@ const DashboardPriceView = ({
           </VideoCall>
           <ButtonConatiner>
             {!isEdit && (
-              <UIThemeButton onClick={handlePrevVerificationStep}>
+              <UIThemeButton onClick={handlePrevVerificationStep} sx={{ border: '1px solid' }}>
                 <>
                   <RiArrowLeftLine />
                   <UINewTypography variant="body">

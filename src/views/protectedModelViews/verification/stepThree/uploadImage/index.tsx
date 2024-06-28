@@ -15,6 +15,7 @@ import { ErrorMessage, MAX_FILE_SIZE } from 'constants/common.constants';
 import { FormattedMessage } from 'react-intl';
 import { useState } from 'react';
 import * as Yup from 'yup';
+import { UploadButBoxContainer } from './RepositionPhoto.styled';
 
 export type WorkerPhotos = {
   id: number;
@@ -263,18 +264,18 @@ const UploadImage = ({
     >
       {({ values, errors, touched, setFieldValue, handleSubmit }) => (
         <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
-          <Box>
-            <ModelMultiplePhoto
-              loading={loading}
-              isEdit={isEdit}
-              handleModelApiChange={handleModelApiChange}
-              token={token}
-              values={values}
-              setValue={setFieldValue}
-              errors={errors}
-              touched={touched}
-              workerPhotos={workerPhotos}
-            />
+          <ModelMultiplePhoto
+            loading={loading}
+            isEdit={isEdit}
+            handleModelApiChange={handleModelApiChange}
+            token={token}
+            values={values}
+            setValue={setFieldValue}
+            errors={errors}
+            touched={touched}
+            workerPhotos={workerPhotos}
+          />
+          <UploadButBoxContainer>
             <UploadBox>
               {!isEdit && (
                 <UploadMultipleBox>
@@ -293,7 +294,7 @@ const UploadImage = ({
                 </UploadMultipleBox>
               )}
             </UploadBox>
-          </Box>
+          </UploadButBoxContainer>
         </Box>
       )}
     </Formik>

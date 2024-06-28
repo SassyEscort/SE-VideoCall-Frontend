@@ -5,9 +5,8 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { RiArrowLeftLine, RiArrowRightLine } from 'components/common/customRemixIcons';
 import Image from 'next/image';
-import Link from 'next/link';
 import theme from 'themes/theme';
-import { VerificationHeaderBox } from './Header.styled';
+import { ImageBox, VerificationHeaderBox } from './Header.styled';
 import { FormattedMessage } from 'react-intl';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 
@@ -47,19 +46,19 @@ const VerificationHeader = ({
               </UINewTypography>
             </UIThemeButton>
           </Box>
-          <Box component={Link} prefetch={false} shallow={true} href="/" sx={{ height: { xs: 40, md: 40 } }}>
+          <ImageBox prefetch={false} shallow={true} href="/">
             <Image
               src="/images/header/headerlogo.png"
               alt="sassy_logo"
               width={182}
               height={36}
               style={{
-                width: '182px',
+                width: isSmDown ? 136 : 182,
                 height: isSmDown ? 27 : 36
               }}
               loading="lazy"
             />
-          </Box>
+          </ImageBox>
           <Box display="flex" gap={1.5} alignItems="center">
             <StyleButtonV2
               onClick={handleNextHeaderStep}
