@@ -100,6 +100,7 @@ const PayoutsAndInvoices = () => {
     (event: React.ChangeEvent<unknown>, value: number) => {
       const offset = (value - 1) * filters.pageSize;
       handleChangeFilter({ ...filters, page: value, offset: offset });
+      scrollToTable();
     },
     [filters, handleChangeFilter]
   );
@@ -116,10 +117,17 @@ const PayoutsAndInvoices = () => {
     debouncedChangeSearch(val);
   };
 
+  const scrollToTable = () => {
+    const tableElement = document.getElementById('tableSection');
+    if (tableElement) {
+      tableElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       <HomeMainContainer>
-        <MainBox>
+        <MainBox id="tableSection">
           <SecondBox>
             <UINewTypographyBox>
               <FormattedMessage id="YourPastPayouts" />
