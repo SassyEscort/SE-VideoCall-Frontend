@@ -12,3 +12,16 @@ export const ProtectedDashboardLayoutMainContainer = styled(Box)(({ theme }) => 
   right: theme.spacing(9),
   top: '-232px'
 }));
+
+export const ProtectedDashboardLayoutBoxContainer = styled(Box)(({ theme }) => ({
+  paddingRight: theme.spacing(1.75),
+  [theme.breakpoints.only('md')]: {
+    paddingBottom: theme.spacing(13)
+  },
+  [theme.breakpoints.only('sm')]: {
+    paddingLeft: theme.spacing(1.75)
+  },
+  [theme.breakpoints.only('xs')]: {
+    paddingLeft: theme.spacing(1.75)
+  }
+}));

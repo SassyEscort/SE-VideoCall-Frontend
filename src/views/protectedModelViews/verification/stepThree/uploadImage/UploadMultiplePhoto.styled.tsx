@@ -135,12 +135,20 @@ export const UIPhotosHeader = styled(UINewTypography)(({ theme }) => ({
   }
 }));
 
-export const UploadMultiplePhotos = styled(Box)(() => ({
+export const UploadMultiplePhotos = styled(Box)(({ theme }) => ({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
+  },
+  [theme.breakpoints.only('sm')]: {
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
+  }
 }));
 
 export const UploadPhotostext = styled(Typography)(({ theme }) => ({

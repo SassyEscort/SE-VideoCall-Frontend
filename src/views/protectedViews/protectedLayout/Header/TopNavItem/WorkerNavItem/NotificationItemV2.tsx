@@ -55,10 +55,14 @@ const NotificationItemV2 = ({
           <BaseContainer>{notificationTypeV2?.icon}</BaseContainer>
           <MainBox>
             <TypographyBox>
-              <UINewTypography variant="bodySemiBold" color={notificationIsRead ? '#B7B5B9' : '#E9E8EB'}>
+              <UINewTypography
+                variant="bodySemiBold"
+                color={notificationIsRead ? 'text.primary' : 'text.secondary'}
+                sx={{ display: 'flex', justifyContent: 'flex-start' }}
+              >
                 {notification?.title}
               </UINewTypography>
-              <UINewTypography variant="SubtitleSmallRegular" textAlign="start" color={'#B7B5B9'}>
+              <UINewTypography variant="SubtitleSmallRegular" textAlign="start" color="text.primary">
                 {notification?.message}
               </UINewTypography>
             </TypographyBox>

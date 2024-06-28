@@ -221,3 +221,15 @@ export const TextContainer = styled(Typography)(({ theme }) => ({
     paddingTop: 0
   }
 }));
+
+export const SignupTextContainer = styled(Typography)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 700,
+  lineHeight: '24px'
+}));
+
+export const ExploreTextContainer = styled(Typography)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 600,
+  lineHeight: '19.2px'
+}));
