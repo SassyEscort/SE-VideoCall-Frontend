@@ -363,5 +363,8 @@
   "ExploreOtherModels": "Explora otros modelos",
   "RateYourVideoCall": "Califica tu videollamada",
   "SorryKatIs": "Lo sentimos, Kat está actualmente atendiendo otra llamada.",
-  "PayoutFAQs": "Preguntas frecuentes sobre pagos"
+  "PayoutFAQs": "Preguntas frecuentes sobre pagos",
+  "Pending": "Pendiente",
+  "Completed": "Terminada",
+  "Cancelled": "Cancelada"
 }

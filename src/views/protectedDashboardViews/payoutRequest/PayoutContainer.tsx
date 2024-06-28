@@ -245,13 +245,15 @@ const PayoutContainer = ({
                                       : '#FFF'
                               }
                             >
-                              {item.state === 'Pending'
-                                ? 'Pending'
-                                : item.state === 'Approved'
-                                  ? 'Completed'
-                                  : item.state === 'Rejected'
-                                    ? 'Cancelled'
-                                    : '-'}
+                              {item.state === 'Pending' ? (
+                                <FormattedMessage id="Pending" />
+                              ) : item.state === 'Approved' ? (
+                                <FormattedMessage id="Completed" />
+                              ) : item.state === 'Rejected' ? (
+                                <FormattedMessage id="Cancelled" />
+                              ) : (
+                                '-'
+                              )}
                             </UINewTypography>
                           </NewStatusBox>
                         </Pendingconatiner>

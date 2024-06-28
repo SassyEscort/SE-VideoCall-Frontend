@@ -49,7 +49,6 @@ export const SelectedTab = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   width: '100%',
-  justifyContent: 'space-between',
   color: theme.palette.primary.main,
   [theme.breakpoints.up('md')]: {
     gap: theme.spacing(1)
@@ -70,9 +69,10 @@ export const MobileComponentBoxContainer = styled(Box)(({ theme }) => ({
     display: 'none'
   },
   '& .MuiButtonBase-root': {
-    paddingLeft: '12px',
-    paddingRight: '32px',
-    paddingBottom: '24px'
+    paddingLeft: theme.spacing(1.5),
+    paddingRight: theme.spacing(4),
+    paddingBottom: theme.spacing(3),
+    alignItems: 'flex-start'
   },
   [theme.breakpoints.down('sm')]: {
     maxWidth: 420
