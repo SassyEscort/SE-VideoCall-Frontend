@@ -1,7 +1,6 @@
 'use client';
 import { useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -9,9 +8,18 @@ import { DialogTitleBox, MainDailgConatiner } from './PayoutRequestSubmit.styled
 import theme from 'themes/theme';
 import Requestsubmit from './Requestsubmit';
 
-const PayoutRequestSubmit = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+const PayoutRequestSubmit = ({
+  open,
+  onClose,
+  payoutStep,
+  handlePayoutStepSubmit
+}: {
+  open: boolean;
+  onClose: () => void;
+  payoutStep?: number;
+  handlePayoutStepSubmit?: (step: number) => void;
+}) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
-
   return (
     <>
       {!isSm ? (
@@ -28,7 +36,7 @@ const PayoutRequestSubmit = ({ open, onClose }: { open: boolean; onClose: () => 
           <Requestsubmit />
         </MainDailgConatiner>
       ) : (
-        <Requestsubmit />
+        (isSm || payoutStep === 2) && <Requestsubmit handlePayoutStepSubmit={handlePayoutStepSubmit} />
       )}
     </>
   );

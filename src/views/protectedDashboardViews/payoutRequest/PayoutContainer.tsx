@@ -96,6 +96,10 @@ const PayoutContainer = ({
     setPayoutStep((prev) => prev + 1);
   };
 
+  const handlePayoutStepSubmit = (step: number) => {
+    setPayoutStep(step);
+  };
+
   useEffect(() => {
     const fetchModelPayout = async () => {
       try {
@@ -283,6 +287,7 @@ const PayoutContainer = ({
           handlePayoutStep={handlePayoutStep}
           payoutStep={payoutStep}
           amountSave={amountSave}
+          handlePayoutStepSubmit={handlePayoutStepSubmit}
         />
       )}
     </MainContainer>

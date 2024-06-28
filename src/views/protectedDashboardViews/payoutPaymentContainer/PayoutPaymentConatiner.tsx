@@ -39,7 +39,10 @@ export const MainForBox = styled(Box)(({ theme }) => ({
   maxWidth: '600px',
   backgroundColor: theme.palette.primary[700],
   padding: '24px 0px 24px 24px',
-  borderRadius: '8px'
+  borderRadius: '8px',
+  [theme.breakpoints.down('sm')]: {
+    height: '175px'
+  }
 }));
 
 export const SiliconBox = styled(Box)(({ theme }) => ({

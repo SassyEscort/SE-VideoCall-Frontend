@@ -18,7 +18,8 @@ const PayoutWidthDraw = ({
   fetchBankDetails,
   handlePayoutStep,
   payoutStep,
-  amountSave
+  amountSave,
+  handlePayoutStepSubmit
 }: {
   open: boolean;
   onClose: () => void;
@@ -28,6 +29,7 @@ const PayoutWidthDraw = ({
   handlePayoutStep: () => void;
   payoutStep: number;
   amountSave: number;
+  handlePayoutStepSubmit: (step: number) => void;
 }) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -67,6 +69,7 @@ const PayoutWidthDraw = ({
             isSm={isSm}
             handlePayoutStep={handlePayoutStep}
             amountSave={amountSave}
+            handlePayoutStepSubmit={handlePayoutStepSubmit}
           />
         )
       )}
