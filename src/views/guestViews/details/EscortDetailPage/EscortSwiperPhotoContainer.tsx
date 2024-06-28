@@ -16,15 +16,16 @@ const EscortSwiperPhotoContainer = ({
   coordinates: string;
 }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
     <Box
       sx={{
         backgroundImage: `url(${image})`,
         backgroundRepeat: 'no-repeat',
-        backgroundSize: isMdDown && !isMain ? 'cover' : 'contain',
+        backgroundSize: isMdUp && !isMain ? 'cover' : isMdDown ? 'cover' : 'contain',
         backgroundPosition: 'center',
-        height: isMain && !isMobile ? '100%' : isMdDown && !isMain ? '90px' : '165px',
+        height: isMain && !isMobile ? '100%' : isMdDown && !isMain ? '90px' : '146px',
         width: '100%',
         minHeight: isMain && !isMdDown ? 660 : isMdDown && !isMain ? '90px' : isMdDown && isMain ? 430 : 0,
         borderRadius: 2,

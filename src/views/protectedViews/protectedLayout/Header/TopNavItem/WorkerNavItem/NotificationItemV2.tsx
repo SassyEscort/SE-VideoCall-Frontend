@@ -3,14 +3,14 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Divider from '@mui/material/Divider';
 import Link from 'next/link';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { NotificationTypeDetailsV2 } from 'constants/notificationTypeDetailsV2';
 import { Notification } from 'services/notification/type';
 import { getLastActive } from 'utils/dateAndTime';
 import { NotificationDetailsService } from 'services/notification/notification.services';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
-import { AvatarContainer, BaseContainer, ButtonBaseContainer, MainBox, TypographyBox, TypographyBox2 } from './Notification.styled';
+import { BaseContainer, ButtonBaseContainer, MainBox, TypographyBox, TypographyBox2 } from './Notification.styled';
+import { NotificationTypeDetailsModelV2 } from 'constants/notificationTypeDetailsModelV2';
 
 const NotificationItemV2 = ({
   notification,
@@ -25,7 +25,7 @@ const NotificationItemV2 = ({
   handleClose: () => void;
   handleCallback: () => void;
 }) => {
-  const notificationTypeV2 = NotificationTypeDetailsV2[notification?.category];
+  const notificationTypeV2 = NotificationTypeDetailsModelV2[notification?.category];
 
   const handleClickNotificationItem = () => {
     handleClickNotification(notification.id);
@@ -52,16 +52,17 @@ const NotificationItemV2 = ({
     <>
       <ButtonBase onClick={handleNotificationClick} LinkComponent={Link} href={notificationTypeV2?.href} sx={{ width: '100%' }}>
         <ButtonBaseContainer notificationIsRead={notificationIsRead}>
-          <BaseContainer>
-            <AvatarContainer>{notificationTypeV2?.icon}</AvatarContainer>
-            <Box />
-          </BaseContainer>
+          <BaseContainer>{notificationTypeV2?.icon}</BaseContainer>
           <MainBox>
             <TypographyBox>
-              <UINewTypography variant="bodySemiBold" color={notificationIsRead ? '#B7B5B9' : '#E9E8EB'}>
+              <UINewTypography
+                variant="bodySemiBold"
+                color={notificationIsRead ? 'text.primary' : 'text.secondary'}
+                sx={{ display: 'flex', justifyContent: 'flex-start' }}
+              >
                 {notification?.title}
               </UINewTypography>
-              <UINewTypography variant="SubtitleSmallRegular" textAlign="start" color={'#B7B5B9'}>
+              <UINewTypography variant="SubtitleSmallRegular" textAlign="start" color="text.primary">
                 {notification?.message}
               </UINewTypography>
             </TypographyBox>

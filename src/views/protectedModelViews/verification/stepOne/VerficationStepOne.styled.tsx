@@ -10,7 +10,13 @@ export const StepTwoContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '824px',
   [theme.breakpoints.down('sm')]: {
-    gap: theme.spacing(2)
+    gap: theme.spacing(2),
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
+  },
+  [theme.breakpoints.only('sm')]: {
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
   }
 }));
 

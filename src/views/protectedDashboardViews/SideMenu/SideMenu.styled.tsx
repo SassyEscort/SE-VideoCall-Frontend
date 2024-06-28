@@ -68,7 +68,7 @@ export const SiderBarCircaleTextBox = styled(UINewTypography)(({ theme }) => ({
 export const SiderBarCircaleTextBoxHeader = styled(UINewTypography)(({ theme }) => ({
   fontSize: '12px',
   fontWeight: 500,
-  lineHeight: '38.4px',
+  lineHeight: '14.4px',
   color: theme.palette.common.white,
   position: 'absolute',
   textAlign: 'center'

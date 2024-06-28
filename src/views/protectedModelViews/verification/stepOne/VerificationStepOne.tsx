@@ -206,7 +206,13 @@ const VerificationBasicDetails = ({
   };
 
   const handleCustomLanguageChange = async (value: string | MultipleOptionString | (string | MultipleOptionString)[] | null) => {
-    if (value && value !== null) {
+    if (value === null || (Array.isArray(value) && value.length === 0)) {
+      setCustomLanguages([]);
+      setFieldValue('model_languages', []);
+      return;
+    }
+
+    if (value) {
       let valueArray = Array.isArray(value) ? value : [value];
 
       if (valueArray.length) {
@@ -220,6 +226,7 @@ const VerificationBasicDetails = ({
             handleLanguageApiChange();
           }
         }
+
         const isCustomLanguage = valueArray.some((val) => !languages.find((lang) => lang.name === (val as MultipleOptionString).name));
 
         if (isCustomLanguage) {

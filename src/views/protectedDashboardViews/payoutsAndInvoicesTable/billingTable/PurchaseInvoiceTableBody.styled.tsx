@@ -1,4 +1,5 @@
 import { Box, TableCell, TableHead, TableRow, styled } from '@mui/material';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const TableRowMain = styled(TableRow)(({ theme }) => ({
   '& .MuiTableCell-root': {
@@ -28,4 +29,11 @@ export const TableHeadMain = styled(TableHead)(({ theme }) => ({
   '& .MuiTableCell-root': {
     border: 'none'
   }
+}));
+
+export const UINewTypographyDownload = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 700,
+  lineHeight: '19.2px',
+  color: theme.palette.primary[400]
 }));

@@ -124,13 +124,13 @@ const HomeModelTopBanner = () => {
             />
           </ImageContainer>
         </BannerContainer>
-        <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+        <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
           <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
         </UIStyledDialog>
-        <UIStyledDialog open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
+        <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
           <ModelSignin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
         </UIStyledDialog>
-        <UIStyledDialog open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
+        <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
           <ModelForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
         </UIStyledDialog>
       </HomeMainModelContainer>

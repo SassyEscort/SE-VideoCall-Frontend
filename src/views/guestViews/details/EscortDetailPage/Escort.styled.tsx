@@ -2,6 +2,7 @@ import { styled } from '@mui/material';
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
+import { SwiperSlide } from 'swiper/react';
 
 export const DetailsMainBox = styled(Box)(() => ({
   width: '100%',
@@ -158,6 +159,7 @@ export const SwiperContainer = styled(Box)(() => ({
   height: '100%',
   width: '100%',
   cursor: 'pointer',
+  scrollbarWidth: 'none',
   overflow: 'auto',
   '& .swiper-wrapper': { display: 'flex', flexDirection: 'column' },
   '&::-webkit-scrollbar': {
@@ -209,4 +211,24 @@ export const SideSwiperButton = styled(UIThemeButton)(({ theme }) => ({
   paddingBottom: theme.spacing(0),
   '&.MuiButton-root': { height: 'fit-content' },
   border: '1px solid #B7B5B91F'
+}));
+
+export const SideBarBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(1),
+  width: '100%',
+  maxWidth: '150px'
+}));
+
+export const SwiperSlidBoxContainer = styled(SwiperSlide)(({ theme }) => ({
+  paddingTop: theme.spacing(8),
+  width: '100%',
+  maxWidth: '146px',
+  backgroundSize: 'cover'
+}));
+
+export const SecSwiperSlidBoxContainer = styled(SwiperSlide)(({ theme }) => ({
+  width: '100%',
+  maxWidth: '148px'
 }));
