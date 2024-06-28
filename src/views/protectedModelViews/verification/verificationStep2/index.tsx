@@ -118,7 +118,7 @@ const VerificationStep2 = ({
                     <FormattedMessage id="PleaseProvide" />
                   </UINewTypography>
                 </Box>
-                <UINewTypography variant="bodyRegular" color={'text.primary'}>
+                <UINewTypography variant="bodyRegular" color={'text.primary'} textAlign="center">
                   <FormattedMessage id="WeUseThisData" />
                 </UINewTypography>
               </VerificationStep2MainContainerSecond>

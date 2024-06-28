@@ -75,9 +75,7 @@ export const UploadBox = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(8),
   marginBottom: theme.spacing(8),
   [theme.breakpoints.down('sm')]: {
-    marginTop: theme.spacing(4),
-    paddingRight: theme.spacing(2),
-    paddingLeft: theme.spacing(2)
+    marginTop: theme.spacing(4)
   }
 }));
 

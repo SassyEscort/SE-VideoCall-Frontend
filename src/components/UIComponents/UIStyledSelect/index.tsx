@@ -7,7 +7,7 @@ export const UIStyledSelect = styled(Select)(({ theme }) => ({
   display: 'flex',
   borderRadius: '8px',
   width: '100%',
-  height: '48px',
+  height: '40px',
   backgroundColor: theme.palette.primary[700],
 
   '&:hover': {
@@ -16,7 +16,7 @@ export const UIStyledSelect = styled(Select)(({ theme }) => ({
     }
   },
   '& .MuiSelect-select': {
-    padding: theme.spacing(1, 2),
+    padding: theme.spacing(0, 2),
     display: 'flex',
     gap: theme.spacing(1)
   },
@@ -26,7 +26,7 @@ export const UIStyledSelect = styled(Select)(({ theme }) => ({
 }));
 
 export const StyledSelectInputLabel = styled(InputLabel)(({ theme }) => ({
-  top: '-4px',
+  top: '-8px',
   color: theme.palette.secondary[200],
   '&.MuiInputLabel-shrink': { top: 0 }
 }));

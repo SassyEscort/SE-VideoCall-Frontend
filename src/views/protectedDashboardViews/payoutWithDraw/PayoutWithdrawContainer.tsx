@@ -56,7 +56,8 @@ const PayoutWithdrawContainer = ({
   payoutStep,
   isSm,
   handlePayoutStep,
-  amountSave
+  amountSave,
+  handlePayoutStepSubmit
 }: {
   bankDetailsList: BankDetailsListRes;
   token: TokenIdType;
@@ -65,6 +66,7 @@ const PayoutWithdrawContainer = ({
   isSm?: boolean;
   handlePayoutStep?: () => void;
   amountSave: number;
+  handlePayoutStepSubmit?: (step: number) => void;
 }) => {
   const [open, setOpenModel] = useState(false);
   const [selectBank, setSelectBank] = useState<string | null>(null);
@@ -78,7 +80,7 @@ const PayoutWithdrawContainer = ({
     fetchBankDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
-  const handleBankDetailsDetele = async (id: number) => {
+  const handleBankDetailsDelete = async (id: number) => {
     try {
       if (token.token) {
         const data = await PayoutService.bankDetailsDelete(token.token, id);
@@ -281,7 +283,7 @@ const PayoutWithdrawContainer = ({
                                             component={'img'}
                                             src="/images/payout/delete.webp"
                                             sx={{ width: '16px', height: '18px', cursor: 'pointer' }}
-                                            onClick={() => handleBankDetailsDetele(bankList?.id)}
+                                            onClick={() => handleBankDetailsDelete(bankList?.id)}
                                           />
                                         </PayoutDetailFiveBox>
                                       </PayoutDetailSecondBox>
@@ -339,7 +341,14 @@ const PayoutWithdrawContainer = ({
           }}
         </Formik>
       )}
-      {(payoutStep === 2 || !isSm) && <PayoutRequestSubmit open={openSubmitModel} onClose={onClose} />}
+      {(payoutStep === 2 || !isSm) && (
+        <PayoutRequestSubmit
+          open={openSubmitModel}
+          onClose={onClose}
+          payoutStep={payoutStep}
+          handlePayoutStepSubmit={handlePayoutStepSubmit}
+        />
+      )}
     </>
   );
 };

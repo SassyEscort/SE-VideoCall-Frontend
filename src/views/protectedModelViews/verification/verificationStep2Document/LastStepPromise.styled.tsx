@@ -51,9 +51,7 @@ export const StepButtonNext = styled(Box)(({ theme }) => ({
   maxWidth: '824px',
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(11.75),
-    justifyContent: 'center',
-    paddingRight: '16px',
-    paddingLeft: '16px'
+    justifyContent: 'center'
   }
 }));
 
