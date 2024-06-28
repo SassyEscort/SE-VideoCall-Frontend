@@ -25,7 +25,6 @@ import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/u
 import { FirstSwiperBlurContainer, SecondSwiperBlurContainer, SwiperSlidBoxContainer } from './Escort.styled';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-
 import { toast } from 'react-toastify';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import GuestLogin from 'views/auth/guestLogin';
@@ -33,7 +32,17 @@ import GuestSignup from 'views/auth/guestSignup';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ErrorMessage } from 'constants/common.constants';
 
-const EscortSliderMobile = ({ workerPhotos, modelId, token }: { workerPhotos: WorkerPhotos[]; modelId: number; token: TokenIdType }) => {
+const EscortSliderMobile = ({
+  workerPhotos,
+  modelId,
+  token,
+  handleCallInitiate
+}: {
+  workerPhotos: WorkerPhotos[];
+  modelId: number;
+  token: TokenIdType;
+  handleCallInitiate: () => void;
+}) => {
   const isLg = useMediaQuery(theme.breakpoints.up('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const [liked, setLiked] = useState(false);
@@ -79,7 +88,6 @@ const EscortSliderMobile = ({ workerPhotos, modelId, token }: { workerPhotos: Wo
       if (token.token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
         if (data?.code === 200) {
-          toast.success('Success');
           setLiked(true);
         } else {
           toast.error(ErrorMessage);
@@ -144,6 +152,7 @@ const EscortSliderMobile = ({ workerPhotos, modelId, token }: { workerPhotos: Wo
       >
         <Box sx={{ width: '100%' }}>
           <UIThemeShadowButton
+            onClick={handleCallInitiate}
             sx={{
               padding: 0,
               minWidth: isLg ? '660px' : isSm ? '200px' : '271px',
