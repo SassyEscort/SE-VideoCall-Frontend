@@ -18,7 +18,7 @@ export const getLastActive = (lastActiveTime: string, def?: string) => {
 
   const diffInMinutes = currentDateTime.diff(lastActiveDateTime, 'minutes');
   if (diffInMinutes < 1) {
-    return `1m ago`;
+    return `Just now`;
   } else if (diffInMinutes < 60) {
     return `${diffInMinutes}m ago`;
   } else if (diffInMinutes < 1440) {
