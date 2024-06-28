@@ -77,7 +77,7 @@ const PayoutModelProfileConatiner = ({ token, modelDetails }: { token: TokenIdTy
         <ThirdBox>
           <ForBox>
             <FiveBox>
-              <UINewTypography variant="h5" color="text.secondary" ml={3} mt={3.93}>
+              <UINewTypography variant="h5" lineHeight="125%" color="text.secondary" ml={3} mt={6}>
                 <FormattedMessage id="Payout" />
               </UINewTypography>
               <SecondDivider orientation="horizontal" flexItem />
@@ -85,7 +85,7 @@ const PayoutModelProfileConatiner = ({ token, modelDetails }: { token: TokenIdTy
             <SidebarDropDownMainContainer>
               {payoutMenuList.map((list, index) => (
                 <>
-                  <MenuItem onClick={() => handleMenu(list.id)} key={index}>
+                  <MenuItem onClick={() => handleMenu(list.id)} key={index} sx={{ paddingLeft: '0', py: '12px' }}>
                     {menuId === index ? (
                       <UINewTypography variant="buttonLargeMenu" color="primary.400">
                         {list.menuName}

@@ -6,7 +6,6 @@ import React, { useEffect, useState } from 'react';
 import { DisableButtonBox, MyProfileContainerMain } from './MyProfile.styled';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import MyProfileContainer from './MyProfileContainer';
 import { getUserDataClient } from 'utils/getSessionData';
@@ -20,7 +19,7 @@ export type MyProfile = {
   password: string;
 };
 const MyProfile = () => {
-  const isSmDown = theme.breakpoints.down(330);
+  // const isSmDown = theme.breakpoints.down(330);
 
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
@@ -73,13 +72,13 @@ const MyProfile = () => {
                 token={token}
               />
               <DisableButtonBox>
-                <Box paddingRight={isSmDown ? '16px' : 0}>
+                {/* <Box paddingRight={isSmDown ? '16px' : 0}>
                   <UIThemeButton variant="contained" disabled>
                     <UINewTypography variant="buttonSmallBold" color={'text.disabled'}>
                       <FormattedMessage id="CancelChanges" />
                     </UINewTypography>
                   </UIThemeButton>
-                </Box>
+                </Box> */}
                 <Box>
                   <UIThemeButton variant="contained" disabled>
                     <UINewTypography variant="buttonSmallBold" color={'text.disabled'}>

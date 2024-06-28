@@ -36,7 +36,7 @@ export type PaginationType = {
   pageSize: number;
   orderField: string;
   orderType: string;
-  filterText: string;
+  filter_Text: string;
 };
 
 export default function PayoutPageContainer() {
@@ -55,7 +55,7 @@ export default function PayoutPageContainer() {
     pageSize: PAGE_SIZE,
     orderField: 'newest',
     orderType: 'desc',
-    filterText: ''
+    filter_Text: ''
   });
 
   const SORT_BY_OPTIONS: PaginationSortByOption[] = [
@@ -140,7 +140,7 @@ export default function PayoutPageContainer() {
 
   const handleChangeSearch = useCallback(
     (val: string) => {
-      handleChangeFilter({ ...filters, filterText: val, page: 1 });
+      handleChangeFilter({ ...filters, filter_Text: val, page: 1 });
     },
     [filters, handleChangeFilter]
   );

@@ -1,4 +1,5 @@
 import { Box, Dialog, DialogTitle, styled } from '@mui/material';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
 export const DialogTitleBox = styled(DialogTitle)(({ theme }) => ({
@@ -81,4 +82,31 @@ export const DialogContentMain = styled(Dialog)(({ theme }) => ({
       backgroundColor: '#07030E'
     }
   }
+}));
+
+export const UINewTypographyDollar = styled(UINewTypography)(({ theme }) => ({
+  fontWeight: 500,
+  fontSize: '24px',
+  lineHeight: '30px',
+  color: theme.palette.text.secondary
+}));
+export const UINewTypographyAmount = styled(UINewTypography)(({ theme }) => ({
+  fontWeight: 700,
+  fontSize: '24px',
+  lineHeight: '30px',
+  color: theme.palette.text.secondary
+}));
+
+export const UINewTypographyWithDrawButtonText = styled(UINewTypography)(({ theme }) => ({
+  fontWeight: 700,
+  fontSize: '16px',
+  lineHeight: '19.2px',
+  color: theme.palette.primary[200]
+}));
+
+export const UINewTypographyWithDrawRecentWithdrawls = styled(UINewTypography)(({ theme }) => ({
+  fontWeight: 500,
+  fontSize: '14px',
+  lineHeight: '17.5px',
+  color: theme.palette.secondary[200]
 }));

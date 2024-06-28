@@ -4,10 +4,9 @@ import { styled } from '@mui/material/styles';
 
 export const SidebarDropDownMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  width: '100%',
-  maxWidth: '180px',
+  width: '180px',
   borderRadius: '12px',
-  padding: '14px 16px',
+  padding: '20px 16px',
   backgroundColor: theme.palette.secondary[500],
   flexDirection: 'column'
 }));
@@ -16,7 +15,7 @@ export const SelectDropdown = styled(Select)(({ theme }) => ({
   display: 'flex',
   borderRadius: '8px',
   width: '100%',
-  height: '48px',
+  height: '64px',
   backgroundColor: theme.palette.secondary[500],
 
   '&:hover': {
@@ -25,7 +24,7 @@ export const SelectDropdown = styled(Select)(({ theme }) => ({
     }
   },
   '& .MuiSelect-select': {
-    padding: theme.spacing(1, 2),
+    padding: theme.spacing(2.5, 2),
     display: 'flex',
     gap: theme.spacing(1),
     color: '#FF68C0'

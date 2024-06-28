@@ -16,7 +16,9 @@ export const MainConatiner = styled(Box)(({ theme }) => ({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     paddingLeft: theme.spacing(6.125),
-    paddingRight: theme.spacing(6.125)
+    paddingRight: theme.spacing(6.125),
+    paddingTop: theme.spacing(0),
+    gap: theme.spacing(1.375)
   }
 }));
 

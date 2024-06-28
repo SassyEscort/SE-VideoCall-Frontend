@@ -9,6 +9,14 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import { bgBlur } from 'utils/Admin/cssStyles';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Root } from 'services/notification/type';
+import { NotificationDetailsService } from 'services/notification/notification.services';
+import { getUserDataClient } from 'utils/getSessionData';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import { NotificationFiltersDashboard } from 'views/protectedDashboardViews/dashboardNavItem/HeaderAuthComponent';
+import { NotificationBadge } from './AccountPopover.styled';
+import NotificationModal from './NotificationModal';
 
 const NAV_WIDTH = 280;
 const HEADER_MOBILE = 64;
@@ -40,6 +48,65 @@ interface HeaderProps {
 }
 
 export default function Header({ onOpenNav }: HeaderProps) {
+  const [filters, setFilters] = useState<NotificationFiltersDashboard>({
+    page: 1,
+    pageSize: 10,
+    offset: 0
+  });
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [notificationDetails, setNotificationDetails] = useState<Root>();
+  const [openNotification, setOpenNotification] = useState<boolean>(false);
+  const [anchorElNotification, setAnchorElNotification] = useState<HTMLButtonElement | null>(null);
+
+  const notificationCount = useRef(0);
+  const unReadCount = notificationDetails?.data?.aggregate?.total_rows && notificationDetails?.data?.aggregate?.total_rows > 0;
+
+  const handleChangeFilter = (value: NotificationFiltersDashboard) => {
+    setFilters(value);
+  };
+
+  const handleOpenNotification = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setOpenNotification(true);
+    setAnchorElNotification(event.currentTarget);
+  };
+
+  const handleDeductNotificationCount = () => {
+    notificationCount.current = notificationCount.current - 1;
+  };
+
+  const handleCloseNotification = () => {
+    setOpenNotification(false);
+    setAnchorElNotification(null);
+  };
+
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      setToken({ id: data.id, token: data.token });
+    };
+
+    userToken();
+  }, []);
+
+  const handleCallback = useCallback(async () => {
+    const notificationDetails = async () => {
+      const ModelPayoutListObject = {
+        limit: filters.pageSize,
+        offset: filters.offset
+      };
+      const modelData = await NotificationDetailsService.getNotificationDetails(token.token, ModelPayoutListObject);
+      setNotificationDetails(modelData);
+    };
+
+    if (token.token) {
+      await notificationDetails();
+    }
+  }, [filters, token.token]);
+
+  useEffect(() => {
+    handleCallback();
+  }, [handleCallback]);
+
   return (
     <>
       <StyledRoot>
@@ -63,13 +130,32 @@ export default function Header({ onOpenNav }: HeaderProps) {
               sm: 1
             }}
           >
-            <IconButton>
-              <NotificationsNone sx={{ color: 'secondary.dark' }} />
+            <IconButton onClick={handleOpenNotification}>
+              {unReadCount ? (
+                <NotificationBadge variant="dot" color="error">
+                  <NotificationsNone sx={{ color: 'secondary.dark' }} />
+                </NotificationBadge>
+              ) : (
+                <NotificationsNone sx={{ color: 'secondary.dark' }} />
+              )}
             </IconButton>
             <AccountPopover />
           </Stack>
         </StyledToolbar>
       </StyledRoot>
+      {notificationDetails && (
+        <NotificationModal
+          notificationDetails={notificationDetails ?? ({} as Root)}
+          open={openNotification}
+          anchorEl={anchorElNotification}
+          filters={filters}
+          handleClose={handleCloseNotification}
+          handleChangeFilter={handleChangeFilter}
+          handleDeductNotificationCount={handleDeductNotificationCount}
+          token={token}
+          handleCallback={handleCallback}
+        />
+      )}
     </>
   );
 }

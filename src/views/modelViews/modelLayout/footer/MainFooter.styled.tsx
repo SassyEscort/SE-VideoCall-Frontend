@@ -70,3 +70,15 @@ export const ModelUITextConatinerText = styled(Box)(({ theme }) => ({
     marginBottom: 3
   }
 }));
+
+export const FirstBoxContainerMain = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(10),
+  justifyContent: 'center',
+  [theme.breakpoints.down('sm')]: {
+    marginTop: theme.spacing(5.625)
+  },
+  [theme.breakpoints.up('sm')]: {
+    marginTop: theme.spacing(3)
+  }
+}));

@@ -43,6 +43,11 @@ export type PayoutDetails = {
   bank_name: string;
 };
 
+export type payout_logs = { id: number; state: string; created_at: string };
+export type PayoutRes = PayoutDetails & {
+  payout_logs: payout_logs[];
+};
+
 export type ModelPastPayoutAggregate = {
   total_rows: 100;
   page_size: 10;
@@ -51,6 +56,11 @@ export type ModelPastPayoutAggregate = {
 
 export type ModelPastPayoutDetail = {
   payout_details: PayoutDetails[];
+  aggregate: ModelPastPayoutAggregate;
+};
+
+export type ModelPastPayoutResDetail = {
+  payout_details: PayoutRes[];
   aggregate: ModelPastPayoutAggregate;
 };
 
@@ -89,7 +99,7 @@ export interface BankDetailsEditReponse extends GenericRes {
 }
 
 export interface ModelPastPayoutDetailRes extends GenericRes {
-  data: ModelPastPayoutDetail;
+  data: ModelPastPayoutResDetail;
 }
 
 export type RequestPayout = {
@@ -114,4 +124,5 @@ export type MarkOnline = {
 export type ModelPastPayoutDetailParams = {
   limit: number;
   offset: number;
+  filter_text?: string;
 };

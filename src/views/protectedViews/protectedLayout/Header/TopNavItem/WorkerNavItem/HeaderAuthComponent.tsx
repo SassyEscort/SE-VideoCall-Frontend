@@ -5,7 +5,7 @@ import Avatar from '@mui/material/Avatar';
 import { Divider, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import ProfileMenu from './ProfileMenu';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
@@ -17,10 +17,17 @@ import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import { WorkerHeaderMainContainer } from './ProfileMenu.styled';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+import NotificationModalV2 from './NotificationModalV2';
+import { NotificationDetailsService } from 'services/notification/notification.services';
+import { Root } from 'services/notification/type';
+import MyProfileChangePassword from 'views/protectedViews/myProfile/MyProfileChangePassword';
+import { IconButtonBoxInner, UnReadCountMain } from 'views/protectedDashboardViews/dashboardNavItem/DashboardMenu.styled';
+import { IconButtonBoxNew } from './Notification.styled';
 
 export type NotificationFilters = {
   page: number;
-  isRead?: number;
+  offset: number;
+  pageSize: number;
 };
 
 const HeaderAuthComponent = () => {
@@ -33,9 +40,27 @@ const HeaderAuthComponent = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
   const [balance, setBalance] = useState(0);
+  const [openNotification, setOpenNotification] = useState<boolean>(false);
+  const [anchorElNotification, setAnchorElNotification] = useState<HTMLButtonElement | null>(null);
+  const [filters, setFilters] = useState<NotificationFilters>({
+    page: 1,
+    pageSize: 10,
+    offset: 0
+  });
+  const [notificationDetails, setNotificationDetails] = useState<Root>();
+  const [openChangePassword, setOpenChangePassword] = useState(false);
 
   const uploadedImageURL = '/images/headerv2/profilePic.png';
   const firstChar = customerDetails?.customer_name ? customerDetails.customer_name.charAt(0).toUpperCase() : '';
+  const notificationCount = useRef(0);
+
+  const handleOpenChangePassword = () => {
+    setOpenChangePassword(true);
+  };
+
+  const handleCloseChnagePassword = () => {
+    setOpenChangePassword(false);
+  };
 
   const handleClickLogout = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElLogout(event.currentTarget);
@@ -49,6 +74,24 @@ const HeaderAuthComponent = () => {
     setAnchorEl(null);
   };
 
+  const handleOpenNotification = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setOpenNotification(true);
+    setAnchorElNotification(event.currentTarget);
+  };
+
+  const handleCloseNotification = () => {
+    setOpenNotification(false);
+    setAnchorElNotification(null);
+  };
+
+  const handleChangeFilter = (value: NotificationFilters) => {
+    setFilters(value);
+  };
+
+  const handleDeductNotificationCount = () => {
+    notificationCount.current = notificationCount.current - 1;
+  };
+
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -57,6 +100,25 @@ const HeaderAuthComponent = () => {
 
     userToken();
   }, []);
+
+  const handleCallback = useCallback(async () => {
+    const notificationDetails = async () => {
+      const ModelPayoutListObject = {
+        limit: filters.pageSize,
+        offset: filters.offset
+      };
+      const modelData = await NotificationDetailsService.getNotificationDetails(token.token, ModelPayoutListObject);
+      setNotificationDetails(modelData);
+    };
+
+    if (token.token) {
+      await notificationDetails();
+    }
+  }, [filters, token.token]);
+
+  useEffect(() => {
+    handleCallback();
+  }, [handleCallback]);
 
   useEffect(() => {
     const customerDetails = async () => {
@@ -90,6 +152,8 @@ const HeaderAuthComponent = () => {
     setIsLogoutOpen(false);
   };
 
+  const unReadCount = notificationDetails?.data?.aggregate?.total_rows && notificationDetails?.data?.aggregate?.total_rows > 0;
+
   return (
     <>
       <Box display="flex" alignItems="center" gap={{ xs: 2.5, sm: 4.5 }}>
@@ -120,20 +184,21 @@ const HeaderAuthComponent = () => {
             </IconButton>
           </Link>
         )}
-        <IconButton sx={{ height: 24, width: 24 }}>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row-reverse',
-              position: 'relative'
-            }}
-          >
-            <Box component="img" src="/images/header/dot.png" position="absolute" />
-            <Box component="img" src="/images/header/noti.png" />
-          </Box>
+
+        <IconButton onClick={handleOpenNotification}>
+          {unReadCount ? (
+            <UnReadCountMain>
+              <Box component="img" src="/images/header/dot.png" position="absolute" />
+              <Box component="img" src="/images/header/noti.png" />
+            </UnReadCountMain>
+          ) : (
+            <UnReadCountMain>
+              <Box component="img" src="/images/header/noti.png" />
+            </UnReadCountMain>
+          )}
         </IconButton>
-        <Box display="flex" alignItems="center" gap={1}>
-          <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }} onClick={handleClickLogout}>
+        <IconButtonBoxNew>
+          <IconButtonBoxInner onClick={handleClickLogout}>
             <IconButton
               id="profile-menu"
               aria-controls={openProfileMenu ? 'profile-menu' : undefined}
@@ -158,7 +223,7 @@ const HeaderAuthComponent = () => {
                 {customerDetails?.customer_name || ''}
               </Typography>
             )}
-          </Box>
+          </IconButtonBoxInner>
           <Menu
             id="basic-menu"
             anchorEl={anchorElLogout}
@@ -180,6 +245,13 @@ const HeaderAuthComponent = () => {
                   </Link>
                 </WorkerHeaderMainContainer>
                 <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                <WorkerHeaderMainContainer onClick={handleOpenChangePassword}>
+                  <Box component="img" src="/images/icons/changepassword-img.png" width={24} height={24} mr={1} />
+                  <UINewTypography variant="buttonLargeMenu">
+                    <FormattedMessage id="ChangePassword" />
+                  </UINewTypography>
+                </WorkerHeaderMainContainer>
+                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                 <WorkerHeaderMainContainer onClick={handleOpenLogout}>
                   <Box component="img" src="/images/profile-vector/Vector-6.png" height={16} mr={1} />
                   <UINewTypography variant="buttonLargeMenu">
@@ -191,8 +263,22 @@ const HeaderAuthComponent = () => {
             </MenuItem>
           </Menu>
           <ProfileMenu profilePic={uploadedImageURL} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
-        </Box>
+          <MyProfileChangePassword onOpen={openChangePassword} onClose={handleCloseChnagePassword} token={token} />
+        </IconButtonBoxNew>
       </Box>
+      {notificationDetails && (
+        <NotificationModalV2
+          notificationDetails={notificationDetails ?? ({} as Root)}
+          open={openNotification}
+          anchorEl={anchorElNotification}
+          filters={filters}
+          handleClose={handleCloseNotification}
+          handleChangeFilter={handleChangeFilter}
+          handleDeductNotificationCount={handleDeductNotificationCount}
+          token={token}
+          handleCallback={handleCallback}
+        />
+      )}
     </>
   );
 };

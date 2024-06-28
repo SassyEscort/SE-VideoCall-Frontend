@@ -1,8 +1,6 @@
 'use client';
-
-import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
-import { DocumentSecondConatiner, MainContainer, ModelGalleryBox } from './ModelReviewDetails.styled';
+import { BtnTextContainer, DocumentSecondConatiner, MainContainer, ModelGalleryBox } from './ModelReviewDetails.styled';
 import { FormattedMessage } from 'react-intl';
 import { ModelDetailsResponse } from '../verification/verificationTypes';
 import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
@@ -33,14 +31,14 @@ const ModelReviewDetails = ({
         <ModelGalleryReview modelDetails={modelDetails} />
         <ModelGalleryBox>
           <UIThemeButton variant="outlined" onClick={() => handleEdit(2)}>
-            <UINewTypography variant="buttonLargeBold" color="text.primary">
+            <BtnTextContainer color="text.primary">
               <FormattedMessage id="Edit" />
-            </UINewTypography>
+            </BtnTextContainer>
           </UIThemeButton>
           <UIThemeButton id="review-button" variant="contained" onClick={modelReviewSubmit}>
-            <UINewTypography variant="buttonLargeBold" color="secondary.main">
+            <BtnTextContainer color="secondary.main">
               <FormattedMessage id="Submit" />
-            </UINewTypography>
+            </BtnTextContainer>
           </UIThemeButton>
         </ModelGalleryBox>
       </DocumentSecondConatiner>

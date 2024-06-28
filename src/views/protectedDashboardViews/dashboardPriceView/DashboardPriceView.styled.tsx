@@ -85,7 +85,6 @@ export const RightSideFirstBox = styled(Box)(({ theme }) => ({
   maxWidth: '266px',
   height: '100%',
   maxHeight: '50px',
-  marginTop: theme.spacing(1.875),
   border: '1px solid',
   borderColor: '#D4D3D61F',
   backgroundColor: theme.palette.secondary.dark,

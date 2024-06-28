@@ -85,7 +85,7 @@ const ModelRules = () => {
               </li>
 
               <TypoListContainer>
-                <UINewTypography variant="bodyLight" color="text.primary">
+                <UINewTypography variant="subtitleLargeRegular" color="text.primary">
                   <FormattedMessage id="FlirtbateReservesTheRight" />
                 </UINewTypography>
               </TypoListContainer>

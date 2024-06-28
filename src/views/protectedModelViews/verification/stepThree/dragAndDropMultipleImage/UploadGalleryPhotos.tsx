@@ -128,7 +128,7 @@ const UploadGalleryPhotos = ({ setValue, name, accept, values, handleUploadPhoto
   }, [dropAreaId, handleDrop, highlight, unhighlight]);
 
   return (
-    <Box pt={{ xs: '24px', md: '18px' }}>
+    <Box pt="24px">
       <DragAndDropImageMainContainer id={name + '_dropable'}>
         <IKUpload
           multiple

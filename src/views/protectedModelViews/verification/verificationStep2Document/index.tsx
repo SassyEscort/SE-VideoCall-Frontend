@@ -108,16 +108,16 @@ const VerificationStepPromise = ({
             is_document: true,
             photos: [
               {
-                id: Number(modelDetails?.documents[0].id) ?? 0,
+                id: modelDetails?.documents[0].id ? Number(modelDetails?.documents[0].id) : 0,
                 link: typeof mutationImageUpload !== 'string' ? String(mutationImageUpload.photosURL) : '',
-                type: 'image',
+                type: mutationImageUpload.file_type,
                 cords: '',
                 is_favourite: 0,
                 is_document: 1,
                 document_type: String(selectedDocument) ?? modelDetails?.documents[0].document_type,
                 document_number: docValues.idNumber ? docValues.idNumber : modelDetails?.documents[0].document_number ?? '',
                 file_id: mutationImageUpload.file_id,
-                file_type: mutationImageUpload.file_type
+                file_type: mutationImageUpload.file_type === 'non-image' ? 'Non_Image' : 'Image'
               }
             ],
             document_upload_step: true

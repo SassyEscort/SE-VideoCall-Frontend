@@ -1,5 +1,7 @@
 import { Box, Dialog, DialogTitle, Divider, styled } from '@mui/material';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
+import UINewTypography from 'components/UIComponents/UINewTypography';
+import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 
 export const DialogContentMain = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
@@ -55,11 +57,11 @@ export const ThreeBox = styled(Box)(({ theme }) => ({
 
 export const ForBox = styled(Box)(({ theme }) => ({
   display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
+  justifyContent: 'flex-end',
+  alignItems: 'flex-end',
   [theme.breakpoints.down(375)]: {
     flexDirection: 'column',
-    alignItems: 'flex-start',
+    alignItems: 'flex-end',
     gap: theme.spacing(1)
   }
 }));
@@ -99,7 +101,46 @@ export const ChooseYourBankSecondBox = styled(Box)(({ theme }) => ({
 export const ChooseYourBankthreeBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  gap: theme.spacing(2.5)
+}));
+
+export const BigScreenGap = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
   gap: theme.spacing(2)
+}));
+
+export const SmallScreenGap = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2.5)
+}));
+export const UINewTypographyChooseYourBank = styled(UINewTypography)(({ theme }) => ({
+  fontWeight: 500,
+  fontSize: '14px',
+  lineHeight: '22.4px',
+  color: theme.palette.secondary[200]
+}));
+
+export const UINewTypographyBankName = styled(UINewTypography)(({ theme }) => ({
+  fontWeight: 700,
+  fontSize: '20px',
+  lineHeight: '24px',
+  color: theme.palette.text.secondary
+}));
+
+export const UINewTypographyRemarks = styled(UINewTypography)(({ theme }) => ({
+  fontWeight: 600,
+  fontSize: '16px',
+  lineHeight: '25.6px',
+  color: theme.palette.secondary[200]
+}));
+
+export const UINewTypographyConfirm = styled(UINewTypography)(({ theme }) => ({
+  fontWeight: 700,
+  fontSize: '16px',
+  lineHeight: '19.2px',
+  color: theme.palette.primary[200]
 }));
 
 export const PayoutDetails = styled(Box)(({ theme }) => ({
@@ -147,6 +188,7 @@ export const PayoutThreeBox = styled(Box)(({ theme }) => ({
 
 export const PayoutDetailSecondBox = styled(Box)(({ theme }) => ({
   display: 'flex',
+  height: '100%',
   justifyContent: 'space-between',
   alignItems: 'center',
   background: theme.palette.primary[700],
@@ -171,7 +213,8 @@ export const PayoutDetailThreeBox = styled(Box)(({ theme }) => ({
   paddingBottom: theme.spacing(3),
   paddingLeft: theme.spacing(3),
   [theme.breakpoints.down('sm')]: {
-    paddingLeft: theme.spacing(0)
+    paddingLeft: theme.spacing(0),
+    paddingBottom: theme.spacing(0)
   }
 }));
 
@@ -210,15 +253,49 @@ export const SamllScreenFirstBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  [theme.breakpoints.down('sm')]: {
-    paddingLeft: theme.spacing(1.875),
-    paddingRight: theme.spacing(1.875)
-  },
   [theme.breakpoints.up('sm')]: {
     display: 'none'
   }
 }));
 
+export const UINewTypographyTitleRequestPayout = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '20px',
+  fontWeight: 700,
+  lineHeight: '28px',
+  color: theme.palette.secondary[200]
+}));
+
+export const UINewTypographyGetPaidIn = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '14px',
+  fontWeight: 500,
+  lineHeight: '17.5px',
+  color: theme.palette.secondary[200],
+  textWrap: 'nowrap'
+}));
+
+export const UINewTypographyYourBalance = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 500,
+  lineHeight: '20px',
+  color: theme.palette.text.primary,
+  textWrap: 'nowrap'
+}));
+export const UINewTypographyAmount = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 600,
+  lineHeight: '20px',
+  color: theme.palette.text.secondary,
+  textWrap: 'nowrap'
+}));
+
+export const UIStyledInputTextAmount = styled(UIStyledInputText)(({ theme }) => ({
+  height: '70px',
+  '& .MuiInputBase-root': {
+    padding: '16px 20px ',
+    fontWeight: 700,
+    fontSize: '24px'
+  }
+}));
 export const ExpandIcon = styled(ExpandMoreOutlinedIcon)(({ theme }) => ({
   width: '16px',
   height: '16px'

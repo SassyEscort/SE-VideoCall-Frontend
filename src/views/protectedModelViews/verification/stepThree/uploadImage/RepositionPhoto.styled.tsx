@@ -73,3 +73,14 @@ export const SliderControls = styled(Box)(({ theme }) => ({
     color: theme.palette.primary.main
   }
 }));
+
+export const ModelMultipleBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexWrap: 'wrap',
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(1.5)
+  },
+  [theme.breakpoints.up('sm')]: {
+    gap: theme.spacing(2)
+  }
+}));

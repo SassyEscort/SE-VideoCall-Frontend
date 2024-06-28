@@ -1,17 +1,19 @@
 'use client';
 import Stack from '@mui/material/Stack';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import PaginationSearch from './paginationSearch/PaginationSearch';
 import {
   DividerContainer,
   EarningHistoryFirstBoxContainer,
   EarningHistoryLastBoxContainer,
   EarningHistoryMainContainer,
+  EarningHistoryPagination,
   EarningHistorySecBoxContainer,
   EarningHistorySubContainer,
   EarningHistoryThirdBoxContainer,
-  FilterDropdownBox
+  FilterDropdownBox,
+  PaginationBox
 } from './EarningHistory.styled';
 import { FormattedMessage } from 'react-intl';
 import DataRange from './selectFilter/dataRange';
@@ -24,6 +26,8 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { ModelEarningHistoryPageDetailsRes } from 'services/modelEarningHistory/typs';
+import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
+import PaginationInWords from 'components/UIComponents/PaginationINWords';
 
 export type earningParams = {
   category: string;
@@ -31,22 +35,33 @@ export type earningParams = {
   limit: number;
   offset: number;
 };
+export type EarningPaginationType = {
+  page: number;
+  offset: number;
+  limit: number;
+};
 const EarningHistory = ({ token }: { token: TokenIdType }) => {
   const [modelEarningHistory, setModelEarningHistory] = useState<ModelEarningHistoryPageDetailsRes>();
-
+  const [total_rows, setTotalRows] = useState(0);
+  const [filters, setFilters] = useState<EarningPaginationType>({
+    page: 0,
+    limit: 20,
+    offset: 0
+  });
   useEffect(() => {
     const fetchEarningHistoryDetails = async () => {
       try {
         const params = {
           category: 'Credit',
           details: 'Video_Call',
-          limit: 20,
-          offset: 0
+          limit: filters.limit,
+          offset: filters.offset
         };
         const data = await ModelEarningHistoryService.getEarningHistoryDetails(params, token.token);
-        setModelEarningHistory(data);
+
         if (data) {
           setModelEarningHistory(data);
+          setTotalRows(data.data.aggreate.total_rows);
         }
       } catch (error) {
         toast.error(ErrorMessage);
@@ -54,8 +69,17 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
     };
 
     fetchEarningHistoryDetails();
-  }, [token.token]);
-
+  }, [filters.limit, filters.offset, token.token]);
+  const handleChangeFilter = useCallback((value: EarningPaginationType) => {
+    setFilters(value);
+  }, []);
+  const handleChangePage = useCallback(
+    (event: React.ChangeEvent<unknown>, value: number) => {
+      const offset = (value - 1) * filters.limit;
+      handleChangeFilter({ ...filters, page: value, offset: offset });
+    },
+    [filters, handleChangeFilter]
+  );
   return (
     <HomeMainContainer>
       <EarningHistoryMainContainer>
@@ -92,6 +116,24 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
           <EarningHistoryLastBoxContainer>
             <MainTableLayout modelEarningHistory={modelEarningHistory ?? ({} as ModelEarningHistoryPageDetailsRes)} />
           </EarningHistoryLastBoxContainer>
+          <EarningHistoryPagination>
+            {total_rows > 0 && (
+              <PaginationBox>
+                <UITheme2Pagination
+                  page={filters.page}
+                  count={modelEarningHistory ? Math.ceil(modelEarningHistory.data.aggreate.total_rows / filters.limit) : 1}
+                  onChange={handleChangePage}
+                />
+                <PaginationInWords
+                  page={filters.page}
+                  limit={filters.limit}
+                  total_rows={total_rows}
+                  offset={filters.offset}
+                  isCall={true}
+                />
+              </PaginationBox>
+            )}
+          </EarningHistoryPagination>
         </EarningHistoryFirstBoxContainer>
       </EarningHistoryMainContainer>
     </HomeMainContainer>

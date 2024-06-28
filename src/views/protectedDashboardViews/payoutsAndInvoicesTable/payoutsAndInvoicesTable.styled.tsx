@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Stack, TableRow } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -12,7 +12,8 @@ export const FilterDropdownBox = styled(Box)(({ theme }) => ({
   maxWidth: '741px',
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    marginTop: theme.spacing(6)
   }
 }));
 
@@ -36,8 +37,9 @@ export const MainBox = styled(Box)(({ theme }) => ({
 }));
 
 export const SecondBox = styled(Box)(({ theme }) => ({
+  paddingTop: theme.spacing(4),
   [theme.breakpoints.down('sm')]: {
-    paddingTop: theme.spacing(4)
+    paddingTop: theme.spacing(1.375)
   }
 }));
 
@@ -45,7 +47,13 @@ export const TypographyBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  marginTop: theme.spacing(7)
+  marginTop: theme.spacing(7),
+  [theme.breakpoints.down('sm')]: {
+    marginTop: theme.spacing(4),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
 }));
 
 export const TableBox = styled(Box)(({ theme }) => ({
@@ -65,13 +73,13 @@ export const StackBox = styled(Stack)(({ theme }) => ({
 }));
 
 export const UINewTypographyBox = styled(UINewTypography)(({ theme }) => ({
-  fontSize: '38px !important',
-  lineHeight: '47.5px',
   fontWeight: 700,
+  fontSize: '38px',
+  lineHeight: '47.5px',
+  color: theme.palette.text.secondary,
   [theme.breakpoints.down('md')]: {
-    fontSize: '24px !important',
-    lineHeight: '30px',
-    fontWeight: 700
+    fontSize: '24px',
+    lineHeight: '30px'
   }
 }));
 
@@ -86,4 +94,17 @@ export const ResetMainBox = styled(UINewTypography)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: theme.spacing(2)
+}));
+
+export const TableHederText = styled(UINewTypography)(({ theme }) => ({
+  fontWeight: 500,
+  fontSize: '16px',
+  lineHeight: '19.2px',
+  color: theme.palette.secondary[200]
+}));
+
+export const StyledTableRow = styled(TableRow)(() => ({
+  border: 'none',
+  display: 'flex',
+  justifyContent: 'center'
 }));

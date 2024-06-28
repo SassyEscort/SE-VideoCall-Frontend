@@ -122,7 +122,8 @@ export const MobileComponentBox = styled(Box)(({ theme }) => ({
   '& .MuiButtonBase-root': {
     paddingLeft: theme.spacing(1.5),
     paddingRight: theme.spacing(4),
-    paddingBottom: theme.spacing(1.5)
+    paddingBottom: theme.spacing(3),
+    paddingTop: theme.spacing(3)
   },
   [theme.breakpoints.down('sm')]: {
     maxWidth: 420

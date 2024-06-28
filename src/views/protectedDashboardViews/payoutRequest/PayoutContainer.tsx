@@ -2,15 +2,14 @@
 import { Box, Divider, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React, { useCallback, useEffect, useState } from 'react';
-import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FormattedMessage } from 'react-intl';
 import {
-  MainConatiner,
+  MainContainer,
   BoxMessage,
   SecondMainContainer,
   FirstUsdBox,
   SecondUsdBox,
-  UsdBox,
   DollerBox,
   ButtonBox,
   RecentWithdrawlsMainContainer,
@@ -23,8 +22,12 @@ import {
   Showtracking,
   ShowtrackingBox,
   Pendingconatiner,
-  TextDetail
-} from './PayoutRequest';
+  TextDetail,
+  PaginationMainBox,
+  StyledAccordion,
+  StyledAccordionSummary,
+  StyledAccordionDetails
+} from './PayoutRequest.styled';
 import PayoutWidthDraw from '../payoutWithDraw';
 import { BankDetailsListRes, ModelPastPayoutDetailRes } from 'services/payout/types';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -36,6 +39,15 @@ import { PayoutService } from 'services/payout/payout.service';
 import { ErrorMessage } from 'constants/common.constants';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import { NewStatusBox } from '../payoutsAndInvoicesTable/billingTable/statusDetails';
+import PaginationInWords from 'components/UIComponents/PaginationINWords';
+import UIVerticalStepper from './VerticalStepper';
+import moment from 'moment';
+import {
+  UINewTypographyAmount,
+  UINewTypographyDollar,
+  UINewTypographyWithDrawButtonText,
+  UINewTypographyWithDrawRecentWithdrawls
+} from 'views/protectedViews/logout/Logout.styled';
 
 export type PayoutPaginationType = {
   page: number;
@@ -59,11 +71,15 @@ const PayoutContainer = ({
   const [modelPayoutList, setModelPayoutList] = useState<ModelPastPayoutDetailRes>();
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const [amountSave, setAmountSave] = useState(0);
-  const [filters, setFilters] = useState({
+  const [total_rows, setTotalRows] = useState(0);
+  const [filters, setFilters] = useState<PayoutPaginationType>({
     page: 0,
-    pageSize: 10,
+    pageSize: 20,
     offset: 0
   });
+
+  const APPROVED_STEPS = ['Withdrawals requested', 'Transferred'];
+  const REJECTED_STEPS = ['Withdrawals requested', 'Admin Rejected'];
 
   const openDailog = () => {
     if (!isSmUp) {
@@ -79,6 +95,7 @@ const PayoutContainer = ({
   const handlePayoutStep = () => {
     setPayoutStep((prev) => prev + 1);
   };
+
   useEffect(() => {
     const fetchModelPayout = async () => {
       try {
@@ -90,6 +107,7 @@ const PayoutContainer = ({
           const data = await PayoutService.modelPastPayoutList(ModelPayoutListObject, token.token);
           if (data) {
             setModelPayoutList(data);
+            setTotalRows(data.data.aggregate.total_rows);
           }
         }
       } catch (error) {
@@ -115,6 +133,7 @@ const PayoutContainer = ({
       toast.error(ErrorMessage);
     }
   };
+
   const handleChangeFilter = useCallback((value: PayoutPaginationType) => {
     setFilters(value);
   }, []);
@@ -125,13 +144,14 @@ const PayoutContainer = ({
     },
     [filters, handleChangeFilter]
   );
+
   useEffect(() => {
     getAmount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.token]);
 
   return (
-    <MainConatiner>
+    <MainContainer>
       {(payoutStep === 0 || isSmUp) && (
         <>
           <BoxMessage>
@@ -142,35 +162,26 @@ const PayoutContainer = ({
           <SecondMainContainer>
             <FirstUsdBox>
               <SecondUsdBox>
-                <UsdBox>
-                  <Box component={'img'} src="/images/payout/pay.webp" alt="usd" sx={{ borderRadius: '50%' }} />
-                  <UINewTypography variant="SubtitleSmallMedium">
-                    <FormattedMessage id="USD" />
-                  </UINewTypography>
-                </UsdBox>
                 <DollerBox>
-                  <UINewTypography variant="h5" color="text.secondary">
-                    $
-                  </UINewTypography>
-                  <UINewTypography variant="h5" color="text.secondary">
-                    {amountSave}
-                  </UINewTypography>
+                  <UINewTypographyDollar>$</UINewTypographyDollar>
+                  <UINewTypographyAmount>{amountSave}</UINewTypographyAmount>
                 </DollerBox>
               </SecondUsdBox>
 
               <ButtonBox variant="contained" onClick={openDailog}>
-                <UINewTypography variant="buttonLargeBold" color="primary.200">
+                <UINewTypographyWithDrawButtonText>
                   <FormattedMessage id="Withdraw" />
-                </UINewTypography>
+                </UINewTypographyWithDrawButtonText>
               </ButtonBox>
             </FirstUsdBox>
             <RecentWithdrawlsMainContainer>
               <SecondRecentWithdrawlsMainContainer>
                 <Withdrawls>
-                  <UINewTypography variant="SubtitleSmallMedium" color="text.primary">
+                  <UINewTypographyWithDrawRecentWithdrawls>
                     <FormattedMessage id="RecentWithdrawls" />
-                  </UINewTypography>
+                  </UINewTypographyWithDrawRecentWithdrawls>
                 </Withdrawls>
+
                 {modelPayoutList?.data?.payout_details.map((item) => (
                   <ToSiliconValleyBankMainConatiner key={item.id}>
                     <FirstToSiliconValleyBankMainConatiner>
@@ -183,10 +194,27 @@ const PayoutContainer = ({
                             {item.bank_name}
                           </UINewTypography>
                           <ShowtrackingBox>
-                            <UINewTypography variant="captionLarge" color="text.primary">
-                              <FormattedMessage id="ShowTracking" />
-                            </UINewTypography>
-                            <KeyboardArrowDownOutlinedIcon />
+                            <StyledAccordion>
+                              <StyledAccordionSummary aria-controls="panel1-content" id="panel1-header" expandIcon={<ExpandMoreIcon />}>
+                                <UINewTypography variant="captionLarge">
+                                  <FormattedMessage id="ShowTracking" />
+                                </UINewTypography>
+                              </StyledAccordionSummary>
+                              <StyledAccordionDetails>
+                                <UIVerticalStepper
+                                  steps={item.state === 'Rejected' ? REJECTED_STEPS : APPROVED_STEPS}
+                                  activeStep={item.state === 'Approved' || item.state === 'Rejected' ? 2 : 1}
+                                  withDate={item.payout_logs ? moment(item?.payout_logs[0]?.created_at).format('DD/MM/YYYY') : ' '}
+                                  tarnsferDate={
+                                    item.payout_logs
+                                      ? item.payout_logs.length > 1
+                                        ? moment(item?.payout_logs[1]?.created_at).format('DD/MM/YYYY')
+                                        : ' '
+                                      : ''
+                                  }
+                                />
+                              </StyledAccordionDetails>
+                            </StyledAccordion>
                           </ShowtrackingBox>
                         </Showtracking>
                       </FirstToSiliconValleyBank>
@@ -194,7 +222,7 @@ const PayoutContainer = ({
                         <UINewTypography variant="body" color="text.secondary">
                           - ${item.amount}
                         </UINewTypography>
-                        <NewStatusBox status={item.state}>
+                        <NewStatusBox status={item.state} sx={{ maxHeight: '25px !important' }}>
                           <UINewTypography
                             variant="captionLarge"
                             color={
@@ -224,13 +252,23 @@ const PayoutContainer = ({
                 ))}
               </SecondRecentWithdrawlsMainContainer>
             </RecentWithdrawlsMainContainer>
-            <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-              <UITheme2Pagination
-                page={filters.page}
-                count={modelPayoutList ? Math.ceil(modelPayoutList.data.aggregate.total_rows / filters.pageSize) : 1}
-                onChange={handleChangePage}
-              />
-            </Box>
+
+            {total_rows > 0 && (
+              <PaginationMainBox>
+                <UITheme2Pagination
+                  page={filters.page}
+                  count={modelPayoutList ? Math.ceil(total_rows / filters.pageSize) : 1}
+                  onChange={handleChangePage}
+                />
+                <PaginationInWords
+                  page={filters.page}
+                  limit={filters.pageSize}
+                  total_rows={total_rows}
+                  offset={filters.offset}
+                  isEscort={false}
+                />
+              </PaginationMainBox>
+            )}
           </SecondMainContainer>
         </>
       )}
@@ -247,7 +285,7 @@ const PayoutContainer = ({
           amountSave={amountSave}
         />
       )}
-    </MainConatiner>
+    </MainContainer>
   );
 };
 

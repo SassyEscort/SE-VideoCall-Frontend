@@ -30,6 +30,7 @@ import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import { RiArrowLeftLine, RiArrowRightLine } from 'components/common/customRemixIcons';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
+import { InputAdornment } from '@mui/material';
 export type PricePerMinute = {
   price_per_minute: number;
 };
@@ -178,7 +179,9 @@ const DashboardPriceView = ({
                       error={touched.price && Boolean(errors.price)}
                       helperText={touched.price && errors.price}
                       variant="outlined"
-                      margin="normal"
+                      InputProps={{
+                        startAdornment: <InputAdornment position="start">$</InputAdornment>
+                      }}
                     />
                   </RightSideBox>
 
@@ -192,7 +195,7 @@ const DashboardPriceView = ({
                     <RightFirstText color="secondary.700">
                       <FormattedMessage id="YoullBeReceiving" />
                     </RightFirstText>
-                    <RightSecondText color="text.secondary">${commistionValue}</RightSecondText>
+                    <RightSecondText color="text.secondary">${commistionValue} / min</RightSecondText>
                   </RightSideFirstBox>
                 )}
               </InputBox>

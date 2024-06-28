@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { ModelDetailsRes } from './types';
+import { ModelDetailsRes, ModelFilterParams } from './types';
 
 export type ModelListing = {
   country_id: number;
@@ -28,14 +28,43 @@ export type ModelListingRes = {
 };
 
 export class adminModelServices {
-  static getModelList = async (token: string, limit: number, offset: number): Promise<ModelListingRes> => {
+  static getModelList = async (params: ModelFilterParams): Promise<ModelListingRes> => {
+    let query = '';
+    if (params.filter_text) {
+      query += `&filter_text=${params.filter_text}`;
+    }
+    if (params.from_date) {
+      query += `&from_date=${params.from_date}`;
+    }
+    if (params.to_date) {
+      query += `&to_date=${params.to_date}`;
+    }
+    if (params.sort_order) {
+      query += `&sort_order=${params.sort_order}`;
+    }
+    if (params.sort_field) {
+      query += `&sort_field=${params.sort_field}`;
+    }
+    if (params.verification_step) {
+      query += `&verification_step=${params.verification_step}`;
+    }
+    if (params.profile_status) {
+      query += `&profile_status=${params.profile_status}`;
+    }
+    if (params.is_active) {
+      query += `&is_active=${params.is_active}`;
+    }
+
     try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model?limit=${limit}&offset=${offset}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token
+      const res = await axios.get(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model?limit=${params.limit}&offset=${params.offset}${query}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: params.token
+          }
         }
-      });
+      );
 
       return res.data.data;
     } catch (err: any) {

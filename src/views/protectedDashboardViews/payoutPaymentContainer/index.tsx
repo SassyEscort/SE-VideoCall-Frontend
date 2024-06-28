@@ -16,7 +16,9 @@ import {
   SiliconBox,
   SiliconFristBox,
   SmallAndBigScreen,
-  SmallScreenImg
+  SmallScreenImg,
+  UINewTypographyBankName,
+  UINewTypographyTitle
 } from './PayoutPaymentConatiner';
 import { FormattedMessage } from 'react-intl';
 import { BankDetailsListRes } from 'services/payout/types';
@@ -103,9 +105,9 @@ const PayoutPaymentConatiner = ({
       ) : (
         <MainConatinerBox>
           <MainSecondBox>
-            <UINewTypography variant="h2" color="text.secondary">
+            <UINewTypographyTitle>
               <FormattedMessage id="YourPaymentMethods" />
-            </UINewTypography>
+            </UINewTypographyTitle>
             <MapBox>
               <MainThreeBox>
                 {bankDetailsList?.data?.bank_details.map((list, index) => (
@@ -140,9 +142,7 @@ const PayoutPaymentConatiner = ({
                       </SmallAndBigScreen>
                       <SiliconBox>
                         <SiliconFristBox>
-                          <UINewTypography variant="h6" color="text.secondary">
-                            {list?.bank_name}
-                          </UINewTypography>
+                          <UINewTypographyBankName>{list?.bank_name}</UINewTypographyBankName>
                           <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
                             {list?.account_name} | {list?.iban_number}
                           </UINewTypography>

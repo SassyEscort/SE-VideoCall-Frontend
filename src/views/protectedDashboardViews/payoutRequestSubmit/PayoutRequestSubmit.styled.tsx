@@ -1,4 +1,4 @@
-import { Box, Dialog, DialogTitle, Divider, styled } from '@mui/material';
+import { Box, Dialog, DialogTitle, Divider, Typography, styled } from '@mui/material';
 
 export const MainDailgConatiner = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
@@ -65,6 +65,32 @@ export const FiveBox = styled(Box)(({ theme }) => ({
   maxWidth: '465px'
 }));
 
+export const UINewTypographyYourRequestHasBeenSubmitted = styled(Box)(({ theme }) => ({
+  fontSize: '30px',
+  fontWeight: 600,
+  lineHeight: '42px',
+  textWrap: 'nowrap',
+  color: theme.palette.text.secondary,
+  textAlign: 'center',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '24px',
+    lineHeight: '33.6px',
+    textWrap: 'wrap'
+  }
+}));
+
+export const UINewTypographyYourTheRequestWill = styled(Box)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 400,
+  lineHeight: '25.6px',
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '14px',
+    lineHeight: '22.4px'
+  }
+}));
+
 export const FirstBoxRequestSubmit = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -82,4 +108,10 @@ export const SecondBoxRequestSubmit = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     display: 'none'
   }
+}));
+
+export const TextBox = styled(Typography)(({ theme }) => ({
+  fontSize: '20px',
+  fontWeight: 700,
+  lineHeight: '28px'
 }));

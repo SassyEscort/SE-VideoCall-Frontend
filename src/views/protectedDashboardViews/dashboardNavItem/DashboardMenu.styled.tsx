@@ -32,9 +32,28 @@ export const WorkerNavItemContainer = styled(Toolbar)(({ theme }) => ({
   }
 }));
 
-export const HeaderBoxContainer = styled(Box)(({ theme }) => ({
+export const HeaderBoxContainer = styled(Box)(() => ({
   display: 'flex',
   textAlign: 'center',
   alignItems: 'center',
+  cursor: 'pointer'
+}));
+
+export const UnReadCountMain = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'row-reverse',
+  position: 'relative'
+}));
+
+export const IconButtonBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(1)
+}));
+
+export const IconButtonBoxInner = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(1),
   cursor: 'pointer'
 }));

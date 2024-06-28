@@ -11,16 +11,19 @@ import { VerificationFormStep5TypeV2, WorkerPhotos } from '.';
 import {
   GalleryMainContainer,
   ModelMultiplePhotoItem,
+  ModelMultiplePhotoSubBox,
   UIPhotosHeader,
   UploadItem,
   UploadMultipleBox,
-  UploadMultiplePhotos
+  UploadMultiplePhotos,
+  UploadPhotostext
 } from './UploadMultiplePhoto.styled';
 import { FormattedMessage } from 'react-intl';
 import { TokenIdType } from '../..';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { sortExistingPhotos } from 'utils/photoUtils';
+import { ModelMultipleBoxContainer } from './RepositionPhoto.styled';
 
 export type UploadMultiplePhotos = {
   errors: FormikErrors<VerificationFormStep5TypeV2>;
@@ -60,7 +63,7 @@ const ModelMultiplePhoto = ({
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const height = isSmUp ? 193 : 210;
-  const width = isSmUp ? 145 : 159;
+  const width = isSmUp ? 145 : 149;
 
   const [existingPhotos, setExistingPhotos] = useState<UploadPhotos[]>([]);
   const [uploadedImagesURL, setUploadedImagesURL] = useState<UploadPhotos[]>([]);
@@ -208,7 +211,7 @@ const ModelMultiplePhoto = ({
       <UploadMultiplePhotos>
         {!isEdit ? (
           <Box paddingBottom={4} pt={4}>
-            <UIPhotosHeader variant="h3" sx={{ color: '#E9E8EB' }}>
+            <UIPhotosHeader variant="h3" sx={{ color: 'text.secondary' }}>
               <FormattedMessage id="UploadPhotos" />
             </UIPhotosHeader>
             <UINewTypography marginTop={1.5} display="flex" justifyContent="center" lineHeight="160%">
@@ -218,7 +221,7 @@ const ModelMultiplePhoto = ({
         ) : (
           !isSmDown && (
             <Box paddingBottom={4} pt={4}>
-              <UINewTypography variant="h3" sx={{ color: '#E9E8EB' }}>
+              <UINewTypography variant="h2" sx={{ color: 'text.secondary' }}>
                 <FormattedMessage id="ModifyPhotos" />
               </UINewTypography>
             </Box>
@@ -226,9 +229,9 @@ const ModelMultiplePhoto = ({
         )}
         <ModelMultiplePhotoItem>
           <UploadItem>
-            <UINewTypography variant="h6" color="text.secondary">
+            <UploadPhotostext color="text.secondary">
               <FormattedMessage id="UploadPics" />
-            </UINewTypography>
+            </UploadPhotostext>
           </UploadItem>
           <GalleryMainContainer>
             <UploadGalleryPhotos
@@ -240,40 +243,42 @@ const ModelMultiplePhoto = ({
               values={values}
               handleUploadPhotos={handleUploadPhotos}
             />
-            {(values.file5Existing.length > 0 || values.file5) && (
-              <UINewTypography variant="h6">
-                <FormattedMessage id="Gallery" />
-              </UINewTypography>
-            )}
-            <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
-              {[...existingPhotos, ...uploadedImagesURL]?.map((photo, index) => {
-                return (
-                  <PhotoItem
-                    handleModelApiChange={handleModelApiChange}
-                    values={values}
-                    key={index}
-                    token={token}
-                    image={photo}
-                    isEdit={false}
-                    isFeaturePhoto={false}
-                    thumbnailImageId={thumbnailImageId}
-                    height={height}
-                    width={width}
-                    setValue={setValue}
-                    removeImage={removeImage}
-                    handleChangeFile5Cords={handleChangeFile5Cords}
-                    handleClickThumbnailImageId={handleClickThumbnailImageId}
-                    handleBlobThumbnail={handleBlobThumbnail}
-                    index={index}
-                  />
-                );
-              })}
-            </Box>
+            <ModelMultiplePhotoSubBox>
+              {(values.file5Existing.length > 0 || values.file5) && (
+                <UINewTypography variant="h6">
+                  <FormattedMessage id="Gallery" />
+                </UINewTypography>
+              )}
+              <ModelMultipleBoxContainer>
+                {[...existingPhotos, ...uploadedImagesURL]?.map((photo, index) => {
+                  return (
+                    <PhotoItem
+                      handleModelApiChange={handleModelApiChange}
+                      values={values}
+                      key={index}
+                      token={token}
+                      image={photo}
+                      isEdit={false}
+                      isFeaturePhoto={false}
+                      thumbnailImageId={thumbnailImageId}
+                      height={height}
+                      width={width}
+                      setValue={setValue}
+                      removeImage={removeImage}
+                      handleChangeFile5Cords={handleChangeFile5Cords}
+                      handleClickThumbnailImageId={handleClickThumbnailImageId}
+                      handleBlobThumbnail={handleBlobThumbnail}
+                      index={index}
+                    />
+                  );
+                })}
+              </ModelMultipleBoxContainer>
+            </ModelMultiplePhotoSubBox>
           </GalleryMainContainer>
         </ModelMultiplePhotoItem>
       </UploadMultiplePhotos>
       {isEdit && (
-        <UploadMultipleBox pt={12}>
+        <UploadMultipleBox pt={13}>
           <UIThemeButton
             onClick={handleCancel}
             disabled={Boolean((values.file5 === null || uploadedImagesURL.length === 0) && !values.cords5) && Boolean(!isDelete && isEdit)}
@@ -282,6 +287,7 @@ const ModelMultiplePhoto = ({
                 ? 'contained'
                 : 'outlined'
             }
+            sx={{ px: '20px', py: '9px' }}
           >
             <UINewTypography variant="body">
               <FormattedMessage id="CancelChanges" />
@@ -293,6 +299,7 @@ const ModelMultiplePhoto = ({
             variant="contained"
             loading={loading}
             disabled={Boolean((values.file5 === null || uploadedImagesURL.length === 0) && !values.cords5) && Boolean(!isDelete && isEdit)}
+            sx={{ px: '20px', py: '9px' }}
           >
             <UINewTypography variant="body">
               <FormattedMessage id="Save" />

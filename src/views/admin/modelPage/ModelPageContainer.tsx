@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
+import debounce from 'lodash/debounce'; // Import lodash debounce
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
 import Stack from '@mui/material/Stack';
@@ -25,7 +26,6 @@ import PaginationSortBy from 'components/common/CustomPaginations/PaginationSort
 import { PAGE_SIZE } from 'constants/pageConstants';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import TablePager from 'components/common/CustomPaginations/TablePager';
-import Popover from '@mui/material/Popover';
 import MenuItem from '@mui/material/MenuItem';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CheckIcon from '@mui/icons-material/Check';
@@ -35,6 +35,11 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { useRouter } from 'next/navigation';
 import MainLayout from '../../../views/admin/layouts/AdminLayout/DashboardLayout';
+import FormControl from '@mui/material/FormControl';
+import { StyledSelectInputLabel } from 'components/UIComponents/StyleSelect';
+import Select from '@mui/material/Select';
+import Grid from '@mui/material/Grid';
+import { FilterBox, ModelActionPopover, NotFoundBox, SortBox } from './ModelPageContainer.styled';
 
 export type WorkersPaginationType = {
   page: number;
@@ -42,18 +47,43 @@ export type WorkersPaginationType = {
   pageSize: number;
   orderField: string;
   orderType: string;
-  filterText: string;
+  filter_Text: string;
   duration: string;
   fromDate: string;
   toDate: string;
+  status: string;
+  verificationStep: string;
+  is_active: string;
 };
 
 const SORT_BY_OPTIONS: PaginationSortByOption[] = [
-  { value: 'newest', label: 'Newest' },
-  { value: 'status', label: 'Status' },
+  { value: 'created_at', label: 'Newest' },
   { value: 'name', label: 'Name' },
   { value: 'email', label: 'Email' },
-  { value: 'mobile', label: 'Mobile' }
+  { value: 'last_login', label: 'last login' }
+];
+
+const StatusOfPlan = [
+  { value: '', label: 'All' },
+  { value: 'Pending', label: 'Pending' },
+  { value: 'Approved', label: 'Approved' },
+  { value: 'Rejected', label: 'Rejected' }
+];
+
+const IS_ACTIVE = [
+  { value: '', label: 'All' },
+  { value: 'true', label: 'True' },
+  { value: 'false', label: 'False' }
+];
+
+const verification_step = [
+  { value: '', label: 'All' },
+  { value: 'Basic_Details', label: 'Basic Details' },
+  { value: 'Upload_Documents', label: 'Upload Documents' },
+  { value: 'Upload_Photos', label: 'Upload Photos' },
+  { value: 'Onboarded', label: 'Onboarded' },
+  { value: 'In_Review', label: 'In Review' },
+  { value: 'Verified', label: 'Verified' }
 ];
 
 export type TokenIdTypeAdmin = {
@@ -78,12 +108,15 @@ export default function ModelPageContainer() {
     page: 0,
     pageSize: PAGE_SIZE,
     offset: 0,
-    orderField: 'newest',
+    orderField: 'created_at',
     orderType: 'desc',
-    filterText: '',
+    filter_Text: '',
     duration: 'month',
     fromDate: fromDate,
-    toDate: toDate
+    toDate: toDate,
+    status: '',
+    verificationStep: '',
+    is_active: ''
   });
 
   const handleChangeFilter = useCallback((value: WorkersPaginationType) => {
@@ -104,7 +137,21 @@ export default function ModelPageContainer() {
   const fetchModelData = async () => {
     setIsLoading(true);
     if (token.token) {
-      const data = await adminModelServices.getModelList(token.token, filters.pageSize, filters.offset);
+      const filterparams = {
+        token: token.token,
+        limit: filters.pageSize,
+        offset: filters.offset,
+        filter_text: filters.filter_Text,
+        from_date: filters.fromDate,
+        to_date: filters.toDate,
+        sort_order: filters.orderType,
+        sort_field: filters.orderField,
+        verification_step: filters.verificationStep,
+        profile_status: filters.status,
+        is_active: filters.is_active
+      };
+
+      const data = await adminModelServices.getModelList(filterparams);
       setTotalRecords(data?.aggregate?.total_rows);
       setModelData(data?.model_details);
     }
@@ -114,11 +161,12 @@ export default function ModelPageContainer() {
   const handleModelListRefetch = useCallback(() => {
     fetchModelData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, [token, filters.filter_Text]);
+
   useEffect(() => {
     fetchModelData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.token, filters.page, filters.pageSize]);
+  }, [token.token, filters]);
 
   const handleChangePage = useCallback(
     (value: number) => {
@@ -147,9 +195,33 @@ export default function ModelPageContainer() {
     [filters, handleChangeFilter]
   );
 
-  const handleChangeSearch = useCallback(
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedChangeSearch = useCallback(
+    debounce((val: string) => {
+      handleChangeFilter({ ...filters, filter_Text: val, page: 1 });
+    }, 500),
+    [filters, handleChangeFilter]
+  );
+
+  const handleChangeSearch = (val: string) => {
+    debouncedChangeSearch(val);
+  };
+
+  const handleChangeStatus = useCallback(
     (val: string) => {
-      handleChangeFilter({ ...filters, filterText: val, page: 1 });
+      handleChangeFilter({ ...filters, status: val, page: 1 });
+    },
+    [filters, handleChangeFilter]
+  );
+  const handleChangeVerificationStep = useCallback(
+    (val: string) => {
+      handleChangeFilter({ ...filters, verificationStep: val, page: 1 });
+    },
+    [filters, handleChangeFilter]
+  );
+  const handleChangeIsActive = useCallback(
+    (val: string) => {
+      handleChangeFilter({ ...filters, is_active: val, page: 1 });
     },
     [filters, handleChangeFilter]
   );
@@ -200,14 +272,79 @@ export default function ModelPageContainer() {
               handleChangeSearch={handleChangeSearch}
             />
           </Stack>
-          <Box sx={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
+          <FilterBox>
+            <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
+              <FormControl fullWidth>
+                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>is active</StyledSelectInputLabel>
+                <Select
+                  name="is_active"
+                  labelId="is_active"
+                  label="is active"
+                  value={filters.is_active}
+                  onChange={(e) => handleChangeIsActive(e.target.value as string)}
+                  sx={{
+                    width: '100%'
+                  }}
+                >
+                  {IS_ACTIVE.map((stat) => (
+                    <MenuItem key={stat.value} value={stat.value}>
+                      {stat.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
+              <FormControl fullWidth>
+                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Profile Status</StyledSelectInputLabel>
+                <Select
+                  name="status"
+                  labelId="status"
+                  label="Profile Status"
+                  value={filters.status}
+                  onChange={(e) => handleChangeStatus(e.target.value as string)}
+                  sx={{
+                    width: '100%'
+                  }}
+                >
+                  {StatusOfPlan.map((stat) => (
+                    <MenuItem key={stat.value} value={stat.value}>
+                      {stat.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
+              <FormControl fullWidth>
+                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>verification step</StyledSelectInputLabel>
+                <Select
+                  name="verification_step"
+                  labelId="verification_step"
+                  label="verification step"
+                  value={filters.verificationStep}
+                  onChange={(e) => handleChangeVerificationStep(e.target.value as string)}
+                  sx={{
+                    width: '100%'
+                  }}
+                >
+                  {verification_step.map((stat) => (
+                    <MenuItem key={stat.value} value={stat.value}>
+                      {stat.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+          </FilterBox>
+          <SortBox>
             <PaginationSortBy
               sortByOptions={SORT_BY_OPTIONS}
               orderField={filters.orderField}
               orderType={filters.orderType}
               handleChangeOrderBy={handleChangeOrderBy}
             />
-          </Box>
+          </SortBox>
           <Card>
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
               <TableContainer sx={{ width: '100%' }}>
@@ -281,16 +418,9 @@ export default function ModelPageContainer() {
                     ) : (
                       <TableRow>
                         <TableCell colSpan={7}>
-                          <Box
-                            sx={{
-                              display: 'flex',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              p: 2
-                            }}
-                          >
+                          <NotFoundBox>
                             <Typography variant="body1">Model is not found.</Typography>
-                          </Box>
+                          </NotFoundBox>
                         </TableCell>
                       </TableRow>
                     )}
@@ -311,23 +441,12 @@ export default function ModelPageContainer() {
             </Paper>
           </Card>
         </Container>
-        <Popover
+        <ModelActionPopover
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={handleCloseMenu}
           anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-          PaperProps={{
-            sx: {
-              p: 1,
-              width: 170,
-              '& .MuiMenuItem-root': {
-                px: 1,
-                typography: 'body2',
-                borderRadius: 0.75
-              }
-            }
-          }}
         >
           <MenuItem onClick={handelViewDetails}>
             <VisibilityIcon sx={{ mr: 2 }} />
@@ -345,7 +464,7 @@ export default function ModelPageContainer() {
               </MenuItem>
             </>
           )}
-        </Popover>
+        </ModelActionPopover>
       </MainLayout>
     </>
   );
