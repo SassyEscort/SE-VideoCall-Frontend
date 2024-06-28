@@ -8,7 +8,7 @@ import InvoiceModalV2 from '../InvoicePage/InvoiceModalV2';
 import moment from 'moment';
 import { useState } from 'react';
 import { ModelPastPayoutDetailRes } from 'services/payout/types';
-import { FirstBox, SecondBox, TableCellMain, TableRowMain } from './PurchaseInvoiceTableBody.styled';
+import { FirstBox, SecondBox, TableCellMain, TableRowMain, UINewTypographyDownload } from './PurchaseInvoiceTableBody.styled';
 
 export type invoiceDataType = {
   map: any;
@@ -96,9 +96,9 @@ const PurchaseInvoiceTableBodyV2 = ({ modelPayoutList }: { modelPayoutList: Mode
           <TableCellMain align="center">
             {item.state === 'Approved' && (
               <Button onClick={() => handleOpenModal(item)}>
-                <UINewTypography variant="buttonLargeMenu">
+                <UINewTypographyDownload>
                   <FormattedMessage id="Download" />
-                </UINewTypography>
+                </UINewTypographyDownload>
               </Button>
             )}
           </TableCellMain>

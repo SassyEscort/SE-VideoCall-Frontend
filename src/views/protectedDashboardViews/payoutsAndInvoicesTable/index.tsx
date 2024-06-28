@@ -7,19 +7,21 @@ import Status from './searchFilters/status';
 import {
   FilterDropdownBox,
   FilterMainBox,
+  FilterSecondBox,
   MainBox,
   ResetMainBox,
   SecondBox,
   StackBox,
   TableBox,
   TypographyBox,
+  TypographyBoxTotalOfInvoices,
   UINewTypographyBox
 } from './payoutsAndInvoicesTable.styled';
 import BillingTable from './billingTable/BillingTable';
 import PaginationSearch from './searchFilters/paginationSearch/PaginationSearch';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
-import { Divider } from '@mui/material';
 import { useState } from 'react';
+import { Divider } from '@mui/material';
 
 const PayoutsAndInvoices = () => {
   const [searchString, setSearchString] = useState('');
@@ -40,20 +42,23 @@ const PayoutsAndInvoices = () => {
               <PaginationSearch placeholder={'Search'} handleChangeSearch={handleChangeSearch} />
             </StackBox>
             <FilterMainBox>
-              <InvoiceDate />
-              <Status />
+              <FilterSecondBox>
+                <InvoiceDate />
+                <Status />
+              </FilterSecondBox>
+
+              <ResetMainBox>
+                <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.disabled', height: '40px', alignItems: 'center' }} />
+                <UINewTypography variant="bodyLight" color="text.disabled">
+                  <FormattedMessage id="Reset" />
+                </UINewTypography>
+              </ResetMainBox>
             </FilterMainBox>
-            <ResetMainBox>
-              <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.disabled', height: '40px', alignItems: 'center' }} />
-              <UINewTypography variant="bodyLight" color="text.disabled">
-                <FormattedMessage id="Reset" />
-              </UINewTypography>
-            </ResetMainBox>
           </FilterDropdownBox>
           <TypographyBox>
-            <UINewTypography variant="SubtitleSmallMedium">
+            <TypographyBoxTotalOfInvoices>
               <FormattedMessage id="TotalOfInvoices" />
-            </UINewTypography>
+            </TypographyBoxTotalOfInvoices>
           </TypographyBox>
           <TableBox>
             <BillingTable searchString={searchString} />
