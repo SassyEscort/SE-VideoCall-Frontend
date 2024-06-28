@@ -68,10 +68,8 @@ const ModelMultiplePhoto = ({
   const [existingPhotos, setExistingPhotos] = useState<UploadPhotos[]>([]);
   const [uploadedImagesURL, setUploadedImagesURL] = useState<UploadPhotos[]>([]);
   const [thumbnailImageId, setThumbnailImageId] = useState<number | undefined>(undefined);
-  const [isDelete, setIsDelete] = useState(false);
 
   const removeImage = (name: string) => {
-    setIsDelete(true);
     let index = existingPhotos?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
       existingPhotos?.splice(index, 1);
@@ -201,9 +199,7 @@ const ModelMultiplePhoto = ({
   const handleCancel = () => {
     setValue('cords5', null);
     setUploadedImagesURL([]);
-    if (isDelete) {
-      handleExistingPhotos(workerPhotos);
-    }
+    handleExistingPhotos(workerPhotos);
   };
 
   const hasChanges = () => {
@@ -212,6 +208,7 @@ const ModelMultiplePhoto = ({
     });
     return cordsChanged || values?.file5 ? true : false;
   };
+
   return (
     <>
       <UploadMultiplePhotos>
