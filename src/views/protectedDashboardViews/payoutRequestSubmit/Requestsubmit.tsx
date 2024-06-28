@@ -1,5 +1,4 @@
 import { DialogContent, Box } from '@mui/material';
-import UINewTypography from 'components/UIComponents/UINewTypography';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import {
@@ -10,8 +9,9 @@ import {
   FirstBoxRequestSubmit,
   SecondBoxRequestSubmit,
   UINewTypographyYourRequestHasBeenSubmitted,
-  UINewTypographyYourTheRequestWill
-} from './PayoutRequestSubmit';
+  UINewTypographyYourTheRequestWill,
+  TextBox
+} from './PayoutRequestSubmit.styled';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 const Requestsubmit = () => {
@@ -19,9 +19,9 @@ const Requestsubmit = () => {
     <>
       <FirstBoxRequestSubmit>
         <SecondBoxRequestSubmit>
-          <UINewTypography variant="h6" color={'text.primary'}>
+          <TextBox color={'text.primary'}>
             <FormattedMessage id="RequestAPayout" />
-          </UINewTypography>
+          </TextBox>
 
           <IconButton aria-label="close" sx={{ color: 'text.secondary' }}>
             <CloseIcon />

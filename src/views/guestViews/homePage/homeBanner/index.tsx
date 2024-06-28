@@ -16,7 +16,9 @@ import {
   SecondBoxContainer,
   TopBoxContainer,
   ThirdBoxContainer,
-  TextContainer
+  TextContainer,
+  SignupTextContainer,
+  ExploreTextContainer
 } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
@@ -151,14 +153,14 @@ const HomeTopBanner = () => {
                 {isSmDown ? (
                   <SecondBoxContainer>
                     <UIThemeShadowButton onClick={handleDropDownOpen} variant="contained">
-                      <UINewTypography variant="bodySemiBold" sx={{ lineHeight: '120%' }}>
+                      <SignupTextContainer>
                         <FormattedMessage id="SignUpNow" />
-                      </UINewTypography>
+                      </SignupTextContainer>
                       <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} />
                     </UIThemeShadowButton>
-                    <UINewTypography variant="bodySemiBold" onClick={handleClickScroll} sx={{ lineHeight: '120%' }}>
+                    <ExploreTextContainer onClick={handleClickScroll}>
                       <FormattedMessage id="ExploreModels" />
-                    </UINewTypography>
+                    </ExploreTextContainer>
                   </SecondBoxContainer>
                 ) : (
                   <UIThemeShadowButton onClick={handleClickScroll} variant="contained">

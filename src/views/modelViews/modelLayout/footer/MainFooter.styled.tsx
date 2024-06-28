@@ -76,7 +76,7 @@ export const FirstBoxContainerMain = styled(Box)(({ theme }) => ({
   gap: theme.spacing(10),
   justifyContent: 'center',
   [theme.breakpoints.down('sm')]: {
-    marginTop: theme.spacing(6)
+    marginTop: theme.spacing(5.625)
   },
   [theme.breakpoints.up('sm')]: {
     marginTop: theme.spacing(3)

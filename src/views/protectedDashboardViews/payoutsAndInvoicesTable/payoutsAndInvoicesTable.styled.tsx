@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Stack, TableRow } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -121,4 +121,10 @@ export const TypographyBoxTotalOfInvoices = styled(Box)(({ theme }) => ({
   fontSize: '14px',
   lineHeight: '17.5px',
   color: theme.palette.text.primary
+}));
+
+export const StyledTableRow = styled(TableRow)(() => ({
+  border: 'none',
+  display: 'flex',
+  justifyContent: 'center'
 }));

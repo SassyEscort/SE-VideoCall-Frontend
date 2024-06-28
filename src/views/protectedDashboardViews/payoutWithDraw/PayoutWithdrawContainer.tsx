@@ -31,7 +31,7 @@ import {
   UINewTypographyPrice
 } from './PayoutWidthDraw';
 import CloseIcon from '@mui/icons-material/Close';
-import { DividerBox } from '../payoutRequestSubmit/PayoutRequestSubmit';
+import { DividerBox } from '../payoutRequestSubmit/PayoutRequestSubmit.styled';
 import { BankDetailsListRes } from 'services/payout/types';
 import { ErrorMessage } from 'constants/common.constants';
 import { toast } from 'react-toastify';

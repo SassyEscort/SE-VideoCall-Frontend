@@ -14,17 +14,23 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Box from '@mui/system/Box';
+import { CometChatUIKitConstants } from '@cometchat/uikit-resources';
+import { CometChat } from '@cometchat/chat-sdk-javascript';
+import CallFeature from 'views/protectedViews/callingFeature';
 
 const EscortDetailPage = () => {
   const path = usePathname();
+  const router = useRouter();
+
   const userName = path.split('/')[2];
 
   const [guestData, setGuestData] = useState<ModelDetailsResponse>();
+  const [call, setCall] = useState<CometChat.Call | undefined>(undefined);
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
 
   const isLgDown = useMediaQuery(theme.breakpoints.down('lg'));
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
 
   useEffect(() => {
     const userToken = async () => {
@@ -56,16 +62,44 @@ const EscortDetailPage = () => {
     fetchGuestData();
   }, [userName]);
 
+  const handleCallInitiate = () => {
+    if (guestData) {
+      const callObject = new CometChat.Call(
+        guestData.id,
+        CometChatUIKitConstants.MessageTypes.video,
+        CometChatUIKitConstants.MessageReceiverType.user
+      );
+      CometChat.initiateCall(callObject).then((c: any) => {
+        setCall(c);
+      });
+    }
+  };
+
+  const handleCancelCall = () => {
+    setCall(undefined);
+    router.push('/');
+  };
+
   return (
     <>
       <HomeMainContainer>
         <Box sx={{ px: { xs: '15px', lg: '0' } }}>
           {isLgDown ? (
-            <EscortSliderMobile workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])} modelId={guestData?.id ?? 0} token={token} />
+            <EscortSliderMobile
+              workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])}
+              modelId={guestData?.id ?? 0}
+              token={token}
+              handleCallInitiate={handleCallInitiate}
+            />
           ) : (
-            <EscortSlider workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])} modelId={guestData?.id ?? 0} token={token} />
+            <EscortSlider
+              workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])}
+              modelId={guestData?.id ?? 0}
+              token={token}
+              handleCallInitiate={handleCallInitiate}
+            />
           )}
-
+          <CallFeature call={call} handleCancelCall={handleCancelCall} />
           <EscortPersonalDetail guestData={guestData ?? ({} as ModelDetailsResponse)} />
           <EscortExplore />
         </Box>
