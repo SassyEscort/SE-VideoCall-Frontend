@@ -18,7 +18,7 @@ const InvoiceTableHeader = () => {
     <TableHead>
       <TableRow>
         {headerToRender.map((dp, index) => (
-          <TableCell key={index}>
+          <TableCell key={index} sx={{ border: 'none' }}>
             <UINewTypography variant="buttonLargeMenu" color="text.primary">
               {dp.label}
             </UINewTypography>

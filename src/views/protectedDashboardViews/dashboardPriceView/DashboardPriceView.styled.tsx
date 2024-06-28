@@ -122,7 +122,8 @@ export const ButtonConatiner = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   width: '100%',
-  maxWidth: '725px'
+  maxWidth: '725px',
+  marginBottom: theme.spacing(8)
 }));
 
 export const TextConatiner = styled(Typography)(({ theme }) => ({

@@ -362,5 +362,8 @@
   "ExploreOtherModels": "Explore other models",
   "RateYourVideoCall": "Rate your video call",
   "SorryKatIs": "Sorry, Kat is currently engaged in another call.",
-  "PayoutFAQs": "Payout FAQs"
+  "PayoutFAQs": "Payout FAQs",
+  "Pending": "Pending",
+  "Completed": "Completed",
+  "Cancelled": "Cancelled"
 }

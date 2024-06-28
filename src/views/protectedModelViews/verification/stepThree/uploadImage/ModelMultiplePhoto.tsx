@@ -206,6 +206,12 @@ const ModelMultiplePhoto = ({
     }
   };
 
+  const hasChanges = () => {
+    const cordsChanged = workerPhotos.some((photo, index) => {
+      return photo.cords !== values.file5Existing[index]?.cords;
+    });
+    return cordsChanged || values?.file5 ? true : false;
+  };
   return (
     <>
       <UploadMultiplePhotos>
@@ -281,12 +287,8 @@ const ModelMultiplePhoto = ({
         <UploadMultipleBox pt={13}>
           <UIThemeButton
             onClick={handleCancel}
-            disabled={Boolean((values.file5 === null || uploadedImagesURL.length === 0) && !values.cords5) && Boolean(!isDelete && isEdit)}
-            variant={
-              Boolean((values.file5 === null || uploadedImagesURL.length === 0) && !values.cords5) && Boolean(!isDelete && isEdit)
-                ? 'contained'
-                : 'outlined'
-            }
+            disabled={!hasChanges()}
+            variant={!hasChanges() ? 'contained' : 'outlined'}
             sx={{ px: '20px', py: '9px' }}
           >
             <UINewTypography variant="body">
@@ -298,7 +300,7 @@ const ModelMultiplePhoto = ({
             type="submit"
             variant="contained"
             loading={loading}
-            disabled={Boolean((values.file5 === null || uploadedImagesURL.length === 0) && !values.cords5) && Boolean(!isDelete && isEdit)}
+            disabled={!hasChanges()}
             sx={{ px: '20px', py: '9px' }}
           >
             <UINewTypography variant="body">

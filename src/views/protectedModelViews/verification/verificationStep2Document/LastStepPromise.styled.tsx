@@ -69,3 +69,18 @@ export const UIRulesHeader = styled(UINewTypography)(({ theme }) => ({
   fontSize: '16px !important',
   lineHeight: '25.6px !important'
 }));
+
+export const LastMainBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: theme.spacing(9),
+  marginBottom: theme.spacing(12.75),
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
+  },
+  [theme.breakpoints.only('sm')]: {
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
+  }
+}));
