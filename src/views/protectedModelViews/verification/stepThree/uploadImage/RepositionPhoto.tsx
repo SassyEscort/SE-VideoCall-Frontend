@@ -41,7 +41,7 @@ const RepositionPhoto = ({
   handleClose: () => void;
   handleSave: (cords: string) => void;
 }) => {
-  const existingCords = croppedCords && JSON.parse(croppedCords);
+  const existingCords = croppedCords && JSON.parse(croppedCords.replace(/^,/, ''));
 
   const [crop, setCrop] = useState<Point>({
     x: existingCords?.state?.x || 0,
