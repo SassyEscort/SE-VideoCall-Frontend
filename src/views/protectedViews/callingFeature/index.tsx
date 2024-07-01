@@ -1,8 +1,10 @@
 'use client';
-import { Call } from '@cometchat/chat-sdk-javascript';
 import { CometChatIncomingCall, CometChatOngoingCall, CometChatOutgoingCall } from '@cometchat/chat-uikit-react';
+import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 
-const CallFeature = ({ call, handleCancelCall }: { call: Call | undefined; handleCancelCall: () => void }) => {
+const CallFeature = () => {
+  const { call, handleCancelCall } = useCallFeatureContext();
+
   return (
     <>
       <CometChatIncomingCall call={call} />

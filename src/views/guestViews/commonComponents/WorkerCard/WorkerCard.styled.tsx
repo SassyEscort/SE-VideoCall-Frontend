@@ -188,7 +188,8 @@ export const WorkerCardContainer = styled(Box)(() => ({
 
 export const ProfileCardContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(5.65)
+  alignItems: 'center',
+  justifyContent: 'space-between'
 }));
 
 export const NameCardContainer = styled(Box)(({ theme }) => ({
