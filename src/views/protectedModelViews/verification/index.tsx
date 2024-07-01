@@ -22,7 +22,7 @@ import DashboardPriceView from 'views/protectedDashboardViews/dashboardPriceView
 
 const VERIFICATION_STEPS = ['Basic Details', 'Documents', 'Photos', 'Price', 'Review'];
 
-const submitButtonIds = ['basic-details-button', 'document-id-button', 'document-photo-button', 'photos-button', 'review-button'];
+const submitButtonIds = ['basic-details-button', 'document-id-button', 'photos-button', 'price-id-button', 'review-button'];
 
 export type TokenIdType = {
   id: number;

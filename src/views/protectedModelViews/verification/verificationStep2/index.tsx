@@ -207,7 +207,7 @@ const VerificationStep2 = ({
                 </UIThemeButton>
               </BackButtonBox>
               <UploaddocumentsButtonBox>
-                <StyleButtonV2 variant="contained" type="submit">
+                <StyleButtonV2 id="document-id-button" variant="contained" type="submit">
                   <VerificationButtonText variant="buttonLargeBold" color="primary.200">
                     <FormattedMessage id="Next" />
                   </VerificationButtonText>
