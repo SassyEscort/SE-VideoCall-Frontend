@@ -214,6 +214,7 @@ const DashboardPriceView = ({
               </UIThemeButton>
             )}
             <StyleButtonV2
+              id="price-id-button"
               variant={disable ? 'contained' : 'outlined'}
               type="submit"
               sx={{ border: '#07030E !important' }}
