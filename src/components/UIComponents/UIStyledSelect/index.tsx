@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 
 export const UIStyledSelect = styled(Select)(({ theme }) => ({
   display: 'flex',
-  borderRadius: '8px',
+  borderRadius: theme.spacing(1),
   width: '100%',
   height: '48px',
   backgroundColor: theme.palette.primary[700],
@@ -27,7 +27,7 @@ export const UIStyledSelect = styled(Select)(({ theme }) => ({
 
 export const UIStyledSelectPastPayout = styled(Select)(({ theme }) => ({
   display: 'flex',
-  borderRadius: '8px',
+  borderRadius: theme.spacing(1),
   width: '100%',
   height: '40px',
   backgroundColor: theme.palette.primary[700],

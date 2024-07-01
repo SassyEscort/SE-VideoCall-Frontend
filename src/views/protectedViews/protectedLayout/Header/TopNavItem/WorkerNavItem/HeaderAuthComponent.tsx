@@ -154,13 +154,13 @@ const HeaderAuthComponent = () => {
   };
 
   const unReadCount = notificationDetails?.data?.aggregate?.total_rows && notificationDetails?.data?.aggregate?.total_rows > 0;
-  const is320pxOrSmaller = useMediaQuery('(max-width:320px)');
+  const isSmaller = useMediaQuery('(max-width:320px)');
   return (
     <>
       <HeaderMainBox
         sx={{
-          gap: is320pxOrSmaller
-            ? '8px'
+          gap: isSmaller
+            ? 1
             : {
                 xs: 2.5,
                 sm: 4.5
