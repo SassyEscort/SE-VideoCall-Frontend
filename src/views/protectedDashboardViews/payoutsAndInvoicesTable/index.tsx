@@ -136,7 +136,7 @@ const PayoutsAndInvoices = () => {
               <FormattedMessage id="YourPastPayouts" />
             </UINewTypographyBox>
           </SecondBox>
-          <FilterDropdownBox>
+          <FilterDropdownBox id="search">
             <StackBox direction="row" color="text.secondary">
               <PaginationSearch placeholder={'Search'} handleChangeSearch={handleChangeSearch} />
             </StackBox>

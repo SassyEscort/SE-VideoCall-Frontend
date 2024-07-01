@@ -24,7 +24,7 @@ const EarningMobileSidebar = ({ token }: { token: TokenIdType }) => {
   };
 
   return (
-    <FormControl id="age" sx={{ width: '100%' }}>
+    <FormControl id="earnings-small" sx={{ width: '100%' }}>
       <Box sx={{ mb: 3 }}>
         <UINewTypography variant="h2" color="text.secondary">
           <FormattedMessage id="Earnings" />
