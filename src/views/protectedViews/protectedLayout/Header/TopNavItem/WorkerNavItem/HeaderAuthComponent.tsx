@@ -23,6 +23,7 @@ import { Root } from 'services/notification/type';
 import MyProfileChangePassword from 'views/protectedViews/myProfile/MyProfileChangePassword';
 import { IconButtonBoxInner, UnReadCountMain } from 'views/protectedDashboardViews/dashboardNavItem/DashboardMenu.styled';
 import { IconButtonBoxNew } from './Notification.styled';
+import { HeaderMainBox } from './HeaderAuthComponent.styled';
 
 export type NotificationFilters = {
   page: number;
@@ -156,9 +157,7 @@ const HeaderAuthComponent = () => {
   const is320pxOrSmaller = useMediaQuery('(max-width:320px)');
   return (
     <>
-      <Box
-        display="flex"
-        alignItems="center"
+      <HeaderMainBox
         sx={{
           gap: is320pxOrSmaller
             ? '8px'
@@ -276,7 +275,7 @@ const HeaderAuthComponent = () => {
           <ProfileMenu profilePic={uploadedImageURL} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
           <MyProfileChangePassword onOpen={openChangePassword} onClose={handleCloseChnagePassword} token={token} />
         </IconButtonBoxNew>
-      </Box>
+      </HeaderMainBox>
       {notificationDetails && (
         <NotificationModalV2
           notificationDetails={notificationDetails ?? ({} as Root)}
