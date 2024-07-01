@@ -210,13 +210,15 @@ const UploadImage = ({
         ];
 
         const uploadPhotos: ImageUploadPayload[] = [];
+
         if (uploadFile5)
           uploadFile5.forEach((x, i) => {
+            const matchedCords = values.cords5?.[i];
             if (x.photosURL !== null)
               uploadPhotos.push({
                 link: x.link ? String(x.link) : String(x.photosURL),
                 type: 'file_5',
-                cords: x.cords,
+                cords: matchedCords ?? '',
                 is_favourite: Number(values.is_favourite?.split('[')[1].split(']')[0]) === i ? 1 : 0,
                 is_document: 0,
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
