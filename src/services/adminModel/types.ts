@@ -18,6 +18,7 @@ export type Document = {
   cords: string;
   favourite: number;
   document_number: string | null;
+  file_type?: string;
 };
 
 export type Photo = {
