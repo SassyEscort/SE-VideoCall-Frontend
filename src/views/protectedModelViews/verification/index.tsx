@@ -149,7 +149,7 @@ const VerificationContainer = () => {
             backgroundColor: 'secondary.dark'
           }}
         >
-          <CircularProgressWithLabel value={progressValue} currentStep={activeStep + 1} totalSteps={4} />
+          <CircularProgressWithLabel value={progressValue} currentStep={activeStep + 1} totalSteps={5} />
           <Box
             sx={{
               display: 'flex',
