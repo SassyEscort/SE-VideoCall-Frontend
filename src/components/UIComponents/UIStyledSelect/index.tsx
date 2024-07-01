@@ -7,6 +7,28 @@ export const UIStyledSelect = styled(Select)(({ theme }) => ({
   display: 'flex',
   borderRadius: '8px',
   width: '100%',
+  height: '48px',
+  backgroundColor: theme.palette.primary[700],
+
+  '&:hover': {
+    '.MuiOutlinedInput-notchedOutline': {
+      borderColor: theme.palette.secondary[700]
+    }
+  },
+  '& .MuiSelect-select': {
+    padding: theme.spacing(0, 2),
+    display: 'flex',
+    gap: theme.spacing(1)
+  },
+  '& .MuiSvgIcon-root': {
+    color: 'rgba(183, 181, 185, 1)'
+  }
+}));
+
+export const UIStyledSelectPastPayout = styled(Select)(({ theme }) => ({
+  display: 'flex',
+  borderRadius: '8px',
+  width: '100%',
   height: '40px',
   backgroundColor: theme.palette.primary[700],
 
