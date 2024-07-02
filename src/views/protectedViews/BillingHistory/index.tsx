@@ -80,13 +80,23 @@ const BillingHistory = () => {
 
     fetchEarningHistoryDetails();
   }, [filters.limit, filters.offset, token.token]);
+
+  const scrollToTable = () => {
+    const tableElement = document.getElementById('tableSection');
+    if (tableElement) {
+      tableElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const handleChangeFilter = useCallback((value: BillPaginationType) => {
     setFilters(value);
   }, []);
+
   const handleChangePage = useCallback(
     (event: React.ChangeEvent<unknown>, value: number) => {
       const offset = (value - 1) * filters.limit;
       handleChangeFilter({ ...filters, page: value, offset: offset });
+      scrollToTable();
     },
     [filters, handleChangeFilter]
   );
@@ -94,7 +104,7 @@ const BillingHistory = () => {
     <MainLayoutNav variant={'worker'} enlargedFooter={true}>
       <BillingHistoryBoxContainer>
         <TextAndBoxContainer>
-          <BillingHistoryTextContainer>
+          <BillingHistoryTextContainer id={'tableSection'}>
             <UINewTypography variant="h2" color="text.secondary" whiteSpace={'nowrap'}>
               <FormattedMessage id="BillingHistory" />
             </UINewTypography>

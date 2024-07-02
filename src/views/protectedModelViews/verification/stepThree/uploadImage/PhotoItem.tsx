@@ -145,7 +145,7 @@ const PhotoItem = ({
 
   useEffect(() => {
     const fetchCroppedImage = async () => {
-      const existingCords: Area | undefined = image.cords && JSON.parse(image.cords).cords;
+      const existingCords: Area | undefined = image.cords && JSON.parse(image.cords.replace(/^,/, '')).cords;
 
       if (existingCords) {
         const croppedImage = await getRepositionImage(image.photoURL, existingCords);

@@ -29,7 +29,6 @@ export const SecondContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '929px',
   height: '100%',
-  maxHeight: '492px',
   gap: theme.spacing(3)
 }));
 
@@ -38,7 +37,6 @@ export const SecondSubContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '929px',
   height: '100%',
-  maxHeight: '153px',
   flexDirection: 'column'
 }));
 
@@ -50,8 +48,7 @@ export const SecondSubTextMainContainer = styled(Box)(({ theme }) => ({
   maxHeight: '80px',
   justifyContent: 'space-between',
   [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column',
-    maxHeight: '153px'
+    flexDirection: 'column'
   },
   [theme.breakpoints.up('sm')]: {
     flexDirection: 'row',

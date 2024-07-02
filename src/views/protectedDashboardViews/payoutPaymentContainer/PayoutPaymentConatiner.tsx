@@ -5,6 +5,7 @@ export const MainConatinerBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   paddingTop: theme.spacing(4),
+  width: '100%',
   [theme.breakpoints.down('sm')]: {
     paddingTop: theme.spacing(1.375)
   }
@@ -36,9 +37,14 @@ export const MainForBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
   width: '100%',
   maxWidth: '600px',
+  height: '100%',
   backgroundColor: theme.palette.primary[700],
   padding: '24px 0px 24px 24px',
-  borderRadius: '8px'
+
+  borderRadius: theme.spacing(1),
+  [theme.breakpoints.down('sm')]: {
+    height: '175px'
+  }
 }));
 
 export const SiliconBox = styled(Box)(({ theme }) => ({

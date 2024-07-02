@@ -7,9 +7,9 @@ export type EarningHistoryDetails = {
 };
 
 export type ModelEarningHistoryDetails = {
-  total_rows: 100;
-  page_size: 20;
-  offset: 0;
+  total_rows: number;
+  page_size: number;
+  offset: number;
 };
 
 export type ModelEarningHistoryPageDetails = {

@@ -176,7 +176,7 @@ const PayoutPaymentConatiner = ({
                   <UINewTypography variant="body" color="primary.200">
                     <FormattedMessage id="AddMoreBanks" />
                   </UINewTypography>
-                  <AddIcon sx={{ color: 'primary.200' }} />
+                  <AddIcon sx={{ color: 'primary.200', height: 20, width: 20 }} />
                 </UIThemeButton>
               </ButtonConatinerBox>
             </MapBox>

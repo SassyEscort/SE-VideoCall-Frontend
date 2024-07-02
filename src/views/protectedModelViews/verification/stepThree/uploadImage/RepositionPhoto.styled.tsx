@@ -84,3 +84,14 @@ export const ModelMultipleBoxContainer = styled(Box)(({ theme }) => ({
     gap: theme.spacing(2)
   }
 }));
+
+export const UploadButBoxContainer = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
+  },
+  [theme.breakpoints.only('sm')]: {
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
+  }
+}));

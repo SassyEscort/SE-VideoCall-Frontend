@@ -27,6 +27,7 @@ import { MultipleOptionString } from 'views/protectedModelViews/verification/ste
 const HeaderGuestComponent = () => {
   const url = new URL(window.location.href);
   const email = url.searchParams.get('email');
+  const isSmaller = useMediaQuery('(max-width:320px)');
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -167,7 +168,18 @@ const HeaderGuestComponent = () => {
           </Box>
 
           <Box display="flex" gap={2}>
-            <Box display="flex" alignItems="center" gap={{ xs: 2.5, sm: 4.5 }}>
+            <Box
+              display="flex"
+              alignItems="center"
+              sx={{
+                gap: isSmaller
+                  ? 1
+                  : {
+                      xs: 2.5,
+                      sm: 4.5
+                    }
+              }}
+            >
               {isMdUp && (
                 <Link prefetch={false} href="/model">
                   <UINewTypography variant="buttonLargeMenu" color="text.secondary">

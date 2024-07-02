@@ -147,14 +147,9 @@ const VerificationStepOne = ({
       }}
     >
       {({ values, errors, touched, handleChange, setFieldValue, handleSubmit, handleBlur, handleReset }) => {
-        const changedValues = Object.keys(values).reduce((acc, key) => {
-          if (values[key as keyof VerificationStep1Type] !== initialValuesPerStep[key as keyof VerificationStep1Type]) {
-            return true;
-          } else {
-            return false;
-          }
-        }, {});
-
+        const changedValues = Object.keys(values).some(
+          (key) => values[key as keyof VerificationStep1Type] !== initialValuesPerStep[key as keyof VerificationStep1Type]
+        );
         return (
           <StepOneContainer
             component="form"

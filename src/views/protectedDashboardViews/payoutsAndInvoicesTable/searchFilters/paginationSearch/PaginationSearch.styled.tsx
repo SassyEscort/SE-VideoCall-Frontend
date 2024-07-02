@@ -8,15 +8,11 @@ export const StyledRoot = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   padding: '0 !important',
-  [theme.breakpoints.down('sm')]: {
-    width: '100%'
-  },
-  [theme.breakpoints.only('xs')]: {
-    width: '100%'
-  }
+  width: '100%'
 }));
 export const StyledSearch = styled(OutlinedInput)(({ theme }) => ({
   width: '100%',
+  maxHeight: '44px',
   borderRadius: theme.spacing(1),
   borderColor: '#232027',
   transition: theme.transitions.create(['box-shadow', 'width'], {
@@ -38,6 +34,6 @@ export const StyledSearch = styled(OutlinedInput)(({ theme }) => ({
   },
   '& .MuiInputBase-input': {
     color: theme.palette.text.secondary,
-    padding: '12px 16px'
+    padding: '12px 0px'
   }
 }));

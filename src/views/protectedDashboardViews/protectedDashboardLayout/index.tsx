@@ -6,7 +6,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import ModelNav from '../dashboardNavbar';
 import { TopNavItemVariantProps } from 'views/protectedViews/protectedLayout/Header/types';
-import { ProtectedDashboardLayoutMainContainer } from './protectedDashboardLayout.styled';
+import { ProtectedDashboardLayoutBoxContainer, ProtectedDashboardLayoutMainContainer } from './protectedDashboardLayout.styled';
 
 export type MainLayoutType = TopNavItemVariantProps & {
   children: ReactNode;
@@ -42,9 +42,7 @@ const MainLayoutNav = (props: MainLayoutType) => {
             <ModelNav openNav={open} onCloseNav={() => setOpen(true)} />
             <Main>
               {isMdUp && <ProtectedDashboardLayoutMainContainer />}
-              <Box paddingBottom={{ md: 13 }} paddingRight="14px" paddingLeft={{ xs: '14px', sm: '0' }}>
-                {props.children}
-              </Box>
+              <ProtectedDashboardLayoutBoxContainer>{props.children}</ProtectedDashboardLayoutBoxContainer>
             </Main>
           </StyledRoot>
         </Box>

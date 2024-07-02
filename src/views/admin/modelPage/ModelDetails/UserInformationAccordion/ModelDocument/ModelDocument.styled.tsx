@@ -24,3 +24,9 @@ export const ModelDocumentImgBox = styled('img')(() => ({
   width: 346,
   height: 366
 }));
+
+export const StyledModelDocumentImgBox = styled('img')(({ theme }) => ({
+  cursor: 'pointer',
+  width: '180px',
+  height: '180px'
+}));

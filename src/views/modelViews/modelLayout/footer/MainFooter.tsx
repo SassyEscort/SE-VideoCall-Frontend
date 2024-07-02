@@ -64,7 +64,7 @@ const MainFooter = () => {
   };
   return (
     <>
-      <Box sx={{ width: '100%', mt: '23px' }}>
+      <Box sx={{ width: '100%' }}>
         <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
           <DividerUILine orientation="horizontal" flexItem />
         </Box>

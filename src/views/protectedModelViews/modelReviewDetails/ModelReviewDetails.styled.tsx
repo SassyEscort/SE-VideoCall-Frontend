@@ -3,7 +3,8 @@ import { Box, Typography, styled } from '@mui/material';
 export const MainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center'
+  alignItems: 'center',
+  marginBottom: theme.spacing(8)
 }));
 
 export const DocumentSecondConatiner = styled(Box)(({ theme }) => ({

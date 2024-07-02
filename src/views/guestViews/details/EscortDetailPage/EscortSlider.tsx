@@ -165,7 +165,8 @@ export const EscortSlider = ({
                 setThumbsSwiper(swiper);
               }}
               spaceBetween={0}
-              slidesPerView={6}
+              slidesPerView={workerPhotos.length}
+              loop={false}
               watchSlidesProgress={true}
               modules={[Navigation, Thumbs, FreeMode]}
               className="mySwiper"

@@ -42,13 +42,12 @@ const HomeModelFAQ = () => {
                 <StyledAccordion defaultExpanded>
                   <StyledAccordionSummary aria-controls="panel1-content" id="panel1-header" expandIcon={<ExpandMoreIcon />}>
                     <UINewTypography variant="bodySemiBold" sx={{ color: 'secondary.100' }}>
-                      How do I find the right model for me?
+                      <FormattedMessage id="HowDoISignUp" />
                     </UINewTypography>
                   </StyledAccordionSummary>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
-                      With our intuitive search and filter tools, finding your match is simple. You can filter models by interests,
-                      languages spoken, location, and more to find someone who meets your preferences.
+                      <FormattedMessage id="YouCanSignUpByClicking" />
                     </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
@@ -61,11 +60,13 @@ const HomeModelFAQ = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      Can I communicate with models before booking a video call?
+                      <FormattedMessage id="WhatAreTheRequirements" />
                     </StyledAccordionSummary>
                   </UINewTypography>
                   <Box component="ul">
-                    <StyledAccordionDetails></StyledAccordionDetails>
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="YouMustBeAtLeast" />
+                    </StyledAccordionDetails>
                   </Box>
                 </StyledAccordion>
 
@@ -77,11 +78,13 @@ const HomeModelFAQ = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      How do I sign up and start using the platform?
+                      <FormattedMessage id="HowDoISetMyRates" />
                     </StyledAccordionSummary>
                   </UINewTypography>
                   <UINewTypography variant="bodyRegular">
-                    <StyledAccordionDetails></StyledAccordionDetails>
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="YouCanSetYourRates" />
+                    </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
 
@@ -93,11 +96,13 @@ const HomeModelFAQ = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      Who are the escorts?
+                      <FormattedMessage id="HowAreMyEarnings" />
                     </StyledAccordionSummary>
                   </UINewTypography>
                   <Box component="ul">
-                    <StyledAccordionDetails></StyledAccordionDetails>
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="YourEarningsAreCalculated" />
+                    </StyledAccordionDetails>
                   </Box>
                 </StyledAccordion>
 
@@ -109,11 +114,13 @@ const HomeModelFAQ = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      Is my personal information safe with you?
+                      <FormattedMessage id="WhenAndHowDoI" />
                     </StyledAccordionSummary>
                   </UINewTypography>
                   <UINewTypography variant="bodyRegular">
-                    <StyledAccordionDetails></StyledAccordionDetails>
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="PaymentsAreProcessed" />
+                    </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
 
@@ -125,11 +132,13 @@ const HomeModelFAQ = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      What happens if I’m not satisfied with my experience?
+                      <FormattedMessage id="CanIChangeMyRates" />
                     </StyledAccordionSummary>
                   </UINewTypography>
                   <UINewTypography variant="bodyRegular">
-                    <StyledAccordionDetails></StyledAccordionDetails>
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="YesYouCanUpdate" />
+                    </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
 
@@ -141,11 +150,13 @@ const HomeModelFAQ = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      How does payment work?
+                      <FormattedMessage id="WhatIfIHaveTechnical" />
                     </StyledAccordionSummary>
                   </UINewTypography>
                   <Box component="ul">
-                    <StyledAccordionDetails></StyledAccordionDetails>
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="ForAnyTechnicalIssues" />
+                    </StyledAccordionDetails>
                   </Box>
                 </StyledAccordion>
 
@@ -157,11 +168,49 @@ const HomeModelFAQ = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      Are there any rules I need to follow when interacting with models?
+                      <FormattedMessage id="HowCanIIncrease" />
                     </StyledAccordionSummary>
                   </UINewTypography>
                   <Box component="ul">
-                    <StyledAccordionDetails></StyledAccordionDetails>
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="ToIncreaseVisibility" />
+                    </StyledAccordionDetails>
+                  </Box>
+                </StyledAccordion>
+
+                <StyledAccordion>
+                  <UINewTypography variant="bodySemiBold">
+                    <StyledAccordionSummary
+                      sx={{ color: 'secondary.100' }}
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <FormattedMessage id="HowDoIViewMy" />
+                    </StyledAccordionSummary>
+                  </UINewTypography>
+                  <Box component="ul">
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="YouCanViewYourCallHistory" />
+                    </StyledAccordionDetails>
+                  </Box>
+                </StyledAccordion>
+
+                <StyledAccordion>
+                  <UINewTypography variant="bodySemiBold">
+                    <StyledAccordionSummary
+                      sx={{ color: 'secondary.100' }}
+                      aria-controls="panel2-content"
+                      id="panel2-header"
+                      expandIcon={<ExpandMoreIcon />}
+                    >
+                      <FormattedMessage id="WhoDoIContactIf" />
+                    </StyledAccordionSummary>
+                  </UINewTypography>
+                  <Box component="ul">
+                    <StyledAccordionDetails>
+                      <FormattedMessage id="ForAnyQuestionsOrAssistance" />
+                    </StyledAccordionDetails>
                   </Box>
                 </StyledAccordion>
               </FAQConatainer>

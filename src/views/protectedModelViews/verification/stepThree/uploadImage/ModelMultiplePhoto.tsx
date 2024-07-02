@@ -68,10 +68,8 @@ const ModelMultiplePhoto = ({
   const [existingPhotos, setExistingPhotos] = useState<UploadPhotos[]>([]);
   const [uploadedImagesURL, setUploadedImagesURL] = useState<UploadPhotos[]>([]);
   const [thumbnailImageId, setThumbnailImageId] = useState<number | undefined>(undefined);
-  const [isDelete, setIsDelete] = useState(false);
 
   const removeImage = (name: string) => {
-    setIsDelete(true);
     let index = existingPhotos?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
       existingPhotos?.splice(index, 1);
@@ -201,9 +199,14 @@ const ModelMultiplePhoto = ({
   const handleCancel = () => {
     setValue('cords5', null);
     setUploadedImagesURL([]);
-    if (isDelete) {
-      handleExistingPhotos(workerPhotos);
-    }
+    handleExistingPhotos(workerPhotos);
+  };
+
+  const hasChanges = () => {
+    const cordsChanged = workerPhotos.some((photo, index) => {
+      return photo.cords !== values.file5Existing[index]?.cords;
+    });
+    return cordsChanged || values?.file5 ? true : false;
   };
 
   return (
@@ -281,12 +284,8 @@ const ModelMultiplePhoto = ({
         <UploadMultipleBox pt={13}>
           <UIThemeButton
             onClick={handleCancel}
-            disabled={Boolean((values.file5 === null || uploadedImagesURL.length === 0) && !values.cords5) && Boolean(!isDelete && isEdit)}
-            variant={
-              Boolean((values.file5 === null || uploadedImagesURL.length === 0) && !values.cords5) && Boolean(!isDelete && isEdit)
-                ? 'contained'
-                : 'outlined'
-            }
+            disabled={!hasChanges()}
+            variant={!hasChanges() ? 'contained' : 'outlined'}
             sx={{ px: '20px', py: '9px' }}
           >
             <UINewTypography variant="body">
@@ -298,7 +297,7 @@ const ModelMultiplePhoto = ({
             type="submit"
             variant="contained"
             loading={loading}
-            disabled={Boolean((values.file5 === null || uploadedImagesURL.length === 0) && !values.cords5) && Boolean(!isDelete && isEdit)}
+            disabled={!hasChanges()}
             sx={{ px: '20px', py: '9px' }}
           >
             <UINewTypography variant="body">

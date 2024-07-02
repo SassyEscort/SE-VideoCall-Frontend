@@ -8,7 +8,7 @@ import InvoiceModalV2 from '../InvoicePage/InvoiceModalV2';
 import moment from 'moment';
 import { useState } from 'react';
 import { ModelPastPayoutDetailRes } from 'services/payout/types';
-import { FirstBox, SecondBox, TableCellMain, TableRowMain } from './PurchaseInvoiceTableBody.styled';
+import { FirstBox, SecondBox, TableCellMain, TableRowMain, UINewTypographyDownload } from './PurchaseInvoiceTableBody.styled';
 
 export type invoiceDataType = {
   map: any;
@@ -83,22 +83,24 @@ const PurchaseInvoiceTableBodyV2 = ({ modelPayoutList }: { modelPayoutList: Mode
                         : '#FFF'
                 }
               >
-                {item.state === 'Pending'
-                  ? 'Pending'
-                  : item.state === 'Approved'
-                    ? 'Completed'
-                    : item.state === 'Rejected'
-                      ? 'Cancelled'
-                      : '-'}
+                {item.state === 'Pending' ? (
+                  <FormattedMessage id="Pending" />
+                ) : item.state === 'Approved' ? (
+                  <FormattedMessage id="Completed" />
+                ) : item.state === 'Rejected' ? (
+                  <FormattedMessage id="Cancelled" />
+                ) : (
+                  '-'
+                )}
               </UINewTypography>
             </NewStatusBox>
           </TableCellMain>
           <TableCellMain align="center">
             {item.state === 'Approved' && (
               <Button onClick={() => handleOpenModal(item)}>
-                <UINewTypography variant="buttonLargeMenu">
+                <UINewTypographyDownload>
                   <FormattedMessage id="Download" />
-                </UINewTypography>
+                </UINewTypographyDownload>
               </Button>
             )}
           </TableCellMain>

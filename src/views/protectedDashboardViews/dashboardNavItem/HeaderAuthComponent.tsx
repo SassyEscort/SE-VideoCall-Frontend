@@ -130,10 +130,22 @@ const DashboadrHeaderAuthComponent = () => {
   const firstChar = modelDetails?.name ? modelDetails.name.charAt(0).toUpperCase() : '';
 
   const unReadCount = notificationDetails?.data?.aggregate?.total_rows && notificationDetails?.data?.aggregate?.total_rows > 0;
+  const isSmaller = useMediaQuery('(max-width:320px)');
 
   return (
     <>
-      <Box display="flex" alignItems="center" gap={{ xs: 2.5, sm: 4.5 }}>
+      <Box
+        display="flex"
+        alignItems="center"
+        sx={{
+          gap: isSmaller
+            ? 1
+            : {
+                xs: 2.5,
+                sm: 4.5
+              }
+        }}
+      >
         <Box display="flex">
           <LanguageDropdown />
         </Box>

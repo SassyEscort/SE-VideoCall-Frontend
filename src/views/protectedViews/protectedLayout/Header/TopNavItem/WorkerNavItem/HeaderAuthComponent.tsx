@@ -23,6 +23,7 @@ import { Root } from 'services/notification/type';
 import MyProfileChangePassword from 'views/protectedViews/myProfile/MyProfileChangePassword';
 import { IconButtonBoxInner, UnReadCountMain } from 'views/protectedDashboardViews/dashboardNavItem/DashboardMenu.styled';
 import { IconButtonBoxNew } from './Notification.styled';
+import { HeaderMainBox } from './HeaderAuthComponent.styled';
 
 export type NotificationFilters = {
   page: number;
@@ -153,10 +154,19 @@ const HeaderAuthComponent = () => {
   };
 
   const unReadCount = notificationDetails?.data?.aggregate?.total_rows && notificationDetails?.data?.aggregate?.total_rows > 0;
-
+  const isSmaller = useMediaQuery('(max-width:320px)');
   return (
     <>
-      <Box display="flex" alignItems="center" gap={{ xs: 2.5, sm: 4.5 }}>
+      <HeaderMainBox
+        sx={{
+          gap: isSmaller
+            ? 1
+            : {
+                xs: 2.5,
+                sm: 4.5
+              }
+        }}
+      >
         <Box display="flex">
           <LanguageDropdown />
         </Box>
@@ -265,7 +275,7 @@ const HeaderAuthComponent = () => {
           <ProfileMenu profilePic={uploadedImageURL} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
           <MyProfileChangePassword onOpen={openChangePassword} onClose={handleCloseChnagePassword} token={token} />
         </IconButtonBoxNew>
-      </Box>
+      </HeaderMainBox>
       {notificationDetails && (
         <NotificationModalV2
           notificationDetails={notificationDetails ?? ({} as Root)}

@@ -12,29 +12,31 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 
 const PayoutWidthDraw = ({
   open,
-  onClose,
+  closeDailog,
   bankDetailsList,
   token,
   fetchBankDetails,
   handlePayoutStep,
   payoutStep,
-  amountSave
+  amountSave,
+  handlePayoutStepSubmit
 }: {
   open: boolean;
-  onClose: () => void;
+  closeDailog: () => void;
   bankDetailsList: BankDetailsListRes;
   token: TokenIdType;
   fetchBankDetails: () => void;
   handlePayoutStep: () => void;
   payoutStep: number;
   amountSave: number;
+  handlePayoutStepSubmit: (step: number) => void;
 }) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <>
       {!isSm ? (
-        <DialogContentMain open={open} onClose={onClose} fullWidth scroll="body">
+        <DialogContentMain open={open} onClose={closeDailog} fullWidth scroll="body">
           <DialogTitleBox>
             <UINewTypography variant="h6" color={'secondary.200'}>
               <FormattedMessage id="RequestAPayout" />
@@ -42,7 +44,7 @@ const PayoutWidthDraw = ({
 
             <IconButton
               aria-label="close"
-              onClick={onClose}
+              onClick={closeDailog}
               sx={{
                 color: (theme) => theme.palette.text.secondary
               }}
@@ -55,6 +57,7 @@ const PayoutWidthDraw = ({
             token={token}
             fetchBankDetails={fetchBankDetails}
             amountSave={amountSave}
+            closeDailog={closeDailog}
           />
         </DialogContentMain>
       ) : (
@@ -67,6 +70,7 @@ const PayoutWidthDraw = ({
             isSm={isSm}
             handlePayoutStep={handlePayoutStep}
             amountSave={amountSave}
+            handlePayoutStepSubmit={handlePayoutStepSubmit}
           />
         )
       )}

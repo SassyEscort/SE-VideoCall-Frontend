@@ -15,6 +15,7 @@ import { ErrorMessage, MAX_FILE_SIZE } from 'constants/common.constants';
 import { FormattedMessage } from 'react-intl';
 import { useState } from 'react';
 import * as Yup from 'yup';
+import { UploadButBoxContainer } from './RepositionPhoto.styled';
 
 export type WorkerPhotos = {
   id: number;
@@ -209,13 +210,15 @@ const UploadImage = ({
         ];
 
         const uploadPhotos: ImageUploadPayload[] = [];
+
         if (uploadFile5)
           uploadFile5.forEach((x, i) => {
+            const matchedCords = values.cords5?.[i];
             if (x.photosURL !== null)
               uploadPhotos.push({
                 link: x.link ? String(x.link) : String(x.photosURL),
                 type: 'file_5',
-                cords: x.cords,
+                cords: matchedCords ?? '',
                 is_favourite: Number(values.is_favourite?.split('[')[1].split(']')[0]) === i ? 1 : 0,
                 is_document: 0,
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
@@ -263,18 +266,18 @@ const UploadImage = ({
     >
       {({ values, errors, touched, setFieldValue, handleSubmit }) => (
         <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
-          <Box>
-            <ModelMultiplePhoto
-              loading={loading}
-              isEdit={isEdit}
-              handleModelApiChange={handleModelApiChange}
-              token={token}
-              values={values}
-              setValue={setFieldValue}
-              errors={errors}
-              touched={touched}
-              workerPhotos={workerPhotos}
-            />
+          <ModelMultiplePhoto
+            loading={loading}
+            isEdit={isEdit}
+            handleModelApiChange={handleModelApiChange}
+            token={token}
+            values={values}
+            setValue={setFieldValue}
+            errors={errors}
+            touched={touched}
+            workerPhotos={workerPhotos}
+          />
+          <UploadButBoxContainer>
             <UploadBox>
               {!isEdit && (
                 <UploadMultipleBox>
@@ -293,7 +296,7 @@ const UploadImage = ({
                 </UploadMultipleBox>
               )}
             </UploadBox>
-          </Box>
+          </UploadButBoxContainer>
         </Box>
       )}
     </Formik>

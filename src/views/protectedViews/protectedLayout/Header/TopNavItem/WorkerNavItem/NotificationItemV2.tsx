@@ -9,7 +9,7 @@ import { NotificationDetailsService } from 'services/notification/notification.s
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
-import { BaseContainer, ButtonBaseContainer, MainBox, TypographyBox, TypographyBox2 } from './Notification.styled';
+import { BaseContainer, ButtonBaseContainer, MainBox, TypographyBox, TypographyBox2, TypographyCreate } from './Notification.styled';
 import { NotificationTypeDetailsModelV2 } from 'constants/notificationTypeDetailsModelV2';
 
 const NotificationItemV2 = ({
@@ -55,15 +55,19 @@ const NotificationItemV2 = ({
           <BaseContainer>{notificationTypeV2?.icon}</BaseContainer>
           <MainBox>
             <TypographyBox>
-              <UINewTypography variant="bodySemiBold" color={notificationIsRead ? '#B7B5B9' : '#E9E8EB'}>
+              <UINewTypography
+                variant="bodySemiBold"
+                color={notificationIsRead ? 'text.primary' : 'text.secondary'}
+                sx={{ display: 'flex', justifyContent: 'flex-start' }}
+              >
                 {notification?.title}
               </UINewTypography>
-              <UINewTypography variant="SubtitleSmallRegular" textAlign="start" color={'#B7B5B9'}>
+              <UINewTypography variant="SubtitleSmallRegular" textAlign="start" color="text.primary">
                 {notification?.message}
               </UINewTypography>
             </TypographyBox>
             <TypographyBox2>
-              <UINewTypography variant="captionLarge">{getLastActive(notification.created_at)}</UINewTypography>
+              <TypographyCreate>{getLastActive(notification.created_at)}</TypographyCreate>
               <Box>{notificationIsRead ? '' : <Box component="img" src="/images/notification/unread_dot.svg" />}</Box>
             </TypographyBox2>
           </MainBox>

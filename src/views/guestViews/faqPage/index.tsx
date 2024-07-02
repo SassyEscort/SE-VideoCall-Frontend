@@ -8,7 +8,8 @@ import {
   FaqPageSubBoxContainer,
   StyledAccordion,
   StyledAccordionDetails,
-  StyledAccordionSummary
+  StyledAccordionSummary,
+  UINewTypographyMainText
 } from './faqPage.style';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
@@ -22,9 +23,9 @@ const FaqPage = () => {
       <FaqPageMainContainer>
         <ContactContainer>
           <ContactUs>
-            <UINewTypography variant="h1" color="text.secondary">
+            <UINewTypographyMainText>
               <FormattedMessage id="FrequentlyAskedQuestions" />
-            </UINewTypography>
+            </UINewTypographyMainText>
           </ContactUs>
         </ContactContainer>
         <HomeMainContainer>

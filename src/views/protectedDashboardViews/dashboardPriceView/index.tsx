@@ -15,6 +15,7 @@ import {
   RightSideBox,
   RightSideFirstBox,
   SecondConatiner,
+  TextConatiner,
   VideoCall
 } from './DashboardPriceView.styled';
 import theme from 'themes/theme';
@@ -147,9 +148,9 @@ const DashboardPriceView = ({
   return (
     <form onSubmit={handleSubmit} style={{ width: '100%' }}>
       <MainConatiner sx={{ alignItems: isEdit ? 'flex-start' : 'center', gap: isEdit ? 8 : 1.5 }}>
-        <UINewTypography variant="h2" color="text.secondary">
+        <TextConatiner color="text.secondary">
           {isEdit ? <FormattedMessage id={isSm ? 'MyProfile' : 'SetOrModifyYourPrices'} /> : <FormattedMessage id={'SetupYour'} />}
-        </UINewTypography>
+        </TextConatiner>
         <SecondConatiner>
           <VideoCall sx={{ alignItems: isEdit ? 'flex-start' : 'center', maxWidth: isEdit ? '680px' : '680px' }}>
             <UINewTypography variant={isEdit ? `body` : `bodyRegular`} color={isEdit ? `text.secondary` : `text.primary`}>
@@ -203,7 +204,7 @@ const DashboardPriceView = ({
           </VideoCall>
           <ButtonConatiner>
             {!isEdit && (
-              <UIThemeButton onClick={handlePrevVerificationStep}>
+              <UIThemeButton onClick={handlePrevVerificationStep} sx={{ border: '1px solid' }}>
                 <>
                   <RiArrowLeftLine />
                   <UINewTypography variant="body">
@@ -213,6 +214,7 @@ const DashboardPriceView = ({
               </UIThemeButton>
             )}
             <StyleButtonV2
+              id="price-id-button"
               variant={disable ? 'contained' : 'outlined'}
               type="submit"
               sx={{ border: '#07030E !important' }}

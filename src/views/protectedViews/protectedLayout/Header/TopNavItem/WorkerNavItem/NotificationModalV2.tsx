@@ -80,7 +80,7 @@ const NotificationModalV2 = ({
       <DrawerBox open={open} anchor="right" onClose={handleClose}>
         <IconButtonMainBox>
           <IconButtonInnerBox>
-            <UINewTypography variant="h3" color="white.main">
+            <UINewTypography variant="h3" color="text.secondary">
               <FormattedMessage id="Notifications" />
             </UINewTypography>
             <IconButtonBox>

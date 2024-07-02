@@ -63,7 +63,7 @@ const PayoutMobileSidebar = ({ token, modelDetails }: { token: TokenIdType; mode
   }, [bankDetailsList]);
 
   return (
-    <FormControl id="age" sx={{ width: '100%' }}>
+    <FormControl id="payout-small" sx={{ width: '100%' }}>
       <Box sx={{ marginBottom: 4.625 }}>
         <UINewTypography variant="h2" color="text.secondary">
           <FormattedMessage id="Payout" />

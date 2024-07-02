@@ -1,4 +1,4 @@
-import { Box, styled } from '@mui/material';
+import { Box, Typography, styled } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const MainConatiner = styled(Box)(({ theme }) => ({
@@ -9,7 +9,12 @@ export const MainConatiner = styled(Box)(({ theme }) => ({
   paddingLeft: theme.spacing(3),
   width: '100%',
   [theme.breakpoints.down('sm')]: {
-    paddingLeft: theme.spacing(0)
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
+  },
+  [theme.breakpoints.only('sm')]: {
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
   }
 }));
 
@@ -117,5 +122,20 @@ export const ButtonConatiner = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   width: '100%',
-  maxWidth: '725px'
+  maxWidth: '725px',
+  marginBottom: theme.spacing(8)
+}));
+
+export const TextConatiner = styled(Typography)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '26px',
+    fontWeight: 600,
+    lineHeight: '36.4px',
+    textAlign: 'center'
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '38px',
+    fontWeight: 700,
+    lineHeight: '47.5px'
+  }
 }));

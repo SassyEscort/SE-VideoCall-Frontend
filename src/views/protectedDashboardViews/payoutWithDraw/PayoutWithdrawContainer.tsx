@@ -25,9 +25,10 @@ import {
   UINewTypographyConfirm,
   UINewTypographyYourBalance,
   UINewTypographyAmount,
-  UIStyledInputTextAmount,
   BigScreenGap,
-  SmallScreenGap
+  SmallScreenGap,
+  UIStyledInputTextAmount,
+  UINewTypographyPrice
 } from './PayoutWidthDraw';
 import CloseIcon from '@mui/icons-material/Close';
 import { DividerBox } from '../payoutRequestSubmit/PayoutRequestSubmit.styled';
@@ -55,7 +56,9 @@ const PayoutWithdrawContainer = ({
   payoutStep,
   isSm,
   handlePayoutStep,
-  amountSave
+  amountSave,
+  handlePayoutStepSubmit,
+  closeDailog
 }: {
   bankDetailsList: BankDetailsListRes;
   token: TokenIdType;
@@ -64,6 +67,8 @@ const PayoutWithdrawContainer = ({
   isSm?: boolean;
   handlePayoutStep?: () => void;
   amountSave: number;
+  handlePayoutStepSubmit?: (step: number) => void;
+  closeDailog?: () => void;
 }) => {
   const [open, setOpenModel] = useState(false);
   const [selectBank, setSelectBank] = useState<string | null>(null);
@@ -77,13 +82,14 @@ const PayoutWithdrawContainer = ({
     fetchBankDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
-  const handleBankDetailsDetele = async (id: number) => {
+  const handleBankDetailsDelete = async (id: number) => {
     try {
       if (token.token) {
         const data = await PayoutService.bankDetailsDelete(token.token, id);
         if (data.code === 200) {
           handleBankDetailsRefetch();
           toast.success('Success');
+
           if (handlePayoutStep) {
             handlePayoutStep();
           }
@@ -126,6 +132,7 @@ const PayoutWithdrawContainer = ({
   const hanleCancelRemove = () => {
     setCancelRemove(true);
   };
+
   return (
     <>
       {(payoutStep === 1 || !isSm) && (
@@ -148,6 +155,7 @@ const PayoutWithdrawContainer = ({
                 if (handlePayoutStep) {
                   handlePayoutStep();
                 }
+
                 setOpenSubmitModel(true);
               } else {
                 toast.error(data?.message);
@@ -222,7 +230,11 @@ const PayoutWithdrawContainer = ({
                               error={touched.amount && Boolean(errors.amount)}
                               helperText={touched.amount && errors.amount}
                               InputProps={{
-                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <UINewTypographyPrice>$</UINewTypographyPrice>
+                                  </InputAdornment>
+                                )
                               }}
                             />
                           </Box>
@@ -276,7 +288,7 @@ const PayoutWithdrawContainer = ({
                                             component={'img'}
                                             src="/images/payout/delete.webp"
                                             sx={{ width: '16px', height: '18px', cursor: 'pointer' }}
-                                            onClick={() => handleBankDetailsDetele(bankList?.id)}
+                                            onClick={() => handleBankDetailsDelete(bankList?.id)}
                                           />
                                         </PayoutDetailFiveBox>
                                       </PayoutDetailSecondBox>
@@ -334,7 +346,15 @@ const PayoutWithdrawContainer = ({
           }}
         </Formik>
       )}
-      {(payoutStep === 2 || !isSm) && <PayoutRequestSubmit open={openSubmitModel} onClose={onClose} />}
+      {(payoutStep === 2 || !isSm) && (
+        <PayoutRequestSubmit
+          open={openSubmitModel}
+          onClose={onClose}
+          payoutStep={payoutStep}
+          handlePayoutStepSubmit={handlePayoutStepSubmit}
+          closeDailog={closeDailog}
+        />
+      )}
     </>
   );
 };

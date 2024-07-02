@@ -9,7 +9,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
-import { StepButtonNext } from './LastStepPromise.styled';
+import { LastMainBox, StepButtonNext } from './LastStepPromise.styled';
 import { FormattedMessage } from 'react-intl';
 import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
 import { toast } from 'react-toastify';
@@ -175,14 +175,7 @@ const VerificationStepPromise = ({
               <VerificationStep2Instruction />
             </Box>
 
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                mt: 9,
-                mb: 12.75
-              }}
-            >
+            <LastMainBox>
               <StepButtonNext>
                 <UIThemeButton variant="outlined" onClick={handleDocuPrev}>
                   <ArrowBackIcon />
@@ -197,7 +190,7 @@ const VerificationStepPromise = ({
                   <ArrowForwardOutlinedIcon />
                 </StyleButtonV2>
               </StepButtonNext>
-            </Box>
+            </LastMainBox>
           </Box>
         </>
       )}

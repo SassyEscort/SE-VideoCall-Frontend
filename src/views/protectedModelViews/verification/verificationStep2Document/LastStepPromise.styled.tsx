@@ -51,9 +51,7 @@ export const StepButtonNext = styled(Box)(({ theme }) => ({
   maxWidth: '824px',
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(11.75),
-    justifyContent: 'center',
-    paddingRight: '16px',
-    paddingLeft: '16px'
+    justifyContent: 'center'
   }
 }));
 
@@ -70,4 +68,19 @@ export const MainMakeSure = styled(Box)(({ theme }) => ({
 export const UIRulesHeader = styled(UINewTypography)(({ theme }) => ({
   fontSize: '16px !important',
   lineHeight: '25.6px !important'
+}));
+
+export const LastMainBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: theme.spacing(9),
+  marginBottom: theme.spacing(12.75),
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
+  },
+  [theme.breakpoints.only('sm')]: {
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
+  }
 }));
