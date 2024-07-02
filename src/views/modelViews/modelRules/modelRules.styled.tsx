@@ -29,10 +29,14 @@ export const ContactUs = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const MainBoxContainer = styled(Box)(() => ({
+export const MainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
-  width: '100%'
+  width: '100%',
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
+  }
 }));
 
 export const MainBoxChildContainer = styled(Box)(() => ({
