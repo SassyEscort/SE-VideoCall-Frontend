@@ -100,6 +100,7 @@ const BillingHistory = () => {
     },
     [filters, handleChangeFilter]
   );
+
   return (
     <MainLayoutNav variant={'worker'} enlargedFooter={true}>
       <BillingHistoryBoxContainer>
@@ -123,7 +124,18 @@ const BillingHistory = () => {
                   </BillingUIContainer>
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <DollarBillingValue variant="h6" color="text.secondary">
-                      $ {list.amount}
+                      {list.category === 'Debit' ? (
+                        <UINewTypography
+                          variant="SubtitleSmallMedium"
+                          sx={{
+                            cursor: 'pointer'
+                          }}
+                        >
+                          <FormattedMessage id="ViewDetails" />
+                        </UINewTypography>
+                      ) : (
+                        <>{list.amount}</>
+                      )}
                     </DollarBillingValue>
                   </Box>
                 </FirstTextContainer>

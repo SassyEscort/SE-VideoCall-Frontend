@@ -29,7 +29,8 @@ export const Banner = styled(Box)(({ theme }) => ({
   alignItems: 'end',
   position: 'relative',
   borderRadius: '12px',
-  [theme.breakpoints.down('lg')]: {
+  [theme.breakpoints.down('sm')]: {
+    backgroundImage: `linear-gradient(rgba(7, 3, 14, 1), rgba(0, 0, 0, 0.1)), url(images/model/unlimited_mobile.webp)`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center'
   }

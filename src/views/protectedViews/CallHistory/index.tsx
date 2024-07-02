@@ -193,7 +193,7 @@ const CallHistory = () => {
                     </SecondSubFirstPartThiredBox>
                   )}
                   <CallAgainBox>
-                    <UIThemeShadowButton variant="contained" sx={{ width: '100%', maxWidth: { xs: '363px', sm: '173px' } }}>
+                    <UIThemeShadowButton variant="contained" sx={{ width: '100%', maxWidth: { xs: '363px', sm: '220px' } }}>
                       <Box sx={{ display: 'flex', gap: 1.25 }}>
                         <SecImgBoxContainer src="/images/home-connect-instantly-img.png" />
                         <Box sx={{ whiteSpace: 'nowrap' }}>
