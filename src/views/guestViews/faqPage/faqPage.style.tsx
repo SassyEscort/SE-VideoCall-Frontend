@@ -25,7 +25,24 @@ export const FaqPageMainContainer = styled(Box)(({ theme }) => ({
 export const FaqPageSubBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
+  }
+}));
+
+export const UINewTypographyMainText = styled(Box)(({ theme }) => ({
+  fontSize: '48px',
+  lineHeight: '64.8px',
+  fontWeight: 700,
+  color: theme.palette.text.secondary,
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '20px',
+    lineHeight: '16px',
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
+  }
 }));
 
 export const ContactUs = styled(Box)(({ theme }) => ({
