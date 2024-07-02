@@ -1,16 +1,10 @@
-import Box from '@mui/material/Box';
 import { ReactNode } from 'react';
+import { DashboardSecondBox, MainDashboardContainer } from './DashboardContainer.styled';
 
 const DashboardContainer = ({ children }: { children: ReactNode }) => (
-  <Box
-    sx={{
-      width: '100%',
-      display: 'flex',
-      justifyContent: 'center'
-    }}
-  >
-    <Box sx={{ paddingLeft: { lg: '134px', md: '134px' }, width: '100%' }}>{children}</Box>
-  </Box>
+  <MainDashboardContainer>
+    <DashboardSecondBox>{children}</DashboardSecondBox>
+  </MainDashboardContainer>
 );
 
 export default DashboardContainer;
