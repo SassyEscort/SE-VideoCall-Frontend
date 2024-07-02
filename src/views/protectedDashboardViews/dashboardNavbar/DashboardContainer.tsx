@@ -9,7 +9,7 @@ const DashboardContainer = ({ children }: { children: ReactNode }) => (
       justifyContent: 'center'
     }}
   >
-    <Box sx={{ maxWidth: '1244px', width: '100%' }}>{children}</Box>
+    <Box sx={{ paddingLeft: { lg: '134px', md: '134px' }, width: '100%' }}>{children}</Box>
   </Box>
 );
 

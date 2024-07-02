@@ -15,6 +15,11 @@ import {
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 const Requestsubmit = ({ handlePayoutStepSubmit }: { handlePayoutStepSubmit?: (step: number) => void }) => {
+  const handleClose = () => {
+    if (handlePayoutStepSubmit) {
+      handlePayoutStepSubmit;
+    }
+  };
   return (
     <>
       <FirstBoxRequestSubmit>
@@ -23,11 +28,7 @@ const Requestsubmit = ({ handlePayoutStepSubmit }: { handlePayoutStepSubmit?: (s
             <FormattedMessage id="RequestAPayout" />
           </TextBox>
 
-          <IconButton
-            aria-label="close"
-            sx={{ color: 'text.secondary' }}
-            onClick={() => handlePayoutStepSubmit && handlePayoutStepSubmit(0)}
-          >
+          <IconButton aria-label="close" sx={{ color: 'text.secondary' }} onClick={() => handleClose()}>
             <CloseIcon />
           </IconButton>
         </SecondBoxRequestSubmit>

@@ -22,8 +22,8 @@ export const WorkerNavItemContainer = styled(Toolbar)(({ theme }) => ({
     paddingBottom: theme.spacing(2.25)
   },
   [theme.breakpoints.up('sm')]: {
-    paddingTop: '15px',
-    paddingBottom: '17px'
+    paddingTop: theme.spacing(2.25),
+    paddingBottom: theme.spacing(2.25)
   },
   [theme.breakpoints.up('md')]: {
     paddingRight: theme.spacing(16.75),
