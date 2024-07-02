@@ -52,8 +52,8 @@ export const SecondSubTextMainContainer = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.up('sm')]: {
     flexDirection: 'row',
-    maxWidth: '929px'
-    // maxHeight: '80px'
+    maxWidth: '929px',
+    maxHeight: '80px'
   }
 }));
 
