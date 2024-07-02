@@ -25,7 +25,7 @@ const NotificationItem = ({
   token: TokenIdType;
 }) => {
   const notificationType = NotificationTypeDetailsAdmin[notification?.category];
-  const notificationBgColor = notificationType.bgColor;
+  const notificationBgColor = notificationType?.bgColor;
 
   const handleClickNotificationItem = () => {
     handleClickNotification(notification.id);
