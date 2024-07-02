@@ -1,4 +1,4 @@
-import { Accordion, Box, styled } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionDetailsProps, AccordionSummary, AccordionSummaryProps, Box, styled } from '@mui/material';
 
 export const FilterAction = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -8,7 +8,9 @@ export const FilterAction = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   gap: theme.spacing(1),
   borderTop: '1px solid',
-  borderColor: theme.palette.secondary[800]
+  borderColor: theme.palette.secondary[800],
+  bottom: 0,
+  zIndex: 1
 }));
 
 export const FilterHeader = styled(Box)(({ theme }) => ({
@@ -28,13 +30,15 @@ export const FilterHeader = styled(Box)(({ theme }) => ({
 }));
 
 export const FilterContent = styled(Box)(({ theme }) => ({
+  flex: '1',
   width: '100%',
   marginTop: theme.spacing(12),
   padding: theme.spacing(2.5),
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'start',
-  gap: theme.spacing(2.5)
+  gap: theme.spacing(2.5),
+  overflowY: 'auto'
 }));
 
 export const FilterAccordian = styled(Accordion)(({ theme }) => ({
@@ -54,5 +58,14 @@ export const FilterAccordian = styled(Accordion)(({ theme }) => ({
   },
   '& .MuiAccordionDetails-root': {
     paddingBottom: 0
+  }
+}));
+
+export const StyledAccordionSummary = styled((props: AccordionSummaryProps) => <AccordionSummary {...props} />)(() => ({
+  padding: '0px'
+}));
+export const StyledAccordionDetails = styled((props: AccordionDetailsProps) => <AccordionDetails {...props} />)(() => ({
+  '&.MuiAccordionDetails-root': {
+    padding: '16px 0 20px 0'
   }
 }));

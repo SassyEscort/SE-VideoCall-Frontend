@@ -105,7 +105,7 @@ export default function ModelPageContainer() {
   const fromDate = oneMonthAgoMoment.format('YYYY/MM/DD');
   const toDate = currentMoment.format('YYYY/MM/DD');
   const [filters, setFilters] = useState<WorkersPaginationType>({
-    page: 0,
+    page: 1,
     pageSize: PAGE_SIZE,
     offset: 0,
     orderField: 'created_at',

@@ -47,7 +47,7 @@ const PayoutsAndInvoices = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [total_rows, setTotalRows] = useState(0);
   const [filters, setFilters] = useState({
-    page: 0,
+    page: 1,
     pageSize: 20,
     offset: 0,
     filter_text: ''

@@ -16,7 +16,7 @@ const LanguageFilter = ({
     <Grid container columnSpacing={1.5}>
       {languages.map((lang, index) => (
         <Grid item key={index} xs={6}>
-          <UINewStyleRadioButton label={lang.name} value={lang.id} />
+          <UINewStyleRadioButton label={lang.name} value={lang.name} />
         </Grid>
       ))}
     </Grid>

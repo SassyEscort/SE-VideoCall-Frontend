@@ -6,8 +6,11 @@ export const COUNTRIES = [
 ];
 
 export const AGES = [
-  { title: '18-21', id: 1 },
-  { title: '21-25', id: 2 }
+  { name: '18-24', id: '18-24' },
+  { name: '25-29', id: '25-29' },
+  { name: '30-34', id: '30-34' },
+  { name: '35-39', id: '35-39' },
+  { name: '40-45', id: '40-45' }
 ];
 
 export const PRICE = [

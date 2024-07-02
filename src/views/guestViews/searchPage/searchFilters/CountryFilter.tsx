@@ -1,19 +1,53 @@
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import { SelectChangeEvent } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { StareIcone } from 'components/UIComponents/UIStyledArrivalsButton';
 import { UIStyledSelect } from 'components/UIComponents/UIStyledSelect';
-import { COUNTRIES } from 'constants/searchConstants';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { CommonServices } from 'services/commonApi/commonApi.services';
+import { getUserDataClient } from 'utils/getSessionData';
+import { TokenIdType } from 'views/protectedModelViews/verification';
 
-const CountryFilter = () => {
+interface CountryFilterProps {
+  value: string;
+  onChange: (event: SelectChangeEvent<unknown>, child: React.ReactNode) => void;
+}
+type countryType = {
+  id: number;
+  name: string;
+};
+
+const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
+  const [countries, setCountries] = useState<countryType[]>([]);
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      setToken({ id: data?.id, token: data?.token });
+    };
+    userToken();
+  }, []);
+
+  const countryData = async () => {
+    const data = await CommonServices.getCountry(token.token);
+    setCountries(data.data);
+  };
+  useEffect(() => {
+    countryData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
   return (
     <FormControl id="country" fullWidth sx={{ width: '100%', maxWidth: '442px' }}>
       <UIStyledSelect
         MenuProps={{ disableScrollLock: true }}
         name="country"
         labelId="country"
+        value={value}
+        onChange={onChange}
         IconComponent={ExpandMore}
         startAdornment={
           <StareIcone>
@@ -21,11 +55,11 @@ const CountryFilter = () => {
           </StareIcone>
         }
       >
-        {COUNTRIES.map((country, key: number) => {
+        {countries.map((country, index) => {
           return (
-            <MenuItem key={key} value={country.id}>
+            <MenuItem key={index} value={country?.id}>
               <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                {country.title}
+                {country?.name}
               </UINewTypography>
             </MenuItem>
           );

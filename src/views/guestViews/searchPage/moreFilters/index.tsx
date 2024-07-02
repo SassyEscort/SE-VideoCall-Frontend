@@ -1,57 +1,59 @@
 import Drawer from '@mui/material/Drawer';
-import { FilterAccordian, FilterAction, FilterContent, FilterHeader } from './MoreFilters.styled';
+import {
+  FilterAccordian,
+  FilterAction,
+  FilterContent,
+  FilterHeader,
+  StyledAccordionDetails,
+  StyledAccordionSummary
+} from './MoreFilters.styled';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { FormattedMessage } from 'react-intl';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Close from '@mui/icons-material/Close';
-import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { memo, useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import SliderFilter from './SliderFilter';
 import PriceFilter from './priceFilter';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import StatusFilter from './status';
 import LanguageFilter from './languageFilter';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { cloneDeep } from 'lodash';
 import { useRouter } from 'next/navigation';
-import { ModelListingService } from 'services/modelListing/modelListing.services';
 
 const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleClose: () => void; languages: MultipleOptionString[] }) => {
-  const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
 
-  const url = `${searchParams}`;
-
-  // const { filter: filterName } = url;
-  console.log(url, 'url router');
-
-  const initialFilters = useMemo(
-    () => ({
-      fromAge: getQueryParam('fromAge') ? (getQueryParam('fromAge') as string) : '',
-      toAge: getQueryParam('toAge') ? (getQueryParam('toAge') as string) : '',
-      fromPrice: getQueryParam('fromPrice') ? (getQueryParam('fromPrice') as string) : '',
-      toPrice: getQueryParam('toPrice') ? (getQueryParam('toPrice') as string) : '',
-      language: getQueryParam('language') ? (getQueryParam('language') as string) : '',
-      isOnline: getQueryParam('isOnline') ? (getQueryParam('isOnline') as string) : '',
-      page: Number(getQueryParam('page', 1)),
-      pageSize: HOME_PAGE_SIZE
-    }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [open]
-  );
+  const initialFilters = () => ({
+    country: getQueryParam('country') ? (getQueryParam('country') as string) : '',
+    fromAge: getQueryParam('fromAge') ? (getQueryParam('fromAge') as string) : '',
+    toAge: getQueryParam('toAge') ? (getQueryParam('toAge') as string) : '',
+    fromPrice: getQueryParam('fromPrice') ? (getQueryParam('fromPrice') as string) : '',
+    toPrice: getQueryParam('toPrice') ? (getQueryParam('toPrice') as string) : '',
+    language: getQueryParam('language') ? (getQueryParam('language') as string) : '',
+    isOnline: getQueryParam('isOnline') ? (getQueryParam('isOnline') as string) : '',
+    sortOrder: getQueryParam('sortOrder') ? (getQueryParam('sortOrder') as string) : '',
+    sortField: getQueryParam('sortField') ? (getQueryParam('sortField') as string) : '',
+    page: Number(getQueryParam('page', 1)),
+    pageSize: HOME_PAGE_SIZE,
+    offset: 0
+  });
 
   const [filters, setFilters] = useState(cloneDeep(initialFilters));
 
-  const getModelListingWithParams = useCallback(async () => {
-    await ModelListingService.getModelListing(filters);
-  }, [filters]);
+  useEffect(() => {
+    // Update filters when the drawer is opened
+    if (open) {
+      setFilters(cloneDeep(initialFilters()));
+    }
+  }, [open]);
 
   const handleChangePrice = (value: string) => {
     const priceRange = value.split('-');
@@ -99,6 +101,9 @@ const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleCl
     if (filters.toPrice) objParams.toPrice = filters.toPrice ? filters.toPrice.toString() : '-';
     if (filters.language) objParams.language = filters.language ? filters.language.toString() : '';
     if (filters.isOnline) objParams.isOnline = filters.isOnline ? filters.isOnline.toString() : '';
+    if (filters.country) objParams.country = filters.country ? filters.country.toString() : '';
+    if (filters.sortOrder) objParams.sortOrder = filters.sortOrder ? filters.sortOrder.toString() : '';
+    if (filters.sortField) objParams.sortField = filters.sortField ? filters.sortField.toString() : '';
 
     let filterCount = Object.keys(objParams).length;
     const queryString = new URLSearchParams(objParams).toString();
@@ -106,7 +111,9 @@ const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleCl
     if (pathname === '/' && filterCount === 0) router.push('/search');
     if (pathname === '/' && filterCount === 1 && objParams.page) return;
 
-    const isMultiple = ['language', 'isOnline', 'page', 'fromPrice', 'fromAge'].filter((x) => Object.keys(objParams).includes(x));
+    const isMultiple = ['language', 'isOnline', 'page', 'fromPrice', 'fromAge', 'toPrice', 'country', 'sortOrder', 'sortField'].filter(
+      (x) => Object.keys(objParams).includes(x)
+    );
 
     if (isMultiple.length) router.push(`/?${queryString}`);
     if (filterCount === 0) {
@@ -118,10 +125,14 @@ const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleCl
         router.push(`/${pathname}?${queryString}`);
       }
     }
-    getModelListingWithParams();
     handleClose();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
+
+  const handleResetFilter = () => {
+    setFilters(cloneDeep(initialFilters));
+    handleClose();
+  };
 
   return (
     <Drawer
@@ -130,8 +141,10 @@ const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleCl
       onClose={handleClose}
       sx={{
         '& .MuiPaper-root': {
+          scrollbarWidth: 'none',
           width: '100%',
           maxWidth: 528,
+          justifyContent: 'space-between',
           backgroundColor: 'secondary.dark'
         }
       }}
@@ -148,53 +161,55 @@ const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleCl
       </FilterHeader>
       <FilterContent>
         <FilterAccordian>
-          <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: 'text.primary' }} />}>
+          <StyledAccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: 'text.primary' }} />}>
             <UINewTypography variant="h6" color="text.secondary">
               <FormattedMessage id="Price" />
             </UINewTypography>
-          </AccordionSummary>
-          <AccordionDetails sx={{ pb: '20px !important' }}>
+          </StyledAccordionSummary>
+          <StyledAccordionDetails>
             <PriceFilter handleChange={handleChangePrice} fromValue={filters?.fromPrice ?? ''} toValue={filters?.toPrice ?? ''} />
-          </AccordionDetails>
+          </StyledAccordionDetails>
         </FilterAccordian>
         <FilterAccordian>
-          <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: 'text.primary' }} />}>
+          <StyledAccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: 'text.primary' }} />}>
             <UINewTypography variant="h6" color="text.secondary">
               <FormattedMessage id="Age" />
             </UINewTypography>
-          </AccordionSummary>
-          <SliderFilter
-            fromValue={Number(filters?.fromAge) ?? 18}
-            toValue={Number(filters?.toAge) ?? 60}
-            minValue={18}
-            maxValue={70}
-            handleChange={handleChangeAge}
-          />
+          </StyledAccordionSummary>
+          <AccordionDetails sx={{ p: '16px 10px 25px 10px !important' }}>
+            <SliderFilter
+              fromValue={Number(filters?.fromAge) ?? 18}
+              toValue={Number(filters?.toAge) ?? 60}
+              minValue={18}
+              maxValue={70}
+              handleChange={handleChangeAge}
+            />
+          </AccordionDetails>
         </FilterAccordian>
         <FilterAccordian>
-          <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: 'text.primary' }} />}>
+          <StyledAccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: 'text.primary' }} />}>
             <UINewTypography variant="h6" color="text.secondary">
               <FormattedMessage id="Language" />
             </UINewTypography>
-          </AccordionSummary>
-          <AccordionDetails>
+          </StyledAccordionSummary>
+          <StyledAccordionDetails>
             <LanguageFilter languages={languages} handleChange={handleChangeLanguage} value={filters.language ?? ''} />
-          </AccordionDetails>
+          </StyledAccordionDetails>
         </FilterAccordian>
 
         <FilterAccordian>
-          <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: 'text.primary' }} />}>
+          <StyledAccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: 'text.primary' }} />}>
             <UINewTypography variant="h6" color="text.secondary">
               <FormattedMessage id="Status" />
             </UINewTypography>
-          </AccordionSummary>
-          <AccordionDetails sx={{ pb: '20px !important' }}>
+          </StyledAccordionSummary>
+          <StyledAccordionDetails sx={{ pb: '20px !important' }}>
             <StatusFilter handleChange={handleChangeStatus} value={filters.isOnline} />
-          </AccordionDetails>
+          </StyledAccordionDetails>
         </FilterAccordian>
       </FilterContent>
       <FilterAction>
-        <UIThemeButton variant="text">
+        <UIThemeButton variant="text" onClick={handleResetFilter}>
           <FormattedMessage id="ResetFilter" />
         </UIThemeButton>
         <UIThemeButton variant="contained" onClick={handleClickFilter}>
