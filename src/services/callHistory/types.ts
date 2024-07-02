@@ -21,9 +21,9 @@ export type CallHistoryLanguages = {
 };
 
 export type CallHistoryData = {
-  total_rows: 3;
-  page_size: 10;
-  offset: 0;
+  total_rows: number;
+  page_size: number;
+  offset: number;
 };
 
 export type CallHistoryDataDetails = {
