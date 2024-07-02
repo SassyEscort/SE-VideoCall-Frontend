@@ -18,6 +18,7 @@ import { usePathname } from 'next/navigation';
 import Box from '@mui/system/Box';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { CallingService } from 'services/calling/calling.services';
+import moment from 'moment';
 
 const EscortDetailPage = () => {
   const path = usePathname();
@@ -28,6 +29,7 @@ const EscortDetailPage = () => {
   const [guestData, setGuestData] = useState<ModelDetailsResponse>();
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isCreditAvailable, setIsCreditAvailable] = useState(false);
+  const [callTime, setCallTime] = useState(0);
 
   const { handleCallInitiate } = useCallFeatureContext();
 
@@ -40,7 +42,7 @@ const EscortDetailPage = () => {
     };
 
     userToken();
-  }, []);
+  }, [userName]);
 
   useEffect(() => {
     const fetchGuestData = async () => {
@@ -63,15 +65,17 @@ const EscortDetailPage = () => {
 
   useEffect(() => {
     const getCometChatInfo = async () => {
-      if (guestData) {
+      if (guestData && token.token) {
         const getInfo = await CallingService.getCometChatInfo(guestData.id, token.token);
         if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 3) {
+          const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asSeconds();
+          setCallTime(durationInSeconds);
           setIsCreditAvailable(true);
         }
       }
     };
     getCometChatInfo();
-  }, [guestData, token.token]);
+  }, [guestData, token, userName]);
 
   return (
     <>
@@ -82,7 +86,7 @@ const EscortDetailPage = () => {
               workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])}
               modelId={guestData?.id ?? 0}
               token={token}
-              handleCallInitiate={() => handleCallInitiate(guestData?.id, isCreditAvailable)}
+              handleCallInitiate={() => handleCallInitiate(guestData?.id, isCreditAvailable, callTime)}
             />
           ) : (
             guestData && (
@@ -90,7 +94,7 @@ const EscortDetailPage = () => {
                 workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])}
                 modelId={guestData?.id ?? 0}
                 token={token}
-                handleCallInitiate={() => handleCallInitiate(guestData?.id, isCreditAvailable)}
+                handleCallInitiate={() => handleCallInitiate(guestData?.id, isCreditAvailable, callTime)}
               />
             )
           )}
