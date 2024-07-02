@@ -8,7 +8,6 @@ import Divider from '@mui/material/Divider';
 import { StyledIconButton } from './AccountPopover.styled';
 import { toast } from 'react-toastify';
 import { signOut } from 'next-auth/react';
-import { CometChatUIKit } from '@cometchat/chat-uikit-react';
 
 export default function AccountPopover() {
   const [open, setOpen] = useState<null | HTMLElement>(null);
@@ -24,7 +23,6 @@ export default function AccountPopover() {
   const handleConfirmLogout = async () => {
     try {
       await signOut({ callbackUrl: '/admin/login' });
-      CometChatUIKit.logout();
     } catch (error) {
       toast.error('Error during sign-out:');
     }
