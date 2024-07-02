@@ -19,9 +19,9 @@ export type AddBankList = {
 };
 
 export type AgricketList = {
-  total_rows: 100;
-  page_size: 20;
-  offset: 0;
+  total_rows: number;
+  page_size: number;
+  offset: number;
 };
 
 export type BankDetailsRes = {

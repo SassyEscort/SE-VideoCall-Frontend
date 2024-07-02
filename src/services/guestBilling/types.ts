@@ -13,9 +13,9 @@ export type BillingHistoryDetails = {
 };
 
 export type ModelBillingHistoryDetails = {
-  total_rows: 4;
-  page_size: 20;
-  offset: 0;
+  total_rows: number;
+  page_size: number;
+  offset: number;
 };
 
 export type ModelBillingHistoryPageDetails = {
