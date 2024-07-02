@@ -12,24 +12,32 @@ const PayoutRequestSubmit = ({
   open,
   onClose,
   payoutStep,
-  handlePayoutStepSubmit
+  handlePayoutStepSubmit,
+  closeDailog
 }: {
   open: boolean;
   onClose: () => void;
   payoutStep?: number;
   handlePayoutStepSubmit?: (step: number) => void;
+  closeDailog?: () => void;
 }) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+  const closeHandle = () => {
+    onClose();
+    if (closeDailog) {
+      closeDailog();
+    }
+  };
   return (
     <>
       {!isSm ? (
-        <MainDailgConatiner open={open} onClose={onClose} fullWidth scroll="body">
+        <MainDailgConatiner open={open} onClose={() => closeHandle()} fullWidth scroll="body">
           <DialogTitleBox id="responsive-modal-title">
             <UINewTypography variant="h6" color={'text.primary'}>
               <FormattedMessage id="RequestAPayout" />
             </UINewTypography>
 
-            <IconButton aria-label="close" onClick={onClose} sx={{ color: 'text.secondary' }}>
+            <IconButton aria-label="close" onClick={() => closeHandle()} sx={{ color: 'text.secondary' }}>
               <CloseIcon />
             </IconButton>
           </DialogTitleBox>

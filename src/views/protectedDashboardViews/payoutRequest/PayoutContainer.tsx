@@ -297,7 +297,7 @@ const PayoutContainer = ({
       {(payoutStep === 1 || payoutStep === 2 || isSmUp) && (
         <PayoutWidthDraw
           open={open}
-          onClose={closeDailog}
+          closeDailog={closeDailog}
           bankDetailsList={bankDetailsList}
           token={token}
           fetchBankDetails={fetchBankDetails}

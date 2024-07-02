@@ -12,7 +12,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 
 const PayoutWidthDraw = ({
   open,
-  onClose,
+  closeDailog,
   bankDetailsList,
   token,
   fetchBankDetails,
@@ -22,7 +22,7 @@ const PayoutWidthDraw = ({
   handlePayoutStepSubmit
 }: {
   open: boolean;
-  onClose: () => void;
+  closeDailog: () => void;
   bankDetailsList: BankDetailsListRes;
   token: TokenIdType;
   fetchBankDetails: () => void;
@@ -36,7 +36,7 @@ const PayoutWidthDraw = ({
   return (
     <>
       {!isSm ? (
-        <DialogContentMain open={open} onClose={onClose} fullWidth scroll="body">
+        <DialogContentMain open={open} onClose={closeDailog} fullWidth scroll="body">
           <DialogTitleBox>
             <UINewTypography variant="h6" color={'secondary.200'}>
               <FormattedMessage id="RequestAPayout" />
@@ -44,7 +44,7 @@ const PayoutWidthDraw = ({
 
             <IconButton
               aria-label="close"
-              onClick={onClose}
+              onClick={closeDailog}
               sx={{
                 color: (theme) => theme.palette.text.secondary
               }}
@@ -57,6 +57,7 @@ const PayoutWidthDraw = ({
             token={token}
             fetchBankDetails={fetchBankDetails}
             amountSave={amountSave}
+            closeDailog={closeDailog}
           />
         </DialogContentMain>
       ) : (

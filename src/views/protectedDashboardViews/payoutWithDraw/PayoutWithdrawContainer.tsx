@@ -57,7 +57,8 @@ const PayoutWithdrawContainer = ({
   isSm,
   handlePayoutStep,
   amountSave,
-  handlePayoutStepSubmit
+  handlePayoutStepSubmit,
+  closeDailog
 }: {
   bankDetailsList: BankDetailsListRes;
   token: TokenIdType;
@@ -67,6 +68,7 @@ const PayoutWithdrawContainer = ({
   handlePayoutStep?: () => void;
   amountSave: number;
   handlePayoutStepSubmit?: (step: number) => void;
+  closeDailog?: () => void;
 }) => {
   const [open, setOpenModel] = useState(false);
   const [selectBank, setSelectBank] = useState<string | null>(null);
@@ -87,6 +89,7 @@ const PayoutWithdrawContainer = ({
         if (data.code === 200) {
           handleBankDetailsRefetch();
           toast.success('Success');
+
           if (handlePayoutStep) {
             handlePayoutStep();
           }
@@ -129,6 +132,7 @@ const PayoutWithdrawContainer = ({
   const hanleCancelRemove = () => {
     setCancelRemove(true);
   };
+
   return (
     <>
       {(payoutStep === 1 || !isSm) && (
@@ -151,6 +155,7 @@ const PayoutWithdrawContainer = ({
                 if (handlePayoutStep) {
                   handlePayoutStep();
                 }
+
                 setOpenSubmitModel(true);
               } else {
                 toast.error(data?.message);
@@ -347,6 +352,7 @@ const PayoutWithdrawContainer = ({
           onClose={onClose}
           payoutStep={payoutStep}
           handlePayoutStepSubmit={handlePayoutStepSubmit}
+          closeDailog={closeDailog}
         />
       )}
     </>
