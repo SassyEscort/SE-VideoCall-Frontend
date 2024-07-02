@@ -3,13 +3,13 @@ import { CometChatIncomingCall, CometChatOngoingCall, CometChatOutgoingCall } fr
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 
 const CallFeature = () => {
-  const { call, handleCancelCall } = useCallFeatureContext();
+  const { call, handleCancelCall, isCallAccepted, isCallEnded } = useCallFeatureContext();
 
   return (
     <>
       <CometChatIncomingCall call={call} />
-      {call && <CometChatOutgoingCall call={call} onCloseClicked={handleCancelCall} />}
-      {call && <CometChatOngoingCall sessionID={call?.getSessionId()} />}
+      {call && !isCallEnded && <CometChatOutgoingCall call={call} onCloseClicked={handleCancelCall} />}
+      {call && isCallAccepted && !isCallEnded && <CometChatOngoingCall sessionID={call?.getSessionId()} />}
     </>
   );
 };

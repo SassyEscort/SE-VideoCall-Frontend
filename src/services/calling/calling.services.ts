@@ -47,18 +47,14 @@ export class CallingService {
     }
   };
 
-  static creditCallLog = async (params: CreditCallParams, token: string): Promise<CreditCallRes> => {
+  static creditPutCallLog = async (params: CreditCallParams, token: string): Promise<CreditCallRes> => {
     try {
-      const res = await axios.put(
-        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/call/logs`,
-        { params },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: token
-          }
+      const res = await axios.put(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/call/logs`, params, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
         }
-      );
+      });
 
       return res.data;
     } catch (err: any) {
