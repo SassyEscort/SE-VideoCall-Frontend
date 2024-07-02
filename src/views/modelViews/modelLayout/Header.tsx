@@ -27,6 +27,7 @@ const HeaderModelComponent = () => {
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const [openChangePassword, setIsOpenChangePassword] = useState(email ? true : false);
+  const isSmaller = useMediaQuery('(max-width:320px)');
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -122,7 +123,18 @@ const HeaderModelComponent = () => {
           </Box>
 
           <Box display="flex" gap={2}>
-            <Box display="flex" alignItems="center" gap={{ xs: 2.5, sm: 4.5 }}>
+            <Box
+              display="flex"
+              alignItems="center"
+              sx={{
+                gap: isSmaller
+                  ? 1
+                  : {
+                      xs: 2.5,
+                      sm: 4.5
+                    }
+              }}
+            >
               {isMdUp && (
                 <Link prefetch={false} href="/">
                   <Typography variant="buttonLargeMenu" color="text.secondary">
