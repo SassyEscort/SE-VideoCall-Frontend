@@ -60,14 +60,9 @@ export class ModelListingService {
 
     const query = queryParams.join('&');
     try {
-      const res = await axios.get(
-        process.env.NEXT_PUBLIC_API_BASE_URL +
-          // `/v1/model/listing?language=${filters.language}&is_online=${filters.isOnline}&min_age=${filters.fromAge}&max_age=${filters.toAge}`,
-          `/v1/model/listing?${query}`,
-        {
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/listing?${query}`, {
+        headers: { 'Content-Type': 'application/json' }
+      });
 
       return res.data.data;
     } catch (err: any) {
