@@ -41,6 +41,19 @@ export class CommonServices {
     }
   };
 
+  static getLanguagesWithoutToken = async () => {
+    try {
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/languages?limit=1000`, {
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data || { error_message: error.message };
+    }
+  };
+
   static priceCommissions = async (token: string): Promise<PriceCommissionsRes> => {
     try {
       const res = await axios.get<PriceCommissionsRes>(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/commission`, {

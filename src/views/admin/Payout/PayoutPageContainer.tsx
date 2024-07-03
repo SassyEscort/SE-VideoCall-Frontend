@@ -50,7 +50,7 @@ export default function PayoutPageContainer() {
   const [totalRecords, setTotalRecords] = useState(0);
 
   const [filters, setFilters] = useState<PaginationType>({
-    page: 0,
+    page: 1,
     offset: 0,
     pageSize: PAGE_SIZE,
     orderField: 'newest',

@@ -5,38 +5,50 @@ import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { HomeExploreBox, SubTitle } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
-import {
-  DetailsChildTypographyBox,
-  ExploreEscortText,
-  FirstBoxContainer,
-  SearchMainContainer,
-  SearchSubContainer,
-  SecondBoxContainer,
-  ThirdBoxContainer
-} from './Escort.styled';
-import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
-import NewArrivals from 'views/guestViews/searchPage/searchFilters/NewArrivals';
-import CurrentlyOnline from 'views/guestViews/searchPage/searchFilters/CurrentlyOnline';
-import CountryFilter from 'views/guestViews/searchPage/searchFilters/CountryFilter';
-import AgeFilter from 'views/guestViews/searchPage/searchFilters/AgeFilter';
-import Price from 'views/guestViews/searchPage/searchFilters/Price';
-import { useState, useEffect } from 'react';
+import { DetailsChildTypographyBox, ExploreEscortText } from './Escort.styled';
+import { useState, useEffect, useCallback } from 'react';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
+import SearchFilters, { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import { getUserDataClient } from 'utils/getSessionData';
+import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 
 const EscortExplore = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const isMobile = useMediaQuery('(max-width:600px)');
 
   const [modelListing, setModelListing] = useState<ModelHomeListing[]>([]);
-
-  const getModelListing = async () => {
-    const getModel = await ModelListingService.getModelListing();
-    setModelListing(getModel.model_details);
-  };
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [filters, setFilters] = useState<SearchFiltersTypes>();
+  const [total_rows, setTotalRows] = useState(0);
 
   useEffect(() => {
-    getModelListing();
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      setToken({ id: data?.id, token: data?.token });
+    };
+    userToken();
   }, []);
+
+  const handelFilterChange = async (values: any) => {
+    setFilters(values);
+    const getModel = await ModelListingService.getModelListing(values);
+    setModelListing(getModel.model_details);
+    setTotalRows(getModel.aggregate.total_rows);
+  };
+
+  const handleChangePage = useCallback(
+    (value: number) => {
+      if (filters) {
+        const offset = (value - 1) * filters?.pageSize;
+        setFilters({ ...filters, page: value, offset: offset });
+      }
+    },
+    [filters]
+  );
+
+  useEffect(() => {
+    handelFilterChange(filters);
+  }, [filters]);
 
   return (
     <>
@@ -57,26 +69,18 @@ const EscortExplore = () => {
             </HomeExploreBox>
           </ExploreEscortText>
           <HomeMainContainer>
-            <SearchMainContainer>
-              <SearchSubContainer>
-                <FirstBoxContainer>
-                  <NewArrivals />
-                  {isMobile && <CurrentlyOnline />}
-                </FirstBoxContainer>
-                <SecondBoxContainer>
-                  <CountryFilter />
-                </SecondBoxContainer>
-                <ThirdBoxContainer>
-                  <AgeFilter />
-                  <Price />
-                  {!isMobile && <CurrentlyOnline />}
-                </ThirdBoxContainer>
-              </SearchSubContainer>
-            </SearchMainContainer>
+            <SearchFilters handelFilterChange={handelFilterChange} />
           </HomeMainContainer>
         </DetailsChildTypographyBox>
         <Box>
-          <HomeImageCard modelListing={modelListing} isFavPage={false} />
+          <HomeImageCard
+            modelListing={modelListing}
+            isFavPage={false}
+            token={token}
+            filters={filters ?? ({} as SearchFiltersTypes)}
+            totalRows={total_rows}
+            handleChangePage={handleChangePage}
+          />
         </Box>
       </DetailsChildTypographyBox>
     </>

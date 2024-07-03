@@ -2,10 +2,11 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { LiveIconFirstBoxWorkerCard, LiveIconSecBoxWorkerCard, UIStyledSelectButton } from 'components/UIComponents/UIStyledSelectButton';
 import { FormattedMessage } from 'react-intl';
 
-const CurrentlyOnline = () => {
+const CurrentlyOnline = ({ onClick }: { onClick?: () => void }) => {
   return (
     <>
       <UIStyledSelectButton
+        onClick={onClick}
         startIcon={
           <LiveIconFirstBoxWorkerCard>
             <LiveIconSecBoxWorkerCard />

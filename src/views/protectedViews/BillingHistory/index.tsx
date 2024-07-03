@@ -44,7 +44,7 @@ const BillingHistory = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [total_rows, setTotalRows] = useState(0);
   const [filters, setFilters] = useState<BillPaginationType>({
-    page: 0,
+    page: 1,
     limit: 20,
     offset: 0
   });
