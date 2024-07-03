@@ -35,5 +35,13 @@ export const StyledSearch = styled(OutlinedInput)(({ theme }) => ({
   '& .MuiInputBase-input': {
     color: theme.palette.text.secondary,
     padding: '12px 0px'
+  },
+  '&:hover': {
+    '.MuiOutlinedInput-notchedOutline': {
+      borderColor: '#ff68c0 !important'
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: theme.palette.primary['800']
+    }
   }
 }));

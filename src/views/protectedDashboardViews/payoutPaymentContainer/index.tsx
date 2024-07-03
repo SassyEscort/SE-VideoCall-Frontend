@@ -108,6 +108,7 @@ const PayoutPaymentConatiner = ({
             <UINewTypographyTitle>
               <FormattedMessage id="YourPaymentMethods" />
             </UINewTypographyTitle>
+
             <MapBox>
               <MainThreeBox>
                 {bankDetailsList?.data?.bank_details.map((list, index) => (

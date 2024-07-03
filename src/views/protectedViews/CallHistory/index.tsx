@@ -1,5 +1,5 @@
 'use client';
-import { Divider, useMediaQuery } from '@mui/material';
+import { CircularProgress, Divider, useMediaQuery } from '@mui/material';
 import Box from '@mui/material/Box';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -43,6 +43,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import moment from 'moment';
 import { BillingPaginationBox } from '../BillingHistory/BillingHistory.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
+import { LoaderBox } from '../Credites/Credits.styled';
 
 export type CallHistoryPaginationType = {
   page: number;
@@ -55,6 +56,8 @@ const CallHistory = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [callHistoryData, setCallHistoryData] = useState<CallHistoryPageDetailsRes>();
   const [total_rows, setTotalRows] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [filters, setFilters] = useState<CallHistoryPaginationType>({
     page: 1,
     limit: 20,
@@ -74,10 +77,12 @@ const CallHistory = () => {
     const fetchCallHistoryDetails = async () => {
       try {
         if (token.token) {
+          setIsLoading(true);
           const data = await CallHistoryService.getCallHistoryDetails(token.token);
           if (data) {
             setCallHistoryData(data);
             setTotalRows(data.data.aggregate.total_rows);
+            setIsLoading(false);
           }
         }
       } catch (error) {
@@ -123,91 +128,99 @@ const CallHistory = () => {
               <FormattedMessage id="CallsHistory" />
             </UINewTypography>
           </CallHistoryText>
-          {callHistoryData?.data?.call_logs.map((list, index) => (
-            <SecondContainer key={index}>
-              <SecondSubContainer>
-                <SecondSubTextMainContainer>
-                  <SecondSubFirstBox>
-                    <SecondSubFirstPartBox>
-                      <WorkerImg src={list.link ? list.link : ''} />
-                      <SecondSubFirstPartSecondBox>
-                        <SecondSubFirstPartSecondBoxFirstText>
-                          <CallHistoryName variant="h6" color="white.main" whiteSpace="nowrap">
-                            {list.name}
-                          </CallHistoryName>
-                          <SecondSubFirstPartSecondBoxSecText>
-                            <SecTextContainer color="text.primary">{calculateAge(list.dob)}</SecTextContainer>
-                            <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
-                            <SecTextContainer color="text.primary">
-                              {list.languages &&
-                                list.languages
-                                  .filter((item) => item.language_name)
-                                  .map((item) => item.language_name)
-                                  .join(', ')}
-                            </SecTextContainer>
-                          </SecondSubFirstPartSecondBoxSecText>
-                        </SecondSubFirstPartSecondBoxFirstText>
-                        <CallHistoryCreditBox>
-                          <ImgBoxContainer src="/images/workercards/dollar-img.png" />
-                          <UINewTypography variant="captionLargeBold" color="text.secondary">
-                            {list.credits_used} credits/hr
+          {isLoading ? (
+            <LoaderBox>
+              <CircularProgress />
+            </LoaderBox>
+          ) : (
+            <>
+              {callHistoryData?.data?.call_logs.map((list, index) => (
+                <SecondContainer key={index}>
+                  <SecondSubContainer>
+                    <SecondSubTextMainContainer>
+                      <SecondSubFirstBox>
+                        <SecondSubFirstPartBox>
+                          <WorkerImg src={list.link ? list.link : ''} />
+                          <SecondSubFirstPartSecondBox>
+                            <SecondSubFirstPartSecondBoxFirstText>
+                              <CallHistoryName variant="h6" color="white.main" whiteSpace="nowrap">
+                                {list.name}
+                              </CallHistoryName>
+                              <SecondSubFirstPartSecondBoxSecText>
+                                <SecTextContainer color="text.primary">{calculateAge(list.dob)}</SecTextContainer>
+                                <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
+                                <SecTextContainer color="text.primary">
+                                  {list.languages &&
+                                    list.languages
+                                      .filter((item) => item.language_name)
+                                      .map((item) => item.language_name)
+                                      .join(', ')}
+                                </SecTextContainer>
+                              </SecondSubFirstPartSecondBoxSecText>
+                            </SecondSubFirstPartSecondBoxFirstText>
+                            <CallHistoryCreditBox>
+                              <ImgBoxContainer src="/images/workercards/dollar-img.png" />
+                              <UINewTypography variant="captionLargeBold" color="text.secondary">
+                                {list.credits_used} credits/hr
+                              </UINewTypography>
+                            </CallHistoryCreditBox>
+                          </SecondSubFirstPartSecondBox>
+                        </SecondSubFirstPartBox>
+                        {!isSmDown && (
+                          <SecondSubFirstPartThiredBox marginRight={{ sm: '32px' }}>
+                            <FirstTextContainer color="text.primary" whiteSpace="nowrap">
+                              Duration: {list.duration && moment(list.duration).format('h:mm:ss a')}
+                            </FirstTextContainer>
+                            <CreditUsedBox>
+                              <FirstTextContainer color="text.primary" whiteSpace="nowrap">
+                                Credits used:
+                              </FirstTextContainer>
+                              <SecondSubFirstPartThiredBoxText>
+                                <ImgBoxContainer src="/images/workercards/dollar-img.png" />
+                                <FirstTextContainer color="text.primary">{list.credits_used}</FirstTextContainer>
+                              </SecondSubFirstPartThiredBoxText>
+                            </CreditUsedBox>
+                          </SecondSubFirstPartThiredBox>
+                        )}
+                      </SecondSubFirstBox>
+                      {isSmDown && (
+                        <SecondSubFirstPartThiredBox gap="8px !important">
+                          <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
+                            Duration: {list.duration && moment(list.duration).format('h:mm:ss a')}
                           </UINewTypography>
-                        </CallHistoryCreditBox>
-                      </SecondSubFirstPartSecondBox>
-                    </SecondSubFirstPartBox>
-                    {!isSmDown && (
-                      <SecondSubFirstPartThiredBox marginRight={{ sm: '32px' }}>
-                        <FirstTextContainer color="text.primary" whiteSpace="nowrap">
-                          Duration: {list.duration && moment(list.duration).format('h:mm:ss a')}
-                        </FirstTextContainer>
-                        <CreditUsedBox>
-                          <FirstTextContainer color="text.primary" whiteSpace="nowrap">
-                            Credits used:
-                          </FirstTextContainer>
-                          <SecondSubFirstPartThiredBoxText>
-                            <ImgBoxContainer src="/images/workercards/dollar-img.png" />
-                            <FirstTextContainer color="text.primary">{list.credits_used}</FirstTextContainer>
-                          </SecondSubFirstPartThiredBoxText>
-                        </CreditUsedBox>
-                      </SecondSubFirstPartThiredBox>
-                    )}
-                  </SecondSubFirstBox>
-                  {isSmDown && (
-                    <SecondSubFirstPartThiredBox gap="8px !important">
-                      <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
-                        Duration: {list.duration && moment(list.duration).format('h:mm:ss a')}
-                      </UINewTypography>
-                      <CreditUsedBox>
-                        <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
-                          Credits used:
-                        </UINewTypography>
-                        <SecondSubFirstPartThiredBoxText>
-                          <ImgBoxContainer src="/images/workercards/dollar-img.png" />
-                          <UINewTypography variant="buttonLargeMenu" color="text.primary">
-                            {list.credits_used}
-                          </UINewTypography>
-                        </SecondSubFirstPartThiredBoxText>
-                      </CreditUsedBox>
-                    </SecondSubFirstPartThiredBox>
-                  )}
-                  <CallAgainBox>
-                    <UIThemeShadowButton variant="contained" sx={{ width: '100%', maxWidth: { xs: '363px', sm: '220px' } }}>
-                      <Box sx={{ display: 'flex', gap: 1.25 }}>
-                        <SecImgBoxContainer src="/images/home-connect-instantly-img.png" />
-                        <Box sx={{ whiteSpace: 'nowrap' }}>
-                          <UINewTypography variant="bodySemiBold" color="white.main">
-                            <FormattedMessage id="CallAgain" />
-                          </UINewTypography>
-                        </Box>
-                      </Box>
-                    </UIThemeShadowButton>
-                  </CallAgainBox>
-                </SecondSubTextMainContainer>
-              </SecondSubContainer>
+                          <CreditUsedBox>
+                            <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
+                              Credits used:
+                            </UINewTypography>
+                            <SecondSubFirstPartThiredBoxText>
+                              <ImgBoxContainer src="/images/workercards/dollar-img.png" />
+                              <UINewTypography variant="buttonLargeMenu" color="text.primary">
+                                {list.credits_used}
+                              </UINewTypography>
+                            </SecondSubFirstPartThiredBoxText>
+                          </CreditUsedBox>
+                        </SecondSubFirstPartThiredBox>
+                      )}
+                      <CallAgainBox>
+                        <UIThemeShadowButton variant="contained" sx={{ width: '100%', maxWidth: { xs: '363px', sm: '220px' } }}>
+                          <Box sx={{ display: 'flex', gap: 1.25 }}>
+                            <SecImgBoxContainer src="/images/home-connect-instantly-img.png" />
+                            <Box sx={{ whiteSpace: 'nowrap' }}>
+                              <UINewTypography variant="bodySemiBold" color="white.main">
+                                <FormattedMessage id="CallAgain" />
+                              </UINewTypography>
+                            </Box>
+                          </Box>
+                        </UIThemeShadowButton>
+                      </CallAgainBox>
+                    </SecondSubTextMainContainer>
+                  </SecondSubContainer>
 
-              <DividerContainer orientation="horizontal" flexItem />
-            </SecondContainer>
-          ))}
+                  <DividerContainer orientation="horizontal" flexItem />
+                </SecondContainer>
+              ))}
+            </>
+          )}
         </CallHistoryMainContainer>
         {total_rows > 0 && (
           <CallHistoryPaginationContainer>
