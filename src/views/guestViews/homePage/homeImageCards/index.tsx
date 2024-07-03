@@ -16,6 +16,7 @@ import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
 import { PaginationMainBox } from 'views/protectedDashboardViews/payoutRequest/PayoutRequest.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import { NotFoundModelBox } from './HomeImageCard.styled';
 
 const HomeImageCard = ({
   modelListing,
@@ -166,9 +167,9 @@ const HomeImageCard = ({
         {modelListing.length > 0
           ? ''
           : !isFavPage && (
-              <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+              <NotFoundModelBox>
                 <UINewTypography variant="h1">Model Not Found</UINewTypography>
-              </Box>
+              </NotFoundModelBox>
             )}
       </WorkerCardMainBox>
       <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>

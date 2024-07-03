@@ -23,6 +23,7 @@ import ProfileMenu from 'components/UIComponents/UIStyleHeader';
 import MoreFilters from '../searchPage/moreFilters';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
+import { SearchBarBox } from './GuestLayout.styled';
 
 const HeaderGuestComponent = () => {
   const url = new URL(window.location.href);
@@ -158,12 +159,12 @@ const HeaderGuestComponent = () => {
               />
             </Box>
             {isMdUp && (
-              <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }} onClick={handleOpenFilterModal}>
+              <SearchBarBox onClick={handleOpenFilterModal}>
                 <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" loading="lazy" />
                 <UINewTypography variant="buttonLargeMenu">
                   <FormattedMessage id="Search" />
                 </UINewTypography>
-              </Box>
+              </SearchBarBox>
             )}
           </Box>
 

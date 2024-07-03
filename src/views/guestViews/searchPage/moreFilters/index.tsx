@@ -1,16 +1,16 @@
-import Drawer from '@mui/material/Drawer';
 import {
   FilterAccordian,
   FilterAction,
   FilterContent,
   FilterHeader,
   StyledAccordionDetails,
-  StyledAccordionSummary
+  StyledAccordionSummary,
+  StyledDrawer,
+  TitleSerachBox
 } from './MoreFilters.styled';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { FormattedMessage } from 'react-intl';
 import IconButton from '@mui/material/IconButton';
-import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Close from '@mui/icons-material/Close';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -147,26 +147,13 @@ const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleCl
   };
 
   return (
-    <Drawer
-      anchor="right"
-      open={open}
-      onClose={handleClose}
-      sx={{
-        '& .MuiPaper-root': {
-          scrollbarWidth: 'none',
-          width: '100%',
-          maxWidth: 528,
-          justifyContent: 'space-between',
-          backgroundColor: 'secondary.dark'
-        }
-      }}
-    >
+    <StyledDrawer anchor="right" open={open} onClose={handleClose}>
       <FilterHeader>
-        <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center' }}>
+        <TitleSerachBox>
           <UINewTypography variant="h3" fontSize={30} color="white.main">
             <FormattedMessage id="SearchFilter" />
           </UINewTypography>
-        </Box>
+        </TitleSerachBox>
         <IconButton onClick={handleClose}>
           <Close sx={{ color: 'text.primary', height: 40, width: 40 }} />
         </IconButton>
@@ -228,7 +215,7 @@ const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleCl
           <FormattedMessage id="Apply" />
         </UIThemeButton>
       </FilterAction>
-    </Drawer>
+    </StyledDrawer>
   );
 };
 

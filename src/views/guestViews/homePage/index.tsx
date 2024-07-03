@@ -26,7 +26,7 @@ const HomeContainer = () => {
   const handelFilterChange = async (values: any) => {
     setFilters(values);
     const getModel = await ModelListingService.getModelListing(values);
-    setModelListing(getModel.model_details);
+    setModelListing(getModel?.model_details);
     setTotalRows(getModel.aggregate.total_rows);
   };
 

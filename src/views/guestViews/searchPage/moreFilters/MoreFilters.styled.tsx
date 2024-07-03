@@ -1,4 +1,14 @@
-import { Accordion, AccordionDetails, AccordionDetailsProps, AccordionSummary, AccordionSummaryProps, Box, styled } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionDetailsProps,
+  AccordionSummary,
+  AccordionSummaryProps,
+  Box,
+  Drawer,
+  Slider,
+  styled
+} from '@mui/material';
 
 export const FilterAction = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -8,7 +18,7 @@ export const FilterAction = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   gap: theme.spacing(1),
   borderTop: '1px solid',
-  borderColor: theme.palette.secondary[800],
+  borderColor: theme.palette.primary[700],
   bottom: 0,
   zIndex: 1
 }));
@@ -24,7 +34,7 @@ export const FilterHeader = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   gap: theme.spacing(1.5),
   borderBottom: '1px solid',
-  borderColor: theme.palette.secondary[800],
+  borderColor: theme.palette.primary[700],
   maxWidth: 528,
   width: '100%'
 }));
@@ -45,8 +55,10 @@ export const FilterAccordian = styled(Accordion)(({ theme }) => ({
   border: 'none',
   boxShadow: 'none',
   borderBottom: '1px solid',
-  borderColor: theme.palette.secondary[800],
+  borderColor: theme.palette.primary[700],
   paddingBottom: theme.spacing(2.5),
+  backgroundColor: 'transparent',
+  width: '100%',
   '&.Mui-expanded': {
     margin: 0
   },
@@ -67,5 +79,33 @@ export const StyledAccordionSummary = styled((props: AccordionSummaryProps) => <
 export const StyledAccordionDetails = styled((props: AccordionDetailsProps) => <AccordionDetails {...props} />)(() => ({
   '&.MuiAccordionDetails-root': {
     padding: '16px 0 20px 0'
+  }
+}));
+
+export const StyledDrawer = styled(Drawer)(({ theme }) => ({
+  '& .MuiDrawer-paper': {
+    width: '100%',
+    maxWidth: 528,
+    backgroundColor: theme.palette.secondary.dark,
+    borderRight: 'none',
+    scrollbarWidth: 'none'
+  }
+}));
+
+export const TitleSerachBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1.5),
+  alignItems: 'center'
+}));
+
+export const StyledSliderBar = styled(Slider)(({ theme }) => ({
+  color: theme.palette.text.secondary,
+  '& .MuiSlider-valueLabel': {
+    transform: 'translateY(100%) scale(1) !important',
+    backgroundColor: 'transparent',
+    fontSize: 16,
+    fontWeight: 400,
+    lineHeight: '160%',
+    color: theme.palette.text.primary
   }
 }));
