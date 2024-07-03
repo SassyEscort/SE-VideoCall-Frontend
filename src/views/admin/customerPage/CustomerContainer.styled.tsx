@@ -1,3 +1,4 @@
+import { Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';
 import { styled } from '@mui/system';
@@ -34,4 +35,23 @@ export const NotFoundBox = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   padding: theme.spacing(2)
+}));
+
+export const StackBoxContainer = styled(Stack)(({ theme }) => ({
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  marginBottom: theme.spacing(1)
+}));
+
+export const StackFirstBoxContainer = styled(Stack)(({ theme }) => ({
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  marginBottom: theme.spacing(1),
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column'
+  },
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'row'
+  }
 }));

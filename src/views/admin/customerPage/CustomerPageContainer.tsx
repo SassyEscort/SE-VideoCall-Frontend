@@ -4,7 +4,6 @@ import { useState, useCallback, useEffect } from 'react';
 import debounce from 'lodash/debounce';
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
-import Stack from '@mui/material/Stack';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -33,7 +32,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { useRouter } from 'next/navigation';
 import MainLayout from '../../../views/admin/layouts/AdminLayout/DashboardLayout';
 import CustomerListHead from './CustomerListHead';
-import { ModelActionPopover, NotFoundBox, SortBox } from './CustomerContainer.styled';
+import { ModelActionPopover, NotFoundBox, SortBox, StackBoxContainer, StackFirstBoxContainer } from './CustomerContainer.styled';
 import PaginationSearch from 'components/common/CustomPaginations/PaginationSearch';
 import { CustomerDetailsPage } from 'services/adminModel/types';
 
@@ -203,14 +202,14 @@ export default function CustomerPageContainer() {
     <>
       <MainLayout>
         <Container>
-          <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
+          <StackBoxContainer>
             <Typography variant="h4" gutterBottom>
               Customer
             </Typography>
-          </Stack>
-          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent="space-between" mb={1}>
+          </StackBoxContainer>
+          <StackFirstBoxContainer>
             <PaginationSearch placeholder="Search..." handleChangeSearch={handleChangeSearch} />
-          </Stack>
+          </StackFirstBoxContainer>
 
           <SortBox>
             <PaginationSortBy
