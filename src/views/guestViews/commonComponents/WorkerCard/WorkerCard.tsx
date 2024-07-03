@@ -65,7 +65,7 @@ const WorkerCard = ({
   const modelFlag = countryWithFlag.filter((country) => country.name === modelDetails?.country).map((data) => data.flag)[0];
   const imageUrlRef = useRef<HTMLElement>();
 
-  useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails.cords);
+  useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails?.cords);
 
   const handleLikeClick = async (modelId: number) => {
     try {
@@ -96,7 +96,7 @@ const WorkerCard = ({
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              handleLikeClick(modelDetails.id);
+              handleLikeClick(modelDetails?.id);
             }}
           />
         )}
@@ -107,9 +107,9 @@ const WorkerCard = ({
             <ProfileCardContainer>
               <NameCardContainer>
                 <UINewTypography variant="newTitle" color="#ffff">
-                  {modelDetails.name}
+                  {modelDetails?.name}
                 </UINewTypography>
-                {modelDetails.is_online === 1 ? (
+                {modelDetails?.is_online === 1 ? (
                   <>
                     <LiveIconWorkerCard>
                       <LiveIconSecBoxWorkerCard sx={{ backgroundColor: 'success.100' }} />
@@ -128,11 +128,11 @@ const WorkerCard = ({
                 <CreditContainer>
                   <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
                   <UINewTypography variant="captionLargeBold" color="text.secondary">
-                    {!modelDetails.price_per_minute ? (
+                    {!modelDetails?.price_per_minute ? (
                       <FormattedMessage id="NoPrice" />
                     ) : (
                       <>
-                        {modelDetails.price_per_minute} <FormattedMessage id="CreditsMin" />
+                        {modelDetails?.price_per_minute} <FormattedMessage id="CreditsMin" />
                       </>
                     )}
                   </UINewTypography>
@@ -142,7 +142,7 @@ const WorkerCard = ({
             <SecondMainContainerWorkerCard>
               <SecondSubContainerWorkerCard>
                 <UITypographyBox variant="SubtitleSmallMedium" color="text.primary">
-                  {moment().diff(modelDetails.dob, 'years')}
+                  {moment().diff(modelDetails?.dob, 'years')}
                 </UITypographyBox>
                 <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
                 <UITypographyBoxContainer variant="SubtitleSmallMedium">{languages}</UITypographyBoxContainer>
@@ -152,11 +152,11 @@ const WorkerCard = ({
               <CreditContainer sx={{ marginTop: isSmallScreen ? 1.5 : 1 }}>
                 <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
                 <UINewTypography variant="captionLargeBold" color="text.secondary">
-                  {!modelDetails.price_per_minute ? (
+                  {!modelDetails?.price_per_minute ? (
                     <FormattedMessage id="NoPrice" />
                   ) : (
                     <>
-                      {modelDetails.price_per_minute} <FormattedMessage id="CreditsMin" />
+                      {modelDetails?.price_per_minute} <FormattedMessage id="CreditsMin" />
                     </>
                   )}
                 </UINewTypography>
