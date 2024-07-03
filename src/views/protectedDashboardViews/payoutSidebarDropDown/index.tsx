@@ -43,7 +43,7 @@ const PayoutMobileSidebar = ({ token, modelDetails }: { token: TokenIdType; mode
       };
       if (token.token) {
         const data = await PayoutService.bankDetailsList(token.token, BankListObject);
-        if (data) {
+        if (data.code === 200) {
           setBankDetailsList(data);
         }
       }

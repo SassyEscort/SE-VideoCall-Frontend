@@ -3,6 +3,9 @@ import { styled } from '@mui/material/styles';
 
 export const UIStyledInputText = styled(TextField)(({ theme }) => ({
   '&:hover': {
+    '.MuiOutlinedInput-notchedOutline': {
+      borderColor: '#ff68c0 !important'
+    },
     '& .MuiOutlinedInput-notchedOutline': {
       borderColor: theme.palette.primary[800]
     }

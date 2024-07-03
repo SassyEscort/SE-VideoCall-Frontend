@@ -123,7 +123,8 @@ export const DrawerBox = styled(Drawer)(({ theme }) => ({
   '& .MuiPaper-root': {
     width: '100%',
     maxWidth: 596,
-    backgroundColor: '#1E0815'
+    backgroundColor: '#1E0815',
+    scrollbarWidth: 'none'
   }
 }));
 

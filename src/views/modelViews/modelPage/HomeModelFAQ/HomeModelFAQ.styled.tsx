@@ -21,9 +21,13 @@ export const FAQConatainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
     gap: theme.spacing(3)
   },
   [theme.breakpoints.up('sm')]: {
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
     gap: theme.spacing(2)
   }
 }));
@@ -90,8 +94,6 @@ export const StyledAccordion = styled((props: AccordionProps) => <Accordion disa
 
 export const StyledAccordionSummary = styled((props: AccordionSummaryProps) => <AccordionSummary {...props} />)(({ theme }) => ({
   color: theme.palette.text.primary,
-  paddingTop: '8px',
-  paddingBottom: '8px',
   paddingRight: 0,
   paddingLeft: 0,
   '&.MuiAccordionSummary-root': {

@@ -29,6 +29,10 @@ export const FaqPageSubBoxContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     paddingLeft: theme.spacing(1.875),
     paddingRight: theme.spacing(1.875)
+  },
+  [theme.breakpoints.up('sm')]: {
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
   }
 }));
 

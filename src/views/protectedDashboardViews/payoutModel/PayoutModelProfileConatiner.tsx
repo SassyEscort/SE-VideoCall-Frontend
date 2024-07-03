@@ -1,5 +1,5 @@
 'use client';
-import { MenuItem } from '@mui/material';
+import { MenuItem, useMediaQuery } from '@mui/material';
 import { SidebarDropDownMainContainer } from '../sidebarDropDown/SidebarDropDown.styled';
 import { useEffect, useState } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -12,8 +12,8 @@ import PayoutFAQS from '../payoutFAQS';
 import {
   FiveBox,
   ForBox,
-  FristDivider,
-  MainConatiner,
+  FirstDivider,
+  MainContainer,
   MenuListText,
   SecondBox,
   SecondDivider,
@@ -69,10 +69,11 @@ const PayoutModelProfileConatiner = ({ token, modelDetails }: { token: TokenIdTy
       setMenuProfileId(0);
     }
   }, [bankDetailsList]);
+  const isMd = useMediaQuery('(min-width:900px) and (max-width:1021px)');
 
   return (
-    <MainConatiner>
-      <FristDivider orientation="vertical" flexItem />
+    <MainContainer sx={isMd ? { paddingLeft: '14px' } : {}}>
+      <FirstDivider orientation="vertical" flexItem />
       <SecondBox>
         <ThirdBox>
           <ForBox>
@@ -94,12 +95,12 @@ const PayoutModelProfileConatiner = ({ token, modelDetails }: { token: TokenIdTy
                       <UINewTypography variant="buttonLargeMenu">{list.menuName}</UINewTypography>
                     )}
                   </MenuItem>
-                  <FristDivider orientation="horizontal" flexItem />
+                  <FirstDivider orientation="horizontal" flexItem />
                 </>
               ))}
             </SidebarDropDownMainContainer>
           </ForBox>
-          <FristDivider orientation="vertical" flexItem />
+          <FirstDivider orientation="vertical" flexItem />
         </ThirdBox>
         <MenuListText>
           {menuId === 0 ? (
@@ -126,7 +127,7 @@ const PayoutModelProfileConatiner = ({ token, modelDetails }: { token: TokenIdTy
           )}
         </MenuListText>
       </SecondBox>
-    </MainConatiner>
+    </MainContainer>
   );
 };
 

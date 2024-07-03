@@ -1,6 +1,6 @@
 import { Box, Divider, styled } from '@mui/material';
 
-export const MainConatiner = styled(Box)(({ theme }) => ({
+export const MainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%'
 }));
@@ -31,7 +31,7 @@ export const MenuListText = styled(Box)(({ theme }) => ({
   width: '100%'
 }));
 
-export const FristDivider = styled(Divider)(({ theme }) => ({
+export const FirstDivider = styled(Divider)(({ theme }) => ({
   borderColor: theme.palette.primary[700]
 }));
 
