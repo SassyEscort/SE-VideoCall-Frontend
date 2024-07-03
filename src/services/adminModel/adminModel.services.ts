@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { ModelDetailsRes, ModelFilterParams } from './types';
+import { CustomerDetailsRes, CustomerFilterParams, ModelDetailsRes, ModelFilterParams } from './types';
 
 export type ModelListing = {
   country_id: number;
@@ -105,6 +105,35 @@ export class adminModelServices {
     } catch (err: any) {
       const error: AxiosError = err;
       return error.response?.data as ModelDetailsRes;
+    }
+  };
+  static getCustomerDetails = async (params: CustomerFilterParams, token: string): Promise<CustomerDetailsRes> => {
+    let query = '';
+    if (params.filter_text) {
+      query += `&filter_text=${params.filter_text}`;
+    }
+    if (params.sort_order) {
+      query += `&sort_order=${params.sort_order}`;
+    }
+    if (params.sort_field) {
+      query += `&sort_field=${params.sort_field}`;
+    }
+
+    try {
+      const res = await axios.get(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/customer?limit=${params.limit}&offset=${params.offset}${query}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+          }
+        }
+      );
+
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as CustomerDetailsRes;
     }
   };
 }

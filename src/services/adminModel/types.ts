@@ -79,3 +79,36 @@ export type ModelFilterParams = {
   profile_status?: string;
   is_active?: string;
 };
+
+export type CustomerFilterParams = {
+  limit: number;
+  offset: number;
+  filter_text?: string;
+  sort_order?: string;
+  sort_field?: string;
+};
+
+export type CustomerDetailsPage = {
+  id: number;
+  name: string;
+  email: string;
+  createdDate: string;
+  userName: string;
+  email_verified: number;
+  profile_status: string;
+};
+
+export type CustomerDetails = {
+  total_rows: number;
+  page_size: number;
+  offset: number;
+};
+
+export type CustomerDetailsContainer = {
+  aggregate: CustomerDetails;
+  customer_info: CustomerDetailsPage[];
+};
+
+export interface CustomerDetailsRes extends GenericRes {
+  data: CustomerDetailsContainer;
+}
