@@ -13,8 +13,10 @@ import {
   CallHistoryText,
   CreditUsedBox,
   DividerContainer,
+  FirstTextContainer,
   ImgBoxContainer,
   SecImgBoxContainer,
+  SecTextContainer,
   SecondContainer,
   SecondSubContainer,
   SecondSubFirstBox,
@@ -54,12 +56,13 @@ const CallHistory = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [callHistoryData, setCallHistoryData] = useState<CallHistoryPageDetailsRes>();
   const [total_rows, setTotalRows] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [filters, setFilters] = useState<CallHistoryPaginationType>({
     page: 1,
     limit: 20,
     offset: 0
   });
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const userToken = async () => {
@@ -144,17 +147,15 @@ const CallHistory = () => {
                                 {list.name}
                               </CallHistoryName>
                               <SecondSubFirstPartSecondBoxSecText>
-                                <UINewTypography variant="SubtitleSmallMedium" color="text.primary" lineHeight="120%">
-                                  {calculateAge(list.dob)}
-                                </UINewTypography>
+                                <SecTextContainer color="text.primary">{calculateAge(list.dob)}</SecTextContainer>
                                 <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
-                                <UINewTypography variant="SubtitleSmallMedium" color="text.primary" lineHeight="120%">
+                                <SecTextContainer color="text.primary">
                                   {list.languages &&
                                     list.languages
                                       .filter((item) => item.language_name)
                                       .map((item) => item.language_name)
                                       .join(', ')}
-                                </UINewTypography>
+                                </SecTextContainer>
                               </SecondSubFirstPartSecondBoxSecText>
                             </SecondSubFirstPartSecondBoxFirstText>
                             <CallHistoryCreditBox>
@@ -167,18 +168,16 @@ const CallHistory = () => {
                         </SecondSubFirstPartBox>
                         {!isSmDown && (
                           <SecondSubFirstPartThiredBox marginRight={{ sm: '32px' }}>
-                            <UINewTypography variant="buttonLargeMenu" color="text.primary">
+                            <FirstTextContainer color="text.primary" whiteSpace="nowrap">
                               Duration: {list.duration && moment(list.duration).format('h:mm:ss a')}
-                            </UINewTypography>
+                            </FirstTextContainer>
                             <CreditUsedBox>
-                              <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
+                              <FirstTextContainer color="text.primary" whiteSpace="nowrap">
                                 Credits used:
-                              </UINewTypography>
+                              </FirstTextContainer>
                               <SecondSubFirstPartThiredBoxText>
                                 <ImgBoxContainer src="/images/workercards/dollar-img.png" />
-                                <UINewTypography variant="buttonLargeMenu" color="text.primary">
-                                  {list.credits_used}
-                                </UINewTypography>
+                                <FirstTextContainer color="text.primary">{list.credits_used}</FirstTextContainer>
                               </SecondSubFirstPartThiredBoxText>
                             </CreditUsedBox>
                           </SecondSubFirstPartThiredBox>
@@ -186,7 +185,7 @@ const CallHistory = () => {
                       </SecondSubFirstBox>
                       {isSmDown && (
                         <SecondSubFirstPartThiredBox gap="8px !important">
-                          <UINewTypography variant="buttonLargeMenu" color="text.primary">
+                          <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
                             Duration: {list.duration && moment(list.duration).format('h:mm:ss a')}
                           </UINewTypography>
                           <CreditUsedBox>
@@ -203,7 +202,7 @@ const CallHistory = () => {
                         </SecondSubFirstPartThiredBox>
                       )}
                       <CallAgainBox>
-                        <UIThemeShadowButton variant="contained" sx={{ width: '100%', maxWidth: { xs: '363px', sm: '173px' } }}>
+                        <UIThemeShadowButton variant="contained" sx={{ width: '100%', maxWidth: { xs: '363px', sm: '220px' } }}>
                           <Box sx={{ display: 'flex', gap: 1.25 }}>
                             <SecImgBoxContainer src="/images/home-connect-instantly-img.png" />
                             <Box sx={{ whiteSpace: 'nowrap' }}>

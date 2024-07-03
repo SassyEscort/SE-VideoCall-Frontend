@@ -2,10 +2,11 @@ import { StareIcone, UIStyledArrivalsButton } from 'components/UIComponents/UISt
 import Image from 'next/image';
 import { FormattedMessage } from 'react-intl';
 
-const NewArrivals = () => {
+const NewArrivals = ({ onClick }: { onClick?: () => void }) => {
   return (
     <>
       <UIStyledArrivalsButton
+        onClick={onClick}
         startIcon={
           <StareIcone>
             <Image alt="home_model" width={24} height={24} src="/images/home/arrivals-img1.png" />

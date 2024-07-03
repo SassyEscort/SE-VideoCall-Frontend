@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import LanguageDropdown from 'components/common/LanguageDropdown';
+import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 
 export type NotificationFilters = {
   page: number;
@@ -47,6 +48,10 @@ const ModelHeaderAuthComponent = () => {
   const isSmUP = useMediaQuery(theme.breakpoints.up('sm'));
 
   const uploadedImageURL = '/images/headerv2/profilePic.png';
+
+  const isVerificationPendingOrCompleted = (step: string | undefined) => {
+    return step === MODEL_ACTIVE_STEP.IN_REVIEW || step === MODEL_ACTIVE_STEP.ONBOARDED;
+  };
 
   return (
     <>
@@ -88,7 +93,7 @@ const ModelHeaderAuthComponent = () => {
             )}
           </Box>
         </Box>
-        {isSmUP && (
+        {isSmUP && !isVerificationPendingOrCompleted(modelDetails?.verification_step) && (
           <Link href="/model/profile">
             <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>
               <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">

@@ -48,7 +48,7 @@ const BillingHistory = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [filters, setFilters] = useState<BillPaginationType>({
-    page: 0,
+    page: 1,
     limit: 20,
     offset: 0
   });
@@ -106,6 +106,7 @@ const BillingHistory = () => {
     },
     [filters, handleChangeFilter]
   );
+
   return (
     <MainLayoutNav variant={'worker'} enlargedFooter={true}>
       <BillingHistoryBoxContainer>

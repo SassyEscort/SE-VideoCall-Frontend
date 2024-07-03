@@ -44,7 +44,7 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
   const [modelEarningHistory, setModelEarningHistory] = useState<ModelEarningHistoryPageDetailsRes>();
   const [total_rows, setTotalRows] = useState(0);
   const [filters, setFilters] = useState<EarningPaginationType>({
-    page: 0,
+    page: 1,
     limit: 20,
     offset: 0
   });
@@ -70,16 +70,27 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
 
     fetchEarningHistoryDetails();
   }, [filters.limit, filters.offset, token.token]);
+
+  const scrollToTable = () => {
+    const tableElement = document.getElementById('tableSection');
+    if (tableElement) {
+      tableElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const handleChangeFilter = useCallback((value: EarningPaginationType) => {
     setFilters(value);
   }, []);
+
   const handleChangePage = useCallback(
     (event: React.ChangeEvent<unknown>, value: number) => {
       const offset = (value - 1) * filters.limit;
       handleChangeFilter({ ...filters, page: value, offset: offset });
+      scrollToTable();
     },
     [filters, handleChangeFilter]
   );
+
   return (
     <HomeMainContainer>
       <EarningHistoryMainContainer>
@@ -113,7 +124,7 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
             </UINewTypography>
           </EarningHistorySecBoxContainer>
 
-          <EarningHistoryLastBoxContainer>
+          <EarningHistoryLastBoxContainer id="tableSection">
             <MainTableLayout modelEarningHistory={modelEarningHistory ?? ({} as ModelEarningHistoryPageDetailsRes)} />
           </EarningHistoryLastBoxContainer>
           <EarningHistoryPagination>

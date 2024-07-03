@@ -74,7 +74,7 @@ const PayoutContainer = ({
   const [amountSave, setAmountSave] = useState(0);
   const [total_rows, setTotalRows] = useState(0);
   const [filters, setFilters] = useState<PayoutPaginationType>({
-    page: 0,
+    page: 1,
     pageSize: 20,
     offset: 0
   });
@@ -142,6 +142,7 @@ const PayoutContainer = ({
   const handleChangeFilter = useCallback((value: PayoutPaginationType) => {
     setFilters(value);
   }, []);
+
   const handleChangePage = useCallback(
     (event: React.ChangeEvent<unknown>, value: number) => {
       const offset = (value - 1) * filters.pageSize;

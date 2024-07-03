@@ -2,8 +2,6 @@ import { Grid, Box } from '@mui/material';
 import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
 import { ButtonMainBox, WorkerCardMainBox } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
-import UIThemeBorderButton from 'components/UIComponents/UIStyledBorderButton';
-import { FormattedMessage } from 'react-intl';
 import { ModelHomeListing } from 'services/modelListing/modelListing.services';
 import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -13,15 +11,27 @@ import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestLogin from 'views/auth/guestLogin';
 import GuestSignup from 'views/auth/guestSignup';
+import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
+import PaginationInWords from 'components/UIComponents/PaginationINWords';
+import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
+import { PaginationMainBox } from 'views/protectedDashboardViews/payoutRequest/PayoutRequest.styled';
+import UINewTypography from 'components/UIComponents/UINewTypography';
+import { NotFoundModelBox } from './HomeImageCard.styled';
 
 const HomeImageCard = ({
   modelListing,
   isFavPage,
-  token
+  token,
+  totalRows,
+  handleChangePage,
+  filters
 }: {
   modelListing: ModelHomeListing[] | ModelFavRes[];
   isFavPage: boolean;
   token?: TokenIdType;
+  totalRows?: number;
+  handleChangePage?: (page: number) => void;
+  filters?: SearchFiltersTypes;
 }) => {
   const [favModelId, setFavModelId] = useState(0);
   const [open, setIsOpen] = useState(false);
@@ -77,11 +87,23 @@ const HomeImageCard = ({
     };
   }, [likedModels]);
 
+  const scrollToTable = () => {
+    const tableElement = document.getElementById('tableSection');
+    if (tableElement) {
+      tableElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleChangePageUI = (event: React.ChangeEvent<unknown>, value: number) => {
+    if (handleChangePage) handleChangePage(value);
+    scrollToTable();
+  };
+
   return (
     <HomeMainContainer>
-      <WorkerCardMainBox>
+      <WorkerCardMainBox id="tableSection">
         <Grid container spacing={{ xs: '13px', md: '15px' }} rowGap={{ xs: 0.875, lg: 2.125 }}>
-          {modelListing.map((item, index) => (
+          {modelListing?.map((item, index) => (
             <Grid item key={index} xs={6} sm={4} md={isFavPage ? 4 : 3} lg={isFavPage ? 4 : 3}>
               <Box display="flex" gap={2} flexDirection="column">
                 {favModelId === item.id ? (
@@ -120,13 +142,35 @@ const HomeImageCard = ({
             </Grid>
           ))}
         </Grid>
-        {modelListing.length >= 10 && (
+
+        {totalRows && filters && totalRows > 0 ? (
           <ButtonMainBox>
-            <UIThemeBorderButton variant="outlined">
-              <FormattedMessage id="LoadMore" />
-            </UIThemeBorderButton>
+            <PaginationMainBox>
+              <UITheme2Pagination
+                page={filters?.page}
+                count={modelListing ? Math.ceil(totalRows / filters?.pageSize) : 1}
+                onChange={handleChangePageUI}
+                sx={{ backgroundColor: 'transparent' }}
+              />
+              <PaginationInWords
+                page={filters?.page}
+                limit={filters?.pageSize}
+                total_rows={totalRows}
+                offset={filters?.offset}
+                isEscort={false}
+              />
+            </PaginationMainBox>
           </ButtonMainBox>
+        ) : (
+          ''
         )}
+        {modelListing.length > 0
+          ? ''
+          : !isFavPage && (
+              <NotFoundModelBox>
+                <UINewTypography variant="h1">Model Not Found</UINewTypography>
+              </NotFoundModelBox>
+            )}
       </WorkerCardMainBox>
       <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
