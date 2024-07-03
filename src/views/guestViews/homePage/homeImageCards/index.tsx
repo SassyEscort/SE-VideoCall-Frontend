@@ -28,20 +28,15 @@ const HomeImageCard = ({
   modelListing: ModelHomeListing[] | ModelFavRes[];
   isFavPage: boolean;
   token?: TokenIdType;
-  totalRows: number;
-  handleChangePage: (page: number) => void;
-  filters: SearchFiltersTypes;
+  totalRows?: number;
+  handleChangePage?: (page: number) => void;
+  filters?: SearchFiltersTypes;
 }) => {
   const [favModelId, setFavModelId] = useState(0);
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const [likedModels, setLikedModels] = useState<number[]>([]);
-  // const [filters, setFilters] = useState<PaginationType>({
-  //   page: 1,
-  //   pageSize: 20,
-  //   offset: 0
-  // });
 
   const handleLoginLiked = (modelId: number) => {
     setFavModelId(modelId);
@@ -91,19 +86,46 @@ const HomeImageCard = ({
     };
   }, [likedModels]);
 
+  const scrollToTable = () => {
+    const tableElement = document.getElementById('tableSection');
+    if (tableElement) {
+      tableElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const handleChangePageUI = (event: React.ChangeEvent<unknown>, value: number) => {
-    handleChangePage(value);
+    if (handleChangePage) handleChangePage(value);
+    scrollToTable();
   };
 
   return (
     <HomeMainContainer>
-      <WorkerCardMainBox>
+      <WorkerCardMainBox id="tableSection">
         <Grid container spacing={{ xs: '13px', md: '15px' }} rowGap={{ xs: 0.875, lg: 2.125 }}>
-          {totalRows > 0 ? (
-            modelListing?.map((item, index) => (
-              <Grid item key={index} xs={6} sm={4} md={isFavPage ? 4 : 3} lg={isFavPage ? 4 : 3}>
-                <Box display="flex" gap={2} flexDirection="column">
-                  {favModelId === item.id ? (
+          {modelListing?.map((item, index) => (
+            <Grid item key={index} xs={6} sm={4} md={isFavPage ? 4 : 3} lg={isFavPage ? 4 : 3}>
+              <Box display="flex" gap={2} flexDirection="column">
+                {favModelId === item.id ? (
+                  <WorkerCard
+                    modelDetails={item}
+                    isFavPage={isFavPage}
+                    token={token ?? ({} as TokenIdType)}
+                    handleLoginLiked={handleLoginLiked}
+                    handleLoginOpen={handleLoginOpen}
+                    handleLike={handleLike}
+                    liked={likedModels.includes(item.id)}
+                  />
+                ) : (
+                  <Box
+                    component={Link}
+                    prefetch={true}
+                    shallow={true}
+                    href={`/details/${item.user_name}`}
+                    sx={{
+                      textDecoration: 'none',
+                      height: '100%'
+                    }}
+                  >
                     <WorkerCard
                       modelDetails={item}
                       isFavPage={isFavPage}
@@ -113,60 +135,41 @@ const HomeImageCard = ({
                       handleLike={handleLike}
                       liked={likedModels.includes(item.id)}
                     />
-                  ) : (
-                    <Box
-                      component={Link}
-                      prefetch={true}
-                      shallow={true}
-                      href={`/details/${item.user_name}`}
-                      sx={{
-                        textDecoration: 'none',
-                        height: '100%'
-                      }}
-                    >
-                      <WorkerCard
-                        modelDetails={item}
-                        isFavPage={isFavPage}
-                        token={token ?? ({} as TokenIdType)}
-                        handleLoginLiked={handleLoginLiked}
-                        handleLoginOpen={handleLoginOpen}
-                        handleLike={handleLike}
-                        liked={likedModels.includes(item.id)}
-                      />
-                    </Box>
-                  )}
-                </Box>
-              </Grid>
-            ))
-          ) : (
-            <Grid item xs={12}>
+                  </Box>
+                )}
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+
+        {totalRows && filters && totalRows > 0 ? (
+          <ButtonMainBox>
+            <PaginationMainBox>
+              <UITheme2Pagination
+                page={filters?.page}
+                count={modelListing ? Math.ceil(totalRows / filters?.pageSize) : 1}
+                onChange={handleChangePageUI}
+                sx={{ backgroundColor: 'transparent' }}
+              />
+              <PaginationInWords
+                page={filters?.page}
+                limit={filters?.pageSize}
+                total_rows={totalRows}
+                offset={filters?.offset}
+                isEscort={false}
+              />
+            </PaginationMainBox>
+          </ButtonMainBox>
+        ) : (
+          ''
+        )}
+        {modelListing.length > 0
+          ? ''
+          : !isFavPage && (
               <Box display="flex" justifyContent="center" alignItems="center" height="100%">
                 <UINewTypography variant="h1">Model Not Found</UINewTypography>
-              </Box>{' '}
-            </Grid>
-          )}
-        </Grid>
-        {totalRows > 0 && (
-          <>
-            <ButtonMainBox>
-              <PaginationMainBox>
-                <UITheme2Pagination
-                  page={filters?.page}
-                  count={modelListing ? Math.ceil(totalRows / filters?.pageSize) : 1}
-                  onChange={handleChangePageUI}
-                  sx={{ backgroundColor: 'transparent' }}
-                />
-                <PaginationInWords
-                  page={filters?.page}
-                  limit={filters?.pageSize}
-                  total_rows={totalRows}
-                  offset={filters?.offset}
-                  isEscort={false}
-                />
-              </PaginationMainBox>
-            </ButtonMainBox>
-          </>
-        )}
+              </Box>
+            )}
       </WorkerCardMainBox>
       <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />

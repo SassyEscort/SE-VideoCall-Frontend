@@ -33,9 +33,9 @@ const AgeFilter: React.FC<AgeFilterProps> = ({ fromAge, toAge, onChange }) => {
         )}
       >
         {AGES.map((age, key: number) => (
-          <MenuItem key={key} value={age.name}>
+          <MenuItem key={key} value={age.title}>
             <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-              {age.name}
+              {age.title}
             </UINewTypography>
           </MenuItem>
         ))}
