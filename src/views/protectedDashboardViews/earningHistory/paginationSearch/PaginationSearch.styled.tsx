@@ -39,7 +39,7 @@ export const StyledSearch = styled(OutlinedInput)(({ theme }) => ({
       borderColor: '#ff68c0 !important'
     },
     '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: 'primary.800'
+      borderColor: theme.palette.primary['800']
     }
   }
 }));
