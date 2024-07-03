@@ -83,18 +83,30 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ handelFilterChange }) => 
     if (pathname === '/' && filterCount === 0) router.push('/search');
     if (pathname === '/' && filterCount === 1 && objParams.page) return;
 
+    const isDetailsPage = pathname.startsWith('/details/');
     const isMultiple = ['language', 'isOnline', 'page', 'fromPrice', 'fromAge', 'toPrice', 'country', 'sortOrder', 'sortField'].filter(
       (x) => Object.keys(objParams).includes(x)
     );
 
-    if (isMultiple.length) router.push(`/?${queryString}`);
     if (filterCount === 0) {
-      router.push('/');
-    } else if (filterCount === 1) {
-      if ((pathname.startsWith('/') && filterCount > 1) || filterCount > 1) {
-        router.push(`/?${queryString}`);
+      if (isDetailsPage) {
+        router.push(pathname);
       } else {
-        router.push(`/${pathname}?${queryString}`);
+        router.push('/');
+      }
+    } else {
+      if (isMultiple.length) {
+        if (isDetailsPage) {
+          router.push(`${pathname}?${queryString}`);
+        } else {
+          router.push(`/?${queryString}`);
+        }
+      } else {
+        if (isDetailsPage) {
+          router.push(`${pathname}?${queryString}`);
+        } else {
+          router.push(`/${pathname}?${queryString}`);
+        }
       }
     }
 

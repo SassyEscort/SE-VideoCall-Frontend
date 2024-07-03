@@ -12,9 +12,7 @@ interface AgeFilterProps {
   onChange: (event: SelectChangeEvent<unknown>, child: React.ReactNode) => void;
 }
 const AgeFilter: React.FC<AgeFilterProps> = ({ fromAge, toAge, onChange }) => {
-  let renderValue = '';
-  if (fromAge > '0') renderValue = toAge === '' && fromAge > '0' ? '1000+' : `${fromAge}-${toAge}`;
-
+  const renderValue = fromAge ? `${fromAge}-${toAge}` : '';
   return (
     <FormControl id="age" sx={{ width: '100%', maxWidth: { lg: '203px', sm: '235px' } }}>
       <StyledSelectInputLabel>
@@ -28,16 +26,19 @@ const AgeFilter: React.FC<AgeFilterProps> = ({ fromAge, toAge, onChange }) => {
         name="age"
         labelId="age"
         IconComponent={ExpandMore}
+        renderValue={(selected) => (
+          <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+            {selected as string}
+          </UINewTypography>
+        )}
       >
-        {AGES.map((age, key: number) => {
-          return (
-            <MenuItem key={key} value={age.name}>
-              <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                {age.name}
-              </UINewTypography>
-            </MenuItem>
-          );
-        })}
+        {AGES.map((age, key: number) => (
+          <MenuItem key={key} value={age.name}>
+            <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+              {age.name}
+            </UINewTypography>
+          </MenuItem>
+        ))}
       </UIStyledSelect>
     </FormControl>
   );
