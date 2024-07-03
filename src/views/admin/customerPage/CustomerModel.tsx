@@ -4,7 +4,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
-import { DetailsDialogContent } from './CustomerContainer.styled';
+import { DetailsDialogContent, DialogContainer } from './CustomerContainer.styled';
 import { CustomerDetailsPage } from 'services/adminModel/types';
 
 const CustorModel = ({
@@ -17,12 +17,12 @@ const CustorModel = ({
   selectedPayoutData: CustomerDetailsPage | null;
 }) => (
   <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-    <DialogTitle id="responsive-modal-title" display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
+    <DialogContainer id="responsive-modal-title">
       <Typography variant="subtitle">Customer</Typography>
       <IconButton onClick={onClose}>
         <CloseIcon />
       </IconButton>
-    </DialogTitle>
+    </DialogContainer>
     <DetailsDialogContent dividers>
       {selectedPayoutData && (
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>

@@ -1,4 +1,4 @@
-import { DialogContent, Stack } from '@mui/material';
+import { DialogContent, DialogTitle, Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';
 import { styled } from '@mui/system';
@@ -77,4 +77,10 @@ export const StyledPopover = styled(Popover)(({ theme }) => ({
     width: 170,
     padding: theme.spacing(1)
   }
+}));
+
+export const DialogContainer = styled(DialogTitle)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between'
 }));
