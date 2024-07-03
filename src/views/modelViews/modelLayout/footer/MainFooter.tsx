@@ -112,10 +112,10 @@ const MainFooter = () => {
                       <FormattedMessage id="FAQs" />
                     </Link>
                   </UINewTypography>
-                  <UINewTypography variant="SubtitleSmallRegular" onClick={handleSignupOpen}>
+                  <UINewTypography variant="SubtitleSmallRegular" onClick={handleSignupOpen} sx={{ cursor: 'pointer' }}>
                     <FormattedMessage id="SignUp" />
                   </UINewTypography>
-                  <UINewTypography variant="SubtitleSmallRegular" onClick={handleLoginOpen}>
+                  <UINewTypography variant="SubtitleSmallRegular" onClick={handleLoginOpen} sx={{ cursor: 'pointer' }}>
                     <FormattedMessage id="LogIn" />
                   </UINewTypography>
                   <UINewTypography variant="SubtitleSmallRegular">

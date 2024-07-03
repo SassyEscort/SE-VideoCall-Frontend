@@ -2,6 +2,7 @@ import CampaignIcon from '@mui/icons-material/Campaign';
 import LineAxis from '@mui/icons-material/LineAxis';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import PaidIcon from '@mui/icons-material/Paid';
+import PersonIcon from '@mui/icons-material/Person';
 
 export const getNavConfig = (id?: number) => {
   const navConfig = [
@@ -14,6 +15,11 @@ export const getNavConfig = (id?: number) => {
       title: 'Model',
       path: '/admin/model',
       icon: <CampaignIcon />
+    },
+    {
+      title: 'Customer',
+      path: '/admin/customer',
+      icon: <PersonIcon />
     },
     {
       title: 'Payout',
