@@ -80,10 +80,11 @@ const MyProfileContainer = ({
 
     try {
       if (Boolean(token.token && payload)) {
+        setIsLoading(true);
         const res = await authServices.emailVerify(payload, token.token);
-
         if (res.code === 200) {
           toast.success('Success');
+          setIsLoading(false);
         } else {
           toast.error(res.message);
         }

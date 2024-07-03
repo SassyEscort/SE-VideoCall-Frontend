@@ -26,6 +26,8 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import moment from 'moment';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
+import { CircularProgress } from '@mui/material';
+import { LoaderBox } from '../Credites/Credits.styled';
 
 export type billingHistoryParams = {
   category: string;
@@ -43,6 +45,8 @@ const BillingHistory = () => {
   const [guestBillingHistory, setGuestBillingHistory] = useState<BillingHistoryDetails[]>();
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [total_rows, setTotalRows] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [filters, setFilters] = useState<BillPaginationType>({
     page: 0,
     limit: 20,
@@ -67,10 +71,12 @@ const BillingHistory = () => {
           offset: filters.offset
         };
         if (token.token) {
+          setIsLoading(true);
           const data = await ModelBillingHistoryService.getBillingHistoryDetails(params, token.token);
           if (data) {
             setGuestBillingHistory(data.data.ledger_details);
             setTotalRows(data.data.aggreate.total_rows);
+            setIsLoading(false);
           }
         }
       } catch (error) {
@@ -109,28 +115,35 @@ const BillingHistory = () => {
               <FormattedMessage id="BillingHistory" />
             </UINewTypography>
           </BillingHistoryTextContainer>
-          <BillingHistoryMainContainer>
-            {guestBillingHistory?.map((list, index) => (
-              <TextMainContainer key={index}>
-                <FirstTextContainer>
-                  <BillingUIContainer sx={{ gap: 1.5 }}>
-                    <UINewTypography variant="buttonLargeMenu" color={list.category === 'Credit' ? 'success.100' : 'error.main'}>
-                      {list.category === 'Credit' ? '+' : '-'} {list.credits} {list.category}
-                    </UINewTypography>
-                    <DateTimeBilling variant="SubtitleSmallMedium" color="text.primary">
-                      {moment(list.created_at).format('LT')}, {moment(list.created_at).format('DD MMMM YYYY')}
-                    </DateTimeBilling>
-                  </BillingUIContainer>
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <DollarBillingValue variant="h6" color="text.secondary">
-                      $ {list.amount}
-                    </DollarBillingValue>
-                  </Box>
-                </FirstTextContainer>
-                <DividerContainer orientation="horizontal" flexItem />
-              </TextMainContainer>
-            ))}
-          </BillingHistoryMainContainer>
+
+          {isLoading ? (
+            <LoaderBox>
+              <CircularProgress />
+            </LoaderBox>
+          ) : (
+            <BillingHistoryMainContainer>
+              {guestBillingHistory?.map((list, index) => (
+                <TextMainContainer key={index}>
+                  <FirstTextContainer>
+                    <BillingUIContainer sx={{ gap: 1.5 }}>
+                      <UINewTypography variant="buttonLargeMenu" color={list.category === 'Credit' ? 'success.100' : 'error.main'}>
+                        {list.category === 'Credit' ? '+' : '-'} {list.credits} {list.category}
+                      </UINewTypography>
+                      <DateTimeBilling variant="SubtitleSmallMedium" color="text.primary">
+                        {moment(list.created_at).format('LT')}, {moment(list.created_at).format('DD MMMM YYYY')}
+                      </DateTimeBilling>
+                    </BillingUIContainer>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <DollarBillingValue variant="h6" color="text.secondary">
+                        $ {list.amount}
+                      </DollarBillingValue>
+                    </Box>
+                  </FirstTextContainer>
+                  <DividerContainer orientation="horizontal" flexItem />
+                </TextMainContainer>
+              ))}
+            </BillingHistoryMainContainer>
+          )}
         </TextAndBoxContainer>
         {total_rows > 0 && (
           <CallHistoryPaginationContainer>
