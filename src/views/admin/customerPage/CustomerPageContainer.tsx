@@ -230,16 +230,9 @@ export default function CustomerPageContainer() {
                     {isLoading ? (
                       <TableRow>
                         <TableCell colSpan={10}>
-                          <Box
-                            sx={{
-                              display: 'flex',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              p: 2
-                            }}
-                          >
+                          <NotFoundBox>
                             <CircularProgress />
-                          </Box>
+                          </NotFoundBox>
                         </TableCell>
                       </TableRow>
                     ) : modelData?.length ? (
