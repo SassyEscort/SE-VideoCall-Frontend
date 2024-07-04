@@ -79,7 +79,7 @@ const ModelHeaderAuthComponent = () => {
   const uploadedImageURL = '/images/headerv2/profilePic.png';
 
   const isVerificationPendingOrCompleted = (step: string | undefined) => {
-    return step === MODEL_ACTIVE_STEP.IN_REVIEW || step === MODEL_ACTIVE_STEP.ONBOARDED;
+    return step === MODEL_ACTIVE_STEP.IN_REVIEW || step === MODEL_ACTIVE_STEP.ONBOARDED || step === MODEL_ACTIVE_STEP.VERIFIED;
   };
 
   return (

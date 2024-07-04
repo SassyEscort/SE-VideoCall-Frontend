@@ -6,6 +6,7 @@ import {
   FAQConatainer,
   FaqPageMainContainer,
   FaqPageSubBoxContainer,
+  FirstTextContainer,
   StyledAccordion,
   StyledAccordionDetails,
   StyledAccordionSummary,
@@ -14,7 +15,6 @@ import {
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import HomeMainContainer from '../guestLayout/homeContainer';
-import Box from '@mui/material/Box';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const FaqPage = () => {
@@ -35,9 +35,9 @@ const FaqPage = () => {
                 <FAQConatainer>
                   <StyledAccordion defaultExpanded>
                     <StyledAccordionSummary aria-controls="panel1-content" id="panel1-header" expandIcon={<ExpandMoreIcon />}>
-                      <UINewTypography variant="bodySemiBold" color="secondary.100">
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="HowDoesTheCredit" />
-                      </UINewTypography>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
                     <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
@@ -48,16 +48,16 @@ const FaqPage = () => {
 
                   <StyledAccordion>
                     <StyledAccordionSummary aria-controls="panel2-content" id="panel2-header" expandIcon={<ExpandMoreIcon />}>
-                      <UINewTypography variant="bodySemiBold" color="secondary.100">
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="IsThePlatformSecure" />
-                      </UINewTypography>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
-                    <Box component="ul">
+                    <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
                         <FormattedMessage id="wePrioritizeTheSecurity" />
                       </StyledAccordionDetails>
-                    </Box>
+                    </UINewTypography>
                   </StyledAccordion>
 
                   <StyledAccordion>
@@ -67,9 +67,9 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <UINewTypography variant="bodySemiBold" color="secondary.100">
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="CanITrustIheIdentity" />
-                      </UINewTypography>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
                     <UINewTypography variant="bodyRegular">
@@ -86,16 +86,16 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <UINewTypography variant="bodySemiBold" color="secondary.100">
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="AreThereAnyRestrictions" />
-                      </UINewTypography>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
-                    <Box component="ul">
+                    <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
                         <FormattedMessage id="WeHaveStrictGuidelines" />
                       </StyledAccordionDetails>
-                    </Box>
+                    </UINewTypography>
                   </StyledAccordion>
 
                   <StyledAccordion>
@@ -105,9 +105,9 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <UINewTypography variant="bodySemiBold" color="secondary.100">
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="HowDoITop" />
-                      </UINewTypography>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
                     <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
@@ -123,9 +123,9 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <UINewTypography variant="bodySemiBold" color="secondary.100">
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="WhatMeasuresAre" />
-                      </UINewTypography>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
                     <UINewTypography variant="bodyRegular">
@@ -142,16 +142,16 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <UINewTypography variant="bodySemiBold" color="secondary.100">
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="IsThereARefund" />
-                      </UINewTypography>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
-                    <Box component="ul">
+                    <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
                         <FormattedMessage id="WeDoNotOfferRefunds" />
                       </StyledAccordionDetails>
-                    </Box>
+                    </UINewTypography>
                   </StyledAccordion>
 
                   <StyledAccordion>
@@ -161,16 +161,16 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <UINewTypography variant="bodySemiBold" color="secondary.100">
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="HowAreDisputesResolved" />
-                      </UINewTypography>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
-                    <Box component="ul">
+                    <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
                         <FormattedMessage id="InTheEventOfDispute" />
                       </StyledAccordionDetails>
-                    </Box>
+                    </UINewTypography>
                   </StyledAccordion>
 
                   <StyledAccordion>
@@ -180,16 +180,16 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <UINewTypography variant="bodySemiBold" color="secondary.100">
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="DoINeedToDownload" />
-                      </UINewTypography>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
-                    <Box component="ul">
+                    <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
                         <FormattedMessage id="OurPlatformIsEntirely" />
                       </StyledAccordionDetails>
-                    </Box>
+                    </UINewTypography>
                   </StyledAccordion>
 
                   <StyledAccordion>
@@ -199,17 +199,18 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <UINewTypography variant="bodySemiBold" color="secondary.100">
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="CanIPreviewOrBrowse" />
-                      </UINewTypography>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
-                    <Box component="ul">
+                    <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
                         <FormattedMessage id="YouCanBrowseThrough" />
                       </StyledAccordionDetails>
-                    </Box>
+                    </UINewTypography>
                   </StyledAccordion>
+
                   <StyledAccordion>
                     <StyledAccordionSummary
                       color="secondary.100"
@@ -217,16 +218,16 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <UINewTypography variant="bodySemiBold" color="secondary.100">
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="IsThereMobileApp" />
-                      </UINewTypography>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
-                    <Box component="ul">
+                    <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
                         <FormattedMessage id="WeOfferResponsiveWeb" />
                       </StyledAccordionDetails>
-                    </Box>
+                    </UINewTypography>
                   </StyledAccordion>
                 </FAQConatainer>
               </FaqPageMainContainer>

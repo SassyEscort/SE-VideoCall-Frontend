@@ -13,6 +13,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   FAQTitle,
   FirstBoxContainer,
+  FirstTextContainer,
   HeaderTextContainer,
   HelpAndSupportMainContainer,
   HelpAndSupportSubContainer,
@@ -76,9 +77,9 @@ const HelpAndSupportContainer = () => {
               <FAQConatainer>
                 <StyledAccordion defaultExpanded>
                   <StyledAccordionSummary aria-controls="panel1-content" id="panel1-header" expandIcon={<ExpandMoreIcon />}>
-                    <UINewTypography variant="bodySemiBold" sx={{ color: 'secondary.100' }}>
+                    <FirstTextContainer sx={{ color: 'secondary.100' }}>
                       <FormattedMessage id="HowDoISignUp" />
-                    </UINewTypography>
+                    </FirstTextContainer>
                   </StyledAccordionSummary>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
@@ -88,7 +89,7 @@ const HelpAndSupportContainer = () => {
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <UINewTypography variant="bodySemiBold">
+                  <FirstTextContainer>
                     <StyledAccordionSummary
                       sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
@@ -97,16 +98,16 @@ const HelpAndSupportContainer = () => {
                     >
                       <FormattedMessage id="WhatAreTheRequirements" />
                     </StyledAccordionSummary>
-                  </UINewTypography>
-                  <Box component="ul">
+                  </FirstTextContainer>
+                  <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
                       <FormattedMessage id="YouMustBeAtLeast" />
                     </StyledAccordionDetails>
-                  </Box>
+                  </UINewTypography>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <UINewTypography variant="bodySemiBold">
+                  <FirstTextContainer>
                     <StyledAccordionSummary
                       sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
@@ -115,7 +116,7 @@ const HelpAndSupportContainer = () => {
                     >
                       <FormattedMessage id="HowDoISetMyRates" />
                     </StyledAccordionSummary>
-                  </UINewTypography>
+                  </FirstTextContainer>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
                       <FormattedMessage id="YouCanSetYourRates" />
@@ -124,7 +125,7 @@ const HelpAndSupportContainer = () => {
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <UINewTypography variant="bodySemiBold">
+                  <FirstTextContainer>
                     <StyledAccordionSummary
                       sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
@@ -133,16 +134,16 @@ const HelpAndSupportContainer = () => {
                     >
                       <FormattedMessage id="HowAreMyEarnings" />
                     </StyledAccordionSummary>
-                  </UINewTypography>
-                  <Box component="ul">
+                  </FirstTextContainer>
+                  <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
                       <FormattedMessage id="YourEarningsAreCalculated" />
                     </StyledAccordionDetails>
-                  </Box>
+                  </UINewTypography>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <UINewTypography variant="bodySemiBold">
+                  <FirstTextContainer>
                     <StyledAccordionSummary
                       sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
@@ -151,7 +152,7 @@ const HelpAndSupportContainer = () => {
                     >
                       <FormattedMessage id="WhenAndHowDoI" />
                     </StyledAccordionSummary>
-                  </UINewTypography>
+                  </FirstTextContainer>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
                       <FormattedMessage id="PaymentsAreProcessed" />
@@ -160,7 +161,7 @@ const HelpAndSupportContainer = () => {
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <UINewTypography variant="bodySemiBold">
+                  <FirstTextContainer>
                     <StyledAccordionSummary
                       sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
@@ -169,7 +170,7 @@ const HelpAndSupportContainer = () => {
                     >
                       <FormattedMessage id="CanIChangeMyRates" />
                     </StyledAccordionSummary>
-                  </UINewTypography>
+                  </FirstTextContainer>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
                       <FormattedMessage id="YesYouCanUpdate" />
@@ -178,7 +179,7 @@ const HelpAndSupportContainer = () => {
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <UINewTypography variant="bodySemiBold">
+                  <FirstTextContainer>
                     <StyledAccordionSummary
                       sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
@@ -187,16 +188,16 @@ const HelpAndSupportContainer = () => {
                     >
                       <FormattedMessage id="WhatIfIHaveTechnical" />
                     </StyledAccordionSummary>
-                  </UINewTypography>
-                  <Box component="ul">
+                  </FirstTextContainer>
+                  <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
                       <FormattedMessage id="ForAnyTechnicalIssues" />
                     </StyledAccordionDetails>
-                  </Box>
+                  </UINewTypography>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <UINewTypography variant="bodySemiBold">
+                  <FirstTextContainer>
                     <StyledAccordionSummary
                       sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
@@ -205,16 +206,16 @@ const HelpAndSupportContainer = () => {
                     >
                       <FormattedMessage id="HowCanIIncrease" />
                     </StyledAccordionSummary>
-                  </UINewTypography>
-                  <Box component="ul">
+                  </FirstTextContainer>
+                  <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
                       <FormattedMessage id="ToIncreaseVisibility" />
                     </StyledAccordionDetails>
-                  </Box>
+                  </UINewTypography>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <UINewTypography variant="bodySemiBold">
+                  <FirstTextContainer>
                     <StyledAccordionSummary
                       sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
@@ -223,16 +224,16 @@ const HelpAndSupportContainer = () => {
                     >
                       <FormattedMessage id="HowDoIViewMy" />
                     </StyledAccordionSummary>
-                  </UINewTypography>
-                  <Box component="ul">
+                  </FirstTextContainer>
+                  <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
                       <FormattedMessage id="YouCanViewYourCallHistory" />
                     </StyledAccordionDetails>
-                  </Box>
+                  </UINewTypography>
                 </StyledAccordion>
 
                 <StyledAccordion>
-                  <UINewTypography variant="bodySemiBold">
+                  <FirstTextContainer>
                     <StyledAccordionSummary
                       sx={{ color: 'secondary.100' }}
                       aria-controls="panel2-content"
@@ -241,12 +242,12 @@ const HelpAndSupportContainer = () => {
                     >
                       <FormattedMessage id="WhoDoIContactIf" />
                     </StyledAccordionSummary>
-                  </UINewTypography>
-                  <Box component="ul">
+                  </FirstTextContainer>
+                  <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
                       <FormattedMessage id="ForAnyQuestionsOrAssistance" />
                     </StyledAccordionDetails>
-                  </Box>
+                  </UINewTypography>
                 </StyledAccordion>
               </FAQConatainer>
             </Box>

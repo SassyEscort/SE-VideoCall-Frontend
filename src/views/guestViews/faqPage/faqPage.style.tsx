@@ -153,3 +153,9 @@ export const StyledAccordionDetails = styled((props: AccordionDetailsProps) => <
   color: theme.palette.secondary[300],
   marginBottom: 24
 }));
+
+export const FirstTextContainer = styled(Typography)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 600,
+  lineHeight: '25.6px'
+}));
