@@ -94,7 +94,7 @@ export const WorkerImg = styled('img')(({ theme }) => ({
   minWidth: '80px',
   height: '100%',
   maxHeight: '80px',
-  borderRadius: '12px',
+  borderRadius: theme.spacing(1.5),
   objectFit: 'contain'
 }));
 
