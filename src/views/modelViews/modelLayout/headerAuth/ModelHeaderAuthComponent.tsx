@@ -17,6 +17,7 @@ import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 import Logout from 'views/protectedViews/logout';
 import ProfileMenu from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/ProfileMenu';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import { FirstBoxContainer, SecBoxContainer, ThirdBoxContainer } from './ModelHeaderAuthComponent.styled';
 
 export type NotificationFilters = {
   page: number;
@@ -90,20 +91,14 @@ const ModelHeaderAuthComponent = () => {
 
         <IconButton sx={{ height: 24, width: 24 }}>
           <>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row-reverse',
-                position: 'relative'
-              }}
-            >
+            <ThirdBoxContainer>
               <Box component="img" src="/images/header/dot.png" position="absolute" />
               <Box component="img" src="/images/header/noti.png" />
-            </Box>
+            </ThirdBoxContainer>
           </>
         </IconButton>
-        <Box display="flex" alignItems="center" gap={1} onClick={handleClickLogout}>
-          <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }}>
+        <FirstBoxContainer onClick={handleClickLogout}>
+          <SecBoxContainer>
             <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
               <Avatar
                 alt="User Photo"
@@ -119,7 +114,7 @@ const ModelHeaderAuthComponent = () => {
                 {modelDetails?.name}
               </UINewTypography>
             )}
-          </Box>
+          </SecBoxContainer>
           <Menu
             id="basic-menu"
             anchorEl={anchorElLogout}
@@ -160,7 +155,7 @@ const ModelHeaderAuthComponent = () => {
             <Logout open={isLogoutOpen} onClose={handleCloseLogoutt} />
           </Menu>
           <ProfileMenu profilePic={firstChar} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
-        </Box>
+        </FirstBoxContainer>
 
         {isSmUP && !isVerificationPendingOrCompleted(modelDetails?.verification_step) && (
           <Link href="/model/profile">
