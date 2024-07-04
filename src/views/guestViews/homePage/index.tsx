@@ -47,7 +47,7 @@ const HomeContainer = () => {
     userToken();
   }, []);
 
-  const handelFilterChange = async (values: any) => {
+  const handelFilterChange = async (values: SearchFiltersTypes) => {
     setFilters(values);
     setIsLoading(true);
     const getModel = await ModelListingService.getModelListing(values);
@@ -71,7 +71,7 @@ const HomeContainer = () => {
     [filters, router]
   );
 
-  const handelFiltersFormSearch = (value: any) => {
+  const handelFiltersFormSearch = (value: SearchFiltersTypes) => {
     setFilters({ ...filters, ...value });
   };
 

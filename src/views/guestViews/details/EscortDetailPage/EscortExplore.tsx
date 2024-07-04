@@ -6,7 +6,7 @@ import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { HomeExploreBox, SubTitle } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
 import { DetailsChildTypographyBox, ExploreEscortText } from './Escort.styled';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
 import SearchFilters, { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -23,6 +23,9 @@ const EscortExplore = () => {
   const [total_rows, setTotalRows] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
+  const initialRender = useRef(true);
+  const prevState = useRef(filters);
+
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -31,12 +34,14 @@ const EscortExplore = () => {
     userToken();
   }, []);
 
-  const handelFilterChange = async (values: any) => {
+  const handelFilterChange = async (values: SearchFiltersTypes | undefined) => {
     setIsLoading(true);
     setFilters(values);
-    const getModel = await ModelListingService.getModelListing(values);
-    setModelListing(getModel.model_details);
-    setTotalRows(getModel.aggregate.total_rows);
+    if (values) {
+      const getModel = await ModelListingService.getModelListing(values);
+      setModelListing(getModel.model_details);
+      setTotalRows(getModel.aggregate.total_rows);
+    }
     setIsLoading(false);
   };
 
@@ -50,8 +55,18 @@ const EscortExplore = () => {
     [filters]
   );
 
+  const handelFiltersFormSearch = (value: SearchFiltersTypes) => {
+    setFilters({ ...filters, ...value });
+  };
+
   useEffect(() => {
-    handelFilterChange(filters);
+    if (initialRender.current) {
+      initialRender.current = false;
+      handelFilterChange(filters);
+      window.scrollTo(0, 0);
+    } else if (JSON.stringify(filters) !== JSON.stringify(prevState.current)) {
+      handelFilterChange(filters);
+    }
   }, [filters]);
 
   return (
@@ -75,7 +90,7 @@ const EscortExplore = () => {
             </HomeExploreBox>
           </ExploreEscortText>
           <HomeMainContainer>
-            <SearchFilters handelFilterChange={handelFilterChange} />
+            <SearchFilters handelFilterChange={handelFiltersFormSearch} />
           </HomeMainContainer>
         </DetailsChildTypographyBox>
         <Box>

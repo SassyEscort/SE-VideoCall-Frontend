@@ -38,7 +38,7 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
   useEffect(() => {
     countryData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, []);
 
   return (
     <FormControl id="country" fullWidth sx={{ width: '100%', maxWidth: '442px' }}>
