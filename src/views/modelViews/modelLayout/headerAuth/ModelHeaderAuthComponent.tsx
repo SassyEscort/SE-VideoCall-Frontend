@@ -1,12 +1,10 @@
 'use client';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
-import { useMediaQuery } from '@mui/material';
+import { Divider, ListItemIcon, ListItemText, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
-import UINewTypography from 'components/UIComponents/UINewTypography';
 import Link from 'next/link';
 import { FormattedMessage } from 'react-intl';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -16,6 +14,10 @@ import { ModelDetailsService } from 'services/modelDetails/modelDetails.services
 import { getUserDataClient } from 'utils/getSessionData';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
+import Logout from 'views/protectedViews/logout';
+import ProfileMenu from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/ProfileMenu';
+import UINewTypography from 'components/UIComponents/UINewTypography';
+import { FirstBoxContainer, SecBoxContainer, ThirdBoxContainer } from './ModelHeaderAuthComponent.styled';
 
 export type NotificationFilters = {
   page: number;
@@ -27,6 +29,33 @@ const ModelHeaderAuthComponent = () => {
 
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
+  const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorElLogout);
+  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
+  const [openProfileMenu, setOpenProfileMenu] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const firstChar = modelDetails?.name ? modelDetails.name.charAt(0).toUpperCase() : '';
+
+  const handleClickLogout = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElLogout(event.currentTarget);
+  };
+  const handleCloseLogout = () => {
+    setAnchorElLogout(null);
+  };
+
+  const handleOpenLogout = () => {
+    setIsLogoutOpen(true);
+  };
+
+  const handleCloseLogoutt = () => {
+    setIsLogoutOpen(false);
+  };
+
+  const handleCloseMenu = () => {
+    setOpenProfileMenu(false);
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     const userToken = async () => {
@@ -50,7 +79,7 @@ const ModelHeaderAuthComponent = () => {
   const uploadedImageURL = '/images/headerv2/profilePic.png';
 
   const isVerificationPendingOrCompleted = (step: string | undefined) => {
-    return step === MODEL_ACTIVE_STEP.IN_REVIEW || step === MODEL_ACTIVE_STEP.ONBOARDED;
+    return step === MODEL_ACTIVE_STEP.IN_REVIEW || step === MODEL_ACTIVE_STEP.ONBOARDED || step === MODEL_ACTIVE_STEP.VERIFIED;
   };
 
   return (
@@ -62,20 +91,14 @@ const ModelHeaderAuthComponent = () => {
 
         <IconButton sx={{ height: 24, width: 24 }}>
           <>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row-reverse',
-                position: 'relative'
-              }}
-            >
+            <ThirdBoxContainer>
               <Box component="img" src="/images/header/dot.png" position="absolute" />
               <Box component="img" src="/images/header/noti.png" />
-            </Box>
+            </ThirdBoxContainer>
           </>
         </IconButton>
-        <Box display="flex" alignItems="center" gap={1}>
-          <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }}>
+        <FirstBoxContainer onClick={handleClickLogout}>
+          <SecBoxContainer>
             <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
               <Avatar
                 alt="User Photo"
@@ -87,12 +110,53 @@ const ModelHeaderAuthComponent = () => {
               />
             </IconButton>
             {isMdUp && (
-              <Typography variant="buttonLargeMenu" color="text.secondary">
+              <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                 {modelDetails?.name}
-              </Typography>
+              </UINewTypography>
             )}
-          </Box>
-        </Box>
+          </SecBoxContainer>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorElLogout}
+            open={open}
+            onClose={handleCloseLogout}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button'
+            }}
+            sx={{ '& .MuiMenu-paper > ul': { backgroundColor: 'secondary.dark !important' } }}
+          >
+            <MenuItem onClick={handleCloseLogout}>
+              <ListItemIcon>
+                <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                  <Box component="img" src="/images/icons/userLine.png" sx={{ width: '24px', height: '24px' }} />
+                </IconButton>
+              </ListItemIcon>
+              <Link href="/model/dashboard" onClick={handleCloseLogout}>
+                <ListItemText>
+                  <UINewTypography variant="bodyLight" color="text.secondary">
+                    <FormattedMessage id="MyProfile" />
+                  </UINewTypography>
+                </ListItemText>
+              </Link>
+            </MenuItem>
+            <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+            <MenuItem onClick={handleOpenLogout}>
+              <ListItemIcon>
+                <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                  <Box component="img" src="/images/profile-vector/Vector-6.png" sx={{ width: '20px', height: '20px' }} />
+                </IconButton>
+              </ListItemIcon>
+              <ListItemText>
+                <UINewTypography variant="bodyLight" color="text.secondary">
+                  <FormattedMessage id="LogOut" />
+                </UINewTypography>
+              </ListItemText>
+            </MenuItem>
+            <Logout open={isLogoutOpen} onClose={handleCloseLogoutt} />
+          </Menu>
+          <ProfileMenu profilePic={firstChar} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
+        </FirstBoxContainer>
+
         {isSmUP && !isVerificationPendingOrCompleted(modelDetails?.verification_step) && (
           <Link href="/model/profile">
             <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>

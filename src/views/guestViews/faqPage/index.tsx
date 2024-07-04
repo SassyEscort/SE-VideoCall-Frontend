@@ -6,6 +6,7 @@ import {
   FAQConatainer,
   FaqPageMainContainer,
   FaqPageSubBoxContainer,
+  FirstTextContainer,
   StyledAccordion,
   StyledAccordionDetails,
   StyledAccordionSummary,
@@ -15,7 +16,6 @@ import {
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import HomeMainContainer from '../guestLayout/homeContainer';
-import Box from '@mui/material/Box';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const FaqPage = () => {
@@ -54,11 +54,11 @@ const FaqPage = () => {
                       </TypographyQuestions>
                     </StyledAccordionSummary>
 
-                    <Box component="ul">
+                    <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
                         <FormattedMessage id="wePrioritizeTheSecurity" />
                       </StyledAccordionDetails>
-                    </Box>
+                    </UINewTypography>
                   </StyledAccordion>
 
                   <StyledAccordion>
@@ -92,11 +92,11 @@ const FaqPage = () => {
                       </TypographyQuestions>
                     </StyledAccordionSummary>
 
-                    <Box component="ul">
+                    <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
                         <FormattedMessage id="WeHaveStrictGuidelines" />
                       </StyledAccordionDetails>
-                    </Box>
+                    </UINewTypography>
                   </StyledAccordion>
 
                   <StyledAccordion>
@@ -148,11 +148,11 @@ const FaqPage = () => {
                       </TypographyQuestions>
                     </StyledAccordionSummary>
 
-                    <Box component="ul">
+                    <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
                         <FormattedMessage id="WeDoNotOfferRefunds" />
                       </StyledAccordionDetails>
-                    </Box>
+                    </UINewTypography>
                   </StyledAccordion>
 
                   <StyledAccordion>
@@ -167,11 +167,11 @@ const FaqPage = () => {
                       </TypographyQuestions>
                     </StyledAccordionSummary>
 
-                    <Box component="ul">
+                    <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
                         <FormattedMessage id="InTheEventOfDispute" />
                       </StyledAccordionDetails>
-                    </Box>
+                    </UINewTypography>
                   </StyledAccordion>
 
                   <StyledAccordion>
@@ -186,11 +186,11 @@ const FaqPage = () => {
                       </TypographyQuestions>
                     </StyledAccordionSummary>
 
-                    <Box component="ul">
+                    <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
                         <FormattedMessage id="OurPlatformIsEntirely" />
                       </StyledAccordionDetails>
-                    </Box>
+                    </UINewTypography>
                   </StyledAccordion>
 
                   <StyledAccordion>
@@ -205,12 +205,13 @@ const FaqPage = () => {
                       </TypographyQuestions>
                     </StyledAccordionSummary>
 
-                    <Box component="ul">
+                    <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
                         <FormattedMessage id="YouCanBrowseThrough" />
                       </StyledAccordionDetails>
-                    </Box>
+                    </UINewTypography>
                   </StyledAccordion>
+
                   <StyledAccordion>
                     <StyledAccordionSummary
                       color="secondary.100"
@@ -218,16 +219,16 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <UINewTypography variant="bodySemiBold" color="secondary.100">
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="IsThereMobileApp" />
-                      </UINewTypography>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
-                    <Box component="ul">
+                    <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
                         <FormattedMessage id="WeOfferResponsiveWeb" />
                       </StyledAccordionDetails>
-                    </Box>
+                    </UINewTypography>
                   </StyledAccordion>
                 </FAQConatainer>
               </FaqPageMainContainer>

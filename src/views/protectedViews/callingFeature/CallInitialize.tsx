@@ -6,7 +6,7 @@ import { User } from 'app/(guest)/layout';
 import { ErrorMessage } from 'constants/common.constants';
 import { toast } from 'react-toastify';
 
-const COMETCHAT_CONSTANTS = {
+export const COMETCHAT_CONSTANTS = {
   APP_ID: process.env.NEXT_PUBLIC_COMET_CHAT_APP_ID!,
   REGION: process.env.NEXT_PUBLIC_COMET_CHAT_REGION!,
   AUTH_KEY: process.env.NEXT_PUBLIC_COMET_CHAT_AUTH_KEY!
@@ -15,6 +15,7 @@ const COMETCHAT_CONSTANTS = {
 const CallInitialize = () => {
   const token = useSession();
   const cometChatUID = (token?.data?.user as User)?.id;
+  const isModel = (token?.data?.user as User)?.provider === 'providerModel';
 
   useEffect(() => {
     const init = async () => {
@@ -29,12 +30,12 @@ const CallInitialize = () => {
         await CometChatUIKit.init(UIKitSettings);
         let user = await CometChatUIKit.getLoggedinUser();
 
-        if (!user && cometChatUID) {
+        if (!user && cometChatUID && isModel) {
           user = await CometChatUIKit.login(cometChatUID);
         }
 
         CometChatUIKit.getLoggedinUser().then((user) => {
-          if (!user && cometChatUID) {
+          if (!user && cometChatUID && isModel) {
             CometChatUIKit.login(cometChatUID);
           }
         });
@@ -44,7 +45,7 @@ const CallInitialize = () => {
     };
 
     init();
-  }, [cometChatUID]);
+  }, []);
 
   return <></>;
 };

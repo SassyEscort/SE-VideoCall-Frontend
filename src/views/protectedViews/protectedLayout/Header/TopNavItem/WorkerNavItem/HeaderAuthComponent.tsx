@@ -1,8 +1,7 @@
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
-import { Divider, Menu, MenuItem, useMediaQuery } from '@mui/material';
+import { Divider, ListItemIcon, ListItemText, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import ProfileMenu from './ProfileMenu';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -10,12 +9,9 @@ import Link from 'next/link';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { getUserDataClient } from 'utils/getSessionData';
-import { CommonMenuBox } from 'views/protectedDashboardViews/dashboardNavbar/nav.styled';
-import UINewTypography from 'components/UIComponents/UINewTypography';
 import Logout from 'views/protectedViews/logout';
 import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
-import { WorkerHeaderMainContainer } from './ProfileMenu.styled';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import NotificationModalV2 from './NotificationModalV2';
 import { NotificationDetailsService } from 'services/notification/notification.services';
@@ -24,6 +20,7 @@ import MyProfileChangePassword from 'views/protectedViews/myProfile/MyProfileCha
 import { IconButtonBoxInner, UnReadCountMain } from 'views/protectedDashboardViews/dashboardNavItem/DashboardMenu.styled';
 import { IconButtonBoxNew } from './Notification.styled';
 import { HeaderMainBox } from './HeaderAuthComponent.styled';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export type NotificationFilters = {
   page: number;
@@ -173,9 +170,9 @@ const HeaderAuthComponent = () => {
         {isMdUp && (
           <Box alignItems="center" gap={1} display="flex">
             <Box component="img" src="/images/header/coin.png" />
-            <Typography variant="buttonLargeMenu" color="text.secondary">
+            <UINewTypography variant="buttonLargeMenu" color="text.secondary">
               {balance}
-            </Typography>
+            </UINewTypography>
           </Box>
         )}
 
@@ -229,9 +226,9 @@ const HeaderAuthComponent = () => {
               </Avatar>
             </IconButton>
             {isMdUp && (
-              <Typography variant="buttonLargeMenu" color="text.secondary">
+              <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                 {customerDetails?.customer_name || ''}
-              </Typography>
+              </UINewTypography>
             )}
           </IconButtonBoxInner>
           <Menu
@@ -244,33 +241,47 @@ const HeaderAuthComponent = () => {
             }}
             sx={{ '& .MuiMenu-paper > ul': { backgroundColor: '#1E0815 !important' } }}
           >
-            <MenuItem>
-              <CommonMenuBox sx={{ color: 'text.primary' }}>
-                <WorkerHeaderMainContainer>
-                  <Box component="img" src="/images/icons/userLine.png" width={24} height={24} mr={1} />
-                  <Link href="/profile" onClick={handleCloseLogout}>
-                    <UINewTypography variant="buttonLargeMenu">
-                      <FormattedMessage id="MyProfile" />
-                    </UINewTypography>
-                  </Link>
-                </WorkerHeaderMainContainer>
-                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                <WorkerHeaderMainContainer onClick={handleOpenChangePassword}>
-                  <Box component="img" src="/images/icons/changepassword-img.png" width={24} height={24} mr={1} />
-                  <UINewTypography variant="buttonLargeMenu">
-                    <FormattedMessage id="ChangePassword" />
+            <MenuItem onClick={handleCloseLogout}>
+              <ListItemIcon>
+                <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                  <Box component="img" src="/images/icons/userLine.png" sx={{ width: '24px', height: '24px' }} />
+                </IconButton>
+              </ListItemIcon>
+              <Link href="/profile" onClick={handleCloseLogout}>
+                <ListItemText>
+                  <UINewTypography variant="bodyLight" color="text.secondary">
+                    <FormattedMessage id="MyProfile" />
                   </UINewTypography>
-                </WorkerHeaderMainContainer>
-                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                <WorkerHeaderMainContainer onClick={handleOpenLogout}>
-                  <Box component="img" src="/images/profile-vector/Vector-6.png" height={16} mr={1} />
-                  <UINewTypography variant="buttonLargeMenu">
-                    <FormattedMessage id="LogOut" />
-                  </UINewTypography>
-                </WorkerHeaderMainContainer>
-              </CommonMenuBox>
-              <Logout open={isLogoutOpen} onClose={handleCloseLogoutt} />
+                </ListItemText>
+              </Link>
             </MenuItem>
+            <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+            <MenuItem onClick={handleOpenChangePassword}>
+              <ListItemIcon>
+                <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                  <Box component="img" src="/images/icons/changepassword-img.png" sx={{ width: '24px', height: '24px' }} />
+                </IconButton>
+              </ListItemIcon>
+              <ListItemText>
+                <UINewTypography variant="bodyLight" color="text.secondary">
+                  <FormattedMessage id="ChangePassword" />
+                </UINewTypography>
+              </ListItemText>
+            </MenuItem>
+            <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+            <MenuItem onClick={handleOpenLogout}>
+              <ListItemIcon>
+                <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                  <Box component="img" src="/images/profile-vector/Vector-6.png" sx={{ width: '20px', height: '20px' }} />
+                </IconButton>
+              </ListItemIcon>
+              <ListItemText>
+                <UINewTypography variant="bodyLight" color="text.secondary">
+                  <FormattedMessage id="LogOut" />
+                </UINewTypography>
+              </ListItemText>
+            </MenuItem>
+            <Logout open={isLogoutOpen} onClose={handleCloseLogoutt} />
           </Menu>
           <ProfileMenu profilePic={uploadedImageURL} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
           <MyProfileChangePassword onOpen={openChangePassword} onClose={handleCloseChnagePassword} token={token} />

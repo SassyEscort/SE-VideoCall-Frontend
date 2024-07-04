@@ -38,7 +38,7 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
   useEffect(() => {
     countryData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, []);
 
   return (
     <FormControl id="country" fullWidth sx={{ width: '100%', maxWidth: '442px' }}>
@@ -57,7 +57,7 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
       >
         {countries.map((country, index) => {
           return (
-            <MenuItem key={index} value={country?.id}>
+            <MenuItem key={index} value={country?.name}>
               <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                 {country?.name}
               </UINewTypography>

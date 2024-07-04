@@ -6,12 +6,13 @@ import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { HomeExploreBox, SubTitle } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
 import { DetailsChildTypographyBox, ExploreEscortText } from './Escort.styled';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
 import SearchFilters, { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
+import BackdropProgress from 'components/UIComponents/BackDropProgress';
 
 const EscortExplore = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -20,6 +21,10 @@ const EscortExplore = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [filters, setFilters] = useState<SearchFiltersTypes>();
   const [total_rows, setTotalRows] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const initialRender = useRef(true);
+  const prevState = useRef(filters);
 
   useEffect(() => {
     const userToken = async () => {
@@ -29,11 +34,15 @@ const EscortExplore = () => {
     userToken();
   }, []);
 
-  const handelFilterChange = async (values: any) => {
+  const handelFilterChange = async (values: SearchFiltersTypes | undefined) => {
+    setIsLoading(true);
     setFilters(values);
-    const getModel = await ModelListingService.getModelListing(values);
-    setModelListing(getModel.model_details);
-    setTotalRows(getModel.aggregate.total_rows);
+    if (values) {
+      const getModel = await ModelListingService.getModelListing(values);
+      setModelListing(getModel.model_details);
+      setTotalRows(getModel.aggregate.total_rows);
+    }
+    setIsLoading(false);
   };
 
   const handleChangePage = useCallback(
@@ -46,12 +55,24 @@ const EscortExplore = () => {
     [filters]
   );
 
+  const handelFiltersFormSearch = (value: SearchFiltersTypes) => {
+    setFilters({ ...filters, ...value });
+  };
+
   useEffect(() => {
-    handelFilterChange(filters);
+    if (initialRender.current) {
+      initialRender.current = false;
+      handelFilterChange(filters);
+      window.scrollTo(0, 0);
+    } else if (JSON.stringify(filters) !== JSON.stringify(prevState.current)) {
+      handelFilterChange(filters);
+    }
   }, [filters]);
 
   return (
     <>
+      <BackdropProgress open={isLoading} />
+
       <DetailsChildTypographyBox sx={{ gap: 4.25, mt: isSmDown ? 12 : 15 }}>
         <DetailsChildTypographyBox sx={{ gap: 7 }}>
           <ExploreEscortText>
@@ -69,7 +90,7 @@ const EscortExplore = () => {
             </HomeExploreBox>
           </ExploreEscortText>
           <HomeMainContainer>
-            <SearchFilters handelFilterChange={handelFilterChange} />
+            <SearchFilters handelFilterChange={handelFiltersFormSearch} />
           </HomeMainContainer>
         </DetailsChildTypographyBox>
         <Box>
