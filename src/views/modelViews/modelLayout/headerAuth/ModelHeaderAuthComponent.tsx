@@ -123,7 +123,7 @@ const ModelHeaderAuthComponent = () => {
             MenuListProps={{
               'aria-labelledby': 'basic-button'
             }}
-            sx={{ '& .MuiMenu-paper > ul': { backgroundColor: '#1E0815 !important' } }}
+            sx={{ '& .MuiMenu-paper > ul': { backgroundColor: 'secondary.dark !important' } }}
           >
             <MenuItem onClick={handleCloseLogout}>
               <ListItemIcon>
