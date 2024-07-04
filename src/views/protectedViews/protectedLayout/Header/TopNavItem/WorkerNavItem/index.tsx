@@ -8,9 +8,37 @@ import Typography from '@mui/material/Typography';
 import { WorkerNavItemContainer } from './ProfileMenu.styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
+import MoreFilters from 'views/guestViews/searchPage/moreFilters';
+import { useCallback, useEffect, useState } from 'react';
+import { MultipleOptionString } from 'views/protectedModelViews/verification/verificationTypes';
+import { CommonServices } from 'services/commonApi/commonApi.services';
+import { SearchTitalBox } from './HeaderAuthComponent.styled';
 
 const WorkerNavItem = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
+  const [openFilterModal, setOpenFilterModal] = useState(false);
+  const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
+
+  const handleLanguageApiChange = useCallback(() => {
+    const languagesData = async () => {
+      const data = await CommonServices.getLanguagesWithoutToken();
+      setLanguages(data.data);
+    };
+    languagesData();
+  }, []);
+
+  const handleCloseFilterModal = () => {
+    setOpenFilterModal(false);
+  };
+
+  const handleOpenFilterModal = () => {
+    setOpenFilterModal(true);
+  };
+
+  useEffect(() => {
+    handleLanguageApiChange();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -46,10 +74,10 @@ const WorkerNavItem = () => {
               />
             </Box>
             {isMdUp && (
-              <Box display="flex" alignItems="center" gap={1} sx={{ cursor: 'pointer' }}>
+              <SearchTitalBox onClick={handleOpenFilterModal}>
                 <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" loading="lazy" />
                 <Typography variant="buttonLargeMenu">Search</Typography>
-              </Box>
+              </SearchTitalBox>
             )}
           </Box>
           <Box display="flex" gap={2}>
@@ -57,6 +85,7 @@ const WorkerNavItem = () => {
           </Box>
         </WorkerNavItemContainer>
       </AppBar>
+      <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
     </>
   );
 };
