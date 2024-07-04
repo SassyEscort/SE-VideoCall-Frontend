@@ -6,7 +6,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 export const CallHistoryMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(7),
+  gap: theme.spacing(3),
   width: '100%',
   height: '100%',
   [theme.breakpoints.down('sm')]: {
@@ -89,8 +89,7 @@ export const SecondSubFirstPartBox = styled(Box)(({ theme }) => ({
 export const WorkerImg = styled('img')(({ theme }) => ({
   width: '100%',
   maxWidth: '80px',
-  height: '100%',
-  maxHeight: '80px',
+  height: '80px',
   borderRadius: '12px'
 }));
 
