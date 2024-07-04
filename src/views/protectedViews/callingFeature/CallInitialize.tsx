@@ -45,7 +45,7 @@ const CallInitialize = () => {
     };
 
     init();
-  }, []);
+  }, [cometChatUID, isModel]);
 
   return <></>;
 };
