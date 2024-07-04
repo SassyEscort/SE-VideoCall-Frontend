@@ -13,7 +13,7 @@ export const SecBoxContainer = styled(Box)(({ theme }) => ({
   cursor: 'pointer'
 }));
 
-export const ThirdBoxContainer = styled(Box)(({ theme }) => ({
+export const ThirdBoxContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'row-reverse',
   position: 'relative'
