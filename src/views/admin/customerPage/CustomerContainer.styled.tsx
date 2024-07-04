@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { DialogContent, DialogTitle, Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';
 import { styled } from '@mui/system';
@@ -54,4 +54,33 @@ export const StackFirstBoxContainer = styled(Stack)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'row'
   }
+}));
+
+export const DetailsDialogContent = styled(DialogContent)(() => ({
+  '& td': {
+    minWidth: '130px',
+    wordBreak: 'break-all',
+    verticalAlign: 'top'
+  },
+  '& th': {
+    textAlign: 'left'
+  }
+}));
+
+export const StyledPopover = styled(Popover)(({ theme }) => ({
+  '& .MuiMenuItem-root': {
+    padding: theme.spacing(1),
+    borderRadius: theme.spacing(0.75),
+    typography: 'body2'
+  },
+  '& .MuiPaper-root': {
+    width: 170,
+    padding: theme.spacing(1)
+  }
+}));
+
+export const DialogContainer = styled(DialogTitle)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between'
 }));

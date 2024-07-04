@@ -1,4 +1,4 @@
-import { Divider } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -6,7 +6,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 export const CallHistoryMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(7),
+  gap: theme.spacing(3),
   width: '100%',
   height: '100%',
   [theme.breakpoints.down('sm')]: {
@@ -43,9 +43,7 @@ export const SecondSubContainer = styled(Box)(({ theme }) => ({
 export const SecondSubTextMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
-  maxWidth: '929px',
   height: '100%',
-  maxHeight: '80px',
   justifyContent: 'space-between',
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column'
@@ -91,8 +89,7 @@ export const SecondSubFirstPartBox = styled(Box)(({ theme }) => ({
 export const WorkerImg = styled('img')(({ theme }) => ({
   width: '100%',
   maxWidth: '80px',
-  height: '100%',
-  maxHeight: '80px',
+  height: '80px',
   borderRadius: '12px'
 }));
 
@@ -212,4 +209,30 @@ export const DividerContainer = styled(Divider)(({ theme }) => ({
   borderColor: theme.palette.primary[700],
   width: '100%',
   maxWidth: '929px'
+}));
+
+export const FirstTextContainer = styled(Typography)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '14px',
+    fontWeight: 500,
+    lineHeight: '16.8px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '16px',
+    fontWeight: 500,
+    lineHeight: '19.2px'
+  }
+}));
+
+export const SecTextContainer = styled(Typography)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '12px',
+    fontWeight: 500,
+    lineHeight: '14.4px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '14px',
+    fontWeight: 500,
+    lineHeight: '16.8px'
+  }
 }));

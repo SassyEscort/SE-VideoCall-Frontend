@@ -492,6 +492,14 @@ const VerificationBasicDetails = ({
               sx={{
                 '& .MuiIconButton-root': {
                   color: 'secondary.700'
+                },
+                '&:hover': {
+                  '.MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#ff68c0 !important'
+                  },
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'primary.800'
+                  }
                 }
               }}
             />

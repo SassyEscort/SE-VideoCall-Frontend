@@ -1,8 +1,7 @@
 'use client';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import { Divider, Menu, MenuItem, useMediaQuery } from '@mui/material';
+import { Divider, ListItemIcon, ListItemText, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import ProfileMenu from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/ProfileMenu';
@@ -11,16 +10,15 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { getUserDataClient } from 'utils/getSessionData';
 import { SiderBarCircaleBoxHeader, SiderBarCircaleTextBoxHeader, SiderBarSecondBox, SiderBarThiredBox } from '../SideMenu/SideMenu.styled';
-import { CommonMenuBox } from '../dashboardNavbar/nav.styled';
-import UINewTypography from 'components/UIComponents/UINewTypography';
 import Logout from 'views/protectedViews/logout';
 import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import Link from 'next/link';
-import { HeaderBoxContainer, IconButtonBox, IconButtonBoxInner, UnReadCountMain } from './DashboardMenu.styled';
+import { IconButtonBox, IconButtonBoxInner, UnReadCountMain } from './DashboardMenu.styled';
 import NotificationModalV2 from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/NotificationModalV2';
 import { NotificationDetailsService } from 'services/notification/notification.services';
 import { Root } from 'services/notification/type';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export type NotificationFilters = {
   page: number;
@@ -180,9 +178,9 @@ const DashboadrHeaderAuthComponent = () => {
               </SiderBarSecondBox>
             </IconButton>
             {isMdUp && (
-              <Typography variant="buttonLargeMenu" color="text.secondary">
+              <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                 {modelDetails?.name}
-              </Typography>
+              </UINewTypography>
             )}
           </IconButtonBoxInner>
           <Menu
@@ -195,26 +193,34 @@ const DashboadrHeaderAuthComponent = () => {
             }}
             sx={{ '& .MuiMenu-paper > ul': { backgroundColor: '#1E0815 !important' } }}
           >
-            <MenuItem>
-              <CommonMenuBox sx={{ cursor: 'pointer', color: 'text.primary' }}>
-                <HeaderBoxContainer>
-                  <Box component="img" src="/images/icons/userLine.png" width={24} height={24} />
-                  <Link href="/model/dashboard" onClick={handleCloseLogout}>
-                    <UINewTypography variant="buttonLargeMenu">
-                      <FormattedMessage id="MyProfile" />
-                    </UINewTypography>
-                  </Link>
-                </HeaderBoxContainer>
-                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                <HeaderBoxContainer onClick={handleOpenLogout}>
-                  <Box component="img" src="/images/profile-vector/Vector-6.png" height={16} mr={1} />
-                  <UINewTypography variant="buttonLargeMenu">
-                    <FormattedMessage id="LogOut" />
+            <MenuItem onClick={handleCloseLogout}>
+              <ListItemIcon>
+                <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                  <Box component="img" src="/images/icons/userLine.png" sx={{ width: '24px', height: '24px' }} />
+                </IconButton>
+              </ListItemIcon>
+              <Link href="/model/dashboard" onClick={handleCloseLogout}>
+                <ListItemText>
+                  <UINewTypography variant="bodyLight" color="text.secondary">
+                    <FormattedMessage id="MyProfile" />
                   </UINewTypography>
-                </HeaderBoxContainer>
-              </CommonMenuBox>
-              <Logout open={isLogoutOpen} onClose={handleCloseLogoutt} />
+                </ListItemText>
+              </Link>
             </MenuItem>
+            <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+            <MenuItem onClick={handleOpenLogout}>
+              <ListItemIcon>
+                <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                  <Box component="img" src="/images/profile-vector/Vector-6.png" sx={{ width: '20px', height: '20px' }} />
+                </IconButton>
+              </ListItemIcon>
+              <ListItemText>
+                <UINewTypography variant="bodyLight" color="text.secondary">
+                  <FormattedMessage id="LogOut" />
+                </UINewTypography>
+              </ListItemText>
+            </MenuItem>
+            <Logout open={isLogoutOpen} onClose={handleCloseLogoutt} />
           </Menu>
           <ProfileMenu profilePic={firstChar} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
         </IconButtonBox>

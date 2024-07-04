@@ -51,6 +51,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+  const isMdFix = useMediaQuery('(min-width:900px) and (max-width:1021px)');
 
   const [value, setValue] = useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -78,24 +79,24 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
       modelDetails();
     }
   }, [token.token]);
+
   useEffect(() => {
     handleModelApiChange();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.id, token.token]);
 
   return (
     <Box component="nav" sx={{ flexShrink: { lg: 0 }, position: 'relative' }}>
       {isMdDown && <DullCirclesNav />}
 
-      {!isMdDown && (
+      {!isMdDown && !isMdFix && (
         <SideMenu modelDetails={modelDetails ?? ({} as ModelDetailsResponse)} handleModelApiChange={handleModelApiChange} token={token} />
       )}
 
-      {!isMdDown && <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: 5.5 }} />}
+      {!isMdDown && !isMdFix && <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: 5.5 }} />}
 
       <Drawer
-        variant={isMdUp ? 'permanent' : 'temporary'}
-        open={isMdUp ? true : openNav}
+        variant={isMdUp && !isMdFix ? 'permanent' : 'temporary'}
+        open={isMdUp && !isMdFix ? true : openNav}
         onClose={onCloseNav}
         ModalProps={{ keepMounted: true }}
         PaperProps={{
@@ -109,7 +110,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
       >
         <ModelNavbar tabIndex={tabIndex} />
       </Drawer>
-      {isMdDown && (
+      {(isMdDown || isMdFix) && (
         <MobileComponentBox>
           <Tabs
             value={value}

@@ -56,7 +56,7 @@ export class CallingService {
         }
       });
 
-      return res.data;
+      return res.data.data;
     } catch (err: any) {
       const error: AxiosError = err;
       return error.response?.data as CreditCallRes;

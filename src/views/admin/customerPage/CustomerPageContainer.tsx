@@ -20,21 +20,18 @@ import { formatFullDate } from 'utils/dateAndTime';
 import { PaginationSortByOption } from 'components/common/CustomPaginations/type';
 import PaginationSortBy from 'components/common/CustomPaginations/PaginationSortBy';
 import { PAGE_SIZE } from 'constants/pageConstants';
-import { MODEL_ACTION } from 'constants/profileConstants';
 import TablePager from 'components/common/CustomPaginations/TablePager';
 import MenuItem from '@mui/material/MenuItem';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
 import { adminModelServices } from 'services/adminModel/adminModel.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { useRouter } from 'next/navigation';
 import MainLayout from '../../../views/admin/layouts/AdminLayout/DashboardLayout';
 import CustomerListHead from './CustomerListHead';
 import { ModelActionPopover, NotFoundBox, SortBox, StackBoxContainer, StackFirstBoxContainer } from './CustomerContainer.styled';
 import PaginationSearch from 'components/common/CustomPaginations/PaginationSearch';
 import { CustomerDetailsPage } from 'services/adminModel/types';
+import CustorModel from './CustomerModel';
 
 export type WorkersPaginationType = {
   page: number;
@@ -63,7 +60,6 @@ export type TokenIdTypeAdmin = {
 };
 
 export default function CustomerPageContainer() {
-  const router = useRouter();
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selected, setSelected] = useState<CustomerDetailsPage>();
@@ -71,6 +67,8 @@ export default function CustomerPageContainer() {
   const [isLoading, setIsLoading] = useState(true);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [totalRecords, setTotalRecords] = useState(0);
+  const [creditModalOpen, setCreditModalOpen] = useState(false);
+  const [selectedPayoutData, setSelectedPayoutData] = useState<CustomerDetailsPage | null>(null);
 
   const currentMoment = moment();
   const oneMonthAgoMoment = moment().subtract(1, 'month');
@@ -125,11 +123,6 @@ export default function CustomerPageContainer() {
     setIsLoading(false);
   };
 
-  const handleModelListRefetch = useCallback(() => {
-    fetchModelData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, filters.filter_Text]);
-
   useEffect(() => {
     fetchModelData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -183,19 +176,12 @@ export default function CustomerPageContainer() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleApproveClick = async () => {
-    await adminModelServices.modelAction(token.token, Number(selected?.id), MODEL_ACTION.APPROVE);
-    handleModelListRefetch();
-    handleCloseMenu();
+  const handleOpenCredit = (value: CustomerDetailsPage) => {
+    setSelectedPayoutData(value);
+    setCreditModalOpen(true);
   };
-
-  const handleRejectClick = async () => {
-    await adminModelServices.modelAction(token.token, Number(selected?.id), MODEL_ACTION.REJECT);
-    handleModelListRefetch();
-    handleCloseMenu();
-  };
-  const handelViewDetails = async () => {
-    router.push(`/admin/model/details/${selected?.id}`);
+  const handleCloseCredit = () => {
+    setCreditModalOpen(false);
   };
 
   return (
@@ -301,23 +287,17 @@ export default function CustomerPageContainer() {
           anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
-          <MenuItem onClick={handelViewDetails}>
+          <MenuItem
+            onClick={() => {
+              handleOpenCredit(selected as CustomerDetailsPage);
+              handleCloseMenu();
+            }}
+          >
             <VisibilityIcon sx={{ mr: 2 }} />
             View Details
           </MenuItem>
-          {selected?.profile_status === MODEL_ACTION.PENDING && (
-            <>
-              <MenuItem onClick={handleApproveClick}>
-                <CheckIcon sx={{ mr: 2, color: 'success.main' }} />
-                Approve
-              </MenuItem>
-              <MenuItem onClick={handleRejectClick}>
-                <CloseIcon sx={{ mr: 2, color: 'error.main' }} />
-                Reject
-              </MenuItem>
-            </>
-          )}
         </ModelActionPopover>
+        <CustorModel open={creditModalOpen} onClose={handleCloseCredit} selectedPayoutData={selectedPayoutData} />
       </MainLayout>
     </>
   );

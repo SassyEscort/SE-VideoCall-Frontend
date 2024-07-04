@@ -44,6 +44,12 @@ export const SecondTextSubContainer = styled(Box)(({ theme }) => ({
   maxHeight: '96px'
 }));
 
+export const LoaderBox = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center'
+}));
+
 export const ImagMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
