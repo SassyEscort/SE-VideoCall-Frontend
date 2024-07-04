@@ -17,7 +17,7 @@ export type ModelListingParams = {
   sortField: string;
   offset: number;
   pageSize: number;
-  rating: number;
+  rating?: number;
 };
 
 export type ModelHomeListing = {

@@ -164,7 +164,7 @@ const HomeImageCard = ({
         ) : (
           ''
         )}
-        {modelListing.length > 0
+        {modelListing?.length > 0
           ? ''
           : !isFavPage && (
               <NotFoundModelBox>
