@@ -109,14 +109,15 @@ export const EscortSlider = ({
     }
   };
 
-  const handleNext = () => {
-    if (swiperRef.current) {
-      swiperRef.current.slideNext();
-    }
-  };
   const handlePrevious = () => {
     if (swiperRef.current) {
       swiperRef.current.slidePrev();
+    }
+  };
+
+  const handleNext = () => {
+    if (swiperRef.current) {
+      swiperRef.current.slideNext();
     }
   };
 
@@ -154,9 +155,11 @@ export const EscortSlider = ({
           </Swiper>
         </FirstSwiperInnerContainer>
         <SideBarBoxContainer>
-          <SideSwiperButton variant="contained" onClick={handlePrevious}>
-            <KeyboardArrowUpRoundedIcon sx={{ color: 'text.primary' }} />
-          </SideSwiperButton>
+          {workerPhotos.length >= 6 && (
+            <SideSwiperButton variant="contained" onClick={handlePrevious}>
+              <KeyboardArrowUpRoundedIcon sx={{ color: 'text.primary' }} />
+            </SideSwiperButton>
+          )}
           <SwiperContainer>
             <Swiper
               direction="vertical"
@@ -165,8 +168,8 @@ export const EscortSlider = ({
                 setThumbsSwiper(swiper);
               }}
               spaceBetween={0}
-              slidesPerView={workerPhotos.length}
-              loop={false}
+              slidesPerView={4.5}
+              loop={true}
               watchSlidesProgress={true}
               modules={[Navigation, Thumbs, FreeMode]}
               className="mySwiper"
@@ -182,9 +185,11 @@ export const EscortSlider = ({
               ))}
             </Swiper>
           </SwiperContainer>
-          <SideSwiperButton variant="contained" onClick={handleNext}>
-            <KeyboardArrowDownRoundedIcon sx={{ color: 'text.primary' }} />
-          </SideSwiperButton>
+          {workerPhotos.length >= 6 && (
+            <SideSwiperButton variant="contained" onClick={handleNext}>
+              <KeyboardArrowDownRoundedIcon sx={{ color: 'text.primary' }} />
+            </SideSwiperButton>
+          )}
         </SideBarBoxContainer>
       </FirstSwiperMainContainer>
       <Box
