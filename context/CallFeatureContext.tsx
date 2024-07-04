@@ -77,7 +77,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
 
   const handleCallInitiate = async (guestId: number, isCreditAvailable: boolean, callTime: number) => {
     await init();
-    if (guestId) {
+    if (guestId && isCreditAvailable) {
       setEndCallTime(callTime);
       setModelId(guestId);
       const callObject = new CometChat.Call(
