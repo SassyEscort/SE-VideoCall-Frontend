@@ -20,7 +20,10 @@ export const CallHistoryText = styled(Box)(({ theme }) => ({
   maxWidth: '233px',
   height: '100%',
   maxHeight: '48px',
-  whiteSpace: 'nowrap'
+  whiteSpace: 'nowrap',
+  [theme.breakpoints.up('md')]: {
+    marginBottom: theme.spacing(4)
+  }
 }));
 
 export const SecondContainer = styled(Box)(({ theme }) => ({
@@ -88,9 +91,11 @@ export const SecondSubFirstPartBox = styled(Box)(({ theme }) => ({
 
 export const WorkerImg = styled('img')(({ theme }) => ({
   width: '100%',
-  maxWidth: '80px',
-  height: '80px',
-  borderRadius: '12px'
+  minWidth: '80px',
+  height: '100%',
+  maxHeight: '80px',
+  borderRadius: '12px',
+  objectFit: 'contain'
 }));
 
 export const SecondSubFirstPartSecondBox = styled(Box)(({ theme }) => ({

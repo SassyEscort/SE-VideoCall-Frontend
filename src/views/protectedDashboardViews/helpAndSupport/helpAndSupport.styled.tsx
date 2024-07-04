@@ -20,7 +20,10 @@ export const FAQTitle = styled(Typography)(({ theme }) => ({
 export const HelpAndSupportMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(7)
+  gap: theme.spacing(7),
+  [theme.breakpoints.between(900, 1021)]: {
+    paddingLeft: theme.spacing(1.75)
+  }
 }));
 
 export const HelpAndSupportSubContainer = styled(Box)(({ theme }) => ({
@@ -89,4 +92,10 @@ export const SecBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(6.75)
+}));
+
+export const FirstTextContainer = styled(Typography)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 600,
+  lineHeight: '25.6px'
 }));
