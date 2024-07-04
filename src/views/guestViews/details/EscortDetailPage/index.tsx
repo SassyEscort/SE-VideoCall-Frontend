@@ -68,7 +68,7 @@ const EscortDetailPage = () => {
       if (guestData && token.token) {
         const getInfo = await CallingService.getCometChatInfo(guestData.id, token.token);
         if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 3) {
-          const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asSeconds();
+          const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
           setCallTime(durationInSeconds);
           setIsCreditAvailable(true);
         }
