@@ -8,6 +8,6 @@ export const HeaderMainBox = styled(Box)(({ theme }) => ({
 export const SearchTitalBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  gap: 1,
+  gap: theme.spacing(1),
   cursor: 'pointer'
 }));
