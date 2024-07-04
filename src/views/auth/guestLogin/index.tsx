@@ -40,7 +40,7 @@ const GuestLogin = ({
   image: string;
 }) => {
   const route = useRouter();
-  const { push } = route;
+  const { push, refresh } = route;
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [showPassword, setShowPassword] = useState(false);
@@ -56,6 +56,7 @@ const GuestLogin = ({
       const res = await signIn('providerGuest', { redirect: false, email: values.email, password: values.password });
       if (res?.status === 200) {
         push('/profile');
+        refresh();
         onClose();
       } else if (res?.error) {
         setAlert(res.error === 'CredentialsSignin' ? 'Invalid email or password' : 'Something went wrong! Please try again');

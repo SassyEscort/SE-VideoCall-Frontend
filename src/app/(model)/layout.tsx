@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import { getLoggedInUser } from 'utils/getSessionData';
 import ModelFooter from 'views/modelViews/modelLayout/footer';
 import HeaderModelComponent from 'views/modelViews/modelLayout/Header';
-import ModelNavItem from 'views/modelViews/modelLayout/headerAuth';
+import Header from 'views/protectedViews/protectedLayout/Header';
 
 interface User {
   name?: string | null;
@@ -20,7 +20,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
 
   return (
     <Box>
-      {authUser?.user?.provider === 'providerModel' ? <ModelNavItem /> : <HeaderModelComponent />}
+      {authUser?.user?.provider === 'providerModel' ? <Header variant="dashboard" /> : <HeaderModelComponent />}
       <main>
         <Box sx={{ mt: 10 }}>{children}</Box>
       </main>
