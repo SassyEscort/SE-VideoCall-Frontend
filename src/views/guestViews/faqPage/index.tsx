@@ -10,7 +10,6 @@ import {
   StyledAccordion,
   StyledAccordionDetails,
   StyledAccordionSummary,
-  TypographyQuestions,
   UINewTypographyMainText
 } from './faqPage.style';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -36,9 +35,9 @@ const FaqPage = () => {
                 <FAQConatainer>
                   <StyledAccordion defaultExpanded>
                     <StyledAccordionSummary aria-controls="panel1-content" id="panel1-header" expandIcon={<ExpandMoreIcon />}>
-                      <TypographyQuestions>
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="HowDoesTheCredit" />
-                      </TypographyQuestions>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
                     <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
@@ -49,9 +48,9 @@ const FaqPage = () => {
 
                   <StyledAccordion>
                     <StyledAccordionSummary aria-controls="panel2-content" id="panel2-header" expandIcon={<ExpandMoreIcon />}>
-                      <TypographyQuestions>
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="IsThePlatformSecure" />
-                      </TypographyQuestions>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
                     <UINewTypography variant="bodyRegular">
@@ -68,9 +67,9 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <TypographyQuestions>
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="CanITrustIheIdentity" />
-                      </TypographyQuestions>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
                     <UINewTypography variant="bodyRegular">
@@ -87,9 +86,9 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <TypographyQuestions>
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="AreThereAnyRestrictions" />
-                      </TypographyQuestions>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
                     <UINewTypography variant="bodyRegular">
@@ -106,9 +105,9 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <TypographyQuestions>
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="HowDoITop" />
-                      </TypographyQuestions>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
                     <UINewTypography variant="bodyRegular">
                       <StyledAccordionDetails>
@@ -124,9 +123,9 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <TypographyQuestions>
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="WhatMeasuresAre" />
-                      </TypographyQuestions>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
                     <UINewTypography variant="bodyRegular">
@@ -143,9 +142,9 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <TypographyQuestions>
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="IsThereARefund" />
-                      </TypographyQuestions>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
                     <UINewTypography variant="bodyRegular">
@@ -162,9 +161,9 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <TypographyQuestions>
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="HowAreDisputesResolved" />
-                      </TypographyQuestions>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
                     <UINewTypography variant="bodyRegular">
@@ -181,9 +180,9 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <TypographyQuestions>
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="DoINeedToDownload" />
-                      </TypographyQuestions>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
                     <UINewTypography variant="bodyRegular">
@@ -200,9 +199,9 @@ const FaqPage = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <TypographyQuestions>
+                      <FirstTextContainer color="secondary.100">
                         <FormattedMessage id="CanIPreviewOrBrowse" />
-                      </TypographyQuestions>
+                      </FirstTextContainer>
                     </StyledAccordionSummary>
 
                     <UINewTypography variant="bodyRegular">

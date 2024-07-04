@@ -154,9 +154,8 @@ export const StyledAccordionDetails = styled((props: AccordionDetailsProps) => <
   marginBottom: 24
 }));
 
-export const TypographyQuestions = styled(Typography)(({ theme }) => ({
+export const FirstTextContainer = styled(Typography)(({ theme }) => ({
   fontSize: '16px',
   fontWeight: 600,
-  lineHeight: '25.6px',
-  color: theme.palette.secondary[100]
+  lineHeight: '25.6px'
 }));
