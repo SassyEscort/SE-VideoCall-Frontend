@@ -77,8 +77,8 @@ const BillingHistory = () => {
           setIsLoading(true);
           const data = await ModelBillingHistoryService.getBillingHistoryDetails(params, token.token);
           if (data) {
-            setGuestBillingHistory(data.data.ledger_details);
-            setTotalRows(data.data.aggreate.total_rows);
+            setGuestBillingHistory(data?.data?.ledger_details);
+            setTotalRows(data?.data?.aggreate?.total_rows);
             setIsLoading(false);
           }
         }

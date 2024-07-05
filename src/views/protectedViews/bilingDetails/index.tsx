@@ -1,7 +1,6 @@
 'use client';
 import * as React from 'react';
 
-import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Divider, useMediaQuery } from '@mui/material';
@@ -18,38 +17,17 @@ import {
   ThreeBox,
   ButtonMainContainer,
   BoxImage,
-  DialogContentBox
+  DialogContentBox,
+  DialogBox
 } from './BillingDetails';
 import WorkerCardMobile from 'views/guestViews/commonComponents/mobileWorkerCard';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 
 const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; handleClose: () => void; selectDetails: any }) => {
-  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      fullWidth
-      scroll="body"
-      PaperProps={{
-        sx: {
-          maxWidth: '634px'
-        }
-      }}
-      sx={{
-        '& .MuiDialog-paper': {
-          backgroundColor: '#07030E',
-          borderRadius: '12px',
-          border: isMdDown ? 'solid 0px' : 'solid 1px #232027'
-        },
-        '& .MuiDialog-container': {
-          backgroundColor: isMdDown ? '#07030E' : '#07030e99 !important',
-          backdropFilter: 'blur(24px)'
-        }
-      }}
-    >
+    <DialogBox open={open} onClose={handleClose} fullWidth scroll="body">
       <DialogTitleContainer id="responsive-modal-title">
         <UINewTypography variant="h6" color={'#B7B5B9'}>
           Details
@@ -126,7 +104,7 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
           </FirstBox>
         </MainContainer>
       </DialogContentBox>
-    </Dialog>
+    </DialogBox>
   );
 };
 

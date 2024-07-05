@@ -1,7 +1,6 @@
-import { Box, DialogContent, DialogTitle, styled } from '@mui/material';
+import { Box, Dialog, DialogContent, DialogTitle, styled } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-
 export const DialogTitleContainer = styled(DialogTitle)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -107,5 +106,31 @@ export const ButtonText = styled(UINewTypography)(({ theme }) => ({
     fontSize: '13px',
     fontWeight: 400,
     lineHeight: '11.8px'
+  }
+}));
+
+export const DialogBox = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialog-paper': {
+    backgroundColor: theme.palette.secondary[800],
+    borderRadius: theme.spacing(1.5),
+    border: 'solid 1px',
+    borderColor: '#232027'
+  },
+  '& .MuiDialog-container': {
+    backgroundColor: '#07030e99 !important',
+    backdropFilter: 'blur(24px)'
+  },
+  '& .MuiPaper-root': {
+    maxWidth: '634px'
+  },
+  [theme.breakpoints.down('sm')]: {
+    '& .MuiDialog-paper': {
+      border: 'solid 0px'
+    }
+  },
+  [theme.breakpoints.down('sm')]: {
+    '& .MuiDialog-container': {
+      backgroundColor: theme.palette.secondary['800']
+    }
   }
 }));
