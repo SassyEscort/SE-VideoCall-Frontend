@@ -134,7 +134,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       onIncomingCallReceived: async (call: Call) => {
         setIsCallIncoming(true);
         setSessionId(call.getSessionId());
-        await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.UNASWERED);
+        // await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.UNASWERED);
       },
       onOutgoingCallAccepted: async () => {
         setIsCallAccepted(true);
