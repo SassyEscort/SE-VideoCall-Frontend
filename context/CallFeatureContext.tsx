@@ -161,8 +161,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         setCall(undefined);
         CometChat.removeUserListener(uniqueEventListener);
         await CometChat.endCall(call.getSessionId());
-        // await creditPutCallLog(modelId, call.getSessionId(), '');
-        // await creditPutCallLog(modelId, call.getSessionId(), '');
+        await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.ENDED);
         if (isCustomer) {
           await CometChatUIKit.logout();
         }
@@ -186,9 +185,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           setCall(undefined);
           setIsCallAccepted(false);
           setEndStatus(true);
+          await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
           await CometChatUIKit.logout();
-          // await creditPutCallLog(modelId, sessionId, '');
-          // await creditPutCallLog(modelId, sessionId, '');
         }
       }, 1000);
     }
@@ -222,8 +220,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       setCall(undefined);
       setIsCallAccepted(false);
       await CometChatUIKit.logout();
-      // await creditPutCallLog(modelId, sessionId, '');
-      // await creditPutCallLog(modelId, sessionId, '');
+      await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
     }
   }, endCallTime);
 

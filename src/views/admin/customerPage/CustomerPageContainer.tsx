@@ -51,8 +51,7 @@ export type WorkersPaginationType = {
 const SORT_BY_OPTIONS: PaginationSortByOption[] = [
   { value: 'createdDate', label: 'Newest' },
   { value: 'name', label: 'Name' },
-  { value: 'email', label: 'Email' },
-  { value: 'last_login', label: 'last login' }
+  { value: 'email', label: 'Email' }
 ];
 
 export type TokenIdTypeAdmin = {

@@ -58,7 +58,7 @@ function CreditsAdded({ onClose, addedCredits, newBalance }: { onClose: () => vo
         <ExploreButtonContainer>
           <Link prefetch={false} href="/">
             <UIThemeShadowButton variant="contained" sx={{ p: '10px 29px', width: '176px' }}>
-              <UINewTypography variant="buttonLargeBold" color="white.main">
+              <UINewTypography variant="buttonLargeBold" color="white.main" whiteSpace={'nowrap'}>
                 <FormattedMessage id="ExploreModels" />
               </UINewTypography>
             </UIThemeShadowButton>
