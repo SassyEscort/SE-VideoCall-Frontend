@@ -70,10 +70,10 @@ const Credits = () => {
       setBalance(getModel?.data?.credits);
     }
   }, [token.token]);
+
   const handleCreditClick = async (listCredit: ModelCreditRes) => {
     setIsLoading(true);
     const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id);
-    setAddedCredits(Number(listCredit.credits));
     if (res) {
       router.push(res?.data?.url);
     }
@@ -84,6 +84,7 @@ const Credits = () => {
   };
   useEffect(() => {
     const credit = searchParams.get('credit');
+    setAddedCredits(Number(credit));
     getCustomerCredit();
     if (credit) {
       setOpen(true);
