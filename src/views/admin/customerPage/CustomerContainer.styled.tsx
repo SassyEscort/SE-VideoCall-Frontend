@@ -51,7 +51,7 @@ export const StackFirstBoxContainer = styled(Stack)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column'
   },
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.up('sm')]: {
     flexDirection: 'row'
   }
 }));
