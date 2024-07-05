@@ -157,7 +157,7 @@ const HomeImageCard = ({
                 limit={filters?.pageSize}
                 total_rows={totalRows}
                 offset={filters?.offset}
-                isEscort={false}
+                isEscort={true}
               />
             </PaginationMainBox>
           </ButtonMainBox>
