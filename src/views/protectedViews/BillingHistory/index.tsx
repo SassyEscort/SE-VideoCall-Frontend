@@ -28,6 +28,7 @@ import moment from 'moment';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { CircularProgress } from '@mui/material';
 import { LoaderBox } from '../Credites/Credits.styled';
+import BillingDetails from '../bilingDetails';
 
 export type billingHistoryParams = {
   category: string;
@@ -46,6 +47,8 @@ const BillingHistory = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [total_rows, setTotalRows] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [selectDetails, setSelectDetails] = useState({});
 
   const [filters, setFilters] = useState<BillPaginationType>({
     page: 1,
@@ -74,8 +77,8 @@ const BillingHistory = () => {
           setIsLoading(true);
           const data = await ModelBillingHistoryService.getBillingHistoryDetails(params, token.token);
           if (data) {
-            setGuestBillingHistory(data.data.ledger_details);
-            setTotalRows(data.data.aggreate.total_rows);
+            setGuestBillingHistory(data?.data?.ledger_details);
+            setTotalRows(data?.data?.aggreate?.total_rows);
             setIsLoading(false);
           }
         }
@@ -107,6 +110,13 @@ const BillingHistory = () => {
     [filters, handleChangeFilter]
   );
 
+  const handDetailsOpen = () => {
+    setOpen(true);
+  };
+
+  const handDetailsClose = () => {
+    setOpen(false);
+  };
   return (
     <MainLayoutNav variant={'worker'} enlargedFooter={true}>
       <BillingHistoryBoxContainer>
@@ -136,7 +146,19 @@ const BillingHistory = () => {
                     </BillingUIContainer>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                       <DollarBillingValue variant="h6" color="text.secondary">
-                        $ {list.amount}
+                        {list.category === 'Debit' ? (
+                          <UINewTypography
+                            onClick={() => {
+                              handDetailsOpen();
+                              setSelectDetails(list);
+                            }}
+                            sx={{ cursor: 'pointer', color: 'text.secondary', fontWeight: 600, fontSize: '16px', lineHeight: '20px' }}
+                          >
+                            View details
+                          </UINewTypography>
+                        ) : (
+                          `$ ${list.amount}`
+                        )}
                       </DollarBillingValue>
                     </Box>
                   </FirstTextContainer>
@@ -167,6 +189,7 @@ const BillingHistory = () => {
           </CallHistoryPaginationContainer>
         )}
       </BillingHistoryBoxContainer>
+      <BillingDetails open={open} handleClose={handDetailsClose} selectDetails={selectDetails} />
     </MainLayoutNav>
   );
 };
