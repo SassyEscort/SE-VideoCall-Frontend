@@ -134,3 +134,13 @@ export const DialogBox = styled(Dialog)(({ theme }) => ({
     }
   }
 }));
+
+export const CreditsMainBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1.5)
+}));
+
+export const CreditsPriceBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1)
+}));

@@ -18,10 +18,13 @@ import {
   ButtonMainContainer,
   BoxImage,
   DialogContentBox,
-  DialogBox
+  DialogBox,
+  CreditsMainBox,
+  CreditsPriceBox
 } from './BillingDetails';
 import WorkerCardMobile from 'views/guestViews/commonComponents/mobileWorkerCard';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
+import { FormattedMessage } from 'react-intl';
 
 const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; handleClose: () => void; selectDetails: any }) => {
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -29,7 +32,7 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
   return (
     <DialogBox open={open} onClose={handleClose} fullWidth scroll="body">
       <DialogTitleContainer id="responsive-modal-title">
-        <UINewTypography variant="h6" color={'#B7B5B9'}>
+        <UINewTypography variant="h6" color="secondary.200">
           Details
         </UINewTypography>
 
@@ -57,26 +60,26 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
           <FirstBox>
             <SecondBox>
               <ThreeBox>
-                <Box sx={{ display: 'flex', gap: 1.5 }}>
-                  <UINewTypography variant="buttonLargeMenu" color={'#E9E8EB'}>
-                    Credits used:
+                <CreditsMainBox>
+                  <UINewTypography variant="buttonLargeMenu" color="secondary.200">
+                    <FormattedMessage id=" CreditsUsed" />
                   </UINewTypography>
-                  <Box sx={{ display: 'flex', gap: 1 }}>
+                  <CreditsPriceBox>
                     <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
-                    <UINewTypography variant="buttonLargeMenu" color={'#E9E8EB'}>
+                    <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                       70
                     </UINewTypography>
-                  </Box>
-                </Box>
+                  </CreditsPriceBox>
+                </CreditsMainBox>
                 <Box>
-                  <UINewTypography variant="SubtitleSmallMedium" color={'#B7B5B9'}>
+                  <UINewTypography variant="SubtitleSmallMedium" color="secondary.200">
                     05:28 PM, 12 Apr 2024
                   </UINewTypography>
                 </Box>
               </ThreeBox>
               <Box>
-                <UINewTypography variant="SubtitleSmallMedium" color={'#B7B5B9'}>
-                  Duration: 1 hour
+                <UINewTypography variant="SubtitleSmallMedium" color="secondary.200">
+                  <FormattedMessage id="Duration" /> 1 hour
                 </UINewTypography>
               </Box>
             </SecondBox>
@@ -93,12 +96,12 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
                 <Box display="flex" alignItems="center" gap="10px">
                   <BoxImage src="/images/workercards/video-call.svg" alt="video-call" />
                   <UINewTypography color="common.white" variant="bodySemiBold" sx={{ whiteSpace: 'nowrap' }}>
-                    {isSMDown ? 'Start Video Call' : 'Start Video Call again'}
+                    {isSMDown ? <FormattedMessage id="StartVideoCall" /> : <FormattedMessage id="StartVideoCallAgain" />}
                   </UINewTypography>
                 </Box>
               </UIThemeShadowButton>
               <UINewTypography variant="bodySemiBold" color="#FFFFFF" sx={{ textAlign: 'center' }}>
-                Explore more models
+                <FormattedMessage id="ExploreMoreModels" />
               </UINewTypography>
             </ButtonMainContainer>
           </FirstBox>
