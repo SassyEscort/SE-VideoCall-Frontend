@@ -30,8 +30,9 @@ const EscortDetailPage = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isCreditAvailable, setIsCreditAvailable] = useState(false);
   const [callTime, setCallTime] = useState(0);
+  const modelPhoto = guestData?.photos?.filter((x) => x.favourite).map((item) => item.link)[0];
 
-  const { handleCallInitiate } = useCallFeatureContext();
+  const { handleCallInitiate, call } = useCallFeatureContext();
 
   useEffect(() => {
     const userToken = async () => {
@@ -75,7 +76,7 @@ const EscortDetailPage = () => {
       }
     };
     getCometChatInfo();
-  }, [guestData, token, userName]);
+  }, [guestData, token, userName, call]);
 
   return (
     <>
@@ -86,7 +87,7 @@ const EscortDetailPage = () => {
               workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])}
               modelId={guestData?.id ?? 0}
               token={token}
-              handleCallInitiate={() => handleCallInitiate(guestData?.id, isCreditAvailable, callTime)}
+              handleCallInitiate={() => handleCallInitiate(guestData?.id, isCreditAvailable, callTime, guestData?.name, modelPhoto ?? '')}
             />
           ) : (
             guestData && (
@@ -94,7 +95,7 @@ const EscortDetailPage = () => {
                 workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])}
                 modelId={guestData?.id ?? 0}
                 token={token}
-                handleCallInitiate={() => handleCallInitiate(guestData?.id, isCreditAvailable, callTime)}
+                handleCallInitiate={() => handleCallInitiate(guestData?.id, isCreditAvailable, callTime, guestData?.name, modelPhoto ?? '')}
               />
             )
           )}
