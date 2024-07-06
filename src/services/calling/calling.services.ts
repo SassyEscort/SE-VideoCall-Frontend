@@ -62,22 +62,4 @@ export class CallingService {
       return error.response?.data as CreditCallRes;
     }
   };
-
-  static fetchCallStatus = async (sessionId: string) => {
-    try {
-      const res = await axios.get(
-        `https://2552847737c10dd9.call-${process.env.NEXT_PUBLIC_COMET_CHAT_REGION}.cometchat.io/v3.0/calls/${sessionId}`,
-        {
-          headers: {
-            accept: 'application/json',
-            apiKey: process.env.NEXT_PUBLIC_COMET_CHAT_AUTH_KEY
-          }
-        }
-      );
-      return res?.data?.data?.length ? res?.data?.data[0]?.status : '';
-    } catch (err: any) {
-      const error: AxiosError = err;
-      return error.response?.data as CreditCallRes;
-    }
-  };
 }
