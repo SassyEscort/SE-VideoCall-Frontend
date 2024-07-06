@@ -12,6 +12,7 @@ import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
 import { ErrorMessage } from 'constants/common.constants';
 import { COMETCHAT_CONSTANTS } from 'views/protectedViews/callingFeature/CallInitialize';
+import { CometChatCalls } from '@cometchat/calls-sdk-javascript';
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
@@ -51,8 +52,6 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [modelName, setModelName] = useState('');
   const [modelPhoto, setModelPhoto] = useState('');
 
-  const uniqueEventListener = 'Unique_123';
-
   const init = useCallback(async () => {
     try {
       const UIKitSettings = new UIKitSettingsBuilder()
@@ -91,8 +90,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     modelName: string,
     modelPhoto: string
   ) => {
-    await init();
     if (guestId && isCreditAvailable && !endStatus) {
+      await init();
       setEndCallTime(callTime);
       setModelId(guestId);
       setModelName(modelName);
@@ -102,10 +101,10 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         CometChatUIKitConstants.MessageTypes.video,
         CometChatUIKitConstants.MessageReceiverType.user
       );
-      await CometChat.initiateCall(callObject).then((c: any) => {
-        setCall(c);
-        setSessionId(c.getSessionId());
-      });
+      const callInitiate = await CometChat.initiateCall(callObject);
+      setCall(callInitiate);
+      setSessionId(callInitiate.getSessionId());
+      await creditPutCallLog(guestId, callInitiate.getSessionId(), '');
     } else {
       toast.error('Credit balance should more than 3 minutes');
     }
@@ -130,27 +129,51 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
+    CometChatCalls.addCallEventListener(String(modelId), {
+      onCallEnded: async () => {
+        setIsCallAccepted(false);
+        setCall(undefined);
+        CometChat.removeUserListener(String(modelId));
+        if (isCustomer) {
+          await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
+          await CometChatUIKit.logout();
+        }
+      },
+      onCallEndButtonPressed: async () => {
+        setIsCallAccepted(false);
+        setCall(undefined);
+        CometChat.removeUserListener(String(modelId));
+        if (isCustomer) {
+          await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
+          await CometChatUIKit.logout();
+        }
+      }
+    });
+    return () => CometChatCalls.removeCallEventListener(String(modelId));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isCustomer, modelId, sessionId]);
+
+  useEffect(() => {
     const callListener = new CometChat.CallListener({
       onIncomingCallReceived: async (call: Call) => {
         setIsCallIncoming(true);
         setSessionId(call.getSessionId());
-        // await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.UNASWERED);
+        await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.UNASWERED);
       },
       onOutgoingCallAccepted: async () => {
         setIsCallAccepted(true);
-        // await creditPutCallLog(modelId, call.getSessionId(), '');
       },
-      onOutgoingCallRejected: async () => {
+      onOutgoingCallRejected: async (call: Call) => {
         setCall(undefined);
-        // await creditPutCallLog(modelId, call.getSessionId(), '');
+        await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.REJECTED);
         setEndCallTime(180000);
-        // if (isCustomer) {
-        //   await CometChatUIKit.logout();
-        // }
+        if (isCustomer) {
+          await CometChatUIKit.logout();
+        }
       },
-      onIncomingCallCancelled: async () => {
+      onIncomingCallCancelled: async (call: Call) => {
         setCall(undefined);
-        // await creditPutCallLog(modelId, call.getSessionId(), '');
+        await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.CANCELED);
         setEndCallTime(180000);
         if (isCustomer) {
           await CometChatUIKit.logout();
@@ -159,44 +182,22 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       onCallEndedMessageReceived: async (call: Call) => {
         setIsCallAccepted(false);
         setCall(undefined);
-        CometChat.removeUserListener(uniqueEventListener);
+        CometChat.removeUserListener(String(modelId));
         await CometChat.endCall(call.getSessionId());
-        await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.ENDED);
         if (isCustomer) {
+          await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.ENDED);
           await CometChatUIKit.logout();
         }
       }
     });
 
-    CometChat.addCallListener(uniqueEventListener, callListener);
+    CometChat.addCallListener(String(modelId), callListener);
 
     return () => {
-      CometChat.removeCallListener(uniqueEventListener);
+      CometChat.removeCallListener(String(modelId));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modelId, isCustomer, call]);
-
-  useEffect(() => {
-    let intervalId: number | undefined;
-    if (isCallAccepted) {
-      intervalId = window.setInterval(async () => {
-        const callStatus = await CallingService.fetchCallStatus(sessionId);
-        if (callStatus === 'ended' || endStatus) {
-          setCall(undefined);
-          setIsCallAccepted(false);
-          setEndStatus(true);
-          await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
-          await CometChatUIKit.logout();
-        }
-      }, 1000);
-    }
-    return () => {
-      if (intervalId !== undefined) {
-        clearInterval(intervalId);
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isCallAccepted, endStatus]);
 
   useEffect(() => {
     const userToken = async () => {
@@ -216,9 +217,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
 
   setTimeout(async () => {
     if (isCallAccepted || endStatus) {
-      await CometChat.endCall(sessionId);
       setCall(undefined);
       setIsCallAccepted(false);
+      await CometChat.endCall(sessionId);
       await CometChatUIKit.logout();
       await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
     }
