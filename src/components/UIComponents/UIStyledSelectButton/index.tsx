@@ -1,26 +1,20 @@
-import Button, { ButtonProps } from '@mui/material/Button';
+import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
-interface UIStyledSelectButtonProps extends ButtonProps {
-  isClicked: boolean;
-}
-
-export const UIStyledSelectButton = styled(Button, {
-  shouldForwardProp: (prop) => prop !== 'isClicked'
-})<UIStyledSelectButtonProps>(({ theme, isClicked }) => ({
+export const UIStyledSelectButton = styled(Button)(({ theme }) => ({
   display: 'flex',
   borderRadius: '8px',
   width: '100%',
   height: '48px !important',
-  backgroundColor: isClicked ? theme.palette.secondary.main : theme.palette.primary[700],
+  backgroundColor: theme.palette.primary[700],
   color: theme.palette.text.primary,
   fontSize: '16px',
   fontWeight: 400,
   lineHeight: '21.86px',
   '&:hover': {
     '.MuiOutlinedInput-notchedOutline': {
-      backgroundColor: isClicked ? theme.palette.secondary.main : theme.palette.secondary[800]
+      backgroundColor: theme.palette.secondary[800]
     }
   }
 }));

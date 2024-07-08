@@ -42,8 +42,6 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ handelFilterChange }) => 
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [isOnline, setIsOnline] = useState(true);
-  const [newArrivals, setNewArrivals] = useState(true);
 
   const getInitialFilters = () => ({
     fromAge: getQueryParam('fromAge') ? (getQueryParam('fromAge') as string) : '',
@@ -150,24 +148,20 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ handelFilterChange }) => 
       page: 1
     });
   };
-
   const handleNewArrivals = () => {
     setFilters({
       ...filters,
       page: 1,
-      sortField: newArrivals ? 'created_at' : '',
-      sortOrder: newArrivals ? 'desc' : ''
+      sortField: 'created_at',
+      sortOrder: 'desc'
     });
-    setNewArrivals(!newArrivals);
   };
-
   const handelChangeIsOnline = () => {
     setFilters({
       ...filters,
       page: 1,
-      isOnline: isOnline ? '1' : '0'
+      isOnline: '1'
     });
-    setIsOnline(!isOnline);
   };
 
   useEffect(() => {

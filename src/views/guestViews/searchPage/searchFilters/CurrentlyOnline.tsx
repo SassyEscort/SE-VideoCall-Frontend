@@ -1,21 +1,12 @@
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { LiveIconFirstBoxWorkerCard, LiveIconSecBoxWorkerCard, UIStyledSelectButton } from 'components/UIComponents/UIStyledSelectButton';
-import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 const CurrentlyOnline = ({ onClick }: { onClick?: () => void }) => {
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleClick = () => {
-    setIsClicked((prev) => !prev);
-    if (onClick) onClick();
-  };
-
   return (
     <>
       <UIStyledSelectButton
-        onClick={handleClick}
-        isClicked={isClicked}
+        onClick={onClick}
         startIcon={
           <LiveIconFirstBoxWorkerCard>
             <LiveIconSecBoxWorkerCard />
