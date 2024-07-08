@@ -13,13 +13,13 @@ export const CreditsSubContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column'
 }));
 
-export const HeadingContainer = styled(Box)(() => ({
+export const HeadingContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   height: '100%',
   width: '100%',
-  padding: '20px 24px',
+  padding: `${theme.spacing(2.5)}px ${theme.spacing(3)}px`,
   justifyContent: 'space-between'
 }));
 
@@ -41,7 +41,7 @@ export const BalanceInfoBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(1),
   alignItems: 'center',
-  paddingRight: '35px'
+  paddingRight: theme.spacing(4.375)
 }));
 
 export const BalanceInfoBoxV2 = styled(Box)(({ theme }) => ({
@@ -66,12 +66,12 @@ export const ImagMainContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(3),
   flexWrap: 'wrap',
   overflow: 'hidden',
-  marginTop: '48px',
+  marginTop: theme.spacing(6),
   [theme.breakpoints.up('md')]: {
     justifyContent: 'space-between'
   },
   [theme.breakpoints.down('sm')]: {
-    marginTop: '32px'
+    marginTop: theme.spacing(4)
   }
 }));
 
@@ -90,7 +90,7 @@ export const MainImagContainer = styled('img')(({ theme }) => ({
   display: 'flex',
   width: '100%',
   height: '100%',
-  borderRadius: '8px',
+  borderRadius: theme.spacing(1),
   border: '1px solid',
   borderColor: theme.palette.secondary[900]
 }));
@@ -107,7 +107,7 @@ export const BoxFirstTextContainer = styled(Box)(({ theme }) => ({
   paddingBottom: theme.spacing(0.5),
   paddingRight: theme.spacing(1),
   paddingLeft: theme.spacing(1),
-  borderRadius: '4px'
+  borderRadius: theme.spacing(0.5)
 }));
 
 export const BoxSecondTextContainer = styled(Box)(({ theme }) => ({
@@ -128,7 +128,7 @@ export const CreditCardText = styled(UINewTypography)(({ theme }) => ({
   fontSize: '20px !important',
   fontWeight: '500 !important',
   lineHeight: '24px !important',
-  marginLeft: '6px'
+  marginLeft: theme.spacing(0.75)
 }));
 
 export const CreditCardImage = styled('img')(() => ({
