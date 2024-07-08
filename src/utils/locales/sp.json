@@ -390,5 +390,7 @@
   "ExploreMoreModels": "Explorar más modelos",
   "StartVideoCallAgain": "Iniciar llamada de video nuevamente",
   "Duration": "Duración:",
-  "CreditsUsed": "Créditos utilizados:"
+  "CreditsUsed": "Créditos utilizados:",
+  "EarningsIn": "Ingresos en $",
+  "TotalClients": "Clientes Totales"
 }
