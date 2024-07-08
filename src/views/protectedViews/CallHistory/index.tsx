@@ -169,11 +169,12 @@ const CallHistory = () => {
                         {!isSmDown && (
                           <SecondSubFirstPartThiredBox marginRight={{ sm: '32px' }}>
                             <FirstTextContainer color="text.primary" whiteSpace="nowrap">
-                              Duration: {list.duration && moment(list.duration).format('h:mm:ss a')}
+                              <FormattedMessage id="Duration" />
+                              {list.duration && moment(list.duration).format('h:mm:ss a')}
                             </FirstTextContainer>
                             <CreditUsedBox>
                               <FirstTextContainer color="text.primary" whiteSpace="nowrap">
-                                Credits used:
+                                <FormattedMessage id="CreditsUsed" />
                               </FirstTextContainer>
                               <SecondSubFirstPartThiredBoxText>
                                 <ImgBoxContainer src="/images/workercards/dollar-img.png" />
@@ -186,11 +187,12 @@ const CallHistory = () => {
                       {isSmDown && (
                         <SecondSubFirstPartThiredBox gap="8px !important">
                           <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
-                            Duration: {list.duration && moment(list.duration).format('h:mm:ss a')}
+                            <FormattedMessage id="Duration" />
+                            {list.duration && moment(list.duration).format('h:mm:ss a')}
                           </UINewTypography>
                           <CreditUsedBox>
                             <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
-                              Credits used:
+                              <FormattedMessage id="CreditsUsed" />
                             </UINewTypography>
                             <SecondSubFirstPartThiredBoxText>
                               <ImgBoxContainer src="/images/workercards/dollar-img.png" />

@@ -165,7 +165,7 @@ const MainFooter = () => {
                         component={Link}
                         prefetch={false}
                         shallow={true}
-                        href={`/escorts/city${val.link}`}
+                        href={`${val.link}`}
                       >
                         <FormattedMessage id={val.name} />
                       </Box>

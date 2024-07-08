@@ -10,6 +10,7 @@ import {
   ProfilePieMainContainer,
   ProfileStatiscsContainer,
   ProfileStatiscsMainContainer,
+  ProfileTotalVisits,
   StyledDatePicker
 } from './EarningOverview.styled';
 import { useEffect, useState } from 'react';
@@ -20,6 +21,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { ModelEarningResponse } from 'services/modelDetails/type';
+import Earnings from './Earning';
 
 const EarningOverview = () => {
   const [periodType, setPeriodType] = useState('thisWeek');
@@ -166,6 +168,9 @@ const EarningOverview = () => {
           </ProfileBackSide>
         </ProfilePieContainer>
       </ProfilePieMainContainer>
+      <ProfileTotalVisits>
+        <Earnings />
+      </ProfileTotalVisits>
     </ProfileStatiscsMainContainer>
   );
 };
