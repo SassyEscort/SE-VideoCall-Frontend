@@ -13,6 +13,8 @@ import { User } from 'app/(guest)/layout';
 import { ErrorMessage } from 'constants/common.constants';
 import { COMETCHAT_CONSTANTS } from 'views/protectedViews/callingFeature/CallInitialize';
 import { CometChatCalls } from '@cometchat/calls-sdk-javascript';
+import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import ModelCredits from 'views/protectedViews/Credites/ModelCredits';
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
@@ -47,12 +49,14 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [modelId, setModelId] = useState(0);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isCallAccepted, setIsCallAccepted] = useState(false);
-  const [endCallTime, setEndCallTime] = useState(30000); //temp
+  const [endCallTime, setEndCallTime] = useState(180000);
   const [sessionId, setSessionId] = useState('');
   const [isCallIncoming, setIsCallIncoming] = useState(false);
   const [modelName, setModelName] = useState('');
   const [modelPhoto, setModelPhoto] = useState('');
   const [isCallEnded, setIsCallEnded] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [isOutOfCredits, setIsOutOfCredits] = useState(false);
 
   const init = useCallback(async () => {
     try {
@@ -108,8 +112,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       setSessionId(callInitiate.getSessionId());
       await creditPutCallLog(guestId, callInitiate.getSessionId(), '');
     } else {
-      toast.error('Credit balance should more than 3 minutes');
+      setOpen(true);
     }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const creditPutCallLog = async (model_id: number, comet_chat_session_id: string, status: string) => {
@@ -123,8 +131,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       if (call && (creditLogData.end_call || status === CALLING_STATUS.ENDED)) {
         setCall(undefined);
         setIsCallAccepted(false);
+        setIsOutOfCredits(true);
         await CometChat.endCall(call.getSessionId());
-        await CometChatUIKit.logout();
+        CometChatCalls.endSession();
+        if (isCustomer) {
+          await CometChatUIKit.logout();
+        }
       }
     }
   };
@@ -242,6 +254,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       value={{ call, handleCancelCall, handleCallInitiate, isCallAccepted, isCustomer, isCallIncoming, modelName, modelPhoto, isCallEnded }}
     >
       {children}
+      <UIStyledDialog open={open} maxWidth="md" fullWidth scroll="body">
+        <ModelCredits onClose={handleClose} isOutOfCredits={isOutOfCredits} />
+      </UIStyledDialog>
     </CallContext.Provider>
   );
 };

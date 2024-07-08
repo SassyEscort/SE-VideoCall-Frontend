@@ -465,7 +465,9 @@
   "PartialInvalidity": "Partial Invalidity",
   "ProhibitedContent": "Prohibited Content",
   "ExploreMoreModels": "Explore more models",
-  "StartVideoCallAgain": "Start Video Call again",
+  "StartVideoCallAgain": "Start video call again",
   "EarningsIn": "Earnings in $",
-  "TotalClients": "Total Clients"
+  "TotalClients": "Total clients",
+  "NoEnoughCredits":"No enough credits",
+  "NotEnoughCredits": "Not enough credits"
 }

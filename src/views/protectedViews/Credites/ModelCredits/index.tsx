@@ -8,7 +8,6 @@ import {
   CreditBuyText,
   CreditCardImage,
   CreditCardText,
-  CreditsCloseIconContainer,
   CreditsMainContainer,
   CreditsSubContainer,
   DollarCreditText,
@@ -33,7 +32,7 @@ import { CircularProgress, Divider, useMediaQuery } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import theme from 'themes/theme';
 
-const ModelCredits = ({ onClose }: { onClose: () => void }) => {
+const ModelCredits = ({ onClose, isOutOfCredits }: { onClose: () => void; isOutOfCredits: boolean }) => {
   const [open, setOpen] = useState(false);
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -107,12 +106,12 @@ const ModelCredits = ({ onClose }: { onClose: () => void }) => {
       <CreditsMainContainer>
         <CreditsSubContainer>
           <HeadingContainer>
-            <UINewTypography variant="h6">No enough credits </UINewTypography>
-            <CreditsCloseIconContainer>
-              <NewUIIconButton onClick={onClose}>
-                <CloseIcon sx={{ color: theme.palette.text.secondary }} />
-              </NewUIIconButton>
-            </CreditsCloseIconContainer>
+            <UINewTypography variant="h6">
+              {isOutOfCredits ? <FormattedMessage id="NotEnoughCredits" /> : <FormattedMessage id="NoEnoughCredits" />}
+            </UINewTypography>
+            <NewUIIconButton onClick={onClose}>
+              <CloseIcon sx={{ color: theme.palette.text.secondary }} />
+            </NewUIIconButton>
             {isSmUp && (
               <BalanceInfoBox>
                 <UINewTypography variant="buttonLargeMenu" sx={{ paddingRight: '8px' }}>
