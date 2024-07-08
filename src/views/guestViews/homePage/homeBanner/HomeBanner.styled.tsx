@@ -233,3 +233,32 @@ export const ExploreTextContainer = styled(Typography)(({ theme }) => ({
   fontWeight: 600,
   lineHeight: '19.2px'
 }));
+
+export const FirstBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  maxWidth: '652px',
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(4.5)
+  },
+  [theme.breakpoints.up('sm')]: {
+    gap: theme.spacing(6)
+  },
+  [theme.breakpoints.only('md')]: {
+    paddingTop: theme.spacing(3.125)
+  }
+}));
+
+export const SecBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  gap: theme.spacing(3),
+  [theme.breakpoints.down('sm')]: {
+    alignItems: 'center'
+  },
+  [theme.breakpoints.up('sm')]: {
+    alignItems: 'flex-start'
+  }
+}));

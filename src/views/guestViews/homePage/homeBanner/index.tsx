@@ -18,7 +18,9 @@ import {
   ThirdBoxContainer,
   TextContainer,
   SignupTextContainer,
-  ExploreTextContainer
+  ExploreTextContainer,
+  FirstBoxContainer,
+  SecBoxContainer
 } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
@@ -107,15 +109,8 @@ const HomeTopBanner = () => {
       ) : (
         <>
           <BannerContainer>
-            <Box
-              display="flex"
-              flexDirection="column"
-              gap={{ xs: '36px', sm: 6 }}
-              width="100%"
-              maxWidth="652px"
-              pt={{ xs: '94px', md: '25px' }}
-            >
-              <Box display="flex" flexDirection="column" width="100%" gap={3} alignItems={{ xs: 'center', sm: 'flex-start' }}>
+            <FirstBoxContainer>
+              <SecBoxContainer>
                 <InlineBox>
                   <FormattedMessage id="ExperienceThe" /> {!isSmDown && 'of'} {!isSmDown || (isSm && 'of')} &nbsp;
                   <Box component="span" position="relative">
@@ -148,7 +143,7 @@ const HomeTopBanner = () => {
                 <TypographyBox>
                   <FormattedMessage id="DiscoverTheThrill" />
                 </TypographyBox>
-              </Box>
+              </SecBoxContainer>
               <ThirdBoxContainer>
                 {isSmDown ? (
                   <SecondBoxContainer>
@@ -170,7 +165,7 @@ const HomeTopBanner = () => {
                   </UIThemeShadowButton>
                 )}
               </ThirdBoxContainer>
-            </Box>
+            </FirstBoxContainer>
 
             <Box
               pr={{ xs: 3, sm: 0 }}
