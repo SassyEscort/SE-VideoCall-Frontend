@@ -13,6 +13,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/verificationTypes';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import { SearchTitalBox } from './HeaderAuthComponent.styled';
+import { FormattedMessage } from 'react-intl';
 
 const WorkerNavItem = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -76,7 +77,9 @@ const WorkerNavItem = () => {
             {isMdUp && (
               <SearchTitalBox onClick={handleOpenFilterModal}>
                 <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" loading="lazy" />
-                <Typography variant="buttonLargeMenu">Search</Typography>
+                <Typography variant="buttonLargeMenu">
+                  <FormattedMessage id="Search" />
+                </Typography>
               </SearchTitalBox>
             )}
           </Box>

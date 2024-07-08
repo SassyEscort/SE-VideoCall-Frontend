@@ -23,6 +23,7 @@ interface CallFeatureContextProps {
   isCallIncoming: boolean;
   modelName: string;
   modelPhoto: string;
+  isCallEnded: boolean;
 }
 
 const CallContext = createContext<CallFeatureContextProps>({
@@ -33,7 +34,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   isCustomer: false,
   isCallIncoming: false,
   modelName: '',
-  modelPhoto: ''
+  modelPhoto: '',
+  isCallEnded: false
 });
 
 export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
@@ -45,12 +47,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [modelId, setModelId] = useState(0);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isCallAccepted, setIsCallAccepted] = useState(false);
-  const [endCallTime, setEndCallTime] = useState(180000);
+  const [endCallTime, setEndCallTime] = useState(30000); //temp
   const [sessionId, setSessionId] = useState('');
-  const [endStatus, setEndStatus] = useState(false);
   const [isCallIncoming, setIsCallIncoming] = useState(false);
   const [modelName, setModelName] = useState('');
   const [modelPhoto, setModelPhoto] = useState('');
+  const [isCallEnded, setIsCallEnded] = useState(false);
 
   const init = useCallback(async () => {
     try {
@@ -90,7 +92,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     modelName: string,
     modelPhoto: string
   ) => {
-    if (guestId && isCreditAvailable && !endStatus) {
+    if (guestId && isCreditAvailable) {
       await init();
       setEndCallTime(callTime);
       setModelId(guestId);
@@ -120,7 +122,6 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       const creditLogData = await CallingService.creditPutCallLog(creditLog, token.token);
       if (call && (creditLogData.end_call || status === CALLING_STATUS.ENDED)) {
         setCall(undefined);
-        setEndStatus(true);
         setIsCallAccepted(false);
         await CometChat.endCall(call.getSessionId());
         await CometChatUIKit.logout();
@@ -133,6 +134,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       onCallEnded: async () => {
         setIsCallAccepted(false);
         setCall(undefined);
+        setIsCallEnded(true);
         CometChat.removeUserListener(String(modelId));
         if (isCustomer) {
           await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
@@ -142,6 +144,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       onCallEndButtonPressed: async () => {
         setIsCallAccepted(false);
         setCall(undefined);
+        setIsCallEnded(true);
         CometChat.removeUserListener(String(modelId));
         if (isCustomer) {
           await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
@@ -185,6 +188,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         CometChat.removeUserListener(String(modelId));
         await CometChat.endCall(call.getSessionId());
         if (isCustomer) {
+          setIsCallEnded(true);
           await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.ENDED);
           await CometChatUIKit.logout();
         }
@@ -210,24 +214,32 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   setInterval(async () => {
-    if (call) {
-      await creditPutCallLog(modelId, call.getSessionId(), '');
+    if (isCallAccepted && isCustomer) {
+      try {
+        await creditPutCallLog(modelId, sessionId, '');
+      } catch (error) {
+        toast.error(ErrorMessage);
+      }
     }
   }, 60000);
 
   setTimeout(async () => {
-    if (isCallAccepted || endStatus) {
+    if (isCallAccepted || isCallEnded) {
       setCall(undefined);
       setIsCallAccepted(false);
+      setIsCallEnded(true);
       await CometChat.endCall(sessionId);
-      await CometChatUIKit.logout();
+      CometChatCalls.endSession();
       await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
+      if (isCustomer) {
+        await CometChatUIKit.logout();
+      }
     }
   }, endCallTime);
 
   return (
     <CallContext.Provider
-      value={{ call, handleCancelCall, handleCallInitiate, isCallAccepted, isCustomer, isCallIncoming, modelName, modelPhoto }}
+      value={{ call, handleCancelCall, handleCallInitiate, isCallAccepted, isCustomer, isCallIncoming, modelName, modelPhoto, isCallEnded }}
     >
       {children}
     </CallContext.Provider>

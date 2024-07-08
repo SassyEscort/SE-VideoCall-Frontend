@@ -49,6 +49,7 @@ import {
   UINewTypographyWithDrawRecentWithdrawls
 } from 'views/protectedViews/logout/Logout.styled';
 import { NotFoundBox } from '../payoutsAndInvoicesTable/billingTable/BillingTable.styled';
+import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 
 export type PayoutPaginationType = {
   page: number;
@@ -67,6 +68,8 @@ const PayoutContainer = ({
   fetchBankDetails: () => void;
   modelDetails: ModelDetailsResponse;
 }) => {
+  const { isCallEnded } = useCallFeatureContext();
+
   const [open, setIsOpen] = useState(false);
   const [payoutStep, setPayoutStep] = useState(0);
   const [modelPayoutList, setModelPayoutList] = useState<ModelPastPayoutDetailRes>();
@@ -162,7 +165,7 @@ const PayoutContainer = ({
   useEffect(() => {
     getAmount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.token]);
+  }, [token.token, isCallEnded]);
 
   return (
     <MainContainer>
