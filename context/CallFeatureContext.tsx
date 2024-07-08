@@ -210,8 +210,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   setInterval(async () => {
-    if (call) {
-      await creditPutCallLog(modelId, call.getSessionId(), '');
+    if (isCallAccepted && isCustomer) {
+      try {
+        await creditPutCallLog(modelId, sessionId, '');
+      } catch (error) {
+        toast.error(ErrorMessage);
+      }
     }
   }, 60000);
 
