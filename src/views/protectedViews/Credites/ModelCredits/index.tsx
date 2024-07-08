@@ -1,28 +1,25 @@
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useCallback, useEffect, useState } from 'react';
-import { SecondSubContainerImgWorkerCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import {
+  BalanceInfoBox,
+  BalanceInfoBoxV2,
   BoxFirstTextContainer,
   BoxSecondTextContainer,
-  BuyCreditsText,
   CreditBuyText,
   CreditCardImage,
   CreditCardText,
+  CreditsCloseIconContainer,
   CreditsMainContainer,
   CreditsSubContainer,
   DollarCreditText,
-  FirsTextMainContainer,
-  FirsTextSubContainer,
   FirstBoxContainer,
+  HeadingContainer,
   ImagMainContainer,
   ImagSubContainer,
   LoaderBox,
   MainImagContainer,
-  SecondBoxContainer,
-  SecondTextSubContainer,
-  TextMainContainer
+  NewUIIconButton
 } from './Credits.styled';
-import MainLayoutNav from '../protectedLayout';
 import { FormattedMessage } from 'react-intl';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customerCredit.service';
@@ -30,12 +27,13 @@ import { getUserDataClient } from 'utils/getSessionData';
 import Grid from '@mui/material/Grid';
 import { useRouter, useSearchParams } from 'next/navigation';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
-import CreditsAdded from '../CreditsAdded/CreditsAdded';
+import CreditsAdded from '../../CreditsAdded/CreditsAdded';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
-import Loader from 'components/Loader';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Divider, useMediaQuery } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import theme from 'themes/theme';
 
-const Credits = () => {
+const ModelCredits = ({ onClose }: { onClose: () => void }) => {
   const [open, setOpen] = useState(false);
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -44,6 +42,9 @@ const Credits = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     const userToken = async () => {
@@ -59,7 +60,7 @@ const Credits = () => {
     if (token.token) {
       setIsLoading(true);
       const getModel = await CustomerCredit.getCustomerCredit(token.token);
-      setCreditsListing(getModel.data);
+      setCreditsListing(getModel?.data);
       setIsLoading(false);
     }
   }, [token.token]);
@@ -79,9 +80,12 @@ const Credits = () => {
     }
     setIsLoading(false);
   };
+
   const handleClose = () => {
     setOpen(false);
+    onClose();
   };
+
   useEffect(() => {
     const credit = searchParams.get('credit');
     setAddedCredits(Number(credit));
@@ -91,6 +95,7 @@ const Credits = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
+
   useEffect(() => {
     getCreditsListing();
     getCustomerCredit();
@@ -98,34 +103,40 @@ const Credits = () => {
   }, [token]);
 
   return (
-    <MainLayoutNav variant={'worker'} enlargedFooter={true}>
-      {isLoading && <Loader />}
+    <>
       <CreditsMainContainer>
         <CreditsSubContainer>
-          <TextMainContainer>
-            <FirsTextMainContainer>
-              <UINewTypography variant="h2" color="text.secondary">
-                <FormattedMessage id="Credits" />
-              </UINewTypography>
-              <FirsTextSubContainer>
-                <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+          <HeadingContainer>
+            <UINewTypography variant="h6">No enough credits </UINewTypography>
+            <CreditsCloseIconContainer>
+              <NewUIIconButton onClick={onClose}>
+                <CloseIcon sx={{ color: theme.palette.text.secondary }} />
+              </NewUIIconButton>
+            </CreditsCloseIconContainer>
+            {isSmUp && (
+              <BalanceInfoBox>
+                <UINewTypography variant="buttonLargeMenu" sx={{ paddingRight: '8px' }}>
                   <FormattedMessage id="Balance" />
                 </UINewTypography>
-                <SecondBoxContainer>
-                  <SecondSubContainerImgWorkerCard src="/images/workercards/coin-1.png" />
-                  <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                    {balance}
-                  </UINewTypography>
-                </SecondBoxContainer>
-              </FirsTextSubContainer>
-            </FirsTextMainContainer>
-            <SecondTextSubContainer>
-              <BuyCreditsText>
-                <FormattedMessage id="BuyCredits" />
-              </BuyCreditsText>
-            </SecondTextSubContainer>
-          </TextMainContainer>
+                <CreditCardImage src="/images/workercards/dollar-img.png" />
 
+                <UINewTypography variant="buttonLargeMenu">{balance}</UINewTypography>
+                <FormattedMessage id="Credits" />
+              </BalanceInfoBox>
+            )}
+          </HeadingContainer>
+          <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', gap: 0 }} />
+          {isSmDown && (
+            <BalanceInfoBoxV2>
+              <UINewTypography variant="buttonLargeMenu" sx={{ paddingRight: '8px' }}>
+                <FormattedMessage id="Balance" />
+              </UINewTypography>
+              <CreditCardImage src="/images/workercards/dollar-img.png" />
+
+              <UINewTypography variant="buttonLargeMenu">{balance}</UINewTypography>
+              <FormattedMessage id="Credits" />
+            </BalanceInfoBoxV2>
+          )}
           {isLoading ? (
             <LoaderBox>
               <CircularProgress />
@@ -161,8 +172,8 @@ const Credits = () => {
       <UIStyledDialog open={open} maxWidth="md" fullWidth>
         <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} />
       </UIStyledDialog>
-    </MainLayoutNav>
+    </>
   );
 };
 
-export default Credits;
+export default ModelCredits;

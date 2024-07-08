@@ -21,3 +21,17 @@ export type ModelEarningHistoryPageDetails = {
 export interface ModelEarningHistoryPageDetailsRes extends GenericRes {
   data: ModelEarningHistoryPageDetails;
 }
+
+export type CallType = {
+  month: string;
+  total_amount: number;
+};
+
+export type CallTypeModel = {
+  calls: CallType[];
+  total_clients: number;
+};
+
+export interface ModelEarningChartPageDetailsRes extends GenericRes {
+  data: CallTypeModel;
+}

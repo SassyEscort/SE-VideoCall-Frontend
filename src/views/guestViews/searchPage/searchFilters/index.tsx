@@ -55,13 +55,14 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ handelFilterChange }) => 
     sortField: getQueryParam('sortField') ? (getQueryParam('sortField') as string) : '',
     page: Number(getQueryParam('page', 1)),
     pageSize: HOME_PAGE_SIZE,
-    offset: 0
+    offset: (Number(searchParams.get('page') ?? 1) - 1) * HOME_PAGE_SIZE || 0
   });
 
   const [filters, setFilters] = useState(getInitialFilters());
 
   useEffect(() => {
     setFilters(getInitialFilters());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   const handleCHangeFilter = useCallback(() => {

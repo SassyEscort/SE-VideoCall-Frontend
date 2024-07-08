@@ -8,7 +8,7 @@ import { DialogContentFristBox, DialogContentMain, DialogContentSecondBox, Dialo
 import VideoCalling from '../commonComponent';
 import { FormattedMessage } from 'react-intl';
 
-const RingingModel = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+const RingingModel = ({ onClose }: { onClose: () => void }) => {
   return (
     <DialogContentMain open={true} onClose={onClose} fullWidth>
       <DialogTitleBox id="responsive-modal-title">
@@ -43,7 +43,7 @@ const RingingModel = ({ open, onClose }: { open: boolean; onClose: () => void })
                 <FormattedMessage id="Ringing" />
               </UINewTypography>
             </SecondBoxContent>
-            <Box component="img" src="/images/icons/ringing-icon.png" width={40} height={40} />
+            <Box component="img" src="/images/icons/ringing-icon.png" width={40} height={40} onClick={onClose} sx={{ cursor: 'pointer' }} />
           </DialogContentSecondBox>
         </DialogContentFristBox>
       </DialogContent>
