@@ -78,12 +78,12 @@ const HelpAndSupportContainer = () => {
                 <StyledAccordion defaultExpanded>
                   <StyledAccordionSummary aria-controls="panel1-content" id="panel1-header" expandIcon={<ExpandMoreIcon />}>
                     <FirstTextContainer sx={{ color: 'secondary.100' }}>
-                      <FormattedMessage id="HowDoISignUp" />
+                      <FormattedMessage id="IsThereAMinimumNumber" />
                     </FirstTextContainer>
                   </StyledAccordionSummary>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
-                      <FormattedMessage id="YouCanSignUpByClicking" />
+                      <FormattedMessage id="ThereIsNoMinimumRequirement" />
                     </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
@@ -96,12 +96,12 @@ const HelpAndSupportContainer = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <FormattedMessage id="WhatAreTheRequirements" />
+                      <FormattedMessage id="HowDoIWithdraw" />
                     </StyledAccordionSummary>
                   </FirstTextContainer>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
-                      <FormattedMessage id="YouMustBeAtLeast" />
+                      <FormattedMessage id="YouCanWithdrawEarnings" />
                     </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
@@ -114,12 +114,12 @@ const HelpAndSupportContainer = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <FormattedMessage id="HowDoISetMyRates" />
+                      <FormattedMessage id="WhatShouldIDo" />
                     </StyledAccordionSummary>
                   </FirstTextContainer>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
-                      <FormattedMessage id="YouCanSetYourRates" />
+                      <FormattedMessage id="IfYouEncounterATechnical" />
                     </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
@@ -132,12 +132,12 @@ const HelpAndSupportContainer = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <FormattedMessage id="HowAreMyEarnings" />
+                      <FormattedMessage id="HowCanIOptimize" />
                     </StyledAccordionSummary>
                   </FirstTextContainer>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
-                      <FormattedMessage id="YourEarningsAreCalculated" />
+                      <FormattedMessage id="ToOptimizeYourProfile" />
                     </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
@@ -150,12 +150,12 @@ const HelpAndSupportContainer = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <FormattedMessage id="WhenAndHowDoI" />
+                      <FormattedMessage id="HowCanIContactCustomer" />
                     </StyledAccordionSummary>
                   </FirstTextContainer>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
-                      <FormattedMessage id="PaymentsAreProcessed" />
+                      <FormattedMessage id="YouCanContactOurCustomer" />
                     </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
@@ -168,12 +168,12 @@ const HelpAndSupportContainer = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <FormattedMessage id="CanIChangeMyRates" />
+                      <FormattedMessage id="HowCanIChange" />
                     </StyledAccordionSummary>
                   </FirstTextContainer>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
-                      <FormattedMessage id="YesYouCanUpdate" />
+                      <FormattedMessage id="ToChangeYourPaymentPreferences" />
                     </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
@@ -186,12 +186,12 @@ const HelpAndSupportContainer = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <FormattedMessage id="WhatIfIHaveTechnical" />
+                      <FormattedMessage id="CanISeeUser" />
                     </StyledAccordionSummary>
                   </FirstTextContainer>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
-                      <FormattedMessage id="ForAnyTechnicalIssues" />
+                      <FormattedMessage id="YesUsersCanLeave" />
                     </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
@@ -204,12 +204,12 @@ const HelpAndSupportContainer = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <FormattedMessage id="HowCanIIncrease" />
+                      <FormattedMessage id="IsThereAMaximumDuration" />
                     </StyledAccordionSummary>
                   </FirstTextContainer>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
-                      <FormattedMessage id="ToIncreaseVisibility" />
+                      <FormattedMessage id="ThereIsNoMaximum" />
                     </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
@@ -222,30 +222,12 @@ const HelpAndSupportContainer = () => {
                       id="panel2-header"
                       expandIcon={<ExpandMoreIcon />}
                     >
-                      <FormattedMessage id="HowDoIViewMy" />
+                      <FormattedMessage id="HowOftenAreEarnings" />
                     </StyledAccordionSummary>
                   </FirstTextContainer>
                   <UINewTypography variant="bodyRegular">
                     <StyledAccordionDetails>
-                      <FormattedMessage id="YouCanViewYourCallHistory" />
-                    </StyledAccordionDetails>
-                  </UINewTypography>
-                </StyledAccordion>
-
-                <StyledAccordion>
-                  <FirstTextContainer>
-                    <StyledAccordionSummary
-                      sx={{ color: 'secondary.100' }}
-                      aria-controls="panel2-content"
-                      id="panel2-header"
-                      expandIcon={<ExpandMoreIcon />}
-                    >
-                      <FormattedMessage id="WhoDoIContactIf" />
-                    </StyledAccordionSummary>
-                  </FirstTextContainer>
-                  <UINewTypography variant="bodyRegular">
-                    <StyledAccordionDetails>
-                      <FormattedMessage id="ForAnyQuestionsOrAssistance" />
+                      <FormattedMessage id="EarningsAreUpdated" />
                     </StyledAccordionDetails>
                   </UINewTypography>
                 </StyledAccordion>
