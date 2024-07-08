@@ -394,5 +394,7 @@
   "ExploreMoreModels": "Explore more models",
   "StartVideoCallAgain": "Start Video Call again",
   "Duration": "Duration:",
-  "CreditsUsed": " Credits used:"
+  "CreditsUsed": " Credits used:",
+  "EarningsIn": "Earnings in $",
+  "TotalClients": "Total Clients"
 }

@@ -108,6 +108,12 @@ export const ProfileTotalVisits = styled(Box)(({ theme }) => ({
   gap: theme.spacing(0.125)
 }));
 
+export const CircleMainBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(1)
+}));
+
 export const FormControlBox = styled(FormControl)(() => ({
   display: 'flex',
   gap: '20px',
