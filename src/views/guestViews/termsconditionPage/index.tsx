@@ -23,16 +23,16 @@ const TermaAndCondition = () => {
             <FirstTextContainer color="secondary.100">
               1. <FormattedMessage id="Introduction" />
             </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="FlirtbateComisAService" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="OurCommitmentIsTo" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="ByUsingOurAppsAndService" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="AnyTranslationOfTheseTerms" />
             </UINewTypography>
           </Box>
@@ -40,19 +40,19 @@ const TermaAndCondition = () => {
             <FirstTextContainer color="secondary.100">
               2. <FormattedMessage id="TheServiceAndGeneralLimitationsOfUse" />
             </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="TheServiceIsAvailable" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="TheAssortmentOfContent" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="ContentTypesAndDescriptions" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="YouAgreeNotToUseOrLaunch" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="YouAgreeToOnlyUseContent" />
             </UINewTypography>
           </Box>
@@ -60,10 +60,10 @@ const TermaAndCondition = () => {
             <FirstTextContainer color="secondary.100">
               3. <FormattedMessage id="HowToAccessTheServiceAndYourAccount" />
             </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="InOrderToUseTheService" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="YouAreResponsibleFor" />
             </UINewTypography>
           </Box>
@@ -71,19 +71,19 @@ const TermaAndCondition = () => {
             <FirstTextContainer color="secondary.100">
               4. <FormattedMessage id="IntellectualPropertyRights" />
             </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="YouMayNotUseTransferDisplay" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="AllContentAvailable" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="ExceptForTheRightsExpressly" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="PleaseNoteThatYouMay" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="PleaseAlsoNoteThatYouAre" />
             </UINewTypography>
           </Box>
@@ -91,10 +91,10 @@ const TermaAndCondition = () => {
             <FirstTextContainer color="secondary.100">
               5. <FormattedMessage id="UseOfComputerResources" />
             </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="YouAgreeThatWeHaveTheRight" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="IfYouAreConnectedTotheInternet" />
             </UINewTypography>
           </Box>
@@ -102,7 +102,7 @@ const TermaAndCondition = () => {
             <FirstTextContainer color="secondary.100">
               6. <FormattedMessage id="ThirdPartyApplications" />
             </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="TheServiceIsIntegrated" />
             </UINewTypography>
           </Box>
@@ -110,7 +110,7 @@ const TermaAndCondition = () => {
             <FirstTextContainer color="secondary.100">
               7. <FormattedMessage id="Advertisement" />
             </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="YouMaySeparatelyHaveAccepted" />
             </UINewTypography>
           </Box>
@@ -118,7 +118,7 @@ const TermaAndCondition = () => {
             <FirstTextContainer color="secondary.100">
               8. <FormattedMessage id="PrivacyAndPersonalData" />
             </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="WeProcessPersonalData" />
             </UINewTypography>
           </Box>
@@ -126,22 +126,22 @@ const TermaAndCondition = () => {
             <FirstTextContainer color="secondary.100">
               9. <FormattedMessage id="ServiceLevelAndDisclaimer" />
             </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="WeWillMakeReasonableEfforts" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="WeAreNotResponsibleForUnavailability" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="WeWillFromTimeToTimeCarryOut" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="THISSERVICEISPROVIDED" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="WESHALLINNOEVENT" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="WeReservesTheRightAtAnyTime" />
             </UINewTypography>
           </Box>
@@ -149,10 +149,10 @@ const TermaAndCondition = () => {
             <FirstTextContainer color="secondary.100">
               10. <FormattedMessage id="Indemnity" />
             </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="UponRequestByUsYouAgreeToIndemnify" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="FurthermoreWeReserveTheRight" />
             </UINewTypography>
           </Box>
@@ -160,13 +160,13 @@ const TermaAndCondition = () => {
             <FirstTextContainer color="secondary.100">
               11. <FormattedMessage id="Limitation" />
             </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="YOUAGREETHATTOTHEEXTENT" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="TOTHEFULLESTEXTENTPERMITTED" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="NothingInTheAgreementsRemoves" />
             </UINewTypography>
           </Box>
@@ -174,10 +174,10 @@ const TermaAndCondition = () => {
             <FirstTextContainer color="secondary.100">
               12. <FormattedMessage id="TermAndTermination" />
             </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="ThisAgreementWillContinue" />
             </UINewTypography>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="IfYouOrWeTerminateThisAgreement" />
             </UINewTypography>
           </Box>
@@ -185,7 +185,7 @@ const TermaAndCondition = () => {
             <FirstTextContainer color="secondary.100">
               13. <FormattedMessage id="Assignment" />
             </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="WeAreEntitledToInWhole" />
             </UINewTypography>
           </Box>
@@ -193,7 +193,7 @@ const TermaAndCondition = () => {
             <FirstTextContainer color="secondary.100">
               14. <FormattedMessage id="PartialInvalidity" />
             </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="IfAnyProvisionOfTheseTermsAndConditions" />
             </UINewTypography>
           </Box>
@@ -201,7 +201,7 @@ const TermaAndCondition = () => {
             <FirstTextContainer color="secondary.100">
               15. <FormattedMessage id="ProhibitedContent" />
             </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: '24px' }}>
+            <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="ToMaintainASafeAndRespectfulEnvironment" />
             </UINewTypography>
           </Box>
