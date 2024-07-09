@@ -81,13 +81,6 @@ const MyProfile = () => {
                   token={token}
                 />
                 <DisableButtonBox>
-                  {/* <Box paddingRight={isSmDown ? '16px' : 0}>
-                  <UIThemeButton variant="contained" disabled>
-                    <UINewTypography variant="buttonSmallBold" color={'text.disabled'}>
-                      <FormattedMessage id="CancelChanges" />
-                    </UINewTypography>
-                  </UIThemeButton>
-                </Box> */}
                   <Box>
                     <UIThemeButton variant="contained" disabled>
                       <UINewTypography variant="buttonSmallBold" color={'text.disabled'}>
