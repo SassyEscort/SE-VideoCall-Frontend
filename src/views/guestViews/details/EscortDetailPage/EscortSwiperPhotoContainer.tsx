@@ -6,6 +6,7 @@ const EscortSwiperPhotoContainer = ({
   image,
   isMain,
   isMobile,
+  imageSrcVideo,
   isFirstImage,
   coordinates
 }: {
@@ -13,6 +14,7 @@ const EscortSwiperPhotoContainer = ({
   isMain: boolean;
   isMobile: boolean;
   isFirstImage?: boolean;
+  imageSrcVideo?: string;
   coordinates: string;
 }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -32,7 +34,13 @@ const EscortSwiperPhotoContainer = ({
         zIndex: 2,
         position: 'relative'
       }}
-    />
+    >
+      {imageSrcVideo === 'Non_Image' && (
+        <video controls style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
+          <source src={image} type="video/mp4" />
+        </video>
+      )}
+    </Box>
   );
 };
 

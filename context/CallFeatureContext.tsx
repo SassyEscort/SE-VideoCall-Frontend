@@ -25,6 +25,7 @@ interface CallFeatureContextProps {
   isCallIncoming: boolean;
   modelName: string;
   modelPhoto: string;
+  isLoading: boolean;
   isCallEnded: boolean;
   isBusy: boolean;
   handleBusyClose: () => void;
@@ -39,9 +40,10 @@ const CallContext = createContext<CallFeatureContextProps>({
   isCallIncoming: false,
   modelName: '',
   modelPhoto: '',
-  isCallEnded: false,
   isBusy: false,
-  handleBusyClose: () => {}
+  handleBusyClose: () => {},
+  isLoading: false,
+  isCallEnded: false
 });
 
 export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
@@ -58,6 +60,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [isCallIncoming, setIsCallIncoming] = useState(false);
   const [modelName, setModelName] = useState('');
   const [modelPhoto, setModelPhoto] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [isCallEnded, setIsCallEnded] = useState(false);
   const [open, setOpen] = useState(false);
   const [isOutOfCredits, setIsOutOfCredits] = useState(false);
@@ -102,6 +105,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     modelPhoto: string
   ) => {
     if (guestId && isCreditAvailable) {
+      setIsLoading(true);
       await init();
       setEndCallTime(callTime);
       setModelId(guestId);
@@ -116,6 +120,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       setCall(callInitiate);
       setSessionId(callInitiate.getSessionId());
       await creditPutCallLog(guestId, callInitiate.getSessionId(), '');
+      setIsLoading(false);
     } else {
       setOpen(true);
     }
@@ -276,7 +281,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         modelPhoto,
         isCallEnded,
         isBusy,
-        handleBusyClose
+        handleBusyClose,
+        isLoading
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import { Divider } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -85,4 +85,18 @@ export const BillingPaginationBox = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   gap: theme.spacing(2)
+}));
+
+export const TextBoxContainer = styled(Typography)(({ theme }) => ({
+  cursor: 'pointer',
+  color: theme.palette.text.secondary,
+  fontWeight: 600,
+  fontSize: '16px',
+  lineHeight: '20px'
+}));
+
+export const FirstBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
 }));

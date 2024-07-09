@@ -16,8 +16,8 @@ export const UIStyledSelect = styled(Select)(({ theme }) => ({
     }
   },
   '& .MuiSelect-select': {
-    padding: theme.spacing(0, 2),
     display: 'flex',
+    overflow: 'hidden',
     gap: theme.spacing(1)
   },
   '& .MuiSvgIcon-root': {

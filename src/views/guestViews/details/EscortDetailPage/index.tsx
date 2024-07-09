@@ -1,7 +1,7 @@
 'use client';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { EscortSlider } from './EscortSlider';
-import { useMediaQuery } from '@mui/material';
+import { CircularProgress, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import EscortSliderMobile from './EscortSliderMobile';
 import EscortPersonalDetail from './EscortPersonalDetail';
@@ -19,6 +19,7 @@ import Box from '@mui/system/Box';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { CallingService } from 'services/calling/calling.services';
 import moment from 'moment';
+import { LoaderBox } from './EscortDetailPage.styled';
 
 const EscortDetailPage = () => {
   const path = usePathname();
@@ -32,7 +33,7 @@ const EscortDetailPage = () => {
   const [callTime, setCallTime] = useState(0);
   const modelPhoto = guestData?.photos?.filter((x) => x.favourite).map((item) => item.link)[0];
 
-  const { handleCallInitiate, call, isCallEnded } = useCallFeatureContext();
+  const { handleCallInitiate, call, isLoading, isCallEnded } = useCallFeatureContext();
 
   useEffect(() => {
     const userToken = async () => {
@@ -81,6 +82,11 @@ const EscortDetailPage = () => {
   return (
     <>
       <HomeMainContainer>
+        {isLoading && (
+          <LoaderBox>
+            <CircularProgress />
+          </LoaderBox>
+        )}
         <Box sx={{ px: { xs: '15px', lg: '0' } }}>
           {isLgDown && guestData ? (
             <EscortSliderMobile
@@ -99,6 +105,7 @@ const EscortDetailPage = () => {
               />
             )
           )}
+
           <EscortPersonalDetail guestData={guestData ?? ({} as ModelDetailsResponse)} />
           <EscortExplore />
         </Box>

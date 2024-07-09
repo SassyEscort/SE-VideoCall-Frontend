@@ -17,6 +17,7 @@ import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
 import { PaginationMainBox } from 'views/protectedDashboardViews/payoutRequest/PayoutRequest.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { NotFoundModelBox } from './HomeImageCard.styled';
+import { FormattedMessage } from 'react-intl';
 
 const HomeImageCard = ({
   modelListing,
@@ -168,7 +169,9 @@ const HomeImageCard = ({
           ? ''
           : !isFavPage && (
               <NotFoundModelBox>
-                <UINewTypography variant="h1">Model Not Found</UINewTypography>
+                <UINewTypography variant="h1">
+                  <FormattedMessage id="NoModelsFound" />
+                </UINewTypography>
               </NotFoundModelBox>
             )}
       </WorkerCardMainBox>

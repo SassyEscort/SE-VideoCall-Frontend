@@ -3,10 +3,6 @@ import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const MyProfileContainerMain = styled(Box)(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
-    paddingLeft: theme.spacing(1.875),
-    paddingRight: theme.spacing(1.875)
-  },
   display: 'flex',
   gap: theme.spacing(7),
   flexDirection: 'column'
