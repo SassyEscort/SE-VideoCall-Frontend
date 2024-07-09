@@ -11,6 +11,7 @@ import {
   DollarBillingValue,
   FirstTextContainer,
   TextAndBoxContainer,
+  TextBoxContainer,
   TextMainContainer
 } from './BillingHistory.styled';
 import MainLayoutNav from '../protectedLayout';
@@ -148,15 +149,14 @@ const BillingHistory = () => {
                       <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <DollarBillingValue variant="h6" color="text.secondary">
                           {list.category === 'Debit' ? (
-                            <UINewTypography
+                            <TextBoxContainer
                               onClick={() => {
                                 handDetailsOpen();
                                 setSelectDetails(list);
                               }}
-                              sx={{ cursor: 'pointer', color: 'text.secondary', fontWeight: 600, fontSize: '16px', lineHeight: '20px' }}
                             >
-                              View details
-                            </UINewTypography>
+                              <FormattedMessage id="ViewDetails" />
+                            </TextBoxContainer>
                           ) : (
                             `$ ${list.amount}`
                           )}
