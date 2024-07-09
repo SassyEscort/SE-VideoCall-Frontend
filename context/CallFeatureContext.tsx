@@ -100,6 +100,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     modelPhoto: string
   ) => {
     if (guestId && isCreditAvailable) {
+      setIsLoading(true);
       await init();
       setEndCallTime(callTime);
       setModelId(guestId);

@@ -92,6 +92,7 @@ const EscortDetailPage = () => {
               zIndex: 1000,
               left: '50%'
             }}
+            className="muskan"
           >
             <CircularProgress />
           </Box>
