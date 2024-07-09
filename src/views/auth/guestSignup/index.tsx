@@ -33,7 +33,7 @@ export type SignupParams = {
 
 const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
   const route = useRouter();
-  const { push, refresh } = route;
+  const { refresh } = route;
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
   const [loading, setLoading] = useState(false);
