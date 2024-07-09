@@ -1,4 +1,3 @@
-'use client';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
@@ -22,7 +21,6 @@ import { IconButtonBoxInner, UnReadCountMain } from 'views/protectedDashboardVie
 import { IconButtonBoxNew } from './Notification.styled';
 import { HeaderMainBox } from './HeaderAuthComponent.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useCallFeatureContext } from '../../../../../../../context/CallFeatureContext';
 
 export type NotificationFilters = {
   page: number;
@@ -31,8 +29,6 @@ export type NotificationFilters = {
 };
 
 const HeaderAuthComponent = () => {
-  const { isCallEnded } = useCallFeatureContext();
-
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -140,11 +136,11 @@ const HeaderAuthComponent = () => {
         setBalance(getModel?.data?.credits);
       }
     };
-    if (token.token || isCallEnded) {
+    if (token.token) {
       getCustomerCredit();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.id, token.token, isCallEnded]);
+  }, [token.id, token.token]);
 
   const handleOpenLogout = () => {
     setIsLogoutOpen(true);
