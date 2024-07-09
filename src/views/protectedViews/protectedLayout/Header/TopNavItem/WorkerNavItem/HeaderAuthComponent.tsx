@@ -30,6 +30,7 @@ export type NotificationFilters = {
 
 const HeaderAuthComponent = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
+  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
@@ -256,6 +257,54 @@ const HeaderAuthComponent = () => {
               </Link>
             </MenuItem>
             <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+            {isMdDown && (
+              <>
+                <MenuItem>
+                  <ListItemIcon>
+                    <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                      <Box component="img" src="/images/header/coin.png" />
+                    </IconButton>
+                  </ListItemIcon>
+                  <ListItemText>
+                    <UINewTypography variant="bodyLight" color="text.secondary">
+                      {balance}
+                    </UINewTypography>
+                  </ListItemText>
+                </MenuItem>
+                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+              </>
+            )}
+            {isMdDown && (
+              <>
+                <MenuItem>
+                  <ListItemIcon>
+                    <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                      <Link href="/profile/favourites" style={{ textDecoration: 'none' }}>
+                        <IconButton sx={{ height: 24, width: 24 }}>
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              flexDirection: 'row-reverse',
+                              position: 'relative'
+                            }}
+                          >
+                            <Box component="img" src="/images/header/heart.png" />
+                          </Box>
+                        </IconButton>
+                      </Link>
+                    </IconButton>
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Link href="/profile/favourites">
+                      <UINewTypography variant="bodyLight" color="text.secondary">
+                        <FormattedMessage id="Favourites" />
+                      </UINewTypography>
+                    </Link>
+                  </ListItemText>
+                </MenuItem>
+                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+              </>
+            )}
             <MenuItem onClick={handleOpenChangePassword}>
               <ListItemIcon>
                 <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>

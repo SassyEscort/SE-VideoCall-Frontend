@@ -2,13 +2,14 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import { TableHeadMain } from './PurchaseInvoiceTableBody.styled';
 import { TableHederText } from '../payoutsAndInvoicesTable.styled';
+import { FormattedMessage } from 'react-intl';
 
 export const DirectPurchaseTableHeader = [
-  { id: 1, label: 'Bank Account' },
-  { id: 2, label: 'Amount' },
-  { id: 3, label: 'Date' },
-  { id: 4, label: 'Status' },
-  { id: 5, label: 'Invoices' }
+  { id: 1, label: <FormattedMessage id="BankAccount" /> },
+  { id: 2, label: <FormattedMessage id="Amount" /> },
+  { id: 3, label: <FormattedMessage id="Date" /> },
+  { id: 4, label: <FormattedMessage id="Status" /> },
+  { id: 5, label: <FormattedMessage id="Invoices" /> }
 ];
 
 const InvoiceTableHeader = () => {

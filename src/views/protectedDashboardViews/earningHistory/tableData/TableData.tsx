@@ -6,6 +6,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { ModelEarningHistoryPageDetailsRes } from 'services/modelEarningHistory/typs';
 import moment from 'moment';
 import { DataNotBox } from '../EarningHistory.styled';
+import { FormattedMessage } from 'react-intl';
 
 const TableData = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningHistoryPageDetailsRes }) => {
   return (
@@ -54,7 +55,9 @@ const TableData = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningH
         <TableRow>
           <TableCell colSpan={5} sx={{ border: 'none' }}>
             <DataNotBox>
-              <UINewTypography variant="buttonLargeMenu">Data Not Found</UINewTypography>
+              <UINewTypography variant="buttonLargeMenu">
+                <FormattedMessage id="DataNotFound" />
+              </UINewTypography>
             </DataNotBox>
           </TableCell>
         </TableRow>

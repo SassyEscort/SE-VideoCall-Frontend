@@ -272,7 +272,9 @@ const PayoutContainer = ({
                   ))
                 ) : (
                   <NotFoundBox>
-                    <UINewTypography variant="buttonLargeMenu">Data Not Found</UINewTypography>
+                    <UINewTypography variant="buttonLargeMenu">
+                      <FormattedMessage id="DataNotFound" />
+                    </UINewTypography>
                   </NotFoundBox>
                 )}
               </SecondRecentWithdrawlsMainContainer>
