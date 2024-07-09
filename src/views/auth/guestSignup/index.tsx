@@ -23,6 +23,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import { signIn } from 'next-auth/react';
 import { FormattedMessage } from 'react-intl';
 import { ErrorMessage } from 'constants/common.constants';
+import { useRouter } from 'next/navigation';
 
 export type SignupParams = {
   name: string;
@@ -31,6 +32,8 @@ export type SignupParams = {
 };
 
 const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
+  const route = useRouter();
+  const { refresh } = route;
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
   const [loading, setLoading] = useState(false);
@@ -81,11 +84,17 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
           const data = await GuestAuthService.guestSignup(values);
           if (data.code === 200) {
             setActiveStep(1);
-            await signIn('providerGuest', {
+            refresh();
+            const loginResponse = await signIn('providerGuest', {
               redirect: false,
               email: values.email,
               password: values.password
             });
+            if (loginResponse?.status === 200) {
+              refresh();
+            } else {
+              setAlert('Login after signup failed. Please log in manually.');
+            }
           } else {
             setAlert(data.error);
           }
