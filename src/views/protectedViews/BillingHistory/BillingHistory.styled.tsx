@@ -94,3 +94,9 @@ export const TextBoxContainer = styled(Typography)(({ theme }) => ({
   fontSize: '16px',
   lineHeight: '20px'
 }));
+
+export const FirstBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+}));

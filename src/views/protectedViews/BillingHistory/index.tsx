@@ -9,6 +9,7 @@ import {
   DateTimeBilling,
   DividerContainer,
   DollarBillingValue,
+  FirstBoxContainer,
   FirstTextContainer,
   TextAndBoxContainer,
   TextBoxContainer,
@@ -167,11 +168,11 @@ const BillingHistory = () => {
                   </TextMainContainer>
                 ))
               ) : (
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <FirstBoxContainer>
                   <UINewTypography variant="h6">
                     <FormattedMessage id="DataNotFound" />
                   </UINewTypography>
-                </Box>
+                </FirstBoxContainer>
               )}
             </BillingHistoryMainContainer>
           )}
