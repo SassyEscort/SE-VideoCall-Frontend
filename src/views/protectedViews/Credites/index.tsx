@@ -1,3 +1,4 @@
+'use client';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useCallback, useEffect, useState } from 'react';
 import { SecondSubContainerImgWorkerCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
@@ -73,7 +74,7 @@ const Credits = () => {
 
   const handleCreditClick = async (listCredit: ModelCreditRes) => {
     setIsLoading(true);
-    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id);
+    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, false);
     if (res) {
       router.push(res?.data?.url);
     }

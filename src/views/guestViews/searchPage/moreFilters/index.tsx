@@ -142,7 +142,18 @@ const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleCl
   }, [filters]);
 
   const handleResetFilter = () => {
-    setFilters(cloneDeep(initialFilters));
+    setFilters(initialFilters());
+    const objParams: { [key: string]: string } = {};
+    const queryString = new URLSearchParams(objParams).toString();
+
+    if (pathname === '/' && !queryString) {
+      router.push('/');
+    } else if (pathname.startsWith('/details/')) {
+      router.push(`${pathname}`);
+    } else {
+      router.push(`/${pathname}?${queryString}`);
+    }
+
     handleClose();
   };
 

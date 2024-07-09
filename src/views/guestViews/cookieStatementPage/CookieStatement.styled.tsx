@@ -1,15 +1,8 @@
-'use client';
+import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
-import { Typography } from '@mui/material';
-import Box from '@mui/system/Box';
+import Typography from '@mui/material/Typography';
 
-export const FirstTextContainer = styled(Typography)(({ theme }) => ({
-  fontSize: '16px',
-  fontWeight: 600,
-  lineHeight: '25.6px'
-}));
-
-export const TermsAndConditionMainContainer = styled(Box)(({ theme }) => ({
+export const CookieStatementMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(7)
@@ -23,4 +16,10 @@ export const FirstBoxMainContainer = styled(Box)(({ theme }) => ({
     paddingLeft: theme.spacing(1.75),
     paddingRight: theme.spacing(1.75)
   }
+}));
+
+export const FirstTextContainer = styled(Typography)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 600,
+  lineHeight: '25.6px'
 }));
