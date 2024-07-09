@@ -27,6 +27,8 @@ interface CallFeatureContextProps {
   modelPhoto: string;
   isLoading: boolean;
   isCallEnded: boolean;
+  isBusy: boolean;
+  handleBusyClose: () => void;
 }
 
 const CallContext = createContext<CallFeatureContextProps>({
@@ -38,6 +40,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   isCallIncoming: false,
   modelName: '',
   modelPhoto: '',
+  isBusy: false,
+  handleBusyClose: () => {},
   isLoading: false,
   isCallEnded: false
 });
@@ -60,6 +64,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [isCallEnded, setIsCallEnded] = useState(false);
   const [open, setOpen] = useState(false);
   const [isOutOfCredits, setIsOutOfCredits] = useState(false);
+  const [isBusy, setIsBusy] = useState(false);
 
   const init = useCallback(async () => {
     try {
@@ -125,6 +130,10 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     setOpen(false);
   };
 
+  const handleBusyClose = () => {
+    setIsBusy(false);
+  };
+
   const creditPutCallLog = async (model_id: number, comet_chat_session_id: string, status: string) => {
     const creditLog = {
       model_id: model_id,
@@ -185,6 +194,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         setIsCallAccepted(true);
       },
       onOutgoingCallRejected: async (call: Call) => {
+        if (call.getStatus() === CALLING_STATUS.BUSY) {
+          setIsBusy(true);
+        }
         setCall(undefined);
         await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.REJECTED);
         setEndCallTime(180000);
@@ -267,8 +279,10 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         isCallIncoming,
         modelName,
         modelPhoto,
-        isLoading,
-        isCallEnded
+        isCallEnded,
+        isBusy,
+        handleBusyClose,
+        isLoading
       }}
     >
       {children}

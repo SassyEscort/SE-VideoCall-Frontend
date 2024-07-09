@@ -12,6 +12,7 @@ const DashboardNavItem = () => {
       <AppBar
         position="fixed"
         sx={{
+          zIndex: 10,
           backgroundColor: 'secondary.dark',
           pr: '0 !important',
           boxShadow: 'none'
