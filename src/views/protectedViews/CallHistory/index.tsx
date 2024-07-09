@@ -170,7 +170,7 @@ const CallHistory = () => {
                           <SecondSubFirstPartThiredBox marginRight={{ sm: '32px' }}>
                             <FirstTextContainer color="text.primary" whiteSpace="nowrap">
                               <FormattedMessage id="Duration" />
-                              {list.duration && moment(list.duration).format('h:mm:ss a')}
+                              Duration: {list.duration && moment.duration(list.duration).asMinutes().toFixed(2)} minutes
                             </FirstTextContainer>
                             <CreditUsedBox>
                               <FirstTextContainer color="text.primary" whiteSpace="nowrap">
@@ -188,7 +188,7 @@ const CallHistory = () => {
                         <SecondSubFirstPartThiredBox gap="8px !important">
                           <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
                             <FormattedMessage id="Duration" />
-                            {list.duration && moment(list.duration).format('h:mm:ss a')}
+                            Duration: {list.duration && moment.duration(list.duration).asMinutes().toFixed(2)} minutes
                           </UINewTypography>
                           <CreditUsedBox>
                             <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">

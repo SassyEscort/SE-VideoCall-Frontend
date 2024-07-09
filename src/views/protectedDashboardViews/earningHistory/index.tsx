@@ -61,7 +61,7 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
 
         if (data) {
           setModelEarningHistory(data);
-          setTotalRows(data.data.aggreate.total_rows);
+          setTotalRows(data.data.aggregate.total_rows);
         }
       } catch (error) {
         toast.error(ErrorMessage);
@@ -132,7 +132,7 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
               <PaginationBox>
                 <UITheme2Pagination
                   page={filters.page}
-                  count={modelEarningHistory ? Math.ceil(modelEarningHistory.data.aggreate.total_rows / filters.limit) : 1}
+                  count={modelEarningHistory ? Math.ceil(modelEarningHistory.data.aggregate.total_rows / filters.limit) : 1}
                   onChange={handleChangePage}
                 />
                 <PaginationInWords
