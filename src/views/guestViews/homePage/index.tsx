@@ -9,7 +9,7 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import SearchFilters, { SearchFiltersTypes } from '../searchPage/searchFilters';
 import BackdropProgress from 'components/UIComponents/BackDropProgress';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 
 const HomeContainer = () => {
@@ -38,6 +38,7 @@ const HomeContainer = () => {
   });
 
   const prevState = useRef(filters);
+  const pathname = usePathname();
 
   useEffect(() => {
     const userToken = async () => {
@@ -76,13 +77,19 @@ const HomeContainer = () => {
   };
 
   useEffect(() => {
+    const objParams: { [key: string]: string } = {};
+    const queryString = new URLSearchParams(objParams).toString();
+
     if (initialRender.current) {
       initialRender.current = false;
       handelFilterChange(filters);
       window.scrollTo(0, 0);
+    } else if (pathname === '/' && !queryString) {
+      handelFilterChange(filters);
     } else if (JSON.stringify(filters) !== JSON.stringify(prevState.current)) {
       handelFilterChange(filters);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
 
   return (

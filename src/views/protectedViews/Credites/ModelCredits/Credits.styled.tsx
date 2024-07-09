@@ -159,3 +159,18 @@ export const FirstBoxContainer = styled(Box)(({ theme }) => ({
     flexDirection: 'row'
   }
 }));
+
+export const OutOfCreditBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(2),
+  flexDirection: 'column',
+  width: '100%',
+  alignItems: 'center',
+  justifyContent: 'center'
+}));
+
+export const OutOfCreditInnerBox = styled(Box)(() => ({
+  width: '100%',
+  maxWidth: '407px',
+  textAlign: 'center'
+}));

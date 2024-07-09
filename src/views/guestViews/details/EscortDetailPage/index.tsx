@@ -32,7 +32,7 @@ const EscortDetailPage = () => {
   const [callTime, setCallTime] = useState(0);
   const modelPhoto = guestData?.photos?.filter((x) => x.favourite).map((item) => item.link)[0];
 
-  const { handleCallInitiate, call } = useCallFeatureContext();
+  const { handleCallInitiate, call, isCallEnded } = useCallFeatureContext();
 
   useEffect(() => {
     const userToken = async () => {
@@ -76,7 +76,7 @@ const EscortDetailPage = () => {
       }
     };
     getCometChatInfo();
-  }, [guestData, token, userName, call]);
+  }, [guestData, token, userName, call, isCallEnded]);
 
   return (
     <>
