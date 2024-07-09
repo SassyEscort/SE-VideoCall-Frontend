@@ -6,7 +6,7 @@
   "Unforgettable": "Unforgettable",
   "Encounters": "Encounters",
   "DiscoverTheThrill": "Discover endless opportunities for intimate connections. Join now and enjoy live, exciting conversations",
-  "ExploreModels": "Explore models",
+  "ExploreModels": "Explore Models",
   "ExploreYourChoices": "Explore your choices from the world of diverse beauty and charm",
   "SelectTheCompanion": "Select the companion who aligns with your desires.",
   "ReadyToExplore": "Ready to explore uncharted pleasures?",
@@ -527,5 +527,7 @@
   "RestAssured": "Rest assured, this information is not shared with external parties.",
   "OtherUnforeseenCookies": "Other / Unforeseen Cookies",
   "DueToTheIntricacies": "Due to the intricacies of internet functionality and website operations, there may be instances where we do not have full visibility into cookies placed by third parties while using our website. This is especially relevant when our web pages incorporate embedded elements, such as texts, documents, images, or videos hosted by other parties but displayed on, within, or through our website",
-  "IfYouEncounterCookies": "If you encounter cookies on this website falling into this category, which we have not specified above, we kindly request that you notify us. Alternatively, you can directly contact the third party responsible for these cookies to inquire about their purpose, lifespan, and privacy safeguards. Your privacy is of utmost importance to us."
+  "IfYouEncounterCookies": "If you encounter cookies on this website falling into this category, which we have not specified above, we kindly request that you notify us. Alternatively, you can directly contact the third party responsible for these cookies to inquire about their purpose, lifespan, and privacy safeguards. Your privacy is of utmost importance to us.",
+  "NoModelsFound": "No Models Found",
+  "DataNotFound": "Data not found"
 }
