@@ -1,7 +1,6 @@
 'use client';
 import { CircularProgress, Divider, useMediaQuery } from '@mui/material';
 import Box from '@mui/material/Box';
-import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   CallAgainBox,
@@ -13,6 +12,7 @@ import {
   CallHistoryText,
   CreditUsedBox,
   DividerContainer,
+  FirstBoxContainer,
   FirstTextContainer,
   ImgBoxContainer,
   SecImgBoxContainer,
@@ -27,6 +27,7 @@ import {
   SecondSubFirstPartThiredBox,
   SecondSubFirstPartThiredBoxText,
   SecondSubTextMainContainer,
+  UIThemeShadowButtonContainer,
   WorkerImg
 } from './CallHistory.styled';
 import MainLayoutNav from '../protectedLayout';
@@ -205,7 +206,7 @@ const CallHistory = () => {
                           </SecondSubFirstPartThiredBox>
                         )}
                         <CallAgainBox>
-                          <UIThemeShadowButton variant="contained" sx={{ width: '100%', maxWidth: { xs: '363px', sm: '220px' } }}>
+                          <UIThemeShadowButtonContainer variant="contained">
                             <Box sx={{ display: 'flex', gap: 1.25 }}>
                               <SecImgBoxContainer src="/images/home-connect-instantly-img.png" />
                               <Box sx={{ whiteSpace: 'nowrap' }}>
@@ -214,7 +215,7 @@ const CallHistory = () => {
                                 </UINewTypography>
                               </Box>
                             </Box>
-                          </UIThemeShadowButton>
+                          </UIThemeShadowButtonContainer>
                         </CallAgainBox>
                       </SecondSubTextMainContainer>
                     </SecondSubContainer>
@@ -223,11 +224,11 @@ const CallHistory = () => {
                   </SecondContainer>
                 ))
               ) : (
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <FirstBoxContainer>
                   <UINewTypography variant="h6">
                     <FormattedMessage id="DataNotFound" />
                   </UINewTypography>
-                </Box>
+                </FirstBoxContainer>
               )}
             </>
           )}
