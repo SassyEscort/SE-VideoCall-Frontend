@@ -8,7 +8,7 @@ interface UIStyledSelectButtonProps extends ButtonProps {
 
 export const UIStyledArrivalsButton = styled(Button)<UIStyledSelectButtonProps>(({ theme, isClicked }) => ({
   display: 'flex',
-  borderRadius: '8px',
+  borderRadius: theme.spacing(1),
   width: '100%',
   height: '48px',
   backgroundColor: isClicked ? theme.palette.secondary.main : theme.palette.primary[700],
