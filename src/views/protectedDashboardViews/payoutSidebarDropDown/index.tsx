@@ -30,7 +30,7 @@ const PayoutMobileSidebar = ({ token, modelDetails }: { token: TokenIdType; mode
   const [menuId, setMenuId] = useState(0);
   const [bankDetailsList, setBankDetailsList] = useState<BankDetailsListRes>();
   const [menuProfileId, setMenuProfileId] = useState(0);
-
+  const [isLoading, setIsLoading] = useState(false);
   const handleMenu = (event: SelectChangeEvent<unknown>) => {
     setMenuId(Number(event.target.value));
   };
@@ -42,9 +42,11 @@ const PayoutMobileSidebar = ({ token, modelDetails }: { token: TokenIdType; mode
         offset: 0
       };
       if (token.token) {
+        setIsLoading(true);
         const data = await PayoutService.bankDetailsList(token.token, BankListObject);
         if (data.code === 200) {
           setBankDetailsList(data);
+          setIsLoading(false);
         }
       }
     } catch (error) {
@@ -97,6 +99,7 @@ const PayoutMobileSidebar = ({ token, modelDetails }: { token: TokenIdType; mode
           token={token}
           fetchBankDetails={fetchBankDetails}
           modelDetails={modelDetails}
+          isLoading={isLoading}
         />
       ) : menuId === 1 ? (
         menuProfileId === 0 ? (
@@ -106,6 +109,7 @@ const PayoutMobileSidebar = ({ token, modelDetails }: { token: TokenIdType; mode
             bankDetailsList={bankDetailsList ?? ({} as BankDetailsListRes)}
             token={token}
             fetchBankDetails={fetchBankDetails}
+            isLoading={isLoading}
           />
         )
       ) : menuId === 2 ? (

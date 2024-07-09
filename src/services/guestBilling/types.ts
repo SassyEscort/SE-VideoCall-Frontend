@@ -20,7 +20,7 @@ export type ModelBillingHistoryDetails = {
 
 export type ModelBillingHistoryPageDetails = {
   ledger_details: BillingHistoryDetails[];
-  aggreate: ModelBillingHistoryDetails;
+  aggregate: ModelBillingHistoryDetails;
 };
 
 export interface ModelBillingHistoryPageDetailsRes extends GenericRes {

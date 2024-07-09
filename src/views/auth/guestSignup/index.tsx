@@ -21,9 +21,9 @@ import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
 import InfoIcon from '@mui/icons-material/Info';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import { FormattedMessage } from 'react-intl';
 import { ErrorMessage } from 'constants/common.constants';
+import { useRouter } from 'next/navigation';
 
 export type SignupParams = {
   name: string;
@@ -50,7 +50,6 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
 
       if (redirectSeconds === 0 && activeStep > 0) {
         clearTimeout(timer);
-        onLoginOpen();
       }
 
       return () => clearTimeout(timer);
@@ -59,7 +58,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
   }, [activeStep, redirectSeconds]);
 
   const validationSchema = yup.object({
-    name: yup.string().required('Username is required').min(2, 'Username is too short').max(20, 'Username is too long'),
+    name: yup.string().required('Name is required').min(2, 'Name is too short').max(20, 'Name is too long'),
     email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required'),
     password: yup
       .string()
@@ -92,7 +91,6 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
               password: values.password
             });
             if (loginResponse?.status === 200) {
-              push('/profile');
               refresh();
             } else {
               setAlert('Login after signup failed. Please log in manually.');
@@ -159,7 +157,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                     <ModelUITextConatiner gap={3} sx={{ width: isLg ? '400px' : 'auto' }}>
                       <ModelUITextConatiner sx={{ gap: 0.5 }}>
                         <UITypographyText>
-                          <FormattedMessage id="Username" />
+                          <FormattedMessage id="ClientName" />
                         </UITypographyText>
                         <UIStyledInputText
                           fullWidth

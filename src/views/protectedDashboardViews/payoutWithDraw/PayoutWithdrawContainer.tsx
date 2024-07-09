@@ -1,4 +1,4 @@
-import { Box, DialogContent, FormHelperText, IconButton, InputAdornment } from '@mui/material';
+import { Box, CircularProgress, DialogContent, FormHelperText, IconButton, InputAdornment } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
@@ -43,6 +43,7 @@ import AddBankDetailsModel from '../addBankDetails/addBankDetailsModel';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import PayoutRequestSubmit from '../payoutRequestSubmit';
+import { LoaderBox } from '../payoutRequest/PayoutRequest.styled';
 
 export type RequestPayoutParams = {
   amount: number | null;
@@ -58,7 +59,8 @@ const PayoutWithdrawContainer = ({
   handlePayoutStep,
   amountSave,
   handlePayoutStepSubmit,
-  closeDailog
+  closeDailog,
+  isLoading
 }: {
   bankDetailsList: BankDetailsListRes;
   token: TokenIdType;
@@ -69,6 +71,7 @@ const PayoutWithdrawContainer = ({
   amountSave: number;
   handlePayoutStepSubmit?: (step: number) => void;
   closeDailog?: () => void;
+  isLoading: boolean;
 }) => {
   const [open, setOpenModel] = useState(false);
   const [selectBank, setSelectBank] = useState<string | null>(null);
@@ -80,6 +83,8 @@ const PayoutWithdrawContainer = ({
 
   const handleBankDetailsRefetch = useCallback(() => {
     fetchBankDetails();
+    isLoading;
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
   const handleBankDetailsDelete = async (id: number) => {
@@ -240,67 +245,75 @@ const PayoutWithdrawContainer = ({
                           </Box>
                         </ThreeBox>
                         <ChooseYourBankFristBox>
-                          <ChooseYourBankSecondBox>
-                            <ChooseYourBankthreeBox>
-                              <BigScreenGap>
-                                <UINewTypographyChooseYourBank>
-                                  <FormattedMessage id="ChooseYourBank" />
-                                </UINewTypographyChooseYourBank>
-                                <SmallScreenGap>
-                                  {bankDetailsList?.data?.bank_details?.map((bankList, index) => (
-                                    <>
-                                      <PayoutDetailSecondBox
-                                        key={index}
-                                        sx={{
-                                          backgroundColor: selectBank === bankList.bank_name ? 'primary.200' : 'primary.700',
-                                          borderRadius: selectBank === bankList?.bank_name ? '8px' : '8px',
-                                          border: selectBank === bankList.bank_name ? '1px solid' : '',
-                                          borderColor: selectBank === bankList.bank_name ? 'primary.400' : 'primary.400'
-                                        }}
-                                        onClick={() => handleBankClick(bankList?.bank_name, bankList?.id, setFieldValue)}
-                                      >
-                                        <PayoutDetailThreeBox>
-                                          <Box
-                                            component={'img'}
-                                            src="/images/payout/home.png"
-                                            width={'38px'}
-                                            height={'42px'}
-                                            color={'text.secondary'}
-                                          />
-                                          <PayoutDetailForBox>
-                                            <UINewTypographyBankName>{bankList?.bank_name}</UINewTypographyBankName>
-                                            <UINewTypography variant="buttonLargeMenu" color="text.primary">
-                                              {bankList?.account_name}| {bankList?.iban_number}
-                                            </UINewTypography>
-                                          </PayoutDetailForBox>
-                                        </PayoutDetailThreeBox>
-                                        <PayoutDetailFiveBox>
-                                          <Box
-                                            component={'img'}
-                                            src="/images/payout/edit.webp"
-                                            sx={{ width: '18px', height: '18px', cursor: 'pointer' }}
-                                            onClick={() => {
-                                              handleBankDetailsEdit(bankList), handleOpneModel();
-                                              hanleCancelRemove();
+                          {isLoading ? (
+                            <LoaderBox>
+                              <CircularProgress />
+                            </LoaderBox>
+                          ) : (
+                            <>
+                              <ChooseYourBankSecondBox>
+                                <ChooseYourBankthreeBox>
+                                  <BigScreenGap>
+                                    <UINewTypographyChooseYourBank>
+                                      <FormattedMessage id="ChooseYourBank" />
+                                    </UINewTypographyChooseYourBank>
+                                    <SmallScreenGap>
+                                      {bankDetailsList?.data?.bank_details?.map((bankList, index) => (
+                                        <>
+                                          <PayoutDetailSecondBox
+                                            key={index}
+                                            sx={{
+                                              backgroundColor: selectBank === bankList.bank_name ? 'primary.200' : 'primary.700',
+                                              borderRadius: selectBank === bankList?.bank_name ? '8px' : '8px',
+                                              border: selectBank === bankList.bank_name ? '1px solid' : '',
+                                              borderColor: selectBank === bankList.bank_name ? 'primary.400' : 'primary.400'
                                             }}
-                                          />
-                                          <Box
-                                            component={'img'}
-                                            src="/images/payout/delete.webp"
-                                            sx={{ width: '16px', height: '18px', cursor: 'pointer' }}
-                                            onClick={() => handleBankDetailsDelete(bankList?.id)}
-                                          />
-                                        </PayoutDetailFiveBox>
-                                      </PayoutDetailSecondBox>
-                                    </>
-                                  ))}
-                                  {touched.bank_account_id && errors.bank_account_id && (
-                                    <FormHelperText error>{errors.bank_account_id}</FormHelperText>
-                                  )}
-                                </SmallScreenGap>
-                              </BigScreenGap>
-                            </ChooseYourBankthreeBox>
-                          </ChooseYourBankSecondBox>
+                                            onClick={() => handleBankClick(bankList?.bank_name, bankList?.id, setFieldValue)}
+                                          >
+                                            <PayoutDetailThreeBox>
+                                              <Box
+                                                component={'img'}
+                                                src="/images/payout/home.png"
+                                                width={'38px'}
+                                                height={'42px'}
+                                                color={'text.secondary'}
+                                              />
+                                              <PayoutDetailForBox>
+                                                <UINewTypographyBankName>{bankList?.bank_name}</UINewTypographyBankName>
+                                                <UINewTypography variant="buttonLargeMenu" color="text.primary">
+                                                  {bankList?.account_name}| {bankList?.iban_number}
+                                                </UINewTypography>
+                                              </PayoutDetailForBox>
+                                            </PayoutDetailThreeBox>
+                                            <PayoutDetailFiveBox>
+                                              <Box
+                                                component={'img'}
+                                                src="/images/payout/edit.webp"
+                                                sx={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                                                onClick={() => {
+                                                  handleBankDetailsEdit(bankList), handleOpneModel();
+                                                  hanleCancelRemove();
+                                                }}
+                                              />
+                                              <Box
+                                                component={'img'}
+                                                src="/images/payout/delete.webp"
+                                                sx={{ width: '16px', height: '18px', cursor: 'pointer' }}
+                                                onClick={() => handleBankDetailsDelete(bankList?.id)}
+                                              />
+                                            </PayoutDetailFiveBox>
+                                          </PayoutDetailSecondBox>
+                                        </>
+                                      ))}
+                                      {touched.bank_account_id && errors.bank_account_id && (
+                                        <FormHelperText error>{errors.bank_account_id}</FormHelperText>
+                                      )}
+                                    </SmallScreenGap>
+                                  </BigScreenGap>
+                                </ChooseYourBankthreeBox>
+                              </ChooseYourBankSecondBox>
+                            </>
+                          )}
 
                           <PayoutDetailSixBox>
                             <Box>

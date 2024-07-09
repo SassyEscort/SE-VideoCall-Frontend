@@ -149,6 +149,7 @@ export const SecondSubContainerWorkerCard = styled(Box)(({ theme }) => ({
   whiteSpace: 'nowrap',
   height: '100%',
   maxHeight: '17px',
+  alignItems: 'center',
   [theme.breakpoints.down('sm')]: {
     marginTop: theme.spacing(1)
   }

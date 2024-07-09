@@ -20,7 +20,6 @@ const Earnings = () => {
   const [chartData, setChartData] = useState([] as ChartSeriesType[]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<CallTypeModel>();
-
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -150,7 +149,9 @@ const Earnings = () => {
       <UINewTypography variant="buttonLargeBold" lineHeight="160%">
         <FormattedMessage id="TotalClients" />
       </UINewTypography>
+
       <UINewTypography variant="h3">{modelDetails?.total_clients}</UINewTypography>
+
       <Box>
         <Chart dir="ltr" type="bar" series={chartData} options={chartOptions} width="100%" height={243} />
       </Box>

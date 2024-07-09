@@ -47,6 +47,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+  const isMdFix = useMediaQuery('(min-width:900px) and (max-width:1023px)');
 
   const [value, setValue] = useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -56,8 +57,8 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
   return (
     <Box component="nav" sx={{ flexShrink: { lg: 0 } }}>
       <Drawer
-        variant={isMdUp ? 'permanent' : 'temporary'}
-        open={isMdUp ? true : openNav}
+        variant={isMdUp && !isMdFix ? 'permanent' : 'temporary'}
+        open={isMdUp && !isMdFix ? true : openNav}
         onClose={onCloseNav}
         ModalProps={{ keepMounted: true }}
         PaperProps={{
@@ -71,7 +72,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
       >
         <Navbar tabIndex={tabIndex} />
       </Drawer>
-      {isMdDown && (
+      {(isMdDown || isMdFix) && (
         <MobileComponentBox>
           <Tabs
             value={value}

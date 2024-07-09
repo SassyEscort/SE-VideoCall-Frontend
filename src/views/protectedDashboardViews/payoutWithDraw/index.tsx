@@ -19,7 +19,8 @@ const PayoutWidthDraw = ({
   handlePayoutStep,
   payoutStep,
   amountSave,
-  handlePayoutStepSubmit
+  handlePayoutStepSubmit,
+  isLoading
 }: {
   open: boolean;
   closeDailog: () => void;
@@ -30,6 +31,7 @@ const PayoutWidthDraw = ({
   payoutStep: number;
   amountSave: number;
   handlePayoutStepSubmit: (step: number) => void;
+  isLoading: boolean;
 }) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -58,6 +60,7 @@ const PayoutWidthDraw = ({
             fetchBankDetails={fetchBankDetails}
             amountSave={amountSave}
             closeDailog={closeDailog}
+            isLoading={isLoading}
           />
         </DialogContentMain>
       ) : (
@@ -71,6 +74,7 @@ const PayoutWidthDraw = ({
             handlePayoutStep={handlePayoutStep}
             amountSave={amountSave}
             handlePayoutStepSubmit={handlePayoutStepSubmit}
+            isLoading={isLoading}
           />
         )
       )}

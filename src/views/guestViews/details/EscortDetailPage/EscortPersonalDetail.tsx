@@ -99,7 +99,7 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
               <DetailsChipBox>
                 <UINewChip
                   icon={<Box height={16} width={16} component="img" src={`/images/details-icon/coin-icon.svg`} alt={'language'} />}
-                  label={Number(videoCallPrice) === -1 ? 'N/A' : `$${videoCallPrice}`}
+                  label={Number(videoCallPrice) === -1 ? 'N/A' : `${videoCallPrice}/min`}
                 />
               </DetailsChipBox>
             </DetailsChildTypographyBox>
