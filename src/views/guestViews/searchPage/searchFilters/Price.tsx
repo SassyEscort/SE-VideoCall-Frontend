@@ -6,6 +6,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { StyledSelectInputLabel, UIStyledSelect } from 'components/UIComponents/UIStyledSelect';
 import { SEARCH_PRICES } from 'constants/searchConstants';
 import { FormattedMessage } from 'react-intl';
+import { DollarImageContainer } from '../Search.styled';
 
 interface PriceFilterProps {
   toValue: string;
@@ -18,17 +19,18 @@ const Price: React.FC<PriceFilterProps> = ({ fromValue, toValue, onChange }) => 
   if (fromValue > '0') renderValue = toValue === '' && fromValue > '0' ? '1000+' : `${fromValue}-${toValue}`;
 
   return (
-    <FormControl id="price" fullWidth sx={{ display: 'flex', width: '100%', maxWidth: { lg: '203px', sm: '235px' } }}>
-      <StyledSelectInputLabel>
-        <FormattedMessage id="Price" />
+    <FormControl id="Credits" fullWidth sx={{ display: 'flex', width: '100%', maxWidth: { lg: '203px', sm: '235px' } }}>
+      <StyledSelectInputLabel sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+        <DollarImageContainer src="/images/workercards/coin-1.png" />
+        <FormattedMessage id="Credits" />
       </StyledSelectInputLabel>
       <UIStyledSelect
         MenuProps={{ disableScrollLock: true }}
         value={renderValue}
         onChange={onChange}
-        label="price"
-        name="price"
-        labelId="price"
+        label="CreditsIcon"
+        name="Credits"
+        labelId="Credits"
         IconComponent={ExpandMore}
       >
         {SEARCH_PRICES.map((price, key: number) => {
