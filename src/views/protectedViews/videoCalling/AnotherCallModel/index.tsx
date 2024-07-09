@@ -16,10 +16,13 @@ import {
   SecondBoxContent,
   ThirdBoxContent
 } from './Another.styled';
+import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
 const AnotherCallModel = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+  const { modelName } = useCallFeatureContext();
+
   return (
-    <DialogContentMain open={true} onClose={onClose} fullWidth>
+    <DialogContentMain open={open} onClose={onClose} fullWidth>
       <DialogTitleBox id="responsive-modal-title">
         <UINewTypography variant="h6">
           <FormattedMessage id="VideoCalling" />
@@ -49,7 +52,8 @@ const AnotherCallModel = ({ open, onClose }: { open: boolean; onClose: () => voi
             <SecondBoxContent>
               <VideoCalling showHeart={false} />
               <UINewTypography variant="bodyLight" color="text.secondary">
-                <FormattedMessage id="SorryKatIs" />
+                <FormattedMessage id="Sorry" />
+                {modelName} <FormattedMessage id="AnotherCall" />
               </UINewTypography>
             </SecondBoxContent>
             <FourBoxContent>
