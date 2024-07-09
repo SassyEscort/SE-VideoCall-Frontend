@@ -313,28 +313,28 @@ const VerificationBasicDetails = ({
               getOptionLabel={(option) => (typeof option === 'string' ? option : option.name)}
               value={countries?.find((c) => c.id == values.country_id) || ''}
               disablePortal
-              filterOptions={(options, params) => {
-                const filtered = filter(options, params);
+              // filterOptions={(options, params) => {
+              //   const filtered = filter(options, params);
 
-                const customOptions = filtered.map((option) => {
-                  if (typeof option === 'string') {
-                    return { id: '', name: option };
-                  } else {
-                    return option;
-                  }
-                });
+              //   const customOptions = filtered.map((option) => {
+              //     if (typeof option === 'string') {
+              //       return { id: '', name: option };
+              //     } else {
+              //       return option;
+              //     }
+              //   });
 
-                if (params.inputValue !== '') {
-                  customOptions.push({
-                    id: '',
-                    name: params.inputValue.charAt(0).toUpperCase() + params.inputValue.slice(1),
-                    isAddOption: true
-                  });
-                }
+              //   if (params.inputValue !== '') {
+              //     customOptions.push({
+              //       id: '',
+              //       name: params.inputValue.charAt(0).toUpperCase() + params.inputValue.slice(1),
+              //       isAddOption: true
+              //     });
+              //   }
 
-                return customOptions;
-              }}
-              renderOption={(props, option) => <li {...props}>{option?.isAddOption ? `Add "${option.name}"` : option.name}</li>}
+              //   return customOptions;
+              // }}
+              // renderOption={(props, option) => <li {...props}>{option?.isAddOption ? `Add "${option.name}"` : option.name}</li>}
               onChange={(_, newValue) => {
                 handleCountry(newValue);
               }}
