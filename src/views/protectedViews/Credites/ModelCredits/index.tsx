@@ -1,3 +1,4 @@
+'use client';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useCallback, useEffect, useState } from 'react';
 import {
