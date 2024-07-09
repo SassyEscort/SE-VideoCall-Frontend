@@ -464,6 +464,8 @@
   "StartVideoCallAgain": "Iniciar llamada de video nuevamente",
   "EarningsIn": "Ingresos en $",
   "TotalClients": "Clientes Totales",
+  "NoEnoughCredits": "No hay suficientes créditos",
+  "NotEnoughCredits": "No hay suficientes créditos",
   "YouAreOutOfCredits": "No tienes créditos",
   "LowCredits": "Tu llamada ha terminado debido a la falta de créditos. Agrega más ahora para continuar tu conversación sin interrupciones."
 }
