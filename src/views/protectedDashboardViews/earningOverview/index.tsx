@@ -22,8 +22,12 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { ModelEarningResponse } from 'services/modelDetails/type';
 import Earnings from './Earning';
+import { CircularProgress } from '@mui/material';
+import { LoaderBox } from '../payoutRequest/PayoutRequest.styled';
 
 const EarningOverview = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [periodType, setPeriodType] = useState('thisWeek');
   const [fromDate, setFromDate] = useState<Moment | null>(moment().startOf('week').day(0));
   const [toDate, setToDate] = useState<Moment | null>(moment());
@@ -108,11 +112,13 @@ const EarningOverview = () => {
 
   useEffect(() => {
     const modelEarning = async () => {
+      setIsLoading(true);
       const modelData = await ModelDetailsService.getModelEarning(token.token, {
         start_date: fromDate ? fromDate.format('YYYY-MM-DD') : '',
         end_date: toDate ? toDate.format('YYYY-MM-DD') : ''
       });
       setModelEarning(modelData.data);
+      setIsLoading(false);
     };
     if (token.token) {
       modelEarning();
@@ -121,56 +127,65 @@ const EarningOverview = () => {
 
   return (
     <ProfileStatiscsMainContainer>
-      <ProfileStatiscsContainer>
-        <UINewTypography variant="h5" color="text.secondary">
-          <FormattedMessage id="EarningsOverview" />
-        </UINewTypography>
-        <ProfileDOBMainContainer>
-          <ProfileDOBContainer>
-            {periodType === DATE_DURATION_TYPE.ALL_TIME && (
-              <ProfileDOBoxMain>
-                <ProfileDOBox>
-                  <StyledDatePicker
-                    value={moment(fromDate, 'YYYY-MM-DD')}
-                    onChange={(e) => handleFromDateChange(e as Moment)}
-                    format="YYYY-MM-DD"
-                    maxDate={toDate}
-                  />
-                </ProfileDOBox>
-                <ProfileDOBox>
-                  <StyledDatePicker
-                    value={moment(toDate, 'YYYY-MM-DD')}
-                    onChange={(e) => handleToDateChange(e as Moment)}
-                    format="YYYY-MM-DD"
-                    minDate={fromDate!}
-                  />
-                </ProfileDOBox>
-              </ProfileDOBoxMain>
-            )}
-            <FilterTimeDropdownV2 periodType={periodType} handleChange={handleChangePeriodType} />
-          </ProfileDOBContainer>
-        </ProfileDOBMainContainer>
-      </ProfileStatiscsContainer>
-      <ProfilePieMainContainer>
-        <ProfilePieContainer>
-          <ProfileBackSide>
-            <UINewTypography variant="buttonLargeBold" lineHeight="160%">
-              <FormattedMessage id="TotalEarnings" />
+      {isLoading ? (
+        <LoaderBox>
+          <CircularProgress />
+        </LoaderBox>
+      ) : (
+        <>
+          <ProfileStatiscsContainer>
+            <UINewTypography variant="h5" color="text.secondary">
+              <FormattedMessage id="EarningsOverview" />
             </UINewTypography>
-            <UINewTypography variant="h3">{modelEarning?.earnings}</UINewTypography>
-          </ProfileBackSide>
+            <ProfileDOBMainContainer>
+              <ProfileDOBContainer>
+                {periodType === DATE_DURATION_TYPE.ALL_TIME && (
+                  <ProfileDOBoxMain>
+                    <ProfileDOBox>
+                      <StyledDatePicker
+                        value={moment(fromDate, 'YYYY-MM-DD')}
+                        onChange={(e) => handleFromDateChange(e as Moment)}
+                        format="YYYY-MM-DD"
+                        maxDate={toDate}
+                      />
+                    </ProfileDOBox>
+                    <ProfileDOBox>
+                      <StyledDatePicker
+                        value={moment(toDate, 'YYYY-MM-DD')}
+                        onChange={(e) => handleToDateChange(e as Moment)}
+                        format="YYYY-MM-DD"
+                        minDate={fromDate!}
+                      />
+                    </ProfileDOBox>
+                  </ProfileDOBoxMain>
+                )}
+                <FilterTimeDropdownV2 periodType={periodType} handleChange={handleChangePeriodType} />
+              </ProfileDOBContainer>
+            </ProfileDOBMainContainer>
+          </ProfileStatiscsContainer>
+          <ProfilePieMainContainer>
+            <ProfilePieContainer>
+              <ProfileBackSide>
+                <UINewTypography variant="buttonLargeBold" lineHeight="160%">
+                  <FormattedMessage id="TotalEarnings" />
+                </UINewTypography>
+                <UINewTypography variant="h3">{modelEarning?.earnings}</UINewTypography>
+              </ProfileBackSide>
 
-          <ProfileBackSide>
-            <UINewTypography variant="buttonLargeBold" lineHeight="160%">
-              <FormattedMessage id="WithdrawnAmount" />
-            </UINewTypography>
-            <UINewTypography variant="h3">{modelEarning?.withdrawn_amount}</UINewTypography>
-          </ProfileBackSide>
-        </ProfilePieContainer>
-      </ProfilePieMainContainer>
-      <ProfileTotalVisits>
-        <Earnings />
-      </ProfileTotalVisits>
+              <ProfileBackSide>
+                <UINewTypography variant="buttonLargeBold" lineHeight="160%">
+                  <FormattedMessage id="WithdrawnAmount" />
+                </UINewTypography>
+                <UINewTypography variant="h3">{modelEarning?.withdrawn_amount}</UINewTypography>
+              </ProfileBackSide>
+            </ProfilePieContainer>
+          </ProfilePieMainContainer>
+
+          <ProfileTotalVisits>
+            <Earnings />
+          </ProfileTotalVisits>
+        </>
+      )}
     </ProfileStatiscsMainContainer>
   );
 };

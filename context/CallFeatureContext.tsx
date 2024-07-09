@@ -23,6 +23,7 @@ interface CallFeatureContextProps {
   isCallIncoming: boolean;
   modelName: string;
   modelPhoto: string;
+  isLoading: boolean;
 }
 
 const CallContext = createContext<CallFeatureContextProps>({
@@ -33,7 +34,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   isCustomer: false,
   isCallIncoming: false,
   modelName: '',
-  modelPhoto: ''
+  modelPhoto: '',
+  isLoading: false
 });
 
 export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
@@ -51,6 +53,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [isCallIncoming, setIsCallIncoming] = useState(false);
   const [modelName, setModelName] = useState('');
   const [modelPhoto, setModelPhoto] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const init = useCallback(async () => {
     try {
@@ -91,6 +94,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     modelPhoto: string
   ) => {
     if (guestId && isCreditAvailable && !endStatus) {
+      setIsLoading(true);
       await init();
       setEndCallTime(callTime);
       setModelId(guestId);
@@ -105,6 +109,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       setCall(callInitiate);
       setSessionId(callInitiate.getSessionId());
       await creditPutCallLog(guestId, callInitiate.getSessionId(), '');
+      setIsLoading(false);
     } else {
       toast.error('Credit balance should more than 3 minutes');
     }
@@ -231,7 +236,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <CallContext.Provider
-      value={{ call, handleCancelCall, handleCallInitiate, isCallAccepted, isCustomer, isCallIncoming, modelName, modelPhoto }}
+      value={{ call, handleCancelCall, handleCallInitiate, isCallAccepted, isCustomer, isCallIncoming, modelName, modelPhoto, isLoading }}
     >
       {children}
     </CallContext.Provider>

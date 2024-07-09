@@ -1,7 +1,7 @@
 'use client';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { EscortSlider } from './EscortSlider';
-import { useMediaQuery } from '@mui/material';
+import { CircularProgress, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import EscortSliderMobile from './EscortSliderMobile';
 import EscortPersonalDetail from './EscortPersonalDetail';
@@ -32,7 +32,7 @@ const EscortDetailPage = () => {
   const [callTime, setCallTime] = useState(0);
   const modelPhoto = guestData?.photos?.filter((x) => x.favourite).map((item) => item.link)[0];
 
-  const { handleCallInitiate, call } = useCallFeatureContext();
+  const { handleCallInitiate, call, isLoading } = useCallFeatureContext();
 
   useEffect(() => {
     const userToken = async () => {
@@ -81,6 +81,21 @@ const EscortDetailPage = () => {
   return (
     <>
       <HomeMainContainer>
+        {isLoading && (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'absolute',
+              top: '50%',
+              zIndex: 1000,
+              left: '50%'
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        )}
         <Box sx={{ px: { xs: '15px', lg: '0' } }}>
           {isLgDown && guestData ? (
             <EscortSliderMobile
@@ -99,6 +114,7 @@ const EscortDetailPage = () => {
               />
             )
           )}
+
           <EscortPersonalDetail guestData={guestData ?? ({} as ModelDetailsResponse)} />
           <EscortExplore />
         </Box>

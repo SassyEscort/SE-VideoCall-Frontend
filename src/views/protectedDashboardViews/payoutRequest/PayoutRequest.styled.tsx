@@ -219,3 +219,9 @@ export const StyledAccordionDetails = styled((props: AccordionDetailsProps) => <
   marginBottom: 0,
   marginTop: theme.spacing(1.5)
 }));
+
+export const LoaderBox = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center'
+}));
