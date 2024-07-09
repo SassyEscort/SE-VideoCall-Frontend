@@ -19,7 +19,10 @@ export const HeadingContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   height: '100%',
   width: '100%',
-  padding: `${theme.spacing(2.5)}px ${theme.spacing(3)}px`,
+  paddingTop: theme.spacing(2.5),
+  paddingBottom: theme.spacing(2.5),
+  paddingLeft: theme.spacing(3),
+  paddingRight: theme.spacing(3),
   justifyContent: 'space-between'
 }));
 

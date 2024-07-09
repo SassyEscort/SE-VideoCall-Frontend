@@ -466,7 +466,7 @@
   "ExploreMoreModels": "Explore more models",
   "StartVideoCallAgain": "Start video call again",
   "EarningsIn": "Earnings in $",
-  "TotalClients": "Total Clients",
+  "TotalClients": "Total clients",
   "minutes": "minutes",
   "NoEnoughCredits": "No enough credits",
   "NotEnoughCredits": "Not enough credits",
@@ -536,5 +536,12 @@
   "Sorry": "Sorry, ",
   "AnotherCall":"is currently engaged in another call.",
   "NoModelsFound": "No Models Found",
-  "DataNotFound": "Data not found"
+  "DataNotFound": "Data not found",
+  "BankAccount": "Bank Account",
+  "Amount": "Amount",
+  "Date": "Date",
+  "Invoices": "Invoices",
+  "Client": "Client",
+  "AmountEarned": "Amount earned",
+  "Durationn": "Duration"
 }

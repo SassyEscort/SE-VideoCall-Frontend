@@ -5,6 +5,7 @@ import { ModelPastPayoutDetailRes } from 'services/payout/types';
 import { TableCell, TableRow } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { NotFoundBox, StyledTableContainer } from './BillingTable.styled';
+import { FormattedMessage } from 'react-intl';
 
 const BillingTable = ({ modelPayoutList }: { modelPayoutList: ModelPastPayoutDetailRes }) => {
   return (
@@ -18,7 +19,9 @@ const BillingTable = ({ modelPayoutList }: { modelPayoutList: ModelPastPayoutDet
             <TableRow sx={{ border: 'none' }}>
               <TableCell colSpan={7} sx={{ border: 'none' }}>
                 <NotFoundBox>
-                  <UINewTypography variant="buttonLargeMenu">Payout Not Found</UINewTypography>
+                  <UINewTypography variant="buttonLargeMenu">
+                    <FormattedMessage id="DataNotFound" />
+                  </UINewTypography>
                 </NotFoundBox>
               </TableCell>
             </TableRow>

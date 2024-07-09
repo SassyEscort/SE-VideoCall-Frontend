@@ -533,5 +533,12 @@
   "Sorry": "Lo siento, ",
   "AnotherCall": "actualmente está ocupado en otra llamada.",
   "NoModelsFound": "No se encontraron modelos",
-  "DataNotFound": "Datos no encontrados"
+  "DataNotFound": "Datos no encontrados",
+  "BankAccount": "Cuenta bancaria",
+  "Amount": "Cantidad",
+  "Date": "Fecha",
+  "Invoices": "Facturas",
+  "Client": "Cliente",
+  "AmountEarned": "Cantidad ganada",
+  "Durationn": "Duración"
 }
