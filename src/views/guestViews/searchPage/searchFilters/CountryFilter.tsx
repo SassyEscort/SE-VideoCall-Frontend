@@ -3,13 +3,15 @@ import { SelectChangeEvent } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { StareIcone } from 'components/UIComponents/UIStyledArrivalsButton';
+import { LocatonIcone } from 'components/UIComponents/UIStyledArrivalsButton';
 import { UIStyledSelect } from 'components/UIComponents/UIStyledSelect';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
+import { StyledClearIcon } from '../Search.styled';
+import theme from 'themes/theme';
 
 interface CountryFilterProps {
   value: string;
@@ -23,6 +25,7 @@ type countryType = {
 const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
   const [countries, setCountries] = useState<countryType[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [selectedCountry, setSelectedCountry] = useState(value);
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -39,6 +42,14 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
     countryData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const handleClear = () => {
+    setSelectedCountry('');
+    onChange({ target: { value: '' } } as SelectChangeEvent<unknown>, null);
+  };
+  const handleChange = (event: SelectChangeEvent<unknown>, child: React.ReactNode) => {
+    setSelectedCountry(event.target.value as string);
+    onChange(event, child);
+  };
 
   return (
     <FormControl id="country" fullWidth sx={{ width: '100%', maxWidth: '442px' }}>
@@ -46,21 +57,21 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
         MenuProps={{ disableScrollLock: true }}
         name="country"
         labelId="country"
-        value={value}
-        onChange={onChange}
+        value={selectedCountry}
+        onChange={handleChange}
         IconComponent={ExpandMore}
         startAdornment={
-          <StareIcone>
+          <LocatonIcone>
             <Image alt="home_model" width={24} height={24} src="/images/home/country-location-img.png" />
-          </StareIcone>
+          </LocatonIcone>
         }
+        endAdornment={value && <StyledClearIcon onClick={handleClear} />}
+        sx={{ backgroundColor: value ? theme.palette.primary[200] : '' }}
       >
         {countries.map((country, index) => {
           return (
             <MenuItem key={index} value={country?.name}>
-              <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                {country?.name}
-              </UINewTypography>
+              <UINewTypography>{country?.name}</UINewTypography>
             </MenuItem>
           );
         })}

@@ -32,3 +32,13 @@ export const StareIcone = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'center'
 }));
+
+export const LocatonIcone = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  width: '24px',
+  height: '100%',
+  minHeight: '24px',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginRight: theme.spacing(1)
+}));
