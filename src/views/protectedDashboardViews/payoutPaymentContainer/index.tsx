@@ -1,5 +1,5 @@
 'use client';
-import { Box } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { useCallback, useState } from 'react';
@@ -28,6 +28,7 @@ import { PayoutService } from 'services/payout/payout.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import AddbankDetails from '../addBankDetails';
 import AddBankDetailsModel from '../addBankDetails/addBankDetailsModel';
+import { LoaderBox } from '../payoutRequest/PayoutRequest.styled';
 
 export type BankDetailsEdit = {
   id: number;
@@ -46,29 +47,35 @@ export type BankListParams = {
 const PayoutPaymentConatiner = ({
   bankDetailsList,
   token,
-  fetchBankDetails
+  fetchBankDetails,
+  isLoading
 }: {
   bankDetailsList: BankDetailsListRes;
   token: TokenIdType;
   fetchBankDetails: () => void;
+  isLoading: boolean;
 }) => {
   const [openBank, setOpenBank] = useState(false);
   const [open, setOpenModel] = useState(false);
   const [editValue, setEditValue] = useState<BankDetailsEdit>();
   const [cancelRemove, setCancelRemove] = useState(false);
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
 
   const handleBankDetailsRefetch = useCallback(() => {
     fetchBankDetails();
+    isLoading;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const handleBankDetailsDetele = async (id: number) => {
     try {
       if (token.token) {
+        setIsLoadingDelete(true);
         const data = await PayoutService.bankDetailsDelete(token.token, id);
         if (data.code === 200) {
           handleBankDetailsRefetch();
           toast.success('Success');
+          setIsLoadingDelete(false);
         } else {
           toast.error(data?.error);
         }
@@ -110,68 +117,74 @@ const PayoutPaymentConatiner = ({
             </UINewTypographyTitle>
 
             <MapBox>
-              <MainThreeBox>
-                {bankDetailsList?.data?.bank_details.map((list, index) => (
-                  <>
-                    <MainForBox>
-                      <SmallAndBigScreen key={index}>
-                        <Box
-                          component={'img'}
-                          src="/images/payout/home.png"
-                          sx={{ width: '38px', height: '42px', color: 'text.secondary' }}
-                        />
-                        <IamgeBigScreenNone>
-                          <SmallScreenImg>
+              {isLoadingDelete || isLoading ? (
+                <LoaderBox>
+                  <CircularProgress />
+                </LoaderBox>
+              ) : (
+                <MainThreeBox>
+                  {bankDetailsList?.data?.bank_details.map((list, index) => (
+                    <>
+                      <MainForBox>
+                        <SmallAndBigScreen key={index}>
+                          <Box
+                            component={'img'}
+                            src="/images/payout/home.png"
+                            sx={{ width: '38px', height: '42px', color: 'text.secondary' }}
+                          />
+                          <IamgeBigScreenNone>
+                            <SmallScreenImg>
+                              <Box
+                                component={'img'}
+                                src="/images/payout/edit.webp"
+                                sx={{ width: '18px', height: '18px' }}
+                                onClick={() => {
+                                  handleBankDetailsEdit(list);
+                                  handleOpneModel();
+                                  hanleCancelRemove();
+                                }}
+                              />
+                              <Box
+                                component={'img'}
+                                src="/images/payout/delete.webp"
+                                sx={{ width: '16px', height: '18px' }}
+                                onClick={() => handleBankDetailsDetele(list?.id)}
+                              />
+                            </SmallScreenImg>
+                          </IamgeBigScreenNone>
+                        </SmallAndBigScreen>
+                        <SiliconBox>
+                          <SiliconFristBox>
+                            <UINewTypographyBankName>{list?.bank_name}</UINewTypographyBankName>
+                            <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
+                              {list?.account_name} | {list?.iban_number}
+                            </UINewTypography>
+                          </SiliconFristBox>
+                          <DeleteEditBox>
                             <Box
                               component={'img'}
                               src="/images/payout/edit.webp"
-                              sx={{ width: '18px', height: '18px' }}
+                              sx={{ width: '18px', height: '18px', cursor: 'pointer' }}
                               onClick={() => {
                                 handleBankDetailsEdit(list);
                                 handleOpneModel();
                                 hanleCancelRemove();
                               }}
                             />
+
                             <Box
                               component={'img'}
                               src="/images/payout/delete.webp"
-                              sx={{ width: '16px', height: '18px' }}
+                              sx={{ width: '16px', height: '18px', cursor: 'pointer' }}
                               onClick={() => handleBankDetailsDetele(list?.id)}
                             />
-                          </SmallScreenImg>
-                        </IamgeBigScreenNone>
-                      </SmallAndBigScreen>
-                      <SiliconBox>
-                        <SiliconFristBox>
-                          <UINewTypographyBankName>{list?.bank_name}</UINewTypographyBankName>
-                          <UINewTypography variant="buttonLargeMenu" color={'text.primary'}>
-                            {list?.account_name} | {list?.iban_number}
-                          </UINewTypography>
-                        </SiliconFristBox>
-                        <DeleteEditBox>
-                          <Box
-                            component={'img'}
-                            src="/images/payout/edit.webp"
-                            sx={{ width: '18px', height: '18px', cursor: 'pointer' }}
-                            onClick={() => {
-                              handleBankDetailsEdit(list);
-                              handleOpneModel();
-                              hanleCancelRemove();
-                            }}
-                          />
-
-                          <Box
-                            component={'img'}
-                            src="/images/payout/delete.webp"
-                            sx={{ width: '16px', height: '18px', cursor: 'pointer' }}
-                            onClick={() => handleBankDetailsDetele(list?.id)}
-                          />
-                        </DeleteEditBox>
-                      </SiliconBox>
-                    </MainForBox>
-                  </>
-                ))}
-              </MainThreeBox>
+                          </DeleteEditBox>
+                        </SiliconBox>
+                      </MainForBox>
+                    </>
+                  ))}
+                </MainThreeBox>
+              )}
               <ButtonConatinerBox>
                 <UIThemeButton variant="contained" onClick={handleBankOpen}>
                   <UINewTypography variant="body" color="primary.200">
