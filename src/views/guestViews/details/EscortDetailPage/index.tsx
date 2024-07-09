@@ -19,6 +19,7 @@ import Box from '@mui/system/Box';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { CallingService } from 'services/calling/calling.services';
 import moment from 'moment';
+import { LoaderBox } from './EscortDetailPage.styled';
 
 const EscortDetailPage = () => {
   const path = usePathname();
@@ -82,20 +83,9 @@ const EscortDetailPage = () => {
     <>
       <HomeMainContainer>
         {isLoading && (
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'absolute',
-              top: '50%',
-              zIndex: 1000,
-              left: '50%'
-            }}
-            className="muskan"
-          >
+          <LoaderBox>
             <CircularProgress />
-          </Box>
+          </LoaderBox>
         )}
         <Box sx={{ px: { xs: '15px', lg: '0' } }}>
           {isLgDown && guestData ? (
