@@ -1,5 +1,16 @@
+import { Clear } from '@mui/icons-material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+
+export const StyledClearIcon = styled(Clear)(({ theme }) => ({
+  cursor: 'pointer',
+  height: '20px',
+  width: '20px',
+  marginRight: theme.spacing(3),
+  [theme.breakpoints.only('md')]: {
+    marginRight: theme.spacing(2)
+  }
+}));
 
 export const SearchBarMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',

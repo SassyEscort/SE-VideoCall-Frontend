@@ -1,4 +1,3 @@
-import { Clear } from '@mui/icons-material';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { SelectChangeEvent } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
@@ -8,7 +7,8 @@ import { StyledSelectInputLabel, UIStyledSelect } from 'components/UIComponents/
 import { SEARCH_PRICES } from 'constants/searchConstants';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { DollarImageContainer } from '../Search.styled';
+import { DollarImageContainer, StyledClearIcon } from '../Search.styled';
+import theme from 'themes/theme';
 
 interface PriceFilterProps {
   toValue: string;
@@ -26,7 +26,6 @@ const Price: React.FC<PriceFilterProps> = ({ fromValue, toValue, onChange }) => 
   const handleClear = () => {
     setFrom('');
     setTo('');
-    // Optionally call onChange with the cleared values
     onChange({ target: { value: '' } } as SelectChangeEvent<unknown>, null);
   };
   const handleChange = (event: SelectChangeEvent<unknown>, child: React.ReactNode) => {
@@ -51,18 +50,13 @@ const Price: React.FC<PriceFilterProps> = ({ fromValue, toValue, onChange }) => 
         name="Credits"
         labelId="Credits"
         IconComponent={ExpandMore}
-        // endAdornment={<Clear onClick={handleClear} sx={{ cursor: 'pointer' }} />}
-        endAdornment={renderValue && <Clear onClick={handleClear} sx={{ cursor: 'pointer', height: '20px', width: '20px' }} />}
-        sx={{
-          '.MuiSelect-icon': renderValue ? { display: 'none' } : {}
-        }}
+        endAdornment={renderValue && <StyledClearIcon onClick={handleClear} />}
+        sx={{ backgroundColor: renderValue ? theme.palette.primary[200] : '' }}
       >
         {SEARCH_PRICES.map((price, key: number) => {
           return (
             <MenuItem key={key} value={price.id}>
-              <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                {price.name}
-              </UINewTypography>
+              <UINewTypography sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{price.name}</UINewTypography>
             </MenuItem>
           );
         })}
