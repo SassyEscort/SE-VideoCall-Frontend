@@ -36,6 +36,7 @@ const PayoutModelProfileConatiner = ({ token, modelDetails }: { token: TokenIdTy
   const [bankDetailsList, setBankDetailsList] = useState<BankDetailsListRes>();
   const [menuId, setMenuId] = useState(0);
   const [menuProfileId, setMenuProfileId] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleMenu = (id: number) => {
     setMenuId(id);
@@ -48,9 +49,11 @@ const PayoutModelProfileConatiner = ({ token, modelDetails }: { token: TokenIdTy
         offset: 0
       };
       if (token.token) {
+        setIsLoading(true);
         const data = await PayoutService.bankDetailsList(token.token, BankListObject);
         if (data) {
           setBankDetailsList(data);
+          setIsLoading(false);
         }
       }
     } catch (error) {
@@ -109,6 +112,7 @@ const PayoutModelProfileConatiner = ({ token, modelDetails }: { token: TokenIdTy
               token={token}
               fetchBankDetails={fetchBankDetails}
               modelDetails={modelDetails}
+              isLoading={isLoading}
             />
           ) : menuId === 1 ? (
             menuProfileId === 0 ? (
@@ -118,6 +122,7 @@ const PayoutModelProfileConatiner = ({ token, modelDetails }: { token: TokenIdTy
                 bankDetailsList={bankDetailsList ?? ({} as BankDetailsListRes)}
                 token={token}
                 fetchBankDetails={fetchBankDetails}
+                isLoading={isLoading}
               />
             )
           ) : menuId === 2 ? (

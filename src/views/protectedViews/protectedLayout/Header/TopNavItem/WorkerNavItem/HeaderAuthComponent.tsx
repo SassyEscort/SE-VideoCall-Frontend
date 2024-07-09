@@ -21,6 +21,7 @@ import { IconButtonBoxInner, UnReadCountMain } from 'views/protectedDashboardVie
 import { IconButtonBoxNew } from './Notification.styled';
 import { HeaderMainBox } from './HeaderAuthComponent.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import { useRouter } from 'next/navigation';
 
 export type NotificationFilters = {
   page: number;
@@ -29,6 +30,8 @@ export type NotificationFilters = {
 };
 
 const HeaderAuthComponent = () => {
+  const route = useRouter();
+  const { refresh } = route;
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
@@ -135,6 +138,7 @@ const HeaderAuthComponent = () => {
       if (token.token) {
         const getModel = await ModelDetailsService.getModelWithDraw(token.token);
         setBalance(getModel?.data?.credits);
+        refresh();
       }
     };
     if (token.token) {

@@ -140,18 +140,26 @@ export const EscortSlider = ({
             slidesPerView={1}
             style={{ height: '100%' }}
           >
-            {workerPhotos.map((imageSrc, index) => (
-              <SwiperSlide key={index} style={{ paddingTop: 24, height: '100%' }}>
-                <FirstSwiperBlurContainer>
-                  <SecondSwiperBlurContainer
-                    sx={{
-                      backgroundImage: `url(${imageSrc.link})`
-                    }}
-                  />
-                  <EscortSwiperPhotoContainer image={imageSrc.link} isMain={true} isMobile={false} coordinates={imageSrc.cords ?? ''} />
-                </FirstSwiperBlurContainer>
-              </SwiperSlide>
-            ))}
+            {workerPhotos.map((imageSrc, index) => {
+              return (
+                <SwiperSlide key={index} style={{ paddingTop: 24, height: '100%' }}>
+                  <FirstSwiperBlurContainer>
+                    <SecondSwiperBlurContainer
+                      sx={{
+                        backgroundImage: `url(${imageSrc.link})`
+                      }}
+                    />
+                    <EscortSwiperPhotoContainer
+                      imageSrcVideo={imageSrc.file_type}
+                      image={imageSrc.link}
+                      isMain={true}
+                      isMobile={false}
+                      coordinates={imageSrc.cords ?? ''}
+                    />
+                  </FirstSwiperBlurContainer>
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </FirstSwiperInnerContainer>
         <SideBarBoxContainer>
@@ -180,7 +188,13 @@ export const EscortSlider = ({
                   key={index}
                   onClick={() => handleSidebarImageClick(index)}
                 >
-                  <EscortSwiperPhotoContainer image={imageSrc.link} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
+                  <EscortSwiperPhotoContainer
+                    imageSrcVideo={imageSrc.file_type}
+                    image={imageSrc.link}
+                    isMain={false}
+                    isMobile={true}
+                    coordinates={imageSrc.cords ?? ''}
+                  />
                 </SecSwiperSlidBoxContainer>
               ))}
             </Swiper>

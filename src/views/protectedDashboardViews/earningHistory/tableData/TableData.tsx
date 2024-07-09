@@ -11,17 +11,21 @@ import { FormattedMessage } from 'react-intl';
 const TableData = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningHistoryPageDetailsRes }) => {
   return (
     <TableBody>
-      {modelEarningHistory?.data?.aggreate?.total_rows > 0 ? (
+      {modelEarningHistory?.data?.ledger_details?.length ? (
         modelEarningHistory?.data?.ledger_details.map((dp, index) => (
           <TableRow key={index}>
             <TableCell>
               <UINewTypography variant="bodySemiBold" color="text.secondary">
-                client
+                {dp?.customer_name}
               </UINewTypography>
             </TableCell>
             <TableCell>
               <UINewTypography variant="bodySemiBold" color="text.secondary">
-                duration
+                {dp?.call_duration &&
+                  moment
+                    .duration(dp?.call_duration)
+                    .asMinutes()
+                    .toFixed(2)}
               </UINewTypography>
             </TableCell>{' '}
             <TableCell>

@@ -87,7 +87,7 @@ const WorkerCard = ({
 
   return (
     <MainWorkerCard>
-      <ImgWorkerCard src="/images/workercards/workercard-img.jpeg" />
+      <ImgWorkerCard />
       <HeartIconWorkerCard>
         {isFavPage || liked ? (
           <FavoriteIconContainer sx={{ color: 'error.main' }} />

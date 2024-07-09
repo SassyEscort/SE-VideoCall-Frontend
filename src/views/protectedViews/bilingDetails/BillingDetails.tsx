@@ -121,7 +121,7 @@ export const DialogBox = styled(Dialog)(({ theme }) => ({
     backdropFilter: 'blur(24px)'
   },
   '& .MuiPaper-root': {
-    maxWidth: '634px'
+    maxWidth: '636px'
   },
   [theme.breakpoints.down('sm')]: {
     '& .MuiDialog-paper': {
