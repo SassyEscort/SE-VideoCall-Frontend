@@ -9,8 +9,10 @@ import {
   DateTimeBilling,
   DividerContainer,
   DollarBillingValue,
+  FirstBoxContainer,
   FirstTextContainer,
   TextAndBoxContainer,
+  TextBoxContainer,
   TextMainContainer
 } from './BillingHistory.styled';
 import MainLayoutNav from '../protectedLayout';
@@ -78,7 +80,7 @@ const BillingHistory = () => {
           const data = await ModelBillingHistoryService.getBillingHistoryDetails(params, token.token);
           if (data) {
             setGuestBillingHistory(data?.data?.ledger_details);
-            setTotalRows(data?.data?.aggreate?.total_rows);
+            setTotalRows(data?.data?.aggregate?.total_rows);
             setIsLoading(false);
           }
         }
@@ -133,38 +135,45 @@ const BillingHistory = () => {
             </LoaderBox>
           ) : (
             <BillingHistoryMainContainer>
-              {guestBillingHistory?.map((list, index) => (
-                <TextMainContainer key={index}>
-                  <FirstTextContainer>
-                    <BillingUIContainer sx={{ gap: 1.5 }}>
-                      <UINewTypography variant="buttonLargeMenu" color={list.category === 'Credit' ? 'success.100' : 'error.main'}>
-                        {list.category === 'Credit' ? '+' : '-'} {list.credits} {list.category}
-                      </UINewTypography>
-                      <DateTimeBilling variant="SubtitleSmallMedium" color="text.primary">
-                        {moment(list.created_at).format('LT')}, {moment(list.created_at).format('DD MMMM YYYY')}
-                      </DateTimeBilling>
-                    </BillingUIContainer>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                      <DollarBillingValue variant="h6" color="text.secondary">
-                        {list.category === 'Debit' ? (
-                          <UINewTypography
-                            onClick={() => {
-                              handDetailsOpen();
-                              setSelectDetails(list);
-                            }}
-                            sx={{ cursor: 'pointer', color: 'text.secondary', fontWeight: 600, fontSize: '16px', lineHeight: '20px' }}
-                          >
-                            View details
-                          </UINewTypography>
-                        ) : (
-                          `$ ${list.amount}`
-                        )}
-                      </DollarBillingValue>
-                    </Box>
-                  </FirstTextContainer>
-                  <DividerContainer orientation="horizontal" flexItem />
-                </TextMainContainer>
-              ))}
+              {guestBillingHistory && guestBillingHistory?.length > 0 ? (
+                guestBillingHistory?.map((list, index) => (
+                  <TextMainContainer key={index}>
+                    <FirstTextContainer>
+                      <BillingUIContainer sx={{ gap: 1.5 }}>
+                        <UINewTypography variant="buttonLargeMenu" color={list.category === 'Credit' ? 'success.100' : 'error.main'}>
+                          {list.category === 'Credit' ? '+' : '-'} {list.credits} {list.category}
+                        </UINewTypography>
+                        <DateTimeBilling variant="SubtitleSmallMedium" color="text.primary">
+                          {moment(list.created_at).format('LT')}, {moment(list.created_at).format('DD MMMM YYYY')}
+                        </DateTimeBilling>
+                      </BillingUIContainer>
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <DollarBillingValue variant="h6" color="text.secondary">
+                          {list.category === 'Debit' ? (
+                            <TextBoxContainer
+                              onClick={() => {
+                                handDetailsOpen();
+                                setSelectDetails(list);
+                              }}
+                            >
+                              <FormattedMessage id="ViewDetails" />
+                            </TextBoxContainer>
+                          ) : (
+                            `$ ${list.amount}`
+                          )}
+                        </DollarBillingValue>
+                      </Box>
+                    </FirstTextContainer>
+                    <DividerContainer orientation="horizontal" flexItem />
+                  </TextMainContainer>
+                ))
+              ) : (
+                <FirstBoxContainer>
+                  <UINewTypography variant="h6">
+                    <FormattedMessage id="DataNotFound" />
+                  </UINewTypography>
+                </FirstBoxContainer>
+              )}
             </BillingHistoryMainContainer>
           )}
         </TextAndBoxContainer>

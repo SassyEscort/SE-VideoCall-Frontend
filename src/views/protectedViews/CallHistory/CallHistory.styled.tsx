@@ -2,6 +2,7 @@ import { Divider, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 
 export const CallHistoryMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -239,5 +240,21 @@ export const SecTextContainer = styled(Typography)(({ theme }) => ({
     fontSize: '14px',
     fontWeight: 500,
     lineHeight: '16.8px'
+  }
+}));
+
+export const FirstBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+}));
+
+export const UIThemeShadowButtonContainer = styled(UIThemeShadowButton)(({ theme }) => ({
+  width: '100%',
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '363px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '220px'
   }
 }));
