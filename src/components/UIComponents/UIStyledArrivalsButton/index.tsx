@@ -1,13 +1,17 @@
-import { Box } from '@mui/material';
-import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Button, { ButtonProps } from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 
-export const UIStyledArrivalsButton = styled(Button)(({ theme }) => ({
+interface UIStyledSelectButtonProps extends ButtonProps {
+  isClicked: boolean;
+}
+
+export const UIStyledArrivalsButton = styled(Button)<UIStyledSelectButtonProps>(({ theme, isClicked }) => ({
   display: 'flex',
-  borderRadius: '8px',
+  borderRadius: theme.spacing(1),
   width: '100%',
   height: '48px',
-  backgroundColor: theme.palette.primary[700],
+  backgroundColor: isClicked ? theme.palette.secondary.main : theme.palette.primary[700],
   color: theme.palette.primary[400],
   fontSize: '16px',
   fontWeight: 700,
@@ -15,7 +19,7 @@ export const UIStyledArrivalsButton = styled(Button)(({ theme }) => ({
   lineHeight: '21.86px',
   '&:hover': {
     '.MuiOutlinedInput-notchedOutline': {
-      backgroundColor: theme.palette.secondary[800]
+      backgroundColor: isClicked ? theme.palette.secondary.main : theme.palette.secondary[800]
     }
   }
 }));

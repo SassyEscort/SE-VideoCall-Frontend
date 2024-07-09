@@ -49,3 +49,11 @@ export const ThiredBoxMainContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1.5),
   width: '100%'
 }));
+
+export const DollarImageContainer = styled('img')(() => ({
+  display: 'flex',
+  width: '100%',
+  height: '100%',
+  maxWidth: '22px',
+  maxHeight: '22px'
+}));
