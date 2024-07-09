@@ -113,7 +113,13 @@ const EscortSliderMobile = ({
                       backgroundImage: `url(${imageSrc.link})`
                     }}
                   />
-                  <EscortSwiperPhotoContainer image={imageSrc.link} isMain={true} isMobile={false} coordinates={imageSrc.cords ?? ''} />
+                  <EscortSwiperPhotoContainer
+                    imageSrcVideo={imageSrc.file_type}
+                    image={imageSrc.link}
+                    isMain={true}
+                    isMobile={false}
+                    coordinates={imageSrc.cords ?? ''}
+                  />
                 </FirstSwiperBlurContainer>
               </SwiperSlide>
             ))}
@@ -137,7 +143,13 @@ const EscortSliderMobile = ({
           >
             {workerPhotos.map((imageSrc, index) => (
               <SwiperSlidBoxContainer key={index}>
-                <EscortSwiperPhotoContainer image={imageSrc.link} isMain={false} isMobile={true} coordinates={imageSrc.cords ?? ''} />
+                <EscortSwiperPhotoContainer
+                  imageSrcVideo={imageSrc.file_type}
+                  image={imageSrc.link}
+                  isMain={false}
+                  isMobile={true}
+                  coordinates={imageSrc.cords ?? ''}
+                />
               </SwiperSlidBoxContainer>
             ))}
           </Swiper>

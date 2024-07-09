@@ -33,7 +33,7 @@ export type SignupParams = {
 
 const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
   const route = useRouter();
-  const { push } = route;
+  const { push, refresh } = route;
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
   const [loading, setLoading] = useState(false);
@@ -85,6 +85,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
           const data = await GuestAuthService.guestSignup(values);
           if (data.code === 200) {
             setActiveStep(1);
+            refresh();
             const loginResponse = await signIn('providerGuest', {
               redirect: false,
               email: values.email,
@@ -92,6 +93,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
             });
             if (loginResponse?.status === 200) {
               push('/profile');
+              refresh();
             } else {
               setAlert('Login after signup failed. Please log in manually.');
             }
