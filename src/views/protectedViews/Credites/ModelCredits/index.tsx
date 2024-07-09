@@ -1,3 +1,4 @@
+'use client';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useCallback, useEffect, useState } from 'react';
 import {
@@ -8,7 +9,6 @@ import {
   CreditBuyText,
   CreditCardImage,
   CreditCardText,
-  CreditsCloseIconContainer,
   CreditsMainContainer,
   CreditsSubContainer,
   DollarCreditText,
@@ -18,7 +18,9 @@ import {
   ImagSubContainer,
   LoaderBox,
   MainImagContainer,
-  NewUIIconButton
+  NewUIIconButton,
+  OutOfCreditBox,
+  OutOfCreditInnerBox
 } from './Credits.styled';
 import { FormattedMessage } from 'react-intl';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -33,7 +35,7 @@ import { CircularProgress, Divider, useMediaQuery } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import theme from 'themes/theme';
 
-const ModelCredits = ({ onClose }: { onClose: () => void }) => {
+const ModelCredits = ({ onClose, isOutOfCredits }: { onClose: () => void; isOutOfCredits: boolean }) => {
   const [open, setOpen] = useState(false);
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -74,7 +76,7 @@ const ModelCredits = ({ onClose }: { onClose: () => void }) => {
 
   const handleCreditClick = async (listCredit: ModelCreditRes) => {
     setIsLoading(true);
-    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id);
+    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, isOutOfCredits);
     if (res) {
       router.push(res?.data?.url);
     }
@@ -107,12 +109,12 @@ const ModelCredits = ({ onClose }: { onClose: () => void }) => {
       <CreditsMainContainer>
         <CreditsSubContainer>
           <HeadingContainer>
-            <UINewTypography variant="h6">No enough credits </UINewTypography>
-            <CreditsCloseIconContainer>
-              <NewUIIconButton onClick={onClose}>
-                <CloseIcon sx={{ color: theme.palette.text.secondary }} />
-              </NewUIIconButton>
-            </CreditsCloseIconContainer>
+            <UINewTypography variant="h6">
+              {isOutOfCredits ? <FormattedMessage id="NotEnoughCredits" /> : <FormattedMessage id="NoEnoughCredits" />}
+            </UINewTypography>
+            <NewUIIconButton onClick={onClose}>
+              <CloseIcon sx={{ color: theme.palette.text.secondary }} />
+            </NewUIIconButton>
             {isSmUp && (
               <BalanceInfoBox>
                 <UINewTypography variant="buttonLargeMenu" sx={{ paddingRight: '8px' }}>
@@ -143,6 +145,18 @@ const ModelCredits = ({ onClose }: { onClose: () => void }) => {
             </LoaderBox>
           ) : (
             <ImagMainContainer>
+              {isOutOfCredits && (
+                <OutOfCreditBox>
+                  <UINewTypography variant="h5" color="text.secondary">
+                    <FormattedMessage id="YouAreOutOfCredits" />
+                  </UINewTypography>
+                  <OutOfCreditInnerBox>
+                    <UINewTypography color="text.secondary" variant="body1">
+                      <FormattedMessage id="LowCredits" />
+                    </UINewTypography>
+                  </OutOfCreditInnerBox>
+                </OutOfCreditBox>
+              )}
               <FirstBoxContainer>
                 <Grid container sx={{ gap: 2, justifyContent: 'center' }}>
                   {creditsListing.map((listCredit, index) => (
