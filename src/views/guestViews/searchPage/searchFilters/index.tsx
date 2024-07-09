@@ -42,6 +42,8 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ handelFilterChange }) => 
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [isOnline, setIsOnline] = useState(true);
+  const [newArrivals, setNewArrivals] = useState(true);
 
   const getInitialFilters = () => ({
     fromAge: getQueryParam('fromAge') ? (getQueryParam('fromAge') as string) : '',
@@ -129,12 +131,20 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ handelFilterChange }) => 
     const value = event.target.value as string;
     const priceRange = value.split('-');
 
-    setFilters({
-      ...filters,
-      fromPrice: priceRange[0],
-      toPrice: priceRange[1],
-      page: 1
-    });
+    if (value === '') {
+      setFilters({
+        ...filters,
+        fromPrice: '',
+        toPrice: ''
+      });
+    } else {
+      setFilters({
+        ...filters,
+        fromPrice: priceRange[0],
+        toPrice: priceRange[1],
+        page: 1
+      });
+    }
   };
 
   const handleChangeAge = (event: SelectChangeEvent<unknown>) => {
@@ -148,20 +158,24 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ handelFilterChange }) => 
       page: 1
     });
   };
+
   const handleNewArrivals = () => {
     setFilters({
       ...filters,
       page: 1,
-      sortField: 'created_at',
-      sortOrder: 'desc'
+      sortField: newArrivals ? 'created_at' : '',
+      sortOrder: newArrivals ? 'desc' : ''
     });
+    setNewArrivals(!newArrivals);
   };
+
   const handelChangeIsOnline = () => {
     setFilters({
       ...filters,
       page: 1,
-      isOnline: '1'
+      isOnline: isOnline ? '1' : ''
     });
+    setIsOnline(!isOnline);
   };
 
   useEffect(() => {

@@ -48,7 +48,10 @@ export const UIStyledSelectPastPayout = styled(Select)(({ theme }) => ({
 }));
 
 export const StyledSelectInputLabel = styled(InputLabel)(({ theme }) => ({
+  display: 'flex',
   top: '-3px',
   color: theme.palette.secondary[200],
+  gap: theme.spacing(1),
+  alignItems: 'center',
   '&.MuiInputLabel-shrink': { top: 0 }
 }));

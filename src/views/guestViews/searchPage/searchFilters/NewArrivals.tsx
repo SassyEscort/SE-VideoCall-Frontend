@@ -1,12 +1,21 @@
 import { StareIcone, UIStyledArrivalsButton } from 'components/UIComponents/UIStyledArrivalsButton';
 import Image from 'next/image';
+import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 const NewArrivals = ({ onClick }: { onClick?: () => void }) => {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleClick = () => {
+    setIsClicked((prev) => !prev);
+    if (onClick) onClick();
+  };
+
   return (
     <>
       <UIStyledArrivalsButton
-        onClick={onClick}
+        onClick={handleClick}
+        isClicked={isClicked}
         startIcon={
           <StareIcone>
             <Image alt="home_model" width={24} height={24} src="/images/home/arrivals-img1.png" />
