@@ -469,5 +469,7 @@
   "EarningsIn": "Earnings in $",
   "TotalClients": "Total clients",
   "NoEnoughCredits":"No enough credits",
-  "NotEnoughCredits": "Not enough credits"
+  "NotEnoughCredits": "Not enough credits",
+  "YouAreOutOfCredits":"You are out of credits",
+  "LowCredits":"Your call has ended due to low credits. Add more now to continue your conversation smoothly without interruption."
 }

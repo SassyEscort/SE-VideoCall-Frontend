@@ -463,5 +463,7 @@
   "ExploreMoreModels": "Explorar más modelos",
   "StartVideoCallAgain": "Iniciar llamada de video nuevamente",
   "EarningsIn": "Ingresos en $",
-  "TotalClients": "Clientes Totales"
+  "TotalClients": "Clientes Totales",
+  "YouAreOutOfCredits": "No tienes créditos",
+  "LowCredits": "Tu llamada ha terminado debido a la falta de créditos. Agrega más ahora para continuar tu conversación sin interrupciones."
 }

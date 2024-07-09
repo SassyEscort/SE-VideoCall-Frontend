@@ -135,6 +135,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         await CometChat.endCall(call.getSessionId());
         CometChatCalls.endSession();
         if (isCustomer) {
+          setOpen(true);
           await CometChatUIKit.logout();
         }
       }
@@ -244,6 +245,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       CometChatCalls.endSession();
       await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
       if (isCustomer) {
+        setOpen(true);
         await CometChatUIKit.logout();
       }
     }

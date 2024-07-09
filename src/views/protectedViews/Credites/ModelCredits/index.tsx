@@ -17,7 +17,9 @@ import {
   ImagSubContainer,
   LoaderBox,
   MainImagContainer,
-  NewUIIconButton
+  NewUIIconButton,
+  OutOfCreditBox,
+  OutOfCreditInnerBox
 } from './Credits.styled';
 import { FormattedMessage } from 'react-intl';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -73,7 +75,7 @@ const ModelCredits = ({ onClose, isOutOfCredits }: { onClose: () => void; isOutO
 
   const handleCreditClick = async (listCredit: ModelCreditRes) => {
     setIsLoading(true);
-    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id);
+    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, isOutOfCredits);
     if (res) {
       router.push(res?.data?.url);
     }
@@ -142,6 +144,16 @@ const ModelCredits = ({ onClose, isOutOfCredits }: { onClose: () => void; isOutO
             </LoaderBox>
           ) : (
             <ImagMainContainer>
+              <OutOfCreditBox>
+                <UINewTypography variant="h5" color="text.secondary">
+                  <FormattedMessage id="YouAreOutOfCredits" />
+                </UINewTypography>
+                <OutOfCreditInnerBox>
+                  <UINewTypography color="text.secondary" variant="body1">
+                    <FormattedMessage id="LowCredits" />
+                  </UINewTypography>
+                </OutOfCreditInnerBox>
+              </OutOfCreditBox>
               <FirstBoxContainer>
                 <Grid container sx={{ gap: 2, justifyContent: 'center' }}>
                   {creditsListing.map((listCredit, index) => (
