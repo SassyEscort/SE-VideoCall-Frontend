@@ -144,16 +144,18 @@ const ModelCredits = ({ onClose, isOutOfCredits }: { onClose: () => void; isOutO
             </LoaderBox>
           ) : (
             <ImagMainContainer>
-              <OutOfCreditBox>
-                <UINewTypography variant="h5" color="text.secondary">
-                  <FormattedMessage id="YouAreOutOfCredits" />
-                </UINewTypography>
-                <OutOfCreditInnerBox>
-                  <UINewTypography color="text.secondary" variant="body1">
-                    <FormattedMessage id="LowCredits" />
+              {isOutOfCredits && (
+                <OutOfCreditBox>
+                  <UINewTypography variant="h5" color="text.secondary">
+                    <FormattedMessage id="YouAreOutOfCredits" />
                   </UINewTypography>
-                </OutOfCreditInnerBox>
-              </OutOfCreditBox>
+                  <OutOfCreditInnerBox>
+                    <UINewTypography color="text.secondary" variant="body1">
+                      <FormattedMessage id="LowCredits" />
+                    </UINewTypography>
+                  </OutOfCreditInnerBox>
+                </OutOfCreditBox>
+              )}
               <FirstBoxContainer>
                 <Grid container sx={{ gap: 2, justifyContent: 'center' }}>
                   {creditsListing.map((listCredit, index) => (

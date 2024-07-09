@@ -59,7 +59,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
   }, [activeStep, redirectSeconds]);
 
   const validationSchema = yup.object({
-    name: yup.string().required('Username is required').min(2, 'Username is too short').max(20, 'Username is too long'),
+    name: yup.string().required('Name is required').min(2, 'Name is too short').max(20, 'Name is too long'),
     email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required'),
     password: yup
       .string()
@@ -157,7 +157,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                     <ModelUITextConatiner gap={3} sx={{ width: isLg ? '400px' : 'auto' }}>
                       <ModelUITextConatiner sx={{ gap: 0.5 }}>
                         <UITypographyText>
-                          <FormattedMessage id="Username" />
+                          <FormattedMessage id="ClientName" />
                         </UITypographyText>
                         <UIStyledInputText
                           fullWidth
