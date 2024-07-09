@@ -169,8 +169,8 @@ const CallHistory = () => {
                         {!isSmDown && (
                           <SecondSubFirstPartThiredBox marginRight={{ sm: '32px' }}>
                             <FirstTextContainer color="text.primary" whiteSpace="nowrap">
-                              <FormattedMessage id="Duration" />
-                              Duration: {list.duration && moment.duration(list.duration).asMinutes().toFixed(2)} minutes
+                              <FormattedMessage id="Duration" /> {list.duration && moment.duration(list.duration).asMinutes().toFixed(2)}{' '}
+                              <FormattedMessage id="minutes" />
                             </FirstTextContainer>
                             <CreditUsedBox>
                               <FirstTextContainer color="text.primary" whiteSpace="nowrap">
@@ -187,8 +187,8 @@ const CallHistory = () => {
                       {isSmDown && (
                         <SecondSubFirstPartThiredBox gap="8px !important">
                           <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
-                            <FormattedMessage id="Duration" />
-                            Duration: {list.duration && moment.duration(list.duration).asMinutes().toFixed(2)} minutes
+                            <FormattedMessage id="Duration" /> {list.duration && moment.duration(list.duration).asMinutes().toFixed(2)}{' '}
+                            <FormattedMessage id="minutes" />
                           </UINewTypography>
                           <CreditUsedBox>
                             <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
