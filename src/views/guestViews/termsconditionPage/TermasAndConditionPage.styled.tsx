@@ -18,5 +18,9 @@ export const TermsAndConditionMainContainer = styled(Box)(({ theme }) => ({
 export const FirstBoxMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(5)
+  gap: theme.spacing(5),
+  [theme.breakpoints.down('lg')]: {
+    paddingLeft: theme.spacing(1.75),
+    paddingRight: theme.spacing(1.75)
+  }
 }));
