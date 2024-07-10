@@ -129,7 +129,9 @@ const VerificationBasicDetails = ({
   };
 
   const handleCountry = async (val: string | MultipleOptionString | (string | MultipleOptionString)[] | null) => {
-    if (val !== null) {
+    if (val === null) {
+      setFieldValue('country_id', '');
+    } else if (val !== null) {
       let selectedCountry: MultipleOptionString | undefined;
       if (Array.isArray(val)) {
         selectedCountry = val[0] as MultipleOptionString;
@@ -162,7 +164,9 @@ const VerificationBasicDetails = ({
   };
 
   const handleNationality = async (val: string | MultipleOptionString | (string | MultipleOptionString)[] | null) => {
-    if (val !== null) {
+    if (val === null) {
+      setFieldValue('nationality_id', '');
+    } else if (val !== null) {
       let selectedNationality: MultipleOptionString | undefined;
       if (Array.isArray(val)) {
         selectedNationality = val[0] as MultipleOptionString;

@@ -31,7 +31,7 @@ export class adminModelServices {
   static getModelList = async (params: ModelFilterParams): Promise<ModelListingRes> => {
     let query = '';
     if (params.filter_text) {
-      query += `&filter_text=${params.filter_text}`;
+      query += `&search_field=${params.filter_text}`;
     }
     if (params.from_date) {
       query += `&from_date=${params.from_date}`;

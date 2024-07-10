@@ -98,6 +98,8 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
             } else {
               setAlert('Login after signup failed. Please log in manually.');
             }
+          } else if (data?.code === 403) {
+            toast.error(ErrorMessage);
           } else {
             setAlert(data.error);
           }
