@@ -1,7 +1,7 @@
 'use client';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Image from 'next/image';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
@@ -21,7 +21,32 @@ import {
 
 import { FormattedMessage } from 'react-intl';
 import Link from 'next/link';
-function CreditsAdded({ onClose, addedCredits, newBalance }: { onClose: () => void; addedCredits: number; newBalance: number }) {
+function CreditsAdded({
+  onClose,
+  addedCredits,
+  newBalance,
+  isOutOfCredits
+}: {
+  onClose: () => void;
+  addedCredits: number;
+  newBalance: number;
+  isOutOfCredits: boolean;
+}) {
+  const [redirectSeconds, setRedirectSeconds] = useState(3);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setRedirectSeconds((prevSeconds) => prevSeconds - 1);
+    }, 1000);
+
+    if (redirectSeconds === 0) {
+      clearTimeout(timer);
+    }
+
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [redirectSeconds]);
+
   return (
     <CreditsAddedMainBox>
       <HeadingContainer>
@@ -55,15 +80,27 @@ function CreditsAdded({ onClose, addedCredits, newBalance }: { onClose: () => vo
             </UINewTypography>
           </NewBalanceDetails>
         </NewBalanceDetailsConatainer>
-        <ExploreButtonContainer>
-          <Link prefetch={false} href="/">
-            <UIThemeShadowButton variant="contained" sx={{ p: '10px 29px', width: '176px' }}>
-              <UINewTypography variant="buttonLargeBold" color="white.main" whiteSpace={'nowrap'}>
-                <FormattedMessage id="ExploreModels" />
-              </UINewTypography>
-            </UIThemeShadowButton>
-          </Link>
-        </ExploreButtonContainer>
+        {!isOutOfCredits ? (
+          <ExploreButtonContainer>
+            <Link prefetch={false} href="/">
+              <UIThemeShadowButton variant="contained" sx={{ p: '10px 29px', width: '176px' }}>
+                <UINewTypography variant="buttonLargeBold" color="white.main" whiteSpace={'nowrap'}>
+                  <FormattedMessage id="ExploreModels" />
+                </UINewTypography>
+              </UIThemeShadowButton>
+            </Link>
+          </ExploreButtonContainer>
+        ) : (
+          <>
+            <UINewTypography variant="bodySmallBold">
+              <FormattedMessage id="PleaseWait" />
+            </UINewTypography>
+            <UINewTypography variant="body">
+              <FormattedMessage id="RedirectingIn" />
+              {redirectSeconds} <FormattedMessage id="Sec" />
+            </UINewTypography>
+          </>
+        )}
       </CreditsBodyContainer>
     </CreditsAddedMainBox>
   );

@@ -128,11 +128,11 @@ const WorkerCard = ({
                 <CreditContainer>
                   <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
                   <UINewTypography variant="captionLargeBold" color="text.secondary">
-                    {!modelDetails?.price_per_minute ? (
+                    {!modelDetails?.credits_per_minute ? (
                       <FormattedMessage id="NoPrice" />
                     ) : (
                       <>
-                        {modelDetails?.price_per_minute} <FormattedMessage id="CreditsMin" />
+                        {modelDetails?.credits_per_minute} <FormattedMessage id="CreditsMin" />
                       </>
                     )}
                   </UINewTypography>

@@ -46,6 +46,7 @@ export type ModelDetailsResponse = {
   email_verified: number;
   updated_at: string;
   is_online: number;
+  user_name: string;
 };
 
 export type GuestDetailsResponse = {
