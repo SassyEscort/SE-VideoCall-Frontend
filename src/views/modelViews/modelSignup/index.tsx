@@ -24,6 +24,8 @@ import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '
 import InfoIcon from '@mui/icons-material/Info';
 import { FormattedMessage } from 'react-intl';
 import { ModelSignUpUIRemember } from './ModelSignup.styled';
+import { toast } from 'react-toastify';
+import { ErrorMessage } from 'constants/common.constants';
 
 export type ModelSignupParams = {
   name: string;
@@ -95,6 +97,8 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
             } else {
               setAlert('Login after signup failed. Please log in manually.');
             }
+          } else if (data?.code === 403) {
+            toast.error(ErrorMessage);
           } else {
             setAlert(data.message);
           }

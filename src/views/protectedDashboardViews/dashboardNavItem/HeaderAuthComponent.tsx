@@ -19,6 +19,8 @@ import NotificationModalV2 from 'views/protectedViews/protectedLayout/Header/Top
 import { NotificationDetailsService } from 'services/notification/notification.services';
 import { Root } from 'services/notification/type';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
+import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 
 export type NotificationFilters = {
   page: number;
@@ -129,6 +131,11 @@ const DashboadrHeaderAuthComponent = () => {
 
   const unReadCount = notificationDetails?.data?.aggregate?.total_rows && notificationDetails?.data?.aggregate?.total_rows > 0;
   const isSmaller = useMediaQuery('(max-width:320px)');
+  const isSmUP = useMediaQuery(theme.breakpoints.up('sm'));
+
+  const isVerificationPendingOrCompleted = (step: string | undefined) => {
+    return step === MODEL_ACTIVE_STEP.IN_REVIEW || step === MODEL_ACTIVE_STEP.ONBOARDED || step === MODEL_ACTIVE_STEP.VERIFIED;
+  };
 
   return (
     <>
@@ -224,6 +231,15 @@ const DashboadrHeaderAuthComponent = () => {
           </Menu>
           <ProfileMenu profilePic={firstChar} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
         </IconButtonBox>
+        {isSmUP && !isVerificationPendingOrCompleted(modelDetails?.verification_step) && (
+          <Link href="/model/profile">
+            <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>
+              <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
+                <FormattedMessage id="CompleteYourProfile" />
+              </UINewTypography>
+            </UIThemeButton>
+          </Link>
+        )}
       </Box>
       {notificationDetails && (
         <NotificationModalV2
