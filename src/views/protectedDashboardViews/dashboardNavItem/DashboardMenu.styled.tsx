@@ -2,6 +2,7 @@
 import { Toolbar } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
 export const ProfileMenuMainContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -56,4 +57,10 @@ export const IconButtonBoxInner = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   gap: theme.spacing(1),
   cursor: 'pointer'
+}));
+
+export const CompleteProfileBox = styled(UIThemeButton)(({ theme }) => ({
+  width: '195px',
+  height: '48px',
+  borderRadius: theme.spacing(1)
 }));

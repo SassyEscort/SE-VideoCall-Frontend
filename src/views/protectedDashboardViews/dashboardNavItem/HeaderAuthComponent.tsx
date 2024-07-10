@@ -14,12 +14,11 @@ import Logout from 'views/protectedViews/logout';
 import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import Link from 'next/link';
-import { IconButtonBox, IconButtonBoxInner, UnReadCountMain } from './DashboardMenu.styled';
+import { CompleteProfileBox, IconButtonBox, IconButtonBoxInner, UnReadCountMain } from './DashboardMenu.styled';
 import NotificationModalV2 from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/NotificationModalV2';
 import { NotificationDetailsService } from 'services/notification/notification.services';
 import { Root } from 'services/notification/type';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 
 export type NotificationFilters = {
@@ -233,11 +232,11 @@ const DashboadrHeaderAuthComponent = () => {
         </IconButtonBox>
         {isSmUP && !isVerificationPendingOrCompleted(modelDetails?.verification_step) && (
           <Link href="/model/profile">
-            <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>
+            <CompleteProfileBox variant="contained">
               <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
                 <FormattedMessage id="CompleteYourProfile" />
               </UINewTypography>
-            </UIThemeButton>
+            </CompleteProfileBox>
           </Link>
         )}
       </Box>
