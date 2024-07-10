@@ -71,3 +71,27 @@ export class ModelListingService {
     }
   };
 }
+
+export type BillingDetails = {
+  amount: number;
+  call_duration: string;
+  call_end_time: string;
+  call_start_time: string;
+  category: string;
+  country_name: string;
+  created_at: string;
+  credits: number;
+  credits_per_minute: number;
+  customer_id: number;
+  details: string;
+  id: number;
+  is_online: number;
+  languages: Language[];
+  link: string;
+  model_dob: string;
+  model_id: number;
+  model_name: string;
+  price_per_minute: number;
+  cords: string;
+  wallet_id: number;
+};

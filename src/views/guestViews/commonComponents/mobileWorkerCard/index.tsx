@@ -3,12 +3,11 @@ import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
-import { ModelHomeListing } from 'services/modelListing/modelListing.services';
+import { BillingDetails } from 'services/modelListing/modelListing.services';
 import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
 import useImageOptimize from 'hooks/useImageOptimize';
 import { countryWithFlag } from 'constants/country';
-import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { toast } from 'react-toastify';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
@@ -38,7 +37,7 @@ import {
   WorkerCardContainer
 } from './mobileWorkerCard.styled';
 
-const WorkerCard = ({
+const WorkerCardMobile = ({
   modelDetails,
   isFavPage,
   token,
@@ -47,7 +46,7 @@ const WorkerCard = ({
   handleLike,
   liked
 }: {
-  modelDetails: ModelHomeListing | ModelFavRes;
+  modelDetails: BillingDetails;
   isFavPage?: boolean;
   token?: TokenIdType;
   handleLoginLiked?: (modelId: number) => void;
@@ -55,6 +54,7 @@ const WorkerCard = ({
   handleLike?: (modelId: number) => void;
   liked?: boolean;
 }) => {
+  console.log(modelDetails, 'selectDetails work');
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
 
@@ -62,7 +62,7 @@ const WorkerCard = ({
     ?.map((language) => language?.language_name)
     .sort()
     .join(', ');
-  const modelFlag = countryWithFlag.filter((country) => country.name === modelDetails?.country).map((data) => data.flag)[0];
+  const modelFlag = countryWithFlag.filter((country) => country.name === modelDetails?.country_name).map((data) => data.flag)[0];
   const imageUrlRef = useRef<HTMLElement>();
 
   useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails?.cords);
@@ -87,7 +87,7 @@ const WorkerCard = ({
 
   return (
     <MainWorkerCard>
-      <ImgWorkerCard />
+      <ImgWorkerCard ref={imageUrlRef} />
       <HeartIconWorkerCard>
         {isFavPage || liked ? (
           <FavoriteIconContainer sx={{ color: 'error.main' }} />
@@ -96,7 +96,7 @@ const WorkerCard = ({
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              handleLikeClick(modelDetails?.id);
+              handleLikeClick(modelDetails?.model_id);
             }}
           />
         )}
@@ -107,7 +107,7 @@ const WorkerCard = ({
             <ProfileCardContainer>
               <NameCardContainer>
                 <UINewTypography variant="newTitle" color="#ffff">
-                  {modelDetails?.name}
+                  {modelDetails?.model_name}
                 </UINewTypography>
                 {modelDetails?.is_online === 1 ? (
                   <>
@@ -128,11 +128,11 @@ const WorkerCard = ({
                 <CreditContainer>
                   <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
                   <UINewTypography variant="captionLargeBold" color="text.secondary">
-                    {!modelDetails?.price_per_minute ? (
+                    {!modelDetails?.credits_per_minute ? (
                       <FormattedMessage id="NoPrice" />
                     ) : (
                       <>
-                        {modelDetails?.price_per_minute} <FormattedMessage id="CreditsMin" />
+                        {modelDetails?.credits_per_minute} <FormattedMessage id="CreditsMin" />
                       </>
                     )}
                   </UINewTypography>
@@ -142,7 +142,7 @@ const WorkerCard = ({
             <SecondMainContainerWorkerCard>
               <SecondSubContainerWorkerCard>
                 <UITypographyBox variant="SubtitleSmallMedium" color="text.primary">
-                  {moment().diff(modelDetails?.dob, 'years')}
+                  {moment().diff(modelDetails?.model_dob, 'years')}
                 </UITypographyBox>
                 <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
                 <UITypographyBoxContainer variant="SubtitleSmallMedium">{languages}</UITypographyBoxContainer>
@@ -152,11 +152,11 @@ const WorkerCard = ({
               <CreditContainer sx={{ marginTop: isSmallScreen ? 1.5 : 1 }}>
                 <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
                 <UINewTypography variant="captionLargeBold" color="text.secondary">
-                  {!modelDetails?.price_per_minute ? (
+                  {!modelDetails?.credits_per_minute ? (
                     <FormattedMessage id="NoPrice" />
                   ) : (
                     <>
-                      {modelDetails?.price_per_minute} <FormattedMessage id="CreditsMin" />
+                      {modelDetails?.credits_per_minute} <FormattedMessage id="CreditsMin" />
                     </>
                   )}
                 </UINewTypography>
@@ -169,4 +169,4 @@ const WorkerCard = ({
   );
 };
 
-export default WorkerCard;
+export default WorkerCardMobile;
