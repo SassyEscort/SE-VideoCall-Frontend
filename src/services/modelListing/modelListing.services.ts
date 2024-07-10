@@ -49,8 +49,8 @@ export class ModelListingService {
     if (filters?.isOnline) queryParams.push(`is_online=${filters.isOnline}`);
     if (filters?.fromAge) queryParams.push(`min_age=${filters.fromAge}`);
     if (filters?.toAge) queryParams.push(`max_age=${filters.toAge}`);
-    if (filters?.fromPrice) queryParams.push(`min_price=${filters.fromPrice}`);
-    if (filters?.toPrice) queryParams.push(`max_price=${filters.toPrice}`);
+    if (filters?.fromPrice) queryParams.push(`min_credits=${filters.fromPrice}`);
+    if (filters?.toPrice) queryParams.push(`max_credits=${filters.toPrice}`);
     if (filters?.country) queryParams.push(`country=${filters.country}`);
     if (filters?.sortOrder) queryParams.push(`sort_order=${filters.sortOrder}`);
     if (filters?.sortField) queryParams.push(`sort_field=${filters.sortField}`);

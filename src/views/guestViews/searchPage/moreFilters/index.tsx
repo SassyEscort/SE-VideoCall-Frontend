@@ -108,7 +108,7 @@ const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleCl
     let filterCount = Object.keys(objParams).length;
     const queryString = new URLSearchParams(objParams).toString();
 
-    if (pathname === '/' && filterCount === 0) router.push('/search');
+    if (pathname === '/' && filterCount === 0) router.push('/');
     if (pathname === '/' && filterCount === 1 && objParams.page) return;
 
     const isDetailsPage = pathname.startsWith('/details/');

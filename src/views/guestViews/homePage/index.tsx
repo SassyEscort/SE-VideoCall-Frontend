@@ -9,7 +9,7 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import SearchFilters, { SearchFiltersTypes } from '../searchPage/searchFilters';
 import BackdropProgress from 'components/UIComponents/BackDropProgress';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 
 const HomeContainer = () => {
@@ -38,7 +38,6 @@ const HomeContainer = () => {
   });
 
   const prevState = useRef(filters);
-  const pathname = usePathname();
 
   useEffect(() => {
     const userToken = async () => {
@@ -59,11 +58,15 @@ const HomeContainer = () => {
 
   const handleChangePage = useCallback(
     (value: number) => {
+      if (value === 1) {
+        const offset = (value - 1) * filters.pageSize;
+        const newFilters = { ...filters, page: value, offset: offset };
+        handelFilterChange(newFilters);
+      }
       if (filters) {
         const offset = (value - 1) * filters.pageSize;
         const newFilters = { ...filters, page: value, offset: offset };
         setFilters(newFilters);
-
         const queryParams = new URLSearchParams(window.location.search);
         queryParams.set('page', value.toString());
         router.push(`/?${queryParams.toString()}`);
@@ -77,15 +80,10 @@ const HomeContainer = () => {
   };
 
   useEffect(() => {
-    const objParams: { [key: string]: string } = {};
-    const queryString = new URLSearchParams(objParams).toString();
-
     if (initialRender.current) {
       initialRender.current = false;
       handelFilterChange(filters);
       window.scrollTo(0, 0);
-    } else if (pathname === '/' && !queryString) {
-      handelFilterChange(filters);
     } else if (JSON.stringify(filters) !== JSON.stringify(prevState.current)) {
       handelFilterChange(filters);
     }
