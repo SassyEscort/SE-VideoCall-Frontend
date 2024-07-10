@@ -14,6 +14,8 @@ export interface Aggregate {
   total_rows: number;
   offset: number;
   page_size: number;
+  disabled: number;
+  enabled: number;
 }
 
 export interface Notification {

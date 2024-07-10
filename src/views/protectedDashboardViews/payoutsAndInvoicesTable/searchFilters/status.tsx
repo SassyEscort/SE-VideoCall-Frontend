@@ -2,16 +2,16 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { StyledSelectInputLabel, UIStyledSelectPastPayout } from 'components/UIComponents/UIStyledSelect';
+import { StyledEarningSelectInputLabel, UIStyledSelectPastPayout } from 'components/UIComponents/UIStyledSelect';
 import { AGES } from 'constants/searchConstants';
 import { FormattedMessage } from 'react-intl';
 
 const Status = () => {
   return (
     <FormControl id="status" sx={{ width: '100%', maxWidth: '116px' }}>
-      <StyledSelectInputLabel>
+      <StyledEarningSelectInputLabel>
         <FormattedMessage id="Status" />
-      </StyledSelectInputLabel>
+      </StyledEarningSelectInputLabel>
       <UIStyledSelectPastPayout
         MenuProps={{ disableScrollLock: true }}
         label="status"

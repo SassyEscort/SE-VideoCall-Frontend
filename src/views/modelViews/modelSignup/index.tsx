@@ -26,6 +26,7 @@ import { FormattedMessage } from 'react-intl';
 import { ModelSignUpUIRemember } from './ModelSignup.styled';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
+import Link from 'next/link';
 
 export type ModelSignupParams = {
   name: string;
@@ -248,13 +249,17 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           <Checkbox sx={{ p: 0, pr: 1 }} checked={isAgreeChecked} onChange={(e) => setIsAgreeChecked(e.target.checked)} />
                           <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
                             <FormattedMessage id="ByClickingYouAgree" />
-                            <span style={{ color: '#FFE500' }}>
-                              <FormattedMessage id="TermsOfService" />
-                            </span>
+                            <Link href="/terms-and-condition">
+                              <span style={{ color: '#FFE500' }}>
+                                <FormattedMessage id="TermsOfService" />
+                              </span>
+                            </Link>
                             <FormattedMessage id="And" />
-                            <span style={{ color: '#FFE500' }}>
-                              <FormattedMessage id="PrivacyPolicy" />
-                            </span>
+                            <Link href="/privacy-statement">
+                              <span style={{ color: '#FFE500' }}>
+                                <FormattedMessage id="PrivacyPolicy" />
+                              </span>
+                            </Link>
                           </UINewTypography>
                         </MenuItem>
                       </ModelUITextConatiner>

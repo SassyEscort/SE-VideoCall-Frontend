@@ -10,6 +10,7 @@ export type ModelFavRes = {
   country: string;
   link: string;
   price_per_minute: number;
+  credits_per_minute: number;
   user_name: string;
   is_online: number;
   cords: string;

@@ -540,5 +540,9 @@
   "Invoices": "Facturas",
   "Client": "Cliente",
   "AmountEarned": "Cantidad ganada",
-  "Durationn": "Duración"
+  "Durationn": "Duración",
+  "MoreButton": "Botón Más",
+  "PleaseWait": "Por favor, espere un momento mientras lo redirigimos a su modelo deseado.",
+  "RedirectingIn": "Redirigiendo en",
+  "Sec": "Seg"
 }

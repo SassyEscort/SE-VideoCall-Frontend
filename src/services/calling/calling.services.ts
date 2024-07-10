@@ -28,6 +28,7 @@ export type CreditCallRes = {
   end_time: string;
   end_call: boolean;
   duration: null | number;
+  out_of_credits: number;
 };
 
 export class CallingService {

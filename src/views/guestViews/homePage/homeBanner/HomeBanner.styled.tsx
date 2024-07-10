@@ -52,7 +52,8 @@ export const InlineBox = styled(Box)(({ theme }) => ({
     fontWeight: 700,
     lineHeight: '50px',
     textAlign: 'center',
-    textWrap: 'nowrap'
+    textWrap: 'nowrap',
+    marginTop: theme.spacing(6.75)
   },
   [theme.breakpoints.down(330)]: {
     textWrap: 'wrap'
@@ -111,6 +112,7 @@ export const InlineBoxRelative = styled(Box)(({ theme }) => ({
 
 export const HomeExploreBox = styled(Box)(({ theme }) => ({
   width: '100%',
+  maxWidth: '669px',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',

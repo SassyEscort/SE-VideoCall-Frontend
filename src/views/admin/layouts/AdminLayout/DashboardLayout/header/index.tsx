@@ -59,7 +59,7 @@ export default function Header({ onOpenNav }: HeaderProps) {
   const [anchorElNotification, setAnchorElNotification] = useState<HTMLButtonElement | null>(null);
 
   const notificationCount = useRef(0);
-  const unReadCount = notificationDetails?.data?.aggregate?.total_rows && notificationDetails?.data?.aggregate?.total_rows > 0;
+  const unReadCount = notificationDetails?.data?.aggregate?.enabled && notificationDetails?.data?.aggregate?.enabled > 0;
 
   const handleChangeFilter = (value: NotificationFiltersDashboard) => {
     setFilters(value);

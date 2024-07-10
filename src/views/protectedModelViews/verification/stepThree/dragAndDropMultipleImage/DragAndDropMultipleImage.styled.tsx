@@ -64,7 +64,7 @@ export const DragAndDropImageMainContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
-  minHeight: 158,
+  minHeight: 159,
   minWidth: 100,
   overflow: 'hidden',
   '&:before': {
