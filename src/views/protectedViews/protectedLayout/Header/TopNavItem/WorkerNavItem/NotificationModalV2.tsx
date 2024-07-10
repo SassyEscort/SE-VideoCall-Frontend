@@ -19,6 +19,7 @@ import {
   IconButtonMainBox,
   NotificationsNoneBox
 } from './Notification.styled';
+import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
 const NotificationModalV2 = ({
   notificationDetails,
@@ -75,9 +76,29 @@ const NotificationModalV2 = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notificationDetails]);
 
+  const handleLoadMoreNotifications = () => {
+    const filter = {
+      ...filters,
+      page: filters.page + 1
+    };
+
+    handleChangeFilter(filter);
+  };
+
   return (
     <>
-      <DrawerBox open={open} anchor="right" onClose={handleClose}>
+      <DrawerBox
+        open={open}
+        anchor="right"
+        onClose={handleClose}
+        sx={{
+          '& .MuiPaper-root': {
+            width: '100%',
+            maxWidth: 480,
+            backgroundColor: 'secondary.dark'
+          }
+        }}
+      >
         <IconButtonMainBox>
           <IconButtonInnerBox>
             <UINewTypography variant="h3" color="text.secondary">
@@ -111,6 +132,16 @@ const NotificationModalV2 = ({
                   <FormattedMessage id="YouHaveNoNotification" />
                 </Typography>
               </NotificationsNoneBox>
+            )}
+            {filters?.page <
+              Math.ceil((existNotifications?.data?.aggregate?.total_rows ?? 0) / (existNotifications?.data?.aggregate?.page_size ?? 1)) && (
+              <Box p={1.5}>
+                <UIThemeButton variant="contained" fullWidth size="small" onClick={handleLoadMoreNotifications} sx={{ p: 1 }}>
+                  <UINewTypography variant="buttonLargeBold">
+                    <FormattedMessage id="MoreButton" />
+                  </UINewTypography>
+                </UIThemeButton>
+              </Box>
             )}
           </Box>
         </ExistNotificationsMainBox>

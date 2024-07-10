@@ -129,6 +129,6 @@ export const DrawerBox = styled(Drawer)(({ theme }) => ({
 }));
 
 export const BoxIconNotification = styled('img')(() => ({
-  width: '30px',
+  width: '25px',
   height: '25px'
 }));
