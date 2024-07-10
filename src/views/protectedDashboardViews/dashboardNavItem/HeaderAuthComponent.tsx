@@ -132,10 +132,6 @@ const DashboadrHeaderAuthComponent = () => {
   const isSmaller = useMediaQuery('(max-width:320px)');
   const isSmUP = useMediaQuery(theme.breakpoints.up('sm'));
 
-  const isVerificationPendingOrCompleted = (step: string | undefined) => {
-    return step === MODEL_ACTIVE_STEP.IN_REVIEW || step === MODEL_ACTIVE_STEP.ONBOARDED || step === MODEL_ACTIVE_STEP.VERIFIED;
-  };
-
   return (
     <>
       <Box
@@ -230,15 +226,20 @@ const DashboadrHeaderAuthComponent = () => {
           </Menu>
           <ProfileMenu profilePic={firstChar} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
         </IconButtonBox>
-        {isSmUP && !isVerificationPendingOrCompleted(modelDetails?.verification_step) && (
-          <Link href="/model/profile">
-            <CompleteProfileBox variant="contained">
-              <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
-                <FormattedMessage id="CompleteYourProfile" />
-              </UINewTypography>
-            </CompleteProfileBox>
-          </Link>
-        )}
+        {isSmUP &&
+          !(
+            modelDetails?.verification_step === MODEL_ACTIVE_STEP.IN_REVIEW ||
+            modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED ||
+            modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED
+          ) && (
+            <Link href="/model/profile">
+              <CompleteProfileBox variant="contained">
+                <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
+                  <FormattedMessage id="CompleteYourProfile" />
+                </UINewTypography>
+              </CompleteProfileBox>
+            </Link>
+          )}
       </Box>
       {notificationDetails && (
         <NotificationModalV2
