@@ -156,7 +156,7 @@ const WorkerCard = ({
                     <FormattedMessage id="NoPrice" />
                   ) : (
                     <>
-                      {modelDetails?.price_per_minute} <FormattedMessage id="CreditsMin" />
+                      {modelDetails?.credits_per_minute} <FormattedMessage id="CreditsMin" />
                     </>
                   )}
                 </UINewTypography>

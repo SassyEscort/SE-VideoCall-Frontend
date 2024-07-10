@@ -26,6 +26,7 @@ export type VerificationStep1Type = {
 export type VideCallPrices = {
   price_per_minute: string;
   price_per_minute_id: string;
+  credits_per_minute: string;
 };
 
 export type ModelDetailsResponse = {
