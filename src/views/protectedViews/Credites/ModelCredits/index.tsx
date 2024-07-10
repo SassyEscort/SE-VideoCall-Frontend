@@ -28,12 +28,12 @@ import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customer
 import { getUserDataClient } from 'utils/getSessionData';
 import Grid from '@mui/material/Grid';
 import { useRouter, useSearchParams } from 'next/navigation';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import CreditsAdded from '../../CreditsAdded/CreditsAdded';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { CircularProgress, Divider, useMediaQuery } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import theme from 'themes/theme';
+import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 
 const ModelCredits = ({ onClose, isOutOfCredits }: { onClose: () => void; isOutOfCredits: boolean }) => {
   const [open, setOpen] = useState(false);
