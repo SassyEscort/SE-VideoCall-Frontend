@@ -1,7 +1,7 @@
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { StyledSelectInputLabel, UIStyledSelectPastPayout } from 'components/UIComponents/UIStyledSelect';
+import { StyledEarningSelectInputLabel, UIStyledSelectPastPayout } from 'components/UIComponents/UIStyledSelect';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import ExpandMore from '@mui/icons-material/ExpandMore';
@@ -10,9 +10,9 @@ import { AGES } from 'constants/searchConstants';
 const AmountRange = () => {
   return (
     <FormControl id="amount" sx={{ width: '100%', maxWidth: '171px' }}>
-      <StyledSelectInputLabel>
+      <StyledEarningSelectInputLabel>
         <FormattedMessage id="AmountRange" />
-      </StyledSelectInputLabel>
+      </StyledEarningSelectInputLabel>
       <UIStyledSelectPastPayout
         MenuProps={{ disableScrollLock: true }}
         label="Amount range"
