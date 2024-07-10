@@ -44,11 +44,16 @@ export class CustomerCredit {
     }
   };
 
-  static modelCreditAmount = async (token: string, customer_plan_id: number, isOutOfCredits: boolean): Promise<ModelCreditURLResponse> => {
+  static modelCreditAmount = async (
+    token: string,
+    customer_plan_id: number,
+    isOutOfCredits: boolean,
+    userName?: string
+  ): Promise<ModelCreditURLResponse> => {
     try {
       const res = await axios.post<ModelCreditURLResponse>(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/payment/stripe`,
-        { customer_plan_id: customer_plan_id, is_out_of_credits: isOutOfCredits },
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/payment/stripe?is_out_of_credits=${isOutOfCredits}&user_name=${userName}`,
+        { customer_plan_id: customer_plan_id },
         {
           headers: {
             'Content-Type': 'application/json',

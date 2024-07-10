@@ -28,6 +28,7 @@ export type ModelHomeListing = {
   rating: number;
   created_at: string;
   price_per_minute: number;
+  credits_per_minute: number;
   link: string;
   is_online: number;
   country: string;

@@ -160,7 +160,7 @@ const Credits = () => {
         </CreditsSubContainer>
       </CreditsMainContainer>
       <UIStyledDialog open={open} maxWidth="md" fullWidth>
-        <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} />
+        <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} isOutOfCredits={false} />
       </UIStyledDialog>
     </MainLayoutNav>
   );
