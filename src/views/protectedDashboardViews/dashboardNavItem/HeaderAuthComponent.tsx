@@ -127,7 +127,7 @@ const DashboadrHeaderAuthComponent = () => {
   }, [token.id, token.token]);
   const firstChar = modelDetails?.name ? modelDetails.name.charAt(0).toUpperCase() : '';
 
-  const unReadCount = notificationDetails?.data?.aggregate?.total_rows && notificationDetails?.data?.aggregate?.total_rows > 0;
+  const unReadCount = notificationDetails?.data?.aggregate?.enabled && notificationDetails?.data?.aggregate?.enabled > 0;
   const isSmaller = useMediaQuery('(max-width:320px)');
 
   return (

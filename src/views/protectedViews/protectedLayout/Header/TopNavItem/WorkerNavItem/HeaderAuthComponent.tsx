@@ -21,7 +21,6 @@ import { IconButtonBoxInner, UnReadCountMain } from 'views/protectedDashboardVie
 import { IconButtonBoxNew } from './Notification.styled';
 import { HeaderMainBox } from './HeaderAuthComponent.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useRouter } from 'next/navigation';
 
 export type NotificationFilters = {
   page: number;
@@ -30,8 +29,6 @@ export type NotificationFilters = {
 };
 
 const HeaderAuthComponent = () => {
-  const route = useRouter();
-  const { refresh } = route;
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
@@ -137,8 +134,11 @@ const HeaderAuthComponent = () => {
     const getCustomerCredit = async () => {
       if (token.token) {
         const getModel = await ModelDetailsService.getModelWithDraw(token.token);
-        setBalance(getModel?.data?.credits);
-        refresh();
+        if (getModel?.data?.credits === null) {
+          setBalance(0);
+        } else {
+          setBalance(getModel?.data?.credits);
+        }
       }
     };
     if (token.token) {
@@ -155,8 +155,10 @@ const HeaderAuthComponent = () => {
     setIsLogoutOpen(false);
   };
 
-  const unReadCount = notificationDetails?.data?.aggregate?.total_rows && notificationDetails?.data?.aggregate?.total_rows > 0;
+  const unReadCount = notificationDetails?.data?.aggregate?.enabled && notificationDetails?.data?.aggregate?.enabled > 0;
+
   const isSmaller = useMediaQuery('(max-width:320px)');
+
   return (
     <>
       <HeaderMainBox

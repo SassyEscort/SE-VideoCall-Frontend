@@ -534,7 +534,7 @@
   "DueToTheIntricacies": "Due to the intricacies of internet functionality and website operations, there may be instances where we do not have full visibility into cookies placed by third parties while using our website. This is especially relevant when our web pages incorporate embedded elements, such as texts, documents, images, or videos hosted by other parties but displayed on, within, or through our website",
   "IfYouEncounterCookies": "If you encounter cookies on this website falling into this category, which we have not specified above, we kindly request that you notify us. Alternatively, you can directly contact the third party responsible for these cookies to inquire about their purpose, lifespan, and privacy safeguards. Your privacy is of utmost importance to us.",
   "Sorry": "Sorry, ",
-  "AnotherCall":"is currently engaged in another call.",
+  "AnotherCall": "is currently engaged in another call.",
   "NoModelsFound": "No Models Found",
   "DataNotFound": "Data not found",
   "BankAccount": "Bank Account",
@@ -544,7 +544,8 @@
   "Client": "Client",
   "AmountEarned": "Amount earned",
   "Durationn": "Duration",
-  "PleaseWait":"Please wait a bit while we redirect you to your desired model.",
-  "RedirectingIn":"Redirecting in",
-  "Sec":"Sec"
+  "MoreButton": "More button",
+  "PleaseWait": "Please wait a bit while we redirect you to your desired model.",
+  "RedirectingIn": "Redirecting in",
+  "Sec": "Sec"
 }
