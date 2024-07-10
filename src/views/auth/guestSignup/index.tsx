@@ -92,6 +92,9 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
             });
             if (loginResponse?.status === 200) {
               refresh();
+              setTimeout(() => {
+                onClose();
+              }, 3000);
             } else {
               setAlert('Login after signup failed. Please log in manually.');
             }

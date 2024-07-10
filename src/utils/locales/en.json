@@ -544,5 +544,8 @@
   "Client": "Client",
   "AmountEarned": "Amount earned",
   "Durationn": "Duration",
-  "MoreButton": "More button"
+  "MoreButton": "More button",
+  "PleaseWait": "Please wait a bit while we redirect you to your desired model.",
+  "RedirectingIn": "Redirecting in",
+  "Sec": "Sec"
 }
