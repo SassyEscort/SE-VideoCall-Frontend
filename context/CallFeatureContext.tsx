@@ -5,7 +5,7 @@ import { Call, CometChat } from '@cometchat/chat-sdk-javascript';
 import { toast } from 'react-toastify';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
-import { CallingService } from 'services/calling/calling.services';
+import { CallingService, CreditCallRes } from 'services/calling/calling.services';
 import { CALLING_STATUS } from 'constants/callingConstants';
 import { CometChatUIKit, UIKitSettingsBuilder } from '@cometchat/chat-uikit-react';
 import { useSession } from 'next-auth/react';
@@ -134,7 +134,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     setIsBusy(false);
   };
 
-  const creditPutCallLog = async (model_id: number, comet_chat_session_id: string, status: string) => {
+  const creditPutCallLog = async (model_id: number, comet_chat_session_id: string, status: string): Promise<CreditCallRes | undefined> => {
     const creditLog = {
       model_id: model_id,
       comet_chat_session_id: comet_chat_session_id,
@@ -153,6 +153,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           await CometChatUIKit.logout();
         }
       }
+      return creditLogData;
     }
   };
 
@@ -243,10 +244,13 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     userToken();
   }, []);
 
-  setInterval(async () => {
+  const intervalId = setInterval(async () => {
     if (isCallAccepted && isCustomer) {
       try {
-        await creditPutCallLog(modelId, sessionId, '');
+        const endCall = await creditPutCallLog(modelId, sessionId, '');
+        if (endCall && endCall.end_call) {
+          clearInterval(intervalId);
+        }
       } catch (error) {
         toast.error(ErrorMessage);
       }
