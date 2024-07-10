@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useMediaQuery } from '@mui/material';
@@ -39,25 +39,15 @@ import {
 
 const WorkerCardMobile = ({
   modelDetails,
-  isFavPage,
-  token,
-  handleLoginLiked,
-  handleLoginOpen,
-  handleLike,
-  liked
+
+  token
 }: {
   modelDetails: BillingDetails;
-  isFavPage?: boolean;
   token?: TokenIdType;
-  handleLoginLiked?: (modelId: number) => void;
-  handleLoginOpen?: () => void;
-  handleLike?: (modelId: number) => void;
-  liked?: boolean;
 }) => {
-  console.log(modelDetails, 'selectDetails work');
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
-
+  const [liked, setLiked] = useState(false);
   const languages = modelDetails?.languages
     ?.map((language) => language?.language_name)
     .sort()
@@ -72,15 +62,12 @@ const WorkerCardMobile = ({
       if (token && token.token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
         if (data?.code === 200) {
-          handleLoginLiked && handleLoginLiked(modelId);
-          handleLike && handleLike(modelId);
+          setLiked(!liked);
         } else {
           toast.error(ErrorMessage);
         }
-      } else {
-        handleLoginOpen && handleLoginOpen();
       }
-    } catch (erro) {
+    } catch (err) {
       toast.error(ErrorMessage);
     }
   };
@@ -89,16 +76,10 @@ const WorkerCardMobile = ({
     <MainWorkerCard>
       <ImgWorkerCard ref={imageUrlRef} />
       <HeartIconWorkerCard>
-        {isFavPage || liked ? (
-          <FavoriteIconContainer sx={{ color: 'error.main' }} />
+        {liked ? (
+          <FavoriteIconContainer sx={{ color: 'error.main' }} onClick={() => handleLikeClick(modelDetails?.model_id)} />
         ) : (
-          <FavoriteBorderIconContainer
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              handleLikeClick(modelDetails?.model_id);
-            }}
-          />
+          <FavoriteBorderIconContainer sx={{ color: 'error.main' }} onClick={() => handleLikeClick(modelDetails?.model_id)} />
         )}
       </HeartIconWorkerCard>
       <WorkerCardContainer>

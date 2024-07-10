@@ -26,6 +26,7 @@ export type VerificationStep1Type = {
 export type VideCallPrices = {
   price_per_minute: string;
   price_per_minute_id: string;
+  credits_per_minute: string;
 };
 
 export type ModelDetailsResponse = {
@@ -45,6 +46,7 @@ export type ModelDetailsResponse = {
   email_verified: number;
   updated_at: string;
   is_online: number;
+  user_name: string;
 };
 
 export type GuestDetailsResponse = {

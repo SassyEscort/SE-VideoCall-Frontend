@@ -55,3 +55,12 @@ export const StyledSelectInputLabel = styled(InputLabel)(({ theme }) => ({
   alignItems: 'center',
   '&.MuiInputLabel-shrink': { top: 0 }
 }));
+
+export const StyledEarningSelectInputLabel = styled(InputLabel)(({ theme }) => ({
+  display: 'flex',
+  top: '-8px',
+  color: theme.palette.secondary[200],
+  gap: theme.spacing(1),
+  alignItems: 'center',
+  '&.MuiInputLabel-shrink': { top: 0 }
+}));

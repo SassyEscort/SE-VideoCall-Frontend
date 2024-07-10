@@ -1,3 +1,4 @@
+'use client';
 import Box from '@mui/material/Box';
 import React, { useCallback, useEffect, useState } from 'react';
 import {

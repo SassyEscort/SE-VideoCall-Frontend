@@ -28,14 +28,14 @@ import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customer
 import { getUserDataClient } from 'utils/getSessionData';
 import Grid from '@mui/material/Grid';
 import { useRouter, useSearchParams } from 'next/navigation';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import CreditsAdded from '../../CreditsAdded/CreditsAdded';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { CircularProgress, Divider, useMediaQuery } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import theme from 'themes/theme';
+import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 
-const ModelCredits = ({ onClose, isOutOfCredits }: { onClose: () => void; isOutOfCredits: boolean }) => {
+const ModelCredits = ({ onClose, isOutOfCredits, userName }: { onClose: () => void; isOutOfCredits: boolean; userName: string }) => {
   const [open, setOpen] = useState(false);
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -76,7 +76,7 @@ const ModelCredits = ({ onClose, isOutOfCredits }: { onClose: () => void; isOutO
 
   const handleCreditClick = async (listCredit: ModelCreditRes) => {
     setIsLoading(true);
-    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, isOutOfCredits);
+    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, isOutOfCredits, userName);
     if (res) {
       router.push(res?.data?.url);
     }
@@ -184,7 +184,7 @@ const ModelCredits = ({ onClose, isOutOfCredits }: { onClose: () => void; isOutO
         </CreditsSubContainer>
       </CreditsMainContainer>
       <UIStyledDialog open={open} maxWidth="md" fullWidth>
-        <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} />
+        <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} isOutOfCredits={isOutOfCredits} />
       </UIStyledDialog>
     </>
   );

@@ -95,7 +95,9 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ handelFilterChange }) => 
       if (isDetailsPage) {
         router.push(pathname);
       } else {
-        router.push('/');
+        console.log('elseee');
+
+        // router.push('/');
       }
     } else {
       if (isMultiple.length) {

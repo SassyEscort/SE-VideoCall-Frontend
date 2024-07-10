@@ -42,7 +42,6 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
   const router = useRouter();
 
   const { handleCallInitiate, call, isCallEnded } = useCallFeatureContext();
-  console.log(selectDetails, 'selectDetails');
   const callDurationString = selectDetails.call_duration;
   const callDuration = moment.duration(callDurationString);
   const hours = Math.floor(callDuration.asHours());
