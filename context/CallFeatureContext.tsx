@@ -13,7 +13,7 @@ import { User } from 'app/(guest)/layout';
 import { ErrorMessage } from 'constants/common.constants';
 import { COMETCHAT_CONSTANTS } from 'views/protectedViews/callingFeature/CallInitialize';
 import { CometChatCalls } from '@cometchat/calls-sdk-javascript';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import { ModelCreditsUIStyledDialog } from 'components/UIComponents/UIStyledDialog';
 import ModelCredits from 'views/protectedViews/Credites/ModelCredits';
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
@@ -314,9 +314,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       }}
     >
       {children}
-      <UIStyledDialog open={open} maxWidth="md" fullWidth scroll="body">
+      <ModelCreditsUIStyledDialog open={open} maxWidth="md" fullWidth scroll="body">
         <ModelCredits onClose={handleClose} isOutOfCredits={isOutOfCredits} userName={userName} />
-      </UIStyledDialog>
+      </ModelCreditsUIStyledDialog>
     </CallContext.Provider>
   );
 };
