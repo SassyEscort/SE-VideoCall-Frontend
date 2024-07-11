@@ -1,14 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
-import { ModelHomeListing } from 'services/modelListing/modelListing.services';
+import { BillingDetails } from 'services/modelListing/modelListing.services';
 import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
 import useImageOptimize from 'hooks/useImageOptimize';
 import { countryWithFlag } from 'constants/country';
-import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { toast } from 'react-toastify';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
@@ -38,31 +37,22 @@ import {
   WorkerCardContainer
 } from './mobileWorkerCard.styled';
 
-const WorkerCard = ({
+const WorkerCardMobile = ({
   modelDetails,
-  isFavPage,
-  token,
-  handleLoginLiked,
-  handleLoginOpen,
-  handleLike,
-  liked
+
+  token
 }: {
-  modelDetails: ModelHomeListing | ModelFavRes;
-  isFavPage?: boolean;
+  modelDetails: BillingDetails;
   token?: TokenIdType;
-  handleLoginLiked?: (modelId: number) => void;
-  handleLoginOpen?: () => void;
-  handleLike?: (modelId: number) => void;
-  liked?: boolean;
 }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
-
+  const [liked, setLiked] = useState(false);
   const languages = modelDetails?.languages
     ?.map((language) => language?.language_name)
     .sort()
     .join(', ');
-  const modelFlag = countryWithFlag.filter((country) => country.name === modelDetails?.country).map((data) => data.flag)[0];
+  const modelFlag = countryWithFlag.filter((country) => country.name === modelDetails?.country_name).map((data) => data.flag)[0];
   const imageUrlRef = useRef<HTMLElement>();
 
   useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails?.cords);
@@ -72,33 +62,24 @@ const WorkerCard = ({
       if (token && token.token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
         if (data?.code === 200) {
-          handleLoginLiked && handleLoginLiked(modelId);
-          handleLike && handleLike(modelId);
+          setLiked(!liked);
         } else {
           toast.error(ErrorMessage);
         }
-      } else {
-        handleLoginOpen && handleLoginOpen();
       }
-    } catch (erro) {
+    } catch (err) {
       toast.error(ErrorMessage);
     }
   };
 
   return (
     <MainWorkerCard>
-      <ImgWorkerCard />
+      <ImgWorkerCard ref={imageUrlRef} />
       <HeartIconWorkerCard>
-        {isFavPage || liked ? (
-          <FavoriteIconContainer sx={{ color: 'error.main' }} />
+        {liked ? (
+          <FavoriteIconContainer sx={{ color: 'error.main' }} onClick={() => handleLikeClick(modelDetails?.model_id)} />
         ) : (
-          <FavoriteBorderIconContainer
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              handleLikeClick(modelDetails?.id);
-            }}
-          />
+          <FavoriteBorderIconContainer sx={{ color: 'error.main' }} onClick={() => handleLikeClick(modelDetails?.model_id)} />
         )}
       </HeartIconWorkerCard>
       <WorkerCardContainer>
@@ -107,7 +88,7 @@ const WorkerCard = ({
             <ProfileCardContainer>
               <NameCardContainer>
                 <UINewTypography variant="newTitle" color="#ffff">
-                  {modelDetails?.name}
+                  {modelDetails?.model_name}
                 </UINewTypography>
                 {modelDetails?.is_online === 1 ? (
                   <>
@@ -128,11 +109,11 @@ const WorkerCard = ({
                 <CreditContainer>
                   <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
                   <UINewTypography variant="captionLargeBold" color="text.secondary">
-                    {!modelDetails?.price_per_minute ? (
+                    {!modelDetails?.credits_per_minute ? (
                       <FormattedMessage id="NoPrice" />
                     ) : (
                       <>
-                        {modelDetails?.price_per_minute} <FormattedMessage id="CreditsMin" />
+                        {modelDetails?.credits_per_minute} <FormattedMessage id="CreditsMin" />
                       </>
                     )}
                   </UINewTypography>
@@ -142,7 +123,7 @@ const WorkerCard = ({
             <SecondMainContainerWorkerCard>
               <SecondSubContainerWorkerCard>
                 <UITypographyBox variant="SubtitleSmallMedium" color="text.primary">
-                  {moment().diff(modelDetails?.dob, 'years')}
+                  {moment().diff(modelDetails?.model_dob, 'years')}
                 </UITypographyBox>
                 <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
                 <UITypographyBoxContainer variant="SubtitleSmallMedium">{languages}</UITypographyBoxContainer>
@@ -152,11 +133,11 @@ const WorkerCard = ({
               <CreditContainer sx={{ marginTop: isSmallScreen ? 1.5 : 1 }}>
                 <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
                 <UINewTypography variant="captionLargeBold" color="text.secondary">
-                  {!modelDetails?.price_per_minute ? (
+                  {!modelDetails?.credits_per_minute ? (
                     <FormattedMessage id="NoPrice" />
                   ) : (
                     <>
-                      {modelDetails?.price_per_minute} <FormattedMessage id="CreditsMin" />
+                      {modelDetails?.credits_per_minute} <FormattedMessage id="CreditsMin" />
                     </>
                   )}
                 </UINewTypography>
@@ -169,4 +150,4 @@ const WorkerCard = ({
   );
 };
 
-export default WorkerCard;
+export default WorkerCardMobile;

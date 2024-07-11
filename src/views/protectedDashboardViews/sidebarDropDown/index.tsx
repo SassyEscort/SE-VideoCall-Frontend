@@ -10,8 +10,8 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import UploadImage from 'views/protectedModelViews/verification/stepThree/uploadImage';
 import VerificationStepOne from 'views/protectedModelViews/verification/stepOne';
 import DashboardPriceView from '../dashboardPriceView';
-import { SelectDropdown } from './SidebarDropDown.styled';
-import { Box, SelectChangeEvent } from '@mui/material';
+import { LoadingBoxAdd, SelectDropdown } from './SidebarDropDown.styled';
+import { Box, SelectChangeEvent, CircularProgress } from '@mui/material';
 
 const profileMenuList = [
   { menuName: <FormattedMessage id="Photos" />, id: 0 },
@@ -29,9 +29,16 @@ const MobileSidebar = ({
   handleModelApiChange: () => void;
 }) => {
   const [menuId, setMenuId] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleMenu = (event: SelectChangeEvent<unknown>) => {
+    setIsLoading(true);
     setMenuId(Number(event.target.value));
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500); // Simula un tiempo de carga
   };
+
   const handleSave = () => {
     setMenuId(0);
   };
@@ -39,6 +46,7 @@ const MobileSidebar = ({
   const handleSaveDetails = () => {
     setMenuId(1);
   };
+
   const modelPhotos = useMemo(() => modelDetails?.photos?.filter((data) => !data.is_document), [modelDetails?.photos]);
 
   return (
@@ -70,7 +78,11 @@ const MobileSidebar = ({
           </MenuItem>
         ))}
       </SelectDropdown>
-      {menuId === 0 ? (
+      {isLoading ? (
+        <LoadingBoxAdd>
+          <CircularProgress />
+        </LoadingBoxAdd>
+      ) : menuId === 0 ? (
         <Box mt={2}>
           <UploadImage
             isEdit={true}

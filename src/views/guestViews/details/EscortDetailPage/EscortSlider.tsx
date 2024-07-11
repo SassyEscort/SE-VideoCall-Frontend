@@ -146,7 +146,7 @@ export const EscortSlider = ({
                   <FirstSwiperBlurContainer>
                     <SecondSwiperBlurContainer
                       sx={{
-                        backgroundImage: `url(${imageSrc.link})`
+                        backgroundImage: `url(${imageSrc.file_type === 'Non_Image' ? imageSrc.link : imageSrc.link})`
                       }}
                     />
                     <EscortSwiperPhotoContainer
@@ -255,7 +255,7 @@ export const EscortSlider = ({
             onClose={handleLoginClose}
             onSignupOpen={handleSignupOpen}
             onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
-            image="/images/auth/auth-model.webp"
+            image="/images/auth/auth-model1.webp"
           />
         </UIStyledDialog>
         <UIStyledDialog open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>

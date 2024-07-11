@@ -37,7 +37,9 @@ export interface ModelEarningHistoryPageDetailsRes extends GenericRes {
 
 export type CallType = {
   month: string;
-  total_amount: number;
+  amount: number;
+  minutes: number;
+  total_minutes: number;
 };
 
 export type CallTypeModel = {

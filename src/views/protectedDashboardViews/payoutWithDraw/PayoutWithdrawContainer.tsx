@@ -230,7 +230,11 @@ const PayoutWithdrawContainer = ({
                               id="amount"
                               name="amount"
                               value={values.amount}
-                              onChange={handleChange}
+                              onChange={(e) => {
+                                if (e.target.value.length <= 5) {
+                                  handleChange(e);
+                                }
+                              }}
                               onBlur={handleBlur}
                               error={touched.amount && Boolean(errors.amount)}
                               helperText={touched.amount && errors.amount}

@@ -71,6 +71,9 @@ export const SecondSubFirstBox = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(2.375)
+  },
+  [theme.breakpoints.only('xs')]: {
+    gap: theme.spacing(2.125)
   }
 }));
 
@@ -93,30 +96,32 @@ export const SecondSubFirstPartBox = styled(Box)(({ theme }) => ({
 export const WorkerImg = styled('img')(({ theme }) => ({
   width: '100%',
   minWidth: '80px',
-  height: '100%',
-  maxHeight: '80px',
-  borderRadius: theme.spacing(1.5),
-  objectFit: 'contain'
+  height: '80px',
+  borderRadius: theme.spacing(1.5)
 }));
 
 export const SecondSubFirstPartSecondBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '141px',
   height: '100%',
   maxHeight: '80px',
-  gap: theme.spacing(1.875)
+  gap: theme.spacing(1.875),
+  [theme.breakpoints.only('lg')]: {
+    minWidth: '141px'
+  }
 }));
 
 export const SecondSubFirstPartSecondBoxFirstText = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '141px',
   height: '100%',
   maxHeight: '48px',
-  gap: theme.spacing(0.75)
+  gap: theme.spacing(0.75),
+  [theme.breakpoints.up('lg')]: {
+    minWidth: '141px'
+  }
 }));
 
 export const SecondSubFirstPartSecondBoxSecText = styled(Box)(({ theme }) => ({
@@ -124,11 +129,13 @@ export const SecondSubFirstPartSecondBoxSecText = styled(Box)(({ theme }) => ({
   flexDirection: 'row',
   gap: theme.spacing(1),
   width: '100%',
-  maxWidth: '141px',
   height: '100%',
   maxHeight: '17px',
   [theme.breakpoints.up('sm')]: {
     whiteSpace: 'nowrap'
+  },
+  [theme.breakpoints.only('lg')]: {
+    minWidth: '141px'
   }
 }));
 
@@ -240,6 +247,18 @@ export const SecTextContainer = styled(Typography)(({ theme }) => ({
     fontSize: '14px',
     fontWeight: 500,
     lineHeight: '16.8px'
+  },
+  [theme.breakpoints.only('md')]: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    maxWidth: '50px'
+  },
+  [theme.breakpoints.only('sm')]: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    maxWidth: '75px'
   }
 }));
 
