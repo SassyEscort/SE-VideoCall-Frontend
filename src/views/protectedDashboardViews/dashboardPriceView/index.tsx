@@ -32,6 +32,7 @@ import { CommonServices } from 'services/commonApi/commonApi.services';
 import { RiArrowLeftLine, RiArrowRightLine } from 'components/common/customRemixIcons';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { InputAdornment } from '@mui/material';
+
 export type PricePerMinute = {
   price_per_minute: number;
 };
@@ -151,6 +152,7 @@ const DashboardPriceView = ({
         <TextConatiner color="text.secondary">
           {isEdit ? <FormattedMessage id={isSm ? 'MyProfile' : 'SetOrModifyYourPrices'} /> : <FormattedMessage id={'SetupYour'} />}
         </TextConatiner>
+
         <SecondConatiner>
           <VideoCall sx={{ alignItems: isEdit ? 'flex-start' : 'center', maxWidth: isEdit ? '680px' : '680px' }}>
             <UINewTypography variant={isEdit ? `body` : `bodyRegular`} color={isEdit ? `text.secondary` : `text.primary`}>

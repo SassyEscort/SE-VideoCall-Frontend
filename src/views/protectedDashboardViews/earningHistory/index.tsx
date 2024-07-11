@@ -20,6 +20,8 @@ import { ErrorMessage } from 'constants/common.constants';
 import { ModelEarningHistoryPageDetailsRes } from 'services/modelEarningHistory/typs';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
+import { LoaderBox } from '../payoutRequest/PayoutRequest.styled';
+import { CircularProgress } from '@mui/material';
 import {
   ProfileDOBContainer,
   ProfileDOBMainContainer,
@@ -49,6 +51,8 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
 
   const [modelEarningHistory, setModelEarningHistory] = useState<ModelEarningHistoryPageDetailsRes>();
   const [total_rows, setTotalRows] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [filters, setFilters] = useState<EarningPaginationType>({
     page: 1,
     limit: 20,
@@ -130,11 +134,13 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
           limit: filters.limit,
           offset: filters.offset
         };
+        setIsLoading(true);
         const data = await ModelEarningHistoryService.getEarningHistoryDetails(params, token.token);
 
         if (data) {
           setModelEarningHistory(data);
           setTotalRows(data.data.aggregate.total_rows);
+          setIsLoading(false);
         }
       } catch (error) {
         toast.error(ErrorMessage);
@@ -222,27 +228,36 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
             </UINewTypography>
           </EarningHistorySecBoxContainer>
 
-          <EarningHistoryLastBoxContainer id="tableSection">
-            <MainTableLayout modelEarningHistory={modelEarningHistory ?? ({} as ModelEarningHistoryPageDetailsRes)} />
-          </EarningHistoryLastBoxContainer>
-          <EarningHistoryPagination>
-            {total_rows > 0 && (
-              <PaginationBox>
-                <UITheme2Pagination
-                  page={filters.page}
-                  count={modelEarningHistory ? Math.ceil(modelEarningHistory.data.aggregate.total_rows / filters.limit) : 1}
-                  onChange={handleChangePage}
-                />
-                <PaginationInWords
-                  page={filters.page}
-                  limit={filters.limit}
-                  total_rows={total_rows}
-                  offset={filters.offset}
-                  isCall={true}
-                />
-              </PaginationBox>
-            )}
-          </EarningHistoryPagination>
+          {isLoading ? (
+            <LoaderBox>
+              <CircularProgress />
+            </LoaderBox>
+          ) : (
+            <>
+              <EarningHistoryLastBoxContainer id="tableSection">
+                <MainTableLayout modelEarningHistory={modelEarningHistory ?? ({} as ModelEarningHistoryPageDetailsRes)} />
+              </EarningHistoryLastBoxContainer>
+
+              <EarningHistoryPagination>
+                {total_rows > 0 && (
+                  <PaginationBox>
+                    <UITheme2Pagination
+                      page={filters.page}
+                      count={modelEarningHistory ? Math.ceil(modelEarningHistory.data.aggregate.total_rows / filters.limit) : 1}
+                      onChange={handleChangePage}
+                    />
+                    <PaginationInWords
+                      page={filters.page}
+                      limit={filters.limit}
+                      total_rows={total_rows}
+                      offset={filters.offset}
+                      isCall={true}
+                    />
+                  </PaginationBox>
+                )}
+              </EarningHistoryPagination>
+            </>
+          )}
         </EarningHistoryFirstBoxContainer>
       </EarningHistoryMainContainer>
     </HomeMainContainer>

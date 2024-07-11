@@ -13,6 +13,7 @@ export type CallHistoryDetails = {
   price_per_minute: number;
   link: null | string;
   languages: CallHistoryLanguages[];
+  user_name: string;
 };
 
 export type CallHistoryLanguages = {
