@@ -48,7 +48,8 @@ const WorkerNavItem = () => {
         sx={{
           backgroundColor: 'secondary.dark',
           pr: '0 !important',
-          boxShadow: 'none'
+          boxShadow: 'none',
+          zIndex: 98
         }}
       >
         <WorkerNavItemContainer disableGutters>
