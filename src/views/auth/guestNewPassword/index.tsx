@@ -87,8 +87,8 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
             <AuthCommon
               variant="resetPassword"
               onClose={onClose}
-              image="images/auth/auth-model.webp"
-              mobileImage="images/auth/auth-model.webp"
+              image="images/auth/auth-model1.png"
+              mobileImage="images/auth/auth-model1.png"
             >
               <Box
                 position="relative"
