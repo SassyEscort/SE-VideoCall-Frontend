@@ -203,7 +203,7 @@ const EscortSliderMobile = ({
           onClose={handleLoginClose}
           onSignupOpen={handleSignupOpen}
           onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
-          image="/images/auth/auth-model1.png"
+          image="/images/auth/auth-model1.webp"
         />
       </UIStyledDialog>
       <UIStyledDialog open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>

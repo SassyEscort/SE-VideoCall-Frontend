@@ -251,7 +251,7 @@ const HomeTopBanner = () => {
           onClose={handleLoginClose}
           onSignupOpen={handleSignupOpen}
           onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
-          image="/images/auth/auth-model1.png"
+          image="/images/auth/auth-model1.webp"
         />
       </Dialog>
       <Dialog

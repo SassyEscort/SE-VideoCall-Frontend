@@ -17,6 +17,7 @@ import ModelForgetPasswordLink from '../modelForgetPasswordLink';
 import ModelNewPassword from '../ModelNewPassword';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import { FormattedMessage } from 'react-intl';
+import { HeaderBoxContainer } from './ModelLayout.styled';
 
 const HeaderModelComponent = () => {
   const url = new URL(window.location.href);
@@ -156,20 +157,20 @@ const HeaderModelComponent = () => {
                 </IconButton>
               )} */}
               {!isMdUp && (
-                <Box display="flex" alignItems="center" gap={1} onClick={handleLoginOpen} sx={{ cursor: 'pointer' }}>
+                <HeaderBoxContainer onClick={handleLoginOpen}>
                   <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
                   <Typography variant="buttonLargeMenu" color="text.secondary">
                     <FormattedMessage id="LogIn" />
                   </Typography>
-                </Box>
+                </HeaderBoxContainer>
               )}
               {isMdUp && (
-                <Box display="flex" alignItems="center" gap={1} onClick={handleLoginOpen} sx={{ cursor: 'pointer' }}>
+                <HeaderBoxContainer onClick={handleLoginOpen}>
                   <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
                   <Typography variant="buttonLargeMenu" color="text.secondary">
                     <FormattedMessage id="LogIn" />
                   </Typography>
-                </Box>
+                </HeaderBoxContainer>
               )}
               {/* {isMdUp && (
                 <UIThemeShadowButton variant="contained" onClick={handleSignupOpen} sx={{ width: '195px' }}>

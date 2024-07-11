@@ -80,7 +80,7 @@ const GuestLogin = ({
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
-            <AuthCommon onClose={onClose} image={image} mobileImage="images/auth/auth-model1.png">
+            <AuthCommon onClose={onClose} image={image} mobileImage="images/auth/auth-model1.webp">
               <Box
                 position="relative"
                 width="100%"
