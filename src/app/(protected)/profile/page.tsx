@@ -1,5 +1,3 @@
-'use client';
-
 import ProfilePage from 'views/protectedViews';
 
 const index = () => {
