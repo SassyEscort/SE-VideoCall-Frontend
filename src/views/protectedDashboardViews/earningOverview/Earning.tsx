@@ -116,7 +116,7 @@ const Earnings = () => {
 
   useEffect(() => {
     const creditDataDates =
-      modelDetails?.calls && modelDetails?.calls?.length ? modelDetails?.calls?.map((item) => item.total_amount) : ([] as string[]);
+      modelDetails?.calls && modelDetails?.calls?.length ? modelDetails?.calls?.map((item) => item.total_minutes) : ([] as string[]);
 
     const allDates = [...creditDataDates];
     const uniqueDates = Array.from(new Set(allDates)).sort();
@@ -126,7 +126,7 @@ const Earnings = () => {
   }, [modelDetails?.calls]);
 
   useEffect(() => {
-    const creditsSeriesData = modelDetails?.calls?.map((crData) => [moment(crData.total_amount).unix() * 1000, crData.total_amount]);
+    const creditsSeriesData = modelDetails?.calls?.map((crData) => [moment(crData.total_minutes).unix() * 1000, crData.minutes]);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const series: any = [];

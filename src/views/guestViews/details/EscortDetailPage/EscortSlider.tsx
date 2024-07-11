@@ -146,7 +146,7 @@ export const EscortSlider = ({
                   <FirstSwiperBlurContainer>
                     <SecondSwiperBlurContainer
                       sx={{
-                        backgroundImage: `url(${imageSrc.link})`
+                        backgroundImage: `url(${imageSrc.file_type === 'Non_Image' ? imageSrc.link : imageSrc.link})`
                       }}
                     />
                     <EscortSwiperPhotoContainer
