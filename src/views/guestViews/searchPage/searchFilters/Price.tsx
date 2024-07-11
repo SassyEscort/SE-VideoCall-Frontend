@@ -5,7 +5,6 @@ import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { StyledSelectInputLabel, UIStyledSelect } from 'components/UIComponents/UIStyledSelect';
 import { SEARCH_PRICES } from 'constants/searchConstants';
-import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { DollarImageContainer, StyledClearIcon } from '../Search.styled';
 import theme from 'themes/theme';
@@ -17,22 +16,17 @@ interface PriceFilterProps {
 }
 
 const Price: React.FC<PriceFilterProps> = ({ fromValue, toValue, onChange }) => {
-  const [from, setFrom] = useState(fromValue);
-  const [to, setTo] = useState(toValue);
-
   let renderValue = '';
-  if (from > '0') renderValue = to === '' && from > '0' ? '1000+' : `${from}-${to}`;
+  if (fromValue > '0') renderValue = toValue === '' && fromValue > '0' ? '1000+' : `${fromValue}-${toValue}`;
 
   const handleClear = () => {
-    setFrom('');
-    setTo('');
+    renderValue = '';
     onChange({ target: { value: '' } } as SelectChangeEvent<unknown>, null);
   };
   const handleChange = (event: SelectChangeEvent<unknown>, child: React.ReactNode) => {
     const selectedValue = event.target.value as string;
     const [fromdata, todata] = selectedValue.split('-');
-    setFrom(fromdata);
-    setTo(todata || '');
+    renderValue = fromdata ? `${fromdata}-${todata}` : '';
     onChange(event, child);
   };
 
