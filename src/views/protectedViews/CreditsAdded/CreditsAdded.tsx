@@ -97,7 +97,8 @@ function CreditsAdded({
             </UINewTypography>
             <UINewTypography variant="body">
               <FormattedMessage id="RedirectingIn" />
-              {redirectSeconds} <FormattedMessage id="Sec" />
+              {redirectSeconds} {''}
+              <FormattedMessage id="Sec" />
             </UINewTypography>
           </>
         )}

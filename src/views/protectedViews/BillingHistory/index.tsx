@@ -1,25 +1,22 @@
+'use client';
 import Box from '@mui/material/Box';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   BillingHistoryBoxContainer,
-  BillingHistoryMainContainer,
+  TextAndBoxContainer,
   BillingHistoryTextContainer,
-  BillingPaginationBox,
+  BillingHistoryMainContainer,
   BillingUIContainer,
   DateTimeBilling,
-  DividerContainer,
   DollarBillingValue,
-  FirstBoxContainer,
-  FirstTextContainer,
-  TextAndBoxContainer,
   TextBoxContainer,
-  TextMainContainer
+  BillingPaginationBox
 } from './BillingHistory.styled';
 import MainLayoutNav from '../protectedLayout';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
-import { CallHistoryPaginationContainer } from '../CallHistory/CallHistory.styled';
+import { CallHistoryPaginationContainer, DividerContainer, FirstBoxContainer, FirstTextContainer } from '../CallHistory/CallHistory.styled';
 import { BillingHistoryDetails } from 'services/guestBilling/types';
 import { toast } from 'react-toastify';
 import { ModelBillingHistoryService } from 'services/guestBilling/guestBillingHistory.services';
@@ -29,7 +26,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import moment from 'moment';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { CircularProgress } from '@mui/material';
-import { LoaderBox } from '../Credites/Credits.styled';
+import { LoaderBox, TextMainContainer } from '../Credites/Credits.styled';
 import BillingDetails from '../bilingDetails';
 
 export type billingHistoryParams = {

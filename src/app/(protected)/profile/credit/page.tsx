@@ -1,5 +1,3 @@
-'use client';
-
 import Credits from 'views/protectedViews/Credites';
 
 const CreditsPage = () => {

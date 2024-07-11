@@ -1,5 +1,3 @@
-'use client';
-
 import Favorites from 'views/protectedViews/Favorite';
 
 const FavoritesPage = () => {
