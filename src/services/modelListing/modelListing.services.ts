@@ -94,5 +94,6 @@ export type BillingDetails = {
   model_name: string;
   price_per_minute: number;
   cords: string;
+  user_name: string;
   wallet_id: number;
 };

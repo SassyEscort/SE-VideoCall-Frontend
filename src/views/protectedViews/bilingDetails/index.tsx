@@ -38,7 +38,7 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
   const [isCreditAvailable, setIsCreditAvailable] = React.useState(false);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [callTime, setCallTime] = useState(0);
-  const [guestData, setguestData] = useState(0);
+  const [guestData, setGuestData] = useState(0);
   const router = useRouter();
 
   const { handleCallInitiate, call, isCallEnded } = useCallFeatureContext();
@@ -154,8 +154,15 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
             <ButtonMainContainer>
               <UIThemeShadowButton
                 onClick={() => {
-                  handleCallInitiate(guestData, isCreditAvailable, callTime, selectDetails.name, selectDetails.link);
-                  setguestData(selectDetails.id);
+                  handleCallInitiate(
+                    guestData,
+                    isCreditAvailable,
+                    callTime,
+                    selectDetails.name,
+                    selectDetails.link,
+                    selectDetails.user_name
+                  );
+                  setGuestData(selectDetails.id);
                 }}
                 sx={{
                   height: 'auto',

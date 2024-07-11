@@ -33,3 +33,17 @@ export const SelectDropdown = styled(Select)(({ theme }) => ({
     color: 'rgba(183, 181, 185, 1)'
   }
 }));
+
+export const LoadingBoxAdd = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginTop: theme.spacing(8)
+}));
+
+export const LoadingBoxFullScreen = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%'
+}));
