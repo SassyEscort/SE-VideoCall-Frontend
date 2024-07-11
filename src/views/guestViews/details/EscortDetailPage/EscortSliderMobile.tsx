@@ -36,12 +36,14 @@ const EscortSliderMobile = ({
   workerPhotos,
   modelId,
   token,
-  handleCallInitiate
+  handleCallInitiate,
+  isCustomer
 }: {
   workerPhotos: WorkerPhotos[];
   modelId: number;
   token: TokenIdType;
   handleCallInitiate: () => void;
+  isCustomer: boolean;
 }) => {
   const isLg = useMediaQuery(theme.breakpoints.up('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
@@ -164,7 +166,7 @@ const EscortSliderMobile = ({
       >
         <Box sx={{ width: '100%' }}>
           <UIThemeShadowButton
-            onClick={handleCallInitiate}
+            onClick={isCustomer ? handleCallInitiate : handleLoginOpen}
             sx={{
               padding: 0,
               minWidth: isLg ? '660px' : isSm ? '200px' : '271px',

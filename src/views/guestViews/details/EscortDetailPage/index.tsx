@@ -33,7 +33,7 @@ const EscortDetailPage = () => {
   const [callTime, setCallTime] = useState(0);
   const modelPhoto = guestData?.photos?.filter((x) => x.favourite).map((item) => item.link)[0];
 
-  const { handleCallInitiate, call, isLoading, isCallEnded } = useCallFeatureContext();
+  const { handleCallInitiate, call, isLoading, isCallEnded, isCustomer } = useCallFeatureContext();
 
   useEffect(() => {
     const userToken = async () => {
@@ -44,7 +44,7 @@ const EscortDetailPage = () => {
     };
 
     userToken();
-  }, [userName]);
+  }, [userName, isCustomer]);
 
   useEffect(() => {
     const fetchGuestData = async () => {
@@ -94,6 +94,7 @@ const EscortDetailPage = () => {
               modelId={guestData?.id ?? 0}
               token={token}
               handleCallInitiate={() => handleCallInitiate(guestData?.id, isCreditAvailable, callTime, guestData?.name, modelPhoto ?? '')}
+              isCustomer={isCustomer}
             />
           ) : (
             guestData && (
@@ -102,6 +103,7 @@ const EscortDetailPage = () => {
                 modelId={guestData?.id ?? 0}
                 token={token}
                 handleCallInitiate={() => handleCallInitiate(guestData?.id, isCreditAvailable, callTime, guestData?.name, modelPhoto ?? '')}
+                isCustomer={isCustomer}
               />
             )
           )}
