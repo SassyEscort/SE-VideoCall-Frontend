@@ -140,6 +140,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
 
   const handleClose = () => {
     setOpen(false);
+    setOpenSuccess(false);
   };
 
   const handleBusyClose = () => {
@@ -327,7 +328,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         <ModelCredits onClose={handleClose} isOutOfCredits={isOutOfCredits} userName={userName} />
       </ModelCreditsUIStyledDialog>
       <UIStyledDialog open={openSuccess} maxWidth="md" fullWidth>
-        <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} isOutOfCredits={isOutOfCredits} />
+        <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} isOutOfCredits={true} />
       </UIStyledDialog>
     </CallContext.Provider>
   );
