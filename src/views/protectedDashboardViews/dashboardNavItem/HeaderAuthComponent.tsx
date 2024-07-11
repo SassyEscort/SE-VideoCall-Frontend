@@ -14,11 +14,12 @@ import Logout from 'views/protectedViews/logout';
 import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import Link from 'next/link';
-import { IconButtonBox, IconButtonBoxInner, UnReadCountMain } from './DashboardMenu.styled';
+import { CompleteProfileBox, IconButtonBox, IconButtonBoxInner, UnReadCountMain } from './DashboardMenu.styled';
 import NotificationModalV2 from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/NotificationModalV2';
 import { NotificationDetailsService } from 'services/notification/notification.services';
 import { Root } from 'services/notification/type';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 
 export type NotificationFilters = {
   page: number;
@@ -129,6 +130,7 @@ const DashboadrHeaderAuthComponent = () => {
 
   const unReadCount = notificationDetails?.data?.aggregate?.enabled && notificationDetails?.data?.aggregate?.enabled > 0;
   const isSmaller = useMediaQuery('(max-width:320px)');
+  const isSmUP = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
     <>
@@ -224,6 +226,20 @@ const DashboadrHeaderAuthComponent = () => {
           </Menu>
           <ProfileMenu profilePic={firstChar} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
         </IconButtonBox>
+        {isSmUP &&
+          !(
+            modelDetails?.verification_step === MODEL_ACTIVE_STEP.IN_REVIEW ||
+            modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED ||
+            modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED
+          ) && (
+            <Link href="/model/profile">
+              <CompleteProfileBox variant="contained">
+                <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
+                  <FormattedMessage id="CompleteYourProfile" />
+                </UINewTypography>
+              </CompleteProfileBox>
+            </Link>
+          )}
       </Box>
       {notificationDetails && (
         <NotificationModalV2

@@ -7,7 +7,6 @@ import { StyledSelectInputLabel, UIStyledSelect } from 'components/UIComponents/
 import { AGES } from 'constants/searchConstants';
 import { FormattedMessage } from 'react-intl';
 import { StyledClearIcon } from '../Search.styled';
-import { useState } from 'react';
 import theme from 'themes/theme';
 interface AgeFilterProps {
   toAge: string;
@@ -15,25 +14,20 @@ interface AgeFilterProps {
   onChange: (event: SelectChangeEvent<unknown>, child: React.ReactNode) => void;
 }
 const AgeFilter: React.FC<AgeFilterProps> = ({ fromAge, toAge, onChange }) => {
-  const [from, setFrom] = useState(fromAge);
-  const [to, setTo] = useState(toAge);
-
-  const renderValue = from ? `${from}-${to}` : '';
+  let renderValue = fromAge ? `${fromAge}-${toAge}` : '';
 
   const handleClear = () => {
-    setFrom('');
-    setTo('');
+    renderValue = '';
     onChange({ target: { value: '' } } as SelectChangeEvent<unknown>, null);
   };
 
   const handleChange = (event: SelectChangeEvent<unknown>, child: React.ReactNode) => {
     const selectedValue = event.target.value as string;
     const [fromdata, todata] = selectedValue.split('-');
-    setFrom(fromdata);
-    setTo(todata || '');
+
+    renderValue = fromdata ? `${fromdata}-${todata}` : '';
     onChange(event, child);
   };
-
   return (
     <FormControl id="age" sx={{ width: '100%', maxWidth: { lg: '203px', sm: '235px' } }}>
       <StyledSelectInputLabel>

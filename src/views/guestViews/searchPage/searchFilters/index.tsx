@@ -83,17 +83,17 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ handelFilterChange }) => 
     let filterCount = Object.keys(objParams).length;
     const queryString = new URLSearchParams(objParams).toString();
 
-    if (pathname === '/' && filterCount === 0) router.push('/search');
+    if (pathname === '/' && filterCount === 0) router.push('/');
     if (pathname === '/' && filterCount === 1 && objParams.page) return;
 
     const isDetailsPage = pathname.startsWith('/details/');
     const isMultiple = ['language', 'isOnline', 'page', 'fromPrice', 'fromAge', 'toPrice', 'country', 'sortOrder', 'sortField'].filter(
       (x) => Object.keys(objParams).includes(x)
     );
-
     if (filterCount === 0) {
       if (isDetailsPage) {
-        router.push(pathname);
+        const credit = searchParams.get('credit');
+        if (!credit) router.push(pathname);
       } else {
         router.push('/');
       }
@@ -120,6 +120,9 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ handelFilterChange }) => 
 
   const handleCountryChange = (event: SelectChangeEvent<unknown>) => {
     const value = event.target.value as string;
+    if (value === '') {
+      handleCHangeFilter();
+    }
     setFilters({
       ...filters,
       country: value,
@@ -137,6 +140,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ handelFilterChange }) => 
         fromPrice: '',
         toPrice: ''
       });
+      handleCHangeFilter();
     } else {
       setFilters({
         ...filters,

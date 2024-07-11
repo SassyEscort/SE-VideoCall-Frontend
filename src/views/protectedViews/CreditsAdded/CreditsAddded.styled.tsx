@@ -78,6 +78,13 @@ export const ExploreButtonContainer = styled(Box)(() => ({
   justifyContent: 'center'
 }));
 
+export const RedirectInfoBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: theme.spacing(2)
+}));
+
 export const NewUIIconButton = styled(IconButton)(({ theme }) => ({
   color: theme.palette.common.white,
   position: 'absolute',

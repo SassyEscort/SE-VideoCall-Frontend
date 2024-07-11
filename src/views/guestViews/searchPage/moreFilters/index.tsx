@@ -15,7 +15,6 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import Close from '@mui/icons-material/Close';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { memo, useCallback, useEffect, useState } from 'react';
-import SliderFilter from './SliderFilter';
 import PriceFilter from './priceFilter';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import StatusFilter from './status';
@@ -26,6 +25,7 @@ import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { cloneDeep } from 'lodash';
 import { useRouter } from 'next/navigation';
+import AgeFilter from './ageFilter';
 
 const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleClose: () => void; languages: MultipleOptionString[] }) => {
   const pathname = usePathname();
@@ -67,11 +67,13 @@ const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleCl
     });
   };
 
-  const handleChangeAge = (event: Event, newValue: number | number[]) => {
+  const handleChangeAge = (newValue: string) => {
+    const ageRange = newValue.split('-');
+
     setFilters({
       ...filters,
-      fromAge: (newValue as number[])[0].toString(),
-      toAge: (newValue as number[])[1].toString(),
+      fromAge: ageRange[0],
+      toAge: ageRange[1],
       page: 1
     });
   };
@@ -108,7 +110,7 @@ const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleCl
     let filterCount = Object.keys(objParams).length;
     const queryString = new URLSearchParams(objParams).toString();
 
-    if (pathname === '/' && filterCount === 0) router.push('/search');
+    if (pathname === '/' && filterCount === 0) router.push('/');
     if (pathname === '/' && filterCount === 1 && objParams.page) return;
 
     const isDetailsPage = pathname.startsWith('/details/');
@@ -173,7 +175,7 @@ const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleCl
         <FilterAccordian>
           <StyledAccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: 'text.primary' }} />}>
             <UINewTypography variant="h6" color="text.secondary">
-              <FormattedMessage id="Price" />
+              <FormattedMessage id="Credits" />
             </UINewTypography>
           </StyledAccordionSummary>
           <StyledAccordionDetails>
@@ -187,13 +189,7 @@ const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleCl
             </UINewTypography>
           </StyledAccordionSummary>
           <AccordionDetails sx={{ p: '16px 10px 25px 10px !important' }}>
-            <SliderFilter
-              fromValue={Number(filters?.fromAge) ?? 18}
-              toValue={Number(filters?.toAge) ?? 60}
-              minValue={18}
-              maxValue={70}
-              handleChange={handleChangeAge}
-            />
+            <AgeFilter fromAge={filters?.fromAge ?? 18} toAge={filters?.toAge ?? 60} handleChange={handleChangeAge} />
           </AccordionDetails>
         </FilterAccordian>
         <FilterAccordian>

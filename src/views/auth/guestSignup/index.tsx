@@ -98,6 +98,8 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
             } else {
               setAlert('Login after signup failed. Please log in manually.');
             }
+          } else if (data?.code === 403) {
+            toast.error(ErrorMessage);
           } else {
             setAlert(data.error);
           }
@@ -112,7 +114,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
-            <AuthCommon onClose={onClose} image="images/auth/auth-model.webp" mobileImage="images/auth/auth-model.webp">
+            <AuthCommon onClose={onClose} image="images/auth/auth-model1.webp" mobileImage="images/auth/auth-model1.webp">
               <Box
                 position="relative"
                 width="100%"

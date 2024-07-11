@@ -6,8 +6,8 @@ import { CallFeatureProvider } from '../../context/CallFeatureContext';
 import CallFeature from 'views/protectedViews/callingFeature';
 
 export const metadata: Metadata = {
-  title: 'flirtBate - Personal Video Call Experience',
-  description: 'flirtBate - Personal Video Call Experience'
+  title: 'FlirtBate - Personal Video Call Experience',
+  description: 'FlirtBate - Personal Video Call Experience'
 };
 
 export default function RootLayout({

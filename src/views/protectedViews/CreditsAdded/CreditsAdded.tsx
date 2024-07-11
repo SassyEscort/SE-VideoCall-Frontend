@@ -16,7 +16,8 @@ import {
   AddedCreditsContainer,
   NewBalanceDetails,
   ExploreButtonContainer,
-  NewUIIconButton
+  NewUIIconButton,
+  RedirectInfoBox
 } from './CreditsAddded.styled';
 
 import { FormattedMessage } from 'react-intl';
@@ -41,6 +42,7 @@ function CreditsAdded({
 
     if (redirectSeconds === 0) {
       clearTimeout(timer);
+      onClose();
     }
 
     return () => clearTimeout(timer);
@@ -91,15 +93,20 @@ function CreditsAdded({
             </Link>
           </ExploreButtonContainer>
         ) : (
-          <>
-            <UINewTypography variant="bodySmallBold">
-              <FormattedMessage id="PleaseWait" />
-            </UINewTypography>
-            <UINewTypography variant="body">
-              <FormattedMessage id="RedirectingIn" />
-              {redirectSeconds} <FormattedMessage id="Sec" />
-            </UINewTypography>
-          </>
+          // <>
+          <ExploreButtonContainer>
+            <RedirectInfoBox>
+              <UINewTypography variant="bodySmallBold">
+                <FormattedMessage id="PleaseWait" />
+              </UINewTypography>
+              <UINewTypography variant="body">
+                <FormattedMessage id="RedirectingIn" />
+                {''} {redirectSeconds} {''}
+                <FormattedMessage id="Sec" />
+              </UINewTypography>
+            </RedirectInfoBox>
+          </ExploreButtonContainer>
+          // </>
         )}
       </CreditsBodyContainer>
     </CreditsAddedMainBox>
