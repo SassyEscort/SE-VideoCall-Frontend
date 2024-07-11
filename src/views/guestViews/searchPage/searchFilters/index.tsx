@@ -90,10 +90,10 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ handelFilterChange }) => 
     const isMultiple = ['language', 'isOnline', 'page', 'fromPrice', 'fromAge', 'toPrice', 'country', 'sortOrder', 'sortField'].filter(
       (x) => Object.keys(objParams).includes(x)
     );
-
     if (filterCount === 0) {
       if (isDetailsPage) {
-        router.push(pathname);
+        const credit = searchParams.get('credit');
+        if (!credit) router.push(pathname);
       } else {
         router.push('/');
       }
