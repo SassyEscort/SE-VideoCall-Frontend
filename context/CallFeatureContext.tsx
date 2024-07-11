@@ -13,19 +13,16 @@ import { User } from 'app/(guest)/layout';
 import { ErrorMessage } from 'constants/common.constants';
 import { COMETCHAT_CONSTANTS } from 'views/protectedViews/callingFeature/CallInitialize';
 import { CometChatCalls } from '@cometchat/calls-sdk-javascript';
-import { ModelCreditsUIStyledDialog } from 'components/UIComponents/UIStyledDialog';
+import UIStyledDialog, { ModelCreditsUIStyledDialog } from 'components/UIComponents/UIStyledDialog';
 import ModelCredits from 'views/protectedViews/Credites/ModelCredits';
+import { usePathname, useSearchParams } from 'next/navigation';
+import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
+import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
   handleCancelCall: () => void;
-  handleCallInitiate: (
-    guestId: number,
-    isCallIniate: boolean,
-    callTime: number,
-    modelName: string,
-    modelPhoto: string,
-    userName: string
-  ) => void;
+  handleCallInitiate: (guestId: number, isCallIniate: boolean, callTime: number, modelName: string, modelPhoto: string) => void;
   isCallAccepted: boolean;
   isCustomer: boolean;
   isCallIncoming: boolean;
@@ -57,6 +54,11 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const cometChatUID = (tokenCometChat?.data?.user as User)?.id;
   const isCustomer = (tokenCometChat?.data?.user as User)?.provider === 'providerGuest';
 
+  const searchParams = useSearchParams();
+
+  const path = usePathname();
+  const userName = path.split('/')[2];
+
   const [call, setCall] = useState<CometChat.Call | undefined>(undefined);
   const [modelId, setModelId] = useState(0);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -71,8 +73,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
   const [isOutOfCredits, setIsOutOfCredits] = useState(false);
   const [isBusy, setIsBusy] = useState(false);
-  const [customerUser, setCustomerUser] = useState(false);
-  const [userName, setUserName] = useState('');
+  const [addedCredits, setAddedCredits] = useState(0);
+  const [balance, setBalance] = useState(0);
+  const [openSuccess, setOpenSuccess] = useState(false);
 
   const init = useCallback(async () => {
     try {
@@ -101,6 +104,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   }, [cometChatUID, isCustomer]);
 
   const handleCancelCall = async () => {
+    await creditPutCallLog(modelId, sessionId, CometChat.CALL_STATUS.CANCELLED);
     await CometChat.rejectCall(sessionId, CometChat.CALL_STATUS.CANCELLED);
     setCall(undefined);
   };
@@ -110,8 +114,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     isCreditAvailable: boolean,
     callTime: number,
     modelName: string,
-    modelPhoto: string,
-    modelUserName: string
+    modelPhoto: string
   ) => {
     if (guestId && isCreditAvailable) {
       setIsLoading(true);
@@ -120,7 +123,6 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       setModelId(guestId);
       setModelName(modelName);
       setModelPhoto(modelPhoto);
-      setUserName(modelUserName);
       const callObject = new CometChat.Call(
         guestId,
         CometChatUIKitConstants.MessageTypes.video,
@@ -158,7 +160,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         setIsOutOfCredits(true);
         await CometChat.endCall(call.getSessionId());
         CometChatCalls.endSession();
-        if (isCustomer && creditLogData.out_of_credits && customerUser) {
+        if (isCustomer && creditLogData.out_of_credits) {
           setOpen(true);
           await CometChatUIKit.logout();
         }
@@ -167,6 +169,13 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const getCustomerCredit = useCallback(async () => {
+    if (token.token) {
+      const getModel = await ModelDetailsService.getModelWithDraw(token.token);
+      setBalance(getModel?.data?.credits);
+    }
+  }, [token.token]);
+
   useEffect(() => {
     CometChatCalls.addCallEventListener(String(modelId), {
       onCallEnded: async () => {
@@ -174,7 +183,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         setCall(undefined);
         setIsCallEnded(true);
         CometChat.removeUserListener(String(modelId));
-        if (isCustomer && customerUser) {
+        if (isCustomer) {
           await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
           await CometChatUIKit.logout();
         }
@@ -184,7 +193,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         setCall(undefined);
         setIsCallEnded(true);
         CometChat.removeUserListener(String(modelId));
-        if (isCustomer && customerUser) {
+        if (isCustomer) {
           await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
           await CometChatUIKit.logout();
         }
@@ -228,7 +237,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         setCall(undefined);
         CometChat.removeUserListener(String(modelId));
         await CometChat.endCall(call.getSessionId());
-        if (isCustomer && customerUser) {
+        if (isCustomer) {
           setIsCallEnded(true);
           await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.ENDED);
           await CometChatUIKit.logout();
@@ -255,31 +264,31 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    if (isCallEnded || !isCallAccepted) {
-      const getLoggedinUser = async () => {
-        const user = await CometChatUIKit.getLoggedinUser();
-        if (user) {
-          setCustomerUser(true);
-        } else {
-          setCustomerUser(false);
-        }
-      };
-      getLoggedinUser();
+    const credit = searchParams.get('credit');
+    setAddedCredits(Number(credit));
+    getCustomerCredit();
+    if (credit) {
+      setOpenSuccess(true);
     }
-  }, [isCallAccepted, isCallEnded]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
-  const intervalId = setInterval(async () => {
-    if (isCallAccepted && isCustomer) {
-      try {
-        const endCall = await creditPutCallLog(modelId, sessionId, '');
-        if (endCall && endCall.end_call) {
-          clearInterval(intervalId);
+  useEffect(() => {
+    const intervalId = setInterval(async () => {
+      if (isCallAccepted && isCustomer) {
+        try {
+          const endCall = await creditPutCallLog(modelId, sessionId, '');
+          if (endCall && endCall.end_call) {
+            clearInterval(intervalId);
+          }
+        } catch (error) {
+          toast.error(ErrorMessage);
         }
-      } catch (error) {
-        toast.error(ErrorMessage);
       }
-    }
-  }, 60000);
+    }, 60000);
+    return () => clearInterval(intervalId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isCallAccepted, isCustomer, modelId, sessionId]);
 
   setTimeout(async () => {
     if (isCallAccepted || isCallEnded) {
@@ -289,7 +298,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       await CometChat.endCall(sessionId);
       CometChatCalls.endSession();
       await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
-      if (isCustomer && customerUser) {
+      if (isCustomer) {
         setOpen(true);
         await CometChatUIKit.logout();
       }
@@ -317,6 +326,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       <ModelCreditsUIStyledDialog open={open} maxWidth="md" fullWidth scroll="body">
         <ModelCredits onClose={handleClose} isOutOfCredits={isOutOfCredits} userName={userName} />
       </ModelCreditsUIStyledDialog>
+      <UIStyledDialog open={openSuccess} maxWidth="md" fullWidth>
+        <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} isOutOfCredits={isOutOfCredits} />
+      </UIStyledDialog>
     </CallContext.Provider>
   );
 };

@@ -1,5 +1,3 @@
-'use client';
-
 import CallHistory from 'views/protectedViews/CallHistory';
 
 const CallPage = () => {

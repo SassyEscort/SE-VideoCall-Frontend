@@ -1,3 +1,4 @@
+'use client';
 import React, { useCallback, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';

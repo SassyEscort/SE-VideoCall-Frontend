@@ -1,5 +1,3 @@
-'use client';
-
 import BillingHistory from 'views/protectedViews/BillingHistory';
 
 const BillingPage = () => {
