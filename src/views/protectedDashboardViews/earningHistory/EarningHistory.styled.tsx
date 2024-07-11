@@ -13,9 +13,17 @@ export const EarningHistoryMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '741px',
   [theme.breakpoints.up('md')]: {
     marginLeft: theme.spacing(3)
+  },
+  [theme.breakpoints.down('lg')]: {
+    maxWidth: '515px'
+  },
+  [theme.breakpoints.up('lg')]: {
+    maxWidth: '730px'
+  },
+  [theme.breakpoints.only('sm')]: {
+    maxWidth: '730px'
   }
 }));
 
@@ -44,8 +52,14 @@ export const EarningHistorySecBoxContainer = styled(Box)(({ theme }) => ({
 
 export const EarningHistoryThirdBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  flexDirection: 'column',
-  gap: '44px'
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  width: '100%',
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    gap: theme.spacing(1),
+    width: '100%'
+  }
 }));
 
 export const EarningHistoryLastBoxContainer = styled(Box)(({ theme }) => ({

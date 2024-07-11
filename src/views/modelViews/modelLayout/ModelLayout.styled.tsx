@@ -15,3 +15,10 @@ export const IconSideBar = styled(IconButton)(() => ({
   width: '100%',
   justifyContent: 'flex-end'
 }));
+
+export const HeaderBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(1),
+  cursor: 'pointer'
+}));
