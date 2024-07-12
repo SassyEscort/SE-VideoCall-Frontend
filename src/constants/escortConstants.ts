@@ -16,7 +16,7 @@ export const MainDashboardTabs = [
   },
   {
     name: 'Calls History',
-    path: '/profile/Call',
+    path: '/profile/call',
     img: '/images/profile-vector/Vector-3.png'
   },
   {

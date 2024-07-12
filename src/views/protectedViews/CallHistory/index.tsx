@@ -139,6 +139,32 @@ const CallHistory = () => {
     getCometChatInfo();
   }, [guestData, token, call, isCallEnded]);
 
+  const formatDuration = (duration: string) => {
+    const callDuration = moment.duration(duration);
+    const hours = Math.floor(callDuration.asHours());
+    const minutes = callDuration.minutes();
+    const seconds = callDuration.seconds();
+    let message = '';
+
+    if (hours > 0) {
+      message += `${hours} hour`;
+    }
+    if (minutes > 0) {
+      if (hours > 0) {
+        message += ', ';
+      }
+      message += `${minutes} min`;
+    }
+    if (seconds > 0) {
+      if (hours > 0 || minutes > 0) {
+        message += ', ';
+      }
+      message += `${seconds} sec`;
+    }
+
+    return message;
+  };
+
   return (
     <MainLayoutNav variant={'worker'} enlargedFooter={true}>
       <CallHistoryBoxContainer>
@@ -182,7 +208,7 @@ const CallHistory = () => {
                               <CallHistoryCreditBox>
                                 <ImgBoxContainer src="/images/workercards/dollar-img.png" />
                                 <UINewTypography variant="captionLargeBold" color="text.secondary">
-                                  {list.credits_used} credits/hr
+                                  {list.credits_used} credits/min
                                 </UINewTypography>
                               </CallHistoryCreditBox>
                             </SecondSubFirstPartSecondBox>
@@ -191,7 +217,7 @@ const CallHistory = () => {
                             <SecondSubFirstPartThiredBox marginRight={{ sm: '32px' }}>
                               <FirstTextContainer color="text.primary" whiteSpace="nowrap">
                                 <FormattedMessage id="Duration" />
-                                {list.duration && moment(list.duration).format('h:mm:ss a')}
+                                {list.duration && formatDuration(list.duration)}
                               </FirstTextContainer>
                               <CreditUsedBox>
                                 <FirstTextContainer color="text.primary" whiteSpace="nowrap">
@@ -209,7 +235,7 @@ const CallHistory = () => {
                           <SecondSubFirstPartThiredBox gap="8px !important">
                             <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
                               <FormattedMessage id="Duration" />
-                              {list.duration && moment(list.duration).format('h:mm:ss a')}
+                              {list.duration && formatDuration(list.duration)}
                             </UINewTypography>
                             <CreditUsedBox>
                               <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">

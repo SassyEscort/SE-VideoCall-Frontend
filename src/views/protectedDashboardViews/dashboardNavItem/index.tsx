@@ -5,8 +5,36 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import { WorkerNavItemContainer } from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/ProfileMenu.styled';
 import DashboadrHeaderAuthComponent from './HeaderAuthComponent';
+import { useState, useEffect } from 'react';
+import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+import { getUserDataClient } from 'utils/getSessionData';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import ProfileApproval from '../profileApproval';
 
 const DashboardNavItem = () => {
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
+
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      setToken({ id: data.id, token: data.token });
+    };
+
+    userToken();
+  }, []);
+
+  useEffect(() => {
+    const modelDetails = async () => {
+      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      setModelDetails(modelData.data);
+    };
+    if (token.token) {
+      modelDetails();
+    }
+  }, [token.id, token.token]);
+
   return (
     <>
       <AppBar
@@ -46,6 +74,7 @@ const DashboardNavItem = () => {
             <DashboadrHeaderAuthComponent />
           </Box>
         </WorkerNavItemContainer>
+        {modelDetails?.profile_status === 'Approved' ? '' : <ProfileApproval />}
       </AppBar>
     </>
   );

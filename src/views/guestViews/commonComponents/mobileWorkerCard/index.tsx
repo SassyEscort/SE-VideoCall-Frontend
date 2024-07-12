@@ -14,7 +14,6 @@ import { CustomerDetailsService } from 'services/customerDetails/customerDetails
 import { ErrorMessage } from 'constants/common.constants';
 import {
   CreditContainer,
-  FavoriteBorderIconContainer,
   FavoriteIconContainer,
   FirstSubContainerImgWorkerCard,
   FirstSubContainerWithoutImg,
@@ -36,15 +35,10 @@ import {
   UITypographyBoxContainer,
   WorkerCardContainer
 } from './mobileWorkerCard.styled';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
-const WorkerCardMobile = ({
-  modelDetails,
-
-  token
-}: {
-  modelDetails: BillingDetails;
-  token?: TokenIdType;
-}) => {
+const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: BillingDetails; token?: TokenIdType }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
   const [liked, setLiked] = useState(false);
@@ -62,7 +56,11 @@ const WorkerCardMobile = ({
       if (token && token.token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
         if (data?.code === 200) {
-          setLiked(!liked);
+          if (data.data.is_active === 1) {
+            setLiked(true);
+          } else {
+            setLiked(false);
+          }
         } else {
           toast.error(ErrorMessage);
         }
@@ -76,11 +74,9 @@ const WorkerCardMobile = ({
     <MainWorkerCard>
       <ImgWorkerCard ref={imageUrlRef} />
       <HeartIconWorkerCard>
-        {liked ? (
-          <FavoriteIconContainer sx={{ color: 'error.main' }} onClick={() => handleLikeClick(modelDetails?.model_id)} />
-        ) : (
-          <FavoriteBorderIconContainer sx={{ color: 'error.main' }} onClick={() => handleLikeClick(modelDetails?.model_id)} />
-        )}
+        <FavoriteIconContainer onClick={() => handleLikeClick(modelDetails?.model_id)}>
+          {liked ? <FavoriteIcon sx={{ color: 'error.main' }} /> : <FavoriteBorderIcon />}
+        </FavoriteIconContainer>
       </HeartIconWorkerCard>
       <WorkerCardContainer>
         <SeconderContainerWorkerCard>

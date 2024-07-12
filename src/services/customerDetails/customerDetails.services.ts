@@ -16,7 +16,7 @@ export type CustomerDetailsRes = {
 export type FavouriteRes = {
   customer_id: number;
   model_id: number;
-  is_active: boolean;
+  is_active: number;
 };
 
 export interface FavouriteDetailsRes extends GenericRes {

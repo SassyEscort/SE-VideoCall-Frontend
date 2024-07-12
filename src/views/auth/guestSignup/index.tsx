@@ -175,7 +175,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           }}
                           onBlur={handleBlur}
                           error={touched.name && Boolean(errors.name)}
-                          helperText={touched.name && errors.name}
+                          helperText={touched.name && errors.name ? <FormattedMessage id={errors.name} /> : ''}
                           sx={{
                             border: '2px solid',
                             borderColor: 'secondary.light'
@@ -197,7 +197,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           onChange={handleChange}
                           onBlur={handleBlur}
                           error={touched.email && Boolean(errors.email)}
-                          helperText={touched.email && errors.email}
+                          helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
                           sx={{
                             border: '2px solid',
                             borderColor: 'secondary.light'
@@ -221,7 +221,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={touched.password && Boolean(errors.password)}
-                            helperText={touched.password && errors.password}
+                            helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
                             sx={{
                               border: '2px solid',
                               borderColor: 'secondary.light'

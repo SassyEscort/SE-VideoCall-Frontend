@@ -30,6 +30,7 @@ export const authOptions: NextAuthOptions = {
               name: user.data.customer_name,
               email: user.data.customer_email,
               image: JSON.stringify(user.data),
+              userName: user.data.customer_user_name,
               role: 'Guest'
             } as User;
           }
@@ -62,6 +63,7 @@ export const authOptions: NextAuthOptions = {
               name: user.data.name,
               email: user.data.email,
               image: JSON.stringify(user.data),
+              userName: user.data.user_name,
               role: 'Model'
             } as User;
           }
