@@ -225,6 +225,8 @@ export const DividerContainer = styled(Divider)(({ theme }) => ({
 }));
 
 export const FirstTextContainer = styled(Typography)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
   [theme.breakpoints.down('sm')]: {
     fontSize: '14px',
     fontWeight: 500,

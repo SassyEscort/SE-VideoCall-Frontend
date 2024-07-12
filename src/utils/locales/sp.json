@@ -133,7 +133,7 @@
   "LastActive": "Última actividad",
   "LifeIsShort": "La vida es corta. Haz el viaje, compra los zapatos, come el pastel y AMA ❤️.",
   "MyAppearance": "Mi apariencia",
-  "Rates": "Tarifas",
+  "Rates": "Tasa",
   "StartVideoCall": "Iniciar videollamada",
   "NoVideosAvailable": "No hay videos disponibles",
   "ShowMore": "Mostrar más",
@@ -547,5 +547,15 @@
   "MoreButton": "Botón Más",
   "PleaseWait": "Por favor, espere un momento mientras lo redirigimos a su modelo deseado.",
   "RedirectingIn": "Redirigiendo en",
-  "Sec": "Seg"
+  "Sec": "Seg",
+  "TheMinimumPrice": "El precio mínimo que puedes establecer es",
+  "OutOFCredits": "Sin créditos",
+  "RememberPasswordd": "¿Recordar contraseña?",
+  "NewPassword": "Nueva contraseña",
+  "ConfirmNewPassword": "Confirmar nueva contraseña",
+  "SetupYourNewPassword": "Configure su nueva contraseña",
+  "UseAPassword": "Utilice una contraseña que no utilice en ningún otro lugar",
+  "Between8And124": "Entre 8 y 124 caracteres",
+  "ContainsAtLeast": "Contiene al menos un número",
+  "ContainsAtleast": "Contiene al menos un símbolo"
 }
