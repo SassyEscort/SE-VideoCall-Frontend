@@ -50,7 +50,8 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
                   {guestData?.name}
                 </UINewTypography>
                 <UINewTypography variant="SubtitleSmallMedium" sx={{ fontSize: '14px', lineHeight: '19.6px' }}>
-                  <FormattedMessage id="LastActive" /> {getLastActive(guestData?.updated_at ?? '')}
+                  <FormattedMessage id="LastActive" />{' '}
+                  {guestData.is_online ? <FormattedMessage id="JustNow" /> : getLastActive(guestData?.updated_at ?? '')}
                 </UINewTypography>
               </DetailsChildBox>
               <Box>
@@ -99,7 +100,7 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
               <DetailsChipBox>
                 <UINewChip
                   icon={<Box height={16} width={16} component="img" src={`/images/details-icon/coin-icon.svg`} alt={'language'} />}
-                  label={Number(videoCallPrice) === -1 ? 'N/A' : `${videoCallPrice}/min`}
+                  label={Number(videoCallPrice) === -1 ? 'N/A' : `${videoCallPrice} credits/min`}
                 />
               </DetailsChipBox>
             </DetailsChildTypographyBox>

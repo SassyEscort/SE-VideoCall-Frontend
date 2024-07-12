@@ -47,7 +47,7 @@ export const EarningHistoryFirstBoxContainer = styled(Box)(() => ({
 export const EarningHistorySecBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(7)
+  gap: theme.spacing(5.5)
 }));
 
 export const EarningHistoryThirdBoxContainer = styled(Box)(({ theme }) => ({
