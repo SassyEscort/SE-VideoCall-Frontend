@@ -58,16 +58,9 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
   }, [activeStep, redirectSeconds]);
 
   const validationSchema = yup.object({
-    name: yup.string().required('Name is required').min(2, 'Name is too short').max(20, 'Name is too long'),
-    email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required'),
-    password: yup
-      .string()
-      .required('Password is required')
-      .min(8, 'Password must be at least 8 characters')
-      .matches(
-        PASSWORD_PATTERN,
-        'Invalid Password! Does not meet requirements (this password has appeared in a data breach elsewhere and should never be used on any website)'
-      )
+    name: yup.string().required('Nameisrequired').min(2, 'Nameistooshort').max(20, 'Nameistoolong'),
+    email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
+    password: yup.string().required('Passwordisrequired').min(8, 'Passwordmust').matches(PASSWORD_PATTERN, 'InvalidPassword')
   });
 
   return (
@@ -172,7 +165,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           onChange={handleChange}
                           onBlur={handleBlur}
                           error={touched.name && Boolean(errors.name)}
-                          helperText={touched.name && errors.name}
+                          helperText={touched.name && errors.name ? <FormattedMessage id={errors.name} /> : ''}
                           sx={{
                             border: '2px solid',
                             borderColor: 'secondary.light'
@@ -194,7 +187,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           onChange={handleChange}
                           onBlur={handleBlur}
                           error={touched.email && Boolean(errors.email)}
-                          helperText={touched.email && errors.email}
+                          helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
                           sx={{
                             border: '2px solid',
                             borderColor: 'secondary.light'
@@ -218,7 +211,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={touched.password && Boolean(errors.password)}
-                            helperText={touched.password && errors.password}
+                            helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
                             sx={{
                               border: '2px solid',
                               borderColor: 'secondary.light'

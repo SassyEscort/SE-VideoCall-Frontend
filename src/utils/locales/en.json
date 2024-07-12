@@ -332,6 +332,7 @@
   "FilterOnly": "Filter only",
   "SearchFilter": "Search filter",
   "Age": "Age",
+  "SignUpAsUser": "Sign Up As User",
   "Notifications": "Notifications",
   "YouHaveNoNotifications": "You have no notifications",
   "LookingForA": "Looking for a model",
@@ -548,5 +549,13 @@
   "MoreButton": "More button",
   "PleaseWait": "Please wait a bit while we redirect you to your desired model.",
   "RedirectingIn": "Redirecting in",
-  "Sec": "Sec"
+  "Sec": "Sec",
+  "Nameisrequired": "Name is required",
+  "Nameistooshort": "Name is too short",
+  "Nameistoolong": "Name is too long",
+  "Enteravalidemail": "Enter a valid email",
+  "Emailisrequired": "Email is required",
+  "Passwordisrequired": "Password is required",
+  "Passwordmust": "Password must be at least 8 characters",
+  "InvalidPassword": "Invalid Password! Does not meet requirements (this password has appeared in a data breach elsewhere and should never be used on any website)"
 }
