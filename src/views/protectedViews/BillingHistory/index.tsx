@@ -144,6 +144,7 @@ const BillingHistory = () => {
                           {moment(list.created_at).format('LT')}, {moment(list.created_at).format('DD MMMM YYYY')}
                         </DateTimeBilling>
                       </BillingUIContainer>
+
                       <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <DollarBillingValue variant="h6" color="text.secondary">
                           {list.category === 'Debit' ? (

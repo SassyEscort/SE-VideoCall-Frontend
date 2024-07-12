@@ -69,6 +69,7 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
     };
     getCometChatInfo();
   }, [guestData, token, call, isCallEnded]);
+
   function formatDuration(hours: number, minutes: number, seconds: number) {
     let message = '';
 
