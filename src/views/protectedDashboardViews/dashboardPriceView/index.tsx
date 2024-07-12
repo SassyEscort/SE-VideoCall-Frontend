@@ -187,7 +187,7 @@ const DashboardPriceView = ({
                   </RightSideBox>
 
                   <UINewTypography variant="SubtitleSmallMedium" color="secondary.700">
-                    <FormattedMessage id="MinimumPrice" />${minPrice}
+                    <FormattedMessage id="TheMinimumPrice" /> ${minPrice}
                   </UINewTypography>
                 </MainBoxRightSide>
 
