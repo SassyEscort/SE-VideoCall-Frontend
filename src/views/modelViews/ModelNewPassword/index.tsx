@@ -18,8 +18,18 @@ import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import AuthModelCommon from '../modelSignup/AuthModelCommon';
 import CustomPasswordRegex from 'views/auth/customPasswordRegex';
-import { IconeButtonBox, ModelNewPasswordBox, SetYourNewPasswordBox, SetupNewPasswordBox } from './ModelNewPassword.styled';
+import {
+  FirstBoxContainer,
+  IconeButtonBox,
+  ModelNewPasswordBox,
+  SecBoxContainer,
+  SetYourNewPasswordBox,
+  SetupNewPasswordBox,
+  ThirdBoxContainer
+} from './ModelNewPassword.styled';
 import { ErrorMessage } from 'constants/common.constants';
+import { FormattedMessage } from 'react-intl';
+import { FourBoxContainer, SixBoxContainer } from 'views/auth/guestNewPassword/GuestNewPassword.styled';
 
 export type ResetPasswordParams = {
   email: string;
@@ -95,7 +105,7 @@ const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                 <Box sx={{ pt: { xs: 0, sm: '50px' } }}>
                   <SetupNewPasswordBox>
                     <SetYourNewPasswordBox variant="MediumSemiBoldText" color="common.white">
-                      Setup your new password
+                      <FormattedMessage id="SetupYourNewPassword" />
                     </SetYourNewPasswordBox>
                     <UINewTypography variant="bodyRegular" color="secondary.200" textAlign="center">
                       For the account{' '}
@@ -110,10 +120,12 @@ const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                     </IconeButtonBox>
                   </Box>
                 </Box>
-                <Box display="flex" flexDirection="column" gap={3}>
-                  <Box display="flex" gap={1.5} flexDirection="column">
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                      <UINewTypography variant="bodySemiBold">New password</UINewTypography>
+                <FirstBoxContainer>
+                  <SecBoxContainer>
+                    <ThirdBoxContainer>
+                      <UINewTypography variant="bodySemiBold">
+                        <FormattedMessage id="NewPassword" />
+                      </UINewTypography>
                       <UIStyledInputText
                         fullWidth
                         type={showPassword ? 'text' : 'password'}
@@ -136,12 +148,14 @@ const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                           )
                         }}
                       />
-                    </Box>
-                  </Box>
+                    </ThirdBoxContainer>
+                  </SecBoxContainer>
 
-                  <Box display="flex" gap={1.5} flexDirection="column">
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                      <UINewTypography variant="bodySemiBold">Confirm new password</UINewTypography>
+                  <SecBoxContainer>
+                    <ThirdBoxContainer>
+                      <UINewTypography variant="bodySemiBold">
+                        <FormattedMessage id="ConfirmNewPassword" />
+                      </UINewTypography>
                       <UIStyledInputText
                         fullWidth
                         type={showConfirmPassword ? 'text' : 'password'}
@@ -168,21 +182,23 @@ const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                           )
                         }}
                       />
-                    </Box>
-                  </Box>
-                </Box>
+                    </ThirdBoxContainer>
+                  </SecBoxContainer>
+                </FirstBoxContainer>
                 <Box>
                   <CustomPasswordRegex password={values.password} />
                 </Box>
-                <Box display="flex" flexDirection="column" width="100%" gap="28px">
+                <FourBoxContainer>
                   <StyleButtonV2 variant="contained" type="submit" loading={loading}>
-                    <UINewTypography variant="buttonLargeBold">Change password</UINewTypography>
+                    <UINewTypography variant="buttonLargeBold">
+                      <FormattedMessage id="ChangePassword" />
+                    </UINewTypography>
                   </StyleButtonV2>
-                  <Box display="flex" flexDirection="column" gap={3}>
+                  <FirstBoxContainer>
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                    <Box display="flex" gap={1} alignItems="center" justifyContent="center" pb={3}>
+                    <SixBoxContainer>
                       <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
-                        Remember password?
+                        <FormattedMessage id="RememberPasswordd" />
                       </UINewTypography>
                       <UINewTypography
                         whiteSpace="nowrap"
@@ -190,11 +206,11 @@ const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                         sx={{ color: 'text.secondary', cursor: 'pointer' }}
                         onClick={onLoginOpen}
                       >
-                        Log in instead!
+                        <FormattedMessage id="LogInInstead" />
                       </UINewTypography>
-                    </Box>
-                  </Box>
-                </Box>
+                    </SixBoxContainer>
+                  </FirstBoxContainer>
+                </FourBoxContainer>
               </ModelNewPasswordBox>
             </AuthModelCommon>
           </Box>

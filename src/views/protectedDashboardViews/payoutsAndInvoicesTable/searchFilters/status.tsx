@@ -1,10 +1,10 @@
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
-import UINewTypography from 'components/UIComponents/UINewTypography';
 import { StyledEarningSelectInputLabel, UIStyledSelectPastPayout } from 'components/UIComponents/UIStyledSelect';
-import { AGES } from 'constants/searchConstants';
+import { STATUS } from 'constants/searchConstants';
 import { FormattedMessage } from 'react-intl';
+import { StatusBoxContainer } from './status.styled';
 
 const Status = () => {
   return (
@@ -19,12 +19,12 @@ const Status = () => {
         labelId="status"
         IconComponent={ExpandMore}
       >
-        {AGES.map((age, key: number) => {
+        {STATUS.map((age, key: number) => {
           return (
             <MenuItem key={key} value={age.id}>
-              <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+              <StatusBoxContainer variant="buttonLargeMenu" color="text.secondary">
                 {age.title}
-              </UINewTypography>
+              </StatusBoxContainer>
             </MenuItem>
           );
         })}
