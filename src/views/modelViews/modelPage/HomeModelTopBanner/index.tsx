@@ -15,13 +15,20 @@ import {
   TypographyBox
 } from './HomeModelTopBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import ModelSignup from 'views/modelViews/modelSignup';
 import ModelSignin from 'views/modelViews/modelSignin';
 import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import ModelForgetPasswordLink from 'views/modelViews/modelForgetPasswordLink';
+import Link from 'next/link';
+import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
+import { getUserDataClient } from 'utils/getSessionData';
+import { TokenIdType } from 'views/protectedModelViews/verification';
 
 const HomeModelTopBanner = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -29,6 +36,8 @@ const HomeModelTopBanner = () => {
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -61,6 +70,27 @@ const HomeModelTopBanner = () => {
   const handleResetPasswordLinkClose = () => {
     setOpenForgetPassLink(false);
   };
+
+  const isVerificationPendingOrCompleted = (step: string | undefined) => {
+    return step === MODEL_ACTIVE_STEP.IN_REVIEW || step === MODEL_ACTIVE_STEP.ONBOARDED || step === MODEL_ACTIVE_STEP.VERIFIED;
+  };
+
+  useEffect(() => {
+    const modelDetails = async () => {
+      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      setModelDetails(modelData.data);
+    };
+    modelDetails();
+  }, [token.id, token.token]);
+
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      setToken({ id: data.id, token: data.token });
+    };
+
+    userToken();
+  }, []);
 
   return (
     <>
@@ -105,11 +135,21 @@ const HomeModelTopBanner = () => {
               </TypographyBox>
             </DetailSubContainer>
             <ButtonContainer>
-              <UIThemeShadowButton onClick={handleSignupOpen} variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
-                <UINewTypography variant="body" sx={{ lineHeight: '150%' }}>
-                  <FormattedMessage id="JoinForFREE" />
-                </UINewTypography>
-              </UIThemeShadowButton>
+              {isSmDown && !isVerificationPendingOrCompleted(modelDetails?.verification_step) ? (
+                <Link href="/model/profile">
+                  <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>
+                    <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
+                      <FormattedMessage id="CompleteYourProfile" />
+                    </UINewTypography>
+                  </UIThemeButton>
+                </Link>
+              ) : (
+                <UIThemeShadowButton onClick={handleSignupOpen} variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
+                  <UINewTypography variant="body" sx={{ lineHeight: '150%' }}>
+                    <FormattedMessage id="JoinForFREE" />
+                  </UINewTypography>
+                </UIThemeShadowButton>
+              )}
             </ButtonContainer>
           </DetailContainer>
 

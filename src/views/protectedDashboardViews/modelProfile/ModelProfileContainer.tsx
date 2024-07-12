@@ -74,7 +74,9 @@ const ModelProfileContainer = ({
                       <UINewTypography variant="buttonLargeMenu">{list.menuName}</UINewTypography>
                     )}
                   </MenuItem>
-                  <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                  {index !== profileMenuList.length - 1 && (
+                    <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                  )}
                 </>
               ))}
             </SidebarDropDownMainContainer>

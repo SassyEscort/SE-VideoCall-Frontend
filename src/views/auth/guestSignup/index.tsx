@@ -58,7 +58,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
   }, [activeStep, redirectSeconds]);
 
   const validationSchema = yup.object({
-    name: yup.string().required('Name is required').min(2, 'Name is too short').max(20, 'Name is too long'),
+    name: yup.string().trim().required('Name is required').min(2, 'Name is too short').max(20, 'Name is too long'),
     email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required'),
     password: yup
       .string()
@@ -169,7 +169,10 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           id="name"
                           name="name"
                           value={values.name}
-                          onChange={handleChange}
+                          onChange={(e) => {
+                            e.target.value = e.target.value.trimStart();
+                            handleChange(e);
+                          }}
                           onBlur={handleBlur}
                           error={touched.name && Boolean(errors.name)}
                           helperText={touched.name && errors.name}

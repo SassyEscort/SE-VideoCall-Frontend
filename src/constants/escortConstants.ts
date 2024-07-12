@@ -7,7 +7,7 @@ export const MainDashboardTabs = [
   {
     name: 'My Profile',
     path: '/profile',
-    img: '/images/profile-vector/Vector-1.png'
+    img: '/images/icons/dashboard-img1.png'
   },
   {
     name: 'Favourites',
@@ -27,6 +27,6 @@ export const MainDashboardTabs = [
   {
     name: 'Billing History',
     path: '/profile/billing',
-    img: '/images/profile-vector/Vector-5.png'
+    img: '/images/icons/dashboard-img3.png'
   }
 ];
