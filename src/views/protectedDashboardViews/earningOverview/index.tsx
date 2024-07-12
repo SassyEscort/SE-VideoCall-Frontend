@@ -182,7 +182,7 @@ const EarningOverview = () => {
           </ProfilePieMainContainer>
 
           <ProfileTotalVisits>
-            <Earnings />
+            <Earnings fromDate={fromDate} toDate={toDate} />
           </ProfileTotalVisits>
         </>
       )}

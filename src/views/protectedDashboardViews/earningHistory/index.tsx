@@ -38,6 +38,8 @@ export type earningParams = {
   details: string;
   limit: number;
   offset: number;
+  start_date: string;
+  end_date: string;
 };
 export type EarningPaginationType = {
   page: number;
@@ -132,7 +134,9 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
           category: 'Credit',
           details: 'Video_Call',
           limit: filters.limit,
-          offset: filters.offset
+          offset: filters.offset,
+          start_date: fromDate ? fromDate.format('YYYY-MM-DD') : '',
+          end_date: toDate ? toDate.format('YYYY-MM-DD') : ''
         };
         setIsLoading(true);
         const data = await ModelEarningHistoryService.getEarningHistoryDetails(params, token.token);
@@ -148,7 +152,7 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
     };
 
     fetchEarningHistoryDetails();
-  }, [filters.limit, filters.offset, token.token]);
+  }, [filters.limit, filters.offset, token.token, fromDate, toDate]);
 
   const scrollToTable = () => {
     const tableElement = document.getElementById('tableSection');
@@ -224,7 +228,7 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
             </EarningHistoryThirdBoxContainer>
 
             <UINewTypography variant="SubtitleSmallMedium" color="text.primary">
-              <FormattedMessage id="TotalOf100Calls" />
+              <FormattedMessage id="TotalOf100Calls" /> {modelEarningHistory?.data.aggregate.page_size} <FormattedMessage id="Calls" />
             </UINewTypography>
           </EarningHistorySecBoxContainer>
 

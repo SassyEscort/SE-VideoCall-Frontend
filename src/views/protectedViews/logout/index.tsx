@@ -17,6 +17,7 @@ import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { FormattedMessage } from 'react-intl';
+import { CometChatUIKit } from '@cometchat/chat-uikit-react';
 
 const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const [loading, setLoading] = useState(false);
@@ -24,6 +25,10 @@ const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const handleConfirmLogout = async () => {
     setLoading(true);
     try {
+      const user = await CometChatUIKit.getLoggedinUser();
+      if (user) {
+        await CometChatUIKit.logout();
+      }
       await signOut({ callbackUrl: '/' });
     } catch (error) {
       toast.error('Error during sign-out:');

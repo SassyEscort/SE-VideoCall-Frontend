@@ -47,6 +47,7 @@ export type ModelDetailsResponse = {
   updated_at: string;
   is_online: number;
   user_name: string;
+  profile_status: string;
 };
 
 export type GuestDetailsResponse = {
