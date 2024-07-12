@@ -3,7 +3,7 @@ import { Box, styled, Typography } from '@mui/material';
 
 export const MainContainer = styled(Box)(({ theme }) => ({
   height: '53px',
-  backgroundColor: '#FF5959',
+  backgroundColor: theme.palette.error[300],
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

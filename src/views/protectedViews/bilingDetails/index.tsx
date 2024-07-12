@@ -23,7 +23,6 @@ import {
   CreditsPriceBox
 } from './BillingDetails';
 import WorkerCardMobile from 'views/guestViews/commonComponents/mobileWorkerCard';
-import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import { FormattedMessage } from 'react-intl';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import moment from 'moment';
@@ -32,6 +31,7 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
 const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; handleClose: () => void; selectDetails: any }) => {
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -124,16 +124,16 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
       </Box>
       <DialogContentBox>
         <MainContainer>
-          <WorkerCardMobile modelDetails={selectDetails} />
+          <WorkerCardMobile modelDetails={selectDetails} token={token} />
           <FirstBox>
             <SecondBox>
               <ThreeBox>
                 <CreditsMainBox>
-                  <UINewTypography variant="buttonLargeMenu" color="secondary.200">
-                    <FormattedMessage id=" CreditsUsed" />
+                  <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+                    <FormattedMessage id="CreditsUsed" />
                   </UINewTypography>
                   <CreditsPriceBox>
-                    <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
+                    <SecondSubContainerImgWorkerCard src="/images/workercards/coin-details.png" />
                     <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                       {selectDetails.credits}
                     </UINewTypography>
@@ -153,7 +153,7 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
               </Box>
             </SecondBox>
             <ButtonMainContainer>
-              <UIThemeShadowButton
+              <UIThemeButton
                 onClick={() => {
                   handleCallInitiate(guestData, isCreditAvailable, callTime, selectDetails.name, selectDetails.link);
                   setGuestData(selectDetails.id);
@@ -172,7 +172,7 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
                     {isSMDown ? <FormattedMessage id="StartVideoCall" /> : <FormattedMessage id="StartVideoCallAgain" />}
                   </UINewTypography>
                 </Box>
-              </UIThemeShadowButton>
+              </UIThemeButton>
               <UINewTypography
                 onClick={handelExplore}
                 variant="bodySemiBold"
