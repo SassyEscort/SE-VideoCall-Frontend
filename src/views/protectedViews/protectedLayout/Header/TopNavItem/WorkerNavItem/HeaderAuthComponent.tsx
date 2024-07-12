@@ -14,7 +14,6 @@ import Logout from 'views/protectedViews/logout';
 import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
-import NotificationModalV2 from './NotificationModalV2';
 import { NotificationDetailsService } from 'services/notification/notification.services';
 import { Root } from 'services/notification/type';
 import MyProfileChangePassword from 'views/protectedViews/myProfile/MyProfileChangePassword';
@@ -23,6 +22,7 @@ import { IconButtonBoxNew } from './Notification.styled';
 import { HeaderMainBox } from './HeaderAuthComponent.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useCallFeatureContext } from '../../../../../../../context/CallFeatureContext';
+import NotificationModalCustomerV2 from './NotificationModalCustomerV2';
 
 export type NotificationFilters = {
   page: number;
@@ -354,7 +354,7 @@ const HeaderAuthComponent = () => {
         </IconButtonBoxNew>
       </HeaderMainBox>
       {notificationDetails && (
-        <NotificationModalV2
+        <NotificationModalCustomerV2
           notificationDetails={notificationDetails ?? ({} as Root)}
           open={openNotification}
           anchorEl={anchorElNotification}
