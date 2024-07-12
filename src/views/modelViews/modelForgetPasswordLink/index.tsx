@@ -136,7 +136,7 @@ const ModelForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                   <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                   <RememberpasswordSecondBox sx={{ flexDirection: isSm ? 'column' : 'row' }}>
                     <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
-                      Remember password?
+                      <FormattedMessage id="RememberPasswordd" />
                     </UINewTypography>
                     <UINewTypography
                       whiteSpace="nowrap"
