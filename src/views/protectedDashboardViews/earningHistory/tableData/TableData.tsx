@@ -39,7 +39,7 @@ const TableData = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningH
                   }}
                 />
                 <UINewTypography variant="bodySemiBold" color="text.secondary">
-                  {dp.credits}
+                  {dp.credits_used}
                 </UINewTypography>
               </Box>
             </TableCell>{' '}

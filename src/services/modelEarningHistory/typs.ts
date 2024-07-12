@@ -17,6 +17,7 @@ export type EarningHistoryDetails = {
   call_end_time: string;
   call_duration: string;
   customer_name: string;
+  credits_used: number;
 };
 
 export type ModelEarningHistoryDetails = {
