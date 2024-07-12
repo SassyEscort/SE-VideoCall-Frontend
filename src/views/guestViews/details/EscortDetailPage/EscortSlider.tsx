@@ -47,12 +47,14 @@ export const EscortSlider = ({
   workerPhotos,
   modelId,
   token,
-  handleCallInitiate
+  handleCallInitiate,
+  isCustomer
 }: {
   workerPhotos: WorkerPhotos[];
   modelId: number;
   token: TokenIdType;
   handleCallInitiate: () => void;
+  isCustomer: boolean;
 }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [liked, setLiked] = useState(false);
@@ -146,7 +148,7 @@ export const EscortSlider = ({
                   <FirstSwiperBlurContainer>
                     <SecondSwiperBlurContainer
                       sx={{
-                        backgroundImage: `url(${imageSrc.link})`
+                        backgroundImage: `url(${imageSrc.file_type === 'Non_Image' ? imageSrc.link : imageSrc.link})`
                       }}
                     />
                     <EscortSwiperPhotoContainer
@@ -215,7 +217,7 @@ export const EscortSlider = ({
       >
         <Box>
           <UIThemeShadowButton
-            onClick={token.token ? handleCallInitiate : handleLoginOpen}
+            onClick={isCustomer ? handleCallInitiate : handleLoginOpen}
             sx={{
               padding: 0,
               minWidth: '1084px',

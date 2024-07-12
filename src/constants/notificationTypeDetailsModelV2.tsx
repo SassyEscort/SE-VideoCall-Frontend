@@ -31,5 +31,10 @@ export const NotificationTypeDetailsModelV2: NotificationTypeDetailsTypeV2 = {
     icon: <BoxIconNotification src="/images/notification/Credits_deducted.png" />,
     href: '',
     isReadMore: true
+  },
+  Payout_Approved: {
+    icon: <BoxIconNotification src="/images/notification/Payout_Approved.png" />,
+    href: '',
+    isReadMore: true
   }
 };

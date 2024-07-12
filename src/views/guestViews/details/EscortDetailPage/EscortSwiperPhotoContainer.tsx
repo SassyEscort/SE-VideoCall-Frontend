@@ -36,9 +36,17 @@ const EscortSwiperPhotoContainer = ({
       }}
     >
       {imageSrcVideo === 'Non_Image' && (
-        <video controls style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
-          <source src={image} type="video/mp4" />
-        </video>
+        <Box
+          component="video"
+          width="100%"
+          height="100%"
+          controls
+          sx={{
+            maxHeight: isMain && !isMdDown ? 700 : isMdDown && !isMain ? '90px' : isMdDown && isMain ? 430 : 0
+          }}
+        >
+          <Box component="source" src={image} />
+        </Box>
       )}
     </Box>
   );

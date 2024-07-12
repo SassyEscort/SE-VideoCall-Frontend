@@ -25,15 +25,82 @@ import {
 import WorkerCardMobile from 'views/guestViews/commonComponents/mobileWorkerCard';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import { FormattedMessage } from 'react-intl';
+import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import moment from 'moment';
+import { CallingService } from 'services/calling/calling.services';
+import { getUserDataClient } from 'utils/getSessionData';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; handleClose: () => void; selectDetails: any }) => {
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const [isCreditAvailable, setIsCreditAvailable] = React.useState(false);
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [callTime, setCallTime] = useState(0);
+  const [guestData, setGuestData] = useState(0);
+  const router = useRouter();
 
+  const { handleCallInitiate, call, isCallEnded } = useCallFeatureContext();
+  const callDurationString = selectDetails.call_duration;
+  const callDuration = moment.duration(callDurationString);
+  const hours = Math.floor(callDuration.asHours());
+  const minutes = callDuration.minutes();
+  const seconds = callDuration.seconds();
+
+  React.useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      setToken({ id: data.id, token: data.token });
+    };
+
+    userToken();
+  }, []);
+  React.useEffect(() => {
+    const getCometChatInfo = async () => {
+      if (guestData && token.token) {
+        const getInfo = await CallingService.getCometChatInfo(guestData, token.token);
+        if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 3) {
+          const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
+          setCallTime(durationInSeconds);
+          setIsCreditAvailable(true);
+        }
+      }
+    };
+    getCometChatInfo();
+  }, [guestData, token, call, isCallEnded]);
+  function formatDuration(hours: number, minutes: number, seconds: number) {
+    let message = '';
+
+    if (hours > 0) {
+      message += `${hours} hour`;
+    }
+    if (minutes > 0) {
+      if (hours > 0) {
+        message += ', ';
+      }
+      message += `${minutes} minute`;
+    }
+    if (seconds > 0) {
+      if (hours > 0 || minutes > 0) {
+        message += ', ';
+      }
+      message += `${seconds} second`;
+    }
+
+    return message;
+  }
+
+  const message = formatDuration(hours, minutes, seconds);
+  const handelExplore = () => {
+    router.push('/');
+    handleClose();
+  };
   return (
     <DialogBox open={open} onClose={handleClose} fullWidth scroll="body">
       <DialogTitleContainer id="responsive-modal-title">
         <UINewTypography variant="h6" color="secondary.200">
-          Details
+          <FormattedMessage id="Details" />
         </UINewTypography>
 
         <IconButton
@@ -67,24 +134,29 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
                   <CreditsPriceBox>
                     <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
                     <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                      70
+                      {selectDetails.credits}
                     </UINewTypography>
                   </CreditsPriceBox>
                 </CreditsMainBox>
                 <Box>
                   <UINewTypography variant="SubtitleSmallMedium" color="secondary.200">
-                    05:28 PM, 12 Apr 2024
+                    {moment(selectDetails.created_at).format('hh:mm A, DD MMM YYYY')}
                   </UINewTypography>
                 </Box>
               </ThreeBox>
               <Box>
                 <UINewTypography variant="SubtitleSmallMedium" color="secondary.200">
-                  <FormattedMessage id="Duration" /> 1 hour
+                  <FormattedMessage id="Duration" />
+                  {message}
                 </UINewTypography>
               </Box>
             </SecondBox>
             <ButtonMainContainer>
               <UIThemeShadowButton
+                onClick={() => {
+                  handleCallInitiate(guestData, isCreditAvailable, callTime, selectDetails.name, selectDetails.link);
+                  setGuestData(selectDetails.id);
+                }}
                 sx={{
                   height: 'auto',
                   maxWidth: '100%',
@@ -100,7 +172,12 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
                   </UINewTypography>
                 </Box>
               </UIThemeShadowButton>
-              <UINewTypography variant="bodySemiBold" color="#FFFFFF" sx={{ textAlign: 'center' }}>
+              <UINewTypography
+                onClick={handelExplore}
+                variant="bodySemiBold"
+                color="#FFFFFF"
+                sx={{ textAlign: 'center', cursor: 'pointer' }}
+              >
                 <FormattedMessage id="ExploreMoreModels" />
               </UINewTypography>
             </ButtonMainContainer>

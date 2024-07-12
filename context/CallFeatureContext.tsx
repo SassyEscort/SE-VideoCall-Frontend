@@ -18,6 +18,7 @@ import ModelCredits from 'views/protectedViews/Credites/ModelCredits';
 import { usePathname, useSearchParams } from 'next/navigation';
 import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+import { useRouter } from 'next/navigation';
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
@@ -76,6 +77,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [addedCredits, setAddedCredits] = useState(0);
   const [balance, setBalance] = useState(0);
   const [openSuccess, setOpenSuccess] = useState(false);
+
+  const pathname = usePathname();
+  const router = useRouter();
 
   const init = useCallback(async () => {
     try {
@@ -142,6 +146,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const handleClose = () => {
     setOpen(false);
     setOpenSuccess(false);
+    router.push(pathname);
   };
 
   const handleBusyClose = () => {
@@ -239,8 +244,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         setCall(undefined);
         CometChat.removeUserListener(String(modelId));
         await CometChat.endCall(call.getSessionId());
+        setIsCallEnded(true);
         if (isCustomer) {
-          setIsCallEnded(true);
           await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.ENDED);
           await CometChatUIKit.logout();
         }
@@ -281,6 +286,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         try {
           const endCall = await creditPutCallLog(modelId, sessionId, '');
           if (endCall && endCall.end_call) {
+            setIsCallEnded(true);
             clearInterval(intervalId);
             return;
           }
@@ -331,7 +337,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         <ModelCredits onClose={handleClose} isOutOfCredits={isOutOfCredits} userName={userName} />
       </ModelCreditsUIStyledDialog>
       <UIStyledDialog open={openSuccess} maxWidth="md" fullWidth>
-        <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} isOutOfCredits={true} />
+        <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} isOutOfCredits={isOutOfCredits} />
       </UIStyledDialog>
     </CallContext.Provider>
   );

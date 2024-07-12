@@ -27,23 +27,18 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customerCredit.service';
 import { getUserDataClient } from 'utils/getSessionData';
 import Grid from '@mui/material/Grid';
-import { useRouter, useSearchParams } from 'next/navigation';
-import CreditsAdded from '../../CreditsAdded/CreditsAdded';
+import { useRouter } from 'next/navigation';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { CircularProgress, Divider, useMediaQuery } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import theme from 'themes/theme';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 
 const ModelCredits = ({ onClose, isOutOfCredits, userName }: { onClose: () => void; isOutOfCredits: boolean; userName: string }) => {
-  const [open, setOpen] = useState(false);
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [balance, setBalance] = useState(0);
-  const [addedCredits, setAddedCredits] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -82,21 +77,6 @@ const ModelCredits = ({ onClose, isOutOfCredits, userName }: { onClose: () => vo
     }
     setIsLoading(false);
   };
-
-  const handleClose = () => {
-    setOpen(false);
-    onClose();
-  };
-
-  useEffect(() => {
-    const credit = searchParams.get('credit');
-    setAddedCredits(Number(credit));
-    getCustomerCredit();
-    if (credit) {
-      setOpen(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
 
   useEffect(() => {
     getCreditsListing();
@@ -183,9 +163,6 @@ const ModelCredits = ({ onClose, isOutOfCredits, userName }: { onClose: () => vo
           )}
         </CreditsSubContainer>
       </CreditsMainContainer>
-      <UIStyledDialog open={open} maxWidth="md" fullWidth>
-        <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} isOutOfCredits={isOutOfCredits} />
-      </UIStyledDialog>
     </>
   );
 };

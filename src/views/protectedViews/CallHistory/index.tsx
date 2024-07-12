@@ -45,6 +45,8 @@ import moment from 'moment';
 import { BillingPaginationBox } from '../BillingHistory/BillingHistory.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { LoaderBox } from '../Credites/Credits.styled';
+import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { CallingService } from 'services/calling/calling.services';
 
 export type CallHistoryPaginationType = {
   page: number;
@@ -58,7 +60,10 @@ const CallHistory = () => {
   const [callHistoryData, setCallHistoryData] = useState<CallHistoryPageDetailsRes>();
   const [total_rows, setTotalRows] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [guestData, setguestData] = useState(0);
+  const [isCreditAvailable, setIsCreditAvailable] = useState(false);
+  const [callTime, setCallTime] = useState(0);
+  const { handleCallInitiate, call, isCallEnded } = useCallFeatureContext();
   const [filters, setFilters] = useState<CallHistoryPaginationType>({
     page: 1,
     limit: 20,
@@ -119,6 +124,20 @@ const CallHistory = () => {
     const today = moment();
     return today.diff(birthDate, 'years');
   };
+
+  useEffect(() => {
+    const getCometChatInfo = async () => {
+      if (guestData && token.token) {
+        const getInfo = await CallingService.getCometChatInfo(guestData, token.token);
+        if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 3) {
+          const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
+          setCallTime(durationInSeconds);
+          setIsCreditAvailable(true);
+        }
+      }
+    };
+    getCometChatInfo();
+  }, [guestData, token, call, isCallEnded]);
 
   return (
     <MainLayoutNav variant={'worker'} enlargedFooter={true}>
@@ -206,7 +225,13 @@ const CallHistory = () => {
                           </SecondSubFirstPartThiredBox>
                         )}
                         <CallAgainBox>
-                          <UIThemeShadowButtonContainer variant="contained">
+                          <UIThemeShadowButtonContainer
+                            variant="contained"
+                            onClick={() => {
+                              handleCallInitiate(list.model_id, isCreditAvailable, callTime, list.name, list.link ?? '');
+                              setguestData(list.model_id);
+                            }}
+                          >
                             <Box sx={{ display: 'flex', gap: 1.25 }}>
                               <SecImgBoxContainer src="/images/home-connect-instantly-img.png" />
                               <Box sx={{ whiteSpace: 'nowrap' }}>

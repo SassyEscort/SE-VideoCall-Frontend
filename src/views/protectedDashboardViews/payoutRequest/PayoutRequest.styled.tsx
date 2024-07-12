@@ -223,5 +223,6 @@ export const StyledAccordionDetails = styled((props: AccordionDetailsProps) => <
 export const LoaderBox = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+  width: '100%'
 }));

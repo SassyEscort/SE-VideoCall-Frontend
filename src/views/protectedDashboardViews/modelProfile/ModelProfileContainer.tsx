@@ -1,6 +1,6 @@
 'use client';
 import { MenuItem, Divider } from '@mui/material';
-import { SidebarDropDownMainContainer } from '../sidebarDropDown/SidebarDropDown.styled';
+import { LoadingBoxFullScreen, SidebarDropDownMainContainer } from '../sidebarDropDown/SidebarDropDown.styled';
 import { useMemo, useState } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -10,12 +10,14 @@ import VerificationStepOne from 'views/protectedModelViews/verification/stepOne'
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import DashboardPriceView from '../dashboardPriceView';
 import { FormattedMessage } from 'react-intl';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const profileMenuList = [
   { menuName: <FormattedMessage id="Photos" />, id: 0 },
   { menuName: <FormattedMessage id="ProfileDetails" />, id: 1 },
   { menuName: <FormattedMessage id="Prices" />, id: 2 }
 ];
+
 const ModelProfileContainer = ({
   modelDetails,
   token,
@@ -27,11 +29,15 @@ const ModelProfileContainer = ({
 }) => {
   const url = new URL(window.location.href);
   const verificationCode = url.searchParams.get('code');
-
+  const [isLoading, setIsLoading] = useState(false);
   const [menuId, setMenuId] = useState(verificationCode ? 1 : 0);
 
   const handleMenu = (id: number) => {
+    setIsLoading(true);
     setMenuId(id);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500); // Simula un tiempo de carga
   };
 
   const handleSave = () => {
@@ -60,7 +66,7 @@ const ModelProfileContainer = ({
               {profileMenuList.map((list, index) => (
                 <>
                   <MenuItem onClick={() => handleMenu(list.id)} key={index} sx={{ paddingLeft: '0', py: '12px' }}>
-                    {menuId === index ? (
+                    {menuId === list.id ? (
                       <UINewTypography variant="buttonLargeMenu" color="primary.400">
                         {list.menuName}
                       </UINewTypography>
@@ -76,7 +82,11 @@ const ModelProfileContainer = ({
           <Divider orientation="vertical" flexItem sx={{ borderColor: 'primary.700' }} />
         </Box>
         <Box sx={{ display: 'flex', ml: 1, width: '100%' }}>
-          {menuId === 0 ? (
+          {isLoading ? (
+            <LoadingBoxFullScreen>
+              <CircularProgress />
+            </LoadingBoxFullScreen>
+          ) : menuId === 0 ? (
             <UploadImage
               isEdit={true}
               workerPhotos={modelPhotos ?? []}
