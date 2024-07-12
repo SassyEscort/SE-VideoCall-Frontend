@@ -174,13 +174,28 @@ const PayoutContainer = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.token, isCallEnded]);
 
+  const getGreetingMessage = () => {
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    const date = new Date();
+    const localHour = parseInt(date.toLocaleString('en-US', { hour: '2-digit', hour12: false, timeZone }), 10);
+
+    if (localHour < 12) {
+      return <FormattedMessage id="GoodMorning" />;
+    } else if (localHour < 18) {
+      return <FormattedMessage id="GoodAfternoon" />;
+    } else {
+      return <FormattedMessage id="GoodEvening" />;
+    }
+  };
+
   return (
     <MainContainer>
       {(payoutStep === 0 || isSmUp) && (
         <>
           <BoxMessage>
             <TextDetail variant="h2" color="text.secondary">
-              <FormattedMessage id="GoodEvening" />, {modelDetails.name}
+              {getGreetingMessage()}, {modelDetails.name}
             </TextDetail>
           </BoxMessage>
           <SecondMainContainer id="tableSection">

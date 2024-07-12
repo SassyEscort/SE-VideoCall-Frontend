@@ -2,8 +2,8 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import { IconButton } from '@mui/material';
 
 export const MainWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -219,7 +219,7 @@ export const FavoriteBorderIconContainer = styled(FavoriteBorderIcon)(({ theme }
   }
 }));
 
-export const FavoriteIconContainer = styled(FavoriteIcon)(({ theme }) => ({
+export const FavoriteIconContainer = styled(IconButton)(({ theme }) => ({
   width: '20px',
   height: '20px',
   [theme.breakpoints.up('sm')]: {

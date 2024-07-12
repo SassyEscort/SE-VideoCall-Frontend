@@ -17,8 +17,19 @@ import CustomPasswordRegex from '../customPasswordRegex';
 import InputAdornment from '@mui/material/InputAdornment';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
-import { Typography } from '@mui/material';
 import { ErrorMessage } from 'constants/common.constants';
+import { FormattedMessage } from 'react-intl';
+import {
+  FirstBoxContainer,
+  FiveBoxContainer,
+  FourBoxContainer,
+  GuestNewPasswordText,
+  MainBoxContainer,
+  SecBoxContainer,
+  SecTextContainer,
+  SixBoxContainer,
+  ThirdBoxContainer
+} from './GuestNewPassword.styled';
 
 export type ResetPasswordParams = {
   email: string;
@@ -104,27 +115,23 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                 }}
               >
                 <Box sx={{ pt: { xs: 0, sm: '50px' } }}>
-                  <Box display="flex" flexDirection="column" gap="12px" alignItems="center" justifyContent="center">
-                    <UINewTypography
+                  <MainBoxContainer>
+                    <GuestNewPasswordText
                       variant="MediumSemiBoldText"
                       color="common.white"
                       sx={{
-                        display: 'flex',
-                        whiteSpace: { xs: 'normal', sm: 'nowrap' },
-                        marginTop: { xs: '100px', sm: 0 },
-                        lineHeight: { xs: '41.6px', sm: '40px' },
                         fontWeight: isSm ? '600' : undefined
                       }}
                     >
-                      Setup your new password
-                    </UINewTypography>
+                      <FormattedMessage id="SetupYourNewPassword" />
+                    </GuestNewPasswordText>
                     <UINewTypography variant="bodyRegular" color="secondary.200" textAlign="center">
                       For the account{' '}
                       <UINewTypography variant="bodySemiBold" color="secondary.200">
                         {email}
                       </UINewTypography>
                     </UINewTypography>
-                  </Box>
+                  </MainBoxContainer>
                   <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
                     <IconButton
                       size="large"
@@ -141,10 +148,13 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                     </IconButton>
                   </Box>
                 </Box>
-                <Box display="flex" flexDirection="column" gap={3}>
-                  <Box display="flex" gap={1.5} flexDirection="column">
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                      <UINewTypography variant="bodySemiBold">New password</UINewTypography>
+                <FirstBoxContainer>
+                  <SecBoxContainer>
+                    <ThirdBoxContainer>
+                      <UINewTypography variant="bodySemiBold">
+                        {' '}
+                        <FormattedMessage id="NewPassword" />
+                      </UINewTypography>
                       <UIStyledInputText
                         fullWidth
                         type={showPassword ? 'text' : 'password'}
@@ -167,12 +177,14 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                           )
                         }}
                       />
-                    </Box>
-                  </Box>
+                    </ThirdBoxContainer>
+                  </SecBoxContainer>
 
-                  <Box display="flex" gap={1.5} flexDirection="column">
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                      <UINewTypography variant="bodySemiBold">Confirm new password</UINewTypography>
+                  <SecBoxContainer>
+                    <ThirdBoxContainer>
+                      <UINewTypography variant="bodySemiBold">
+                        <FormattedMessage id="ConfirmNewPassword" />
+                      </UINewTypography>
                       <UIStyledInputText
                         fullWidth
                         type={showConfirmPassword ? 'text' : 'password'}
@@ -199,21 +211,23 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                           )
                         }}
                       />
-                    </Box>
-                  </Box>
-                </Box>
+                    </ThirdBoxContainer>
+                  </SecBoxContainer>
+                </FirstBoxContainer>
                 <Box>
                   <CustomPasswordRegex password={values.password} />
                 </Box>
-                <Box display="flex" flexDirection="column" width="100%" gap="26px">
+                <FourBoxContainer>
                   <StyleButtonV2 variant="contained" type="submit" loading={loading}>
-                    <Typography sx={{ fontSize: '16px', lineHeight: '19.2px', fontWeight: '700' }}> Change password</Typography>
+                    <SecTextContainer>
+                      <FormattedMessage id="ChangePassword" />
+                    </SecTextContainer>
                   </StyleButtonV2>
-                  <Box display="flex" flexDirection="column" gap={{ xs: 0.75, sm: 3 }}>
+                  <FiveBoxContainer>
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                    <Box display="flex" gap={1} alignItems="center" justifyContent="center" pb={3}>
+                    <SixBoxContainer>
                       <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
-                        Remember password?
+                        <FormattedMessage id="RememberPasswordd" />
                       </UINewTypography>
                       <UINewTypography
                         whiteSpace="nowrap"
@@ -221,11 +235,11 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                         sx={{ color: 'text.secondary', cursor: 'pointer' }}
                         onClick={onLoginOpen}
                       >
-                        Log in instead!
+                        <FormattedMessage id="LogInInstead" />
                       </UINewTypography>
-                    </Box>
-                  </Box>
-                </Box>
+                    </SixBoxContainer>
+                  </FiveBoxContainer>
+                </FourBoxContainer>
               </Box>
             </AuthCommon>
           </Box>

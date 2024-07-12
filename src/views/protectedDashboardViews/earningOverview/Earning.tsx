@@ -4,7 +4,7 @@ import Circle from '@mui/icons-material/Circle';
 import { ApexOptions } from 'apexcharts';
 import max from 'lodash/max';
 import min from 'lodash/min';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import useChart from 'components/UIComponents/Chart/useChart';
 import Chart from 'components/UIComponents/Chart';
@@ -16,7 +16,7 @@ import { CallTypeModel } from 'services/modelEarningHistory/typs';
 import { FormattedMessage } from 'react-intl';
 import { CircleMainBox } from './EarningOverview.styled';
 
-const Earnings = () => {
+const Earnings = ({ fromDate, toDate }: { fromDate: Moment | null; toDate: Moment | null }) => {
   const [chartData, setChartData] = useState([] as ChartSeriesType[]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<CallTypeModel>();
@@ -31,13 +31,16 @@ const Earnings = () => {
 
   useEffect(() => {
     const modelDetails = async () => {
-      const modelData = await ModelEarningHistoryService.getEarningChartDetails(token.token);
+      const modelData = await ModelEarningHistoryService.getEarningChartDetails(token.token, {
+        start_date: fromDate ? fromDate.format('YYYY-MM-DD') : '',
+        end_date: toDate ? toDate.format('YYYY-MM-DD') : ''
+      });
       setModelDetails(modelData.data);
     };
     if (token.token) {
       modelDetails();
     }
-  }, [token.id, token.token]);
+  }, [token.id, token.token, fromDate, toDate]);
 
   const options: ApexOptions = {
     series: chartData,

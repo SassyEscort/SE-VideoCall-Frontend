@@ -1,7 +1,9 @@
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import { Typography } from '@mui/material';
+import { FormattedMessage } from 'react-intl';
+import { AuthCommonBox } from '../AuthCommon.styled';
+import { MainBoxContainer } from './customPasswordRegex.styled';
 
 const CustomPasswordRegex = ({ password }: { password: string }) => {
   const isBetweenLength = password.length >= 8 && password.length <= 124;
@@ -10,21 +12,10 @@ const CustomPasswordRegex = ({ password }: { password: string }) => {
 
   return (
     <>
-      <Box
-        sx={{
-          backgroundColor: 'primary.700',
-          width: '100%',
-          maxWidth: '509px',
-          padding: 2,
-          borderRadius: '8px',
-          gap: 1,
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-      >
-        <Typography sx={{ fontSize: '16px', lineHeight: '25.6px', color: 'text.secondary', fontWeight: '600' }}>
-          Use a password you don’t use elsewhere
-        </Typography>
+      <MainBoxContainer>
+        <AuthCommonBox>
+          <FormattedMessage id="UseAPassword" />
+        </AuthCommonBox>
         <Box
           sx={{
             display: 'flex',
@@ -52,7 +43,7 @@ const CustomPasswordRegex = ({ password }: { password: string }) => {
             />
           )}
           <UINewTypography variant="bodyRegular" sx={{ color: 'text.secondary', lineHeight: '25.6px' }}>
-            Between 8 and 124 charecters
+            <FormattedMessage id="Between8And124" />
           </UINewTypography>
         </Box>
         <Box
@@ -75,7 +66,7 @@ const CustomPasswordRegex = ({ password }: { password: string }) => {
             <FiberManualRecordIcon sx={{ width: '10px', height: '10px', alignSelf: 'center' }} fontSize="small" />
           )}
           <UINewTypography variant="bodyRegular" sx={{ color: 'text.secondary', lineHeight: '25.6px' }}>
-            Contains at least one number
+            <FormattedMessage id="ContainsAtLeast" />
           </UINewTypography>
         </Box>
 
@@ -99,10 +90,10 @@ const CustomPasswordRegex = ({ password }: { password: string }) => {
             <FiberManualRecordIcon sx={{ width: '10px', height: '10px', alignSelf: 'center' }} fontSize="small" />
           )}
           <UINewTypography variant="bodyRegular" sx={{ color: 'text.secondary', lineHeight: '25.6px' }}>
-            Contains atleast one symbol
+            <FormattedMessage id="ContainsAtleast" />
           </UINewTypography>
         </Box>
-      </Box>
+      </MainBoxContainer>
     </>
   );
 };

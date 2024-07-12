@@ -13,6 +13,12 @@ export const AGES = [
   { title: '40-45', id: '40-45' }
 ];
 
+export const STATUS = [
+  { title: 'Completed', id: 'Completed' },
+  { title: 'Pending', id: 'Pending' },
+  { title: 'Cancelled', id: 'Cancelled' }
+];
+
 export const PRICE = [
   { title: '0', id: 1 },
   { title: '100-200', id: 2 }

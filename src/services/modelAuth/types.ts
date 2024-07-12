@@ -11,6 +11,7 @@ export type LoginModelData = {
   name: string;
   email: string;
   verification_step: string;
+  user_name: string;
 };
 
 export type LoginModelResponse = GenericResponse & {

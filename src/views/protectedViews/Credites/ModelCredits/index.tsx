@@ -90,7 +90,7 @@ const ModelCredits = ({ onClose, isOutOfCredits, userName }: { onClose: () => vo
         <CreditsSubContainer>
           <HeadingContainer>
             <UINewTypography variant="h6">
-              {isOutOfCredits ? <FormattedMessage id="NotEnoughCredits" /> : <FormattedMessage id="NoEnoughCredits" />}
+              {isOutOfCredits ? <FormattedMessage id="OutOFCredits" /> : <FormattedMessage id="NoEnoughCredits" />}
             </UINewTypography>
             <NewUIIconButton onClick={onClose}>
               <CloseIcon sx={{ color: theme.palette.text.secondary }} />

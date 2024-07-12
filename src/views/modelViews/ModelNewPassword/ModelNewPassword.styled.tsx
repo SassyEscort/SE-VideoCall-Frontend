@@ -55,3 +55,21 @@ export const SetYourNewPasswordBox = styled(UINewTypography)(({ theme }) => ({
     whiteSpace: 'normal'
   }
 }));
+
+export const FirstBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(3)
+}));
+
+export const SecBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(1.5)
+}));
+
+export const ThirdBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(0.5)
+}));

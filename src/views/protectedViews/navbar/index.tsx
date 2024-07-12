@@ -35,7 +35,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
     dashboard: 1,
     profile: 2,
     favourites: 3,
-    Call: 4,
+    call: 4,
     credit: 5,
     billing: 6,
     logout: 7

@@ -147,7 +147,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                   <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                   <Box display="flex" gap={1} alignItems="center" justifyContent="center" sx={{ flexDirection: isSm ? 'column' : 'row' }}>
                     <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
-                      <FormattedMessage id="RememberPassword" />
+                      <FormattedMessage id="RememberPasswordd" />
                     </UINewTypography>
                     <UINewTypography
                       whiteSpace="nowrap"

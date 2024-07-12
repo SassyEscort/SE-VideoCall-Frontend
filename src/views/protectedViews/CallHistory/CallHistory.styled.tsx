@@ -93,11 +93,12 @@ export const SecondSubFirstPartBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const WorkerImg = styled('img')(({ theme }) => ({
+export const WorkerImg = styled('img')(({ theme, src }) => ({
   width: '100%',
   minWidth: '80px',
   height: '80px',
-  borderRadius: theme.spacing(1.5)
+  borderRadius: theme.spacing(1.5),
+  backgroundImage: `url(${src})`
 }));
 
 export const SecondSubFirstPartSecondBox = styled(Box)(({ theme }) => ({
@@ -225,6 +226,8 @@ export const DividerContainer = styled(Divider)(({ theme }) => ({
 }));
 
 export const FirstTextContainer = styled(Typography)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
   [theme.breakpoints.down('sm')]: {
     fontSize: '14px',
     fontWeight: 500,
