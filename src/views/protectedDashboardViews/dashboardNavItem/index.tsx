@@ -11,7 +11,6 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import ProfileApproval from '../profileApproval';
-import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 
 const DashboardNavItem = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -35,8 +34,6 @@ const DashboardNavItem = () => {
       modelDetails();
     }
   }, [token.id, token.token]);
-
-  console.log(modelDetails?.verification_step, 'modelDetails?.verification_step');
 
   return (
     <>
@@ -77,7 +74,7 @@ const DashboardNavItem = () => {
             <DashboadrHeaderAuthComponent />
           </Box>
         </WorkerNavItemContainer>
-        {modelDetails?.verification_step === MODEL_ACTIVE_STEP.IN_REVIEW && <ProfileApproval />}
+        {modelDetails?.profile_status === 'Approved' ? '' : <ProfileApproval />}
       </AppBar>
     </>
   );
