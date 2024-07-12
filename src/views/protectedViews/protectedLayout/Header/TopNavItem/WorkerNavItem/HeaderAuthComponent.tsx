@@ -23,7 +23,6 @@ import { IconButtonBoxNew } from './Notification.styled';
 import { HeaderMainBox } from './HeaderAuthComponent.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useCallFeatureContext } from '../../../../../../../context/CallFeatureContext';
-import { useRouter } from 'next/navigation';
 
 export type NotificationFilters = {
   page: number;
@@ -32,9 +31,7 @@ export type NotificationFilters = {
 };
 
 const HeaderAuthComponent = () => {
-  const { isCallEnded } = useCallFeatureContext();
-  const route = useRouter();
-  const { refresh } = route;
+  const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -148,14 +145,18 @@ const HeaderAuthComponent = () => {
         }
       }
     };
-    if (isCallEnded && token.token) {
-      refresh();
-    }
+
     if (token.token) {
       getCustomerCredit();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.id, token.token, isCallEnded]);
+
+  useEffect(() => {
+    if (isCallEnded && avaialbleCredits) {
+      setBalance(avaialbleCredits);
+    }
+  }, [avaialbleCredits, isCallEnded]);
 
   const handleOpenLogout = () => {
     setIsLogoutOpen(true);
