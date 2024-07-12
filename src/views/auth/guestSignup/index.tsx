@@ -58,9 +58,16 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
   }, [activeStep, redirectSeconds]);
 
   const validationSchema = yup.object({
-    name: yup.string().required('Nameisrequired').min(2, 'Nameistooshort').max(20, 'Nameistoolong'),
-    email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
-    password: yup.string().required('Passwordisrequired').min(8, 'Passwordmust').matches(PASSWORD_PATTERN, 'InvalidPassword')
+    name: yup.string().trim().required('Name is required').min(2, 'Name is too short').max(20, 'Name is too long'),
+    email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required'),
+    password: yup
+      .string()
+      .required('Password is required')
+      .min(8, 'Password must be at least 8 characters')
+      .matches(
+        PASSWORD_PATTERN,
+        'Invalid Password! Does not meet requirements (this password has appeared in a data breach elsewhere and should never be used on any website)'
+      )
   });
 
   return (
@@ -107,7 +114,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
-            <AuthCommon onClose={onClose} image="images/auth/auth-model1.webp" mobileImage="images/auth/auth-model1.webp">
+            <AuthCommon onClose={onClose} image="/images/auth/auth-model1.webp" mobileImage="/images/auth/auth-model1.webp">
               <Box
                 position="relative"
                 width="100%"
@@ -162,7 +169,10 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           id="name"
                           name="name"
                           value={values.name}
-                          onChange={handleChange}
+                          onChange={(e) => {
+                            e.target.value = e.target.value.trimStart();
+                            handleChange(e);
+                          }}
                           onBlur={handleBlur}
                           error={touched.name && Boolean(errors.name)}
                           helperText={touched.name && errors.name ? <FormattedMessage id={errors.name} /> : ''}
