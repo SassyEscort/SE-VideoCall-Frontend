@@ -80,7 +80,6 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [balance, setBalance] = useState(0);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [avaialbleCredits, setAvailableCredits] = useState(0);
-  console.log(avaialbleCredits, 'avaialbleCredits');
 
   const pathname = usePathname();
   const router = useRouter();
