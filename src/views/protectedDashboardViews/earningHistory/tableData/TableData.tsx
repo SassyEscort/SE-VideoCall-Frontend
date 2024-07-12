@@ -7,20 +7,21 @@ import { ModelEarningHistoryPageDetailsRes } from 'services/modelEarningHistory/
 import moment from 'moment';
 import { DataNotBox } from '../EarningHistory.styled';
 import { FormattedMessage } from 'react-intl';
+import theme from 'themes/theme';
 
 const TableData = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningHistoryPageDetailsRes }) => {
   return (
     <TableBody>
       {modelEarningHistory?.data?.ledger_details?.length ? (
         modelEarningHistory?.data?.ledger_details.map((dp, index) => (
-          <TableRow key={index}>
+          <TableRow key={index} sx={{ '& .MuiTableCell-root': { borderBottomColor: theme.palette.primary[700], padding: '24px 16px' } }}>
             <TableCell>
-              <UINewTypography variant="bodySemiBold" color="text.secondary">
+              <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                 {dp?.customer_name}
               </UINewTypography>
             </TableCell>
             <TableCell>
-              <UINewTypography variant="bodySemiBold" color="text.secondary">
+              <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                 {dp?.call_duration &&
                   moment
                     .duration(dp?.call_duration)
@@ -38,18 +39,18 @@ const TableData = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningH
                     height: '20px'
                   }}
                 />
-                <UINewTypography variant="bodySemiBold" color="text.secondary">
+                <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                   {dp.credits}
                 </UINewTypography>
               </Box>
             </TableCell>{' '}
             <TableCell>
-              <UINewTypography variant="bodySemiBold" color="text.secondary">
+              <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                 {moment(dp.created_at).format('DD MMMM YYYY')}
               </UINewTypography>
             </TableCell>
             <TableCell>
-              <UINewTypography variant="bodySemiBold" color="text.secondary">
+              <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                 $ {dp.amount}
               </UINewTypography>
             </TableCell>
