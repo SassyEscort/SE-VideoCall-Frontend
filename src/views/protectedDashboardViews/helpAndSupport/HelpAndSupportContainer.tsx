@@ -53,7 +53,7 @@ const HelpAndSupportContainer = () => {
                   <FormattedMessage id="MailUs" />
                 </UINewTypography>
                 <UINewTypography variant="h3" color="text.secondary">
-                  help@sassy.com
+                  support@flirtbate.com
                 </UINewTypography>
               </TextSecondBoxContainer>
             </TextFirstBoxContainer>

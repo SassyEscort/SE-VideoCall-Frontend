@@ -114,7 +114,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
-            <AuthCommon onClose={onClose} image="images/auth/auth-model1.webp" mobileImage="images/auth/auth-model1.webp">
+            <AuthCommon onClose={onClose} image="/images/auth/auth-model1.webp" mobileImage="images/auth/auth-model1.webp">
               <Box
                 position="relative"
                 width="100%"
