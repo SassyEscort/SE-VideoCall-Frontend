@@ -1,5 +1,17 @@
 import axios, { AxiosError } from 'axios';
 import { PriceCommissionsRes } from './types';
+import { GenericRes } from 'services/guestAuth/authuser.services';
+
+export type UserNameRes = {
+  id: number;
+  name: string;
+  email: string;
+  user_name: string;
+};
+
+export interface UserNameResData extends GenericRes {
+  data: UserNameRes;
+}
 
 export class CommonServices {
   static getCountry = async (token: string, modelFilters: Boolean) => {
@@ -63,6 +75,22 @@ export class CommonServices {
       return res.data;
     } catch (error: any) {
       return error as PriceCommissionsRes;
+    }
+  };
+
+  static updateUserName = async (token: string, user_name: string): Promise<UserNameResData> => {
+    try {
+      const res = await axios.put<UserNameResData>(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/user-name`,
+        { user_name: user_name },
+        {
+          headers: { 'Content-Type': 'application/json', Authorization: token }
+        }
+      );
+
+      return res.data;
+    } catch (error: any) {
+      return error as UserNameResData;
     }
   };
 }

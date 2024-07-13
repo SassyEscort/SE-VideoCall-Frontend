@@ -134,7 +134,6 @@ const MainFooter = () => {
                       <FormattedMessage id="Home" />
                     </Link>
                   </UINewTypography>
-
                   <UINewTypography variant="SubtitleSmallRegular">
                     <Link prefetch={false} href="/faq">
                       <FormattedMessage id="FAQs" />
