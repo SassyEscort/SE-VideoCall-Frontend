@@ -35,7 +35,7 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
   }, []);
 
   const countryData = async () => {
-    const data = await CommonServices.getCountry(token.token, false);
+    const data = await CommonServices.getCountry(token.token, true);
     setCountries(data.data);
   };
   useEffect(() => {

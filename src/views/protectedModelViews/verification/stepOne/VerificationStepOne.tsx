@@ -111,7 +111,7 @@ const VerificationBasicDetails = ({
 
   const handleCountryApiChange = useCallback(() => {
     const countryData = async () => {
-      const data = await CommonServices.getCountry(token.token);
+      const data = await CommonServices.getCountry(token.token, false);
       setCountries(data.data);
     };
     countryData();

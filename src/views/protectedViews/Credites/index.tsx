@@ -74,7 +74,7 @@ const Credits = () => {
 
   const handleCreditClick = async (listCredit: ModelCreditRes) => {
     setIsLoading(true);
-    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, false);
+    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, 0);
     if (res) {
       router.push(res?.data?.url);
     }
