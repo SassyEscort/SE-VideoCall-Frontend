@@ -123,7 +123,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     modelName: string,
     modelPhoto: string
   ) => {
-    if (guestId && isCreditAvailable) {
+    if (guestId && isCreditAvailable && !call) {
       setIsLoading(true);
       await init();
       setEndCallTime(callTime);
@@ -141,6 +141,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       setIsCallEnded(false);
       await creditPutCallLog(guestId, callInitiate.getSessionId(), '');
       setIsLoading(false);
+    } else if (call) {
+      toast.error('Please end your ONGOING call');
     } else {
       setOpen(true);
     }

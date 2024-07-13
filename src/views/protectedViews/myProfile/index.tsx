@@ -13,15 +13,17 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { EMAIL_REGEX } from 'constants/regexConstants';
 import { LoaderBox } from '../Credites/Credits.styled';
+import { CommonServices } from 'services/commonApi/commonApi.services';
+import { toast } from 'react-toastify';
+import { ErrorMessage } from 'constants/common.constants';
 
 export type MyProfile = {
   username: string;
   email: string;
   password: string;
 };
-const MyProfile = () => {
-  // const isSmDown = theme.breakpoints.down(330);
 
+const MyProfile = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
   const [isLoading, setIsLoading] = useState(false);
@@ -30,6 +32,17 @@ const MyProfile = () => {
     username: yup.string().required('Username is required').min(2, 'Username is too short').max(20, 'Username is too long'),
     email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required')
   });
+
+  const handleSubmit = async (username: string) => {
+    const res = await CommonServices.updateUserName(token.token, username);
+    if (res) {
+      if (res.code === 200) {
+        toast.success('Success');
+      } else {
+        toast.error(ErrorMessage);
+      }
+    }
+  };
 
   useEffect(() => {
     const userToken = async () => {
@@ -61,7 +74,9 @@ const MyProfile = () => {
         password: 'test123'
       }}
       validationSchema={validationSchema}
-      onSubmit={(values) => {}}
+      onSubmit={(values) => {
+        handleSubmit(values.username);
+      }}
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
@@ -82,7 +97,7 @@ const MyProfile = () => {
                 />
                 <DisableButtonBox>
                   <Box>
-                    <UIThemeButton variant="contained" disabled>
+                    <UIThemeButton variant="contained" type="submit">
                       <UINewTypography variant="buttonSmallBold" color={'text.disabled'}>
                         <FormattedMessage id="Save" />
                       </UINewTypography>

@@ -10,6 +10,7 @@ export interface User {
   image?: string | null;
   id?: string | null;
   provider?: string;
+  picture?: string;
 }
 
 export interface AuthUser {

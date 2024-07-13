@@ -14,6 +14,7 @@ export type CallHistoryDetails = {
   link: null | string;
   languages: CallHistoryLanguages[];
   user_name: string;
+  credits_per_minute: number;
 };
 
 export type CallHistoryLanguages = {

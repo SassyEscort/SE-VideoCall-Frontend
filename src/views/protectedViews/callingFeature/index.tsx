@@ -10,7 +10,7 @@ const CallFeature = () => {
   return (
     <>
       {!isCustomer && <CometChatIncomingCall call={call} />}
-      {call && !isCallAccepted && !isLoading && (
+      {call && !isCallAccepted && !isLoading && !isBusy && (
         <CometChatOutgoingCall call={call} customView={<RingingModel onClose={handleCancelCall} />} />
       )}
       {call && isCallAccepted && <CometChatOngoingCall sessionID={call?.getSessionId()} />}

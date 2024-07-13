@@ -102,12 +102,6 @@ const MainFooter = () => {
                     </Link>
                   </UINewTypography>
                   <UINewTypography variant="SubtitleSmallRegular">
-                    <Link prefetch={false} href="https://blog.sassyescort.com/" target="_blank">
-                      <FormattedMessage id="WhyJoin" />
-                    </Link>
-                  </UINewTypography>
-
-                  <UINewTypography variant="SubtitleSmallRegular">
                     <Link prefetch={false} href="/faq">
                       <FormattedMessage id="FAQs" />
                     </Link>

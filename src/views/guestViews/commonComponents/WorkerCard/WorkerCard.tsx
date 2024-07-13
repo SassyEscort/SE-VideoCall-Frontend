@@ -107,7 +107,7 @@ const WorkerCard = ({
             <ProfileCardContainer>
               <NameCardContainer>
                 <UINewTypography variant="newTitle" color="#ffff">
-                  {modelDetails?.name}
+                  {modelDetails?.name.charAt(0).toUpperCase() + modelDetails?.name.slice(1)}
                 </UINewTypography>
                 {modelDetails?.is_online === 1 ? (
                   <>

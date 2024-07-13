@@ -76,21 +76,25 @@ const HomeModelTopBanner = () => {
   };
 
   useEffect(() => {
-    const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(token.token);
-      setModelDetails(modelData.data);
-    };
-    modelDetails();
-  }, [token.id, token.token]);
-
-  useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
+      if (data) {
+        setToken({ id: data.id, token: data.token });
+      }
     };
 
     userToken();
   }, []);
+
+  useEffect(() => {
+    const modelDetails = async () => {
+      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      if (modelData) {
+        setModelDetails(modelData.data);
+      }
+    };
+    modelDetails();
+  }, [token.id, token.token]);
 
   return (
     <>
@@ -135,7 +139,7 @@ const HomeModelTopBanner = () => {
               </TypographyBox>
             </DetailSubContainer>
             <ButtonContainer>
-              {isSmDown && !isVerificationPendingOrCompleted(modelDetails?.verification_step) ? (
+              {isSmDown && token.token && !isVerificationPendingOrCompleted(modelDetails?.verification_step) ? (
                 <Link href="/model/profile">
                   <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>
                     <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
