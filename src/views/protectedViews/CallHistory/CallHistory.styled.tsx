@@ -90,6 +90,9 @@ export const SecondSubFirstPartBox = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(1.5)
+  },
+  [theme.breakpoints.only('md')]: {
+    maxWidth: '195px'
   }
 }));
 
@@ -146,9 +149,9 @@ export const SecondSubFirstPartThiredBox = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '156px',
   height: '100%',
-  maxHeight: '50px',
-  gap: theme.spacing(1.5),
-  marginTop: theme.spacing(1.875)
+  maxHeight: '80px',
+  gap: theme.spacing(1.5)
+  // marginTop: theme.spacing(1.875)
 }));
 
 export const SecondSubFirstPartThiredBoxText = styled(Box)(({ theme }) => ({
@@ -197,7 +200,7 @@ export const CallAgainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: theme.spacing(1.5)
+  marginTop: theme.spacing(2)
 }));
 
 export const CreditUsedBox = styled(Box)(({ theme }) => ({

@@ -228,6 +228,21 @@ const CallHistory = () => {
                                   <FirstTextContainer color="text.primary">{list.credits_used}</FirstTextContainer>
                                 </SecondSubFirstPartThiredBoxText>
                               </CreditUsedBox>
+                              <CreditUsedBox>
+                                <FirstTextContainer color="text.primary" whiteSpace="nowrap">
+                                  <FormattedMessage id="Date" /> :
+                                </FirstTextContainer>
+                                <SecondSubFirstPartThiredBoxText>
+                                  <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'column', md: 'column', lg: 'row' } }}>
+                                    <FirstTextContainer color="text.primary" sx={{ textWrap: 'nowrap' }}>
+                                      {moment(list.created_at).format('LT')},
+                                    </FirstTextContainer>
+                                    <FirstTextContainer color="text.primary" sx={{ textWrap: 'nowrap' }}>
+                                      {moment(list.created_at).format('DD MMMM YYYY')}
+                                    </FirstTextContainer>
+                                  </Box>
+                                </SecondSubFirstPartThiredBoxText>
+                              </CreditUsedBox>
                             </SecondSubFirstPartThiredBox>
                           )}
                         </SecondSubFirstBox>
@@ -248,6 +263,15 @@ const CallHistory = () => {
                                 </UINewTypography>
                               </SecondSubFirstPartThiredBoxText>
                             </CreditUsedBox>
+
+                            <Box>
+                              <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
+                                <FormattedMessage id="Date" />
+                              </UINewTypography>
+                              <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
+                                {moment(list.created_at).format('LT')}, {moment(list.created_at).format('DD MMMM YYYY')}
+                              </UINewTypography>
+                            </Box>
                           </SecondSubFirstPartThiredBox>
                         )}
                         <CallAgainBox>
