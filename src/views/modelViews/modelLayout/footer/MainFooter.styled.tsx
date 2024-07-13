@@ -82,3 +82,8 @@ export const FirstBoxContainerMain = styled(Box)(({ theme }) => ({
     marginTop: theme.spacing(3)
   }
 }));
+
+export const FooterStoreBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(3.5)
+}));

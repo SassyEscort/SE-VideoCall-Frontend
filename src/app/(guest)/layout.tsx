@@ -20,9 +20,18 @@ export interface AuthUser {
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const authUser: AuthUser | null = await getLoggedInUser();
 
+  let HeaderComponent;
+  if (authUser?.user?.provider === 'providerGuest') {
+    HeaderComponent = <Header variant="worker" />;
+  } else if (authUser?.user?.provider === 'providerModel') {
+    HeaderComponent = <Header variant="dashboard" />;
+  } else {
+    HeaderComponent = <HeaderGuestComponent />;
+  }
+
   return (
     <Box>
-      {authUser?.user?.provider === 'providerGuest' ? <Header variant="worker" /> : <HeaderGuestComponent />}
+      {HeaderComponent}
       <main>
         <Box sx={{ mt: 10 }}>{children}</Box>
       </main>
