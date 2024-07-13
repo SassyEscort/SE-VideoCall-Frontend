@@ -71,7 +71,7 @@ const ModelCredits = ({ onClose, isOutOfCredits, userName }: { onClose: () => vo
 
   const handleCreditClick = async (listCredit: ModelCreditRes) => {
     setIsLoading(true);
-    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, isOutOfCredits, userName);
+    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, 1, userName);
     if (res) {
       router.push(res?.data?.url);
     }

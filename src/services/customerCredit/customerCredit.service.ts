@@ -47,7 +47,7 @@ export class CustomerCredit {
   static modelCreditAmount = async (
     token: string,
     customer_plan_id: number,
-    isOutOfCredits: boolean,
+    isOutOfCredits: number,
     userName?: string
   ): Promise<ModelCreditURLResponse> => {
     try {
