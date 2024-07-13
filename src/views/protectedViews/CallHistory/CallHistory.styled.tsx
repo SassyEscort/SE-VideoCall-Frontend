@@ -90,6 +90,9 @@ export const SecondSubFirstPartBox = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(1.5)
+  },
+  [theme.breakpoints.only('md')]: {
+    maxWidth: '195px'
   }
 }));
 
@@ -197,7 +200,7 @@ export const CallAgainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: theme.spacing(1.5)
+  marginTop: theme.spacing(2)
 }));
 
 export const CreditUsedBox = styled(Box)(({ theme }) => ({
@@ -278,5 +281,13 @@ export const UIThemeShadowButtonContainer = styled(UIThemeShadowButton)(({ theme
   },
   [theme.breakpoints.up('sm')]: {
     maxWidth: '220px'
+  }
+}));
+
+export const CallHistoryBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  [theme.breakpoints.down('lg')]: {
+    flexDirection: 'column'
   }
 }));
