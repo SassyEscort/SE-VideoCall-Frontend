@@ -1,7 +1,14 @@
 import Box from '@mui/material/Box';
 import Link from 'next/link';
 import Image from 'next/image';
-import { DividerUILine, FirstBoxContainerMain, FooterSubICon, ModelFooterHead, ModelUITextConatinerText } from './MainFooter.styled';
+import {
+  DividerUILine,
+  FirstBoxContainerMain,
+  FooterStoreBox,
+  FooterSubICon,
+  ModelFooterHead,
+  ModelUITextConatinerText
+} from './MainFooter.styled';
 import { FooterCityList } from './footer.constants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
@@ -88,6 +95,32 @@ const MainFooter = () => {
                   <FormattedMessage id="InstantConnections" />
                 </ModelFooterHead>
               </Box>
+              <FooterStoreBox>
+                <Box>
+                  <Image
+                    src="/images/app-logo/play_store.png"
+                    width={120}
+                    height={120}
+                    alt="play_store"
+                    style={{
+                      width: 'auto'
+                    }}
+                    loading="lazy"
+                  />
+                </Box>
+                <Box>
+                  <Image
+                    src="/images/app-logo/app_store.png"
+                    width={120}
+                    height={120}
+                    alt="app_store"
+                    style={{
+                      width: 'auto'
+                    }}
+                    loading="lazy"
+                  />
+                </Box>
+              </FooterStoreBox>
             </ModelUITextConatinerText>
 
             <FirstBoxContainerMain>
