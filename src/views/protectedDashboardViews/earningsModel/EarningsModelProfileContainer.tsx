@@ -54,7 +54,7 @@ const EarningsModelProfileConatiner = ({ token }: { token: TokenIdType }) => {
                       <UINewTypography variant="buttonLargeMenu">{list.menuName}</UINewTypography>
                     )}
                   </MenuItem>
-                  <FristDivider orientation="horizontal" flexItem />
+                  {index !== EarningHistoryMenuList.length - 1 && <FristDivider orientation="horizontal" flexItem />}
                 </>
               ))}
             </SidebarDropDownMainContainer>

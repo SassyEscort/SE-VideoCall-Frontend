@@ -98,7 +98,7 @@ const PayoutModelProfileConatiner = ({ token, modelDetails }: { token: TokenIdTy
                       <UINewTypography variant="buttonLargeMenu">{list.menuName}</UINewTypography>
                     )}
                   </MenuItem>
-                  <FirstDivider orientation="horizontal" flexItem />
+                  {index !== payoutMenuList.length - 1 && <FirstDivider orientation="horizontal" flexItem />}
                 </>
               ))}
             </SidebarDropDownMainContainer>
