@@ -16,7 +16,7 @@ const HomeContainer = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const initialRender = useRef(true);
+  const searchFiltersRef = useRef<HTMLDivElement>(null);
 
   const [modelListing, setModelListing] = useState<ModelHomeListing[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -37,8 +37,6 @@ const HomeContainer = () => {
     offset: (Number(searchParams.get('page') ?? 1) - 1) * HOME_PAGE_SIZE || 0
   });
 
-  const prevState = useRef(filters);
-
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -48,12 +46,14 @@ const HomeContainer = () => {
   }, []);
 
   const handelFilterChange = async (values: SearchFiltersTypes) => {
-    setFilters(values);
     setIsLoading(true);
     const getModel = await ModelListingService.getModelListing(values);
     setModelListing(getModel?.model_details);
     setTotalRows(getModel?.aggregate?.total_rows);
     setIsLoading(false);
+    if (searchFiltersRef.current) {
+      searchFiltersRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const handleChangePage = useCallback(
@@ -61,6 +61,7 @@ const HomeContainer = () => {
       if (value === 1) {
         const offset = (value - 1) * filters.pageSize;
         const newFilters = { ...filters, page: value, offset: offset };
+        setFilters(newFilters);
         handelFilterChange(newFilters);
       }
       if (filters) {
@@ -72,20 +73,23 @@ const HomeContainer = () => {
         router.push(`/?${queryParams.toString()}`);
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [filters, router]
   );
 
   const handelFiltersFormSearch = (value: SearchFiltersTypes) => {
-    setFilters({ ...filters, ...value });
+    const newFilters = { ...filters, ...value };
+    setFilters(newFilters);
   };
 
   useEffect(() => {
-    if (initialRender.current) {
-      initialRender.current = false;
-      handelFilterChange(filters);
-      window.scrollTo(0, 0);
-    } else if (JSON.stringify(filters) !== JSON.stringify(prevState.current)) {
-      handelFilterChange(filters);
+    handelFilterChange(filters);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters]);
+
+  useEffect(() => {
+    if (searchFiltersRef.current) {
+      searchFiltersRef.current.scrollIntoView({ behavior: 'smooth' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
@@ -95,7 +99,7 @@ const HomeContainer = () => {
       <HomePageMainContainer>
         <HomeTopBanner />
         <BackdropProgress open={isLoading} />
-        <SearchFilters handelFilterChange={handelFiltersFormSearch} />
+        <SearchFilters handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
         <HomeImageCard
           modelListing={modelListing}
           isFavPage={false}

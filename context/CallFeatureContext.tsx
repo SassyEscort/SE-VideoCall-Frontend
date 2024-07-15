@@ -133,23 +133,29 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     userName: string
   ) => {
     if (guestId && isCreditAvailable && !call) {
-      setIsLoading(true);
-      await init();
-      setEndCallTime(callTime);
+      const isModelBusy = await CallingService.getModelCallStatus(guestId, token.token);
       setModelId(guestId);
       setModelName(modelName);
       setModelPhoto(modelPhoto);
-      const callObject = new CometChat.Call(
-        userName,
-        CometChatUIKitConstants.MessageTypes.video,
-        CometChatUIKitConstants.MessageReceiverType.user
-      );
-      const callInitiate = await CometChat.initiateCall(callObject);
-      setCall(callInitiate);
-      setSessionId(callInitiate.getSessionId());
-      setIsCallEnded(false);
-      await creditPutCallLog(guestId, callInitiate.getSessionId(), '');
-      setIsLoading(false);
+
+      if (isModelBusy.data.ongoing_calls) {
+        setIsBusy(true);
+      } else {
+        setIsLoading(true);
+        await init();
+        setEndCallTime(callTime);
+        const callObject = new CometChat.Call(
+          userName,
+          CometChatUIKitConstants.MessageTypes.video,
+          CometChatUIKitConstants.MessageReceiverType.user
+        );
+        const callInitiate = await CometChat.initiateCall(callObject);
+        setCall(callInitiate);
+        setSessionId(callInitiate.getSessionId());
+        setIsCallEnded(false);
+        await creditPutCallLog(guestId, callInitiate.getSessionId(), '');
+        setIsLoading(false);
+      }
     } else if (call) {
       toast.error('Please end your ONGOING call');
     } else {

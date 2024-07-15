@@ -12,7 +12,7 @@ import {
   SecondBoxMainContainer,
   ThiredBoxMainContainer
 } from '../Search.styled';
-import { useCallback, useEffect, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useState } from 'react';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
@@ -37,7 +37,7 @@ type SearchFiltersProps = {
   handelFilterChange: (filters: SearchFiltersTypes) => void;
 };
 
-const SearchFilters: React.FC<SearchFiltersProps> = ({ handelFilterChange }) => {
+const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFilterChange }, ref) => {
   const isMobile = useMediaQuery('(max-width:600px)');
   const pathname = usePathname();
   const router = useRouter();
@@ -120,35 +120,23 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ handelFilterChange }) => 
 
   const handleCountryChange = (event: SelectChangeEvent<unknown>) => {
     const value = event.target.value as string;
-    if (value === '') {
-      handleCHangeFilter();
-    }
+
     setFilters({
       ...filters,
       country: value,
       page: 1
     });
   };
-
   const handleChangePrice = (event: SelectChangeEvent<unknown>) => {
     const value = event.target.value as string;
     const priceRange = value.split('-');
 
-    if (value === '') {
-      setFilters({
-        ...filters,
-        fromPrice: '',
-        toPrice: ''
-      });
-      handleCHangeFilter();
-    } else {
-      setFilters({
-        ...filters,
-        fromPrice: priceRange[0],
-        toPrice: priceRange[1],
-        page: 1
-      });
-    }
+    setFilters({
+      ...filters,
+      fromPrice: priceRange[0],
+      toPrice: priceRange[1],
+      page: 1
+    });
   };
 
   const handleChangeAge = (event: SelectChangeEvent<unknown>) => {
@@ -189,7 +177,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ handelFilterChange }) => 
 
   return (
     <HomeMainContainer>
-      <SearchBarMainContainer>
+      <SearchBarMainContainer ref={ref}>
         <SearchBarSubMainContainer>
           <FirstBoxMainContainer>
             <NewArrivals onClick={handleNewArrivals} />
@@ -207,6 +195,6 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ handelFilterChange }) => 
       </SearchBarMainContainer>
     </HomeMainContainer>
   );
-};
+});
 
 export default SearchFilters;

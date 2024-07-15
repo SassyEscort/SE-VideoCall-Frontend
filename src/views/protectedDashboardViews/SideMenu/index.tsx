@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
 import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
 import {
   SiderBarCircaleBox,
@@ -10,7 +9,6 @@ import {
   SiderBarSecondBox,
   SiderBarSecondTextBox,
   SiderBarThiredBox,
-  StartView,
   SwicthText,
   SwitchBox,
   TextViewStartBottom
@@ -68,11 +66,11 @@ const SideMenu = ({
                 </Box>
 
                 <SwicthText>
-                  <StartView>
+                  {/* <StartView>
                     {[...Array(5)].map((_, index) => (
                       <StarRateRoundedIcon key={index} htmlColor="#FFB800" sx={{ width: '16px', height: '16px' }} />
                     ))}
-                  </StartView>
+                  </StartView> */}
                   <TextViewStartBottom>
                     <SwitchBox onClick={handleAvailability} checked={Boolean(modelDetails.is_online)} />
 

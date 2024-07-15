@@ -88,16 +88,8 @@ const HomeImageCard = ({
     };
   }, [likedModels]);
 
-  const scrollToTable = () => {
-    const tableElement = document.getElementById('tableSection');
-    if (tableElement) {
-      tableElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const handleChangePageUI = (event: React.ChangeEvent<unknown>, value: number) => {
     if (handleChangePage) handleChangePage(value);
-    scrollToTable();
   };
 
   return (

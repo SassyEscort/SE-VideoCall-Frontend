@@ -1,4 +1,4 @@
-import { Stack, TableRow } from '@mui/material';
+import { Divider, Stack, TableRow } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -127,4 +127,10 @@ export const StyledTableRow = styled(TableRow)(() => ({
   border: 'none',
   display: 'flex',
   justifyContent: 'center'
+}));
+
+export const DividerContainer = styled(Divider)(({ theme }) => ({
+  borderColor: theme.palette.text.disabled,
+  height: '40px',
+  alignItems: 'center'
 }));

@@ -17,9 +17,17 @@ import {
   ThirdBoxContent
 } from './Another.styled';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import { useRouter } from 'next/navigation';
 
 const AnotherCallModel = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+  const router = useRouter();
+
   const { modelName } = useCallFeatureContext();
+
+  const handleExploreModel = () => {
+    onClose();
+    router.push('/');
+  };
 
   return (
     <DialogContentMain open={open} onClose={onClose} fullWidth>
@@ -57,7 +65,7 @@ const AnotherCallModel = ({ open, onClose }: { open: boolean; onClose: () => voi
               </UINewTypography>
             </SecondBoxContent>
             <FourBoxContent>
-              <UIThemeShadowButton variant="contained" sx={{ width: '100%' }}>
+              <UIThemeShadowButton variant="contained" sx={{ width: '100%' }} onClick={handleExploreModel}>
                 <UINewTypography variant="bodySemiBold" color="white.main">
                   <FormattedMessage id="ExploreOtherModels" />
                 </UINewTypography>

@@ -572,5 +572,7 @@
   "Between8And124": "Between 8 and 124 charecters",
   "ContainsAtLeast": "Contains at least one number",
   "ContainsAtleast": "Contains atleast one symbol",
-  "YouHaveNoNotification": "No new notification"
+  "YouHaveNoNotification": "No new notification",
+  "Earningss": "earnings",
+  "ForTheAccount": "For the account"
 }
