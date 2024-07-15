@@ -279,7 +279,7 @@ const CallHistory = () => {
                           <UIThemeShadowButtonContainer
                             variant="contained"
                             onClick={() => {
-                              handleCallInitiate(list.model_id, isCreditAvailable, callTime, list.name, list.link ?? '');
+                              handleCallInitiate(list.model_id, isCreditAvailable, callTime, list.name, list.link ?? '', list.user_name);
                               setguestData(list.model_id);
                             }}
                           >

@@ -155,7 +155,14 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
             <ButtonMainContainer>
               <UIThemeButton
                 onClick={() => {
-                  handleCallInitiate(guestData, isCreditAvailable, callTime, selectDetails.name, selectDetails.link);
+                  handleCallInitiate(
+                    guestData,
+                    isCreditAvailable,
+                    callTime,
+                    selectDetails.name,
+                    selectDetails.link,
+                    selectDetails.user_name
+                  );
                   setGuestData(selectDetails.id);
                 }}
                 sx={{

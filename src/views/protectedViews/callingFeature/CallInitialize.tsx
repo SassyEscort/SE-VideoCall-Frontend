@@ -14,7 +14,9 @@ export const COMETCHAT_CONSTANTS = {
 
 const CallInitialize = () => {
   const token = useSession();
-  const cometChatUID = (token?.data?.user as User)?.id;
+  const modelUser = (token?.data?.user as User)?.picture;
+  const modelUsername = modelUser && JSON.parse(modelUser);
+
   const isModel = (token?.data?.user as User)?.provider === 'providerModel';
 
   useEffect(() => {
@@ -29,14 +31,15 @@ const CallInitialize = () => {
 
         await CometChatUIKit.init(UIKitSettings);
         let user = await CometChatUIKit.getLoggedinUser();
+        console.log(user, 'user');
 
-        if (!user && cometChatUID && isModel) {
-          user = await CometChatUIKit.login(cometChatUID);
+        if (!user && modelUsername.user_name && isModel) {
+          user = await CometChatUIKit.login(modelUsername.user_name);
         }
 
         CometChatUIKit.getLoggedinUser().then((user) => {
-          if (!user && cometChatUID && isModel) {
-            CometChatUIKit.login(cometChatUID);
+          if (!user && modelUsername.user_name && isModel) {
+            CometChatUIKit.login(modelUsername.user_name);
           }
         });
       } catch (e) {
@@ -45,7 +48,7 @@ const CallInitialize = () => {
     };
 
     init();
-  }, [cometChatUID, isModel]);
+  }, [modelUsername, isModel]);
 
   return <></>;
 };

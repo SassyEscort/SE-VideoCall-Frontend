@@ -17,13 +17,19 @@ import UIStyledDialog, { ModelCreditsUIStyledDialog } from 'components/UICompone
 import ModelCredits from 'views/protectedViews/Credites/ModelCredits';
 import { usePathname, useSearchParams } from 'next/navigation';
 import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
-import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { useRouter } from 'next/navigation';
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
   handleCancelCall: () => void;
-  handleCallInitiate: (guestId: number, isCallIniate: boolean, callTime: number, modelName: string, modelPhoto: string) => void;
+  handleCallInitiate: (
+    guestId: number,
+    isCallIniate: boolean,
+    callTime: number,
+    modelName: string,
+    modelPhoto: string,
+    userName: string
+  ) => void;
   isCallAccepted: boolean;
   isCustomer: boolean;
   isCallIncoming: boolean;
@@ -54,7 +60,10 @@ const CallContext = createContext<CallFeatureContextProps>({
 
 export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const tokenCometChat = useSession();
-  const cometChatUID = (tokenCometChat?.data?.user as User)?.id;
+  const customerUser = (tokenCometChat?.data?.user as User)?.picture;
+  const customerUsername = customerUser && JSON.parse(customerUser);
+  console.log(customerUsername?.customer_user_name, 'customerUsername');
+
   const isCustomer = (tokenCometChat?.data?.user as User)?.provider === 'providerGuest';
 
   const searchParams = useSearchParams();
@@ -96,19 +105,19 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       await CometChatUIKit.init(UIKitSettings);
       let user = await CometChatUIKit.getLoggedinUser();
 
-      if (!user && cometChatUID && isCustomer) {
-        user = await CometChatUIKit.login(cometChatUID);
+      if (!user && customerUsername && isCustomer) {
+        user = await CometChatUIKit.login(customerUsername?.customer_user_name);
       }
 
       CometChatUIKit.getLoggedinUser().then((user) => {
-        if (!user && cometChatUID && isCustomer) {
-          CometChatUIKit.login(cometChatUID);
+        if (!user && customerUsername && isCustomer) {
+          CometChatUIKit.login(customerUsername?.customer_user_name);
         }
       });
     } catch (e) {
       toast.error(ErrorMessage);
     }
-  }, [cometChatUID, isCustomer]);
+  }, [customerUsername, isCustomer]);
 
   const handleCancelCall = async () => {
     await creditPutCallLog(modelId, sessionId, CALLING_STATUS.CANCELED);
@@ -121,7 +130,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     isCreditAvailable: boolean,
     callTime: number,
     modelName: string,
-    modelPhoto: string
+    modelPhoto: string,
+    userName: string
   ) => {
     if (guestId && isCreditAvailable) {
       setIsLoading(true);
@@ -131,7 +141,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       setModelName(modelName);
       setModelPhoto(modelPhoto);
       const callObject = new CometChat.Call(
-        guestId,
+        userName,
         CometChatUIKitConstants.MessageTypes.video,
         CometChatUIKitConstants.MessageReceiverType.user
       );
@@ -179,13 +189,6 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       return creditLogData;
     }
   };
-
-  const getCustomerCredit = useCallback(async () => {
-    if (token.token) {
-      const getModel = await ModelDetailsService.getModelWithDraw(token.token);
-      setBalance(getModel?.data?.credits);
-    }
-  }, [token.token]);
 
   useEffect(() => {
     CometChatCalls.addCallEventListener(String(modelId), {
@@ -285,8 +288,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const credit = searchParams.get('credit');
+    const totalBal = searchParams.get('total_credits_after_txn');
+    setBalance(Number(totalBal));
     setAddedCredits(Number(credit));
-    getCustomerCredit();
     if (credit) {
       setOpenSuccess(true);
     }
