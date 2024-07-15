@@ -25,7 +25,6 @@ type countryType = {
 const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
   const [countries, setCountries] = useState<countryType[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
-  // const [selectedCountry, setSelectedCountry] = useState(value);
 
   let renderValue = value ? value : '';
 
