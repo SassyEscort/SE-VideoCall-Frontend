@@ -46,13 +46,11 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
   }, []);
 
   const handleClear = () => {
-    // setSelectedCountry('');
     renderValue = '';
     onChange({ target: { value: '' } } as SelectChangeEvent<unknown>, null);
   };
 
   const handleChange = (event: SelectChangeEvent<unknown>, child: React.ReactNode) => {
-    // setSelectedCountry(event.target.value as string);
     renderValue = event.target.value as string;
     onChange(event, child);
   };
