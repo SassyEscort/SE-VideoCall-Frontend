@@ -13,7 +13,7 @@ const CustomPasswordRegex = ({ password }: { password: string }) => {
   return (
     <>
       <MainBoxContainer>
-        <AuthCommonBox>
+        <AuthCommonBox color="text.secondary">
           <FormattedMessage id="UseAPassword" />
         </AuthCommonBox>
         <Box
