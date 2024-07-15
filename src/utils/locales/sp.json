@@ -555,6 +555,7 @@
   "Nameisrequired": "Se requiere el nombre",
   "Nameistooshort": "El nombre es muy corto",
   "Nameistoolong": "El nombre es demasiado largo",
+  "Noleadingspaces": "No se permiten espacios iniciales ni más de 4 espacios consecutivos.",
   "Enteravalidemail": "Introduzca un correo electrónico válido",
   "Emailisrequired": "El correo electrónico es obligatorio",
   "Passwordisrequired": "La contraseña es obligatoria",
@@ -570,5 +571,9 @@
   "Between8And124": "Entre 8 y 124 caracteres",
   "ContainsAtLeast": "Contiene al menos un número",
   "ContainsAtleast": "Contiene al menos un símbolo",
-  "JustNow": "Justo ahora"
+  "JustNow": "Justo ahora",
+  "Invalidemailorpassword": "Correo electrónico o contraseña no válidos",
+  "Usernameisrequired": "Se requiere nombre de usuario",
+  "Usernameistooshort": "El nombre de usuario es demasiado corto",
+  "Usernameistoolong": "El nombre de usuario es demasiado largo"
 }

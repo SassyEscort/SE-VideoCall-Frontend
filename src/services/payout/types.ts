@@ -125,4 +125,5 @@ export type ModelPastPayoutDetailParams = {
   limit: number;
   offset: number;
   filter_text?: string;
+  status?: string;
 };

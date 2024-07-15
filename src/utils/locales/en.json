@@ -556,6 +556,7 @@
   "Nameisrequired": "Name is required",
   "Nameistooshort": "Name is too short",
   "Nameistoolong": "Name is too long",
+  "Noleadingspaces": "No leading spaces or more than 4 consecutive spaces allowed",
   "Enteravalidemail": "Enter a valid email",
   "Emailisrequired": "Email is required",
   "Passwordisrequired": "Password is required",
@@ -571,5 +572,9 @@
   "UseAPassword": "Use a Password you don’t use elsewhere",
   "Between8And124": "Between 8 and 124 charecters",
   "ContainsAtLeast": "Contains at least one number",
-  "ContainsAtleast": "Contains atleast one symbol"
+  "ContainsAtleast": "Contains atleast one symbol",
+  "Invalidemailorpassword": "Invalid email or password",
+  "Usernameisrequired": "Username is required",
+  "Usernameistooshort": "Username is too short",
+  "Usernameistoolong": "Username is too long"
 }

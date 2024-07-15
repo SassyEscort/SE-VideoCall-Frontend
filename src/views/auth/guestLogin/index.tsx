@@ -47,8 +47,8 @@ const GuestLogin = ({
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState('');
   const validationSchema = yup.object({
-    email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required'),
-    password: yup.string().required('Password is required')
+    email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
+    password: yup.string().required('Passwordisrequired')
   });
   const handleFormSubmit = async (values: LoginUserParams) => {
     try {
@@ -138,7 +138,7 @@ const GuestLogin = ({
                       onChange={handleChange}
                       onBlur={handleBlur}
                       error={touched.email && Boolean(errors.email)}
-                      helperText={touched.email && errors.email}
+                      helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
                       sx={{
                         border: '2px solid',
                         borderColor: 'secondary.light'
@@ -162,7 +162,7 @@ const GuestLogin = ({
                         onChange={handleChange}
                         onBlur={handleBlur}
                         error={touched.password && Boolean(errors.password)}
-                        helperText={touched.password && errors.password}
+                        helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
                         sx={{
                           border: '2px solid',
                           borderColor: 'secondary.light'

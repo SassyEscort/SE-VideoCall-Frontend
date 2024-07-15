@@ -5,8 +5,14 @@ import { StyledEarningSelectInputLabel, UIStyledSelectPastPayout } from 'compone
 import { STATUS } from 'constants/searchConstants';
 import { FormattedMessage } from 'react-intl';
 import { StatusBoxContainer } from './status.styled';
+import { SelectChangeEvent } from '@mui/material';
 
-const Status = () => {
+interface StatusFilterProps {
+  value: string;
+  onChange: (event: SelectChangeEvent<unknown>, child: React.ReactNode) => void;
+}
+
+const Status: React.FC<StatusFilterProps> = ({ value, onChange }) => {
   return (
     <FormControl id="status" sx={{ width: '100%', maxWidth: '116px' }}>
       <StyledEarningSelectInputLabel>
@@ -14,16 +20,18 @@ const Status = () => {
       </StyledEarningSelectInputLabel>
       <UIStyledSelectPastPayout
         MenuProps={{ disableScrollLock: true }}
+        value={value}
+        onChange={onChange}
         label="status"
         name="status"
         labelId="status"
         IconComponent={ExpandMore}
       >
-        {STATUS.map((age, key: number) => {
+        {STATUS.map((status, key: number) => {
           return (
-            <MenuItem key={key} value={age.id}>
+            <MenuItem key={key} value={status.id}>
               <StatusBoxContainer variant="buttonLargeMenu" color="text.secondary">
-                {age.title}
+                {status.title}
               </StatusBoxContainer>
             </MenuItem>
           );
