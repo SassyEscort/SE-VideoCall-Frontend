@@ -64,4 +64,18 @@ export class GuestAuthService {
       return error as FavouriteDetailsRes;
     }
   };
+  static modelResetPassword = async (params: ResetPasswordParams): Promise<GenericResponse> => {
+    try {
+      const res = await axios.post<ResetPasswordParams, GenericResponseData>(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/reset-password`,
+        params,
+        {
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+      return res.data;
+    } catch (error) {
+      return error as FavouriteDetailsRes;
+    }
+  };
 }

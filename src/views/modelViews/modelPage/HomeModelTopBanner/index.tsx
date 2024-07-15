@@ -93,7 +93,9 @@ const HomeModelTopBanner = () => {
         setModelDetails(modelData.data);
       }
     };
-    modelDetails();
+    if (token.token) {
+      modelDetails();
+    }
   }, [token.id, token.token]);
 
   return (

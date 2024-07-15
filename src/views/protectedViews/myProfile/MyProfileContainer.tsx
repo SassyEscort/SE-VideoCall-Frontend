@@ -100,7 +100,7 @@ const MyProfileContainer = ({
       setIsVerified(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, email]);
+  }, []);
 
   // const changePasswordOpenModel = () => {
   //   setOpenModel(true);
