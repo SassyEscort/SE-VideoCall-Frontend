@@ -265,13 +265,15 @@ const VerificationBasicDetails = ({
     let source;
     source = url.pathname === '/model/dashboard' ? EMAIL_SOURCE.ONBOARDED : EMAIL_SOURCE.DETAILS;
     try {
-      const data = await ModelAuthService.modelForgetPasswordLinkStep(values.email, token.token, source);
-      if (data.code === 200) {
-        setOpenForgetPassLink(true);
-        toast.success('Success');
-        setActiveStep(1);
-      } else {
-        toast.error(data.error);
+      if (!errors.email && token.token) {
+        const data = await ModelAuthService.modelForgetPasswordLinkStep(values.email, token.token, source);
+        if (data.code === 200) {
+          setOpenForgetPassLink(true);
+          toast.success('Success');
+          setActiveStep(1);
+        } else {
+          toast.error(data.error);
+        }
       }
     } catch (error) {
       toast.error(ErrorMessage);
