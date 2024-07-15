@@ -22,8 +22,7 @@ import ProfileMenu from 'components/UIComponents/UIStyleHeader';
 import MoreFilters from '../searchPage/moreFilters';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
-import { SearchBarBox } from './GuestLayout.styled';
-import Menu from '@mui/material/Menu';
+import { MenuContainer, SearchBarBox } from './GuestLayout.styled';
 import MenuItem from '@mui/material/MenuItem';
 import { Divider, ListItemIcon, ListItemText } from '@mui/material';
 
@@ -207,26 +206,13 @@ const HeaderGuestComponent = () => {
                     <Image height={24} width={24} priority alt="menufill" src="/images/header/menuFill.svg" />
                   </IconButton>
 
-                  <Menu
+                  <MenuContainer
                     id="basic-menu"
                     anchorEl={anchorElLogout}
                     open={Boolean(anchorElLogout)}
                     onClose={handleCloseLogout}
                     MenuListProps={{
                       'aria-labelledby': 'basic-button'
-                    }}
-                    sx={{
-                      '& .MuiMenu-paper > ul': {
-                        backgroundColor: 'secondary.dark !important',
-                        width: '100%',
-                        minWidth: {
-                          xs: '300px',
-                          sm: '363px'
-                        },
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center'
-                      }
                     }}
                   >
                     <MenuItem onClick={handleLoginOpen}>
@@ -267,7 +253,7 @@ const HeaderGuestComponent = () => {
                         </UIThemeShadowButton>
                       </ListItemText>
                     </MenuItem>
-                  </Menu>
+                  </MenuContainer>
                 </>
               )}
               {isMdUp && (
