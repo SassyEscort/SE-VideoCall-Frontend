@@ -31,7 +31,6 @@ const CallInitialize = () => {
 
         await CometChatUIKit.init(UIKitSettings);
         let user = await CometChatUIKit.getLoggedinUser();
-        console.log(user, 'user');
 
         if (!user && modelUsername.user_name && isModel) {
           user = await CometChatUIKit.login(modelUsername.user_name);
