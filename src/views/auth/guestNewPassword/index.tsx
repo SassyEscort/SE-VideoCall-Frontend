@@ -126,7 +126,7 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                       <FormattedMessage id="SetupYourNewPassword" />
                     </GuestNewPasswordText>
                     <UINewTypography variant="bodyRegular" color="secondary.200" textAlign="center">
-                      For the account{' '}
+                      <FormattedMessage id="ForTheAccount" />{' '}
                       <UINewTypography variant="bodySemiBold" color="secondary.200">
                         {email}
                       </UINewTypography>

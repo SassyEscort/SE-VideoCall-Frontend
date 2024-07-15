@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import InvoiceDate from './searchFilters/invoiceDate';
 import Status from './searchFilters/status';
 import {
+  DividerContainer,
   FilterDropdownBox,
   FilterMainBox,
   FilterSecondBox,
@@ -22,7 +23,6 @@ import BillingTable from './billingTable/BillingTable';
 import PaginationSearch from './searchFilters/paginationSearch/PaginationSearch';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 
-import Divider from '@mui/material/Divider';
 import TableCell from '@mui/material/TableCell';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -159,7 +159,7 @@ const PayoutsAndInvoices = () => {
               </FilterSecondBox>
 
               <ResetMainBox>
-                <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.disabled', height: '40px', alignItems: 'center' }} />
+                <DividerContainer orientation="vertical" flexItem />
                 <UINewTypography variant="bodyLight" color="text.disabled" onClick={handelReset} sx={{ cursor: 'pointer' }}>
                   <FormattedMessage id="Reset" />
                 </UINewTypography>

@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { GenericRes } from 'services/guestAuth/authuser.services';
 
 export type CallingDataRes = {
   available_call_duration: number;
@@ -32,6 +33,14 @@ export type CreditCallRes = {
   available_credits: number;
 };
 
+export type CallStatus = {
+  ongoing_calls: number;
+};
+
+export interface CallStatusRes extends GenericRes {
+  data: CallStatus;
+}
+
 export class CallingService {
   static getCometChatInfo = async (modelId: number, token: string): Promise<CallingUserIdRes> => {
     try {
@@ -62,6 +71,22 @@ export class CallingService {
     } catch (err: any) {
       const error: AxiosError = err;
       return error.response?.data as CreditCallRes;
+    }
+  };
+
+  static getModelCallStatus = async (model_id: number, token: string): Promise<CallStatusRes> => {
+    try {
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/model-call-status?model_id=${model_id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        }
+      });
+
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as CallStatusRes;
     }
   };
 }

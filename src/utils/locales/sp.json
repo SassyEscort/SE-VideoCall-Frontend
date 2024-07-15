@@ -575,5 +575,8 @@
   "Invalidemailorpassword": "Correo electrónico o contraseña no válidos",
   "Usernameisrequired": "Se requiere nombre de usuario",
   "Usernameistooshort": "El nombre de usuario es demasiado corto",
-  "Usernameistoolong": "El nombre de usuario es demasiado largo"
+  "Usernameistoolong": "El nombre de usuario es demasiado largo",
+  "YouHaveNoNotification": "No hay nueva notificación",
+  "Earningss": "ganancias",
+  "ForTheAccount": "para la cuenta"
 }

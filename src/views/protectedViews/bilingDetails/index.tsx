@@ -1,5 +1,4 @@
 'use client';
-import * as React from 'react';
 
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -29,16 +28,15 @@ import moment from 'moment';
 import { CallingService } from 'services/calling/calling.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
 const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; handleClose: () => void; selectDetails: any }) => {
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const [isCreditAvailable, setIsCreditAvailable] = React.useState(false);
+  const [isCreditAvailable, setIsCreditAvailable] = useState(false);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [callTime, setCallTime] = useState(0);
-  const [guestData, setGuestData] = useState(0);
   const router = useRouter();
 
   const { handleCallInitiate, call, isCallEnded } = useCallFeatureContext();
@@ -48,18 +46,19 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
   const minutes = callDuration.minutes();
   const seconds = callDuration.seconds();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
       setToken({ id: data.id, token: data.token });
     };
 
     userToken();
-  }, []);
-  React.useEffect(() => {
+  }, [open]);
+
+  useEffect(() => {
     const getCometChatInfo = async () => {
-      if (guestData && token.token) {
-        const getInfo = await CallingService.getCometChatInfo(guestData, token.token);
+      if (selectDetails && token.token) {
+        const getInfo = await CallingService.getCometChatInfo(selectDetails.model_id, token.token);
         if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 3) {
           const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
           setCallTime(durationInSeconds);
@@ -68,7 +67,7 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
       }
     };
     getCometChatInfo();
-  }, [guestData, token, call, isCallEnded]);
+  }, [token, call, isCallEnded, open, selectDetails]);
 
   function formatDuration(hours: number, minutes: number, seconds: number) {
     let message = '';
@@ -156,14 +155,13 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
               <UIThemeButton
                 onClick={() => {
                   handleCallInitiate(
-                    guestData,
+                    selectDetails.model_id,
                     isCreditAvailable,
                     callTime,
                     selectDetails.name,
                     selectDetails.link,
                     selectDetails.user_name
                   );
-                  setGuestData(selectDetails.id);
                 }}
                 sx={{
                   height: 'auto',

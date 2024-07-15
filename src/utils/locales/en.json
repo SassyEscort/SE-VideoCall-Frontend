@@ -576,5 +576,8 @@
   "Invalidemailorpassword": "Invalid email or password",
   "Usernameisrequired": "Username is required",
   "Usernameistooshort": "Username is too short",
-  "Usernameistoolong": "Username is too long"
+  "Usernameistoolong": "Username is too long",
+  "YouHaveNoNotification": "No new notification",
+  "Earningss": "earnings",
+  "ForTheAccount": "For the account"
 }
