@@ -148,7 +148,7 @@ const PayoutsAndInvoices = () => {
 
               <ResetMainBox>
                 <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.disabled', height: '40px', alignItems: 'center' }} />
-                <UINewTypography variant="bodyLight" color="text.disabled">
+                <UINewTypography variant="bodyLight" color="text.disabled" sx={{ cursor: 'pointer' }}>
                   <FormattedMessage id="Reset" />
                 </UINewTypography>
               </ResetMainBox>

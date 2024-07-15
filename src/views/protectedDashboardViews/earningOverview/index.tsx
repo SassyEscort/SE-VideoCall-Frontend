@@ -28,7 +28,7 @@ import { LoaderBox } from '../payoutRequest/PayoutRequest.styled';
 const EarningOverview = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const [periodType, setPeriodType] = useState('thisWeek');
+  const [periodType, setPeriodType] = useState('lastWeek');
   const [fromDate, setFromDate] = useState<Moment | null>(moment().startOf('week').day(0));
   const [toDate, setToDate] = useState<Moment | null>(moment());
 
@@ -54,46 +54,46 @@ const EarningOverview = () => {
         setFromDate(moment().startOf('day'));
         setToDate(moment());
         break;
-      case DATE_DURATION_TYPE.THIS_WEEK:
-        setFromDate(moment().startOf('week').day(0));
-        setToDate(moment());
-        break;
+      // case DATE_DURATION_TYPE.THIS_WEEK:
+      //   setFromDate(moment().startOf('week').day(0));
+      //   setToDate(moment());
+      //   break;
       case DATE_DURATION_TYPE.LAST_WEEK:
         setFromDate(moment().subtract(1, 'week').day(0));
         setToDate(moment().subtract(1, 'week').day(6));
         break;
-      case DATE_DURATION_TYPE.THIS_MONTH:
-        setFromDate(moment().startOf('month'));
-        setToDate(moment());
-        break;
+      // case DATE_DURATION_TYPE.THIS_MONTH:
+      //   setFromDate(moment().startOf('month'));
+      //   setToDate(moment());
+      //   break;
       case DATE_DURATION_TYPE.LAST_MONTH:
         setFromDate(moment().subtract(1, 'month').startOf('month'));
         setToDate(moment().subtract(1, 'month').endOf('month'));
         break;
-      case DATE_DURATION_TYPE.LAST_3_MONTHS:
-        setFromDate(moment().subtract(3, 'month').startOf('day'));
-        setToDate(moment());
-        break;
-      case DATE_DURATION_TYPE.LAST_24_HOURS:
-        setFromDate(moment().subtract(24, 'hours'));
-        setToDate(moment());
-        break;
-      case DATE_DURATION_TYPE.YESTERDAY:
-        setFromDate(moment().subtract(1, 'day').startOf('day'));
-        setToDate(moment().subtract(1, 'day').endOf('day'));
-        break;
-      case DATE_DURATION_TYPE.LAST_7_DAYS:
-        setFromDate(moment().subtract(7, 'days').startOf('day'));
-        setToDate(moment());
-        break;
-      case DATE_DURATION_TYPE.LAST_30_DAYS:
-        setFromDate(moment().subtract(30, 'days').startOf('day'));
-        setToDate(moment());
-        break;
-      case DATE_DURATION_TYPE.THIS_YEAR:
-        setFromDate(moment().startOf('year'));
-        setToDate(moment());
-        break;
+      // case DATE_DURATION_TYPE.LAST_3_MONTHS:
+      //   setFromDate(moment().subtract(3, 'month').startOf('day'));
+      //   setToDate(moment());
+      //   break;
+      // case DATE_DURATION_TYPE.LAST_24_HOURS:
+      //   setFromDate(moment().subtract(24, 'hours'));
+      //   setToDate(moment());
+      //   break;
+      // case DATE_DURATION_TYPE.YESTERDAY:
+      //   setFromDate(moment().subtract(1, 'day').startOf('day'));
+      //   setToDate(moment().subtract(1, 'day').endOf('day'));
+      //   break;
+      // case DATE_DURATION_TYPE.LAST_7_DAYS:
+      //   setFromDate(moment().subtract(7, 'days').startOf('day'));
+      //   setToDate(moment());
+      //   break;
+      // case DATE_DURATION_TYPE.LAST_30_DAYS:
+      //   setFromDate(moment().subtract(30, 'days').startOf('day'));
+      //   setToDate(moment());
+      //   break;
+      // case DATE_DURATION_TYPE.THIS_YEAR:
+      //   setFromDate(moment().startOf('year'));
+      //   setToDate(moment());
+      //   break;
       case DATE_DURATION_TYPE.LAST_YEAR:
         setFromDate(moment().subtract(1, 'year').startOf('year'));
         setToDate(moment().subtract(1, 'year').endOf('year'));

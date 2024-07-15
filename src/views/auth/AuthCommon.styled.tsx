@@ -5,12 +5,10 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 export const AuthCommonBox = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '920px',
-  border: '1px solid #FF68C0',
   paddingTop: 0,
   [theme.breakpoints.down('md')]: {
     border: 'none'
   },
-  borderRadius: '12px',
   position: 'relative'
 }));
 
