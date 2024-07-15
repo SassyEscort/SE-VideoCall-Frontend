@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   CallAgainBox,
+  CallHistoryBox,
   CallHistoryBoxContainer,
   CallHistoryCreditBox,
   CallHistoryMainContainer,
@@ -216,7 +217,7 @@ const CallHistory = () => {
                           {!isSmDown && (
                             <SecondSubFirstPartThiredBox marginRight={{ sm: '32px' }}>
                               <FirstTextContainer color="text.primary" whiteSpace="nowrap">
-                                <FormattedMessage id="Duration" /> {''}
+                                <FormattedMessage id="Duration" />
                                 {list.duration && formatDuration(list.duration)}
                               </FirstTextContainer>
                               <CreditUsedBox>
@@ -228,13 +229,28 @@ const CallHistory = () => {
                                   <FirstTextContainer color="text.primary">{list.credits_used}</FirstTextContainer>
                                 </SecondSubFirstPartThiredBoxText>
                               </CreditUsedBox>
+                              <CreditUsedBox>
+                                <FirstTextContainer color="text.primary" whiteSpace="nowrap">
+                                  <FormattedMessage id="Date" /> :
+                                </FirstTextContainer>
+                                <SecondSubFirstPartThiredBoxText>
+                                  <CallHistoryBox>
+                                    <FirstTextContainer color="text.primary" sx={{ textWrap: 'nowrap' }}>
+                                      {moment(list.created_at).format('LT')},
+                                    </FirstTextContainer>
+                                    <FirstTextContainer color="text.primary" sx={{ textWrap: 'nowrap' }}>
+                                      {moment(list.created_at).format('DD MMMM YYYY')}
+                                    </FirstTextContainer>
+                                  </CallHistoryBox>
+                                </SecondSubFirstPartThiredBoxText>
+                              </CreditUsedBox>
                             </SecondSubFirstPartThiredBox>
                           )}
                         </SecondSubFirstBox>
                         {isSmDown && (
                           <SecondSubFirstPartThiredBox gap="8px !important">
                             <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
-                              <FormattedMessage id="Duration" /> {''}
+                              <FormattedMessage id="Duration" />
                               {list.duration && formatDuration(list.duration)}
                             </UINewTypography>
                             <CreditUsedBox>
@@ -248,13 +264,22 @@ const CallHistory = () => {
                                 </UINewTypography>
                               </SecondSubFirstPartThiredBoxText>
                             </CreditUsedBox>
+
+                            <Box>
+                              <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
+                                <FormattedMessage id="Date" />
+                              </UINewTypography>
+                              <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
+                                {moment(list.created_at).format('LT')}, {moment(list.created_at).format('DD MMMM YYYY')}
+                              </UINewTypography>
+                            </Box>
                           </SecondSubFirstPartThiredBox>
                         )}
                         <CallAgainBox>
                           <UIThemeShadowButtonContainer
                             variant="contained"
                             onClick={() => {
-                              handleCallInitiate(list.model_id, isCreditAvailable, callTime, list.name, list.link ?? '');
+                              handleCallInitiate(list.model_id, isCreditAvailable, callTime, list.name, list.link ?? '', list.user_name);
                               setguestData(list.model_id);
                             }}
                           >
