@@ -62,7 +62,6 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const tokenCometChat = useSession();
   const customerUser = (tokenCometChat?.data?.user as User)?.picture;
   const customerUsername = customerUser && JSON.parse(customerUser);
-  console.log(customerUsername?.customer_user_name, 'customerUsername');
 
   const isCustomer = (tokenCometChat?.data?.user as User)?.provider === 'providerGuest';
 
