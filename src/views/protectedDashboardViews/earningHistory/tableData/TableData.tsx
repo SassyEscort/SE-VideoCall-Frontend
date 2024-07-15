@@ -50,7 +50,7 @@ const TableData = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningH
               </UINewTypography>
             </TableCell>
             <TableCell>
-              <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+              <UINewTypography variant="body" color="text.secondary">
                 $ {dp.amount}
               </UINewTypography>
             </TableCell>

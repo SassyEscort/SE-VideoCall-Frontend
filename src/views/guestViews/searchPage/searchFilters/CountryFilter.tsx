@@ -25,7 +25,10 @@ type countryType = {
 const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
   const [countries, setCountries] = useState<countryType[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
-  const [selectedCountry, setSelectedCountry] = useState(value);
+  // const [selectedCountry, setSelectedCountry] = useState(value);
+
+  let renderValue = value ? value : '';
+
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -42,12 +45,16 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
     countryData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   const handleClear = () => {
-    setSelectedCountry('');
+    // setSelectedCountry('');
+    renderValue = '';
     onChange({ target: { value: '' } } as SelectChangeEvent<unknown>, null);
   };
+
   const handleChange = (event: SelectChangeEvent<unknown>, child: React.ReactNode) => {
-    setSelectedCountry(event.target.value as string);
+    // setSelectedCountry(event.target.value as string);
+    renderValue = event.target.value as string;
     onChange(event, child);
   };
 
@@ -57,7 +64,7 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
         MenuProps={{ disableScrollLock: true }}
         name="country"
         labelId="country"
-        value={selectedCountry}
+        value={renderValue}
         onChange={handleChange}
         IconComponent={ExpandMore}
         startAdornment={
@@ -70,7 +77,7 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
       >
         {countries.map((country, index) => {
           return (
-            <MenuItem key={index} value={country?.name}>
+            <MenuItem key={country?.name} value={country?.name}>
               <UINewTypography>{country?.name}</UINewTypography>
             </MenuItem>
           );
