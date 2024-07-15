@@ -23,11 +23,13 @@ import ModelNewPassword from 'views/modelViews/ModelNewPassword';
 const UnlimitedModel = () => {
   const url = new URL(window.location.href);
   const email = url.searchParams.get('email');
+  const emailCode = url.searchParams.get('code');
+  const emailId = url.searchParams.get('id');
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  const [openChangePassword, setIsOpenChangePassword] = useState(email ? true : false);
+  const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && emailId ? true : false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);

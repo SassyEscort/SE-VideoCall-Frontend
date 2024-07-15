@@ -75,7 +75,7 @@ const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
               password: values.password,
               reset_password_code: verificationCode
             };
-            const data = await GuestAuthService.guestResetPassword(resetPasswordObject);
+            const data = await GuestAuthService.modelResetPassword(resetPasswordObject);
 
             if (data.code === 200) {
               toast.success('Success');

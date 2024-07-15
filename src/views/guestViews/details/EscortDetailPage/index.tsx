@@ -93,7 +93,9 @@ const EscortDetailPage = () => {
               workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])}
               modelId={guestData?.id ?? 0}
               token={token}
-              handleCallInitiate={() => handleCallInitiate(guestData?.id, isCreditAvailable, callTime, guestData?.name, modelPhoto ?? '')}
+              handleCallInitiate={() =>
+                handleCallInitiate(guestData?.id, isCreditAvailable, callTime, guestData?.name, modelPhoto ?? '', guestData.user_name)
+              }
               isCustomer={isCustomer}
             />
           ) : (
@@ -102,7 +104,9 @@ const EscortDetailPage = () => {
                 workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])}
                 modelId={guestData?.id ?? 0}
                 token={token}
-                handleCallInitiate={() => handleCallInitiate(guestData?.id, isCreditAvailable, callTime, guestData?.name, modelPhoto ?? '')}
+                handleCallInitiate={() =>
+                  handleCallInitiate(guestData?.id, isCreditAvailable, callTime, guestData?.name, modelPhoto ?? '', guestData.user_name)
+                }
                 isCustomer={isCustomer}
               />
             )

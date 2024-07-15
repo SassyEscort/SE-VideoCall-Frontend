@@ -19,10 +19,12 @@ import { FormattedMessage } from 'react-intl';
 const SideBarModelMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer: (open: boolean) => void }) => {
   const url = new URL(window.location.href);
   const email = url.searchParams.get('email');
+  const emailCode = url.searchParams.get('code');
+  const emailId = url.searchParams.get('id');
   const [isopen, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  const [openChangePassword, setIsOpenChangePassword] = useState(email ? true : false);
+  const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && emailId ? true : false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
