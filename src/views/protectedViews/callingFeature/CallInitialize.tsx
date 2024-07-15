@@ -45,8 +45,9 @@ const CallInitialize = () => {
         toast.error(ErrorMessage);
       }
     };
-
-    init();
+    if (isModel) {
+      init();
+    }
   }, [modelUsername, isModel]);
 
   return <></>;

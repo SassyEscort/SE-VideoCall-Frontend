@@ -87,6 +87,18 @@ export const LiveIconSecBoxWorkerCard = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.success[100]
 }));
 
+export const LiveIconSecBoxWorkerCardSec = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  maxWidth: '8px',
+  height: '100%',
+  maxHeight: '8px',
+  border: '1px solid',
+  borderColor: '#E06B28',
+  borderRadius: '50%',
+  backgroundColor: '#E06B28'
+}));
+
 export const SeconderContainerWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'end',
@@ -234,6 +246,18 @@ export const LiveIconWorkerCard = styled(LiveIconFirstBoxWorkerCard)(({ theme })
   borderColor: theme.palette.secondary[400],
   borderRadius: '50%',
   backgroundColor: theme.palette.secondary[400]
+}));
+
+export const LiveIconWorkerCardSec = styled(LiveIconFirstBoxWorkerCard)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  minWidth: '12px',
+  height: '0',
+  minHeight: '12px',
+  border: '1px',
+  borderColor: '#E06B2852',
+  borderRadius: '50%',
+  backgroundColor: '#E06B2852'
 }));
 
 export const UITypographyBox = styled(UINewTypography)(({ theme }) => ({

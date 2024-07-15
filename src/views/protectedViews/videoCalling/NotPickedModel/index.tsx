@@ -48,7 +48,7 @@ const NotPickedModel = ({ open, onClose }: { open: boolean; onClose: () => void 
           <FirstBoxContent>
             <ThirdBoxContent>
               <SecondBoxContent>
-                <VideoCalling showHeart={false} />
+                <VideoCalling showHeart={false} showAnother={false} />
                 <UINewTypography variant="bodyLight" color="text.secondary">
                   <FormattedMessage id="WeAreSorry" />
                 </UINewTypography>

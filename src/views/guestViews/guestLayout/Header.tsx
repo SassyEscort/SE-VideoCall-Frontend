@@ -7,7 +7,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import SideBarGuestMenu from './SideBarGuestMenu';
 import { useCallback, useEffect, useState } from 'react';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import HomeMainContainer from './homeContainer';
@@ -24,14 +23,16 @@ import MoreFilters from '../searchPage/moreFilters';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
 import { SearchBarBox } from './GuestLayout.styled';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { Divider, ListItemIcon, ListItemText } from '@mui/material';
 
 const HeaderGuestComponent = () => {
   const url = new URL(window.location.href);
   const email = url.searchParams.get('email');
   const isSmaller = useMediaQuery('(max-width:320px)');
-
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
-  const [openSidebar, setOpenSidebar] = useState(false);
+
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
@@ -40,6 +41,15 @@ const HeaderGuestComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
+  const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
+
+  const handleClickLogout = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElLogout(event.currentTarget);
+  };
+
+  const handleCloseLogout = () => {
+    setAnchorElLogout(null);
+  };
 
   const handleDropDownOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -48,10 +58,6 @@ const HeaderGuestComponent = () => {
 
   const handleDropDownClose = () => {
     setOpenDropDown(false);
-  };
-
-  const toggleDrawer = (open: boolean) => {
-    setOpenSidebar(open);
   };
 
   const handleSignupOpen = () => {
@@ -113,8 +119,7 @@ const HeaderGuestComponent = () => {
 
   useEffect(() => {
     handleLanguageApiChange();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [handleLanguageApiChange]);
 
   return (
     <HomeMainContainer>
@@ -197,9 +202,73 @@ const HeaderGuestComponent = () => {
                 <LanguageDropdown />
               </Box>
               {!isMdUp && (
-                <IconButton onClick={() => toggleDrawer(true)}>
-                  <Image height={24} width={24} priority alt="menufill" src="/images/header/menuFill.svg" />
-                </IconButton>
+                <>
+                  <IconButton onClick={handleClickLogout}>
+                    <Image height={24} width={24} priority alt="menufill" src="/images/header/menuFill.svg" />
+                  </IconButton>
+
+                  <Menu
+                    id="basic-menu"
+                    anchorEl={anchorElLogout}
+                    open={Boolean(anchorElLogout)}
+                    onClose={handleCloseLogout}
+                    MenuListProps={{
+                      'aria-labelledby': 'basic-button'
+                    }}
+                    sx={{
+                      '& .MuiMenu-paper > ul': {
+                        backgroundColor: 'secondary.dark !important',
+                        width: '100%',
+                        minWidth: {
+                          xs: '300px',
+                          sm: '363px'
+                        },
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center'
+                      }
+                    }}
+                  >
+                    <MenuItem onClick={handleLoginOpen}>
+                      <ListItemIcon>
+                        <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                          <Box component="img" src="/images/header/loginCircle.svg" sx={{ width: '20px', height: '20px' }} />
+                        </IconButton>
+                      </ListItemIcon>
+                      <ListItemText>
+                        <UINewTypography variant="bodyLight" color="text.secondary">
+                          <FormattedMessage id="LogIn" />
+                        </UINewTypography>
+                      </ListItemText>
+                    </MenuItem>
+                    <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                    <MenuItem>
+                      <ListItemIcon>
+                        <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                          <Box component="img" src="/images/header/register-model-img.png" sx={{ width: '24px', height: '24px' }} />
+                        </IconButton>
+                      </ListItemIcon>
+                      <ListItemText>
+                        <Link href="/model">
+                          <UINewTypography variant="bodyLight" color="text.secondary">
+                            <FormattedMessage id="RegisterAsModel" />
+                          </UINewTypography>
+                        </Link>
+                      </ListItemText>
+                    </MenuItem>
+                    <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                    <MenuItem>
+                      <ListItemText>
+                        <UIThemeShadowButton variant="contained" onClick={handleSignupOpen} sx={{ width: '195px' }}>
+                          <UINewTypography variant="body" lineHeight={'150%'}>
+                            <FormattedMessage id="SignUpNow" />
+                          </UINewTypography>
+                          <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} />
+                        </UIThemeShadowButton>
+                      </ListItemText>
+                    </MenuItem>
+                  </Menu>
+                </>
               )}
               {isMdUp && (
                 <Link prefetch={false} href="/">
@@ -223,7 +292,6 @@ const HeaderGuestComponent = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      <SideBarGuestMenu open={openSidebar} toggleDrawer={toggleDrawer} />
       <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
       </UIStyledDialog>

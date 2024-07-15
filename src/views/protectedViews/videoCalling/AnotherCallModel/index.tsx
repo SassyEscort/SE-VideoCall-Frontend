@@ -58,7 +58,7 @@ const AnotherCallModel = ({ open, onClose }: { open: boolean; onClose: () => voi
         <DialogContentFristBox>
           <ThirdBoxContent>
             <SecondBoxContent>
-              <VideoCalling showHeart={false} />
+              <VideoCalling showHeart={false} showAnother={true} />
               <UINewTypography variant="bodyLight" color="text.secondary">
                 <FormattedMessage id="Sorry" />
                 {modelName} <FormattedMessage id="AnotherCall" />

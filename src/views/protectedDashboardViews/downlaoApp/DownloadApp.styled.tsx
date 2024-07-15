@@ -80,3 +80,9 @@ export const Dwonload = styled(UINewTypography)(({ theme }) => ({
     paddingLeft: theme.spacing(3)
   }
 }));
+
+export const GradientTypography = styled(UINewTypography)(({ theme }) => ({
+  background: 'linear-gradient(90deg, #FD28A6, #FFFFFF)',
+  '-webkit-background-clip': 'text',
+  '-webkit-text-fill-color': 'transparent'
+}));
