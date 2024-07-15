@@ -40,16 +40,6 @@ const HelpAndSupportContainer = () => {
             <TextFirstBoxContainer>
               <TextSecondBoxContainer>
                 <UINewTypography variant="body" color="text.primary" lineHeight="160%">
-                  <FormattedMessage id="CallOn" />
-                </UINewTypography>
-                <UINewTypography variant="h3" color="text.secondary" whiteSpace="nowrap">
-                  +91 9876543210
-                </UINewTypography>
-              </TextSecondBoxContainer>
-            </TextFirstBoxContainer>
-            <TextFirstBoxContainer>
-              <TextSecondBoxContainer>
-                <UINewTypography variant="body" color="text.primary" lineHeight="160%">
                   <FormattedMessage id="MailUs" />
                 </UINewTypography>
                 <UINewTypography variant="h3" color="text.secondary">

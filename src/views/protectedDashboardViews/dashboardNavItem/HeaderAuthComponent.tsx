@@ -92,7 +92,9 @@ const DashboadrHeaderAuthComponent = () => {
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
+      if (data) {
+        setToken({ id: data.id, token: data.token });
+      }
     };
 
     userToken();

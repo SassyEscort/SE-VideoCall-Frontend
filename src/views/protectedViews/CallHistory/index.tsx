@@ -209,7 +209,7 @@ const CallHistory = () => {
                               <CallHistoryCreditBox>
                                 <ImgBoxContainer src="/images/workercards/dollar-img.png" />
                                 <UINewTypography variant="captionLargeBold" color="text.secondary">
-                                  {list.credits_used} credits/min
+                                  {list.credits_per_minute} <FormattedMessage id="CreditsMin" />
                                 </UINewTypography>
                               </CallHistoryCreditBox>
                             </SecondSubFirstPartSecondBox>
