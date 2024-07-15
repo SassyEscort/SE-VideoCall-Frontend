@@ -10,19 +10,22 @@ import Loader from 'components/Loader';
 
 // TYPES
 import { GuardProps } from 'types/auth';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
-// ==============================|| GUEST GUARD ||============================== //
+// ==============================|| AUTH GUARD ||============================== //
 
 const GuestGuard = ({ children }: GuardProps) => {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const tokenExpiry = session?.user?.image && JSON.parse(session?.user?.image!).expiry;
+
   useEffect(() => {
     const fetchData = async () => {
       const res: any = await fetch('/api/auth/protected');
       const json = await res?.json();
-      if (json?.protected) {
-        router.push('/events');
+      if (!json?.protected || json.user.provider !== 'providerGuest' || tokenExpiry < parseInt((Date.now() / 1000).toFixed(0))) {
+        signOut({ redirect: false });
+        router.push('/');
       }
     };
     fetchData();
@@ -30,7 +33,7 @@ const GuestGuard = ({ children }: GuardProps) => {
     // eslint-disable-next-line
   }, [session]);
 
-  if (status === 'loading' || session?.user) return <Loader />;
+  if (status == 'loading' || !session?.user) return <Loader />;
 
   return <>{children}</>;
 };

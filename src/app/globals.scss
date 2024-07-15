@@ -219,3 +219,12 @@ html {
   height: 50px !important;
   border-radius: 8px !important;
 }
+
+.swiper-wrapper .swiper-slide-Worker {
+  display: flex;
+  flex-direction: column;
+}
+
+.swiper-slide {
+  height: fit-content !important;
+}

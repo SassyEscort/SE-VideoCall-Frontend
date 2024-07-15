@@ -47,6 +47,7 @@ declare module '@mui/material/styles' {
     bodyLarge: CSSProperties;
     bodyUltraLarge: CSSProperties;
     SubtitleSmallMedium: CSSProperties;
+    newTitle: CSSProperties;
   }
 
   // allow configuration using `createTheme`
@@ -78,8 +79,11 @@ declare module '@mui/material/styles' {
     SmallerText?: CSSProperties;
     ExtraSmallerText?: CSSProperties;
     MediumBold?: CSSProperties;
+    MediumSemiBold?: CSSProperties;
+    MediumSemiBoldText?: CSSProperties;
     SmallText?: CSSProperties;
     captionLargeBold?: CSSProperties;
+    newTitle?: CSSProperties;
   }
 }
 
@@ -112,9 +116,12 @@ declare module '@mui/material/Typography' {
     SmallerText: true;
     ExtraSmallerText: true;
     MediumBold: true;
+    MediumSemiBold: true;
+    MediumSemiBoldText: true;
     SmallText: true;
     captionLargeBold: true;
     TypographyPercentage: true;
+    newTitle: true;
   }
 }
 
@@ -167,10 +174,15 @@ const theme = createTheme({
       light: '#58535E',
       dark: '#1E0815',
       // light: "#e7e7e7",
-      800: '#232027',
+      100: '#EEEEEE',
       200: '#B7B5B9',
       500: '#100B19',
-      700: '#86838A'
+      700: '#86838A',
+      300: '#DDDDDD',
+      400: '#79E02852',
+      600: '#B7B5B952',
+      800: '#07030E',
+      900: '#D4D3D63D'
     },
 
     white: {
@@ -410,6 +422,21 @@ const theme = createTheme({
       fontSize: '11px',
       fontWeight: 500,
       lineHeight: '16px'
+    },
+    MediumSemiBold: {
+      fontSize: '40px',
+      fontWeight: 700,
+      lineHeight: '52px'
+    },
+    MediumSemiBoldText: {
+      fontSize: '32px',
+      fontWeight: 700,
+      lineHeight: '50px'
+    },
+    newTitle: {
+      fontSize: '20px',
+      fontWeight: 600,
+      lineHeight: '24px'
     }
   }
 });
