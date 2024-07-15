@@ -72,7 +72,7 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
         endAdornment={value && <StyledClearIcon onClick={handleClear} />}
         sx={{ backgroundColor: value ? theme.palette.primary[200] : '' }}
       >
-        {countries.map((country, index) => {
+        {countries?.map((country, index) => {
           return (
             <MenuItem key={country?.name} value={country?.name}>
               <UINewTypography>{country?.name}</UINewTypography>

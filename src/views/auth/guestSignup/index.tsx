@@ -10,7 +10,7 @@ import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useState } from 'react';
 import * as yup from 'yup';
-import { EMAIL_REGEX, PASSWORD_PATTERN } from 'constants/regexConstants';
+import { EMAIL_REGEX, NAME_REGEX, PASSWORD_PATTERN } from 'constants/regexConstants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import { toast } from 'react-toastify';
@@ -58,16 +58,15 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
   }, [activeStep, redirectSeconds]);
 
   const validationSchema = yup.object({
-    name: yup.string().trim().required('Name is required').min(2, 'Name is too short').max(20, 'Name is too long'),
-    email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required'),
-    password: yup
+    name: yup
       .string()
-      .required('Password is required')
-      .min(8, 'Password must be at least 8 characters')
-      .matches(
-        PASSWORD_PATTERN,
-        'Invalid Password! Does not meet requirements (this password has appeared in a data breach elsewhere and should never be used on any website)'
-      )
+      .trim()
+      .required('Nameisrequired')
+      .min(2, 'Nameistooshort')
+      .max(20, 'Nameistoolong')
+      .matches(NAME_REGEX, 'Noleadingspaces'),
+    email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
+    password: yup.string().required('Passwordisrequired').min(8, 'Passwordmust').matches(PASSWORD_PATTERN, 'InvalidPassword')
   });
 
   return (
@@ -81,6 +80,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
       onSubmit={async (values, { setSubmitting }) => {
         try {
           setLoading(true);
+          values.name = values.name.trim();
           const data = await GuestAuthService.guestSignup(values);
           if (data.code === 200) {
             setActiveStep(1);

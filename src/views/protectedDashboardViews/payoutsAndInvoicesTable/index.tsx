@@ -29,7 +29,7 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, SelectChangeEvent } from '@mui/material';
 import { PayoutService } from 'services/payout/payout.service';
 import { ModelPastPayoutDetailRes } from 'services/payout/types';
 import { PaginationBox } from './billingTable/BillingTable.styled';
@@ -42,6 +42,7 @@ export type PaginationType = {
   offset: number;
   pageSize: number;
   filter_text: string;
+  status: string;
 };
 
 const PayoutsAndInvoices = () => {
@@ -53,7 +54,8 @@ const PayoutsAndInvoices = () => {
     page: 1,
     pageSize: 20,
     offset: 0,
-    filter_text: ''
+    filter_text: '',
+    status: ''
   });
 
   useEffect(() => {
@@ -74,7 +76,8 @@ const PayoutsAndInvoices = () => {
         const ModelPayoutListObject = {
           limit: filters.pageSize,
           offset: filters.offset,
-          filter_text: filters.filter_text
+          filter_text: filters.filter_text,
+          status: filters.status
         };
         if (token.token) {
           setIsLoading(true);
@@ -120,11 +123,20 @@ const PayoutsAndInvoices = () => {
     debouncedChangeSearch(val);
   };
 
+  const handleChangeStatus = (event: SelectChangeEvent<unknown>) => {
+    const value = event.target.value as string;
+    handleChangeFilter({ ...filters, status: value, page: 1 });
+  };
+
   const scrollToTable = () => {
     const tableElement = document.getElementById('tableSection');
     if (tableElement) {
       tableElement.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handelReset = () => {
+    handleChangeFilter({ ...filters, filter_text: '', status: '', page: 1 });
   };
 
   return (
@@ -143,12 +155,12 @@ const PayoutsAndInvoices = () => {
             <FilterMainBox>
               <FilterSecondBox>
                 <InvoiceDate />
-                <Status />
+                <Status onChange={handleChangeStatus} value={filters.status} />
               </FilterSecondBox>
 
               <ResetMainBox>
                 <DividerContainer orientation="vertical" flexItem />
-                <UINewTypography variant="bodyLight" color="text.disabled" sx={{ cursor: 'pointer' }}>
+                <UINewTypography variant="bodyLight" color="text.disabled" onClick={handelReset} sx={{ cursor: 'pointer' }}>
                   <FormattedMessage id="Reset" />
                 </UINewTypography>
               </ResetMainBox>

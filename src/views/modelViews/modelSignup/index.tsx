@@ -12,7 +12,7 @@ import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useState } from 'react';
 import * as yup from 'yup';
-import { EMAIL_REGEX, PASSWORD_PATTERN } from 'constants/regexConstants';
+import { EMAIL_REGEX, NAME_REGEX, PASSWORD_PATTERN } from 'constants/regexConstants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import { ModelAuthService } from 'services/modelAuth/modelAuth.service';
@@ -62,16 +62,15 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
   }, [redirectSeconds]);
 
   const validationSchema = yup.object({
-    name: yup.string().trim().required('Username is required').min(2, 'Username is too short').max(20, 'Username is too long'),
-    email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required'),
-    password: yup
+    name: yup
       .string()
-      .required('Password is required')
-      .min(8, 'Password must be at least 8 characters')
-      .matches(
-        PASSWORD_PATTERN,
-        'Invalid Password! Does not meet requirements (this password has appeared in a data breach elsewhere and should never be used on any website)'
-      )
+      .trim()
+      .required('Usernameisrequired')
+      .min(2, 'Usernameistooshort')
+      .max(20, 'Usernameistoolong')
+      .matches(NAME_REGEX, 'Noleadingspaces'),
+    email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
+    password: yup.string().required('Passwordisrequired').min(8, 'Passwordmust').matches(PASSWORD_PATTERN, 'InvalidPassword')
   });
 
   return (
@@ -85,6 +84,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
       onSubmit={async (values, { setSubmitting }) => {
         try {
           setLoading(true);
+          values.name = values.name.trim();
           const data = await ModelAuthService.modelSignup(values);
           if (data.code === 200) {
             const loginResponse = await signIn('providerModel', {
@@ -179,7 +179,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           }}
                           onBlur={handleBlur}
                           error={touched.name && Boolean(errors.name)}
-                          helperText={touched.name && errors.name}
+                          helperText={touched.name && errors.name ? <FormattedMessage id={errors.name} /> : ''}
                           sx={{
                             border: '2px solid',
                             borderColor: 'secondary.light',
@@ -202,7 +202,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           onChange={handleChange}
                           onBlur={handleBlur}
                           error={touched.email && Boolean(errors.email)}
-                          helperText={touched.email && errors.email}
+                          helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
                           sx={{
                             border: '2px solid',
                             borderColor: 'secondary.light',
@@ -227,7 +227,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={touched.password && Boolean(errors.password)}
-                            helperText={touched.password && errors.password}
+                            helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
                             sx={{
                               border: '2px solid',
                               borderColor: 'secondary.light',
