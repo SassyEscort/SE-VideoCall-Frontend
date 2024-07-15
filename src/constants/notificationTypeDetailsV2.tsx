@@ -4,7 +4,7 @@ import { NotificationTypeDetailsTypeV2 } from 'views/protectedViews/protectedLay
 export const NotificationTypeDetailsV2: NotificationTypeDetailsTypeV2 = {
   Credits_Credited: {
     icon: <BoxIconNotification src="/images/notification/credits_credited.png" />,
-    href: '/profile/credit',
+    href: '/profile/billing',
     isReadMore: false
   },
   Password_Updated: {
