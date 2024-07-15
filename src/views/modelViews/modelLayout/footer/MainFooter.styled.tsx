@@ -60,7 +60,6 @@ export const ModelFooterHead = styled(UINewTypography)(({ theme }) => ({
 export const ModelUITextConatinerText = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(1),
   alignItems: 'flex-start',
   textAlign: 'start',
   marginBottom: 0,
@@ -86,4 +85,10 @@ export const FirstBoxContainerMain = styled(Box)(({ theme }) => ({
 export const FooterStoreBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(3.5)
+}));
+
+export const GradientTypography = styled(UINewTypography)(({ theme }) => ({
+  background: 'linear-gradient(90deg, #FD28A6, #FFFFFF)',
+  '-webkit-background-clip': 'text',
+  '-webkit-text-fill-color': 'transparent'
 }));

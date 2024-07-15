@@ -132,7 +132,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     modelPhoto: string,
     userName: string
   ) => {
-    if (guestId && isCreditAvailable && !call) {
+    if (guestId && isCreditAvailable && !call && Boolean(token.token)) {
       const isModelBusy = await CallingService.getModelCallStatus(guestId, token.token);
       setModelId(guestId);
       setModelName(modelName);

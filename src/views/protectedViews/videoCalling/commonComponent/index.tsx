@@ -1,5 +1,11 @@
+'use client';
 import React from 'react';
-import { LiveIconSecBoxWorkerCard, LiveIconWorkerCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
+import {
+  LiveIconSecBoxWorkerCard,
+  LiveIconSecBoxWorkerCardSec,
+  LiveIconWorkerCard,
+  LiveIconWorkerCardSec
+} from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import {
   HeartBoxContainer,
   ImgBoxContainer,
@@ -10,7 +16,7 @@ import {
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
-const VideoCalling = ({ showHeart }: { showHeart: Boolean }) => {
+const VideoCalling = ({ showHeart, showAnother }: { showHeart: Boolean; showAnother: Boolean }) => {
   const { modelName, modelPhoto } = useCallFeatureContext();
 
   return (
@@ -23,9 +29,15 @@ const VideoCalling = ({ showHeart }: { showHeart: Boolean }) => {
       )}
       <SecondBoxContainer>
         <TextContainer color="text.secondary">{modelName}</TextContainer>
-        <LiveIconWorkerCard>
-          <LiveIconSecBoxWorkerCard sx={{ backgroundColor: 'success.100' }} />
-        </LiveIconWorkerCard>
+        {showAnother ? (
+          <LiveIconWorkerCardSec>
+            <LiveIconSecBoxWorkerCardSec />
+          </LiveIconWorkerCardSec>
+        ) : (
+          <LiveIconWorkerCard>
+            <LiveIconSecBoxWorkerCard />
+          </LiveIconWorkerCard>
+        )}
       </SecondBoxContainer>
     </VideoCallingCardMainContainer>
   );

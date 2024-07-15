@@ -52,7 +52,7 @@ const VideoCallEnded = ({ open, onClose }: { open: boolean; onClose: () => void 
             <FirstBoxContent>
               <ThirdBoxContent>
                 <SecondBoxContent>
-                  <VideoCalling showHeart={true} />
+                  <VideoCalling showHeart={true} showAnother={false} />
                   <UINewTypography variant="bodyLight" color="text.primary">
                     <FormattedMessage id="ThankYouForTheCall" />
                   </UINewTypography>

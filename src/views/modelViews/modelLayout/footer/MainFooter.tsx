@@ -6,6 +6,7 @@ import {
   FirstBoxContainerMain,
   FooterStoreBox,
   FooterSubICon,
+  GradientTypography,
   ModelFooterHead,
   ModelUITextConatinerText
 } from './MainFooter.styled';
@@ -70,6 +71,7 @@ const MainFooter = () => {
     setIsOpenChangePassword(false);
     setIsOpenLogin(true);
   };
+
   return (
     <>
       <Box sx={{ width: '100%' }}>
@@ -122,6 +124,9 @@ const MainFooter = () => {
                   />
                 </Box>
               </FooterStoreBox>
+              <GradientTypography variant="body">
+                <FormattedMessage id="AppComingSoon" />
+              </GradientTypography>
             </ModelUITextConatinerText>
 
             <FirstBoxContainerMain>

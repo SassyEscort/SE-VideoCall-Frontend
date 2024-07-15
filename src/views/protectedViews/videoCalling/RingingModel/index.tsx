@@ -38,7 +38,7 @@ const RingingModel = ({ onClose }: { onClose: () => void }) => {
         <DialogContentFristBox>
           <DialogContentSecondBox>
             <SecondBoxContent>
-              <VideoCalling showHeart={false} />
+              <VideoCalling showHeart={false} showAnother={false} />
               <UINewTypography variant="bodyLight" color="text.secondary">
                 <FormattedMessage id="Ringing" />
               </UINewTypography>
