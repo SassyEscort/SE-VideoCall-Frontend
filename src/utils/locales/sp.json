@@ -595,5 +595,7 @@
   "Languageisrequired": "Se requiere idioma",
   "IDtypetitleisrequired": "Se requiere título del tipo de identificación",
   "IDnumberisrequired": "Se requiere número de identificación",
-  "Pleaseuploadyourdocument": "Por favor cargue su documento"
+  "Pleaseuploadyourdocument": "Por favor cargue su documento",
+  "NoDataToShowHere": "No hay datos para mostrar aquí",
+  "MinimumWithdrawalAmountIs": "El monto mínimo de retiro es"
 }
