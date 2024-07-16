@@ -37,10 +37,10 @@ export type VerificationStepSecond = {
 };
 
 const validationSchema = yup.object({
-  idType: yup.string().required('ID type title is required'),
+  idType: yup.string().required('IDtypetitleisrequired'),
   idNumber: yup
     .string()
-    .required('ID number is required')
+    .required('IDnumberisrequired')
     .matches(/^[a-zA-Z0-9]*$/, 'Only alphanumeric characters are allowed in ID number.')
 });
 
@@ -169,7 +169,9 @@ const VerificationStep2 = ({
                         </MenuItem>
                       ))}
                     </UIStyledSelectItemContainer>
-                    {touched.idType && errors.idType && <FormHelperText error>{errors.idType}</FormHelperText>}
+                    {touched.idType && errors.idType && (
+                      <FormHelperText error>{errors.idType ? <FormattedMessage id={errors.idType} /> : ''}</FormHelperText>
+                    )}
                   </Box>
                 </InputTypeBoxOne>
 
@@ -190,7 +192,7 @@ const VerificationStep2 = ({
                       onChange={handleChange}
                       onBlur={handleBlur}
                       error={touched.idNumber && Boolean(errors.idNumber)}
-                      helperText={touched.idNumber && errors.idNumber}
+                      helperText={touched.idNumber && errors.idNumber ? <FormattedMessage id={errors.idNumber} /> : ''}
                     />
                   </Box>
                 </InputTypeBoxSecond>

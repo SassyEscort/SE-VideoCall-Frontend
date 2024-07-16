@@ -580,5 +580,20 @@
   "Earningss": "ganancias",
   "ForTheAccount": "para la cuenta",
   "AppComingSoon": "APLICACIÓN PRÓXIMAMENTE...",
-  "ComingSoon": "COMING SOON..."
+  "ComingSoon": "COMING SOON...",
+  "You’reOneStepCloser": "Estás un paso más cerca de placeres inolvidables...",
+  "PleaseWaitABit": "Espera un poco mientras te redireccionamos a tu perfil.",
+  "Genderisrequired": "Se requiere género",
+  "Nationalityisrequired": "Se requiere nacionalidad",
+  "Countryisrequired": "Se requiere país",
+  "Bioisrequired": "Se requiere biografía",
+  "Bioshouldbeatleast50characters": "La biografía debe tener al menos 50 caracteres.",
+  "Bioshouldbeatmost1000characters": "La biografía debe tener al menos 1000 caracteres.",
+  "Dateisrequired": "Se requiere fecha",
+  "Agemustbegreaterthan18": "La edad debe ser mayor de 18 años.",
+  "Atleastonelanguageisrequired": "Se requiere al menos un idioma",
+  "Languageisrequired": "Se requiere idioma",
+  "IDtypetitleisrequired": "Se requiere título del tipo de identificación",
+  "IDnumberisrequired": "Se requiere número de identificación",
+  "Pleaseuploadyourdocument": "Por favor cargue su documento"
 }

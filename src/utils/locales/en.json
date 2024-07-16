@@ -581,5 +581,20 @@
   "Earningss": "earnings",
   "ForTheAccount": "For the account",
   "AppComingSoon": "APP COMING SOON...",
-  "ComingSoon": "COMING SOON..."
+  "ComingSoon": "COMING SOON...",
+  "You’reOneStepCloser": "You’re one step closer from unforgettable pleasures...",
+  "PleaseWaitABit": "Please wait a bit while we redirect you to your profile.",
+  "Genderisrequired": "Gender is required",
+  "Nationalityisrequired": "Nationality is required",
+  "Countryisrequired": "Country is required",
+  "Bioisrequired": "Bio is required",
+  "Bioshouldbeatleast50characters": "Bio should be atleast 50 characters",
+  "Bioshouldbeatmost1000characters": "Bio should be atmost 1000 characters",
+  "Dateisrequired": "Date is required",
+  "Agemustbegreaterthan18": "Age must be greater than 18",
+  "Atleastonelanguageisrequired": "At least one language is required",
+  "Languageisrequired": "Language is required",
+  "IDtypetitleisrequired": "ID type title is required",
+  "IDnumberisrequired": "ID number is required",
+  "Pleaseuploadyourdocument": "Please up load your document"
 }

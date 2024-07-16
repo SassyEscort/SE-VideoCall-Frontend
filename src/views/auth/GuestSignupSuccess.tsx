@@ -8,6 +8,7 @@ import {
   TextContainerAuthSignupSuccessContainer,
   TextSubContainerAuthSignupSuccessContainer
 } from './AuthCommon.styled';
+import { FormattedMessage } from 'react-intl';
 
 const GuestSignupSuccess = ({ redirectSeconds }: { redirectSeconds: number }) => {
   return (
@@ -20,11 +21,11 @@ const GuestSignupSuccess = ({ redirectSeconds }: { redirectSeconds: number }) =>
         <TextContainerAuthSignupSuccessContainer>
           <TextSubContainerAuthSignupSuccessContainer>
             <Typography variant="h5" color="text.secondary" sx={{ width: '100%', maxWidth: '443px' }}>
-              You’re one step closer from unforgettable pleasures...
+              <FormattedMessage id="You’reOneStepCloser" />
             </Typography>
           </TextSubContainerAuthSignupSuccessContainer>
           <Typography variant="bodySmall" color="text.secondary">
-            Please wait a bit while we redirect you to your profile.
+            <FormattedMessage id="PleaseWaitABit" />
           </Typography>
         </TextContainerAuthSignupSuccessContainer>
         <Typography
@@ -33,7 +34,7 @@ const GuestSignupSuccess = ({ redirectSeconds }: { redirectSeconds: number }) =>
           textAlign="center"
           sx={{ display: 'flex', marginTop: { xs: '68px', sm: '48px' }, justifyContent: 'center' }}
         >
-          Redirecting in {redirectSeconds} Sec
+          <FormattedMessage id="RedirectingIn" /> {redirectSeconds} <FormattedMessage id="Sec" />
         </Typography>
       </SecContainerAuthSignupSuccessContainer>
     </AuthSignupSuccessMainContainer>
