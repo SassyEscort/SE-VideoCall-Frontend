@@ -36,16 +36,18 @@ export const GuestStyleComponent = styled(Dialog)(() => ({
   borderRadius: '12px'
 }));
 
-export const MenuContainer = styled(Menu)(() => ({
+export const MenuContainer = styled(Menu)(({ theme }) => ({
   '& .MuiMenu-paper > ul': {
     backgroundColor: 'secondary.dark !important',
     width: '100%',
-    minWidth: {
-      xs: '300px',
-      sm: '363px'
-    },
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      minWidth: '363px'
+    },
+    [theme.breakpoints.down('xs')]: {
+      minWidth: '285px'
+    }
   }
 }));
