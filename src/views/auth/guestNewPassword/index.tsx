@@ -37,6 +37,10 @@ export type ResetPasswordParams = {
   reset_password_code: string;
 };
 
+export type ResetPasswordEmailParams = {
+  email: string;
+};
+
 const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void; email: string; onLoginOpen: () => void }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
