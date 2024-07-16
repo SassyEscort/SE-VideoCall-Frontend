@@ -2,7 +2,6 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import { SelectChangeEvent } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
-import UINewTypography from 'components/UIComponents/UINewTypography';
 import { LocatonIcone } from 'components/UIComponents/UIStyledArrivalsButton';
 import { UIStyledSelect } from 'components/UIComponents/UIStyledSelect';
 import Image from 'next/image';
@@ -10,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { StyledClearIcon } from '../Search.styled';
+import { CountryFilterText, StyledClearIcon } from '../Search.styled';
 import theme from 'themes/theme';
 
 interface CountryFilterProps {
@@ -75,7 +74,7 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
         {countries?.map((country, index) => {
           return (
             <MenuItem key={country?.name} value={country?.name}>
-              <UINewTypography>{country?.name}</UINewTypography>
+              <CountryFilterText>{country?.name}</CountryFilterText>
             </MenuItem>
           );
         })}

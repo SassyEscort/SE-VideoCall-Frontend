@@ -8,6 +8,7 @@ import { FormikErrors, FormikTouched } from 'formik';
 import { DragAndDropContainer, DragAndDropMultipleImageCloseButton } from './DragAndDropMultipleImage.styled';
 import UINewTypography from '../UINewTypography';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import { FormattedMessage } from 'react-intl';
 
 export type UploadFileControlType = {
   errors: string | undefined;
@@ -222,7 +223,7 @@ const DragAndDropV2 = ({
       </DragAndDropContainer>
       {errors && (touched || withoutFilterImageTouched?.photoWithoutFilter) && (
         <Typography className="Mui-error" variant="bodySmall" color={'error.main'}>
-          {errors}
+          <FormattedMessage id="Pleaseuploadyourdocument" />
         </Typography>
       )}
     </Box>
