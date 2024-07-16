@@ -596,5 +596,7 @@
   "Languageisrequired": "Language is required",
   "IDtypetitleisrequired": "ID type title is required",
   "IDnumberisrequired": "ID number is required",
-  "Pleaseuploadyourdocument": "Please up load your document"
+  "Pleaseuploadyourdocument": "Please up load your document",
+  "NoDataToShowHere": "No data to show here",
+  "MinimumWithdrawalAmountIs": "Minimum withdrawal amount is"
 }
