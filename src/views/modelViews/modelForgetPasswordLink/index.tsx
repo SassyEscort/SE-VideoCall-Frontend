@@ -52,7 +52,7 @@ const ModelForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
       onSubmit={async (values, { setSubmitting }) => {
         try {
           setLoading(true);
-          const data = await ModelAuthService.modelForgetPasswordLink(values);
+          const data = await ModelAuthService.modelForgetPassword(values);
           if (data.code === 200) {
             toast.success('Success');
             setActiveStep(1);

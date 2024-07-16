@@ -18,16 +18,21 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { FormattedMessage } from 'react-intl';
 import { CometChatUIKit } from '@cometchat/chat-uikit-react';
+import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 
 const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+  const { isCustomer } = useCallFeatureContext();
+
   const [loading, setLoading] = useState(false);
 
   const handleConfirmLogout = async () => {
     setLoading(true);
     try {
-      const user = await CometChatUIKit.getLoggedinUser();
-      if (user) {
-        await CometChatUIKit.logout();
+      if (!isCustomer) {
+        const user = await CometChatUIKit.getLoggedinUser();
+        if (user) {
+          await CometChatUIKit.logout();
+        }
       }
       await signOut({ callbackUrl: '/' });
     } catch (error) {

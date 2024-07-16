@@ -111,11 +111,10 @@ const VerificationContainer = () => {
       setActiveStep(2);
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ADD_PRICE) {
       setActiveStep(3);
-    } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED) {
-      setActiveStep(4);
     } else if (
       modelDetails?.verification_step === MODEL_ACTIVE_STEP.IN_REVIEW ||
-      modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED
+      modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED ||
+      modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED
     ) {
       router.push('/model/dashboard');
     }
