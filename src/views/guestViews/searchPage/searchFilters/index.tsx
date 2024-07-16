@@ -42,6 +42,8 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const email = getQueryParam('email');
+
   const [isOnline, setIsOnline] = useState(true);
   const [newArrivals, setNewArrivals] = useState(true);
 
@@ -83,14 +85,16 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
     let filterCount = Object.keys(objParams).length;
     const queryString = new URLSearchParams(objParams).toString();
 
-    if (pathname === '/' && filterCount === 0) router.push('/');
-    if (pathname === '/' && filterCount === 1 && objParams.page) return;
+    if (pathname === '/' && filterCount === 0 && !email) {
+      router.push('/');
+    }
+    if (pathname === '/' && filterCount === 1 && objParams.page && !email) return;
 
     const isDetailsPage = pathname.startsWith('/details/');
     const isMultiple = ['language', 'isOnline', 'page', 'fromPrice', 'fromAge', 'toPrice', 'country', 'sortOrder', 'sortField'].filter(
       (x) => Object.keys(objParams).includes(x)
     );
-    if (filterCount === 0) {
+    if (filterCount === 0 && !email) {
       if (isDetailsPage) {
         const credit = searchParams.get('credit');
         if (!credit) router.push(pathname);
@@ -98,13 +102,13 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
         router.push('/');
       }
     } else {
-      if (isMultiple.length) {
+      if (isMultiple.length && !email) {
         if (isDetailsPage) {
           router.push(`${pathname}?${queryString}`);
-        } else {
+        } else if (!email) {
           router.push(`/?${queryString}`);
         }
-      } else {
+      } else if (!email) {
         if (isDetailsPage) {
           router.push(`${pathname}?${queryString}`);
         } else {

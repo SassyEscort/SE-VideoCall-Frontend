@@ -34,8 +34,11 @@ import GuestSignup from 'views/auth/guestSignup';
 import GuestLogin from 'views/auth/guestLogin';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestNewPassword from 'views/auth/guestNewPassword';
+import { useRouter } from 'next/navigation';
 
 const HomeConnections = () => {
+  const { push } = useRouter();
+
   const url = new URL(window.location.href);
   const email = url.searchParams.get('email');
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -84,6 +87,7 @@ const HomeConnections = () => {
   };
 
   const handleChangePasswordClose = () => {
+    push('/');
     setIsOpenChangePassword(false);
   };
 

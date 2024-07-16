@@ -8,20 +8,15 @@ import ListItemText from '@mui/material/ListItemText';
 import { GuestStyleComponent, IconSideBar, SideBarBox } from './GuestLayout.styled';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestNewPassword from 'views/auth/guestNewPassword';
 import { useState } from 'react';
 import GuestLogin from 'views/auth/guestLogin';
 import Link from 'next/link';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 const SideBarGuestMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer: (open: boolean) => void }) => {
-  const url = new URL(window.location.href);
-  const email = url.searchParams.get('email');
-
   const [openSignup, setIsSignupOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  const [openChangePassword, setIsOpenChangePassword] = useState(email ? true : false);
 
   const handleSignupOpen = () => {
     setIsSignupOpen(true);
@@ -42,11 +37,6 @@ const SideBarGuestMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
     setIsOpenLogin(true);
   };
 
-  const handleLoginChangePasswordOpen = () => {
-    setIsOpenChangePassword(false);
-    setIsOpenLogin(true);
-  };
-
   const handleLoginClose = () => {
     setIsOpenLogin(false);
   };
@@ -58,10 +48,6 @@ const SideBarGuestMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
 
   const handleResetPasswordLinkClose = () => {
     setOpenForgetPassLink(false);
-  };
-
-  const handleChangePasswordClose = () => {
-    setIsOpenChangePassword(false);
   };
 
   return (
@@ -116,9 +102,6 @@ const SideBarGuestMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
       </GuestStyleComponent>
       <GuestStyleComponent open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
-      </GuestStyleComponent>
-      <GuestStyleComponent scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
-        <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
       </GuestStyleComponent>
     </Drawer>
   );

@@ -13,7 +13,6 @@ import HomeMainContainer from './homeContainer';
 import { FormattedMessage } from 'react-intl';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestNewPassword from 'views/auth/guestNewPassword';
 import GuestLogin from 'views/auth/guestLogin';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -27,8 +26,6 @@ import MenuItem from '@mui/material/MenuItem';
 import { Divider, ListItemIcon, ListItemText } from '@mui/material';
 
 const HeaderGuestComponent = () => {
-  const url = new URL(window.location.href);
-  const email = url.searchParams.get('email');
   const isSmaller = useMediaQuery('(max-width:320px)');
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -36,7 +33,6 @@ const HeaderGuestComponent = () => {
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  const [openChangePassword, setIsOpenChangePassword] = useState(email && url.pathname !== '/profile' ? true : false);
   const [openDropDown, setOpenDropDown] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openFilterModal, setOpenFilterModal] = useState(false);
@@ -79,11 +75,6 @@ const HeaderGuestComponent = () => {
     setIsOpenLogin(true);
   };
 
-  const handleLoginChangePasswordOpen = () => {
-    setIsOpenChangePassword(false);
-    setIsOpenLogin(true);
-  };
-
   const handleLoginClose = () => {
     setIsOpenLogin(false);
   };
@@ -95,10 +86,6 @@ const HeaderGuestComponent = () => {
 
   const handleResetPasswordLinkClose = () => {
     setOpenForgetPassLink(false);
-  };
-
-  const handleChangePasswordClose = () => {
-    setIsOpenChangePassword(false);
   };
 
   const handleOpenFilterModal = () => {
@@ -296,9 +283,7 @@ const HeaderGuestComponent = () => {
       <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
-      <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
-        <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
-      </UIStyledDialog>
+
       <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} />
       <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
     </HomeMainContainer>

@@ -15,18 +15,14 @@ import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestLogin from 'views/auth/guestLogin';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestNewPassword from 'views/auth/guestNewPassword';
 import { useState } from 'react';
 
 const MainFooter = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const url = new URL(window.location.href);
-  const email = url.searchParams.get('email');
 
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  const [openChangePassword, setIsOpenChangePassword] = useState(email && url.pathname !== '/profile' ? true : false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -47,11 +43,6 @@ const MainFooter = () => {
     setIsOpenLogin(true);
   };
 
-  const handleLoginChangePasswordOpen = () => {
-    setIsOpenChangePassword(false);
-    setIsOpenLogin(true);
-  };
-
   const handleLoginClose = () => {
     setIsOpenLogin(false);
   };
@@ -63,10 +54,6 @@ const MainFooter = () => {
 
   const handleResetPasswordLinkClose = () => {
     setOpenForgetPassLink(false);
-  };
-
-  const handleChangePasswordClose = () => {
-    setIsOpenChangePassword(false);
   };
 
   return (
@@ -194,9 +181,6 @@ const MainFooter = () => {
         </UIStyledDialog>
         <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
           <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
-        </UIStyledDialog>
-        <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
-          <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
         </UIStyledDialog>
       </HomeMainContainer>
     </>
