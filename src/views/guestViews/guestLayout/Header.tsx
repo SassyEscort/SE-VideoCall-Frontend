@@ -31,6 +31,7 @@ const HeaderGuestComponent = () => {
   const email = url.searchParams.get('email');
   const isSmaller = useMediaQuery('(max-width:320px)');
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
@@ -213,6 +214,9 @@ const HeaderGuestComponent = () => {
                     onClose={handleCloseLogout}
                     MenuListProps={{
                       'aria-labelledby': 'basic-button'
+                    }}
+                    sx={{
+                      backdropFilter: isSmDown ? 'blur(12px)' : ''
                     }}
                   >
                     <MenuItem onClick={handleLoginOpen}>
