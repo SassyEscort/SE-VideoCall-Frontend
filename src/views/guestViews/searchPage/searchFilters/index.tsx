@@ -42,7 +42,6 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const email = getQueryParam('email');
 
   const [isOnline, setIsOnline] = useState(true);
   const [newArrivals, setNewArrivals] = useState(true);
@@ -59,7 +58,8 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
     sortField: getQueryParam('sortField') ? (getQueryParam('sortField') as string) : '',
     page: Number(getQueryParam('page', 1)),
     pageSize: HOME_PAGE_SIZE,
-    offset: (Number(searchParams.get('page') ?? 1) - 1) * HOME_PAGE_SIZE || 0
+    offset: (Number(searchParams.get('page') ?? 1) - 1) * HOME_PAGE_SIZE || 0,
+    email: getQueryParam('email') ? getQueryParam('email') : ''
   });
 
   const [filters, setFilters] = useState(getInitialFilters());
@@ -81,20 +81,21 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
     if (filters.country) objParams.country = filters.country ? filters.country.toString() : '';
     if (filters.sortOrder) objParams.sortOrder = filters.sortOrder ? filters.sortOrder.toString() : '';
     if (filters.sortField) objParams.sortField = filters.sortField ? filters.sortField.toString() : '';
+    if (filters.email) objParams.email = filters.email ? filters.email.toString() : '';
 
     let filterCount = Object.keys(objParams).length;
     const queryString = new URLSearchParams(objParams).toString();
 
-    if (pathname === '/' && filterCount === 0 && !email) {
+    if (pathname === '/' && filterCount === 0) {
       router.push('/');
     }
-    if (pathname === '/' && filterCount === 1 && objParams.page && !email) return;
+    if (pathname === '/' && filterCount === 1 && objParams.page) return;
 
     const isDetailsPage = pathname.startsWith('/details/');
     const isMultiple = ['language', 'isOnline', 'page', 'fromPrice', 'fromAge', 'toPrice', 'country', 'sortOrder', 'sortField'].filter(
       (x) => Object.keys(objParams).includes(x)
     );
-    if (filterCount === 0 && !email) {
+    if (filterCount === 0) {
       if (isDetailsPage) {
         const credit = searchParams.get('credit');
         if (!credit) router.push(pathname);
@@ -102,15 +103,17 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
         router.push('/');
       }
     } else {
-      if (isMultiple.length && !email) {
+      if (isMultiple.length) {
         if (isDetailsPage) {
           router.push(`${pathname}?${queryString}`);
-        } else if (!email) {
+        } else {
           router.push(`/?${queryString}`);
         }
-      } else if (!email) {
+      } else {
         if (isDetailsPage) {
           router.push(`${pathname}?${queryString}`);
+        } else if (objParams.email) {
+          return;
         } else {
           router.push(`/${pathname}?${queryString}`);
         }

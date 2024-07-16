@@ -85,7 +85,7 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
               toast.success('Success');
               onClose();
             } else {
-              toast.error(data.error);
+              toast.error(ErrorMessage);
             }
           }
         } catch (error) {
