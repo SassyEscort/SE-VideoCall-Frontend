@@ -11,7 +11,7 @@ import {
   VerificationHeaderText,
   VerificationUITypography
 } from './VerficationStepOne.styled';
-import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
+import { UIStyledInputText, UIStyledInputTextCountry } from 'components/UIComponents/UIStyledInputText';
 import UINewRadioButtonsGroup from 'components/UIComponents/UIRadioButtonGroup';
 import { EMAIL_SOURCE, GENDER } from 'constants/workerVerification';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -292,7 +292,9 @@ const VerificationBasicDetails = ({
           <FormattedMessage id="IAmA" />
         </VerificationUITypography>
         <UINewRadioButtonsGroup options={GENDER} defaultValue={values.gender} onChange={handleGender} />
-        {touched.gender && errors.gender && <FormHelperText error>{errors.gender}</FormHelperText>}
+        {touched.gender && errors.gender && (
+          <FormHelperText error>{errors.gender ? <FormattedMessage id="Genderisrequired" /> : ''}</FormHelperText>
+        )}
       </StepTwoBox>
       <StepTwoBox sx={{ gap: 2.5 }}>
         <StepTwoMainConatiner>
@@ -306,7 +308,7 @@ const VerificationBasicDetails = ({
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched.name && Boolean(errors.name)}
-              helperText={touched.name && errors.name}
+              helperText={touched.name && errors.name ? <FormattedMessage id={errors.name} /> : ''}
             />
           </StepTwoInputOuterMainBox>
           <StepTwoInputOuterMainBox>
@@ -323,10 +325,10 @@ const VerificationBasicDetails = ({
                 handleCountry(newValue);
               }}
               renderInput={(params) => (
-                <UIStyledInputText
+                <UIStyledInputTextCountry
                   {...params}
                   error={touched.country_id && Boolean(errors.country_id)}
-                  helperText={touched.country_id && errors.country_id}
+                  helperText={touched.country_id && errors.country_id ? <FormattedMessage id={errors.country_id} /> : ''}
                   InputProps={{
                     ...params.InputProps,
                     type: 'search',
@@ -361,7 +363,7 @@ const VerificationBasicDetails = ({
             onChange={handleDescriptionChange}
             onBlur={handleBlur}
             error={touched.bio && Boolean(errors.bio)}
-            helperText={touched.bio && errors.bio}
+            helperText={touched.bio && errors.bio ? <FormattedMessage id={errors.bio} /> : ''}
             sx={{
               '& .MuiInputBase-input': { color: 'secondary.700', margin: '12px 16px' },
               maxWidth: '792px',
@@ -398,7 +400,7 @@ const VerificationBasicDetails = ({
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched.email && Boolean(errors.email)}
-              helperText={touched.email && errors.email}
+              helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
               InputProps={{
                 endAdornment: (
                   <Box sx={{ display: 'flex', gap: 2, cursor: 'pointer' }}>
@@ -456,11 +458,15 @@ const VerificationBasicDetails = ({
                   variant: 'outlined',
                   error: touched.dob && Boolean(errors.dob),
                   helperText:
-                    touched.dob && (!values.dob || !moment(values.dob, 'YYYY-MM-DD', true).isValid())
-                      ? 'Date is required'
-                      : touched.dob && moment().diff(values.dob, 'years') < 18
-                        ? 'Age must be greater than 18'
-                        : touched.dob && errors.dob
+                    touched.dob && (!values.dob || !moment(values.dob, 'YYYY-MM-DD', true).isValid()) ? (
+                      <FormattedMessage id="Dateisrequired" />
+                    ) : touched.dob && moment().diff(values.dob, 'years') < 18 ? (
+                      'Agemustbegreaterthan18'
+                    ) : touched.dob && errors.dob ? (
+                      <FormattedMessage id={errors.dob} />
+                    ) : (
+                      ''
+                    )
                 },
                 calendarHeader: {
                   sx: {
@@ -531,7 +537,7 @@ const VerificationBasicDetails = ({
                   <UIStyledInputText
                     {...params}
                     error={touched.nationality_id && Boolean(errors.nationality_id)}
-                    helperText={touched.nationality_id && errors.nationality_id}
+                    helperText={touched.nationality_id && errors.nationality_id ? <FormattedMessage id={errors.nationality_id} /> : ''}
                     InputProps={{
                       ...params.InputProps,
                       type: 'search',
@@ -619,7 +625,9 @@ const VerificationBasicDetails = ({
         </FormControl>
         {touched.model_languages && errors.model_languages && (
           <Box width="100%">
-            <FormHelperText error>{errors.model_languages as string}</FormHelperText>
+            <FormHelperText error>
+              {errors.model_languages ? <FormattedMessage id={errors.model_languages as string} /> : ''}
+            </FormHelperText>
           </Box>
         )}
       </StepTwoBox>

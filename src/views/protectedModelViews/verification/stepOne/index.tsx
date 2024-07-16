@@ -65,23 +65,20 @@ const VerificationStepOne = ({
   const [loading, setLoading] = useState(false);
 
   const validationSchema = Yup.object({
-    gender: Yup.string().required('Gender is required'),
-    name: Yup.string().required('Name is required').min(2, 'Name is too short').max(20, 'Name is too long'),
-    email: Yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required'),
+    gender: Yup.string().required('Genderisrequired'),
+    name: Yup.string().required('Nameisrequired').min(2, 'Nameistooshort').max(20, 'Nameistoolong'),
+    email: Yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
     dob: Yup.date()
       .test('dob', 'AgeGreaterThan18', function (date) {
         return moment().diff(moment(date), 'years') >= 18;
       })
       .required('DobIsRequired'),
-    nationality_id: Yup.string().required('Nationality is required'),
-    model_languages: Yup.array().required('Language is required').min(1, 'Atleast one language is required'),
+    nationality_id: Yup.string().required('Nationalityisrequired'),
+    model_languages: Yup.array().required('Languageisrequired').min(1, 'Atleast one language is required'),
     country_id: Yup.string()
-      .required('Country is required')
-      .test('is-not-zero', 'Country is required', (value) => value !== '0'),
-    bio: Yup.string()
-      .required('Bio is required')
-      .min(50, 'Bio should be atleast 50 characters')
-      .max(1000, 'Bio should be atmost 1000 characters')
+      .required('Countryisrequired')
+      .test('is-not-zero', 'Countryisrequired', (value) => value !== '0'),
+    bio: Yup.string().required('Bioisrequired').min(50, 'Bioshouldbeatleast50characters').max(1000, 'Bioshouldbeatmost1000characters')
   });
 
   const verifyEmail = useCallback(async () => {
