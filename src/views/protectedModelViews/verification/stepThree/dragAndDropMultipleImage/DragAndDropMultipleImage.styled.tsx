@@ -8,7 +8,7 @@ export const DragAndDropMultipleImageCloseButton = styled(IconButton)(() => ({
   position: 'absolute',
   left: 8,
   top: 8,
-  zIndex: 100,
+  zIndex: 0,
   '& .MuiSvgIcon-root ': {
     color: 'white',
     width: '20px',
@@ -22,7 +22,7 @@ export const DragAndDropMultipleImageEditButton = styled(IconButton)(() => ({
   position: 'absolute',
   right: 8,
   top: 8,
-  zIndex: 100,
+  zIndex: 0,
   '& .MuiSvgIcon-root ': {
     color: 'white',
     width: '20px',
