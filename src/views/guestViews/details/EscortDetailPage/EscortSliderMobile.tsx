@@ -87,7 +87,9 @@ const EscortSliderMobile = ({
   };
   const handleLikeClick = async () => {
     try {
-      if (token.token) {
+      if (!isCustomer) {
+        setIsOpenLogin(true);
+      } else if (token.token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
         if (data?.code === 200) {
           setLiked(true);

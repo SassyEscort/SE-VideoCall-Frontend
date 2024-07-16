@@ -37,6 +37,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { toast } from 'react-toastify';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { ErrorMessage } from 'constants/common.constants';
+import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
 const WorkerCard = ({
   modelDetails,
@@ -58,6 +59,8 @@ const WorkerCard = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
 
+  const { isCustomer } = useCallFeatureContext();
+
   const languages = modelDetails?.languages
     ?.map((language) => language?.language_name)
     .sort()
@@ -69,7 +72,9 @@ const WorkerCard = ({
 
   const handleLikeClick = async (modelId: number) => {
     try {
-      if (token.token) {
+      if (!isCustomer) {
+        handleLoginOpen();
+      } else if (token.token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
         if (data?.code === 200) {
           handleLoginLiked(modelId);

@@ -77,6 +77,9 @@ export class PayoutService {
       if (params.filter_text) {
         query += `&search_field=${params.filter_text}`;
       }
+      if (params.status) {
+        query += `&state=${params.status}`;
+      }
       const res = await axios.get(
         process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/payout?limit=${params.limit}&offset=${params.offset}${query}`,
         {

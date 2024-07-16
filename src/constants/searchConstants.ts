@@ -14,9 +14,9 @@ export const AGES = [
 ];
 
 export const STATUS = [
-  { title: 'Completed', id: 'Completed' },
+  { title: 'Approved', id: 'Approved' },
   { title: 'Pending', id: 'Pending' },
-  { title: 'Cancelled', id: 'Cancelled' }
+  { title: 'Rejected', id: 'Rejected' }
 ];
 
 export const PRICE = [

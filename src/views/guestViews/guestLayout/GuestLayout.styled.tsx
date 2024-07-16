@@ -1,4 +1,4 @@
-import { Box, Dialog, IconButton, styled } from '@mui/material';
+import { Box, Dialog, IconButton, Menu, styled } from '@mui/material';
 
 export const SideBarBox = styled(Box)(() => ({
   width: '100%',
@@ -34,4 +34,18 @@ export const GuestStyleComponent = styled(Dialog)(() => ({
   },
   maxWidth: 920,
   borderRadius: '12px'
+}));
+
+export const MenuContainer = styled(Menu)(() => ({
+  '& .MuiMenu-paper > ul': {
+    backgroundColor: 'secondary.dark !important',
+    width: '100%',
+    minWidth: {
+      xs: '300px',
+      sm: '363px'
+    },
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  }
 }));

@@ -44,7 +44,7 @@ const MyProfileContainer = ({
   const sendLinkVerify = async () => {
     touched.email = true;
     try {
-      if (!errors.email) {
+      if (!errors.email && token.token) {
         const data = await authServices.emailVerifyLink({ email: values.email }, token.token);
         if (data.code === 200) {
           setOpen(true);
