@@ -49,6 +49,23 @@ export class ModelAuthService {
     }
   };
 
+  static modelForgetPassword = async (params: ForgetPasswordParams): Promise<GenericResponse> => {
+    try {
+      const res = await axios.post<ForgetPasswordParams, GenericResponseData>(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/reset-password-link`,
+        params,
+        {
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+
+      return res.data;
+    } catch (err: any) {
+      const error: string = err;
+      return { error: error } as GenericResponse;
+    }
+  };
+
   static modelForgetPasswordLinkStep = async (emailid: string, token: string, source: string): Promise<GenericResponse> => {
     try {
       const res = await axios.post<ForgetPasswordParams, GenericResponseData>(

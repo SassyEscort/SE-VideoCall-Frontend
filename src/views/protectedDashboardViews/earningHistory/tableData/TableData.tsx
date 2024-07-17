@@ -61,7 +61,7 @@ const TableData = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningH
           <TableCell colSpan={5} sx={{ border: 'none' }}>
             <DataNotBox>
               <UINewTypography variant="buttonLargeMenu">
-                <FormattedMessage id="DataNotFound" />
+                <FormattedMessage id="NoDataToShowHere" />
               </UINewTypography>
             </DataNotBox>
           </TableCell>

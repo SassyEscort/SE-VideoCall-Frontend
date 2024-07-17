@@ -3,7 +3,7 @@ import { FavouriteDetailsRes } from 'services/customerDetails/customerDetails.se
 import { GenericResponse, GenericResponseData } from 'types/commonApiTypes';
 import { ForgetPasswordParams } from 'views/auth/guestForgetPasswordLink';
 import { LoginParams } from 'views/auth/guestLogin';
-import { ResetPasswordParams } from 'views/auth/guestNewPassword';
+import { ResetPasswordEmailParams, ResetPasswordParams } from 'views/auth/guestNewPassword';
 import { SignupParams } from 'views/auth/guestSignup';
 
 export class GuestAuthService {
@@ -64,6 +64,22 @@ export class GuestAuthService {
       return error as FavouriteDetailsRes;
     }
   };
+
+  static guestResetPasswordEmail = async (params: ResetPasswordEmailParams): Promise<GenericResponse> => {
+    try {
+      const res = await axios.post<ResetPasswordEmailParams, GenericResponseData>(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/customer/reset-password-email`,
+        params,
+        {
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+      return res.data;
+    } catch (error) {
+      return error as FavouriteDetailsRes;
+    }
+  };
+
   static modelResetPassword = async (params: ResetPasswordParams): Promise<GenericResponse> => {
     try {
       const res = await axios.post<ResetPasswordParams, GenericResponseData>(
