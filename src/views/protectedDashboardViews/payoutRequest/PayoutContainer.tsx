@@ -27,7 +27,9 @@ import {
   StyledAccordion,
   StyledAccordionSummary,
   StyledAccordionDetails,
-  LoaderBox
+  LoaderBox,
+  FirstBoxConatiner,
+  SecBoxConatiner
 } from './PayoutRequest.styled';
 import PayoutWidthDraw from '../payoutWithDraw';
 import { BankDetailsListRes, ModelPastPayoutDetailRes } from 'services/payout/types';
@@ -51,6 +53,8 @@ import {
 } from 'views/protectedViews/logout/Logout.styled';
 import { NotFoundBox } from '../payoutsAndInvoicesTable/billingTable/BillingTable.styled';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { WithdrawalAmountDetailsRes } from 'services/withdrawalAmount/type';
+import { ModelWithdrawalAmountService } from 'services/withdrawalAmount/withdrawalAmount.services';
 
 export type PayoutPaginationType = {
   page: number;
@@ -85,7 +89,7 @@ const PayoutContainer = ({
     pageSize: 20,
     offset: 0
   });
-
+  const [withdrawlAmount, setWithdrawlAmount] = useState<WithdrawalAmountDetailsRes>();
   const APPROVED_STEPS = ['Withdrawals requested', 'Transferred'];
   const REJECTED_STEPS = ['Withdrawals requested', 'Admin Rejected'];
 
@@ -133,6 +137,21 @@ const PayoutContainer = ({
     fetchModelPayout();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.token, token.id, filters]);
+
+  useEffect(() => {
+    const fetchWithdrawalAmountDetails = async () => {
+      try {
+        if (token.token) {
+          const data = await ModelWithdrawalAmountService.getWithdrawalAmountDetails(token.token);
+          setWithdrawlAmount(data);
+        }
+      } catch (error) {
+        toast.error(ErrorMessage);
+      }
+    };
+
+    fetchWithdrawalAmountDetails();
+  }, [token.token]);
 
   const getAmount = async () => {
     try {
@@ -207,11 +226,19 @@ const PayoutContainer = ({
                 </DollerBox>
               </SecondUsdBox>
 
-              <ButtonBox variant="contained" onClick={openDailog}>
-                <UINewTypographyWithDrawButtonText>
-                  <FormattedMessage id="Withdraw" />
-                </UINewTypographyWithDrawButtonText>
-              </ButtonBox>
+              <FirstBoxConatiner>
+                <ButtonBox variant="contained" onClick={openDailog}>
+                  <UINewTypographyWithDrawButtonText>
+                    <FormattedMessage id="Withdraw" />
+                  </UINewTypographyWithDrawButtonText>
+                </ButtonBox>
+                <SecBoxConatiner>
+                  <Box component="img" src="/images/icons/payout-icon.png" width={16} height={16} />
+                  <UINewTypography>
+                    <FormattedMessage id="MinimumWithdrawalAmountIs" /> ${withdrawlAmount?.data.amount}
+                  </UINewTypography>
+                </SecBoxConatiner>
+              </FirstBoxConatiner>
             </FirstUsdBox>
             {isLoadingContainer ? (
               <LoaderBox>

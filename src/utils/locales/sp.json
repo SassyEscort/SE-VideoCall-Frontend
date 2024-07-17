@@ -178,7 +178,7 @@
   "ToSiliconValleyBank": "Al banco Silicon Valley",
   "ShowTracking": "Mostrar seguimiento",
   "PleaseUpload": "Por favor, sube fotos entre un mínimo de 2 y un máximo de 30",
-  "LetStartWith": "Comencemos con",
+  "LetStartWith": "Comencemos con tus detalles básicos.",
   "HowdoIFindThe": "¿Cómo encuentro el modelo adecuado para mí?",
   "WithOurIntuitiveSearchAnd": "Con nuestras herramientas intuitivas de búsqueda y filtrado, encontrar tu coincidencia es simple. Puedes filtrar modelos por intereses, idiomas hablados, ubicación y más para encontrar a alguien que cumpla con tus preferencias.",
   "CanIcommunicateWith": "¿Puedo comunicarme con los modelos antes de reservar una videollamada?",
@@ -251,8 +251,8 @@
   "HowHelp": "¿Cómo podemos ayudarte?",
   "CallOn": "Llama al",
   "BasicRules": "Reglas básicas",
-  "NextDocuments": "Siguiente documentos",
-  "NextPhotos": "Siguiente fotos",
+  "NextDocuments": "Siguiente - Documentos",
+  "NextPhotos": "Siguiente - Fotos",
   "NextFinalReview": "Siguiente revisión final",
   "SetOrModifyYourPrices": "Establece o modifica tus precios",
   "MyProfile": "Mi perfil",
@@ -297,7 +297,7 @@
   "ExploreFrom": "Explora desde el mundo de la belleza y el encanto diverso",
   "MinimumPrice": "El precio mínimo a establecer es ",
   "YoullBeReceiving": "Recibirás:",
-  "NextVerification": "Siguiente - verificación",
+  "NextFinalReviews": "Siguiente - Revisión final",
   "SetupYour": "Configura tus precios y gana según tus propios términos",
   "CropPhoto": "Recortar foto",
   "YourProfileIsUnder": "Tu perfil está bajo revisión y serás notificado por correo electrónico una vez que sea aprobado.",
@@ -597,5 +597,7 @@
   "IDnumberisrequired": "Se requiere número de identificación",
   "Pleaseuploadyourdocument": "Por favor cargue su documento",
   "NoDataToShowHere": "No hay datos para mostrar aquí",
-  "MinimumWithdrawalAmountIs": "El monto mínimo de retiro es"
+  "MinimumWithdrawalAmountIs": "El monto mínimo de retiro es",
+  "Pleaseuploadbetween2to30photos": "Por favor sube entre 2 y 30 fotos.",
+  "Priceisrequired": "Se requiere precio"
 }

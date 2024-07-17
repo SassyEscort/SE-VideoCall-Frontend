@@ -15,6 +15,7 @@ import ProfileApproval from '../profileApproval';
 const DashboardNavItem = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
+  const [isDashboard, setIsDashboard] = useState(false);
 
   useEffect(() => {
     const userToken = async () => {
@@ -34,6 +35,12 @@ const DashboardNavItem = () => {
       modelDetails();
     }
   }, [token.id, token.token]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsDashboard(window.location.pathname.includes('/model/dashboard'));
+    }
+  }, []);
 
   return (
     <>
@@ -74,7 +81,7 @@ const DashboardNavItem = () => {
             <DashboadrHeaderAuthComponent />
           </Box>
         </WorkerNavItemContainer>
-        {modelDetails?.profile_status === 'Approved' ? '' : <ProfileApproval />}
+        {isDashboard && modelDetails?.profile_status !== 'Approved' && <ProfileApproval />}
       </AppBar>
     </>
   );
