@@ -143,6 +143,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       } else {
         setIsLoading(true);
         await init();
+
         setEndCallTime(callTime);
         const callObject = new CometChat.Call(
           userName,
@@ -158,6 +159,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       }
     } else if (call) {
       toast.error('Please end your ONGOING call');
+      setIsLoading(false);
     } else {
       setOpen(true);
     }

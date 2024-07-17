@@ -3,7 +3,6 @@ import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
-import { BillingDetails } from 'services/modelListing/modelListing.services';
 import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
 import useImageOptimize from 'hooks/useImageOptimize';
@@ -37,8 +36,9 @@ import {
 } from './mobileWorkerCard.styled';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { ViewDetailsRes } from 'services/guestBilling/types';
 
-const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: BillingDetails; token?: TokenIdType }) => {
+const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRes; token?: TokenIdType }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
   const [liked, setLiked] = useState(false);

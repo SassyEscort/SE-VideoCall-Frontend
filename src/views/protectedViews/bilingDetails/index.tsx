@@ -30,16 +30,25 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
+import { ViewDetailsRes } from 'services/guestBilling/types';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 
-const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; handleClose: () => void; selectDetails: any }) => {
+const BillingDetails = ({
+  open,
+  handleClose,
+  selectDetails
+}: {
+  open: boolean;
+  handleClose: () => void;
+  selectDetails: ViewDetailsRes;
+}) => {
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [isCreditAvailable, setIsCreditAvailable] = useState(false);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [callTime, setCallTime] = useState(0);
   const router = useRouter();
 
-  const { handleCallInitiate, call, isCallEnded } = useCallFeatureContext();
+  const { handleCallInitiate, call, isCallEnded, isLoading } = useCallFeatureContext();
   const callDurationString = selectDetails.call_duration;
   const callDuration = moment.duration(callDurationString);
   const hours = Math.floor(callDuration.asHours());
@@ -152,7 +161,8 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
               </Box>
             </SecondBox>
             <ButtonMainContainer>
-              <UIThemeButton
+              <StyleButtonV2
+                loading={isLoading}
                 onClick={() => {
                   handleCallInitiate(
                     selectDetails.model_id,
@@ -177,7 +187,7 @@ const BillingDetails = ({ open, handleClose, selectDetails }: { open: boolean; h
                     {isSMDown ? <FormattedMessage id="StartVideoCall" /> : <FormattedMessage id="StartVideoCallAgain" />}
                   </UINewTypography>
                 </Box>
-              </UIThemeButton>
+              </StyleButtonV2>
               <UINewTypography
                 onClick={handelExplore}
                 variant="bodySemiBold"
