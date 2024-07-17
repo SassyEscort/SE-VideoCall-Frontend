@@ -29,6 +29,7 @@ import PaginationSearch from 'components/common/CustomPaginations/PaginationSear
 import TablePager from 'components/common/CustomPaginations/TablePager';
 import { StyledPopover } from './Payout.styled';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
+import RejectModal from './RejectModal';
 
 export type PaginationType = {
   page: number;
@@ -57,6 +58,7 @@ export default function PayoutPageContainer() {
     orderType: 'desc',
     filter_Text: ''
   });
+  const [openReject, setOpenReject] = useState(false);
 
   const SORT_BY_OPTIONS: PaginationSortByOption[] = [
     { value: 'name', label: 'Name' },
@@ -154,6 +156,15 @@ export default function PayoutPageContainer() {
     if (token.token) handelFetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.token, filters.page, filters.pageSize]);
+
+  const handleOpenRejectClick = () => {
+    setOpenReject(true);
+  };
+
+  const handleCloseRejectClick = () => {
+    setOpenReject(false);
+  };
+
   return (
     <MainLayout>
       <Container>
@@ -285,7 +296,7 @@ export default function PayoutPageContainer() {
               <CheckIcon sx={{ mr: 2, color: 'success.main' }} />
               Approve
             </MenuItem>
-            <MenuItem onClick={() => handelChangeStatus(true)}>
+            <MenuItem onClick={handleOpenRejectClick}>
               <CloseIcon sx={{ mr: 2, color: 'error.main' }} />
               Reject
             </MenuItem>
@@ -293,6 +304,13 @@ export default function PayoutPageContainer() {
         )}
       </StyledPopover>
       <PayoutModel open={creditModalOpen} onClose={handleCloseCredit} selectedPayoutData={selectedPayoutData} />
+      <RejectModal
+        open={openReject}
+        handleClose={handleCloseRejectClick}
+        selectedId={selectedPayoutData?.id as number}
+        handleRefetch={handleRefetch}
+        handleCloseMenu={handleCloseMenu}
+      />
     </MainLayout>
   );
 }
