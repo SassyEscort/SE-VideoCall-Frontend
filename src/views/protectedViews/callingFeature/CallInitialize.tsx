@@ -22,32 +22,32 @@ const CallInitialize = () => {
   useEffect(() => {
     const init = async () => {
       try {
-        const UIKitSettings = new UIKitSettingsBuilder()
-          .setAppId(COMETCHAT_CONSTANTS.APP_ID)
-          .setRegion(COMETCHAT_CONSTANTS.REGION)
-          .setAuthKey(COMETCHAT_CONSTANTS.AUTH_KEY)
-          .subscribePresenceForAllUsers()
-          .build();
+        if (isModel && modelUsername) {
+          const UIKitSettings = new UIKitSettingsBuilder()
+            .setAppId(COMETCHAT_CONSTANTS.APP_ID)
+            .setRegion(COMETCHAT_CONSTANTS.REGION)
+            .setAuthKey(COMETCHAT_CONSTANTS.AUTH_KEY)
+            .subscribePresenceForAllUsers()
+            .build();
 
-        await CometChatUIKit.init(UIKitSettings);
-        let user = await CometChatUIKit.getLoggedinUser();
+          await CometChatUIKit.init(UIKitSettings);
+          let user = await CometChatUIKit.getLoggedinUser();
 
-        if (!user && modelUsername.user_name && isModel) {
-          user = await CometChatUIKit.login(modelUsername.user_name);
-        }
-
-        CometChatUIKit.getLoggedinUser().then((user) => {
           if (!user && modelUsername.user_name && isModel) {
-            CometChatUIKit.login(modelUsername.user_name);
+            user = await CometChatUIKit.login(modelUsername.user_name);
           }
-        });
+
+          CometChatUIKit.getLoggedinUser().then((user) => {
+            if (!user && modelUsername.user_name && isModel) {
+              CometChatUIKit.login(modelUsername.user_name);
+            }
+          });
+        }
       } catch (e) {
         toast.error(ErrorMessage);
       }
     };
-    if (isModel) {
-      init();
-    }
+    init();
   }, [modelUsername, isModel]);
 
   return <></>;
