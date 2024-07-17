@@ -49,6 +49,7 @@ import {
   UINewTypographyAmount,
   UINewTypographyDollar,
   UINewTypographyWithDrawButtonText,
+  UINewTypographyWithDrawButtonText2,
   UINewTypographyWithDrawRecentWithdrawls
 } from 'views/protectedViews/logout/Logout.styled';
 import { NotFoundBox } from '../payoutsAndInvoicesTable/billingTable/BillingTable.styled';
@@ -77,7 +78,7 @@ const PayoutContainer = ({
 }) => {
   const [isLoadingContainer, setIsLoadingContainer] = useState(false);
   const { isCallEnded } = useCallFeatureContext();
-
+  const [verifiedEmailValue, setVerifiedEmailValue] = useState(0);
   const [open, setIsOpen] = useState(false);
   const [payoutStep, setPayoutStep] = useState(0);
   const [modelPayoutList, setModelPayoutList] = useState<ModelPastPayoutDetailRes>();
@@ -158,7 +159,12 @@ const PayoutContainer = ({
       if (token.token) {
         const data = await ModelDetailsService.getModelWithDraw(token.token);
         if (data?.code === 200) {
-          setAmountSave(data.data.amount);
+          if (data.data.amount === null) {
+            setAmountSave(100);
+            setVerifiedEmailValue(modelDetails.email_verified);
+          } else {
+            setAmountSave(data.data.amount);
+          }
         } else {
           toast.error(ErrorMessage);
         }
@@ -208,6 +214,14 @@ const PayoutContainer = ({
     }
   };
 
+  const handleButtonClick = () => {
+    if (verifiedEmailValue === 0) {
+      toast.warning('Please verify your email first.');
+    } else if (verifiedEmailValue === 1) {
+      openDailog();
+    }
+  };
+
   return (
     <MainContainer>
       {(payoutStep === 0 || isSmUp) && (
@@ -227,11 +241,27 @@ const PayoutContainer = ({
               </SecondUsdBox>
 
               <FirstBoxConatiner>
-                <ButtonBox variant="contained" onClick={openDailog}>
-                  <UINewTypographyWithDrawButtonText>
-                    <FormattedMessage id="Withdraw" />
-                  </UINewTypographyWithDrawButtonText>
-                </ButtonBox>
+                {amountSave && withdrawlAmount?.data?.amount ? (
+                  amountSave >= withdrawlAmount.data.amount ? (
+                    <ButtonBox variant="contained" onClick={handleButtonClick}>
+                      <UINewTypographyWithDrawButtonText>
+                        <FormattedMessage id="Withdraw" />
+                      </UINewTypographyWithDrawButtonText>
+                    </ButtonBox>
+                  ) : (
+                    <ButtonBox disabled variant="outlined" onClick={handleButtonClick}>
+                      <UINewTypographyWithDrawButtonText2>
+                        <FormattedMessage id="Withdraw" />
+                      </UINewTypographyWithDrawButtonText2>
+                    </ButtonBox>
+                  )
+                ) : (
+                  <ButtonBox disabled variant="outlined" onClick={handleButtonClick}>
+                    <UINewTypographyWithDrawButtonText2>
+                      <FormattedMessage id="Withdraw" />
+                    </UINewTypographyWithDrawButtonText2>
+                  </ButtonBox>
+                )}
                 <SecBoxConatiner>
                   <Box component="img" src="/images/icons/payout-icon.png" width={16} height={16} />
                   <UINewTypography>

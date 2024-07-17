@@ -134,6 +134,10 @@ const DashboadrHeaderAuthComponent = () => {
   const isSmaller = useMediaQuery('(max-width:320px)');
   const isSmUP = useMediaQuery(theme.breakpoints.up('sm'));
 
+  const isVerificationPendingOrCompleted = (step: string | undefined) => {
+    return step === MODEL_ACTIVE_STEP.IN_REVIEW || step === MODEL_ACTIVE_STEP.ONBOARDED || step === MODEL_ACTIVE_STEP.VERIFIED;
+  };
+
   return (
     <>
       <Box
@@ -198,19 +202,39 @@ const DashboadrHeaderAuthComponent = () => {
             sx={{ '& .MuiMenu-paper > ul': { backgroundColor: '#1E0815 !important' } }}
           >
             <MenuItem onClick={handleCloseLogout}>
-              <ListItemIcon>
-                <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                  <Box component="img" src="/images/icons/userLine.png" sx={{ width: '24px', height: '24px' }} />
-                </IconButton>
-              </ListItemIcon>
-              <Link href="/model/dashboard" onClick={handleCloseLogout}>
-                <ListItemText>
-                  <UINewTypography variant="bodyLight" color="text.secondary">
-                    <FormattedMessage id="MyProfile" />
-                  </UINewTypography>
-                </ListItemText>
-              </Link>
+              {token.token && !isVerificationPendingOrCompleted(modelDetails?.verification_step) ? (
+                <>
+                  <ListItemIcon>
+                    <Link href="/model/profile">
+                      <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                        <Box component="img" src="/images/icons/userLine.png" sx={{ width: '24px', height: '24px' }} />
+                      </IconButton>
+                    </Link>
+                  </ListItemIcon>
+                  <Link href="/model/profile">
+                    <UINewTypography variant="bodyLight" color="text.secondary">
+                      <FormattedMessage id="MyProfile" />
+                    </UINewTypography>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <ListItemIcon>
+                    <Link href="/model/dashboard">
+                      <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                        <Box component="img" src="/images/icons/userLine.png" sx={{ width: '24px', height: '24px' }} />
+                      </IconButton>
+                    </Link>
+                  </ListItemIcon>
+                  <Link href="/model/dashboard">
+                    <UINewTypography variant="bodyLight" color="text.secondary">
+                      <FormattedMessage id="MyProfile" />
+                    </UINewTypography>
+                  </Link>
+                </>
+              )}
             </MenuItem>
+
             <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
             <MenuItem onClick={handleOpenLogout}>
               <ListItemIcon>
