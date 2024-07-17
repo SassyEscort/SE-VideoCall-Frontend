@@ -24,6 +24,9 @@ import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { sortExistingPhotos } from 'utils/photoUtils';
 import { ModelMultipleBoxContainer } from './RepositionPhoto.styled';
+import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
+import { toast } from 'react-toastify';
+import { ErrorMessage } from 'constants/common.constants';
 
 export type UploadMultiplePhotos = {
   errors: FormikErrors<VerificationFormStep5TypeV2>;
@@ -47,6 +50,7 @@ export type UploadPhotos = {
   cords?: string;
   isFavorite?: boolean;
   is_favourite?: string;
+  file_id?: string;
 };
 
 const ModelMultiplePhoto = ({
@@ -69,7 +73,18 @@ const ModelMultiplePhoto = ({
   const [uploadedImagesURL, setUploadedImagesURL] = useState<UploadPhotos[]>([]);
   const [thumbnailImageId, setThumbnailImageId] = useState<number | undefined>(undefined);
 
-  const removeImage = (name: string) => {
+  const removeImage = async (name: string, file_id?: string) => {
+    if (file_id) {
+      try {
+        const response = await VerificationStepService.deleteImage(token.token, file_id);
+        if (response.code === 200) {
+          toast.success('Success');
+        }
+      } catch (error) {
+        toast.error(ErrorMessage);
+      }
+    }
+
     let index = existingPhotos?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
       existingPhotos?.splice(index, 1);
@@ -171,7 +186,8 @@ const ModelMultiplePhoto = ({
             name: `file5Existing[${index}]`,
             photoURL: photo.link,
             cords: photo.cords,
-            isFavorite: photo.favourite === 1
+            isFavorite: photo.favourite === 1,
+            file_id: photo.file_id
           };
         else {
           return {

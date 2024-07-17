@@ -10,6 +10,7 @@ import {
   ThumbnailPayload
 } from 'views/protectedModelViews/verification/stepThree/uploadImage';
 import { PHOTO_TYPE } from 'constants/workerVerification';
+import { GenericRes } from 'services/guestAuth/authuser.services';
 
 export const imageKitObj = {
   publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_KEY!,
@@ -176,6 +177,18 @@ export class VerificationStepService {
     } catch (err: any) {
       const error: AxiosError = err;
       return error.response?.data || { error_message: error.message };
+    }
+  };
+
+  static deleteImage = async (token: string, fileId: string): Promise<GenericRes> => {
+    try {
+      const res = await axios.delete(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/file/${fileId}`, {
+        headers: { 'Content-Type': 'application/json', Authorization: token }
+      });
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as GenericRes;
     }
   };
 }
