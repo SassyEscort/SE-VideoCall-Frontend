@@ -110,3 +110,12 @@ export const UINewTypographyWithDrawRecentWithdrawls = styled(UINewTypography)((
   lineHeight: '17.5px',
   color: theme.palette.secondary[200]
 }));
+
+export const UINewTypographyWithDrawButtonText2 = styled(UINewTypography)(({ theme }) => ({
+  fontWeight: 700,
+  fontSize: '16px',
+  lineHeight: '19.2px',
+  color: theme.palette.text.disabled,
+  backgroundColor: theme.palette.primary[700],
+  borderColor: theme.palette.primary[700]
+}));
