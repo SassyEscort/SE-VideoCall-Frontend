@@ -1,7 +1,6 @@
 'use client';
 import { Box, CircularProgress } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import React, { useEffect, useState } from 'react';
 import { DisableButtonBox, MyProfileContainerMain } from './MyProfile.styled';
 import { Formik } from 'formik';
@@ -16,6 +15,7 @@ import { LoaderBox } from '../Credites/Credits.styled';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 
 export type MyProfile = {
   username: string;
@@ -27,6 +27,7 @@ const MyProfile = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingButton, setLoadingButton] = useState(false);
 
   const validationSchema = yup.object({
     username: yup.string().required('Username is required').min(2, 'Username is too short').max(20, 'Username is too long'),
@@ -34,13 +35,20 @@ const MyProfile = () => {
   });
 
   const handleSubmit = async (username: string) => {
-    const res = await CommonServices.updateUserName(token.token, username);
-    if (res) {
-      if (res.code === 200) {
-        toast.success('Success');
-      } else {
-        toast.error(ErrorMessage);
+    try {
+      setLoadingButton(true);
+      const res = await CommonServices.updateUserName(token.token, username);
+      if (res) {
+        if (res.code === 200) {
+          toast.success('Success');
+        } else {
+          toast.error(ErrorMessage);
+        }
       }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    } finally {
+      setLoadingButton(false);
     }
   };
 
@@ -97,11 +105,11 @@ const MyProfile = () => {
                 />
                 <DisableButtonBox>
                   <Box>
-                    <UIThemeButton variant="contained" type="submit">
+                    <StyleButtonV2 variant="contained" type="submit" loading={loadingButton}>
                       <UINewTypography variant="buttonSmallBold" color={'text.disabled'}>
                         <FormattedMessage id="Save" />
                       </UINewTypography>
-                    </UIThemeButton>
+                    </StyleButtonV2>
                   </Box>
                 </DisableButtonBox>
               </Box>

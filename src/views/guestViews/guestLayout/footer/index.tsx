@@ -13,12 +13,14 @@ import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestLogin from 'views/auth/guestLogin';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
+import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 
 const Footer = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -61,6 +63,13 @@ const Footer = () => {
     };
     userToken();
   }, []);
+
+  const handleClick = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 6000);
+  };
   return (
     <Banner>
       <TextContainerMain>
@@ -92,11 +101,11 @@ const Footer = () => {
                   </UIThemeShadowButton>
                 ) : (
                   <Link prefetch={false} href="/">
-                    <UIThemeShadowButton fullWidth variant="contained">
+                    <StyleButtonShadowV2 fullWidth variant="contained" onClick={handleClick} loading={loading}>
                       <FooterButton variant="buttonLargeBold">
                         <FormattedMessage id="ExploreModels" />
                       </FooterButton>
-                    </UIThemeShadowButton>
+                    </StyleButtonShadowV2>
                   </Link>
                 )}
               </Box>
