@@ -5,8 +5,11 @@ import { CastedForwardRefButtonType } from '../types';
 
 const UIStyledLoadingButtonShadowV2 = styled(LoadingButton)(({ theme }) => ({
   textTransform: 'none',
-  padding: '12px 32px 12px 32px',
-  borderRadius: '8px',
+  paddingTop: theme.spacing(1.5),
+  paddingRight: theme.spacing(4),
+  paddingBottom: theme.spacing(1.5),
+  paddingLeft: theme.spacing(4),
+  borderRadius: theme.spacing(1),
   gap: theme.spacing(1),
   fontSize: '16px',
   fontWeight: 700,
