@@ -135,3 +135,23 @@ export const UINewTypographyBankName = styled(UINewTypography)(({ theme }) => ({
   lineHeight: '24px',
   color: theme.palette.text.secondary
 }));
+
+export const ConfirmBox = styled(Box)(({ theme }) => ({
+  background: 'none',
+  border: 'none',
+  fontSize: '16px',
+  fontWeight: 500,
+  lineHeight: '19.2px',
+  color: theme.palette.error[300],
+  cursor: 'pointer'
+}));
+
+export const CancelBox = styled(Box)(({ theme }) => ({
+  background: 'none',
+  border: 'none',
+  fontSize: '16px',
+  fontWeight: 500,
+  lineHeight: '19.2px',
+  color: theme.palette.secondary[200],
+  cursor: 'pointer'
+}));
