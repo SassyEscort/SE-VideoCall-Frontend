@@ -66,7 +66,10 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
       .max(20, 'Nameistoolong')
       .matches(NAME_REGEX, 'Noleadingspaces'),
     email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
-    password: yup.string().required('Passwordisrequired').min(8, 'Passwordmust').matches(PASSWORD_PATTERN, 'InvalidPassword')
+    password: yup.string().required('Password is required').min(8, 'Password must be at least 8 characters').matches(PASSWORD_PATTERN, {
+      message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+      excludeEmptyString: true
+    })
   });
 
   return (

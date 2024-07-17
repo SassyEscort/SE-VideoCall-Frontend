@@ -45,11 +45,10 @@ const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
   const isSm = useMediaQuery(theme.breakpoints.down(330));
 
   const validationSchema = yup.object({
-    password: yup
-      .string()
-      .required('New password is required')
-      .min(8, 'Password must be at least 8 characters')
-      .matches(PASSWORD_PATTERN, 'Password Condition'),
+    password: yup.string().required('New password is required').min(8, 'Password must be at least 8 characters').matches(PASSWORD_PATTERN, {
+      message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+      excludeEmptyString: true
+    }),
     confirmPassword: yup
       .string()
       .required('Confirm password is required')

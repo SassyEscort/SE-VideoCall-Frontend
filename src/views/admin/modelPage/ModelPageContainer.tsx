@@ -40,6 +40,7 @@ import { StyledSelectInputLabel } from 'components/UIComponents/StyleSelect';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import { FilterBox, ModelActionPopover, NotFoundBox, SortBox } from './ModelPageContainer.styled';
+import RejectModal from './RejectModal';
 
 export type WorkersPaginationType = {
   page: number;
@@ -118,6 +119,7 @@ export default function ModelPageContainer() {
     verificationStep: '',
     is_active: ''
   });
+  const [openReject, setOpenReject] = useState(false);
 
   const handleChangeFilter = useCallback((value: WorkersPaginationType) => {
     setFilters(value);
@@ -245,13 +247,16 @@ export default function ModelPageContainer() {
     handleCloseMenu();
   };
 
-  const handleRejectClick = async () => {
-    await adminModelServices.modelAction(token.token, Number(selected?.id), MODEL_ACTION.REJECT);
-    handleModelListRefetch();
-    handleCloseMenu();
-  };
   const handelViewDetails = async () => {
     router.push(`/admin/model/details/${selected?.id}`);
+  };
+
+  const handleOpenRejectClick = () => {
+    setOpenReject(true);
+  };
+
+  const handleCloseRejectClick = () => {
+    setOpenReject(false);
   };
 
   return (
@@ -458,7 +463,7 @@ export default function ModelPageContainer() {
                 <CheckIcon sx={{ mr: 2, color: 'success.main' }} />
                 Approve
               </MenuItem>
-              <MenuItem onClick={handleRejectClick}>
+              <MenuItem onClick={handleOpenRejectClick}>
                 <CloseIcon sx={{ mr: 2, color: 'error.main' }} />
                 Reject
               </MenuItem>
@@ -466,6 +471,13 @@ export default function ModelPageContainer() {
           )}
         </ModelActionPopover>
       </MainLayout>
+      <RejectModal
+        open={openReject}
+        handleClose={handleCloseRejectClick}
+        selectedId={selected?.id as number}
+        handleModelListRefetch={handleModelListRefetch}
+        handleCloseMenu={handleCloseMenu}
+      />
     </>
   );
 }
