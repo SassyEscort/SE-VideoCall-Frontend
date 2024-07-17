@@ -167,6 +167,7 @@ const VerificationStepOne = ({
               handleChange={handleChange}
               setFieldValue={setFieldValue}
               isModelVerified={isModelVerified}
+              isModelEmailVerified={modelDetails.email_verified as number}
             />
             <FooterBtnConatiner>
               <UIThemeButton

@@ -21,7 +21,8 @@ const MyProfileContainer = ({
   handleBlur,
   touched,
   errors,
-  token
+  token,
+  isEmailVerified
 }: {
   values: MyProfile;
   handleChange: (e: any) => void;
@@ -29,6 +30,7 @@ const MyProfileContainer = ({
   errors: FormikErrors<MyProfile>;
   touched: FormikTouched<MyProfile>;
   token: TokenIdType;
+  isEmailVerified: number;
 }) => {
   const router = useRouter();
 
@@ -162,13 +164,13 @@ const MyProfileContainer = ({
                       </UINewTypography>
 
                       <UINewTypography
-                        color="primary.600"
+                        color={isEmailVerified === 1 ? 'green' : 'primary.600'}
                         variant="buttonSmallBold"
                         onClick={() => {
-                          sendLinkVerify();
+                          if (isEmailVerified !== 1) sendLinkVerify();
                         }}
                       >
-                        <FormattedMessage id="Verify" />
+                        {isEmailVerified === 1 ? <FormattedMessage id="Verified" /> : <FormattedMessage id="Verify" />}
                       </UINewTypography>
                     </Box>
                   )

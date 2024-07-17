@@ -102,6 +102,7 @@ const MyProfile = () => {
                   errors={errors}
                   handleBlur={handleBlur}
                   token={token}
+                  isEmailVerified={customerDetails?.email_verified as number}
                 />
                 <DisableButtonBox>
                   <Box>
