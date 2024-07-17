@@ -12,7 +12,6 @@ import 'yet-another-react-lightbox';
 import Box from '@mui/material/Box';
 import EscortSwiperPhotoContainer from './EscortSwiperPhotoContainer';
 import { useState } from 'react';
-import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Image from 'next/image';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIStyledShadowButtonLike from 'components/UIComponents/UIStyledShadowButtonLike';
@@ -31,19 +30,22 @@ import GuestLogin from 'views/auth/guestLogin';
 import GuestSignup from 'views/auth/guestSignup';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ErrorMessage } from 'constants/common.constants';
+import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 
 const EscortSliderMobile = ({
   workerPhotos,
   modelId,
   token,
   handleCallInitiate,
-  isCustomer
+  isCustomer,
+  isLoading
 }: {
   workerPhotos: WorkerPhotos[];
   modelId: number;
   token: TokenIdType;
   handleCallInitiate: () => void;
   isCustomer: boolean;
+  isLoading: boolean;
 }) => {
   const isLg = useMediaQuery(theme.breakpoints.up('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
@@ -167,7 +169,8 @@ const EscortSliderMobile = ({
         }}
       >
         <Box sx={{ width: '100%' }}>
-          <UIThemeShadowButton
+          <StyleButtonShadowV2
+            loading={isLoading}
             onClick={isCustomer ? handleCallInitiate : handleLoginOpen}
             sx={{
               padding: 0,
@@ -184,7 +187,7 @@ const EscortSliderMobile = ({
                 <FormattedMessage id="StartVideoCall" />
               </UINewTypography>
             </Box>
-          </UIThemeShadowButton>
+          </StyleButtonShadowV2>
         </Box>
         <Box sx={{ width: '100%' }}>
           <UIStyledShadowButtonLike

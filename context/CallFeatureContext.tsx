@@ -160,7 +160,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     } else if (call) {
       toast.error('Please end your ONGOING call');
       setIsLoading(false);
-    } else {
+    } else if (guestId && !isCreditAvailable && !call && Boolean(token.token)) {
       setOpen(true);
     }
   };

@@ -91,6 +91,7 @@ const EscortDetailPage = () => {
                 handleCallInitiate(guestData?.id, isCreditAvailable, callTime, guestData?.name, modelPhoto ?? '', guestData.user_name)
               }
               isCustomer={isCustomer}
+              isLoading={isLoading}
             />
           ) : (
             guestData && (
