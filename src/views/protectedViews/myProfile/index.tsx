@@ -107,7 +107,7 @@ const MyProfile = () => {
                   <Box>
                     <StyleButtonV2 variant="contained" type="submit" loading={loadingButton}>
                       <UINewTypography variant="buttonSmallBold" color={'text.disabled'}>
-                        <FormattedMessage id="Save1" />
+                        <FormattedMessage id="Save" />
                       </UINewTypography>
                     </StyleButtonV2>
                   </Box>
