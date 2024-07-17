@@ -30,6 +30,7 @@ export type WorkerPhotos = {
   photoURL?: string;
   file_id: string;
   file_type: string;
+  isFavorite: number;
 };
 
 export type ImageUploadPayload = {
@@ -191,25 +192,42 @@ const UploadImage = ({
     try {
       if (values.file5 || workerPhotos.length > 0) {
         const mutationImageUpload = await VerificationStepService.multipleImageKitUplaodApi(allFilesToUpload);
-        const uploadFile5: ImageUploadPayload[] = [
-          ...values.file5Existing
-            .filter((x) => x !== null)
-            .map((photo) => ({
-              id: photo.id || 0,
-              link: photo.photoURL ? photo.photoURL : photo.link,
-              type: 'file_5',
-              cords: photo.cords,
-              is_document: 0,
-              document_type: PHOTO_TYPE.MODEL_PHOTO,
-              document_number: null,
-              is_favourite: String(values.is_favourite),
-              file_id: photo.file_id,
-              file_type: photo.file_type === 'non-image' ? 'Non_Image' : 'Image'
-            })),
-          ...mutationImageUpload.uploadPhotos?.filter((x) => !x.is_document)
-        ];
+        const uploadFile5: ImageUploadPayload[] = [...mutationImageUpload.uploadPhotos?.filter((x) => !x.is_document)];
+
+        const uploadFile5Existing = [...values.file5Existing]
+          .filter((x) => x !== null && !x.is_document)
+          .map((photo) => ({
+            id: photo.id || 0,
+            link: photo.photoURL ? photo.photoURL : photo.link,
+            type: 'file5Existing',
+            cords: photo.cords,
+            is_document: 0,
+            document_type: PHOTO_TYPE.MODEL_PHOTO,
+            document_number: null,
+            is_favourite: photo.favourite ? 1 : photo.isFavorite ? 1 : 0,
+            file_id: photo.file_id,
+            file_type: photo.file_type === 'non-image' ? 'Non_Image' : 'Image'
+          }));
 
         const uploadPhotos: ImageUploadPayload[] = [];
+
+        const isExistingFav = uploadFile5Existing.filter((x) => x.is_favourite);
+
+        if (uploadFile5Existing)
+          uploadFile5Existing.forEach((x, i) => {
+            if (x.link !== null)
+              uploadPhotos.push({
+                link: x.link,
+                type: 'file5Existing',
+                cords: x.cords,
+                is_favourite: x.is_favourite,
+                is_document: 0,
+                document_type: PHOTO_TYPE.MODEL_PHOTO,
+                document_number: null,
+                file_id: x.file_id,
+                file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image'
+              });
+          });
 
         if (uploadFile5)
           uploadFile5.forEach((x, i) => {
@@ -219,7 +237,7 @@ const UploadImage = ({
                 link: x.link ? String(x.link) : String(x.photosURL),
                 type: 'file_5',
                 cords: matchedCords ?? '',
-                is_favourite: Number(values.is_favourite?.split('[')[1].split(']')[0]) === i ? 1 : 0,
+                is_favourite: isExistingFav.length > 0 ? 0 : Number(values.is_favourite?.split('[')[1].split(']')[0]) === i ? 1 : 0,
                 is_document: 0,
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
                 document_number: null,

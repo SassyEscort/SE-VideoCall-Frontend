@@ -48,7 +48,7 @@ const PhotoItem = ({
     value: unknown,
     shouldValidate?: boolean | undefined
   ) => Promise<void | FormikErrors<VerificationFormStep5TypeV2>>;
-  removeImage: (name: string, photoId?: number) => void;
+  removeImage: (name: string, file_id?: string) => void;
   handleChangeFile5Cords?: (name: string, cords: string) => void;
   handleClickThumbnailImageId?: (id: number | undefined, name: string, photoIndex: number) => void;
   token: TokenIdType;
@@ -112,7 +112,7 @@ const PhotoItem = ({
   const handleRemoveImage = (name: string) => {
     setCroppedImage('');
     setValue(name, null);
-    removeImage(image.photoURL, image.id);
+    removeImage(image.photoURL, image.file_id);
   };
 
   const handleSaveRepositionCords = (cords: string) => {
