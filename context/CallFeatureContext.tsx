@@ -31,6 +31,8 @@ interface CallFeatureContextProps {
     modelPhoto: string,
     userName: string
   ) => void;
+  handelNameChange: () => void;
+  isNameChange: boolean;
   isCallAccepted: boolean;
   isCustomer: boolean;
   isCallIncoming: boolean;
@@ -47,6 +49,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   call: undefined,
   handleCancelCall: () => {},
   handleCallInitiate: () => {},
+  handelNameChange: () => {},
+  isNameChange: false,
   isCallAccepted: false,
   isCustomer: false,
   isCallIncoming: false,
@@ -89,10 +93,10 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [balance, setBalance] = useState(0);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [avaialbleCredits, setAvailableCredits] = useState(0);
+  const [isNameChange, setIsNameChange] = useState(false);
 
   const pathname = usePathname();
   const router = useRouter();
-
   const init = useCallback(async () => {
     try {
       const UIKitSettings = new UIKitSettingsBuilder()
@@ -119,6 +123,10 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       toast.error(ErrorMessage);
     }
   }, [customerUsername, isCustomer]);
+
+  const handelNameChange = async () => {
+    setIsNameChange(!isNameChange);
+  };
 
   const handleCancelCall = async () => {
     await creditPutCallLog(modelId, sessionId, CALLING_STATUS.CANCELED);
@@ -360,6 +368,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         call,
         handleCancelCall,
         handleCallInitiate,
+        handelNameChange,
+        isNameChange,
         isCallAccepted,
         isCustomer,
         isCallIncoming,

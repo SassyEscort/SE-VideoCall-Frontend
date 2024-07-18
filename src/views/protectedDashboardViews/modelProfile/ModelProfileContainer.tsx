@@ -11,6 +11,7 @@ import { ModelDetailsResponse } from 'views/protectedModelViews/verification/ver
 import DashboardPriceView from '../dashboardPriceView';
 import { FormattedMessage } from 'react-intl';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 
 const profileMenuList = [
   { menuName: <FormattedMessage id="Photos" />, id: 0 },
@@ -32,6 +33,7 @@ const ModelProfileContainer = ({
   const [isLoading, setIsLoading] = useState(false);
   const [menuId, setMenuId] = useState(verificationCode ? 1 : 0);
 
+  const { handelNameChange } = useCallFeatureContext();
   const handleMenu = (id: number) => {
     setIsLoading(true);
     setMenuId(id);
@@ -46,6 +48,7 @@ const ModelProfileContainer = ({
 
   const handleSaveDetails = () => {
     setMenuId(1);
+    handelNameChange();
   };
 
   const modelPhotos = useMemo(() => modelDetails?.photos?.filter((data) => !data.is_document), [modelDetails?.photos]);

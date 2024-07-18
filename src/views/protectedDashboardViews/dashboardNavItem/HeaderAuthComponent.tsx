@@ -20,6 +20,7 @@ import { NotificationDetailsService } from 'services/notification/notification.s
 import { Root } from 'services/notification/type';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
+import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 
 export type NotificationFilters = {
   page: number;
@@ -50,6 +51,8 @@ const DashboadrHeaderAuthComponent = () => {
   });
   const [notificationDetails, setNotificationDetails] = useState<Root>();
   const notificationCount = useRef(0);
+
+  const { isNameChange } = useCallFeatureContext();
 
   const handleOpenLogout = () => {
     setIsLogoutOpen(true);
@@ -127,7 +130,8 @@ const DashboadrHeaderAuthComponent = () => {
     if (token.token) {
       modelDetails();
     }
-  }, [token.id, token.token]);
+  }, [token.id, token.token, isNameChange]);
+
   const firstChar = modelDetails?.name ? modelDetails.name.charAt(0).toUpperCase() : '';
 
   const unReadCount = notificationDetails?.data?.aggregate?.enabled && notificationDetails?.data?.aggregate?.enabled > 0;
