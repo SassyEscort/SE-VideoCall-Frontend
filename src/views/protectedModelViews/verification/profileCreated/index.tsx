@@ -17,7 +17,6 @@ import {
   TypographyContainer2
 } from './profileCreated.styled';
 import Link from 'next/link';
-import { GradientTypography } from 'views/protectedDashboardViews/downlaoApp/DownloadApp.styled';
 
 const ProfileCreated = () => {
   return (
@@ -48,8 +47,10 @@ const ProfileCreated = () => {
 
                 <Box component={'img'} src="/images/app-logo/app-store.png" sx={{ width: '120px', height: '120px' }} />
               </FristBoxContent>
-
-              <GradientTypography variant="MediumSemiBoldText">{/* <FormattedMessage id="ComingSoon" /> */}</GradientTypography>
+              {/* 
+              <GradientTypography variant="MediumSemiBoldText">
+                <FormattedMessage id="ComingSoon" />
+              </GradientTypography> */}
             </Box>
             <Box>
               <Link href={'/model/dashboard'}>
