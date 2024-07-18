@@ -115,6 +115,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         }
       });
     } catch (e) {
+      console.log(e, 'e');
       toast.error(ErrorMessage);
     }
   }, [customerUsername, isCustomer]);
@@ -318,6 +319,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
             return;
           }
         } catch (error) {
+          console.log(error, 'error');
+
           toast.error(ErrorMessage);
         }
       }

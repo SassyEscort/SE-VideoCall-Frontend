@@ -34,6 +34,7 @@ const ForgotPasswordForm = () => {
             toast.error(data.message);
           }
         } catch (error) {
+          console.log(error,"error");
           toast.error(ErrorMessage);
         }
       }}

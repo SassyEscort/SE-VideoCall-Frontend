@@ -103,6 +103,8 @@ const VerificationStepOne = ({
         }
       }
     } catch (error) {
+      console.log(error, 'error');
+
       toast.error(ErrorMessage);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
