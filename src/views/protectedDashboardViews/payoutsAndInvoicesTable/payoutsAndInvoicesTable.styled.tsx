@@ -98,9 +98,15 @@ export const FilterMainBox = styled(UINewTypography)(({ theme }) => ({
 
 export const FilterSecondBox = styled(UINewTypography)(({ theme }) => ({
   display: 'flex',
-  alignItems: 'center',
   width: '100%',
-  gap: theme.spacing(2)
+  gap: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    justifyContent: 'flex-start'
+  },
+  [theme.breakpoints.up('sm')]: {
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  }
 }));
 
 export const ResetMainBox = styled(UINewTypography)(({ theme }) => ({

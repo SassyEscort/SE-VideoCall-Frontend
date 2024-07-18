@@ -599,5 +599,7 @@
   "NoDataToShowHere": "No hay datos para mostrar aquí",
   "MinimumWithdrawalAmountIs": "El monto mínimo de retiro es",
   "Pleaseuploadbetween2to30photos": "Por favor sube entre 2 y 30 fotos.",
-  "Priceisrequired": "Se requiere precio"
+  "Priceisrequired": "Se requiere precio",
+  "TotalCallTime": "tiempo total de llamada",
+  "TotalOf": "Total de"
 }

@@ -6,7 +6,6 @@ import {
   FirstBoxContainerMain,
   FooterStoreBox,
   FooterSubICon,
-  GradientTypography,
   ModelFooterHead,
   ModelUITextConatinerText
 } from './MainFooter.styled';
@@ -158,9 +157,9 @@ const MainFooter = () => {
                   />
                 </Box>
               </FooterStoreBox>
-              <GradientTypography variant="body">
+              {/* <GradientTypography variant="body">
                 <FormattedMessage id="AppComingSoon" />
-              </GradientTypography>
+              </GradientTypography> */}
             </ModelUITextConatinerText>
 
             <FirstBoxContainerMain>
@@ -212,7 +211,7 @@ const MainFooter = () => {
                       component={Link}
                       prefetch={false}
                       shallow={true}
-                      href={`/model${val.link}`}
+                      href={`${val.link}`}
                     >
                       <FormattedMessage id={val.name} />
                     </Box>

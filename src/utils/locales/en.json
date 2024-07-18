@@ -600,5 +600,7 @@
   "NoDataToShowHere": "No data to show here",
   "MinimumWithdrawalAmountIs": "Minimum withdrawal amount is",
   "Pleaseuploadbetween2to30photos": "Please upload between 2 to 30 photos",
-  "Priceisrequired": "Price is required"
+  "Priceisrequired": "Price is required",
+  "TotalCallTime": "Total call time",
+  "TotalOf": "Total of"
 }
