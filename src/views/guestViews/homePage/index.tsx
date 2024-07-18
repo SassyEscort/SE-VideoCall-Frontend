@@ -139,7 +139,7 @@ const HomeContainer = () => {
     [filters, router]
   );
 
-  const handelFiltersFormSearch = (value: any) => {
+  const handelFiltersFormSearch = (value: SearchFiltersTypes) => {
     const newFilters = { ...filters, ...value };
     setFilters(newFilters);
     handelFilterChange({ ...filters, ...value });
