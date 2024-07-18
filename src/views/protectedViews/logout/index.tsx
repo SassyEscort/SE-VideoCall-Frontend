@@ -17,25 +17,23 @@ import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { FormattedMessage } from 'react-intl';
-import { CometChatUIKit } from '@cometchat/chat-uikit-react';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import { usePathname } from 'next/navigation';
 
 const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const asPath = usePathname();
-  const { isCustomer } = useCallFeatureContext();
+  // const { isCustomer } = useCallFeatureContext();
 
   const [loading, setLoading] = useState(false);
 
   const handleConfirmLogout = async () => {
     setLoading(true);
     try {
-      if (!isCustomer) {
-        const user = await CometChatUIKit.getLoggedinUser();
-        if (user) {
-          await CometChatUIKit.logout();
-        }
-      }
+      // if (!isCustomer) {
+      //   const user = await CometChatUIKit.getLoggedinUser();
+      //   if (user) {
+      //     await CometChatUIKit.logout();
+      //   }
+      // }
       await signOut({ callbackUrl: asPath.startsWith('/model') ? '/model' : '/' });
     } catch (error) {
       toast.error('Error during sign-out:');
