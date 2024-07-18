@@ -45,8 +45,6 @@ const CallInitialize = () => {
           });
         }
       } catch (e) {
-        console.log(e, 'error');
-
         toast.error(ErrorMessage);
       }
     };

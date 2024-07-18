@@ -73,8 +73,6 @@ const DashboardPriceView = ({
       const res = await DashboardService.dashboardGetPriceDetails();
       setMinPrice(res?.data?.min_price);
     } catch (error) {
-      console.log(error, 'error');
-
       toast.error(ErrorMessage);
     }
   };
@@ -109,8 +107,6 @@ const DashboardPriceView = ({
         setCommisionPercentage(priceCommissionsValue.data.percentage);
       }
     } catch (error) {
-      console.log(error, 'error');
-
       toast.error(ErrorMessage);
     }
   };

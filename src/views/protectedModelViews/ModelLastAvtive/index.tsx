@@ -18,8 +18,6 @@ const ModelLastActive = () => {
         const data = await getUserDataClient();
         setToken(data.token);
       } catch (error) {
-        console.log(error, 'error');
-
         toast.error('Failed to fetch user data');
       }
     };
@@ -38,8 +36,6 @@ const ModelLastActive = () => {
             toast.error(response.message);
           }
         } catch (error) {
-          console.log(error, 'error');
-
           toast.error(ErrorMessage);
         }
       };

@@ -57,8 +57,6 @@ const EscortDetailPage = () => {
           }
         }
       } catch (error) {
-        console.log(error, 'error');
-
         toast.error(ErrorMessage);
       }
     };

@@ -147,8 +147,6 @@ const PayoutContainer = ({
           setWithdrawlAmount(data);
         }
       } catch (error) {
-        console.log(error, 'error');
-
         toast.error(ErrorMessage);
       }
     };
@@ -172,8 +170,6 @@ const PayoutContainer = ({
         }
       }
     } catch (error) {
-      console.log(error, 'error');
-
       toast.error(ErrorMessage);
     }
   };
