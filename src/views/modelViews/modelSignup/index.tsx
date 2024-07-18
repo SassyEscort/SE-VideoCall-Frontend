@@ -102,11 +102,13 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
               setAlert('Login after signup failed. Please log in manually.');
             }
           } else if (data?.code === 403) {
+            console.log(data, 'dataaaa');
             toast.error(ErrorMessage);
           } else {
             setAlert(data.message);
           }
         } catch (error) {
+          console.log(error, 'error');
           setAlert('An error occurred during signup or login. Please try again.');
         } finally {
           setLoading(false);
