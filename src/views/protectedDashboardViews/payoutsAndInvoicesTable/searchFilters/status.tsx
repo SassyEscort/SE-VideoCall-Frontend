@@ -14,7 +14,7 @@ interface StatusFilterProps {
 
 const Status: React.FC<StatusFilterProps> = ({ value, onChange }) => {
   return (
-    <FormControl id="status" sx={{ width: '100%', maxWidth: '116px' }}>
+    <FormControl id="status" sx={{ width: { xs: '200px', sm: '130px' } }}>
       <StyledEarningSelectInputLabel>
         <FormattedMessage id="Status" />
       </StyledEarningSelectInputLabel>

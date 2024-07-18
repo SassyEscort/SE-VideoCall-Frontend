@@ -158,9 +158,7 @@ const MainFooter = () => {
                   />
                 </Box>
               </FooterStoreBox>
-              <GradientTypography variant="body">
-                <FormattedMessage id="AppComingSoon" />
-              </GradientTypography>
+              <GradientTypography variant="body">{/* <FormattedMessage id="AppComingSoon" /> */}</GradientTypography>
             </ModelUITextConatinerText>
 
             <FirstBoxContainerMain>
@@ -212,7 +210,7 @@ const MainFooter = () => {
                       component={Link}
                       prefetch={false}
                       shallow={true}
-                      href={`/model${val.link}`}
+                      href={`${val.link}`}
                     >
                       <FormattedMessage id={val.name} />
                     </Box>

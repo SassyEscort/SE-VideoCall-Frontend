@@ -42,7 +42,7 @@ const DownloadApp = () => {
         </Box>
       </ForBox>
       <GradientTypography variant="MediumSemiBoldText" sx={{ marginLeft: isSmallScreen ? '15px' : '55px' }}>
-        <FormattedMessage id="ComingSoon" />
+        {/* <FormattedMessage id="ComingSoon" /> */}
       </GradientTypography>
     </>
   );
