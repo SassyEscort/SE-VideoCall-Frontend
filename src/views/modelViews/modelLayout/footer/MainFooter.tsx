@@ -39,7 +39,7 @@ const MainFooter = () => {
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
-  const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && emailId ? true : false);
+  const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && !emailId ? true : false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
