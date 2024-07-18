@@ -82,8 +82,6 @@ const BillingHistory = () => {
           }
         }
       } catch (error) {
-        console.log(error, 'error');
-
         toast.error(ErrorMessage);
       }
     };

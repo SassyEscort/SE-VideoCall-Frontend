@@ -57,8 +57,6 @@ const PayoutModelProfileConatiner = ({ token, modelDetails }: { token: TokenIdTy
         }
       }
     } catch (error) {
-      console.log(error, 'error');
-
       toast.error(ErrorMessage);
     }
   };

@@ -147,8 +147,6 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
           setIsLoading(false);
         }
       } catch (error) {
-        console.log(error, 'error');
-
         toast.error(ErrorMessage);
       }
     };

@@ -50,8 +50,6 @@ const PayoutMobileSidebar = ({ token, modelDetails }: { token: TokenIdType; mode
         }
       }
     } catch (error) {
-      console.log(error, 'error');
-
       toast.error(ErrorMessage);
     }
   };
