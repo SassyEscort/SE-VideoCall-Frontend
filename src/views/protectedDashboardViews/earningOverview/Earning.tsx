@@ -150,7 +150,7 @@ const Earnings = ({ fromDate, toDate }: { fromDate: Moment | null; toDate: Momen
   return (
     <>
       <UINewTypography variant="buttonLargeBold" lineHeight="160%">
-        <FormattedMessage id="TotalClients" />
+        <FormattedMessage id="TotalCallTime" />
       </UINewTypography>
 
       <UINewTypography variant="h3">{modelDetails?.total_clients}</UINewTypography>

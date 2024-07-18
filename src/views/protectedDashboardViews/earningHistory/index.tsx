@@ -85,8 +85,8 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
       //   setToDate(moment());
       //   break;
       case DATE_DURATION_TYPE.LAST_WEEK:
-        setFromDate(moment().subtract(1, 'week').day(0));
-        setToDate(moment().subtract(1, 'week').day(6));
+        setFromDate(moment().startOf('week').day(0));
+        setToDate(moment());
         break;
       // case DATE_DURATION_TYPE.THIS_MONTH:
       //   setFromDate(moment().startOf('month'));
@@ -192,7 +192,7 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
                           value={moment(fromDate, 'YYYY-MM-DD')}
                           onChange={(e) => handleFromDateChange(e as Moment)}
                           format="YYYY-MM-DD"
-                          maxDate={toDate}
+                          maxDate={toDate!}
                         />
                       </ProfileDOBox>
                       <ProfileDOBox>

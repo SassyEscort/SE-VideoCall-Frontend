@@ -12,7 +12,6 @@ import {
   MainBox,
   ResetMainBox,
   SecondBox,
-  StackBox,
   StyledTableRow,
   TableBox,
   TypographyBox,
@@ -20,7 +19,6 @@ import {
   UINewTypographyBox
 } from './payoutsAndInvoicesTable.styled';
 import BillingTable from './billingTable/BillingTable';
-import PaginationSearch from './searchFilters/paginationSearch/PaginationSearch';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 
 import TableCell from '@mui/material/TableCell';
@@ -35,7 +33,6 @@ import { ModelPastPayoutDetailRes } from 'services/payout/types';
 import { PaginationBox } from './billingTable/BillingTable.styled';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
-import { debounce } from 'lodash';
 
 export type PaginationType = {
   page: number;
@@ -112,16 +109,16 @@ const PayoutsAndInvoices = () => {
   );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedChangeSearch = useCallback(
-    debounce((val: string) => {
-      handleChangeFilter({ ...filters, filter_text: val, page: 1 });
-    }, 300),
-    [filters, handleChangeFilter]
-  );
+  // const debouncedChangeSearch = useCallback(
+  //   debounce((val: string) => {
+  //     handleChangeFilter({ ...filters, filter_text: val, page: 1 });
+  //   }, 300),
+  //   [filters, handleChangeFilter]
+  // );
 
-  const handleChangeSearch = (val: string) => {
-    debouncedChangeSearch(val);
-  };
+  // const handleChangeSearch = (val: string) => {
+  //   debouncedChangeSearch(val);
+  // };
 
   const handleChangeStatus = (event: SelectChangeEvent<unknown>) => {
     const value = event.target.value as string;
@@ -149,9 +146,9 @@ const PayoutsAndInvoices = () => {
             </UINewTypographyBox>
           </SecondBox>
           <FilterDropdownBox id="search">
-            <StackBox direction="row" color="text.secondary">
+            {/* <StackBox direction="row" color="text.secondary">
               <PaginationSearch placeholder={'Search'} handleChangeSearch={handleChangeSearch} />
-            </StackBox>
+            </StackBox> */}
             <FilterMainBox>
               <FilterSecondBox>
                 <InvoiceDate />
@@ -168,7 +165,7 @@ const PayoutsAndInvoices = () => {
           </FilterDropdownBox>
           <TypographyBox>
             <TypographyBoxTotalOfInvoices>
-              <FormattedMessage id="TotalOfInvoices" />
+              <FormattedMessage id="TotalOf" /> {modelPayoutList?.data?.payout_details?.length} <FormattedMessage id="Invoices" />
             </TypographyBoxTotalOfInvoices>
           </TypographyBox>
           <TableBox>
