@@ -75,6 +75,11 @@ const WorkerNavItem = () => {
                 priority
               />
             </Box>
+            {!isMdUp && (
+              <SearchTitalBox onClick={handleOpenFilterModal}>
+                <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" loading="lazy" />
+              </SearchTitalBox>
+            )}
             {isMdUp && (
               <SearchTitalBox onClick={handleOpenFilterModal}>
                 <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" loading="lazy" />

@@ -25,6 +25,7 @@ const HomeContainer = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [total_rows, setTotalRows] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [scroll, setScroll] = useState(false);
 
   const getInitialFilters = () => ({
     fromAge: getQueryParam('fromAge') ? (getQueryParam('fromAge') as string) : '',
@@ -113,7 +114,9 @@ const HomeContainer = () => {
     setIsLoading(false);
     if (initialRender.current === false) {
       if (searchFiltersRef.current) {
-        searchFiltersRef.current.scrollIntoView({ behavior: 'smooth' });
+        if (scroll) {
+          searchFiltersRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     }
   };
@@ -142,6 +145,7 @@ const HomeContainer = () => {
   const handelFiltersFormSearch = (value: SearchFiltersTypes) => {
     const newFilters = { ...filters, ...value };
     setFilters(newFilters);
+    setScroll(true);
     handelFilterChange({ ...filters, ...value });
   };
 
@@ -149,6 +153,7 @@ const HomeContainer = () => {
     if (initialRender.current) {
       initialRender.current = false;
       handelFilterChange(filters);
+      setScroll(true);
     }
     handleCHangeSearchFilter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
