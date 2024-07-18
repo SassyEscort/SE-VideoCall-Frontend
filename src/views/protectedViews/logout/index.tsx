@@ -19,8 +19,10 @@ import { toast } from 'react-toastify';
 import { FormattedMessage } from 'react-intl';
 import { CometChatUIKit } from '@cometchat/chat-uikit-react';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { usePathname } from 'next/navigation';
 
 const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+  const asPath = usePathname();
   const { isCustomer } = useCallFeatureContext();
 
   const [loading, setLoading] = useState(false);
@@ -34,7 +36,7 @@ const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
           await CometChatUIKit.logout();
         }
       }
-      await signOut({ callbackUrl: '/' });
+      await signOut({ callbackUrl: asPath.startsWith('/model') ? '/model' : '/' });
     } catch (error) {
       toast.error('Error during sign-out:');
     } finally {

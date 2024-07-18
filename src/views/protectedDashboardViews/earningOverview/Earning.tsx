@@ -153,7 +153,9 @@ const Earnings = ({ fromDate, toDate }: { fromDate: Moment | null; toDate: Momen
         <FormattedMessage id="TotalClients" />
       </UINewTypography>
 
-      <UINewTypography variant="h3">{modelDetails?.total_clients}</UINewTypography>
+      <UINewTypography variant="h3">
+        {modelDetails?.calls?.length && modelDetails?.calls?.length > 0 ? modelDetails?.calls?.length : 0}
+      </UINewTypography>
 
       <Box>
         <Chart dir="ltr" type="bar" series={chartData} options={chartOptions} width="100%" height={243} />
