@@ -33,27 +33,18 @@ const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; 
       .string()
       .required('current Password is required')
       .min(8, 'Password must be at least 8 characters')
-      .matches(
-        PASSWORD_PATTERN,
-        'Invalid Password! Does not meet requirements (this password has appeared in a data breach elsewhere and should never be used on any website)'
-      ),
+      .matches(PASSWORD_PATTERN, 'Invalid Password'),
     newPassword: yup
       .string()
       .required('New Password is required')
       .min(8, 'Password must be at least 8 characters')
-      .matches(
-        PASSWORD_PATTERN,
-        'Invalid Password! Does not meet requirements (this password has appeared in a data breach elsewhere and should never be used on any website)'
-      ),
+      .matches(PASSWORD_PATTERN, 'Invalid Password'),
     repeatPassword: yup
       .string()
       .required('Repeat Password is required')
       .min(8, 'Password must be at least 8 characters')
       .oneOf([yup.ref('newPassword')], 'Passwords must match')
-      .matches(
-        PASSWORD_PATTERN,
-        'Invalid Password! Does not meet requirements (this password has appeared in a data breach elsewhere and should never be used on any website)'
-      )
+      .matches(PASSWORD_PATTERN, 'Invalid Password')
   });
   return (
     <Formik
