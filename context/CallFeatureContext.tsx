@@ -7,7 +7,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { CallingService, CreditCallRes } from 'services/calling/calling.services';
 import { CALLING_STATUS } from 'constants/callingConstants';
-import { CometChatUIKit, UIKitSettingsBuilder } from '@cometchat/chat-uikit-react';
+import { CometChatUIKit } from '@cometchat/chat-uikit-react';
 import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
 import { ErrorMessage } from 'constants/common.constants';
@@ -18,6 +18,7 @@ import ModelCredits from 'views/protectedViews/Credites/ModelCredits';
 import { usePathname, useSearchParams } from 'next/navigation';
 import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
 import { useRouter } from 'next/navigation';
+import { UIKitSettingsBuilder } from '@cometchat/uikit-shared';
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
@@ -160,7 +161,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     } else if (call) {
       toast.error('Please end your ONGOING call');
       setIsLoading(false);
-    } else if (guestId && !isCreditAvailable && !call && Boolean(token.token)) {
+    } else {
       setOpen(true);
     }
   };

@@ -41,13 +41,14 @@ const HomeConnections = () => {
 
   const url = new URL(window.location.href);
   const email = url.searchParams.get('email');
+  const id = url.searchParams.get('id');
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('lg'));
   const [isLogin, setIsLogin] = useState(false);
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  const [openChangePassword, setIsOpenChangePassword] = useState(email && url.pathname !== '/profile' ? true : false);
+  const [openChangePassword, setIsOpenChangePassword] = useState(email && !id && url.pathname !== '/profile' ? true : false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
