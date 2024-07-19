@@ -29,8 +29,14 @@ import { ModelDetailsService } from 'services/modelDetails/modelDetails.services
 import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
+import ModelNewPassword from 'views/modelViews/ModelNewPassword';
 
 const HomeModelTopBanner = () => {
+  const url = new URL(window.location.href);
+  const email = url.searchParams.get('email');
+  const emailCode = url.searchParams.get('code');
+  const emailId = url.searchParams.get('id');
+
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const [open, setIsOpen] = useState(false);
@@ -38,6 +44,7 @@ const HomeModelTopBanner = () => {
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && !emailId ? true : false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -73,6 +80,14 @@ const HomeModelTopBanner = () => {
 
   const isVerificationPendingOrCompleted = (step: string | undefined) => {
     return step === MODEL_ACTIVE_STEP.IN_REVIEW || step === MODEL_ACTIVE_STEP.ONBOARDED || step === MODEL_ACTIVE_STEP.VERIFIED;
+  };
+
+  const handleChangePasswordClose = () => {
+    setIsOpenChangePassword(false);
+  };
+  const handleLoginChangePasswordOpen = () => {
+    setIsOpenChangePassword(false);
+    setIsOpenLogin(true);
   };
 
   useEffect(() => {
@@ -178,6 +193,9 @@ const HomeModelTopBanner = () => {
         </UIStyledDialog>
         <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
           <ModelForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
+        </UIStyledDialog>
+        <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
+          <ModelNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
         </UIStyledDialog>
       </HomeMainModelContainer>
     </>

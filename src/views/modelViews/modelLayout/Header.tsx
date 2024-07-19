@@ -14,22 +14,22 @@ import ModelSignup from '../modelSignup';
 import ModelSignin from '../modelSignin';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import ModelForgetPasswordLink from '../modelForgetPasswordLink';
-import ModelNewPassword from '../ModelNewPassword';
+// import ModelNewPassword from '../ModelNewPassword';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import { FormattedMessage } from 'react-intl';
 import { HeaderBoxContainer } from './ModelLayout.styled';
 
 const HeaderModelComponent = () => {
-  const url = new URL(window.location.href);
-  const email = url.searchParams.get('email');
-  const emailCode = url.searchParams.get('code');
-  const id = url.searchParams.get('id');
+  // const url = new URL(window.location.href);
+  // const email = url.searchParams.get('email');
+  // const emailCode = url.searchParams.get('code');
+  // const id = url.searchParams.get('id');
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openSidebar, setOpenSidebar] = useState(false);
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && !id ? true : false);
+  // const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && !id ? true : false);
   const isSmaller = useMediaQuery('(max-width:320px)');
 
   const handleSignupOpen = () => {
@@ -62,13 +62,13 @@ const HeaderModelComponent = () => {
     setOpenForgetPassLink(false);
   };
 
-  const handleChangePasswordClose = () => {
-    setIsOpenChangePassword(false);
-  };
-  const handleLoginChangePasswordOpen = () => {
-    setIsOpenChangePassword(false);
-    setIsOpenLogin(true);
-  };
+  // const handleChangePasswordClose = () => {
+  //   setIsOpenChangePassword(false);
+  // };
+  // const handleLoginChangePasswordOpen = () => {
+  //   setIsOpenChangePassword(false);
+  //   setIsOpenLogin(true);
+  // };
   const toggleDrawer = (open: boolean) => {
     setOpenSidebar(open);
   };
@@ -195,9 +195,9 @@ const HeaderModelComponent = () => {
       <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <ModelForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
-      <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
+      {/* <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
         <ModelNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
-      </UIStyledDialog>
+      </UIStyledDialog> */}
     </HomeMainModelContainer>
   );
 };
