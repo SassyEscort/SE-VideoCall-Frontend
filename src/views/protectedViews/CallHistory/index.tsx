@@ -47,7 +47,7 @@ import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { LoaderBox } from '../Credites/Credits.styled';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import { CallingService } from 'services/calling/calling.services';
-import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
+import { UIStyledLoadingButtonShadowCallHistoryV2 } from 'components/UIComponents/StyleLoadingButtonshadow';
 
 export type CallHistoryPaginationType = {
   page: number;
@@ -277,7 +277,7 @@ const CallHistory = () => {
                           </SecondSubFirstPartThiredBox>
                         )}
                         <CallAgainBox>
-                          <StyleButtonShadowV2
+                          <UIStyledLoadingButtonShadowCallHistoryV2
                             loading={isLoading && index === guestDataIndex ? true : false}
                             variant="contained"
                             onClick={() => {
@@ -295,7 +295,7 @@ const CallHistory = () => {
                                 </UINewTypography>
                               </Box>
                             </Box>
-                          </StyleButtonShadowV2>
+                          </UIStyledLoadingButtonShadowCallHistoryV2>
                         </CallAgainBox>
                       </SecondSubTextMainContainer>
                     </SecondSubContainer>
