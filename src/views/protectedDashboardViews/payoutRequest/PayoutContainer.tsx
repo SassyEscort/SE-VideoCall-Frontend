@@ -78,7 +78,6 @@ const PayoutContainer = ({
 }) => {
   const [isLoadingContainer, setIsLoadingContainer] = useState(false);
   const { isCallEnded } = useCallFeatureContext();
-  const [verifiedEmailValue, setVerifiedEmailValue] = useState(0);
   const [open, setIsOpen] = useState(false);
   const [payoutStep, setPayoutStep] = useState(0);
   const [modelPayoutList, setModelPayoutList] = useState<ModelPastPayoutDetailRes>();
@@ -161,7 +160,6 @@ const PayoutContainer = ({
         if (data?.code === 200) {
           if (data.data.amount === null) {
             setAmountSave(100);
-            setVerifiedEmailValue(modelDetails.email_verified);
           } else {
             setAmountSave(data.data.amount);
           }
@@ -215,9 +213,9 @@ const PayoutContainer = ({
   };
 
   const handleButtonClick = () => {
-    if (verifiedEmailValue === 0) {
+    if (modelDetails.email_verified === 0) {
       toast.warning('Please verify your email first.');
-    } else if (verifiedEmailValue === 1) {
+    } else if (modelDetails.email_verified === 1) {
       openDailog();
     }
   };
