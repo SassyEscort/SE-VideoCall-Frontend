@@ -455,22 +455,12 @@ const VerificationBasicDetails = ({
                 setFieldValue('dob', date ? moment(date).format('YYYY-MM-DD') : null);
               }}
               disabled={isModelVerified}
-              maxDate={moment().subtract(18, 'years')}
               slots={{ openPickerIcon: RiCalendar2Line }}
               slotProps={{
                 textField: {
                   variant: 'outlined',
                   error: touched.dob && Boolean(errors.dob),
-                  helperText:
-                    touched.dob && (!values.dob || !moment(values.dob, 'YYYY-MM-DD', true).isValid()) ? (
-                      <FormattedMessage id="Dateisrequired" />
-                    ) : touched.dob && moment().diff(values.dob, 'years') < 18 ? (
-                      'Agemustbegreaterthan18'
-                    ) : touched.dob && errors.dob ? (
-                      <FormattedMessage id={errors.dob} />
-                    ) : (
-                      ''
-                    )
+                  helperText: touched.dob && errors.dob && <FormattedMessage id={errors?.dob} />
                 },
                 calendarHeader: {
                   sx: {
