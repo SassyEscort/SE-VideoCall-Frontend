@@ -32,6 +32,7 @@ import GuestLogin from 'views/auth/guestLogin';
 import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
 import ProfileMenu from 'components/UIComponents/UIStyleHeader';
+import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 
 const HomeTopBanner = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -41,6 +42,7 @@ const HomeTopBanner = () => {
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [loading, setLoading] = useState(false);
 
   const { data: session } = useSession();
 
@@ -86,13 +88,16 @@ const HomeTopBanner = () => {
   };
 
   const handleClickScroll = () => {
-    const element = document.querySelector(`#scroll-to-model`) as HTMLElement;
-    element?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
+    setLoading(true);
+    setTimeout(() => {
+      const element = document.querySelector(`#scroll-to-model`) as HTMLElement;
+      element?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+      setLoading(false);
+    }, 1000);
   };
-
   return (
     <>
       {(session?.user as User)?.provider === 'providerGuest' ? (
@@ -158,11 +163,11 @@ const HomeTopBanner = () => {
                     </ExploreTextContainer>
                   </SecondBoxContainer>
                 ) : (
-                  <UIThemeShadowButton onClick={handleClickScroll} variant="contained">
+                  <StyleButtonShadowV2 onClick={handleClickScroll} variant="contained" loading={loading}>
                     <TextContainer>
                       <FormattedMessage id="ExploreModels" />
                     </TextContainer>
-                  </UIThemeShadowButton>
+                  </StyleButtonShadowV2>
                 )}
               </ThirdBoxContainer>
             </FirstBoxContainer>

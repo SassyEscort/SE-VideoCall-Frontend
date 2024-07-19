@@ -2,7 +2,7 @@
 import { Box, styled, Typography } from '@mui/material';
 
 export const MainContainer = styled(Box)(({ theme }) => ({
-  height: '27px',
+  height: '36px',
   backgroundColor: theme.palette.error[300],
   display: 'flex',
   justifyContent: 'center',
