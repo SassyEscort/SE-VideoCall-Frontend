@@ -189,7 +189,7 @@ const BillingHistory = () => {
                   limit={filters.limit}
                   total_rows={total_rows}
                   offset={filters.offset}
-                  isEscort={true}
+                  isBills={true}
                 />
               </BillingPaginationBox>
             )}

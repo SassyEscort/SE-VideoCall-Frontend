@@ -327,7 +327,7 @@ const CallHistory = () => {
                   limit={filters.limit}
                   total_rows={total_rows}
                   offset={filters.offset}
-                  isEscort={true}
+                  isCall={true}
                 />
               </BillingPaginationBox>
             )}
