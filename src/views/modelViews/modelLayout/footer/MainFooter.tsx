@@ -6,7 +6,6 @@ import {
   FirstBoxContainerMain,
   FooterStoreBox,
   FooterSubICon,
-  GradientTypography,
   ModelFooterHead,
   ModelUITextConatinerText
 } from './MainFooter.styled';
@@ -39,7 +38,7 @@ const MainFooter = () => {
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
-  const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && emailId ? true : false);
+  const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && !emailId ? true : false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -158,9 +157,9 @@ const MainFooter = () => {
                   />
                 </Box>
               </FooterStoreBox>
-              <GradientTypography variant="body">
+              {/* <GradientTypography variant="body">
                 <FormattedMessage id="AppComingSoon" />
-              </GradientTypography>
+              </GradientTypography> */}
             </ModelUITextConatinerText>
 
             <FirstBoxContainerMain>
@@ -212,7 +211,7 @@ const MainFooter = () => {
                       component={Link}
                       prefetch={false}
                       shallow={true}
-                      href={`/model${val.link}`}
+                      href={`${val.link}`}
                     >
                       <FormattedMessage id={val.name} />
                     </Box>

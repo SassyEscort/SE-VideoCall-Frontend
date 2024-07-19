@@ -42,6 +42,7 @@ import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestSignup from 'views/auth/guestSignup';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
+import { sortExistingPhotos } from 'utils/photoUtils';
 
 export const EscortSlider = ({
   workerPhotos,
@@ -64,6 +65,8 @@ export const EscortSlider = ({
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const swiperRef = useRef<SwiperRef | any>();
+
+  const sortedWorkerPhotos = workerPhotos.sort(sortExistingPhotos);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -146,7 +149,7 @@ export const EscortSlider = ({
             slidesPerView={1}
             style={{ height: '100%' }}
           >
-            {workerPhotos.map((imageSrc, index) => {
+            {sortedWorkerPhotos.map((imageSrc, index) => {
               return (
                 <SwiperSlide key={index} style={{ paddingTop: 24, height: '100%' }}>
                   <FirstSwiperBlurContainer>
@@ -188,7 +191,7 @@ export const EscortSlider = ({
               modules={[Navigation, Thumbs, FreeMode]}
               className="mySwiper"
             >
-              {workerPhotos.map((imageSrc, index) => (
+              {sortedWorkerPhotos.map((imageSrc, index) => (
                 <SecSwiperSlidBoxContainer
                   style={{ paddingTop: index === 0 ? '0px' : '12px' }}
                   key={index}

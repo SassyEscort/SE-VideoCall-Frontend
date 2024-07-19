@@ -40,7 +40,9 @@ const ModelProfile = () => {
       const modelData = await ModelDetailsService.getModelDetails(token.token);
       setModelDetails(modelData.data);
     };
-    modelDetails();
+    if (token.token) {
+      modelDetails();
+    }
   }, [token.token]);
 
   return (

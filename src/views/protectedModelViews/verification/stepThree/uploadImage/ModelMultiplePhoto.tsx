@@ -24,9 +24,6 @@ import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { sortExistingPhotos } from 'utils/photoUtils';
 import { ModelMultipleBoxContainer } from './RepositionPhoto.styled';
-import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
-import { toast } from 'react-toastify';
-import { ErrorMessage } from 'constants/common.constants';
 
 export type UploadMultiplePhotos = {
   errors: FormikErrors<VerificationFormStep5TypeV2>;
@@ -74,16 +71,16 @@ const ModelMultiplePhoto = ({
   const [thumbnailImageId, setThumbnailImageId] = useState<number | undefined>(undefined);
 
   const removeImage = async (name: string, file_id?: string) => {
-    if (file_id) {
-      try {
-        const response = await VerificationStepService.deleteImage(token.token, file_id);
-        if (response.code === 200) {
-          toast.success('Success');
-        }
-      } catch (error) {
-        toast.error(ErrorMessage);
-      }
-    }
+    // if (file_id) {
+    //   try {
+    //     const response = await VerificationStepService.deleteImage(token.token, file_id);
+    //     if (response.code === 200) {
+    //       toast.success('Success');
+    //     }
+    //   } catch (error) {
+    //     toast.error(ErrorMessage);
+    //   }
+    // }
 
     let index = existingPhotos?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {

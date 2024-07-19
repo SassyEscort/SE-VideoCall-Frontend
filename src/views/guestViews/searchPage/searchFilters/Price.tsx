@@ -17,7 +17,7 @@ interface PriceFilterProps {
 
 const Price: React.FC<PriceFilterProps> = ({ fromValue, toValue, onChange }) => {
   let renderValue = '';
-  if (fromValue > '0') renderValue = toValue === '' && fromValue > '0' ? '1000+' : `${fromValue}-${toValue}`;
+  if (fromValue >= '0') renderValue = toValue === '' && fromValue >= '0' ? '' : `${fromValue}-${toValue}`;
 
   const handleClear = () => {
     renderValue = '';
