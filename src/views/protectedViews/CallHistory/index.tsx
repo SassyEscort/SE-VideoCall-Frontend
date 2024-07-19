@@ -283,8 +283,8 @@ const CallHistory = () => {
                             onClick={() => {
                               setGuestData(list.model_id);
                               setGuestDataIndex(index);
-                              isCreditAvailable &&
-                                handleCallInitiate(list.model_id, isCreditAvailable, callTime, list.name, list.link ?? '', list.user_name);
+
+                              handleCallInitiate(list.model_id, isCreditAvailable, callTime, list.name, list.link ?? '', list.user_name);
                             }}
                           >
                             <Box sx={{ display: 'flex', gap: 1.25 }}>
