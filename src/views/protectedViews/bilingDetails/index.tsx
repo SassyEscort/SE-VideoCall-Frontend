@@ -66,7 +66,7 @@ const BillingDetails = ({
 
   useEffect(() => {
     const getCometChatInfo = async () => {
-      if (selectDetails && token.token) {
+      if (selectDetails && token.token && selectDetails.model_id) {
         const getInfo = await CallingService.getCometChatInfo(selectDetails.model_id, token.token);
         if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 3) {
           const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();

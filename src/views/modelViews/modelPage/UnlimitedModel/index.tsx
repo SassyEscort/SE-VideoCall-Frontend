@@ -18,18 +18,18 @@ import ModelSignup from 'views/modelViews/modelSignup';
 import { useState } from 'react';
 import ModelSignin from 'views/modelViews/modelSignin';
 import ModelForgetPasswordLink from 'views/modelViews/modelForgetPasswordLink';
-import ModelNewPassword from 'views/modelViews/ModelNewPassword';
+// import ModelNewPassword from 'views/modelViews/ModelNewPassword';
 
 const UnlimitedModel = () => {
-  const url = new URL(window.location.href);
-  const email = url.searchParams.get('email');
-  const emailCode = url.searchParams.get('code');
-  const emailId = url.searchParams.get('id');
+  // const url = new URL(window.location.href);
+  // const email = url.searchParams.get('email');
+  // const emailCode = url.searchParams.get('code');
+  // const emailId = url.searchParams.get('id');
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && !emailId ? true : false);
+  // const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && !emailId ? true : false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -53,13 +53,13 @@ const UnlimitedModel = () => {
     setOpenForgetPassLink(false);
   };
 
-  const handleChangePasswordClose = () => {
-    setIsOpenChangePassword(false);
-  };
-  const handleLoginChangePasswordOpen = () => {
-    setIsOpenChangePassword(false);
-    setIsOpenLogin(true);
-  };
+  // const handleChangePasswordClose = () => {
+  //   setIsOpenChangePassword(false);
+  // };
+  // const handleLoginChangePasswordOpen = () => {
+  //   setIsOpenChangePassword(false);
+  //   setIsOpenLogin(true);
+  // };
 
   const handleLoginResetPasswordOpen = () => {
     setOpenForgetPassLink(false);
@@ -112,9 +112,9 @@ const UnlimitedModel = () => {
       <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <ModelForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
-      <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
+      {/* <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
         <ModelNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
-      </UIStyledDialog>
+      </UIStyledDialog> */}
     </Box>
   );
 };

@@ -12,19 +12,19 @@ import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import ModelSignup from '../modelSignup';
 import ModelSignin from '../modelSignin';
 import ModelForgetPasswordLink from '../modelForgetPasswordLink';
-import ModelNewPassword from '../ModelNewPassword';
+// import ModelNewPassword from '../ModelNewPassword';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 const SideBarModelMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer: (open: boolean) => void }) => {
-  const url = new URL(window.location.href);
-  const email = url.searchParams.get('email');
-  const emailCode = url.searchParams.get('code');
-  const emailId = url.searchParams.get('id');
+  // const url = new URL(window.location.href);
+  // const email = url.searchParams.get('email');
+  // const emailCode = url.searchParams.get('code');
+  // const emailId = url.searchParams.get('id');
   const [isopen, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && !emailId ? true : false);
+  // const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && !emailId ? true : false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -56,13 +56,13 @@ const SideBarModelMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
     setOpenForgetPassLink(false);
   };
 
-  const handleChangePasswordClose = () => {
-    setIsOpenChangePassword(false);
-  };
-  const handleLoginChangePasswordOpen = () => {
-    setIsOpenChangePassword(false);
-    setIsOpenLogin(true);
-  };
+  // const handleChangePasswordClose = () => {
+  //   setIsOpenChangePassword(false);
+  // };
+  // const handleLoginChangePasswordOpen = () => {
+  //   setIsOpenChangePassword(false);
+  //   setIsOpenLogin(true);
+  // };
 
   return (
     <Drawer anchor="right" open={open} onClose={() => toggleDrawer(false)}>
@@ -112,9 +112,9 @@ const SideBarModelMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
       <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <ModelForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
-      <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
+      {/* <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
         <ModelNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
-      </UIStyledDialog>
+      </UIStyledDialog> */}
     </Drawer>
   );
 };
