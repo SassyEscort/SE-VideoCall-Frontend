@@ -24,7 +24,7 @@ const SideBarModelMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
   const [isopen, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && emailId ? true : false);
+  const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && !emailId ? true : false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);

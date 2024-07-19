@@ -1,7 +1,7 @@
 'use client';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { EscortSlider } from './EscortSlider';
-import { CircularProgress, useMediaQuery } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import EscortSliderMobile from './EscortSliderMobile';
 import EscortPersonalDetail from './EscortPersonalDetail';
@@ -19,7 +19,6 @@ import Box from '@mui/system/Box';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { CallingService } from 'services/calling/calling.services';
 import moment from 'moment';
-import { LoaderBox } from './EscortDetailPage.styled';
 
 const EscortDetailPage = () => {
   const path = usePathname();
@@ -82,11 +81,6 @@ const EscortDetailPage = () => {
   return (
     <>
       <HomeMainContainer>
-        {isLoading && (
-          <LoaderBox>
-            <CircularProgress />
-          </LoaderBox>
-        )}
         <Box sx={{ px: { xs: '15px', lg: '0' } }}>
           {isLgDown && guestData ? (
             <EscortSliderMobile
@@ -97,6 +91,7 @@ const EscortDetailPage = () => {
                 handleCallInitiate(guestData?.id, isCreditAvailable, callTime, guestData?.name, modelPhoto ?? '', guestData.user_name)
               }
               isCustomer={isCustomer}
+              isLoading={isLoading}
             />
           ) : (
             guestData && (
@@ -108,6 +103,7 @@ const EscortDetailPage = () => {
                   handleCallInitiate(guestData?.id, isCreditAvailable, callTime, guestData?.name, modelPhoto ?? '', guestData.user_name)
                 }
                 isCustomer={isCustomer}
+                isLoading={isLoading}
               />
             )
           )}

@@ -13,16 +13,14 @@ import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestLogin from 'views/auth/guestLogin';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestNewPassword from 'views/auth/guestNewPassword';
+import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 
 const Footer = () => {
-  const url = new URL(window.location.href);
-  const email = url.searchParams.get('email');
   const [isLogin, setIsLogin] = useState(false);
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  const [openChangePassword, setIsOpenChangePassword] = useState(email && url.pathname !== '/profile' ? true : false);
+  const [loading, setLoading] = useState(false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -43,11 +41,6 @@ const Footer = () => {
     setIsOpenLogin(true);
   };
 
-  const handleLoginChangePasswordOpen = () => {
-    setIsOpenChangePassword(false);
-    setIsOpenLogin(true);
-  };
-
   const handleLoginClose = () => {
     setIsOpenLogin(false);
   };
@@ -61,10 +54,6 @@ const Footer = () => {
     setOpenForgetPassLink(false);
   };
 
-  const handleChangePasswordClose = () => {
-    setIsOpenChangePassword(false);
-  };
-
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -74,6 +63,13 @@ const Footer = () => {
     };
     userToken();
   }, []);
+
+  const handleClick = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 6000);
+  };
   return (
     <Banner>
       <TextContainerMain>
@@ -105,11 +101,11 @@ const Footer = () => {
                   </UIThemeShadowButton>
                 ) : (
                   <Link prefetch={false} href="/">
-                    <UIThemeShadowButton fullWidth variant="contained">
+                    <StyleButtonShadowV2 fullWidth variant="contained" onClick={handleClick} loading={loading}>
                       <FooterButton variant="buttonLargeBold">
                         <FormattedMessage id="ExploreModels" />
                       </FooterButton>
-                    </UIThemeShadowButton>
+                    </StyleButtonShadowV2>
                   </Link>
                 )}
               </Box>
@@ -136,9 +132,6 @@ const Footer = () => {
       </UIStyledDialog>
       <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
-      </UIStyledDialog>
-      <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
-        <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
       </UIStyledDialog>
     </Banner>
   );

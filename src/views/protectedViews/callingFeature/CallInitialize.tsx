@@ -1,10 +1,11 @@
 'use client';
 import { useEffect } from 'react';
-import { CometChatUIKit, UIKitSettingsBuilder } from '@cometchat/chat-uikit-react';
+import { CometChatUIKit } from '@cometchat/chat-uikit-react';
 import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
 import { ErrorMessage } from 'constants/common.constants';
 import { toast } from 'react-toastify';
+import { UIKitSettingsBuilder } from '@cometchat/uikit-shared';
 
 export const COMETCHAT_CONSTANTS = {
   APP_ID: process.env.NEXT_PUBLIC_COMET_CHAT_APP_ID!,
@@ -30,24 +31,24 @@ const CallInitialize = () => {
           .build();
 
         await CometChatUIKit.init(UIKitSettings);
-        let user = await CometChatUIKit.getLoggedinUser();
+        if (isModel && modelUsername) {
+          let user = await CometChatUIKit.getLoggedinUser();
 
-        if (!user && modelUsername.user_name && isModel) {
-          user = await CometChatUIKit.login(modelUsername.user_name);
-        }
-
-        CometChatUIKit.getLoggedinUser().then((user) => {
           if (!user && modelUsername.user_name && isModel) {
-            CometChatUIKit.login(modelUsername.user_name);
+            user = await CometChatUIKit.login(modelUsername.user_name);
           }
-        });
+
+          CometChatUIKit.getLoggedinUser().then((user) => {
+            if (!user && modelUsername.user_name && isModel) {
+              CometChatUIKit.login(modelUsername.user_name);
+            }
+          });
+        }
       } catch (e) {
         toast.error(ErrorMessage);
       }
     };
-    if (isModel) {
-      init();
-    }
+    init();
   }, [modelUsername, isModel]);
 
   return <></>;

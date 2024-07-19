@@ -43,7 +43,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
       onSubmit={async (values, { setSubmitting }) => {
         try {
           setLoading(true);
-          const data = await GuestAuthService.guestForgetPasswordLink(values);
+          const data = await GuestAuthService.guestResetPasswordEmail({ email: values.email });
           if (data.code === 200) {
             toast.success('Success');
             setActiveStep(1);

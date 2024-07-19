@@ -17,7 +17,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import { CallHistoryPaginationContainer, DividerContainer, FirstBoxContainer, FirstTextContainer } from '../CallHistory/CallHistory.styled';
-import { BillingHistoryDetails } from 'services/guestBilling/types';
+import { BillingHistoryDetails, ViewDetailsRes } from 'services/guestBilling/types';
 import { toast } from 'react-toastify';
 import { ModelBillingHistoryService } from 'services/guestBilling/guestBillingHistory.services';
 import { ErrorMessage } from 'constants/common.constants';
@@ -47,7 +47,7 @@ const BillingHistory = () => {
   const [total_rows, setTotalRows] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const [selectDetails, setSelectDetails] = useState({});
+  const [selectDetails, setSelectDetails] = useState<ViewDetailsRes>();
 
   const [filters, setFilters] = useState<BillPaginationType>({
     page: 1,
@@ -151,7 +151,7 @@ const BillingHistory = () => {
                             <TextBoxContainer
                               onClick={() => {
                                 handDetailsOpen();
-                                setSelectDetails(list);
+                                setSelectDetails(list as ViewDetailsRes);
                               }}
                             >
                               <FormattedMessage id="ViewDetails" />
@@ -196,7 +196,7 @@ const BillingHistory = () => {
           </CallHistoryPaginationContainer>
         )}
       </BillingHistoryBoxContainer>
-      <BillingDetails open={open} handleClose={handDetailsClose} selectDetails={selectDetails} />
+      <BillingDetails open={open} handleClose={handDetailsClose} selectDetails={selectDetails ?? ({} as ViewDetailsRes)} />
     </MainLayoutNav>
   );
 };

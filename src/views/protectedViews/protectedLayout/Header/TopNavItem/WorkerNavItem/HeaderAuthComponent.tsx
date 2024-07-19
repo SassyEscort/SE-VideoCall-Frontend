@@ -153,7 +153,7 @@ const HeaderAuthComponent = () => {
   }, [token.id, token.token, isCallEnded]);
 
   useEffect(() => {
-    if (isCallEnded && avaialbleCredits) {
+    if (isCallEnded && avaialbleCredits !== undefined) {
       setBalance(avaialbleCredits);
     }
   }, [avaialbleCredits, isCallEnded]);

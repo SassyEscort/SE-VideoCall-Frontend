@@ -73,11 +73,16 @@ export class adminModelServices {
     }
   };
 
-  static modelAction = async (token: string, modelId: number, profile_status: string): Promise<ModelListingRes> => {
+  static modelAction = async (
+    token: string,
+    modelId: number,
+    profile_status: string,
+    rejection_reason?: string
+  ): Promise<ModelListingRes> => {
     try {
       const res = await axios.put(
         process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/${modelId}`,
-        { profile_status: profile_status },
+        { profile_status: profile_status, rejection_reason: rejection_reason },
         {
           headers: {
             'Content-Type': 'application/json',

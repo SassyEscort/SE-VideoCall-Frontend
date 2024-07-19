@@ -48,6 +48,8 @@ export const FirstUsdBox = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   width: '100%',
   maxWidth: '741px',
+  height: '100%',
+  minHeight: '109px',
   backgroundColor: '#232027',
   paddingRight: theme.spacing(2),
   borderRadius: '8px',
@@ -225,4 +227,19 @@ export const LoaderBox = styled(Box)(() => ({
   justifyContent: 'center',
   alignItems: 'center',
   width: '100%'
+}));
+
+export const FirstBoxConatiner = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1.5),
+  flexDirection: 'column'
+}));
+
+export const SecBoxConatiner = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: theme.spacing(1),
+  justifyContent: 'center',
+  alignItems: 'center',
+  textAlign: 'center'
 }));

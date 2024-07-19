@@ -42,11 +42,11 @@ export class payoutDetailsService {
     }
   };
 
-  static payoutAction = async (token: string, payout_id: number, rejected: boolean): Promise<payoutResponse> => {
+  static payoutAction = async (token: string, payout_id: number, rejected: boolean, rejection_reason?: string): Promise<payoutResponse> => {
     try {
       const res = await axios.put(
         process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/payouts/${payout_id}`,
-        { rejected: rejected },
+        { rejected: rejected, rejection_reason: rejection_reason },
         {
           headers: {
             'Content-Type': 'application/json',

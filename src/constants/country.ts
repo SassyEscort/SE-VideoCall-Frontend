@@ -1,7 +1,7 @@
 export const countryWithFlag = [
   {
     name: 'Afghanistan',
-    flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Afghanistan.svg',
+    flag: 'https://staging.flirtbate.com/images/flags/afghanistan-flag-icon.svg',
     number: '+93'
   },
   {

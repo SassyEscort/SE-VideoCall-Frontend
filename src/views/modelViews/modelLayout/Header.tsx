@@ -23,13 +23,13 @@ const HeaderModelComponent = () => {
   const url = new URL(window.location.href);
   const email = url.searchParams.get('email');
   const emailCode = url.searchParams.get('code');
-  const emailId = url.searchParams.get('id');
+  const id = url.searchParams.get('id');
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openSidebar, setOpenSidebar] = useState(false);
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && emailId ? true : false);
+  const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && !id ? true : false);
   const isSmaller = useMediaQuery('(max-width:320px)');
 
   const handleSignupOpen = () => {

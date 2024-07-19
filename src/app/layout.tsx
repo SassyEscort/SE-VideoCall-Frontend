@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from 'next';
 import ProviderWrapper from './ProviderWrapper';
-import CallInitialize from 'views/protectedViews/callingFeature/CallInitialize';
 import { CallFeatureProvider } from '../../context/CallFeatureContext';
 import CallFeature from 'views/protectedViews/callingFeature';
 
@@ -74,7 +73,6 @@ export default function RootLayout({
         <ProviderWrapper>
           <>
             <CallFeatureProvider>
-              <CallInitialize />
               <CallFeature />
               {children}
             </CallFeatureProvider>

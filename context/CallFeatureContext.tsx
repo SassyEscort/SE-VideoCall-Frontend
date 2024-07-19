@@ -7,7 +7,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { CallingService, CreditCallRes } from 'services/calling/calling.services';
 import { CALLING_STATUS } from 'constants/callingConstants';
-import { CometChatUIKit, UIKitSettingsBuilder } from '@cometchat/chat-uikit-react';
+import { CometChatUIKit } from '@cometchat/chat-uikit-react';
 import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
 import { ErrorMessage } from 'constants/common.constants';
@@ -18,6 +18,7 @@ import ModelCredits from 'views/protectedViews/Credites/ModelCredits';
 import { usePathname, useSearchParams } from 'next/navigation';
 import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
 import { useRouter } from 'next/navigation';
+import { UIKitSettingsBuilder } from '@cometchat/uikit-shared';
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
@@ -30,6 +31,8 @@ interface CallFeatureContextProps {
     modelPhoto: string,
     userName: string
   ) => void;
+  handelNameChange: () => void;
+  isNameChange: boolean;
   isCallAccepted: boolean;
   isCustomer: boolean;
   isCallIncoming: boolean;
@@ -46,6 +49,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   call: undefined,
   handleCancelCall: () => {},
   handleCallInitiate: () => {},
+  handelNameChange: () => {},
+  isNameChange: false,
   isCallAccepted: false,
   isCustomer: false,
   isCallIncoming: false,
@@ -88,10 +93,10 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [balance, setBalance] = useState(0);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [avaialbleCredits, setAvailableCredits] = useState(0);
+  const [isNameChange, setIsNameChange] = useState(false);
 
   const pathname = usePathname();
   const router = useRouter();
-
   const init = useCallback(async () => {
     try {
       const UIKitSettings = new UIKitSettingsBuilder()
@@ -118,6 +123,10 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [customerUsername, isCustomer]);
 
+  const handelNameChange = async () => {
+    setIsNameChange(!isNameChange);
+  };
+
   const handleCancelCall = async () => {
     await creditPutCallLog(modelId, sessionId, CALLING_STATUS.CANCELED);
     await CometChat.rejectCall(sessionId, CometChat.CALL_STATUS.CANCELLED);
@@ -143,6 +152,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       } else {
         setIsLoading(true);
         await init();
+
         setEndCallTime(callTime);
         const callObject = new CometChat.Call(
           userName,
@@ -158,6 +168,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       }
     } else if (call) {
       toast.error('Please end your ONGOING call');
+      setIsLoading(false);
     } else {
       setOpen(true);
     }
@@ -354,6 +365,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         call,
         handleCancelCall,
         handleCallInitiate,
+        handelNameChange,
+        isNameChange,
         isCallAccepted,
         isCustomer,
         isCallIncoming,

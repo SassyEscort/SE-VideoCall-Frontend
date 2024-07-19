@@ -12,7 +12,6 @@ import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox';
 import Box from '@mui/material/Box';
 import EscortSwiperPhotoContainer from './EscortSwiperPhotoContainer';
-import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Image from 'next/image';
 import UIStyledShadowButtonLike from 'components/UIComponents/UIStyledShadowButtonLike';
@@ -42,19 +41,23 @@ import GuestLogin from 'views/auth/guestLogin';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestSignup from 'views/auth/guestSignup';
+import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
+import { sortExistingPhotos } from 'utils/photoUtils';
 
 export const EscortSlider = ({
   workerPhotos,
   modelId,
   token,
   handleCallInitiate,
-  isCustomer
+  isCustomer,
+  isLoading
 }: {
   workerPhotos: WorkerPhotos[];
   modelId: number;
   token: TokenIdType;
   handleCallInitiate: () => void;
   isCustomer: boolean;
+  isLoading: boolean;
 }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [liked, setLiked] = useState(false);
@@ -62,6 +65,8 @@ export const EscortSlider = ({
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const swiperRef = useRef<SwiperRef | any>();
+
+  const sortedWorkerPhotos = workerPhotos.sort(sortExistingPhotos);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -144,7 +149,7 @@ export const EscortSlider = ({
             slidesPerView={1}
             style={{ height: '100%' }}
           >
-            {workerPhotos.map((imageSrc, index) => {
+            {sortedWorkerPhotos.map((imageSrc, index) => {
               return (
                 <SwiperSlide key={index} style={{ paddingTop: 24, height: '100%' }}>
                   <FirstSwiperBlurContainer>
@@ -186,7 +191,7 @@ export const EscortSlider = ({
               modules={[Navigation, Thumbs, FreeMode]}
               className="mySwiper"
             >
-              {workerPhotos.map((imageSrc, index) => (
+              {sortedWorkerPhotos.map((imageSrc, index) => (
                 <SecSwiperSlidBoxContainer
                   style={{ paddingTop: index === 0 ? '0px' : '12px' }}
                   key={index}
@@ -218,7 +223,8 @@ export const EscortSlider = ({
         }}
       >
         <Box>
-          <UIThemeShadowButton
+          <StyleButtonShadowV2
+            loading={isLoading}
             onClick={isCustomer ? handleCallInitiate : handleLoginOpen}
             sx={{
               padding: 0,
@@ -235,7 +241,7 @@ export const EscortSlider = ({
                 <FormattedMessage id="StartVideoCall" />
               </UINewTypography>
             </Box>
-          </UIThemeShadowButton>
+          </StyleButtonShadowV2>
         </Box>
         <Box>
           <UIStyledShadowButtonLike

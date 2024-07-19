@@ -82,7 +82,7 @@ const DashboardPriceView = ({
   }, []);
 
   const validationSchema = yup.object({
-    price: yup.number().required('Price is required').min(minPrice, `Price must be at least ${minPrice}`)
+    price: yup.number().required('Priceisrequired').min(minPrice, `Price must be at least ${minPrice}`)
   });
 
   const { errors, values, touched, handleBlur, handleSubmit, setFieldValue } = useFormik({
@@ -180,7 +180,7 @@ const DashboardPriceView = ({
                       onChange={(e) => handlePriceChange(e.target.value)}
                       onBlur={handleBlur}
                       error={touched.price && Boolean(errors.price)}
-                      helperText={touched.price && errors.price}
+                      helperText={touched.price && errors.price ? <FormattedMessage id={errors.price} /> : ''}
                       variant="outlined"
                       InputProps={{
                         startAdornment: <InputAdornment position="start">$</InputAdornment>

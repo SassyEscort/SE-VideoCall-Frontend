@@ -49,6 +49,7 @@ export type VerificationBasicDetailsType = {
   token: TokenIdType;
   isEdit: boolean;
   isModelVerified: boolean;
+  isModelEmailVerified: number;
 };
 
 export type MultipleOptionString = {
@@ -72,6 +73,7 @@ const VerificationBasicDetails = ({
   handleChange,
   setFieldValue,
   handleBlur,
+  isModelEmailVerified,
   token,
   isEdit,
   isModelVerified
@@ -409,14 +411,16 @@ const VerificationBasicDetails = ({
                     </UINewTypography>
                     <>
                       <UINewTypography
-                        color="primary.600"
+                        color={isModelEmailVerified === 1 ? 'green' : 'primary.600'}
                         variant="buttonSmallBold"
                         onClick={() => {
-                          sendLinkVerify();
-                          setActiveStep(1);
+                          if (isModelEmailVerified !== 1) {
+                            sendLinkVerify();
+                            setActiveStep(1);
+                          }
                         }}
                       >
-                        <FormattedMessage id="Verify" />
+                        {isModelEmailVerified === 1 ? <FormattedMessage id="Verified" /> : <FormattedMessage id="Verify" />}
                       </UINewTypography>
 
                       {activeStep === 1 && (

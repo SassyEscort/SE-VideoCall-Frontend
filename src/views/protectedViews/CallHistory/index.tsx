@@ -28,7 +28,6 @@ import {
   SecondSubFirstPartThiredBox,
   SecondSubFirstPartThiredBoxText,
   SecondSubTextMainContainer,
-  UIThemeShadowButtonContainer,
   WorkerImg
 } from './CallHistory.styled';
 import MainLayoutNav from '../protectedLayout';
@@ -48,6 +47,7 @@ import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { LoaderBox } from '../Credites/Credits.styled';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import { CallingService } from 'services/calling/calling.services';
+import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 
 export type CallHistoryPaginationType = {
   page: number;
@@ -60,11 +60,12 @@ const CallHistory = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [callHistoryData, setCallHistoryData] = useState<CallHistoryPageDetailsRes>();
   const [total_rows, setTotalRows] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const [guestData, setguestData] = useState(0);
+  const [isLoadingCall, setIsLoading] = useState(false);
+  const [guestData, setGuestData] = useState(0);
+  const [guestDataIndex, setGuestDataIndex] = useState(0);
   const [isCreditAvailable, setIsCreditAvailable] = useState(false);
   const [callTime, setCallTime] = useState(0);
-  const { handleCallInitiate, call, isCallEnded } = useCallFeatureContext();
+  const { handleCallInitiate, call, isCallEnded, isLoading } = useCallFeatureContext();
   const [filters, setFilters] = useState<CallHistoryPaginationType>({
     page: 1,
     limit: 20,
@@ -175,7 +176,7 @@ const CallHistory = () => {
               <FormattedMessage id="CallsHistory" />
             </UINewTypography>
           </CallHistoryText>
-          {isLoading ? (
+          {isLoadingCall ? (
             <LoaderBox>
               <CircularProgress />
             </LoaderBox>
@@ -276,11 +277,14 @@ const CallHistory = () => {
                           </SecondSubFirstPartThiredBox>
                         )}
                         <CallAgainBox>
-                          <UIThemeShadowButtonContainer
+                          <StyleButtonShadowV2
+                            loading={isLoading && index === guestDataIndex ? true : false}
                             variant="contained"
                             onClick={() => {
-                              handleCallInitiate(list.model_id, isCreditAvailable, callTime, list.name, list.link ?? '', list.user_name);
-                              setguestData(list.model_id);
+                              setGuestData(list.model_id);
+                              setGuestDataIndex(index);
+                              isCreditAvailable &&
+                                handleCallInitiate(list.model_id, isCreditAvailable, callTime, list.name, list.link ?? '', list.user_name);
                             }}
                           >
                             <Box sx={{ display: 'flex', gap: 1.25 }}>
@@ -291,7 +295,7 @@ const CallHistory = () => {
                                 </UINewTypography>
                               </Box>
                             </Box>
-                          </UIThemeShadowButtonContainer>
+                          </StyleButtonShadowV2>
                         </CallAgainBox>
                       </SecondSubTextMainContainer>
                     </SecondSubContainer>
