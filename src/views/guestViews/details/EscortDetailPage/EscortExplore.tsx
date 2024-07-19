@@ -48,6 +48,7 @@ const EscortExplore = () => {
   });
 
   const [filters, setFilters] = useState(getInitialFilters());
+  const currvalue = useRef(filters);
 
   useEffect(() => {
     const userToken = async () => {
@@ -141,10 +142,18 @@ const EscortExplore = () => {
     if (initialRender.current) {
       initialRender.current = false;
       handelFilterChange(filters);
+    } else {
+      const querydata = getInitialFilters();
+      JSON.stringify(querydata) !== JSON.stringify(currvalue.current) ? handelFilterChange(querydata) : '';
     }
     handleCHangeSearchFilter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
+
+  useEffect(() => {
+    setFilters(getInitialFilters());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   return (
     <>
