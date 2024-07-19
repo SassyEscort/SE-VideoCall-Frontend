@@ -9,3 +9,11 @@ export const LoaderBox = styled(Box)(() => ({
   zIndex: 1000,
   left: '50%'
 }));
+
+export const EscortPersonalDetailsBoxContainet = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1),
+  textAlign: 'center',
+  alignItems: 'center',
+  marginTop: theme.spacing(1.5)
+}));

@@ -7,9 +7,7 @@ import * as Yup from 'yup';
 import WorkerPhotosWithoutFilterNew from './WorkerPhotosWithoutFilterNew';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
-import { useMediaQuery } from '@mui/material';
-import theme from 'themes/theme';
-import { LastMainBox, StepButtonNext } from './LastStepPromise.styled';
+import { LastBoxContainer, LastMainBox, StepButtonNext } from './LastStepPromise.styled';
 import { FormattedMessage } from 'react-intl';
 import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
 import { toast } from 'react-toastify';
@@ -69,7 +67,6 @@ const VerificationStepPromise = ({
   isReviewEdit,
   handleEdit
 }: VerificationStepPromiseType) => {
-  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [loading, setLoading] = useState(false);
 
   const validationSchema = Yup.object().shape({
@@ -164,17 +161,6 @@ const VerificationStepPromise = ({
               modelDetails={modelDetails}
             />
 
-            <Box
-              sx={{
-                marginTop: isSmDown ? 9 : 12,
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'center'
-              }}
-            >
-              <VerificationStep2Instruction />
-            </Box>
-
             <LastMainBox>
               <StepButtonNext>
                 <UIThemeButton variant="outlined" onClick={handleDocuPrev}>
@@ -191,6 +177,10 @@ const VerificationStepPromise = ({
                 </StyleButtonV2>
               </StepButtonNext>
             </LastMainBox>
+
+            <LastBoxContainer>
+              <VerificationStep2Instruction />
+            </LastBoxContainer>
           </Box>
         </>
       )}
