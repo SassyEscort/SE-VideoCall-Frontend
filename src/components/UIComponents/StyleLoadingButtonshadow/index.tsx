@@ -20,6 +20,11 @@ const UIStyledLoadingButtonShadowV2 = styled(LoadingButton)(({ theme }) => ({
     color: theme.palette.primary[200],
     boxShadow: '0px 0px 32px 8px #FF68C07A'
   },
+  [theme.breakpoints.down('sm')]: {
+    '&.MuiButton-root': {
+      width: '363px'
+    }
+  },
 
   '&.MuiButton-outlined': {
     border: `2px solid`

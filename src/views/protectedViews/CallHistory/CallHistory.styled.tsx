@@ -30,10 +30,13 @@ export const CallHistoryText = styled(Box)(({ theme }) => ({
 export const SecondContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  gap: theme.spacing(5),
   width: '100%',
   maxWidth: '929px',
   height: '100%',
-  gap: theme.spacing(3)
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(3)
+  }
 }));
 
 export const SecondSubContainer = styled(Box)(({ theme }) => ({
@@ -69,6 +72,9 @@ export const SecondSubFirstBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     gap: theme.spacing(20.625)
   },
+  [theme.breakpoints.between(0, 725)]: {
+    gap: theme.spacing(6)
+  },
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(2.375)
   },
@@ -101,7 +107,10 @@ export const WorkerImg = styled('img')(({ theme, src }) => ({
   minWidth: '80px',
   height: '80px',
   borderRadius: theme.spacing(1.5),
-  backgroundImage: `url(${src})`
+  backgroundImage: `url(${src})`,
+  objectFit: 'cover',
+  backgroundPosition: 'cover',
+  backgroundRepeat: 'no-repeat'
 }));
 
 export const SecondSubFirstPartSecondBox = styled(Box)(({ theme }) => ({
@@ -151,7 +160,7 @@ export const SecondSubFirstPartThiredBox = styled(Box)(({ theme }) => ({
   height: '100%',
   maxHeight: '50px',
   gap: theme.spacing(1.5),
-  marginTop: theme.spacing(1.875)
+  marginTop: theme.spacing(1.125)
 }));
 
 export const SecondSubFirstPartThiredBoxText = styled(Box)(({ theme }) => ({
@@ -200,7 +209,10 @@ export const CallAgainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: theme.spacing(2)
+  marginTop: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    marginTop: theme.spacing(5)
+  }
 }));
 
 export const CreditUsedBox = styled(Box)(({ theme }) => ({
