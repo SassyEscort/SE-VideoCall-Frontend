@@ -261,9 +261,11 @@ const HeaderAuthComponent = () => {
           >
             <MenuItem onClick={handleCloseLogout}>
               <ListItemIcon>
-                <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                  <Box component="img" src="/images/icons/userLine.png" sx={{ width: '24px', height: '24px' }} />
-                </IconButton>
+                <Link href="/profile" onClick={handleCloseLogout}>
+                  <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                    <Box component="img" src="/images/icons/userLine.png" sx={{ width: '24px', height: '24px' }} />
+                  </IconButton>
+                </Link>
               </ListItemIcon>
               <Link href="/profile" onClick={handleCloseLogout}>
                 <ListItemText>

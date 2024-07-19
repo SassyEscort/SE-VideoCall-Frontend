@@ -84,3 +84,16 @@ export const LastMainBox = styled(Box)(({ theme }) => ({
     paddingRight: theme.spacing(1.875)
   }
 }));
+
+export const LastBoxContainer = styled(Box)(({ theme }) => ({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  marginBottom: theme.spacing(11),
+  [theme.breakpoints.down('sm')]: {
+    marginTop: theme.spacing(9)
+  },
+  [theme.breakpoints.up('sm')]: {
+    marginTop: theme.spacing(12)
+  }
+}));

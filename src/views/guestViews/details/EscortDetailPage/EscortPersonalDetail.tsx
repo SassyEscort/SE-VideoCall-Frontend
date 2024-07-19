@@ -17,6 +17,7 @@ import { FormattedMessage } from 'react-intl';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import moment from 'moment';
 import { getLastActive } from 'utils/dateAndTime';
+import { EscortPersonalDetailsBoxContainet } from './EscortDetailPage.styled';
 
 const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }) => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -30,6 +31,10 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
 
   return (
     <>
+      <EscortPersonalDetailsBoxContainet>
+        <Box component="img" src="/images/icons/payout-icon.png" width={16} height={16} />
+        <UINewTypography>You should have credits worth 3 minutes to call</UINewTypography>
+      </EscortPersonalDetailsBoxContainet>
       <Box
         sx={{
           display: 'flex',
