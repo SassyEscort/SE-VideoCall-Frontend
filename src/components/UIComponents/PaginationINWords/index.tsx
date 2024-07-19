@@ -8,7 +8,8 @@ function PaginationInWords({
   total_rows,
   offset,
   isEscort,
-  isCall
+  isCall,
+  isBills
 }: {
   page: number;
   limit: number;
@@ -16,13 +17,22 @@ function PaginationInWords({
   offset: number;
   isEscort?: boolean;
   isCall?: boolean;
+  isBills?: boolean;
 }) {
   return (
     <UINewTypography variant="SubtitleSmallRegular">
       <FormattedMessage id="Showing" /> {offset + 1} <FormattedMessage id="To" />{' '}
       {page > 0 ? (page * limit > total_rows ? total_rows : page * limit) : limit > total_rows ? total_rows : limit}{' '}
       <FormattedMessage id="Of" /> {total_rows}{' '}
-      {isCall ? <FormattedMessage id="calls" /> : isEscort ? <FormattedMessage id="escorts" /> : <FormattedMessage id="withdrawls" />}
+      {isBills ? (
+        'bills'
+      ) : isCall ? (
+        <FormattedMessage id="calls" />
+      ) : isEscort ? (
+        <FormattedMessage id="models" />
+      ) : (
+        <FormattedMessage id="withdrawls" />
+      )}
     </UINewTypography>
   );
 }

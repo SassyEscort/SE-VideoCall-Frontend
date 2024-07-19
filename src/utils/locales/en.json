@@ -66,7 +66,7 @@
   "WeEmployRigorousAge": "We employ rigorous age verification processes to ensure that all users are of legal age. New users are required to provide valid identification documents for verification purposes.",
   "IsThereARefund": "Is there a refund policy for unused credits?",
   "WeDoNotOfferRefunds": "Unfortunately, we do not offer refunds for unused credits. However, credits do not expire, so you can use them at your convenience for future video calls.",
-  "HowAreDisputesResolved ": "How are disputes resolved regarding credits or service quality?",
+  "HowAreDisputesResolved": "How are disputes resolved regarding credits or service quality?",
   "InTheEventOfDispute": "In the event of a dispute regarding credits or service quality, our customer support team acts as a mediator to investigate the issue thoroughly and reach a fair resolution.",
   "DoINeedToDownload": "Do i need to download any software to use the platform?",
   "OurPlatformIsEntirely": "No, our platform is entirely web-based, eliminating the need for any downloads or installations. You can access it directly through your web browser on any device.",
@@ -601,6 +601,7 @@
   "MinimumWithdrawalAmountIs": "Minimum withdrawal amount is",
   "Pleaseuploadbetween2to30photos": "Please upload between 2 to 30 photos",
   "Priceisrequired": "Price is required",
+  "models": "models",
   "TotalCallTime": "Total call time",
   "TotalOf": "Total of"
 }

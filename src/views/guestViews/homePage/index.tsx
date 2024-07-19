@@ -44,6 +44,7 @@ const HomeContainer = () => {
   });
 
   const [filters, setFilters] = useState(getInitialFilters());
+  const currvalue = useRef(filters);
 
   useEffect(() => {
     const userToken = async () => {
@@ -133,6 +134,7 @@ const HomeContainer = () => {
         const offset = (value - 1) * filters.pageSize;
         const newFilters = { ...filters, page: value, offset: offset };
         setFilters(newFilters);
+        handelFilterChange(newFilters);
         const queryParams = new URLSearchParams(window.location.search);
         queryParams.set('page', value.toString());
         router.push(`/?${queryParams.toString()}`);
@@ -154,10 +156,18 @@ const HomeContainer = () => {
       initialRender.current = false;
       handelFilterChange(filters);
       setScroll(true);
+    } else {
+      const querydata = getInitialFilters();
+      JSON.stringify(querydata) !== JSON.stringify(currvalue.current) ? handelFilterChange(querydata) : '';
     }
     handleCHangeSearchFilter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters]);
+  }, [filters, searchParams]);
+
+  useEffect(() => {
+    setFilters(getInitialFilters());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   return (
     <>

@@ -34,7 +34,7 @@ export const DragAndDropMultipleImageThumbnailPhoto = styled(Box)(({ theme }) =>
   position: 'absolute',
   left: 8,
   top: 160,
-  zIndex: 100,
+  zIndex: 0,
   padding: '2px 8px',
   borderRadius: theme.spacing(0.5),
   backgroundColor: 'rgba(41, 15, 30, 0.80)',

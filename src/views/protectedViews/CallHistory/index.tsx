@@ -47,7 +47,7 @@ import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { LoaderBox } from '../Credites/Credits.styled';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import { CallingService } from 'services/calling/calling.services';
-import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
+import { UIStyledLoadingButtonShadowCallHistoryV2 } from 'components/UIComponents/StyleLoadingButtonshadow';
 
 export type CallHistoryPaginationType = {
   page: number;
@@ -277,14 +277,14 @@ const CallHistory = () => {
                           </SecondSubFirstPartThiredBox>
                         )}
                         <CallAgainBox>
-                          <StyleButtonShadowV2
+                          <UIStyledLoadingButtonShadowCallHistoryV2
                             loading={isLoading && index === guestDataIndex ? true : false}
                             variant="contained"
                             onClick={() => {
                               setGuestData(list.model_id);
                               setGuestDataIndex(index);
-                              isCreditAvailable &&
-                                handleCallInitiate(list.model_id, isCreditAvailable, callTime, list.name, list.link ?? '', list.user_name);
+
+                              handleCallInitiate(list.model_id, isCreditAvailable, callTime, list.name, list.link ?? '', list.user_name);
                             }}
                           >
                             <Box sx={{ display: 'flex', gap: 1.25 }}>
@@ -295,7 +295,7 @@ const CallHistory = () => {
                                 </UINewTypography>
                               </Box>
                             </Box>
-                          </StyleButtonShadowV2>
+                          </UIStyledLoadingButtonShadowCallHistoryV2>
                         </CallAgainBox>
                       </SecondSubTextMainContainer>
                     </SecondSubContainer>
@@ -327,7 +327,7 @@ const CallHistory = () => {
                   limit={filters.limit}
                   total_rows={total_rows}
                   offset={filters.offset}
-                  isEscort={true}
+                  isCall={true}
                 />
               </BillingPaginationBox>
             )}

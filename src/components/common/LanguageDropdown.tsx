@@ -8,12 +8,19 @@ import { FLAG_IMAGES, LANGUAGES } from 'constants/languageConstants';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import useConfig from 'hooks/useConfig';
 import { I18n } from 'types/config';
+import { useState } from 'react';
 
 const LanguageDropdown = () => {
   const { i18n, onChangeLocalization } = useConfig();
+  const [open, setOpen] = useState(false);
 
   const handleLanguageChange = (event: SelectChangeEvent) => {
     onChangeLocalization(event.target.value as I18n);
+    setOpen(false);
+  };
+
+  const handleToggle = () => {
+    setOpen(!open);
   };
 
   return (
@@ -37,6 +44,9 @@ const LanguageDropdown = () => {
         onChange={handleLanguageChange}
         autoWidth
         size="small"
+        open={open}
+        onClose={() => setOpen(false)}
+        onClick={handleToggle}
         sx={{
           paddingRight: 0,
           '& .MuiSelect-icon': {
