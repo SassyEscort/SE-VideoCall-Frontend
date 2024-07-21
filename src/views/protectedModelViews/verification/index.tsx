@@ -184,7 +184,7 @@ const VerificationContainer = () => {
                   <FormattedMessage id="Photos" />
                 </UINewTypography>
                 <UINewTypography variant="SubtitleSmallMedium">
-                  <FormattedMessage id="NextFinalReviews" />
+                  <FormattedMessage id="NextPrice" />
                 </UINewTypography>
               </>
             )}

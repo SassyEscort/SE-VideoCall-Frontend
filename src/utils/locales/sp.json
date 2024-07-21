@@ -602,5 +602,6 @@
   "Priceisrequired": "Se requiere precio",
   "TotalCallTime": "tiempo total de llamada",
   "TotalOf": "Total de",
-  "DobIsRequired": "Se requiere fecha de nacimiento"
+  "DobIsRequired": "Se requiere fecha de nacimiento",
+  "NextPrice": "Siguiente - Precio"
 }

@@ -31,7 +31,7 @@ export const InvoiceBoxContainer = styled(Box)(({ theme }) => ({
     flexDirection: 'column'
   },
   [theme.breakpoints.up('sm')]: {
-    flexDirection: 'row-revers'
+    flexDirection: 'row-reverse'
   }
 }));
 
