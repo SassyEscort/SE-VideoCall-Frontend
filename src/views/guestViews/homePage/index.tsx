@@ -44,7 +44,6 @@ const HomeContainer = () => {
   });
 
   const [filters, setFilters] = useState(getInitialFilters());
-  const currvalue = useRef(filters);
 
   useEffect(() => {
     const userToken = async () => {
@@ -148,17 +147,12 @@ const HomeContainer = () => {
     const newFilters = { ...filters, ...value };
     setFilters(newFilters);
     setScroll(true);
-    handelFilterChange({ ...filters, ...value });
   };
 
   useEffect(() => {
     if (initialRender.current) {
       initialRender.current = false;
-      handelFilterChange(filters);
       setScroll(true);
-    } else {
-      const querydata = getInitialFilters();
-      JSON.stringify(querydata) !== JSON.stringify(currvalue.current) ? handelFilterChange(querydata) : '';
     }
     handleCHangeSearchFilter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -166,6 +160,7 @@ const HomeContainer = () => {
 
   useEffect(() => {
     setFilters(getInitialFilters());
+    handelFilterChange(getInitialFilters());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 

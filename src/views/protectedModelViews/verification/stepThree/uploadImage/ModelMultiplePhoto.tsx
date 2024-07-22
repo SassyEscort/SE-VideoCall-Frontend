@@ -36,9 +36,11 @@ export type UploadMultiplePhotos = {
   touched: FormikTouched<VerificationFormStep5TypeV2>;
   workerPhotos: WorkerPhotos[];
   isEdit?: boolean;
+  isUpdated?: boolean;
   token: TokenIdType;
   handleModelApiChange: () => void;
   loading: boolean;
+  handelChangedIsUpdated?: () => void;
 };
 export type UploadPhotos = {
   id?: number;
@@ -59,7 +61,9 @@ const ModelMultiplePhoto = ({
   token,
   handleModelApiChange,
   isEdit,
-  loading
+  isUpdated,
+  loading,
+  handelChangedIsUpdated
 }: UploadMultiplePhotos) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -221,6 +225,14 @@ const ModelMultiplePhoto = ({
     });
     return cordsChanged || values?.file5 ? true : false;
   };
+
+  useEffect(() => {
+    if (isUpdated) {
+      setUploadedImagesURL([]);
+      handelChangedIsUpdated ? handelChangedIsUpdated() : '';
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUpdated]);
 
   return (
     <>

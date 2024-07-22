@@ -100,6 +100,7 @@ const UploadImage = ({
   handleEdit
 }: VerificationStepUploadType) => {
   const [loading, setLoading] = useState(false);
+  const [updated, setUpdated] = useState(false);
 
   const initialValuesPerStep: VerificationFormStep5TypeV2 = {
     file5: null as null | File[],
@@ -259,6 +260,7 @@ const UploadImage = ({
 
         if (response.code === 200) {
           handleModelApiChange();
+          setUpdated(true);
           if (isReviewEdit && handleEdit) {
             handleEdit(4);
           } else {
@@ -271,6 +273,10 @@ const UploadImage = ({
     } finally {
       setLoading(false);
     }
+  };
+
+  const handelChangedIsUpdated = () => {
+    setUpdated(false);
   };
 
   return (
@@ -287,6 +293,8 @@ const UploadImage = ({
           <ModelMultiplePhoto
             loading={loading}
             isEdit={isEdit}
+            isUpdated={updated}
+            handelChangedIsUpdated={handelChangedIsUpdated}
             handleModelApiChange={handleModelApiChange}
             token={token}
             values={values}

@@ -601,5 +601,7 @@
   "Pleaseuploadbetween2to30photos": "Por favor sube entre 2 y 30 fotos.",
   "Priceisrequired": "Se requiere precio",
   "TotalCallTime": "tiempo total de llamada",
-  "TotalOf": "Total de"
+  "TotalOf": "Total de",
+  "DobIsRequired": "Se requiere fecha de nacimiento",
+  "NextPrice": "Siguiente - Precio"
 }

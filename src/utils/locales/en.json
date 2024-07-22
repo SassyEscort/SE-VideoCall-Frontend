@@ -603,5 +603,7 @@
   "Priceisrequired": "Price is required",
   "models": "models",
   "TotalCallTime": "Total call time",
-  "TotalOf": "Total of"
+  "TotalOf": "Total of",
+  "DobIsRequired": "Dob is required",
+  "NextPrice": "Next - Price"
 }

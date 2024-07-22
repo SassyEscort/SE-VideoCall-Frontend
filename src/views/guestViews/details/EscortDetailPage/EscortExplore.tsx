@@ -22,7 +22,7 @@ const EscortExplore = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-
+  const [scroll, setScroll] = useState(false);
   const [modelListing, setModelListing] = useState<ModelHomeListing[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   // const [filters, setFilters] = useState<SearchFiltersTypes>();
@@ -116,6 +116,7 @@ const EscortExplore = () => {
       const getModel = await ModelListingService.getModelListing(values);
       setModelListing(getModel.model_details);
       setTotalRows(getModel.aggregate.total_rows);
+      scroll ? scrollToTable() : '';
     }
     setIsLoading(false);
   };
@@ -128,23 +129,36 @@ const EscortExplore = () => {
         handelFilterChange({ ...filters, page: value, offset: offset });
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [filters]
   );
 
+  const scrollToTable = () => {
+    const tableElement = document.getElementById('tableSection');
+    if (tableElement) {
+      tableElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const handelFiltersFormSearch = (value: SearchFiltersTypes) => {
+    setScroll(true);
     const newFilters = { ...filters, ...value };
     setFilters(newFilters);
-    handelFilterChange({ ...filters, ...value });
   };
 
   useEffect(() => {
     if (initialRender.current) {
       initialRender.current = false;
-      handelFilterChange(filters);
     }
     handleCHangeSearchFilter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
+
+  useEffect(() => {
+    setFilters(getInitialFilters());
+    handelFilterChange(getInitialFilters());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   return (
     <>
@@ -161,7 +175,7 @@ const EscortExplore = () => {
               >
                 <FormattedMessage id="ExploreFrom" />
               </UINewTypography>
-              <SubTitle>
+              <SubTitle id="tableSection">
                 <FormattedMessage id="SelectTheCompanion" />
               </SubTitle>
             </HomeExploreBox>
