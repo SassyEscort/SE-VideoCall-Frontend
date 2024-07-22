@@ -12,6 +12,8 @@ export const DialogTitleContainer = styled(DialogTitle)(({ theme }) => ({
 }));
 
 export const DialogContentBox = styled(DialogContent)(({ theme }) => ({
+  paddingTop: theme.spacing(3),
+  paddingBottom: theme.spacing(3),
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(0)
   }
@@ -114,14 +116,14 @@ export const DialogBox = styled(Dialog)(({ theme }) => ({
     backgroundColor: theme.palette.secondary[800],
     borderRadius: theme.spacing(1.5),
     border: 'solid 1px',
-    borderColor: '#232027'
+    borderColor: theme.palette.primary[700]
   },
   '& .MuiDialog-container': {
     backgroundColor: '#07030e99 !important',
     backdropFilter: 'blur(24px)'
   },
   '& .MuiPaper-root': {
-    maxWidth: '636px'
+    maxWidth: '634px'
   },
   [theme.breakpoints.down('sm')]: {
     '& .MuiDialog-paper': {

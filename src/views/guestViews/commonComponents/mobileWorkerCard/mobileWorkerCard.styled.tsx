@@ -30,16 +30,20 @@ export const ImgWorkerCard = styled(Box)(({ theme }) => ({
   borderRadius: theme.spacing(1.5),
   [theme.breakpoints.down('sm')]: {
     minHeight: '191px',
-    maxWidth: '329px'
+    maxWidth: '329px',
+    backgroundPosition: 'top'
   },
   '@media (max-width: 425px)': {
-    maxWidth: '175px'
+    maxWidth: '175px',
+    backgroundPosition: 'top'
   },
   '@media (max-width: 320px)': {
-    maxWidth: '250px'
+    maxWidth: '250px',
+    backgroundPosition: 'top'
   },
   '@media (max-width: 375px)': {
-    maxWidth: '325px'
+    maxWidth: '325px',
+    backgroundPosition: 'top'
   },
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',

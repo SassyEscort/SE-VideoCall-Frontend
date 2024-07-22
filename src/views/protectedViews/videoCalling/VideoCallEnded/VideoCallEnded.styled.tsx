@@ -3,7 +3,11 @@ import { Box, Dialog, DialogTitle, styled } from '@mui/material';
 export const DialogTitleBox = styled(DialogTitle)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
+  paddingTop: theme.spacing(2.5),
+  paddingBottom: theme.spacing(2.5),
+  paddingLeft: theme.spacing(3),
+  paddingRight: theme.spacing(3)
 }));
 
 export const DialogContentFristBox = styled(Box)(({ theme }) => ({
