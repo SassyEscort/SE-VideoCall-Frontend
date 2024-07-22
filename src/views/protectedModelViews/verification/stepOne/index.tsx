@@ -68,8 +68,8 @@ const VerificationStepOne = ({
     gender: Yup.string().required('Genderisrequired'),
     name: Yup.string().required('Nameisrequired').min(2, 'Nameistooshort').max(20, 'Nameistoolong'),
     email: Yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
-    dob: Yup.date()
-      .test('dob', 'AgeGreaterThan18', function (date) {
+    dob: Yup.string()
+      .test('dob', 'Agemustbegreaterthan18', function (date) {
         return moment().diff(moment(date), 'years') >= 18;
       })
       .required('DobIsRequired'),
