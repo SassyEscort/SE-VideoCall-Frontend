@@ -14,9 +14,11 @@ export default function RootLayout({
 }: Readonly<{
   children: JSX.Element;
 }>) {
+  const isStaging = process.env.NEXT_PUBLIC_ENV === 'staging';
   return (
     <html lang="en">
       <head>
+        {isStaging && <meta name="robots" content="noindex, nofollow" />}
         <script
           dangerouslySetInnerHTML={{
             __html: `!function (w, d, t) {
