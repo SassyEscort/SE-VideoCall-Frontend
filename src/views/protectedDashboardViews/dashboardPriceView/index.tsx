@@ -62,6 +62,7 @@ const DashboardPriceView = ({
         : ''
   };
   const [minPrice, setMinPrice] = useState<number>(0);
+  const [maxPrice, setMaxPrice] = useState<number>(0);
   const [loading, setLoading] = useState(false);
   const [disable, setDisable] = useState(false);
   const [commistionValue, setCommistionValue] = useState(0);
@@ -72,6 +73,7 @@ const DashboardPriceView = ({
     try {
       const res = await DashboardService.dashboardGetPriceDetails();
       setMinPrice(res?.data?.min_price);
+      setMaxPrice(res?.data?.max_price);
     } catch (error) {
       toast.error(ErrorMessage);
     }
@@ -82,7 +84,11 @@ const DashboardPriceView = ({
   }, []);
 
   const validationSchema = yup.object({
-    price: yup.number().required('Priceisrequired').min(minPrice, `Price must be at least ${minPrice}`)
+    price: yup
+      .number()
+      .required('Price is required')
+      .min(minPrice, `Price must be at least ${minPrice}`)
+      .max(maxPrice, `Price must be at most ${maxPrice}`)
   });
 
   const { errors, values, touched, handleBlur, handleSubmit, setFieldValue } = useFormik({
@@ -190,6 +196,9 @@ const DashboardPriceView = ({
 
                   <UINewTypography variant="SubtitleSmallMedium" color="secondary.700">
                     <FormattedMessage id="TheMinimumPrice" /> ${minPrice}
+                  </UINewTypography>
+                  <UINewTypography variant="SubtitleSmallMedium" color="secondary.700">
+                    <FormattedMessage id="TheMaximumPrice" /> ${maxPrice}
                   </UINewTypography>
                 </MainBoxRightSide>
 

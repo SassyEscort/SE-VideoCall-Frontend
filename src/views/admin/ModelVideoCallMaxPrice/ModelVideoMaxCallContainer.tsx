@@ -19,18 +19,15 @@ import {
   videoCallAmountServices,
   videoCallParams
 } from 'services/adminServices/videoCallConfiguration/videoCallConfiguration.services';
-import { DetailsBox } from './ModelVideo.styled';
+import { DetailsBox } from './ModelVideoMax.styled';
 
-export default function ModelVideoCallContainer() {
+export default function ModelVideoMaxCallContainer() {
   const [isLoading, setIsLoading] = useState(false);
   const [videoCallAmount, setVideoCallAmount] = useState<AdminVideoCallResponse>({} as AdminVideoCallResponse);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
 
   const validationSchema = yup.object({
-    min_price: yup
-      .number()
-      .moreThan(0.01, 'Minimum video call amount must be greater than 0.01')
-      .required('Minimum video call amount is required')
+    max_price: yup.number().required('Maximum video call amount is required')
   });
 
   const handleFormSubmit = async (values: videoCallParams) => {
@@ -74,15 +71,15 @@ export default function ModelVideoCallContainer() {
     <>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
         <Typography variant="h4" gutterBottom>
-          Model minimum video call price
+          Model maximum video call price
         </Typography>
       </Stack>
 
       <Formik
         enableReinitialize
         initialValues={{
-          min_price: videoCallAmount?.data?.min_price || '',
-          max_price: videoCallAmount?.data?.max_price || ''
+          max_price: videoCallAmount?.data?.max_price || '',
+          min_price: videoCallAmount?.data?.min_price || ''
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
@@ -93,12 +90,12 @@ export default function ModelVideoCallContainer() {
           <Box component="form" onSubmit={handleSubmit}>
             <DetailsBox>
               <TextField
-                name="min_price"
+                name="max_price"
                 label="Video call Amount"
                 type="number"
-                value={values.min_price}
-                error={Boolean(touched.min_price && errors.min_price)}
-                helperText={touched.min_price && errors.min_price ? errors.min_price : ''}
+                value={values.max_price}
+                error={Boolean(touched.max_price && errors.max_price)}
+                helperText={touched.max_price && errors.max_price ? errors.max_price : ''}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 InputProps={{

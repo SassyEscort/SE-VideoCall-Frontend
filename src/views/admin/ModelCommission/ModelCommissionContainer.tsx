@@ -22,6 +22,7 @@ import {
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import WithdrawConfigurationContainer from '../WithdrawConfiguration/WithdrawConfigurationContainer';
 import ModelVideoCallContainer from '../ModelVideoCallPrice/ModelVideoCallContainer';
+import ModelVideoMaxCallContainer from '../ModelVideoCallMaxPrice/ModelVideoMaxCallContainer';
 
 export default function ModelCommissionContainer() {
   const [isLoading, setIsLoading] = useState(false);
@@ -123,6 +124,9 @@ export default function ModelCommissionContainer() {
         </Box>
         <Box mt={5}>
           <ModelVideoCallContainer />
+        </Box>
+        <Box mt={5}>
+          <ModelVideoMaxCallContainer />
         </Box>
       </MainLayout>
     </>

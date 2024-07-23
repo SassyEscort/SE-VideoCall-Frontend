@@ -5,8 +5,9 @@ import { CallFeatureProvider } from '../../context/CallFeatureContext';
 import CallFeature from 'views/protectedViews/callingFeature';
 
 export const metadata: Metadata = {
-  title: 'Flirtbate - Personal Video Call Experience',
-  description: 'Flirtbate - Personal Video Call Experience'
+  title: 'Flirtbate - Live Sex Chat, Webcam Models, and Adult Cam Platform | Sex Chat - Flirtbate',
+  description:
+    ' Join our live sex chat platform for an unforgettable experience with webcam models. Connect with webcam models for private video call sex, sexcam videos, adult cam, and enjoy intimate sexual video chat sessions.'
 };
 
 export default function RootLayout({

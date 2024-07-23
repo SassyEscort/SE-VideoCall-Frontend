@@ -564,6 +564,7 @@
   "InvalidPassword": "Invalid Password! Does not meet requirements (this password has appeared in a data breach elsewhere and should never be used on any website)",
   "JustNow": "Just now",
   "TheMinimumPrice": "The minimum price you can set is",
+  "TheMaximumPrice": "The maximum price you can set is",
   "OutOFCredits": "Out of credits",
   "RememberPasswordd": "Remember Password?",
   "SetupYourNewPassword": "Setup your New Password",
