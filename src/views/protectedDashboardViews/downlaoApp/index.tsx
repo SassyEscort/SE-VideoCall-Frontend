@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Dwonload, ForBox, ImageBox, ImageSecondBox, MainConatiner, SecondBox, TextFirst, ThreeBox } from './DownloadApp.styled';
+import Link from 'next/link';
 const DownloadApp = () => {
   // const isSmallScreen = useMediaQuery('(max-width:320px)');
   return (
@@ -18,8 +19,8 @@ const DownloadApp = () => {
           </TextFirst>
 
           <ThreeBox>
-            <ImageBox src="/images/app-logo/video.webp" />
-            <ImageSecondBox src="/images/app-logo/fb-messenger.webp" />
+            <ImageBox src="/images/app-logo/app-video.png" />
+            <ImageSecondBox src="/images/app-logo/fb-messenger.png" />
           </ThreeBox>
         </SecondBox>
       </MainConatiner>
@@ -28,7 +29,9 @@ const DownloadApp = () => {
           <Box component={'img'} src="/images/app-logo/google-pay.png" sx={{ width: '120px', height: '120px' }} />
         </Box>
         <Box>
-          <Box component={'img'} src="/images/app-logo/app-store.png" sx={{ width: '120px', height: '120px' }} />
+          <Link href="https://apps.apple.com/us/app/hs-messenger/id6557061284" target="_blank">
+            <Box component={'img'} src="/images/app-logo/app-store.png" sx={{ width: '120px', height: '120px' }} />
+          </Link>
         </Box>
       </ForBox>
       {/* <GradientTypography variant="MediumSemiBoldText" sx={{ marginLeft: isSmallScreen ? '15px' : '55px' }}>

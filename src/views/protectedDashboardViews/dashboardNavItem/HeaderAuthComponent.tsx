@@ -21,6 +21,7 @@ import { Root } from 'services/notification/type';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import MyProfileChangePassword from 'views/protectedViews/changePassword';
 
 export type NotificationFilters = {
   page: number;
@@ -44,6 +45,7 @@ const DashboadrHeaderAuthComponent = () => {
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
   const [openNotification, setOpenNotification] = useState<boolean>(false);
   const [anchorElNotification, setAnchorElNotification] = useState<HTMLButtonElement | null>(null);
+  const [openChangePassword, setOpenChangePassword] = useState(false);
   const [filters, setFilters] = useState<NotificationFiltersDashboard>({
     page: 1,
     pageSize: 10,
@@ -54,6 +56,13 @@ const DashboadrHeaderAuthComponent = () => {
 
   const { isNameChange } = useCallFeatureContext();
 
+  const handleOpenChangePassword = () => {
+    setOpenChangePassword(true);
+  };
+
+  const handleCloseChangePassword = () => {
+    setOpenChangePassword(false);
+  };
   const handleOpenLogout = () => {
     setIsLogoutOpen(true);
   };
@@ -238,7 +247,19 @@ const DashboadrHeaderAuthComponent = () => {
                 </>
               )}
             </MenuItem>
-
+            <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+            <MenuItem onClick={handleOpenChangePassword}>
+              <ListItemIcon>
+                <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                  <Box component="img" src="/images/icons/changepassword-img.png" sx={{ width: '24px', height: '24px' }} />
+                </IconButton>
+              </ListItemIcon>
+              <ListItemText>
+                <UINewTypography variant="bodyLight" color="text.secondary">
+                  <FormattedMessage id="ChangePassword" />
+                </UINewTypography>
+              </ListItemText>
+            </MenuItem>
             <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
             <MenuItem onClick={handleOpenLogout}>
               <ListItemIcon>
@@ -253,7 +274,9 @@ const DashboadrHeaderAuthComponent = () => {
               </ListItemText>
             </MenuItem>
             <Logout open={isLogoutOpen} onClose={handleCloseLogoutt} />
+            <MyProfileChangePassword onOpen={openChangePassword} onClose={handleCloseChangePassword} token={token} />
           </Menu>
+
           <ProfileMenu profilePic={firstChar} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
         </IconButtonBox>
         {isSmUP &&
