@@ -43,6 +43,7 @@ interface CallFeatureContextProps {
   isBusy: boolean;
   handleBusyClose: () => void;
   avaialbleCredits: number;
+  getToken: (token: TokenIdType) => void;
 }
 
 const CallContext = createContext<CallFeatureContextProps>({
@@ -60,7 +61,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   handleBusyClose: () => {},
   isLoading: false,
   isCallEnded: false,
-  avaialbleCredits: 0
+  avaialbleCredits: 0,
+  getToken: () => {}
 });
 
 export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
@@ -131,6 +133,10 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     await creditPutCallLog(modelId, sessionId, CALLING_STATUS.CANCELED);
     await CometChat.rejectCall(sessionId, CometChat.CALL_STATUS.CANCELLED);
     setCall(undefined);
+  };
+
+  const getToken = (token: TokenIdType) => {
+    setToken(token);
   };
 
   const handleCallInitiate = async (
@@ -376,7 +382,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         isBusy,
         handleBusyClose,
         isLoading,
-        avaialbleCredits
+        avaialbleCredits,
+        getToken
       }}
     >
       {children}
