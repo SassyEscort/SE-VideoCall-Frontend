@@ -36,7 +36,7 @@ const MobileSidebar = ({
     setMenuId(Number(event.target.value));
     setTimeout(() => {
       setIsLoading(false);
-    }, 500); // Simula un tiempo de carga
+    }, 500);
   };
 
   const handleSave = () => {
