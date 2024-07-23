@@ -63,8 +63,7 @@ export class ModelAuthService {
 
       return res.data;
     } catch (err: any) {
-      const error: string = err;
-      return { error: error } as GenericResponse;
+      return { error: err.response.data.message } as GenericResponse;
     }
   };
 
