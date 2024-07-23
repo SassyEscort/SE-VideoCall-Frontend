@@ -562,6 +562,7 @@
   "Passwordmust": "La contraseña debe tener al menos 8 caracteres",
   "InvalidPassword": "¡Contraseña inválida! No cumple con los requisitos (esta contraseña ha aparecido en una filtración de datos en otro lugar y nunca debe usarse en ningún sitio web)",
   "TheMinimumPrice": "El precio mínimo que puedes establecer es",
+  "TheMaximumPrice": "El precio máximo que puedes establecer es",
   "OutOFCredits": "Sin créditos",
   "RememberPasswordd": "¿Recordar contraseña?",
   "NewPassword": "Nueva contraseña",

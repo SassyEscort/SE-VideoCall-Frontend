@@ -3,6 +3,7 @@ import { GenericResponse } from 'types/commonApiTypes';
 
 export type videoCallParams = {
   min_price: string | number;
+  max_price: string | number;
 };
 
 export type videoCallResponse = {
