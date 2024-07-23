@@ -45,6 +45,7 @@ export type ImageUploadPayload = {
   photosURL?: string;
   file_id: string;
   file_type: string;
+  document_front_side: number;
 };
 
 export type PhotoUpload = {
@@ -58,6 +59,7 @@ export type PhotoUpload = {
   photo: string;
   file_id: string;
   file_type: string;
+  document_front_side: number;
 };
 
 export type VerificationFormStep5TypeV2 = {
@@ -226,7 +228,8 @@ const UploadImage = ({
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
                 document_number: null,
                 file_id: x.file_id,
-                file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image'
+                file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image',
+                document_front_side: 0
               });
           });
 
@@ -243,7 +246,8 @@ const UploadImage = ({
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
                 document_number: null,
                 file_id: x.file_id,
-                file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image'
+                file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image',
+                document_front_side: 0
               });
           });
 

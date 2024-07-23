@@ -37,12 +37,7 @@ const DragAndDropV2 = ({
   withoutFilterImageTouched,
   title
 }: UploadFileControlType) => {
-  const docLink = modelDetails?.documents
-    ?.filter((x) => x.link !== 'null' || x.link !== null)
-    ?.map((x) => x.link)
-    ?.join('');
-
-  const [uploadedFileURL, setUploadedFileURL] = useState(docLink !== 'null' ? docLink : '');
+  const [uploadedFileURL, setUploadedFileURL] = useState(typeof value === 'string' ? value : '');
   const [uploadedFileName, setUploadedFileName] = useState('');
   const [isPDF, setIsPDF] = useState(false);
   const dropAreaId = useMemo(() => name + '_dropable', [name]);
