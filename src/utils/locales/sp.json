@@ -603,5 +603,6 @@
   "TotalCallTime": "tiempo total de llamada",
   "TotalOf": "Total de",
   "DobIsRequired": "Se requiere fecha de nacimiento",
-  "NextPrice": "Siguiente - Precio"
+  "NextPrice": "Siguiente - Precio",
+  "UploadID": "Por favor, suba la tarjeta de identificación que tiene la fecha de nacimiento"
 }

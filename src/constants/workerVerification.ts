@@ -41,3 +41,12 @@ export enum EMAIL_SOURCE {
   DETAILS = 'details',
   ONBOARDED = 'onboarded'
 }
+
+export enum DOCUMENT_UPLOAD_TYPE {
+  ID = 'ID',
+  ID_FRONT = 'ID front',
+  ID_BACK = 'ID back',
+  PASSPORT = 'Passport',
+  ID_Card = 'ID Card',
+  DRIVING_LICENSE = 'Driving License'
+}

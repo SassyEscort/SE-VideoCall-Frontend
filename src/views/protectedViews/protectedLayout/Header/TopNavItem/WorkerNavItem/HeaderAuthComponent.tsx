@@ -31,7 +31,7 @@ export type NotificationFilters = {
 };
 
 const HeaderAuthComponent = () => {
-  const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
+  const { isCallEnded, avaialbleCredits, getToken } = useCallFeatureContext();
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -98,10 +98,12 @@ const HeaderAuthComponent = () => {
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
+      getToken({ id: data.id, token: data.token });
       setToken({ id: data.id, token: data.token });
     };
 
     userToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCallEnded]);
 
   const handleCallback = useCallback(async () => {
