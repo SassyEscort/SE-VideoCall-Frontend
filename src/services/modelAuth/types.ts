@@ -49,3 +49,14 @@ export type PriceValue = {
   id: number;
   price_per_minute: string;
 };
+
+export type GenericRes = {
+  code: number;
+  error: string;
+  message: string;
+};
+
+export type ChangePassParams = {
+  old_password: string;
+  new_password: string;
+};

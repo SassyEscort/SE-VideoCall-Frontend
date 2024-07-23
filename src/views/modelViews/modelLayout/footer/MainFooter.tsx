@@ -145,16 +145,18 @@ const MainFooter = () => {
                   />
                 </Box>
                 <Box>
-                  <Image
-                    src="/images/app-logo/app_store.png"
-                    width={120}
-                    height={120}
-                    alt="app_store"
-                    style={{
-                      width: 'auto'
-                    }}
-                    loading="lazy"
-                  />
+                  <Link href="https://apps.apple.com/us/app/hs-messenger/id6557061284" target="_blank">
+                    <Image
+                      src="/images/app-logo/app_store.png"
+                      width={120}
+                      height={120}
+                      alt="app_store"
+                      style={{
+                        width: 'auto'
+                      }}
+                      loading="lazy"
+                    />
+                  </Link>
                 </Box>
               </FooterStoreBox>
               {/* <GradientTypography variant="body">
