@@ -45,14 +45,6 @@ const HomeContainer = () => {
 
   const [filters, setFilters] = useState(getInitialFilters());
 
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      setToken({ id: data?.id, token: data?.token });
-    };
-    userToken();
-  }, []);
-
   const handleCHangeSearchFilter = useCallback(() => {
     const objParams: { [key: string]: string } = {};
     if (filters.fromAge) objParams.fromAge = filters.fromAge ? filters.fromAge.toString() : '';
@@ -106,9 +98,17 @@ const HomeContainer = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, pathname, router]);
 
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      setToken({ id: data?.id, token: data?.token });
+    };
+    userToken();
+  }, []);
+
   const handelFilterChange = async (values: SearchFiltersTypes) => {
     setIsLoading(true);
-    const getModel = await ModelListingService.getModelListing(values);
+    const getModel = await ModelListingService.getModelListing(values, token.token);
     setModelListing(getModel?.model_details);
     setTotalRows(getModel?.aggregate?.total_rows);
     setIsLoading(false);
@@ -120,6 +120,11 @@ const HomeContainer = () => {
       }
     }
   };
+
+  useEffect(() => {
+    handelFilterChange(filters);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token.token]);
 
   const handleChangePage = useCallback(
     (value: number) => {
