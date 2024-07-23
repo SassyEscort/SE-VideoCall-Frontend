@@ -94,7 +94,7 @@ const WorkerCard = ({
     <MainWorkerCard>
       <ImgWorkerCard ref={imageUrlRef} />
       <HeartIconWorkerCard>
-        {isFavPage || liked ? (
+        {isFavPage || liked || modelDetails?.favourite === 1 ? (
           <FavoriteIconContainer sx={{ color: 'error.main' }} />
         ) : (
           <FavoriteBorderIconContainer

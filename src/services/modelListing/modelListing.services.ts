@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { PaginationAggregation } from 'services/adminModel/adminModel.services';
 
 export type Language = {
@@ -35,6 +35,7 @@ export type ModelHomeListing = {
   user_name: string;
   cords: string;
   languages: Language[];
+  favourite: number;
 };
 
 export type ModelListingRes = {
@@ -43,9 +44,8 @@ export type ModelListingRes = {
 };
 
 export class ModelListingService {
-  static getModelListing = async (filters: ModelListingParams): Promise<ModelListingRes> => {
+  static getModelListing = async (filters: ModelListingParams, token: string): Promise<ModelListingRes> => {
     const queryParams: string[] = [];
-
     if (filters?.language) queryParams.push(`language=${filters.language}`);
     if (filters?.isOnline) queryParams.push(`is_online=${filters.isOnline}`);
     if (filters?.fromAge) queryParams.push(`min_age=${filters.fromAge}`);
@@ -60,11 +60,13 @@ export class ModelListingService {
     if (filters?.rating !== undefined) queryParams.push(`rating=${filters.rating}`);
 
     const query = queryParams.join('&');
-    try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/listing?${query}`, {
-        headers: { 'Content-Type': 'application/json' }
-      });
 
+    try {
+      const headers: AxiosRequestConfig['headers'] = { 'Content-Type': 'application/json' };
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/listing?${query}`, { headers });
       return res.data.data;
     } catch (err: any) {
       const error: AxiosError = err;
