@@ -22,5 +22,6 @@ export enum MENU_TABS {
 export enum MODEL_ACTION {
   PENDING = 'Pending',
   APPROVE = 'Approved',
-  REJECT = 'Rejected'
+  REJECT = 'Rejected',
+  DELAYED_LISTING = 'Delayed_Listing'
 }

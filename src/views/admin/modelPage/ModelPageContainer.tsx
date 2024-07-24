@@ -27,7 +27,6 @@ import { PAGE_SIZE } from 'constants/pageConstants';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import TablePager from 'components/common/CustomPaginations/TablePager';
 import MenuItem from '@mui/material/MenuItem';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { adminModelServices, ModelListing } from 'services/adminModel/adminModel.services';
@@ -41,6 +40,7 @@ import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import { FilterBox, ModelActionPopover, NotFoundBox, SortBox } from './ModelPageContainer.styled';
 import RejectModal from './RejectModal';
+import { RiEyeOffLine, RiEyeLine } from 'components/common/customRemixIcons';
 
 export type WorkersPaginationType = {
   page: number;
@@ -259,6 +259,12 @@ export default function ModelPageContainer() {
     setOpenReject(false);
   };
 
+  const handleHideModel = async () => {
+    await adminModelServices.modelAction(token.token, Number(selected?.id), MODEL_ACTION.DELAYED_LISTING);
+    handleModelListRefetch();
+    handleCloseMenu();
+  };
+
   return (
     <>
       <MainLayout>
@@ -394,6 +400,8 @@ export default function ModelPageContainer() {
                               <Chip label="Approved" color="success" />
                             ) : item.profile_status === MODEL_ACTION.REJECT ? (
                               <Chip label="Rejected" color="error" />
+                            ) : item.profile_status === MODEL_ACTION.DELAYED_LISTING ? (
+                              <Chip label="Hidden" />
                             ) : (
                               '-'
                             )}
@@ -454,7 +462,7 @@ export default function ModelPageContainer() {
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
           <MenuItem onClick={handelViewDetails}>
-            <VisibilityIcon sx={{ mr: 2 }} />
+            <RiEyeLine />
             View Details
           </MenuItem>
           {selected?.profile_status === MODEL_ACTION.PENDING && (
@@ -469,6 +477,10 @@ export default function ModelPageContainer() {
               </MenuItem>
             </>
           )}
+          <MenuItem onClick={handleHideModel}>
+            <RiEyeOffLine />
+            Hide from listing
+          </MenuItem>
         </ModelActionPopover>
       </MainLayout>
       <RejectModal
