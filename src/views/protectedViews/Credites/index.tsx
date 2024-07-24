@@ -5,7 +5,6 @@ import { SecondSubContainerImgWorkerCard } from 'views/guestViews/commonComponen
 import {
   BoxFirstTextContainer,
   BoxSecondTextContainer,
-  BuyCreditsText,
   CreditBuyText,
   CreditCardImage,
   CreditCardText,
@@ -20,7 +19,6 @@ import {
   LoaderBox,
   MainImagContainer,
   SecondBoxContainer,
-  SecondTextSubContainer,
   TextMainContainer
 } from './Credits.styled';
 import MainLayoutNav from '../protectedLayout';
@@ -120,11 +118,6 @@ const Credits = () => {
                 </SecondBoxContainer>
               </FirsTextSubContainer>
             </FirsTextMainContainer>
-            <SecondTextSubContainer>
-              <BuyCreditsText>
-                <FormattedMessage id="BuyCredits" />
-              </BuyCreditsText>
-            </SecondTextSubContainer>
           </TextMainContainer>
 
           {isLoading ? (
