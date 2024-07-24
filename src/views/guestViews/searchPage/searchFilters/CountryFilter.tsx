@@ -2,15 +2,14 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import { SelectChangeEvent } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
-import { LocatonIcone } from 'components/UIComponents/UIStyledArrivalsButton';
 import { UIStyledSelect } from 'components/UIComponents/UIStyledSelect';
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CountryFilterText, StyledClearIcon } from '../Search.styled';
 import theme from 'themes/theme';
+import CityCountryLabel from './CityCountryLabel';
 
 interface CountryFilterProps {
   value: string;
@@ -63,11 +62,7 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
         value={renderValue}
         onChange={handleChange}
         IconComponent={ExpandMore}
-        startAdornment={
-          <LocatonIcone>
-            <Image alt="home_model" width={24} height={24} src="/images/home/country-location-img.png" />
-          </LocatonIcone>
-        }
+        startAdornment={<CityCountryLabel label={value} type="Country" />}
         endAdornment={value && <StyledClearIcon onClick={handleClear} />}
         sx={{ backgroundColor: value ? theme.palette.primary[200] : '' }}
       >

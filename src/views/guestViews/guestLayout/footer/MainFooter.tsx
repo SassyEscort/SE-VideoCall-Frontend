@@ -162,7 +162,7 @@ const MainFooter = () => {
               </Box>
             </Box>
           </Box>
-          <Box sx={{ textAlign: 'center', mt: isSmDown ? '32px' : '32px' }}>
+          <Box sx={{ textAlign: 'center', mt: isSmDown ? '70px' : '70px' }}>
             <UINewTypography variant="SubtitleSmallRegular">
               <FormattedMessage id="2024SassyEscort" />
             </UINewTypography>
