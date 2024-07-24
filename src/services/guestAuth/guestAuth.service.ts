@@ -76,7 +76,7 @@ export class GuestAuthService {
       );
       return res.data;
     } catch (error: any) {
-      return { data: error.response.data } as FavouriteDetailsRes;
+      return { error: error.response.data.message } as GenericResponse;
     }
   };
 
