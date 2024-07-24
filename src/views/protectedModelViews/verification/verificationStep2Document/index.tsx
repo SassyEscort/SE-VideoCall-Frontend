@@ -20,6 +20,7 @@ import { ImagePayload, ImageUploadPayload } from '../stepThree/uploadImage';
 import { VerificationStepSecond } from 'services/modelAuth/types';
 import { DOCUMENT_UPLOAD_TYPE, DocumentList } from 'constants/workerVerification';
 import { scrollToError } from 'utils/scrollUtils';
+import { BackButtonBox, VerificationButtonText } from '../verificationStep2/VerificationStep2.styled';
 
 export type VerificationPhotoWithoutFilter = {
   photoWithoutFilter: File | string;
@@ -30,14 +31,15 @@ export type VerificationPhotoWithoutFilter = {
 export type VerificationStepPromiseType = {
   activeStep: number;
   modelDetails: ModelDetailsResponse | undefined;
-  handlePrev: () => void;
-  handleNext: () => void;
+  handlePrev?: () => void;
+  handleNext?: () => void;
   token: TokenIdType;
-  handleDocuPrev: () => void;
+  handleDocuPrev?: () => void;
   handleModelApiChange: () => void;
   docValues: VerificationStepSecond;
   isReviewEdit: boolean;
-  handleEdit: (step: number) => void;
+  handleEdit?: (step: number) => void;
+  isDashboard: boolean;
 };
 
 export type DocumentUploadPayload = {
@@ -67,7 +69,8 @@ const VerificationStepPromise = ({
   handleModelApiChange,
   docValues,
   isReviewEdit,
-  handleEdit
+  handleEdit,
+  isDashboard
 }: VerificationStepPromiseType) => {
   const [loading, setLoading] = useState(false);
 
@@ -183,9 +186,9 @@ const VerificationStepPromise = ({
           const response = await VerificationStepService.uploadModelPhotos(payload, token);
           if (response?.data) {
             handleModelApiChange();
-            if (isReviewEdit) {
+            if (isReviewEdit && handleEdit) {
               handleEdit(4);
-            } else {
+            } else if (handleNext) {
               handleNext();
             }
           } else {
@@ -218,16 +221,18 @@ const VerificationStepPromise = ({
               }}
             >
               <Box display="flex" gap={1.5} flexDirection="column">
-                <UINewTypography variant="h2">
-                  <FormattedMessage id="PleaseUploadYourDocuments" />
-                </UINewTypography>
+                {!isDashboard && (
+                  <UINewTypography variant="h2">
+                    <FormattedMessage id="PleaseUploadYourDocuments" />
+                  </UINewTypography>
+                )}
                 <UINewTypography color="secondary.200">
                   <FormattedMessage id="UploadID" />
                 </UINewTypography>
               </Box>
             </Box>
             {docValues.idType !== DOCUMENT_UPLOAD_TYPE.PASSPORT ? (
-              <Box display="flex" gap={6} justifyContent="center">
+              <Box display="flex" gap={6} justifyContent="center" flexDirection={isDashboard ? 'column' : 'row'}>
                 <WorkerPhotosWithoutFilterNew
                   name="photoWithoutFilterFront"
                   value={values.photoWithoutFilterFront as File}
@@ -273,17 +278,28 @@ const VerificationStepPromise = ({
 
             <LastMainBox>
               <StepButtonNext>
-                <UIThemeButton variant="outlined" onClick={handleDocuPrev}>
-                  <ArrowBackIcon />
-                  <UINewTypography variant="body">
-                    <FormattedMessage id="Back" />
-                  </UINewTypography>
-                </UIThemeButton>
+                <BackButtonBox>
+                  {!isDashboard && (
+                    <UIThemeButton variant="outlined" onClick={handleDocuPrev}>
+                      <ArrowBackIcon />
+                      <VerificationButtonText variant="buttonLargeBold" color="text.secondary">
+                        <FormattedMessage id="Back" />
+                      </VerificationButtonText>
+                    </UIThemeButton>
+                  )}
+                </BackButtonBox>
+
                 <StyleButtonV2 id="document-id-button" type="submit" variant="contained" loading={loading}>
                   <UINewTypography variant="body">
-                    {isReviewEdit ? <FormattedMessage id="SaveAndReview" /> : <FormattedMessage id="Next" />}
+                    {isReviewEdit && !isDashboard ? (
+                      <FormattedMessage id="SaveAndReview" />
+                    ) : isDashboard ? (
+                      <FormattedMessage id="Save" />
+                    ) : (
+                      <FormattedMessage id="Next" />
+                    )}
                   </UINewTypography>
-                  <ArrowForwardOutlinedIcon />
+                  {!isDashboard && <ArrowForwardOutlinedIcon />}
                 </StyleButtonV2>
               </StepButtonNext>
             </LastMainBox>

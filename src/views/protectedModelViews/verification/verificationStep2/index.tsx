@@ -57,21 +57,23 @@ const VerificationStep2 = ({
   handleDocuPrev,
   open,
   isReviewEdit,
-  handleEdit
+  handleEdit,
+  isDashboard
 }: {
   token: TokenIdType;
-  handleNext: () => void;
-  handlePrev: () => void;
+  handleNext?: () => void;
+  handlePrev?: () => void;
   handleChaneDocuModal: (val: boolean) => void;
   modelDetails: ModelDetailsResponse;
   stepData: number;
   handleModelApiChange: () => void;
   activeStep: number;
-  handleNextDocment: () => void;
+  handleNextDocment?: () => void;
   handleDocuPrev: () => void;
   open: boolean;
   isReviewEdit: boolean;
-  handleEdit: (step: number) => void;
+  handleEdit?: (step: number) => void;
+  isDashboard: boolean;
 }) => {
   const modelDocuments = useMemo(() => {
     if (modelDetails?.documents?.length) return modelDetails.documents[0];
@@ -107,8 +109,8 @@ const VerificationStep2 = ({
   }, [modelDetails, setValues]);
 
   return (
-    <>
-      {!open ? (
+    <Box>
+      {!open && (
         <form onSubmit={handleSubmit}>
           <ParentBox>
             <VerificationStep2MainContainer>
@@ -200,26 +202,28 @@ const VerificationStep2 = ({
             </VerificationStep2MainContainer>
             <ButtonBox>
               <BackButtonBox>
-                <UIThemeButton variant="outlined" onClick={handlePrev}>
-                  <ArrowBackOutlinedIcon />
-
-                  <VerificationButtonText variant="buttonLargeBold" color="text.secondary">
-                    <FormattedMessage id="Back" />
-                  </VerificationButtonText>
-                </UIThemeButton>
+                {!isDashboard && (
+                  <UIThemeButton variant="outlined" onClick={handlePrev}>
+                    <ArrowBackOutlinedIcon />
+                    <VerificationButtonText variant="buttonLargeBold" color="text.secondary">
+                      <FormattedMessage id="Back" />
+                    </VerificationButtonText>
+                  </UIThemeButton>
+                )}
               </BackButtonBox>
               <UploaddocumentsButtonBox>
                 <StyleButtonV2 id="document-id-button" variant="contained" type="submit">
                   <VerificationButtonText variant="buttonLargeBold" color="primary.200">
-                    <FormattedMessage id="Next" />
+                    {isDashboard ? <FormattedMessage id="Save" /> : <FormattedMessage id="Next" />}
                   </VerificationButtonText>
-                  <ArrowForwardOutlinedIcon />
+                  {!isDashboard && <ArrowForwardOutlinedIcon />}
                 </StyleButtonV2>
               </UploaddocumentsButtonBox>
             </ButtonBox>
           </ParentBox>
         </form>
-      ) : (
+      )}
+      {(open || isDashboard) && (
         <VerificationStepPromise
           docValues={values}
           token={token}
@@ -231,9 +235,10 @@ const VerificationStep2 = ({
           handleModelApiChange={handleModelApiChange}
           isReviewEdit={isReviewEdit}
           handleEdit={handleEdit}
+          isDashboard={isDashboard}
         />
       )}
-    </>
+    </Box>
   );
 };
 

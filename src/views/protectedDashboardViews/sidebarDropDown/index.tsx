@@ -12,11 +12,13 @@ import VerificationStepOne from 'views/protectedModelViews/verification/stepOne'
 import DashboardPriceView from '../dashboardPriceView';
 import { LoadingBoxAdd, SelectDropdown } from './SidebarDropDown.styled';
 import { Box, SelectChangeEvent, CircularProgress } from '@mui/material';
+import DocumentMainContainer from 'views/protectedModelViews/verification/documentContainer';
 
 const profileMenuList = [
   { menuName: <FormattedMessage id="Photos" />, id: 0 },
   { menuName: <FormattedMessage id="ProfileDetails" />, id: 1 },
-  { menuName: <FormattedMessage id="Prices" />, id: 2 }
+  { menuName: <FormattedMessage id="Prices" />, id: 2 },
+  { menuName: <FormattedMessage id="Documents" />, id: 3 }
 ];
 
 const MobileSidebar = ({
@@ -102,8 +104,17 @@ const MobileSidebar = ({
           handleModelApiChange={handleModelApiChange}
           isReviewEdit={false}
         />
-      ) : (
+      ) : menuId === 2 ? (
         <DashboardPriceView isEdit={true} token={token} modelDetails={modelDetails} handleModelApiChange={handleModelApiChange} />
+      ) : (
+        <DocumentMainContainer
+          handleModelApiChange={handleModelApiChange}
+          token={token}
+          activeStep={0}
+          modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
+          isReviewEdit={false}
+          isDashboard={true}
+        />
       )}
     </FormControl>
   );

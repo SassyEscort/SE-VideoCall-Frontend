@@ -6,13 +6,14 @@ import { TokenIdType } from '..';
 export type VerificationStepPromiseType = {
   activeStep: number;
   modelDetails: ModelDetailsResponse | undefined;
-  handlePrev: () => void;
-  handleNext: () => void;
+  handlePrev?: () => void;
+  handleNext?: () => void;
   token: TokenIdType;
   handleModelApiChange: () => void;
-  handleNextDocment: () => void;
+  handleNextDocment?: () => void;
   isReviewEdit: boolean;
-  handleEdit: (step: number) => void;
+  handleEdit?: (step: number) => void;
+  isDashboard: boolean;
 };
 
 const DocumentMainContainer = ({
@@ -24,13 +25,16 @@ const DocumentMainContainer = ({
   handleModelApiChange,
   handleNextDocment,
   isReviewEdit,
-  handleEdit
+  handleEdit,
+  isDashboard
 }: VerificationStepPromiseType) => {
   const [open, setOpen] = useState(false);
   const [stepData, setStepData] = useState(0);
 
   const handleChaneDocuModal = (val: boolean) => {
-    setOpen(val);
+    if (!isDashboard) {
+      setOpen(val);
+    }
   };
 
   const handleDocuPrev = () => {
@@ -55,6 +59,7 @@ const DocumentMainContainer = ({
         modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
         isReviewEdit={isReviewEdit}
         handleEdit={handleEdit}
+        isDashboard={isDashboard}
       />
     </>
   );
