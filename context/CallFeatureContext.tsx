@@ -125,7 +125,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [customerUsername, isCustomer]);
 
-  const handelNameChange = async () => {
+  const handelNameChange = () => {
     setIsNameChange(!isNameChange);
   };
 

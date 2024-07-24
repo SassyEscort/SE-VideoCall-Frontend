@@ -35,7 +35,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
-import { CallHistoryPageDetailsRes } from 'services/callHistory/types';
+import { CallHistoryDetails, CallHistoryPageDetailsRes } from 'services/callHistory/types';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CallHistoryService } from 'services/callHistory/callHistory.services';
@@ -61,7 +61,7 @@ const CallHistory = () => {
   const [callHistoryData, setCallHistoryData] = useState<CallHistoryPageDetailsRes>();
   const [total_rows, setTotalRows] = useState(0);
   const [isLoadingCall, setIsLoading] = useState(false);
-  const [guestData, setGuestData] = useState(0);
+  const [guestData, setGuestData] = useState<CallHistoryDetails>();
   const [guestDataIndex, setGuestDataIndex] = useState(0);
   const [isCreditAvailable, setIsCreditAvailable] = useState(false);
   const [callTime, setCallTime] = useState(0);
@@ -130,7 +130,7 @@ const CallHistory = () => {
   useEffect(() => {
     const getCometChatInfo = async () => {
       if (guestData && token.token) {
-        const getInfo = await CallingService.getCometChatInfo(guestData, token.token);
+        const getInfo = await CallingService.getCometChatInfo(guestData.model_id, token.token);
         if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 3) {
           const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
           setCallTime(durationInSeconds);
@@ -140,6 +140,13 @@ const CallHistory = () => {
     };
     getCometChatInfo();
   }, [guestData, token, call, isCallEnded]);
+
+  useEffect(() => {
+    if (isCreditAvailable && guestData && !isCallEnded && !call) {
+      handleCallInitiate(guestData.model_id, isCreditAvailable, callTime, guestData.name, guestData.link ?? '', guestData.user_name);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isCreditAvailable, guestData]);
 
   const formatDuration = (duration: string) => {
     const callDuration = moment.duration(duration);
@@ -281,10 +288,8 @@ const CallHistory = () => {
                             loading={isLoading && index === guestDataIndex ? true : false}
                             variant="contained"
                             onClick={() => {
-                              setGuestData(list.model_id);
                               setGuestDataIndex(index);
-
-                              handleCallInitiate(list.model_id, isCreditAvailable, callTime, list.name, list.link ?? '', list.user_name);
+                              setGuestData(list);
                             }}
                           >
                             <Box sx={{ display: 'flex', gap: 1.25 }}>
