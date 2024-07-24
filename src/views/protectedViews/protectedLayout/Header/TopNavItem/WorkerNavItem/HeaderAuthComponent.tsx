@@ -31,7 +31,7 @@ export type NotificationFilters = {
 };
 
 const HeaderAuthComponent = () => {
-  const { isCallEnded, avaialbleCredits, getToken } = useCallFeatureContext();
+  const { isCallEnded, avaialbleCredits, getToken, isNameChange } = useCallFeatureContext();
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -134,7 +134,7 @@ const HeaderAuthComponent = () => {
       customerDetails();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.id, token.token, isCallEnded]);
+  }, [token.id, token.token, isCallEnded, isNameChange]);
 
   useEffect(() => {
     const getCustomerCredit = async () => {

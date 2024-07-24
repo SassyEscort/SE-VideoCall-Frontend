@@ -120,7 +120,7 @@ const MyProfileContainer = ({
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
             <Box>
               <ProfileTextHeader variant="bodySemiBold" color="text.primary">
-                <FormattedMessage id="Username" />
+                <FormattedMessage id="Name" />
               </ProfileTextHeader>
             </Box>
             <Box>
