@@ -14,6 +14,7 @@ export type ModelListing = {
   profile_status: string;
   updated_at: string;
   verification_step: string;
+  is_visible: number;
 };
 
 export type PaginationAggregation = {
@@ -77,12 +78,13 @@ export class adminModelServices {
     token: string,
     modelId: number,
     profile_status: string,
+    is_visible: boolean,
     rejection_reason?: string
   ): Promise<ModelListingRes> => {
     try {
       const res = await axios.put(
         process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/${modelId}`,
-        { profile_status: profile_status, rejection_reason: rejection_reason },
+        { profile_status: profile_status, rejection_reason: rejection_reason, is_visible: is_visible },
         {
           headers: {
             'Content-Type': 'application/json',

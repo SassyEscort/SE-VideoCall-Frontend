@@ -242,7 +242,7 @@ export default function ModelPageContainer() {
   };
 
   const handleApproveClick = async () => {
-    await adminModelServices.modelAction(token.token, Number(selected?.id), MODEL_ACTION.APPROVE);
+    await adminModelServices.modelAction(token.token, Number(selected?.id), MODEL_ACTION.APPROVE, true);
     handleModelListRefetch();
     handleCloseMenu();
   };
@@ -260,7 +260,13 @@ export default function ModelPageContainer() {
   };
 
   const handleHideModel = async () => {
-    await adminModelServices.modelAction(token.token, Number(selected?.id), MODEL_ACTION.DELAYED_LISTING);
+    await adminModelServices.modelAction(token.token, Number(selected?.id), String(selected?.profile_status), false);
+    handleModelListRefetch();
+    handleCloseMenu();
+  };
+
+  const handleShowModel = async () => {
+    await adminModelServices.modelAction(token.token, Number(selected?.id), String(selected?.profile_status), true);
     handleModelListRefetch();
     handleCloseMenu();
   };
@@ -394,13 +400,13 @@ export default function ModelPageContainer() {
                           </TableCell>
                           <TableCell>{item.country_name || '-'}</TableCell>
                           <TableCell sx={{ textAlign: 'center' }}>
-                            {item.profile_status === MODEL_ACTION.PENDING ? (
+                            {item.profile_status === MODEL_ACTION.PENDING && item.is_visible ? (
                               <Chip label="Pending" color="warning" />
-                            ) : item.profile_status === MODEL_ACTION.APPROVE ? (
+                            ) : item.profile_status === MODEL_ACTION.APPROVE && item.is_visible ? (
                               <Chip label="Approved" color="success" />
                             ) : item.profile_status === MODEL_ACTION.REJECT ? (
                               <Chip label="Rejected" color="error" />
-                            ) : item.profile_status === MODEL_ACTION.DELAYED_LISTING ? (
+                            ) : !item.is_visible ? (
                               <Chip label="Hidden" />
                             ) : (
                               '-'
@@ -477,10 +483,23 @@ export default function ModelPageContainer() {
               </MenuItem>
             </>
           )}
-          <MenuItem onClick={handleHideModel}>
-            <RiEyeOffLine />
-            Hide from listing
-          </MenuItem>
+          {selected?.is_visible && selected.profile_status === MODEL_ACTION.APPROVE ? (
+            <>
+              <MenuItem onClick={handleHideModel}>
+                <RiEyeOffLine />
+                Hide from listing
+              </MenuItem>
+            </>
+          ) : (
+            selected?.profile_status === MODEL_ACTION.APPROVE && (
+              <>
+                <MenuItem onClick={handleShowModel}>
+                  <RiEyeLine />
+                  Show in listing
+                </MenuItem>
+              </>
+            )
+          )}
         </ModelActionPopover>
       </MainLayout>
       <RejectModal
