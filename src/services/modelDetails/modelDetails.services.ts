@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { GenericRes } from 'services/guestAuth/authuser.services';
 import { GetTotalEarningDataParams, GuestModelEarningResponse } from './type';
 import { encodeQuery } from 'utils/genericFunction';
@@ -13,11 +13,16 @@ export interface ModelLastActiveDetailsRes extends GenericRes {
 }
 
 export class ModelDetailsService {
-  static getModelDetails = async (token: string) => {
+  static getModelDetails = async (token: string, user_name?: string) => {
     try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/details`, {
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
-      });
+      const headers: AxiosRequestConfig['headers'] = { 'Content-Type': 'application/json' };
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+      const url = user_name
+        ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/details?user_name=${user_name}`
+        : `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/details`;
+      const res = await axios.get(url, { headers });
 
       return res.data;
     } catch (err: any) {

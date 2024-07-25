@@ -6,7 +6,6 @@ import theme from 'themes/theme';
 import EscortSliderMobile from './EscortSliderMobile';
 import EscortPersonalDetail from './EscortPersonalDetail';
 import EscortExplore from './EscortExplore';
-import { GuestDetailsService } from 'services/guestDetails/guestDetails.services';
 import { useEffect, useState } from 'react';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
@@ -19,6 +18,7 @@ import Box from '@mui/system/Box';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { CallingService } from 'services/calling/calling.services';
 import moment from 'moment';
+import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 
 const EscortDetailPage = () => {
   const path = usePathname();
@@ -49,7 +49,7 @@ const EscortDetailPage = () => {
     const fetchGuestData = async () => {
       try {
         if (userName) {
-          const data = await GuestDetailsService.GuestModelDetails(userName);
+          const data = await ModelDetailsService.getModelDetails(token.token, userName);
           if (data.code === 200) {
             setGuestData(data.data);
           } else {
@@ -62,7 +62,7 @@ const EscortDetailPage = () => {
     };
 
     fetchGuestData();
-  }, [userName]);
+  }, [token.token, userName]);
 
   useEffect(() => {
     const getCometChatInfo = async () => {
