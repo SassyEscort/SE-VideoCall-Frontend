@@ -400,13 +400,13 @@ export default function ModelPageContainer() {
                           </TableCell>
                           <TableCell>{item.country_name || '-'}</TableCell>
                           <TableCell sx={{ textAlign: 'center' }}>
-                            {item.profile_status === MODEL_ACTION.PENDING && item.is_visible ? (
+                            {item.profile_status === MODEL_ACTION.PENDING ? (
                               <Chip label="Pending" color="warning" />
                             ) : item.profile_status === MODEL_ACTION.APPROVE && item.is_visible ? (
                               <Chip label="Approved" color="success" />
                             ) : item.profile_status === MODEL_ACTION.REJECT ? (
                               <Chip label="Rejected" color="error" />
-                            ) : !item.is_visible ? (
+                            ) : !item.is_visible && item.profile_status !== MODEL_ACTION.PENDING ? (
                               <Chip label="Hidden" />
                             ) : (
                               '-'
