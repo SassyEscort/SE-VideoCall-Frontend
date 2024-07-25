@@ -23,5 +23,5 @@ export enum MODEL_ACTION {
   PENDING = 'Pending',
   APPROVE = 'Approved',
   REJECT = 'Rejected',
-  DELAYED_LISTING = 'Delayed_Listing'
+  IS_VISIBLE = 'is_visible'
 }
