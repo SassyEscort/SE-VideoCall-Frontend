@@ -134,7 +134,7 @@ const MainFooter = () => {
               <FooterStoreBox>
                 <Box>
                   <Image
-                    src="/images/app-logo/play_store.png"
+                    src="/images/app-logo/google-pay.png"
                     width={120}
                     height={120}
                     alt="play_store"
@@ -147,7 +147,7 @@ const MainFooter = () => {
                 <Box>
                   <Link href="https://apps.apple.com/us/app/hs-messenger/id6557061284" target="_blank">
                     <Image
-                      src="/images/app-logo/app_store.png"
+                      src="/images/app-logo/app-store.png"
                       width={120}
                       height={120}
                       alt="app_store"

@@ -51,7 +51,7 @@ const RejectModal = ({
 
   const handleRejectClick = async (values: RejectParams) => {
     setLoading(true);
-    await adminModelServices.modelAction(token.token, Number(selectedId), MODEL_ACTION.REJECT, values.rejection_reason);
+    await adminModelServices.modelAction(token.token, Number(selectedId), MODEL_ACTION.REJECT, true, values.rejection_reason);
     handleModelListRefetch();
     handleCloseMenu();
     handleClose();
