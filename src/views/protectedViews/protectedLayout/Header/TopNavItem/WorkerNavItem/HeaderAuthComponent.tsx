@@ -98,8 +98,8 @@ const HeaderAuthComponent = () => {
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
-      getToken({ id: data.id, token: data.token });
-      setToken({ id: data.id, token: data.token });
+      getToken({ id: data?.id, token: data?.token });
+      setToken({ id: data?.id, token: data?.token });
     };
 
     userToken();
