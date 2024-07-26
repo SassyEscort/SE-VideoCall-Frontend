@@ -45,7 +45,7 @@ export type CallType = {
 
 export type CallTypeModel = {
   calls: CallType[];
-  total_clients: number;
+  total_minutes: number;
 };
 
 export interface ModelEarningChartPageDetailsRes extends GenericRes {
