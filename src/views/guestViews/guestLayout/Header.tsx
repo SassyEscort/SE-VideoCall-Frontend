@@ -248,14 +248,12 @@ const HeaderGuestComponent = () => {
                 </>
               )}
               {isMdUp && (
-                <Link prefetch={false} href="/">
-                  <Box display="flex" alignItems="center" gap={1} onClick={handleLoginOpen}>
-                    <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
-                    <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                      <FormattedMessage id="LogIn" />
-                    </UINewTypography>
-                  </Box>
-                </Link>
+                <Box display="flex" alignItems="center" gap={1} onClick={handleLoginOpen}>
+                  <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
+                  <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+                    <FormattedMessage id="LogIn" />
+                  </UINewTypography>
+                </Box>
               )}
               {isMdUp && (
                 <UIThemeShadowButton variant="contained" onClick={handleDropDownOpen} sx={{ width: '195px' }}>
