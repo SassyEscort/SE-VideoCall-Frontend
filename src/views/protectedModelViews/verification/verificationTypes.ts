@@ -74,6 +74,7 @@ export interface DocumentDataPhoto {
   link: string;
   file_type?: string;
   document_front_side: number;
+  file_id: string;
 }
 export interface FileBody {
   type: string;
