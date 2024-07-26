@@ -65,7 +65,7 @@ const CallHistory = () => {
   const [guestDataIndex, setGuestDataIndex] = useState(0);
   const [isCreditAvailable, setIsCreditAvailable] = useState(false);
   const [callTime, setCallTime] = useState(0);
-  const { handleCallInitiate, call, isCallEnded, isLoading } = useCallFeatureContext();
+  const { handleCallInitiate, call, isCallEnded, isLoading, handleOpen } = useCallFeatureContext();
   const [filters, setFilters] = useState<CallHistoryPaginationType>({
     page: 1,
     limit: 20,
@@ -135,10 +135,13 @@ const CallHistory = () => {
           const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
           setCallTime(durationInSeconds);
           setIsCreditAvailable(true);
+        } else {
+          handleOpen();
         }
       }
     };
     getCometChatInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guestData, token, call, isCallEnded]);
 
   useEffect(() => {

@@ -146,6 +146,35 @@ const VerificationStepPromise = ({
               ],
               document_upload_step: true
             };
+          } else if (
+            docValues.idType !== DOCUMENT_UPLOAD_TYPE.PASSPORT &&
+            typeof values.photoWithoutFilterFront === 'string' &&
+            typeof values.photoWithoutFilterBack === 'string'
+          ) {
+            const selectedDocument = DocumentList.find((item) => item.key === docValues.idType)?.value;
+            const uploadPhotos: ImageUploadPayload[] = [];
+
+            modelDetails?.documents.forEach((x, i) => {
+              uploadPhotos.push({
+                id: modelDetails?.documents[0].id ? Number(modelDetails?.documents[0].id) : 0,
+                link: x.link,
+                type: '',
+                cords: '',
+                is_favourite: 0,
+                is_document: 1,
+                document_type: String(selectedDocument) ?? modelDetails?.documents[0].document_type,
+                document_number: docValues.idNumber ? docValues.idNumber : modelDetails?.documents[0].document_number ?? '',
+                file_id: x.file_id,
+                file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image',
+                document_front_side: i === 0 ? 1 : 0
+              });
+            });
+
+            payload = {
+              is_document: true,
+              photos: uploadPhotos,
+              document_upload_step: true
+            };
           } else {
             const allFiles = [values.photoWithoutFilterFront, values.photoWithoutFilterBack];
             const fileBody = [
@@ -289,7 +318,12 @@ const VerificationStepPromise = ({
                   )}
                 </BackButtonBox>
 
-                <StyleButtonV2 id="document-id-button" type="submit" variant="contained" loading={loading}>
+                <StyleButtonV2
+                  id={isDashboard ? 'document-id-photo' : 'document-id-button'}
+                  type="submit"
+                  variant="contained"
+                  loading={loading}
+                >
                   <UINewTypography variant="body">
                     {isReviewEdit && !isDashboard ? (
                       <FormattedMessage id="SaveAndReview" />

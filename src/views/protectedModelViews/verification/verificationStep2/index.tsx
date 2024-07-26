@@ -1,7 +1,7 @@
 'use client';
 import { Box, FormHelperText, MenuItem } from '@mui/material';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
 import * as yup from 'yup';
 import { DocumentList } from 'constants/workerVerification';
@@ -75,6 +75,8 @@ const VerificationStep2 = ({
   handleEdit?: (step: number) => void;
   isDashboard: boolean;
 }) => {
+  const [loading, setLoading] = useState(false);
+
   const modelDocuments = useMemo(() => {
     if (modelDetails?.documents?.length) return modelDetails.documents[0];
     else return {} as DocumentDataPhoto;
@@ -89,7 +91,18 @@ const VerificationStep2 = ({
     initialValues,
     validationSchema,
     onSubmit: () => {
-      handleChaneDocuModal(true);
+      setLoading(true);
+      if (isDashboard) {
+        const button = document.getElementById('document-id-photo');
+        if (button) {
+          button.click();
+        }
+      } else {
+        handleChaneDocuModal(true);
+      }
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     }
   });
 
@@ -212,7 +225,7 @@ const VerificationStep2 = ({
                 )}
               </BackButtonBox>
               <UploaddocumentsButtonBox>
-                <StyleButtonV2 id="document-id-button" variant="contained" type="submit">
+                <StyleButtonV2 id="document-id-button" variant="contained" type="submit" loading={loading}>
                   <VerificationButtonText variant="buttonLargeBold" color="primary.200">
                     {isDashboard ? <FormattedMessage id="Save" /> : <FormattedMessage id="Next" />}
                   </VerificationButtonText>

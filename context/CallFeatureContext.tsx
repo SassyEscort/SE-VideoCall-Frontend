@@ -44,6 +44,7 @@ interface CallFeatureContextProps {
   handleBusyClose: () => void;
   avaialbleCredits: number;
   getToken: (token: TokenIdType) => void;
+  handleOpen: () => void;
 }
 
 const CallContext = createContext<CallFeatureContextProps>({
@@ -62,7 +63,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   isLoading: false,
   isCallEnded: false,
   avaialbleCredits: 0,
-  getToken: () => {}
+  getToken: () => {},
+  handleOpen: () => {}
 });
 
 export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
@@ -184,6 +186,10 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     setOpen(false);
     setOpenSuccess(false);
     router.push(pathname);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
   };
 
   const handleBusyClose = () => {
@@ -383,7 +389,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         handleBusyClose,
         isLoading,
         avaialbleCredits,
-        getToken
+        getToken,
+        handleOpen
       }}
     >
       {children}
