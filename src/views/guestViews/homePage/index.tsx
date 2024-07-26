@@ -122,7 +122,9 @@ const HomeContainer = () => {
   };
 
   useEffect(() => {
-    handelFilterChange(filters);
+    if (token.token) {
+      handelFilterChange(filters);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.token]);
 
