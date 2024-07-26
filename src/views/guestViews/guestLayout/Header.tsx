@@ -248,7 +248,7 @@ const HeaderGuestComponent = () => {
                 </>
               )}
               {isMdUp && (
-                <Box display="flex" alignItems="center" gap={1} onClick={handleLoginOpen}>
+                <Box display="flex" alignItems="center" gap={1} onClick={handleLoginOpen} sx={{ cursor: 'pointer' }}>
                   <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
                   <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                     <FormattedMessage id="LogIn" />
