@@ -20,6 +20,7 @@ import { ImagePayload, ImageUploadPayload } from '../stepThree/uploadImage';
 import { VerificationStepSecond } from 'services/modelAuth/types';
 import { DOCUMENT_UPLOAD_TYPE, DocumentList } from 'constants/workerVerification';
 import { scrollToError } from 'utils/scrollUtils';
+import { BackButtonBox, VerificationButtonText } from '../verificationStep2/VerificationStep2.styled';
 
 export type VerificationPhotoWithoutFilter = {
   photoWithoutFilter: File | string;
@@ -30,14 +31,15 @@ export type VerificationPhotoWithoutFilter = {
 export type VerificationStepPromiseType = {
   activeStep: number;
   modelDetails: ModelDetailsResponse | undefined;
-  handlePrev: () => void;
-  handleNext: () => void;
+  handlePrev?: () => void;
+  handleNext?: () => void;
   token: TokenIdType;
-  handleDocuPrev: () => void;
+  handleDocuPrev?: () => void;
   handleModelApiChange: () => void;
   docValues: VerificationStepSecond;
   isReviewEdit: boolean;
-  handleEdit: (step: number) => void;
+  handleEdit?: (step: number) => void;
+  isDashboard: boolean;
 };
 
 export type DocumentUploadPayload = {
@@ -67,7 +69,8 @@ const VerificationStepPromise = ({
   handleModelApiChange,
   docValues,
   isReviewEdit,
-  handleEdit
+  handleEdit,
+  isDashboard
 }: VerificationStepPromiseType) => {
   const [loading, setLoading] = useState(false);
 
@@ -143,6 +146,35 @@ const VerificationStepPromise = ({
               ],
               document_upload_step: true
             };
+          } else if (
+            docValues.idType !== DOCUMENT_UPLOAD_TYPE.PASSPORT &&
+            typeof values.photoWithoutFilterFront === 'string' &&
+            typeof values.photoWithoutFilterBack === 'string'
+          ) {
+            const selectedDocument = DocumentList.find((item) => item.key === docValues.idType)?.value;
+            const uploadPhotos: ImageUploadPayload[] = [];
+
+            modelDetails?.documents.forEach((x, i) => {
+              uploadPhotos.push({
+                id: modelDetails?.documents[0].id ? Number(modelDetails?.documents[0].id) : 0,
+                link: x.link,
+                type: '',
+                cords: '',
+                is_favourite: 0,
+                is_document: 1,
+                document_type: String(selectedDocument) ?? modelDetails?.documents[0].document_type,
+                document_number: docValues.idNumber ? docValues.idNumber : modelDetails?.documents[0].document_number ?? '',
+                file_id: x.file_id,
+                file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image',
+                document_front_side: i === 0 ? 1 : 0
+              });
+            });
+
+            payload = {
+              is_document: true,
+              photos: uploadPhotos,
+              document_upload_step: true
+            };
           } else {
             const allFiles = [values.photoWithoutFilterFront, values.photoWithoutFilterBack];
             const fileBody = [
@@ -183,9 +215,9 @@ const VerificationStepPromise = ({
           const response = await VerificationStepService.uploadModelPhotos(payload, token);
           if (response?.data) {
             handleModelApiChange();
-            if (isReviewEdit) {
+            if (isReviewEdit && handleEdit) {
               handleEdit(4);
-            } else {
+            } else if (handleNext) {
               handleNext();
             }
           } else {
@@ -218,16 +250,18 @@ const VerificationStepPromise = ({
               }}
             >
               <Box display="flex" gap={1.5} flexDirection="column">
-                <UINewTypography variant="h2">
-                  <FormattedMessage id="PleaseUploadYourDocuments" />
-                </UINewTypography>
+                {!isDashboard && (
+                  <UINewTypography variant="h2">
+                    <FormattedMessage id="PleaseUploadYourDocuments" />
+                  </UINewTypography>
+                )}
                 <UINewTypography color="secondary.200">
                   <FormattedMessage id="UploadID" />
                 </UINewTypography>
               </Box>
             </Box>
             {docValues.idType !== DOCUMENT_UPLOAD_TYPE.PASSPORT ? (
-              <Box display="flex" gap={6} justifyContent="center">
+              <Box display="flex" gap={6} justifyContent="center" flexDirection={isDashboard ? 'column' : 'row'}>
                 <WorkerPhotosWithoutFilterNew
                   name="photoWithoutFilterFront"
                   value={values.photoWithoutFilterFront as File}
@@ -273,17 +307,33 @@ const VerificationStepPromise = ({
 
             <LastMainBox>
               <StepButtonNext>
-                <UIThemeButton variant="outlined" onClick={handleDocuPrev}>
-                  <ArrowBackIcon />
+                <BackButtonBox>
+                  {!isDashboard && (
+                    <UIThemeButton variant="outlined" onClick={handleDocuPrev}>
+                      <ArrowBackIcon />
+                      <VerificationButtonText variant="buttonLargeBold" color="text.secondary">
+                        <FormattedMessage id="Back" />
+                      </VerificationButtonText>
+                    </UIThemeButton>
+                  )}
+                </BackButtonBox>
+
+                <StyleButtonV2
+                  id={isDashboard ? 'document-id-photo' : 'document-id-button'}
+                  type="submit"
+                  variant="contained"
+                  loading={loading}
+                >
                   <UINewTypography variant="body">
-                    <FormattedMessage id="Back" />
+                    {isReviewEdit && !isDashboard ? (
+                      <FormattedMessage id="SaveAndReview" />
+                    ) : isDashboard ? (
+                      <FormattedMessage id="Save" />
+                    ) : (
+                      <FormattedMessage id="Next" />
+                    )}
                   </UINewTypography>
-                </UIThemeButton>
-                <StyleButtonV2 id="document-id-button" type="submit" variant="contained" loading={loading}>
-                  <UINewTypography variant="body">
-                    {isReviewEdit ? <FormattedMessage id="SaveAndReview" /> : <FormattedMessage id="Next" />}
-                  </UINewTypography>
-                  <ArrowForwardOutlinedIcon />
+                  {!isDashboard && <ArrowForwardOutlinedIcon />}
                 </StyleButtonV2>
               </StepButtonNext>
             </LastMainBox>
