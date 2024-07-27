@@ -12,8 +12,11 @@ import BackdropProgress from 'components/UIComponents/BackDropProgress';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { getQueryParam } from 'utils/genericFunction';
+import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 
 const HomeContainer = () => {
+  const { isCustomer } = useCallFeatureContext();
+
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -104,7 +107,7 @@ const HomeContainer = () => {
       setToken({ id: data?.id, token: data?.token });
     };
     userToken();
-  }, []);
+  }, [isCustomer]);
 
   const handelFilterChange = async (values: SearchFiltersTypes) => {
     setIsLoading(true);
