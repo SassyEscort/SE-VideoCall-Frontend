@@ -53,6 +53,8 @@ const ModelBasicDetailReview = ({
   const documentBack = modelDetails?.documents?.length && modelDetails?.documents[1]?.link ? modelDetails?.documents[1]?.link : '';
 
   const documentLinkPdf = documentLink.includes('.pdf') || modelDetails?.documents[0]?.file_type === 'Non_Image';
+  const documentBackLinkPdf = modelDetails?.documents[1]?.file_type === 'Non_Image';
+
   useEffect(() => {
     const names = modelDetails?.languages
       ?.map((language) => language?.language_name)
@@ -193,7 +195,7 @@ const ModelBasicDetailReview = ({
                     <Passport>
                       <FormattedMessage id="IDBack" />
                       <SecTextContainer color={'text.primary'}>
-                        {documentLinkPdf ? (
+                        {documentBackLinkPdf ? (
                           <Box component={'img'} src={'/images/icons/pdf-icon.svg'} width={'100px'} height={'100px'}></Box>
                         ) : (
                           <Box component={'img'} src={documentBack} width={'265.39px'} />

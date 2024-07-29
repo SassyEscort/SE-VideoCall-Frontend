@@ -6,6 +6,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { VideoAcceptType } from 'constants/workerVerification';
 import {
   DragAndDropMultipleImageCloseButton,
+  DragAndDropMultipleImageCloseVideoButton,
   DragAndDropMultipleImageEditButton,
   DragAndDropMultipleImageThumbnailPhoto
 } from '../dragAndDropMultipleImage/DragAndDropMultipleImage.styled';
@@ -217,18 +218,25 @@ const PhotoItem = ({
         </>
 
         {videoTypeCondition ? (
-          <VideoBox height={height} width={width}>
-            <Box
-              component="img"
-              src="/images/verification/play-icon.svg"
-              sx={{
-                position: 'absolute'
-              }}
-            />
-            <Box component="video" width="100%" height="100%" preload="metadata">
-              <Box component="source" src={`${image.photoURL}#t=0.1`} />
+          <>
+            <Box sx={{ position: 'relative' }} id="imageContainer">
+              <DragAndDropMultipleImageCloseVideoButton size="small" onClick={() => handleRemoveImage(image.name)}>
+                <Box component="img" src="/images/verification/close-icon.svg" />
+              </DragAndDropMultipleImageCloseVideoButton>
             </Box>
-          </VideoBox>
+            <VideoBox height={height} width={width}>
+              <Box
+                component="img"
+                src="/images/verification/play-icon.svg"
+                sx={{
+                  position: 'absolute'
+                }}
+              />
+              <Box component="video" width="100%" height="100%" preload="metadata">
+                <Box component="source" src={`${image.photoURL}#t=0.1`} />
+              </Box>
+            </VideoBox>
+          </>
         ) : (
           <CroppedItem
             sx={{

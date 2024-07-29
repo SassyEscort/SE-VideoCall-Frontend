@@ -32,7 +32,7 @@ const EscortDetailPage = () => {
   const [callTime, setCallTime] = useState(0);
   const modelPhoto = guestData?.photos?.filter((x) => x.favourite).map((item) => item.link)[0];
 
-  const { handleCallInitiate, call, isLoading, isCallEnded, isCustomer } = useCallFeatureContext();
+  const { handleCallInitiate, call, isLoading, isCallEnded, isCustomer, handleCallEnd } = useCallFeatureContext();
 
   useEffect(() => {
     const userToken = async () => {
@@ -64,18 +64,26 @@ const EscortDetailPage = () => {
     fetchGuestData();
   }, [token.token, userName]);
 
-  useEffect(() => {
-    const getCometChatInfo = async () => {
-      if (guestData && token.token) {
-        const getInfo = await CallingService.getCometChatInfo(guestData.id, token.token);
-        if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 3) {
-          const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
-          setCallTime(durationInSeconds);
-          setIsCreditAvailable(true);
-        }
+  const getCometChatInfo = async () => {
+    if (guestData && token.token) {
+      const getInfo = await CallingService.getCometChatInfo(guestData.id, token.token);
+      if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 3) {
+        const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
+        setCallTime(durationInSeconds);
+        setIsCreditAvailable(true);
+      } else {
+        setIsCreditAvailable(false);
       }
-    };
-    getCometChatInfo();
+    }
+  };
+
+  useEffect(() => {
+    if (isCallEnded) {
+      handleCallEnd();
+    } else {
+      getCometChatInfo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guestData, token, userName, call, isCallEnded]);
 
   return (
