@@ -607,5 +607,8 @@
   "TotalOf": "Total of",
   "DobIsRequired": "Dob is required",
   "NextPrice": "Next - Price",
-  "UploadID": "Please upload the ID card which has Date of Birth on it"
+  "UploadID": "Please upload the ID card which has Date of Birth on it",
+  "SorryToInform": "Sorry to inform but your profile has not been approved",
+  "ReSubmitVerification": "Re-Submit Verification",
+  "Reason": "Reason:"
 }
