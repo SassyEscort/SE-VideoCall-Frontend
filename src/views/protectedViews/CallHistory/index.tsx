@@ -45,9 +45,8 @@ import moment from 'moment';
 import { BillingPaginationBox } from '../BillingHistory/BillingHistory.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { LoaderBox } from '../Credites/Credits.styled';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
-import { CallingService } from 'services/calling/calling.services';
 import { UIStyledLoadingButtonShadowCallHistoryV2 } from 'components/UIComponents/StyleLoadingButtonshadow';
+import { useRouter } from 'next/navigation';
 
 export type CallHistoryPaginationType = {
   page: number;
@@ -56,16 +55,14 @@ export type CallHistoryPaginationType = {
 };
 
 const CallHistory = () => {
+  const router = useRouter();
   const isSmDown = useMediaQuery(theme.breakpoints.down(330));
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [callHistoryData, setCallHistoryData] = useState<CallHistoryPageDetailsRes>();
   const [total_rows, setTotalRows] = useState(0);
   const [isLoadingCall, setIsLoading] = useState(false);
-  const [guestData, setGuestData] = useState<CallHistoryDetails>();
-  const [guestDataIndex, setGuestDataIndex] = useState(0);
-  const [isCreditAvailable, setIsCreditAvailable] = useState(false);
-  const [callTime, setCallTime] = useState(0);
-  const { handleCallInitiate, call, isCallEnded, isLoading, handleOpen } = useCallFeatureContext();
+  const [isLoadingDetail, setIsLoadingDetails] = useState(false);
+
   const [filters, setFilters] = useState<CallHistoryPaginationType>({
     page: 1,
     limit: 20,
@@ -127,30 +124,6 @@ const CallHistory = () => {
     return today.diff(birthDate, 'years');
   };
 
-  useEffect(() => {
-    const getCometChatInfo = async () => {
-      if (guestData && token.token) {
-        const getInfo = await CallingService.getCometChatInfo(guestData.model_id, token.token);
-        if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 3) {
-          const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
-          setCallTime(durationInSeconds);
-          setIsCreditAvailable(true);
-        } else {
-          handleOpen();
-        }
-      }
-    };
-    getCometChatInfo();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [guestData, token, call, isCallEnded]);
-
-  useEffect(() => {
-    if (isCreditAvailable && guestData && !isCallEnded && !call) {
-      handleCallInitiate(guestData.model_id, isCreditAvailable, callTime, guestData.name, guestData.link ?? '', guestData.user_name);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isCreditAvailable, guestData]);
-
   const formatDuration = (duration: string) => {
     const callDuration = moment.duration(duration);
     const hours = Math.floor(callDuration.asHours());
@@ -175,6 +148,14 @@ const CallHistory = () => {
     }
 
     return message;
+  };
+
+  const handleVideoCall = (list: CallHistoryDetails) => {
+    if (list.user_name) {
+      setIsLoadingDetails(true);
+      router.push(`/details/${list.user_name}`);
+      setIsLoadingDetails(false);
+    }
   };
 
   return (
@@ -288,11 +269,10 @@ const CallHistory = () => {
                         )}
                         <CallAgainBox>
                           <UIStyledLoadingButtonShadowCallHistoryV2
-                            loading={isLoading && index === guestDataIndex ? true : false}
+                            loading={isLoadingDetail}
                             variant="contained"
                             onClick={() => {
-                              setGuestDataIndex(index);
-                              setGuestData(list);
+                              handleVideoCall(list);
                             }}
                           >
                             <Box sx={{ display: 'flex', gap: 1.25 }}>

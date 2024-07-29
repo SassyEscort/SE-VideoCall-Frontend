@@ -29,7 +29,8 @@ interface CallFeatureContextProps {
     callTime: number,
     modelName: string,
     modelPhoto: string,
-    userName: string
+    userName: string,
+    modelPrice: string
   ) => void;
   handelNameChange: () => void;
   isNameChange: boolean;
@@ -45,6 +46,7 @@ interface CallFeatureContextProps {
   avaialbleCredits: number;
   getToken: (token: TokenIdType) => void;
   handleOpen: () => void;
+  modelCreditPrice: string;
 }
 
 const CallContext = createContext<CallFeatureContextProps>({
@@ -64,7 +66,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   isCallEnded: false,
   avaialbleCredits: 0,
   getToken: () => {},
-  handleOpen: () => {}
+  handleOpen: () => {},
+  modelCreditPrice: ''
 });
 
 export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
@@ -98,6 +101,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [avaialbleCredits, setAvailableCredits] = useState(0);
   const [isNameChange, setIsNameChange] = useState(false);
+  const [modelCreditPrice, setModelCreditPrice] = useState('');
 
   const pathname = usePathname();
   const router = useRouter();
@@ -147,8 +151,10 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     callTime: number,
     modelName: string,
     modelPhoto: string,
-    userName: string
+    userName: string,
+    modelPrice: string
   ) => {
+    setModelCreditPrice(modelPrice);
     if (guestId && isCreditAvailable && !call && Boolean(token.token)) {
       const isModelBusy = await CallingService.getModelCallStatus(guestId, token.token);
       setModelId(guestId);
@@ -390,12 +396,13 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         isLoading,
         avaialbleCredits,
         getToken,
-        handleOpen
+        handleOpen,
+        modelCreditPrice
       }}
     >
       {children}
       <ModelCreditsUIStyledDialog open={open} maxWidth="md" fullWidth scroll="body">
-        <ModelCredits onClose={handleClose} isOutOfCredits={isOutOfCredits} userName={userName} />
+        <ModelCredits onClose={handleClose} isOutOfCredits={isOutOfCredits} userName={userName} modelCreditPrice={modelCreditPrice} />
       </ModelCreditsUIStyledDialog>
       <UIStyledDialog open={openSuccess} maxWidth="md" fullWidth>
         <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} isOutOfCredits={isOutOfCredits} />

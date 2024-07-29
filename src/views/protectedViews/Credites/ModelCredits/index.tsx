@@ -19,8 +19,7 @@ import {
   LoaderBox,
   MainImagContainer,
   NewUIIconButton,
-  OutOfCreditBox,
-  OutOfCreditInnerBox
+  OutOfCreditBox
 } from './Credits.styled';
 import { FormattedMessage } from 'react-intl';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -33,7 +32,17 @@ import { CircularProgress, Divider, useMediaQuery } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import theme from 'themes/theme';
 
-const ModelCredits = ({ onClose, isOutOfCredits, userName }: { onClose: () => void; isOutOfCredits: boolean; userName: string }) => {
+const ModelCredits = ({
+  onClose,
+  isOutOfCredits,
+  userName,
+  modelCreditPrice
+}: {
+  onClose: () => void;
+  isOutOfCredits: boolean;
+  userName: string;
+  modelCreditPrice: string;
+}) => {
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [balance, setBalance] = useState(0);
@@ -90,7 +99,7 @@ const ModelCredits = ({ onClose, isOutOfCredits, userName }: { onClose: () => vo
         <CreditsSubContainer>
           <HeadingContainer>
             <UINewTypography variant="h6">
-              {isOutOfCredits ? <FormattedMessage id="OutOFCredits" /> : <FormattedMessage id="NotEnoughCredits" />}
+              <FormattedMessage id="YouNeed" /> {modelCreditPrice} <FormattedMessage id="CreditsContinue" />{' '}
             </UINewTypography>
             <NewUIIconButton onClick={onClose}>
               <CloseIcon sx={{ color: theme.palette.text.secondary }} />
@@ -127,14 +136,9 @@ const ModelCredits = ({ onClose, isOutOfCredits, userName }: { onClose: () => vo
             <ImagMainContainer>
               {isOutOfCredits && (
                 <OutOfCreditBox>
-                  <UINewTypography variant="h5" color="text.secondary">
-                    <FormattedMessage id="YouAreOutOfCredits" />
+                  <UINewTypography variant="h5">
+                    <FormattedMessage id="PleaseChoose" />
                   </UINewTypography>
-                  <OutOfCreditInnerBox>
-                    <UINewTypography color="text.secondary" variant="body1">
-                      <FormattedMessage id="LowCredits" />
-                    </UINewTypography>
-                  </OutOfCreditInnerBox>
                 </OutOfCreditBox>
               )}
               <FirstBoxContainer>

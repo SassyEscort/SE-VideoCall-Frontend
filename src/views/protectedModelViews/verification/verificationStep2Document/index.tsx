@@ -21,6 +21,8 @@ import { VerificationStepSecond } from 'services/modelAuth/types';
 import { DOCUMENT_UPLOAD_TYPE, DocumentList } from 'constants/workerVerification';
 import { scrollToError } from 'utils/scrollUtils';
 import { BackButtonBox, VerificationButtonText } from '../verificationStep2/VerificationStep2.styled';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import theme from 'themes/theme';
 
 export type VerificationPhotoWithoutFilter = {
   photoWithoutFilter: File | string;
@@ -73,6 +75,7 @@ const VerificationStepPromise = ({
   isDashboard
 }: VerificationStepPromiseType) => {
   const [loading, setLoading] = useState(false);
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const validationSchema = (docValues: VerificationStepSecond) => {
     const baseValidation = Yup.mixed()
@@ -261,7 +264,7 @@ const VerificationStepPromise = ({
               </Box>
             </Box>
             {docValues.idType !== DOCUMENT_UPLOAD_TYPE.PASSPORT ? (
-              <Box display="flex" gap={6} justifyContent="center" flexDirection={isDashboard ? 'column' : 'row'}>
+              <Box display="flex" gap={6} justifyContent="center" flexDirection={isDashboard || isSmDown ? 'column' : 'row'}>
                 <WorkerPhotosWithoutFilterNew
                   name="photoWithoutFilterFront"
                   value={values.photoWithoutFilterFront as File}
