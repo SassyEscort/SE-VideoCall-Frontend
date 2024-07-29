@@ -35,7 +35,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
-import { CallHistoryDetails, CallHistoryPageDetailsRes } from 'services/callHistory/types';
+import { CallHistoryPageDetailsRes } from 'services/callHistory/types';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CallHistoryService } from 'services/callHistory/callHistory.services';
@@ -45,8 +45,6 @@ import moment from 'moment';
 import { BillingPaginationBox } from '../BillingHistory/BillingHistory.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { LoaderBox } from '../Credites/Credits.styled';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
-import { CallingService } from 'services/calling/calling.services';
 import { UIStyledLoadingButtonShadowCallHistoryV2 } from 'components/UIComponents/StyleLoadingButtonshadow';
 
 export type CallHistoryPaginationType = {
@@ -61,11 +59,6 @@ const CallHistory = () => {
   const [callHistoryData, setCallHistoryData] = useState<CallHistoryPageDetailsRes>();
   const [total_rows, setTotalRows] = useState(0);
   const [isLoadingCall, setIsLoading] = useState(false);
-  const [guestData, setGuestData] = useState<CallHistoryDetails>();
-  const [guestDataIndex, setGuestDataIndex] = useState(0);
-  const [isCreditAvailable, setIsCreditAvailable] = useState(false);
-  const [callTime, setCallTime] = useState(0);
-  const { handleCallInitiate, call, isCallEnded, isLoading, handleOpen } = useCallFeatureContext();
   const [filters, setFilters] = useState<CallHistoryPaginationType>({
     page: 1,
     limit: 20,
@@ -126,30 +119,6 @@ const CallHistory = () => {
     const today = moment();
     return today.diff(birthDate, 'years');
   };
-
-  useEffect(() => {
-    const getCometChatInfo = async () => {
-      if (guestData && token.token) {
-        const getInfo = await CallingService.getCometChatInfo(guestData.model_id, token.token);
-        if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 3) {
-          const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
-          setCallTime(durationInSeconds);
-          setIsCreditAvailable(true);
-        } else {
-          handleOpen();
-        }
-      }
-    };
-    getCometChatInfo();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [guestData, token, call, isCallEnded]);
-
-  useEffect(() => {
-    if (isCreditAvailable && guestData && !isCallEnded && !call) {
-      handleCallInitiate(guestData.model_id, isCreditAvailable, callTime, guestData.name, guestData.link ?? '', guestData.user_name);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isCreditAvailable, guestData]);
 
   const formatDuration = (duration: string) => {
     const callDuration = moment.duration(duration);
@@ -287,14 +256,7 @@ const CallHistory = () => {
                           </SecondSubFirstPartThiredBox>
                         )}
                         <CallAgainBox>
-                          <UIStyledLoadingButtonShadowCallHistoryV2
-                            loading={isLoading && index === guestDataIndex ? true : false}
-                            variant="contained"
-                            onClick={() => {
-                              setGuestDataIndex(index);
-                              setGuestData(list);
-                            }}
-                          >
+                          <UIStyledLoadingButtonShadowCallHistoryV2 variant="contained">
                             <Box sx={{ display: 'flex', gap: 1.25 }}>
                               <SecImgBoxContainer src="/images/home-connect-instantly-img.png" />
                               <Box sx={{ whiteSpace: 'nowrap' }}>

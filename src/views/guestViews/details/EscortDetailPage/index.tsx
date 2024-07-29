@@ -88,7 +88,15 @@ const EscortDetailPage = () => {
               modelId={guestData?.id ?? 0}
               token={token}
               handleCallInitiate={() =>
-                handleCallInitiate(guestData?.id, isCreditAvailable, callTime, guestData?.name, modelPhoto ?? '', guestData.user_name)
+                handleCallInitiate(
+                  guestData?.id,
+                  isCreditAvailable,
+                  callTime,
+                  guestData?.name,
+                  modelPhoto ?? '',
+                  guestData.user_name,
+                  guestData.video_call_prices[0].credits_per_minute
+                )
               }
               isCustomer={isCustomer}
               isLoading={isLoading}
@@ -100,7 +108,15 @@ const EscortDetailPage = () => {
                 modelId={guestData?.id ?? 0}
                 token={token}
                 handleCallInitiate={() =>
-                  handleCallInitiate(guestData?.id, isCreditAvailable, callTime, guestData?.name, modelPhoto ?? '', guestData.user_name)
+                  handleCallInitiate(
+                    guestData?.id,
+                    isCreditAvailable,
+                    callTime,
+                    guestData?.name,
+                    modelPhoto ?? '',
+                    guestData.user_name,
+                    guestData.video_call_prices[0].credits_per_minute
+                  )
                 }
                 isCustomer={isCustomer}
                 isLoading={isLoading}
