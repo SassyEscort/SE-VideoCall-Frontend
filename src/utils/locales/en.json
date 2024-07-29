@@ -607,5 +607,8 @@
   "TotalOf": "Total of",
   "DobIsRequired": "Dob is required",
   "NextPrice": "Next - Price",
-  "UploadID": "Please upload the ID card which has Date of Birth on it"
+  "UploadID": "Please upload the ID card which has Date of Birth on it",
+  "YouNeed":"You need",
+  "CreditsContinue":"credits to continue this video call.",
+  "PleaseChoose":"Please choose your package"
 }

@@ -168,8 +168,7 @@ export const OutOfCreditBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
   flexDirection: 'column',
   width: '100%',
-  alignItems: 'center',
-  justifyContent: 'center'
+  paddingLeft: theme.spacing(2)
 }));
 
 export const OutOfCreditInnerBox = styled(Box)(() => ({
