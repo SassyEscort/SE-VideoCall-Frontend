@@ -35,7 +35,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
-import { CallHistoryPageDetailsRes } from 'services/callHistory/types';
+import { CallHistoryDetails, CallHistoryPageDetailsRes } from 'services/callHistory/types';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CallHistoryService } from 'services/callHistory/callHistory.services';
@@ -46,6 +46,7 @@ import { BillingPaginationBox } from '../BillingHistory/BillingHistory.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { LoaderBox } from '../Credites/Credits.styled';
 import { UIStyledLoadingButtonShadowCallHistoryV2 } from 'components/UIComponents/StyleLoadingButtonshadow';
+import { useRouter } from 'next/navigation';
 
 export type CallHistoryPaginationType = {
   page: number;
@@ -54,11 +55,14 @@ export type CallHistoryPaginationType = {
 };
 
 const CallHistory = () => {
+  const router = useRouter();
   const isSmDown = useMediaQuery(theme.breakpoints.down(330));
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [callHistoryData, setCallHistoryData] = useState<CallHistoryPageDetailsRes>();
   const [total_rows, setTotalRows] = useState(0);
   const [isLoadingCall, setIsLoading] = useState(false);
+  const [isLoadingDetail, setIsLoadingDetails] = useState(false);
+
   const [filters, setFilters] = useState<CallHistoryPaginationType>({
     page: 1,
     limit: 20,
@@ -144,6 +148,14 @@ const CallHistory = () => {
     }
 
     return message;
+  };
+
+  const handleVideoCall = (list: CallHistoryDetails) => {
+    if (list.user_name) {
+      setIsLoadingDetails(true);
+      router.push(`/details/${list.user_name}`);
+      setIsLoadingDetails(false);
+    }
   };
 
   return (
@@ -256,7 +268,13 @@ const CallHistory = () => {
                           </SecondSubFirstPartThiredBox>
                         )}
                         <CallAgainBox>
-                          <UIStyledLoadingButtonShadowCallHistoryV2 variant="contained">
+                          <UIStyledLoadingButtonShadowCallHistoryV2
+                            loading={isLoadingDetail}
+                            variant="contained"
+                            onClick={() => {
+                              handleVideoCall(list);
+                            }}
+                          >
                             <Box sx={{ display: 'flex', gap: 1.25 }}>
                               <SecImgBoxContainer src="/images/home-connect-instantly-img.png" />
                               <Box sx={{ whiteSpace: 'nowrap' }}>

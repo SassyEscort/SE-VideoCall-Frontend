@@ -4,10 +4,8 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Divider, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-
 import theme from 'themes/theme';
 import { SecondSubContainerImgWorkerCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
-
 import {
   DialogTitleContainer,
   MainContainer,
@@ -25,41 +23,30 @@ import WorkerCardMobile from 'views/guestViews/commonComponents/mobileWorkerCard
 import { FormattedMessage } from 'react-intl';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import moment from 'moment';
-import { getUserDataClient } from 'utils/getSessionData';
-import { TokenIdType } from 'views/protectedModelViews/verification';
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ViewDetailsRes } from 'services/guestBilling/types';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
+import { TokenIdType } from 'views/protectedModelViews/verification';
 
 const BillingDetails = ({
   open,
   handleClose,
-  selectDetails
+  selectDetails,
+  token
 }: {
   open: boolean;
   handleClose: () => void;
   selectDetails: ViewDetailsRes;
+  token: TokenIdType;
 }) => {
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const router = useRouter();
-
   const { isLoading } = useCallFeatureContext();
   const callDurationString = selectDetails.call_duration;
   const callDuration = moment.duration(callDurationString);
   const hours = Math.floor(callDuration.asHours());
   const minutes = callDuration.minutes();
   const seconds = callDuration.seconds();
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
-    };
-
-    userToken();
-  }, [open]);
 
   function formatDuration(hours: number, minutes: number, seconds: number) {
     let message = '';
@@ -87,6 +74,12 @@ const BillingDetails = ({
   const handelExplore = () => {
     router.push('/');
     handleClose();
+  };
+
+  const handleVideoCall = (selectDetails: ViewDetailsRes) => {
+    if (selectDetails.user_name) {
+      router.push(`/details/${selectDetails.user_name}`);
+    }
   };
   return (
     <DialogBox open={open} onClose={handleClose} fullWidth scroll="body">
@@ -146,6 +139,9 @@ const BillingDetails = ({
             <ButtonMainContainer>
               <StyleButtonV2
                 loading={isLoading}
+                onClick={() => {
+                  handleVideoCall(selectDetails);
+                }}
                 sx={{
                   height: 'auto',
                   maxWidth: '100%',
