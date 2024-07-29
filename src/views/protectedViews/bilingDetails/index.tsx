@@ -4,10 +4,8 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Divider, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-
 import theme from 'themes/theme';
 import { SecondSubContainerImgWorkerCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
-
 import {
   DialogTitleContainer,
   MainContainer,

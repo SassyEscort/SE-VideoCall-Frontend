@@ -47,6 +47,7 @@ import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { LoaderBox } from '../Credites/Credits.styled';
 import { UIStyledLoadingButtonShadowCallHistoryV2 } from 'components/UIComponents/StyleLoadingButtonshadow';
 import { useRouter } from 'next/navigation';
+
 export type CallHistoryPaginationType = {
   page: number;
   offset: number;
