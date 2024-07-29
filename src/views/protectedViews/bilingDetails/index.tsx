@@ -25,58 +25,30 @@ import WorkerCardMobile from 'views/guestViews/commonComponents/mobileWorkerCard
 import { FormattedMessage } from 'react-intl';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import moment from 'moment';
-import { CallingService } from 'services/calling/calling.services';
-import { getUserDataClient } from 'utils/getSessionData';
-import { TokenIdType } from 'views/protectedModelViews/verification';
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ViewDetailsRes } from 'services/guestBilling/types';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
+import { TokenIdType } from 'views/protectedModelViews/verification';
 
 const BillingDetails = ({
   open,
   handleClose,
-  selectDetails
+  selectDetails,
+  token
 }: {
   open: boolean;
   handleClose: () => void;
   selectDetails: ViewDetailsRes;
+  token: TokenIdType;
 }) => {
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const [isCreditAvailable, setIsCreditAvailable] = useState(false);
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
-  const [callTime, setCallTime] = useState(0);
   const router = useRouter();
-
-  const { handleCallInitiate, call, isCallEnded, isLoading } = useCallFeatureContext();
+  const { isLoading } = useCallFeatureContext();
   const callDurationString = selectDetails.call_duration;
   const callDuration = moment.duration(callDurationString);
   const hours = Math.floor(callDuration.asHours());
   const minutes = callDuration.minutes();
   const seconds = callDuration.seconds();
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
-    };
-
-    userToken();
-  }, [open]);
-
-  useEffect(() => {
-    const getCometChatInfo = async () => {
-      if (selectDetails && token.token && selectDetails.model_id) {
-        const getInfo = await CallingService.getCometChatInfo(selectDetails.model_id, token.token);
-        if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 3) {
-          const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
-          setCallTime(durationInSeconds);
-          setIsCreditAvailable(true);
-        }
-      }
-    };
-    getCometChatInfo();
-  }, [token, call, isCallEnded, open, selectDetails]);
 
   function formatDuration(hours: number, minutes: number, seconds: number) {
     let message = '';
@@ -104,6 +76,12 @@ const BillingDetails = ({
   const handelExplore = () => {
     router.push('/');
     handleClose();
+  };
+
+  const handleVideoCall = (selectDetails: ViewDetailsRes) => {
+    if (selectDetails.user_name) {
+      router.push(`/details/${selectDetails.user_name}`);
+    }
   };
   return (
     <DialogBox open={open} onClose={handleClose} fullWidth scroll="body">
@@ -164,14 +142,7 @@ const BillingDetails = ({
               <StyleButtonV2
                 loading={isLoading}
                 onClick={() => {
-                  handleCallInitiate(
-                    selectDetails.model_id,
-                    isCreditAvailable,
-                    callTime,
-                    selectDetails.name,
-                    selectDetails.link,
-                    selectDetails.user_name
-                  );
+                  handleVideoCall(selectDetails);
                 }}
                 sx={{
                   height: 'auto',

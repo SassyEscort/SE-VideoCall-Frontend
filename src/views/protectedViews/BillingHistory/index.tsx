@@ -196,7 +196,7 @@ const BillingHistory = () => {
           </CallHistoryPaginationContainer>
         )}
       </BillingHistoryBoxContainer>
-      <BillingDetails open={open} handleClose={handDetailsClose} selectDetails={selectDetails ?? ({} as ViewDetailsRes)} />
+      <BillingDetails open={open} handleClose={handDetailsClose} selectDetails={selectDetails ?? ({} as ViewDetailsRes)} token={token} />
     </MainLayoutNav>
   );
 };
