@@ -33,6 +33,7 @@ import {
   FourTextContainer
 } from './ModelReviewDetails.styled';
 import { useEffect, useState } from 'react';
+import { DOCUMENT_UPLOAD_TYPE } from 'constants/workerVerification';
 
 const ModelBasicDetailReview = ({
   modelDetails,
@@ -49,6 +50,8 @@ const ModelBasicDetailReview = ({
     modelDetails?.documents?.length && modelDetails?.documents[0]?.document_number ? modelDetails?.documents[0]?.document_number : '';
 
   const documentLink = modelDetails?.documents?.length && modelDetails?.documents[0]?.link ? modelDetails?.documents[0]?.link : '';
+  const documentBack = modelDetails?.documents?.length && modelDetails?.documents[1]?.link ? modelDetails?.documents[1]?.link : '';
+
   const documentLinkPdf = documentLink.includes('.pdf') || modelDetails?.documents[0]?.file_type === 'Non_Image';
   useEffect(() => {
     const names = modelDetails?.languages
@@ -160,18 +163,46 @@ const ModelBasicDetailReview = ({
                   <ThirdTextContainer color={'text.secondary'}>{documentNumber}</ThirdTextContainer>
                 </IDnumber>
               </Passport>
-              <FontIdRight>
-                <Box>
-                  <SecTextContainer color={'text.primary'}>
-                    <FormattedMessage id="IdFront" />
-                  </SecTextContainer>
-                </Box>
-                {documentLinkPdf ? (
-                  <Box component={'img'} src={'/images/icons/pdf-icon.svg'} width={'100px'} height={'100px'}></Box>
-                ) : (
-                  <Box component={'img'} src={documentLink} width={'265.39px'}></Box>
-                )}
-              </FontIdRight>
+
+              {documentType === DOCUMENT_UPLOAD_TYPE.PASSPORT ? (
+                <FontIdRight>
+                  <Box>
+                    <SecTextContainer color={'text.primary'}>
+                      <FormattedMessage id="IdFront" />
+                    </SecTextContainer>
+                  </Box>
+                  {documentLinkPdf ? (
+                    <Box component={'img'} src={'/images/icons/pdf-icon.svg'} width={'100px'} height={'100px'}></Box>
+                  ) : (
+                    <Box component={'img'} src={documentLink} width={'265.39px'}></Box>
+                  )}
+                </FontIdRight>
+              ) : (
+                <FontIdRight>
+                  <Box>
+                    <Passport>
+                      <FormattedMessage id="IDFront" />
+                      <SecTextContainer color={'text.primary'}>
+                        {documentLinkPdf ? (
+                          <Box component={'img'} src={'/images/icons/pdf-icon.svg'} width={'100px'} height={'100px'}></Box>
+                        ) : (
+                          <Box component={'img'} src={documentLink} width={'265.39px'} />
+                        )}
+                      </SecTextContainer>
+                    </Passport>
+                    <Passport>
+                      <FormattedMessage id="IDBack" />
+                      <SecTextContainer color={'text.primary'}>
+                        {documentLinkPdf ? (
+                          <Box component={'img'} src={'/images/icons/pdf-icon.svg'} width={'100px'} height={'100px'}></Box>
+                        ) : (
+                          <Box component={'img'} src={documentBack} width={'265.39px'} />
+                        )}
+                      </SecTextContainer>
+                    </Passport>
+                  </Box>
+                </FontIdRight>
+              )}
             </IDtype>
           </DocumentLeftContainer>
         </FirstBoxContainer>

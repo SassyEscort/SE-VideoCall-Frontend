@@ -99,11 +99,7 @@ const ModelCredits = ({
         <CreditsSubContainer>
           <HeadingContainer>
             <UINewTypography variant="h6">
-              {isOutOfCredits && (
-                <>
-                  <FormattedMessage id="YouNeed" /> {modelCreditPrice} <FormattedMessage id="CreditsContinue" />{' '}
-                </>
-              )}
+              <FormattedMessage id="YouNeed" /> {modelCreditPrice} <FormattedMessage id="CreditsContinue" />{' '}
             </UINewTypography>
             <NewUIIconButton onClick={onClose}>
               <CloseIcon sx={{ color: theme.palette.text.secondary }} />
