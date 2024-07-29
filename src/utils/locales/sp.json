@@ -605,5 +605,8 @@
   "TotalOf": "Total de",
   "DobIsRequired": "Se requiere fecha de nacimiento",
   "NextPrice": "Siguiente - Precio",
-  "UploadID": "Por favor, suba la tarjeta de identificación que tiene la fecha de nacimiento"
+  "UploadID": "Por favor, suba la tarjeta de identificación que tiene la fecha de nacimiento",
+  "YouNeed": "Usted necesita",
+  "CreditsContinue": "créditos para continuar esta videollamada.",
+  "PleaseChoose": "Por favor, elija su paquete"
 }
