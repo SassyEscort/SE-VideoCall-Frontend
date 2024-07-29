@@ -47,6 +47,7 @@ interface CallFeatureContextProps {
   getToken: (token: TokenIdType) => void;
   handleOpen: () => void;
   modelCreditPrice: string;
+  handleCallEnd: () => void;
 }
 
 const CallContext = createContext<CallFeatureContextProps>({
@@ -67,7 +68,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   avaialbleCredits: 0,
   getToken: () => {},
   handleOpen: () => {},
-  modelCreditPrice: ''
+  modelCreditPrice: '',
+  handleCallEnd: () => {}
 });
 
 export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
@@ -200,6 +202,10 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
 
   const handleBusyClose = () => {
     setIsBusy(false);
+  };
+
+  const handleCallEnd = () => {
+    setIsCallEnded(false);
   };
 
   const creditPutCallLog = async (model_id: number, comet_chat_session_id: string, status: string): Promise<CreditCallRes | undefined> => {
@@ -397,7 +403,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         avaialbleCredits,
         getToken,
         handleOpen,
-        modelCreditPrice
+        modelCreditPrice,
+        handleCallEnd
       }}
     >
       {children}
