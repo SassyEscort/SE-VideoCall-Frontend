@@ -13,6 +13,9 @@ export const MainContainer = styled(Box)(({ theme }) => ({
     paddingLeft: theme.spacing(1.875),
     paddingRight: theme.spacing(2.25),
     height: '68px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    height: '30px'
   }
 }));
 export const ImageBox = styled('img')(({ theme }) => ({
@@ -41,5 +44,8 @@ export const UINewTypographyText = styled(Typography)(({ theme }) => ({
   },
   '@media (max-width: 320px)': {
     fontSize: '13px'
+  },
+  '@media (max-width: 799px)': {
+    fontSize: '14px'
   }
 }));
