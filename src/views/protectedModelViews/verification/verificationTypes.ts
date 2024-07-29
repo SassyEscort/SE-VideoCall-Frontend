@@ -48,6 +48,7 @@ export type ModelDetailsResponse = {
   is_online: number;
   user_name: string;
   profile_status: string;
+  rejection_reason: string;
 };
 
 export type GuestDetailsResponse = {

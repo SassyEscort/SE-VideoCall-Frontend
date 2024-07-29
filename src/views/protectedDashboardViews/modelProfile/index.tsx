@@ -45,6 +45,12 @@ const ModelProfile = () => {
     }
   }, [token.token]);
 
+  useEffect(() => {
+    if (modelDetails?.profile_status === 'Rejected') {
+      window.location.href = '/model/profile-reject';
+    }
+  }, [modelDetails?.profile_status]);
+
   return (
     <DashboardProfile>
       {isMdDown ? (

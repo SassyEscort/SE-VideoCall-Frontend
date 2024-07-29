@@ -154,12 +154,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     userName: string,
     modelPrice: string
   ) => {
+    setModelCreditPrice(modelPrice);
     if (guestId && isCreditAvailable && !call && Boolean(token.token)) {
       const isModelBusy = await CallingService.getModelCallStatus(guestId, token.token);
       setModelId(guestId);
       setModelName(modelName);
       setModelPhoto(modelPhoto);
-      setModelCreditPrice(modelPrice);
 
       if (isModelBusy.data.ongoing_calls) {
         setIsBusy(true);

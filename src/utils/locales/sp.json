@@ -606,7 +606,13 @@
   "DobIsRequired": "Se requiere fecha de nacimiento",
   "NextPrice": "Siguiente - Precio",
   "UploadID": "Por favor, suba la tarjeta de identificación que tiene la fecha de nacimiento",
+  "SorryToInform": "Lo siento, pero tu perfil no ha sido aprobado.",
+  "ReSubmitVerification": "Reenviar verificación",
+  "Reason": "Razón:",
   "YouNeed": "Usted necesita",
   "CreditsContinue": "créditos para continuar esta videollamada.",
-  "PleaseChoose": "Por favor, elija su paquete"
+  "PleaseChoose": "Por favor, elija su paquete",
+  "IDFront": "Frente del ID",
+  "IDBack": "Dorso del ID",
+  "YouCanSetPriceBetween": "Puede establecer el precio entre"
 }
