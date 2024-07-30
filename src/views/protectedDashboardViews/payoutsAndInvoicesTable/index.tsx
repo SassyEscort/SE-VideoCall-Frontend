@@ -40,6 +40,8 @@ export type PaginationType = {
   pageSize: number;
   filter_text: string;
   status: string;
+  fromDate: string;
+  toDate: string;
 };
 
 const PayoutsAndInvoices = () => {
@@ -47,12 +49,15 @@ const PayoutsAndInvoices = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [total_rows, setTotalRows] = useState(0);
+
   const [filters, setFilters] = useState({
     page: 1,
     pageSize: 20,
     offset: 0,
     filter_text: '',
-    status: ''
+    status: '',
+    fromDate: '',
+    toDate: ''
   });
 
   useEffect(() => {
@@ -74,7 +79,9 @@ const PayoutsAndInvoices = () => {
           limit: filters.pageSize,
           offset: filters.offset,
           filter_text: filters.filter_text,
-          status: filters.status
+          status: filters.status,
+          start_date: filters.fromDate,
+          end_date: filters.toDate
         };
         if (token.token) {
           setIsLoading(true);
@@ -151,7 +158,7 @@ const PayoutsAndInvoices = () => {
             </StackBox> */}
             <FilterMainBox>
               <FilterSecondBox>
-                <InvoiceDate />
+                <InvoiceDate handleChangeFilter={handleChangeFilter} filters={filters} />
                 <Status onChange={handleChangeStatus} value={filters.status} />
               </FilterSecondBox>
 

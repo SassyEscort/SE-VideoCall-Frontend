@@ -8,6 +8,7 @@ import {
   EarningHistoryPagination,
   EarningHistorySecBoxContainer,
   EarningHistoryThirdBoxContainer,
+  EarningsHistoryText,
   PaginationBox
 } from './EarningHistory.styled';
 import { FormattedMessage } from 'react-intl';
@@ -180,9 +181,9 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
         <EarningHistoryFirstBoxContainer>
           <EarningHistorySecBoxContainer>
             <EarningHistoryThirdBoxContainer>
-              <UINewTypography variant="h2" color="text.secondary" mt="32px">
+              <EarningsHistoryText mt="32px">
                 <FormattedMessage id="EarningsHistory" />
-              </UINewTypography>
+              </EarningsHistoryText>
               <ProfileDOBMainContainer sx={{ mt: 4 }}>
                 <ProfileDOBContainer>
                   {periodType === DATE_DURATION_TYPE.ALL_TIME && (

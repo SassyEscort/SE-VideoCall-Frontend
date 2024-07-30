@@ -126,4 +126,13 @@ export type ModelPastPayoutDetailParams = {
   offset: number;
   filter_text?: string;
   status?: string;
+  start_date: string;
+  end_date: string;
+};
+
+export type ModelPastPayoutContainerDetailParams = {
+  limit: number;
+  offset: number;
+  filter_text?: string;
+  status?: string;
 };

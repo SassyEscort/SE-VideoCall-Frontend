@@ -1,6 +1,6 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MenuItem from '@mui/material/MenuItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { DATE_DURATION_TYPE, dateDurationTypes } from 'constants/dateRange';
 import moment, { Moment } from 'moment';
@@ -12,20 +12,30 @@ import {
   StyledDatePickerPayout
 } from 'views/protectedDashboardViews/earningOverview/EarningOverview.styled';
 import { FormControlContainer, InvoiceBoxContainer, ProfileDOBoxContainer } from './status.styled';
+import { PaginationType } from '..';
 
-const InvoiceDate = () => {
+const InvoiceDate = ({ handleChangeFilter, filters }: { handleChangeFilter: (value: PaginationType) => void; filters: PaginationType }) => {
   const [periodType, setPeriodType] = useState(''); // Initialize with an empty string
   const [fromDate, setFromDate] = useState<Moment | null>(moment().startOf('week').day(0));
   const [toDate, setToDate] = useState<Moment | null>(moment());
 
+  useEffect(() => {
+    if (fromDate && toDate) {
+      handleChangeFilter({ ...filters, fromDate: fromDate.format('YYYY-MM-DD'), toDate: toDate.format('YYYY-MM-DD') });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fromDate, toDate]);
+
   const handleFromDateChange = (date: Moment) => {
     if (date?.isValid()) {
+      handleChangeFilter({ ...filters, fromDate: date.format('YYYY-MM-DD') });
       setFromDate(date);
     }
   };
 
   const handleToDateChange = (date: Moment) => {
     if (date?.isValid()) {
+      handleChangeFilter({ ...filters, toDate: date.format('YYYY-MM-DD') });
       setToDate(date);
     }
   };

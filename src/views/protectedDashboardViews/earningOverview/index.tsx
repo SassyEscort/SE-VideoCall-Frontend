@@ -11,7 +11,8 @@ import {
   ProfileStatiscsContainer,
   ProfileStatiscsMainContainer,
   ProfileTotalVisits,
-  StyledDatePicker
+  StyledDatePicker,
+  UINewTypographyEarningsOverview
 } from './EarningOverview.styled';
 import { useEffect, useState } from 'react';
 import moment, { Moment } from 'moment';
@@ -134,9 +135,9 @@ const EarningOverview = () => {
       ) : (
         <>
           <ProfileStatiscsContainer>
-            <UINewTypography variant="h5" color="text.secondary">
+            <UINewTypographyEarningsOverview color="text.secondary">
               <FormattedMessage id="EarningsOverview" />
-            </UINewTypography>
+            </UINewTypographyEarningsOverview>
             <ProfileDOBMainContainer>
               <ProfileDOBContainer>
                 {periodType === DATE_DURATION_TYPE.ALL_TIME && (

@@ -8,6 +8,7 @@ import {
   BankDetailsEditReponse,
   BankDetailsListRes,
   MarkOnline,
+  ModelPastPayoutContainerDetailParams,
   ModelPastPayoutDetailParams,
   ModelPastPayoutDetailRes,
   RequestPayoutRep
@@ -71,6 +72,33 @@ export class PayoutService {
     }
   };
 
+  static modelPastPayoutListContainer = async (
+    params: ModelPastPayoutContainerDetailParams,
+    token: string
+  ): Promise<ModelPastPayoutDetailRes> => {
+    try {
+      let query = '';
+      if (params.filter_text) {
+        query += `&search_field=${params.filter_text}`;
+      }
+      if (params.status) {
+        query += `&state=${params.status}`;
+      }
+      const res = await axios.get(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/payout?limit=${params.limit}&offset=${params.offset}${query}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+          }
+        }
+      );
+      return res.data;
+    } catch (error) {
+      return error as ModelPastPayoutDetailRes;
+    }
+  };
+
   static modelPastPayoutList = async (params: ModelPastPayoutDetailParams, token: string): Promise<ModelPastPayoutDetailRes> => {
     try {
       let query = '';
@@ -79,6 +107,12 @@ export class PayoutService {
       }
       if (params.status) {
         query += `&state=${params.status}`;
+      }
+      if (params.start_date) {
+        query += `&start_date=${params.start_date}`;
+      }
+      if (params.end_date) {
+        query += `&end_date=${params.end_date}`;
       }
       const res = await axios.get(
         process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/payout?limit=${params.limit}&offset=${params.offset}${query}`,
