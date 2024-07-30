@@ -7,8 +7,11 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { DialogContentFristBox, DialogContentMain, DialogContentSecondBox, DialogTitleBox, SecondBoxContent } from './RingingModel.styled';
 import VideoCalling from '../commonComponent';
 import { FormattedMessage } from 'react-intl';
+import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
 const RingingModel = ({ onClose }: { onClose: () => void }) => {
+  const { isModelAvailable } = useCallFeatureContext();
+
   return (
     <DialogContentMain open={true} onClose={onClose} fullWidth>
       <DialogTitleBox id="responsive-modal-title">
@@ -38,7 +41,7 @@ const RingingModel = ({ onClose }: { onClose: () => void }) => {
         <DialogContentFristBox>
           <DialogContentSecondBox>
             <SecondBoxContent>
-              <VideoCalling showHeart={false} showAnother={false} />
+              <VideoCalling showHeart={false} showAnother={false} isModelAvailable={isModelAvailable} />
               <UINewTypography variant="bodyLight" color="text.secondary">
                 <FormattedMessage id="Ringing" />
               </UINewTypography>
