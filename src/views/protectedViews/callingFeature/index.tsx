@@ -3,9 +3,20 @@ import { CometChatIncomingCall, CometChatOngoingCall, CometChatOutgoingCall } fr
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import RingingModel from '../videoCalling/RingingModel';
 import AnotherCallModel from '../videoCalling/AnotherCallModel';
+import OfflineModel from '../videoCalling/offlineModel';
 
 const CallFeature = () => {
-  const { call, handleCancelCall, isCallAccepted, isCustomer, isBusy, handleBusyClose, isLoading } = useCallFeatureContext();
+  const {
+    call,
+    handleCancelCall,
+    isCallAccepted,
+    isCustomer,
+    isBusy,
+    handleBusyClose,
+    isLoading,
+    isModelAvailable,
+    handleModelOfflineClose
+  } = useCallFeatureContext();
 
   return (
     <>
@@ -15,6 +26,7 @@ const CallFeature = () => {
       )}
       {call && isCallAccepted && <CometChatOngoingCall sessionID={call?.getSessionId()} />}
       {isBusy && <AnotherCallModel onClose={handleBusyClose} open={isBusy} />}
+      <OfflineModel open={!isModelAvailable} isModelAvailable={isModelAvailable} onClose={handleModelOfflineClose} />
     </>
   );
 };

@@ -6,23 +6,16 @@ import { Box, Divider } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import VideoCalling from '../commonComponent';
 import { FormattedMessage } from 'react-intl';
-
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-import {
-  DialogContentFristBox,
-  DialogContentMain,
-  DialogTitleBox,
-  FourBoxContent,
-  SecondBoxContent,
-  ThirdBoxContent
-} from './Another.styled';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { useRouter } from 'next/navigation';
+import { ThirdBoxContent, FourBoxContent } from '../AnotherCallModel/Another.styled';
+import { DialogContentMain, DialogTitleBox, DialogContentFristBox, SecondBoxContent } from '../RingingModel/RingingModel.styled';
 
-const AnotherCallModel = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+const OfflineModel = ({ open, onClose, isModelAvailable }: { open: boolean; onClose: () => void; isModelAvailable: number }) => {
   const router = useRouter();
 
-  const { modelName, isModelAvailable } = useCallFeatureContext();
+  const { modelName } = useCallFeatureContext();
 
   const handleExploreModel = () => {
     onClose();
@@ -60,8 +53,8 @@ const AnotherCallModel = ({ open, onClose }: { open: boolean; onClose: () => voi
             <SecondBoxContent>
               <VideoCalling showHeart={false} showAnother={true} isModelAvailable={isModelAvailable} />
               <UINewTypography variant="bodyLight" color="text.secondary">
-                <FormattedMessage id="Sorry" />
-                {modelName} <FormattedMessage id="AnotherCall" />
+                <FormattedMessage id="Sorry" /> {''}
+                {modelName} {!isModelAvailable ? <FormattedMessage id="CurrentlyOffline" /> : <FormattedMessage id="AnotherCall" />}
               </UINewTypography>
             </SecondBoxContent>
             <FourBoxContent>
@@ -78,4 +71,4 @@ const AnotherCallModel = ({ open, onClose }: { open: boolean; onClose: () => voi
   );
 };
 
-export default AnotherCallModel;
+export default OfflineModel;

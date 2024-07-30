@@ -41,7 +41,7 @@ const ModelCredits = ({
   onClose: () => void;
   isOutOfCredits: boolean;
   userName: string;
-  modelCreditPrice: string;
+  modelCreditPrice: number;
 }) => {
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });

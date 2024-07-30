@@ -615,5 +615,6 @@
   "CreditsContinue": "credits to continue this video call.",
   "PleaseChoose": "Please choose your package",
   "IDFront": "ID front",
-  "IDBack": "ID back"
+  "IDBack": "ID back",
+  "CurrentlyOffline": "is currently offline"
 }
