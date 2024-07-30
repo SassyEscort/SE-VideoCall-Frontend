@@ -3,7 +3,7 @@ import { SelectChangeEvent } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import { UIStyledSelect } from 'components/UIComponents/UIStyledSelect';
-import { useEffect, useState } from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -22,6 +22,7 @@ type countryType = {
 
 const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
   const [open, setOpen] = useState(false);
+
   const [countries, setCountries] = useState<countryType[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
 
@@ -44,9 +45,11 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleClear = () => {
+  const handleClear: MouseEventHandler<SVGSVGElement> = (event) => {
+    event.stopPropagation();
     renderValue = '';
     onChange({ target: { value: '' } } as SelectChangeEvent<unknown>, null);
+    setOpen(false);
   };
 
   const handleChange = (event: SelectChangeEvent<unknown>, child: React.ReactNode) => {
@@ -55,7 +58,7 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
   };
 
   const handleOpen = () => {
-    setOpen(!open);
+    setOpen((prevOpen) => !prevOpen);
   };
 
   return (
