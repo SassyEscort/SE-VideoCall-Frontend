@@ -18,7 +18,7 @@ const InvoiceTableHeader = () => {
   return (
     <TableHeadMain>
       <TableRow>
-        {headerToRender.map((dp, index) => (
+        {headerToRender?.map((dp, index) => (
           <TableCell
             align={index === 0 ? 'left' : 'center'}
             key={index}
@@ -28,7 +28,7 @@ const InvoiceTableHeader = () => {
               }
             }}
           >
-            <TableHederText>{dp.label}</TableHederText>
+            <TableHederText>{dp?.label}</TableHederText>
           </TableCell>
         ))}
       </TableRow>

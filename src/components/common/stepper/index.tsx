@@ -11,7 +11,7 @@ const UIStepper = ({ steps, activeStep }: { steps: string[]; activeStep: number 
     }}
   >
     <UIStyledStepper activeStep={activeStep} alternativeLabel>
-      {steps.map((label, index) => {
+      {steps?.map((label, index) => {
         const stepProps: { completed?: boolean } = {};
         if (index < activeStep) {
           stepProps.completed = true;

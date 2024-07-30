@@ -79,9 +79,9 @@ const InvoiceDate = ({ handleChangeFilter, filters }: { handleChangeFilter: (val
           onChange={(e) => handleChangePeriodType(e.target.value as string)}
           IconComponent={() => <ExpandMoreIcon />}
         >
-          {dateDurationTypes.map((data, index) => (
-            <MenuItem key={index} value={data.id}>
-              {data.name}
+          {dateDurationTypes?.map((data, index) => (
+            <MenuItem key={index} value={data?.id}>
+              {data?.name}
             </MenuItem>
           ))}
         </UIStyledSelectPastPayout>

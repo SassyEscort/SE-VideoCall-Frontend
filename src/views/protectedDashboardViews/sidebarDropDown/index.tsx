@@ -68,14 +68,14 @@ const MobileSidebar = ({
         }}
         MenuProps={{ disableScrollLock: true }}
       >
-        {profileMenuList.map((list) => (
-          <MenuItem key={list.id} value={list.id}>
-            {menuId === list.id ? (
+        {profileMenuList?.map((list) => (
+          <MenuItem key={list?.id} value={list?.id}>
+            {menuId === list?.id ? (
               <UINewTypography variant="buttonLargeMenu" color="primary.400">
-                {list.menuName}
+                {list?.menuName}
               </UINewTypography>
             ) : (
-              <UINewTypography variant="buttonLargeMenu">{list.menuName}</UINewTypography>
+              <UINewTypography variant="buttonLargeMenu">{list?.menuName}</UINewTypography>
             )}
           </MenuItem>
         ))}

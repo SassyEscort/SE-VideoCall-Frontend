@@ -68,7 +68,7 @@ const ModelProfileContainer = ({
               <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', width: '100%' }} />
             </Box>
             <SidebarDropDownMainContainer>
-              {profileMenuList.map((list, index) => (
+              {profileMenuList?.map((list, index) => (
                 <>
                   <MenuItem onClick={() => handleMenu(list.id)} key={index} sx={{ paddingLeft: '0', py: '12px' }}>
                     {menuId === list.id ? (

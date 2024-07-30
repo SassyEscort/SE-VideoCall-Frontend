@@ -7,7 +7,7 @@ const Navbar = ({ tabIndex }: { tabIndex: number }) => {
   return (
     <MainDashboardSideMenuMainBox>
       <NavBarBoxContainer>
-        {AdminConstantsTabs.map((tab, index) =>
+        {AdminConstantsTabs?.map((tab, index) =>
           index === tabIndex - 1 ? (
             <Link prefetch={false} href={tab.path} key={index} style={{ textDecoration: 'none' }}>
               <SelectedTab>

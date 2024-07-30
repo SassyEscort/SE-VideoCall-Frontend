@@ -30,8 +30,8 @@ export default function NavSection({ data = [], ...other }: NavSectionProps) {
   return (
     <Box {...other}>
       <List disablePadding sx={{ p: 1 }}>
-        {data.map((item) => (
-          <NavItem key={item.title} item={(item as unknown as navRoleConfigSubmenuInfoType) ?? ({} as navRoleConfigSubmenuInfoType)} />
+        {data?.map((item) => (
+          <NavItem key={item?.title} item={(item as unknown as navRoleConfigSubmenuInfoType) ?? ({} as navRoleConfigSubmenuInfoType)} />
         ))}
       </List>
     </Box>
@@ -70,9 +70,7 @@ function NavItem({ item }: { item: NavItem }) {
         <Box sx={{ pl: 2, overflow: 'auto', pt: 0 }}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" sx={{ overflowY: 'auto', p: 0 }}>
-              {submenu.map((subitem) => (
-                <NavItem key={subitem.title} item={subitem} />
-              ))}
+              {submenu?.map((subitem) => <NavItem key={subitem?.title} item={subitem} />)}
             </List>
           </Collapse>
         </Box>

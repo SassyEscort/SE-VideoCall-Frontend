@@ -81,7 +81,7 @@ const PayoutMobileSidebar = ({ token, modelDetails }: { token: TokenIdType; mode
         }}
         MenuProps={{ disableScrollLock: true }}
       >
-        {profileMenuList.map((list) => (
+        {profileMenuList?.map((list) => (
           <MenuItem key={list.id} value={list.id}>
             {menuId === list.id ? (
               <UINewTypography variant="buttonLargeMenu" color="primary.400">

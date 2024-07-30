@@ -16,10 +16,10 @@ const ModelDocument = ({ modelData }: { modelData: ModelDetailsRes }) => {
           {modelData?.data?.documents?.map((item, index) => (
             <Fragment key={index}>
               <PersonalDetailsBox label="Document Type" value={item?.document_type ? item?.document_type : ''} />
-              {item.file_type === 'Non_Image' ? (
-                <StyledModelDocumentImgBox src={defaultPdfImage} onClick={() => handleOpenPdf(item.link)} />
+              {item?.file_type === 'Non_Image' ? (
+                <StyledModelDocumentImgBox src={defaultPdfImage} onClick={() => handleOpenPdf(item?.link)} />
               ) : (
-                <ModelDocumentImgBox src={item.link} />
+                <ModelDocumentImgBox src={item?.link} />
               )}
             </Fragment>
           ))}

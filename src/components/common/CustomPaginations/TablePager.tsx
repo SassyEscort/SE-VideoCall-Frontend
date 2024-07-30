@@ -28,7 +28,7 @@ const TablePager = ({ page, rowsPerPage, handleChangePage, handleChangePageSize,
       <Box display="flex" alignItems="center" gap={1}>
         <Typography sx={{ display: { xs: 'none', sm: 'block' } }}>Rows per page:</Typography>
         <Select value={rowsPerPage} onChange={(e) => handleChangePageSize(e.target.value as number)} size="small">
-          {[10, 25, 50, 100].map((row, index) => (
+          {[10, 25, 50, 100]?.map((row, index) => (
             <MenuItem key={index} value={row}>
               {row}
             </MenuItem>

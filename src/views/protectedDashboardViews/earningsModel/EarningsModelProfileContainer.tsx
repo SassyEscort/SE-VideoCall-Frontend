@@ -43,7 +43,7 @@ const EarningsModelProfileConatiner = ({ token }: { token: TokenIdType }) => {
               <SecondDivider orientation="horizontal" flexItem />
             </FiveBox>
             <SidebarDropDownMainContainer>
-              {EarningHistoryMenuList.map((list, index) => (
+              {EarningHistoryMenuList?.map((list, index) => (
                 <>
                   <MenuItem onClick={() => handleMenu(list.id)} key={index} sx={{ paddingLeft: '0', py: '12px' }}>
                     {menuId === index ? (

@@ -138,7 +138,7 @@ const PayoutPaymentConatiner = ({
                 </LoaderBox>
               ) : (
                 <MainThreeBox>
-                  {bankDetailsList?.data?.bank_details.map((list, index) => (
+                  {bankDetailsList?.data?.bank_details?.map((list, index) => (
                     <MainForBox key={index}>
                       <SmallAndBigScreen>
                         <Box

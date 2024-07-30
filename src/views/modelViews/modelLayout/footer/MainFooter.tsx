@@ -206,16 +206,16 @@ const MainFooter = () => {
                 <UINewTypography sx={{ mb: '6px' }} variant="captionBold">
                   <FormattedMessage id="Resources" />
                 </UINewTypography>
-                {FooterCityList.map((val, index) => (
+                {FooterCityList?.map((val, index) => (
                   <UINewTypography variant="SubtitleSmallRegular" key={index}>
                     <Box
                       sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
                       component={Link}
                       prefetch={false}
                       shallow={true}
-                      href={`${val.link}`}
+                      href={`${val?.link}`}
                     >
-                      <FormattedMessage id={val.name} />
+                      <FormattedMessage id={val?.name} />
                     </Box>
                   </UINewTypography>
                 ))}

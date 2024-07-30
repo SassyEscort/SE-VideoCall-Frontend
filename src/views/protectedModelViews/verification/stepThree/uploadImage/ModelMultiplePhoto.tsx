@@ -118,16 +118,16 @@ const ModelMultiplePhoto = ({
       setThumbnailImageId(id);
       name = name && 'file_' + name.split('file')[1];
       workerPhotos
-        .filter((photo) => photo.type !== name)
-        .map((photo) => {
+        ?.filter((photo) => photo.type !== name)
+        ?.map((photo) => {
           if (photo.favourite === 1) {
             photo.favourite = 0;
           }
         });
 
-      handleExistingPhotos(workerPhotos.filter((photo) => photo.type !== name));
+      handleExistingPhotos(workerPhotos?.filter((photo) => photo.type !== name));
     } else {
-      workerPhotos.map((photo) => {
+      workerPhotos?.map((photo) => {
         if (photo.id === id) photo.favourite = 1;
         else photo.favourite = 0;
       });

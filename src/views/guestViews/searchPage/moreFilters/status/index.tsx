@@ -9,7 +9,7 @@ const StatusFilter = ({ handleChange, value }: { handleChange: (value: string) =
       <Grid container columnSpacing={1.5}>
         {FILTER_STATUS?.map((price, index) => (
           <Grid item key={index} xs={6}>
-            <UINewStyleRadioButton label={price.name} value={price.id} />
+            <UINewStyleRadioButton label={price?.name} value={price?.id} />
           </Grid>
         ))}
       </Grid>

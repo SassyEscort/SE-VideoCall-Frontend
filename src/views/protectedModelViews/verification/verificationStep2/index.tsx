@@ -164,9 +164,9 @@ const VerificationStep2 = ({
                         height: '50px'
                       }}
                     >
-                      {DocumentList.map((type, index: number) => (
+                      {DocumentList?.map((type, index: number) => (
                         <MenuItem
-                          value={type.key}
+                          value={type?.key}
                           key={index}
                           sx={{
                             '& .MuiPaper-root-MuiPopover-paper-MuiMenu-paper': {
@@ -179,7 +179,7 @@ const VerificationStep2 = ({
                             color={'text.primary'}
                             sx={{ paddingTop: 1.5, paddingBottom: 1.5 }}
                           >
-                            {type.key}
+                            {type?.key}
                           </UINewTypographyTextMenuItem>
                         </MenuItem>
                       ))}

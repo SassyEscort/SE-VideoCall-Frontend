@@ -21,6 +21,7 @@ type countryType = {
 };
 
 const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
+  const [open, setOpen] = useState(false);
   const [countries, setCountries] = useState<countryType[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
 
@@ -53,6 +54,10 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
     onChange(event, child);
   };
 
+  const handleOpen = () => {
+    setOpen(!open);
+  };
+
   return (
     <FormControl id="country" fullWidth sx={{ width: '100%', maxWidth: '442px' }}>
       <UIStyledSelect
@@ -65,6 +70,8 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
         startAdornment={<CityCountryLabel label={value} type="Country" />}
         endAdornment={value && <StyledClearIcon onClick={handleClear} />}
         sx={{ backgroundColor: value ? theme.palette.primary[200] : '' }}
+        open={open}
+        onClick={handleOpen}
       >
         {countries?.map((country, index) => {
           return (

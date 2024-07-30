@@ -174,26 +174,26 @@ const CallHistory = () => {
           ) : (
             <>
               {callHistoryData && callHistoryData?.data?.call_logs.length > 0 ? (
-                callHistoryData?.data?.call_logs.map((list, index) => (
+                callHistoryData?.data?.call_logs?.map((list, index) => (
                   <SecondContainer key={index}>
                     <SecondSubContainer>
                       <SecondSubTextMainContainer>
                         <SecondSubFirstBox>
                           <SecondSubFirstPartBox>
-                            <WorkerImg src={list.link ? list.link : ''} />
+                            <WorkerImg src={list?.link ? list?.link : ''} />
                             <SecondSubFirstPartSecondBox>
                               <SecondSubFirstPartSecondBoxFirstText>
                                 <CallHistoryName variant="h6" color="white.main" whiteSpace="nowrap">
-                                  {list.name}
+                                  {list?.name}
                                 </CallHistoryName>
                                 <SecondSubFirstPartSecondBoxSecText>
-                                  <SecTextContainer color="text.primary">{calculateAge(list.dob)}</SecTextContainer>
+                                  <SecTextContainer color="text.primary">{calculateAge(list?.dob)}</SecTextContainer>
                                   <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
                                   <SecTextContainer color="text.primary">
-                                    {list.languages &&
-                                      list.languages
-                                        .filter((item) => item.language_name)
-                                        .map((item) => item.language_name)
+                                    {list?.languages &&
+                                      list?.languages
+                                        .filter((item) => item?.language_name)
+                                        .map((item) => item?.language_name)
                                         .join(', ')}
                                   </SecTextContainer>
                                 </SecondSubFirstPartSecondBoxSecText>
@@ -210,7 +210,7 @@ const CallHistory = () => {
                             <SecondSubFirstPartThiredBox marginRight={{ sm: '32px' }}>
                               <FirstTextContainer color="text.primary" whiteSpace="nowrap">
                                 <FormattedMessage id="Duration" />
-                                {list.duration && formatDuration(list.duration)}
+                                {list?.duration && formatDuration(list?.duration)}
                               </FirstTextContainer>
                               <CreditUsedBox>
                                 <FirstTextContainer color="text.primary" whiteSpace="nowrap">
@@ -218,7 +218,7 @@ const CallHistory = () => {
                                 </FirstTextContainer>
                                 <SecondSubFirstPartThiredBoxText>
                                   <ImgBoxContainer src="/images/workercards/dollar-img.png" />
-                                  <FirstTextContainer color="text.primary">{list.credits_used}</FirstTextContainer>
+                                  <FirstTextContainer color="text.primary">{list?.credits_used}</FirstTextContainer>
                                 </SecondSubFirstPartThiredBoxText>
                               </CreditUsedBox>
                               <CreditUsedBox>
@@ -228,10 +228,10 @@ const CallHistory = () => {
                                 <SecondSubFirstPartThiredBoxText>
                                   <CallHistoryBox>
                                     <FirstTextContainer color="text.primary" sx={{ textWrap: 'nowrap' }}>
-                                      {moment(list.created_at).format('LT')},
+                                      {moment(list?.created_at).format('LT')},
                                     </FirstTextContainer>
                                     <FirstTextContainer color="text.primary" sx={{ textWrap: 'nowrap' }}>
-                                      {moment(list.created_at).format('DD MMMM YYYY')}
+                                      {moment(list?.created_at).format('DD MMMM YYYY')}
                                     </FirstTextContainer>
                                   </CallHistoryBox>
                                 </SecondSubFirstPartThiredBoxText>
@@ -243,7 +243,7 @@ const CallHistory = () => {
                           <SecondSubFirstPartThiredBox gap="8px !important">
                             <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
                               <FormattedMessage id="Duration" />
-                              {list.duration && formatDuration(list.duration)}
+                              {list?.duration && formatDuration(list?.duration)}
                             </UINewTypography>
                             <CreditUsedBox>
                               <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
@@ -252,7 +252,7 @@ const CallHistory = () => {
                               <SecondSubFirstPartThiredBoxText>
                                 <ImgBoxContainer src="/images/workercards/dollar-img.png" />
                                 <UINewTypography variant="buttonLargeMenu" color="text.primary">
-                                  {list.credits_used}
+                                  {list?.credits_used}
                                 </UINewTypography>
                               </SecondSubFirstPartThiredBoxText>
                             </CreditUsedBox>
@@ -262,7 +262,7 @@ const CallHistory = () => {
                                 <FormattedMessage id="Date" />
                               </UINewTypography>
                               <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
-                                {moment(list.created_at).format('LT')}, {moment(list.created_at).format('DD MMMM YYYY')}
+                                {moment(list?.created_at).format('LT')}, {moment(list?.created_at).format('DD MMMM YYYY')}
                               </UINewTypography>
                             </Box>
                           </SecondSubFirstPartThiredBox>
