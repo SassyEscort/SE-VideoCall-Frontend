@@ -16,7 +16,15 @@ import {
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
-const VideoCalling = ({ showHeart, showAnother }: { showHeart: Boolean; showAnother: Boolean }) => {
+const VideoCalling = ({
+  showHeart,
+  showAnother,
+  isModelAvailable
+}: {
+  showHeart: Boolean;
+  showAnother: Boolean;
+  isModelAvailable: number;
+}) => {
   const { modelName, modelPhoto } = useCallFeatureContext();
 
   return (
@@ -29,10 +37,12 @@ const VideoCalling = ({ showHeart, showAnother }: { showHeart: Boolean; showAnot
       )}
       <SecondBoxContainer>
         <TextContainer color="text.secondary">{modelName}</TextContainer>
-        {showAnother ? (
+        {showAnother && isModelAvailable ? (
           <LiveIconWorkerCardSec>
             <LiveIconSecBoxWorkerCardSec />
           </LiveIconWorkerCardSec>
+        ) : !isModelAvailable ? (
+          <></>
         ) : (
           <LiveIconWorkerCard>
             <LiveIconSecBoxWorkerCard />

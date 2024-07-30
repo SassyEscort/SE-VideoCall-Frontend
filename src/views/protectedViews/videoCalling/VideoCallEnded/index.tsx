@@ -19,8 +19,11 @@ import {
   ThirdBoxContent
 } from './VideoCallEnded.styled';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
+import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
 const VideoCallEnded = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+  const { isModelAvailable } = useCallFeatureContext();
+
   return (
     <DialogContentMain open={true} onClose={onClose} fullWidth scroll="body">
       <DialogTitleBox id="responsive-modal-title">
@@ -52,7 +55,7 @@ const VideoCallEnded = ({ open, onClose }: { open: boolean; onClose: () => void 
             <FirstBoxContent>
               <ThirdBoxContent>
                 <SecondBoxContent>
-                  <VideoCalling showHeart={true} showAnother={false} />
+                  <VideoCalling showHeart={true} showAnother={false} isModelAvailable={isModelAvailable} />
                   <UINewTypography variant="bodyLight" color="text.primary">
                     <FormattedMessage id="ThankYouForTheCall" />
                   </UINewTypography>
