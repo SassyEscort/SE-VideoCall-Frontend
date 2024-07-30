@@ -614,5 +614,6 @@
   "PleaseChoose": "Por favor, elija su paquete",
   "IDFront": "Frente del ID",
   "IDBack": "Dorso del ID",
-  "CurrentlyOffline": "está actualmente desconectado"
+  "CurrentlyOffline": "está actualmente desconectado",
+  "YouCanSetPriceBetween": "Puede establecer el precio entre"
 }

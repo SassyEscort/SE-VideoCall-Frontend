@@ -84,11 +84,7 @@ const DashboardPriceView = ({
   }, []);
 
   const validationSchema = yup.object({
-    price: yup
-      .number()
-      .required('Price is required')
-      .min(minPrice, `Price must be at least ${minPrice}`)
-      .max(maxPrice, `Price must be at most ${maxPrice}`)
+    price: yup.number().required('Price is required').min(minPrice, ` ${minPrice}`).max(maxPrice, ` ${maxPrice}`)
   });
 
   const { errors, values, touched, handleBlur, handleSubmit, setFieldValue } = useFormik({
@@ -186,7 +182,7 @@ const DashboardPriceView = ({
                       onChange={(e) => handlePriceChange(e.target.value)}
                       onBlur={handleBlur}
                       error={touched.price && Boolean(errors.price)}
-                      helperText={touched.price && errors.price ? <FormattedMessage id={errors.price} /> : ''}
+                      helperText={touched.price && errors.price ? '' : ''}
                       variant="outlined"
                       InputProps={{
                         startAdornment: <InputAdornment position="start">$</InputAdornment>
@@ -194,12 +190,15 @@ const DashboardPriceView = ({
                     />
                   </RightSideBox>
 
-                  <UINewTypography variant="SubtitleSmallMedium" color="secondary.700">
-                    <FormattedMessage id="TheMinimumPrice" /> ${minPrice}
-                  </UINewTypography>
-                  <UINewTypography variant="SubtitleSmallMedium" color="secondary.700">
-                    <FormattedMessage id="TheMaximumPrice" /> ${maxPrice}
-                  </UINewTypography>
+                  {errors.price ? (
+                    <UINewTypography variant="SubtitleSmallMedium" color={errors.price && 'error.main'}>
+                      <FormattedMessage id="YouCanSetPriceBetween" /> ${minPrice} - ${maxPrice}
+                    </UINewTypography>
+                  ) : (
+                    <UINewTypography variant="SubtitleSmallMedium" color={'secondary.700'}>
+                      <FormattedMessage id="YouCanSetPriceBetween" /> ${minPrice} - ${maxPrice}
+                    </UINewTypography>
+                  )}
                 </MainBoxRightSide>
 
                 {isChanged && (
