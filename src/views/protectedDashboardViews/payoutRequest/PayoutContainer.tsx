@@ -122,7 +122,7 @@ const PayoutContainer = ({
         if (token.token) {
           setIsLoadingContainer(true);
 
-          const data = await PayoutService.modelPastPayoutList(ModelPayoutListObject, token.token);
+          const data = await PayoutService.modelPastPayoutListContainer(ModelPayoutListObject, token.token);
           if (data) {
             setModelPayoutList(data);
             setTotalRows(data.data.aggregate.total_rows);

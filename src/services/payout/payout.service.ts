@@ -8,6 +8,7 @@ import {
   BankDetailsEditReponse,
   BankDetailsListRes,
   MarkOnline,
+  ModelPastPayoutContainerDetailParams,
   ModelPastPayoutDetailParams,
   ModelPastPayoutDetailRes,
   RequestPayoutRep
@@ -68,6 +69,33 @@ export class PayoutService {
       return res.data;
     } catch (error) {
       return error as BankDetailsEditReponse;
+    }
+  };
+
+  static modelPastPayoutListContainer = async (
+    params: ModelPastPayoutContainerDetailParams,
+    token: string
+  ): Promise<ModelPastPayoutDetailRes> => {
+    try {
+      let query = '';
+      if (params.filter_text) {
+        query += `&search_field=${params.filter_text}`;
+      }
+      if (params.status) {
+        query += `&state=${params.status}`;
+      }
+      const res = await axios.get(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/payout?limit=${params.limit}&offset=${params.offset}${query}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+          }
+        }
+      );
+      return res.data;
+    } catch (error) {
+      return error as ModelPastPayoutDetailRes;
     }
   };
 
