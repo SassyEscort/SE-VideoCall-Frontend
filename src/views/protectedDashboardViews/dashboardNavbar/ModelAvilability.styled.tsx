@@ -104,7 +104,7 @@ export const SiderBarSecondTextBox = styled(Box)(({ theme }) => ({
 
 export const SwitchBox = styled(Switch)(({ theme }) => ({
   width: 30,
-  height: 16,
+  height: 19,
   padding: 0,
   '& .MuiSwitch-switchBase': {
     transitionDuration: '300ms',

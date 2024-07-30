@@ -11,7 +11,7 @@ import {
   SideBarCircleBox,
   SideBarCircleTextBox,
   SwitchText,
-  StartView,
+  // StartView,
   TextViewStartBottom,
   SwitchBox,
   MainBoxAvailability,
@@ -19,7 +19,7 @@ import {
 } from './ModelAvilability.styled';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
+// import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
 import { toast } from 'react-toastify';
 import { PayoutService } from 'services/payout/payout.service';
 import { ErrorMessage } from 'constants/common.constants';
@@ -67,11 +67,11 @@ const Availability = ({
                   </UINewTypography>
 
                   <SwitchText>
-                    <StartView>
+                    {/* <StartView>
                       {[...Array(5)].map((_, index) => (
                         <StarRateRoundedIcon key={index} htmlColor="#FFB800" sx={{ width: '16px', height: '16px' }} />
                       ))}
-                    </StartView>
+                    </StartView> */}
                     <TextViewStartBottom>
                       <SwitchBox onClick={handleAvailability} checked={Boolean(modelDetails?.is_online)} />
 
