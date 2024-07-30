@@ -57,7 +57,7 @@ const ProfileReject = () => {
             </UINewTypography>
             <ReSubmitApplicationDescContainer>
               <UINewTypography variant="bodyRegular">
-                <FormattedMessage id="Reason" />[{modelDetails?.rejection_reason}]
+                <FormattedMessage id="Reason" /> {modelDetails?.rejection_reason}
               </UINewTypography>
             </ReSubmitApplicationDescContainer>
           </ReSubmitApplicationTitleContainer>
