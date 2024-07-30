@@ -613,5 +613,6 @@
   "CreditsContinue": "créditos para continuar esta videollamada.",
   "PleaseChoose": "Por favor, elija su paquete",
   "IDFront": "Frente del ID",
-  "IDBack": "Dorso del ID"
+  "IDBack": "Dorso del ID",
+  "CurrentlyOffline": "está actualmente desconectado"
 }
