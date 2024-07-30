@@ -60,19 +60,19 @@ const PaginationSortBy = ({ sortByOptions, orderField, orderType, handleChangeOr
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        {sortByOptions.map((option) => (
+        {sortByOptions?.map((option) => (
           <MenuItem
-            key={option.value}
-            selected={option.value === orderField}
+            key={option?.value}
+            selected={option?.value === orderField}
             onClick={() => {
-              handleChangeOrderBy(option.value, orderField === option.value && orderType === 'asc' ? 'desc' : 'asc');
+              handleChangeOrderBy(option?.value, orderField === option?.value && orderType === 'asc' ? 'desc' : 'asc');
               handleClose();
             }}
             sx={{ typography: 'body2' }}
           >
-            <ListItemText sx={{ mr: 2 }}>{option.label}</ListItemText>
+            <ListItemText sx={{ mr: 2 }}>{option?.label}</ListItemText>
 
-            {orderField === option.value && (
+            {orderField === option?.value && (
               <Typography variant="body2" color="text.secondary">
                 {orderType === 'asc' ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
               </Typography>

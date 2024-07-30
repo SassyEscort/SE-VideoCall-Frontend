@@ -30,7 +30,7 @@ const EscortDetailPage = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isCreditAvailable, setIsCreditAvailable] = useState(false);
   const [callTime, setCallTime] = useState(0);
-  const modelPhoto = guestData?.photos?.filter((x) => x.favourite).map((item) => item.link)[0];
+  const modelPhoto = guestData?.photos?.filter((x) => x.favourite)?.map((item) => item.link)[0];
 
   const { handleCallInitiate, call, isLoading, isCallEnded, isCustomer, handleCallEnd } = useCallFeatureContext();
 

@@ -73,7 +73,7 @@ export function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionCacheProv
 
     return (
       <>
-        {globals.map(({ name, style }) => (
+        {globals?.map(({ name, style }) => (
           <style
             key={name}
             data-emotion={`${cache.key}-global ${name}`}

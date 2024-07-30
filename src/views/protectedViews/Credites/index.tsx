@@ -128,13 +128,13 @@ const Credits = () => {
             <ImagMainContainer>
               <FirstBoxContainer>
                 <Grid container sx={{ gap: 2, justifyContent: 'center' }}>
-                  {creditsListing.map((listCredit, index) => (
+                  {creditsListing?.map((listCredit, index) => (
                     <ImagSubContainer key={index} onClick={() => handleCreditClick(listCredit)} sx={{ cursor: 'pointer' }}>
-                      <MainImagContainer src={listCredit.link} />
+                      <MainImagContainer src={listCredit?.link} />
                       <BoxFirstTextContainer>
                         <CreditCardImage src="/images/workercards/coin-1.png" />
                         <CreditCardText variant="subtitle" color="text.secondary">
-                          {listCredit.credits}
+                          {listCredit?.credits}
                           <FormattedMessage id="Credits" />
                         </CreditCardText>
                       </BoxFirstTextContainer>
@@ -142,7 +142,7 @@ const Credits = () => {
                         <CreditBuyText variant="bodySmall" color="secondary.700">
                           <FormattedMessage id="BuyNowAt" />
                         </CreditBuyText>
-                        <DollarCreditText color="text.secondary">${listCredit.amount}</DollarCreditText>
+                        <DollarCreditText color="text.secondary">${listCredit?.amount}</DollarCreditText>
                       </BoxSecondTextContainer>
                     </ImagSubContainer>
                   ))}

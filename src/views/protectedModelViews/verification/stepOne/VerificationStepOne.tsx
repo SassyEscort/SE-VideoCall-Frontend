@@ -237,13 +237,13 @@ const VerificationBasicDetails = ({
 
         if (isCustomLanguage) {
           const newCustomLanguages = valueArray
-            .filter((val) => !languages.find((lang) => lang.name === (val as MultipleOptionString).name))
-            .map((val, index) => ({
+            ?.filter((val) => !languages.find((lang) => lang.name === (val as MultipleOptionString).name))
+            ?.map((val, index) => ({
               id: customLanguages.length + index,
               name: (val as MultipleOptionString).name
             }));
           if (Array.isArray(customLanguages) && Array.isArray(newCustomLanguages)) {
-            const formattedNewCustomLanguages = newCustomLanguages.map((item) => ({
+            const formattedNewCustomLanguages = newCustomLanguages?.map((item) => ({
               id: String(item.id),
               name: item.name
             }));
@@ -508,7 +508,7 @@ const VerificationBasicDetails = ({
                 filterOptions={(options, params) => {
                   const filtered = filter(options, params);
 
-                  const customOptions = filtered.map((option) => {
+                  const customOptions = filtered?.map((option) => {
                     if (typeof option === 'string') {
                       return { id: '', name: option };
                     } else {
@@ -526,7 +526,7 @@ const VerificationBasicDetails = ({
 
                   return customOptions;
                 }}
-                renderOption={(props, option) => <li {...props}>{option?.isAddOption ? `Add "${option.name}"` : option.name}</li>}
+                renderOption={(props, option) => <li {...props}>{option?.isAddOption ? `Add "${option?.name}"` : option?.name}</li>}
                 renderInput={(params) => (
                   <UIStyledInputText
                     {...params}
@@ -572,7 +572,7 @@ const VerificationBasicDetails = ({
             filterOptions={(options, params) => {
               const filtered = filter(options, params);
 
-              const customOptions = filtered.map((option) => {
+              const customOptions = filtered?.map((option) => {
                 if (typeof option === 'string') {
                   return { id: '', name: option };
                 } else {
@@ -593,7 +593,7 @@ const VerificationBasicDetails = ({
             onChange={(_, newValue) => {
               handleCustomLanguageChange(newValue);
             }}
-            renderOption={(props, option) => <li {...props}>{option?.isAddOption ? `Add "${option.name}"` : option.name}</li>}
+            renderOption={(props, option) => <li {...props}>{option?.isAddOption ? `Add "${option?.name}"` : option?.name}</li>}
             renderInput={(params) => (
               <UIStyledInputText
                 {...params}

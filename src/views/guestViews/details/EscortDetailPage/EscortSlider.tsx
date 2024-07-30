@@ -149,21 +149,21 @@ export const EscortSlider = ({
             slidesPerView={1}
             style={{ height: '100%' }}
           >
-            {sortedWorkerPhotos.map((imageSrc, index) => {
+            {sortedWorkerPhotos?.map((imageSrc, index) => {
               return (
                 <SwiperSlide key={index} style={{ paddingTop: 24, height: '100%' }}>
                   <FirstSwiperBlurContainer>
                     <SecondSwiperBlurContainer
                       sx={{
-                        backgroundImage: `url(${imageSrc.file_type === 'Non_Image' ? imageSrc.link : imageSrc.link})`
+                        backgroundImage: `url(${imageSrc?.file_type === 'Non_Image' ? imageSrc?.link : imageSrc?.link})`
                       }}
                     />
                     <EscortSwiperPhotoContainer
-                      imageSrcVideo={imageSrc.file_type}
-                      image={imageSrc.link}
+                      imageSrcVideo={imageSrc?.file_type}
+                      image={imageSrc?.link}
                       isMain={true}
                       isMobile={false}
-                      coordinates={imageSrc.cords ?? ''}
+                      coordinates={imageSrc?.cords ?? ''}
                     />
                   </FirstSwiperBlurContainer>
                 </SwiperSlide>
@@ -172,7 +172,7 @@ export const EscortSlider = ({
           </Swiper>
         </FirstSwiperInnerContainer>
         <SideBarBoxContainer>
-          {workerPhotos.length >= 6 && (
+          {workerPhotos?.length >= 6 && (
             <SideSwiperButton variant="contained" onClick={handlePrevious}>
               <KeyboardArrowUpRoundedIcon sx={{ color: 'text.primary' }} />
             </SideSwiperButton>
@@ -191,18 +191,18 @@ export const EscortSlider = ({
               modules={[Navigation, Thumbs, FreeMode]}
               className="mySwiper"
             >
-              {sortedWorkerPhotos.map((imageSrc, index) => (
+              {sortedWorkerPhotos?.map((imageSrc, index) => (
                 <SecSwiperSlidBoxContainer
                   style={{ paddingTop: index === 0 ? '0px' : '12px' }}
                   key={index}
                   onClick={() => handleSidebarImageClick(index)}
                 >
                   <EscortSwiperPhotoContainer
-                    imageSrcVideo={imageSrc.file_type}
-                    image={imageSrc.link}
+                    imageSrcVideo={imageSrc?.file_type}
+                    image={imageSrc?.link}
                     isMain={false}
                     isMobile={true}
-                    coordinates={imageSrc.cords ?? ''}
+                    coordinates={imageSrc?.cords ?? ''}
                   />
                 </SecSwiperSlidBoxContainer>
               ))}

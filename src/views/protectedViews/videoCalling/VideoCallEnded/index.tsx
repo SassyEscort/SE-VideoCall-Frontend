@@ -78,11 +78,7 @@ const VideoCallEnded = ({ open, onClose }: { open: boolean; onClose: () => void 
               <UINewTypography variant="bodyLight" color="text.primary">
                 <FormattedMessage id="RateYourVideoCall" />
               </UINewTypography>
-              <Box>
-                {[...Array(5)].map((_, index) => (
-                  <StarBorderRoundedIcon key={index} />
-                ))}
-              </Box>
+              <Box>{[...Array(5)]?.map((_, index) => <StarBorderRoundedIcon key={index} />)}</Box>
             </FiveBoxContent>
           </SixBoxContent>
         </DialogContentFristBox>

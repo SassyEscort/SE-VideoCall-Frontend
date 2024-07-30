@@ -128,32 +128,32 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
               scrollButtons={false}
               aria-label="scrollable prevent tabs example"
             >
-              {DashboardModelTabs.map((tab, index) => {
+              {DashboardModelTabs?.map((tab, index) => {
                 return index === tabIndex - 1 ? (
                   <CommonMenuBox key={index} sx={{ color: 'text.primary' }}>
-                    <Link prefetch={false} href={tab.path} style={{ textDecoration: 'none' }}>
+                    <Link prefetch={false} href={tab?.path} style={{ textDecoration: 'none' }}>
                       <SelectedTab>
                         <Box
                           component="img"
                           width={16}
                           height="auto"
-                          src={tab.img}
+                          src={tab?.img}
                           sx={{
                             filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)'
                           }}
                         />
                         <Box sx={{ color: 'primary.400' }}>
-                          <MobileTextStyleContainer label={tab.name} />
+                          <MobileTextStyleContainer label={tab?.name} />
                         </Box>
                       </SelectedTab>
                     </Link>
                   </CommonMenuBox>
                 ) : (
                   <CommonMenuBox key={index} sx={{ color: 'text.primary' }}>
-                    <Link prefetch={false} href={tab.path} style={{ textDecoration: 'none' }}>
+                    <Link prefetch={false} href={tab?.path} style={{ textDecoration: 'none' }}>
                       <MobileComponentSecBoxContainer>
                         <Box component="img" src={tab.img} width={20} height={20} />
-                        <MobileTextStyleContainer label={tab.name} />
+                        <MobileTextStyleContainer label={tab?.name} />
                       </MobileComponentSecBoxContainer>
                     </Link>
                   </CommonMenuBox>

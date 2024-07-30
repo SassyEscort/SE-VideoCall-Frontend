@@ -70,7 +70,7 @@ export default function AdminSidbar() {
             scrollButtons={false}
             aria-label="scrollable prevent tabs example"
           >
-            {AdminConstantsTabs.map((tab, index) => {
+            {AdminConstantsTabs?.map((tab, index) => {
               return index === tabIndex - 1 ? (
                 <CommonMenuBox key={index} sx={{ color: 'text.primary' }}>
                   <Link prefetch={false} href={tab.path} style={{ textDecoration: 'none' }}>

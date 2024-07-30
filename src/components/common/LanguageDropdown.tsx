@@ -79,7 +79,7 @@ const LanguageDropdown = () => {
           );
         }}
       >
-        {LANGUAGES.map((lang, key: number) => {
+        {LANGUAGES?.map((lang, key: number) => {
           const imagePath = FLAG_IMAGES[lang.locale].replace('g/', '\\');
 
           return (

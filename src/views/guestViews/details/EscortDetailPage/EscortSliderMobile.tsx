@@ -114,20 +114,20 @@ const EscortSliderMobile = ({
       <Box>
         <Box sx={{ width: '100%', cursor: 'pointer' }}>
           <Swiper thumbs={{ swiper: thumbsSwiper }} modules={[Navigation, Thumbs, FreeMode]} slidesPerView={1}>
-            {sortedWorkerPhotos.map((imageSrc, index) => (
+            {sortedWorkerPhotos?.map((imageSrc, index) => (
               <SwiperSlide key={index} style={{ paddingTop: 20 }}>
                 <FirstSwiperBlurContainer>
                   <SecondSwiperBlurContainer
                     sx={{
-                      backgroundImage: `url(${imageSrc.link})`
+                      backgroundImage: `url(${imageSrc?.link})`
                     }}
                   />
                   <EscortSwiperPhotoContainer
-                    imageSrcVideo={imageSrc.file_type}
-                    image={imageSrc.link}
+                    imageSrcVideo={imageSrc?.file_type}
+                    image={imageSrc?.link}
                     isMain={true}
                     isMobile={false}
-                    coordinates={imageSrc.cords ?? ''}
+                    coordinates={imageSrc?.cords ?? ''}
                   />
                 </FirstSwiperBlurContainer>
               </SwiperSlide>
@@ -150,14 +150,14 @@ const EscortSliderMobile = ({
             watchSlidesProgress={true}
             modules={[Navigation, Thumbs, FreeMode]}
           >
-            {sortedWorkerPhotos.map((imageSrc, index) => (
+            {sortedWorkerPhotos?.map((imageSrc, index) => (
               <SwiperSlidBoxContainer key={index}>
                 <EscortSwiperPhotoContainer
-                  imageSrcVideo={imageSrc.file_type}
-                  image={imageSrc.link}
+                  imageSrcVideo={imageSrc?.file_type}
+                  image={imageSrc?.link}
                   isMain={false}
                   isMobile={true}
-                  coordinates={imageSrc.cords ?? ''}
+                  coordinates={imageSrc?.cords ?? ''}
                 />
               </SwiperSlidBoxContainer>
             ))}

@@ -1,3 +1,4 @@
+import React, { MouseEventHandler, useState } from 'react';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { SelectChangeEvent } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
@@ -16,18 +17,27 @@ interface PriceFilterProps {
 }
 
 const Price: React.FC<PriceFilterProps> = ({ fromValue, toValue, onChange }) => {
+  const [open, setOpen] = useState(false);
+
   let renderValue = '';
   if (fromValue >= '0') renderValue = toValue === '' && fromValue >= '0' ? '' : `${fromValue}-${toValue}`;
 
-  const handleClear = () => {
+  const handleClear: MouseEventHandler<SVGSVGElement> = (event) => {
+    event.stopPropagation();
     renderValue = '';
     onChange({ target: { value: '' } } as SelectChangeEvent<unknown>, null);
+    setOpen(false);
   };
+
   const handleChange = (event: SelectChangeEvent<unknown>, child: React.ReactNode) => {
     const selectedValue = event.target.value as string;
     const [fromdata, todata] = selectedValue.split('-');
     renderValue = fromdata ? `${fromdata}-${todata}` : '';
     onChange(event, child);
+  };
+
+  const handleClick = () => {
+    setOpen((prevOpen) => !prevOpen);
   };
 
   return (
@@ -45,15 +55,15 @@ const Price: React.FC<PriceFilterProps> = ({ fromValue, toValue, onChange }) => 
         labelId="Credits"
         IconComponent={ExpandMore}
         endAdornment={renderValue && <StyledClearIcon onClick={handleClear} />}
-        sx={{ backgroundColor: renderValue ? theme.palette.primary[200] : '' }}
+        sx={{ backgroundColor: renderValue ? theme.palette.primary[200] : '', cursor: 'pointer' }}
+        open={open}
+        onClick={handleClick}
       >
-        {SEARCH_PRICES.map((price, key: number) => {
-          return (
-            <MenuItem key={key} value={price.id}>
-              <UINewTypography sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{price.name}</UINewTypography>
-            </MenuItem>
-          );
-        })}
+        {SEARCH_PRICES?.map((price, key: number) => (
+          <MenuItem key={key} value={price?.id}>
+            <UINewTypography sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{price?.name}</UINewTypography>
+          </MenuItem>
+        ))}
       </UIStyledSelect>
     </FormControl>
   );

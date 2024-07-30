@@ -38,14 +38,14 @@ const PurchaseInvoiceTableBodyV2 = ({ modelPayoutList }: { modelPayoutList: Mode
 
   return (
     <TableBody>
-      {modelPayoutList?.data?.payout_details.map((item) => (
+      {modelPayoutList?.data?.payout_details?.map((item) => (
         <TableRowMain key={item.id}>
           <TableCellMain align="left">
             <FirstBox>
               <Box component="img" src="/images/icons/bank-icon.svg" />
               <SecondBox>
                 <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>
-                  {item.bank_name}
+                  {item?.bank_name}
                 </UINewTypography>
                 <UINewTypography variant="captionLarge" sx={{ whiteSpace: 'nowrap', color: 'secondary.200' }}>
                   **** **** **43 3214
@@ -66,11 +66,11 @@ const PurchaseInvoiceTableBodyV2 = ({ modelPayoutList }: { modelPayoutList: Mode
                 color: 'text.secondary'
               }}
             >
-              {moment(item.created_at).format('DD MMMM YYYY')}
+              {moment(item?.created_at).format('DD MMMM YYYY')}
             </UINewTypography>
           </TableCellMain>
           <TableCellMain align="center">
-            <NewStatusBox status={item.state}>
+            <NewStatusBox status={item?.state}>
               <UINewTypography
                 variant="captionLarge"
                 color={
@@ -96,7 +96,7 @@ const PurchaseInvoiceTableBodyV2 = ({ modelPayoutList }: { modelPayoutList: Mode
             </NewStatusBox>
           </TableCellMain>
           <TableCellMain align="center">
-            {item.state === 'Approved' && (
+            {item?.state === 'Approved' && (
               <Button onClick={() => handleOpenModal(item)}>
                 <UINewTypographyDownload>
                   <FormattedMessage id="Download" />

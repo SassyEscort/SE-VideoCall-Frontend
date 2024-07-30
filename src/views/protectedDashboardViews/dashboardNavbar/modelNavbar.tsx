@@ -20,15 +20,15 @@ const ModelNavbar = ({ tabIndex }: { tabIndex: number }) => {
       <Box sx={{ display: 'flex' }}>
         <MainDashboardSideMenuMainBox>
           <NavBarBoxContainer>
-            {DashboardModelTabs.map((tab, index) =>
+            {DashboardModelTabs?.map((tab, index) =>
               index === tabIndex - 1 ? (
-                <Link prefetch={false} href={tab.path} key={index} style={{ textDecoration: 'none' }}>
+                <Link prefetch={false} href={tab?.path} key={index} style={{ textDecoration: 'none' }}>
                   <SelectedTab key={index}>
                     <FirstBoxContainer>
                       <SecondBoxContainer>
                         <Box
                           component="img"
-                          src={tab.img}
+                          src={tab?.img}
                           sx={{
                             filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)'
                           }}
@@ -47,13 +47,13 @@ const ModelNavbar = ({ tabIndex }: { tabIndex: number }) => {
                 </Link>
               ) : (
                 <>
-                  <Link prefetch={false} href={tab.path} key={index} style={{ textDecoration: 'none' }}>
+                  <Link prefetch={false} href={tab?.path} key={index} style={{ textDecoration: 'none' }}>
                     <CommonMenuBox sx={{ color: 'text.primary' }}>
                       <DashboardSidebarBox id="basic-button">
                         <SecondBoxContainer>
                           <Box component="img" src={tab.img} sx={{ filter: 'none' }} />
                           <UINewTypography variant="buttonLargeMenu" whiteSpace="nowrap">
-                            {tab.name}
+                            {tab?.name}
                           </UINewTypography>
                         </SecondBoxContainer>
                         <ArrowDropDownRoundedIcon />

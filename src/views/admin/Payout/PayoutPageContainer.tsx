@@ -84,7 +84,7 @@ export default function PayoutPageContainer() {
     if (res) {
       if (res.code == 200) {
         setData(res?.data?.payout_details);
-        setTotalRecords(res.data.aggregate.total_rows);
+        setTotalRecords(res?.data?.aggregate?.total_rows);
       }
     }
     setIsLoading(false);
@@ -199,7 +199,7 @@ export default function PayoutPageContainer() {
                       </TableCell>
                     </TableRow>
                   ) : data?.length ? (
-                    data.map((item, index) => (
+                    data?.map((item, index) => (
                       <TableRow
                         key={index}
                         sx={{
@@ -207,22 +207,22 @@ export default function PayoutPageContainer() {
                         }}
                       >
                         <TableCell component="th" scope="row">
-                          {item.name || '-'}
+                          {item?.name || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item.email || '-'}
+                          {item?.email || '-'}
                         </TableCell>
-                        <TableCell sx={{ textAlign: 'left' }}>{item.amount ? `€${item.amount.toFixed(2)}` : '-'}</TableCell>
+                        <TableCell sx={{ textAlign: 'left' }}>{item?.amount ? `€${item?.amount.toFixed(2)}` : '-'}</TableCell>
 
                         <TableCell component="th" scope="row">
-                          {item.bank_name || '-'}
+                          {item?.bank_name || '-'}
                         </TableCell>
                         <TableCell sx={{ textAlign: 'center' }}>
-                          {item.state === PAYOUT_ACTION.PENDING ? (
+                          {item?.state === PAYOUT_ACTION.PENDING ? (
                             <Chip label="Pending" color="warning" />
-                          ) : item.state === PAYOUT_ACTION.APPROVE ? (
+                          ) : item?.state === PAYOUT_ACTION.APPROVE ? (
                             <Chip label="Approved" color="success" />
-                          ) : item.state === PAYOUT_ACTION.REJECT ? (
+                          ) : item?.state === PAYOUT_ACTION.REJECT ? (
                             <Chip label="Rejected" color="error" />
                           ) : (
                             '-'

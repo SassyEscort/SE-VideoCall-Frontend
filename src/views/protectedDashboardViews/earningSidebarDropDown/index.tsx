@@ -36,18 +36,18 @@ const EarningMobileSidebar = ({ token }: { token: TokenIdType }) => {
         displayEmpty
         IconComponent={ExpandMore}
         renderValue={(selected) => {
-          return EarningHistoryMenuList.find((menu) => menu.id === selected)?.menuName;
+          return EarningHistoryMenuList?.find((menu) => menu?.id === selected)?.menuName;
         }}
         MenuProps={{ disableScrollLock: true }}
       >
-        {EarningHistoryMenuList.map((list) => (
-          <MenuItem key={list.id} value={list.id}>
-            {menuId === list.id ? (
+        {EarningHistoryMenuList?.map((list) => (
+          <MenuItem key={list?.id} value={list?.id}>
+            {menuId === list?.id ? (
               <UINewTypography variant="buttonLargeMenu" color="primary.400">
-                {list.menuName}
+                {list?.menuName}
               </UINewTypography>
             ) : (
-              <UINewTypography variant="buttonLargeMenu">{list.menuName}</UINewTypography>
+              <UINewTypography variant="buttonLargeMenu">{list?.menuName}</UINewTypography>
             )}
           </MenuItem>
         ))}

@@ -13,7 +13,7 @@ const TableData = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningH
   return (
     <TableBody>
       {modelEarningHistory?.data?.ledger_details?.length ? (
-        modelEarningHistory?.data?.ledger_details.map((dp, index) => (
+        modelEarningHistory?.data?.ledger_details?.map((dp, index) => (
           <TableRow key={index} sx={{ '& .MuiTableCell-root': { borderBottomColor: theme.palette.primary[700], padding: '24px 16px' } }}>
             <TableCell>
               <UINewTypography variant="buttonLargeMenu" color="text.secondary">
@@ -46,12 +46,12 @@ const TableData = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningH
             </TableCell>{' '}
             <TableCell>
               <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                {moment(dp.created_at).format('DD MMMM YYYY')}
+                {moment(dp?.created_at).format('DD MMMM YYYY')}
               </UINewTypography>
             </TableCell>
             <TableCell>
               <UINewTypography variant="body" color="text.secondary">
-                $ {dp.amount}
+                $ {dp?.amount}
               </UINewTypography>
             </TableCell>
           </TableRow>
