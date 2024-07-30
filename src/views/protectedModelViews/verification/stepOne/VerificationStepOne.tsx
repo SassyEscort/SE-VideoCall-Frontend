@@ -446,7 +446,7 @@ const VerificationBasicDetails = ({
         <StepTwoMainConatiner>
           <DateOfBirthMainContainer>
             <VerificationHeaderText variant="bodySemiBold">
-              <FormattedMessage id="DOB" />*
+              <FormattedMessage id="DateOfBirth" />*
             </VerificationHeaderText>
             <UIStyledDatePicker
               format="YYYY-MM-DD"
