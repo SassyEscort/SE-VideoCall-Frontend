@@ -134,13 +134,11 @@ const ModelCredits = ({
             </LoaderBox>
           ) : (
             <ImagMainContainer>
-              {isOutOfCredits && (
-                <OutOfCreditBox>
-                  <UINewTypography variant="h5">
-                    <FormattedMessage id="PleaseChoose" />
-                  </UINewTypography>
-                </OutOfCreditBox>
-              )}
+              <OutOfCreditBox>
+                <UINewTypography variant="h5">
+                  <FormattedMessage id="PleaseChoose" />
+                </UINewTypography>
+              </OutOfCreditBox>
               <FirstBoxContainer>
                 <Grid container sx={{ gap: 2, justifyContent: 'center' }}>
                   {creditsListing.map((listCredit, index) => (
