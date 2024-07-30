@@ -84,7 +84,7 @@ export class PayoutService {
         query += `&start_date=${params.start_date}`;
       }
       if (params.end_date) {
-        query += `&start_date=${params.end_date}`;
+        query += `&end_date=${params.end_date}`;
       }
       const res = await axios.get(
         process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/payout?limit=${params.limit}&offset=${params.offset}${query}`,
