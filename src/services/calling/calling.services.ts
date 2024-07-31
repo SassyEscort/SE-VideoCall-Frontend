@@ -41,6 +41,32 @@ export interface CallStatusRes extends GenericRes {
   data: CallStatus;
 }
 
+export type MissedCallParams = {
+  model_id: number;
+  status: string;
+};
+
+export type MissedCallRes = {
+  id: number;
+  model_id: number;
+  customer_id: number;
+  comet_chat_session_id: null | string;
+  status: string;
+  start_time: string;
+  end_time: string;
+  end_call: number;
+  duration: string;
+  amount_earned: number;
+};
+
+export interface MissedCallMainRes {
+  message: string;
+  code: number;
+  error: null | string;
+  data: MissedCallRes;
+  custom_code: null | number;
+}
+
 export class CallingService {
   static getCometChatInfo = async (modelId: number, token: string): Promise<CallingUserIdRes> => {
     try {
@@ -87,6 +113,22 @@ export class CallingService {
     } catch (err: any) {
       const error: AxiosError = err;
       return error.response?.data as CallStatusRes;
+    }
+  };
+
+  static missedCallStatus = async (params: MissedCallParams, token: string): Promise<MissedCallMainRes> => {
+    try {
+      const res = await axios.put(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/call/missed`, params, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        }
+      });
+
+      return res.data.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as MissedCallMainRes;
     }
   };
 }
