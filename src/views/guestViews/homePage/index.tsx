@@ -125,7 +125,14 @@ const HomeContainer = () => {
   };
 
   useEffect(() => {
-    if (token.token) {
+    if (token.token && !isCustomer) {
+      handelFilterChange(filters);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (isCustomer) {
       handelFilterChange(filters);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
