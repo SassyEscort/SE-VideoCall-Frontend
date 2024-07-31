@@ -118,7 +118,7 @@ export class CallingService {
 
   static missedCallStatus = async (params: MissedCallParams, token: string): Promise<MissedCallMainRes> => {
     try {
-      const res = await axios.put(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/call/missed`, params, {
+      const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/call/missed`, params, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: token

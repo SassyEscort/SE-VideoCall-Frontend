@@ -192,6 +192,11 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       toast.error('Please end your ONGOING call');
       setIsLoading(false);
     } else if (!isModelOnline) {
+      const missedParams = {
+        model_id: guestId,
+        status: CALLING_STATUS.UNASWERED
+      };
+      await CallingService.missedCallStatus(missedParams, token.token);
       setIsModelAvailable(isModelOnline);
     } else {
       setOpen(true);
