@@ -90,6 +90,12 @@ const WorkerCard = ({
     }
   };
 
+  const handleIconClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    handleLikeClick(modelDetails?.id);
+  };
+
   return (
     <MainWorkerCard>
       <ImgWorkerCard ref={imageUrlRef} />
@@ -97,13 +103,7 @@ const WorkerCard = ({
         {isFavPage || liked || modelDetails?.favourite === 1 ? (
           <FavoriteIconContainer sx={{ color: 'error.main' }} />
         ) : (
-          <FavoriteBorderIconContainer
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              handleLikeClick(modelDetails?.id);
-            }}
-          />
+          <FavoriteBorderIconContainer onClick={handleIconClick} />
         )}
       </HeartIconWorkerCard>
       <WorkerCardContainer>
