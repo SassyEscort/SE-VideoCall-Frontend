@@ -6,7 +6,6 @@ import theme from 'themes/theme';
 import EscortSliderMobile from './EscortSliderMobile';
 import EscortPersonalDetail from './EscortPersonalDetail';
 import EscortExplore from './EscortExplore';
-import { GuestDetailsService } from 'services/guestDetails/guestDetails.services';
 import { useEffect, useState } from 'react';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
@@ -19,6 +18,7 @@ import Box from '@mui/system/Box';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { CallingService } from 'services/calling/calling.services';
 import moment from 'moment';
+import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 
 const EscortDetailPage = () => {
   const path = usePathname();
@@ -30,9 +30,9 @@ const EscortDetailPage = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isCreditAvailable, setIsCreditAvailable] = useState(false);
   const [callTime, setCallTime] = useState(0);
-  const modelPhoto = guestData?.photos?.filter((x) => x.favourite).map((item) => item.link)[0];
+  const modelPhoto = guestData?.photos?.filter((x) => x.favourite)?.map((item) => item.link)[0];
 
-  const { handleCallInitiate, call, isLoading, isCallEnded, isCustomer } = useCallFeatureContext();
+  const { handleCallInitiate, call, isLoading, isCallEnded, isCustomer, handleCallEnd } = useCallFeatureContext();
 
   useEffect(() => {
     const userToken = async () => {
@@ -49,7 +49,7 @@ const EscortDetailPage = () => {
     const fetchGuestData = async () => {
       try {
         if (userName) {
-          const data = await GuestDetailsService.GuestModelDetails(userName);
+          const data = await ModelDetailsService.getModelDetails(token.token, userName);
           if (data.code === 200) {
             setGuestData(data.data);
           } else {
@@ -62,20 +62,28 @@ const EscortDetailPage = () => {
     };
 
     fetchGuestData();
-  }, [userName]);
+  }, [token.token, userName]);
+
+  const getCometChatInfo = async () => {
+    if (guestData && token.token) {
+      const getInfo = await CallingService.getCometChatInfo(guestData.id, token.token);
+      if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 3) {
+        const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
+        setCallTime(durationInSeconds);
+        setIsCreditAvailable(true);
+      } else {
+        setIsCreditAvailable(false);
+      }
+    }
+  };
 
   useEffect(() => {
-    const getCometChatInfo = async () => {
-      if (guestData && token.token) {
-        const getInfo = await CallingService.getCometChatInfo(guestData.id, token.token);
-        if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 3) {
-          const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
-          setCallTime(durationInSeconds);
-          setIsCreditAvailable(true);
-        }
-      }
-    };
-    getCometChatInfo();
+    if (isCallEnded) {
+      handleCallEnd();
+    } else {
+      getCometChatInfo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guestData, token, userName, call, isCallEnded]);
 
   return (
@@ -88,7 +96,16 @@ const EscortDetailPage = () => {
               modelId={guestData?.id ?? 0}
               token={token}
               handleCallInitiate={() =>
-                handleCallInitiate(guestData?.id, isCreditAvailable, callTime, guestData?.name, modelPhoto ?? '', guestData.user_name)
+                handleCallInitiate(
+                  guestData?.id,
+                  isCreditAvailable,
+                  callTime,
+                  guestData?.name,
+                  modelPhoto ?? '',
+                  guestData.user_name,
+                  guestData.video_call_prices[0].credits_per_minute,
+                  guestData.is_online
+                )
               }
               isCustomer={isCustomer}
               isLoading={isLoading}
@@ -100,7 +117,16 @@ const EscortDetailPage = () => {
                 modelId={guestData?.id ?? 0}
                 token={token}
                 handleCallInitiate={() =>
-                  handleCallInitiate(guestData?.id, isCreditAvailable, callTime, guestData?.name, modelPhoto ?? '', guestData.user_name)
+                  handleCallInitiate(
+                    guestData?.id,
+                    isCreditAvailable,
+                    callTime,
+                    guestData?.name,
+                    modelPhoto ?? '',
+                    guestData.user_name,
+                    guestData.video_call_prices[0].credits_per_minute,
+                    guestData.is_online
+                  )
                 }
                 isCustomer={isCustomer}
                 isLoading={isLoading}

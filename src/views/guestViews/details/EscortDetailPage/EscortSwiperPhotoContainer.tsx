@@ -42,7 +42,7 @@ const EscortSwiperPhotoContainer = ({
           height="100%"
           controls
           sx={{
-            maxHeight: isMain && !isMdDown ? 700 : isMdDown && !isMain ? '90px' : isMdDown && isMain ? 430 : 0
+            maxHeight: isMain && !isMdDown ? 700 : isMdDown && !isMain ? '90px' : isMdDown && isMain ? 430 : 430
           }}
         >
           <Box component="source" src={image} />

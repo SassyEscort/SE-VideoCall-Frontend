@@ -81,7 +81,8 @@ export default function ModelVideoCallContainer() {
       <Formik
         enableReinitialize
         initialValues={{
-          min_price: videoCallAmount?.data?.min_price || ''
+          min_price: videoCallAmount?.data?.min_price || '',
+          max_price: videoCallAmount?.data?.max_price || ''
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {

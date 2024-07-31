@@ -18,6 +18,7 @@ export type UploadPhotoWithoutFilter = {
   touched: FormikTouched<unknown>;
   activeStep: number;
   modelDetails: ModelDetailsResponse | undefined;
+  title: string;
 };
 
 const WorkerPhotosWithoutFilterNew = ({
@@ -28,28 +29,15 @@ const WorkerPhotosWithoutFilterNew = ({
   errors,
   accept,
   touched,
-  modelDetails
+  modelDetails,
+  title
 }: UploadPhotoWithoutFilter) => {
   return (
     <>
-      <Box
-        sx={{
-          textAlign: 'center',
-          marginTop: 4,
-          gap: 4,
-          color: 'text.secondary'
-        }}
-      >
-        <UINewTypography variant="h2">
-          <FormattedMessage id="PleaseUploadYourDocuments" />
-        </UINewTypography>
-      </Box>
       <Step7MainBox>
         <Step7UploadImagBox>
           <Box display="flex" flexDirection="column" alignItems="center" gap={2.5} alignSelf=" stretch">
-            <UINewTypography variant="h6">
-              <FormattedMessage id="ID" />
-            </UINewTypography>
+            <UINewTypography variant="h6">{title}</UINewTypography>
             <Box
               width="100%"
               sx={{

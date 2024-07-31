@@ -54,7 +54,7 @@ const EscortGalleryContainer = ({ workerPhotos }: { workerPhotos: WorkerPhotos[]
 
   const workerImagesSlides =
     activeTab === 0
-      ? workerPhotos.map((data) => {
+      ? workerPhotos?.map((data) => {
           if (VideoAcceptType.some((file) => data?.photo?.endsWith(file))) {
             return {
               type: FILE_TYPES.VIDEO as const,
@@ -74,7 +74,7 @@ const EscortGalleryContainer = ({ workerPhotos }: { workerPhotos: WorkerPhotos[]
         })
       : activeTab === 1
         ? photos.map((data) => {
-            if (VideoAcceptType.some((file) => data?.photo?.endsWith(file))) {
+            if (VideoAcceptType?.some((file) => data?.photo?.endsWith(file))) {
               return {
                 type: FILE_TYPES.VIDEO as const,
                 width: 1280,
@@ -91,15 +91,15 @@ const EscortGalleryContainer = ({ workerPhotos }: { workerPhotos: WorkerPhotos[]
               src: (data.photo, FILE_TYPES.IMAGE)
             };
           })
-        : videos.map((data) => {
-            if (VideoAcceptType.some((file) => data?.photo?.endsWith(file))) {
+        : videos?.map((data) => {
+            if (VideoAcceptType?.some((file) => data?.photo?.endsWith(file))) {
               return {
                 type: FILE_TYPES.VIDEO as const,
                 width: 1280,
                 height: 720,
                 sources: [
                   {
-                    src: (data.photo, FILE_TYPES.VIDEO),
+                    src: (data?.photo, FILE_TYPES.VIDEO),
                     type: 'video/mp4'
                   }
                 ]
@@ -149,49 +149,49 @@ const EscortGalleryContainer = ({ workerPhotos }: { workerPhotos: WorkerPhotos[]
         {activeTab === 0 && (
           <>
             <WorkerImageCardGridBox>
-              {workerPhotos.map(
+              {workerPhotos?.map(
                 (photo, index) =>
                   (index < 18 || show) && (
                     <WorkerImageCardV2
                       key={index}
                       index={index}
-                      image={photo.link}
-                      coordinates={photo.cords ?? ''}
+                      image={photo?.link}
+                      coordinates={photo?.cords ?? ''}
                       handleOpenImage={handleOpenImage}
                     />
                   )
               )}
             </WorkerImageCardGridBox>
-            {!show && workerPhotos.length > 18 && <WorkerBlurBox onClick={handleShow} />}
+            {!show && workerPhotos?.length > 18 && <WorkerBlurBox onClick={handleShow} />}
           </>
         )}
         {activeTab === 1 && (
           <>
             <WorkerImageCardGridBox>
-              {photos.map(
+              {photos?.map(
                 (photo, index) =>
                   (index < 18 || show) && (
                     <WorkerImageCardV2
                       key={index}
-                      image={photo.link}
+                      image={photo?.link}
                       index={index}
-                      coordinates={photo.cords ?? ''}
+                      coordinates={photo?.cords ?? ''}
                       handleOpenImage={handleOpenImage}
                     />
                   )
               )}
             </WorkerImageCardGridBox>
-            {!show && workerPhotos.length > 18 && <WorkerBlurBox onClick={handleShow} />}
+            {!show && workerPhotos?.length > 18 && <WorkerBlurBox onClick={handleShow} />}
           </>
         )}
         {activeTab === 2 && (
           <>
             <WorkerImageCardGridBox>
-              {videos.length > 0 ? (
-                videos.map(
+              {videos?.length > 0 ? (
+                videos?.map(
                   (video, index) =>
                     (index < 18 || show) && (
-                      <WorkerImageCardV2 key={index} image={video.link} index={index} handleOpenImage={handleOpenImage} />
+                      <WorkerImageCardV2 key={index} image={video?.link} index={index} handleOpenImage={handleOpenImage} />
                     )
                 )
               ) : (
@@ -215,7 +215,7 @@ const EscortGalleryContainer = ({ workerPhotos }: { workerPhotos: WorkerPhotos[]
         )}
       </WorkerImageCardContainerBox>
       <Box display="flex" alignItems="center" justifyContent="center" gap={1} width="100%">
-        {!show && activeTab === 0 && workerPhotos.length > 18 ? (
+        {!show && activeTab === 0 && workerPhotos?.length > 18 ? (
           <IconButton
             onClick={handleShow}
             sx={{
@@ -230,7 +230,7 @@ const EscortGalleryContainer = ({ workerPhotos }: { workerPhotos: WorkerPhotos[]
         ) : (
           show &&
           activeTab === 0 &&
-          workerPhotos.length > 18 && (
+          workerPhotos?.length > 18 && (
             <IconButton
               onClick={handleShow}
               sx={{
@@ -243,7 +243,7 @@ const EscortGalleryContainer = ({ workerPhotos }: { workerPhotos: WorkerPhotos[]
           )
         )}
 
-        {!show && activeTab === 1 && photos.length > 18 ? (
+        {!show && activeTab === 1 && photos?.length > 18 ? (
           <IconButton
             onClick={handleShow}
             sx={{
@@ -256,7 +256,7 @@ const EscortGalleryContainer = ({ workerPhotos }: { workerPhotos: WorkerPhotos[]
         ) : (
           show &&
           activeTab === 1 &&
-          photos.length > 18 && (
+          photos?.length > 18 && (
             <IconButton
               onClick={handleShow}
               sx={{
@@ -269,7 +269,7 @@ const EscortGalleryContainer = ({ workerPhotos }: { workerPhotos: WorkerPhotos[]
           )
         )}
 
-        {!show && activeTab === 2 && videos.length > 18 && (
+        {!show && activeTab === 2 && videos?.length > 18 && (
           <IconButton
             onClick={handleShow}
             sx={{
@@ -281,7 +281,7 @@ const EscortGalleryContainer = ({ workerPhotos }: { workerPhotos: WorkerPhotos[]
           </IconButton>
         )}
 
-        {show && activeTab === 2 && videos.length > 18 && (
+        {show && activeTab === 2 && videos?.length > 18 && (
           <IconButton
             onClick={handleShow}
             sx={{

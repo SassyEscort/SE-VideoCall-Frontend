@@ -29,7 +29,9 @@ interface CallFeatureContextProps {
     callTime: number,
     modelName: string,
     modelPhoto: string,
-    userName: string
+    userName: string,
+    modelPrice: string,
+    isModelOnline: number
   ) => void;
   handelNameChange: () => void;
   isNameChange: boolean;
@@ -43,6 +45,12 @@ interface CallFeatureContextProps {
   isBusy: boolean;
   handleBusyClose: () => void;
   avaialbleCredits: number;
+  getToken: (token: TokenIdType) => void;
+  handleOpen: () => void;
+  modelCreditPrice: string;
+  handleCallEnd: () => void;
+  isModelAvailable: number;
+  handleModelOfflineClose: () => void;
 }
 
 const CallContext = createContext<CallFeatureContextProps>({
@@ -60,7 +68,13 @@ const CallContext = createContext<CallFeatureContextProps>({
   handleBusyClose: () => {},
   isLoading: false,
   isCallEnded: false,
-  avaialbleCredits: 0
+  avaialbleCredits: 0,
+  getToken: () => {},
+  handleOpen: () => {},
+  modelCreditPrice: '',
+  handleCallEnd: () => {},
+  isModelAvailable: 0,
+  handleModelOfflineClose: () => {}
 });
 
 export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
@@ -94,6 +108,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [avaialbleCredits, setAvailableCredits] = useState(0);
   const [isNameChange, setIsNameChange] = useState(false);
+  const [modelCreditPrice, setModelCreditPrice] = useState('');
+  const [isModelAvailable, setIsModelAvailable] = useState(1);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -123,7 +139,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [customerUsername, isCustomer]);
 
-  const handelNameChange = async () => {
+  const handelNameChange = () => {
     setIsNameChange(!isNameChange);
   };
 
@@ -133,20 +149,26 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     setCall(undefined);
   };
 
+  const getToken = (token: TokenIdType) => {
+    setToken(token);
+  };
+
   const handleCallInitiate = async (
     guestId: number,
     isCreditAvailable: boolean,
     callTime: number,
     modelName: string,
     modelPhoto: string,
-    userName: string
+    userName: string,
+    modelPrice: string,
+    isModelOnline: number
   ) => {
-    if (guestId && isCreditAvailable && !call && Boolean(token.token)) {
+    setModelCreditPrice(modelPrice);
+    setModelId(guestId);
+    setModelName(modelName);
+    setModelPhoto(modelPhoto);
+    if (guestId && isCreditAvailable && !call && Boolean(token.token) && isModelOnline) {
       const isModelBusy = await CallingService.getModelCallStatus(guestId, token.token);
-      setModelId(guestId);
-      setModelName(modelName);
-      setModelPhoto(modelPhoto);
-
       if (isModelBusy.data.ongoing_calls) {
         setIsBusy(true);
       } else {
@@ -169,6 +191,13 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     } else if (call) {
       toast.error('Please end your ONGOING call');
       setIsLoading(false);
+    } else if (!isModelOnline) {
+      const missedParams = {
+        model_id: guestId,
+        status: CALLING_STATUS.UNASWERED
+      };
+      await CallingService.missedCallStatus(missedParams, token.token);
+      setIsModelAvailable(isModelOnline);
     } else {
       setOpen(true);
     }
@@ -180,8 +209,20 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     router.push(pathname);
   };
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   const handleBusyClose = () => {
     setIsBusy(false);
+  };
+
+  const handleCallEnd = () => {
+    setIsCallEnded(false);
+  };
+
+  const handleModelOfflineClose = () => {
+    setIsModelAvailable(1);
   };
 
   const creditPutCallLog = async (model_id: number, comet_chat_session_id: string, status: string): Promise<CreditCallRes | undefined> => {
@@ -376,12 +417,23 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         isBusy,
         handleBusyClose,
         isLoading,
-        avaialbleCredits
+        avaialbleCredits,
+        getToken,
+        handleOpen,
+        modelCreditPrice,
+        handleCallEnd,
+        isModelAvailable,
+        handleModelOfflineClose
       }}
     >
       {children}
       <ModelCreditsUIStyledDialog open={open} maxWidth="md" fullWidth scroll="body">
-        <ModelCredits onClose={handleClose} isOutOfCredits={isOutOfCredits} userName={userName} />
+        <ModelCredits
+          onClose={handleClose}
+          isOutOfCredits={isOutOfCredits}
+          userName={userName}
+          modelCreditPrice={Number(modelCreditPrice) * 3}
+        />
       </ModelCreditsUIStyledDialog>
       <UIStyledDialog open={openSuccess} maxWidth="md" fullWidth>
         <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} isOutOfCredits={isOutOfCredits} />

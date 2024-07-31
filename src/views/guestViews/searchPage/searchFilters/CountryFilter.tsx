@@ -2,15 +2,14 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import { SelectChangeEvent } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
-import { LocatonIcone } from 'components/UIComponents/UIStyledArrivalsButton';
 import { UIStyledSelect } from 'components/UIComponents/UIStyledSelect';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CountryFilterText, StyledClearIcon } from '../Search.styled';
 import theme from 'themes/theme';
+import CityCountryLabel from './CityCountryLabel';
 
 interface CountryFilterProps {
   value: string;
@@ -22,6 +21,8 @@ type countryType = {
 };
 
 const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
+  const [open, setOpen] = useState(false);
+
   const [countries, setCountries] = useState<countryType[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
 
@@ -44,14 +45,20 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleClear = () => {
+  const handleClear: MouseEventHandler<SVGSVGElement> = (event) => {
+    event.stopPropagation();
     renderValue = '';
     onChange({ target: { value: '' } } as SelectChangeEvent<unknown>, null);
+    setOpen(false);
   };
 
   const handleChange = (event: SelectChangeEvent<unknown>, child: React.ReactNode) => {
     renderValue = event.target.value as string;
     onChange(event, child);
+  };
+
+  const handleOpen = () => {
+    setOpen((prevOpen) => !prevOpen);
   };
 
   return (
@@ -63,13 +70,11 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
         value={renderValue}
         onChange={handleChange}
         IconComponent={ExpandMore}
-        startAdornment={
-          <LocatonIcone>
-            <Image alt="home_model" width={24} height={24} src="/images/home/country-location-img.png" />
-          </LocatonIcone>
-        }
+        startAdornment={<CityCountryLabel label={value} type="Country" />}
         endAdornment={value && <StyledClearIcon onClick={handleClear} />}
         sx={{ backgroundColor: value ? theme.palette.primary[200] : '' }}
+        open={open}
+        onClick={handleOpen}
       >
         {countries?.map((country, index) => {
           return (

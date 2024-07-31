@@ -228,14 +228,14 @@ export default function CustomerPageContainer() {
                           }}
                         >
                           <TableCell component="th" scope="row">
-                            {item.name || '-'}
+                            {item?.name || '-'}
                           </TableCell>
                           <TableCell component="th" scope="row">
-                            {item.email || '-'}
+                            {item?.email || '-'}
                           </TableCell>
-                          <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item.createdDate, '-')}</TableCell>
-                          <TableCell sx={{ textAlign: 'left' }}>{item.userName}</TableCell>
-                          <TableCell sx={{ textAlign: 'left' }}>{item.email_verified === 0 ? 'No' : 'Yes'}</TableCell>
+                          <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.createdDate, '-')}</TableCell>
+                          <TableCell sx={{ textAlign: 'left' }}>{item?.userName}</TableCell>
+                          <TableCell sx={{ textAlign: 'left' }}>{item?.email_verified === 0 ? 'No' : 'Yes'}</TableCell>
                           <TableCell>
                             <IconButton
                               aria-label="more"

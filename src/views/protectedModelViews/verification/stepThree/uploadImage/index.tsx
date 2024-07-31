@@ -45,6 +45,7 @@ export type ImageUploadPayload = {
   photosURL?: string;
   file_id: string;
   file_type: string;
+  document_front_side: number;
 };
 
 export type PhotoUpload = {
@@ -58,6 +59,7 @@ export type PhotoUpload = {
   photo: string;
   file_id: string;
   file_type: string;
+  document_front_side: number;
 };
 
 export type VerificationFormStep5TypeV2 = {
@@ -147,8 +149,11 @@ const UploadImage = ({
           if (invalidSizeFiles.length > 0) {
             return this.createError({ message: 'Photo/video should be less than 5MB', path: 'file5' });
           }
-          if (combinedLength < 2 || combinedLength > 30) {
-            return this.createError({ message: 'Pleaseuploadbetween2to30photos', path: 'file5' });
+          if (combinedLength < 2) {
+            return this.createError({ message: 'Please upload at least 2 photos', path: 'file5' });
+          }
+          if (combinedLength > 30) {
+            return this.createError({ message: 'Sorry, you can upload 30 pictures only', path: 'file5' });
           }
 
           return true;
@@ -226,7 +231,8 @@ const UploadImage = ({
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
                 document_number: null,
                 file_id: x.file_id,
-                file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image'
+                file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image',
+                document_front_side: 0
               });
           });
 
@@ -243,7 +249,8 @@ const UploadImage = ({
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
                 document_number: null,
                 file_id: x.file_id,
-                file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image'
+                file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image',
+                document_front_side: 0
               });
           });
 

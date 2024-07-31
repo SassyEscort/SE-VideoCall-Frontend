@@ -134,7 +134,7 @@ const MainFooter = () => {
               <FooterStoreBox>
                 <Box>
                   <Image
-                    src="/images/app-logo/play_store.png"
+                    src="/images/app-logo/google-pay.png"
                     width={120}
                     height={120}
                     alt="play_store"
@@ -145,16 +145,18 @@ const MainFooter = () => {
                   />
                 </Box>
                 <Box>
-                  <Image
-                    src="/images/app-logo/app_store.png"
-                    width={120}
-                    height={120}
-                    alt="app_store"
-                    style={{
-                      width: 'auto'
-                    }}
-                    loading="lazy"
-                  />
+                  <Link href="https://apps.apple.com/us/app/hs-messenger/id6557061284" target="_blank">
+                    <Image
+                      src="/images/app-logo/app-store.png"
+                      width={120}
+                      height={120}
+                      alt="app_store"
+                      style={{
+                        width: 'auto'
+                      }}
+                      loading="lazy"
+                    />
+                  </Link>
                 </Box>
               </FooterStoreBox>
               {/* <GradientTypography variant="body">
@@ -204,16 +206,16 @@ const MainFooter = () => {
                 <UINewTypography sx={{ mb: '6px' }} variant="captionBold">
                   <FormattedMessage id="Resources" />
                 </UINewTypography>
-                {FooterCityList.map((val, index) => (
+                {FooterCityList?.map((val, index) => (
                   <UINewTypography variant="SubtitleSmallRegular" key={index}>
                     <Box
                       sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
                       component={Link}
                       prefetch={false}
                       shallow={true}
-                      href={`${val.link}`}
+                      href={`${val?.link}`}
                     >
-                      <FormattedMessage id={val.name} />
+                      <FormattedMessage id={val?.name} />
                     </Box>
                   </UINewTypography>
                 ))}

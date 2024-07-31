@@ -20,8 +20,8 @@ const ProfileCardDetails = ({ modelData }: { modelData: ModelDetailsRes }) => {
           {modelData?.data?.nationality && modelData?.data?.nationality?.name} |{' '}
           {modelData?.data?.languages &&
             modelData?.data?.languages
-              .filter((item) => item.language_name)
-              .map((item) => item.language_name)
+              .filter((item) => item?.language_name)
+              .map((item) => item?.language_name)
               .join(', ')}
         </UINewTypography>
       </ProfileCradDetailsTextBox>

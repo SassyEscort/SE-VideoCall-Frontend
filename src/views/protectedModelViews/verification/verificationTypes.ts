@@ -48,6 +48,7 @@ export type ModelDetailsResponse = {
   is_online: number;
   user_name: string;
   profile_status: string;
+  rejection_reason: string;
 };
 
 export type GuestDetailsResponse = {
@@ -73,6 +74,8 @@ export interface DocumentDataPhoto {
   is_document: number;
   link: string;
   file_type?: string;
+  document_front_side: number;
+  file_id: string;
 }
 export interface FileBody {
   type: string;

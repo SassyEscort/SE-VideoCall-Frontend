@@ -16,6 +16,20 @@ export const DragAndDropMultipleImageCloseButton = styled(IconButton)(() => ({
   }
 }));
 
+export const DragAndDropMultipleImageCloseVideoButton = styled(IconButton)(({ theme }) => ({
+  height: '22px',
+  width: '21px',
+  position: 'absolute',
+  left: 8,
+  top: 8,
+  zIndex: 1,
+  '& .MuiSvgIcon-root ': {
+    color: 'white',
+    width: '20px',
+    height: '20px'
+  }
+}));
+
 export const DragAndDropMultipleImageEditButton = styled(IconButton)(() => ({
   height: '22px',
   width: '21px',

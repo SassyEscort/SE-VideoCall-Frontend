@@ -16,8 +16,11 @@ import {
   ThirdBoxContent
 } from './NotePickedModel.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
+import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
 const NotPickedModel = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+  const { isModelAvailable } = useCallFeatureContext();
+
   return (
     <DialogContentMain open={true} onClose={onClose} fullWidth>
       <DialogTitleBox id="responsive-modal-title">
@@ -48,7 +51,7 @@ const NotPickedModel = ({ open, onClose }: { open: boolean; onClose: () => void 
           <FirstBoxContent>
             <ThirdBoxContent>
               <SecondBoxContent>
-                <VideoCalling showHeart={false} showAnother={false} />
+                <VideoCalling showHeart={false} showAnother={false} isModelAvailable={isModelAvailable} />
                 <UINewTypography variant="bodyLight" color="text.secondary">
                   <FormattedMessage id="WeAreSorry" />
                 </UINewTypography>

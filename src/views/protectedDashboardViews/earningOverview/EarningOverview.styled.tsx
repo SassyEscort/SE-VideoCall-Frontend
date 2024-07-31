@@ -2,6 +2,7 @@ import { FormControl } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import { DatePicker } from '@mui/x-date-pickers';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const GoldPackageMobileCom = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(9),
@@ -23,12 +24,23 @@ export const ProfileStatiscsMainContainer = styled(Box)(({ theme }) => ({
 export const ProfileStatiscsContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'center',
+  alignItems: 'start',
   width: '100%',
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
     gap: theme.spacing(1),
     width: '100%'
+  }
+}));
+
+export const UINewTypographyEarningsOverview = styled(UINewTypography)(({ theme }) => ({
+  fontWeight: 600,
+  fontSize: '38px',
+  lineHeight: '47.5px',
+  color: theme.palette.text.secondary,
+  [theme.breakpoints.down('sm')]: {
+    paddingBottom: theme.spacing(2),
+    fontSize: '24px'
   }
 }));
 

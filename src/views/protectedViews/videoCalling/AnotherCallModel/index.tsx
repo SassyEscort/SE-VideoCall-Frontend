@@ -22,7 +22,7 @@ import { useRouter } from 'next/navigation';
 const AnotherCallModel = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const router = useRouter();
 
-  const { modelName } = useCallFeatureContext();
+  const { modelName, isModelAvailable } = useCallFeatureContext();
 
   const handleExploreModel = () => {
     onClose();
@@ -58,7 +58,7 @@ const AnotherCallModel = ({ open, onClose }: { open: boolean; onClose: () => voi
         <DialogContentFristBox>
           <ThirdBoxContent>
             <SecondBoxContent>
-              <VideoCalling showHeart={false} showAnother={true} />
+              <VideoCalling showHeart={false} showAnother={true} isModelAvailable={isModelAvailable} />
               <UINewTypography variant="bodyLight" color="text.secondary">
                 <FormattedMessage id="Sorry" />
                 {modelName} <FormattedMessage id="AnotherCall" />

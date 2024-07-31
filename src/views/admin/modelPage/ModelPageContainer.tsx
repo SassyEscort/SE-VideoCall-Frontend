@@ -27,7 +27,6 @@ import { PAGE_SIZE } from 'constants/pageConstants';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import TablePager from 'components/common/CustomPaginations/TablePager';
 import MenuItem from '@mui/material/MenuItem';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { adminModelServices, ModelListing } from 'services/adminModel/adminModel.services';
@@ -41,6 +40,7 @@ import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import { FilterBox, ModelActionPopover, NotFoundBox, SortBox } from './ModelPageContainer.styled';
 import RejectModal from './RejectModal';
+import { RiEyeOffLine, RiEyeLine } from 'components/common/customRemixIcons';
 
 export type WorkersPaginationType = {
   page: number;
@@ -242,7 +242,7 @@ export default function ModelPageContainer() {
   };
 
   const handleApproveClick = async () => {
-    await adminModelServices.modelAction(token.token, Number(selected?.id), MODEL_ACTION.APPROVE);
+    await adminModelServices.modelAction(token.token, Number(selected?.id), MODEL_ACTION.APPROVE, true);
     handleModelListRefetch();
     handleCloseMenu();
   };
@@ -257,6 +257,18 @@ export default function ModelPageContainer() {
 
   const handleCloseRejectClick = () => {
     setOpenReject(false);
+  };
+
+  const handleHideModel = async () => {
+    await adminModelServices.modelAction(token.token, Number(selected?.id), String(selected?.profile_status), false);
+    handleModelListRefetch();
+    handleCloseMenu();
+  };
+
+  const handleShowModel = async () => {
+    await adminModelServices.modelAction(token.token, Number(selected?.id), String(selected?.profile_status), true);
+    handleModelListRefetch();
+    handleCloseMenu();
   };
 
   return (
@@ -312,9 +324,9 @@ export default function ModelPageContainer() {
                     width: '100%'
                   }}
                 >
-                  {StatusOfPlan.map((stat) => (
-                    <MenuItem key={stat.value} value={stat.value}>
-                      {stat.label}
+                  {StatusOfPlan?.map((stat) => (
+                    <MenuItem key={stat?.value} value={stat?.value}>
+                      {stat?.label}
                     </MenuItem>
                   ))}
                 </Select>
@@ -333,9 +345,9 @@ export default function ModelPageContainer() {
                     width: '100%'
                   }}
                 >
-                  {verification_step.map((stat) => (
-                    <MenuItem key={stat.value} value={stat.value}>
-                      {stat.label}
+                  {verification_step?.map((stat) => (
+                    <MenuItem key={stat?.value} value={stat?.value}>
+                      {stat?.label}
                     </MenuItem>
                   ))}
                 </Select>
@@ -381,27 +393,29 @@ export default function ModelPageContainer() {
                           }}
                         >
                           <TableCell component="th" scope="row">
-                            {item.name || '-'}
+                            {item?.name || '-'}
                           </TableCell>
                           <TableCell component="th" scope="row">
-                            {item.email || '-'}
+                            {item?.email || '-'}
                           </TableCell>
-                          <TableCell>{item.country_name || '-'}</TableCell>
+                          <TableCell>{item?.country_name || '-'}</TableCell>
                           <TableCell sx={{ textAlign: 'center' }}>
-                            {item.profile_status === MODEL_ACTION.PENDING ? (
+                            {item?.profile_status === MODEL_ACTION.PENDING ? (
                               <Chip label="Pending" color="warning" />
-                            ) : item.profile_status === MODEL_ACTION.APPROVE ? (
+                            ) : item?.profile_status === MODEL_ACTION.APPROVE && item?.is_visible ? (
                               <Chip label="Approved" color="success" />
-                            ) : item.profile_status === MODEL_ACTION.REJECT ? (
+                            ) : item?.profile_status === MODEL_ACTION.REJECT ? (
                               <Chip label="Rejected" color="error" />
+                            ) : !item?.is_visible && item?.profile_status !== MODEL_ACTION.PENDING ? (
+                              <Chip label="Hidden" />
                             ) : (
                               '-'
                             )}
                           </TableCell>
-                          <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item.created_at, '-')}</TableCell>
-                          <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item.updated_at, '-')}</TableCell>
-                          <TableCell sx={{ textAlign: 'left' }}>{item.verification_step}</TableCell>
-                          <TableCell sx={{ textAlign: 'left' }}>{item.email_verified === 0 ? 'No' : 'Yes'}</TableCell>
+                          <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.created_at, '-')}</TableCell>
+                          <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.updated_at, '-')}</TableCell>
+                          <TableCell sx={{ textAlign: 'left' }}>{item?.verification_step}</TableCell>
+                          <TableCell sx={{ textAlign: 'left' }}>{item?.email_verified === 0 ? 'No' : 'Yes'}</TableCell>
 
                           <TableCell>
                             <IconButton
@@ -454,7 +468,7 @@ export default function ModelPageContainer() {
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
           <MenuItem onClick={handelViewDetails}>
-            <VisibilityIcon sx={{ mr: 2 }} />
+            <RiEyeLine />
             View Details
           </MenuItem>
           {selected?.profile_status === MODEL_ACTION.PENDING && (
@@ -468,6 +482,23 @@ export default function ModelPageContainer() {
                 Reject
               </MenuItem>
             </>
+          )}
+          {selected?.is_visible && selected?.profile_status === MODEL_ACTION.APPROVE ? (
+            <>
+              <MenuItem onClick={handleHideModel}>
+                <RiEyeOffLine />
+                Hide from listing
+              </MenuItem>
+            </>
+          ) : (
+            selected?.profile_status === MODEL_ACTION.APPROVE && (
+              <>
+                <MenuItem onClick={handleShowModel}>
+                  <RiEyeLine />
+                  Show in listing
+                </MenuItem>
+              </>
+            )
           )}
         </ModelActionPopover>
       </MainLayout>

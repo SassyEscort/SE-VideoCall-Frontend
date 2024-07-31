@@ -19,7 +19,7 @@ const PriceFilter = ({
       <Grid container columnSpacing={1.5}>
         {SEARCH_PRICES?.map((price, index) => (
           <Grid item key={index} xs={6}>
-            <UINewStyleRadioButton label={price.name} value={price.id} />
+            <UINewStyleRadioButton label={price?.name} value={price?.id} />
           </Grid>
         ))}
       </Grid>

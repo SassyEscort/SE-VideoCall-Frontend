@@ -119,9 +119,9 @@ export default function ReportFilters({
                     }
                   }}
                 >
-                  {REPORTS_FILTERS.map((item) => (
-                    <MenuItem value={item.value} key={item.value}>
-                      {item.label}
+                  {REPORTS_FILTERS?.map((item) => (
+                    <MenuItem value={item?.value} key={item?.value}>
+                      {item?.label}
                     </MenuItem>
                   ))}
                 </Select>
@@ -178,9 +178,9 @@ export default function ReportFilters({
                       }
                     }}
                   >
-                    {StatusOfPlan.map((stat) => (
-                      <MenuItem key={stat.id} value={stat.name}>
-                        {stat.name}
+                    {StatusOfPlan?.map((stat) => (
+                      <MenuItem key={stat?.id} value={stat?.name}>
+                        {stat?.name}
                       </MenuItem>
                     ))}
                   </Select>

@@ -12,11 +12,13 @@ import DashboardPriceView from '../dashboardPriceView';
 import { FormattedMessage } from 'react-intl';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import DocumentMainContainer from 'views/protectedModelViews/verification/documentContainer';
 
 const profileMenuList = [
   { menuName: <FormattedMessage id="Photos" />, id: 0 },
   { menuName: <FormattedMessage id="ProfileDetails" />, id: 1 },
-  { menuName: <FormattedMessage id="Prices" />, id: 2 }
+  { menuName: <FormattedMessage id="Prices" />, id: 2 },
+  { menuName: <FormattedMessage id="Documents" />, id: 3 }
 ];
 
 const ModelProfileContainer = ({
@@ -66,7 +68,7 @@ const ModelProfileContainer = ({
               <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', width: '100%' }} />
             </Box>
             <SidebarDropDownMainContainer>
-              {profileMenuList.map((list, index) => (
+              {profileMenuList?.map((list, index) => (
                 <>
                   <MenuItem onClick={() => handleMenu(list.id)} key={index} sx={{ paddingLeft: '0', py: '12px' }}>
                     {menuId === list.id ? (
@@ -109,8 +111,17 @@ const ModelProfileContainer = ({
               handleModelApiChange={handleModelApiChange}
               isReviewEdit={false}
             />
-          ) : (
+          ) : menuId === 2 ? (
             <DashboardPriceView token={token} modelDetails={modelDetails} handleModelApiChange={handleModelApiChange} isEdit={true} />
+          ) : (
+            <DocumentMainContainer
+              handleModelApiChange={handleModelApiChange}
+              token={token}
+              activeStep={0}
+              modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
+              isReviewEdit={false}
+              isDashboard={true}
+            />
           )}
         </Box>
       </Box>

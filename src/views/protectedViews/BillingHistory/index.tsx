@@ -138,16 +138,16 @@ const BillingHistory = () => {
                     <FirstTextContainer>
                       <BillingUIContainer sx={{ gap: 1.5 }}>
                         <UINewTypography variant="buttonLargeMenu" color={list.category === 'Credit' ? 'success.100' : 'error.main'}>
-                          {list.category === 'Credit' ? '+' : '-'} {list.credits} {list.category}
+                          {list?.category === 'Credit' ? '+' : '-'} {list?.credits} {list?.category}
                         </UINewTypography>
                         <DateTimeBilling variant="SubtitleSmallMedium" color="text.primary">
-                          {moment(list.created_at).format('LT')}, {moment(list.created_at).format('DD MMMM YYYY')}
+                          {moment(list?.created_at).format('LT')}, {moment(list?.created_at).format('DD MMMM YYYY')}
                         </DateTimeBilling>
                       </BillingUIContainer>
 
                       <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <DollarBillingValue variant="h6" color="text.secondary">
-                          {list.category === 'Debit' ? (
+                          {list?.category === 'Debit' ? (
                             <TextBoxContainer
                               onClick={() => {
                                 handDetailsOpen();
@@ -157,7 +157,7 @@ const BillingHistory = () => {
                               <FormattedMessage id="ViewDetails" />
                             </TextBoxContainer>
                           ) : (
-                            `$ ${list.amount}`
+                            `$ ${list?.amount}`
                           )}
                         </DollarBillingValue>
                       </Box>
@@ -196,7 +196,7 @@ const BillingHistory = () => {
           </CallHistoryPaginationContainer>
         )}
       </BillingHistoryBoxContainer>
-      <BillingDetails open={open} handleClose={handDetailsClose} selectDetails={selectDetails ?? ({} as ViewDetailsRes)} />
+      <BillingDetails open={open} handleClose={handDetailsClose} selectDetails={selectDetails ?? ({} as ViewDetailsRes)} token={token} />
     </MainLayoutNav>
   );
 };

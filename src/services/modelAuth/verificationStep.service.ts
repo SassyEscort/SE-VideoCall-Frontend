@@ -128,7 +128,8 @@ export class VerificationStepService {
             photosURL: responseData?.data?.url,
             type: data?.type,
             file_id: responseData.data.fileId,
-            file_type: responseData.data.fileType
+            file_type: responseData.data.fileType,
+            document_front_side: 0
           });
         }
       }

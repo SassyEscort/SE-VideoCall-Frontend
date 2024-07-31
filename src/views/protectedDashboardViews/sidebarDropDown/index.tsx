@@ -12,11 +12,13 @@ import VerificationStepOne from 'views/protectedModelViews/verification/stepOne'
 import DashboardPriceView from '../dashboardPriceView';
 import { LoadingBoxAdd, SelectDropdown } from './SidebarDropDown.styled';
 import { Box, SelectChangeEvent, CircularProgress } from '@mui/material';
+import DocumentMainContainer from 'views/protectedModelViews/verification/documentContainer';
 
 const profileMenuList = [
   { menuName: <FormattedMessage id="Photos" />, id: 0 },
   { menuName: <FormattedMessage id="ProfileDetails" />, id: 1 },
-  { menuName: <FormattedMessage id="Prices" />, id: 2 }
+  { menuName: <FormattedMessage id="Prices" />, id: 2 },
+  { menuName: <FormattedMessage id="Documents" />, id: 3 }
 ];
 
 const MobileSidebar = ({
@@ -36,7 +38,7 @@ const MobileSidebar = ({
     setMenuId(Number(event.target.value));
     setTimeout(() => {
       setIsLoading(false);
-    }, 500); // Simula un tiempo de carga
+    }, 500);
   };
 
   const handleSave = () => {
@@ -66,14 +68,14 @@ const MobileSidebar = ({
         }}
         MenuProps={{ disableScrollLock: true }}
       >
-        {profileMenuList.map((list) => (
-          <MenuItem key={list.id} value={list.id}>
-            {menuId === list.id ? (
+        {profileMenuList?.map((list) => (
+          <MenuItem key={list?.id} value={list?.id}>
+            {menuId === list?.id ? (
               <UINewTypography variant="buttonLargeMenu" color="primary.400">
-                {list.menuName}
+                {list?.menuName}
               </UINewTypography>
             ) : (
-              <UINewTypography variant="buttonLargeMenu">{list.menuName}</UINewTypography>
+              <UINewTypography variant="buttonLargeMenu">{list?.menuName}</UINewTypography>
             )}
           </MenuItem>
         ))}
@@ -102,8 +104,17 @@ const MobileSidebar = ({
           handleModelApiChange={handleModelApiChange}
           isReviewEdit={false}
         />
-      ) : (
+      ) : menuId === 2 ? (
         <DashboardPriceView isEdit={true} token={token} modelDetails={modelDetails} handleModelApiChange={handleModelApiChange} />
+      ) : (
+        <DocumentMainContainer
+          handleModelApiChange={handleModelApiChange}
+          token={token}
+          activeStep={0}
+          modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
+          isReviewEdit={false}
+          isDashboard={true}
+        />
       )}
     </FormControl>
   );

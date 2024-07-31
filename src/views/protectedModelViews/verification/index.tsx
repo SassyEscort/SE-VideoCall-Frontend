@@ -243,6 +243,7 @@ const VerificationContainer = () => {
           handlePrev={handlePrev}
           isReviewEdit={isReviewEdit}
           handleEdit={handleEdit}
+          isDashboard={false}
         />
       )}
       {activeStep === 2 && (

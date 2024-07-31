@@ -1,9 +1,11 @@
 import axios, { AxiosError } from 'axios';
+import { ChangePassParams } from 'services/guestAuth/authuser.services';
 import { GenericResponse, GenericResponseData } from 'types/commonApiTypes';
 import { ForgetPasswordParams } from 'views/modelViews/modelForgetPasswordLink';
 import { LoginParams } from 'views/modelViews/modelSignin';
 
 import { ModelSignupParams } from 'views/modelViews/modelSignup';
+import { GenericRes } from './types';
 
 export class ModelAuthService {
   static modelSignup = async (params: ModelSignupParams) => {
@@ -61,8 +63,7 @@ export class ModelAuthService {
 
       return res.data;
     } catch (err: any) {
-      const error: string = err;
-      return { error: error } as GenericResponse;
+      return { error: err.response.data.message } as GenericResponse;
     }
   };
 
@@ -80,6 +81,17 @@ export class ModelAuthService {
     } catch (err: any) {
       const error: string = err;
       return { error: error } as GenericResponse;
+    }
+  };
+
+  static changePassword = async (params: ChangePassParams, token: string): Promise<GenericRes | string> => {
+    try {
+      const res = await axios.post<GenericRes>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/update-password`, params, {
+        headers: { 'Content-Type': 'application/json', Authorization: token }
+      });
+      return res.data;
+    } catch (err: any) {
+      return err.response?.data.message as string;
     }
   };
 }

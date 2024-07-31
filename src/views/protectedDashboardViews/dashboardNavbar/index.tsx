@@ -23,6 +23,7 @@ import { ModelDetailsService } from 'services/modelDetails/modelDetails.services
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import Availability from './Availability';
 
 ModelNav.propTypes = {
   openNav: PropTypes.bool,
@@ -85,75 +86,84 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
   }, [token.id, token.token]);
 
   return (
-    <Box component="nav" sx={{ flexShrink: { lg: 0 }, position: 'relative' }}>
-      {isMdDown && <DullCirclesNav />}
-
-      {!isMdDown && !isMdFix && (
-        <SideMenu modelDetails={modelDetails ?? ({} as ModelDetailsResponse)} handleModelApiChange={handleModelApiChange} token={token} />
+    <>
+      {isMdDown && (
+        <Availability
+          modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
+          token={token}
+          handleModelApiChange={handleModelApiChange}
+        />
       )}
+      <Box component="nav" sx={{ flexShrink: { lg: 0 }, position: 'relative' }}>
+        {isMdDown && <DullCirclesNav />}
 
-      {!isMdDown && !isMdFix && <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: 5.5 }} />}
+        {!isMdDown && !isMdFix && (
+          <SideMenu modelDetails={modelDetails ?? ({} as ModelDetailsResponse)} handleModelApiChange={handleModelApiChange} token={token} />
+        )}
 
-      <Drawer
-        variant={isMdUp && !isMdFix ? 'permanent' : 'temporary'}
-        open={isMdUp && !isMdFix ? true : openNav}
-        onClose={onCloseNav}
-        ModalProps={{ keepMounted: true }}
-        PaperProps={{
-          sx: {
-            border: 'none',
-            width: 299,
-            position: 'static'
-          }
-        }}
-        sx={{ height: '100%', width: 299 }}
-      >
-        <ModelNavbar tabIndex={tabIndex} />
-      </Drawer>
-      {(isMdDown || isMdFix) && (
-        <MobileComponentBox>
-          <Tabs
-            value={value}
-            variant="scrollable"
-            onChange={handleChange}
-            scrollButtons={false}
-            aria-label="scrollable prevent tabs example"
-          >
-            {DashboardModelTabs.map((tab, index) => {
-              return index === tabIndex - 1 ? (
-                <CommonMenuBox key={index} sx={{ color: 'text.primary' }}>
-                  <Link prefetch={false} href={tab.path} style={{ textDecoration: 'none' }}>
-                    <SelectedTab>
-                      <Box
-                        component="img"
-                        width={16}
-                        height="auto"
-                        src={tab.img}
-                        sx={{
-                          filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)'
-                        }}
-                      />
-                      <Box sx={{ color: 'primary.400' }}>
-                        <MobileTextStyleContainer label={tab.name} />
-                      </Box>
-                    </SelectedTab>
-                  </Link>
-                </CommonMenuBox>
-              ) : (
-                <CommonMenuBox key={index} sx={{ color: 'text.primary' }}>
-                  <Link prefetch={false} href={tab.path} style={{ textDecoration: 'none' }}>
-                    <MobileComponentSecBoxContainer>
-                      <Box component="img" src={tab.img} width={20} height={20} />
-                      <MobileTextStyleContainer label={tab.name} />
-                    </MobileComponentSecBoxContainer>
-                  </Link>
-                </CommonMenuBox>
-              );
-            })}
-          </Tabs>
-          <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-        </MobileComponentBox>
-      )}
-    </Box>
+        {!isMdDown && !isMdFix && <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700', mt: 5.5 }} />}
+
+        <Drawer
+          variant={isMdUp && !isMdFix ? 'permanent' : 'temporary'}
+          open={isMdUp && !isMdFix ? true : openNav}
+          onClose={onCloseNav}
+          ModalProps={{ keepMounted: true }}
+          PaperProps={{
+            sx: {
+              border: 'none',
+              width: 299,
+              position: 'static'
+            }
+          }}
+          sx={{ height: '100%', width: 299 }}
+        >
+          <ModelNavbar tabIndex={tabIndex} />
+        </Drawer>
+        {(isMdDown || isMdFix) && (
+          <MobileComponentBox>
+            <Tabs
+              value={value}
+              variant="scrollable"
+              onChange={handleChange}
+              scrollButtons={false}
+              aria-label="scrollable prevent tabs example"
+            >
+              {DashboardModelTabs?.map((tab, index) => {
+                return index === tabIndex - 1 ? (
+                  <CommonMenuBox key={index} sx={{ color: 'text.primary' }}>
+                    <Link prefetch={false} href={tab?.path} style={{ textDecoration: 'none' }}>
+                      <SelectedTab>
+                        <Box
+                          component="img"
+                          width={16}
+                          height="auto"
+                          src={tab?.img}
+                          sx={{
+                            filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)'
+                          }}
+                        />
+                        <Box sx={{ color: 'primary.400' }}>
+                          <MobileTextStyleContainer label={tab?.name} />
+                        </Box>
+                      </SelectedTab>
+                    </Link>
+                  </CommonMenuBox>
+                ) : (
+                  <CommonMenuBox key={index} sx={{ color: 'text.primary' }}>
+                    <Link prefetch={false} href={tab?.path} style={{ textDecoration: 'none' }}>
+                      <MobileComponentSecBoxContainer>
+                        <Box component="img" src={tab.img} width={20} height={20} />
+                        <MobileTextStyleContainer label={tab?.name} />
+                      </MobileComponentSecBoxContainer>
+                    </Link>
+                  </CommonMenuBox>
+                );
+              })}
+            </Tabs>
+            <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+          </MobileComponentBox>
+        )}
+      </Box>
+    </>
   );
 }

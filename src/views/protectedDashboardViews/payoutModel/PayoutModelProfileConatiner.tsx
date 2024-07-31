@@ -87,7 +87,7 @@ const PayoutModelProfileConatiner = ({ token, modelDetails }: { token: TokenIdTy
               <SecondDivider orientation="horizontal" flexItem />
             </FiveBox>
             <SidebarDropDownMainContainer>
-              {payoutMenuList.map((list, index) => (
+              {payoutMenuList?.map((list, index) => (
                 <>
                   <MenuItem onClick={() => handleMenu(list.id)} key={index} sx={{ paddingLeft: '0', py: '12px' }}>
                     {menuId === index ? (

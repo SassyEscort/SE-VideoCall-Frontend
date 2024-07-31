@@ -15,6 +15,7 @@ export type ModelFavRes = {
   is_online: number;
   cords: string;
   languages: LanagueRes[];
+  favourite: number;
 };
 
 export type ModelFavResponse = {

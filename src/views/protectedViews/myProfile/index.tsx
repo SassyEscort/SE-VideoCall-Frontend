@@ -16,6 +16,7 @@ import { CommonServices } from 'services/commonApi/commonApi.services';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
+import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 
 export type MyProfile = {
   username: string;
@@ -24,6 +25,8 @@ export type MyProfile = {
 };
 
 const MyProfile = () => {
+  const { handelNameChange } = useCallFeatureContext();
+
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
   const [isLoading, setIsLoading] = useState(false);
@@ -34,10 +37,11 @@ const MyProfile = () => {
     email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required')
   });
 
-  const handleSubmit = async (username: string) => {
+  const handleSubmit = async (name: string, email: string) => {
     try {
       setLoadingButton(true);
-      const res = await CommonServices.updateUserName(token.token, username);
+      const res = await CommonServices.updateUserName(token.token, name, email);
+      handelNameChange();
       if (res) {
         if (res.code === 200) {
           toast.success('Success');
@@ -77,13 +81,13 @@ const MyProfile = () => {
     <Formik
       enableReinitialize
       initialValues={{
-        username: customerDetails?.customer_user_name || '',
+        username: customerDetails?.customer_name || '',
         email: customerDetails?.customer_email || '',
         password: 'test123'
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        handleSubmit(values.username);
+        handleSubmit(values.username, values.email);
       }}
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {

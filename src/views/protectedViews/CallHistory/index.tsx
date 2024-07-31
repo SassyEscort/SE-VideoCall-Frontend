@@ -35,7 +35,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
-import { CallHistoryPageDetailsRes } from 'services/callHistory/types';
+import { CallHistoryDetails, CallHistoryPageDetailsRes } from 'services/callHistory/types';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CallHistoryService } from 'services/callHistory/callHistory.services';
@@ -45,9 +45,8 @@ import moment from 'moment';
 import { BillingPaginationBox } from '../BillingHistory/BillingHistory.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { LoaderBox } from '../Credites/Credits.styled';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
-import { CallingService } from 'services/calling/calling.services';
 import { UIStyledLoadingButtonShadowCallHistoryV2 } from 'components/UIComponents/StyleLoadingButtonshadow';
+import { useRouter } from 'next/navigation';
 
 export type CallHistoryPaginationType = {
   page: number;
@@ -56,16 +55,14 @@ export type CallHistoryPaginationType = {
 };
 
 const CallHistory = () => {
+  const router = useRouter();
   const isSmDown = useMediaQuery(theme.breakpoints.down(330));
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [callHistoryData, setCallHistoryData] = useState<CallHistoryPageDetailsRes>();
   const [total_rows, setTotalRows] = useState(0);
   const [isLoadingCall, setIsLoading] = useState(false);
-  const [guestData, setGuestData] = useState(0);
-  const [guestDataIndex, setGuestDataIndex] = useState(0);
-  const [isCreditAvailable, setIsCreditAvailable] = useState(false);
-  const [callTime, setCallTime] = useState(0);
-  const { handleCallInitiate, call, isCallEnded, isLoading } = useCallFeatureContext();
+  const [isLoadingDetail, setIsLoadingDetails] = useState(false);
+
   const [filters, setFilters] = useState<CallHistoryPaginationType>({
     page: 1,
     limit: 20,
@@ -127,20 +124,6 @@ const CallHistory = () => {
     return today.diff(birthDate, 'years');
   };
 
-  useEffect(() => {
-    const getCometChatInfo = async () => {
-      if (guestData && token.token) {
-        const getInfo = await CallingService.getCometChatInfo(guestData, token.token);
-        if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 3) {
-          const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
-          setCallTime(durationInSeconds);
-          setIsCreditAvailable(true);
-        }
-      }
-    };
-    getCometChatInfo();
-  }, [guestData, token, call, isCallEnded]);
-
   const formatDuration = (duration: string) => {
     const callDuration = moment.duration(duration);
     const hours = Math.floor(callDuration.asHours());
@@ -167,6 +150,14 @@ const CallHistory = () => {
     return message;
   };
 
+  const handleVideoCall = (list: CallHistoryDetails) => {
+    if (list.user_name) {
+      setIsLoadingDetails(true);
+      router.push(`/details/${list.user_name}`);
+      setIsLoadingDetails(false);
+    }
+  };
+
   return (
     <MainLayoutNav variant={'worker'} enlargedFooter={true}>
       <CallHistoryBoxContainer>
@@ -183,26 +174,26 @@ const CallHistory = () => {
           ) : (
             <>
               {callHistoryData && callHistoryData?.data?.call_logs.length > 0 ? (
-                callHistoryData?.data?.call_logs.map((list, index) => (
+                callHistoryData?.data?.call_logs?.map((list, index) => (
                   <SecondContainer key={index}>
                     <SecondSubContainer>
                       <SecondSubTextMainContainer>
                         <SecondSubFirstBox>
                           <SecondSubFirstPartBox>
-                            <WorkerImg src={list.link ? list.link : ''} />
+                            <WorkerImg src={list?.link ? list?.link : ''} />
                             <SecondSubFirstPartSecondBox>
                               <SecondSubFirstPartSecondBoxFirstText>
                                 <CallHistoryName variant="h6" color="white.main" whiteSpace="nowrap">
-                                  {list.name}
+                                  {list?.name}
                                 </CallHistoryName>
                                 <SecondSubFirstPartSecondBoxSecText>
-                                  <SecTextContainer color="text.primary">{calculateAge(list.dob)}</SecTextContainer>
+                                  <SecTextContainer color="text.primary">{calculateAge(list?.dob)}</SecTextContainer>
                                   <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
                                   <SecTextContainer color="text.primary">
-                                    {list.languages &&
-                                      list.languages
-                                        .filter((item) => item.language_name)
-                                        .map((item) => item.language_name)
+                                    {list?.languages &&
+                                      list?.languages
+                                        .filter((item) => item?.language_name)
+                                        .map((item) => item?.language_name)
                                         .join(', ')}
                                   </SecTextContainer>
                                 </SecondSubFirstPartSecondBoxSecText>
@@ -219,7 +210,7 @@ const CallHistory = () => {
                             <SecondSubFirstPartThiredBox marginRight={{ sm: '32px' }}>
                               <FirstTextContainer color="text.primary" whiteSpace="nowrap">
                                 <FormattedMessage id="Duration" />
-                                {list.duration && formatDuration(list.duration)}
+                                {list?.duration && formatDuration(list?.duration)}
                               </FirstTextContainer>
                               <CreditUsedBox>
                                 <FirstTextContainer color="text.primary" whiteSpace="nowrap">
@@ -227,7 +218,7 @@ const CallHistory = () => {
                                 </FirstTextContainer>
                                 <SecondSubFirstPartThiredBoxText>
                                   <ImgBoxContainer src="/images/workercards/dollar-img.png" />
-                                  <FirstTextContainer color="text.primary">{list.credits_used}</FirstTextContainer>
+                                  <FirstTextContainer color="text.primary">{list?.credits_used}</FirstTextContainer>
                                 </SecondSubFirstPartThiredBoxText>
                               </CreditUsedBox>
                               <CreditUsedBox>
@@ -237,10 +228,10 @@ const CallHistory = () => {
                                 <SecondSubFirstPartThiredBoxText>
                                   <CallHistoryBox>
                                     <FirstTextContainer color="text.primary" sx={{ textWrap: 'nowrap' }}>
-                                      {moment(list.created_at).format('LT')},
+                                      {moment(list?.created_at).format('LT')},
                                     </FirstTextContainer>
                                     <FirstTextContainer color="text.primary" sx={{ textWrap: 'nowrap' }}>
-                                      {moment(list.created_at).format('DD MMMM YYYY')}
+                                      {moment(list?.created_at).format('DD MMMM YYYY')}
                                     </FirstTextContainer>
                                   </CallHistoryBox>
                                 </SecondSubFirstPartThiredBoxText>
@@ -252,7 +243,7 @@ const CallHistory = () => {
                           <SecondSubFirstPartThiredBox gap="8px !important">
                             <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
                               <FormattedMessage id="Duration" />
-                              {list.duration && formatDuration(list.duration)}
+                              {list?.duration && formatDuration(list?.duration)}
                             </UINewTypography>
                             <CreditUsedBox>
                               <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
@@ -261,7 +252,7 @@ const CallHistory = () => {
                               <SecondSubFirstPartThiredBoxText>
                                 <ImgBoxContainer src="/images/workercards/dollar-img.png" />
                                 <UINewTypography variant="buttonLargeMenu" color="text.primary">
-                                  {list.credits_used}
+                                  {list?.credits_used}
                                 </UINewTypography>
                               </SecondSubFirstPartThiredBoxText>
                             </CreditUsedBox>
@@ -271,20 +262,17 @@ const CallHistory = () => {
                                 <FormattedMessage id="Date" />
                               </UINewTypography>
                               <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
-                                {moment(list.created_at).format('LT')}, {moment(list.created_at).format('DD MMMM YYYY')}
+                                {moment(list?.created_at).format('LT')}, {moment(list?.created_at).format('DD MMMM YYYY')}
                               </UINewTypography>
                             </Box>
                           </SecondSubFirstPartThiredBox>
                         )}
                         <CallAgainBox>
                           <UIStyledLoadingButtonShadowCallHistoryV2
-                            loading={isLoading && index === guestDataIndex ? true : false}
+                            loading={isLoadingDetail}
                             variant="contained"
                             onClick={() => {
-                              setGuestData(list.model_id);
-                              setGuestDataIndex(index);
-
-                              handleCallInitiate(list.model_id, isCreditAvailable, callTime, list.name, list.link ?? '', list.user_name);
+                              handleVideoCall(list);
                             }}
                           >
                             <Box sx={{ display: 'flex', gap: 1.25 }}>

@@ -32,21 +32,21 @@ export default function UINewRadioButtonsGroup({ label, options, defaultValue, o
           flexDirection: 'row'
         }}
       >
-        {options.map((option) => (
+        {options?.map((option) => (
           <UIStyledFormLabelContainer
             sx={{
-              backgroundColor: option.id == defaultValue ? 'primary.200' : '#232027 !important',
-              color: option.id == defaultValue ? '#FF68C0 !important' : '#B7B5B9 !important',
-              fontWeight: option.id == defaultValue ? 'bold !important' : 'normal !important'
+              backgroundColor: option?.id == defaultValue ? 'primary.200' : '#232027 !important',
+              color: option?.id == defaultValue ? '#FF68C0 !important' : '#B7B5B9 !important',
+              fontWeight: option?.id == defaultValue ? 'bold !important' : 'normal !important'
             }}
-            key={option.id}
-            value={option.id}
+            key={option?.id}
+            value={option?.id}
             control={
               <Radio
                 disabled={disabled}
                 checkedIcon={<CheckCircle />}
                 sx={{
-                  color: option.id == defaultValue ? 'primary.400' : 'secondary.200',
+                  color: option?.id == defaultValue ? 'primary.400' : 'secondary.200',
                   width: '20px',
                   height: '20px'
                 }}
@@ -56,10 +56,10 @@ export default function UINewRadioButtonsGroup({ label, options, defaultValue, o
               <UINewTypography
                 variant="bodyRegular"
                 sx={{
-                  fontWeight: option.id == defaultValue ? 'bold !important' : 'normal !important'
+                  fontWeight: option?.id == defaultValue ? 'bold !important' : 'normal !important'
                 }}
               >
-                {option.name}
+                {option?.name}
               </UINewTypography>
             }
           />

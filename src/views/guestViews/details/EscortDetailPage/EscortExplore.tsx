@@ -113,7 +113,7 @@ const EscortExplore = () => {
   const handelFilterChange = async (values: SearchFiltersTypes | undefined) => {
     setIsLoading(true);
     if (values) {
-      const getModel = await ModelListingService.getModelListing(values);
+      const getModel = await ModelListingService.getModelListing(values, token.token);
       setModelListing(getModel.model_details);
       setTotalRows(getModel.aggregate.total_rows);
       scroll ? scrollToTable() : '';

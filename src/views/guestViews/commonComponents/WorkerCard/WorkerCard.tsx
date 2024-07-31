@@ -90,20 +90,20 @@ const WorkerCard = ({
     }
   };
 
+  const handleIconClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    handleLikeClick(modelDetails?.id);
+  };
+
   return (
     <MainWorkerCard>
       <ImgWorkerCard ref={imageUrlRef} />
       <HeartIconWorkerCard>
-        {isFavPage || liked ? (
+        {isFavPage || liked || modelDetails?.favourite === 1 ? (
           <FavoriteIconContainer sx={{ color: 'error.main' }} />
         ) : (
-          <FavoriteBorderIconContainer
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              handleLikeClick(modelDetails?.id);
-            }}
-          />
+          <FavoriteBorderIconContainer onClick={handleIconClick} />
         )}
       </HeartIconWorkerCard>
       <WorkerCardContainer>
@@ -112,7 +112,7 @@ const WorkerCard = ({
             <ProfileCardContainer>
               <NameCardContainer>
                 <UINewTypography variant="newTitle" color="#ffff">
-                  {modelDetails?.name.charAt(0).toUpperCase() + modelDetails?.name.slice(1)}
+                  {modelDetails?.name?.charAt(0)?.toUpperCase() + modelDetails?.name?.slice(1)}
                 </UINewTypography>
                 {modelDetails?.is_online === 1 ? (
                   <>

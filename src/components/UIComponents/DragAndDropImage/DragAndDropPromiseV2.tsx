@@ -8,7 +8,6 @@ import { FormikErrors, FormikTouched } from 'formik';
 import { DragAndDropContainer, DragAndDropMultipleImageCloseButton } from './DragAndDropMultipleImage.styled';
 import UINewTypography from '../UINewTypography';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
-import { FormattedMessage } from 'react-intl';
 
 export type UploadFileControlType = {
   errors: string | undefined;
@@ -37,12 +36,7 @@ const DragAndDropV2 = ({
   withoutFilterImageTouched,
   title
 }: UploadFileControlType) => {
-  const docLink = modelDetails?.documents
-    ?.filter((x) => x.link !== 'null' || x.link !== null)
-    ?.map((x) => x.link)
-    ?.join('');
-
-  const [uploadedFileURL, setUploadedFileURL] = useState(docLink !== 'null' ? docLink : '');
+  const [uploadedFileURL, setUploadedFileURL] = useState(typeof value === 'string' ? value : '');
   const [uploadedFileName, setUploadedFileName] = useState('');
   const [isPDF, setIsPDF] = useState(false);
   const dropAreaId = useMemo(() => name + '_dropable', [name]);
@@ -223,7 +217,7 @@ const DragAndDropV2 = ({
       </DragAndDropContainer>
       {errors && (touched || withoutFilterImageTouched?.photoWithoutFilter) && (
         <Typography className="Mui-error" variant="bodySmall" color={'error.main'}>
-          <FormattedMessage id="Pleaseuploadyourdocument" />
+          {errors}
         </Typography>
       )}
     </Box>

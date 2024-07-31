@@ -27,7 +27,7 @@ export const ModelCreditsUIStyledDialog = styled(Dialog)(({ theme }) => ({
   },
   '& .MuiPaper-root': {
     maxWidth: 977,
-    height: 823,
+    height: 900,
     borderRadius: theme.spacing(1.5)
   }
 }));
