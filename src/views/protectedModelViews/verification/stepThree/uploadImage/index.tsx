@@ -149,8 +149,11 @@ const UploadImage = ({
           if (invalidSizeFiles.length > 0) {
             return this.createError({ message: 'Photo/video should be less than 5MB', path: 'file5' });
           }
-          if (combinedLength < 2 || combinedLength > 30) {
-            return this.createError({ message: 'Please upload between 2 to 30 photos', path: 'file5' });
+          if (combinedLength < 2) {
+            return this.createError({ message: 'Please upload at least 2 photos', path: 'file5' });
+          }
+          if (combinedLength > 30) {
+            return this.createError({ message: 'Sorry, you can upload 30 pictures only', path: 'file5' });
           }
 
           return true;
