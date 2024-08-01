@@ -18,6 +18,7 @@ import Logout from 'views/protectedViews/logout';
 import ProfileMenu from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/ProfileMenu';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FirstBoxContainer, SecBoxContainer, ThirdBoxContainer } from './ModelHeaderAuthComponent.styled';
+import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
 export type NotificationFilters = {
   page: number;
@@ -25,6 +26,8 @@ export type NotificationFilters = {
 };
 
 const ModelHeaderAuthComponent = () => {
+  const { isCustomer } = useCallFeatureContext();
+
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -68,11 +71,11 @@ const ModelHeaderAuthComponent = () => {
 
   useEffect(() => {
     const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer);
       setModelDetails(modelData.data);
     };
     modelDetails();
-  }, [token.id, token.token]);
+  }, [isCustomer, token.id, token.token]);
 
   const isSmUP = useMediaQuery(theme.breakpoints.up('sm'));
 

@@ -30,8 +30,11 @@ import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import ModelNewPassword from 'views/modelViews/ModelNewPassword';
+import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
 const HomeModelTopBanner = () => {
+  const { isCustomer } = useCallFeatureContext();
+
   const url = new URL(window.location.href);
   const email = url.searchParams.get('email');
   const emailCode = url.searchParams.get('code');
@@ -103,7 +106,7 @@ const HomeModelTopBanner = () => {
 
   useEffect(() => {
     const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer);
       if (modelData) {
         setModelDetails(modelData.data);
       }
@@ -111,7 +114,7 @@ const HomeModelTopBanner = () => {
     if (token.token) {
       modelDetails();
     }
-  }, [token.id, token.token]);
+  }, [isCustomer, token.id, token.token]);
 
   return (
     <>

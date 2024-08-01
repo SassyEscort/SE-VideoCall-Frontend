@@ -43,6 +43,7 @@ import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestSignup from 'views/auth/guestSignup';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import { sortExistingPhotos } from 'utils/photoUtils';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
 export const EscortSlider = ({
   workerPhotos,
@@ -50,7 +51,8 @@ export const EscortSlider = ({
   token,
   handleCallInitiate,
   isCustomer,
-  isLoading
+  isLoading,
+  guestData
 }: {
   workerPhotos: WorkerPhotos[];
   modelId: number;
@@ -58,6 +60,7 @@ export const EscortSlider = ({
   handleCallInitiate: () => void;
   isCustomer: boolean;
   isLoading: boolean;
+  guestData: ModelDetailsResponse;
 }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [liked, setLiked] = useState(false);
@@ -253,7 +256,7 @@ export const EscortSlider = ({
             }}
             onClick={handleLikeClick}
           >
-            {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+            {liked || guestData?.favourite === 1 ? <FavoriteIcon sx={{ color: 'error.main' }} /> : <FavoriteBorderIcon />}
           </UIStyledShadowButtonLike>
         </Box>
 

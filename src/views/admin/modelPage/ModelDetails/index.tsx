@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import DashboardLayout from '../../layouts/AdminLayout/DashboardLayout';
 import Container from '@mui/material/Container';
 import { useParams } from 'next/navigation';

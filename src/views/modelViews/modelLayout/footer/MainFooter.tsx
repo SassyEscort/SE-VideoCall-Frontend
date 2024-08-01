@@ -26,8 +26,11 @@ import { ModelDetailsService } from 'services/modelDetails/modelDetails.services
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
+import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
 const MainFooter = () => {
+  const { isCustomer } = useCallFeatureContext();
+
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   // const url = new URL(window.location.href);
   // const email = url.searchParams.get('email');
@@ -95,7 +98,7 @@ const MainFooter = () => {
 
   useEffect(() => {
     const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer);
       if (modelData) {
         setModelDetails(modelData.data);
       }
@@ -103,7 +106,7 @@ const MainFooter = () => {
     if (token.token) {
       modelDetails();
     }
-  }, [token.id, token.token]);
+  }, [isCustomer, token.id, token.token]);
 
   return (
     <>
