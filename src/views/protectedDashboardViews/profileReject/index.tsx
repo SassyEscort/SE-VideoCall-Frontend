@@ -16,8 +16,11 @@ import { ModelDetailsService } from 'services/modelDetails/modelDetails.services
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 
 const ProfileReject = () => {
+  const { isCustomer } = useCallFeatureContext();
+
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
 
@@ -32,13 +35,13 @@ const ProfileReject = () => {
 
   useEffect(() => {
     const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer);
       setModelDetails(modelData.data);
     };
     if (token.token) {
       modelDetails();
     }
-  }, [token.id, token.token]);
+  }, [isCustomer, token.id, token.token]);
 
   return (
     <>

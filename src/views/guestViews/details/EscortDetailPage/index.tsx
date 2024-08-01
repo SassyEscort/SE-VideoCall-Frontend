@@ -49,7 +49,7 @@ const EscortDetailPage = () => {
     const fetchGuestData = async () => {
       try {
         if (userName) {
-          const data = await ModelDetailsService.getModelDetails(token.token, userName);
+          const data = await ModelDetailsService.getModelDetails(token.token, isCustomer, userName);
           if (data.code === 200) {
             setGuestData(data.data);
           } else {
@@ -62,7 +62,7 @@ const EscortDetailPage = () => {
     };
 
     fetchGuestData();
-  }, [token.token, userName]);
+  }, [isCustomer, token.token, userName]);
 
   const getCometChatInfo = async () => {
     if (guestData && token.token) {
@@ -109,6 +109,7 @@ const EscortDetailPage = () => {
               }
               isCustomer={isCustomer}
               isLoading={isLoading}
+              guestData={guestData}
             />
           ) : (
             guestData && (
@@ -130,6 +131,7 @@ const EscortDetailPage = () => {
                 }
                 isCustomer={isCustomer}
                 isLoading={isLoading}
+                guestData={guestData}
               />
             )
           )}

@@ -13,7 +13,7 @@ export interface ModelLastActiveDetailsRes extends GenericRes {
 }
 
 export class ModelDetailsService {
-  static getModelDetails = async (token: string, user_name?: string) => {
+  static getModelDetails = async (token: string, isCustomer: boolean, user_name?: string) => {
     try {
       const headers: AxiosRequestConfig['headers'] = { 'Content-Type': 'application/json' };
       if (token) {
@@ -21,7 +21,9 @@ export class ModelDetailsService {
       }
       const url = user_name
         ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/details?user_name=${user_name}`
-        : `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/details`;
+        : !isCustomer && !user_name
+          ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/details`
+          : '';
       const res = await axios.get(url, { headers });
 
       return res.data;

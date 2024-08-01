@@ -32,6 +32,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ErrorMessage } from 'constants/common.constants';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import { sortExistingPhotos } from 'utils/photoUtils';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
 const EscortSliderMobile = ({
   workerPhotos,
@@ -39,7 +40,8 @@ const EscortSliderMobile = ({
   token,
   handleCallInitiate,
   isCustomer,
-  isLoading
+  isLoading,
+  guestData
 }: {
   workerPhotos: WorkerPhotos[];
   modelId: number;
@@ -47,6 +49,7 @@ const EscortSliderMobile = ({
   handleCallInitiate: () => void;
   isCustomer: boolean;
   isLoading: boolean;
+  guestData: ModelDetailsResponse;
 }) => {
   const isLg = useMediaQuery(theme.breakpoints.up('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
@@ -201,7 +204,7 @@ const EscortSliderMobile = ({
             }}
             onClick={handleLikeClick}
           >
-            {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+            {liked || guestData?.favourite === 1 ? <FavoriteIcon sx={{ color: 'error.main' }} /> : <FavoriteBorderIcon />}
           </UIStyledShadowButtonLike>
         </Box>
       </Box>

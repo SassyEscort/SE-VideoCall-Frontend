@@ -24,6 +24,7 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import Availability from './Availability';
+import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 
 ModelNav.propTypes = {
   openNav: PropTypes.bool,
@@ -36,6 +37,8 @@ interface NavProps {
 }
 
 export default function ModelNav({ openNav, onCloseNav }: NavProps) {
+  const { isCustomer } = useCallFeatureContext();
+
   const router = usePathname();
 
   const maindashboardTabIndex: { [key: string]: number } = {
@@ -73,16 +76,17 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
 
   const handleModelApiChange = useCallback(() => {
     const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer);
       setModelDetails(modelData.data);
     };
     if (token.token) {
       modelDetails();
     }
-  }, [token.token]);
+  }, [isCustomer, token.token]);
 
   useEffect(() => {
     handleModelApiChange();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.id, token.token]);
 
   return (
