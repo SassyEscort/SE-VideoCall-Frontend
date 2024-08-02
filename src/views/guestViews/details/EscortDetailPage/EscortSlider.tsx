@@ -128,7 +128,7 @@ export const EscortSlider = ({
   };
 
   const handleNext = () => {
-    if (swiperRef.current) {
+    if (swiperRef.current && swiperRef?.current?.visibleSlides?.length > 4) {
       swiperRef.current.slideNext();
     }
   };
@@ -189,7 +189,6 @@ export const EscortSlider = ({
               }}
               spaceBetween={0}
               slidesPerView={4.5}
-              loop={true}
               watchSlidesProgress={true}
               modules={[Navigation, Thumbs, FreeMode]}
               className="mySwiper"
