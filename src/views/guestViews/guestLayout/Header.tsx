@@ -173,13 +173,6 @@ const HeaderGuestComponent = () => {
                     }
               }}
             >
-              {isMdUp && (
-                <Link prefetch={false} href="/model">
-                  <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                    <FormattedMessage id="RegisterAsModel" />
-                  </UINewTypography>
-                </Link>
-              )}
               {!isMdUp && (
                 <Box display="flex" alignItems="center" gap={1} onClick={handleOpenFilterModal}>
                   <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />

@@ -188,12 +188,14 @@ const HeaderAuthComponent = () => {
           <LanguageDropdown />
         </Box>
         {isMdUp && (
-          <Box alignItems="center" gap={1} display="flex">
-            <Box component="img" src="/images/header/coin.png" />
-            <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-              {balance}
-            </UINewTypography>
-          </Box>
+          <Link href="/profile/credit">
+            <Box alignItems="center" gap={1} display="flex">
+              <Box component="img" src="/images/header/coin.png" />
+              <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+                {balance}
+              </UINewTypography>
+            </Box>
+          </Link>
         )}
 
         {isMdUp && (
@@ -280,18 +282,20 @@ const HeaderAuthComponent = () => {
             <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
             {isMdDown && (
               <>
-                <MenuItem>
-                  <ListItemIcon>
-                    <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                      <Box component="img" src="/images/header/coin.png" />
-                    </IconButton>
-                  </ListItemIcon>
-                  <ListItemText>
-                    <UINewTypography variant="bodyLight" color="text.secondary">
-                      {balance}
-                    </UINewTypography>
-                  </ListItemText>
-                </MenuItem>
+                <Link href="/profile/credit">
+                  <MenuItem>
+                    <ListItemIcon>
+                      <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                        <Box component="img" src="/images/header/coin.png" />
+                      </IconButton>
+                    </ListItemIcon>
+                    <ListItemText>
+                      <UINewTypography variant="bodyLight" color="text.secondary">
+                        {balance}
+                      </UINewTypography>
+                    </ListItemText>
+                  </MenuItem>
+                </Link>
                 <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
               </>
             )}

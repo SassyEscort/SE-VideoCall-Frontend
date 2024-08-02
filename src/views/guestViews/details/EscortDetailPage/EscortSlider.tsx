@@ -1,6 +1,6 @@
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
-import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
+import { FreeMode, Navigation, Thumbs, Mousewheel } from 'swiper/modules';
 import { useRef, useState } from 'react';
 import 'yet-another-react-lightbox/plugins/captions.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
@@ -128,7 +128,7 @@ export const EscortSlider = ({
   };
 
   const handleNext = () => {
-    if (swiperRef.current && swiperRef?.current?.visibleSlides?.length > 4) {
+    if (swiperRef.current) {
       swiperRef.current.slideNext();
     }
   };
@@ -190,15 +190,13 @@ export const EscortSlider = ({
               spaceBetween={0}
               slidesPerView={4.5}
               watchSlidesProgress={true}
-              modules={[Navigation, Thumbs, FreeMode]}
+              modules={[Navigation, Thumbs, FreeMode, Mousewheel]}
               className="mySwiper"
+              loop={true}
+              mousewheel={true}
             >
               {sortedWorkerPhotos?.map((imageSrc, index) => (
-                <SecSwiperSlidBoxContainer
-                  style={{ paddingTop: index === 0 ? '0px' : '12px' }}
-                  key={index}
-                  onClick={() => handleSidebarImageClick(index)}
-                >
+                <SecSwiperSlidBoxContainer style={{ paddingTop: '12px' }} key={index} onClick={() => handleSidebarImageClick(index)}>
                   <EscortSwiperPhotoContainer
                     imageSrcVideo={imageSrc?.file_type}
                     image={imageSrc?.link}

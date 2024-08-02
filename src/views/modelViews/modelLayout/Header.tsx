@@ -145,11 +145,6 @@ const HeaderModelComponent = () => {
                   </Typography>
                 </Link>
               )}
-              {!isMdUp && (
-                <Box display="flex" alignItems="center" gap={1} component={Link} prefetch={false} href="/search">
-                  <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
-                </Box>
-              )}
               <Box display="flex">
                 <LanguageDropdown />
               </Box>
