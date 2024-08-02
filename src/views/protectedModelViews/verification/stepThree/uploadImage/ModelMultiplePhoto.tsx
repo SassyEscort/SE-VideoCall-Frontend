@@ -73,8 +73,9 @@ const ModelMultiplePhoto = ({
   const [existingPhotos, setExistingPhotos] = useState<UploadPhotos[]>([]);
   const [uploadedImagesURL, setUploadedImagesURL] = useState<UploadPhotos[]>([]);
   const [thumbnailImageId, setThumbnailImageId] = useState<number | undefined>(undefined);
+  console.log(uploadedImagesURL, 'uploadedImagesURL');
 
-  const removeImage = async (name: string, file_id?: string) => {
+  const removeImage = async (name: string, photoName: string, file_id?: string) => {
     // if (file_id) {
     //   try {
     //     const response = await VerificationStepService.deleteImage(token.token, file_id);
@@ -95,6 +96,9 @@ const ModelMultiplePhoto = ({
     if (index !== -1) {
       uploadedImagesURL?.splice(index, 1);
     }
+    const photoNameSplit = photoName?.split('[');
+    const nextPhoto = `${photoNameSplit[0]}[${photoNameSplit[1]}`;
+    console.log(nextPhoto, photoNameSplit[0], 'nextPhoto'); //only if it isd thumbnail image then only make next thumbnail
   };
 
   const handleChangeFile5Cords = (name: string, cords: string) => {
@@ -287,7 +291,7 @@ const ModelMultiplePhoto = ({
                       token={token}
                       image={photo}
                       isEdit={false}
-                      isFeaturePhoto={false}
+                      isFeaturePhoto={photo.isFavorite ?? false}
                       thumbnailImageId={thumbnailImageId}
                       height={height}
                       width={width}
@@ -297,6 +301,7 @@ const ModelMultiplePhoto = ({
                       handleClickThumbnailImageId={handleClickThumbnailImageId}
                       handleBlobThumbnail={handleBlobThumbnail}
                       index={index}
+                      existingPhotos={existingPhotos}
                     />
                   );
                 })}

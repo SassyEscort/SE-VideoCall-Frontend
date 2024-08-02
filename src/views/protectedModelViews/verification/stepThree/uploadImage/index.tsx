@@ -128,7 +128,7 @@ const UploadImage = ({
           return true;
         };
 
-        if (file5Existing[0] && file5Existing[0].length >= 2) {
+        if (file5Existing[0] && file5Existing[0].length >= 1) {
           return schema.test('file-size-check', fileSizeCheck).notRequired();
         }
         return schema.test('file5-combined-length', function (this: Yup.TestContext<Yup.AnyObject>, value: File[]) {
@@ -149,8 +149,8 @@ const UploadImage = ({
           if (invalidSizeFiles.length > 0) {
             return this.createError({ message: 'Photo/video should be less than 5MB', path: 'file5' });
           }
-          if (combinedLength < 2) {
-            return this.createError({ message: 'Please upload at least 2 photos', path: 'file5' });
+          if (combinedLength < 1) {
+            return this.createError({ message: 'Please upload at least 1 photo', path: 'file5' });
           }
           if (combinedLength > 30) {
             return this.createError({ message: 'Sorry, you can upload 30 pictures only', path: 'file5' });
