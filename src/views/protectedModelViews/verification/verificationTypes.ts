@@ -49,6 +49,7 @@ export type ModelDetailsResponse = {
   user_name: string;
   profile_status: string;
   rejection_reason: string;
+  favourite: number;
 };
 
 export type GuestDetailsResponse = {

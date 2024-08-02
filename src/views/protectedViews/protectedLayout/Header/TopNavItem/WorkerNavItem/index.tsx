@@ -14,6 +14,7 @@ import { MultipleOptionString } from 'views/protectedModelViews/verification/ver
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import { SearchTitalBox } from './HeaderAuthComponent.styled';
 import { FormattedMessage } from 'react-intl';
+import { WorkerMainBox } from './WorkerNavItem.styled';
 
 const WorkerNavItem = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -53,7 +54,7 @@ const WorkerNavItem = () => {
         }}
       >
         <WorkerNavItemContainer disableGutters>
-          <Box display="flex" gap={6}>
+          <WorkerMainBox>
             <Box
               component={Link}
               prefetch={true}
@@ -88,7 +89,7 @@ const WorkerNavItem = () => {
                 </Typography>
               </SearchTitalBox>
             )}
-          </Box>
+          </WorkerMainBox>
           <Box display="flex" gap={2}>
             <HeaderAuthComponent />
           </Box>

@@ -179,7 +179,7 @@ const HeaderAuthComponent = () => {
           gap: isSmaller
             ? 1
             : {
-                xs: 2.5,
+                xs: 1.8,
                 sm: 4.5
               }
         }}

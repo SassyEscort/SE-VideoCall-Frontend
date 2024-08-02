@@ -1,5 +1,6 @@
 import { useMediaQuery } from '@mui/material';
 import Box from '@mui/material/Box';
+import { VideoAcceptType } from 'constants/workerVerification';
 import theme from 'themes/theme';
 
 const EscortSwiperPhotoContainer = ({
@@ -35,7 +36,7 @@ const EscortSwiperPhotoContainer = ({
         position: 'relative'
       }}
     >
-      {imageSrcVideo === 'Non_Image' && (
+      {VideoAcceptType.includes(image.split('.').pop()?.toLowerCase() || '') && (
         <Box
           component="video"
           width="100%"

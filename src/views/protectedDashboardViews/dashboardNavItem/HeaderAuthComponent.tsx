@@ -54,7 +54,7 @@ const DashboadrHeaderAuthComponent = () => {
   const [notificationDetails, setNotificationDetails] = useState<Root>();
   const notificationCount = useRef(0);
 
-  const { isNameChange } = useCallFeatureContext();
+  const { isNameChange, isCustomer } = useCallFeatureContext();
 
   const handleOpenChangePassword = () => {
     setOpenChangePassword(true);
@@ -133,13 +133,13 @@ const DashboadrHeaderAuthComponent = () => {
 
   useEffect(() => {
     const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer);
       setModelDetails(modelData.data);
     };
     if (token.token) {
       modelDetails();
     }
-  }, [token.id, token.token, isNameChange]);
+  }, [token.id, token.token, isNameChange, isCustomer]);
 
   const firstChar = modelDetails?.name ? modelDetails.name.charAt(0).toUpperCase() : '';
 
