@@ -1,14 +1,10 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
-import 'yet-another-react-lightbox/plugins/captions.css';
-import 'yet-another-react-lightbox/plugins/thumbnails.css';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
-import 'yet-another-react-lightbox/styles.css';
-import 'yet-another-react-lightbox';
 import Box from '@mui/material/Box';
 import EscortSwiperPhotoContainer from './EscortSwiperPhotoContainer';
 import { useState } from 'react';
@@ -33,6 +29,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import { sortExistingPhotos } from 'utils/photoUtils';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
 
 const EscortSliderMobile = ({
   workerPhotos,
@@ -155,7 +152,7 @@ const EscortSliderMobile = ({
           >
             {sortedWorkerPhotos?.map((imageSrc, index) => (
               <SwiperSlidBoxContainer key={index}>
-                <EscortSwiperPhotoContainer
+                <EscortSwiperPhotoContainerSide
                   imageSrcVideo={imageSrc?.file_type}
                   image={imageSrc?.link}
                   isMain={false}
@@ -204,7 +201,7 @@ const EscortSliderMobile = ({
             }}
             onClick={handleLikeClick}
           >
-            {liked || guestData?.favourite === 1 ? <FavoriteIcon sx={{ color: 'error.main' }} /> : <FavoriteBorderIcon />}
+            {liked || guestData?.favourite === 1 ? <FavoriteIcon sx={{ color: '#FF48B3' }} /> : <FavoriteBorderIcon />}
           </UIStyledShadowButtonLike>
         </Box>
       </Box>

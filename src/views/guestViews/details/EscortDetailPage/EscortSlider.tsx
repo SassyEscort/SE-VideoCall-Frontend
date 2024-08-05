@@ -2,14 +2,10 @@ import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
 import { FreeMode, Navigation, Thumbs, Mousewheel } from 'swiper/modules';
 import { useRef, useState } from 'react';
-import 'yet-another-react-lightbox/plugins/captions.css';
-import 'yet-another-react-lightbox/plugins/thumbnails.css';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
-import 'yet-another-react-lightbox/styles.css';
-import 'yet-another-react-lightbox';
 import Box from '@mui/material/Box';
 import EscortSwiperPhotoContainer from './EscortSwiperPhotoContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -44,6 +40,7 @@ import GuestSignup from 'views/auth/guestSignup';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import { sortExistingPhotos } from 'utils/photoUtils';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
 
 export const EscortSlider = ({
   workerPhotos,
@@ -197,7 +194,7 @@ export const EscortSlider = ({
             >
               {sortedWorkerPhotos?.map((imageSrc, index) => (
                 <SecSwiperSlidBoxContainer style={{ paddingTop: '12px' }} key={index} onClick={() => handleSidebarImageClick(index)}>
-                  <EscortSwiperPhotoContainer
+                  <EscortSwiperPhotoContainerSide
                     imageSrcVideo={imageSrc?.file_type}
                     image={imageSrc?.link}
                     isMain={false}
@@ -253,7 +250,7 @@ export const EscortSlider = ({
             }}
             onClick={handleLikeClick}
           >
-            {liked || guestData?.favourite === 1 ? <FavoriteIcon sx={{ color: 'error.main' }} /> : <FavoriteBorderIcon />}
+            {liked || guestData?.favourite === 1 ? <FavoriteIcon sx={{ color: '#FF48B3' }} /> : <FavoriteBorderIcon />}
           </UIStyledShadowButtonLike>
         </Box>
 
