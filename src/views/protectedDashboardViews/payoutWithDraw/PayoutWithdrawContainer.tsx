@@ -44,6 +44,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import PayoutRequestSubmit from '../payoutRequestSubmit';
 import { LoaderBox } from '../payoutRequest/PayoutRequest.styled';
+import { CancelBox, ConfirmBox } from '../payoutPaymentContainer/PayoutPaymentConatiner';
 
 export type RequestPayoutParams = {
   amount: number | null;
@@ -80,7 +81,7 @@ const PayoutWithdrawContainer = ({
 
   const [editValue, setEditValue] = useState<BankDetailsEdit>();
   const [cancelRemove, setCancelRemove] = useState(false);
-
+  const [deleteId, setDeleteId] = useState<number | null>(null);
   const handleBankDetailsRefetch = useCallback(() => {
     fetchBankDetails();
     isLoading;
@@ -94,7 +95,6 @@ const PayoutWithdrawContainer = ({
         if (data.code === 200) {
           handleBankDetailsRefetch();
           toast.success('Success');
-
           if (handlePayoutStep) {
             handlePayoutStep();
           }
@@ -104,6 +104,8 @@ const PayoutWithdrawContainer = ({
       }
     } catch (error) {
       toast.error(ErrorMessage);
+    } finally {
+      setDeleteId(null);
     }
   };
 
@@ -290,21 +292,39 @@ const PayoutWithdrawContainer = ({
                                               </PayoutDetailForBox>
                                             </PayoutDetailThreeBox>
                                             <PayoutDetailFiveBox>
-                                              <Box
-                                                component={'img'}
-                                                src="/images/payout/edit.webp"
-                                                sx={{ width: '18px', height: '18px', cursor: 'pointer' }}
-                                                onClick={() => {
-                                                  handleBankDetailsEdit(bankList), handleOpneModel();
-                                                  hanleCancelRemove();
-                                                }}
-                                              />
-                                              <Box
-                                                component={'img'}
-                                                src="/images/payout/delete.webp"
-                                                sx={{ width: '16px', height: '18px', cursor: 'pointer' }}
-                                                onClick={() => handleBankDetailsDelete(bankList?.id)}
-                                              />
+                                              {deleteId === bankList.id ? (
+                                                <>
+                                                  <ConfirmBox
+                                                    component={'button'}
+                                                    sx={{ mr: 1 }}
+                                                    onClick={() => handleBankDetailsDelete(bankList.id)}
+                                                  >
+                                                    <FormattedMessage id="Confirm" />
+                                                  </ConfirmBox>
+                                                  <CancelBox component={'button'} onClick={() => setDeleteId(null)}>
+                                                    <FormattedMessage id="Cancel" />
+                                                  </CancelBox>
+                                                </>
+                                              ) : (
+                                                <>
+                                                  <Box
+                                                    component={'img'}
+                                                    src="/images/payout/edit.webp"
+                                                    sx={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                                                    onClick={() => {
+                                                      handleBankDetailsEdit(bankList);
+                                                      handleOpneModel();
+                                                      hanleCancelRemove();
+                                                    }}
+                                                  />
+                                                  <Box
+                                                    component={'img'}
+                                                    src="/images/payout/delete.webp"
+                                                    sx={{ width: '16px', height: '18px', cursor: 'pointer' }}
+                                                    onClick={() => setDeleteId(bankList.id)}
+                                                  />
+                                                </>
+                                              )}
                                             </PayoutDetailFiveBox>
                                           </PayoutDetailSecondBox>
                                         </>
