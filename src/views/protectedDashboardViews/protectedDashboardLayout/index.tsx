@@ -21,7 +21,6 @@ const StyledRoot = styled('div')({
     flexDirection: 'column',
     gap: '24px'
   },
-
   '@media (min-width: 900px) and (max-width: 1258px)': {
     paddingLeft: ' 15px'
   }

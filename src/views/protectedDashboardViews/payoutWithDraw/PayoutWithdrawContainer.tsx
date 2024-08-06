@@ -88,7 +88,9 @@ const PayoutWithdrawContainer = ({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
-  const handleBankDetailsDelete = async (id: number) => {
+  const handleBankDetailsDelete = async (id: number, e: any) => {
+    e.stopPropagation();
+    e.preventDefault();
     try {
       if (token.token) {
         const data = await PayoutService.bankDetailsDelete(token.token, id);
@@ -297,7 +299,7 @@ const PayoutWithdrawContainer = ({
                                                   <ConfirmBox
                                                     component={'button'}
                                                     sx={{ mr: 1 }}
-                                                    onClick={() => handleBankDetailsDelete(bankList.id)}
+                                                    onClick={(e) => handleBankDetailsDelete(bankList.id, e)}
                                                   >
                                                     <FormattedMessage id="Confirm" />
                                                   </ConfirmBox>
