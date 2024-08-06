@@ -20,6 +20,10 @@ const StyledRoot = styled('div')({
   '@media (max-width: 1023px)': {
     flexDirection: 'column',
     gap: '24px'
+  },
+
+  '@media (min-width: 900px) and (max-width: 1258px)': {
+    paddingLeft: ' 15px'
   }
 });
 

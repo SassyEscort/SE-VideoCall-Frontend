@@ -14,11 +14,14 @@ export const GoldPackageMobileCom = styled(Box)(({ theme }) => ({
 export const ProfileStatiscsMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(1.5),
+  gap: theme.spacing(2),
   width: '100%',
   position: 'relative',
-  marginTop: '26px',
-  left: '10px'
+  marginTop: theme.spacing(4),
+  left: '10px',
+  [theme.breakpoints.down('sm')]: {
+    left: 0
+  }
 }));
 
 export const ProfileStatiscsContainer = styled(Box)(({ theme }) => ({
@@ -116,7 +119,7 @@ export const ProfileTotalVisits = styled(Box)(({ theme }) => ({
   backgroundColor: '#100B19',
   width: '100%',
   borderRadius: theme.spacing(1),
-  padding: theme.spacing(3),
+  padding: theme.spacing(2.5),
   gap: theme.spacing(0.125)
 }));
 
