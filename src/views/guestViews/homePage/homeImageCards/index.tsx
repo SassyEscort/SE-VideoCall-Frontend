@@ -19,7 +19,20 @@ import { PaginationMainBox } from 'views/protectedDashboardViews/payoutRequest/P
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { NotFoundModelBox } from './HomeImageCard.styled';
 import { FormattedMessage } from 'react-intl';
-import { sendGAEvent } from '@next/third-parties/google';
+
+export const pageview = (url: string) => {
+  window.gtag('config', 'G-1B0HZC4GYN', {
+    page_path: url
+  });
+};
+
+export const event = ({ action, category, label, value }: { action: string; category: string; label: string; value: string }) => {
+  window.gtag('event', action, {
+    event_category: category,
+    event_label: label,
+    value: value
+  });
+};
 
 const HomeImageCard = ({
   modelListing,
@@ -95,7 +108,12 @@ const HomeImageCard = ({
   };
 
   const handleModelRedirect = (user_name: string) => {
-    sendGAEvent({ event: 'model_clicked', value: user_name });
+    event({
+      action: 'model_clicked',
+      category: 'Button',
+      label: 'model_clicked',
+      value: user_name
+    });
   };
 
   return (

@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import ModelLastActive from 'views/protectedModelViews/ModelLastAvtive';
-import { GoogleTagManager } from '@next/third-parties/google';
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 
 const manropeFont = Manrope({ subsets: ['latin'] });
 
@@ -25,6 +25,7 @@ const ProviderWrapper = ({ children }: { children: JSX.Element }) => {
               <SessionProvider refetchInterval={0}>
                 {children}
                 <GoogleTagManager gtmId={'GTM-P6BCQRQV'} />
+                <GoogleAnalytics gaId="G-1B0HZC4GYN" />
                 <ModelLastActive />
               </SessionProvider>
               <ToastContainer
