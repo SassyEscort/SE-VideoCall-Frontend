@@ -297,7 +297,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           setIsBusy(true);
         }
         setCall(undefined);
-        await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.REJECTED);
+        await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.UNASWERED);
         setEndCallTime(180000);
         if (isCustomer) {
           await CometChatUIKit.logout();
