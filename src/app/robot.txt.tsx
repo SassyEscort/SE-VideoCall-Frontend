@@ -5,7 +5,7 @@ function Robots() {
 }
 
 export async function getServerSideProps({ res }: { res: NextApiResponse }) {
-  const sitemap = 'User-agent: *\nAllow: /\nSitemap: https://flirtbate.com/sitemap.xml';
+  const sitemap = 'User-agent: *\nAllow: /\nSitemap: https://staging.flirtbate.com/sitemap.xml';
   res.setHeader('Content-Type', 'text/plain');
   res.write(sitemap);
   res.end();

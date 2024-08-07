@@ -1,5 +1,4 @@
 const lastmod = '2024-01-01T10:33:00+00:00';
-const priority = '0.8';
 
 async function getSiteMapString() {
   let sitemapString = `<?xml version="1.0" encoding="UTF-8"?>
@@ -13,7 +12,7 @@ async function getSiteMapString() {
 
   let sitemapUrls = [
     {
-      loc: 'https://flirtbate.com/',
+      loc: 'https://staging.flirtbate.com/',
       lastmod,
       priority: '1.0'
     }
