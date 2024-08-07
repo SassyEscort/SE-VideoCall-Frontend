@@ -88,7 +88,7 @@ const PayoutWithdrawContainer = ({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
-  const handleBankDetailsDelete = async (id: number, e: any) => {
+  const handleBankDetailsDelete = async (id: number, e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     e.preventDefault();
     try {
