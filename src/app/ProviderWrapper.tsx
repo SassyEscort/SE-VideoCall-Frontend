@@ -25,7 +25,7 @@ const ProviderWrapper = ({ children }: { children: JSX.Element }) => {
               <SessionProvider refetchInterval={0}>
                 {children}
                 <GoogleTagManager gtmId={'GTM-P6BCQRQV'} />
-                <GoogleAnalytics gaId="G-1B0HZC4GYN" />
+                <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!} />
                 <ModelLastActive />
               </SessionProvider>
               <ToastContainer
