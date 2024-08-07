@@ -45,6 +45,7 @@ import * as yup from 'yup';
 import PayoutRequestSubmit from '../payoutRequestSubmit';
 import { LoaderBox } from '../payoutRequest/PayoutRequest.styled';
 import { CancelBox, ConfirmBox } from '../payoutPaymentContainer/PayoutPaymentConatiner';
+import { getErrorMessage } from 'utils/errorUtils';
 
 export type RequestPayoutParams = {
   amount: number | null;
@@ -162,10 +163,11 @@ const PayoutWithdrawContainer = ({
                 if (handlePayoutStep) {
                   handlePayoutStep();
                 }
-
                 setOpenSubmitModel(true);
               } else {
-                toast.error(data?.message);
+                const errorCode = data?.custom_code;
+                const errorMessage = getErrorMessage(errorCode);
+                toast.error(errorMessage);
               }
             } catch (error) {
               toast.error(ErrorMessage);
