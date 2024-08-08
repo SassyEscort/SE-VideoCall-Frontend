@@ -19,6 +19,7 @@ import { useCallFeatureContext } from '../../../../../context/CallFeatureContext
 import { CallingService } from 'services/calling/calling.services';
 import moment from 'moment';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+import { event } from 'utils/analytics';
 
 const EscortDetailPage = () => {
   const path = usePathname();
@@ -44,6 +45,15 @@ const EscortDetailPage = () => {
 
     userToken();
   }, [userName, isCustomer]);
+
+  useEffect(() => {
+    event({
+      action: 'model_page_view',
+      category: 'page_view',
+      label: 'model_page_view',
+      value: userName
+    });
+  }, [userName]);
 
   useEffect(() => {
     const fetchGuestData = async () => {
