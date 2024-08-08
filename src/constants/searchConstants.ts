@@ -25,10 +25,10 @@ export const PRICE = [
 ];
 
 export const SEARCH_PRICES: MultipleOptions[] = [
-  { id: '0-20', name: '0-20 credits/min' },
-  { id: '20-30', name: '20-30 credits/min' },
-  { id: '30-40', name: '30-40 credits/min' },
-  { id: '40-100', name: '40-100 credits/min' }
+  { id: '0-20', name: 'CreditsMin020' },
+  { id: '20-30', name: 'CreditsMin2030' },
+  { id: '30-40', name: 'CreditsMin3040' },
+  { id: '40-100', name: 'CreditsMin40100' }
 ];
 
 export const FILTER_STATUS: MultipleOptions[] = [

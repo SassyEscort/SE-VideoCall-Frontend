@@ -627,5 +627,9 @@
   "Verified": "Verified",
   "Payouts":"Payouts",
   "HelpAndInfo":"Help and Info",
-  "App":"App"
+  "App":"App",
+  "CreditsMin020":"0-20 credits/min",
+  "CreditsMin2030":"20-30 credits/min",
+  "CreditsMin3040":"30-40 credits/min",
+  "CreditsMin40100":"40-100 credits/min"
 }
