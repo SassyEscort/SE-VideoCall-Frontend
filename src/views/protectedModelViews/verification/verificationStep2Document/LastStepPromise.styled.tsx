@@ -66,8 +66,7 @@ export const StepButtonNext = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '824px',
   [theme.breakpoints.down('sm')]: {
-    gap: theme.spacing(11.75),
-    justifyContent: 'center'
+    justifyContent: 'space-between'
   }
 }));
 
@@ -93,7 +92,9 @@ export const LastMainBox = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(12),
   [theme.breakpoints.down('sm')]: {
     paddingLeft: theme.spacing(1.875),
-    paddingRight: theme.spacing(1.875)
+    paddingRight: theme.spacing(1.875),
+    marginTop: theme.spacing(9),
+    marginBottom: theme.spacing(9)
   },
   [theme.breakpoints.only('sm')]: {
     paddingLeft: theme.spacing(1.875),

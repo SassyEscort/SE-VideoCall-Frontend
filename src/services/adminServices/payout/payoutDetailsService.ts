@@ -9,6 +9,8 @@ export type payoutDataResponse = {
   model_id: number;
   name: string;
   state: string;
+  account_name: string;
+  iban_number: string;
 };
 export type PaginationAggregation = {
   offset: number;

@@ -11,7 +11,7 @@ const BillingTable = ({ modelPayoutList }: { modelPayoutList: ModelPastPayoutDet
   return (
     <>
       <StyledTableContainer>
-        <Table>
+        <Table sx={{ minWidth: 650, tableLayout: 'auto' }}>
           <InvoiceTableHeader />
           {modelPayoutList?.data?.payout_details.length > 0 ? (
             <PurchaseInvoiceTableBodyV2 modelPayoutList={modelPayoutList as ModelPastPayoutDetailRes} />
