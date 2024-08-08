@@ -43,7 +43,6 @@ const GuestLogin = ({
 
   const route = useRouter();
   const { refresh } = route;
-  const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -184,7 +183,7 @@ const GuestLogin = ({
                         display: 'flex',
                         p: 0,
                         justifyContent: 'space-between',
-                        flexDirection: isSm ? 'column' : 'row',
+                        flexDirection: { xs: 'column', sm: 'row' },
                         gap: { xs: 1, sm: 0 }
                       }}
                     >

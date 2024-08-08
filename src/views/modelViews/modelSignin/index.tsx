@@ -41,7 +41,6 @@ const ModelSignin = ({
 
   const route = useRouter();
   const { push } = route;
-  const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
   const [showPassword, setShowPassword] = useState(false);
@@ -189,7 +188,7 @@ const ModelSignin = ({
                         display: 'flex',
                         p: 0,
                         justifyContent: 'space-between',
-                        flexDirection: isSm ? 'column' : 'row',
+                        flexDirection: { xs: 'column', sm: 'row' },
                         gap: { xs: 1, sm: 0 }
                       }}
                     >

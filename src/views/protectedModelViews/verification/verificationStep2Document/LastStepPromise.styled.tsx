@@ -18,8 +18,8 @@ export const StepSecondMainBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1.5),
   alignSelf: ' stretch',
   '@media (max-width: 375px)': {
-    paddingLeft: 0,
-    paddingRight: 0
+    paddingLeft: theme.spacing(1.875),
+    paddingRight: theme.spacing(1.875)
   },
   '@media (max-width: 320px)': {
     paddingLeft: theme.spacing(1.875),
