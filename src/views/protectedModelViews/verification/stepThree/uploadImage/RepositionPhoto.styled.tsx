@@ -10,6 +10,7 @@ export const RepositionPhotoDialog = styled(Dialog)(({ theme }) => ({
     border: '1px solid',
     borderColor: theme.palette.primary[700],
     borderRadius: theme.spacing(1.5),
+    paddingTop: theme.spacing(2.25),
     [theme.breakpoints.down('sm')]: {
       margin: 0,
       width: '100%',
