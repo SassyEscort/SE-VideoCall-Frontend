@@ -17,7 +17,6 @@ export const StepSecondMainBox = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   gap: theme.spacing(1.5),
   alignSelf: ' stretch',
-
   '@media (max-width: 320px)': {
     paddingLeft: '0px',
     paddingRight: '0px'
