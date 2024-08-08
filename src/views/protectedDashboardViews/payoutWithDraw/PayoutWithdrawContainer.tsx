@@ -2,7 +2,7 @@ import { Box, CircularProgress, DialogContent, FormHelperText, IconButton, Input
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import {
   SecondBox,
   ThreeBox,
@@ -75,14 +75,16 @@ const PayoutWithdrawContainer = ({
   closeDailog?: () => void;
   isLoading: boolean;
 }) => {
+  const intl = useIntl();
+
   const [open, setOpenModel] = useState(false);
   const [selectBank, setSelectBank] = useState<string | null>(null);
   const [selectedBankId, setSelectedBankId] = useState<number | null>(null);
   const [openSubmitModel, setOpenSubmitModel] = useState(false);
-
   const [editValue, setEditValue] = useState<BankDetailsEdit>();
   const [cancelRemove, setCancelRemove] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
+
   const handleBankDetailsRefetch = useCallback(() => {
     fetchBankDetails();
     isLoading;
@@ -167,7 +169,7 @@ const PayoutWithdrawContainer = ({
               } else {
                 const errorCode = data?.custom_code;
                 const errorMessage = getErrorMessage(errorCode);
-                toast.error(errorMessage);
+                toast.error(intl.formatMessage({ id: errorMessage }));
               }
             } catch (error) {
               toast.error(ErrorMessage);
