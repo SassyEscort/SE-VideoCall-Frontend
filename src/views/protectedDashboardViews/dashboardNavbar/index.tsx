@@ -25,6 +25,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import Availability from './Availability';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { useIntl } from 'react-intl';
 
 ModelNav.propTypes = {
   openNav: PropTypes.bool,
@@ -37,6 +38,7 @@ interface NavProps {
 }
 
 export default function ModelNav({ openNav, onCloseNav }: NavProps) {
+  const intl = useIntl();
   const { isCustomer } = useCallFeatureContext();
 
   const router = usePathname();
@@ -147,7 +149,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
                           }}
                         />
                         <Box sx={{ color: 'primary.400' }}>
-                          <MobileTextStyleContainer label={tab?.name} />
+                          <MobileTextStyleContainer label={intl.formatMessage({ id: tab.name })} />
                         </Box>
                       </SelectedTab>
                     </Link>
@@ -157,7 +159,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
                     <Link prefetch={false} href={tab?.path} style={{ textDecoration: 'none' }}>
                       <MobileComponentSecBoxContainer>
                         <Box component="img" src={tab.img} width={20} height={20} />
-                        <MobileTextStyleContainer label={tab?.name} />
+                        <MobileTextStyleContainer label={intl.formatMessage({ id: tab.name })} />
                       </MobileComponentSecBoxContainer>
                     </Link>
                   </CommonMenuBox>

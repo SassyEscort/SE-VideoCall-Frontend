@@ -13,8 +13,11 @@ import {
   SelectedTab
 } from './nav.styled';
 import Link from 'next/link';
+import { useIntl } from 'react-intl';
 
 const ModelNavbar = ({ tabIndex }: { tabIndex: number }) => {
+  const intl = useIntl();
+
   return (
     <>
       <Box sx={{ display: 'flex' }}>
@@ -34,7 +37,7 @@ const ModelNavbar = ({ tabIndex }: { tabIndex: number }) => {
                           }}
                         />
                         <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: 'nowrap' }}>
-                          {tab.name}
+                          {intl.formatMessage({ id: tab.name })}
                         </UINewTypography>
                       </SecondBoxContainer>
                       {index === tabIndex - 1 ? (
@@ -53,7 +56,7 @@ const ModelNavbar = ({ tabIndex }: { tabIndex: number }) => {
                         <SecondBoxContainer>
                           <Box component="img" src={tab.img} sx={{ filter: 'none' }} />
                           <UINewTypography variant="buttonLargeMenu" whiteSpace="nowrap">
-                            {tab?.name}
+                            {intl.formatMessage({ id: tab.name })}
                           </UINewTypography>
                         </SecondBoxContainer>
                         <ArrowDropDownRoundedIcon />

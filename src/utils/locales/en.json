@@ -624,5 +624,9 @@
   "SomethingWent": "Something went wrong! Please try again",
   "ModelWithEmail": "Model with this email already exists",
   "NameMustBe": "Name must be between 3 and 20 characters",
-  "YourProfileIsUnderReview": "Your profile is under review and you will be notified over mail on your profile approval."
+  "YourProfileIsUnderReview": "Your profile is under review and you will be notified over mail on your profile approval.",
+  "Verified": "Verified",
+  "Payouts": "Payouts",
+  "HelpAndInfo": "Help and Info",
+  "App": "App"
 }
