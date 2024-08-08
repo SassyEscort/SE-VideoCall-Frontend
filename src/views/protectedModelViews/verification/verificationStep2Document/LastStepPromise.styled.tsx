@@ -17,11 +17,11 @@ export const StepSecondMainBox = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   gap: theme.spacing(1.5),
   alignSelf: ' stretch',
-  '@media (max-width: 375px)': {
-    paddingLeft: theme.spacing(1.875),
-    paddingRight: theme.spacing(1.875)
-  },
   '@media (max-width: 320px)': {
+    paddingLeft: '0px',
+    paddingRight: '0px'
+  },
+  '@media (max-width: 375px)': {
     paddingLeft: theme.spacing(1.875),
     paddingRight: theme.spacing(1.875)
   }
