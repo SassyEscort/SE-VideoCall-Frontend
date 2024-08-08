@@ -17,6 +17,13 @@ export type GenericRes = {
   message: string;
 };
 
+export type GenericResCustom = {
+  code: number;
+  error: string;
+  message: string;
+  custom_code: number;
+};
+
 export type ChangePassParams = {
   old_password: string;
   new_password: string;

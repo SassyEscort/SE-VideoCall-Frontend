@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { VideoAcceptType } from 'constants/workerVerification';
 import theme from 'themes/theme';
 
-const EscortSwiperPhotoContainer = ({
+const EscortSwiperPhotoContainerSide = ({
   image,
   isMain,
   isMobile,
@@ -41,7 +41,7 @@ const EscortSwiperPhotoContainer = ({
           component="video"
           width="100%"
           height="100%"
-          controls={true}
+          controls={false}
           sx={{
             maxHeight: isMain && !isMdDown ? 700 : isMdDown && !isMain ? '90px' : isMdDown && isMain ? 430 : 430
           }}
@@ -53,4 +53,4 @@ const EscortSwiperPhotoContainer = ({
   );
 };
 
-export default EscortSwiperPhotoContainer;
+export default EscortSwiperPhotoContainerSide;

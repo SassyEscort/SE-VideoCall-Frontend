@@ -19,6 +19,7 @@ import { useCallFeatureContext } from '../../../../../context/CallFeatureContext
 import { CallingService } from 'services/calling/calling.services';
 import moment from 'moment';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+import { event } from 'utils/analytics';
 
 const EscortDetailPage = () => {
   const path = usePathname();
@@ -46,6 +47,15 @@ const EscortDetailPage = () => {
   }, [userName, isCustomer]);
 
   useEffect(() => {
+    event({
+      action: 'model_page_view',
+      category: 'page_view',
+      label: 'model_page_view',
+      value: userName
+    });
+  }, [userName]);
+
+  useEffect(() => {
     const fetchGuestData = async () => {
       try {
         if (userName) {
@@ -67,7 +77,7 @@ const EscortDetailPage = () => {
   const getCometChatInfo = async () => {
     if (guestData && token.token) {
       const getInfo = await CallingService.getCometChatInfo(guestData.id, token.token);
-      if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 3) {
+      if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 1) {
         const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
         setCallTime(durationInSeconds);
         setIsCreditAvailable(true);

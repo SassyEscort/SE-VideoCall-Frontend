@@ -5,9 +5,12 @@ import { styled } from '@mui/material/styles';
 export const UINewStyledSelect = styled(Select)(({ theme }) => ({
   borderRadius: '8px',
   width: '100%',
-  maxWidth: '390px',
+  maxWidth: '173px',
   height: '50px',
-  minWidth: 150,
+  minWidth: 173,
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '390px'
+  },
   '.MuiMenu-paper': {
     p: 1.5
   },

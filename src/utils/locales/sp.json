@@ -616,5 +616,15 @@
   "IDFront": "Frente del ID",
   "IDBack": "Dorso del ID",
   "CurrentlyOffline": "está actualmente desconectado",
-  "YouCanSetPriceBetween": "Puede establecer el precio entre"
+  "YouCanSetPriceBetween": "Puede establecer el precio entre",
+  "YourWallet": "El monto de su billetera es menor que el monto mínimo de retiro",
+  "InvalidEmail": "Correo electrónico o contraseña no válidos",
+  "SomethingWent": "¡Algo salió mal! Por favor, inténtelo de nuevo",
+  "ModelWithEmail": "Ya existe un modelo con este correo electrónico",
+  "NameMustBe": "El nombre debe tener entre 3 y 20 caracteres",
+  "YourProfileIsUnderReview": "Tu perfil está en revisión y recibirás una notificación por correo electrónico sobre la aprobación de tu perfil.",
+  "Verified": "Verificado",
+  "Payouts": "Pagos",
+  "HelpAndInfo": "Ayuda e información",
+  "App": "Aplicación"
 }

@@ -30,7 +30,7 @@ const HelpAndSupportContainer = () => {
         <FirstBoxContainer>
           <SecBoxContainer>
             <HeaderTextContainer>
-              <UINewTypography variant="h2" color="text.secondary" whiteSpace="nowrap">
+              <UINewTypography variant="h2" color="text.secondary">
                 <FormattedMessage id="HowHelp" />
               </UINewTypography>
             </HeaderTextContainer>

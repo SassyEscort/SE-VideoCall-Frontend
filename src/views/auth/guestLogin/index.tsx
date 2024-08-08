@@ -20,7 +20,7 @@ import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { EMAIL_REGEX } from 'constants/regexConstants';
 
 export type LoginParams = {
@@ -39,9 +39,10 @@ const GuestLogin = ({
   onFogotPasswordLinkOpen: () => void;
   image: string;
 }) => {
+  const intl = useIntl();
+
   const route = useRouter();
   const { refresh } = route;
-  const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -58,7 +59,8 @@ const GuestLogin = ({
         refresh();
         onClose();
       } else if (res?.error) {
-        setAlert(res.error === 'CredentialsSignin' ? 'Invalid email or password' : 'Something went wrong! Please try again');
+        const errorMessage = res.error === 'CredentialsSignin' ? 'InvalidEmail' : 'SomethingWent';
+        setAlert(intl.formatMessage({ id: errorMessage }));
       }
     } catch (error: any) {
       setAlert(getCustomErrorMessage(error));
@@ -181,7 +183,7 @@ const GuestLogin = ({
                         display: 'flex',
                         p: 0,
                         justifyContent: 'space-between',
-                        flexDirection: isSm ? 'column' : 'row',
+                        flexDirection: { xs: 'column', sm: 'row' },
                         gap: { xs: 1, sm: 0 }
                       }}
                     >
