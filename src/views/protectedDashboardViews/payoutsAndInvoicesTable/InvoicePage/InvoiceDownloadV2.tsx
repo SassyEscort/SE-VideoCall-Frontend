@@ -140,12 +140,12 @@ const InvoiceDownloadV2 = ({ invoiceData }: { invoiceData: invoiceDataType }) =>
                 </InvoiceDownloadCreditCell>
                 <InvoiceDownloadAmountCell>
                   <UINewTypography variant="ExtraSmallerText" fontWeight="500" color="secondary.light">
-                    €{invoiceData.amount}
+                    ${invoiceData.amount}
                   </UINewTypography>
                 </InvoiceDownloadAmountCell>
                 <InvoiceDownloadAmountCell>
                   <UINewTypography variant="ExtraSmallerText" fontWeight="500" color="secondary.light">
-                    €{invoiceData.amount}
+                    ${invoiceData.amount}
                   </UINewTypography>
                 </InvoiceDownloadAmountCell>
               </TableRow>
@@ -165,7 +165,7 @@ const InvoiceDownloadV2 = ({ invoiceData }: { invoiceData: invoiceDataType }) =>
                 </InvoiceDownloadLeftSCell>
                 <InvoiceDownloadRightSCell>
                   <UINewTypography variant="ExtraSmallerText" fontWeight="500" color="secondary.light">
-                    €{invoiceData.amount}
+                    ${invoiceData.amount}
                   </UINewTypography>
                 </InvoiceDownloadRightSCell>
               </TableRow>
@@ -177,7 +177,7 @@ const InvoiceDownloadV2 = ({ invoiceData }: { invoiceData: invoiceDataType }) =>
                 </InvoiceDownloadLeftSCell>
                 <InvoiceDownloadRightSCell>
                   <UINewTypography variant="ExtraSmallerText" fontWeight="500" color="secondary.light">
-                    €{invoiceData.amount}
+                    ${invoiceData.amount}
                   </UINewTypography>
                 </InvoiceDownloadRightSCell>
               </TableRow>
@@ -189,7 +189,7 @@ const InvoiceDownloadV2 = ({ invoiceData }: { invoiceData: invoiceDataType }) =>
                 </LeftTableInvoiceDownload>
                 <RightTableInvoiceDownload>
                   <UINewTypography variant="ExtraSmallerText" fontWeight="500" color="secondary.light">
-                    €{invoiceData.amount}
+                    ${invoiceData.amount}
                   </UINewTypography>
                 </RightTableInvoiceDownload>
               </TableRow>
@@ -202,7 +202,7 @@ const InvoiceDownloadV2 = ({ invoiceData }: { invoiceData: invoiceDataType }) =>
                 </LastTopDataTableInvoiceDownload>
                 <LastDataTableInvoiceDownload>
                   <UINewTypography variant="ExtraSmallerText" fontWeight="700" color="primary.500">
-                    €{invoiceData.amount}
+                    ${invoiceData.amount}
                   </UINewTypography>
                 </LastDataTableInvoiceDownload>
               </TableRow>

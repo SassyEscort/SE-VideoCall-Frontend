@@ -618,5 +618,10 @@
   "PleaseChoose": "Please choose your package",
   "IDFront": "ID front",
   "IDBack": "ID back",
-  "CurrentlyOffline": "is currently offline"
+  "CurrentlyOffline": "is currently offline",
+  "YourWallet":"Your wallet amount is less than the minimum withdrawal amount",
+  "InvalidEmail":"Invalid email or password",
+  "SomethingWent" : "Something went wrong! Please try again",
+  "ModelWithEmail":"Model with this email already exists",
+  "NameMustBe":"Name must be between 3 and 20 characters"
 }
