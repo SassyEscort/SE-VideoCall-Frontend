@@ -47,8 +47,9 @@ export const InlineBox = styled(Box)(({ theme }) => ({
   flexFlow: 'column-wrap',
   wordBreak: 'break-word',
   display: 'inline',
+
   [theme.breakpoints.down('sm')]: {
-    fontSize: 32,
+    fontSize: 30,
     fontWeight: 700,
     lineHeight: '50px',
     textAlign: 'center',
