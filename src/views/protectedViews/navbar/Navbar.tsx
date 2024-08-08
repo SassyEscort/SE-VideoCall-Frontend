@@ -4,8 +4,11 @@ import { MainDashboardTabs } from 'constants/escortConstants';
 
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { CommonMenuBox, MainDashboardSideMenuMainBox, NavBarBoxContainer, SelectedTab } from './nav.styled';
+import { useIntl } from 'react-intl';
 
 const Navbar = ({ tabIndex }: { tabIndex: number }) => {
+  const intl = useIntl();
+
   return (
     <MainDashboardSideMenuMainBox>
       <NavBarBoxContainer>
@@ -20,7 +23,7 @@ const Navbar = ({ tabIndex }: { tabIndex: number }) => {
                     filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)'
                   }}
                 />
-                <UINewTypography variant="buttonLargeMenu">{tab.name}</UINewTypography>
+                <UINewTypography variant="buttonLargeMenu">{intl.formatMessage({ id: tab.name })}</UINewTypography>
               </SelectedTab>
             </Link>
           ) : (
@@ -28,7 +31,7 @@ const Navbar = ({ tabIndex }: { tabIndex: number }) => {
               <Link prefetch={false} href={tab?.path} key={index} style={{ textDecoration: 'none' }}>
                 <CommonMenuBox sx={{ color: 'text.primary' }}>
                   <Box component="img" src={tab?.img} />
-                  <UINewTypography variant="buttonLargeMenu">{tab?.name}</UINewTypography>
+                  <UINewTypography variant="buttonLargeMenu">{intl.formatMessage({ id: tab.name })}</UINewTypography>
                 </CommonMenuBox>
               </Link>
             </>

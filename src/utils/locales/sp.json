@@ -621,5 +621,9 @@
   "InvalidEmail": "Correo electrónico o contraseña no válidos",
   "SomethingWent": "¡Algo salió mal! Por favor, inténtelo de nuevo",
   "ModelWithEmail": "Ya existe un modelo con este correo electrónico",
-  "NameMustBe": "El nombre debe tener entre 3 y 20 caracteres"
+  "NameMustBe": "El nombre debe tener entre 3 y 20 caracteres",
+  "Verified": "Verificado",
+  "Payouts": "Pagos",
+  "HelpAndInfo": "Ayuda e información",
+  "App": "Aplicación"
 }

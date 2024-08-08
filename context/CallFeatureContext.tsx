@@ -196,8 +196,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         model_id: guestId,
         status: CALLING_STATUS.UNASWERED
       };
-      await CallingService.missedCallStatus(missedParams, token.token);
       setIsModelAvailable(isModelOnline);
+      await CallingService.missedCallStatus(missedParams, token.token);
     } else {
       setOpen(true);
     }
@@ -432,7 +432,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           onClose={handleClose}
           isOutOfCredits={isOutOfCredits}
           userName={userName}
-          modelCreditPrice={Number(modelCreditPrice) * 3}
+          modelCreditPrice={Number(modelCreditPrice)}
         />
       </ModelCreditsUIStyledDialog>
       <UIStyledDialog open={openSuccess} maxWidth="md" fullWidth>
