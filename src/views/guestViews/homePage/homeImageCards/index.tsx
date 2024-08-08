@@ -19,18 +19,11 @@ import { PaginationMainBox } from 'views/protectedDashboardViews/payoutRequest/P
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { NotFoundModelBox } from './HomeImageCard.styled';
 import { FormattedMessage } from 'react-intl';
+import { event } from 'utils/analytics';
 
 export const pageview = (url: string) => {
-  window.gtag('config', 'G-1B0HZC4GYN', {
+  window.gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, {
     page_path: url
-  });
-};
-
-export const event = ({ action, category, label, value }: { action: string; category: string; label: string; value: string }) => {
-  window.gtag('event', action, {
-    event_category: category,
-    event_label: label,
-    value: value
   });
 };
 

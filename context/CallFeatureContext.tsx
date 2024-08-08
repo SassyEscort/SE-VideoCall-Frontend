@@ -19,6 +19,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
 import { useRouter } from 'next/navigation';
 import { UIKitSettingsBuilder } from '@cometchat/uikit-shared';
+import { event } from 'utils/analytics';
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
@@ -82,12 +83,21 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const customerUser = (tokenCometChat?.data?.user as User)?.picture;
   const customerUsername = customerUser && JSON.parse(customerUser);
 
+  const customerData = JSON.parse(customerUser || '{}');
+
   const isCustomer = (tokenCometChat?.data?.user as User)?.provider === 'providerGuest';
 
   const searchParams = useSearchParams();
 
   const path = usePathname();
   const userName = path.split('/')[2];
+
+  const customerInfo = {
+    email: customerData?.customer_email,
+    name: customerData?.customer_name,
+    username: customerData?.customer_user_name,
+    model_username: userName
+  };
 
   const [call, setCall] = useState<CometChat.Call | undefined>(undefined);
   const [modelId, setModelId] = useState(0);
@@ -163,6 +173,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     modelPrice: string,
     isModelOnline: number
   ) => {
+    event({
+      action: 'call_started',
+      category: 'call_started',
+      label: 'call_started',
+      value: JSON.stringify(customerInfo)
+    });
     setModelCreditPrice(modelPrice);
     setModelId(guestId);
     setModelName(modelName);
