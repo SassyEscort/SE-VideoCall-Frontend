@@ -125,14 +125,7 @@ const HomeContainer = () => {
   };
 
   useEffect(() => {
-    if (token.token && !isCustomer) {
-      handelFilterChange(filters);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (isCustomer) {
+    if (token.token) {
       handelFilterChange(filters);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
