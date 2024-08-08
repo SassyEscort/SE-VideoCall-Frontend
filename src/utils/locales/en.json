@@ -623,5 +623,9 @@
   "InvalidEmail":"Invalid email or password",
   "SomethingWent" : "Something went wrong! Please try again",
   "ModelWithEmail":"Model with this email already exists",
-  "NameMustBe":"Name must be between 3 and 20 characters"
+  "NameMustBe":"Name must be between 3 and 20 characters",
+  "Verified": "Verified",
+  "Payouts":"Payouts",
+  "HelpAndInfo":"Help and Info",
+  "App":"App"
 }
