@@ -37,7 +37,10 @@ export const HeaderTextContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '433px',
   height: '100%',
-  maxHeight: '48px'
+  maxHeight: '48px',
+  [theme.breakpoints.up('sm')]: {
+    whiteSpace: 'nowrap'
+  }
 }));
 
 export const TextFirstBoxContainer = styled(Box)(({ theme }) => ({

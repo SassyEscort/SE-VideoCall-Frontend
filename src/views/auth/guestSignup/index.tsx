@@ -260,7 +260,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           alignItems="center"
                           justifyContent="center"
                           pb={3}
-                          sx={{ flexDirection: isSm ? 'column' : 'row' }}
+                          sx={{ flexDirection: { xs: 'column', sm: 'row' } }}
                         >
                           <UINewTypography variant="buttonLargeMenu" color="text.secondary" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
                             <FormattedMessage id="HaveAnAccount" />
