@@ -41,7 +41,6 @@ import { CustomerDetailsService } from 'services/customerDetails/customerDetails
 import { ErrorMessage } from 'constants/common.constants';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { gaEventTrigger } from 'utils/analytics';
-import { usePathname } from 'next/navigation';
 
 const WorkerCard = ({
   modelDetails,
@@ -76,30 +75,27 @@ const WorkerCard = ({
 
   const customerData = JSON.parse(customerUser || '{}');
 
-  const path = usePathname();
-  const userName = path.split('/')[2];
-
-  const customerInfo = {
-    email: customerData?.customer_email,
-    name: customerData?.customer_name,
-    username: customerData?.customer_user_name,
-    model_username: userName
-  };
-
-  const handleLikeClick = async (modelId: number) => {
+  const handleLikeClick = async (modelDetails: ModelHomeListing | ModelFavRes) => {
     try {
       if (!isCustomer) {
         handleLoginOpen();
         gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
       } else if (token.token) {
-        const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
+        const data = await CustomerDetailsService.favouritePutId(modelDetails.id, token?.token);
         if (data?.code === 200) {
-          handleLoginLiked(modelId);
-          handleLike(modelId);
+          handleLoginLiked(modelDetails.id);
+          handleLike(modelDetails.id);
+          const customerInfo = {
+            email: customerData?.customer_email,
+            name: customerData?.customer_name,
+            username: customerData?.customer_user_name,
+            model_username: modelDetails.user_name
+          };
+          const customerInfoString = JSON.stringify(customerInfo);
           gaEventTrigger('Model_Favorite_Clicked', {
             category: 'Button',
             label: 'Model_Favorite_Clicked',
-            value: customerInfo
+            value: customerInfoString
           });
         } else {
           toast.error(ErrorMessage);
@@ -115,7 +111,7 @@ const WorkerCard = ({
   const handleIconClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.stopPropagation();
     e.preventDefault();
-    handleLikeClick(modelDetails?.id);
+    handleLikeClick(modelDetails);
   };
 
   return (
