@@ -76,6 +76,7 @@ const VerificationStepPromise = ({
 }: VerificationStepPromiseType) => {
   const [loading, setLoading] = useState(false);
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
 
   const validationSchema = (docValues: VerificationStepSecond) => {
     const baseValidation = Yup.mixed()
@@ -264,7 +265,7 @@ const VerificationStepPromise = ({
               </Box>
             </Box>
             {docValues.idType !== DOCUMENT_UPLOAD_TYPE.PASSPORT ? (
-              <Box display="flex" gap={6} justifyContent="center" flexDirection={isDashboard || isSmDown ? 'column' : 'row'}>
+              <Box display="flex" gap={6} justifyContent="center" flexDirection={isDashboard || isSmDown || isMdDown ? 'column' : 'row'}>
                 <WorkerPhotosWithoutFilterNew
                   name="photoWithoutFilterFront"
                   value={values.photoWithoutFilterFront as File}

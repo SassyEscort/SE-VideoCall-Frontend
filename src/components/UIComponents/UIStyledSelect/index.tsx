@@ -37,8 +37,11 @@ export const UIStyledSelectPastPayout = styled(Select)(({ theme }) => ({
       borderColor: theme.palette.secondary[700]
     }
   },
+  '.MuiMenu-paper': {
+    p: 1.5
+  },
   '& .MuiSelect-select': {
-    padding: theme.spacing(0, 2),
+    padding: theme.spacing(0, 2.5),
     display: 'flex',
     gap: theme.spacing(1)
   },

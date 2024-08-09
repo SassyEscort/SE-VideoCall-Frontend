@@ -78,7 +78,7 @@ export const StyledAccordionSummary = styled((props: AccordionSummaryProps) => <
 }));
 export const StyledAccordionDetails = styled((props: AccordionDetailsProps) => <AccordionDetails {...props} />)(() => ({
   '&.MuiAccordionDetails-root': {
-    padding: '16px 0 20px 0'
+    padding: '16px 0 0px 0'
   }
 }));
 
