@@ -28,6 +28,7 @@ export const UIStyledSelect = styled(Select)(({ theme }) => ({
 export const UIStyledSelectPastPayout = styled(Select)(({ theme }) => ({
   display: 'flex',
   borderRadius: theme.spacing(1),
+  cursor: 'pointer',
   width: '100%',
   height: '40px',
   backgroundColor: theme.palette.primary[700],
