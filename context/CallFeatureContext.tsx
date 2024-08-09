@@ -19,7 +19,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
 import { useRouter } from 'next/navigation';
 import { UIKitSettingsBuilder } from '@cometchat/uikit-shared';
-import { event } from 'utils/analytics';
+import { gaEventTrigger } from 'utils/analytics';
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
@@ -52,6 +52,7 @@ interface CallFeatureContextProps {
   handleCallEnd: () => void;
   isModelAvailable: number;
   handleModelOfflineClose: () => void;
+  customerUser: string | undefined;
 }
 
 const CallContext = createContext<CallFeatureContextProps>({
@@ -75,7 +76,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   modelCreditPrice: '',
   handleCallEnd: () => {},
   isModelAvailable: 0,
-  handleModelOfflineClose: () => {}
+  handleModelOfflineClose: () => {},
+  customerUser: ''
 });
 
 export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
@@ -173,10 +175,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     modelPrice: string,
     isModelOnline: number
   ) => {
-    event({
-      action: 'call_started',
-      category: 'call_started',
-      label: 'call_started',
+    gaEventTrigger('Start_Video_Call_button_clicked', {
+      category: 'Button',
+      label: 'Start_Video_Call_button_clicked',
       value: JSON.stringify(customerInfo)
     });
     setModelCreditPrice(modelPrice);
@@ -439,7 +440,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         modelCreditPrice,
         handleCallEnd,
         isModelAvailable,
-        handleModelOfflineClose
+        handleModelOfflineClose,
+        customerUser
       }}
     >
       {children}

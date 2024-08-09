@@ -42,7 +42,8 @@ import { sortExistingPhotos } from 'utils/photoUtils';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
 import { usePathname } from 'next/navigation';
-import { event } from 'utils/analytics';
+import { gaEventTrigger } from 'utils/analytics';
+import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
 export const EscortSlider = ({
   workerPhotos,
@@ -61,6 +62,8 @@ export const EscortSlider = ({
   isLoading: boolean;
   guestData: ModelDetailsResponse;
 }) => {
+  const { customerUser } = useCallFeatureContext();
+
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [liked, setLiked] = useState(false);
   const [open, setIsOpen] = useState(false);
@@ -72,10 +75,20 @@ export const EscortSlider = ({
   const userName = path.split('/')[2];
 
   const sortedWorkerPhotos = workerPhotos.sort(sortExistingPhotos);
+  const customerData = JSON.parse(customerUser || '{}');
+
+  const customerInfo = {
+    email: encodeURIComponent(customerData?.customer_email ?? ''),
+    name: customerData?.customer_name,
+    username: customerData?.customer_user_name,
+    model_username: userName
+  };
 
   const handleSignupOpen = () => {
     setIsOpen(true);
     setIsOpenLogin(false);
+    gaEventTrigger('Signup_Button_clicked', { source: 'start_video_call', category: 'Button' });
+    gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
   };
 
   const handleSignupClose = () => {
@@ -85,12 +98,12 @@ export const EscortSlider = ({
   const handleLoginOpen = () => {
     setIsOpen(false);
     setIsOpenLogin(true);
-    event({
-      action: 'not_logged_in',
-      category: 'not_logged_in',
-      label: 'not_logged_in',
+    gaEventTrigger('Start_Video_Call_button_clicked', {
+      category: 'Button',
+      label: 'Start_Video_Call_button_clicked',
       value: userName
     });
+    gaEventTrigger('Login_Button_clicked', { source: 'start_video_call', category: 'Button' });
   };
 
   const handleLoginResetPasswordOpen = () => {
@@ -114,8 +127,15 @@ export const EscortSlider = ({
     try {
       if (!isCustomer) {
         setIsOpenLogin(true);
+        gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
       } else if (token.token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
+        const customerInfoString = JSON.stringify(customerInfo);
+        gaEventTrigger('Model_Favorite_Clicked', {
+          category: 'Button',
+          label: 'Model_Favorite_Clicked',
+          value: customerInfoString
+        });
         if (data?.code === 200) {
           setLiked(true);
         } else {

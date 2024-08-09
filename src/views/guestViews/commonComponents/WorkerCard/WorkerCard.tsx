@@ -38,6 +38,8 @@ import { toast } from 'react-toastify';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { ErrorMessage } from 'constants/common.constants';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import { gaEventTrigger } from 'utils/analytics';
+import { usePathname } from 'next/navigation';
 
 const WorkerCard = ({
   modelDetails,
@@ -59,7 +61,7 @@ const WorkerCard = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
 
-  const { isCustomer } = useCallFeatureContext();
+  const { isCustomer, customerUser } = useCallFeatureContext();
 
   const languages = modelDetails?.languages
     ?.map((language) => language?.language_name)
@@ -70,15 +72,33 @@ const WorkerCard = ({
 
   useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails?.cords);
 
+  const customerData = JSON.parse(customerUser || '{}');
+
+  const path = usePathname();
+  const userName = path.split('/')[2];
+
+  const customerInfo = {
+    email: customerData?.customer_email,
+    name: customerData?.customer_name,
+    username: customerData?.customer_user_name,
+    model_username: userName
+  };
+
   const handleLikeClick = async (modelId: number) => {
     try {
       if (!isCustomer) {
         handleLoginOpen();
+        gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
       } else if (token.token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
         if (data?.code === 200) {
           handleLoginLiked(modelId);
           handleLike(modelId);
+          gaEventTrigger('Model_Favorite_Clicked', {
+            category: 'Button',
+            label: 'Model_Favorite_Clicked',
+            value: customerInfo
+          });
         } else {
           toast.error(ErrorMessage);
         }

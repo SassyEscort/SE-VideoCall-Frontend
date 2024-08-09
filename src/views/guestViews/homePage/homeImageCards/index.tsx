@@ -19,7 +19,7 @@ import { PaginationMainBox } from 'views/protectedDashboardViews/payoutRequest/P
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { NotFoundModelBox } from './HomeImageCard.styled';
 import { FormattedMessage } from 'react-intl';
-import { event } from 'utils/analytics';
+import { gaEventTrigger } from 'utils/analytics';
 
 export const pageview = (url: string) => {
   window.gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, {
@@ -101,8 +101,7 @@ const HomeImageCard = ({
   };
 
   const handleModelRedirect = (user_name: string) => {
-    event({
-      action: 'model_clicked',
+    gaEventTrigger('model_clicked', {
       category: 'Button',
       label: 'model_clicked',
       value: user_name

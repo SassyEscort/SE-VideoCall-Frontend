@@ -24,6 +24,7 @@ import { MultipleOptionString } from 'views/protectedModelViews/verification/ste
 import { MenuContainer, SearchBarBox } from './GuestLayout.styled';
 import MenuItem from '@mui/material/MenuItem';
 import { Divider, ListItemIcon, ListItemText } from '@mui/material';
+import { gaEventTrigger } from 'utils/analytics';
 
 const HeaderGuestComponent = () => {
   const isSmaller = useMediaQuery('(max-width:320px)');
@@ -241,7 +242,16 @@ const HeaderGuestComponent = () => {
                 </>
               )}
               {isMdUp && (
-                <Box display="flex" alignItems="center" gap={1} onClick={handleLoginOpen} sx={{ cursor: 'pointer' }}>
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  gap={1}
+                  onClick={() => {
+                    gaEventTrigger('Login_Button_clicked', { source: 'header', category: 'Button' });
+                    handleLoginOpen();
+                  }}
+                  sx={{ cursor: 'pointer' }}
+                >
                   <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
                   <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                     <FormattedMessage id="LogIn" />
