@@ -5,6 +5,7 @@ import {
   FavoriteIconContainer,
   FirstSubContainerImgWorkerCard,
   FirstSubContainerWithoutImg,
+  FlagAndLiveIconBoxContainer,
   HeartIconWorkerCard,
   ImgWorkerCard,
   LiveIconSecBoxWorkerCard,
@@ -19,6 +20,7 @@ import {
   SecondSubContainerWorkerCard,
   SeconderContainerWorkerCard,
   SubContainertWorkerCard,
+  TextBoxContainer,
   UITypographyBox,
   UITypographyBoxContainer,
   WorkerCardContainer
@@ -111,25 +113,27 @@ const WorkerCard = ({
           <SubContainertWorkerCard>
             <ProfileCardContainer>
               <NameCardContainer>
-                <UINewTypography variant="newTitle" color="#ffff">
-                  {modelDetails?.name
-                    ? modelDetails?.name?.split(' ')[0]?.charAt(0)?.toUpperCase() + modelDetails?.name?.split(' ')[0]?.slice(1) + '...'
-                    : ''}
-                </UINewTypography>
-                {modelDetails?.is_online === 1 ? (
-                  <>
-                    <LiveIconWorkerCard>
-                      <LiveIconSecBoxWorkerCard sx={{ backgroundColor: 'success.100' }} />
-                    </LiveIconWorkerCard>
-                  </>
-                ) : (
-                  <>
-                    <OfflineIconWorkerCard>
-                      <OfflineIconSecBoxWorkerCard />
-                    </OfflineIconWorkerCard>
-                  </>
-                )}
-                {modelFlag ? <FirstSubContainerImgWorkerCard src={modelFlag} /> : <FirstSubContainerWithoutImg />}
+                <TextBoxContainer>
+                  <UINewTypography variant="newTitle" color="#ffff">
+                    {modelDetails?.name?.charAt(0)?.toUpperCase() + modelDetails?.name?.slice(1)}
+                  </UINewTypography>
+                </TextBoxContainer>
+                <FlagAndLiveIconBoxContainer>
+                  {modelDetails?.is_online === 1 ? (
+                    <>
+                      <LiveIconWorkerCard>
+                        <LiveIconSecBoxWorkerCard sx={{ backgroundColor: 'success.100' }} />
+                      </LiveIconWorkerCard>
+                    </>
+                  ) : (
+                    <>
+                      <OfflineIconWorkerCard>
+                        <OfflineIconSecBoxWorkerCard />
+                      </OfflineIconWorkerCard>
+                    </>
+                  )}
+                  {modelFlag ? <FirstSubContainerImgWorkerCard src={modelFlag} /> : <FirstSubContainerWithoutImg />}
+                </FlagAndLiveIconBoxContainer>
               </NameCardContainer>
               {!isMobile && (
                 <CreditContainer>
