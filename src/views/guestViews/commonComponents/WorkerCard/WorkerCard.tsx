@@ -5,6 +5,7 @@ import {
   FavoriteIconContainer,
   FirstSubContainerImgWorkerCard,
   FirstSubContainerWithoutImg,
+  FlagAndLiveIconBoxContainer,
   HeartIconWorkerCard,
   ImgWorkerCard,
   LiveIconSecBoxWorkerCard,
@@ -117,7 +118,7 @@ const WorkerCard = ({
                     {modelDetails?.name?.charAt(0)?.toUpperCase() + modelDetails?.name?.slice(1)}
                   </UINewTypography>
                 </TextBoxContainer>
-                <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+                <FlagAndLiveIconBoxContainer>
                   {modelDetails?.is_online === 1 ? (
                     <>
                       <LiveIconWorkerCard>
@@ -132,7 +133,7 @@ const WorkerCard = ({
                     </>
                   )}
                   {modelFlag ? <FirstSubContainerImgWorkerCard src={modelFlag} /> : <FirstSubContainerWithoutImg />}
-                </Box>
+                </FlagAndLiveIconBoxContainer>
               </NameCardContainer>
               {!isMobile && (
                 <CreditContainer>

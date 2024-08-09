@@ -324,3 +324,9 @@ export const TextBoxContainer = styled(Box)(() => ({
   textOverflow: 'ellipsis',
   maxWidth: '100px'
 }));
+
+export const FlagAndLiveIconBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1),
+  alignItems: 'center'
+}));
