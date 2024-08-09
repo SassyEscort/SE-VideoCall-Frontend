@@ -90,7 +90,7 @@ const MyProfile = () => {
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         const isButtonDisabled = !values.username || !values.email;
-        const buttonColor = isButtonDisabled ? '#58535E' : '#290F1E';
+        const buttonColor = isButtonDisabled ? 'secondary.light' : 'secondary.main';
         return (
           <MyProfileContainerMain>
             {isLoading ? (
