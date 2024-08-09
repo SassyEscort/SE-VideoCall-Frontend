@@ -7,6 +7,7 @@ import { VerificationStepService } from 'services/modelAuth/verificationStep.ser
 import { TokenIdType } from '../verification';
 import ModelGalleryReview from './ModelGalleryReview';
 import ModelBasicDetailReview from './ModelBasicDetailReview';
+import { gaEventTrigger } from 'utils/analytics';
 
 const ModelReviewDetails = ({
   modelDetails,
@@ -21,6 +22,12 @@ const ModelReviewDetails = ({
 }) => {
   const modelReviewSubmit = async () => {
     await VerificationStepService.modelReview(token.token);
+    gaEventTrigger('Model_Submit_Verification_Clicked', {
+      action: 'Model_Submit_Verification_Clicked',
+      category: 'Button',
+      label: 'Model_Submit_Verification_Clicked',
+      value: modelDetails.email
+    });
     handleNext();
   };
 
