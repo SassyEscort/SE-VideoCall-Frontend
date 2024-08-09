@@ -19,7 +19,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
 import { useRouter } from 'next/navigation';
 import { UIKitSettingsBuilder } from '@cometchat/uikit-shared';
-import { event } from 'utils/analytics';
+import { gaEventTrigger } from 'utils/analytics';
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
@@ -173,7 +173,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     modelPrice: string,
     isModelOnline: number
   ) => {
-    event({
+    gaEventTrigger('call_started', {
       action: 'call_started',
       category: 'call_started',
       label: 'call_started',
@@ -186,11 +186,16 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     if (guestId && isCreditAvailable && !call && Boolean(token.token) && isModelOnline) {
       const isModelBusy = await CallingService.getModelCallStatus(guestId, token.token);
       if (isModelBusy.data.ongoing_calls) {
+        gaEventTrigger('model_busy', {
+          action: 'model_busy',
+          category: 'Button',
+          label: 'model_busy',
+          value: JSON.stringify(customerInfo)
+        });
         setIsBusy(true);
       } else {
         setIsLoading(true);
         await init();
-
         setEndCallTime(callTime);
         const callObject = new CometChat.Call(
           userName,
@@ -208,6 +213,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       toast.error('Please end your ONGOING call');
       setIsLoading(false);
     } else if (!isModelOnline) {
+      gaEventTrigger('video_call_unanswered', {
+        action: 'video_call_unanswered',
+        category: 'Button',
+        label: 'video_call_unanswered',
+        value: JSON.stringify(customerInfo)
+      });
       const missedParams = {
         model_id: guestId,
         status: CALLING_STATUS.UNASWERED
@@ -303,6 +314,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       onIncomingCallReceived: async (call: Call) => {
         setIsCallIncoming(true);
         setSessionId(call.getSessionId());
+        gaEventTrigger('video_call_unanswered', {
+          action: 'video_call_unanswered',
+          category: 'Button',
+          label: 'video_call_unanswered',
+          value: JSON.stringify(customerInfo)
+        });
         await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.UNASWERED);
       },
       onOutgoingCallAccepted: async () => {
@@ -313,6 +330,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           setIsBusy(true);
         }
         setCall(undefined);
+        gaEventTrigger('video_call_unanswered', {
+          action: 'video_call_unanswered',
+          category: 'Button',
+          label: 'video_call_unanswered',
+          value: JSON.stringify(customerInfo)
+        });
         await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.UNASWERED);
         setEndCallTime(180000);
         if (isCustomer) {
