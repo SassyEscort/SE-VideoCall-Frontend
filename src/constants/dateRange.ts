@@ -9,14 +9,14 @@ export const dateDurationTypes: MultipleOptions[] = [
   // { id: 'yesterday', name: 'Yesterday' },
   // { id: 'last7Days', name: 'Last 7 days' },
   // { id: 'thisWeek', name: 'This week' },
-  { id: 'lastWeek', name: 'Last week' },
+  { id: 'lastWeek', name: 'LastWeek' },
   // { id: 'last30Days', name: 'Last 30 days' },
   // { id: 'thisMonth', name: 'This month' },
-  { id: 'lastMonth', name: 'Last month' },
+  { id: 'lastMonth', name: 'LastMonth' },
   // { id: 'last3Months', name: 'Last 3 months' },
   // { id: 'thisYear', name: 'This year' },
-  { id: 'lastYear', name: 'Last year' },
-  { id: 'allTime', name: 'All time' }
+  { id: 'lastYear', name: 'LastYear' },
+  { id: 'allTime', name: 'AllTime' }
 ];
 
 export enum DATE_DURATION_TYPE {

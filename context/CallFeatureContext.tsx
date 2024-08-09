@@ -175,9 +175,10 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     modelPrice: string,
     isModelOnline: number
   ) => {
-    gaEventTrigger('Start_Video_Call_button_clicked', {
+    gaEventTrigger('Video_call_initiated', {
+      action: 'Video_call_initiated',
       category: 'Button',
-      label: 'Start_Video_Call_button_clicked',
+      label: 'Video_call_initiated',
       value: JSON.stringify(customerInfo)
     });
     setModelCreditPrice(modelPrice);
@@ -187,11 +188,16 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     if (guestId && isCreditAvailable && !call && Boolean(token.token) && isModelOnline) {
       const isModelBusy = await CallingService.getModelCallStatus(guestId, token.token);
       if (isModelBusy.data.ongoing_calls) {
+        gaEventTrigger('Model_busy', {
+          action: 'Model_busy',
+          category: 'Button',
+          label: 'Model_busy',
+          value: JSON.stringify(customerInfo)
+        });
         setIsBusy(true);
       } else {
         setIsLoading(true);
         await init();
-
         setEndCallTime(callTime);
         const callObject = new CometChat.Call(
           userName,
@@ -209,6 +215,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       toast.error('Please end your ONGOING call');
       setIsLoading(false);
     } else if (!isModelOnline) {
+      gaEventTrigger('Video_call_unanswered', {
+        action: 'Video_call_unanswered',
+        category: 'Button',
+        label: 'Video_call_unanswered',
+        value: JSON.stringify(customerInfo)
+      });
       const missedParams = {
         model_id: guestId,
         status: CALLING_STATUS.UNASWERED
@@ -216,6 +228,20 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       setIsModelAvailable(isModelOnline);
       await CallingService.missedCallStatus(missedParams, token.token);
     } else {
+      const creditInfoEvent = {
+        email: customerData?.customer_email,
+        name: customerData?.customer_name,
+        username: customerData?.customer_user_name,
+        model_username: userName,
+        is_credit_over: false,
+        source: 'Video calling model'
+      };
+      gaEventTrigger('Credits_Purchase_Popup_open', {
+        action: 'Credits_Purchase_Popup_open',
+        category: 'Dialog',
+        label: 'Credits_Purchase_Popup_open',
+        value: JSON.stringify(creditInfoEvent)
+      });
       setOpen(true);
     }
   };
@@ -251,12 +277,33 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     if (token.token) {
       const creditLogData = await CallingService.creditPutCallLog(creditLog, token.token);
       if (call && (creditLogData.end_call || status === CALLING_STATUS.ENDED)) {
+        gaEventTrigger('Video_call_ended', {
+          action: 'Video_call_ended',
+          category: 'Button',
+          label: 'Video_call_ended',
+          value: JSON.stringify(customerInfo)
+        });
         setCall(undefined);
         setIsCallAccepted(false);
         await CometChat.endCall(call.getSessionId());
         CometChatCalls.endSession();
         setAvailableCredits(creditLogData.available_credits);
         if (isCustomer && creditLogData.out_of_credits) {
+          const creditInfoEvent = {
+            email: customerData?.customer_email,
+            name: customerData?.customer_name,
+            username: customerData?.customer_user_name,
+            model_username: userName,
+            is_credit_over: true,
+            is_new_purchase: false,
+            source: 'Video calling model'
+          };
+          gaEventTrigger('Credits_Purchase_Popup_open', {
+            action: 'Credits_Purchase_Popup_open',
+            category: 'Dialog',
+            label: 'Credits_Purchase_Popup_open',
+            value: JSON.stringify(creditInfoEvent)
+          });
           setIsOutOfCredits(true);
           setOpen(true);
           await CometChatUIKit.logout();
@@ -274,6 +321,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         setIsCallEnded(true);
         CometChat.removeUserListener(String(modelId));
         if (isCustomer) {
+          gaEventTrigger('Video_call_ended', {
+            action: 'Video_call_ended',
+            category: 'Button',
+            label: 'Video_call_ended',
+            value: JSON.stringify(customerInfo)
+          });
           const endCallData = await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
           if (endCallData) {
             setAvailableCredits(endCallData.available_credits);
@@ -287,6 +340,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         setIsCallEnded(true);
         CometChat.removeUserListener(String(modelId));
         if (isCustomer) {
+          gaEventTrigger('Video_call_ended', {
+            action: 'Video_call_ended',
+            category: 'Button',
+            label: 'Video_call_ended',
+            value: JSON.stringify(customerInfo)
+          });
           const endCallData = await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
           if (endCallData) {
             setAvailableCredits(endCallData.available_credits);
@@ -304,9 +363,21 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       onIncomingCallReceived: async (call: Call) => {
         setIsCallIncoming(true);
         setSessionId(call.getSessionId());
+        gaEventTrigger('Video_call_unanswered', {
+          action: 'Video_call_unanswered',
+          category: 'Button',
+          label: 'Video_call_unanswered',
+          value: JSON.stringify(customerInfo)
+        });
         await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.UNASWERED);
       },
       onOutgoingCallAccepted: async () => {
+        gaEventTrigger('Video_call_started', {
+          action: 'Video_call_started',
+          category: 'Button',
+          label: 'Video_call_started',
+          value: JSON.stringify(customerInfo)
+        });
         setIsCallAccepted(true);
       },
       onOutgoingCallRejected: async (call: Call) => {
@@ -314,6 +385,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           setIsBusy(true);
         }
         setCall(undefined);
+        gaEventTrigger('Video_call_unanswered', {
+          action: 'Video_call_unanswered',
+          category: 'Button',
+          label: 'Video_call_unanswered',
+          value: JSON.stringify(customerInfo)
+        });
         await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.UNASWERED);
         setEndCallTime(180000);
         if (isCustomer) {
@@ -322,6 +399,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       },
       onIncomingCallCancelled: async (call: Call) => {
         setCall(undefined);
+        gaEventTrigger('Video_call_canceled', {
+          action: 'Video_call_canceled',
+          category: 'Button',
+          label: 'Video_call_canceled',
+          value: JSON.stringify(customerInfo)
+        });
         await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.CANCELED);
         setEndCallTime(180000);
         if (isCustomer) {
@@ -335,6 +418,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         await CometChat.endCall(call.getSessionId());
         setIsCallEnded(true);
         if (isCustomer) {
+          gaEventTrigger('Video_call_ended', {
+            action: 'Video_call_ended',
+            category: 'Button',
+            label: 'Video_call_ended',
+            value: JSON.stringify(customerInfo)
+          });
           const endCallData = await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.ENDED);
           if (endCallData) {
             setAvailableCredits(endCallData.available_credits);
@@ -402,6 +491,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         await CometChat.endCall(sessionId);
         CometChatCalls.endSession();
         if (isCustomer) {
+          gaEventTrigger('Video_call_ended', {
+            action: 'Video_call_ended',
+            category: 'Button',
+            label: 'Video_call_ended',
+            value: JSON.stringify(customerInfo)
+          });
           const endCallData = await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
           if (endCallData) {
             setAvailableCredits(endCallData.available_credits);

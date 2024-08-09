@@ -632,5 +632,11 @@
   "CreditsMin40100": "40-100 credits/min",
   "Payouts": "Payouts",
   "HelpAndInfo": "Help and Info",
-  "App": "App"
+  "App": "App",
+  "Photos": "Photos",
+  "Today": "Today",
+  "LastWeek": "Last week",
+  "LastMonth": "Last month",
+  "LastYear": "Last year",
+  "AllTime": "All time"
 }

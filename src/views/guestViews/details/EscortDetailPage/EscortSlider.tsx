@@ -63,16 +63,14 @@ export const EscortSlider = ({
   guestData: ModelDetailsResponse;
 }) => {
   const { customerUser } = useCallFeatureContext();
-
+  const path = usePathname();
+  const userName = path.split('/')[2];
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [liked, setLiked] = useState(false);
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const swiperRef = useRef<SwiperRef | any>();
-
-  const path = usePathname();
-  const userName = path.split('/')[2];
 
   const sortedWorkerPhotos = workerPhotos.sort(sortExistingPhotos);
   const customerData = JSON.parse(customerUser || '{}');
@@ -88,7 +86,6 @@ export const EscortSlider = ({
     setIsOpen(true);
     setIsOpenLogin(false);
     gaEventTrigger('Signup_Button_clicked', { source: 'start_video_call', category: 'Button' });
-    gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
   };
 
   const handleSignupClose = () => {
@@ -98,11 +95,6 @@ export const EscortSlider = ({
   const handleLoginOpen = () => {
     setIsOpen(false);
     setIsOpenLogin(true);
-    gaEventTrigger('Start_Video_Call_button_clicked', {
-      category: 'Button',
-      label: 'Start_Video_Call_button_clicked',
-      value: userName
-    });
     gaEventTrigger('Login_Button_clicked', { source: 'start_video_call', category: 'Button' });
   };
 

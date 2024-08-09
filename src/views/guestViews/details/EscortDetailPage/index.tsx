@@ -48,8 +48,8 @@ const EscortDetailPage = () => {
 
   useEffect(() => {
     gaEventTrigger('model_page_view', {
+      action: 'model_page_view',
       category: 'page_view',
-      label: 'model_page_view',
       value: userName
     });
   }, [userName]);
