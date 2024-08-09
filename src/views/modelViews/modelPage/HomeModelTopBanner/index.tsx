@@ -159,19 +159,21 @@ const HomeModelTopBanner = () => {
               </TypographyBox>
             </DetailSubContainer>
             <ButtonContainer>
-              {isSmDown && token.token && !isVerificationPendingOrCompleted(modelDetails?.verification_step) ? (
-                <UIThemeShadowButton onClick={handleSignupOpen} variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
-                  <UINewTypography variant="body" sx={{ lineHeight: '150%' }}>
-                    <FormattedMessage id="JoinForFREE" />
-                  </UINewTypography>
-                </UIThemeShadowButton>
-              ) : (
+              {isSmDown && !isCustomer && token.token && !isVerificationPendingOrCompleted(modelDetails?.verification_step) ? (
                 <Link href="/model/profile">
                   <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>
                     <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
                       <FormattedMessage id="CompleteYourProfile" />
                     </UINewTypography>
                   </UIThemeButton>
+                </Link>
+              ) : (
+                <Link href="/model/profile">
+                  <UIThemeShadowButton onClick={handleSignupOpen} variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
+                    <UINewTypography variant="body" sx={{ lineHeight: '150%' }}>
+                      <FormattedMessage id="JoinForFREE" />
+                    </UINewTypography>
+                  </UIThemeShadowButton>
                 </Link>
               )}
             </ButtonContainer>
