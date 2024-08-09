@@ -31,6 +31,8 @@ import { ModelDetailsService } from 'services/modelDetails/modelDetails.services
 import { CircularProgress, Divider, useMediaQuery } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import theme from 'themes/theme';
+import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import { gaEventTrigger } from 'utils/analytics';
 
 const ModelCredits = ({
   onClose,
@@ -48,9 +50,12 @@ const ModelCredits = ({
   const [balance, setBalance] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { customerUser } = useCallFeatureContext();
 
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const customerData = JSON.parse(customerUser || '{}');
 
   useEffect(() => {
     const userToken = async () => {
@@ -80,8 +85,29 @@ const ModelCredits = ({
 
   const handleCreditClick = async (listCredit: ModelCreditRes) => {
     setIsLoading(true);
+    const customerInfo = {
+      email: customerData?.customer_email,
+      name: customerData?.customer_name,
+      username: customerData?.customer_user_name,
+      model_username: '',
+      plan_details: listCredit,
+      source: 'Credit Page'
+    };
+
+    gaEventTrigger('Credits_Purchase_Initiated', {
+      action: 'Credits_Purchase_Initiated',
+      category: 'Button',
+      label: 'Credits_Purchase_Initiated',
+      value: JSON.stringify(customerInfo)
+    });
     const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, 1, userName);
     if (res) {
+      gaEventTrigger('Credits_Purchase_Success', {
+        action: 'Credits_Purchase_Success',
+        category: 'Page change',
+        label: 'Credits_Purchase_Successd',
+        value: JSON.stringify(customerInfo)
+      });
       router.push(res?.data?.url);
     }
     setIsLoading(false);
