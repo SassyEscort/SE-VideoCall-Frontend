@@ -188,7 +188,7 @@ const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleCl
               <FormattedMessage id="Age" />
             </UINewTypography>
           </StyledAccordionSummary>
-          <AccordionDetails sx={{ p: '16px 10px 25px 10px !important' }}>
+          <AccordionDetails sx={{ p: '16px 10px 0px 10px !important' }}>
             <AgeFilter fromAge={filters?.fromAge ?? 18} toAge={filters?.toAge ?? 60} handleChange={handleChangeAge} />
           </AccordionDetails>
         </FilterAccordian>
@@ -209,7 +209,7 @@ const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleCl
               <FormattedMessage id="Status" />
             </UINewTypography>
           </StyledAccordionSummary>
-          <StyledAccordionDetails sx={{ pb: '20px !important' }}>
+          <StyledAccordionDetails>
             <StatusFilter handleChange={handleChangeStatus} value={filters.isOnline} />
           </StyledAccordionDetails>
         </FilterAccordian>

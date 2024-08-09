@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Divider from '@mui/material/Divider';
 import { FormattedMessage } from 'react-intl';
 import { HeaderMainBoxContainer } from './UIHeader.styled';
+import { gaEventTrigger } from 'utils/analytics';
 
 const ProfileMenu = ({
   open,
@@ -44,7 +45,12 @@ const ProfileMenu = ({
                 <Box component="img" src="/images/icons/userLine.png" sx={{ width: '24px', height: '24px' }} />
               </IconButton>
             </ListItemIcon>
-            <ListItemText onClick={onSignupOpen}>
+            <ListItemText
+              onClick={() => {
+                gaEventTrigger('Signup_Button_clicked', { source: 'header' });
+                onSignupOpen();
+              }}
+            >
               <Typography variant="bodyLight" color="text.secondary">
                 <FormattedMessage id="SignUpAsAUser" />
               </Typography>

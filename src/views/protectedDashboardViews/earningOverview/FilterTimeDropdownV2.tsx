@@ -1,16 +1,22 @@
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 import MenuItem from '@mui/material/MenuItem';
 import { dateDurationTypes } from 'constants/dateRange';
-import { UINewStyledSelect } from 'components/UIComponents/UINewSelectTab';
+import { UINewStyledEarningSelect } from 'components/UIComponents/UINewSelectTab';
 import { FormControlBox } from './EarningOverview.styled';
+import { useIntl } from 'react-intl';
 
 const FilterTimeDropdownV2 = ({ periodType, handleChange }: { periodType: string; handleChange: (value: string) => void }) => {
+  const intl = useIntl();
+
   return (
     <FormControlBox>
-      <UINewStyledSelect
+      <UINewStyledEarningSelect
         onChange={(e) => handleChange(e.target.value as string)}
         value={periodType}
-        IconComponent={() => <ExpandMoreIcon sx={{ position: 'absolute', right: '10px' }} />}
+        IconComponent={ExpandMore}
+        sx={{
+          '& .MuiSvgIcon-root': { color: 'text.primary' }
+        }}
       >
         {dateDurationTypes?.map((data, index) => (
           <MenuItem
@@ -21,10 +27,10 @@ const FilterTimeDropdownV2 = ({ periodType, handleChange }: { periodType: string
               '&. MuiPaper-root': { borderRadius: '16px 0px' }
             }}
           >
-            {data.name}
+            {intl.formatMessage({ id: data.name })}
           </MenuItem>
         ))}
-      </UINewStyledSelect>
+      </UINewStyledEarningSelect>
     </FormControlBox>
   );
 };

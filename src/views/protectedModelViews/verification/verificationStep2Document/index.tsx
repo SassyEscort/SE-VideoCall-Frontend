@@ -23,6 +23,7 @@ import { scrollToError } from 'utils/scrollUtils';
 import { BackButtonBox, VerificationButtonText } from '../verificationStep2/VerificationStep2.styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
+import { useIntl } from 'react-intl';
 
 export type VerificationPhotoWithoutFilter = {
   photoWithoutFilter: File | string;
@@ -75,7 +76,7 @@ const VerificationStepPromise = ({
   isDashboard
 }: VerificationStepPromiseType) => {
   const [loading, setLoading] = useState(false);
-  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
 
   const validationSchema = (docValues: VerificationStepSecond) => {
     const baseValidation = Yup.mixed()
@@ -117,6 +118,8 @@ const VerificationStepPromise = ({
     photoWithoutFilterFront: modelDocuments?.link && modelDocuments.document_front_side ? modelDocuments.link : '',
     photoWithoutFilterBack: modelDoc?.link && !modelDoc.document_front_side ? modelDoc.link : ''
   };
+
+  const intl = useIntl();
 
   return (
     <Formik
@@ -264,7 +267,7 @@ const VerificationStepPromise = ({
               </Box>
             </Box>
             {docValues.idType !== DOCUMENT_UPLOAD_TYPE.PASSPORT ? (
-              <Box display="flex" gap={6} justifyContent="center" flexDirection={isDashboard || isSmDown ? 'column' : 'row'}>
+              <Box display="flex" gap={6} justifyContent="center" flexDirection={isDashboard || isMdDown ? 'column' : 'row'}>
                 <WorkerPhotosWithoutFilterNew
                   name="photoWithoutFilterFront"
                   value={values.photoWithoutFilterFront as File}
@@ -276,7 +279,7 @@ const VerificationStepPromise = ({
                   handleNext={handleSubmit}
                   activeStep={activeStep}
                   modelDetails={modelDetails}
-                  title="ID front"
+                  title={intl.formatMessage({ id: 'IDFront' })}
                 />
                 <WorkerPhotosWithoutFilterNew
                   name="photoWithoutFilterBack"
@@ -289,7 +292,7 @@ const VerificationStepPromise = ({
                   handleNext={handleSubmit}
                   activeStep={activeStep}
                   modelDetails={modelDetails}
-                  title="ID back"
+                  title={intl.formatMessage({ id: 'IDBack' })}
                 />
               </Box>
             ) : (

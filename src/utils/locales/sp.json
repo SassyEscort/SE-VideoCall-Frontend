@@ -549,7 +549,7 @@
   "AmountEarned": "Cantidad ganada",
   "Durationn": "Duración",
   "Details": "Detalles",
-  "MoreButton": "Botón Más",
+  "MoreButton": "Más notificaciones",
   "PleaseWait": "Por favor, espere un momento mientras lo redirigimos a su modelo deseado.",
   "RedirectingIn": "Redirigiendo en",
   "Sec": "Seg",
@@ -630,5 +630,11 @@
   "CreditsMin020": "0-20 créditos/min",
   "CreditsMin2030": "20-30 créditos/min",
   "CreditsMin3040": "30-40 créditos/min",
-  "CreditsMin40100": "40-100 créditos/min"
+  "CreditsMin40100": "40-100 créditos/min",
+  "Photos": "Fotos",
+  "Today": "Hoy",
+  "LastWeek": "La semana pasada",
+  "LastMonth": "Mes pasado",
+  "LastYear": "El año pasado",
+  "AllTime": "Todo el tiempo"
 }

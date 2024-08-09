@@ -5,6 +5,7 @@ import {
   FavoriteIconContainer,
   FirstSubContainerImgWorkerCard,
   FirstSubContainerWithoutImg,
+  FlagAndLiveIconBoxContainer,
   HeartIconWorkerCard,
   ImgWorkerCard,
   LiveIconSecBoxWorkerCard,
@@ -19,6 +20,7 @@ import {
   SecondSubContainerWorkerCard,
   SeconderContainerWorkerCard,
   SubContainertWorkerCard,
+  TextBoxContainer,
   UITypographyBox,
   UITypographyBoxContainer,
   WorkerCardContainer
@@ -38,6 +40,7 @@ import { toast } from 'react-toastify';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { ErrorMessage } from 'constants/common.constants';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import { gaEventTrigger } from 'utils/analytics';
 
 const WorkerCard = ({
   modelDetails,
@@ -59,7 +62,7 @@ const WorkerCard = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
 
-  const { isCustomer } = useCallFeatureContext();
+  const { isCustomer, customerUser } = useCallFeatureContext();
 
   const languages = modelDetails?.languages
     ?.map((language) => language?.language_name)
@@ -70,15 +73,30 @@ const WorkerCard = ({
 
   useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails?.cords);
 
-  const handleLikeClick = async (modelId: number) => {
+  const customerData = JSON.parse(customerUser || '{}');
+
+  const handleLikeClick = async (modelDetails: ModelHomeListing | ModelFavRes) => {
     try {
       if (!isCustomer) {
         handleLoginOpen();
+        gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
       } else if (token.token) {
-        const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
+        const data = await CustomerDetailsService.favouritePutId(modelDetails.id, token?.token);
         if (data?.code === 200) {
-          handleLoginLiked(modelId);
-          handleLike(modelId);
+          handleLoginLiked(modelDetails.id);
+          handleLike(modelDetails.id);
+          const customerInfo = {
+            email: customerData?.customer_email,
+            name: customerData?.customer_name,
+            username: customerData?.customer_user_name,
+            model_username: modelDetails.user_name
+          };
+          const customerInfoString = JSON.stringify(customerInfo);
+          gaEventTrigger('Model_Favorite_Clicked', {
+            category: 'Button',
+            label: 'Model_Favorite_Clicked',
+            value: customerInfoString
+          });
         } else {
           toast.error(ErrorMessage);
         }
@@ -93,7 +111,7 @@ const WorkerCard = ({
   const handleIconClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.stopPropagation();
     e.preventDefault();
-    handleLikeClick(modelDetails?.id);
+    handleLikeClick(modelDetails);
   };
 
   return (
@@ -111,23 +129,27 @@ const WorkerCard = ({
           <SubContainertWorkerCard>
             <ProfileCardContainer>
               <NameCardContainer>
-                <UINewTypography variant="newTitle" color="#ffff">
-                  {modelDetails?.name?.charAt(0)?.toUpperCase() + modelDetails?.name?.slice(1)}
-                </UINewTypography>
-                {modelDetails?.is_online === 1 ? (
-                  <>
-                    <LiveIconWorkerCard>
-                      <LiveIconSecBoxWorkerCard sx={{ backgroundColor: 'success.100' }} />
-                    </LiveIconWorkerCard>
-                  </>
-                ) : (
-                  <>
-                    <OfflineIconWorkerCard>
-                      <OfflineIconSecBoxWorkerCard />
-                    </OfflineIconWorkerCard>
-                  </>
-                )}
-                {modelFlag ? <FirstSubContainerImgWorkerCard src={modelFlag} /> : <FirstSubContainerWithoutImg />}
+                <TextBoxContainer>
+                  <UINewTypography variant="newTitle" color="#ffff">
+                    {modelDetails?.name?.charAt(0)?.toUpperCase() + modelDetails?.name?.slice(1)}
+                  </UINewTypography>
+                </TextBoxContainer>
+                <FlagAndLiveIconBoxContainer>
+                  {modelDetails?.is_online === 1 ? (
+                    <>
+                      <LiveIconWorkerCard>
+                        <LiveIconSecBoxWorkerCard sx={{ backgroundColor: 'success.100' }} />
+                      </LiveIconWorkerCard>
+                    </>
+                  ) : (
+                    <>
+                      <OfflineIconWorkerCard>
+                        <OfflineIconSecBoxWorkerCard />
+                      </OfflineIconWorkerCard>
+                    </>
+                  )}
+                  {modelFlag ? <FirstSubContainerImgWorkerCard src={modelFlag} /> : <FirstSubContainerWithoutImg />}
+                </FlagAndLiveIconBoxContainer>
               </NameCardContainer>
               {!isMobile && (
                 <CreditContainer>

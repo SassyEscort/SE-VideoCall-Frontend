@@ -98,6 +98,7 @@ const HomeTopBanner = () => {
       setLoading(false);
     }, 1000);
   };
+
   return (
     <>
       {(session?.user as User)?.provider === 'providerGuest' ? (

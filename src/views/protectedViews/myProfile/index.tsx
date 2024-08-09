@@ -26,12 +26,10 @@ export type MyProfile = {
 
 const MyProfile = () => {
   const { handelNameChange } = useCallFeatureContext();
-
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
   const [isLoading, setIsLoading] = useState(false);
   const [loadingButton, setLoadingButton] = useState(false);
-
   const validationSchema = yup.object({
     username: yup.string().required('Username is required').min(2, 'Username is too short').max(20, 'Username is too long'),
     email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required')
@@ -91,6 +89,8 @@ const MyProfile = () => {
       }}
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
+        const isButtonDisabled = !values.username || !values.email;
+        const buttonColor = isButtonDisabled ? 'secondary.light' : 'secondary.main';
         return (
           <MyProfileContainerMain>
             {isLoading ? (
@@ -111,7 +111,7 @@ const MyProfile = () => {
                 <DisableButtonBox>
                   <Box>
                     <StyleButtonV2 variant="contained" type="submit" loading={loadingButton}>
-                      <UINewTypography variant="buttonSmallBold" color={'text.disabled'}>
+                      <UINewTypography variant="buttonSmallBold" color={buttonColor}>
                         <FormattedMessage id="Save" />
                       </UINewTypography>
                     </StyleButtonV2>
