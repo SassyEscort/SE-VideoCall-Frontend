@@ -16,6 +16,7 @@ import GuestSignup from 'views/auth/guestSignup';
 import GuestLogin from 'views/auth/guestLogin';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import { useState } from 'react';
+import { gaEventTrigger } from 'utils/analytics';
 
 const MainFooter = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -127,10 +128,24 @@ const MainFooter = () => {
                         <FormattedMessage id="FAQs" />
                       </Link>
                     </UINewTypography>
-                    <UINewTypography variant="SubtitleSmallRegular" sx={{ cursor: 'pointer' }} onClick={handleSignupOpen}>
+                    <UINewTypography
+                      variant="SubtitleSmallRegular"
+                      sx={{ cursor: 'pointer' }}
+                      onClick={() => {
+                        gaEventTrigger('Signup_Button_clicked', { source: 'footer' });
+                        handleSignupOpen();
+                      }}
+                    >
                       <FormattedMessage id="SignUp" />
                     </UINewTypography>
-                    <UINewTypography variant="SubtitleSmallRegular" sx={{ cursor: 'pointer' }} onClick={handleLoginOpen}>
+                    <UINewTypography
+                      variant="SubtitleSmallRegular"
+                      sx={{ cursor: 'pointer' }}
+                      onClick={() => {
+                        gaEventTrigger('Login_Button_clicked', { source: 'footer', category: 'Button' });
+                        handleLoginOpen();
+                      }}
+                    >
                       <FormattedMessage id="LogIn" />
                     </UINewTypography>
                     <UINewTypography variant="SubtitleSmallRegular">

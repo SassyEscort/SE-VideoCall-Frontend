@@ -27,6 +27,7 @@ import { ModelDetailsResponse } from 'views/protectedModelViews/verification/ver
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import { gaEventTrigger } from 'utils/analytics';
 
 const MainFooter = () => {
   const { isCustomer } = useCallFeatureContext();
@@ -46,10 +47,12 @@ const MainFooter = () => {
   const handleSignupOpen = () => {
     setIsOpen(true);
     setIsOpenLogin(false);
+    gaEventTrigger('Model_Signup_Button_clicked', { source: 'footer', category: 'Button' });
   };
   const handleLoginOpen = () => {
     setIsOpen(false);
     setIsOpenLogin(true);
+    gaEventTrigger('Model_Login_Button_clicked', { source: 'footer', category: 'Button' });
   };
 
   const handleSignupClose = () => {
