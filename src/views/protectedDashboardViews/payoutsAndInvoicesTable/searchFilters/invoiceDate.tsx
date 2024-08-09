@@ -80,7 +80,14 @@ const InvoiceDate = ({ handleChangeFilter, filters }: { handleChangeFilter: (val
           IconComponent={ExpandMore}
         >
           {dateDurationTypes?.map((data, index) => (
-            <MenuItem key={index} value={data?.id}>
+            <MenuItem
+              key={index}
+              value={data?.id}
+              sx={{
+                margin: '10px 12px',
+                '&. MuiPaper-root': { borderRadius: '16px 0px' }
+              }}
+            >
               {data?.name}
             </MenuItem>
           ))}
