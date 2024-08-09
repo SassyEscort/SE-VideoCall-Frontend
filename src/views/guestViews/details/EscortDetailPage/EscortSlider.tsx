@@ -41,8 +41,6 @@ import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshado
 import { sortExistingPhotos } from 'utils/photoUtils';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
-import { usePathname } from 'next/navigation';
-import { event } from 'utils/analytics';
 
 export const EscortSlider = ({
   workerPhotos,
@@ -68,9 +66,6 @@ export const EscortSlider = ({
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const swiperRef = useRef<SwiperRef | any>();
 
-  const path = usePathname();
-  const userName = path.split('/')[2];
-
   const sortedWorkerPhotos = workerPhotos.sort(sortExistingPhotos);
 
   const handleSignupOpen = () => {
@@ -85,12 +80,6 @@ export const EscortSlider = ({
   const handleLoginOpen = () => {
     setIsOpen(false);
     setIsOpenLogin(true);
-    event({
-      action: 'not_logged_in',
-      category: 'not_logged_in',
-      label: 'not_logged_in',
-      value: userName
-    });
   };
 
   const handleLoginResetPasswordOpen = () => {
