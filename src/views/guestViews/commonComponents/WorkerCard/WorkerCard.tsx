@@ -19,13 +19,14 @@ import {
   SecondSubContainerWorkerCard,
   SeconderContainerWorkerCard,
   SubContainertWorkerCard,
+  TextBoxContainer,
   UITypographyBox,
   UITypographyBoxContainer,
   WorkerCardContainer
 } from './WorkerCard.styled';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useMediaQuery } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { ModelHomeListing } from 'services/modelListing/modelListing.services';
 import { FormattedMessage } from 'react-intl';
@@ -111,25 +112,27 @@ const WorkerCard = ({
           <SubContainertWorkerCard>
             <ProfileCardContainer>
               <NameCardContainer>
-                <UINewTypography variant="newTitle" color="#ffff">
-                  {modelDetails?.name
-                    ? modelDetails?.name?.split(' ')[0]?.charAt(0)?.toUpperCase() + modelDetails?.name?.split(' ')[0]?.slice(1) + '...'
-                    : ''}
-                </UINewTypography>
-                {modelDetails?.is_online === 1 ? (
-                  <>
-                    <LiveIconWorkerCard>
-                      <LiveIconSecBoxWorkerCard sx={{ backgroundColor: 'success.100' }} />
-                    </LiveIconWorkerCard>
-                  </>
-                ) : (
-                  <>
-                    <OfflineIconWorkerCard>
-                      <OfflineIconSecBoxWorkerCard />
-                    </OfflineIconWorkerCard>
-                  </>
-                )}
-                {modelFlag ? <FirstSubContainerImgWorkerCard src={modelFlag} /> : <FirstSubContainerWithoutImg />}
+                <TextBoxContainer>
+                  <UINewTypography variant="newTitle" color="#ffff">
+                    {modelDetails?.name?.charAt(0)?.toUpperCase() + modelDetails?.name?.slice(1)}
+                  </UINewTypography>
+                </TextBoxContainer>
+                <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+                  {modelDetails?.is_online === 1 ? (
+                    <>
+                      <LiveIconWorkerCard>
+                        <LiveIconSecBoxWorkerCard sx={{ backgroundColor: 'success.100' }} />
+                      </LiveIconWorkerCard>
+                    </>
+                  ) : (
+                    <>
+                      <OfflineIconWorkerCard>
+                        <OfflineIconSecBoxWorkerCard />
+                      </OfflineIconWorkerCard>
+                    </>
+                  )}
+                  {modelFlag ? <FirstSubContainerImgWorkerCard src={modelFlag} /> : <FirstSubContainerWithoutImg />}
+                </Box>
               </NameCardContainer>
               {!isMobile && (
                 <CreditContainer>
