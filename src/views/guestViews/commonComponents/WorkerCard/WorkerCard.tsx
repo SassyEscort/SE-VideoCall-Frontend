@@ -27,7 +27,7 @@ import {
 } from './WorkerCard.styled';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { Box, useMediaQuery } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { ModelHomeListing } from 'services/modelListing/modelListing.services';
 import { FormattedMessage } from 'react-intl';
