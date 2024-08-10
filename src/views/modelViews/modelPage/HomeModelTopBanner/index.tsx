@@ -168,13 +168,11 @@ const HomeModelTopBanner = () => {
                   </UIThemeButton>
                 </Link>
               ) : (
-                <Link href="/model/profile">
-                  <UIThemeShadowButton onClick={handleSignupOpen} variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
-                    <UINewTypography variant="body" sx={{ lineHeight: '150%' }}>
-                      <FormattedMessage id="JoinForFREE" />
-                    </UINewTypography>
-                  </UIThemeShadowButton>
-                </Link>
+                <UIThemeShadowButton onClick={handleSignupOpen} variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
+                  <UINewTypography variant="body" sx={{ lineHeight: '150%' }}>
+                    <FormattedMessage id="JoinForFREE" />
+                  </UINewTypography>
+                </UIThemeShadowButton>
               )}
             </ButtonContainer>
           </DetailContainer>
