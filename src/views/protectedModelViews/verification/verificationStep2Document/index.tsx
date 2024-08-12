@@ -24,6 +24,7 @@ import { BackButtonBox, VerificationButtonText } from '../verificationStep2/Veri
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import { useIntl } from 'react-intl';
+import { getErrorMessage } from 'utils/errorUtils';
 
 export type VerificationPhotoWithoutFilter = {
   photoWithoutFilter: File | string;
@@ -132,6 +133,7 @@ const VerificationStepPromise = ({
           setLoading(true);
           if (values.photoWithoutFilter) {
             const mutationImageUpload = await VerificationStepService.imageKitUplaodApi(values.photoWithoutFilter as File);
+
             const selectedDocument = DocumentList.find((item) => item.key === docValues.idType)?.value;
             payload = {
               is_document: true,
@@ -227,7 +229,8 @@ const VerificationStepPromise = ({
               handleNext();
             }
           } else {
-            toast.error(response?.message);
+            const errorMessage = getErrorMessage(response?.custom_code);
+            toast.error(intl.formatMessage({ id: errorMessage }));
           }
         } catch (error) {
           toast.error(ErrorMessage);

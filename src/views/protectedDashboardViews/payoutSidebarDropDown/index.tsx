@@ -56,6 +56,7 @@ const PayoutMobileSidebar = ({ token, modelDetails }: { token: TokenIdType; mode
 
   useEffect(() => {
     fetchBankDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.token]);
 
   useEffect(() => {

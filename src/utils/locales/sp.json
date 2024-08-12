@@ -654,5 +654,15 @@
   "PasswordMustBeAtLeast8Characters": "La contraseña debe tener al menos 8 caracteres.",
   "PasswordsMustMatch": "Las contraseñas deben coincidir",
   "EnterValidCurrentPassword": "Ingrese una contraseña actual válida",
-  "PasswordMustContainAt": "La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial."
+  "PasswordMustContainAt": "La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.",
+  "UnableSend": "No se pudo enviar el correo electrónico de verificación",
+  "EmailSent": "El correo electrónico de verificación ha sido enviado.",
+  "InvalidVerificationCode": "Código de verificación inválido",
+  "InvalidSource": "Fuente inválida",
+  "BasicDetailsAreRequired": "Se requieren detalles básicos para la incorporación del modelo",
+  "ModelLanguagesRequired": "Se requieren los idiomas del modelo",
+  "DocumentAreRequired": "Se requieren documentos para la incorporación del modelo",
+  "TheDocument": "El indicador 'is_document' es requerido",
+  "PricePerMin": "Se requiere el precio por minuto",
+  "PleaseEnterValid": "Por favor, ingrese una contraseña válida para cambiar su contraseña actual"
 }

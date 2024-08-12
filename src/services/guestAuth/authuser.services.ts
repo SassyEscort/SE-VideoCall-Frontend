@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { LoginUserParams, LoginUserResponse } from './types';
 import { ErrorMessage } from 'constants/common.constants';
+import { GenericResponse } from 'types/commonApiTypes';
 
 export type EmailVerifyParams = {
   email: string;
@@ -22,6 +23,14 @@ export type GenericResCustom = {
   error: string;
   message: string;
   custom_code: number;
+};
+
+export type GenericResDataCustom = {
+  code: number;
+  error: string;
+  message: string;
+  custom_code: number;
+  data: GenericResponse;
 };
 
 export type ChangePassParams = {
@@ -63,14 +72,14 @@ export class authServices {
     }
   };
 
-  static changePassword = async (params: ChangePassParams, token: string): Promise<GenericRes | string> => {
+  static changePassword = async (params: ChangePassParams, token: string): Promise<GenericResCustom> => {
     try {
-      const res = await axios.post<GenericRes>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/customer/update-password`, params, {
+      const res = await axios.post<GenericResCustom>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/customer/update-password`, params, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
       });
       return res.data;
     } catch (err: any) {
-      return err.response?.data.message as string;
+      return err.response?.data as GenericResCustom;
     }
   };
 }

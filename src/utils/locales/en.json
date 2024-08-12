@@ -654,5 +654,16 @@
   "PasswordMustBe": "Password must be at least 8 characters",
   "PasswordsMustMatch": "Passwords must match",
   "EnterValidCurrentPassword": "Enter valid current password",
-  "PasswordMustContainAt": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+  "PasswordMustContainAt": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+  "UnableSend": "Unable to send verification email",
+  "EmailSent": "Email verification has been sent.",
+  "InvalidVerificationCode": "Invalid verification code",
+  "InvalidSource": "Invalid source",
+  "BasicDetailsAreRequired": "Basic details are required for model onboarding",
+  "ModelLanguagesRequired": "Model languages are required",
+  "DocumentAreRequired": "Documents are required for model onboarding",
+  "TheDocument": "The 'is_document' flag is required",
+  "PricePerMin": "Price per minute is required",
+  "PleaseEnterValid": "Please enter a valid password to change your current password",
+  "PleaseNewPassword": "Please enter a valid password for setting new password"
 }

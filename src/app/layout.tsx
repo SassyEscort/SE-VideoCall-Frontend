@@ -16,6 +16,8 @@ export default function RootLayout({
   children: JSX.Element;
 }>) {
   const isStaging = process.env.NEXT_PUBLIC_ENV === 'staging';
+  const isProduction = process.env.NEXT_PUBLIC_ENV === 'production';
+
   return (
     <html lang="en">
       <head>
@@ -29,6 +31,16 @@ export default function RootLayout({
                   gtag('js', new Date());
                   gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');
                 `
+          }}
+        />
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `(function(c,l,a,r,i,t,y){
+              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "mxxnph7kub");`
           }}
         />
         <script
@@ -82,7 +94,7 @@ export default function RootLayout({
             alt="Facebook Pixel"
           />
         </noscript>
-        {!isStaging && (
+        {isProduction && (
           <>
             <script src="https://cdn.amplitude.com/libs/analytics-browser-2.7.4-min.js.gz" async />
             <script src="https://cdn.amplitude.com/libs/plugin-session-replay-browser-1.6.8-min.js.gz" async />
