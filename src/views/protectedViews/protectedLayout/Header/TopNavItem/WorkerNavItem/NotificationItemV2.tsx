@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { BaseContainer, ButtonBaseContainer, MainBox, TypographyBox, TypographyBox2, TypographyCreate } from './Notification.styled';
 import { NotificationTypeDetailsModelV2 } from 'constants/notificationTypeDetailsModelV2';
+import { useIntl } from 'react-intl';
 
 const NotificationItemV2 = ({
   notification,
@@ -25,6 +26,8 @@ const NotificationItemV2 = ({
   handleClose: () => void;
   handleCallback: () => void;
 }) => {
+  const intl = useIntl();
+
   const notificationTypeV2 = NotificationTypeDetailsModelV2[notification?.category];
 
   const handleClickNotificationItem = () => {
@@ -67,7 +70,7 @@ const NotificationItemV2 = ({
               </UINewTypography>
             </TypographyBox>
             <TypographyBox2>
-              <TypographyCreate>{getLastActive(notification.created_at)}</TypographyCreate>
+              <TypographyCreate>{getLastActive(notification.created_at, intl)}</TypographyCreate>
               <Box>{notificationIsRead ? '' : <Box component="img" src="/images/notification/unread_dot.svg" />}</Box>
             </TypographyBox2>
           </MainBox>
