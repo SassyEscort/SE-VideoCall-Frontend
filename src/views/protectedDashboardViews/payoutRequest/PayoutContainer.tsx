@@ -3,7 +3,7 @@ import { Box, CircularProgress, Divider, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React, { useCallback, useEffect, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import {
   MainContainer,
   BoxMessage,
@@ -56,6 +56,7 @@ import { NotFoundBox } from '../payoutsAndInvoicesTable/billingTable/BillingTabl
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import { WithdrawalAmountDetailsRes } from 'services/withdrawalAmount/type';
 import { ModelWithdrawalAmountService } from 'services/withdrawalAmount/withdrawalAmount.services';
+import { getErrorMessage } from 'utils/errorUtils';
 
 export type PayoutPaginationType = {
   page: number;
@@ -76,6 +77,8 @@ const PayoutContainer = ({
   modelDetails: ModelDetailsResponse;
   isLoading: boolean;
 }) => {
+  const intl = useIntl();
+
   const [isLoadingContainer, setIsLoadingContainer] = useState(false);
   const { isCallEnded } = useCallFeatureContext();
   const [open, setIsOpen] = useState(false);
@@ -164,7 +167,8 @@ const PayoutContainer = ({
             setAmountSave(data.data.amount);
           }
         } else {
-          toast.error(ErrorMessage);
+          const errorMessage = getErrorMessage(data?.custom_code);
+          toast.error(intl.formatMessage({ id: errorMessage }));
         }
       }
     } catch (error) {

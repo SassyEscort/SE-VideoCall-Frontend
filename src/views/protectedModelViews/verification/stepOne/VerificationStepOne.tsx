@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
   DateOfBirthMainContainer,
@@ -32,6 +32,7 @@ import CheckInboxVerify from 'views/modelViews/checkInBox';
 import { GuestStyleComponent } from 'views/guestViews/guestLayout/GuestLayout.styled';
 import { ModelVerificationService } from 'services/modelVerification/modelVerification.services';
 import { ErrorMessage } from 'constants/common.constants';
+import { getErrorMessage } from 'utils/errorUtils';
 
 export type VerificationBasicDetailsType = {
   values: VerificationStep1Type;
@@ -78,6 +79,8 @@ const VerificationBasicDetails = ({
   isEdit,
   isModelVerified
 }: VerificationBasicDetailsType) => {
+  const intl = useIntl();
+
   const maxCharCount = 1000;
   const filter = createFilterOptions<MultipleOptionString>();
 
@@ -274,7 +277,8 @@ const VerificationBasicDetails = ({
           toast.success('Success');
           setActiveStep(1);
         } else {
-          toast.error(data.error);
+          const errorMessage = getErrorMessage(data?.custom_code);
+          toast.error(intl.formatMessage({ id: errorMessage }));
         }
       }
     } catch (error) {

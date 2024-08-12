@@ -10,12 +10,13 @@ import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { useState } from 'react';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
-import { FormattedMessage } from 'react-intl';
-import { authServices } from 'services/guestAuth/authuser.services';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { DialogTitleBox, DividerBox, FirstBox, InputBox, InputBoxMain, MainDialogBox } from './ChangePassword.styled';
+import { ModelAuthService } from 'services/modelAuth/modelAuth.service';
+import { getErrorMessage } from 'utils/errorUtils';
 
 export type ChangePasswordParams = {
   currentPassword: string;
@@ -24,6 +25,8 @@ export type ChangePasswordParams = {
 };
 
 const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; onClose: () => void; token: TokenIdType }) => {
+  const intl = useIntl();
+
   const [currentPassword, setShowPassword] = useState(false);
   const [newPassword, setNewPassword] = useState(false);
   const [repeatPassword, setRepeatPassword] = useState(false);
@@ -66,15 +69,16 @@ const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; 
       validationSchema={validationSchema}
       onSubmit={async (values) => {
         try {
-          const data = await authServices.changePassword(
+          const data = await ModelAuthService.changePassword(
             { old_password: values.currentPassword, new_password: values.newPassword },
             token.token
           );
-          if (typeof data === 'string') {
-            toast.error(data);
-          } else {
+          if (data.code === 200) {
             toast.success('Success');
             onClose();
+          } else {
+            const errorMessage = getErrorMessage(data?.custom_code);
+            toast.error(intl.formatMessage({ id: errorMessage }));
           }
         } catch (error) {
           toast.error(ErrorMessage);
