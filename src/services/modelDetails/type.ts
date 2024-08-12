@@ -21,6 +21,7 @@ export type GuestEarningResponse = {
 export type GuestModelEarningResponse = {
   code: number;
   data: ModelEarningResponse;
+  custom_code: number;
   response?: {
     data?: {
       message: string;

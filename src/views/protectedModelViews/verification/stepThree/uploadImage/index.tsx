@@ -12,10 +12,11 @@ import { toast } from 'react-toastify';
 import { TokenIdType } from '../..';
 import { PHOTO_TYPE } from 'constants/workerVerification';
 import { ErrorMessage, MAX_FILE_SIZE } from 'constants/common.constants';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import { UploadButBoxContainer } from './RepositionPhoto.styled';
+import { getErrorMessage } from 'utils/errorUtils';
 
 export type WorkerPhotos = {
   id: number;
@@ -101,6 +102,8 @@ const UploadImage = ({
   isReviewEdit,
   handleEdit
 }: VerificationStepUploadType) => {
+  const intl = useIntl();
+
   const [loading, setLoading] = useState(false);
   const [updated, setUpdated] = useState(false);
 
@@ -273,6 +276,9 @@ const UploadImage = ({
           } else {
             handleNext();
           }
+        } else {
+          const errorMessage = getErrorMessage(response?.custom_code);
+          toast.error(intl.formatMessage({ id: errorMessage }));
         }
       }
     } catch (error) {
