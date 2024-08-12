@@ -49,21 +49,19 @@ const ModelNavbar = ({ tabIndex }: { tabIndex: number }) => {
                   </SelectedTab>
                 </Link>
               ) : (
-                <>
-                  <Link prefetch={false} href={tab?.path} key={index} style={{ textDecoration: 'none' }}>
-                    <CommonMenuBox sx={{ color: 'text.primary' }}>
-                      <DashboardSidebarBox id="basic-button">
-                        <SecondBoxContainer>
-                          <Box component="img" src={tab.img} sx={{ filter: 'none' }} />
-                          <UINewTypography variant="buttonLargeMenu" whiteSpace="nowrap">
-                            {intl.formatMessage({ id: tab.name })}
-                          </UINewTypography>
-                        </SecondBoxContainer>
-                        <ArrowDropDownRoundedIcon />
-                      </DashboardSidebarBox>
-                    </CommonMenuBox>
-                  </Link>
-                </>
+                <Link prefetch={false} href={tab?.path} key={index} style={{ textDecoration: 'none' }}>
+                  <CommonMenuBox sx={{ color: 'text.primary' }}>
+                    <DashboardSidebarBox id="basic-button">
+                      <SecondBoxContainer>
+                        <Box component="img" src={tab.img} sx={{ filter: 'none' }} />
+                        <UINewTypography variant="buttonLargeMenu" whiteSpace="nowrap">
+                          {intl.formatMessage({ id: tab.name })}
+                        </UINewTypography>
+                      </SecondBoxContainer>
+                      <ArrowDropDownRoundedIcon />
+                    </DashboardSidebarBox>
+                  </CommonMenuBox>
+                </Link>
               )
             )}
           </NavBarBoxContainer>
