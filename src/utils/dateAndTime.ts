@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { IntlShape } from 'react-intl';
 
 export const formatFullDateWithoutTime = (str: string, def?: string) => {
   if (!str) return def ?? '';
@@ -10,33 +11,30 @@ export const formatFullDate = (str: string, def?: string) => {
   return moment(str).format('DD MMM YYYY hh:mm A');
 };
 
-export const getLastActive = (lastActiveTime: string, def?: string) => {
-  if (!lastActiveTime) return def ?? '';
+export const getLastActive = (lastActiveTime: string, intl: IntlShape) => {
+  if (!lastActiveTime) return '';
 
   const currentDateTime = moment().utc();
   const lastActiveDateTime = moment.utc(lastActiveTime, 'YYYY-MM-DD HH:mm:ss');
-
   const diffInMinutes = currentDateTime.diff(lastActiveDateTime, 'minutes');
+
   if (diffInMinutes < 1) {
-    return `Just now`;
+    return intl.formatMessage({ id: 'just_now' });
   } else if (diffInMinutes < 60) {
-    return `${diffInMinutes}m ago`;
+    return intl.formatMessage({ id: 'minutes_ago' }, { minutes: diffInMinutes });
   } else if (diffInMinutes < 1440) {
-    return `${Math.floor(diffInMinutes / 60)}h ago`;
-  } else if (diffInMinutes < 24 * 60) {
-    const hours = Math.floor(diffInMinutes / 60);
-    return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    return intl.formatMessage({ id: 'hours_ago' }, { hours: Math.floor(diffInMinutes / 60) });
   } else if (diffInMinutes < 7 * 24 * 60) {
-    const days = Math.floor(diffInMinutes / (24 * 60));
-    return `${days} day${days > 1 ? 's' : ''} ago`;
+    const days = Math.floor(diffInMinutes / 1440);
+    return intl.formatMessage({ id: 'days_ago' }, { days });
   } else if (diffInMinutes < 30 * 24 * 60) {
     const weeks = Math.floor(diffInMinutes / (7 * 24 * 60));
-    return `${weeks} week${weeks > 1 ? 's' : ''} ago`;
+    return intl.formatMessage({ id: 'weeks_ago' }, { weeks });
   } else if (diffInMinutes < 365 * 24 * 60) {
     const months = Math.floor(diffInMinutes / (30 * 24 * 60));
-    return `${months} month${months > 1 ? 's' : ''} ago`;
+    return intl.formatMessage({ id: 'months_ago' }, { months });
   } else {
     const years = Math.floor(diffInMinutes / (365 * 24 * 60));
-    return `${years} year${years > 1 ? 's' : ''} ago`;
+    return intl.formatMessage({ id: 'years_ago' }, { years });
   }
 };

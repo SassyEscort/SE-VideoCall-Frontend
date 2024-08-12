@@ -638,5 +638,21 @@
   "LastWeek": "Last week",
   "LastMonth": "Last month",
   "LastYear": "Last year",
-  "AllTime": "All time"
+  "AllTime": "All time",
+  "just_now": "Just now",
+  "minutes_ago": "{minutes}m ago",
+  "hours_ago": "{hours}h ago",
+  "days_ago": "{days} day{days, plural, one {} other{s}} ago",
+  "weeks_ago": "{weeks} week{weeks, plural, one {} other{s}} ago",
+  "months_ago": "{months} month{months, plural, one {} other{s}} ago",
+  "years_ago": "{years} year{years, plural, one {} other{s}} ago",
+  "notification_title": "{title}",
+  "notification_message": "{message}",
+  "CurrentPasswordIsRequired": "Current password is required",
+  "NewPasswordIsRequired": "New password is required",
+  "RepeatPasswordIsRequired": "Repeat password is required",
+  "PasswordMustBe": "Password must be at least 8 characters",
+  "PasswordsMustMatch": "Passwords must match",
+  "EnterValidCurrentPassword": "Enter valid current password",
+  "PasswordMustContainAt": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
 }

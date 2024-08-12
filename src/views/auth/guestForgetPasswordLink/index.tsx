@@ -145,7 +145,13 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                 )}
                 <ModelUITextConatiner gap={isSmDown ? 0 : 3} pb={3} sx={{ paddingTop: { xs: 0, md: '90px' } }}>
                   <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                  <Box display="flex" gap={1} alignItems="center" justifyContent="center" sx={{ flexDirection: isSm ? 'column' : 'row' }}>
+                  <Box
+                    display="flex"
+                    gap={1}
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ flexDirection: { xs: 'row', sm: 'column' } }}
+                  >
                     <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
                       <FormattedMessage id="RememberPasswordd" />
                     </UINewTypography>
