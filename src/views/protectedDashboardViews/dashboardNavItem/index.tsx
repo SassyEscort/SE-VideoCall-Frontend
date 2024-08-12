@@ -19,7 +19,7 @@ const DashboardNavItem = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
   const [isDashboard, setIsDashboard] = useState(false);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -31,8 +31,13 @@ const DashboardNavItem = () => {
 
   useEffect(() => {
     const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer);
-      setModelDetails(modelData.data);
+      setLoading(true);
+      try {
+        const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer);
+        setModelDetails(modelData.data);
+      } finally {
+        setLoading(false);
+      }
     };
     if (token.token) {
       modelDetails();
@@ -41,7 +46,7 @@ const DashboardNavItem = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setIsDashboard(window.location.pathname.includes('/model/dashboard'));
+      setIsDashboard(window.location.pathname.startsWith('/model/'));
     }
   }, []);
 
@@ -84,7 +89,7 @@ const DashboardNavItem = () => {
             <DashboadrHeaderAuthComponent />
           </Box>
         </WorkerNavItemContainer>
-        {isDashboard && modelDetails?.profile_status !== 'Approved' && <ProfileApproval />}
+        {!loading && isDashboard && modelDetails?.profile_status !== 'Approved' && <ProfileApproval />}
       </AppBar>
     </>
   );

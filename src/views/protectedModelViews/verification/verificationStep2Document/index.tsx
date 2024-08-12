@@ -132,6 +132,7 @@ const VerificationStepPromise = ({
           setLoading(true);
           if (values.photoWithoutFilter) {
             const mutationImageUpload = await VerificationStepService.imageKitUplaodApi(values.photoWithoutFilter as File);
+
             const selectedDocument = DocumentList.find((item) => item.key === docValues.idType)?.value;
             payload = {
               is_document: true,

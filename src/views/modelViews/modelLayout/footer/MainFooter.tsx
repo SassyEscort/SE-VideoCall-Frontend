@@ -139,16 +139,18 @@ const MainFooter = () => {
               </Box>
               <FooterStoreBox>
                 <Box>
-                  <Image
-                    src="/images/app-logo/google-pay.png"
-                    width={120}
-                    height={120}
-                    alt="play_store"
-                    style={{
-                      width: 'auto'
-                    }}
-                    loading="lazy"
-                  />
+                  <Link href="https://play.google.com/store/apps/details?id=com.holo.hsvm.prod&hl=en" target="_blank">
+                    <Image
+                      src="/images/app-logo/google-pay.png"
+                      width={120}
+                      height={120}
+                      alt="play_store"
+                      style={{
+                        width: 'auto'
+                      }}
+                      loading="lazy"
+                    />
+                  </Link>
                 </Box>
                 <Box>
                   <Link href="https://apps.apple.com/us/app/hs-messenger/id6557061284" target="_blank">
