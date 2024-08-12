@@ -26,7 +26,9 @@ const DownloadApp = () => {
       </MainConatiner>
       <ForBox>
         <Box>
-          <Box component={'img'} src="/images/app-logo/google-pay.png" sx={{ width: '120px', height: '120px' }} />
+          <Link href="https://play.google.com/store/apps/details?id=com.holo.hsvm.prod&hl=en" target="_blank">
+            <Box component={'img'} src="/images/app-logo/google-pay.png" sx={{ width: '120px', height: '120px' }} />
+          </Link>
         </Box>
         <Box>
           <Link href="https://apps.apple.com/us/app/hs-messenger/id6557061284" target="_blank">
