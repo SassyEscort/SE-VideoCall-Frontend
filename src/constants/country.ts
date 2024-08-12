@@ -1055,7 +1055,7 @@ export const countryWithFlag = [
     number: '+44'
   },
   {
-    name: 'United States',
+    name: 'United States of America',
     flag: 'https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg',
     number: '+1'
   },

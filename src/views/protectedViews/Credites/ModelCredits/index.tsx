@@ -102,12 +102,6 @@ const ModelCredits = ({
     });
     const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, 1, userName);
     if (res) {
-      gaEventTrigger('Credits_Purchase_Success', {
-        action: 'Credits_Purchase_Success',
-        category: 'Page change',
-        label: 'Credits_Purchase_Successd',
-        value: JSON.stringify(customerInfo)
-      });
       router.push(res?.data?.url);
     }
     setIsLoading(false);
