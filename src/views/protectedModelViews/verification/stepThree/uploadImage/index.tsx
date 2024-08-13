@@ -16,6 +16,7 @@ import { FormattedMessage } from 'react-intl';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import { UploadButBoxContainer } from './RepositionPhoto.styled';
+import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 
 export type WorkerPhotos = {
   id: number;
@@ -79,6 +80,7 @@ export type VerificationStepUploadType = {
   isEdit: boolean;
   isReviewEdit: boolean;
   handleEdit?: (step: number) => void;
+  modelProfileStatus: string;
 };
 
 export interface ImagePayload {
@@ -99,10 +101,15 @@ const UploadImage = ({
   handleModelApiChange,
   isEdit,
   isReviewEdit,
-  handleEdit
+  handleEdit,
+  modelProfileStatus
 }: VerificationStepUploadType) => {
+  const { pathname } = window.location;
+  console.log(pathname, 'pathname');
+
   const [loading, setLoading] = useState(false);
   const [updated, setUpdated] = useState(false);
+  const [imageWarningOpen, setImageWarningOpen] = useState(false);
 
   const initialValuesPerStep: VerificationFormStep5TypeV2 = {
     file5: null as null | File[],
@@ -128,7 +135,7 @@ const UploadImage = ({
           return true;
         };
 
-        if (file5Existing[0] && file5Existing[0].length >= 1) {
+        if ((file5Existing[0] && file5Existing[0].length >= 1) || modelProfileStatus === PAYOUT_ACTION.APPROVE) {
           return schema.test('file-size-check', fileSizeCheck).notRequired();
         }
         return schema.test('file5-combined-length', function (this: Yup.TestContext<Yup.AnyObject>, value: File[]) {
@@ -161,7 +168,7 @@ const UploadImage = ({
       })
   });
 
-  const handleSubmit = async (values: VerificationFormStep5TypeV2) => {
+  const handlePhotoSubmit = async (values: VerificationFormStep5TypeV2) => {
     setLoading(true);
     const allFiles: FileBody[] = [
       {
@@ -286,13 +293,21 @@ const UploadImage = ({
     setUpdated(false);
   };
 
+  const handleImageWarningClose = () => {
+    setImageWarningOpen(false);
+  };
+
   return (
     <Formik
       validationSchema={validationSchema}
       enableReinitialize
       initialValues={initialValuesPerStep}
       onSubmit={(values) => {
-        handleSubmit(values);
+        if (values.file5 === null && !values.file5Existing.length && pathname !== '/model/profile') {
+          setImageWarningOpen(true);
+        } else {
+          handlePhotoSubmit(values);
+        }
       }}
     >
       {({ values, errors, touched, setFieldValue, handleSubmit }) => (
@@ -309,6 +324,9 @@ const UploadImage = ({
             errors={errors}
             touched={touched}
             workerPhotos={workerPhotos}
+            handleImageWarningClose={handleImageWarningClose}
+            imageWarningOpen={imageWarningOpen}
+            handlePhotoSubmit={handlePhotoSubmit}
           />
           <UploadButBoxContainer>
             <UploadBox>

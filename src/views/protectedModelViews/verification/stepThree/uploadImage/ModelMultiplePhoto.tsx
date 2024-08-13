@@ -24,6 +24,7 @@ import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { sortExistingPhotos } from 'utils/photoUtils';
 import { ModelMultipleBoxContainer } from './RepositionPhoto.styled';
+import ImageDeleteWarning from './ImageDeleteWarning';
 
 export type UploadMultiplePhotos = {
   errors: FormikErrors<VerificationFormStep5TypeV2>;
@@ -41,6 +42,9 @@ export type UploadMultiplePhotos = {
   handleModelApiChange: () => void;
   loading: boolean;
   handelChangedIsUpdated?: () => void;
+  handleImageWarningClose: () => void;
+  imageWarningOpen: boolean;
+  handlePhotoSubmit: (values: VerificationFormStep5TypeV2) => Promise<void>;
 };
 export type UploadPhotos = {
   id?: number;
@@ -63,7 +67,10 @@ const ModelMultiplePhoto = ({
   isEdit,
   isUpdated,
   loading,
-  handelChangedIsUpdated
+  handelChangedIsUpdated,
+  handleImageWarningClose,
+  imageWarningOpen,
+  handlePhotoSubmit
 }: UploadMultiplePhotos) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -73,6 +80,7 @@ const ModelMultiplePhoto = ({
   const [existingPhotos, setExistingPhotos] = useState<UploadPhotos[]>([]);
   const [uploadedImagesURL, setUploadedImagesURL] = useState<UploadPhotos[]>([]);
   const [thumbnailImageId, setThumbnailImageId] = useState<number | undefined>(undefined);
+
   console.log(uploadedImagesURL, 'uploadedImagesURL');
 
   const removeImage = async (name: string, photoName: string, file_id?: string) => {
@@ -336,6 +344,13 @@ const ModelMultiplePhoto = ({
           </StyleButtonV2>
         </UploadMultipleBox>
       )}
+      <ImageDeleteWarning
+        open={imageWarningOpen}
+        onClose={handleImageWarningClose}
+        handleSubmit={handlePhotoSubmit}
+        values={values}
+        handleCancel={handleCancel}
+      />
     </>
   );
 };
