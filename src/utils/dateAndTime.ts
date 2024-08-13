@@ -19,22 +19,22 @@ export const getLastActive = (lastActiveTime: string, intl: IntlShape) => {
   const diffInMinutes = currentDateTime.diff(lastActiveDateTime, 'minutes');
 
   if (diffInMinutes < 1) {
-    return intl.formatMessage({ id: 'just_now' });
+    return intl.formatMessage({ id: 'JustNow' });
   } else if (diffInMinutes < 60) {
-    return intl.formatMessage({ id: 'minutes_ago' }, { minutes: diffInMinutes });
+    return intl.formatMessage({ id: 'MinutesAgo' }, { minutes: diffInMinutes });
   } else if (diffInMinutes < 1440) {
-    return intl.formatMessage({ id: 'hours_ago' }, { hours: Math.floor(diffInMinutes / 60) });
+    return intl.formatMessage({ id: 'HoursAgo' }, { hours: Math.floor(diffInMinutes / 60) });
   } else if (diffInMinutes < 7 * 24 * 60) {
     const days = Math.floor(diffInMinutes / 1440);
-    return intl.formatMessage({ id: 'days_ago' }, { days });
+    return intl.formatMessage({ id: 'DaysAgo' }, { days });
   } else if (diffInMinutes < 30 * 24 * 60) {
     const weeks = Math.floor(diffInMinutes / (7 * 24 * 60));
-    return intl.formatMessage({ id: 'weeks_ago' }, { weeks });
+    return intl.formatMessage({ id: 'WeeksAgo' }, { weeks });
   } else if (diffInMinutes < 365 * 24 * 60) {
     const months = Math.floor(diffInMinutes / (30 * 24 * 60));
-    return intl.formatMessage({ id: 'months_ago' }, { months });
+    return intl.formatMessage({ id: 'MonthsAgo' }, { months });
   } else {
     const years = Math.floor(diffInMinutes / (365 * 24 * 60));
-    return intl.formatMessage({ id: 'years_ago' }, { years });
+    return intl.formatMessage({ id: 'YearsAgo' }, { years });
   }
 };

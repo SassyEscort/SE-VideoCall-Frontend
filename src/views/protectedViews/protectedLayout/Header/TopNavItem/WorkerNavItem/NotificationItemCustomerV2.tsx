@@ -63,10 +63,10 @@ const NotificationItemCustomerV2 = ({
                 color={notificationIsRead ? 'text.primary' : 'text.secondary'}
                 sx={{ display: 'flex', justifyContent: 'flex-start' }}
               >
-                {intl.formatMessage({ id: 'notification_title' }, { title: notification?.title })}
+                {intl.formatMessage({ id: 'NotificationTitle' }, { title: notification?.title })}
               </UINewTypography>
               <UINewTypography variant="SubtitleSmallRegular" textAlign="start" color="text.primary">
-                {intl.formatMessage({ id: 'notification_message' }, { message: notification?.message })}
+                {intl.formatMessage({ id: 'NotificationMessage' }, { message: notification?.message })}
               </UINewTypography>
             </TypographyBox>
             <TypographyBox2>
