@@ -112,3 +112,12 @@ export type CustomerDetailsContainer = {
 export interface CustomerDetailsRes extends GenericRes {
   data: CustomerDetailsContainer;
 }
+
+export type ModelDetailsDelete = {
+  status: string;
+  message: string;
+};
+
+export interface ModelDetailsDeleteRes extends GenericRes {
+  data: ModelDetailsDelete;
+}
