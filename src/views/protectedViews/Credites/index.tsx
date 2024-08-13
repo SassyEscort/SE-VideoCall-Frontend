@@ -111,12 +111,16 @@ const Credits = () => {
         username: customerData?.customer_user_name
       };
       setOpen(true);
-      gaEventTrigger('Credits_Purchase_Success', {
-        action: 'Credits_Purchase_Success',
-        category: 'Page change',
-        label: 'Credits_Purchase_Success',
-        value: JSON.stringify(customerInfo)
-      });
+      gaEventTrigger(
+        'Credits_Purchase_Success',
+        {
+          action: 'Credits_Purchase_Success',
+          category: 'Page change',
+          label: 'Credits_Purchase_Success',
+          value: JSON.stringify(customerInfo)
+        },
+        Number(credit)
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);

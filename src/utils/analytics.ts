@@ -1,4 +1,4 @@
-export const gaEventTrigger = (action: string, data: any) => {
+export const gaEventTrigger = (action: string, data: any, credits?: number) => {
   if (window.gtag) {
     try {
       // Check if the value is a string but not a JSON object
@@ -11,10 +11,11 @@ export const gaEventTrigger = (action: string, data: any) => {
           data = { ...data, ...flattenedValue };
         }
       }
+
       if (action === 'Credits_Purchase_Success') {
         data = {
           ...data,
-          value: data.credits,
+          value: credits,
           currency: 'USD'
         };
       }
