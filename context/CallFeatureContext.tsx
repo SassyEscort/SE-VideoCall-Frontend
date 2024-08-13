@@ -460,7 +460,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       gaEventTrigger('Credits_Purchase_Success', {
         action: 'Credits_Purchase_Success',
         category: 'Page change',
-        label: 'Credits_Purchase_Successd',
+        label: 'Credits_Purchase_Success',
         value: JSON.stringify(customerInfo)
       });
       setOpenSuccess(true);

@@ -114,7 +114,7 @@ const Credits = () => {
       gaEventTrigger('Credits_Purchase_Success', {
         action: 'Credits_Purchase_Success',
         category: 'Page change',
-        label: 'Credits_Purchase_Successd',
+        label: 'Credits_Purchase_Success',
         value: JSON.stringify(customerInfo)
       });
     }
