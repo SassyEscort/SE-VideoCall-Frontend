@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { CustomerDetailsRes, CustomerFilterParams, ModelDetailsRes, ModelFilterParams } from './types';
+import { CustomerDetailsRes, CustomerFilterParams, ModelDetailsDeleteRes, ModelDetailsRes, ModelFilterParams } from './types';
 
 export type ModelListing = {
   country_id: number;
@@ -141,6 +141,20 @@ export class adminModelServices {
     } catch (err: any) {
       const error: AxiosError = err;
       return error.response?.data as CustomerDetailsRes;
+    }
+  };
+
+  static modelDetailsDelete = async (token: string, id: number): Promise<ModelDetailsDeleteRes> => {
+    try {
+      const res = await axios.delete(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        }
+      });
+      return res.data;
+    } catch (error) {
+      return error as ModelDetailsDeleteRes;
     }
   };
 }

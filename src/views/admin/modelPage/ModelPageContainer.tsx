@@ -41,6 +41,9 @@ import Grid from '@mui/material/Grid';
 import { FilterBox, ModelActionPopover, NotFoundBox, SortBox } from './ModelPageContainer.styled';
 import RejectModal from './RejectModal';
 import { RiEyeOffLine, RiEyeLine } from 'components/common/customRemixIcons';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { toast } from 'react-toastify';
+import { ErrorMessage } from 'constants/common.constants';
 
 export type WorkersPaginationType = {
   page: number;
@@ -91,7 +94,7 @@ export type TokenIdTypeAdmin = {
   token: string;
 };
 
-export default function ModelPageContainer() {
+export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutStep?: () => void }) {
   const router = useRouter();
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -120,6 +123,32 @@ export default function ModelPageContainer() {
     is_active: ''
   });
   const [openReject, setOpenReject] = useState(false);
+
+  const handleModelDetailsRefetch = useCallback(() => {
+    fetchModelData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
+  const handleModelDetailsDelete = async (id: number) => {
+    try {
+      if (token.token) {
+        const data = await adminModelServices.modelDetailsDelete(token.token, id);
+        handleCloseMenu();
+        if (data.code === 200) {
+          handleModelDetailsRefetch();
+          toast.success('Success');
+          if (handlePayoutStep) {
+            handlePayoutStep();
+          }
+        } else {
+          toast.error(data?.error);
+        }
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
 
   const handleChangeFilter = useCallback((value: WorkersPaginationType) => {
     setFilters(value);
@@ -471,6 +500,7 @@ export default function ModelPageContainer() {
             <RiEyeLine />
             View Details
           </MenuItem>
+
           {selected?.profile_status === MODEL_ACTION.PENDING && (
             <>
               <MenuItem onClick={handleApproveClick}>
@@ -483,6 +513,7 @@ export default function ModelPageContainer() {
               </MenuItem>
             </>
           )}
+
           {selected?.is_visible && selected?.profile_status === MODEL_ACTION.APPROVE ? (
             <>
               <MenuItem onClick={handleHideModel}>
@@ -500,6 +531,10 @@ export default function ModelPageContainer() {
               </>
             )
           )}
+          <MenuItem onClick={() => handleModelDetailsDelete(selected?.id as number)}>
+            <DeleteOutlineIcon sx={{ mr: 2, color: 'error.main' }} />
+            Delete
+          </MenuItem>
         </ModelActionPopover>
       </MainLayout>
       <RejectModal
