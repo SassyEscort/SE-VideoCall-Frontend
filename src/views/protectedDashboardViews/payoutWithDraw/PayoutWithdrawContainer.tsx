@@ -137,8 +137,8 @@ const PayoutWithdrawContainer = ({
   };
 
   const validationSchema = yup.object({
-    amount: yup.number().required('Amount number is required'),
-    bank_account_id: yup.number().required('Select any bank')
+    amount: yup.number().required('AmountNumberIsRequired'),
+    bank_account_id: yup.number().required('SelectAnyBank')
   });
 
   const hanleCancelRemove = () => {
@@ -245,7 +245,7 @@ const PayoutWithdrawContainer = ({
                               }}
                               onBlur={handleBlur}
                               error={touched.amount && Boolean(errors.amount)}
-                              helperText={touched.amount && errors.amount}
+                              helperText={touched.amount && errors.amount ? <FormattedMessage id={errors.amount} /> : ' '}
                               InputProps={{
                                 startAdornment: (
                                   <InputAdornment position="start">
@@ -336,7 +336,9 @@ const PayoutWithdrawContainer = ({
                                         </>
                                       ))}
                                       {touched.bank_account_id && errors.bank_account_id && (
-                                        <FormHelperText error>{errors.bank_account_id}</FormHelperText>
+                                        <FormHelperText error>
+                                          {errors.bank_account_id ? <FormattedMessage id={errors.bank_account_id} /> : ''}
+                                        </FormHelperText>
                                       )}
                                     </SmallScreenGap>
                                   </BigScreenGap>

@@ -48,10 +48,12 @@ export const NoBoxInfoBox = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '484px',
   gap: theme.spacing(1.5),
   [theme.breakpoints.down('sm')]: {
     maxWidth: '296px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '484px'
   }
 }));
 
@@ -83,6 +85,12 @@ export const NoBankInformationAdded = styled(UINewTypography)(({ theme }) => ({
   textWrap: 'nowrap',
   paddingInline: '55px',
   [theme.breakpoints.down('sm')]: {
-    fontSize: '24px !important'
+    fontSize: '24px !important',
+    display: 'flex',
+    width: '100%',
+    maxWidth: '320px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center'
   }
 }));

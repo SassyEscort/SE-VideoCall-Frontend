@@ -43,15 +43,15 @@ const AddbankDetails = ({
   const [loading, setLoading] = useState(false);
 
   const validationSchema = yup.object({
-    bank_name: yup.string().required('Bank name is required'),
+    bank_name: yup.string().required('BankNameIsRequired'),
     account_name: yup
       .string()
-      .matches(/^[A-Za-z\s]+$/, 'Only text is allowed')
-      .required('Account name is required'),
+      .matches(/^[A-Za-z\s]+$/, 'OnlyTextIsAllowed')
+      .required('AccountNameIsRequired'),
     iban_number: yup
       .string()
-      .required('IBAN number is required')
-      .matches(/^[a-zA-Z0-9]*$/, 'Only alphanumeric characters are allowed in IBAN number.')
+      .required('IBANNumberIsRequired')
+      .matches(/^[a-zA-Z0-9]*$/, 'OnlyAlphanumericCharacters')
   });
 
   const handleBankDetailsRefetch = useCallback(() => {
@@ -121,7 +121,7 @@ const AddbankDetails = ({
                           onChange={handleChange}
                           onBlur={handleBlur}
                           error={touched.bank_name && Boolean(errors.bank_name)}
-                          helperText={touched.bank_name && errors.bank_name}
+                          helperText={touched.bank_name && errors.bank_name ? <FormattedMessage id={errors.bank_name} /> : ''}
                         />
                       </InputBox>
                       <InputBox>
@@ -136,7 +136,7 @@ const AddbankDetails = ({
                           onChange={handleChange}
                           onBlur={handleBlur}
                           error={touched.account_name && Boolean(errors.account_name)}
-                          helperText={touched.account_name && errors.account_name}
+                          helperText={touched.account_name && errors.account_name ? <FormattedMessage id={errors.account_name} /> : ''}
                         />
                       </InputBox>
                       <InputBox>
@@ -151,7 +151,7 @@ const AddbankDetails = ({
                           onChange={handleChange}
                           onBlur={handleBlur}
                           error={touched.iban_number && Boolean(errors.iban_number)}
-                          helperText={touched.iban_number && errors.iban_number}
+                          helperText={touched.iban_number && errors.iban_number ? <FormattedMessage id={errors.iban_number} /> : ''}
                         />
                       </InputBox>
                     </InputSecondBox>

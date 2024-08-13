@@ -35,7 +35,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
   const [alert, setAlert] = useState('');
 
   const validationSchema = yup.object({
-    email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required')
+    email: yup.string().matches(EMAIL_REGEX, 'EnterAValidEmail').required('EmailIsRequired')
   });
 
   return (
@@ -132,7 +132,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                           onChange={handleChange}
                           onBlur={handleBlur}
                           error={touched.email && Boolean(errors.email)}
-                          helperText={touched.email && errors.email}
+                          helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
                           sx={{
                             border: '2px solid',
                             borderColor: 'secondary.light',

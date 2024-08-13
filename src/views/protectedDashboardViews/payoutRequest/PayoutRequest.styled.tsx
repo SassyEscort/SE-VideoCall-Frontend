@@ -241,5 +241,8 @@ export const SecBoxConatiner = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
   justifyContent: 'center',
   alignItems: 'center',
-  textAlign: 'center'
+  textAlign: 'center',
+  [theme.breakpoints.down('sm')]: {
+    paddingBottom: theme.spacing(1)
+  }
 }));
