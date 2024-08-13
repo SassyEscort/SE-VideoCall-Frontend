@@ -13,12 +13,14 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import UINewChip from 'components/UIComponents/UINewChip';
 import theme from 'themes/theme';
 import { UINewTooltip } from 'components/UIComponents/UINewTooltip/UINewTooltip.styled';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import moment from 'moment';
 import { getLastActive } from 'utils/dateAndTime';
 
 const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }) => {
+  const intl = useIntl();
+
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const languages = guestData?.languages
@@ -51,7 +53,7 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
                 </UINewTypography>
                 <UINewTypography variant="SubtitleSmallMedium" sx={{ fontSize: '14px', lineHeight: '19.6px' }}>
                   <FormattedMessage id="LastActive" />{' '}
-                  {guestData.is_online ? <FormattedMessage id="JustNow" /> : getLastActive(guestData?.updated_at ?? '')}
+                  {guestData.is_online ? <FormattedMessage id="JustNow" /> : getLastActive(guestData?.updated_at ?? '', intl)}
                 </UINewTypography>
               </DetailsChildBox>
               <Box>

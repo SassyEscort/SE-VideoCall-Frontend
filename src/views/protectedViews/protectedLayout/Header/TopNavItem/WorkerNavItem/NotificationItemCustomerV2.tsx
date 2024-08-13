@@ -1,3 +1,4 @@
+import React from 'react';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Divider from '@mui/material/Divider';
@@ -11,6 +12,7 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { BaseContainer, ButtonBaseContainer, MainBox, TypographyBox, TypographyBox2, TypographyCreate } from './Notification.styled';
 import { NotificationTypeDetailsV2 } from 'constants/notificationTypeDetailsV2';
+import { useIntl } from 'react-intl';
 
 const NotificationItemCustomerV2 = ({
   notification,
@@ -25,6 +27,7 @@ const NotificationItemCustomerV2 = ({
   handleClose: () => void;
   handleCallback: () => void;
 }) => {
+  const intl = useIntl();
   const notificationTypeV2 = NotificationTypeDetailsV2[notification?.category];
 
   const handleClickNotificationItem = () => {
@@ -60,14 +63,14 @@ const NotificationItemCustomerV2 = ({
                 color={notificationIsRead ? 'text.primary' : 'text.secondary'}
                 sx={{ display: 'flex', justifyContent: 'flex-start' }}
               >
-                {notification?.title}
+                {intl.formatMessage({ id: 'NotificationTitle' }, { title: notification?.title })}
               </UINewTypography>
               <UINewTypography variant="SubtitleSmallRegular" textAlign="start" color="text.primary">
-                {notification?.message}
+                {intl.formatMessage({ id: 'NotificationMessage' }, { message: notification?.message })}
               </UINewTypography>
             </TypographyBox>
             <TypographyBox2>
-              <TypographyCreate>{getLastActive(notification.created_at)}</TypographyCreate>
+              <TypographyCreate>{getLastActive(notification.created_at, intl)}</TypographyCreate>
               <Box>{notificationIsRead ? '' : <Box component="img" src="/images/notification/unread_dot.svg" />}</Box>
             </TypographyBox2>
           </MainBox>

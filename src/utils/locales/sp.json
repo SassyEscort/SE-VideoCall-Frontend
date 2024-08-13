@@ -637,6 +637,22 @@
   "LastMonth": "Mes pasado",
   "LastYear": "El año pasado",
   "AllTime": "Todo el tiempo",
+  "MinutesAgo": "hace {minutes}m",
+  "HoursAgo": "hace {hours}h",
+  "DaysAgo": "hace {days} día{days, plural, one {} other{s}}",
+  "WeeksAgo": "hace {weeks} semana{weeks, plural, one {} other{s}}",
+  "MonthsAgo": "hace {months} mes{months, plural, one {} other{s}}",
+  "YearsAgo": "hace {years} año{years, plural, one {} other{s}}",
+  "NotificationTitle": "{title}",
+  "NotificationMessage": "{message}",
+  "CurrentPasswordIsRequired": "Se requiere contraseña actual",
+  "NewPasswordIsRequired": "Se requiere nueva contraseña",
+  "RepeatPasswordIsRequired": "Se requiere repetir contraseña",
+  "PasswordMustBe": "La contraseña debe tener al menos 8 caracteres.",
+  "PasswordMustBeAtLeast8Characters": "La contraseña debe tener al menos 8 caracteres.",
+  "PasswordsMustMatch": "Las contraseñas deben coincidir",
+  "EnterValidCurrentPassword": "Ingrese una contraseña actual válida",
+  "PasswordMustContainAt": "La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.",
   "UnableSend": "No se pudo enviar el correo electrónico de verificación",
   "EmailSent": "El correo electrónico de verificación ha sido enviado.",
   "InvalidVerificationCode": "Código de verificación inválido",
@@ -647,5 +663,4 @@
   "TheDocument": "El indicador 'is_document' es requerido",
   "PricePerMin": "Se requiere el precio por minuto",
   "PleaseEnterValid": "Por favor, ingrese una contraseña válida para cambiar su contraseña actual"
-
 }
