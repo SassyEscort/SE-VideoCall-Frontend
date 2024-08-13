@@ -131,9 +131,15 @@ const PayoutWithdrawContainer = ({
     bankId: number,
     setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void
   ) => {
-    setSelectBank((prevSelectBank) => (prevSelectBank === bankName ? null : bankName));
-    setSelectedBankId(bankId);
-    setFieldValue('bank_account_id', bankId);
+    if (selectBank === bankName) {
+      setSelectBank(null);
+      setSelectedBankId(null);
+      setFieldValue('bank_account_id', null);
+    } else {
+      setSelectBank(bankName);
+      setSelectedBankId(bankId);
+      setFieldValue('bank_account_id', bankId);
+    }
   };
 
   const validationSchema = yup.object({

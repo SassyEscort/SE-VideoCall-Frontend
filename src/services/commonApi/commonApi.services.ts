@@ -10,6 +10,7 @@ export type UserNameRes = {
 };
 
 export interface UserNameResData extends GenericRes {
+  custom_code: number;
   data: UserNameRes;
 }
 

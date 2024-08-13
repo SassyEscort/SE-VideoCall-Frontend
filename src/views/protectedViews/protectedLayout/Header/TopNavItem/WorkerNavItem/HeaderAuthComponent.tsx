@@ -177,7 +177,7 @@ const HeaderAuthComponent = () => {
       <HeaderMainBox
         sx={{
           gap: isSmaller
-            ? 1
+            ? 0
             : {
                 xs: 1.8,
                 sm: 4.5
