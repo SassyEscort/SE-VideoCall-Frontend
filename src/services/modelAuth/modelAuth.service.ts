@@ -49,9 +49,9 @@ export class ModelAuthService {
     }
   };
 
-  static modelForgetPassword = async (params: ForgetPasswordParams): Promise<GenericResponse> => {
+  static modelForgetPassword = async (params: ForgetPasswordParams): Promise<GenericResDataCustom> => {
     try {
-      const res = await axios.post<ForgetPasswordParams, GenericResponseData>(
+      const res = await axios.post<ForgetPasswordParams, GenericResDataCustom>(
         process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/reset-password-link`,
         params,
         {
@@ -59,9 +59,9 @@ export class ModelAuthService {
         }
       );
 
-      return res.data;
+      return res.data as GenericResDataCustom;
     } catch (err: any) {
-      return { error: err.response.data.message } as GenericResponse;
+      return err.response.data as GenericResDataCustom;
     }
   };
 
