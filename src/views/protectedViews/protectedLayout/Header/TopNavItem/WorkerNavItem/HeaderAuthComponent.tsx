@@ -170,20 +170,9 @@ const HeaderAuthComponent = () => {
 
   const unReadCount = notificationDetails?.data?.aggregate?.enabled && notificationDetails?.data?.aggregate?.enabled > 0;
 
-  const isSmaller = useMediaQuery('(max-width:320px)');
-
   return (
     <>
-      <HeaderMainBox
-        sx={{
-          gap: isSmaller
-            ? 0
-            : {
-                xs: 1.8,
-                sm: 4.5
-              }
-        }}
-      >
+      <HeaderMainBox>
         <Box display="flex">
           <LanguageDropdown />
         </Box>
