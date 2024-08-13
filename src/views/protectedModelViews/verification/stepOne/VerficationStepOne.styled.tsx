@@ -129,3 +129,13 @@ export const FooterBtnConatiner = styled(Box)(({ theme }) => ({
     paddingRight: theme.spacing(1.875)
   }
 }));
+
+export const EditVerificationBtnBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(2),
+  cursor: 'pointer',
+  flexDirection: 'row',
+  '@media (max-width:320px)': {
+    flexDirection: 'column'
+  }
+}));

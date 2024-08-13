@@ -3,6 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
   DateOfBirthMainContainer,
+  EditVerificationBtnBox,
   StepTwoBox,
   StepTwoContainer,
   StepTwoInputOuterBox,
@@ -409,7 +410,7 @@ const VerificationBasicDetails = ({
               helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
               InputProps={{
                 endAdornment: (
-                  <Box sx={{ display: 'flex', gap: 2, cursor: 'pointer' }}>
+                  <EditVerificationBtnBox>
                     <UINewTypography color={'text.secondary'} variant="buttonSmallBold" onClick={handleEditClick}>
                       <FormattedMessage id="Edit" />
                     </UINewTypography>
@@ -439,7 +440,7 @@ const VerificationBasicDetails = ({
                         </GuestStyleComponent>
                       )}
                     </>
-                  </Box>
+                  </EditVerificationBtnBox>
                 )
               }}
             />

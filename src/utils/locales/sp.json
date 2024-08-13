@@ -662,5 +662,14 @@
   "DocumentAreRequired": "Se requieren documentos para la incorporación del modelo",
   "TheDocument": "El indicador 'is_document' es requerido",
   "PricePerMin": "Se requiere el precio por minuto",
-  "PleaseEnterValid": "Por favor, ingrese una contraseña válida para cambiar su contraseña actual"
+  "PleaseEnterValid": "Por favor, ingrese una contraseña válida para cambiar su contraseña actual",
+  "AmountNumberIsRequired": "Se requiere el número de cantidad",
+  "SelectAnyBank": "Seleccione cualquier banco",
+  "BankNameIsRequired": "Se requiere el nombre del banco",
+  "OnlyTextIsAllowed": "Sólo se permite texto",
+  "AccountNameIsRequired": "El nombre de la cuenta es obligatorio",
+  "IBANNumberIsRequired": "Se requiere el número IBAN",
+  "OnlyAlphanumericCharacters": "Sólo se permiten caracteres alfanuméricos en el número IBAN.",
+  "EnterAValidEmail": "Introduce un correo electrónico válido",
+  "EmailIsRequired": "Se requiere correo electrónico"
 }
