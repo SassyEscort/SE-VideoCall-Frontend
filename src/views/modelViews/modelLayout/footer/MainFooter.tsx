@@ -199,9 +199,12 @@ const MainFooter = () => {
                       <FormattedMessage id="SignUp" />
                     </UINewTypography>
                   )}
-                  <UINewTypography variant="SubtitleSmallRegular" onClick={handleLoginOpen} sx={{ cursor: 'pointer' }}>
-                    <FormattedMessage id="LogIn" />
-                  </UINewTypography>
+                  {!token.token && (
+                    <UINewTypography variant="SubtitleSmallRegular" onClick={handleLoginOpen} sx={{ cursor: 'pointer' }}>
+                      <FormattedMessage id="LogIn" />
+                    </UINewTypography>
+                  )}
+
                   <UINewTypography variant="SubtitleSmallRegular">
                     <Link prefetch={false} href="/">
                       <FormattedMessage id="LookingForA" />
