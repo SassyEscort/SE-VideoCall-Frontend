@@ -21,6 +21,9 @@ export const UIStyledArrivalsButton = styled(Button)<UIStyledSelectButtonProps>(
     '.MuiOutlinedInput-notchedOutline': {
       backgroundColor: isClicked ? theme.palette.secondary.main : theme.palette.secondary[800]
     }
+  },
+  '@media (max-width: 320px)': {
+    whiteSpace: 'normal'
   }
 }));
 

@@ -50,14 +50,14 @@ export class authServices {
     }
   };
 
-  static emailVerifyLink = async (params: EmailVerifyParams, token: string): Promise<GenericRes> => {
+  static emailVerifyLink = async (params: EmailVerifyParams, token: string): Promise<GenericResDataCustom> => {
     try {
       const res = await axios.post<GenericRes>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/customer/email-verification-link`, params, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
       });
-      return res.data;
+      return res.data as GenericResDataCustom;
     } catch (error) {
-      return error as GenericRes;
+      return error as GenericResDataCustom;
     }
   };
 
