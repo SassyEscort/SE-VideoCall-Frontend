@@ -94,5 +94,8 @@ export const TypographyBox = styled(Box)(() => ({
 
 export const SomeInstructionsUI = styled(UINewTypography)(({ theme }) => ({
   fontSize: '16px !important',
-  lineHeight: '19.2px !important'
+  lineHeight: '19.2px !important',
+  [theme.breakpoints.down('sm')]: {
+    textAlign: 'center'
+  }
 }));

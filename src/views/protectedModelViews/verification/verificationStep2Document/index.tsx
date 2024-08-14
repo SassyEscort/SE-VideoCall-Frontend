@@ -332,6 +332,7 @@ const VerificationStepPromise = ({
                   type="submit"
                   variant="contained"
                   loading={loading}
+                  sx={{ width: '100%', maxWidth: { xs: '130px', sm: '133px' } }}
                 >
                   <UINewTypography variant="body">
                     {isReviewEdit && !isDashboard ? (
