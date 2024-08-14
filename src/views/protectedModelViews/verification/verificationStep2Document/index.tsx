@@ -82,11 +82,11 @@ const VerificationStepPromise = ({
   const validationSchema = (docValues: VerificationStepSecond) => {
     const baseValidation = Yup.mixed()
       .required('Pleaseuploadyourdocument')
-      .test('fileSize', 'File size is too large', (value) => {
+      .test('fileSize', 'FileSizeIsTooLarge', (value) => {
         if (typeof value === 'string') return true;
         return value && (value as File).size <= MAX_FILE_SIZE;
       })
-      .test('fileFormat', 'Unsupported Format', (value) => {
+      .test('fileFormat', 'UnsupportedFormat', (value) => {
         if (typeof value === 'string') return true;
         return value && SUPPORTED_FORMATS.includes((value as File).type);
       });
