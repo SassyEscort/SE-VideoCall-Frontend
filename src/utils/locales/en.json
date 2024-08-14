@@ -729,5 +729,6 @@
   "ConfirmPasswordIsRequired": "Confirm password is required",
   "NewPasswordDoesNotMatch": "New Password does not match",
   "Online": "Online",
-  "Offline": "Offline"
+  "Offline": "Offline",
+  "Submit": "Submit"
 }

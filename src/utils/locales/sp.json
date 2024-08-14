@@ -727,5 +727,6 @@
   "ConfirmPasswordIsRequired": "Se requiere confirmar la contraseña",
   "NewPasswordDoesNotMatch": "La nueva contraseña no coincide",
   "Online": "En línea",
-  "Offline": "Desconectado"
+  "Offline": "Desconectado",
+  "Submit": "Entregar"
 }

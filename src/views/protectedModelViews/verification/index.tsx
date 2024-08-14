@@ -279,7 +279,6 @@ const VerificationContainer = () => {
           handleEdit={handleEdit}
         />
       )}
-      handleNext={handleNext}
       {activeStep === 5 && <ProfileCreated />}
     </>
   );
