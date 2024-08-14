@@ -330,7 +330,7 @@
   "Availability": "Disponibilidad",
   "NotAvailable": "No disponible",
   "SaveAndReview": "Guardar y revisar",
-  "ResetFilter": "Reset filter",
+  "ResetFilter": "Restablecer filtro",
   "Apply": "Aplicar",
   "FilterOnly": "Filter only",
   "SearchFilter": "Search filter",
@@ -728,5 +728,7 @@
   "NewPasswordDoesNotMatch": "La nueva contraseña no coincide",
   "Online": "En línea",
   "Offline": "Desconectado",
-  "Submit": "Entregar"
+  "Submit": "Entregar",
+  "FileSizeIsTooLarge": "El tamaño del archivo es demasiado grande",
+  "UnsupportedFormat": "Formato no admitido"
 }
