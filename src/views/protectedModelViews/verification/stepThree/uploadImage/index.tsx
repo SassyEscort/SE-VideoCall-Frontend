@@ -105,7 +105,6 @@ const UploadImage = ({
   modelProfileStatus
 }: VerificationStepUploadType) => {
   const { pathname } = window.location;
-  console.log(pathname, 'pathname');
 
   const [loading, setLoading] = useState(false);
   const [updated, setUpdated] = useState(false);
@@ -135,7 +134,10 @@ const UploadImage = ({
           return true;
         };
 
-        if ((file5Existing[0] && file5Existing[0].length >= 1) || modelProfileStatus === PAYOUT_ACTION.APPROVE) {
+        if (
+          (file5Existing[0] && file5Existing[0].length >= 1) ||
+          (modelProfileStatus === PAYOUT_ACTION.APPROVE && pathname !== '/model/profile')
+        ) {
           return schema.test('file-size-check', fileSizeCheck).notRequired();
         }
         return schema.test('file5-combined-length', function (this: Yup.TestContext<Yup.AnyObject>, value: File[]) {
@@ -169,6 +171,13 @@ const UploadImage = ({
   });
 
   const handlePhotoSubmit = async (values: VerificationFormStep5TypeV2) => {
+    console.log(values, 'valuesvalues');
+
+    const deletedFileIds = workerPhotos
+      .filter((photo) => !values.file5Existing.some((existingPhoto) => existingPhoto.file_id === photo.file_id))
+      .map((photo) => photo.file_id);
+    console.log(deletedFileIds, 'deletedFileIds');
+
     setLoading(true);
     const allFiles: FileBody[] = [
       {
@@ -270,6 +279,10 @@ const UploadImage = ({
           photos: uploadPhotos.filter((x) => x.link !== undefined)
         };
 
+        if (deletedFileIds.length) {
+          const data = VerificationStepService.deleteMultipleImage(token.token, { file_ids: deletedFileIds });
+          console.log(data, 'datadatadata');
+        }
         const response = await VerificationStepService.uploadModelPhotos(payload, token);
 
         if (response.code === 200) {

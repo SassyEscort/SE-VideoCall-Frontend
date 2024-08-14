@@ -80,19 +80,21 @@ const ModelMultiplePhoto = ({
   const [existingPhotos, setExistingPhotos] = useState<UploadPhotos[]>([]);
   const [uploadedImagesURL, setUploadedImagesURL] = useState<UploadPhotos[]>([]);
   const [thumbnailImageId, setThumbnailImageId] = useState<number | undefined>(undefined);
-
-  console.log(uploadedImagesURL, 'uploadedImagesURL');
+  const [fileIdsData, setFileIdsData] = useState<string[]>([]);
+  console.log(fileIdsData, 'file_id');
 
   const removeImage = async (name: string, photoName: string, file_id?: string) => {
+    console.log(file_id, 'file_id');
+
     // if (file_id) {
-    //   try {
-    //     const response = await VerificationStepService.deleteImage(token.token, file_id);
-    //     if (response.code === 200) {
-    //       toast.success('Success');
-    //     }
-    //   } catch (error) {
-    //     toast.error(ErrorMessage);
-    //   }
+    //   setFileIdsData((prev) => {
+    //     const fileIdsDeleted = [...existingPhotos, ...uploadedImagesURL].find((photo) => photo.file_id !== file_id);
+    //     const updatedFileIds = [...prev, fileIdsDeleted.file_id];
+    //     console.log(fileIdsDeleted, updatedFileIds, 'fileIdsDeleted');
+
+    //     setValue('file_ids', updatedFileIds);
+    //     return updatedFileIds;
+    //   });
     // }
 
     let index = existingPhotos?.findIndex((photo) => photo.photoURL === name);

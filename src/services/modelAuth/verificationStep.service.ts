@@ -24,6 +24,10 @@ export type EmailVerify = {
   verification_code: string;
 };
 
+export type FileIdDeleteParams = {
+  file_ids: string[];
+};
+
 export class VerificationStepService {
   static imageKitAuthApi = async () => {
     const res = await axios.get<ImagekitTokenResponse>(`${process.env.NEXT_PUBLIC_API_BASE_URL_IMAGE}/api/imagekit`, {
@@ -185,6 +189,19 @@ export class VerificationStepService {
     try {
       const res = await axios.delete(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/file/${fileId}`, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
+      });
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as GenericRes;
+    }
+  };
+
+  static deleteMultipleImage = async (token: string, fileId: FileIdDeleteParams): Promise<GenericRes> => {
+    try {
+      const res = await axios.delete(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/files`, {
+        headers: { 'Content-Type': 'application/json', Authorization: token },
+        data: fileId
       });
       return res.data;
     } catch (err: any) {
