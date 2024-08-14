@@ -728,5 +728,7 @@
   "NewPasswordDoesNotMatch": "La nueva contraseña no coincide",
   "Online": "En línea",
   "Offline": "Desconectado",
-  "Submit": "Entregar"
+  "Submit": "Entregar",
+  "FileSizeIsTooLarge": "El tamaño del archivo es demasiado grande",
+  "UnsupportedFormat": "Formato no admitido"
 }

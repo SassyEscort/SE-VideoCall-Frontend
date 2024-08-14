@@ -730,5 +730,7 @@
   "NewPasswordDoesNotMatch": "New Password does not match",
   "Online": "Online",
   "Offline": "Offline",
-  "Submit": "Submit"
+  "Submit": "Submit",
+  "FileSizeIsTooLarge": "File size is too large",
+  "UnsupportedFormat": "Unsupported Format"
 }
