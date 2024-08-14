@@ -81,7 +81,7 @@ const VerificationStepPromise = ({
 
   const validationSchema = (docValues: VerificationStepSecond) => {
     const baseValidation = Yup.mixed()
-      .required('Please upload your document')
+      .required('Pleaseuploadyourdocument')
       .test('fileSize', 'File size is too large', (value) => {
         if (typeof value === 'string') return true;
         return value && (value as File).size <= MAX_FILE_SIZE;

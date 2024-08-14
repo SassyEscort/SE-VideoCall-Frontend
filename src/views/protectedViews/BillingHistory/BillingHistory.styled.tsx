@@ -9,7 +9,10 @@ export const BillingHistoryMainContainer = styled(Box)(({ theme }) => ({
   maxWidth: '929px',
   height: '100%',
   gap: theme.spacing(3),
-  flexDirection: 'column'
+  flexDirection: 'column',
+  [theme.breakpoints.down('sm')]: {
+    paddingTop: theme.spacing(1.5)
+  }
 }));
 
 export const TextMainContainer = styled(Box)(({ theme }) => ({

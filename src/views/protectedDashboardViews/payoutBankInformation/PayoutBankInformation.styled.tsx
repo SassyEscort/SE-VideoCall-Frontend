@@ -1,4 +1,4 @@
-import { Box, styled } from '@mui/material';
+import { Box, styled, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
@@ -81,9 +81,8 @@ export const Payout = styled(UINewTypography)(({ theme }) => ({
   }
 }));
 
-export const NoBankInformationAdded = styled(UINewTypography)(({ theme }) => ({
+export const NoBankInformationAdded = styled(Typography)(({ theme }) => ({
   textWrap: 'nowrap',
-  paddingInline: '55px',
   [theme.breakpoints.down('sm')]: {
     fontSize: '24px !important',
     display: 'flex',
@@ -91,6 +90,10 @@ export const NoBankInformationAdded = styled(UINewTypography)(({ theme }) => ({
     maxWidth: '320px',
     justifyContent: 'center',
     alignItems: 'center',
-    textAlign: 'center'
+    textAlign: 'center',
+    whiteSpace: 'normal'
+  },
+  [theme.breakpoints.up('sm')]: {
+    paddingInline: '55px'
   }
 }));

@@ -3,6 +3,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import Image from 'next/image';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { FormattedMessage } from 'react-intl';
 
 const CheckInbox = ({ onClose, email }: { onClose: () => void; email: string }) => {
   return (
@@ -25,10 +26,10 @@ const CheckInbox = ({ onClose, email }: { onClose: () => void; email: string }) 
       </Box>
       <Box display="flex" flexDirection="column" gap="12px" alignItems="center">
         <UINewTypography variant="MediumSemiBoldText" color="common.white">
-          Check your inbox
+          <FormattedMessage id="CheckYourInbox" />
         </UINewTypography>
         <UINewTypography variant="bodyRegular" color="secondary.200" textAlign="center">
-          A link to reset your password has been emailed to{' '}
+          <FormattedMessage id="ALinkToResetYourPassword" />{' '}
           <UINewTypography variant="bodySemiBold" color="text.primary">
             {email}
           </UINewTypography>

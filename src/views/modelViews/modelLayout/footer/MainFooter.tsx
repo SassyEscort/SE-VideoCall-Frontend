@@ -191,7 +191,7 @@ const MainFooter = () => {
                   {token.token && isVerificationPendingOrCompleted(modelDetails?.verification_step) ? (
                     <Link href="/">
                       <UINewTypography variant="SubtitleSmallRegular" sx={{ cursor: 'pointer' }}>
-                        <FormattedMessage id="ExploreModels" />
+                        {/* <FormattedMessage id="ExploreModels" /> */}
                       </UINewTypography>
                     </Link>
                   ) : (
@@ -204,12 +204,12 @@ const MainFooter = () => {
                       <FormattedMessage id="LogIn" />
                     </UINewTypography>
                   )}
-
+                  {/* 
                   <UINewTypography variant="SubtitleSmallRegular">
                     <Link prefetch={false} href="/">
                       <FormattedMessage id="LookingForA" />
                     </Link>
-                  </UINewTypography>
+                  </UINewTypography> */}
                 </ModelUITextConatiner>
               </FooterSubICon>
 
