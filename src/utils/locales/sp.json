@@ -725,5 +725,7 @@
   "ALinkToResetYourPassword": "Se ha enviado por correo electrónico un enlace para restablecer su contraseña.",
   "PasswordCondition": "Condición de contraseña",
   "ConfirmPasswordIsRequired": "Se requiere confirmar la contraseña",
-  "NewPasswordDoesNotMatch": "La nueva contraseña no coincide"
+  "NewPasswordDoesNotMatch": "La nueva contraseña no coincide",
+  "Online": "En línea",
+  "Offline": "Desconectado"
 }

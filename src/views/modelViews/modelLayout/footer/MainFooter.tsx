@@ -189,11 +189,12 @@ const MainFooter = () => {
                     </Link>
                   </UINewTypography>
                   {token.token && isVerificationPendingOrCompleted(modelDetails?.verification_step) ? (
-                    <Link href="/">
-                      <UINewTypography variant="SubtitleSmallRegular" sx={{ cursor: 'pointer' }}>
-                        {/* <FormattedMessage id="ExploreModels" /> */}
-                      </UINewTypography>
-                    </Link>
+                    // <Link href="/">
+                    //   <UINewTypography variant="SubtitleSmallRegular" sx={{ cursor: 'pointer' }}>
+                    //     <FormattedMessage id="ExploreModels" />
+                    //   </UINewTypography>
+                    // </Link>
+                    <></>
                   ) : (
                     <UINewTypography variant="SubtitleSmallRegular" onClick={handleSignupOpen} sx={{ cursor: 'pointer' }}>
                       <FormattedMessage id="SignUp" />
@@ -204,12 +205,13 @@ const MainFooter = () => {
                       <FormattedMessage id="LogIn" />
                     </UINewTypography>
                   )}
-                  {/* 
-                  <UINewTypography variant="SubtitleSmallRegular">
-                    <Link prefetch={false} href="/">
-                      <FormattedMessage id="LookingForA" />
-                    </Link>
-                  </UINewTypography> */}
+                  {/* {!token.token && (
+                    <UINewTypography variant="SubtitleSmallRegular">
+                      <Link prefetch={false} href="/">
+                        <FormattedMessage id="LookingForA" />
+                      </Link>
+                    </UINewTypography>
+                  )} */}
                 </ModelUITextConatiner>
               </FooterSubICon>
 

@@ -94,7 +94,7 @@ const Favorites = () => {
                 <FormattedMessage id="Favourites" />
               </UINewTypography>
               <UINewTypography variant="bodyUltraLarge" color="text.primary">
-                {modelNumber} <FormattedMessage id="Models" />
+                {total_rows} <FormattedMessage id="Models" />
               </UINewTypography>
             </FavoritesText>
           </FavoriteTextMainBox>
