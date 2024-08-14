@@ -20,6 +20,7 @@ import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
 import { useRouter } from 'next/navigation';
 import { UIKitSettingsBuilder } from '@cometchat/uikit-shared';
 import { gaEventTrigger } from 'utils/analytics';
+import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
@@ -181,6 +182,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       label: 'Video_call_initiated',
       value: JSON.stringify(customerInfo)
     });
+    const modelDetails = await ModelDetailsService.getModelDetails(token.token, isCustomer, userName);
     setModelCreditPrice(modelPrice);
     setModelId(guestId);
     setModelName(modelName);
@@ -214,7 +216,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     } else if (call) {
       toast.error('Please end your ONGOING call');
       setIsLoading(false);
-    } else if (!isModelOnline) {
+    } else if (!modelDetails.is_online) {
       gaEventTrigger('Video_call_unanswered', {
         action: 'Video_call_unanswered',
         category: 'Button',
@@ -225,7 +227,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         model_id: guestId,
         status: CALLING_STATUS.UNASWERED
       };
-      setIsModelAvailable(isModelOnline);
+      setIsModelAvailable(modelDetails.is_online);
       await CallingService.missedCallStatus(missedParams, token.token);
     } else {
       const creditInfoEvent = {
