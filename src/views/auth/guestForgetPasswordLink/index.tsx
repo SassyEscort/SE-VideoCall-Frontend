@@ -163,7 +163,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                     gap={1}
                     alignItems="center"
                     justifyContent="center"
-                    sx={{ flexDirection: { xs: 'row', sm: 'column' } }}
+                    sx={{ flexDirection: { xs: 'column', sm: 'row' } }}
                   >
                     <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
                       <FormattedMessage id="RememberPasswordd" />

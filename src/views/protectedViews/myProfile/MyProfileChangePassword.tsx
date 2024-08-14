@@ -32,7 +32,7 @@ const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; 
   const [repeatPassword, setRepeatPassword] = useState(false);
 
   const validationSchema = yup.object({
-    currentPassword: yup.string().required('CurrentPasswordIsRequired').min(8, 'PasswordMustBe').matches(PASSWORD_PATTERN, {
+    currentPassword: yup.string().required('CurrentPasswordIsRequired').min(8, 'EnterValidCurrentPassword').matches(PASSWORD_PATTERN, {
       message: 'EnterValidCurrentPassword',
       excludeEmptyString: true
     }),
