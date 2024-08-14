@@ -26,7 +26,6 @@ const Favorites = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [total_rows, setTotalRows] = useState(0);
-  const modelNumber = favListing.length;
 
   const [filters, setFilters] = useState<FavoritesPaginationType>({
     page: 1,
