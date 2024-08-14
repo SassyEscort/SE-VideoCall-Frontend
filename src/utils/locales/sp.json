@@ -721,5 +721,7 @@
   "ImageUrlAbsent": "URL de la imagen ausente",
   "ModelEmailVerified": "El correo electrónico del modelo ha sido verificado",
   "UserWithThisEmailAlreadyExists": "El usuario con este correo electrónico ya existe",
-  "NameContainsUnwantedPhrases": "El nombre ingresado no es válido. Por favor, ingrese un nombre válido."
+  "NameContainsUnwantedPhrases": "El nombre ingresado no es válido. Por favor, ingrese un nombre válido.",
+  "Online": "En línea",
+  "Offline": "Desconectado"
 }

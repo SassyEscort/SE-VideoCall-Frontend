@@ -50,8 +50,8 @@ import { useRouter } from 'next/navigation';
 
 export type CallHistoryPaginationType = {
   page: number;
-  offset: number;
   limit: number;
+  offset: number;
 };
 
 const CallHistory = () => {
@@ -83,7 +83,12 @@ const CallHistory = () => {
       try {
         if (token.token) {
           setIsLoading(true);
-          const data = await CallHistoryService.getCallHistoryDetails(token.token);
+          const objectParams = {
+            page: filters.page,
+            limit: filters.limit,
+            offset: filters.offset
+          };
+          const data = await CallHistoryService.getCallHistoryDetails(token.token, objectParams);
           if (data) {
             setCallHistoryData(data);
             setTotalRows(data.data.aggregate.total_rows);
@@ -96,6 +101,7 @@ const CallHistory = () => {
     };
 
     fetchCallHistoryDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters.limit, filters.offset, token.token]);
 
   const scrollToTable = () => {

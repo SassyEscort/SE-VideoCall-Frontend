@@ -70,11 +70,12 @@ const VerificationHeader = ({
                   backgroundColor: 'transparent'
                 }
               }}
+              disabled={activeStep >= 5}
             >
-              <UINewTypography color="text.secondary" variant="buttonLargeMenu">
+              <UINewTypography color={activeStep >= 5 ? 'text.disabled' : 'text.secondary'} variant="buttonLargeMenu">
                 <FormattedMessage id="Next" />
               </UINewTypography>
-              <RiArrowRightLine style={{ color: 'white' }} />
+              <RiArrowRightLine color={activeStep >= 5 ? 'text.disabled' : 'white'} />
             </StyleButtonV2>
           </Box>
         </VerificationHeaderBox>

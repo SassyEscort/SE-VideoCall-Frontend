@@ -723,5 +723,7 @@
   "ImageUrlAbsent": "Image url absent",
   "ModelEmailVerified": "Model email has been verified",
   "UserWithThisEmailAlreadyExists": "User with this email already exists",
-  "NameContainsUnwantedPhrases": "The name entered is not valid. Please enter a valid name."
+  "NameContainsUnwantedPhrases": "The name entered is not valid. Please enter a valid name.",
+  "Online": "Online",
+  "Offline": "Offline"
 }
