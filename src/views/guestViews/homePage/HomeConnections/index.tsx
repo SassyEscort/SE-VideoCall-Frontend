@@ -27,14 +27,14 @@ import theme from 'themes/theme';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
-import { useEffect, useState } from 'react';
-import { getUserDataClient } from 'utils/getSessionData';
+import { useState } from 'react';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestLogin from 'views/auth/guestLogin';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestNewPassword from 'views/auth/guestNewPassword';
 import { useRouter } from 'next/navigation';
+import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
 const HomeConnections = () => {
   const { push } = useRouter();
@@ -44,11 +44,11 @@ const HomeConnections = () => {
   const id = url.searchParams.get('id');
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('lg'));
-  const [isLogin, setIsLogin] = useState(false);
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const [openChangePassword, setIsOpenChangePassword] = useState(email && !id && url.pathname !== '/profile' ? true : false);
+  const { isCustomer } = useCallFeatureContext();
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -92,20 +92,10 @@ const HomeConnections = () => {
     setIsOpenChangePassword(false);
   };
 
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      if (data) {
-        setIsLogin(true);
-      }
-    };
-    userToken();
-  }, []);
-
   return (
     <>
       <HomeMainContainer>
-        {!isLogin ? (
+        {!isCustomer ? (
           <Box
             sx={{
               position: 'relative',

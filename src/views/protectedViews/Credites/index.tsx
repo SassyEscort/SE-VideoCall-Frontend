@@ -93,12 +93,6 @@ const Credits = () => {
     });
     const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, 0);
     if (res) {
-      gaEventTrigger('Credits_Purchase_Success', {
-        action: 'Credits_Purchase_Success',
-        category: 'Page change',
-        label: 'Credits_Purchase_Successd',
-        value: JSON.stringify(customerInfo)
-      });
       router.push(res?.data?.url);
     }
     setIsLoading(false);
@@ -111,7 +105,22 @@ const Credits = () => {
     setAddedCredits(Number(credit));
     getCustomerCredit();
     if (credit) {
+      const customerInfo = {
+        email: customerData?.customer_email,
+        name: customerData?.customer_name,
+        username: customerData?.customer_user_name
+      };
       setOpen(true);
+      gaEventTrigger(
+        'Credits_Purchase_Success',
+        {
+          action: 'Credits_Purchase_Success',
+          category: 'Page change',
+          label: 'Credits_Purchase_Success',
+          value: JSON.stringify(customerInfo)
+        },
+        Number(credit)
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);

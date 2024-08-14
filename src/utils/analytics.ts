@@ -1,4 +1,4 @@
-export const gaEventTrigger = (action: string, data: any) => {
+export const gaEventTrigger = (action: string, data: any, credits?: number) => {
   if (window.gtag) {
     try {
       // Check if the value is a string but not a JSON object
@@ -11,6 +11,14 @@ export const gaEventTrigger = (action: string, data: any) => {
           data = { ...data, ...flattenedValue };
         }
       }
+
+      if (action === 'Credits_Purchase_Success') {
+        data = {
+          ...data,
+          value: credits,
+          currency: 'USD'
+        };
+      }
     } catch (e) {
       console.error('Error processing value field:', e);
     }
@@ -22,7 +30,7 @@ export const gaEventTrigger = (action: string, data: any) => {
 const tryParseJSON = (jsonString: string): any => {
   try {
     const obj = JSON.parse(jsonString);
-    if (obj && typeof obj === "object") {
+    if (obj && typeof obj === 'object') {
       return obj;
     }
   } catch (e) {
@@ -43,7 +51,7 @@ const isJSON = (str: string): boolean => {
 
 // Helper function to flatten a nested object
 const flattenObject = (obj: any, prefix: string = '', parentKey: string = ''): any => {
-  return Object.keys(obj).reduce((acc:any, key) => {
+  return Object.keys(obj).reduce((acc: any, key) => {
     const newKey = `${prefix}${parentKey ? `${parentKey}_` : ''}${key}`.replace(/\./g, '_');
     if (typeof obj[key] === 'object' && obj[key] !== null) {
       Object.assign(acc, flattenObject(obj[key], prefix, newKey));

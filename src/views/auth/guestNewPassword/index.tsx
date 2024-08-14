@@ -49,15 +49,11 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
   const isSm = useMediaQuery(theme.breakpoints.down(330));
 
   const validationSchema = yup.object({
-    password: yup
-      .string()
-      .required('New password is required')
-      .min(8, 'Password must be at least 8 characters')
-      .matches(PASSWORD_PATTERN, 'Password Condition'),
+    password: yup.string().required('NewPasswordIsRequired').min(8, 'PasswordMustBe').matches(PASSWORD_PATTERN, 'PasswordCondition'),
     confirmPassword: yup
       .string()
-      .required('Confirm password is required')
-      .oneOf([yup.ref('password'), ''], 'New Password does not match')
+      .required('ConfirmPasswordIsRequired')
+      .oneOf([yup.ref('password'), ''], 'NewPasswordDoesNotMatch')
   });
 
   return (
@@ -168,7 +164,7 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                         onChange={handleChange}
                         onBlur={handleBlur}
                         error={touched.password && Boolean(errors.password)}
-                        helperText={touched.password && errors.password}
+                        helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
                         sx={{
                           border: '2px solid',
                           borderColor: 'secondary.light'
@@ -198,7 +194,9 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                         onChange={handleChange}
                         onBlur={handleBlur}
                         error={touched.confirmPassword && Boolean(errors.confirmPassword)}
-                        helperText={touched.confirmPassword && errors.confirmPassword}
+                        helperText={
+                          touched.confirmPassword && errors.confirmPassword ? <FormattedMessage id={errors.confirmPassword} /> : ''
+                        }
                         sx={{
                           border: '2px solid',
                           borderColor: 'secondary.light'

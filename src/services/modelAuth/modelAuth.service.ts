@@ -1,11 +1,9 @@
 import axios, { AxiosError } from 'axios';
-import { ChangePassParams } from 'services/guestAuth/authuser.services';
+import { ChangePassParams, GenericResCustom, GenericResDataCustom } from 'services/guestAuth/authuser.services';
 import { GenericResponse, GenericResponseData } from 'types/commonApiTypes';
 import { ForgetPasswordParams } from 'views/modelViews/modelForgetPasswordLink';
 import { LoginParams } from 'views/modelViews/modelSignin';
-
 import { ModelSignupParams } from 'views/modelViews/modelSignup';
-import { GenericRes } from './types';
 
 export class ModelAuthService {
   static modelSignup = async (params: ModelSignupParams) => {
@@ -51,9 +49,9 @@ export class ModelAuthService {
     }
   };
 
-  static modelForgetPassword = async (params: ForgetPasswordParams): Promise<GenericResponse> => {
+  static modelForgetPassword = async (params: ForgetPasswordParams): Promise<GenericResDataCustom> => {
     try {
-      const res = await axios.post<ForgetPasswordParams, GenericResponseData>(
+      const res = await axios.post<ForgetPasswordParams, GenericResDataCustom>(
         process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/reset-password-link`,
         params,
         {
@@ -61,15 +59,15 @@ export class ModelAuthService {
         }
       );
 
-      return res.data;
+      return res.data as GenericResDataCustom;
     } catch (err: any) {
-      return { error: err.response.data.message } as GenericResponse;
+      return err.response.data as GenericResDataCustom;
     }
   };
 
-  static modelForgetPasswordLinkStep = async (emailid: string, token: string, source: string): Promise<GenericResponse> => {
+  static modelForgetPasswordLinkStep = async (emailid: string, token: string, source: string): Promise<GenericResDataCustom> => {
     try {
-      const res = await axios.post<ForgetPasswordParams, GenericResponseData>(
+      const res = await axios.post<ForgetPasswordParams, GenericResDataCustom>(
         process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/email-verification-link`,
         { email: emailid, source: source },
         {
@@ -77,21 +75,21 @@ export class ModelAuthService {
         }
       );
 
-      return res.data;
+      return res.data as GenericResDataCustom;
     } catch (err: any) {
       const error: string = err;
-      return { error: error } as GenericResponse;
+      return { error: error } as GenericResDataCustom;
     }
   };
 
-  static changePassword = async (params: ChangePassParams, token: string): Promise<GenericRes | string> => {
+  static changePassword = async (params: ChangePassParams, token: string): Promise<GenericResCustom> => {
     try {
-      const res = await axios.post<GenericRes>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/update-password`, params, {
+      const res = await axios.post<GenericResCustom>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/update-password`, params, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
       });
       return res.data;
     } catch (err: any) {
-      return err.response?.data.message as string;
+      return err.response?.data as GenericResCustom;
     }
   };
 }

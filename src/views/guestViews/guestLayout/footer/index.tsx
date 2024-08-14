@@ -7,20 +7,20 @@ import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import MainFooter from './MainFooter';
 import { FormattedMessage } from 'react-intl';
 import { FooterButton } from './MainFooter.styled';
-import { getUserDataClient } from 'utils/getSessionData';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestLogin from 'views/auth/guestLogin';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
+import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
 const Footer = () => {
-  const [isLogin, setIsLogin] = useState(false);
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { isCustomer } = useCallFeatureContext();
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -54,16 +54,6 @@ const Footer = () => {
     setOpenForgetPassLink(false);
   };
 
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      if (data) {
-        setIsLogin(true);
-      }
-    };
-    userToken();
-  }, []);
-
   const handleClick = () => {
     setLoading(true);
     setTimeout(() => {
@@ -92,7 +82,7 @@ const Footer = () => {
               }}
             >
               <Box sx={{ width: '100%', maxWidth: '195px' }}>
-                {!isLogin ? (
+                {!isCustomer ? (
                   <UIThemeShadowButton fullWidth variant="contained" onClick={handleSignupOpen}>
                     <FooterButton variant="buttonLargeBold">
                       <FormattedMessage id="SignUpNow" />

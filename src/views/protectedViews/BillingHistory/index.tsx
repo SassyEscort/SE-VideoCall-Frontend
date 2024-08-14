@@ -121,7 +121,7 @@ const BillingHistory = () => {
       <BillingHistoryBoxContainer>
         <TextAndBoxContainer>
           <BillingHistoryTextContainer id={'tableSection'}>
-            <UINewTypography variant="h2" color="text.secondary" whiteSpace={'nowrap'}>
+            <UINewTypography variant="h2" color="text.secondary" sx={{ whiteSpace: { xs: 'normal', sm: 'nowrap' } }}>
               <FormattedMessage id="BillingHistory" />
             </UINewTypography>
           </BillingHistoryTextContainer>

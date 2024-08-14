@@ -261,7 +261,6 @@ const VerificationContainer = () => {
           handleEdit={handleEdit}
         />
       )}
-
       {activeStep === 3 && (
         <DashboardPriceView
           isEdit={false}

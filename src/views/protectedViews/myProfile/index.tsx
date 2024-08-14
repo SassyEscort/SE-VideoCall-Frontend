@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { DisableButtonBox, MyProfileContainerMain } from './MyProfile.styled';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import MyProfileContainer from './MyProfileContainer';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -17,6 +17,7 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { getErrorMessage } from 'utils/errorUtils';
 
 export type MyProfile = {
   username: string;
@@ -26,6 +27,8 @@ export type MyProfile = {
 
 const MyProfile = () => {
   const { handelNameChange } = useCallFeatureContext();
+  const intl = useIntl();
+
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
   const [isLoading, setIsLoading] = useState(false);
@@ -39,12 +42,14 @@ const MyProfile = () => {
     try {
       setLoadingButton(true);
       const res = await CommonServices.updateUserName(token.token, name, email);
+
       handelNameChange();
       if (res) {
-        if (res.code === 200) {
+        if (res.code === 200 && res.custom_code === null) {
           toast.success('Success');
         } else {
-          toast.error(ErrorMessage);
+          const errorMessage = getErrorMessage(res?.custom_code);
+          toast.error(intl.formatMessage({ id: errorMessage }));
         }
       }
     } catch (error) {

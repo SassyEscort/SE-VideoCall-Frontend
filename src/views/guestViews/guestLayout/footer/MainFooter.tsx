@@ -17,8 +17,10 @@ import GuestLogin from 'views/auth/guestLogin';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import { useState } from 'react';
 import { gaEventTrigger } from 'utils/analytics';
+import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
 const MainFooter = () => {
+  const { isCustomer } = useCallFeatureContext();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [open, setIsOpen] = useState(false);
@@ -128,26 +130,37 @@ const MainFooter = () => {
                         <FormattedMessage id="FAQs" />
                       </Link>
                     </UINewTypography>
-                    <UINewTypography
-                      variant="SubtitleSmallRegular"
-                      sx={{ cursor: 'pointer' }}
-                      onClick={() => {
-                        gaEventTrigger('Signup_Button_clicked', { source: 'footer' });
-                        handleSignupOpen();
-                      }}
-                    >
-                      <FormattedMessage id="SignUp" />
-                    </UINewTypography>
-                    <UINewTypography
-                      variant="SubtitleSmallRegular"
-                      sx={{ cursor: 'pointer' }}
-                      onClick={() => {
-                        gaEventTrigger('Login_Button_clicked', { source: 'footer', category: 'Button' });
-                        handleLoginOpen();
-                      }}
-                    >
-                      <FormattedMessage id="LogIn" />
-                    </UINewTypography>
+                    {isCustomer ? (
+                      <Link prefetch={false} href="/">
+                        <UINewTypography variant="SubtitleSmallRegular" sx={{ cursor: 'pointer' }}>
+                          <FormattedMessage id="ExploreModels" />
+                        </UINewTypography>
+                      </Link>
+                    ) : (
+                      <>
+                        <UINewTypography
+                          variant="SubtitleSmallRegular"
+                          sx={{ cursor: 'pointer' }}
+                          onClick={() => {
+                            gaEventTrigger('Signup_Button_clicked', { source: 'footer' });
+                            handleSignupOpen();
+                          }}
+                        >
+                          <FormattedMessage id="SignUp" />
+                        </UINewTypography>
+                        <UINewTypography
+                          variant="SubtitleSmallRegular"
+                          sx={{ cursor: 'pointer' }}
+                          onClick={() => {
+                            gaEventTrigger('Login_Button_clicked', { source: 'footer', category: 'Button' });
+                            handleLoginOpen();
+                          }}
+                        >
+                          <FormattedMessage id="LogIn" />
+                        </UINewTypography>
+                      </>
+                    )}
+
                     <UINewTypography variant="SubtitleSmallRegular">
                       <Link prefetch={false} href="/model">
                         <FormattedMessage id="RegisterAsModel" />

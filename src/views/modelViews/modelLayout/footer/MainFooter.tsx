@@ -139,16 +139,18 @@ const MainFooter = () => {
               </Box>
               <FooterStoreBox>
                 <Box>
-                  <Image
-                    src="/images/app-logo/google-pay.png"
-                    width={120}
-                    height={120}
-                    alt="play_store"
-                    style={{
-                      width: 'auto'
-                    }}
-                    loading="lazy"
-                  />
+                  <Link href="https://play.google.com/store/apps/details?id=com.holo.hsvm.prod&hl=en" target="_blank">
+                    <Image
+                      src="/images/app-logo/google-pay.png"
+                      width={120}
+                      height={120}
+                      alt="play_store"
+                      style={{
+                        width: 'auto'
+                      }}
+                      loading="lazy"
+                    />
+                  </Link>
                 </Box>
                 <Box>
                   <Link href="https://apps.apple.com/us/app/hs-messenger/id6557061284" target="_blank">
@@ -187,24 +189,29 @@ const MainFooter = () => {
                     </Link>
                   </UINewTypography>
                   {token.token && isVerificationPendingOrCompleted(modelDetails?.verification_step) ? (
-                    <Link href="/">
-                      <UINewTypography variant="SubtitleSmallRegular" sx={{ cursor: 'pointer' }}>
-                        <FormattedMessage id="ExploreModels" />
-                      </UINewTypography>
-                    </Link>
+                    // <Link href="/">
+                    //   <UINewTypography variant="SubtitleSmallRegular" sx={{ cursor: 'pointer' }}>
+                    //     <FormattedMessage id="ExploreModels" />
+                    //   </UINewTypography>
+                    // </Link>
+                    <></>
                   ) : (
                     <UINewTypography variant="SubtitleSmallRegular" onClick={handleSignupOpen} sx={{ cursor: 'pointer' }}>
                       <FormattedMessage id="SignUp" />
                     </UINewTypography>
                   )}
-                  <UINewTypography variant="SubtitleSmallRegular" onClick={handleLoginOpen} sx={{ cursor: 'pointer' }}>
-                    <FormattedMessage id="LogIn" />
-                  </UINewTypography>
-                  <UINewTypography variant="SubtitleSmallRegular">
-                    <Link prefetch={false} href="/">
-                      <FormattedMessage id="LookingForA" />
-                    </Link>
-                  </UINewTypography>
+                  {!token.token && (
+                    <UINewTypography variant="SubtitleSmallRegular" onClick={handleLoginOpen} sx={{ cursor: 'pointer' }}>
+                      <FormattedMessage id="LogIn" />
+                    </UINewTypography>
+                  )}
+                  {/* {!token.token && (
+                    <UINewTypography variant="SubtitleSmallRegular">
+                      <Link prefetch={false} href="/">
+                        <FormattedMessage id="LookingForA" />
+                      </Link>
+                    </UINewTypography>
+                  )} */}
                 </ModelUITextConatiner>
               </FooterSubICon>
 

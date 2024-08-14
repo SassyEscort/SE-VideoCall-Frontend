@@ -33,7 +33,8 @@ const EscortSwiperPhotoContainer = ({
         minHeight: isMain && !isMdDown ? 660 : isMdDown && !isMain ? '90px' : isMdDown && isMain ? 430 : 0,
         borderRadius: 2,
         zIndex: 2,
-        position: 'relative'
+        position: 'relative',
+        overflow: 'hidden'
       }}
     >
       {VideoAcceptType.includes(image.split('.').pop()?.toLowerCase() || '') && (
@@ -43,6 +44,7 @@ const EscortSwiperPhotoContainer = ({
           height="100%"
           controls={true}
           sx={{
+            objectFit: 'cover',
             maxHeight: isMain && !isMdDown ? 700 : isMdDown && !isMain ? '90px' : isMdDown && isMain ? 430 : 430
           }}
         >

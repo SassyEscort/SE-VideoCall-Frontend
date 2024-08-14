@@ -23,15 +23,24 @@ export type ModelFavResponse = {
   aggregate: PaginationAggregation;
 };
 
+export type FavoriteFilter = {
+  page: number;
+  limit: number;
+  offset: number;
+};
+
 export class CustomerFavorite {
-  static getCustomerFavorite = async (token: string): Promise<ModelFavResponse> => {
+  static getCustomerFavorite = async (token: string, payload: FavoriteFilter): Promise<ModelFavResponse> => {
     try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/customer/favourite?limit=100&offset=0`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token
+      const res = await axios.get(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/customer/favourite?limit=${payload.limit}&offset=${payload.offset}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+          }
         }
-      });
+      );
 
       return res.data.data;
     } catch (err: any) {

@@ -10,12 +10,13 @@ import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { useState } from 'react';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { DialogTitleBox, DividerBox, FirstBox, InputBox, InputBoxMain, MainDialogBox } from './ChangePassword.styled';
 import { authServices } from 'services/guestAuth/authuser.services';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
+import { getErrorMessage } from 'utils/errorUtils';
 
 export type ChangePasswordParams = {
   currentPassword: string;
@@ -24,34 +25,28 @@ export type ChangePasswordParams = {
 };
 
 const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; onClose: () => void; token: TokenIdType }) => {
+  const intl = useIntl();
+
   const [currentPassword, setShowPassword] = useState(false);
   const [newPassword, setNewPassword] = useState(false);
   const [repeatPassword, setRepeatPassword] = useState(false);
 
   const validationSchema = yup.object({
-    currentPassword: yup
-      .string()
-      .required('current Password is required')
-      .min(8, 'Password must be at least 8 characters')
-      .matches(PASSWORD_PATTERN, {
-        message: 'Enter valid current password',
-        excludeEmptyString: true
-      }),
-    newPassword: yup
-      .string()
-      .required('New Password is required')
-      .min(8, 'Password must be at least 8 characters')
-      .matches(PASSWORD_PATTERN, {
-        message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
-        excludeEmptyString: true
-      }),
+    currentPassword: yup.string().required('CurrentPasswordIsRequired').min(8, 'EnterValidCurrentPassword').matches(PASSWORD_PATTERN, {
+      message: 'EnterValidCurrentPassword',
+      excludeEmptyString: true
+    }),
+    newPassword: yup.string().required('NewPasswordIsRequired').min(8, 'PasswordMustBe').matches(PASSWORD_PATTERN, {
+      message: 'PasswordMustContainAt',
+      excludeEmptyString: true
+    }),
     repeatPassword: yup
       .string()
-      .required('Repeat Password is required')
-      .min(8, 'Password must be at least 8 characters')
-      .oneOf([yup.ref('newPassword')], 'Passwords must match')
+      .required('RepeatPasswordIsRequired')
+      .min(8, 'PasswordMustBe')
+      .oneOf([yup.ref('newPassword')], 'PasswordsMustMatch')
       .matches(PASSWORD_PATTERN, {
-        message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+        message: 'PasswordMustContainAt',
         excludeEmptyString: true
       })
   });
@@ -70,11 +65,12 @@ const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; 
             { old_password: values.currentPassword, new_password: values.newPassword },
             token.token
           );
-          if (typeof data === 'string') {
-            toast.error(data);
-          } else {
+          if (data.code === 200) {
             toast.success('Success');
             onClose();
+          } else {
+            const errorMessage = getErrorMessage(data?.custom_code);
+            toast.error(intl.formatMessage({ id: errorMessage }));
           }
         } catch (error) {
           toast.error(ErrorMessage);
@@ -139,7 +135,7 @@ const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; 
                       onChange={handleChange}
                       onBlur={handleBlur}
                       error={touched.currentPassword && Boolean(errors.currentPassword)}
-                      helperText={touched.currentPassword && errors.currentPassword}
+                      helperText={touched.currentPassword && errors.currentPassword ? <FormattedMessage id={errors.currentPassword} /> : ''}
                       InputProps={{
                         endAdornment: (
                           <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setShowPassword(!currentPassword)}>
@@ -162,7 +158,7 @@ const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; 
                       onChange={handleChange}
                       onBlur={handleBlur}
                       error={touched.newPassword && Boolean(errors.newPassword)}
-                      helperText={touched.newPassword && errors.newPassword}
+                      helperText={touched.newPassword && errors.newPassword ? <FormattedMessage id={errors.newPassword} /> : ' '}
                       InputProps={{
                         endAdornment: (
                           <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setNewPassword(!newPassword)}>
@@ -185,7 +181,7 @@ const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; 
                       onChange={handleChange}
                       onBlur={handleBlur}
                       error={touched.repeatPassword && Boolean(errors.repeatPassword)}
-                      helperText={touched.repeatPassword && errors.repeatPassword}
+                      helperText={touched.repeatPassword && errors.repeatPassword ? <FormattedMessage id={errors.repeatPassword} /> : ' '}
                       InputProps={{
                         endAdornment: (
                           <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setRepeatPassword(!repeatPassword)}>

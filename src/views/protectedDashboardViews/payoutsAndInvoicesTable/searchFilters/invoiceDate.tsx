@@ -88,7 +88,7 @@ const InvoiceDate = ({ handleChangeFilter, filters }: { handleChangeFilter: (val
                 '&. MuiPaper-root': { borderRadius: '16px 0px' }
               }}
             >
-              {data?.name}
+              <FormattedMessage id={data?.name} />
             </MenuItem>
           ))}
         </UIStyledSelectPastPayout>
