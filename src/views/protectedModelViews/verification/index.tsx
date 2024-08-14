@@ -261,7 +261,6 @@ const VerificationContainer = () => {
           handleEdit={handleEdit}
         />
       )}
-
       {activeStep === 3 && (
         <DashboardPriceView
           isEdit={false}
@@ -280,6 +279,7 @@ const VerificationContainer = () => {
           handleEdit={handleEdit}
         />
       )}
+      handleNext={handleNext}
       {activeStep === 5 && <ProfileCreated />}
     </>
   );
