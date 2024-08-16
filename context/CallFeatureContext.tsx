@@ -453,22 +453,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const credit = searchParams.get('credit');
-    const totalBal = searchParams.get('total_amount_after_txn');
+    const totalBal = searchParams.get('total_credits_after_txn');
     setBalance(Number(totalBal));
     setAddedCredits(Number(credit));
-    if (credit) {
-      gaEventTrigger(
-        'Credits_Purchase_Success',
-        {
-          action: 'Credits_Purchase_Success',
-          category: 'Page change',
-          label: 'Credits_Purchase_Success',
-          value: JSON.stringify(customerInfo)
-        },
-        Number(totalBal)
-      );
-      setOpenSuccess(true);
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
