@@ -56,7 +56,7 @@ const HelpAndSupportContainer = () => {
             width: '100%'
           }}
         >
-          <FAQConatainer sx={{ width: '100%', maxWidth: '824px' }}>
+          <FAQConatainer sx={{ width: '100%' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
               <FAQMainContainer>
                 <FAQTitle>

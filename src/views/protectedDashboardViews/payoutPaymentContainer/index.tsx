@@ -191,10 +191,10 @@ const PayoutPaymentConatiner = ({
                           {deleteId === list.id ? (
                             <>
                               <ConfirmBox component={'button'} onClick={handleBankDetailsDelete}>
-                                Confirm
+                                <FormattedMessage id="Confirm" />
                               </ConfirmBox>
                               <CancelBox component={'button'} onClick={handleCancelDelete}>
-                                Cancel
+                                <FormattedMessage id="Cancel" />
                               </CancelBox>
                             </>
                           ) : (

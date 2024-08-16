@@ -205,12 +205,14 @@ const DragAndDropV2 = ({
                 }}
               >
                 <UINewTypography variant="buttonLargeBold" sx={{ color: '#FF68C0' }}>
-                  Drag &amp; Drop{' '}
+                  <FormattedMessage id="Drag" /> &amp; <FormattedMessage id="Drop" />{' '}
                   <Box component="span" sx={{ color: '#B7B5B9' }}>
-                    To
+                    <FormattedMessage id="To" />
                   </Box>
                 </UINewTypography>
-                <UINewTypography variant="buttonLargeBold">{title} Upload</UINewTypography>
+                <UINewTypography variant="buttonLargeBold">
+                  {title} <FormattedMessage id="Upload" />
+                </UINewTypography>
               </Box>
             </>
           )}
