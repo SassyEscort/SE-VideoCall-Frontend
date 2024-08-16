@@ -453,8 +453,10 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const credit = searchParams.get('credit');
-    const totalBal = searchParams.get('total_amount_after_txn');
+    const totalBal = searchParams.get('total_credits_after_txn');
+    const totalBalValue = searchParams.get('total_amount_after_txn');
     setBalance(Number(totalBal));
+    setBalance(Number(totalBalValue));
     setAddedCredits(Number(credit));
     if (credit) {
       gaEventTrigger(
@@ -465,7 +467,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           label: 'Credits_Purchase_Success',
           value: JSON.stringify(customerInfo)
         },
-        Number(totalBal)
+        Number(totalBalValue)
       );
       setOpenSuccess(true);
     }
