@@ -102,7 +102,7 @@ const Credits = () => {
   };
   useEffect(() => {
     const credit = searchParams.get('credit');
-    const totalBal = searchParams.get('total_credits_after_txn');
+    const totalBal = searchParams.get('total_amount_after_txn');
     setBalance(Number(totalBal));
     setAddedCredits(Number(credit));
     getCustomerCredit();
