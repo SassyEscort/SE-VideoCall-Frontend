@@ -456,6 +456,19 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     const totalBal = searchParams.get('total_credits_after_txn');
     setBalance(Number(totalBal));
     setAddedCredits(Number(credit));
+    if (credit) {
+      gaEventTrigger(
+        'Credits_Purchase_Success',
+        {
+          action: 'Credits_Purchase_Success',
+          category: 'Dialog',
+          label: 'Credits_Purchase_Success',
+          value: JSON.stringify(customerInfo)
+        },
+        Number(totalBal)
+      );
+      setOpenSuccess(true);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
