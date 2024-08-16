@@ -102,6 +102,8 @@ const Credits = () => {
   };
   useEffect(() => {
     const credit = searchParams.get('credit');
+    const totalBal = searchParams.get('total_credits_after_txn');
+    setBalance(Number(totalBal));
     setAddedCredits(Number(credit));
     getCustomerCredit();
     if (credit) {
@@ -119,7 +121,7 @@ const Credits = () => {
           label: 'Credits_Purchase_Success',
           value: JSON.stringify(customerInfo)
         },
-        Number(credit)
+        Number(totalBal)
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

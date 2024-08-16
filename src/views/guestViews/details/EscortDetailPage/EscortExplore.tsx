@@ -22,7 +22,6 @@ const EscortExplore = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-  const [scroll, setScroll] = useState(false);
   const [modelListing, setModelListing] = useState<ModelHomeListing[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   // const [filters, setFilters] = useState<SearchFiltersTypes>();
@@ -30,6 +29,8 @@ const EscortExplore = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const initialRender = useRef(true);
+  const scrollRender = useRef(true);
+  const searchFiltersRef = useRef<HTMLDivElement>(null);
 
   const getInitialFilters = () => ({
     fromAge: getQueryParam('fromAge') ? (getQueryParam('fromAge') as string) : '',
@@ -116,7 +117,11 @@ const EscortExplore = () => {
       const getModel = await ModelListingService.getModelListing(values, token.token);
       setModelListing(getModel.model_details);
       setTotalRows(getModel.aggregate.total_rows);
-      scroll ? scrollToTable() : '';
+      if (scrollRender.current === false) {
+        scrollToTable();
+      } else {
+        scrollRender.current = false;
+      }
     }
     setIsLoading(false);
   };
@@ -141,7 +146,6 @@ const EscortExplore = () => {
   };
 
   const handelFiltersFormSearch = (value: SearchFiltersTypes) => {
-    setScroll(true);
     const newFilters = { ...filters, ...value };
     setFilters(newFilters);
   };
@@ -181,7 +185,7 @@ const EscortExplore = () => {
             </HomeExploreBox>
           </ExploreEscortText>
           <HomeMainContainer>
-            <SearchFilters handelFilterChange={handelFiltersFormSearch} />
+            <SearchFilters handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
           </HomeMainContainer>
         </DetailsChildTypographyBox>
         <Box>
