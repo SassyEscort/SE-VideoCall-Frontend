@@ -17,6 +17,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import moment from 'moment';
 import { getLastActive } from 'utils/dateAndTime';
+import { RateCountryBoxContainet } from './EscortDetailPage.styled';
 
 const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }) => {
   const intl = useIntl();
@@ -92,20 +93,35 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
                 </UINewTooltip>
               </DetailsChipBox>
             </DetailsChildTypographyBox>
+            <RateCountryBoxContainet>
+              <DetailsChildTypographyBox>
+                <Box>
+                  <UINewTypography variant="captionBold">
+                    <FormattedMessage id="Rates" />
+                  </UINewTypography>
+                </Box>
+                <DetailsChipBox>
+                  <UINewChip
+                    icon={<Box height={16} width={16} component="img" src={`/images/details-icon/coin-icon.svg`} alt={'language'} />}
+                    label={Number(videoCallPrice) === -1 ? 'N/A' : `${videoCallPrice} credits/min`}
+                  />
+                </DetailsChipBox>
+              </DetailsChildTypographyBox>
 
-            <DetailsChildTypographyBox>
-              <Box>
-                <UINewTypography variant="captionBold">
-                  <FormattedMessage id="Rates" />
-                </UINewTypography>
-              </Box>
-              <DetailsChipBox>
-                <UINewChip
-                  icon={<Box height={16} width={16} component="img" src={`/images/details-icon/coin-icon.svg`} alt={'language'} />}
-                  label={Number(videoCallPrice) === -1 ? 'N/A' : `${videoCallPrice} credits/min`}
-                />
-              </DetailsChipBox>
-            </DetailsChildTypographyBox>
+              <DetailsChildTypographyBox>
+                <Box>
+                  <UINewTypography variant="captionBold">
+                    <FormattedMessage id="Country" />
+                  </UINewTypography>
+                </Box>
+                <DetailsChipBox>
+                  <UINewChip
+                    icon={<Box height={16} width={16} component="img" src={`/images/icons/country-icons.svg`} alt={'country'} />}
+                    label={guestData?.country?.name}
+                  />
+                </DetailsChipBox>
+              </DetailsChildTypographyBox>
+            </RateCountryBoxContainet>
           </DetailSubTypographyBox>
         </DetailsTypographyBox>
       </Box>

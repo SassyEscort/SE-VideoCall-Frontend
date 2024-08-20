@@ -17,3 +17,8 @@ export const EscortPersonalDetailsBoxContainet = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   marginTop: theme.spacing(1.5)
 }));
+
+export const RateCountryBoxContainet = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(3)
+}));
