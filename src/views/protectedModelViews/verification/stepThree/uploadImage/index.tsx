@@ -126,7 +126,7 @@ const UploadImage = ({
           const filteredFile5 = (value || []).filter((x) => x !== null);
           const invalidSizeFiles = filteredFile5.filter((file) => file && file.size >= MAX_FILE_SIZE);
           if (invalidSizeFiles.length > 0) {
-            return this.createError({ message: 'Photo/video should be less than 5MB', path: 'file5' });
+            return this.createError({ message: intl.formatMessage({ id: 'PhotoVideoShouldBeLessThan5MB' }), path: 'file5' });
           }
           return true;
         };
@@ -141,7 +141,7 @@ const UploadImage = ({
             const videoIndex = value.findIndex((file) => file && file.type === 'video/mp4');
 
             if ((videoIndex > -1 && (firstFileIndex === -1 || videoIndex < firstFileIndex)) || videoIndex === 0) {
-              return this.createError({ message: 'Video cannot be uploaded for a thumbnail photo.', path: 'file5' });
+              return this.createError({ message: intl.formatMessage({ id: 'VideoCannotBeUploadedForAThumbnailPhoto' }), path: 'file5' });
             }
           }
 
@@ -150,13 +150,13 @@ const UploadImage = ({
 
           const invalidSizeFiles = filteredFile5.filter((file) => file && file.size >= MAX_FILE_SIZE);
           if (invalidSizeFiles.length > 0) {
-            return this.createError({ message: 'Photo/video should be less than 5MB', path: 'file5' });
+            return this.createError({ message: intl.formatMessage({ id: 'PhotoVideoShouldBeLessThan5MB' }), path: 'file5' });
           }
           if (combinedLength < 2) {
-            return this.createError({ message: 'Please upload at least 2 photos', path: 'file5' });
+            return this.createError({ message: intl.formatMessage({ id: 'PleaseUploadAtLeast2Photos' }), path: 'file5' });
           }
           if (combinedLength > 30) {
-            return this.createError({ message: 'Sorry, you can upload 30 pictures only', path: 'file5' });
+            return this.createError({ message: intl.formatMessage({ id: 'SorryYoucanUpload30PicturesOnly' }), path: 'file5' });
           }
 
           return true;
@@ -326,7 +326,13 @@ const UploadImage = ({
                       <FormattedMessage id="Back" />
                     </UINewTypography>
                   </UIThemeButton>
-                  <StyleButtonV2 id="photos-button" type="submit" variant="contained" loading={loading}>
+                  <StyleButtonV2
+                    id="photos-button"
+                    type="submit"
+                    variant="contained"
+                    loading={loading}
+                    sx={{ px: '10px', width: '100%', maxWidth: '133px' }}
+                  >
                     <UINewTypography variant="body">
                       {isReviewEdit ? <FormattedMessage id="SaveAndReview" /> : <FormattedMessage id="Next" />}
                     </UINewTypography>

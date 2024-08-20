@@ -323,7 +323,7 @@ const ModelMultiplePhoto = ({
             variant="contained"
             loading={loading}
             disabled={!hasChanges()}
-            sx={{ px: '20px', py: '9px' }}
+            sx={{ px: '10px', py: '9px' }}
           >
             <UINewTypography variant="body">
               <FormattedMessage id="Save" />

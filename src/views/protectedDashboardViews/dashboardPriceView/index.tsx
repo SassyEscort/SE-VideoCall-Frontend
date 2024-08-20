@@ -233,6 +233,7 @@ const DashboardPriceView = ({
               type="submit"
               disabled={!disable}
               loading={loading}
+              sx={{ width: '100%', maxWidth: '133px', px: '10px' }}
             >
               {isEdit ? (
                 <UINewTypography variant="buttonSmallBold" color={disable ? '#000' : '#58535E'}>

@@ -44,6 +44,7 @@ import { RiEyeOffLine, RiEyeLine } from 'components/common/customRemixIcons';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
+import Link from 'next/link';
 
 export type WorkersPaginationType = {
   page: number;
@@ -321,11 +322,11 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
           <FilterBox>
             <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
               <FormControl fullWidth>
-                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>is active</StyledSelectInputLabel>
+                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Is deleted</StyledSelectInputLabel>
                 <Select
                   name="is_active"
                   labelId="is_active"
-                  label="is active"
+                  label="Is deleted"
                   value={filters.is_active}
                   onChange={(e) => handleChangeIsActive(e.target.value as string)}
                   sx={{
@@ -396,7 +397,6 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
               <TableContainer sx={{ width: '100%' }}>
                 <Table>
                   <ModelListHead />
-
                   <TableBody>
                     {isLoading ? (
                       <TableRow>
@@ -422,10 +422,10 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                           }}
                         >
                           <TableCell component="th" scope="row">
-                            {item?.name || '-'}
+                            <Link href={`/admin/model/details/${item?.id}`}>{item?.name || '-'}</Link>
                           </TableCell>
                           <TableCell component="th" scope="row">
-                            {item?.email || '-'}
+                            <Link href={`/admin/model/details/${item?.id}`}>{item?.email || '-'}</Link>
                           </TableCell>
                           <TableCell>{item?.country_name || '-'}</TableCell>
                           <TableCell sx={{ textAlign: 'center' }}>
