@@ -18,7 +18,7 @@ export const EarningHistoryMainContainer = styled(Box)(({ theme }) => ({
     marginLeft: theme.spacing(3)
   },
   [theme.breakpoints.down('lg')]: {
-    maxWidth: '515px'
+    maxWidth: '957px'
   },
   [theme.breakpoints.up('lg')]: {
     maxWidth: '730px'

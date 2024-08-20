@@ -11,7 +11,7 @@ import EarningMobileSidebar from '../earningSidebarDropDown';
 const EarningModel = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
 
-  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+  const islgDown = useMediaQuery(theme.breakpoints.down('lg'));
 
   useEffect(() => {
     const userToken = async () => {
@@ -24,7 +24,7 @@ const EarningModel = () => {
 
   return (
     <DashboardProfile>
-      {isMdDown ? <EarningMobileSidebar token={token} /> : <EarningsModelProfileConatiner token={token} />}
+      {islgDown ? <EarningMobileSidebar token={token} /> : <EarningsModelProfileConatiner token={token} />}
     </DashboardProfile>
   );
 };

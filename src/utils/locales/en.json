@@ -732,5 +732,6 @@
   "Offline": "Offline",
   "Submit": "Submit",
   "FileSizeIsTooLarge": "File size is too large",
-  "UnsupportedFormat": "Unsupported Format"
+  "UnsupportedFormat": "Unsupported Format",
+  "Upload": "upload"
 }

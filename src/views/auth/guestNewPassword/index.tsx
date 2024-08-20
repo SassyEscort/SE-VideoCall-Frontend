@@ -49,7 +49,10 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
   const isSm = useMediaQuery(theme.breakpoints.down(330));
 
   const validationSchema = yup.object({
-    password: yup.string().required('NewPasswordIsRequired').min(8, 'PasswordMustBe').matches(PASSWORD_PATTERN, 'PasswordCondition'),
+    password: yup.string().required('NewPasswordIsRequired').min(8, 'PasswordMustBe').matches(PASSWORD_PATTERN, {
+      message: 'PasswordMustContainAt',
+      excludeEmptyString: true
+    }),
     confirmPassword: yup
       .string()
       .required('ConfirmPasswordIsRequired')

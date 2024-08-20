@@ -17,7 +17,7 @@ const ModelProfile = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
 
-  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+  const islgDown = useMediaQuery(theme.breakpoints.down('lg'));
 
   useEffect(() => {
     const userToken = async () => {
@@ -56,7 +56,7 @@ const ModelProfile = () => {
 
   return (
     <DashboardProfile>
-      {isMdDown ? (
+      {islgDown ? (
         <MobileSidebar
           modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
           token={token}

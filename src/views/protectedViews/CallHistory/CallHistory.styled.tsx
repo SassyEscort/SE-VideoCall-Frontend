@@ -72,6 +72,9 @@ export const SecondSubFirstBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     gap: theme.spacing(20.625)
   },
+  [theme.breakpoints.only('md')]: {
+    gap: theme.spacing(10)
+  },
   [theme.breakpoints.between(0, 725)]: {
     gap: theme.spacing(6)
   },
@@ -85,17 +88,19 @@ export const SecondSubFirstBox = styled(Box)(({ theme }) => ({
 
 export const SecondSubFirstPartBox = styled(Box)(({ theme }) => ({
   display: 'flex',
-  flexDirection: 'row',
   width: '100%',
-  maxWidth: '253px',
   height: '100%',
   maxHeight: '80px',
   gap: theme.spacing(4),
   [theme.breakpoints.up('sm')]: {
-    gap: theme.spacing(4)
+    gap: theme.spacing(4),
+    minWidth: '253px',
+    flexDirection: 'row'
   },
   [theme.breakpoints.down('sm')]: {
-    gap: theme.spacing(1.5)
+    gap: theme.spacing(1.5),
+    maxWidth: '214px',
+    flexDirection: 'column'
   },
   [theme.breakpoints.only('md')]: {
     maxWidth: '195px'
@@ -104,13 +109,18 @@ export const SecondSubFirstPartBox = styled(Box)(({ theme }) => ({
 
 export const WorkerImg = styled('img')(({ theme, src }) => ({
   width: '100%',
-  minWidth: '80px',
   height: '80px',
   borderRadius: theme.spacing(1.5),
   backgroundImage: `url(${src})`,
   objectFit: 'cover',
   backgroundPosition: 'cover',
-  backgroundRepeat: 'no-repeat'
+  backgroundRepeat: 'no-repeat',
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '80px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '80px'
+  }
 }));
 
 export const SecondSubFirstPartSecondBox = styled(Box)(({ theme }) => ({
@@ -158,9 +168,12 @@ export const SecondSubFirstPartThiredBox = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '156px',
   height: '100%',
-  maxHeight: '50px',
+  maxHeight: '80px',
   gap: theme.spacing(1.5),
-  marginTop: theme.spacing(1.125)
+  marginTop: theme.spacing(1.125),
+  [theme.breakpoints.down('sm')]: {
+    alignItems: 'end'
+  }
 }));
 
 export const SecondSubFirstPartThiredBoxText = styled(Box)(({ theme }) => ({
@@ -207,11 +220,13 @@ export const CallHistoryCreditBox = styled(Box)(({ theme }) => ({
 
 export const CallAgainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
   marginTop: theme.spacing(2),
   [theme.breakpoints.down('sm')]: {
-    marginTop: theme.spacing(5)
+    marginTop: theme.spacing(5),
+    justifyContent: 'end'
+  },
+  [theme.breakpoints.up('sm')]: {
+    alignItems: 'center'
   }
 }));
 
@@ -256,6 +271,10 @@ export const FirstTextContainer = styled(Typography)(({ theme }) => ({
 }));
 
 export const SecTextContainer = styled(Typography)(({ theme }) => ({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  maxWidth: '100px',
   [theme.breakpoints.down('sm')]: {
     fontSize: '12px',
     fontWeight: 500,
@@ -265,18 +284,6 @@ export const SecTextContainer = styled(Typography)(({ theme }) => ({
     fontSize: '14px',
     fontWeight: 500,
     lineHeight: '16.8px'
-  },
-  [theme.breakpoints.only('md')]: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    maxWidth: '50px'
-  },
-  [theme.breakpoints.only('sm')]: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    maxWidth: '75px'
   }
 }));
 
@@ -299,7 +306,7 @@ export const UIThemeShadowButtonContainer = styled(UIThemeShadowButton)(({ theme
 export const CallHistoryBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
-  [theme.breakpoints.down('lg')]: {
+  [theme.breakpoints.only('sm')]: {
     flexDirection: 'column'
   }
 }));

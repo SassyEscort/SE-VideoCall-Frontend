@@ -497,18 +497,18 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
           <MenuItem onClick={handelViewDetails}>
-            <RiEyeLine />
+            <RiEyeLine style={{ marginRight: '4px', width: '20px' }} />
             View Details
           </MenuItem>
 
           {selected?.profile_status === MODEL_ACTION.PENDING && (
             <>
               <MenuItem onClick={handleApproveClick}>
-                <CheckIcon sx={{ mr: 2, color: 'success.main' }} />
+                <CheckIcon sx={{ mr: 0.5, color: 'success.main' }} />
                 Approve
               </MenuItem>
               <MenuItem onClick={handleOpenRejectClick}>
-                <CloseIcon sx={{ mr: 2, color: 'error.main' }} />
+                <CloseIcon sx={{ mr: 0.5, color: 'error.main' }} />
                 Reject
               </MenuItem>
             </>
@@ -517,7 +517,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
           {selected?.is_visible && selected?.profile_status === MODEL_ACTION.APPROVE ? (
             <>
               <MenuItem onClick={handleHideModel}>
-                <RiEyeOffLine />
+                <RiEyeOffLine style={{ marginRight: '4px' }} />
                 Hide from listing
               </MenuItem>
             </>
@@ -532,7 +532,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
             )
           )}
           <MenuItem onClick={() => handleModelDetailsDelete(selected?.id as number)}>
-            <DeleteOutlineIcon sx={{ mr: 2, color: 'error.main' }} />
+            <DeleteOutlineIcon sx={{ mr: 0.5, color: 'error.main' }} />
             Delete
           </MenuItem>
         </ModelActionPopover>

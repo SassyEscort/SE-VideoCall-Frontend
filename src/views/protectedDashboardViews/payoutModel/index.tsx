@@ -17,7 +17,7 @@ const PayoutModel = () => {
 
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
-  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+  const islgDown = useMediaQuery(theme.breakpoints.down('lg'));
 
   useEffect(() => {
     const userToken = async () => {
@@ -40,7 +40,7 @@ const PayoutModel = () => {
 
   return (
     <DashboardProfile>
-      {isMdDown ? (
+      {islgDown ? (
         <PayoutMobileSidebar token={token} modelDetails={modelDetails ?? ({} as ModelDetailsResponse)} />
       ) : (
         <PayoutModelProfileConatiner token={token} modelDetails={modelDetails ?? ({} as ModelDetailsResponse)} />

@@ -57,7 +57,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
-  const isMdFix = useMediaQuery('(min-width:900px) and (max-width:1021px)');
+  const isMdFix = useMediaQuery('(min-width:900px) and (max-width:1024px)');
 
   const [value, setValue] = useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {

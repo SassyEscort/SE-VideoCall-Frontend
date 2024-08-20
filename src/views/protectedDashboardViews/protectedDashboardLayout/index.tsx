@@ -17,12 +17,13 @@ const StyledRoot = styled('div')({
   display: 'flex',
   minHeight: '100vh',
   overflow: 'hidden',
-  '@media (max-width: 1023px)': {
+  '@media (max-width: 1024px)': {
     flexDirection: 'column',
     gap: '24px'
   },
   '@media (min-width: 900px) and (max-width: 1258px)': {
-    paddingLeft: ' 15px'
+    paddingLeft: ' 15px',
+    paddingRight: '15px'
   }
 });
 
