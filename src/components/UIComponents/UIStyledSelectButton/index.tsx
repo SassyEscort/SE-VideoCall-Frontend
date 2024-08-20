@@ -18,10 +18,28 @@ export const UIStyledSelectButton = styled(Button, {
   fontSize: '16px',
   fontWeight: 400,
   lineHeight: '21.86px',
+  paddingInline: theme.spacing(2.15625),
+  paddingTop: theme.spacing(1.375),
+  paddingBottom: theme.spacing(1.375),
   '&:hover': {
     '.MuiOutlinedInput-notchedOutline': {
       backgroundColor: isClicked ? theme.palette.secondary.main : theme.palette.secondary[800]
     }
+  },
+  textWrap: 'nowrap',
+  gap: theme.spacing(1),
+  '@media (max-width: 320px)': {
+    whiteSpace: 'normal'
+  },
+  '@media (max-width: 375px)': {
+    whiteSpace: 'normal'
+  },
+  '@media (max-width: 475px)': {
+    textWrap: 'balance'
+  },
+  '@media (max-width: 393px)': {
+    width: '100%',
+    maxWidth: '176px'
   }
 }));
 

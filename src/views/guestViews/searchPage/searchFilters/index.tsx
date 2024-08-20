@@ -2,7 +2,7 @@ import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import AgeFilter from './AgeFilter';
 import CountryFilter from './CountryFilter';
 import CurrentlyOnline from './CurrentlyOnline';
-import NewArrivals from './NewArrivals';
+// import NewArrivals from './NewArrivals';
 import Price from './Price';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {
@@ -17,6 +17,7 @@ import { SelectChangeEvent } from '@mui/material/Select';
 import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { useSearchParams } from 'next/navigation';
+import GenderFilter from './GenderFilter';
 
 export type SearchFiltersTypes = {
   fromAge: string;
@@ -32,6 +33,7 @@ export type SearchFiltersTypes = {
   pageSize: number;
   offset: number;
   email?: string | number;
+  gender: string;
 };
 
 type SearchFiltersProps = {
@@ -43,7 +45,7 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
   const searchParams = useSearchParams();
 
   const [isOnline, setIsOnline] = useState(true);
-  const [newArrivals, setNewArrivals] = useState(true);
+  // const [newArrivals, setNewArrivals] = useState(true);
 
   const getInitialFilters = () => ({
     fromAge: getQueryParam('fromAge') ? (getQueryParam('fromAge') as string) : '',
@@ -55,6 +57,7 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
     country: getQueryParam('country') ? (getQueryParam('country') as string) : '',
     sortOrder: getQueryParam('sortOrder') ? (getQueryParam('sortOrder') as string) : '',
     sortField: getQueryParam('sortField') ? (getQueryParam('sortField') as string) : '',
+    gender: getQueryParam('gender') ? (getQueryParam('gender') as string) : '',
     page: Number(getQueryParam('page', 1)),
     pageSize: HOME_PAGE_SIZE,
     offset: (Number(searchParams.get('page') ?? 1) - 1) * HOME_PAGE_SIZE || 0,
@@ -99,6 +102,22 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
     });
   };
 
+  const handleGender = (event: SelectChangeEvent<unknown>) => {
+    const value = event.target.value as string;
+    const genderValue = value;
+    setFilters({
+      ...filters,
+      gender: genderValue,
+      page: 1
+    });
+
+    handelFilterChange({
+      ...filters,
+      gender: genderValue,
+      page: 1
+    });
+  };
+
   const handleChangeAge = (event: SelectChangeEvent<unknown>) => {
     const value = event.target.value as string;
     const ageRange = value.split('-');
@@ -117,22 +136,22 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
     });
   };
 
-  const handleNewArrivals = () => {
-    setFilters({
-      ...filters,
-      page: 1,
-      sortField: newArrivals ? 'created_at' : '',
-      sortOrder: newArrivals ? 'desc' : ''
-    });
-    handelFilterChange({
-      ...filters,
-      page: 1,
-      sortField: newArrivals ? 'created_at' : '',
-      sortOrder: newArrivals ? 'desc' : ''
-    });
+  // const handleNewArrivals = () => {
+  //   setFilters({
+  //     ...filters,
+  //     page: 1,
+  //     sortField: newArrivals ? 'created_at' : '',
+  //     sortOrder: newArrivals ? 'desc' : ''
+  //   });
+  //   handelFilterChange({
+  //     ...filters,
+  //     page: 1,
+  //     sortField: newArrivals ? 'created_at' : '',
+  //     sortOrder: newArrivals ? 'desc' : ''
+  //   });
 
-    setNewArrivals(!newArrivals);
-  };
+  //   setNewArrivals(!newArrivals);
+  // };
 
   const handelChangeIsOnline = () => {
     setFilters({
@@ -153,16 +172,18 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
       <SearchBarMainContainer ref={ref}>
         <SearchBarSubMainContainer>
           <FirstBoxMainContainer>
-            <NewArrivals onClick={handleNewArrivals} />
+            {/* <NewArrivals onClick={handleNewArrivals} /> */}
+            {!isMobile && <CurrentlyOnline onClick={handelChangeIsOnline} />}
             {isMobile && <CurrentlyOnline onClick={handelChangeIsOnline} />}
+            {isMobile && <AgeFilter fromAge={filters.fromAge} toAge={filters.toAge} onChange={handleChangeAge} />}
           </FirstBoxMainContainer>
           <SecondBoxMainContainer>
             <CountryFilter value={filters.country} onChange={handleCountryChange} />
           </SecondBoxMainContainer>
           <ThiredBoxMainContainer>
-            <AgeFilter fromAge={filters.fromAge} toAge={filters.toAge} onChange={handleChangeAge} />
+            {!isMobile && <AgeFilter fromAge={filters.fromAge} toAge={filters.toAge} onChange={handleChangeAge} />}
+            <GenderFilter onChange={handleGender} Value={filters?.gender} />
             <Price onChange={handleChangePrice} fromValue={filters?.fromPrice} toValue={filters?.toPrice} />
-            {!isMobile && <CurrentlyOnline onClick={handelChangeIsOnline} />}
           </ThiredBoxMainContainer>
         </SearchBarSubMainContainer>
       </SearchBarMainContainer>

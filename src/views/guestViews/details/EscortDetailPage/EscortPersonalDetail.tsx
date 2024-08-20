@@ -17,6 +17,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import moment from 'moment';
 import { getLastActive } from 'utils/dateAndTime';
+import UINewChipLanguage from 'components/UIComponents/UINewChipLanguage';
 
 const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }) => {
   const intl = useIntl();
@@ -72,20 +73,25 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
                 </UINewTypography>
               </Box>
               <DetailsChipBox>
-                <UINewTooltip title="Age" placement="top">
+                <UINewTooltip title={intl.formatMessage({ id: 'Age' })} placement="top">
                   <UINewChip
                     icon={<Box height={20} width={20} component="img" src={`/images/details-icon/age-icon.svg`} alt={'language'} />}
                     label={moment().diff(guestData?.dob, 'years')}
                   />
                 </UINewTooltip>
-                <UINewTooltip title="Gender" placement="top">
+                <UINewTooltip title={intl.formatMessage({ id: 'Gender' })} placement="top">
                   <UINewChip
                     icon={<Box height={20} width={20} component="img" src={`/images/details-icon/gender-icon.svg`} alt={'language'} />}
                     label={guestData?.gender}
                   />
                 </UINewTooltip>
-                <UINewTooltip title="Languages" placement="top">
-                  <UINewChip
+                <UINewTooltip title={intl.formatMessage({ id: 'Languages' })} placement="top">
+                  <UINewChipLanguage
+                    sx={{
+                      '& .mui-6od3lo-MuiChip-label': {
+                        whiteSpace: 'normal'
+                      }
+                    }}
                     icon={<Box height={20} width={20} component="img" src={`/images/details-icon/language-icon.svg`} alt={'language'} />}
                     label={languages}
                   />

@@ -733,5 +733,7 @@
   "Submit": "Submit",
   "FileSizeIsTooLarge": "File size is too large",
   "UnsupportedFormat": "Unsupported Format",
-  "Upload": "upload"
+  "Upload": "upload",
+  "Languages": "Languages",
+  "Gender": "Gender"
 }

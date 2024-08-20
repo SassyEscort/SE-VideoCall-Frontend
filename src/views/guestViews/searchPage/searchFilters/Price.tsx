@@ -4,7 +4,7 @@ import { SelectChangeEvent } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { StyledSelectInputLabel, UIStyledSelect } from 'components/UIComponents/UIStyledSelect';
+import { StyledSelectInputLabel, UIStyledSelectAgeFilter } from 'components/UIComponents/UIStyledSelect';
 import { SEARCH_PRICES } from 'constants/searchConstants';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { DollarImageContainer, StyledClearIcon } from '../Search.styled';
@@ -47,7 +47,7 @@ const Price: React.FC<PriceFilterProps> = ({ fromValue, toValue, onChange }) => 
         <DollarImageContainer src="/images/workercards/coin-1.png" />
         <FormattedMessage id="Credits" />
       </StyledSelectInputLabel>
-      <UIStyledSelect
+      <UIStyledSelectAgeFilter
         MenuProps={{ disableScrollLock: true }}
         value={renderValue}
         onChange={handleChange}
@@ -67,7 +67,7 @@ const Price: React.FC<PriceFilterProps> = ({ fromValue, toValue, onChange }) => 
             </UINewTypography>
           </MenuItem>
         ))}
-      </UIStyledSelect>
+      </UIStyledSelectAgeFilter>
     </FormControl>
   );
 };
