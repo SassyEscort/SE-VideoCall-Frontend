@@ -20,6 +20,7 @@ import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
 import { useRouter } from 'next/navigation';
 import { UIKitSettingsBuilder } from '@cometchat/uikit-shared';
 import { gaEventTrigger } from 'utils/analytics';
+import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
@@ -31,8 +32,7 @@ interface CallFeatureContextProps {
     modelName: string,
     modelPhoto: string,
     userName: string,
-    modelPrice: string,
-    isModelOnline: number
+    modelPrice: string
   ) => void;
   handelNameChange: () => void;
   isNameChange: boolean;
@@ -175,8 +175,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     modelName: string,
     modelPhoto: string,
     userName: string,
-    modelPrice: string,
-    isModelOnline: number
+    modelPrice: string
   ) => {
     gaEventTrigger('Video_call_initiated', {
       action: 'Video_call_initiated',
@@ -188,7 +187,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     setModelId(guestId);
     setModelName(modelName);
     setModelPhoto(modelPhoto);
-    if (guestId && isCreditAvailable && !call && Boolean(token.token) && isModelOnline) {
+    const isModelAvailable = await ModelDetailsService.getModelDetails(token.token, isCustomer, userName);
+
+    if (guestId && isCreditAvailable && !call && Boolean(token.token) && isModelAvailable.data.is_online) {
       const isModelBusy = await CallingService.getModelCallStatus(guestId, token.token);
       if (isModelBusy.data.ongoing_calls) {
         gaEventTrigger('Model_busy', {
@@ -217,7 +218,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     } else if (call) {
       toast.error('Please end your ONGOING call');
       setIsLoading(false);
-    } else if (!isModelOnline) {
+    } else if (!isModelAvailable.data.is_online) {
       gaEventTrigger('Video_call_unanswered', {
         action: 'Video_call_unanswered',
         category: 'Button',
@@ -228,7 +229,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         model_id: guestId,
         status: CALLING_STATUS.UNASWERED
       };
-      setIsModelAvailable(isModelOnline);
+      setIsModelAvailable(isModelAvailable.data.is_online);
       await CallingService.missedCallStatus(missedParams, token.token);
     } else {
       const creditInfoEvent = {
