@@ -70,6 +70,7 @@ const EscortExplore = () => {
     if (filters.isOnline) objParams.isOnline = filters.isOnline ? filters.isOnline.toString() : '';
     if (filters.country) objParams.country = filters.country ? filters.country.toString() : '';
     if (filters.sortOrder) objParams.sortOrder = filters.sortOrder ? filters.sortOrder.toString() : '';
+    if (filters.gender) objParams.gender = filters.gender ? filters.gender.toString() : '';
     if (filters.sortField) objParams.sortField = filters.sortField ? filters.sortField.toString() : '';
     if (filters.email) objParams.email = filters.email ? filters.email.toString() : '';
 
