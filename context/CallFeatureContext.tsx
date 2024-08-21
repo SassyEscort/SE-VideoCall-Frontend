@@ -20,6 +20,7 @@ import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
 import { useRouter } from 'next/navigation';
 import { UIKitSettingsBuilder } from '@cometchat/uikit-shared';
 import { gaEventTrigger } from 'utils/analytics';
+import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
@@ -31,8 +32,7 @@ interface CallFeatureContextProps {
     modelName: string,
     modelPhoto: string,
     userName: string,
-    modelPrice: string,
-    isModelOnline: number
+    modelPrice: string
   ) => void;
   handelNameChange: () => void;
   isNameChange: boolean;
@@ -53,6 +53,7 @@ interface CallFeatureContextProps {
   isModelAvailable: number;
   handleModelOfflineClose: () => void;
   customerUser: string | undefined;
+  isUnanswered: boolean;
 }
 
 const CallContext = createContext<CallFeatureContextProps>({
@@ -77,7 +78,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   handleCallEnd: () => {},
   isModelAvailable: 0,
   handleModelOfflineClose: () => {},
-  customerUser: ''
+  customerUser: '',
+  isUnanswered: false
 });
 
 export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
@@ -122,6 +124,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [isNameChange, setIsNameChange] = useState(false);
   const [modelCreditPrice, setModelCreditPrice] = useState('');
   const [isModelAvailable, setIsModelAvailable] = useState(1);
+  const [isUnanswered, setIsUnanswered] = useState(false);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -172,8 +175,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     modelName: string,
     modelPhoto: string,
     userName: string,
-    modelPrice: string,
-    isModelOnline: number
+    modelPrice: string
   ) => {
     gaEventTrigger('Video_call_initiated', {
       action: 'Video_call_initiated',
@@ -185,7 +187,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     setModelId(guestId);
     setModelName(modelName);
     setModelPhoto(modelPhoto);
-    if (guestId && isCreditAvailable && !call && Boolean(token.token) && isModelOnline) {
+    const isModelAvailable = await ModelDetailsService.getModelDetails(token.token, isCustomer, userName);
+
+    if (guestId && isCreditAvailable && !call && Boolean(token.token) && isModelAvailable.data.is_online) {
       const isModelBusy = await CallingService.getModelCallStatus(guestId, token.token);
       if (isModelBusy.data.ongoing_calls) {
         gaEventTrigger('Model_busy', {
@@ -214,7 +218,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     } else if (call) {
       toast.error('Please end your ONGOING call');
       setIsLoading(false);
-    } else if (!isModelOnline) {
+    } else if (!isModelAvailable.data.is_online) {
       gaEventTrigger('Video_call_unanswered', {
         action: 'Video_call_unanswered',
         category: 'Button',
@@ -225,7 +229,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         model_id: guestId,
         status: CALLING_STATUS.UNASWERED
       };
-      setIsModelAvailable(isModelOnline);
+      setIsModelAvailable(isModelAvailable.data.is_online);
       await CallingService.missedCallStatus(missedParams, token.token);
     } else {
       const creditInfoEvent = {
@@ -385,6 +389,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           setIsBusy(true);
         }
         setCall(undefined);
+        setIsUnanswered(true);
         gaEventTrigger('Video_call_unanswered', {
           action: 'Video_call_unanswered',
           category: 'Button',
@@ -454,18 +459,20 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const credit = searchParams.get('credit');
     const totalBal = searchParams.get('total_credits_after_txn');
+    const totalBalValue = searchParams.get('total_amount_after_txn');
     setBalance(Number(totalBal));
+    setBalance(Number(totalBalValue));
     setAddedCredits(Number(credit));
     if (credit) {
       gaEventTrigger(
         'Credits_Purchase_Success',
         {
           action: 'Credits_Purchase_Success',
-          category: 'Page change',
+          category: 'Dialog',
           label: 'Credits_Purchase_Success',
           value: JSON.stringify(customerInfo)
         },
-        Number(totalBal)
+        Number(totalBalValue)
       );
       setOpenSuccess(true);
     }
@@ -546,7 +553,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         handleCallEnd,
         isModelAvailable,
         handleModelOfflineClose,
-        customerUser
+        customerUser,
+        isUnanswered
       }}
     >
       {children}

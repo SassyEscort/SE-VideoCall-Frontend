@@ -44,6 +44,7 @@ import { RiEyeOffLine, RiEyeLine } from 'components/common/customRemixIcons';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
+import Link from 'next/link';
 
 export type WorkersPaginationType = {
   page: number;
@@ -321,11 +322,11 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
           <FilterBox>
             <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
               <FormControl fullWidth>
-                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>is active</StyledSelectInputLabel>
+                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Is deleted</StyledSelectInputLabel>
                 <Select
                   name="is_active"
                   labelId="is_active"
-                  label="is active"
+                  label="Is deleted"
                   value={filters.is_active}
                   onChange={(e) => handleChangeIsActive(e.target.value as string)}
                   sx={{
@@ -396,7 +397,6 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
               <TableContainer sx={{ width: '100%' }}>
                 <Table>
                   <ModelListHead />
-
                   <TableBody>
                     {isLoading ? (
                       <TableRow>
@@ -422,10 +422,10 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                           }}
                         >
                           <TableCell component="th" scope="row">
-                            {item?.name || '-'}
+                            <Link href={`/admin/model/details/${item?.id}`}>{item?.name || '-'}</Link>
                           </TableCell>
                           <TableCell component="th" scope="row">
-                            {item?.email || '-'}
+                            <Link href={`/admin/model/details/${item?.id}`}>{item?.email || '-'}</Link>
                           </TableCell>
                           <TableCell>{item?.country_name || '-'}</TableCell>
                           <TableCell sx={{ textAlign: 'center' }}>
@@ -497,18 +497,18 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
           <MenuItem onClick={handelViewDetails}>
-            <RiEyeLine />
+            <RiEyeLine style={{ marginRight: '4px', width: '20px' }} />
             View Details
           </MenuItem>
 
           {selected?.profile_status === MODEL_ACTION.PENDING && (
             <>
               <MenuItem onClick={handleApproveClick}>
-                <CheckIcon sx={{ mr: 2, color: 'success.main' }} />
+                <CheckIcon sx={{ mr: 0.5, color: 'success.main' }} />
                 Approve
               </MenuItem>
               <MenuItem onClick={handleOpenRejectClick}>
-                <CloseIcon sx={{ mr: 2, color: 'error.main' }} />
+                <CloseIcon sx={{ mr: 0.5, color: 'error.main' }} />
                 Reject
               </MenuItem>
             </>
@@ -517,7 +517,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
           {selected?.is_visible && selected?.profile_status === MODEL_ACTION.APPROVE ? (
             <>
               <MenuItem onClick={handleHideModel}>
-                <RiEyeOffLine />
+                <RiEyeOffLine style={{ marginRight: '4px' }} />
                 Hide from listing
               </MenuItem>
             </>
@@ -532,7 +532,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
             )
           )}
           <MenuItem onClick={() => handleModelDetailsDelete(selected?.id as number)}>
-            <DeleteOutlineIcon sx={{ mr: 2, color: 'error.main' }} />
+            <DeleteOutlineIcon sx={{ mr: 0.5, color: 'error.main' }} />
             Delete
           </MenuItem>
         </ModelActionPopover>

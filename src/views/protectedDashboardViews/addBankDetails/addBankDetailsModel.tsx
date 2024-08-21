@@ -183,7 +183,7 @@ const AddBankDetailsModel = ({
                         </UIThemeButton>
 
                         <UINewTypography variant="body" color="primary.400" sx={{ cursor: 'pointer' }} onClick={handleReset}>
-                          {cancelRemove ? '' : 'Cancel'}
+                          {cancelRemove ? '' : <FormattedMessage id="Cancel" />}
                         </UINewTypography>
                       </ButtonBox>
                     </AddBankDetailsSecondBox>

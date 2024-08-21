@@ -66,7 +66,7 @@
   "WeEmployRigorousAge": "Empleamos rigurosos procesos de verificación de edad para asegurar que todos los usuarios sean mayores de edad. Se requiere que los nuevos usuarios proporcionen documentos de identificación válidos para fines de verificación.",
   "IsThereARefund": "¿Existe una política de reembolso para los créditos no utilizados?",
   "WeDoNotOfferRefunds": "Desafortunadamente, no ofrecemos reembolsos para los créditos no utilizados. Sin embargo, los créditos no expiran, por lo que puedes utilizarlos en tus conveniencias para futuras videollamadas.",
-  "HowAreDisputesResolved ": "¿Cómo se resuelven las disputas relacionadas con los créditos o la calidad del servicio?",
+  "HowAreDisputesResolved": "¿Cómo se resuelven las disputas relacionadas con los créditos o la calidad del servicio?",
   "InTheEventOfDispute": "En caso de una disputa sobre los créditos o la calidad del servicio, nuestro equipo de soporte al cliente actúa como mediador para investigar el problema a fondo y llegar a una resolución justa.",
   "DoINeedToDownload": "¿Necesito descargar algún software para usar la plataforma?",
   "OurPlatformIsEntirely": "No, nuestra plataforma es completamente basada en la web, eliminando la necesidad de descargas o instalaciones. Puedes acceder a ella directamente a través de tu navegador web en cualquier dispositivo.",
@@ -334,7 +334,6 @@
   "Apply": "Aplicar",
   "FilterOnly": "Filter only",
   "SearchFilter": "Search filter",
-  "Age": "Age",
   "SignUpAsUser": "Registrarse como usuaria",
   "Notifications": "Notificaciones",
   "YouHaveNoNotifications": "No tienes notificaciones",
@@ -730,5 +729,14 @@
   "Offline": "Desconectado",
   "Submit": "Entregar",
   "FileSizeIsTooLarge": "El tamaño del archivo es demasiado grande",
-  "UnsupportedFormat": "Formato no admitido"
+  "UnsupportedFormat": "Formato no admitido",
+  "Upload": "subir",
+  "Languages": "Idiomas",
+  "Gender": "Género",
+  "Age": "Edad",
+  "CurrentBalance": "Saldo actual",
+  "PhotoVideoShouldBeLessThan5MB": "La foto/vídeo debe tener menos de 5 MB.",
+  "VideoCannotBeUploadedForAThumbnailPhoto": "No se puede cargar vídeo para una foto en miniatura.",
+  "PleaseUploadAtLeast2Photos": "Por favor sube al menos 2 fotos",
+  "SorryYoucanUpload30PicturesOnly": "Lo siento, solo puedes subir 30 fotos"
 }

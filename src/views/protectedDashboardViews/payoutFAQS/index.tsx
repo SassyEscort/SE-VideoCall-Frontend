@@ -22,7 +22,7 @@ const PayoutFAQS = () => {
     <>
       <HomeMainContainer>
         <FAQSeconndContainer>
-          <FAQConatainer sx={{ width: '100%', maxWidth: '741px' }}>
+          <FAQConatainer sx={{ width: '100%' }}>
             <SecondBox>
               <FAQMainContainer>
                 <PayoutFAQTitle>

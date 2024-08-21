@@ -72,7 +72,7 @@ const PayoutModelProfileConatiner = ({ token, modelDetails }: { token: TokenIdTy
       setMenuProfileId(0);
     }
   }, [bankDetailsList]);
-  const isMd = useMediaQuery('(min-width:900px) and (max-width:1021px)');
+  const isMd = useMediaQuery('(min-width:900px) and (max-width:1024px)');
 
   return (
     <MainContainer sx={isMd ? { paddingLeft: '14px' } : {}}>

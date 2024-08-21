@@ -259,7 +259,7 @@
   "SetOrModifyYourPrices": "Set or modify your prices",
   "MyProfile": "My Profile",
   "Male": "Male",
-  "Trans": "Tarns",
+  "Trans": "Trans",
   "SiliconValleyBank": "Silicon valley bank",
   "AddMoreBanks": "Add more banks",
   "RequestAPayout": "Request a payout",
@@ -732,5 +732,13 @@
   "Offline": "Offline",
   "Submit": "Submit",
   "FileSizeIsTooLarge": "File size is too large",
-  "UnsupportedFormat": "Unsupported Format"
+  "UnsupportedFormat": "Unsupported Format",
+  "Upload": "upload",
+  "Languages": "Languages",
+  "Gender": "Gender",
+  "CurrentBalance": "Current balance",
+  "PhotoVideoShouldBeLessThan5MB": "Photo/video should be less than 5MB",
+  "VideoCannotBeUploadedForAThumbnailPhoto": "Video cannot be uploaded for a thumbnail photo.",
+  "PleaseUploadAtLeast2Photos": "Please upload at least 2 photos",
+  "SorryYoucanUpload30PicturesOnly": "Sorry, you can upload 30 pictures only"
 }

@@ -33,7 +33,7 @@ const EscortDetailPage = () => {
   const [callTime, setCallTime] = useState(0);
   const modelPhoto = guestData?.photos?.filter((x) => x.favourite)?.map((item) => item.link)[0];
 
-  const { handleCallInitiate, call, isLoading, isCallEnded, isCustomer, handleCallEnd } = useCallFeatureContext();
+  const { handleCallInitiate, call, isLoading, isCallEnded, isCustomer, handleCallEnd, isUnanswered } = useCallFeatureContext();
 
   useEffect(() => {
     const userToken = async () => {
@@ -95,6 +95,13 @@ const EscortDetailPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guestData, token, userName, call, isCallEnded]);
 
+  useEffect(() => {
+    if (isUnanswered) {
+      getCometChatInfo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUnanswered]);
+
   return (
     <>
       <HomeMainContainer>
@@ -112,8 +119,7 @@ const EscortDetailPage = () => {
                   guestData?.name,
                   modelPhoto ?? '',
                   guestData.user_name,
-                  guestData.video_call_prices[0].credits_per_minute,
-                  guestData.is_online
+                  guestData.video_call_prices[0].credits_per_minute
                 )
               }
               isCustomer={isCustomer}
@@ -134,8 +140,7 @@ const EscortDetailPage = () => {
                     guestData?.name,
                     modelPhoto ?? '',
                     guestData.user_name,
-                    guestData.video_call_prices[0].credits_per_minute,
-                    guestData.is_online
+                    guestData.video_call_prices[0].credits_per_minute
                   )
                 }
                 isCustomer={isCustomer}

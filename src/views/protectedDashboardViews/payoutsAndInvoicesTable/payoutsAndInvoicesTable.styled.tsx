@@ -9,7 +9,6 @@ export const FilterDropdownBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(6.125),
   marginTop: '44px',
   width: '100%',
-  maxWidth: '741px',
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -31,7 +30,6 @@ export const StatusBox = styled(Box)(() => ({
 
 export const MainBox = styled(Box)(({ theme }) => ({
   width: '100%',
-  maxWidth: '741px',
   [theme.breakpoints.up('sm')]: {
     paddingLeft: theme.spacing(3)
   }

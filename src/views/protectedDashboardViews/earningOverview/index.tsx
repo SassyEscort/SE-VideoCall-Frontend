@@ -168,16 +168,16 @@ const EarningOverview = () => {
             <ProfilePieContainer>
               <ProfileBackSide>
                 <UINewTypography variant="buttonLargeBold" lineHeight="160%">
-                  <FormattedMessage id="TotalEarnings" />
+                  <FormattedMessage id="CurrentBalance" />
                 </UINewTypography>
-                <UINewTypography variant="h3">{modelEarning?.earnings}</UINewTypography>
+                <UINewTypography variant="h3">{modelEarning?.amount}</UINewTypography>
               </ProfileBackSide>
 
               <ProfileBackSide>
                 <UINewTypography variant="buttonLargeBold" lineHeight="160%">
-                  <FormattedMessage id="WithdrawnAmount" />
+                  <FormattedMessage id="TotalEarnings" />
                 </UINewTypography>
-                <UINewTypography variant="h3">{modelEarning?.withdrawn_amount}</UINewTypography>
+                <UINewTypography variant="h3">{modelEarning?.earnings}</UINewTypography>
               </ProfileBackSide>
             </ProfilePieContainer>
           </ProfilePieMainContainer>
