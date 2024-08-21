@@ -17,16 +17,17 @@ const TableData = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningH
           <TableRow key={index} sx={{ '& .MuiTableCell-root': { borderBottomColor: theme.palette.primary[700], padding: '24px 16px' } }}>
             <TableCell>
               <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                {dp?.customer_name}
+                {dp?.customer_name ? dp?.customer_name : ' - '}
               </UINewTypography>
             </TableCell>
             <TableCell>
               <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                {dp?.call_duration &&
-                  moment
-                    .duration(dp?.call_duration)
-                    .asMinutes()
-                    .toFixed(2)}
+                {dp?.call_duration
+                  ? moment
+                      .duration(dp?.call_duration)
+                      .asMinutes()
+                      .toFixed(2)
+                  : '-'}
               </UINewTypography>
             </TableCell>{' '}
             <TableCell>
