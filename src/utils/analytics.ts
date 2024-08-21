@@ -16,7 +16,11 @@ export const gaEventTrigger = (action: string, data: any, credits?: number) => {
         data = {
           ...data,
           value: credits,
-          currency: 'USD'
+          currency: 'USD',
+          transaction_id: 1,
+          items: [{ name: 'Credits_Purchase_Success', price: credits }],
+          item_name: 'Credits_Purchase_Success',
+          item_id: 1
         };
       }
     } catch (e) {
