@@ -259,7 +259,7 @@
   "SetOrModifyYourPrices": "Set or modify your prices",
   "MyProfile": "My Profile",
   "Male": "Male",
-  "Trans": "Tarns",
+  "Trans": "Trans",
   "SiliconValleyBank": "Silicon valley bank",
   "AddMoreBanks": "Add more banks",
   "RequestAPayout": "Request a payout",
@@ -740,5 +740,11 @@
   "PhotoVideoShouldBeLessThan5MB": "Photo/video should be less than 5MB",
   "VideoCannotBeUploadedForAThumbnailPhoto": "Video cannot be uploaded for a thumbnail photo.",
   "PleaseUploadAtLeast2Photos": "Please upload at least 2 photos",
-  "SorryYoucanUpload30PicturesOnly": "Sorry, you can upload 30 pictures only"
+  "SorryYoucanUpload30PicturesOnly": "Sorry, you can upload 30 pictures only",
+  "100FREECredits": "100 FREE credits",
+  "JoinNowAndEnjoyAEREEVideoCall": "Join now and enjoy a FREE video call with any model of your choice.",
+  "SignUpAndClaimNow": "Sign up and claim now",
+  "offerValidFor": "offer valid for",
+  "Minutes": "Minutes",
+  "Seconds": "Seconds"
 }

@@ -200,6 +200,7 @@ const HomeTopBanner = () => {
               >
                 <FormattedMessage id="ExploreYourChoices" />
               </UINewTypography>
+
               <SubTitle>
                 <FormattedMessage id="SelectTheCompanion" />
               </SubTitle>
