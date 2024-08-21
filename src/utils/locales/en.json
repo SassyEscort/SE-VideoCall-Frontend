@@ -734,6 +734,8 @@
   "FileSizeIsTooLarge": "File size is too large",
   "UnsupportedFormat": "Unsupported Format",
   "Upload": "upload",
+  "Languages": "Languages",
+  "Gender": "Gender",
   "CurrentBalance": "Current balance",
   "PhotoVideoShouldBeLessThan5MB": "Photo/video should be less than 5MB",
   "VideoCannotBeUploadedForAThumbnailPhoto": "Video cannot be uploaded for a thumbnail photo.",

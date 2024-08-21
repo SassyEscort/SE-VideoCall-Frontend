@@ -25,6 +25,76 @@ export const UIStyledSelect = styled(Select)(({ theme }) => ({
   }
 }));
 
+export const UIStyledSelectAgeFilter = styled(Select)(({ theme }) => ({
+  display: 'flex',
+  borderRadius: theme.spacing(1),
+  width: '100%',
+  height: '48px',
+  backgroundColor: theme.palette.primary[700],
+  paddingInline: theme.spacing(1.5),
+  paddingTop: theme.spacing(1.375),
+  paddingBottom: theme.spacing(1.375),
+  '&:hover': {
+    '.MuiOutlinedInput-notchedOutline': {
+      borderColor: theme.palette.secondary[700]
+    }
+  },
+  '& .MuiSelect-select': {
+    display: 'flex',
+    overflow: 'hidden',
+    gap: theme.spacing(1)
+  },
+  '& .MuiSvgIcon-root': {
+    color: 'rgba(183, 181, 185, 1)'
+  }
+}));
+
+export const UIStyledSelectAgeFilterSecond = styled(Select)(({ theme }) => ({
+  display: 'flex',
+  borderRadius: theme.spacing(1),
+  width: '100%',
+  height: '48px',
+  backgroundColor: theme.palette.primary[700],
+  paddingInline: theme.spacing(1.5),
+  paddingTop: theme.spacing(1.375),
+  paddingBottom: theme.spacing(1.375),
+  '&:hover': {
+    '.MuiOutlinedInput-notchedOutline': {
+      borderColor: theme.palette.secondary[700]
+    }
+  },
+  '& .MuiSelect-select': {
+    display: 'flex',
+    overflow: 'hidden',
+    gap: theme.spacing(1)
+  },
+  '& .MuiSvgIcon-root': {
+    color: 'rgba(183, 181, 185, 1)'
+  }
+}));
+export const UIStyledCountrySelect = styled(Select)(({ theme }) => ({
+  display: 'flex',
+  borderRadius: theme.spacing(1),
+  width: '100%',
+  height: '48px',
+  backgroundColor: theme.palette.primary[700],
+  paddingTop: theme.spacing(1.375),
+  paddingBottom: theme.spacing(1.375),
+  '&:hover': {
+    '.MuiOutlinedInput-notchedOutline': {
+      borderColor: theme.palette.secondary[700]
+    }
+  },
+  '& .MuiSelect-select': {
+    display: 'flex',
+    overflow: 'hidden',
+    gap: theme.spacing(1)
+  },
+  '& .MuiSvgIcon-root': {
+    color: 'rgba(183, 181, 185, 1)'
+  }
+}));
+
 export const UIStyledSelectPastPayout = styled(Select)(({ theme }) => ({
   display: 'flex',
   borderRadius: theme.spacing(1),
@@ -55,6 +125,22 @@ export const StyledSelectInputLabel = styled(InputLabel)(({ theme }) => ({
   gap: theme.spacing(1),
   alignItems: 'center',
   '&.MuiInputLabel-shrink': { top: 0 }
+}));
+
+export const StyledSelectInputLabelAge = styled(InputLabel)(({ theme }) => ({
+  display: 'flex',
+  top: '-3px',
+  color: theme.palette.secondary[200],
+  gap: theme.spacing(1),
+  alignItems: 'center',
+  '&.MuiInputLabel-shrink': { top: 0 },
+  '@media (max-width: 320px)': {
+    display: 'block',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    maxWidth: '92px'
+  }
 }));
 
 export const StyledEarningSelectInputLabel = styled(InputLabel)(({ theme }) => ({

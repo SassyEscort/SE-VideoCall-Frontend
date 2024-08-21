@@ -1,22 +1,26 @@
+import React, { MouseEventHandler, useState } from 'react';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { SelectChangeEvent } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { StyledSelectInputLabelAge, UIStyledSelectAgeFilter } from 'components/UIComponents/UIStyledSelect';
-import { AGES } from 'constants/searchConstants';
-import { FormattedMessage } from 'react-intl';
+import { StyledSelectInputLabel, UIStyledSelectAgeFilter } from 'components/UIComponents/UIStyledSelect';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { StyledClearIcon } from '../Search.styled';
 import theme from 'themes/theme';
-import { MouseEventHandler, useState } from 'react';
-interface AgeFilterProps {
-  toAge: string;
-  fromAge: string;
+import { GENDER } from 'constants/workerVerification';
+
+interface GenderFilterProps {
+  Value: string;
+
   onChange: (event: SelectChangeEvent<unknown>, child: React.ReactNode) => void;
 }
-const AgeFilter: React.FC<AgeFilterProps> = ({ fromAge, toAge, onChange }) => {
+
+const GenderFilter: React.FC<GenderFilterProps> = ({ Value, onChange }) => {
   const [open, setOpen] = useState(false);
-  let renderValue = fromAge ? `${fromAge}-${toAge}` : '';
+  const intl = useIntl();
+
+  let renderValue = Value;
 
   const handleClear: MouseEventHandler<SVGSVGElement> = (event) => {
     event.stopPropagation();
@@ -27,36 +31,38 @@ const AgeFilter: React.FC<AgeFilterProps> = ({ fromAge, toAge, onChange }) => {
 
   const handleChange = (event: SelectChangeEvent<unknown>, child: React.ReactNode) => {
     const selectedValue = event.target.value as string;
-    const [fromdata, todata] = selectedValue.split('-');
 
-    renderValue = fromdata ? `${fromdata}-${todata}` : '';
+    renderValue = selectedValue;
     onChange(event, child);
   };
 
-  const handleOpen = () => {
+  const handleClick = () => {
     setOpen((prevOpen) => !prevOpen);
   };
+
   return (
-    <FormControl id="age" sx={{ width: '100%', maxWidth: { lg: '203px', sm: '235px' } }}>
-      <StyledSelectInputLabelAge>
-        <FormattedMessage id="AgeRange" />
-      </StyledSelectInputLabelAge>
+    <FormControl id="Gender" fullWidth sx={{ display: 'flex', width: '100%', maxWidth: { lg: '203px', sm: '235px' } }}>
+      <StyledSelectInputLabel sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+        <FormattedMessage id="Gender" />
+      </StyledSelectInputLabel>
       <UIStyledSelectAgeFilter
+        MenuProps={{ disableScrollLock: true }}
         value={renderValue}
         onChange={handleChange}
-        MenuProps={{ disableScrollLock: true }}
-        label="age range"
-        name="age"
-        labelId="age"
+        label="Gender"
+        name="Gender"
+        labelId="Gender"
         IconComponent={ExpandMore}
         endAdornment={renderValue && <StyledClearIcon onClick={handleClear} />}
         sx={{ backgroundColor: renderValue ? theme.palette.primary[200] : '', cursor: 'pointer' }}
         open={open}
-        onClick={handleOpen}
+        onClick={handleClick}
       >
-        {AGES.map((age, key: number) => (
-          <MenuItem key={key} value={age?.title}>
-            <UINewTypography>{age?.title}</UINewTypography>
+        {GENDER?.map((gender, key: number) => (
+          <MenuItem key={key} value={gender?.id}>
+            <UINewTypography sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {intl.formatMessage({ id: gender.name })}
+            </UINewTypography>
           </MenuItem>
         ))}
       </UIStyledSelectAgeFilter>
@@ -64,4 +70,4 @@ const AgeFilter: React.FC<AgeFilterProps> = ({ fromAge, toAge, onChange }) => {
   );
 };
 
-export default AgeFilter;
+export default GenderFilter;
