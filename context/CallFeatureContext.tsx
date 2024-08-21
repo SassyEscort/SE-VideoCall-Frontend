@@ -53,6 +53,7 @@ interface CallFeatureContextProps {
   isModelAvailable: number;
   handleModelOfflineClose: () => void;
   customerUser: string | undefined;
+  isUnanswered: boolean;
 }
 
 const CallContext = createContext<CallFeatureContextProps>({
@@ -77,7 +78,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   handleCallEnd: () => {},
   isModelAvailable: 0,
   handleModelOfflineClose: () => {},
-  customerUser: ''
+  customerUser: '',
+  isUnanswered: false
 });
 
 export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
@@ -122,6 +124,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [isNameChange, setIsNameChange] = useState(false);
   const [modelCreditPrice, setModelCreditPrice] = useState('');
   const [isModelAvailable, setIsModelAvailable] = useState(1);
+  const [isUnanswered, setIsUnanswered] = useState(false);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -385,6 +388,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           setIsBusy(true);
         }
         setCall(undefined);
+        setIsUnanswered(true);
         gaEventTrigger('Video_call_unanswered', {
           action: 'Video_call_unanswered',
           category: 'Button',
@@ -548,7 +552,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         handleCallEnd,
         isModelAvailable,
         handleModelOfflineClose,
-        customerUser
+        customerUser,
+        isUnanswered
       }}
     >
       {children}
