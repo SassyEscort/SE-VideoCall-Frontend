@@ -529,6 +529,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCallAccepted, isCallEnded, isCustomer, modelId, sessionId]);
 
+  useEffect(() => {
+    if (isCallEnded) {
+      window.location.reload();
+    }
+  }, [isCallEnded]);
+
   return (
     <CallContext.Provider
       value={{
