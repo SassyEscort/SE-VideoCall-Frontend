@@ -162,7 +162,7 @@ const PayoutContainer = ({
         const data = await ModelDetailsService.getModelWithDraw(token.token);
         if (data?.code === 200) {
           if (data.data.amount === null) {
-            setAmountSave(100);
+            setAmountSave(0);
           } else {
             setAmountSave(data.data.amount);
           }

@@ -740,5 +740,7 @@
   "PhotoVideoShouldBeLessThan5MB": "Photo/video should be less than 5MB",
   "VideoCannotBeUploadedForAThumbnailPhoto": "Video cannot be uploaded for a thumbnail photo.",
   "PleaseUploadAtLeast2Photos": "Please upload at least 2 photos",
-  "SorryYoucanUpload30PicturesOnly": "Sorry, you can upload 30 pictures only"
+  "SorryYoucanUpload30PicturesOnly": "Sorry, you can upload 30 pictures only",
+  "NameInvalidCharacters":"Name contains invalid characters",
+  "InvalidEmailAddress":"Invalid email address"
 }
