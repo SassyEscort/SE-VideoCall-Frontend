@@ -11,7 +11,6 @@ const FilterTimeDropdownV2 = ({ periodType, handleChange }: { periodType: string
   return (
     <FormControlBox>
       <UINewStyledEarningSelect
-        className="kishan1"
         onChange={(e) => handleChange(e.target.value as string)}
         value={periodType}
         IconComponent={ExpandMore}
