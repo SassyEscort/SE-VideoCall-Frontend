@@ -21,14 +21,9 @@ import {
 } from './ButtonfreeCredits.styled';
 import TimerUI from '../Timer';
 
-const ButtonFreeCredits = () => {
+const ButtonFreeCredits = ({ open, onClose, Transition }: { open: boolean; onClose: () => void; Transition: any }) => {
   return (
-    <DialogContentMain
-      scroll="body"
-      open={true}
-      //   onClose={onClose}
-      fullWidth
-    >
+    <DialogContentMain scroll="body" open={open} onClose={onClose} fullWidth TransitionComponent={Transition}>
       <DialogTitleBox>
         <ImageFirst src="/images/free-credits/freecredits.png" />
       </DialogTitleBox>

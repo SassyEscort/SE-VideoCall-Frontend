@@ -66,16 +66,16 @@ export const Dotes = styled(Box)(({}) => ({
   border: '1px solid',
   backgroundColor: '#FFFFFF',
   '@media (max-width: 425px)': {
-    left: '177px',
+    left: '173px',
     top: '503px'
   },
   '@media (max-width: 375px)': {
-    left: '152px ',
+    left: '148px ',
     top: '503px'
   },
   '@media (max-width: 320px)': {
-    left: '124px',
-    top: '492px'
+    left: '120px',
+    top: '487px'
   }
 }));
 

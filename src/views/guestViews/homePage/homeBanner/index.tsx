@@ -20,11 +20,14 @@ import {
   SignupTextContainer,
   ExploreTextContainer,
   FirstBoxContainer,
-  SecBoxContainer
+  SecBoxContainer,
+  GiftBoxFirst,
+  GiftBoxSecond,
+  GiftBoxThird
 } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
-import { useState } from 'react';
+import { forwardRef, Ref, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
@@ -33,8 +36,13 @@ import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
 // import ProfileMenu from 'components/UIComponents/UIStyleHeader';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
+import ButtonFreeCredits from '../buttonFreeCredits';
+import React from 'react';
+import { TransitionProps } from '@mui/material/transitions';
+import Slide from '@mui/material/Slide';
 
 const HomeTopBanner = () => {
+  const [isModalOpenFreeCredits, setIsModalOpenFreeCredits] = useState(false);
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const [open, setIsOpen] = useState(false);
@@ -99,6 +107,20 @@ const HomeTopBanner = () => {
     }, 1000);
   };
 
+  const handleBoxClick = () => {
+    setIsModalOpenFreeCredits(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpenFreeCredits(false);
+  };
+
+  const Transition = forwardRef(function Transition(
+    props: TransitionProps & { children: React.ReactElement<any, any> },
+    ref: Ref<unknown>
+  ) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
   return (
     <>
       {(session?.user as User)?.provider === 'providerGuest' ? (
@@ -191,6 +213,15 @@ const HomeTopBanner = () => {
               />
             </Box>
           </BannerContainer>
+          <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} Transition={Transition} />
+          {isSmDown && (
+            <Box sx={{ position: 'relative', cursor: 'pointer' }} onClick={handleBoxClick}>
+              <GiftBoxFirst></GiftBoxFirst>
+              <GiftBoxSecond></GiftBoxSecond>
+              <GiftBoxThird></GiftBoxThird>
+            </Box>
+          )}
+
           <ModelsHeadingBox id="scroll-to-model" pt={{ xs: '96px', lg: '120px' }}>
             <HomeExploreBox>
               <UINewTypography
