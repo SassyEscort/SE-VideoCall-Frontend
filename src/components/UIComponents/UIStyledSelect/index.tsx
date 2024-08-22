@@ -100,6 +100,7 @@ export const UIStyledSelectPastPayout = styled(Select)(({ theme }) => ({
   borderRadius: theme.spacing(1),
   cursor: 'pointer',
   width: '100%',
+  maxWidth: '150px',
   height: '40px',
   backgroundColor: theme.palette.primary[700],
 
@@ -149,5 +150,13 @@ export const StyledEarningSelectInputLabel = styled(InputLabel)(({ theme }) => (
   color: theme.palette.secondary[200],
   gap: theme.spacing(1),
   alignItems: 'center',
-  '&.MuiInputLabel-shrink': { top: 0 }
+  '&.MuiInputLabel-shrink': { top: 0 },
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  maxWidth: '86px',
+  [theme.breakpoints.up('md')]: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    maxWidth: '85px'
+  }
 }));
