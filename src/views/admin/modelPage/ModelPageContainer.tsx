@@ -45,6 +45,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import Link from 'next/link';
+import HideSourceOutlinedIcon from '@mui/icons-material/HideSourceOutlined';
 
 export type WorkersPaginationType = {
   page: number;
@@ -135,6 +136,26 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     try {
       if (token.token) {
         const data = await adminModelServices.modelDetailsDelete(token.token, id);
+        handleCloseMenu();
+        if (data.code === 200) {
+          handleModelDetailsRefetch();
+          toast.success('Success');
+          if (handlePayoutStep) {
+            handlePayoutStep();
+          }
+        } else {
+          toast.error(data?.error);
+        }
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
+
+  const handleModelDetailsIsOffline = async (id: number) => {
+    try {
+      if (token.token) {
+        const data = await adminModelServices.modelDetailsStatusOffline(token.token, id);
         handleCloseMenu();
         if (data.code === 200) {
           handleModelDetailsRefetch();
@@ -531,6 +552,13 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
               </>
             )
           )}
+          {selected?.is_online === 1 && (
+            <MenuItem onClick={() => handleModelDetailsIsOffline(selected?.id as number)}>
+              <HideSourceOutlinedIcon sx={{ '&.MuiSvgIcon-root': { width: '15px', height: '15px', marginRight: '4px' } }} />
+              Mark offline
+            </MenuItem>
+          )}
+
           <MenuItem onClick={() => handleModelDetailsDelete(selected?.id as number)}>
             <DeleteOutlineIcon sx={{ mr: 0.5, color: 'error.main' }} />
             Delete

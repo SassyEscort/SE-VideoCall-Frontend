@@ -41,6 +41,6 @@ export const FormControlContainer = styled(FormControl)(({ theme }) => ({
     minWidth: '170px'
   },
   [theme.breakpoints.up('sm')]: {
-    minWidth: '130px'
+    minWidth: '150px'
   }
 }));
