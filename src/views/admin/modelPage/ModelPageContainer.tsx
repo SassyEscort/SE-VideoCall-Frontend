@@ -124,6 +124,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     verificationStep: '',
     is_active: ''
   });
+
   const [openReject, setOpenReject] = useState(false);
 
   const handleModelDetailsRefetch = useCallback(() => {
@@ -136,26 +137,6 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     try {
       if (token.token) {
         const data = await adminModelServices.modelDetailsDelete(token.token, id);
-        handleCloseMenu();
-        if (data.code === 200) {
-          handleModelDetailsRefetch();
-          toast.success('Success');
-          if (handlePayoutStep) {
-            handlePayoutStep();
-          }
-        } else {
-          toast.error(data?.error);
-        }
-      }
-    } catch (error) {
-      toast.error(ErrorMessage);
-    }
-  };
-
-  const handleModelDetailsIsOffline = async (id: number) => {
-    try {
-      if (token.token) {
-        const data = await adminModelServices.modelDetailsStatusOffline(token.token, id);
         handleCloseMenu();
         if (data.code === 200) {
           handleModelDetailsRefetch();
@@ -320,6 +301,23 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     await adminModelServices.modelAction(token.token, Number(selected?.id), String(selected?.profile_status), true);
     handleModelListRefetch();
     handleCloseMenu();
+  };
+
+  const handleModelDetailsIsOffline = async (id: number) => {
+    try {
+      if (token.token) {
+        const data = await adminModelServices.modelDetailsStatusOffline(token.token, id);
+        handleCloseMenu();
+        if (data.code === 200) {
+          handleModelListRefetch();
+          toast.success('Success');
+        } else {
+          toast.error(data?.error);
+        }
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
   };
 
   return (
