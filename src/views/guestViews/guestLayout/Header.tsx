@@ -23,7 +23,7 @@ import { CommonServices } from 'services/commonApi/commonApi.services';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
 import { MenuContainer, SearchBarBox } from './GuestLayout.styled';
 import MenuItem from '@mui/material/MenuItem';
-import { Divider, ListItemIcon, ListItemText } from '@mui/material';
+import { Button, Divider, ListItemIcon, ListItemText } from '@mui/material';
 import { gaEventTrigger } from 'utils/analytics';
 
 const HeaderGuestComponent = () => {
@@ -265,13 +265,33 @@ const HeaderGuestComponent = () => {
                   </UINewTypography>
                 </Box>
               )}
-              {isMdUp && (
+              {/* {isMdUp && (
                 <UIThemeShadowButton variant="contained" onClick={handleSignupOpen} sx={{ width: '195px' }}>
                   <UINewTypography variant="body" lineHeight={'150%'}>
                     <FormattedMessage id="SignUpNow" />
                   </UINewTypography>
                   <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} />
                 </UIThemeShadowButton>
+              )} */}
+              {isMdUp && (
+                <Button
+                  onClick={handleSignupOpen}
+                  sx={{
+                    width: '318px',
+                    background: 'linear-gradient(90deg, #FECD3D, #FFF1C6, #FF68C0)',
+                    boxShadow: '0px 4px 10px #FF68C07A',
+                    borderRadius: '8px',
+                    gap: 1
+                  }}
+                >
+                  <Box component="img" src="/images/icons/free-credit-icon.png" />
+                  <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
+                    <FormattedMessage id="ClaimYour" />
+                  </UINewTypography>
+                  <UINewTypography variant="body" fontWeight={800} lineHeight={'150%'} color="primary.200">
+                    <FormattedMessage id="FREE100Credits" />
+                  </UINewTypography>
+                </Button>
               )}
             </Box>
           </Box>
