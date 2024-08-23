@@ -24,8 +24,8 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { ErrorMessage } from 'constants/common.constants';
 import { useRouter } from 'next/navigation';
 import { getErrorMessage } from 'utils/errorUtils';
-import AuthFreeCreditsSignupCommon from './AuthFreeCreditsSignupCommon';
-import GuestModelMobileSignup from './GuestModelMobileSignup';
+import AuthHomePageFreeSignupCommon from './AuthHomePageFreeSignupCommon';
+import HomePageFreeSignupMobile from './HomePageFreeSignupMobile';
 
 export type SignupParams = {
   name: string;
@@ -33,7 +33,7 @@ export type SignupParams = {
   password: string;
 };
 
-const GuestFreeCreditsSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
+const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
   const intl = useIntl();
   const route = useRouter();
   const { refresh } = route;
@@ -124,7 +124,7 @@ const GuestFreeCreditsSignup = ({ onClose, onLoginOpen }: { onClose: () => void;
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
-            <AuthFreeCreditsSignupCommon
+            <AuthHomePageFreeSignupCommon
               onClose={onClose}
               image="/images/auth/auth-model1.webp"
               mobileImage="/images/auth/auth-model1.webp"
@@ -166,7 +166,7 @@ const GuestFreeCreditsSignup = ({ onClose, onLoginOpen }: { onClose: () => void;
                           </IconButton>
                         </Box>
                       </Box>
-                      {isSmDown && <GuestModelMobileSignup />}
+                      {isSmDown && <HomePageFreeSignupMobile />}
                     </Box>
 
                     <Box sx={{ color: 'primary.300' }}>
@@ -297,7 +297,7 @@ const GuestFreeCreditsSignup = ({ onClose, onLoginOpen }: { onClose: () => void;
                   <GuestSignupSuccess redirectSeconds={redirectSeconds} />
                 )}
               </Box>
-            </AuthFreeCreditsSignupCommon>
+            </AuthHomePageFreeSignupCommon>
           </Box>
         );
       }}
@@ -305,4 +305,4 @@ const GuestFreeCreditsSignup = ({ onClose, onLoginOpen }: { onClose: () => void;
   );
 };
 
-export default GuestFreeCreditsSignup;
+export default HomePageFreeSignup;

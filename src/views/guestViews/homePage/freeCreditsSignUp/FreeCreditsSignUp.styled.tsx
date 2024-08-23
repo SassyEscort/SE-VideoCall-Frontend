@@ -21,7 +21,9 @@ export const DialogContentMain = styled(Dialog)(({ theme }) => ({
     width: '100%',
     maxWidth: '665px',
     height: '100%',
-    maxHeight: '485px'
+    maxHeight: '485px',
+    position: 'relative',
+    zIndex: 5
   },
   '& .MuiDialog-container': {
     backgroundColor: '#07030e99 !important',

@@ -25,6 +25,7 @@ const FreeCreditsSignUp = ({ open }: { open: boolean }) => {
     // onClose={onClose}
     <DialogContentMain open={open} fullWidth>
       <DialogTitleBox id="responsive-modal-title">
+        {/* <Box component="img" src="/images/home/congrulation-gif.gif" sx={{ width: '665px', height: '485px', position: 'absolute' }} /> */}
         <FreeCreditSignupMainContainer>
           <ImageBoxContainer>
             <Box component="img" src="/images/home/credit-signup-img.png" width={291} height={291}></Box>

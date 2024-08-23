@@ -10,7 +10,6 @@ export const MobileImageBoxContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const MobileImageInnerBoxContainer = styled(Box)(({ theme }) => ({
-  position: 'absolute',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -41,6 +40,7 @@ export const TitleTextBoxContainer = styled(Box)(({ theme }) => ({
   maxWidth: '275px',
   display: 'flex',
   textAlign: 'center',
+  justifyContent: 'center',
   '@media (max-width: 320px)': {
     maxWidth: '221px'
   }
