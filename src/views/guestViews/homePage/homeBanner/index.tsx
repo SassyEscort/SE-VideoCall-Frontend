@@ -26,7 +26,7 @@ import {
 } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
-import { forwardRef, Ref, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
@@ -37,8 +37,6 @@ import { User } from 'app/(guest)/layout';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import ButtonFreeCredits from '../buttonFreeCredits';
 import React from 'react';
-import { TransitionProps } from '@mui/material/transitions';
-import Slide from '@mui/material/Slide';
 
 const HomeTopBanner = () => {
   const [isModalOpenFreeCredits, setIsModalOpenFreeCredits] = useState(false);
@@ -114,12 +112,6 @@ const HomeTopBanner = () => {
     setIsModalOpenFreeCredits(false);
   };
 
-  const Transition = forwardRef(function Transition(
-    props: TransitionProps & { children: React.ReactElement<any, any> },
-    ref: Ref<unknown>
-  ) {
-    return <Slide direction="up" ref={ref} {...props} />;
-  });
   return (
     <>
       {(session?.user as User)?.provider === 'providerGuest' ? (
@@ -212,7 +204,7 @@ const HomeTopBanner = () => {
               />
             </Box>
           </BannerContainer>
-          {isSmDown && <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} Transition={Transition} />}{' '}
+          {isSmDown && <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} />}{' '}
           {isSmDown && (
             <Box sx={{ position: 'relative', cursor: 'pointer' }} onClick={handleBoxClick}>
               <GiftBoxFirst></GiftBoxFirst>

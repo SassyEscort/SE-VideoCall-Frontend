@@ -40,7 +40,6 @@ export const TimeTypo = styled(UINewTypography)(({ theme }) => ({
   zIndex: 1
 }));
 export const TimerDivider = styled(Divider)(({ theme }) => ({
-  borderColor: 'red',
   width: '100%',
   position: 'absolute',
   border: '2px solid',
@@ -63,8 +62,8 @@ export const Dotes = styled(Box)(({ theme }) => ({
   height: '8px',
   borderRadius: '50%',
   border: '1px solid',
-  backgroundColor: '#FFFFFF',
-  color: '#FFFFFF',
+  backgroundColor: theme.palette.common.white,
+  color: theme.palette.common.white,
   position: 'absolute',
   left: '51%',
   top: '83%',
@@ -89,8 +88,8 @@ export const Dotes = styled(Box)(({ theme }) => ({
 export const DotesSecond = styled(Box)(({ theme }) => ({
   width: '8px',
   height: '8px',
-  color: '#FFFFFF',
+  color: theme.palette.common.white,
   borderRadius: '50px',
   border: '1px solid',
-  backgroundColor: '#FFFFFF'
+  backgroundColor: theme.palette.common.white
 }));

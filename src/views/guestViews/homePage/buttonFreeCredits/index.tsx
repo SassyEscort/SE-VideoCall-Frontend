@@ -22,7 +22,7 @@ import {
 } from './ButtonfreeCredits.styled';
 import TimerUI from '../Timer';
 
-const ButtonFreeCredits = ({ open, onClose, Transition }: { open: boolean; onClose: () => void; Transition: any }) => {
+const ButtonFreeCredits = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   return (
     <DialogContentMain anchor="bottom" open={open} onClose={onClose}>
       <DialogTitleBox

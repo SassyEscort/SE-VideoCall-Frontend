@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 const TimerUI = () => {
   const [contdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
-  function calculateCountdown() {
+  const handleCalculateCountdown = () => {
     const countdownDate = new Date(process.env.NEXT_PUBLIC_COMINGSOON_DATE as string).getTime();
 
     const updateCount = setInterval(function () {
@@ -24,10 +24,10 @@ const TimerUI = () => {
         clearInterval(updateCount);
       }
     }, 1000);
-  }
+  };
 
   useEffect(() => {
-    calculateCountdown();
+    handleCalculateCountdown();
   }, []);
 
   return (
@@ -41,8 +41,8 @@ const TimerUI = () => {
           <FormattedMessage id="Minutes" />
         </TimeTitle>
       </TimeDetails>
-      <Dotes></Dotes>
-      <DotesSecond></DotesSecond>
+      <Dotes />
+      <DotesSecond />
       <TimeDetails>
         <RemianingTime>
           <TimeTypo>{contdown.seconds}</TimeTypo>
