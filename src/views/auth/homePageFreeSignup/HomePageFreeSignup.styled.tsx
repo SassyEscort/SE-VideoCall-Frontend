@@ -6,7 +6,8 @@ export const MobileImageBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  paddingTop: '32px'
 }));
 
 export const MobileImageInnerBoxContainer = styled(Box)(({ theme }) => ({

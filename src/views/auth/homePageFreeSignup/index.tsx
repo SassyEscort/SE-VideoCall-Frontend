@@ -142,7 +142,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                 {activeStep === 0 ? (
                   <>
                     <Box>
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <Box sx={{ display: 'flex', justifyContent: 'space-between', paddingTop: 2 }}>
                         <UINewTypography
                           variant="MediumSemiBoldText"
                           color="common.white"
