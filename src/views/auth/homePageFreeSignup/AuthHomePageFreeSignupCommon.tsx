@@ -5,20 +5,18 @@ import { ReactNode } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
-import { AuthCommonBox, AuthImageBox } from './AuthHomePageFreeSignupCommon.styled';
+import { AuthCommonBox, AuthImageBox, BackgroundImageBox } from './AuthHomePageFreeSignupCommon.styled';
 import Timer from './timer';
 import { FormattedMessage } from 'react-intl';
 
 const AuthHomePageFreeSignupCommon = ({
   onClose,
-  image,
-  mobileImage,
+
   variant,
   children
 }: {
   onClose: () => void;
-  image: string;
-  mobileImage: string;
+
   variant?: string;
   children: ReactNode;
 }) => {
@@ -41,13 +39,12 @@ const AuthHomePageFreeSignupCommon = ({
         </IconButton>
       </Box>
 
-      <Box display="flex" gap={1.5} position="relative">
+      <BackgroundImageBox>
         <AuthImageBox
           sx={{
             height: 'auto',
             backgroundPosition: variant === 'resetPassword' ? { xs: 'center', md: 'right' } : 'right',
             maxWidth: variant === 'resetPassword' ? 434 : 420,
-            backgroundImage: `linear-gradient(to bottom, #00000000 60%, #000000 100%), url(${image})`,
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             position: 'relative'
@@ -62,10 +59,10 @@ const AuthHomePageFreeSignupCommon = ({
               alignItems: 'center',
               justifyContent: 'center',
               paddingTop: '92px',
-              paddingLeft: '52px'
+              paddingLeft: { md: '16px', lg: '52px' }
             }}
           >
-            <Box component="img" src="/images/home/free-credits-signup-img.png" width={291} height={291} />
+            <Box component="img" src="/images/home/gitftsecond.png" width={170} height={210} />
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
               <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
                 <Box component="img" src="/images/workercards/coin-1.png" width={20} height={20} />
@@ -75,6 +72,7 @@ const AuthHomePageFreeSignupCommon = ({
                     maxWidth: '367px',
                     display: 'flex',
                     justifyContent: 'center',
+                    marginTop: '24px',
                     '@media (max-width: 768px)': {
                       maxWidth: '275px'
                     }
@@ -90,9 +88,7 @@ const AuthHomePageFreeSignupCommon = ({
                       WebkitTextFillColor: 'transparent'
                     }}
                   >
-                    100
-                    <FormattedMessage id="FREE" />
-                    <FormattedMessage id="Creditss" />
+                    100 <FormattedMessage id="FREE" /> <FormattedMessage id="Creditss" />
                   </UINewTypography>
                 </Box>
               </Box>
@@ -106,7 +102,7 @@ const AuthHomePageFreeSignupCommon = ({
           </Box>
         )}
         {children}
-      </Box>
+      </BackgroundImageBox>
     </AuthCommonBox>
   );
 };

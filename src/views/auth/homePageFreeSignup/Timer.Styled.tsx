@@ -58,7 +58,8 @@ export const TimeTitle = styled(UINewTypography)(({ theme }) => ({
   fontSize: '12px',
   fontWeight: 300,
   lineHeight: '16.39px',
-  color: '#611441'
+  color: theme.palette.common.white,
+  textTransform: 'uppercase'
 }));
 
 export const Dotes = styled(Box)(({ theme }) => ({
@@ -73,7 +74,7 @@ export const Dotes = styled(Box)(({ theme }) => ({
   color: theme.palette.common.white,
   position: 'absolute',
   left: '51%',
-  top: '29%',
+  // top: '29%',
   transform: 'translate(-80%, -80%)',
   '@media (max-width: 425px)': {
     left: '50%',
@@ -90,11 +91,22 @@ export const Dotes = styled(Box)(({ theme }) => ({
     top: '32%',
     transform: 'translate(-50%, -90%)'
   },
-  [theme.breakpoints.up('sm')]: {
-    left: '57.5%',
-    top: '100%'
+  '@media (max-width: 768px)': {
+    left: '50%',
+    top: '90%',
+    transform: 'translate(-50%, -90%)'
   },
-  [theme.breakpoints.up('sm')]: {
+  '@media (max-width: 1024px)': {
+    left: '52.5%',
+    top: '90%',
+    transform: 'translate(-50%, -90%)'
+  },
+  '@media (max-width: 1440px)': {
+    left: '50%',
+    top: '90%',
+    transform: 'translate(-50%, -90%)'
+  },
+  [theme.breakpoints.down('sm')]: {
     left: '51%',
     top: '29%'
   }
