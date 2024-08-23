@@ -10,11 +10,9 @@ export interface CustomerFreeCreditsDetailsRes extends GenericRes {
 }
 
 export class CustomerFreeCreditsService {
-  static getCustomerFreeCredits = async (token: string): Promise<CustomerFreeCreditsDetailsRes> => {
+  static getCustomerFreeCredits = async (): Promise<CustomerFreeCreditsDetailsRes> => {
     try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/platform-credits`, {
-        headers: { 'Content-Type': 'application/json', Authorization: token }
-      });
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/platform-credits`);
       return res.data;
     } catch (err) {
       return err as CustomerFreeCreditsDetailsRes;
