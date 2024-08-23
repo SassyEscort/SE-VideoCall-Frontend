@@ -1,4 +1,5 @@
-import { Box, Button, Dialog, DialogTitle, styled } from '@mui/material';
+import { Box, Button, DialogTitle, Drawer, styled } from '@mui/material';
+
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
@@ -43,27 +44,39 @@ export const DialogContentBoxUIThemeButton = styled(UIThemeButton)(() => ({
   backgroundColor: '#D4D3D6 !important'
 }));
 
-export const DialogContentMain = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialog-paper': {
+export const DialogContentMain = styled(Drawer)(({ theme }) => ({
+  '& .MuiDrawer-paper': {
     borderRadius: '12px',
     width: '100%',
     maxWidth: '346px',
-    height: '100%',
-    maxHeight: '552px',
+    height: 'auto',
+    maxHeight: '100%',
     background: 'linear-gradient(90deg, #FECD3D 0%, #FFF1C6 44%, #FF68C0 100%)',
-    scrollbarWidth: 'none'
+    scrollbarWidth: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  '& .MuiDialog-container': {
+  '& .MuiDrawer-container': {
     backgroundColor: '#07030e99 !important',
-    backdropFilter: 'blur(24px)'
+    backdropFilter: 'blur(24px)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   [theme.breakpoints.down('md')]: {
-    '& .MuiDialog-paper': {
+    '& .MuiDrawer-paper': {
       border: 'solid 0px',
+      width: '90%',
+      maxWidth: '346px',
+      margin: 'auto',
       background: 'linear-gradient(90deg, #FECD3D 0%, #FFF1C6 44%, #FF68C0 100%)'
     },
-    '& .MuiDialog-container': {
-      backgroundColor: '#07030E'
+    '& .MuiDrawer-container': {
+      backgroundColor: '#07030E',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
     }
   }
 }));
@@ -105,6 +118,19 @@ export const UINewTypographyWithDrawButtonText2 = styled(UINewTypography)(({ the
 }));
 
 export const UINewTypographyFREECredits = styled(UINewTypography)(({ theme }) => ({
+  fontWeight: 700,
+  fontSize: '32px',
+  lineHeight: '44.8px',
+  background: 'linear-gradient(90deg, #333333 0%, #775F17 50%, #530633 100%)',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  backgroundClip: 'text',
+  textFillColor: 'transparent',
+  '@media (max-width: 320px)': {
+    fontSize: '23px'
+  }
+}));
+export const UINewTypographyFREE = styled(UINewTypography)(({ theme }) => ({
   fontWeight: 800,
   fontSize: '32px',
   lineHeight: '44.8px',
@@ -138,7 +164,10 @@ export const UINewTypographySign = styled(UINewTypography)(({ theme }) => ({
   paddingBottom: theme.spacing(2),
   paddingLeft: theme.spacing(4),
   paddingRight: theme.spacing(4),
-  textWrap: 'nowrap'
+  textWrap: 'nowrap',
+  '@media (max-width: 320px)': {
+    fontSize: '12px'
+  }
 }));
 
 export const UINewTypographyOffer = styled(UINewTypography)(({ theme }) => ({

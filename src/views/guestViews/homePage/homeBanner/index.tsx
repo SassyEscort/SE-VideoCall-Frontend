@@ -22,8 +22,7 @@ import {
   FirstBoxContainer,
   SecBoxContainer,
   GiftBoxFirst,
-  GiftBoxSecond,
-  GiftBoxThird
+  GiftBoxSecond
 } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
@@ -213,15 +212,14 @@ const HomeTopBanner = () => {
               />
             </Box>
           </BannerContainer>
-          <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} Transition={Transition} />
+          {isSmDown && <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} Transition={Transition} />}{' '}
           {isSmDown && (
             <Box sx={{ position: 'relative', cursor: 'pointer' }} onClick={handleBoxClick}>
               <GiftBoxFirst></GiftBoxFirst>
               <GiftBoxSecond></GiftBoxSecond>
-              <GiftBoxThird></GiftBoxThird>
+              {/* <GiftBoxThird></GiftBoxThird> */}
             </Box>
           )}
-
           <ModelsHeadingBox id="scroll-to-model" pt={{ xs: '96px', lg: '120px' }}>
             <HomeExploreBox>
               <UINewTypography

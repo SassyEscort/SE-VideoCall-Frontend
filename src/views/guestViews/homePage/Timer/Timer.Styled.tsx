@@ -8,7 +8,7 @@ export const TimeMainBox = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between',
   alignItems: 'center',
   flexDirection: 'row',
-  gap: theme.spacing(2.5)
+  gap: theme.spacing(1)
 }));
 
 export const TimeDetails = styled(Box)(({ theme }) => ({
@@ -55,27 +55,34 @@ export const TimeTitle = styled(UINewTypography)(({ theme }) => ({
   color: '#611441'
 }));
 
-export const Dotes = styled(Box)(({}) => ({
+export const Dotes = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   width: '8px',
   height: '8px',
-  color: '#FFFFFF',
-  position: 'absolute',
-  left: '169px',
-  top: '503px',
-  borderRadius: '50px',
+  borderRadius: '50%',
   border: '1px solid',
   backgroundColor: '#FFFFFF',
+  color: '#FFFFFF',
+  position: 'absolute',
+  left: '51%',
+  top: '83%',
+  transform: 'translate(-80%, -80%)',
   '@media (max-width: 425px)': {
-    left: '173px',
-    top: '503px'
+    left: '50%',
+    top: '83%',
+    transform: 'translate(-50%, -93%)'
   },
   '@media (max-width: 375px)': {
-    left: '148px ',
-    top: '503px'
+    left: '50%',
+    top: '83%',
+    transform: 'translate(-50%, -92%)'
   },
   '@media (max-width: 320px)': {
-    left: '120px',
-    top: '487px'
+    left: '50%',
+    top: '83%',
+    transform: 'translate(-50%, -90%)'
   }
 }));
 
