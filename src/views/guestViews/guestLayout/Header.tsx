@@ -82,6 +82,7 @@ const HeaderGuestComponent = () => {
     setFreeSignupOpen(true);
     setOpenFreeCredit(false);
     setAnchorElLogout(null);
+    setIsOpenLogin(false);
   };
 
   const handleFreeCreditSignupClose = () => {
@@ -351,6 +352,11 @@ const HeaderGuestComponent = () => {
           onClose={handleLoginClose}
           onSignupOpen={handleSignupOpen}
           onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+          isFreeCreditAvailable={isFreeCreditAvailable}
+          handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
+          handleLoginOpen={handleLoginOpen}
+          freeSignupOpen={freeSignupOpen}
+          handleFreeCreditSignupClose={handleFreeCreditSignupClose}
           image="/images/auth/auth-model1.webp"
         />
       </UIStyledDialog>

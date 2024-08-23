@@ -20,6 +20,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { NotFoundModelBox } from './HomeImageCard.styled';
 import { FormattedMessage } from 'react-intl';
 import { gaEventTrigger } from 'utils/analytics';
+import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 
 export const pageview = (url: string) => {
   window.gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, {
@@ -33,7 +34,8 @@ const HomeImageCard = ({
   token,
   totalRows,
   handleChangePage,
-  filters
+  filters,
+  isFreeCreditAvailable
 }: {
   modelListing: ModelHomeListing[] | ModelFavRes[];
   isFavPage: boolean;
@@ -41,12 +43,14 @@ const HomeImageCard = ({
   totalRows?: number;
   handleChangePage?: (page: number) => void;
   filters?: SearchFiltersTypes;
+  isFreeCreditAvailable: number;
 }) => {
   const [favModelId, setFavModelId] = useState(0);
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const [likedModels, setLikedModels] = useState<number[]>([]);
+  const [freeSignupOpen, setFreeSignupOpen] = useState(false);
 
   const handleLoginLiked = (modelId: number) => {
     setFavModelId(modelId);
@@ -106,6 +110,15 @@ const HomeImageCard = ({
       label: 'model_clicked',
       value: user_name
     });
+  };
+
+  const handleFreeCreditSignupOpen = () => {
+    handleLoginClose();
+    setFreeSignupOpen(true);
+  };
+
+  const handleFreeCreditSignupClose = () => {
+    setFreeSignupOpen(false);
   };
 
   return (
@@ -201,14 +214,22 @@ const HomeImageCard = ({
       </UIStyledDialog>
       <UIStyledDialog open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
         <GuestLogin
+          isFreeCreditAvailable={isFreeCreditAvailable}
           onClose={handleLoginClose}
           onSignupOpen={handleSignupOpen}
           onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+          handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
+          handleLoginOpen={handleLoginOpen}
+          freeSignupOpen={freeSignupOpen}
+          handleFreeCreditSignupClose={handleFreeCreditSignupClose}
           image="/images/auth/auth-model1.webp"
         />
       </UIStyledDialog>
       <UIStyledDialog open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
+      </UIStyledDialog>
+      <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+        <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
       </UIStyledDialog>
     </HomeMainContainer>
   );

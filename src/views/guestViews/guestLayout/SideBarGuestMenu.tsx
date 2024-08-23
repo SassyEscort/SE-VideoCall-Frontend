@@ -9,7 +9,6 @@ import { GuestStyleComponent, IconSideBar, SideBarBox } from './GuestLayout.styl
 import GuestSignup from 'views/auth/guestSignup';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import { useState } from 'react';
-import GuestLogin from 'views/auth/guestLogin';
 import Link from 'next/link';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
@@ -92,14 +91,7 @@ const SideBarGuestMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
       <GuestStyleComponent scroll="body" open={openSignup} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
       </GuestStyleComponent>
-      <GuestStyleComponent open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
-        <GuestLogin
-          onClose={handleLoginClose}
-          onSignupOpen={handleSignupOpen}
-          onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
-          image="/images/auth/auth-model1.webp"
-        />
-      </GuestStyleComponent>
+      <GuestStyleComponent open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth></GuestStyleComponent>
       <GuestStyleComponent open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </GuestStyleComponent>

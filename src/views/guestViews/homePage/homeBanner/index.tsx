@@ -295,9 +295,14 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
         fullWidth
       >
         <GuestLogin
+          isFreeCreditAvailable={isFreeCreditAvailable}
           onClose={handleLoginClose}
           onSignupOpen={handleSignupOpen}
           onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+          handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
+          handleLoginOpen={handleLoginOpen}
+          freeSignupOpen={freeSignupOpen}
+          handleFreeCreditSignupClose={handleFreeCreditSignupClose}
           image="/images/auth/auth-model1.webp"
         />
       </Dialog>
