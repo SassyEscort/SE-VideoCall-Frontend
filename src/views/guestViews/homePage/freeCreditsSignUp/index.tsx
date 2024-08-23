@@ -19,11 +19,10 @@ import {
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 
-// onClose: () => void
-const FreeCreditsSignUp = ({ open }: { open: boolean }) => {
+
+const FreeCreditsSignUp = ({ open,onClose }: { open: boolean;  onClose: () => void }) => {
   return (
-    // onClose={onClose}
-    <DialogContentMain open={open} fullWidth>
+    <DialogContentMain open={open} fullWidth  onClose={onClose}> 
       <DialogTitleBox id="responsive-modal-title">
         {/* <Box component="img" src="/images/home/congrulation-gif.gif" sx={{ width: '665px', height: '485px', position: 'absolute' }} /> */}
         <FreeCreditSignupMainContainer>
@@ -33,7 +32,7 @@ const FreeCreditsSignUp = ({ open }: { open: boolean }) => {
           <HeaderCloseButtonBoxContainer>
             <IconButton
               aria-label="close"
-              //   onClick={onClose}
+              onClick={onClose}
               sx={{
                 color: (theme) => theme.palette.text.secondary
               }}
