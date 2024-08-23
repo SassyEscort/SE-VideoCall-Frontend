@@ -1,5 +1,12 @@
 import axios, { AxiosError } from 'axios';
-import { CustomerDetailsRes, CustomerFilterParams, ModelDetailsDeleteRes, ModelDetailsRes, ModelFilterParams } from './types';
+import {
+  CustomerDetailsRes,
+  CustomerFilterParams,
+  ModelDetailsDeleteRes,
+  ModelDetailsRes,
+  ModelDetailStatusOfflineRes,
+  ModelFilterParams
+} from './types';
 
 export type ModelListing = {
   country_id: number;
@@ -15,6 +22,7 @@ export type ModelListing = {
   updated_at: string;
   verification_step: string;
   is_visible: number;
+  is_online: number;
 };
 
 export type PaginationAggregation = {
@@ -155,6 +163,24 @@ export class adminModelServices {
       return res.data;
     } catch (error) {
       return error as ModelDetailsDeleteRes;
+    }
+  };
+
+  static modelDetailsStatusOffline = async (token: string, id: number): Promise<ModelDetailStatusOfflineRes> => {
+    try {
+      const res = await axios.patch(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/status-offline/${id}`,
+        {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+          }
+        }
+      );
+      return res.data;
+    } catch (error) {
+      return error as ModelDetailStatusOfflineRes;
     }
   };
 }

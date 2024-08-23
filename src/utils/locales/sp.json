@@ -745,5 +745,7 @@
   "offerValidFor": "oferta válida por",
   "Minutes": "Minutos",
   "Seconds": "Segundos",
-  "FREE": "CRÉDITOS"
+  "FREE": "CRÉDITOS",
+  "NameInvalidCharacters": "El nombre contiene caracteres no válidos",
+  "InvalidEmailAddress": "Dirección de correo electrónico no válida"
 }

@@ -37,7 +37,7 @@ export const UINewStyledEarningSelect = styled(Select)(({ theme }) => ({
   cursor: 'pointer',
   maxWidth: '173px',
   height: '50px',
-  minWidth: 173,
+  minWidth: 190,
   [theme.breakpoints.down('sm')]: {
     maxWidth: '390px'
   },

@@ -87,7 +87,14 @@ const errorMessages: ErrorMessages = {
   7016: 'Admin exchange rate id required',
   1202: 'NameContainsUnwantedPhrases',
   3014: 'InvalidMail',
-  5003: 'UserWithThisEmailAlreadyExists'
+  5003: 'UserWithThisEmailAlreadyExists',
+  1200: 'Nameisrequired',
+  1203: 'NameInvalidCharacters',
+  1204: 'EmailIsRequired',
+  1205: 'InvalidEmailAddress',
+  1206: 'Passwordisrequired',
+  1207: 'Passwordmust',
+  1208: 'PasswordMustContainAt'
 };
 
 export default errorMessages;

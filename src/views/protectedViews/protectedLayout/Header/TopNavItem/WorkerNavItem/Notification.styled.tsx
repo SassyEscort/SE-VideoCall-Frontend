@@ -116,7 +116,9 @@ export const NotificationsNoneBox = styled(IconButton)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   gap: theme.spacing(2),
-  padding: theme.spacing(1.5)
+  padding: theme.spacing(1.5),
+  width: '100%',
+  color: theme.palette.text.secondary
 }));
 
 export const DrawerBox = styled(Drawer)(({ theme }) => ({

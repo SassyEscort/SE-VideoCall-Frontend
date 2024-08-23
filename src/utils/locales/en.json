@@ -747,5 +747,7 @@
   "offerValidFor": "offer valid for",
   "Minutes": "Minutes",
   "Seconds": "Seconds",
-  "FREE": "FREE"
+  "FREE": "FREE",
+  "NameInvalidCharacters": "Name contains invalid characters",
+  "InvalidEmailAddress": "Invalid email address"
 }
