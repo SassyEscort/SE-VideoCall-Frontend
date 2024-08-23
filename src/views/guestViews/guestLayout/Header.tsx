@@ -25,6 +25,9 @@ import { MenuContainer, SearchBarBox } from './GuestLayout.styled';
 import MenuItem from '@mui/material/MenuItem';
 import { Button, Divider, ListItemIcon, ListItemText } from '@mui/material';
 import { gaEventTrigger } from 'utils/analytics';
+import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
+import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
+import FreeCreditsSignUp from '../homePage/freeCreditsSignUp';
 
 const HeaderGuestComponent = () => {
   const isSmaller = useMediaQuery('(max-width:320px)');
@@ -39,6 +42,9 @@ const HeaderGuestComponent = () => {
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
+  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(1);
+  const [freeSignupOpen, setFreeSignupOpen] = useState(false);
+  const [openFreeCredit, setOpenFreeCredit] = useState(false);
 
   const handleClickLogout = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElLogout(event.currentTarget);
@@ -68,7 +74,17 @@ const HeaderGuestComponent = () => {
 
   const handleLoginOpen = () => {
     setIsOpen(false);
+    setFreeSignupOpen(false);
     setIsOpenLogin(true);
+  };
+
+  const handleFreeCreditSignupOpen = () => {
+    setFreeSignupOpen(true);
+    setOpenFreeCredit(false);
+  };
+
+  const handleFreeCreditSignupClose = () => {
+    setFreeSignupOpen(false);
   };
 
   const handleLoginResetPasswordOpen = () => {
@@ -97,6 +113,10 @@ const HeaderGuestComponent = () => {
     setOpenFilterModal(false);
   };
 
+  const handleFreeCreditClose = () => {
+    setOpenFreeCredit(false);
+  };
+
   const handleLanguageApiChange = useCallback(() => {
     const languagesData = async () => {
       const data = await CommonServices.getLanguagesWithoutToken();
@@ -108,6 +128,27 @@ const HeaderGuestComponent = () => {
   useEffect(() => {
     handleLanguageApiChange();
   }, [handleLanguageApiChange]);
+
+  useEffect(() => {
+    const handleIsFreeCreditAvailable = async () => {
+      const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
+      setIsFreeCreditAvailable(res.data.free_credits_available);
+    };
+    handleIsFreeCreditAvailable();
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setOpenFreeCredit(true);
+    }, 5000);
+
+    if (openFreeCredit) {
+      clearTimeout(timer);
+    }
+
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <HomeMainContainer>
@@ -265,42 +306,34 @@ const HeaderGuestComponent = () => {
                   </UINewTypography>
                 </Box>
               )}
-              {/* {isMdUp && (
-                <UIThemeShadowButton variant="contained" onClick={handleSignupOpen} sx={{ width: '195px' }}>
-                  <UINewTypography variant="body" lineHeight={'150%'}>
-                    <FormattedMessage id="SignUpNow" />
-                  </UINewTypography>
-                  <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} />
-                </UIThemeShadowButton>
-              )} */}
-              {isMdUp && (
-                <Button
-                  onClick={handleSignupOpen}
-                  sx={{
-                    width: '318px',
-                    background: 'linear-gradient(90deg, #FECD3D, #FFF1C6, #FF68C0)',
-                    boxShadow: '0px 4px 10px #FF68C07A',
-                    borderRadius: '8px',
-                    gap: 1
-                  }}
-                >
-                  <Box component="img" src="/images/icons/free-credit-icon.png" />
-                  <Box>
+              {isMdUp &&
+                (isFreeCreditAvailable ? (
+                  <Button
+                    onClick={handleFreeCreditSignupOpen}
+                    sx={{
+                      width: '318px',
+                      background: 'linear-gradient(90deg, #FECD3D, #FFF1C6, #FF68C0)',
+                      boxShadow: '0px 4px 10px #FF68C07A',
+                      borderRadius: '8px',
+                      gap: 1
+                    }}
+                  >
+                    <Box component="img" src="/images/icons/free-credit-icon.png" />
                     <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
                       <FormattedMessage id="ClaimYour" />
-                    </UINewTypography>{' '}
-                    <UINewTypography variant="body" fontWeight={800} lineHeight={'150%'} color="primary.200">
-                      <FormattedMessage id="FREE" />
-                    </UINewTypography>{' '}
-                    <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
-                      100
-                    </UINewTypography>{' '}
-                    <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
-                      <FormattedMessage id="Creditss" />
                     </UINewTypography>
-                  </Box>
-                </Button>
-              )}
+                    <UINewTypography variant="body" fontWeight={800} lineHeight={'150%'} color="primary.200">
+                      <FormattedMessage id="FREE100Credits" />
+                    </UINewTypography>
+                  </Button>
+                ) : (
+                  <UIThemeShadowButton variant="contained" onClick={handleSignupOpen} sx={{ width: '195px' }}>
+                    <UINewTypography variant="body" lineHeight={'150%'}>
+                      <FormattedMessage id="SignUpNow" />
+                    </UINewTypography>
+                    <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} />
+                  </UIThemeShadowButton>
+                ))}
             </Box>
           </Box>
         </Toolbar>
@@ -320,8 +353,20 @@ const HeaderGuestComponent = () => {
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
 
+      <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+        <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
+      </UIStyledDialog>
+
       {/* <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} /> */}
       <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
+
+      {isMdUp && (
+        <FreeCreditsSignUp
+          open={openFreeCredit && Boolean(isFreeCreditAvailable)}
+          onClose={handleFreeCreditClose}
+          onSignupOpen={handleFreeCreditSignupOpen}
+        />
+      )}
     </HomeMainContainer>
   );
 };

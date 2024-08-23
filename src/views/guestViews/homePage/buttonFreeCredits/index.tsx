@@ -22,7 +22,7 @@ import {
 } from './ButtonfreeCredits.styled';
 import TimerUI from '../Timer';
 
-const ButtonFreeCredits = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+const ButtonFreeCredits = ({ open, onClose, onSignupOpen }: { open: boolean; onClose: () => void; onSignupOpen: () => void }) => {
   return (
     <DialogContentMain anchor="bottom" open={open} onClose={onClose}>
       <DialogTitleBox
@@ -57,7 +57,7 @@ const ButtonFreeCredits = ({ open, onClose }: { open: boolean; onClose: () => vo
                 <FormattedMessage id="JoinNowAndEnjoyAEREEVideoCall" />
               </UINewTypographyJoin>
             </DialogContentBoxButton>
-            <ButtonBox variant="contained">
+            <ButtonBox variant="contained" onClick={onSignupOpen}>
               <UINewTypographySign>
                 <FormattedMessage id="SignUpAndClaimNow" />
               </UINewTypographySign>

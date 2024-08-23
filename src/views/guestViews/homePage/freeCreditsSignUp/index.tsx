@@ -19,10 +19,9 @@ import {
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 
-
-const FreeCreditsSignUp = ({ open,onClose }: { open: boolean;  onClose: () => void }) => {
+const FreeCreditsSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onClose: () => void; onSignupOpen: () => void }) => {
   return (
-    <DialogContentMain open={open} fullWidth  onClose={onClose}> 
+    <DialogContentMain open={open} fullWidth onClose={onClose} scroll="body">
       <DialogTitleBox id="responsive-modal-title">
         {/* <Box component="img" src="/images/home/congrulation-gif.gif" sx={{ width: '665px', height: '485px', position: 'absolute' }} /> */}
         <FreeCreditSignupMainContainer>
@@ -67,7 +66,7 @@ const FreeCreditsSignUp = ({ open,onClose }: { open: boolean;  onClose: () => vo
               </DescriptionTextBoxContainer>
             </TitleTextBoxContainer>
 
-            <ButtonContainer variant="contained">
+            <ButtonContainer variant="contained" onClick={onSignupOpen}>
               <UINewTypography variant="bodySemiBold" lineHeight={'150%'} color="white.main">
                 <FormattedMessage id="SignUpAndClaimNow" />
               </UINewTypography>

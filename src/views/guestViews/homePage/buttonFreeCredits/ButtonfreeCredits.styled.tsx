@@ -50,7 +50,7 @@ export const DialogContentMain = styled(Drawer)(({ theme }) => ({
     width: '100%',
     maxWidth: '346px',
     height: 'auto',
-    maxHeight: '100%',
+    maxHeight: '519.37px',
     background: 'linear-gradient(90deg, #FECD3D 0%, #FFF1C6 44%, #FF68C0 100%)',
     scrollbarWidth: 'none',
     display: 'flex',
@@ -196,6 +196,9 @@ export const ButtonBox = styled(Button)(({ theme }) => ({
   '&:hover': {
     backgroundColor: theme.palette.primary['500'],
     color: 'white'
+  },
+  '&.MuiButtonBase-root': {
+    padding: '0px 0px'
   }
 }));
 
@@ -209,7 +212,7 @@ export const JoinNowAndEnjoyAEREEVideoCallMainBox = styled(Box)(({ theme }) => (
 
 export const ImageFirst = styled('img')(({ theme }) => ({
   width: '100%',
-  maxWidth: '219.53px'
+  maxWidth: '100px'
 }));
 
 export const ImageSecond = styled('img')(({ theme }) => ({

@@ -37,8 +37,10 @@ import { User } from 'app/(guest)/layout';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import ButtonFreeCredits from '../buttonFreeCredits';
 import React from 'react';
+import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 
-const HomeTopBanner = () => {
+const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const [isModalOpenFreeCredits, setIsModalOpenFreeCredits] = useState(false);
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
@@ -48,6 +50,7 @@ const HomeTopBanner = () => {
   // const [openDropDown, setOpenDropDown] = useState(false);
   // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [loading, setLoading] = useState(false);
+  const [freeSignupOpen, setFreeSignupOpen] = useState(false);
 
   const { data: session } = useSession();
 
@@ -90,6 +93,14 @@ const HomeTopBanner = () => {
 
   const handleResetPasswordLinkClose = () => {
     setOpenForgetPassLink(false);
+  };
+
+  const handleFreeCreditSignupOpen = () => {
+    setFreeSignupOpen(true);
+  };
+
+  const handleFreeCreditSignupClose = () => {
+    setFreeSignupOpen(false);
   };
 
   const handleClickScroll = () => {
@@ -204,8 +215,10 @@ const HomeTopBanner = () => {
               />
             </Box>
           </BannerContainer>
-          {isSmDown && <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} />}{' '}
           {isSmDown && (
+            <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} onSignupOpen={handleFreeCreditSignupOpen} />
+          )}{' '}
+          {isSmDown && isFreeCreditAvailable && !isModalOpenFreeCredits && (
             <Box sx={{ position: 'relative', cursor: 'pointer' }} onClick={handleBoxClick}>
               <GiftBoxFirst></GiftBoxFirst>
               <GiftBoxSecond></GiftBoxSecond>
@@ -306,6 +319,9 @@ const HomeTopBanner = () => {
       >
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </Dialog>
+      <UIStyledDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
+        <HomePageFreeSignup onLoginOpen={handleLoginOpen} onClose={handleFreeCreditSignupClose} />
+      </UIStyledDialog>
       {/* <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} /> */}
     </>
   );
