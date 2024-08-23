@@ -4,9 +4,9 @@ import { SelectChangeEvent } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { StyledSelectInputLabel, UIStyledSelect } from 'components/UIComponents/UIStyledSelect';
+import { StyledSelectInputLabel, UIStyledSelectAgeFilter } from 'components/UIComponents/UIStyledSelect';
 import { SEARCH_PRICES } from 'constants/searchConstants';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { DollarImageContainer, StyledClearIcon } from '../Search.styled';
 import theme from 'themes/theme';
 
@@ -18,6 +18,7 @@ interface PriceFilterProps {
 
 const Price: React.FC<PriceFilterProps> = ({ fromValue, toValue, onChange }) => {
   const [open, setOpen] = useState(false);
+  const intl = useIntl();
 
   let renderValue = '';
   if (fromValue >= '0') renderValue = toValue === '' && fromValue >= '0' ? '' : `${fromValue}-${toValue}`;
@@ -46,7 +47,7 @@ const Price: React.FC<PriceFilterProps> = ({ fromValue, toValue, onChange }) => 
         <DollarImageContainer src="/images/workercards/coin-1.png" />
         <FormattedMessage id="Credits" />
       </StyledSelectInputLabel>
-      <UIStyledSelect
+      <UIStyledSelectAgeFilter
         MenuProps={{ disableScrollLock: true }}
         value={renderValue}
         onChange={handleChange}
@@ -61,10 +62,12 @@ const Price: React.FC<PriceFilterProps> = ({ fromValue, toValue, onChange }) => 
       >
         {SEARCH_PRICES?.map((price, key: number) => (
           <MenuItem key={key} value={price?.id}>
-            <UINewTypography sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{price?.name}</UINewTypography>
+            <UINewTypography sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {intl.formatMessage({ id: price.name })}
+            </UINewTypography>
           </MenuItem>
         ))}
-      </UIStyledSelect>
+      </UIStyledSelectAgeFilter>
     </FormControl>
   );
 };

@@ -1,5 +1,5 @@
 'use client';
-import { CircularProgress, Divider, useMediaQuery } from '@mui/material';
+import { CircularProgress, Divider } from '@mui/material';
 import Box from '@mui/material/Box';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
@@ -32,7 +32,6 @@ import {
 } from './CallHistory.styled';
 import MainLayoutNav from '../protectedLayout';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import { CallHistoryDetails, CallHistoryPageDetailsRes } from 'services/callHistory/types';
@@ -45,18 +44,17 @@ import moment from 'moment';
 import { BillingPaginationBox } from '../BillingHistory/BillingHistory.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { LoaderBox } from '../Credites/Credits.styled';
-import { UIStyledLoadingButtonShadowCallHistoryV2 } from 'components/UIComponents/StyleLoadingButtonshadow';
+import { UIStyledLoadingButtonShadowCallHistory } from 'components/UIComponents/StyleLoadingButtonshadow';
 import { useRouter } from 'next/navigation';
 
 export type CallHistoryPaginationType = {
   page: number;
-  offset: number;
   limit: number;
+  offset: number;
 };
 
 const CallHistory = () => {
   const router = useRouter();
-  const isSmDown = useMediaQuery(theme.breakpoints.down(330));
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [callHistoryData, setCallHistoryData] = useState<CallHistoryPageDetailsRes>();
   const [total_rows, setTotalRows] = useState(0);
@@ -83,7 +81,12 @@ const CallHistory = () => {
       try {
         if (token.token) {
           setIsLoading(true);
-          const data = await CallHistoryService.getCallHistoryDetails(token.token);
+          const objectParams = {
+            page: filters.page,
+            limit: filters.limit,
+            offset: filters.offset
+          };
+          const data = await CallHistoryService.getCallHistoryDetails(token.token, objectParams);
           if (data) {
             setCallHistoryData(data);
             setTotalRows(data.data.aggregate.total_rows);
@@ -96,6 +99,7 @@ const CallHistory = () => {
     };
 
     fetchCallHistoryDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters.limit, filters.offset, token.token]);
 
   const scrollToTable = () => {
@@ -180,7 +184,7 @@ const CallHistory = () => {
                       <SecondSubTextMainContainer>
                         <SecondSubFirstBox>
                           <SecondSubFirstPartBox>
-                            <WorkerImg src={list?.link ? list?.link : ''} />
+                            <WorkerImg src={list?.link ? list?.link : ''} width={80} height={80} />
                             <SecondSubFirstPartSecondBox>
                               <SecondSubFirstPartSecondBoxFirstText>
                                 <CallHistoryName variant="h6" color="white.main" whiteSpace="nowrap">
@@ -206,69 +210,33 @@ const CallHistory = () => {
                               </CallHistoryCreditBox>
                             </SecondSubFirstPartSecondBox>
                           </SecondSubFirstPartBox>
-                          {!isSmDown && (
-                            <SecondSubFirstPartThiredBox marginRight={{ sm: '32px' }}>
-                              <FirstTextContainer color="text.primary" whiteSpace="nowrap">
-                                <FormattedMessage id="Duration" />
-                                {list?.duration && formatDuration(list?.duration)}
+                          <SecondSubFirstPartThiredBox marginRight={{ sm: '32px' }}>
+                            <CallHistoryBox>
+                              <FirstTextContainer color="secondary.700" sx={{ textWrap: 'nowrap' }}>
+                                {moment(list?.created_at).format('LT')},
                               </FirstTextContainer>
-                              <CreditUsedBox>
-                                <FirstTextContainer color="text.primary" whiteSpace="nowrap">
-                                  <FormattedMessage id="CreditsUsed" />
-                                </FirstTextContainer>
-                                <SecondSubFirstPartThiredBoxText>
-                                  <ImgBoxContainer src="/images/workercards/dollar-img.png" />
-                                  <FirstTextContainer color="text.primary">{list?.credits_used}</FirstTextContainer>
-                                </SecondSubFirstPartThiredBoxText>
-                              </CreditUsedBox>
-                              <CreditUsedBox>
-                                <FirstTextContainer color="text.primary" whiteSpace="nowrap">
-                                  <FormattedMessage id="Date" /> :
-                                </FirstTextContainer>
-                                <SecondSubFirstPartThiredBoxText>
-                                  <CallHistoryBox>
-                                    <FirstTextContainer color="text.primary" sx={{ textWrap: 'nowrap' }}>
-                                      {moment(list?.created_at).format('LT')},
-                                    </FirstTextContainer>
-                                    <FirstTextContainer color="text.primary" sx={{ textWrap: 'nowrap' }}>
-                                      {moment(list?.created_at).format('DD MMMM YYYY')}
-                                    </FirstTextContainer>
-                                  </CallHistoryBox>
-                                </SecondSubFirstPartThiredBoxText>
-                              </CreditUsedBox>
-                            </SecondSubFirstPartThiredBox>
-                          )}
-                        </SecondSubFirstBox>
-                        {isSmDown && (
-                          <SecondSubFirstPartThiredBox gap="8px !important">
-                            <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
+                              <FirstTextContainer color="secondary.700" sx={{ textWrap: 'nowrap' }}>
+                                {moment(list?.created_at).format('DD MMMM YYYY')}
+                              </FirstTextContainer>
+                            </CallHistoryBox>
+                            <FirstTextContainer color="text.primary" whiteSpace="nowrap">
                               <FormattedMessage id="Duration" />
                               {list?.duration && formatDuration(list?.duration)}
-                            </UINewTypography>
+                            </FirstTextContainer>
                             <CreditUsedBox>
-                              <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
+                              <FirstTextContainer color="text.primary" whiteSpace="nowrap">
                                 <FormattedMessage id="CreditsUsed" />
-                              </UINewTypography>
+                              </FirstTextContainer>
                               <SecondSubFirstPartThiredBoxText>
                                 <ImgBoxContainer src="/images/workercards/dollar-img.png" />
-                                <UINewTypography variant="buttonLargeMenu" color="text.primary">
-                                  {list?.credits_used}
-                                </UINewTypography>
+                                <FirstTextContainer color="text.primary">{list?.credits_used}</FirstTextContainer>
                               </SecondSubFirstPartThiredBoxText>
                             </CreditUsedBox>
-
-                            <Box>
-                              <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
-                                <FormattedMessage id="Date" />
-                              </UINewTypography>
-                              <UINewTypography variant="buttonLargeMenu" color="text.primary" whiteSpace="nowrap">
-                                {moment(list?.created_at).format('LT')}, {moment(list?.created_at).format('DD MMMM YYYY')}
-                              </UINewTypography>
-                            </Box>
                           </SecondSubFirstPartThiredBox>
-                        )}
+                        </SecondSubFirstBox>
+
                         <CallAgainBox>
-                          <UIStyledLoadingButtonShadowCallHistoryV2
+                          <UIStyledLoadingButtonShadowCallHistory
                             loading={isLoadingDetail}
                             variant="contained"
                             onClick={() => {
@@ -283,7 +251,7 @@ const CallHistory = () => {
                                 </UINewTypography>
                               </Box>
                             </Box>
-                          </UIStyledLoadingButtonShadowCallHistoryV2>
+                          </UIStyledLoadingButtonShadowCallHistory>
                         </CallAgainBox>
                       </SecondSubTextMainContainer>
                     </SecondSubContainer>

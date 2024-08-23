@@ -17,6 +17,7 @@ import {
   SelectedTab
 } from '../../protectedDashboardViews/dashboardNavbar/nav.styled';
 import Link from 'next/link';
+import { useIntl } from 'react-intl';
 
 Nav.propTypes = {
   openNav: PropTypes.bool,
@@ -29,6 +30,7 @@ interface NavProps {
 }
 
 export default function Nav({ openNav, onCloseNav }: NavProps) {
+  const intl = useIntl();
   const router = usePathname();
 
   const maindashboardTabIndex: { [key: string]: number } = {
@@ -96,7 +98,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
                         }}
                       />
                       <Box sx={{ color: 'primary.400' }}>
-                        <MobileTextStyleContainer label={tab.name} />
+                        <MobileTextStyleContainer label={intl.formatMessage({ id: tab.name })} />
                       </Box>
                     </SelectedTab>
                   </Link>
@@ -106,7 +108,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
                   <Link prefetch={false} href={tab.path} style={{ textDecoration: 'none' }}>
                     <MobileComponentSecBoxContainer>
                       <Box component="img" src={tab.img} width={20} height="auto" />
-                      <MobileTextStyleContainer label={tab.name} />
+                      <MobileTextStyleContainer label={intl.formatMessage({ id: tab.name })} />
                     </MobileComponentSecBoxContainer>
                   </Link>
                 </CommonMenuBox>

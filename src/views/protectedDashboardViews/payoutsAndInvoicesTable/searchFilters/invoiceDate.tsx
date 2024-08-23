@@ -1,4 +1,4 @@
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 import MenuItem from '@mui/material/MenuItem';
 import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -77,11 +77,18 @@ const InvoiceDate = ({ handleChangeFilter, filters }: { handleChangeFilter: (val
           labelId="invoiceDate"
           value={periodType}
           onChange={(e) => handleChangePeriodType(e.target.value as string)}
-          IconComponent={() => <ExpandMoreIcon />}
+          IconComponent={ExpandMore}
         >
           {dateDurationTypes?.map((data, index) => (
-            <MenuItem key={index} value={data?.id}>
-              {data?.name}
+            <MenuItem
+              key={index}
+              value={data?.id}
+              sx={{
+                margin: '10px 12px',
+                '&. MuiPaper-root': { borderRadius: '16px 0px' }
+              }}
+            >
+              <FormattedMessage id={data?.name} />
             </MenuItem>
           ))}
         </UIStyledSelectPastPayout>

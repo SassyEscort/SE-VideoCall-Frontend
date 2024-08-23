@@ -29,7 +29,14 @@ const Status: React.FC<StatusFilterProps> = ({ value, onChange }) => {
       >
         {STATUS.map((status, key: number) => {
           return (
-            <MenuItem key={key} value={status.id}>
+            <MenuItem
+              key={key}
+              value={status.id}
+              sx={{
+                margin: '10px 12px',
+                '&. MuiPaper-root': { borderRadius: '16px 0px' }
+              }}
+            >
               <StatusBoxContainer variant="buttonLargeMenu" color="text.secondary">
                 {status.title}
               </StatusBoxContainer>

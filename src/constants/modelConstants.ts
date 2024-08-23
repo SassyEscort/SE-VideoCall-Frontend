@@ -1,6 +1,6 @@
 export const DashboardModelTabs = [
   {
-    name: 'My Profile',
+    name: 'MyProfile',
     img: '/images/icons/dashboard-img1.png',
     path: '/model/dashboard'
   },
@@ -15,7 +15,7 @@ export const DashboardModelTabs = [
     path: '/model/payouts'
   },
   {
-    name: 'Help and Info',
+    name: 'HelpAndInfo',
     img: '/images/icons/dashboard-img4.png',
     path: '/model/help-info'
   },

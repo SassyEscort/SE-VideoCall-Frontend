@@ -40,6 +40,7 @@ const HomeContainer = () => {
     country: getQueryParam('country') ? (getQueryParam('country') as string) : '',
     sortOrder: getQueryParam('sortOrder') ? (getQueryParam('sortOrder') as string) : '',
     sortField: getQueryParam('sortField') ? (getQueryParam('sortField') as string) : '',
+    gender: getQueryParam('gender') ? (getQueryParam('gender') as string) : '',
     page: Number(getQueryParam('page', 1)),
     pageSize: HOME_PAGE_SIZE,
     offset: (Number(searchParams.get('page') ?? 1) - 1) * HOME_PAGE_SIZE || 0,
@@ -61,6 +62,7 @@ const HomeContainer = () => {
     if (filters.sortOrder) objParams.sortOrder = filters.sortOrder ? filters.sortOrder.toString() : '';
     if (filters.sortField) objParams.sortField = filters.sortField ? filters.sortField.toString() : '';
     if (filters.email) objParams.email = filters.email ? filters.email.toString() : '';
+    if (filters.gender) objParams.gender = filters.gender ? filters.gender.toString() : '';
 
     let filterCount = Object.keys(objParams).length;
     const queryString = new URLSearchParams(objParams).toString();
@@ -71,9 +73,18 @@ const HomeContainer = () => {
     if (pathname === '/' && filterCount === 1 && objParams.page) return;
 
     const isDetailsPage = pathname.startsWith('/details/');
-    const isMultiple = ['language', 'isOnline', 'page', 'fromPrice', 'fromAge', 'toPrice', 'country', 'sortOrder', 'sortField'].filter(
-      (x) => Object.keys(objParams).includes(x)
-    );
+    const isMultiple = [
+      'language',
+      'isOnline',
+      'page',
+      'fromPrice',
+      'fromAge',
+      'toPrice',
+      'country',
+      'sortOrder',
+      'sortField',
+      'gender'
+    ].filter((x) => Object.keys(objParams).includes(x));
     if (filterCount === 0) {
       if (isDetailsPage) {
         const credit = searchParams.get('credit');
@@ -125,14 +136,7 @@ const HomeContainer = () => {
   };
 
   useEffect(() => {
-    if (token.token && !isCustomer) {
-      handelFilterChange(filters);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (isCustomer) {
+    if (token.token) {
       handelFilterChange(filters);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

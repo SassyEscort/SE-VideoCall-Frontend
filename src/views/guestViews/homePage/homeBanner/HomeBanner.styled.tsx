@@ -47,8 +47,9 @@ export const InlineBox = styled(Box)(({ theme }) => ({
   flexFlow: 'column-wrap',
   wordBreak: 'break-word',
   display: 'inline',
+
   [theme.breakpoints.down('sm')]: {
-    fontSize: 32,
+    fontSize: 30,
     fontWeight: 700,
     lineHeight: '50px',
     textAlign: 'center',
@@ -158,6 +159,14 @@ export const TextBoxContainer = styled(Typography)(({ theme }) => ({
     fontSize: '20px',
     fontWeight: 400,
     lineHeight: '32px'
+  },
+  '@media (max-width: 320px)': {
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: '28px',
+    paddingLeft: '15px',
+    paddingRight: '15px',
+    whiteSpace: 'normal'
   }
 }));
 

@@ -19,6 +19,7 @@ import { useCallFeatureContext } from '../../../../../context/CallFeatureContext
 import { CallingService } from 'services/calling/calling.services';
 import moment from 'moment';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+import { gaEventTrigger } from 'utils/analytics';
 
 const EscortDetailPage = () => {
   const path = usePathname();
@@ -32,7 +33,7 @@ const EscortDetailPage = () => {
   const [callTime, setCallTime] = useState(0);
   const modelPhoto = guestData?.photos?.filter((x) => x.favourite)?.map((item) => item.link)[0];
 
-  const { handleCallInitiate, call, isLoading, isCallEnded, isCustomer, handleCallEnd } = useCallFeatureContext();
+  const { handleCallInitiate, call, isLoading, isCallEnded, isCustomer, handleCallEnd, isUnanswered } = useCallFeatureContext();
 
   useEffect(() => {
     const userToken = async () => {
@@ -46,10 +47,18 @@ const EscortDetailPage = () => {
   }, [userName, isCustomer]);
 
   useEffect(() => {
+    gaEventTrigger('model_page_view', {
+      action: 'model_page_view',
+      category: 'page_view',
+      value: userName
+    });
+  }, [userName]);
+
+  useEffect(() => {
     const fetchGuestData = async () => {
       try {
         if (userName) {
-          const data = await ModelDetailsService.getModelDetails(token.token, userName);
+          const data = await ModelDetailsService.getModelDetails(token.token, isCustomer, userName);
           if (data.code === 200) {
             setGuestData(data.data);
           } else {
@@ -62,12 +71,12 @@ const EscortDetailPage = () => {
     };
 
     fetchGuestData();
-  }, [token.token, userName]);
+  }, [isCustomer, token.token, userName]);
 
   const getCometChatInfo = async () => {
     if (guestData && token.token) {
       const getInfo = await CallingService.getCometChatInfo(guestData.id, token.token);
-      if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 3) {
+      if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 1) {
         const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
         setCallTime(durationInSeconds);
         setIsCreditAvailable(true);
@@ -86,6 +95,13 @@ const EscortDetailPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guestData, token, userName, call, isCallEnded]);
 
+  useEffect(() => {
+    if (isUnanswered) {
+      getCometChatInfo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUnanswered]);
+
   return (
     <>
       <HomeMainContainer>
@@ -103,12 +119,12 @@ const EscortDetailPage = () => {
                   guestData?.name,
                   modelPhoto ?? '',
                   guestData.user_name,
-                  guestData.video_call_prices[0].credits_per_minute,
-                  guestData.is_online
+                  guestData.video_call_prices[0].credits_per_minute
                 )
               }
               isCustomer={isCustomer}
               isLoading={isLoading}
+              guestData={guestData}
             />
           ) : (
             guestData && (
@@ -124,12 +140,12 @@ const EscortDetailPage = () => {
                     guestData?.name,
                     modelPhoto ?? '',
                     guestData.user_name,
-                    guestData.video_call_prices[0].credits_per_minute,
-                    guestData.is_online
+                    guestData.video_call_prices[0].credits_per_minute
                   )
                 }
                 isCustomer={isCustomer}
                 isLoading={isLoading}
+                guestData={guestData}
               />
             )
           )}

@@ -5,7 +5,7 @@ export const MainDashboardTabs = [
     img: '/images/icons/vector-img.png'
   },
   {
-    name: 'My Profile',
+    name: 'MyProfile',
     path: '/profile',
     img: '/images/icons/dashboard-img1.png'
   },
@@ -15,7 +15,7 @@ export const MainDashboardTabs = [
     img: '/images/profile-vector/Vector-2.png'
   },
   {
-    name: 'Calls History',
+    name: 'CallsHistory',
     path: '/profile/call',
     img: '/images/profile-vector/Vector-3.png'
   },
@@ -25,7 +25,7 @@ export const MainDashboardTabs = [
     img: '/images/profile-vector/Vector-4.png'
   },
   {
-    name: 'Billing History',
+    name: 'BillingHistory',
     path: '/profile/billing',
     img: '/images/icons/dashboard-img3.png'
   }

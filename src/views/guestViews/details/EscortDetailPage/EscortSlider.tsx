@@ -1,15 +1,11 @@
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
-import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
+import { FreeMode, Navigation, Thumbs, Mousewheel } from 'swiper/modules';
 import { useRef, useState } from 'react';
-import 'yet-another-react-lightbox/plugins/captions.css';
-import 'yet-another-react-lightbox/plugins/thumbnails.css';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
-import 'yet-another-react-lightbox/styles.css';
-import 'yet-another-react-lightbox';
 import Box from '@mui/material/Box';
 import EscortSwiperPhotoContainer from './EscortSwiperPhotoContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -43,6 +39,11 @@ import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestSignup from 'views/auth/guestSignup';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import { sortExistingPhotos } from 'utils/photoUtils';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
+import { usePathname } from 'next/navigation';
+import { gaEventTrigger } from 'utils/analytics';
+import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
 export const EscortSlider = ({
   workerPhotos,
@@ -50,7 +51,8 @@ export const EscortSlider = ({
   token,
   handleCallInitiate,
   isCustomer,
-  isLoading
+  isLoading,
+  guestData
 }: {
   workerPhotos: WorkerPhotos[];
   modelId: number;
@@ -58,7 +60,11 @@ export const EscortSlider = ({
   handleCallInitiate: () => void;
   isCustomer: boolean;
   isLoading: boolean;
+  guestData: ModelDetailsResponse;
 }) => {
+  const { customerUser } = useCallFeatureContext();
+  const path = usePathname();
+  const userName = path.split('/')[2];
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [liked, setLiked] = useState(false);
   const [open, setIsOpen] = useState(false);
@@ -67,10 +73,19 @@ export const EscortSlider = ({
   const swiperRef = useRef<SwiperRef | any>();
 
   const sortedWorkerPhotos = workerPhotos.sort(sortExistingPhotos);
+  const customerData = JSON.parse(customerUser || '{}');
+
+  const customerInfo = {
+    email: encodeURIComponent(customerData?.customer_email ?? ''),
+    name: customerData?.customer_name,
+    username: customerData?.customer_user_name,
+    model_username: userName
+  };
 
   const handleSignupOpen = () => {
     setIsOpen(true);
     setIsOpenLogin(false);
+    gaEventTrigger('Signup_Button_clicked', { source: 'start_video_call', category: 'Button' });
   };
 
   const handleSignupClose = () => {
@@ -80,6 +95,7 @@ export const EscortSlider = ({
   const handleLoginOpen = () => {
     setIsOpen(false);
     setIsOpenLogin(true);
+    gaEventTrigger('Login_Button_clicked', { source: 'start_video_call', category: 'Button' });
   };
 
   const handleLoginResetPasswordOpen = () => {
@@ -103,8 +119,15 @@ export const EscortSlider = ({
     try {
       if (!isCustomer) {
         setIsOpenLogin(true);
+        gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
       } else if (token.token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
+        const customerInfoString = JSON.stringify(customerInfo);
+        gaEventTrigger('Model_Favorite_Clicked', {
+          category: 'Button',
+          label: 'Model_Favorite_Clicked',
+          value: customerInfoString
+        });
         if (data?.code === 200) {
           setLiked(true);
         } else {
@@ -186,18 +209,15 @@ export const EscortSlider = ({
               }}
               spaceBetween={0}
               slidesPerView={4.5}
-              loop={true}
               watchSlidesProgress={true}
-              modules={[Navigation, Thumbs, FreeMode]}
+              modules={[Navigation, Thumbs, FreeMode, Mousewheel]}
               className="mySwiper"
+              loop={true}
+              mousewheel={true}
             >
               {sortedWorkerPhotos?.map((imageSrc, index) => (
-                <SecSwiperSlidBoxContainer
-                  style={{ paddingTop: index === 0 ? '0px' : '12px' }}
-                  key={index}
-                  onClick={() => handleSidebarImageClick(index)}
-                >
-                  <EscortSwiperPhotoContainer
+                <SecSwiperSlidBoxContainer style={{ paddingTop: '12px' }} key={index} onClick={() => handleSidebarImageClick(index)}>
+                  <EscortSwiperPhotoContainerSide
                     imageSrcVideo={imageSrc?.file_type}
                     image={imageSrc?.link}
                     isMain={false}
@@ -253,7 +273,7 @@ export const EscortSlider = ({
             }}
             onClick={handleLikeClick}
           >
-            {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+            {liked || guestData?.favourite === 1 ? <FavoriteIcon sx={{ color: '#FF48B3' }} /> : <FavoriteBorderIcon />}
           </UIStyledShadowButtonLike>
         </Box>
 

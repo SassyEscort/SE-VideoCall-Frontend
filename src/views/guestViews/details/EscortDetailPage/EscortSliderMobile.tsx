@@ -1,14 +1,10 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
-import 'yet-another-react-lightbox/plugins/captions.css';
-import 'yet-another-react-lightbox/plugins/thumbnails.css';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
-import 'yet-another-react-lightbox/styles.css';
-import 'yet-another-react-lightbox';
 import Box from '@mui/material/Box';
 import EscortSwiperPhotoContainer from './EscortSwiperPhotoContainer';
 import { useState } from 'react';
@@ -32,6 +28,11 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ErrorMessage } from 'constants/common.constants';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import { sortExistingPhotos } from 'utils/photoUtils';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
+import { gaEventTrigger } from 'utils/analytics';
+import { usePathname } from 'next/navigation';
+import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
 const EscortSliderMobile = ({
   workerPhotos,
@@ -39,7 +40,8 @@ const EscortSliderMobile = ({
   token,
   handleCallInitiate,
   isCustomer,
-  isLoading
+  isLoading,
+  guestData
 }: {
   workerPhotos: WorkerPhotos[];
   modelId: number;
@@ -47,7 +49,9 @@ const EscortSliderMobile = ({
   handleCallInitiate: () => void;
   isCustomer: boolean;
   isLoading: boolean;
+  guestData: ModelDetailsResponse;
 }) => {
+  const { customerUser } = useCallFeatureContext();
   const isLg = useMediaQuery(theme.breakpoints.up('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const [liked, setLiked] = useState(false);
@@ -59,9 +63,22 @@ const EscortSliderMobile = ({
 
   const sortedWorkerPhotos = workerPhotos.sort(sortExistingPhotos);
 
+  const path = usePathname();
+  const userName = path.split('/')[2];
+  const customerData = JSON.parse(customerUser || '{}');
+
+  const customerInfo = {
+    email: encodeURIComponent(customerData?.customer_email ?? ''),
+    name: customerData?.customer_name,
+    username: customerData?.customer_user_name,
+    model_username: userName
+  };
+
   const handleSignupOpen = () => {
     setIsOpen(true);
     setIsOpenLogin(false);
+    gaEventTrigger('Signup_Button_clicked', { source: 'start_video_call', category: 'Button' });
+    gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
   };
 
   const handleSignupClose = () => {
@@ -71,6 +88,12 @@ const EscortSliderMobile = ({
   const handleLoginOpen = () => {
     setIsOpen(false);
     setIsOpenLogin(true);
+    gaEventTrigger('Start_Video_Call_button_clicked', {
+      category: 'Button',
+      label: 'Start_Video_Call_button_clicked',
+      value: userName
+    });
+    gaEventTrigger('Login_Button_clicked', { source: 'start_video_call', category: 'Button' });
   };
 
   const handleLoginResetPasswordOpen = () => {
@@ -94,8 +117,15 @@ const EscortSliderMobile = ({
     try {
       if (!isCustomer) {
         setIsOpenLogin(true);
+        gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
       } else if (token.token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
+        const customerInfoString = JSON.stringify(customerInfo);
+        gaEventTrigger('Model_Favorite_Clicked', {
+          category: 'Button',
+          label: 'Model_Favorite_Clicked',
+          value: customerInfoString
+        });
         if (data?.code === 200) {
           setLiked(true);
         } else {
@@ -152,7 +182,7 @@ const EscortSliderMobile = ({
           >
             {sortedWorkerPhotos?.map((imageSrc, index) => (
               <SwiperSlidBoxContainer key={index}>
-                <EscortSwiperPhotoContainer
+                <EscortSwiperPhotoContainerSide
                   imageSrcVideo={imageSrc?.file_type}
                   image={imageSrc?.link}
                   isMain={false}
@@ -201,7 +231,7 @@ const EscortSliderMobile = ({
             }}
             onClick={handleLikeClick}
           >
-            {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+            {liked || guestData?.favourite === 1 ? <FavoriteIcon sx={{ color: '#FF48B3' }} /> : <FavoriteBorderIcon />}
           </UIStyledShadowButtonLike>
         </Box>
       </Box>

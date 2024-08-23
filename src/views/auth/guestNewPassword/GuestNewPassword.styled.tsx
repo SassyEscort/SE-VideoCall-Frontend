@@ -70,5 +70,11 @@ export const SixBoxContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   gap: theme.spacing(1),
-  paddingBottom: theme.spacing(3)
+  paddingBottom: theme.spacing(3),
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column'
+  },
+  [theme.breakpoints.up('sm')]: {
+    flexDirection: 'row'
+  }
 }));

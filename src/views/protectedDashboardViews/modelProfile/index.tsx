@@ -9,12 +9,15 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import MobileSidebar from '../sidebarDropDown';
+import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 
 const ModelProfile = () => {
+  const { isCustomer } = useCallFeatureContext();
+
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
 
-  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+  const islgDown = useMediaQuery(theme.breakpoints.down('lg'));
 
   useEffect(() => {
     const userToken = async () => {
@@ -27,23 +30,23 @@ const ModelProfile = () => {
 
   useEffect(() => {
     const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer);
       setModelDetails(modelData.data);
     };
     if (token.token) {
       modelDetails();
     }
-  }, [token.id, token.token]);
+  }, [isCustomer, token.id, token.token]);
 
   const handleModelApiChange = useCallback(() => {
     const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer);
       setModelDetails(modelData.data);
     };
     if (token.token) {
       modelDetails();
     }
-  }, [token.token]);
+  }, [isCustomer, token.token]);
 
   useEffect(() => {
     if (modelDetails?.profile_status === 'Rejected') {
@@ -53,7 +56,7 @@ const ModelProfile = () => {
 
   return (
     <DashboardProfile>
-      {isMdDown ? (
+      {islgDown ? (
         <MobileSidebar
           modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
           token={token}

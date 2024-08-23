@@ -1,4 +1,4 @@
-import { GenericRes } from 'services/guestAuth/authuser.services';
+import { GenericRes, GenericResCustom } from 'services/guestAuth/authuser.services';
 
 export type AddBAnkDetails = {
   id: number;
@@ -111,7 +111,7 @@ export type RequestPayout = {
   bank_account_id: number;
 };
 
-export interface RequestPayoutRep extends GenericRes {
+export interface RequestPayoutRep extends GenericResCustom {
   data: RequestPayout;
 }
 

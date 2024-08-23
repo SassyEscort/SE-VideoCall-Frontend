@@ -13,8 +13,11 @@ import {
   SelectedTab
 } from './nav.styled';
 import Link from 'next/link';
+import { useIntl } from 'react-intl';
 
 const ModelNavbar = ({ tabIndex }: { tabIndex: number }) => {
+  const intl = useIntl();
+
   return (
     <>
       <Box sx={{ display: 'flex' }}>
@@ -34,7 +37,7 @@ const ModelNavbar = ({ tabIndex }: { tabIndex: number }) => {
                           }}
                         />
                         <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: 'nowrap' }}>
-                          {tab.name}
+                          {intl.formatMessage({ id: tab.name })}
                         </UINewTypography>
                       </SecondBoxContainer>
                       {index === tabIndex - 1 ? (
@@ -46,21 +49,19 @@ const ModelNavbar = ({ tabIndex }: { tabIndex: number }) => {
                   </SelectedTab>
                 </Link>
               ) : (
-                <>
-                  <Link prefetch={false} href={tab?.path} key={index} style={{ textDecoration: 'none' }}>
-                    <CommonMenuBox sx={{ color: 'text.primary' }}>
-                      <DashboardSidebarBox id="basic-button">
-                        <SecondBoxContainer>
-                          <Box component="img" src={tab.img} sx={{ filter: 'none' }} />
-                          <UINewTypography variant="buttonLargeMenu" whiteSpace="nowrap">
-                            {tab?.name}
-                          </UINewTypography>
-                        </SecondBoxContainer>
-                        <ArrowDropDownRoundedIcon />
-                      </DashboardSidebarBox>
-                    </CommonMenuBox>
-                  </Link>
-                </>
+                <Link prefetch={false} href={tab?.path} key={index} style={{ textDecoration: 'none' }}>
+                  <CommonMenuBox sx={{ color: 'text.primary' }}>
+                    <DashboardSidebarBox id="basic-button">
+                      <SecondBoxContainer>
+                        <Box component="img" src={tab.img} sx={{ filter: 'none' }} />
+                        <UINewTypography variant="buttonLargeMenu" whiteSpace="nowrap">
+                          {intl.formatMessage({ id: tab.name })}
+                        </UINewTypography>
+                      </SecondBoxContainer>
+                      <ArrowDropDownRoundedIcon />
+                    </DashboardSidebarBox>
+                  </CommonMenuBox>
+                </Link>
               )
             )}
           </NavBarBoxContainer>

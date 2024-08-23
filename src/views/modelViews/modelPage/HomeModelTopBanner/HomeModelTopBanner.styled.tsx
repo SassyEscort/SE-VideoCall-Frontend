@@ -123,11 +123,12 @@ export const InlineBox = styled(Box)(({ theme }) => ({
   wordBreak: 'break-word',
   display: 'inline',
   [theme.breakpoints.down('sm')]: {
-    fontSize: 32,
+    fontSize: 30,
     fontWeight: 700,
     lineHeight: '50px',
     textAlign: 'center',
-    textWrap: 'nowrap'
+    textWrap: 'nowrap',
+    paddingLeft: theme.spacing(1.5)
   },
   [theme.breakpoints.down(330)]: {
     textWrap: 'wrap'

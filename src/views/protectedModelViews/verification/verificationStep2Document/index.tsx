@@ -23,6 +23,8 @@ import { scrollToError } from 'utils/scrollUtils';
 import { BackButtonBox, VerificationButtonText } from '../verificationStep2/VerificationStep2.styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
+import { useIntl } from 'react-intl';
+import { getErrorMessage } from 'utils/errorUtils';
 
 export type VerificationPhotoWithoutFilter = {
   photoWithoutFilter: File | string;
@@ -75,16 +77,16 @@ const VerificationStepPromise = ({
   isDashboard
 }: VerificationStepPromiseType) => {
   const [loading, setLoading] = useState(false);
-  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
 
   const validationSchema = (docValues: VerificationStepSecond) => {
     const baseValidation = Yup.mixed()
-      .required('Please upload your document')
-      .test('fileSize', 'File size is too large', (value) => {
+      .required('Pleaseuploadyourdocument')
+      .test('fileSize', 'FileSizeIsTooLarge', (value) => {
         if (typeof value === 'string') return true;
         return value && (value as File).size <= MAX_FILE_SIZE;
       })
-      .test('fileFormat', 'Unsupported Format', (value) => {
+      .test('fileFormat', 'UnsupportedFormat', (value) => {
         if (typeof value === 'string') return true;
         return value && SUPPORTED_FORMATS.includes((value as File).type);
       });
@@ -118,6 +120,8 @@ const VerificationStepPromise = ({
     photoWithoutFilterBack: modelDoc?.link && !modelDoc.document_front_side ? modelDoc.link : ''
   };
 
+  const intl = useIntl();
+
   return (
     <Formik
       enableReinitialize
@@ -129,6 +133,7 @@ const VerificationStepPromise = ({
           setLoading(true);
           if (values.photoWithoutFilter) {
             const mutationImageUpload = await VerificationStepService.imageKitUplaodApi(values.photoWithoutFilter as File);
+
             const selectedDocument = DocumentList.find((item) => item.key === docValues.idType)?.value;
             payload = {
               is_document: true,
@@ -224,7 +229,8 @@ const VerificationStepPromise = ({
               handleNext();
             }
           } else {
-            toast.error(response?.message);
+            const errorMessage = getErrorMessage(response?.custom_code);
+            toast.error(intl.formatMessage({ id: errorMessage }));
           }
         } catch (error) {
           toast.error(ErrorMessage);
@@ -264,7 +270,7 @@ const VerificationStepPromise = ({
               </Box>
             </Box>
             {docValues.idType !== DOCUMENT_UPLOAD_TYPE.PASSPORT ? (
-              <Box display="flex" gap={6} justifyContent="center" flexDirection={isDashboard || isSmDown ? 'column' : 'row'}>
+              <Box display="flex" gap={6} justifyContent="center" flexDirection={isDashboard || isMdDown ? 'column' : 'row'}>
                 <WorkerPhotosWithoutFilterNew
                   name="photoWithoutFilterFront"
                   value={values.photoWithoutFilterFront as File}
@@ -276,7 +282,7 @@ const VerificationStepPromise = ({
                   handleNext={handleSubmit}
                   activeStep={activeStep}
                   modelDetails={modelDetails}
-                  title="ID front"
+                  title={intl.formatMessage({ id: 'IDFront' })}
                 />
                 <WorkerPhotosWithoutFilterNew
                   name="photoWithoutFilterBack"
@@ -289,7 +295,7 @@ const VerificationStepPromise = ({
                   handleNext={handleSubmit}
                   activeStep={activeStep}
                   modelDetails={modelDetails}
-                  title="ID back"
+                  title={intl.formatMessage({ id: 'IDBack' })}
                 />
               </Box>
             ) : (
@@ -326,6 +332,7 @@ const VerificationStepPromise = ({
                   type="submit"
                   variant="contained"
                   loading={loading}
+                  sx={{ width: '100%', maxWidth: { xs: '130px', sm: '133px' } }}
                 >
                   <UINewTypography variant="body">
                     {isReviewEdit && !isDashboard ? (

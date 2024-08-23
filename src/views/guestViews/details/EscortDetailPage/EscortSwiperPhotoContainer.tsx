@@ -1,5 +1,6 @@
 import { useMediaQuery } from '@mui/material';
 import Box from '@mui/material/Box';
+import { VideoAcceptType } from 'constants/workerVerification';
 import theme from 'themes/theme';
 
 const EscortSwiperPhotoContainer = ({
@@ -32,16 +33,18 @@ const EscortSwiperPhotoContainer = ({
         minHeight: isMain && !isMdDown ? 660 : isMdDown && !isMain ? '90px' : isMdDown && isMain ? 430 : 0,
         borderRadius: 2,
         zIndex: 2,
-        position: 'relative'
+        position: 'relative',
+        overflow: 'hidden'
       }}
     >
-      {imageSrcVideo === 'Non_Image' && (
+      {VideoAcceptType.includes(image.split('.').pop()?.toLowerCase() || '') && (
         <Box
           component="video"
           width="100%"
           height="100%"
-          controls
+          controls={true}
           sx={{
+            objectFit: 'cover',
             maxHeight: isMain && !isMdDown ? 700 : isMdDown && !isMain ? '90px' : isMdDown && isMain ? 430 : 430
           }}
         >

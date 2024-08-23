@@ -21,9 +21,10 @@ import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
 import InfoIcon from '@mui/icons-material/Info';
 import { signIn } from 'next-auth/react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { ErrorMessage } from 'constants/common.constants';
 import { useRouter } from 'next/navigation';
+import { getErrorMessage } from 'utils/errorUtils';
 
 export type SignupParams = {
   name: string;
@@ -32,8 +33,10 @@ export type SignupParams = {
 };
 
 const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
+  const intl = useIntl();
   const route = useRouter();
   const { refresh } = route;
+
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
   const [loading, setLoading] = useState(false);
@@ -66,8 +69,8 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
       .max(20, 'Nameistoolong')
       .matches(NAME_REGEX, 'Noleadingspaces'),
     email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
-    password: yup.string().required('Password is required').min(8, 'Password must be at least 8 characters').matches(PASSWORD_PATTERN, {
-      message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+    password: yup.string().required('Passwordisrequired').min(8, 'PasswordMustBe').matches(PASSWORD_PATTERN, {
+      message: 'PasswordMustContainAt',
       excludeEmptyString: true
     })
   });
@@ -104,7 +107,8 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
           } else if (data?.code === 403) {
             toast.error(ErrorMessage);
           } else {
-            setAlert(data.error);
+            const errorMessage = getErrorMessage(data?.custom_code);
+            setAlert(intl.formatMessage({ id: errorMessage }));
           }
         } catch (error) {
           toast.error(ErrorMessage);
@@ -260,7 +264,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           alignItems="center"
                           justifyContent="center"
                           pb={3}
-                          sx={{ flexDirection: isSm ? 'column' : 'row' }}
+                          sx={{ flexDirection: { xs: 'column', sm: 'row' } }}
                         >
                           <UINewTypography variant="buttonLargeMenu" color="text.secondary" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
                             <FormattedMessage id="HaveAnAccount" />

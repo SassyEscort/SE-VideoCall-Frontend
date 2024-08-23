@@ -18,6 +18,7 @@ import ModelForgetPasswordLink from '../modelForgetPasswordLink';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import { FormattedMessage } from 'react-intl';
 import { HeaderBoxContainer } from './ModelLayout.styled';
+import { gaEventTrigger } from 'utils/analytics';
 
 const HeaderModelComponent = () => {
   // const url = new URL(window.location.href);
@@ -35,10 +36,12 @@ const HeaderModelComponent = () => {
   const handleSignupOpen = () => {
     setIsOpen(true);
     setIsOpenLogin(false);
+    gaEventTrigger('Model_Signup_Button_clicked', { source: 'header', category: 'Button' });
   };
   const handleLoginOpen = () => {
     setIsOpen(false);
     setIsOpenLogin(true);
+    gaEventTrigger('Model_Login_Button_clicked', { source: 'header', category: 'Button' });
   };
 
   const handleSignupClose = () => {
@@ -144,11 +147,6 @@ const HeaderModelComponent = () => {
                     {/* <FormattedMessage id="LookingForAModel" /> */}
                   </Typography>
                 </Link>
-              )}
-              {!isMdUp && (
-                <Box display="flex" alignItems="center" gap={1} component={Link} prefetch={false} href="/search">
-                  <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
-                </Box>
               )}
               <Box display="flex">
                 <LanguageDropdown />

@@ -20,7 +20,7 @@ import {
 } from './DashboardPriceView.styled';
 import theme from 'themes/theme';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { DashboardService } from 'services/modelAuth/dashboard.price.service';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
@@ -32,6 +32,7 @@ import { CommonServices } from 'services/commonApi/commonApi.services';
 import { RiArrowLeftLine, RiArrowRightLine } from 'components/common/customRemixIcons';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { InputAdornment } from '@mui/material';
+import { getErrorMessage } from 'utils/errorUtils';
 
 export type PricePerMinute = {
   price_per_minute: number;
@@ -55,6 +56,8 @@ const DashboardPriceView = ({
   handlePrevVerificationStep?: () => void;
   isEdit: boolean;
 }) => {
+  const intl = useIntl();
+
   const initialValues = {
     price:
       modelDetails?.video_call_prices?.length && Number(modelDetails?.video_call_prices[0]?.price_per_minute) !== -1
@@ -129,7 +132,8 @@ const DashboardPriceView = ({
             handleNext();
           }
         } else {
-          toast.error(ErrorMessage);
+          const errorMessage = getErrorMessage(response?.custom_code);
+          toast.error(intl.formatMessage({ id: errorMessage }));
         }
       }
     } catch (error) {
@@ -227,8 +231,9 @@ const DashboardPriceView = ({
               id="price-id-button"
               variant={disable ? 'contained' : 'outlined'}
               type="submit"
-              sx={{ border: '#07030E !important' }}
+              disabled={!disable}
               loading={loading}
+              sx={{ width: '100%', maxWidth: '133px', px: '10px' }}
             >
               {isEdit ? (
                 <UINewTypography variant="buttonSmallBold" color={disable ? '#000' : '#58535E'}>

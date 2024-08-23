@@ -42,9 +42,21 @@ const PayoutModel = ({
             </tr>
             <tr>
               <td>
+                <strong>Account Name</strong>
+              </td>
+              <td>{selectedPayoutData?.account_name || '-'}</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Iban Number</strong>
+              </td>
+              <td>{selectedPayoutData?.iban_number || '-'}</td>
+            </tr>
+            <tr>
+              <td>
                 <strong>Payout Amount</strong>
               </td>
-              <td>{selectedPayoutData?.amount ? `€${selectedPayoutData.amount.toFixed(2)}` : '-'}</td>
+              <td>{selectedPayoutData?.amount ? `$${selectedPayoutData.amount.toFixed(2)}` : '-'}</td>
             </tr>
             <tr>
               <td>

@@ -112,3 +112,21 @@ export type CustomerDetailsContainer = {
 export interface CustomerDetailsRes extends GenericRes {
   data: CustomerDetailsContainer;
 }
+
+export type ModelDetailsDelete = {
+  status: string;
+  message: string;
+};
+
+export interface ModelDetailsDeleteRes extends GenericRes {
+  data: ModelDetailsDelete;
+}
+
+export type ModelDetailStatusOffline = {
+  id: number;
+  is_online: boolean;
+};
+
+export interface ModelDetailStatusOfflineRes extends GenericRes {
+  data: ModelDetailStatusOffline;
+}

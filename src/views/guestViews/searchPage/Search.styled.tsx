@@ -24,6 +24,10 @@ export const SearchBarMainContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4)
+  },
+  '@media (max-width: 320px)': {
+    paddingTop: theme.spacing(7),
+    paddingBottom: theme.spacing(4)
   }
 }));
 
@@ -53,7 +57,13 @@ export const SecondBoxMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(1.5),
   width: '100%',
-  maxWidth: '442px'
+  maxWidth: '442px',
+  [theme.breakpoints.only('md')]: {
+    maxWidth: '300px'
+  },
+  [theme.breakpoints.down('md')]: {
+    maxWidth: '525px'
+  }
 }));
 
 export const ThiredBoxMainContainer = styled(Box)(({ theme }) => ({

@@ -33,6 +33,8 @@ import CreditsAdded from '../CreditsAdded/CreditsAdded';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import Loader from 'components/Loader';
 import { CircularProgress } from '@mui/material';
+import { gaEventTrigger } from 'utils/analytics';
+import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 
 const Credits = () => {
   const [open, setOpen] = useState(false);
@@ -43,6 +45,8 @@ const Credits = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { customerUser } = useCallFeatureContext();
+  const customerData = JSON.parse(customerUser || '{}');
 
   useEffect(() => {
     const userToken = async () => {
@@ -72,6 +76,21 @@ const Credits = () => {
 
   const handleCreditClick = async (listCredit: ModelCreditRes) => {
     setIsLoading(true);
+    const customerInfo = {
+      email: customerData?.customer_email,
+      name: customerData?.customer_name,
+      username: customerData?.customer_user_name,
+      model_username: '',
+      plan_details: listCredit,
+      source: 'Credit Page'
+    };
+
+    gaEventTrigger('Credits_Purchase_Initiated', {
+      action: 'Credits_Purchase_Initiated',
+      category: 'Button',
+      label: 'Credits_Purchase_Initiated',
+      value: JSON.stringify(customerInfo)
+    });
     const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, 0);
     if (res) {
       router.push(res?.data?.url);
@@ -83,10 +102,27 @@ const Credits = () => {
   };
   useEffect(() => {
     const credit = searchParams.get('credit');
+    const totalBal = searchParams.get('total_amount_after_txn');
+    setBalance(Number(totalBal));
     setAddedCredits(Number(credit));
     getCustomerCredit();
     if (credit) {
+      const customerInfo = {
+        email: customerData?.customer_email,
+        name: customerData?.customer_name,
+        username: customerData?.customer_user_name
+      };
       setOpen(true);
+      gaEventTrigger(
+        'Credits_Purchase_Success',
+        {
+          action: 'Credits_Purchase_Success',
+          category: 'Page change',
+          label: 'Credits_Purchase_Success',
+          value: JSON.stringify(customerInfo)
+        },
+        Number(totalBal)
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);

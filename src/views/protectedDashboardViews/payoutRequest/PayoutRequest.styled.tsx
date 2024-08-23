@@ -12,7 +12,6 @@ export const MainContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(10),
   width: '100%',
-  maxWidth: '757px',
   paddingLeft: theme.spacing(3),
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(3),
@@ -32,7 +31,6 @@ export const TextDetail = styled(UINewTypography)(({ theme }) => ({
 }));
 
 export const SecondMainContainer = styled(Box)(({ theme }) => ({
-  maxWidth: '741px',
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
@@ -47,7 +45,6 @@ export const FirstUsdBox = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between',
   alignItems: 'center',
   width: '100%',
-  maxWidth: '741px',
   height: '100%',
   minHeight: '109px',
   backgroundColor: '#232027',
@@ -86,7 +83,6 @@ export const DollerBox = styled(Box)(({ theme }) => ({
 export const RecentWithdrawlsMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  maxWidth: 740,
   width: '100%'
 }));
 export const PaginationMainBox = styled(Box)(({ theme }) => ({
@@ -241,5 +237,8 @@ export const SecBoxConatiner = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
   justifyContent: 'center',
   alignItems: 'center',
-  textAlign: 'center'
+  textAlign: 'center',
+  [theme.breakpoints.down('sm')]: {
+    paddingBottom: theme.spacing(1)
+  }
 }));

@@ -26,8 +26,12 @@ import { ModelDetailsService } from 'services/modelDetails/modelDetails.services
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
+import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import { gaEventTrigger } from 'utils/analytics';
 
 const MainFooter = () => {
+  const { isCustomer } = useCallFeatureContext();
+
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   // const url = new URL(window.location.href);
   // const email = url.searchParams.get('email');
@@ -43,10 +47,12 @@ const MainFooter = () => {
   const handleSignupOpen = () => {
     setIsOpen(true);
     setIsOpenLogin(false);
+    gaEventTrigger('Model_Signup_Button_clicked', { source: 'footer', category: 'Button' });
   };
   const handleLoginOpen = () => {
     setIsOpen(false);
     setIsOpenLogin(true);
+    gaEventTrigger('Model_Login_Button_clicked', { source: 'footer', category: 'Button' });
   };
 
   const handleSignupClose = () => {
@@ -95,7 +101,7 @@ const MainFooter = () => {
 
   useEffect(() => {
     const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer);
       if (modelData) {
         setModelDetails(modelData.data);
       }
@@ -103,7 +109,7 @@ const MainFooter = () => {
     if (token.token) {
       modelDetails();
     }
-  }, [token.id, token.token]);
+  }, [isCustomer, token.id, token.token]);
 
   return (
     <>
@@ -133,16 +139,18 @@ const MainFooter = () => {
               </Box>
               <FooterStoreBox>
                 <Box>
-                  <Image
-                    src="/images/app-logo/google-pay.png"
-                    width={120}
-                    height={120}
-                    alt="play_store"
-                    style={{
-                      width: 'auto'
-                    }}
-                    loading="lazy"
-                  />
+                  <Link href="https://play.google.com/store/apps/details?id=com.holo.hsvm.prod&hl=en" target="_blank">
+                    <Image
+                      src="/images/app-logo/google-pay.png"
+                      width={120}
+                      height={120}
+                      alt="play_store"
+                      style={{
+                        width: 'auto'
+                      }}
+                      loading="lazy"
+                    />
+                  </Link>
                 </Box>
                 <Box>
                   <Link href="https://apps.apple.com/us/app/hs-messenger/id6557061284" target="_blank">
@@ -181,24 +189,29 @@ const MainFooter = () => {
                     </Link>
                   </UINewTypography>
                   {token.token && isVerificationPendingOrCompleted(modelDetails?.verification_step) ? (
-                    <Link href="/">
-                      <UINewTypography variant="SubtitleSmallRegular" sx={{ cursor: 'pointer' }}>
-                        <FormattedMessage id="ExploreModels" />
-                      </UINewTypography>
-                    </Link>
+                    // <Link href="/">
+                    //   <UINewTypography variant="SubtitleSmallRegular" sx={{ cursor: 'pointer' }}>
+                    //     <FormattedMessage id="ExploreModels" />
+                    //   </UINewTypography>
+                    // </Link>
+                    <></>
                   ) : (
                     <UINewTypography variant="SubtitleSmallRegular" onClick={handleSignupOpen} sx={{ cursor: 'pointer' }}>
                       <FormattedMessage id="SignUp" />
                     </UINewTypography>
                   )}
-                  <UINewTypography variant="SubtitleSmallRegular" onClick={handleLoginOpen} sx={{ cursor: 'pointer' }}>
-                    <FormattedMessage id="LogIn" />
-                  </UINewTypography>
-                  <UINewTypography variant="SubtitleSmallRegular">
-                    <Link prefetch={false} href="/">
-                      <FormattedMessage id="LookingForA" />
-                    </Link>
-                  </UINewTypography>
+                  {!token.token && (
+                    <UINewTypography variant="SubtitleSmallRegular" onClick={handleLoginOpen} sx={{ cursor: 'pointer' }}>
+                      <FormattedMessage id="LogIn" />
+                    </UINewTypography>
+                  )}
+                  {/* {!token.token && (
+                    <UINewTypography variant="SubtitleSmallRegular">
+                      <Link prefetch={false} href="/">
+                        <FormattedMessage id="LookingForA" />
+                      </Link>
+                    </UINewTypography>
+                  )} */}
                 </ModelUITextConatiner>
               </FooterSubICon>
 

@@ -41,6 +41,11 @@ import Grid from '@mui/material/Grid';
 import { FilterBox, ModelActionPopover, NotFoundBox, SortBox } from './ModelPageContainer.styled';
 import RejectModal from './RejectModal';
 import { RiEyeOffLine, RiEyeLine } from 'components/common/customRemixIcons';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { toast } from 'react-toastify';
+import { ErrorMessage } from 'constants/common.constants';
+import Link from 'next/link';
+import HideSourceOutlinedIcon from '@mui/icons-material/HideSourceOutlined';
 
 export type WorkersPaginationType = {
   page: number;
@@ -91,7 +96,7 @@ export type TokenIdTypeAdmin = {
   token: string;
 };
 
-export default function ModelPageContainer() {
+export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutStep?: () => void }) {
   const router = useRouter();
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -119,7 +124,34 @@ export default function ModelPageContainer() {
     verificationStep: '',
     is_active: ''
   });
+
   const [openReject, setOpenReject] = useState(false);
+
+  const handleModelDetailsRefetch = useCallback(() => {
+    fetchModelData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
+  const handleModelDetailsDelete = async (id: number) => {
+    try {
+      if (token.token) {
+        const data = await adminModelServices.modelDetailsDelete(token.token, id);
+        handleCloseMenu();
+        if (data.code === 200) {
+          handleModelDetailsRefetch();
+          toast.success('Success');
+          if (handlePayoutStep) {
+            handlePayoutStep();
+          }
+        } else {
+          toast.error(data?.error);
+        }
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
 
   const handleChangeFilter = useCallback((value: WorkersPaginationType) => {
     setFilters(value);
@@ -271,6 +303,23 @@ export default function ModelPageContainer() {
     handleCloseMenu();
   };
 
+  const handleModelDetailsIsOffline = async (id: number) => {
+    try {
+      if (token.token) {
+        const data = await adminModelServices.modelDetailsStatusOffline(token.token, id);
+        handleCloseMenu();
+        if (data.code === 200) {
+          handleModelListRefetch();
+          toast.success('Success');
+        } else {
+          toast.error(data?.error);
+        }
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
+
   return (
     <>
       <MainLayout>
@@ -292,11 +341,11 @@ export default function ModelPageContainer() {
           <FilterBox>
             <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
               <FormControl fullWidth>
-                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>is active</StyledSelectInputLabel>
+                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Is deleted</StyledSelectInputLabel>
                 <Select
                   name="is_active"
                   labelId="is_active"
-                  label="is active"
+                  label="Is deleted"
                   value={filters.is_active}
                   onChange={(e) => handleChangeIsActive(e.target.value as string)}
                   sx={{
@@ -367,7 +416,6 @@ export default function ModelPageContainer() {
               <TableContainer sx={{ width: '100%' }}>
                 <Table>
                   <ModelListHead />
-
                   <TableBody>
                     {isLoading ? (
                       <TableRow>
@@ -393,10 +441,10 @@ export default function ModelPageContainer() {
                           }}
                         >
                           <TableCell component="th" scope="row">
-                            {item?.name || '-'}
+                            <Link href={`/admin/model/details/${item?.id}`}>{item?.name || '-'}</Link>
                           </TableCell>
                           <TableCell component="th" scope="row">
-                            {item?.email || '-'}
+                            <Link href={`/admin/model/details/${item?.id}`}>{item?.email || '-'}</Link>
                           </TableCell>
                           <TableCell>{item?.country_name || '-'}</TableCell>
                           <TableCell sx={{ textAlign: 'center' }}>
@@ -468,25 +516,27 @@ export default function ModelPageContainer() {
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
           <MenuItem onClick={handelViewDetails}>
-            <RiEyeLine />
+            <RiEyeLine style={{ marginRight: '4px', width: '20px' }} />
             View Details
           </MenuItem>
+
           {selected?.profile_status === MODEL_ACTION.PENDING && (
             <>
               <MenuItem onClick={handleApproveClick}>
-                <CheckIcon sx={{ mr: 2, color: 'success.main' }} />
+                <CheckIcon sx={{ mr: 0.5, color: 'success.main' }} />
                 Approve
               </MenuItem>
               <MenuItem onClick={handleOpenRejectClick}>
-                <CloseIcon sx={{ mr: 2, color: 'error.main' }} />
+                <CloseIcon sx={{ mr: 0.5, color: 'error.main' }} />
                 Reject
               </MenuItem>
             </>
           )}
+
           {selected?.is_visible && selected?.profile_status === MODEL_ACTION.APPROVE ? (
             <>
               <MenuItem onClick={handleHideModel}>
-                <RiEyeOffLine />
+                <RiEyeOffLine style={{ marginRight: '4px' }} />
                 Hide from listing
               </MenuItem>
             </>
@@ -500,6 +550,17 @@ export default function ModelPageContainer() {
               </>
             )
           )}
+          {selected?.is_online === 1 && (
+            <MenuItem onClick={() => handleModelDetailsIsOffline(selected?.id as number)}>
+              <HideSourceOutlinedIcon sx={{ '&.MuiSvgIcon-root': { width: '15px', height: '15px', marginRight: '4px' } }} />
+              Mark offline
+            </MenuItem>
+          )}
+
+          <MenuItem onClick={() => handleModelDetailsDelete(selected?.id as number)}>
+            <DeleteOutlineIcon sx={{ mr: 0.5, color: 'error.main' }} />
+            Delete
+          </MenuItem>
         </ModelActionPopover>
       </MainLayout>
       <RejectModal

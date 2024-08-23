@@ -209,13 +209,28 @@ export const NameCardContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(1),
   whiteSpace: 'nowrap',
-  alignItems: 'center'
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  width: '100%',
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '135px'
+  },
+  [theme.breakpoints.only('sm')]: {
+    maxWidth: '200px'
+  },
+  [theme.breakpoints.only('md')]: {
+    maxWidth: '200px'
+  },
+  [theme.breakpoints.up('lg')]: {
+    maxWidth: '135px'
+  }
 }));
 
 export const CreditContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(1),
-  whiteSpace: 'nowrap'
+  whiteSpace: 'nowrap',
+  alignItems: 'center'
 }));
 
 export const FavoriteBorderIconContainer = styled(FavoriteBorderIcon)(({ theme }) => ({
@@ -301,4 +316,17 @@ export const UITypographyBoxContainer = styled(UINewTypography)(({ theme }) => (
     maxWidth: '100px'
   },
   color: theme.palette.text.primary
+}));
+
+export const TextBoxContainer = styled(Box)(() => ({
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  maxWidth: '100px'
+}));
+
+export const FlagAndLiveIconBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1),
+  alignItems: 'center'
 }));

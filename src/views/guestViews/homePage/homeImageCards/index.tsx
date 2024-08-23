@@ -1,3 +1,4 @@
+'use client';
 import { Grid, Box } from '@mui/material';
 import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
 import { ButtonMainBox, WorkerCardMainBox } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
@@ -18,6 +19,13 @@ import { PaginationMainBox } from 'views/protectedDashboardViews/payoutRequest/P
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { NotFoundModelBox } from './HomeImageCard.styled';
 import { FormattedMessage } from 'react-intl';
+import { gaEventTrigger } from 'utils/analytics';
+
+export const pageview = (url: string) => {
+  window.gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, {
+    page_path: url
+  });
+};
 
 const HomeImageCard = ({
   modelListing,
@@ -92,6 +100,14 @@ const HomeImageCard = ({
     if (handleChangePage) handleChangePage(value);
   };
 
+  const handleModelRedirect = (user_name: string) => {
+    gaEventTrigger('model_clicked', {
+      category: 'Button',
+      label: 'model_clicked',
+      value: user_name
+    });
+  };
+
   return (
     <HomeMainContainer>
       <WorkerCardMainBox id="tableSection">
@@ -105,6 +121,7 @@ const HomeImageCard = ({
                     prefetch={true}
                     shallow={true}
                     href={`/details/${item.user_name}`}
+                    onClick={() => handleModelRedirect(item.user_name)}
                     sx={{
                       textDecoration: 'none',
                       height: '100%'
@@ -130,6 +147,7 @@ const HomeImageCard = ({
                       textDecoration: 'none',
                       height: '100%'
                     }}
+                    onClick={() => handleModelRedirect(item.user_name)}
                   >
                     <WorkerCard
                       modelDetails={item}

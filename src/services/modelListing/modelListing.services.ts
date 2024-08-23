@@ -15,6 +15,7 @@ export type ModelListingParams = {
   country: string;
   sortOrder: string;
   sortField: string;
+  gender: string;
   offset: number;
   pageSize: number;
   rating?: number;
@@ -55,6 +56,7 @@ export class ModelListingService {
     if (filters?.country) queryParams.push(`country=${filters.country}`);
     if (filters?.sortOrder) queryParams.push(`sort_order=${filters.sortOrder}`);
     if (filters?.sortField) queryParams.push(`sort_field=${filters.sortField}`);
+    if (filters?.gender) queryParams.push(`gender=${filters.gender}`);
     if (filters?.offset !== undefined) queryParams.push(`offset=${filters.offset}`);
     if (filters?.pageSize !== undefined) queryParams.push(`limit=${filters.pageSize}`);
     if (filters?.rating !== undefined) queryParams.push(`rating=${filters.rating}`);

@@ -1,8 +1,7 @@
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { SelectChangeEvent } from '@mui/material';
-import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
-import { UIStyledSelect } from 'components/UIComponents/UIStyledSelect';
+import { UIStyledCountrySelect } from 'components/UIComponents/UIStyledSelect';
 import { MouseEventHandler, useEffect, useState } from 'react';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import { getUserDataClient } from 'utils/getSessionData';
@@ -10,6 +9,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CountryFilterText, StyledClearIcon } from '../Search.styled';
 import theme from 'themes/theme';
 import CityCountryLabel from './CityCountryLabel';
+import { FormControlBox } from './Country.styled';
 
 interface CountryFilterProps {
   value: string;
@@ -62,8 +62,8 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
   };
 
   return (
-    <FormControl id="country" fullWidth sx={{ width: '100%', maxWidth: '442px' }}>
-      <UIStyledSelect
+    <FormControlBox id="country" fullWidth>
+      <UIStyledCountrySelect
         MenuProps={{ disableScrollLock: true }}
         name="country"
         labelId="country"
@@ -83,8 +83,8 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
             </MenuItem>
           );
         })}
-      </UIStyledSelect>
-    </FormControl>
+      </UIStyledCountrySelect>
+    </FormControlBox>
   );
 };
 

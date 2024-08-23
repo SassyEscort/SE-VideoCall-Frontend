@@ -20,7 +20,7 @@ import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import AuthModelCommon from '../modelSignup/AuthModelCommon';
 import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from 'views/auth/AuthCommon.styled';
 import { LoginModelParams } from 'services/modelAuth/types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { EMAIL_REGEX } from 'constants/regexConstants';
 
 export type LoginParams = {
@@ -37,9 +37,10 @@ const ModelSignin = ({
   onSignupOpen: () => void;
   onFogotPasswordLinkOpen: () => void;
 }) => {
+  const intl = useIntl();
+
   const route = useRouter();
   const { push } = route;
-  const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
   const [showPassword, setShowPassword] = useState(false);
@@ -57,7 +58,8 @@ const ModelSignin = ({
         push('/model/profile');
         onClose();
       } else if (res?.error) {
-        setAlert(res.error === 'CredentialsSignin' ? 'Invalid email or password' : 'Something went wrong! Please try again');
+        const errorMessage = res.error === 'CredentialsSignin' ? 'InvalidEmail' : 'SomethingWent';
+        setAlert(intl.formatMessage({ id: errorMessage }));
       }
     } catch (error: any) {
       setAlert(getCustomErrorMessage(error));
@@ -186,7 +188,7 @@ const ModelSignin = ({
                         display: 'flex',
                         p: 0,
                         justifyContent: 'space-between',
-                        flexDirection: isSm ? 'column' : 'row',
+                        flexDirection: { xs: 'column', sm: 'row' },
                         gap: { xs: 1, sm: 0 }
                       }}
                     >

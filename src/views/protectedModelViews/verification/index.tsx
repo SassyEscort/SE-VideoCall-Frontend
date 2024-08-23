@@ -19,6 +19,7 @@ import ProfileCreated from './profileCreated';
 import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 import { useRouter } from 'next/navigation';
 import DashboardPriceView from 'views/protectedDashboardViews/dashboardPriceView';
+import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 
 const VERIFICATION_STEPS = ['Basic Details', 'Documents', 'Photos', 'Price', 'Review'];
 
@@ -30,6 +31,8 @@ export type TokenIdType = {
 };
 
 const VerificationContainer = () => {
+  const { isCustomer } = useCallFeatureContext();
+
   const router = useRouter();
 
   const [activeStep, setActiveStep] = useState(0);
@@ -75,21 +78,21 @@ const VerificationContainer = () => {
 
   useEffect(() => {
     const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer);
       setModelDetails(modelData.data);
     };
     if (token.token) {
       modelDetails();
     }
-  }, [token.id, token.token]);
+  }, [isCustomer, token.id, token.token]);
 
   const handleModelApiChange = useCallback(() => {
     const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer);
       setModelDetails(modelData.data);
     };
     modelDetails();
-  }, [token.token]);
+  }, [isCustomer, token.token]);
 
   const handleNextHeaderStep = () => {
     const button = document.getElementById(submitButtonIds[activeStep]);
@@ -259,7 +262,6 @@ const VerificationContainer = () => {
           modelProfileStatus={modelDetails?.profile_status ?? ''}
         />
       )}
-
       {activeStep === 3 && (
         <DashboardPriceView
           isEdit={false}

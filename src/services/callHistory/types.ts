@@ -1,4 +1,4 @@
-import { GenericRes } from 'services/guestAuth/authuser.services';
+import { GenericResCustom } from 'services/guestAuth/authuser.services';
 
 export type CallHistoryDetails = {
   model_id: number;
@@ -34,7 +34,7 @@ export type CallHistoryDataDetails = {
   call_logs: CallHistoryDetails[];
 };
 
-export interface CallHistoryPageDetailsRes extends GenericRes {
+export interface CallHistoryPageDetailsRes extends GenericResCustom {
   data: CallHistoryDataDetails;
 }
 

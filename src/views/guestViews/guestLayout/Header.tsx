@@ -17,13 +17,14 @@ import GuestLogin from 'views/auth/guestLogin';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import LanguageDropdown from 'components/common/LanguageDropdown';
-import ProfileMenu from 'components/UIComponents/UIStyleHeader';
+// import ProfileMenu from 'components/UIComponents/UIStyleHeader';
 import MoreFilters from '../searchPage/moreFilters';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
 import { MenuContainer, SearchBarBox } from './GuestLayout.styled';
 import MenuItem from '@mui/material/MenuItem';
 import { Divider, ListItemIcon, ListItemText } from '@mui/material';
+import { gaEventTrigger } from 'utils/analytics';
 
 const HeaderGuestComponent = () => {
   const isSmaller = useMediaQuery('(max-width:320px)');
@@ -33,8 +34,8 @@ const HeaderGuestComponent = () => {
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  const [openDropDown, setOpenDropDown] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  // const [openDropDown, setOpenDropDown] = useState(false);
+  // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
@@ -47,14 +48,14 @@ const HeaderGuestComponent = () => {
     setAnchorElLogout(null);
   };
 
-  const handleDropDownOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-    setOpenDropDown(true);
-  };
+  // const handleDropDownOpen = (event: React.MouseEvent<HTMLElement>) => {
+  //   setAnchorEl(event.currentTarget);
+  //   setOpenDropDown(true);
+  // };
 
-  const handleDropDownClose = () => {
-    setOpenDropDown(false);
-  };
+  // const handleDropDownClose = () => {
+  //   setOpenDropDown(false);
+  // };
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -173,18 +174,18 @@ const HeaderGuestComponent = () => {
                     }
               }}
             >
-              {isMdUp && (
-                <Link prefetch={false} href="/model">
-                  <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                    <FormattedMessage id="RegisterAsModel" />
-                  </UINewTypography>
-                </Link>
-              )}
               {!isMdUp && (
                 <Box display="flex" alignItems="center" gap={1} onClick={handleOpenFilterModal}>
                   <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
                 </Box>
               )}
+              {/* <ListItemText>
+                <Link href="/model">
+                  <UINewTypography variant="bodyLight" color="text.secondary">
+                    <FormattedMessage id="RegisterAsModel" />
+                  </UINewTypography>
+                </Link>
+              </ListItemText> */}
               <Box display="flex" sx={{ cursor: 'pointer' }}>
                 <LanguageDropdown />
               </Box>
@@ -218,7 +219,7 @@ const HeaderGuestComponent = () => {
                         </UINewTypography>
                       </ListItemText>
                     </MenuItem>
-                    <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                    {/* <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                     <MenuItem>
                       <ListItemIcon>
                         <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
@@ -232,7 +233,7 @@ const HeaderGuestComponent = () => {
                           </UINewTypography>
                         </Link>
                       </ListItemText>
-                    </MenuItem>
+                    </MenuItem> */}
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                     <MenuItem>
                       <ListItemText>
@@ -248,7 +249,16 @@ const HeaderGuestComponent = () => {
                 </>
               )}
               {isMdUp && (
-                <Box display="flex" alignItems="center" gap={1} onClick={handleLoginOpen} sx={{ cursor: 'pointer' }}>
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  gap={1}
+                  onClick={() => {
+                    gaEventTrigger('Login_Button_clicked', { source: 'header', category: 'Button' });
+                    handleLoginOpen();
+                  }}
+                  sx={{ cursor: 'pointer' }}
+                >
                   <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
                   <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                     <FormattedMessage id="LogIn" />
@@ -256,7 +266,7 @@ const HeaderGuestComponent = () => {
                 </Box>
               )}
               {isMdUp && (
-                <UIThemeShadowButton variant="contained" onClick={handleDropDownOpen} sx={{ width: '195px' }}>
+                <UIThemeShadowButton variant="contained" onClick={handleSignupOpen} sx={{ width: '195px' }}>
                   <UINewTypography variant="body" lineHeight={'150%'}>
                     <FormattedMessage id="SignUpNow" />
                   </UINewTypography>
@@ -282,7 +292,7 @@ const HeaderGuestComponent = () => {
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
 
-      <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} />
+      {/* <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} /> */}
       <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
     </HomeMainContainer>
   );

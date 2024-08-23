@@ -24,6 +24,8 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import Availability from './Availability';
+import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { useIntl } from 'react-intl';
 
 ModelNav.propTypes = {
   openNav: PropTypes.bool,
@@ -36,6 +38,9 @@ interface NavProps {
 }
 
 export default function ModelNav({ openNav, onCloseNav }: NavProps) {
+  const intl = useIntl();
+  const { isCustomer } = useCallFeatureContext();
+
   const router = usePathname();
 
   const maindashboardTabIndex: { [key: string]: number } = {
@@ -52,7 +57,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
-  const isMdFix = useMediaQuery('(min-width:900px) and (max-width:1021px)');
+  const isMdFix = useMediaQuery('(min-width:900px) and (max-width:1024px)');
 
   const [value, setValue] = useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -73,16 +78,17 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
 
   const handleModelApiChange = useCallback(() => {
     const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(token.token);
+      const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer);
       setModelDetails(modelData.data);
     };
     if (token.token) {
       modelDetails();
     }
-  }, [token.token]);
+  }, [isCustomer, token.token]);
 
   useEffect(() => {
     handleModelApiChange();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.id, token.token]);
 
   return (
@@ -143,7 +149,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
                           }}
                         />
                         <Box sx={{ color: 'primary.400' }}>
-                          <MobileTextStyleContainer label={tab?.name} />
+                          <MobileTextStyleContainer label={intl.formatMessage({ id: tab.name })} />
                         </Box>
                       </SelectedTab>
                     </Link>
@@ -153,7 +159,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
                     <Link prefetch={false} href={tab?.path} style={{ textDecoration: 'none' }}>
                       <MobileComponentSecBoxContainer>
                         <Box component="img" src={tab.img} width={20} height={20} />
-                        <MobileTextStyleContainer label={tab?.name} />
+                        <MobileTextStyleContainer label={intl.formatMessage({ id: tab.name })} />
                       </MobileComponentSecBoxContainer>
                     </Link>
                   </CommonMenuBox>

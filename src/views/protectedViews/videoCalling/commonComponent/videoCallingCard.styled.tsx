@@ -27,9 +27,9 @@ export const SecondBoxContainer = styled(Box)(({ theme }) => ({
 
 export const ImgBoxContainer = styled('img')(({ theme }) => ({
   width: '100%',
-  maxWidth: '80px',
+  maxWidth: '160px',
   height: '100%',
-  maxHeight: '80px',
+  minHeight: '70px',
   borderRadius: '12px'
 }));
 

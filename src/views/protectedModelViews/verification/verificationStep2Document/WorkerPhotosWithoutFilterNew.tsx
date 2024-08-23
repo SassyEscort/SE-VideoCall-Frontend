@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import { FormikErrors, FormikTouched } from 'formik';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { MainMakeSure, Step7MainBox, Step7UploadImagBox, UIRulesHeader } from './LastStepPromise.styled';
+import { MainMakeSure, Step7MainBox, Step7UploadImagBox, StepSecondMainBox, UIRulesHeader } from './LastStepPromise.styled';
 import DragAndDropPromiseV2 from 'components/UIComponents/DragAndDropImage/DragAndDropPromiseV2';
 import { List, ListItem } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
@@ -36,25 +36,29 @@ const WorkerPhotosWithoutFilterNew = ({
     <>
       <Step7MainBox>
         <Step7UploadImagBox>
-          <Box display="flex" flexDirection="column" alignItems="center" gap={2.5} alignSelf=" stretch">
-            <UINewTypography variant="h6">{title}</UINewTypography>
-            <Box
-              width="100%"
-              sx={{
-                display: 'flex',
-                justifyContent: 'center'
-              }}
-            >
-              <DragAndDropPromiseV2
-                withoutFilterImageTouched={touched}
-                name={name}
-                value={value as File}
-                setValue={setValue}
-                setFieldTouched={setFieldTouched}
-                errors={errors}
-                accept={accept}
-                modelDetails={modelDetails}
-              />
+          <StepSecondMainBox>
+            <Box display="flex" flexDirection="column" alignItems="center" gap={2.5} alignSelf=" stretch">
+              <Box>
+                <UINewTypography variant="h6">{title}</UINewTypography>
+              </Box>
+              <Box
+                width="100%"
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center'
+                }}
+              >
+                <DragAndDropPromiseV2
+                  withoutFilterImageTouched={touched}
+                  name={name}
+                  value={value as File}
+                  setValue={setValue}
+                  setFieldTouched={setFieldTouched}
+                  errors={errors}
+                  accept={accept}
+                  modelDetails={modelDetails}
+                />
+              </Box>
             </Box>
 
             <MainMakeSure>
@@ -73,6 +77,9 @@ const WorkerPhotosWithoutFilterNew = ({
                       pb: 0,
                       paddingTop: 0,
                       '& li:last-child': {
+                        pb: 0
+                      },
+                      '& li:nth-of-type(1)': {
                         pb: 0
                       }
                     }}
@@ -97,7 +104,7 @@ const WorkerPhotosWithoutFilterNew = ({
                 </Box>
               </Box>
             </MainMakeSure>
-          </Box>
+          </StepSecondMainBox>
         </Step7UploadImagBox>
       </Step7MainBox>
     </>

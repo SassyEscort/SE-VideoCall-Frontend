@@ -9,7 +9,7 @@ import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import * as Yup from 'yup';
 import moment from 'moment';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { FooterBtnConatiner, StepOneContainer } from './VerficationStepOne.styled';
 import { TokenIdType } from '..';
 import { toast } from 'react-toastify';
@@ -20,6 +20,7 @@ import { scrollToError } from 'utils/scrollUtils';
 import { useRouter } from 'next/navigation';
 import { EMAIL_REGEX } from 'constants/regexConstants';
 import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
+import { getErrorMessage } from 'utils/errorUtils';
 
 const VerificationStepOne = ({
   handleNext,
@@ -38,6 +39,7 @@ const VerificationStepOne = ({
   isReviewEdit: boolean;
   handleEdit?: (step: number) => void;
 }) => {
+  const intl = useIntl();
   const router = useRouter();
   const [buttonClicked, setButtonClicked] = useState(false);
 
@@ -99,7 +101,8 @@ const VerificationStepOne = ({
           }
           toast.success('Success');
         } else {
-          toast.error(res.message);
+          const errorMessage = getErrorMessage(res?.custom_code);
+          toast.error(intl.formatMessage({ id: errorMessage }));
         }
       }
     } catch (error) {
@@ -133,7 +136,8 @@ const VerificationStepOne = ({
               handleNext();
             }
           } else {
-            toast.error(response.message);
+            const errorMessage = getErrorMessage(response?.custom_code);
+            toast.error(intl.formatMessage({ id: errorMessage }));
           }
         } catch (error) {
           toast.error(ErrorMessage);
@@ -196,7 +200,7 @@ const VerificationStepOne = ({
                 loading={loading}
                 disabled={changedValues && isEdit ? false : !isEdit ? false : true}
                 style={{ backgroundColor: buttonClicked ? (Object.keys(errors).length > 0 ? undefined : 'primary.700') : undefined }}
-                sx={{ px: '20px', py: '9px' }}
+                sx={{ px: '10px', py: '9px', width: '100%', maxWidth: '133px' }}
               >
                 {isEdit ? (
                   <UINewTypography variant="body">

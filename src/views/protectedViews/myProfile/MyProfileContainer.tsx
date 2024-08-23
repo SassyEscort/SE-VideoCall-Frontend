@@ -1,4 +1,4 @@
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
@@ -14,6 +14,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ErrorMessage } from 'constants/common.constants';
 import MyProfileChangePassword from './MyProfileChangePassword';
+import { InnerBox, MainContainer, MyProfileTitle, VerifiedColumn } from './MyProfileContainer.styled';
+import { getErrorMessage } from 'utils/errorUtils';
 
 const MyProfileContainer = ({
   values,
@@ -33,6 +35,7 @@ const MyProfileContainer = ({
   isEmailVerified: number;
 }) => {
   const router = useRouter();
+  const intl = useIntl();
 
   const url = new URL(window.location.href);
   const email = url.searchParams.get('email');
@@ -48,12 +51,14 @@ const MyProfileContainer = ({
     try {
       if (!errors.email && token.token) {
         const data = await authServices.emailVerifyLink({ email: values.email }, token.token);
+
         if (data.code === 200) {
           setOpen(true);
           setActiveStep(1);
           toast.success('Success');
         } else {
-          toast.error(data.error);
+          const errorMessage = getErrorMessage(data?.custom_code);
+          toast.error(intl.formatMessage({ id: errorMessage }));
         }
       }
     } catch (error) {
@@ -110,14 +115,14 @@ const MyProfileContainer = ({
 
   return (
     <>
-      <Box sx={{ mb: 3 }}>
+      <MyProfileTitle>
         <UINewTypography variant="h2" color="text.secondary">
           <FormattedMessage id="MyProfile" />
         </UINewTypography>
-      </Box>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      </MyProfileTitle>
+      <MainContainer>
         <InputTypeBox>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+          <InnerBox>
             <Box>
               <ProfileTextHeader variant="bodySemiBold" color="text.primary">
                 <FormattedMessage id="Name" />
@@ -135,11 +140,11 @@ const MyProfileContainer = ({
                 helperText={touched.username && errors.username}
               />
             </Box>
-          </Box>
+          </InnerBox>
         </InputTypeBox>
 
         <InputTypeBox>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+          <InnerBox>
             <Box>
               <ProfileTextHeader variant="bodySemiBold" color="text.primary">
                 <FormattedMessage id="Email" />
@@ -158,7 +163,7 @@ const MyProfileContainer = ({
                 helperText={touched.email && errors.email}
                 InputProps={{
                   endAdornment: (
-                    <Box sx={{ display: 'flex', gap: 2, cursor: 'pointer' }}>
+                    <VerifiedColumn>
                       <UINewTypography color={'text.secondary'} variant="buttonSmallBold" onClick={handleEditClick}>
                         <FormattedMessage id="Edit" />
                       </UINewTypography>
@@ -172,7 +177,7 @@ const MyProfileContainer = ({
                       >
                         {isEmailVerified === 1 ? <FormattedMessage id="Verified" /> : <FormattedMessage id="Verify" />}
                       </UINewTypography>
-                    </Box>
+                    </VerifiedColumn>
                   )
                 }}
               />
@@ -183,7 +188,7 @@ const MyProfileContainer = ({
                 </GuestStyleComponent>
               )}
             </Box>
-          </Box>
+          </InnerBox>
         </InputTypeBox>
         {/* 
         <InputTypeBox>
@@ -217,7 +222,7 @@ const MyProfileContainer = ({
             </Box>
           </Box>
         </InputTypeBox> */}
-      </Box>
+      </MainContainer>
       <MyProfileChangePassword onOpen={openModel} onClose={handleClsoeModel} token={token} />
     </>
   );

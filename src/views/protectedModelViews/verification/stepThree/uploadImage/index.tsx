@@ -12,11 +12,12 @@ import { toast } from 'react-toastify';
 import { TokenIdType } from '../..';
 import { PHOTO_TYPE } from 'constants/workerVerification';
 import { ErrorMessage, MAX_FILE_SIZE } from 'constants/common.constants';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import { UploadButBoxContainer } from './RepositionPhoto.styled';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
+import { getErrorMessage } from 'utils/errorUtils';
 
 export type WorkerPhotos = {
   id: number;
@@ -105,6 +106,7 @@ const UploadImage = ({
   modelProfileStatus
 }: VerificationStepUploadType) => {
   const { pathname } = window.location;
+  const intl = useIntl();
 
   const [loading, setLoading] = useState(false);
   const [updated, setUpdated] = useState(false);
@@ -129,7 +131,7 @@ const UploadImage = ({
           const filteredFile5 = (value || []).filter((x) => x !== null);
           const invalidSizeFiles = filteredFile5.filter((file) => file && file.size >= MAX_FILE_SIZE);
           if (invalidSizeFiles.length > 0) {
-            return this.createError({ message: 'Photo/video should be less than 5MB', path: 'file5' });
+            return this.createError({ message: intl.formatMessage({ id: 'PhotoVideoShouldBeLessThan5MB' }), path: 'file5' });
           }
           return true;
         };
@@ -147,7 +149,7 @@ const UploadImage = ({
             const videoIndex = value.findIndex((file) => file && file.type === 'video/mp4');
 
             if ((videoIndex > -1 && (firstFileIndex === -1 || videoIndex < firstFileIndex)) || videoIndex === 0) {
-              return this.createError({ message: 'Video cannot be uploaded for a thumbnail photo.', path: 'file5' });
+              return this.createError({ message: intl.formatMessage({ id: 'VideoCannotBeUploadedForAThumbnailPhoto' }), path: 'file5' });
             }
           }
 
@@ -156,13 +158,13 @@ const UploadImage = ({
 
           const invalidSizeFiles = filteredFile5.filter((file) => file && file.size >= MAX_FILE_SIZE);
           if (invalidSizeFiles.length > 0) {
-            return this.createError({ message: 'Photo/video should be less than 5MB', path: 'file5' });
+            return this.createError({ message: intl.formatMessage({ id: 'PhotoVideoShouldBeLessThan5MB' }), path: 'file5' });
           }
-          if (combinedLength < 1) {
-            return this.createError({ message: 'Please upload at least 1 photo', path: 'file5' });
+          if (combinedLength < 2) {
+            return this.createError({ message: intl.formatMessage({ id: 'PleaseUploadAtLeast2Photos' }), path: 'file5' });
           }
           if (combinedLength > 30) {
-            return this.createError({ message: 'Sorry, you can upload 30 pictures only', path: 'file5' });
+            return this.createError({ message: intl.formatMessage({ id: 'SorryYoucanUpload30PicturesOnly' }), path: 'file5' });
           }
 
           return true;
@@ -280,18 +282,26 @@ const UploadImage = ({
         };
 
         if (deletedFileIds.length) {
-          const data = VerificationStepService.deleteMultipleImage(token.token, { file_ids: deletedFileIds });
+          const data = await VerificationStepService.deleteMultipleImage(token.token, { file_ids: deletedFileIds });
           console.log(data, 'datadatadata');
+          if (data.code === 200) {
+            handleModelApiChange();
+          }
         }
-        const response = await VerificationStepService.uploadModelPhotos(payload, token);
+        if (payload.photos.length > 0) {
+          const response = await VerificationStepService.uploadModelPhotos(payload, token);
 
-        if (response.code === 200) {
-          handleModelApiChange();
-          setUpdated(true);
-          if (isReviewEdit && handleEdit) {
-            handleEdit(4);
+          if (response.code === 200) {
+            handleModelApiChange();
+            setUpdated(true);
+            if (isReviewEdit && handleEdit) {
+              handleEdit(4);
+            } else {
+              handleNext();
+            }
           } else {
-            handleNext();
+            const errorMessage = getErrorMessage(response?.custom_code);
+            toast.error(intl.formatMessage({ id: errorMessage }));
           }
         }
       }
@@ -312,7 +322,7 @@ const UploadImage = ({
 
   return (
     <Formik
-      validationSchema={validationSchema}
+      // validationSchema={validationSchema}
       enableReinitialize
       initialValues={initialValuesPerStep}
       onSubmit={(values) => {
@@ -351,7 +361,13 @@ const UploadImage = ({
                       <FormattedMessage id="Back" />
                     </UINewTypography>
                   </UIThemeButton>
-                  <StyleButtonV2 id="photos-button" type="submit" variant="contained" loading={loading}>
+                  <StyleButtonV2
+                    id="photos-button"
+                    type="submit"
+                    variant="contained"
+                    loading={loading}
+                    sx={{ px: '10px', width: '100%', maxWidth: '133px' }}
+                  >
                     <UINewTypography variant="body">
                       {isReviewEdit ? <FormattedMessage id="SaveAndReview" /> : <FormattedMessage id="Next" />}
                     </UINewTypography>

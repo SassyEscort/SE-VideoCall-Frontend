@@ -81,7 +81,7 @@ const ModelMultiplePhoto = ({
   const [uploadedImagesURL, setUploadedImagesURL] = useState<UploadPhotos[]>([]);
   const [thumbnailImageId, setThumbnailImageId] = useState<number | undefined>(undefined);
   const [fileIdsData, setFileIdsData] = useState<string[]>([]);
-  console.log(fileIdsData, 'file_id');
+  console.log(fileIdsData, uploadedImagesURL, 'file_id');
 
   const removeImage = async (name: string, photoName: string, file_id?: string) => {
     console.log(file_id, 'file_id');
@@ -240,13 +240,13 @@ const ModelMultiplePhoto = ({
     return cordsChanged || values?.file5 ? true : false;
   };
 
-  useEffect(() => {
-    if (isUpdated) {
-      setUploadedImagesURL([]);
-      handelChangedIsUpdated ? handelChangedIsUpdated() : '';
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isUpdated]);
+  // useEffect(() => {
+  //   if (isUpdated) {
+  //     setUploadedImagesURL([]);
+  //     handelChangedIsUpdated ? handelChangedIsUpdated() : '';
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isUpdated]);
 
   return (
     <>
@@ -338,7 +338,7 @@ const ModelMultiplePhoto = ({
             variant="contained"
             loading={loading}
             disabled={!hasChanges()}
-            sx={{ px: '20px', py: '9px' }}
+            sx={{ px: '10px', py: '9px' }}
           >
             <UINewTypography variant="body">
               <FormattedMessage id="Save" />

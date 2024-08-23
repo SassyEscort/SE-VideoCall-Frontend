@@ -1,12 +1,15 @@
 import React from 'react';
 import { BoxSecond, ImageBox, MainContainer, UINewTypographyText } from './ProfileApproval.styled';
+import { FormattedMessage } from 'react-intl';
 
 const ProfileApproval = () => {
   return (
     <MainContainer>
       <ImageBox src="/images/vectorimg.png" />
       <BoxSecond>
-        <UINewTypographyText>Your profile is under review and you will be notified over mail on your profile approval.</UINewTypographyText>
+        <UINewTypographyText>
+          <FormattedMessage id="YourProfileIsUnderReview" />
+        </UINewTypographyText>
       </BoxSecond>
     </MainContainer>
   );

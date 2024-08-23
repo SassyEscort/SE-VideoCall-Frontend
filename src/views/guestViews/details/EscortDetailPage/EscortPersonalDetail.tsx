@@ -13,12 +13,16 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import UINewChip from 'components/UIComponents/UINewChip';
 import theme from 'themes/theme';
 import { UINewTooltip } from 'components/UIComponents/UINewTooltip/UINewTooltip.styled';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import moment from 'moment';
 import { getLastActive } from 'utils/dateAndTime';
+import UINewChipLanguage from 'components/UIComponents/UINewChipLanguage';
+import { RateCountryBoxContainet } from './EscortDetailPage.styled';
 
 const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }) => {
+  const intl = useIntl();
+
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const languages = guestData?.languages
@@ -51,7 +55,7 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
                 </UINewTypography>
                 <UINewTypography variant="SubtitleSmallMedium" sx={{ fontSize: '14px', lineHeight: '19.6px' }}>
                   <FormattedMessage id="LastActive" />{' '}
-                  {guestData.is_online ? <FormattedMessage id="JustNow" /> : getLastActive(guestData?.updated_at ?? '')}
+                  {guestData.is_online ? <FormattedMessage id="JustNow" /> : getLastActive(guestData?.updated_at ?? '', intl)}
                 </UINewTypography>
               </DetailsChildBox>
               <Box>
@@ -65,45 +69,65 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
           <DetailSubTypographyBox>
             <DetailsChildTypographyBox>
               <Box>
-                <UINewTypography variant="captionBold">
+                <UINewTypography variant="captionBold" color="text.secondary">
                   <FormattedMessage id="MyAppearance" />
                 </UINewTypography>
               </Box>
               <DetailsChipBox>
-                <UINewTooltip title="Age" placement="top">
+                <UINewTooltip title={intl.formatMessage({ id: 'Age' })} placement="top">
                   <UINewChip
                     icon={<Box height={20} width={20} component="img" src={`/images/details-icon/age-icon.svg`} alt={'language'} />}
                     label={moment().diff(guestData?.dob, 'years')}
                   />
                 </UINewTooltip>
-                <UINewTooltip title="Gender" placement="top">
+                <UINewTooltip title={intl.formatMessage({ id: 'Gender' })} placement="top">
                   <UINewChip
                     icon={<Box height={20} width={20} component="img" src={`/images/details-icon/gender-icon.svg`} alt={'language'} />}
                     label={guestData?.gender}
                   />
                 </UINewTooltip>
-                <UINewTooltip title="Languages" placement="top">
-                  <UINewChip
+                <UINewTooltip title={intl.formatMessage({ id: 'Languages' })} placement="top">
+                  <UINewChipLanguage
+                    sx={{
+                      '& .mui-6od3lo-MuiChip-label': {
+                        whiteSpace: 'normal'
+                      }
+                    }}
                     icon={<Box height={20} width={20} component="img" src={`/images/details-icon/language-icon.svg`} alt={'language'} />}
                     label={languages}
                   />
                 </UINewTooltip>
               </DetailsChipBox>
             </DetailsChildTypographyBox>
+            <RateCountryBoxContainet>
+              <DetailsChildTypographyBox>
+                <Box>
+                  <UINewTypography variant="captionBold" color="text.secondary">
+                    <FormattedMessage id="Rates" />
+                  </UINewTypography>
+                </Box>
+                <DetailsChipBox>
+                  <UINewChip
+                    icon={<Box height={16} width={16} component="img" src={`/images/details-icon/coin-icon.svg`} alt={'language'} />}
+                    label={Number(videoCallPrice) === -1 ? 'N/A' : `${videoCallPrice} credits/min`}
+                  />
+                </DetailsChipBox>
+              </DetailsChildTypographyBox>
 
-            <DetailsChildTypographyBox>
-              <Box>
-                <UINewTypography variant="captionBold">
-                  <FormattedMessage id="Rates" />
-                </UINewTypography>
-              </Box>
-              <DetailsChipBox>
-                <UINewChip
-                  icon={<Box height={16} width={16} component="img" src={`/images/details-icon/coin-icon.svg`} alt={'language'} />}
-                  label={Number(videoCallPrice) === -1 ? 'N/A' : `${videoCallPrice} credits/min`}
-                />
-              </DetailsChipBox>
-            </DetailsChildTypographyBox>
+              <DetailsChildTypographyBox>
+                <Box>
+                  <UINewTypography variant="captionBold" color="text.secondary">
+                    <FormattedMessage id="Country" />
+                  </UINewTypography>
+                </Box>
+                <DetailsChipBox>
+                  <UINewChip
+                    icon={<Box height={16} width={16} component="img" src={`/images/icons/country-icons.svg`} alt={'country'} />}
+                    label={guestData?.country?.name}
+                  />
+                </DetailsChipBox>
+              </DetailsChildTypographyBox>
+            </RateCountryBoxContainet>
           </DetailSubTypographyBox>
         </DetailsTypographyBox>
       </Box>

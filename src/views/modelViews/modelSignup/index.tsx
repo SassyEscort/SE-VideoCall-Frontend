@@ -22,11 +22,12 @@ import { useRouter } from 'next/navigation';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from 'views/auth/AuthCommon.styled';
 import InfoIcon from '@mui/icons-material/Info';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { ModelSignUpUIRemember } from './ModelSignup.styled';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import Link from 'next/link';
+import { getErrorMessage } from 'utils/errorUtils';
 
 export type ModelSignupParams = {
   name: string;
@@ -35,6 +36,8 @@ export type ModelSignupParams = {
 };
 
 const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
+  const intl = useIntl();
+
   const route = useRouter();
   const { push } = route;
   const isSm = useMediaQuery(theme.breakpoints.down(330));
@@ -70,8 +73,8 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
       .max(20, 'Usernameistoolong')
       .matches(NAME_REGEX, 'Noleadingspaces'),
     email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
-    password: yup.string().required('Password is required').min(8, 'Password must be at least 8 characters').matches(PASSWORD_PATTERN, {
-      message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+    password: yup.string().required('Passwordisrequired').min(8, 'Passwordmust').matches(PASSWORD_PATTERN, {
+      message: 'PasswordMustContainAt',
       excludeEmptyString: true
     })
   });
@@ -104,7 +107,8 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
           } else if (data?.code === 403) {
             toast.error(ErrorMessage);
           } else {
-            setAlert(data.message);
+            const errorMessage = getErrorMessage(data?.custom_code);
+            setAlert(intl.formatMessage({ id: errorMessage }));
           }
         } catch (error) {
           setAlert('An error occurred during signup or login. Please try again.');

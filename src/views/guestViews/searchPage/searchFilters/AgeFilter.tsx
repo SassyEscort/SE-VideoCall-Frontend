@@ -3,7 +3,7 @@ import { SelectChangeEvent } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { StyledSelectInputLabel, UIStyledSelect } from 'components/UIComponents/UIStyledSelect';
+import { StyledSelectInputLabelAge, UIStyledSelectAgeFilter } from 'components/UIComponents/UIStyledSelect';
 import { AGES } from 'constants/searchConstants';
 import { FormattedMessage } from 'react-intl';
 import { StyledClearIcon } from '../Search.styled';
@@ -38,10 +38,10 @@ const AgeFilter: React.FC<AgeFilterProps> = ({ fromAge, toAge, onChange }) => {
   };
   return (
     <FormControl id="age" sx={{ width: '100%', maxWidth: { lg: '203px', sm: '235px' } }}>
-      <StyledSelectInputLabel>
+      <StyledSelectInputLabelAge>
         <FormattedMessage id="AgeRange" />
-      </StyledSelectInputLabel>
-      <UIStyledSelect
+      </StyledSelectInputLabelAge>
+      <UIStyledSelectAgeFilter
         value={renderValue}
         onChange={handleChange}
         MenuProps={{ disableScrollLock: true }}
@@ -59,7 +59,7 @@ const AgeFilter: React.FC<AgeFilterProps> = ({ fromAge, toAge, onChange }) => {
             <UINewTypography>{age?.title}</UINewTypography>
           </MenuItem>
         ))}
-      </UIStyledSelect>
+      </UIStyledSelectAgeFilter>
     </FormControl>
   );
 };
