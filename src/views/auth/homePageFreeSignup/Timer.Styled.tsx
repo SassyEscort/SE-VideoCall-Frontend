@@ -73,12 +73,12 @@ export const Dotes = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.common.white,
   color: theme.palette.common.white,
   position: 'absolute',
-  left: '51%',
-  // top: '29%',
+  left: '50.5%',
+  top: '28%',
   transform: 'translate(-80%, -80%)',
   '@media (max-width: 425px)': {
     left: '50%',
-    top: '29%',
+    top: '28%',
     transform: 'translate(-50%, -93%)'
   },
   '@media (max-width: 375px)': {
@@ -88,27 +88,8 @@ export const Dotes = styled(Box)(({ theme }) => ({
   },
   '@media (max-width: 320px)': {
     left: '50%',
-    top: '32%',
+    top: '28%',
     transform: 'translate(-50%, -90%)'
-  },
-  '@media (max-width: 768px)': {
-    left: '50%',
-    top: '90%',
-    transform: 'translate(-50%, -90%)'
-  },
-  '@media (max-width: 1024px)': {
-    left: '52.5%',
-    top: '90%',
-    transform: 'translate(-50%, -90%)'
-  },
-  '@media (max-width: 1440px)': {
-    left: '50%',
-    top: '90%',
-    transform: 'translate(-50%, -90%)'
-  },
-  [theme.breakpoints.down('sm')]: {
-    left: '51%',
-    top: '29%'
   }
 }));
 

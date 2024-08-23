@@ -2,9 +2,12 @@
 import { useEffect, useState } from 'react';
 import { TimeDetails, TimeMainBox, TimeTitle, RemianingTime, TimeTypo, TimerDivider, Dotes, DotesSecond } from './Timer.Styled';
 import { FormattedMessage } from 'react-intl';
+import { useMediaQuery } from '@mui/material';
+import theme from 'themes/theme';
 
 const Timer = () => {
   const [contdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   function calculateCountdown() {
     const countdownDate = new Date(process.env.NEXT_PUBLIC_COMINGSOON_DATE as string).getTime();
@@ -41,8 +44,12 @@ const Timer = () => {
           <FormattedMessage id="Minutes" />
         </TimeTitle>
       </TimeDetails>
-      <Dotes></Dotes>
-      <DotesSecond></DotesSecond>
+      {isSmDown && (
+        <>
+          <Dotes></Dotes>
+          <DotesSecond></DotesSecond>
+        </>
+      )}
       <TimeDetails>
         <RemianingTime>
           <TimeTypo>{contdown.seconds}</TimeTypo>

@@ -143,7 +143,11 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                   <>
                     <Box>
                       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ lineHeight: '38.4px' }}>
+                        <UINewTypography
+                          variant="MediumSemiBoldText"
+                          color="common.white"
+                          sx={{ lineHeight: '38.4px', fontSize: { xs: '23px', sm: '32px' } }}
+                        >
                           <FormattedMessage id="JoinNowForFree" />
                         </UINewTypography>
                         <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
