@@ -204,8 +204,8 @@ const HomeTopBanner = () => {
               />
             </Box>
           </BannerContainer>
-          {isSmDown && <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} />}{' '}
-          {isSmDown && (
+          {isSmDown && <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} />}
+          {isSmDown && !isModalOpenFreeCredits && (
             <Box sx={{ position: 'relative', cursor: 'pointer' }} onClick={handleBoxClick}>
               <GiftBoxFirst></GiftBoxFirst>
               <GiftBoxSecond></GiftBoxSecond>

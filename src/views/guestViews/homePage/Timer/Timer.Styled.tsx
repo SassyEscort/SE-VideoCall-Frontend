@@ -51,7 +51,8 @@ export const TimeTitle = styled(UINewTypography)(({ theme }) => ({
   fontSize: '12px',
   fontWeight: 300,
   lineHeight: '16.39px',
-  color: '#611441'
+  color: '#611441',
+  textTransform: 'uppercase'
 }));
 
 export const Dotes = styled(Box)(({ theme }) => ({
@@ -66,21 +67,21 @@ export const Dotes = styled(Box)(({ theme }) => ({
   color: theme.palette.common.white,
   position: 'absolute',
   left: '51%',
-  top: '83%',
+  top: '81%',
   transform: 'translate(-80%, -80%)',
   '@media (max-width: 425px)': {
     left: '50%',
-    top: '83%',
+    top: '81%',
     transform: 'translate(-50%, -93%)'
   },
   '@media (max-width: 375px)': {
     left: '50%',
-    top: '83%',
+    top: '81%',
     transform: 'translate(-50%, -92%)'
   },
   '@media (max-width: 320px)': {
     left: '50%',
-    top: '83%',
+    top: '81%',
     transform: 'translate(-50%, -90%)'
   }
 }));

@@ -4,24 +4,41 @@ import { TimeDetails, TimeMainBox, TimeTitle, RemianingTime, TimeTypo, TimerDivi
 import { FormattedMessage } from 'react-intl';
 
 const TimerUI = () => {
-  const [contdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [countdown, setCountdown] = useState({ minutes: 15, seconds: 0 });
 
   const handleCalculateCountdown = () => {
-    const countdownDate = new Date(process.env.NEXT_PUBLIC_COMINGSOON_DATE as string).getTime();
+    const startTime = localStorage.getItem('timerStartTime');
+    const currentTime = new Date().getTime();
+
+    if (!startTime) {
+      const newStartTime = currentTime;
+      localStorage.setItem('timerStartTime', newStartTime.toString());
+    }
+
+    const start = startTime ? parseInt(startTime, 10) : currentTime;
+    const elapsed = currentTime - start;
+    const remaining = 15 * 60 * 1000 - (elapsed % (15 * 60 * 1000));
+
+    const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+
+    setCountdown({ minutes, seconds });
 
     const updateCount = setInterval(function () {
-      const todayDate = new Date().getTime();
+      const now = new Date().getTime();
+      const elapsed = now - start;
+      const remaining = 15 * 60 * 1000 - (elapsed % (15 * 60 * 1000));
 
-      const distance = countdownDate - todayDate;
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
 
-      setCountdown({ days, hours, minutes, seconds });
+      setCountdown({ minutes, seconds });
 
-      if (distance < 0) {
+      if (remaining <= 0) {
+        const newStartTime = new Date().getTime();
+        localStorage.setItem('timerStartTime', newStartTime.toString());
         clearInterval(updateCount);
+        handleCalculateCountdown();
       }
     }, 1000);
   };
@@ -34,7 +51,7 @@ const TimerUI = () => {
     <TimeMainBox>
       <TimeDetails>
         <RemianingTime>
-          <TimeTypo>{contdown.minutes}</TimeTypo>
+          <TimeTypo>{countdown.minutes}</TimeTypo>
           <TimerDivider orientation="horizontal" flexItem />
         </RemianingTime>
         <TimeTitle>
@@ -45,7 +62,7 @@ const TimerUI = () => {
       <DotesSecond />
       <TimeDetails>
         <RemianingTime>
-          <TimeTypo>{contdown.seconds}</TimeTypo>
+          <TimeTypo>{countdown.seconds}</TimeTypo>
           <TimerDivider orientation="horizontal" flexItem />
         </RemianingTime>
         <TimeTitle>
