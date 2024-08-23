@@ -100,6 +100,7 @@ export const EscortSlider = ({
   const handleLoginOpen = () => {
     setIsOpen(false);
     setIsOpenLogin(true);
+    setFreeSignupOpen(false);
     gaEventTrigger('Login_Button_clicked', { source: 'start_video_call', category: 'Button' });
   };
 
@@ -120,6 +121,7 @@ export const EscortSlider = ({
   const handleResetPasswordLinkClose = () => {
     setOpenForgetPassLink(false);
   };
+
   const handleLikeClick = async () => {
     try {
       if (!isCustomer) {
@@ -165,6 +167,7 @@ export const EscortSlider = ({
   };
 
   const handleFreeCreditSignupOpen = () => {
+    setIsOpenLogin(false);
     setFreeSignupOpen(true);
   };
 
