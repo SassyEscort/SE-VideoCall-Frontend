@@ -1,5 +1,4 @@
 'use client';
-import { Timer } from '@mui/icons-material';
 import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
@@ -11,6 +10,7 @@ import {
   DescriptionTextBoxContainer
 } from './HomePageFreeSignup.styled';
 import { FormattedMessage } from 'react-intl';
+import Timer from './timer';
 
 const HomePageFreeSignupMobile = () => {
   return (

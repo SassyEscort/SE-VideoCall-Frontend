@@ -43,6 +43,7 @@ import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const [isModalOpenFreeCredits, setIsModalOpenFreeCredits] = useState(false);
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
@@ -215,10 +216,10 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
               />
             </Box>
           </BannerContainer>
-          {isSmDown && (
+          {isMdDown && (
             <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} onSignupOpen={handleFreeCreditSignupOpen} />
           )}{' '}
-          {isSmDown && isFreeCreditAvailable && !isModalOpenFreeCredits && (
+          {isMdDown && isFreeCreditAvailable && !isModalOpenFreeCredits && (
             <Box sx={{ position: 'relative', cursor: 'pointer' }} onClick={handleBoxClick}>
               <GiftBoxFirst></GiftBoxFirst>
               <GiftBoxSecond></GiftBoxSecond>

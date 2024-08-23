@@ -63,7 +63,7 @@ const AuthHomePageFreeSignupCommon = ({
             }}
           >
             <Box component="img" src="/images/home/gitftsecond.png" width={170} height={210} />
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center', mt: '24px' }}>
               <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
                 <Box component="img" src="/images/workercards/coin-1.png" width={20} height={20} />
                 <Box
@@ -72,7 +72,6 @@ const AuthHomePageFreeSignupCommon = ({
                     maxWidth: '367px',
                     display: 'flex',
                     justifyContent: 'center',
-                    marginTop: '24px',
                     '@media (max-width: 768px)': {
                       maxWidth: '275px'
                     }
