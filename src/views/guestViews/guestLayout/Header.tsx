@@ -285,12 +285,20 @@ const HeaderGuestComponent = () => {
                   }}
                 >
                   <Box component="img" src="/images/icons/free-credit-icon.png" />
-                  <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
-                    <FormattedMessage id="ClaimYour" />
-                  </UINewTypography>
-                  <UINewTypography variant="body" fontWeight={800} lineHeight={'150%'} color="primary.200">
-                    <FormattedMessage id="FREE100Credits" />
-                  </UINewTypography>
+                  <Box>
+                    <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
+                      <FormattedMessage id="ClaimYour" />
+                    </UINewTypography>{' '}
+                    <UINewTypography variant="body" fontWeight={800} lineHeight={'150%'} color="primary.200">
+                      <FormattedMessage id="FREE" />
+                    </UINewTypography>{' '}
+                    <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
+                      100
+                    </UINewTypography>{' '}
+                    <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
+                      <FormattedMessage id="Creditss" />
+                    </UINewTypography>
+                  </Box>
                 </Button>
               )}
             </Box>

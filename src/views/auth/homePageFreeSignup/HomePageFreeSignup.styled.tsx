@@ -47,13 +47,12 @@ export const TitleTextBoxContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const TitleText = styled(Typography)(({ theme }) => ({
-  fontSize: '24px',
-  fontWeight: 700,
-  lineHeight: '33.6px',
-  letterSpacing: '0.3px',
   background: 'linear-gradient(90deg, #FBA631, #FFFFFF)',
   WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent'
+  WebkitTextFillColor: 'transparent',
+  whiteSpace: 'nowrap',
+  display: 'flex',
+  gap: theme.spacing(1)
 }));
 
 export const DescriptionTextBoxContainer = styled(Box)(({ theme }) => ({

@@ -44,3 +44,16 @@ export const AuthImageBox = styled(Box)(({ theme }) => ({
     display: 'none'
   }
 }));
+
+export const BackgroundImageBox = styled(Box)(({ theme }) => ({
+  backgroundImage: 'url(/images/home/free-credit-signup-img.png)',
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+  display: 'flex',
+  backgroundPosition: 'left',
+  gap: theme.spacing(1.5),
+  position: 'relative',
+  [theme.breakpoints.down('sm')]: {
+    backgroundImage: 'none'
+  }
+}));
