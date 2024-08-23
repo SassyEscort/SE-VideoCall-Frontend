@@ -20,7 +20,9 @@ import {
   SignupTextContainer,
   ExploreTextContainer,
   FirstBoxContainer,
-  SecBoxContainer
+  SecBoxContainer,
+  GiftBoxFirst,
+  GiftBoxSecond
 } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
@@ -33,8 +35,11 @@ import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
 // import ProfileMenu from 'components/UIComponents/UIStyleHeader';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
+import ButtonFreeCredits from '../buttonFreeCredits';
+import React from 'react';
 
 const HomeTopBanner = () => {
+  const [isModalOpenFreeCredits, setIsModalOpenFreeCredits] = useState(false);
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const [open, setIsOpen] = useState(false);
@@ -97,6 +102,14 @@ const HomeTopBanner = () => {
       });
       setLoading(false);
     }, 1000);
+  };
+
+  const handleBoxClick = () => {
+    setIsModalOpenFreeCredits(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpenFreeCredits(false);
   };
 
   return (
@@ -191,6 +204,14 @@ const HomeTopBanner = () => {
               />
             </Box>
           </BannerContainer>
+          {isSmDown && <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} />}{' '}
+          {isSmDown && (
+            <Box sx={{ position: 'relative', cursor: 'pointer' }} onClick={handleBoxClick}>
+              <GiftBoxFirst></GiftBoxFirst>
+              <GiftBoxSecond></GiftBoxSecond>
+              {/* <GiftBoxThird></GiftBoxThird> */}
+            </Box>
+          )}
           <ModelsHeadingBox id="scroll-to-model" pt={{ xs: '96px', lg: '120px' }}>
             <HomeExploreBox>
               <UINewTypography
@@ -200,6 +221,7 @@ const HomeTopBanner = () => {
               >
                 <FormattedMessage id="ExploreYourChoices" />
               </UINewTypography>
+
               <SubTitle>
                 <FormattedMessage id="SelectTheCompanion" />
               </SubTitle>

@@ -739,6 +739,12 @@
   "VideoCannotBeUploadedForAThumbnailPhoto": "No se puede cargar vídeo para una foto en miniatura.",
   "PleaseUploadAtLeast2Photos": "Por favor sube al menos 2 fotos",
   "SorryYoucanUpload30PicturesOnly": "Lo siento, solo puedes subir 30 fotos",
+  "JoinNowAndEnjoyAEREEVideoCall": "Únete ahora y disfruta de una videollamada GRATIS con cualquier modelo de tu elección.",
+  "SignUpAndClaimNow": "Regístrate y reclámalo ahora",
+  "offerValidFor": "oferta válida por",
+  "Minutes": "Minutos",
+  "Seconds": "Segundos",
+  "FREE": "CRÉDITOS",
   "NameInvalidCharacters": "El nombre contiene caracteres no válidos",
   "InvalidEmailAddress": "Dirección de correo electrónico no válida"
 }

@@ -741,6 +741,12 @@
   "VideoCannotBeUploadedForAThumbnailPhoto": "Video cannot be uploaded for a thumbnail photo.",
   "PleaseUploadAtLeast2Photos": "Please upload at least 2 photos",
   "SorryYoucanUpload30PicturesOnly": "Sorry, you can upload 30 pictures only",
-  "NameInvalidCharacters":"Name contains invalid characters",
-  "InvalidEmailAddress":"Invalid email address"
+  "JoinNowAndEnjoyAEREEVideoCall": "Join now and enjoy a FREE video call with any model of your choice.",
+  "SignUpAndClaimNow": "Sign up and claim now",
+  "offerValidFor": "offer valid for",
+  "Minutes": "Minutes",
+  "Seconds": "Seconds",
+  "FREE": "FREE",
+  "NameInvalidCharacters": "Name contains invalid characters",
+  "InvalidEmailAddress": "Invalid email address"
 }
