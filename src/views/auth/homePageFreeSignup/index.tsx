@@ -124,11 +124,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
-            <AuthHomePageFreeSignupCommon
-              onClose={onClose}
-              image="/images/auth/auth-model1.webp"
-              mobileImage="/images/auth/auth-model1.webp"
-            >
+            <AuthHomePageFreeSignupCommon onClose={onClose}>
               <Box
                 position="relative"
                 width="100%"
