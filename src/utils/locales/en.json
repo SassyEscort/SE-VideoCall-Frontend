@@ -743,11 +743,15 @@
   "SorryYoucanUpload30PicturesOnly": "Sorry, you can upload 30 pictures only",
   "ClaimYour": "Claim your",
   "FREE100Credits": "FREE 100 credits",
-  "SignUpAndClaimNow": "Sign up and claim now",
   "100FREECreditsForYou": "100 FREE credits for you!",
   "JoinNowAndEnjoyAFREEVideo": "Join now and enjoy a FREE video call with any model of your choice.",
-  "FREE": "FREE",
   "Creditss": "credits",
+  "JoinNowAndEnjoyAEREEVideoCall": "Join now and enjoy a FREE video call with any model of your choice.",
+  "SignUpAndClaimNow": "Sign up and claim now",
+  "offerValidFor": "offer valid for",
+  "Minutes": "Minutes",
+  "Seconds": "Seconds",
+  "FREE": "FREE",
   "NameInvalidCharacters": "Name contains invalid characters",
   "InvalidEmailAddress": "Invalid email address"
 }
