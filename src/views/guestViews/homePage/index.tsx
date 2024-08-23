@@ -208,6 +208,7 @@ const HomeContainer = () => {
           filters={filters ?? ({} as SearchFiltersTypes)}
           totalRows={total_rows}
           handleChangePage={handleChangePage}
+          isFreeCreditAvailable={isFreeCreditAvailable}
         />
         <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
         {/* <HomePageFAQ /> */}

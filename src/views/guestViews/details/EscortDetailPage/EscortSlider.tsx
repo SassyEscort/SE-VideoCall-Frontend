@@ -100,6 +100,7 @@ export const EscortSlider = ({
   const handleLoginOpen = () => {
     setIsOpen(false);
     setIsOpenLogin(true);
+    setFreeSignupOpen(false);
     gaEventTrigger('Login_Button_clicked', { source: 'start_video_call', category: 'Button' });
   };
 
@@ -120,6 +121,7 @@ export const EscortSlider = ({
   const handleResetPasswordLinkClose = () => {
     setOpenForgetPassLink(false);
   };
+
   const handleLikeClick = async () => {
     try {
       if (!isCustomer) {
@@ -165,6 +167,7 @@ export const EscortSlider = ({
   };
 
   const handleFreeCreditSignupOpen = () => {
+    setIsOpenLogin(false);
     setFreeSignupOpen(true);
   };
 
@@ -295,9 +298,14 @@ export const EscortSlider = ({
         </UIStyledDialog>
         <UIStyledDialog open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
           <GuestLogin
+            isFreeCreditAvailable={isFreeCreditAvailable}
             onClose={handleLoginClose}
             onSignupOpen={handleSignupOpen}
             onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+            handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
+            handleLoginOpen={handleLoginOpen}
+            freeSignupOpen={freeSignupOpen}
+            handleFreeCreditSignupClose={handleFreeCreditSignupClose}
             image="/images/auth/auth-model1.webp"
           />
         </UIStyledDialog>

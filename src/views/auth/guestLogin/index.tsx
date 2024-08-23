@@ -8,7 +8,7 @@ import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RiEyeLine, RiEyeOffLine, RiUserFillLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import * as yup from 'yup';
 import AuthCommon from '../AuthCommon';
 import { LoginUserParams } from 'services/guestAuth/types';
@@ -24,7 +24,6 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { EMAIL_REGEX } from 'constants/regexConstants';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import HomePageFreeSignup from '../homePageFreeSignup';
-import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
 
 export type LoginParams = {
   email: string;
@@ -35,12 +34,22 @@ const GuestLogin = ({
   onClose,
   onSignupOpen,
   onFogotPasswordLinkOpen,
-  image
+  image,
+  isFreeCreditAvailable,
+  handleFreeCreditSignupOpen,
+  handleLoginOpen,
+  freeSignupOpen,
+  handleFreeCreditSignupClose
 }: {
   onClose: () => void;
   onSignupOpen: () => void;
   onFogotPasswordLinkOpen: () => void;
   image: string;
+  isFreeCreditAvailable: number;
+  handleFreeCreditSignupOpen: () => void;
+  handleLoginOpen: () => void;
+  freeSignupOpen: boolean;
+  handleFreeCreditSignupClose: () => void;
 }) => {
   const intl = useIntl();
 
@@ -50,20 +59,6 @@ const GuestLogin = ({
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState('');
-  const [freeSignupOpen, setFreeSignupOpen] = useState(false);
-  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(1);
-
-  const handleFreeCreditSignupOpen = () => {
-    setFreeSignupOpen(true);
-  };
-
-  const handleFreeCreditSignupClose = () => {
-    setFreeSignupOpen(false);
-  };
-
-  const handleLoginOpen = () => {
-    setFreeSignupOpen(false);
-  };
 
   const validationSchema = yup.object({
     email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
@@ -86,14 +81,6 @@ const GuestLogin = ({
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    const handleIsFreeCreditAvailable = async () => {
-      const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
-      setIsFreeCreditAvailable(res.data.free_credits_available);
-    };
-    handleIsFreeCreditAvailable();
-  }, []);
 
   return (
     <>
