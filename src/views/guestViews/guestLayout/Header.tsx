@@ -81,6 +81,7 @@ const HeaderGuestComponent = () => {
   const handleFreeCreditSignupOpen = () => {
     setFreeSignupOpen(true);
     setOpenFreeCredit(false);
+    setAnchorElLogout(null);
   };
 
   const handleFreeCreditSignupClose = () => {
@@ -278,7 +279,11 @@ const HeaderGuestComponent = () => {
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                     <MenuItem>
                       <ListItemText>
-                        <UIThemeShadowButton variant="contained" onClick={handleSignupOpen} sx={{ width: '195px' }}>
+                        <UIThemeShadowButton
+                          variant="contained"
+                          onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
+                          sx={{ width: '195px' }}
+                        >
                           <UINewTypography variant="body" lineHeight={'150%'}>
                             <FormattedMessage id="SignUpNow" />
                           </UINewTypography>

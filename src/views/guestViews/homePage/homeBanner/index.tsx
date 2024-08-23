@@ -74,6 +74,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
 
   const handleLoginOpen = () => {
     setIsOpen(false);
+    setFreeSignupOpen(false);
     setIsOpenLogin(true);
   };
 
@@ -97,6 +98,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
 
   const handleFreeCreditSignupOpen = () => {
     setFreeSignupOpen(true);
+    handleCloseModal();
   };
 
   const handleFreeCreditSignupClose = () => {
@@ -177,7 +179,10 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
               <ThirdBoxContainer>
                 {isSmDown ? (
                   <SecondBoxContainer>
-                    <UIThemeShadowButton onClick={handleSignupOpen} variant="contained">
+                    <UIThemeShadowButton
+                      onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
+                      variant="contained"
+                    >
                       <SignupTextContainer>
                         <FormattedMessage id="SignUpNow" />
                       </SignupTextContainer>

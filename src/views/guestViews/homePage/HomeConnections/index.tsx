@@ -35,8 +35,9 @@ import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestNewPassword from 'views/auth/guestNewPassword';
 import { useRouter } from 'next/navigation';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 
-const HomeConnections = () => {
+const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const { push } = useRouter();
 
   const url = new URL(window.location.href);
@@ -48,6 +49,8 @@ const HomeConnections = () => {
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const [openChangePassword, setIsOpenChangePassword] = useState(email && !id && url.pathname !== '/profile' ? true : false);
+  const [freeSignupOpen, setFreeSignupOpen] = useState(false);
+
   const { isCustomer } = useCallFeatureContext();
 
   const handleSignupOpen = () => {
@@ -61,6 +64,7 @@ const HomeConnections = () => {
 
   const handleLoginOpen = () => {
     setIsOpen(false);
+    setFreeSignupOpen(false);
     setIsOpenLogin(true);
   };
 
@@ -90,6 +94,14 @@ const HomeConnections = () => {
   const handleChangePasswordClose = () => {
     push('/');
     setIsOpenChangePassword(false);
+  };
+
+  const handleFreeCreditSignupOpen = () => {
+    setFreeSignupOpen(true);
+  };
+
+  const handleFreeCreditSignupClose = () => {
+    setFreeSignupOpen(false);
   };
 
   return (
@@ -213,7 +225,11 @@ const HomeConnections = () => {
             </MainChildContainer>
 
             <ThirdBoxContainer sx={{ mt: isSmDown ? 6 : 12 }}>
-              <UIThemeShadowButton variant="contained" sx={{ width: '100%', maxWidth: '195px' }} onClick={handleSignupOpen}>
+              <UIThemeShadowButton
+                variant="contained"
+                sx={{ width: '100%', maxWidth: '195px' }}
+                onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
+              >
                 <UINewTypography variant="buttonLargeBold" sx={{ lineHeight: '150%' }}>
                   <FormattedMessage id="SignUpNow" />
                 </UINewTypography>
@@ -241,6 +257,9 @@ const HomeConnections = () => {
         </UIStyledDialog>
         <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
           <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
+        </UIStyledDialog>
+        <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+          <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
         </UIStyledDialog>
       </HomeMainContainer>
     </>

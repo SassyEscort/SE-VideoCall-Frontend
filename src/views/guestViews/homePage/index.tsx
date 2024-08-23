@@ -209,7 +209,7 @@ const HomeContainer = () => {
           totalRows={total_rows}
           handleChangePage={handleChangePage}
         />
-        <HomeConnections />
+        <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
         {/* <HomePageFAQ /> */}
       </HomePageMainContainer>
     </>
