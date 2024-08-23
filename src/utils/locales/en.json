@@ -259,7 +259,7 @@
   "SetOrModifyYourPrices": "Set or modify your prices",
   "MyProfile": "My Profile",
   "Male": "Male",
-  "Trans": "Tarns",
+  "Trans": "Trans",
   "SiliconValleyBank": "Silicon valley bank",
   "AddMoreBanks": "Add more banks",
   "RequestAPayout": "Request a payout",
@@ -747,5 +747,7 @@
   "100FREECreditsForYou": "100 FREE credits for you!",
   "JoinNowAndEnjoyAFREEVideo": "Join now and enjoy a FREE video call with any model of your choice.",
   "FREE": "FREE",
-  "Creditss": "credits"
+  "Creditss": "credits",
+  "NameInvalidCharacters": "Name contains invalid characters",
+  "InvalidEmailAddress": "Invalid email address"
 }

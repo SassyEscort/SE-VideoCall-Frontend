@@ -745,5 +745,7 @@
   "100FREECreditsForYou": "¡100 créditos GRATIS para ti!",
   "JoinNowAndEnjoyAFREEVideo": "Únete ahora y disfruta de una videollamada GRATIS con cualquier modelo de tu elección.",
   "FREE": "GRATIS",
-  "Creditss": "créditos"
+  "Creditss": "créditos",
+  "NameInvalidCharacters": "El nombre contiene caracteres no válidos",
+  "InvalidEmailAddress": "Dirección de correo electrónico no válida"
 }

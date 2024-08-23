@@ -69,7 +69,7 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
           <DetailSubTypographyBox>
             <DetailsChildTypographyBox>
               <Box>
-                <UINewTypography variant="captionBold">
+                <UINewTypography variant="captionBold" color="text.secondary">
                   <FormattedMessage id="MyAppearance" />
                 </UINewTypography>
               </Box>
@@ -102,7 +102,7 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
             <RateCountryBoxContainet>
               <DetailsChildTypographyBox>
                 <Box>
-                  <UINewTypography variant="captionBold">
+                  <UINewTypography variant="captionBold" color="text.secondary">
                     <FormattedMessage id="Rates" />
                   </UINewTypography>
                 </Box>
@@ -116,7 +116,7 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
 
               <DetailsChildTypographyBox>
                 <Box>
-                  <UINewTypography variant="captionBold">
+                  <UINewTypography variant="captionBold" color="text.secondary">
                     <FormattedMessage id="Country" />
                   </UINewTypography>
                 </Box>

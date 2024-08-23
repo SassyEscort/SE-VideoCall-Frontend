@@ -128,7 +128,7 @@ const NotificationModalV2 = ({
             ) : (
               <NotificationsNoneBox>
                 <NotificationsNone />
-                <Typography variant="bodySmall">
+                <Typography variant="bodySmall" color="text.secondary">
                   <FormattedMessage id="YouHaveNoNotification" />
                 </Typography>
               </NotificationsNoneBox>
