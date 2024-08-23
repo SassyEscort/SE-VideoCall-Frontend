@@ -15,10 +15,12 @@ export default function RootLayout({
 }: Readonly<{
   children: JSX.Element;
 }>) {
+  const isStaging = process.env.NEXT_PUBLIC_ENV === 'staging';
+  const isProduction = process.env.NEXT_PUBLIC_ENV === 'production';
   return (
     <html lang="en">
       <head>
-        {process.env.NODE_ENV === 'development' && <meta name="robots" content="noindex, nofollow" />}
+        {isStaging && <meta name="robots" content="noindex, nofollow" />}
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
@@ -80,7 +82,7 @@ export default function RootLayout({
             alt="Facebook Pixel"
           />
         </noscript>
-        {process.env.NODE_ENV === 'production' && (
+        {isProduction && (
           <>
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}></script>
             <script

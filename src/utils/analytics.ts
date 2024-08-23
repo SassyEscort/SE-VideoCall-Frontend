@@ -1,5 +1,5 @@
 export const gaEventTrigger = (action: string, data: any, credits?: number) => {
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NEXT_PUBLIC_ENV === 'production') {
     if (window.gtag) {
       try {
         // Check if the value is a string but not a JSON object
