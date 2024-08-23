@@ -40,11 +40,6 @@ const SideBarGuestMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
     setIsOpenLogin(false);
   };
 
-  const handleResetPasswordLinkOpen = () => {
-    setIsOpenLogin(false);
-    setOpenForgetPassLink(true);
-  };
-
   const handleResetPasswordLinkClose = () => {
     setOpenForgetPassLink(false);
   };
