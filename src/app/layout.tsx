@@ -22,17 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {isStaging && <meta name="robots" content="noindex, nofollow" />}
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');
-                `
-          }}
-        />
+
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
@@ -96,6 +86,17 @@ export default function RootLayout({
         </noscript>
         {isProduction && (
           <>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}></script>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');
+                `
+              }}
+            />
             <script src="https://cdn.amplitude.com/libs/analytics-browser-2.7.4-min.js.gz" async />
             <script src="https://cdn.amplitude.com/libs/plugin-session-replay-browser-1.6.8-min.js.gz" async />
             <script src="https://cdn.amplitude.com/libs/plugin-autocapture-browser-0.9.0-min.js.gz" async />
