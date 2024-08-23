@@ -7,19 +7,23 @@ import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import MainFooter from './MainFooter';
 import { FormattedMessage } from 'react-intl';
 import { FooterButton } from './MainFooter.styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestLogin from 'views/auth/guestLogin';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
 
 const Footer = () => {
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(1);
+  const [freeSignupOpen, setFreeSignupOpen] = useState(false);
+
   const { isCustomer } = useCallFeatureContext();
 
   const handleSignupOpen = () => {
@@ -60,6 +64,23 @@ const Footer = () => {
       setLoading(false);
     }, 6000);
   };
+
+  const handleFreeCreditSignupOpen = () => {
+    setFreeSignupOpen(true);
+  };
+
+  const handleFreeCreditSignupClose = () => {
+    setFreeSignupOpen(false);
+  };
+
+  useEffect(() => {
+    const handleIsFreeCreditAvailable = async () => {
+      const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
+      setIsFreeCreditAvailable(res.data.free_credits_available);
+    };
+    handleIsFreeCreditAvailable();
+  }, []);
+
   return (
     <Banner>
       <TextContainerMain>
@@ -83,7 +104,11 @@ const Footer = () => {
             >
               <Box sx={{ width: '100%', maxWidth: '195px' }}>
                 {!isCustomer ? (
-                  <UIThemeShadowButton fullWidth variant="contained" onClick={handleSignupOpen}>
+                  <UIThemeShadowButton
+                    fullWidth
+                    variant="contained"
+                    onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
+                  >
                     <FooterButton variant="buttonLargeBold">
                       <FormattedMessage id="SignUpNow" />
                     </FooterButton>
@@ -101,7 +126,12 @@ const Footer = () => {
               </Box>
             </Box>
           </Box>
-          <MainFooter />
+          <MainFooter
+            isFreeCreditAvailable={isFreeCreditAvailable}
+            freeSignupOpen={freeSignupOpen}
+            handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
+            handleFreeCreditSignupClose={handleFreeCreditSignupClose}
+          />
         </TextContainer>
       </TextContainerMain>
       <BannerImg
