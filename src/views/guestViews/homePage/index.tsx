@@ -13,6 +13,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { getQueryParam } from 'utils/genericFunction';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
 
 const HomeContainer = () => {
   const { isCustomer } = useCallFeatureContext();
@@ -29,6 +30,7 @@ const HomeContainer = () => {
   const [total_rows, setTotalRows] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [scroll, setScroll] = useState(false);
+  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(0);
 
   const getInitialFilters = () => ({
     fromAge: getQueryParam('fromAge') ? (getQueryParam('fromAge') as string) : '',
@@ -185,10 +187,18 @@ const HomeContainer = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
+  useEffect(() => {
+    const handleIsFreeCreditAvailable = async () => {
+      const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
+      setIsFreeCreditAvailable(res.data.free_credits_available);
+    };
+    handleIsFreeCreditAvailable();
+  }, []);
+
   return (
     <>
       <HomePageMainContainer>
-        <HomeTopBanner />
+        <HomeTopBanner isFreeCreditAvailable={isFreeCreditAvailable} />
         <BackdropProgress open={isLoading} />
         <SearchFilters handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
         <HomeImageCard
@@ -198,8 +208,9 @@ const HomeContainer = () => {
           filters={filters ?? ({} as SearchFiltersTypes)}
           totalRows={total_rows}
           handleChangePage={handleChangePage}
+          isFreeCreditAvailable={isFreeCreditAvailable}
         />
-        <HomeConnections />
+        <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
         {/* <HomePageFAQ /> */}
       </HomePageMainContainer>
     </>

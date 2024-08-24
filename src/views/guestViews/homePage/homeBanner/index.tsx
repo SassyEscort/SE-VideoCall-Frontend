@@ -20,7 +20,9 @@ import {
   SignupTextContainer,
   ExploreTextContainer,
   FirstBoxContainer,
-  SecBoxContainer
+  SecBoxContainer,
+  GiftBoxFirst,
+  GiftBoxSecond
 } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
@@ -33,9 +35,15 @@ import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
 // import ProfileMenu from 'components/UIComponents/UIStyleHeader';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
+import ButtonFreeCredits from '../buttonFreeCredits';
+import React from 'react';
+import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 
-const HomeTopBanner = () => {
+const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
+  const [isModalOpenFreeCredits, setIsModalOpenFreeCredits] = useState(false);
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
@@ -43,6 +51,7 @@ const HomeTopBanner = () => {
   // const [openDropDown, setOpenDropDown] = useState(false);
   // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [loading, setLoading] = useState(false);
+  const [freeSignupOpen, setFreeSignupOpen] = useState(false);
 
   const { data: session } = useSession();
 
@@ -66,6 +75,7 @@ const HomeTopBanner = () => {
 
   const handleLoginOpen = () => {
     setIsOpen(false);
+    setFreeSignupOpen(false);
     setIsOpenLogin(true);
   };
 
@@ -87,6 +97,15 @@ const HomeTopBanner = () => {
     setOpenForgetPassLink(false);
   };
 
+  const handleFreeCreditSignupOpen = () => {
+    setFreeSignupOpen(true);
+    handleCloseModal();
+  };
+
+  const handleFreeCreditSignupClose = () => {
+    setFreeSignupOpen(false);
+  };
+
   const handleClickScroll = () => {
     setLoading(true);
     setTimeout(() => {
@@ -97,6 +116,14 @@ const HomeTopBanner = () => {
       });
       setLoading(false);
     }, 1000);
+  };
+
+  const handleBoxClick = () => {
+    setIsModalOpenFreeCredits(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpenFreeCredits(false);
   };
 
   return (
@@ -153,7 +180,10 @@ const HomeTopBanner = () => {
               <ThirdBoxContainer>
                 {isSmDown ? (
                   <SecondBoxContainer>
-                    <UIThemeShadowButton onClick={handleSignupOpen} variant="contained">
+                    <UIThemeShadowButton
+                      onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
+                      variant="contained"
+                    >
                       <SignupTextContainer>
                         <FormattedMessage id="SignUpNow" />
                       </SignupTextContainer>
@@ -191,6 +221,16 @@ const HomeTopBanner = () => {
               />
             </Box>
           </BannerContainer>
+          {isMdDown && (
+            <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} onSignupOpen={handleFreeCreditSignupOpen} />
+          )}{' '}
+          {isMdDown && isFreeCreditAvailable && !isModalOpenFreeCredits && (
+            <Box sx={{ position: 'relative', cursor: 'pointer' }} onClick={handleBoxClick}>
+              <GiftBoxFirst></GiftBoxFirst>
+              <GiftBoxSecond></GiftBoxSecond>
+              {/* <GiftBoxThird></GiftBoxThird> */}
+            </Box>
+          )}
           <ModelsHeadingBox id="scroll-to-model" pt={{ xs: '96px', lg: '120px' }}>
             <HomeExploreBox>
               <UINewTypography
@@ -200,6 +240,7 @@ const HomeTopBanner = () => {
               >
                 <FormattedMessage id="ExploreYourChoices" />
               </UINewTypography>
+
               <SubTitle>
                 <FormattedMessage id="SelectTheCompanion" />
               </SubTitle>
@@ -254,9 +295,14 @@ const HomeTopBanner = () => {
         fullWidth
       >
         <GuestLogin
+          isFreeCreditAvailable={isFreeCreditAvailable}
           onClose={handleLoginClose}
           onSignupOpen={handleSignupOpen}
           onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+          handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
+          handleLoginOpen={handleLoginOpen}
+          freeSignupOpen={freeSignupOpen}
+          handleFreeCreditSignupClose={handleFreeCreditSignupClose}
           image="/images/auth/auth-model1.webp"
         />
       </Dialog>
@@ -284,6 +330,9 @@ const HomeTopBanner = () => {
       >
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </Dialog>
+      <UIStyledDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
+        <HomePageFreeSignup onLoginOpen={handleLoginOpen} onClose={handleFreeCreditSignupClose} />
+      </UIStyledDialog>
       {/* <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} /> */}
     </>
   );

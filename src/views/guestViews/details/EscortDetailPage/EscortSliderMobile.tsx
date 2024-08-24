@@ -33,6 +33,7 @@ import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
 import { gaEventTrigger } from 'utils/analytics';
 import { usePathname } from 'next/navigation';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 
 const EscortSliderMobile = ({
   workerPhotos,
@@ -41,7 +42,8 @@ const EscortSliderMobile = ({
   handleCallInitiate,
   isCustomer,
   isLoading,
-  guestData
+  guestData,
+  isFreeCreditAvailable
 }: {
   workerPhotos: WorkerPhotos[];
   modelId: number;
@@ -50,6 +52,7 @@ const EscortSliderMobile = ({
   isCustomer: boolean;
   isLoading: boolean;
   guestData: ModelDetailsResponse;
+  isFreeCreditAvailable: number;
 }) => {
   const { customerUser } = useCallFeatureContext();
   const isLg = useMediaQuery(theme.breakpoints.up('sm'));
@@ -60,6 +63,7 @@ const EscortSliderMobile = ({
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  const [freeSignupOpen, setFreeSignupOpen] = useState(false);
 
   const sortedWorkerPhotos = workerPhotos.sort(sortExistingPhotos);
 
@@ -113,6 +117,15 @@ const EscortSliderMobile = ({
   const handleResetPasswordLinkClose = () => {
     setOpenForgetPassLink(false);
   };
+
+  const handleFreeCreditSignupOpen = () => {
+    setFreeSignupOpen(true);
+  };
+
+  const handleFreeCreditSignupClose = () => {
+    setFreeSignupOpen(false);
+  };
+
   const handleLikeClick = async () => {
     try {
       if (!isCustomer) {
@@ -204,7 +217,7 @@ const EscortSliderMobile = ({
         <Box sx={{ width: '100%' }}>
           <StyleButtonShadowV2
             loading={isLoading}
-            onClick={isCustomer ? handleCallInitiate : handleLoginOpen}
+            onClick={isCustomer ? handleCallInitiate : isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleLoginOpen}
             sx={{
               padding: 0,
               minWidth: isLg ? '660px' : isSm ? '200px' : '271px',
@@ -240,14 +253,22 @@ const EscortSliderMobile = ({
       </UIStyledDialog>
       <UIStyledDialog open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
         <GuestLogin
+          isFreeCreditAvailable={isFreeCreditAvailable}
           onClose={handleLoginClose}
           onSignupOpen={handleSignupOpen}
           onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+          handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
+          handleLoginOpen={handleLoginOpen}
+          freeSignupOpen={freeSignupOpen}
+          handleFreeCreditSignupClose={handleFreeCreditSignupClose}
           image="/images/auth/auth-model1.webp"
         />
       </UIStyledDialog>
       <UIStyledDialog open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
+      </UIStyledDialog>
+      <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+        <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
       </UIStyledDialog>
     </>
   );

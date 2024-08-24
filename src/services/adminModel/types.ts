@@ -121,3 +121,12 @@ export type ModelDetailsDelete = {
 export interface ModelDetailsDeleteRes extends GenericRes {
   data: ModelDetailsDelete;
 }
+
+export type ModelDetailStatusOffline = {
+  id: number;
+  is_online: boolean;
+};
+
+export interface ModelDetailStatusOfflineRes extends GenericRes {
+  data: ModelDetailStatusOffline;
+}
