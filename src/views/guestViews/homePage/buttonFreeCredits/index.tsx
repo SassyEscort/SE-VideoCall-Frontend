@@ -17,8 +17,7 @@ import {
   ButtonBox,
   JoinNowAndEnjoyAEREEVideoCallMainBox,
   ImageFirst,
-  ImageSecond,
-  UINewTypographyFREE
+  ImageSecond
 } from './ButtonfreeCredits.styled';
 import TimerUI from '../Timer';
 
@@ -39,17 +38,9 @@ const ButtonFreeCredits = ({ open, onClose, onSignupOpen }: { open: boolean; onC
         <DialogContentSecondBox>
           <DialogContentBoxQuestion>
             <ImageSecond src="/images/free-credits/coins.png" />
-            <Box sx={{ display: 'flex', gap: 1, whiteSpace: 'nowrap' }}>
-              <UINewTypographyFREECredits>
-                <FormattedMessage id="100" />
-              </UINewTypographyFREECredits>
-              <UINewTypographyFREE>
-                <FormattedMessage id="FREE" />
-              </UINewTypographyFREE>
-              <UINewTypographyFREECredits>
-                <FormattedMessage id="Credits" />
-              </UINewTypographyFREECredits>
-            </Box>
+            <UINewTypographyFREECredits>
+              <FormattedMessage id="FREECall" />
+            </UINewTypographyFREECredits>
           </DialogContentBoxQuestion>
           <JoinNowAndEnjoyAEREEVideoCallMainBox>
             <DialogContentBoxButton>
