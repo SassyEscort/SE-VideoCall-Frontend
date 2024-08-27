@@ -9,6 +9,7 @@ import {
   TitleText,
   DescriptionTextBoxContainer
 } from './GuestFreeCreditsSignup.styled';
+import { FormattedMessage } from 'react-intl';
 
 const GuestModelMobileSignup = () => {
   return (
@@ -32,7 +33,7 @@ const GuestModelMobileSignup = () => {
           </TitleTextBoxContainer>
           <DescriptionTextBoxContainer>
             <UINewTypography variant="SubtitleSmallMedium" color="text.secondary">
-              Join now and enjoy a FREE 2 min video call with Aesha
+              <FormattedMessage id="JoinNowAndEnjoyAFREE" /> Aesha
             </UINewTypography>
           </DescriptionTextBoxContainer>
         </ImageAndTextBoxContainer>

@@ -5,7 +5,8 @@ import { ReactNode } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
-import { AuthCommonBox, AuthImageBox } from './AuthFreeCreditsSignupCommon.styled';
+import { AuthCommonBox, AuthImageBox, DescriptionTextBox } from './AuthFreeCreditsSignupCommon.styled';
+import { FormattedMessage } from 'react-intl';
 
 const AuthFreeCreditsSignupCommon = ({
   onClose,
@@ -89,9 +90,11 @@ const AuthFreeCreditsSignupCommon = ({
                   Aesha gave you 100 FREE credits
                 </UINewTypography>
               </Box>
-              <Box sx={{ width: '100%', maxWidth: '248px', display: 'flex', textAlign: 'center' }}>
-                <UINewTypography>Join now and enjoy a FREE 2 min video call with Aesha</UINewTypography>
-              </Box>
+              <DescriptionTextBox>
+                <UINewTypography>
+                  <FormattedMessage id="JoinNowAndEnjoyAFREE" /> Aesha
+                </UINewTypography>
+              </DescriptionTextBox>
             </Box>
           </Box>
         )}
