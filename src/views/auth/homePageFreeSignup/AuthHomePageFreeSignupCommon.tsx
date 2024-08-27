@@ -5,7 +5,18 @@ import { ReactNode } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
-import { AuthCommonBox, AuthImageBox, BackgroundImageBox } from './AuthHomePageFreeSignupCommon.styled';
+import {
+  AuthCommonBox,
+  AuthFreeCreditsInnerBoxContainer,
+  AuthFreeCreditsMainBoxContainer,
+  AuthImageBox,
+  BackgroundImageBox,
+  DescriptionTextMainBoxContainer,
+  HeaderText,
+  HeaderTextMainBoxContainer,
+  TextInnerBoxContainer,
+  TextMainBoxContainer
+} from './AuthHomePageFreeSignupCommon.styled';
 import Timer from './timer';
 import { FormattedMessage } from 'react-intl';
 
@@ -24,7 +35,7 @@ const AuthHomePageFreeSignupCommon = ({
 
   return (
     <AuthCommonBox>
-      <Box display="flex" alignItems="flex-end" justifyContent="flex-end" sx={{ display: { xs: 'block', sm: 'none' } }}>
+      <AuthFreeCreditsMainBoxContainer>
         <IconButton
           size="large"
           sx={{
@@ -37,68 +48,30 @@ const AuthHomePageFreeSignupCommon = ({
         >
           <CloseIcon />
         </IconButton>
-      </Box>
+      </AuthFreeCreditsMainBoxContainer>
 
       <BackgroundImageBox>
-        <AuthImageBox
-          sx={{
-            height: 'auto',
-            backgroundPosition: variant === 'resetPassword' ? { xs: 'center', md: 'right' } : 'right',
-            maxWidth: variant === 'resetPassword' ? 434 : 420,
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            position: 'relative'
-          }}
-        />
+        <AuthImageBox />
         {isSmUp && (
-          <Box
-            sx={{
-              position: 'absolute',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              paddingTop: '92px',
-              paddingLeft: { md: '16px', lg: '52px' }
-            }}
-          >
+          <AuthFreeCreditsInnerBoxContainer>
             <Box component="img" src="/images/home/gitftsecond.png" width={170} height={210} />
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center', mt: '24px' }}>
-              <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+            <TextMainBoxContainer>
+              <TextInnerBoxContainer>
                 <Box component="img" src="/images/workercards/coin-1.png" width={20} height={20} />
-                <Box
-                  sx={{
-                    width: '100%',
-                    maxWidth: '367px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    '@media (max-width: 768px)': {
-                      maxWidth: '275px'
-                    }
-                  }}
-                >
-                  <UINewTypography
-                    sx={{
-                      fontSize: '32px',
-                      fontWeight: 800,
-                      lineHeight: '44.8px',
-                      background: 'linear-gradient(90deg, #FBA631, #FFFFFF)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent'
-                    }}
-                  >
+                <HeaderTextMainBoxContainer>
+                  <HeaderText>
                     <FormattedMessage id="FREECall" />
-                  </UINewTypography>
-                </Box>
-              </Box>
-              <Box sx={{ width: '100%', maxWidth: '332px', display: 'flex', textAlign: 'center' }}>
+                  </HeaderText>
+                </HeaderTextMainBoxContainer>
+              </TextInnerBoxContainer>
+              <DescriptionTextMainBoxContainer>
                 <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                   <FormattedMessage id="JoinNowAndEnjoyAFREEVideo" />
                 </UINewTypography>
-              </Box>
-            </Box>
+              </DescriptionTextMainBoxContainer>
+            </TextMainBoxContainer>
             <Timer />
-          </Box>
+          </AuthFreeCreditsInnerBoxContainer>
         )}
         {children}
       </BackgroundImageBox>
