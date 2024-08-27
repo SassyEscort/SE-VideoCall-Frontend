@@ -56,7 +56,7 @@ const FreeCreditsSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onC
                     backgroundClip: 'text'
                   }}
                 >
-                  <FormattedMessage id="100FREECreditsForYou" />
+                  <FormattedMessage id="FREECall" />
                 </UINewTypography>
               </TitleTextInnerBoxContainer>
               <DescriptionTextBoxContainer>
