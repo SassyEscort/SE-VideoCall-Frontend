@@ -751,5 +751,7 @@
   "Seconds": "Segundos",
   "FREE": "CRÉDITOS",
   "NameInvalidCharacters": "El nombre contiene caracteres no válidos",
-  "InvalidEmailAddress": "Dirección de correo electrónico no válida"
+  "InvalidEmailAddress": "Dirección de correo electrónico no válida",
+  "JoinNowAndEnjoyAFREE": "Únete ahora y disfruta de una videollamada GRATUITA de 2 minutos con",
+  "FREECall": "Obtén 1 minuto de llamada gratis"
 }
