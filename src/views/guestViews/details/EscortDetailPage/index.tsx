@@ -20,6 +20,7 @@ import { CallingService } from 'services/calling/calling.services';
 import moment from 'moment';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { gaEventTrigger } from 'utils/analytics';
+import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
 
 const EscortDetailPage = () => {
   const path = usePathname();
@@ -31,6 +32,8 @@ const EscortDetailPage = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isCreditAvailable, setIsCreditAvailable] = useState(false);
   const [callTime, setCallTime] = useState(0);
+  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(1);
+
   const modelPhoto = guestData?.photos?.filter((x) => x.favourite)?.map((item) => item.link)[0];
 
   const { handleCallInitiate, call, isLoading, isCallEnded, isCustomer, handleCallEnd, isUnanswered } = useCallFeatureContext();
@@ -102,6 +105,14 @@ const EscortDetailPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUnanswered]);
 
+  useEffect(() => {
+    const handleIsFreeCreditAvailable = async () => {
+      const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
+      setIsFreeCreditAvailable(res.data.free_credits_available);
+    };
+    handleIsFreeCreditAvailable();
+  }, []);
+
   return (
     <>
       <HomeMainContainer>
@@ -125,6 +136,7 @@ const EscortDetailPage = () => {
               isCustomer={isCustomer}
               isLoading={isLoading}
               guestData={guestData}
+              isFreeCreditAvailable={isFreeCreditAvailable}
             />
           ) : (
             guestData && (
@@ -146,6 +158,7 @@ const EscortDetailPage = () => {
                 isCustomer={isCustomer}
                 isLoading={isLoading}
                 guestData={guestData}
+                isFreeCreditAvailable={isFreeCreditAvailable}
               />
             )
           )}

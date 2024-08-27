@@ -16,6 +16,7 @@ import BackdropProgress from 'components/UIComponents/BackDropProgress';
 import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
 
 const EscortExplore = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -27,6 +28,7 @@ const EscortExplore = () => {
   // const [filters, setFilters] = useState<SearchFiltersTypes>();
   const [total_rows, setTotalRows] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(0);
 
   const initialRender = useRef(true);
   const scrollRender = useRef(true);
@@ -175,6 +177,14 @@ const EscortExplore = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
+  useEffect(() => {
+    const handleIsFreeCreditAvailable = async () => {
+      const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
+      setIsFreeCreditAvailable(res.data.free_credits_available);
+    };
+    handleIsFreeCreditAvailable();
+  }, []);
+
   return (
     <>
       <BackdropProgress open={isLoading} />
@@ -207,6 +217,7 @@ const EscortExplore = () => {
             filters={filters ?? ({} as SearchFiltersTypes)}
             totalRows={total_rows}
             handleChangePage={handleChangePage}
+            isFreeCreditAvailable={isFreeCreditAvailable}
           />
         </Box>
       </DetailsChildTypographyBox>

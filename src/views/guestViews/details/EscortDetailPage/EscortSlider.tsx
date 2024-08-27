@@ -44,6 +44,7 @@ import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
 import { usePathname } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 
 export const EscortSlider = ({
   workerPhotos,
@@ -52,7 +53,8 @@ export const EscortSlider = ({
   handleCallInitiate,
   isCustomer,
   isLoading,
-  guestData
+  guestData,
+  isFreeCreditAvailable
 }: {
   workerPhotos: WorkerPhotos[];
   modelId: number;
@@ -61,6 +63,7 @@ export const EscortSlider = ({
   isCustomer: boolean;
   isLoading: boolean;
   guestData: ModelDetailsResponse;
+  isFreeCreditAvailable: number;
 }) => {
   const { customerUser } = useCallFeatureContext();
   const path = usePathname();
@@ -70,6 +73,8 @@ export const EscortSlider = ({
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  const [freeSignupOpen, setFreeSignupOpen] = useState(false);
+
   const swiperRef = useRef<SwiperRef | any>();
 
   const sortedWorkerPhotos = workerPhotos.sort(sortExistingPhotos);
@@ -95,6 +100,7 @@ export const EscortSlider = ({
   const handleLoginOpen = () => {
     setIsOpen(false);
     setIsOpenLogin(true);
+    setFreeSignupOpen(false);
     gaEventTrigger('Login_Button_clicked', { source: 'start_video_call', category: 'Button' });
   };
 
@@ -115,6 +121,7 @@ export const EscortSlider = ({
   const handleResetPasswordLinkClose = () => {
     setOpenForgetPassLink(false);
   };
+
   const handleLikeClick = async () => {
     try {
       if (!isCustomer) {
@@ -157,6 +164,15 @@ export const EscortSlider = ({
     if (swiperRef.current) {
       swiperRef.current.slideTo(index);
     }
+  };
+
+  const handleFreeCreditSignupOpen = () => {
+    setIsOpenLogin(false);
+    setFreeSignupOpen(true);
+  };
+
+  const handleFreeCreditSignupClose = () => {
+    setFreeSignupOpen(false);
   };
 
   return (
@@ -245,7 +261,7 @@ export const EscortSlider = ({
         <Box>
           <StyleButtonShadowV2
             loading={isLoading}
-            onClick={isCustomer ? handleCallInitiate : handleLoginOpen}
+            onClick={isCustomer ? handleCallInitiate : isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleLoginOpen}
             sx={{
               padding: 0,
               minWidth: '1084px',
@@ -282,14 +298,22 @@ export const EscortSlider = ({
         </UIStyledDialog>
         <UIStyledDialog open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
           <GuestLogin
+            isFreeCreditAvailable={isFreeCreditAvailable}
             onClose={handleLoginClose}
             onSignupOpen={handleSignupOpen}
             onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+            handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
+            handleLoginOpen={handleLoginOpen}
+            freeSignupOpen={freeSignupOpen}
+            handleFreeCreditSignupClose={handleFreeCreditSignupClose}
             image="/images/auth/auth-model1.webp"
           />
         </UIStyledDialog>
         <UIStyledDialog open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
           <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
+        </UIStyledDialog>
+        <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+          <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
         </UIStyledDialog>
       </Box>
     </>

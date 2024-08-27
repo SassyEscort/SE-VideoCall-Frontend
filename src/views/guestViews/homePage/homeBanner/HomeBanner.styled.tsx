@@ -273,3 +273,45 @@ export const SecBoxContainer = styled(Box)(({ theme }) => ({
     alignItems: 'flex-start'
   }
 }));
+
+export const GiftBoxFirst = styled(Box)(() => ({
+  zIndex: '3000000',
+  position: 'fixed',
+  bottom: '15px',
+  right: '24px',
+  width: '100%',
+  maxWidth: '72px',
+  height: '72px',
+  borderRadius: '12px',
+  background: 'linear-gradient(90deg, #FECD3D 0%, #FFF1C6 44%, #FF68C0 100%)'
+}));
+
+export const GiftBoxSecond = styled(Box)(() => ({
+  zIndex: '4000000',
+  position: 'fixed',
+  bottom: '33px',
+  right: '40px',
+  width: '100%',
+  maxWidth: '35px',
+  height: '35px',
+  borderRadius: '12px',
+  backgroundImage: `url(/images/free-credits/gift-img.png)`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat'
+}));
+
+export const GiftBoxThird = styled(Box)(() => ({
+  zIndex: '1000000',
+  position: 'fixed',
+  bottom: '0px',
+  right: '1px',
+  width: '100%',
+  maxWidth: '125px',
+  height: '108px',
+  borderRadius: '12px',
+  backgroundImage: `url(/images/free-credits/congratulations.gif)`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat'
+}));

@@ -81,7 +81,7 @@ const ModelMultiplePhoto = ({
   const [uploadedImagesURL, setUploadedImagesURL] = useState<UploadPhotos[]>([]);
   const [thumbnailImageId, setThumbnailImageId] = useState<number | undefined>(undefined);
   const [fileIdsData, setFileIdsData] = useState<string[]>([]);
-  console.log(fileIdsData, uploadedImagesURL, 'file_id');
+  console.log(fileIdsData, uploadedImagesURL, values, 'file_id');
 
   const removeImage = async (name: string, photoName: string, file_id?: string) => {
     console.log(file_id, 'file_id');
@@ -108,6 +108,7 @@ const ModelMultiplePhoto = ({
     }
     const photoNameSplit = photoName?.split('[');
     const nextPhoto = `${photoNameSplit[0]}[${photoNameSplit[1]}`;
+    setValue('is_favourite', nextPhoto);
     console.log(nextPhoto, photoNameSplit[0], 'nextPhoto'); //only if it isd thumbnail image then only make next thumbnail
   };
 
@@ -240,13 +241,13 @@ const ModelMultiplePhoto = ({
     return cordsChanged || values?.file5 ? true : false;
   };
 
-  // useEffect(() => {
-  //   if (isUpdated) {
-  //     setUploadedImagesURL([]);
-  //     handelChangedIsUpdated ? handelChangedIsUpdated() : '';
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isUpdated]);
+  useEffect(() => {
+    if (isUpdated) {
+      setUploadedImagesURL([]);
+      handelChangedIsUpdated ? handelChangedIsUpdated() : '';
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUpdated]);
 
   return (
     <>

@@ -15,11 +15,22 @@ import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestLogin from 'views/auth/guestLogin';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import { useState } from 'react';
 import { gaEventTrigger } from 'utils/analytics';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
+import { useState } from 'react';
 
-const MainFooter = () => {
+const MainFooter = ({
+  isFreeCreditAvailable,
+  freeSignupOpen,
+  handleFreeCreditSignupOpen,
+  handleFreeCreditSignupClose
+}: {
+  isFreeCreditAvailable: number;
+  freeSignupOpen: boolean;
+  handleFreeCreditSignupOpen: () => void;
+  handleFreeCreditSignupClose: () => void;
+}) => {
   const { isCustomer } = useCallFeatureContext();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -39,6 +50,7 @@ const MainFooter = () => {
   const handleLoginOpen = () => {
     setIsOpen(false);
     setIsOpenLogin(true);
+    handleFreeCreditSignupClose();
   };
 
   const handleLoginResetPasswordOpen = () => {
@@ -143,7 +155,7 @@ const MainFooter = () => {
                           sx={{ cursor: 'pointer' }}
                           onClick={() => {
                             gaEventTrigger('Signup_Button_clicked', { source: 'footer' });
-                            handleSignupOpen();
+                            isFreeCreditAvailable ? handleFreeCreditSignupOpen() : handleSignupOpen();
                           }}
                         >
                           <FormattedMessage id="SignUp" />
@@ -201,14 +213,22 @@ const MainFooter = () => {
         </UIStyledDialog>
         <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
           <GuestLogin
+            isFreeCreditAvailable={isFreeCreditAvailable}
             onClose={handleLoginClose}
             onSignupOpen={handleSignupOpen}
             onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+            handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
+            handleLoginOpen={handleLoginOpen}
+            freeSignupOpen={freeSignupOpen}
+            handleFreeCreditSignupClose={handleFreeCreditSignupClose}
             image="/images/auth/auth-model1.webp"
           />
         </UIStyledDialog>
         <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
           <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
+        </UIStyledDialog>
+        <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+          <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
         </UIStyledDialog>
       </HomeMainContainer>
     </>

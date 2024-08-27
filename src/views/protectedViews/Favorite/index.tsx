@@ -14,6 +14,7 @@ import { CallHistoryPaginationContainer } from '../CallHistory/CallHistory.style
 import { BillingPaginationBox } from '../BillingHistory/BillingHistory.styled';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
+import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
 
 export type FavoritesPaginationType = {
   page: number;
@@ -26,6 +27,7 @@ const Favorites = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [total_rows, setTotalRows] = useState(0);
+  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(0);
 
   const [filters, setFilters] = useState<FavoritesPaginationType>({
     page: 1,
@@ -83,6 +85,14 @@ const Favorites = () => {
     [filters, handleChangeFilter]
   );
 
+  useEffect(() => {
+    const handleIsFreeCreditAvailable = async () => {
+      const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
+      setIsFreeCreditAvailable(res.data.free_credits_available);
+    };
+    handleIsFreeCreditAvailable();
+  }, []);
+
   return (
     <MainLayoutNav variant={'worker'} enlargedFooter={true}>
       <FavoriteBox>
@@ -103,7 +113,7 @@ const Favorites = () => {
             <CircularProgress />
           </LoadingBox>
         ) : (
-          <HomeImageCard modelListing={favListing} isFavPage={true} token={token} />
+          <HomeImageCard modelListing={favListing} isFavPage={true} token={token} isFreeCreditAvailable={isFreeCreditAvailable} />
         )}
       </FavoriteBox>
       {total_rows > 0 && (

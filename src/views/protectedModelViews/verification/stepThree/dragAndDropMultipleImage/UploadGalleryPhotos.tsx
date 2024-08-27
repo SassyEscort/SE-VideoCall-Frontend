@@ -61,10 +61,11 @@ const UploadGalleryPhotos = ({ setValue, name, accept, values, handleUploadPhoto
 
   const handleSelect = useCallback(
     (arrFiles: File[]) => {
-      debugger;
       const data = { ...values! };
 
       arrFiles.forEach((file) => {
+        console.log(file, 'fileee');
+
         if (!data.file5) {
           console.log(data, 'commeeee');
 
