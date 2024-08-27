@@ -48,25 +48,9 @@ const FreeCreditsSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onC
             <TitleTextBoxContainer>
               <TitleTextInnerBoxContainer>
                 <Box component="img" src="/images/workercards/coin-1.png" width={26} height={26}></Box>
-<<<<<<< HEAD
                 <HeaderTextContainer variant="MediumSemiBoldText">
-                  100
-                  <FormattedMessage id="FREE" />
-                  <FormattedMessage id="CreditsForYou" />
-                </HeaderTextContainer>
-=======
-                <UINewTypography
-                  variant="MediumSemiBoldText"
-                  style={{
-                    background: 'linear-gradient(90deg, #FBA631, #FFFFFF)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text'
-                  }}
-                >
                   <FormattedMessage id="FREECall" />
-                </UINewTypography>
->>>>>>> c073683d360eb31ba00c0157601e1268935bad11
+                </HeaderTextContainer>
               </TitleTextInnerBoxContainer>
               <DescriptionTextBoxContainer>
                 <UINewTypography variant="buttonLargeMenu" color="text.secondary">
