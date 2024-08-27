@@ -87,7 +87,7 @@ const AuthHomePageFreeSignupCommon = ({
                       WebkitTextFillColor: 'transparent'
                     }}
                   >
-                    100 <FormattedMessage id="FREE" /> <FormattedMessage id="Creditss" />
+                    <FormattedMessage id="FREECall" />
                   </UINewTypography>
                 </Box>
               </Box>

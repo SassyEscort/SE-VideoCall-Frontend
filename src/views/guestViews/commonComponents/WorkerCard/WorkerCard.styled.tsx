@@ -321,8 +321,7 @@ export const UITypographyBoxContainer = styled(UINewTypography)(({ theme }) => (
 export const TextBoxContainer = styled(Box)(() => ({
   whiteSpace: 'nowrap',
   overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  maxWidth: '100px'
+  maxWidth: '150px'
 }));
 
 export const FlagAndLiveIconBoxContainer = styled(Box)(({ theme }) => ({
