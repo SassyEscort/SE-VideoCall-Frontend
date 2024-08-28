@@ -18,10 +18,10 @@ export const gaEventTrigger = (action: string, data: any, credits?: number) => {
       if (action === 'Credits_Purchase_Success') {
         data = {
           ...data,
-          value: credits ?? 0,
+          value: credits,
           currency: 'USD',
           transaction_id: v4(),
-          items: [{ name: 'Credits_Purchase_Success', quantity: 1, price: credits ?? 0 }],
+          items: [{ name: 'Credits_Purchase_Success', quantity: 1, price: credits }],
           item_name: 'Credits_Purchase_Success'
         };
       }
