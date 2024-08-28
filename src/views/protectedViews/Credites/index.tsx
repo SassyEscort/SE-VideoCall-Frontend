@@ -49,7 +49,6 @@ const Credits = () => {
   const [balance, setBalance] = useState(0);
   const [addedCredits, setAddedCredits] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [customerInformation, setCustomerInformation] = useState<CustomerInfo>();
   const router = useRouter();
   const searchParams = useSearchParams();
   const { customerUser } = useCallFeatureContext();
@@ -94,7 +93,6 @@ const Credits = () => {
       plan_details: listCredit,
       source: 'Credit Page'
     };
-    setCustomerInformation(customerInfo);
 
     gaEventTrigger('Credits_Purchase_Initiated', {
       action: 'Credits_Purchase_Initiated',
@@ -117,31 +115,25 @@ const Credits = () => {
     getCustomerCredit();
     if (credit) {
       setOpen(true);
-      const customerInfo: CustomerInfo = {
-        email: customerData?.customer_email,
-        name: customerData?.customer_name,
-        username: customerData?.customer_user_name
-      };
-      setCustomerInformation(customerInfo);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
-  useEffect(() => {
-    if (credit) {
-      gaEventTrigger(
-        'Credits_Purchase_Success',
-        {
-          action: 'Credits_Purchase_Success',
-          category: 'Page change',
-          label: 'Credits_Purchase_Success',
-          value: JSON.stringify(customerInformation)
-        },
-        Number(balance)
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   if (credit) {
+  //     gaEventTrigger(
+  //       'Credits_Purchase_Success',
+  //       {
+  //         action: 'Credits_Purchase_Success',
+  //         category: 'Page change',
+  //         label: 'Credits_Purchase_Success',
+  //         value: JSON.stringify(customerInformation)
+  //       },
+  //       Number(totalBal)
+  //     );
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(() => {
     getCreditsListing();
