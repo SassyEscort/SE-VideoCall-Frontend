@@ -19,7 +19,8 @@ const UINewChipLanguage = styled(Chip)(({ theme }) => ({
     margin: 0
   },
   '& .MuiChip-label': {
-    padding: '0px'
+    padding: '0px',
+    whiteSpace: 'normal'
   },
 
   '&.MuiChip-outlined': {

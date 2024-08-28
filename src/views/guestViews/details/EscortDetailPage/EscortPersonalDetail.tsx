@@ -88,11 +88,6 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
                 </UINewTooltip>
                 <UINewTooltip title={intl.formatMessage({ id: 'Languages' })} placement="top">
                   <UINewChipLanguage
-                    sx={{
-                      '& .mui-6od3lo-MuiChip-label': {
-                        whiteSpace: 'normal'
-                      }
-                    }}
                     icon={<Box height={20} width={20} component="img" src={`/images/details-icon/language-icon.svg`} alt={'language'} />}
                     label={languages}
                   />

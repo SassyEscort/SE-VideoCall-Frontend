@@ -33,7 +33,7 @@ export type PaginationType = {
   offset: number;
   pageSize: number;
   orderField: string;
-  orderType: string;
+  sort_order: string;
   search_field: string;
 };
 
@@ -48,11 +48,11 @@ export default function CallLogsContainer() {
   const [totalRecords, setTotalRecords] = useState(0);
 
   const [filters, setFilters] = useState<PaginationType>({
-    page: 0,
+    page: 1,
     offset: 0,
     pageSize: PAGE_SIZE,
     orderField: 'newest',
-    orderType: 'desc',
+    sort_order: 'desc',
     search_field: ''
   });
 
@@ -84,6 +84,13 @@ export default function CallLogsContainer() {
     }
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    if (token.token) {
+      handelFetch();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token.token, filters]);
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -123,7 +130,7 @@ export default function CallLogsContainer() {
     (field: string, type: string) => {
       handleChangeFilter({
         ...filters,
-        orderType: type,
+        sort_order: type,
         orderField: field,
         page: 1
       });
@@ -143,11 +150,6 @@ export default function CallLogsContainer() {
     debouncedChangeSearch(val);
   };
 
-  useEffect(() => {
-    if (token.token) handelFetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.token, filters.page, filters.pageSize]);
-
   return (
     <MainLayout>
       <Container>
@@ -163,7 +165,7 @@ export default function CallLogsContainer() {
           <PaginationSortBy
             sortByOptions={SORT_BY_OPTIONS}
             orderField={filters.orderField}
-            orderType={filters.orderType}
+            orderType={filters.sort_order}
             handleChangeOrderBy={handleChangeOrderBy}
           />
         </Box>
