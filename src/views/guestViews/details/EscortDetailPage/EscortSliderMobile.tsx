@@ -82,7 +82,6 @@ const EscortSliderMobile = ({
     setIsOpenLogin(false);
     setIsOpen(true);
     gaEventTrigger('Signup_Button_clicked', { source: 'start_video_call', category: 'Button' });
-    gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
   };
 
   const handleSignupClose = () => {
@@ -123,7 +122,6 @@ const EscortSliderMobile = ({
     gaEventTrigger('Signup_Button_clicked', { source: 'start_video_call', category: 'Button' });
     setFreeSignupOpen(true);
     setIsOpenLogin(false);
-    gaEventTrigger('Signup_Button_clicked', { source: 'start_video_call', category: 'Button' });
   };
 
   const handleFreeCreditSignupClose = () => {
@@ -191,6 +189,7 @@ const EscortSliderMobile = ({
           }}
         >
           <Swiper
+            onContextMenu={(e) => e.preventDefault()}
             onSwiper={setThumbsSwiper}
             spaceBetween={6}
             slidesPerView={3}
