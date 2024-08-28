@@ -36,6 +36,7 @@ import GuestNewPassword from 'views/auth/guestNewPassword';
 import { useRouter } from 'next/navigation';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
+import { gaEventTrigger } from 'utils/analytics';
 
 const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const { push } = useRouter();
@@ -97,6 +98,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
   };
 
   const handleFreeCreditSignupOpen = () => {
+    gaEventTrigger('Signup_Button_clicked', { source: 'home_connection', category: 'Button' });
     setFreeSignupOpen(true);
   };
 

@@ -83,6 +83,7 @@ const HeaderGuestComponent = () => {
     setOpenFreeCredit(false);
     setAnchorElLogout(null);
     setIsOpenLogin(false);
+    gaEventTrigger('Signup_Button_clicked', { source: 'header', category: 'Button' });
   };
 
   const handleFreeCreditSignupClose = () => {

@@ -119,6 +119,7 @@ const EscortSliderMobile = ({
   };
 
   const handleFreeCreditSignupOpen = () => {
+    gaEventTrigger('Signup_Button_clicked', { source: 'start_video_call', category: 'Button' });
     setFreeSignupOpen(true);
   };
 
