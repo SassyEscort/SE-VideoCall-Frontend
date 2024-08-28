@@ -96,8 +96,7 @@ export const TextMainBoxContainer = styled(Box)(({ theme }) => ({
 
 export const TextInnerBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(2),
-  alignItems: 'center'
+  alignItems: 'baseline'
 }));
 
 export const HeaderTextMainBoxContainer = styled(Box)(({ theme }) => ({
@@ -117,10 +116,10 @@ export const HeaderText = styled(Typography)(({ theme }) => ({
   background: 'linear-gradient(90deg, #FBA631, #FFFFFF)',
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
-  whiteSpace: 'nowrap',
   '@media (max-width: 768px)': {
     whiteSpace: 'normal'
-  }
+  },
+  textAlign: 'center'
 }));
 
 export const DescriptionTextMainBoxContainer = styled(Box)(({ theme }) => ({
