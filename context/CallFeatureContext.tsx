@@ -464,16 +464,16 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     setBalance(Number(totalBalValue));
     setAddedCredits(Number(credit));
     if (credit) {
-      gaEventTrigger(
-        'Credits_Purchase_Success',
-        {
-          action: 'Credits_Purchase_Success',
-          category: 'Dialog',
-          label: 'Credits_Purchase_Success',
-          value: JSON.stringify(customerInfo)
-        },
-        Number(totalBalValue)
-      );
+      // gaEventTrigger(
+      //   'Credits_Purchase_Success',
+      //   {
+      //     action: 'Credits_Purchase_Success',
+      //     category: 'Dialog',
+      //     label: 'Credits_Purchase_Success',
+      //     value: JSON.stringify(customerInfo)
+      //   },
+      //   Number(totalBalValue)
+      // );
       setOpenSuccess(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
