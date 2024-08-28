@@ -309,7 +309,7 @@ export const EscortSlider = ({
             handleLoginOpen={handleLoginOpen}
             freeSignupOpen={freeSignupOpen}
             handleFreeCreditSignupClose={handleFreeCreditSignupClose}
-            image="images/auth/auth-model1.webp"
+            image="/images/auth/auth-model1.webp"
           />
         </UIStyledDialog>
         <UIStyledDialog open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
