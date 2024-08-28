@@ -1,6 +1,5 @@
 'use client';
-
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import DashboardLayout from '../../layouts/AdminLayout/DashboardLayout';
 import Container from '@mui/material/Container';
 import { useParams } from 'next/navigation';
@@ -13,6 +12,9 @@ import { ErrorMessage } from 'constants/common.constants';
 import ProfileCrad from './ProfileCrad';
 import { Grid } from '@mui/material';
 import UserInformationAccordion from './UserInformationAccordion';
+import Box from '@mui/system/Box';
+import DetailsApproveReject from './DetailsApproveReject';
+import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 
 const ModelDetailsPage = () => {
   const { id: modelId } = useParams();
@@ -30,30 +32,37 @@ const ModelDetailsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    const fetchModelData = async () => {
-      try {
-        if (token.token) {
-          const data = await adminModelServices.getModelDetails(token.token, Number(modelId));
-          if (data) {
-            setModelData(data);
-          }
+  const fetchModelData = useCallback(async () => {
+    try {
+      if (token.token) {
+        const data = await adminModelServices.getModelDetails(token.token, Number(modelId));
+        if (data) {
+          setModelData(data);
         }
-      } catch (error) {
-        toast.error(ErrorMessage);
       }
-    };
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  }, [modelId, token.token]);
 
+  useEffect(() => {
     fetchModelData();
-  }, [token.token, token.id, modelId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token.token]);
+
+  const isModelPending = modelData?.data?.profile_status === PAYOUT_ACTION.PENDING;
 
   return (
     <DashboardLayout>
       <Container>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <ProfileCrad modelData={modelData as ModelDetailsRes} />
+            <Box display="flex" flexDirection="column" gap={3} width="100%">
+              <ProfileCrad modelData={modelData as ModelDetailsRes} />
+              {isModelPending && <DetailsApproveReject workerId={Number(modelId)} fetchModelData={fetchModelData} />}
+            </Box>
           </Grid>
+
           <Grid item xs={12}>
             <UserInformationAccordion modelData={modelData as ModelDetailsRes} />
           </Grid>

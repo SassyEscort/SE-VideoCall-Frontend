@@ -15,6 +15,7 @@ import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
+import { gaEventTrigger } from 'utils/analytics';
 
 const Footer = () => {
   const [open, setIsOpen] = useState(false);
@@ -66,6 +67,7 @@ const Footer = () => {
   };
 
   const handleFreeCreditSignupOpen = () => {
+    gaEventTrigger('Signup_Button_clicked', { source: 'footer', category: 'Button' });
     setFreeSignupOpen(true);
   };
 

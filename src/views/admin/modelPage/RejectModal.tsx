@@ -17,18 +17,17 @@ import { MODEL_ACTION } from 'constants/profileConstants';
 import { useEffect, useState } from 'react';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
+import { toast } from 'react-toastify';
 
 const RejectModal = ({
   open,
   handleClose,
   selectedId,
-  handleModelListRefetch,
   handleCloseMenu
 }: {
   open: boolean;
   handleClose: () => void;
   selectedId: Number;
-  handleModelListRefetch: () => void;
   handleCloseMenu: () => void;
 }) => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -51,11 +50,16 @@ const RejectModal = ({
 
   const handleRejectClick = async (values: RejectParams) => {
     setLoading(true);
-    await adminModelServices.modelAction(token.token, Number(selectedId), MODEL_ACTION.REJECT, true, values.rejection_reason);
-    handleModelListRefetch();
-    handleCloseMenu();
-    handleClose();
-    setLoading(false);
+    try {
+      await adminModelServices.modelAction(token.token, Number(selectedId), MODEL_ACTION.REJECT, true, values.rejection_reason);
+      toast.success('Model Rejected');
+    } catch (error) {
+      toast.error('error');
+    } finally {
+      handleCloseMenu();
+      handleClose();
+      setLoading(false);
+    }
   };
 
   return (
