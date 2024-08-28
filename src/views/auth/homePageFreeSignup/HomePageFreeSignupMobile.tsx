@@ -7,7 +7,8 @@ import {
   ImageAndTextBoxContainer,
   TitleTextBoxContainer,
   TitleText,
-  DescriptionTextBoxContainer
+  DescriptionTextBoxContainer,
+  HeaderText
 } from './HomePageFreeSignup.styled';
 import { FormattedMessage } from 'react-intl';
 import Timer from './timer';
@@ -22,33 +23,9 @@ const HomePageFreeSignupMobile = () => {
             <Box component="img" src="/images/workercards/coin-1.png" width={20} height={20} />
             <TitleTextBoxContainer>
               <TitleText>
-                <UINewTypography
-                  sx={{
-                    fontSize: { xs: '24px', sm: '32px' },
-                    fontWeight: 700,
-                    lineHeight: { xs: '33.6px', sm: '44.8px' }
-                  }}
-                >
-                  100
-                </UINewTypography>
-                <UINewTypography
-                  sx={{
-                    fontSize: { xs: '24px', sm: '32px' },
-                    fontWeight: 800,
-                    lineHeight: { xs: '33.6px', sm: '44.8px' }
-                  }}
-                >
-                  <FormattedMessage id="FREE" />
-                </UINewTypography>
-                <UINewTypography
-                  sx={{
-                    fontSize: { xs: '24px', sm: '32px' },
-                    fontWeight: 700,
-                    lineHeight: { xs: '33.6px', sm: '44.8px' }
-                  }}
-                >
-                  <FormattedMessage id="Creditss" />
-                </UINewTypography>
+                <HeaderText>
+                  <FormattedMessage id="FREECall" />
+                </HeaderText>
               </TitleText>
             </TitleTextBoxContainer>
           </Box>

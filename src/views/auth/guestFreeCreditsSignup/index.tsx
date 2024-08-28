@@ -153,7 +153,11 @@ const GuestFreeCreditsSignup = ({
                   <>
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                       <Box sx={{ display: 'flex', justifyContent: 'space-between', paddingTop: { xs: '24px', sm: 0 } }}>
-                        <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ lineHeight: '38.4px' }}>
+                        <UINewTypography
+                          variant="MediumSemiBoldText"
+                          color="common.white"
+                          sx={{ fontSize: { xs: '27px', sm: '32px' }, lineHeight: '38.4px' }}
+                        >
                           <FormattedMessage id="JoinNowForFree" />
                         </UINewTypography>
                         <Box display="flex" alignItems="flex-end" justifyContent="flex-end">

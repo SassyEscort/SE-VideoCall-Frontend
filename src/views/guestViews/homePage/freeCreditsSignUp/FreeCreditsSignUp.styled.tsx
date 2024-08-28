@@ -1,4 +1,4 @@
-import { Dialog, DialogTitle, styled } from '@mui/material';
+import { Dialog, DialogTitle, styled, Typography } from '@mui/material';
 import Box from '@mui/system/Box';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 
@@ -96,5 +96,15 @@ export const DescriptionTextBoxContainer = styled(Box)(({ theme }) => ({
 export const ButtonContainer = styled(UIThemeShadowButton)(({ theme }) => ({
   width: '100%',
   maxWidth: '232px',
-  whiteSpace: 'nowrap'
+  whiteSpace: 'nowrap',
+  '&.MuiButtonBase-root': {
+    height: '51px'
+  }
+}));
+
+export const HeaderTextContainer = styled(Typography)(({ theme }) => ({
+  background: 'linear-gradient(90deg, #FBA631, #FFFFFF)',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  backgroundClip: 'text'
 }));

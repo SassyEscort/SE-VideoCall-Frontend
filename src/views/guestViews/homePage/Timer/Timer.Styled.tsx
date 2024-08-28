@@ -67,21 +67,26 @@ export const Dotes = styled(Box)(({ theme }) => ({
   color: theme.palette.common.white,
   position: 'absolute',
   left: '51%',
-  top: '81%',
+  top: '88%',
   transform: 'translate(-80%, -80%)',
+  '@media (max-width: 768px)': {
+    left: '50%',
+    top: '83%',
+    transform: 'translate(-50%, -93%)'
+  },
   '@media (max-width: 425px)': {
     left: '50%',
-    top: '81%',
+    top: '83%',
     transform: 'translate(-50%, -93%)'
   },
   '@media (max-width: 375px)': {
     left: '50%',
-    top: '81%',
+    top: '83%',
     transform: 'translate(-50%, -92%)'
   },
   '@media (max-width: 320px)': {
     left: '50%',
-    top: '81%',
+    top: '83%',
     transform: 'translate(-50%, -90%)'
   }
 }));
