@@ -33,7 +33,7 @@ import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
 import { gaEventTrigger } from 'utils/analytics';
 import { usePathname } from 'next/navigation';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
-import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
+import GuestFreeCreditsSignup from 'views/auth/guestFreeCreditsSignup';
 
 const EscortSliderMobile = ({
   workerPhotos,
@@ -79,8 +79,8 @@ const EscortSliderMobile = ({
   };
 
   const handleSignupOpen = () => {
-    setIsOpen(true);
     setIsOpenLogin(false);
+    setIsOpen(true);
     gaEventTrigger('Signup_Button_clicked', { source: 'start_video_call', category: 'Button' });
     gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
   };
@@ -92,6 +92,7 @@ const EscortSliderMobile = ({
   const handleLoginOpen = () => {
     setIsOpen(false);
     setIsOpenLogin(true);
+    setFreeSignupOpen(false);
     gaEventTrigger('Start_Video_Call_button_clicked', {
       category: 'Button',
       label: 'Start_Video_Call_button_clicked',
@@ -120,6 +121,9 @@ const EscortSliderMobile = ({
 
   const handleFreeCreditSignupOpen = () => {
     setFreeSignupOpen(true);
+    setIsOpenLogin(false);
+    gaEventTrigger('Signup_Button_clicked', { source: 'start_video_call', category: 'Button' });
+    gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
   };
 
   const handleFreeCreditSignupClose = () => {
@@ -151,6 +155,7 @@ const EscortSliderMobile = ({
       toast.error(ErrorMessage);
     }
   };
+  const modelFavPhoto = workerPhotos.find((x) => x.favourite)?.link;
 
   return (
     <>
@@ -261,14 +266,19 @@ const EscortSliderMobile = ({
           handleLoginOpen={handleLoginOpen}
           freeSignupOpen={freeSignupOpen}
           handleFreeCreditSignupClose={handleFreeCreditSignupClose}
-          image="/images/auth/auth-model1.webp"
+          image="images/auth/auth-model1.webp"
         />
       </UIStyledDialog>
       <UIStyledDialog open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
       <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
-        <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
+        <GuestFreeCreditsSignup
+          modelName={guestData?.name}
+          image={modelFavPhoto ?? ''}
+          onClose={handleFreeCreditSignupClose}
+          onLoginOpen={handleLoginOpen}
+        />
       </UIStyledDialog>
     </>
   );

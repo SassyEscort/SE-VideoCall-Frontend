@@ -9,18 +9,24 @@ import {
   TitleText,
   DescriptionTextBoxContainer
 } from './GuestFreeCreditsSignup.styled';
+import { FormattedMessage } from 'react-intl';
+import { AuthCommonBox } from '../AuthCommon.styled';
 
-const GuestModelMobileSignup = () => {
+const GuestModelMobileSignup = ({ image, modelName }: { image: string; modelName: string }) => {
+  console.log(image, 'image');
+
   return (
-    <MobileImageBoxContainer>
+    <AuthCommonBox>
       <Box
-        component="img"
-        src="/images/workercards/Workercard-img.jpeg"
         sx={{
           width: '100%',
-          maxWidth: '363px',
           height: '100%',
-          maxHeight: '332px'
+          maxHeight: '290px',
+          backgroundImage: `url(${image})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          position: 'absolute'
         }}
       />
       {/* <ImageContainer /> */}
@@ -28,16 +34,18 @@ const GuestModelMobileSignup = () => {
         <Box component="img" src="/images/home/free-credits-signup-img.png" width={100} height={100} />
         <ImageAndTextBoxContainer>
           <TitleTextBoxContainer>
-            <TitleText>Aesha gave you 100 FREE credits</TitleText>
+            <TitleText>
+              {modelName} <FormattedMessage id="GaveYou" /> 30 <FormattedMessage id="FREECredits" />
+            </TitleText>
           </TitleTextBoxContainer>
           <DescriptionTextBoxContainer>
             <UINewTypography variant="SubtitleSmallMedium" color="text.secondary">
-              Join now and enjoy a FREE 2 min video call with Aesha
+              <FormattedMessage id="JoinNowAndEnjoy" /> {modelName}
             </UINewTypography>
           </DescriptionTextBoxContainer>
         </ImageAndTextBoxContainer>
       </MobileImageInnerBoxContainer>
-    </MobileImageBoxContainer>
+    </AuthCommonBox>
   );
 };
 

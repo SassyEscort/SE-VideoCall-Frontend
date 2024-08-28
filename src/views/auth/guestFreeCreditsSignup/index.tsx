@@ -33,7 +33,17 @@ export type SignupParams = {
   password: string;
 };
 
-const GuestFreeCreditsSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
+const GuestFreeCreditsSignup = ({
+  onClose,
+  onLoginOpen,
+  image,
+  modelName
+}: {
+  onClose: () => void;
+  onLoginOpen: () => void;
+  image: string;
+  modelName: string;
+}) => {
   const intl = useIntl();
   const route = useRouter();
   const { refresh } = route;
@@ -124,11 +134,7 @@ const GuestFreeCreditsSignup = ({ onClose, onLoginOpen }: { onClose: () => void;
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
-            <AuthFreeCreditsSignupCommon
-              onClose={onClose}
-              image="/images/auth/auth-model1.webp"
-              mobileImage="/images/auth/auth-model1.webp"
-            >
+            <AuthFreeCreditsSignupCommon onClose={onClose} image={image} mobileImage={image} modelName={modelName}>
               <Box
                 position="relative"
                 width="100%"
@@ -166,7 +172,7 @@ const GuestFreeCreditsSignup = ({ onClose, onLoginOpen }: { onClose: () => void;
                           </IconButton>
                         </Box>
                       </Box>
-                      {isSmDown && <GuestModelMobileSignup />}
+                      {isSmDown && <GuestModelMobileSignup image={image} modelName={modelName} />}
                     </Box>
 
                     <Box sx={{ color: 'primary.300' }}>

@@ -754,5 +754,8 @@
   "FREE": "FREE",
   "NameInvalidCharacters": "Name contains invalid characters",
   "InvalidEmailAddress": "Invalid email address",
-  "FREECall":"Get 1 minute of Free Call"
+  "FREECall":"Get 1 minute of Free Call",
+  "GaveYou":"gave you",
+  "FREECredits":"FREE credits",
+  "JoinNowAndEnjoy":"Join now and enjoy a FREE 1 min video call with"
 }
