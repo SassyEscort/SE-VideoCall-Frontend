@@ -169,6 +169,7 @@ export const EscortSlider = ({
   const handleFreeCreditSignupOpen = () => {
     setIsOpenLogin(false);
     setFreeSignupOpen(true);
+    gaEventTrigger('Signup_Button_clicked', { source: 'start_video_call', category: 'Button' });
   };
 
   const handleFreeCreditSignupClose = () => {

@@ -39,6 +39,7 @@ import ButtonFreeCredits from '../buttonFreeCredits';
 import React from 'react';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
+import { gaEventTrigger } from 'utils/analytics';
 
 const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const [isModalOpenFreeCredits, setIsModalOpenFreeCredits] = useState(false);
@@ -98,6 +99,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
   };
 
   const handleFreeCreditSignupOpen = () => {
+    gaEventTrigger('Signup_Button_clicked', { source: 'home_banner', category: 'Button' });
     setFreeSignupOpen(true);
     handleCloseModal();
   };

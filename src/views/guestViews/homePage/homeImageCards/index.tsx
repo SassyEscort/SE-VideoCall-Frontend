@@ -113,6 +113,7 @@ const HomeImageCard = ({
   };
 
   const handleFreeCreditSignupOpen = () => {
+    gaEventTrigger('Signup_Button_clicked', { source: 'model_card', category: 'Button' });
     handleLoginClose();
     setFreeSignupOpen(true);
   };
