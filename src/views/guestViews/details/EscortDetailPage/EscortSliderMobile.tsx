@@ -189,7 +189,6 @@ const EscortSliderMobile = ({
           }}
         >
           <Swiper
-            onContextMenu={(e) => e.preventDefault()}
             onSwiper={setThumbsSwiper}
             spaceBetween={6}
             slidesPerView={3}
