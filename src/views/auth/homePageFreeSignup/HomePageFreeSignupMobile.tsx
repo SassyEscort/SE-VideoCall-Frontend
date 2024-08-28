@@ -19,7 +19,7 @@ const HomePageFreeSignupMobile = () => {
       <MobileImageInnerBoxContainer>
         <Box component="img" src="/images/home/gitftsecond.png" width={70} height={82} />
         <ImageAndTextBoxContainer>
-          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
             <Box component="img" src="/images/workercards/coin-1.png" width={20} height={20} />
             <TitleTextBoxContainer>
               <TitleText>

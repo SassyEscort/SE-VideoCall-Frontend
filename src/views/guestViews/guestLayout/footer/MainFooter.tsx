@@ -24,46 +24,41 @@ const MainFooter = ({
   isFreeCreditAvailable,
   freeSignupOpen,
   handleFreeCreditSignupOpen,
-  handleFreeCreditSignupClose
+  handleFreeCreditSignupClose,
+  handleLoginOpen,
+  handleLoginClose,
+  openLogin
 }: {
   isFreeCreditAvailable: number;
   freeSignupOpen: boolean;
   handleFreeCreditSignupOpen: () => void;
   handleFreeCreditSignupClose: () => void;
+  handleLoginOpen: () => void;
+  handleLoginClose: () => void;
+  openLogin: boolean;
 }) => {
   const { isCustomer } = useCallFeatureContext();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [open, setIsOpen] = useState(false);
-  const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
-    setIsOpenLogin(false);
+    handleLoginClose();
   };
 
   const handleSignupClose = () => {
     setIsOpen(false);
   };
 
-  const handleLoginOpen = () => {
-    setIsOpen(false);
-    setIsOpenLogin(true);
-    handleFreeCreditSignupClose();
-  };
-
   const handleLoginResetPasswordOpen = () => {
     setOpenForgetPassLink(false);
-    setIsOpenLogin(true);
-  };
-
-  const handleLoginClose = () => {
-    setIsOpenLogin(false);
+    handleLoginOpen();
   };
 
   const handleResetPasswordLinkOpen = () => {
-    setIsOpenLogin(false);
+    handleLoginClose();
     setOpenForgetPassLink(true);
   };
 
