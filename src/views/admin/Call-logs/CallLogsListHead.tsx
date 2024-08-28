@@ -10,13 +10,13 @@ export default function CallLogsListHead() {
         <TableCell>Model Email</TableCell>
         <TableCell>Customer Name</TableCell>
         <TableCell>Customer Email</TableCell>
+        <TableCell>Status</TableCell>
         <TableCell>Credits Used</TableCell>
         <TableCell>Call Type</TableCell>
         <TableCell>Credits Per Minute</TableCell>
         <TableCell>Rate Per Minute</TableCell>
         <TableCell>Amount Earned</TableCell>
-        <TableCell>Start Time</TableCell>
-        <TableCell>End Time</TableCell>
+        <TableCell>Time duration</TableCell>
         <TableCell>Action</TableCell>
       </TableRow>
     </TableHead>

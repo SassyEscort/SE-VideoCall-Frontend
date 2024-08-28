@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import { DetailsDialogContent } from './CallLogs.styled';
 import { callLogDataResponse } from 'services/adminServices/call-list/callListDetailsService';
+import moment from 'moment';
 
 const CallLogsModel = ({
   open,
@@ -53,6 +54,12 @@ const CallLogsModel = ({
             </tr>
             <tr>
               <td>
+                <strong>Status</strong>
+              </td>
+              <td>{selectedPayoutData?.status || '-'}</td>
+            </tr>
+            <tr>
+              <td>
                 <strong>Credits Used</strong>
               </td>
               <td>{selectedPayoutData?.credits_used || '-'}</td>
@@ -83,15 +90,13 @@ const CallLogsModel = ({
             </tr>
             <tr>
               <td>
-                <strong>Start Time</strong>
+                <strong>Time Duration</strong>
               </td>
-              <td>{selectedPayoutData?.start_time || '-'}</td>
-            </tr>
-            <tr>
               <td>
-                <strong>End Time</strong>
+                {selectedPayoutData?.start_time && selectedPayoutData?.end_time
+                  ? moment(selectedPayoutData.end_time).diff(moment(selectedPayoutData.start_time), 'minutes') + ' mins'
+                  : '-'}
               </td>
-              <td>{selectedPayoutData?.end_time || '-'}</td>
             </tr>
           </tbody>
         </table>

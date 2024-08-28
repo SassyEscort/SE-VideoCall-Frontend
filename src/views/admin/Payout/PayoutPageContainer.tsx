@@ -30,6 +30,7 @@ import TablePager from 'components/common/CustomPaginations/TablePager';
 import { StyledPopover } from './Payout.styled';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 import RejectModal from './RejectModal';
+import { debounce } from 'lodash';
 
 export type PaginationType = {
   page: number;
@@ -37,7 +38,7 @@ export type PaginationType = {
   pageSize: number;
   orderField: string;
   orderType: string;
-  filter_Text: string;
+  search_field: string;
 };
 
 export default function PayoutPageContainer() {
@@ -56,7 +57,7 @@ export default function PayoutPageContainer() {
     pageSize: PAGE_SIZE,
     orderField: 'newest',
     orderType: 'desc',
-    filter_Text: ''
+    search_field: ''
   });
   const [openReject, setOpenReject] = useState(false);
 
@@ -79,7 +80,7 @@ export default function PayoutPageContainer() {
 
   const handelFetch = async () => {
     setIsLoading(true);
-    const res = await payoutDetailsService.getPayoutDetails(token.token, filters.pageSize, filters.offset);
+    const res = await payoutDetailsService.getPayoutDetails(token.token, filters.pageSize, filters.offset, filters.search_field);
 
     if (res) {
       if (res.code == 200) {
@@ -140,12 +141,18 @@ export default function PayoutPageContainer() {
     [filters, handleChangeFilter]
   );
 
-  const handleChangeSearch = useCallback(
-    (val: string) => {
-      handleChangeFilter({ ...filters, filter_Text: val, page: 1 });
-    },
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedChangeSearch = useCallback(
+    debounce((val: string) => {
+      handleChangeFilter({ ...filters, search_field: val, page: 1 });
+    }, 500),
     [filters, handleChangeFilter]
   );
+
+  const handleChangeSearch = (val: string) => {
+    debouncedChangeSearch(val);
+  };
+
   const handelChangeStatus = async (value: boolean) => {
     await payoutDetailsService.payoutAction(token.token, Number(selectedPayoutData?.id), value);
     handleRefetch();
@@ -153,9 +160,11 @@ export default function PayoutPageContainer() {
   };
 
   useEffect(() => {
-    if (token.token) handelFetch();
+    if (token.token) {
+      handelFetch();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.token, filters.page, filters.pageSize]);
+  }, [token.token, filters]);
 
   const handleOpenRejectClick = () => {
     setOpenReject(true);
@@ -217,7 +226,7 @@ export default function PayoutPageContainer() {
                         <TableCell component="th" scope="row">
                           {item?.bank_name || '-'}
                         </TableCell>
-                        <TableCell sx={{ textAlign: 'center' }}>
+                        <TableCell sx={{ textAlign: 'left' }}>
                           {item?.state === PAYOUT_ACTION.PENDING ? (
                             <Chip label="Pending" color="warning" />
                           ) : item?.state === PAYOUT_ACTION.APPROVE ? (
