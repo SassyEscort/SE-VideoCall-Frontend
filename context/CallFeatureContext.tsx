@@ -479,7 +479,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           label: 'Credits_Purchase_Success',
           value: JSON.stringify(customerInfo)
         },
-        Number(totalBal)
+        Number(totalBalValue)
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
