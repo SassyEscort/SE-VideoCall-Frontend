@@ -23,8 +23,8 @@ export const DialogContentBoxQuestion = styled(Box)(({ theme }) => ({
   width: '100%',
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center',
-  gap: theme.spacing(1.5)
+  alignItems: 'baseline',
+  paddingLeft: theme.spacing(2)
 }));
 
 export const DialogContentBoxButton = styled(Box)(({ theme }) => ({
@@ -50,7 +50,6 @@ export const DialogContentMain = styled(Drawer)(({ theme }) => ({
     width: '100%',
     maxWidth: '346px',
     height: 'auto',
-    maxHeight: '519.37px',
     background: 'linear-gradient(90deg, #FECD3D 0%, #FFF1C6 44%, #FF68C0 100%)',
     scrollbarWidth: 'none',
     display: 'flex',
@@ -126,6 +125,7 @@ export const UINewTypographyFREECredits = styled(UINewTypography)(({ theme }) =>
   WebkitTextFillColor: 'transparent',
   backgroundClip: 'text',
   textFillColor: 'transparent',
+  textAlign: 'center',
   '@media (max-width: 320px)': {
     fontSize: '23px'
   }

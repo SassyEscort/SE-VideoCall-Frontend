@@ -3,6 +3,7 @@ import LineAxis from '@mui/icons-material/LineAxis';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import PaidIcon from '@mui/icons-material/Paid';
 import PersonIcon from '@mui/icons-material/Person';
+import DuoIcon from '@mui/icons-material/Duo';
 
 export const getNavConfig = (id?: number) => {
   const navConfig = [
@@ -30,6 +31,11 @@ export const getNavConfig = (id?: number) => {
       title: 'Call Price',
       path: '/admin/call-price',
       icon: <PaidIcon />
+    },
+    {
+      title: 'Call Logs',
+      path: '/admin/call-logs',
+      icon: <DuoIcon />
     }
   ];
 

@@ -33,7 +33,17 @@ export type SignupParams = {
   password: string;
 };
 
-const GuestFreeCreditsSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
+const GuestFreeCreditsSignup = ({
+  onClose,
+  onLoginOpen,
+  image,
+  modelName
+}: {
+  onClose: () => void;
+  onLoginOpen: () => void;
+  image: string;
+  modelName: string;
+}) => {
   const intl = useIntl();
   const route = useRouter();
   const { refresh } = route;
@@ -124,11 +134,7 @@ const GuestFreeCreditsSignup = ({ onClose, onLoginOpen }: { onClose: () => void;
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
-            <AuthFreeCreditsSignupCommon
-              onClose={onClose}
-              image="/images/auth/auth-model1.webp"
-              mobileImage="/images/auth/auth-model1.webp"
-            >
+            <AuthFreeCreditsSignupCommon onClose={onClose} image={image} mobileImage={image} modelName={modelName}>
               <Box
                 position="relative"
                 width="100%"
@@ -145,9 +151,13 @@ const GuestFreeCreditsSignup = ({ onClose, onLoginOpen }: { onClose: () => void;
               >
                 {activeStep === 0 ? (
                   <>
-                    <Box>
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ lineHeight: '38.4px' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                      <Box sx={{ display: 'flex', justifyContent: 'space-between', paddingTop: { xs: '24px', sm: 0 } }}>
+                        <UINewTypography
+                          variant="MediumSemiBoldText"
+                          color="common.white"
+                          sx={{ fontSize: { xs: '27px', sm: '32px' }, lineHeight: '38.4px' }}
+                        >
                           <FormattedMessage id="JoinNowForFree" />
                         </UINewTypography>
                         <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
@@ -166,7 +176,7 @@ const GuestFreeCreditsSignup = ({ onClose, onLoginOpen }: { onClose: () => void;
                           </IconButton>
                         </Box>
                       </Box>
-                      {isSmDown && <GuestModelMobileSignup />}
+                      {isSmDown && <GuestModelMobileSignup image={image} modelName={modelName} />}
                     </Box>
 
                     <Box sx={{ color: 'primary.300' }}>

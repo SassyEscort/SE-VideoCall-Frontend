@@ -44,7 +44,7 @@ import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
 import { usePathname } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
-import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
+import GuestFreeCreditsSignup from 'views/auth/guestFreeCreditsSignup';
 
 export const EscortSlider = ({
   workerPhotos,
@@ -169,11 +169,14 @@ export const EscortSlider = ({
   const handleFreeCreditSignupOpen = () => {
     setIsOpenLogin(false);
     setFreeSignupOpen(true);
+    gaEventTrigger('Signup_Button_clicked', { source: 'start_video_call', category: 'Button' });
   };
 
   const handleFreeCreditSignupClose = () => {
     setFreeSignupOpen(false);
   };
+
+  const modelFavPhoto = workerPhotos.find((x) => x.favourite)?.link;
 
   return (
     <>
@@ -313,7 +316,12 @@ export const EscortSlider = ({
           <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
         </UIStyledDialog>
         <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
-          <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
+          <GuestFreeCreditsSignup
+            modelName={guestData?.name}
+            image={modelFavPhoto ?? ''}
+            onClose={handleFreeCreditSignupClose}
+            onLoginOpen={handleLoginOpen}
+          />
         </UIStyledDialog>
       </Box>
     </>

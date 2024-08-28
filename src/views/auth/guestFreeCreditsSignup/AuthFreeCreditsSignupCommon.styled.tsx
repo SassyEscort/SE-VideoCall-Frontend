@@ -44,3 +44,10 @@ export const AuthImageBox = styled(Box)(({ theme }) => ({
     display: 'none'
   }
 }));
+
+export const DescriptionTextBox = styled(Box)(({ theme }) => ({
+  width: '100%',
+  maxWidth: '248px',
+  display: 'flex',
+  textAlign: 'center'
+}));

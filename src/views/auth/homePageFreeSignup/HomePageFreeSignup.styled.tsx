@@ -65,3 +65,16 @@ export const DescriptionTextBoxContainer = styled(Box)(({ theme }) => ({
     maxWidth: '221px'
   }
 }));
+
+export const HeaderText = styled(Typography)(({ theme }) => ({
+  fontWeight: 700,
+  whiteSpace: 'normal',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '24px',
+    lineHeight: '33.6px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '32px',
+    lineHeight: '44.8px'
+  }
+}));

@@ -11,7 +11,7 @@ export type BillingHistoryDetails = {
   customer_id: number;
   model_id: null | number;
   wallet_id: number;
-
+  free_credits: number;
   call_duration: string;
   call_end_time: string;
   call_start_time: string;
@@ -66,4 +66,5 @@ export type ViewDetailsRes = {
   user_name: string;
   wallet_id: number;
   cords: string;
+  free_credits: number;
 };

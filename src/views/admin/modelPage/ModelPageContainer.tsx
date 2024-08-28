@@ -27,8 +27,6 @@ import { PAGE_SIZE } from 'constants/pageConstants';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import TablePager from 'components/common/CustomPaginations/TablePager';
 import MenuItem from '@mui/material/MenuItem';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
 import { adminModelServices, ModelListing } from 'services/adminModel/adminModel.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -39,7 +37,6 @@ import { StyledSelectInputLabel } from 'components/UIComponents/StyleSelect';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import { FilterBox, ModelActionPopover, NotFoundBox, SortBox } from './ModelPageContainer.styled';
-import RejectModal from './RejectModal';
 import { RiEyeOffLine, RiEyeLine } from 'components/common/customRemixIcons';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { toast } from 'react-toastify';
@@ -124,8 +121,6 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     verificationStep: '',
     is_active: ''
   });
-
-  const [openReject, setOpenReject] = useState(false);
 
   const handleModelDetailsRefetch = useCallback(() => {
     fetchModelData();
@@ -273,22 +268,8 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     handleChangeFilter({ ...filters, duration, fromDate, toDate, page: 1 });
   };
 
-  const handleApproveClick = async () => {
-    await adminModelServices.modelAction(token.token, Number(selected?.id), MODEL_ACTION.APPROVE, true);
-    handleModelListRefetch();
-    handleCloseMenu();
-  };
-
   const handelViewDetails = async () => {
     router.push(`/admin/model/details/${selected?.id}`);
-  };
-
-  const handleOpenRejectClick = () => {
-    setOpenReject(true);
-  };
-
-  const handleCloseRejectClick = () => {
-    setOpenReject(false);
   };
 
   const handleHideModel = async () => {
@@ -520,19 +501,6 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
             View Details
           </MenuItem>
 
-          {selected?.profile_status === MODEL_ACTION.PENDING && (
-            <>
-              <MenuItem onClick={handleApproveClick}>
-                <CheckIcon sx={{ mr: 0.5, color: 'success.main' }} />
-                Approve
-              </MenuItem>
-              <MenuItem onClick={handleOpenRejectClick}>
-                <CloseIcon sx={{ mr: 0.5, color: 'error.main' }} />
-                Reject
-              </MenuItem>
-            </>
-          )}
-
           {selected?.is_visible && selected?.profile_status === MODEL_ACTION.APPROVE ? (
             <>
               <MenuItem onClick={handleHideModel}>
@@ -563,13 +531,6 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
           </MenuItem>
         </ModelActionPopover>
       </MainLayout>
-      <RejectModal
-        open={openReject}
-        handleClose={handleCloseRejectClick}
-        selectedId={selected?.id as number}
-        handleModelListRefetch={handleModelListRefetch}
-        handleCloseMenu={handleCloseMenu}
-      />
     </>
   );
 }
