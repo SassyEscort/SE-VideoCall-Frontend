@@ -123,7 +123,6 @@ const EscortSliderMobile = ({
     setFreeSignupOpen(true);
     setIsOpenLogin(false);
     gaEventTrigger('Signup_Button_clicked', { source: 'start_video_call', category: 'Button' });
-    gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
   };
 
   const handleFreeCreditSignupClose = () => {
