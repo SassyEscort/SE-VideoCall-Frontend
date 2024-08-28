@@ -24,12 +24,12 @@ const ProviderWrapper = ({ children }: { children: JSX.Element }) => {
             <>
               <SessionProvider refetchInterval={0}>
                 {children}
-                {/* {process.env.NEXT_PUBLIC_ENV === 'production' && (
-                  <> */}
-                <GoogleTagManager gtmId={'GTM-P6BCQRQV'} />
-                <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID as string} />
-                {/* </>
-                )} */}
+                {process.env.NEXT_PUBLIC_ENV === 'production' && (
+                  <>
+                    <GoogleTagManager gtmId={'GTM-P6BCQRQV'} />
+                    <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID as string} />
+                  </>
+                )}
                 <ModelLastActive />
               </SessionProvider>
               <ToastContainer
