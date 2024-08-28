@@ -55,6 +55,9 @@ const Credits = () => {
   const { customerUser } = useCallFeatureContext();
   const customerData = JSON.parse(customerUser || '{}');
 
+  const credit = searchParams.get('credit');
+  const totalBal = searchParams.get('total_amount_after_txn');
+
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -109,8 +112,6 @@ const Credits = () => {
     setOpen(false);
   };
   useEffect(() => {
-    const credit = searchParams.get('credit');
-    const totalBal = searchParams.get('total_amount_after_txn');
     setBalance(Number(totalBal));
     setAddedCredits(Number(credit));
     getCustomerCredit();
@@ -127,17 +128,20 @@ const Credits = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    gaEventTrigger(
-      'Credits_Purchase_Success',
-      {
-        action: 'Credits_Purchase_Success',
-        category: 'Page change',
-        label: 'Credits_Purchase_Success',
-        value: JSON.stringify(customerInformation)
-      },
-      Number(balance)
-    );
-  }, [balance, customerInformation]);
+    if (credit) {
+      gaEventTrigger(
+        'Credits_Purchase_Success',
+        {
+          action: 'Credits_Purchase_Success',
+          category: 'Page change',
+          label: 'Credits_Purchase_Success',
+          value: JSON.stringify(customerInformation)
+        },
+        Number(balance)
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     getCreditsListing();
