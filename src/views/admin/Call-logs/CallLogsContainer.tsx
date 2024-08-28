@@ -11,7 +11,7 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
-import { CircularProgress, IconButton, MenuItem } from '@mui/material';
+import { Chip, CircularProgress, IconButton, MenuItem } from '@mui/material';
 import moment from 'moment';
 import { MoreVert, Visibility } from '@mui/icons-material';
 import { useCallback, useEffect, useState } from 'react';
@@ -27,6 +27,8 @@ import CallLogsListHead from './CallLogsListHead';
 import CallLogsModel from './CallLogsModel';
 import { callLogDataResponse, callLogsDetailsService } from 'services/adminServices/call-list/callListDetailsService';
 import { debounce } from 'lodash';
+import { CALL_LOG_ACTION } from 'constants/payoutsConstants';
+import Link from 'next/link';
 
 export type PaginationType = {
   page: number;
@@ -191,17 +193,46 @@ export default function CallLogsContainer() {
                           '&:last-child td, &:last-child th': { border: 0 }
                         }}
                       >
-                        <TableCell component="th" scope="row">
-                          {item?.model_name || '-'}
+                        <TableCell
+                          component="th"
+                          scope="row"
+                          sx={{
+                            cursor: 'pointer',
+                            '&:hover': {
+                              color: '#757575de'
+                            }
+                          }}
+                        >
+                          <Link href={`/admin/model/details/${item?.model_id}`}>{item?.model_name || '-'}</Link>
                         </TableCell>
-                        <TableCell component="th" scope="row">
-                          {item?.model_email || '-'}
+                        <TableCell
+                          component="th"
+                          scope="row"
+                          sx={{
+                            cursor: 'pointer',
+                            '&:hover': {
+                              color: '#757575de'
+                            }
+                          }}
+                        >
+                          <Link href={`/admin/model/details/${item?.model_id}`}>{item?.model_email || '-'}</Link>
                         </TableCell>
                         <TableCell component="th" scope="row">
                           {item?.customer_name || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
                           {item?.customer_email || '-'}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {item?.status === CALL_LOG_ACTION.UNANSWERED ? (
+                            <Chip label="Unanswered" color="warning" />
+                          ) : item?.status === CALL_LOG_ACTION.ENDED ? (
+                            <Chip label="Ended" color="success" />
+                          ) : item?.status === CALL_LOG_ACTION.CANCELLED ? (
+                            <Chip label="Cancelled" color="error" />
+                          ) : (
+                            '-'
+                          )}
                         </TableCell>
                         <TableCell component="th" scope="row">
                           {item?.credits_used || '-'}
@@ -219,12 +250,10 @@ export default function CallLogsContainer() {
                           {item?.amount_earned || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.start_time ? moment(item?.start_time).format('MMMM DD, YYYY') : '-'}
+                          {item?.start_time && item?.end_time
+                            ? moment(item.end_time).diff(moment(item.start_time), 'minutes') + ' mins'
+                            : '-'}
                         </TableCell>
-                        <TableCell component="th" scope="row">
-                          {item?.end_time ? moment(item?.end_time).format('MMMM DD, YYYY') : '-'}
-                        </TableCell>
-
                         <TableCell>
                           <IconButton
                             aria-label="more"
