@@ -76,7 +76,27 @@ export const Dotes = styled(Box)(({ theme }) => ({
   left: '50.5%',
   top: '30%',
   transform: 'translate(-80%, -80%)',
+  '@media (max-width: 2560px)': {
+    left: '54%',
+    top: '90%',
+    transform: 'translate(-50%, -93%)'
+  },
+  '@media (max-width: 1440px)': {
+    left: '54%',
+    top: '90%',
+    transform: 'translate(-50%, -93%)'
+  },
+  '@media (max-width: 1024px)': {
+    left: '54%',
+    top: '90%',
+    transform: 'translate(-50%, -93%)'
+  },
   '@media (max-width: 768px)': {
+    left: '50%',
+    top: '90%',
+    transform: 'translate(-50%, -93%)'
+  },
+  '@media (max-width: 767px)': {
     left: '50%',
     top: '34%',
     transform: 'translate(-50%, -93%)'

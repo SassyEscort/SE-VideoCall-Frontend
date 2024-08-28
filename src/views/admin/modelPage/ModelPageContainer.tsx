@@ -63,7 +63,7 @@ const SORT_BY_OPTIONS: PaginationSortByOption[] = [
   { value: 'created_at', label: 'Newest' },
   { value: 'name', label: 'Name' },
   { value: 'email', label: 'Email' },
-  { value: 'last_login', label: 'last login' }
+  { value: 'last_active', label: 'last active' }
 ];
 
 const StatusOfPlan = [
@@ -104,7 +104,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
   const [totalRecords, setTotalRecords] = useState(0);
 
   const currentMoment = moment();
-  const oneMonthAgoMoment = moment().subtract(1, 'month');
+  const oneMonthAgoMoment = moment().subtract(1, 'day');
   const fromDate = oneMonthAgoMoment.format('YYYY/MM/DD');
   const toDate = currentMoment.format('YYYY/MM/DD');
   const [filters, setFilters] = useState<WorkersPaginationType>({
@@ -114,7 +114,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     orderField: 'created_at',
     orderType: 'desc',
     filter_Text: '',
-    duration: 'month',
+    duration: 'day',
     fromDate: fromDate,
     toDate: toDate,
     status: '',
@@ -442,7 +442,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                             )}
                           </TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.created_at, '-')}</TableCell>
-                          <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.updated_at, '-')}</TableCell>
+                          <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.last_active, '-')}</TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{item?.verification_step}</TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{item?.email_verified === 0 ? 'No' : 'Yes'}</TableCell>
 

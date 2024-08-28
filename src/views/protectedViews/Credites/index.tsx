@@ -36,6 +36,12 @@ import { CircularProgress } from '@mui/material';
 import { gaEventTrigger } from 'utils/analytics';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 
+export type CustomerInfo = {
+  email: string;
+  name: string;
+  username: string;
+};
+
 const Credits = () => {
   const [open, setOpen] = useState(false);
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
@@ -47,6 +53,9 @@ const Credits = () => {
   const searchParams = useSearchParams();
   const { customerUser } = useCallFeatureContext();
   const customerData = JSON.parse(customerUser || '{}');
+
+  const credit = searchParams.get('credit');
+  const totalBal = searchParams.get('total_amount_after_txn');
 
   useEffect(() => {
     const userToken = async () => {
@@ -101,31 +110,31 @@ const Credits = () => {
     setOpen(false);
   };
   useEffect(() => {
-    const credit = searchParams.get('credit');
-    const totalBal = searchParams.get('total_amount_after_txn');
     setBalance(Number(totalBal));
     setAddedCredits(Number(credit));
     getCustomerCredit();
     if (credit) {
-      const customerInfo = {
-        email: customerData?.customer_email,
-        name: customerData?.customer_name,
-        username: customerData?.customer_user_name
-      };
       setOpen(true);
-      gaEventTrigger(
-        'Credits_Purchase_Success',
-        {
-          action: 'Credits_Purchase_Success',
-          category: 'Page change',
-          label: 'Credits_Purchase_Success',
-          value: JSON.stringify(customerInfo)
-        },
-        Number(totalBal)
-      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
+
+  // useEffect(() => {
+  //   if (credit) {
+  //     gaEventTrigger(
+  //       'Credits_Purchase_Success',
+  //       {
+  //         action: 'Credits_Purchase_Success',
+  //         category: 'Page change',
+  //         label: 'Credits_Purchase_Success',
+  //         value: JSON.stringify(customerInformation)
+  //       },
+  //       Number(totalBal)
+  //     );
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
   useEffect(() => {
     getCreditsListing();
     getCustomerCredit();

@@ -22,3 +22,9 @@ export enum PAYOUT_ACTION {
   APPROVE = 'Approved',
   REJECT = 'Rejected'
 }
+
+export enum CALL_LOG_ACTION {
+  ENDED = 'Ended',
+  CANCELLED = 'Cancelled',
+  UNANSWERED = 'Unanswered'
+}

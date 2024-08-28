@@ -39,6 +39,7 @@ const Footer = () => {
   const handleLoginOpen = () => {
     setIsOpen(false);
     setIsOpenLogin(true);
+    setFreeSignupOpen(false);
   };
 
   const handleLoginResetPasswordOpen = () => {
@@ -69,10 +70,12 @@ const Footer = () => {
   const handleFreeCreditSignupOpen = () => {
     gaEventTrigger('Signup_Button_clicked', { source: 'footer', category: 'Button' });
     setFreeSignupOpen(true);
+    setIsOpenLogin(false);
   };
 
   const handleFreeCreditSignupClose = () => {
     setFreeSignupOpen(false);
+    setIsOpenLogin(false);
   };
 
   useEffect(() => {
@@ -133,6 +136,9 @@ const Footer = () => {
             freeSignupOpen={freeSignupOpen}
             handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
             handleFreeCreditSignupClose={handleFreeCreditSignupClose}
+            handleLoginOpen={handleLoginOpen}
+            handleLoginClose={handleLoginClose}
+            openLogin={openLogin}
           />
         </TextContainer>
       </TextContainerMain>

@@ -92,6 +92,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const isCustomer = (tokenCometChat?.data?.user as User)?.provider === 'providerGuest';
 
   const searchParams = useSearchParams();
+  const credit = searchParams.get('credit');
+  const totalBal = searchParams.get('total_credits_after_txn');
+  const totalBalValue = searchParams.get('total_amount_after_txn');
 
   const path = usePathname();
   const userName = path.split('/')[2];
@@ -457,27 +460,30 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    const credit = searchParams.get('credit');
-    const totalBal = searchParams.get('total_credits_after_txn');
-    const totalBalValue = searchParams.get('total_amount_after_txn');
     setBalance(Number(totalBal));
     setBalance(Number(totalBalValue));
     setAddedCredits(Number(credit));
+    if (credit) {
+      setOpenSuccess(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  useEffect(() => {
     if (credit) {
       gaEventTrigger(
         'Credits_Purchase_Success',
         {
           action: 'Credits_Purchase_Success',
-          category: 'Dialog',
+          category: 'Page change',
           label: 'Credits_Purchase_Success',
           value: JSON.stringify(customerInfo)
         },
         Number(totalBalValue)
       );
-      setOpenSuccess(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
+  }, []);
 
   useEffect(() => {
     const intervalId = setInterval(async () => {
