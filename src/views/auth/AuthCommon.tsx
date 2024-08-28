@@ -17,6 +17,9 @@ const AuthCommon = ({
   variant?: string;
   children: ReactNode;
 }) => {
+  const imageBG = `/${image}`;
+  const mobileBG = `/${mobileImage}`;
+
   return (
     <AuthCommonBox>
       <Box display="flex" alignItems="flex-end" justifyContent="flex-end" sx={{ display: { xs: 'block', sm: 'none' } }}>
@@ -35,7 +38,7 @@ const AuthCommon = ({
       </Box>
       <AuthImageMobileBox
         sx={{
-          backgroundImage: `linear-gradient(rgba(7, 3, 14, 0.80), rgba(7, 3, 14, 0.84)), url(${mobileImage})`
+          backgroundImage: `linear-gradient(rgba(7, 3, 14, 0.80), rgba(7, 3, 14, 0.84)), url(${mobileBG})`
         }}
       />
       <Box display="flex" gap={1.5}>
@@ -44,7 +47,7 @@ const AuthCommon = ({
             height: 'auto',
             backgroundPosition: variant === 'resetPassword' ? { xs: 'center', md: 'right' } : 'right',
             maxWidth: variant === 'resetPassword' ? 434 : 420,
-            backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.47), rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.93)), url(${image})`
+            backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.47), rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.93)), url(${imageBG})`
           }}
         />
         {children}

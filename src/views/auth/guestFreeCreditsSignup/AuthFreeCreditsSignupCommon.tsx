@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
-import { AuthCommonBox, AuthImageBox, DescriptionTextBox } from './AuthFreeCreditsSignupCommon.styled';
+import { AuthCommonBox, AuthImageBox } from './AuthFreeCreditsSignupCommon.styled';
 import { FormattedMessage } from 'react-intl';
 
 const AuthFreeCreditsSignupCommon = ({
@@ -13,13 +13,15 @@ const AuthFreeCreditsSignupCommon = ({
   image,
   mobileImage,
   variant,
-  children
+  children,
+  modelName
 }: {
   onClose: () => void;
   image: string;
   mobileImage: string;
   variant?: string;
   children: ReactNode;
+  modelName: string;
 }) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
@@ -87,14 +89,15 @@ const AuthFreeCreditsSignupCommon = ({
                     WebkitTextFillColor: 'transparent'
                   }}
                 >
-                  Aesha gave you 100 FREE credits
+                  {modelName} <FormattedMessage id="GaveYou" /> 30 <FormattedMessage id="FREECredits" />
                 </UINewTypography>
               </Box>
-              <DescriptionTextBox>
+              <Box sx={{ width: '100%', maxWidth: '248px', display: 'flex', textAlign: 'center' }}>
                 <UINewTypography>
-                  <FormattedMessage id="JoinNowAndEnjoyAFREE" /> Aesha
+                  {' '}
+                  <FormattedMessage id="JoinNowAndEnjoy" /> {modelName}
                 </UINewTypography>
-              </DescriptionTextBox>
+              </Box>
             </Box>
           </Box>
         )}

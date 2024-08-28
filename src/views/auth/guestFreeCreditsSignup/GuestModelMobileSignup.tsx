@@ -2,7 +2,6 @@
 import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
-  MobileImageBoxContainer,
   MobileImageInnerBoxContainer,
   ImageAndTextBoxContainer,
   TitleTextBoxContainer,
@@ -10,35 +9,41 @@ import {
   DescriptionTextBoxContainer
 } from './GuestFreeCreditsSignup.styled';
 import { FormattedMessage } from 'react-intl';
+import { AuthCommonBox } from '../AuthCommon.styled';
 
-const GuestModelMobileSignup = () => {
+const GuestModelMobileSignup = ({ image, modelName }: { image: string; modelName: string }) => {
   return (
-    <MobileImageBoxContainer>
+    <AuthCommonBox>
       <Box
-        component="img"
-        src="/images/workercards/Workercard-img.jpeg"
         sx={{
           width: '100%',
           maxWidth: '363px',
           height: '100%',
-          maxHeight: '332px'
+          minHeight: '290px',
+          backgroundImage: `linear-gradient(180deg, #00000000, #000000), url(${image})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          position: 'absolute'
         }}
       />
       {/* <ImageContainer /> */}
       <MobileImageInnerBoxContainer>
-        <Box component="img" src="/images/home/free-credits-signup-img.png" width={100} height={100} />
+        <Box component="img" src="/images/home/free-credits-signup-img.png" width={100} height={100} sx={{ zIndex: 2 }} />
         <ImageAndTextBoxContainer>
           <TitleTextBoxContainer>
-            <TitleText>Aesha gave you 100 FREE credits</TitleText>
+            <TitleText>
+              {modelName} <FormattedMessage id="GaveYou" /> 30 <FormattedMessage id="FREECredits" />
+            </TitleText>
           </TitleTextBoxContainer>
           <DescriptionTextBoxContainer>
-            <UINewTypography variant="SubtitleSmallMedium" color="text.secondary">
-              <FormattedMessage id="JoinNowAndEnjoyAFREE" /> Aesha
+            <UINewTypography variant="SubtitleSmallMedium" color="text.secondary" sx={{ zIndex: 2 }}>
+              <FormattedMessage id="JoinNowAndEnjoy" /> {modelName}
             </UINewTypography>
           </DescriptionTextBoxContainer>
         </ImageAndTextBoxContainer>
       </MobileImageInnerBoxContainer>
-    </MobileImageBoxContainer>
+    </AuthCommonBox>
   );
 };
 
