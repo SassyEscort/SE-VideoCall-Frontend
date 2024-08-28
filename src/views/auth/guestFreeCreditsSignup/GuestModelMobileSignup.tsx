@@ -2,7 +2,6 @@
 import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
-  MobileImageBoxContainer,
   MobileImageInnerBoxContainer,
   ImageAndTextBoxContainer,
   TitleTextBoxContainer,
@@ -13,16 +12,15 @@ import { FormattedMessage } from 'react-intl';
 import { AuthCommonBox } from '../AuthCommon.styled';
 
 const GuestModelMobileSignup = ({ image, modelName }: { image: string; modelName: string }) => {
-  console.log(image, 'image');
-
   return (
     <AuthCommonBox>
       <Box
         sx={{
           width: '100%',
+          maxWidth: '363px',
           height: '100%',
-          maxHeight: '290px',
-          backgroundImage: `url(${image})`,
+          minHeight: '290px',
+          backgroundImage: `linear-gradient(180deg, #00000000, #000000), url(${image})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
@@ -31,7 +29,7 @@ const GuestModelMobileSignup = ({ image, modelName }: { image: string; modelName
       />
       {/* <ImageContainer /> */}
       <MobileImageInnerBoxContainer>
-        <Box component="img" src="/images/home/free-credits-signup-img.png" width={100} height={100} />
+        <Box component="img" src="/images/home/free-credits-signup-img.png" width={100} height={100} sx={{ zIndex: 2 }} />
         <ImageAndTextBoxContainer>
           <TitleTextBoxContainer>
             <TitleText>
@@ -39,7 +37,7 @@ const GuestModelMobileSignup = ({ image, modelName }: { image: string; modelName
             </TitleText>
           </TitleTextBoxContainer>
           <DescriptionTextBoxContainer>
-            <UINewTypography variant="SubtitleSmallMedium" color="text.secondary">
+            <UINewTypography variant="SubtitleSmallMedium" color="text.secondary" sx={{ zIndex: 2 }}>
               <FormattedMessage id="JoinNowAndEnjoy" /> {modelName}
             </UINewTypography>
           </DescriptionTextBoxContainer>

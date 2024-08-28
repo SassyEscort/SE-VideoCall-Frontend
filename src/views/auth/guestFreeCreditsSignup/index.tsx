@@ -151,8 +151,8 @@ const GuestFreeCreditsSignup = ({
               >
                 {activeStep === 0 ? (
                   <>
-                    <Box>
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                      <Box sx={{ display: 'flex', justifyContent: 'space-between', paddingTop: { xs: '24px', sm: 0 } }}>
                         <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ lineHeight: '38.4px' }}>
                           <FormattedMessage id="JoinNowForFree" />
                         </UINewTypography>

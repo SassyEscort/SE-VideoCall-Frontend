@@ -11,11 +11,11 @@ export const MobileImageBoxContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const MobileImageInnerBoxContainer = styled(Box)(({ theme }) => ({
-  position: 'absolute',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  paddingTop: theme.spacing(7)
 }));
 
 export const ImageAndTextBoxContainer = styled(Box)(({ theme }) => ({
@@ -24,18 +24,6 @@ export const ImageAndTextBoxContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
   alignItems: 'center'
 }));
-
-// export const ImageContainer = styled(Box)(({ theme }) => ({
-//   backgroundImage: 'url(/images/workercards/Workercard-img.jpeg)',
-//   backgroundRepeat: 'no-repeat',
-//   backgroundSize: 'cover',
-//   backgroundPosition: 'center',
-//   position: 'absolute',
-//   width: '100%',
-//   maxWidth: '363px',
-//   height: '100%',
-//   maxHeight: '290px'
-// }));
 
 export const TitleTextBoxContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -54,7 +42,8 @@ export const TitleText = styled(Typography)(({ theme }) => ({
   letterSpacing: '0.3px',
   background: 'linear-gradient(90deg, #FBA631, #FFFFFF)',
   WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent'
+  WebkitTextFillColor: 'transparent',
+  zIndex: 2
 }));
 
 export const DescriptionTextBoxContainer = styled(Box)(({ theme }) => ({
