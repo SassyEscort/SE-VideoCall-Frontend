@@ -2,11 +2,8 @@
 import { useEffect, useState } from 'react';
 import { TimeDetails, TimeMainBox, TimeTitle, RemianingTime, TimeTypo, TimerDivider, Dotes, DotesSecond } from './Timer.Styled';
 import { FormattedMessage } from 'react-intl';
-import { useMediaQuery } from '@mui/material';
-import theme from 'themes/theme';
 
 const Timer = () => {
-  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [countdown, setCountdown] = useState({ minutes: 15, seconds: 0 });
 
   const handleCalculateCountdown = () => {
@@ -61,12 +58,10 @@ const Timer = () => {
           <FormattedMessage id="Minutes" />
         </TimeTitle>
       </TimeDetails>
-      {isSmDown && (
-        <>
-          <Dotes />
-          <DotesSecond />
-        </>
-      )}
+
+      <Dotes />
+      <DotesSecond />
+
       <TimeDetails>
         <RemianingTime>
           <TimeTypo>{countdown.seconds}</TimeTypo>

@@ -47,7 +47,10 @@ const Requestsubmit = ({ handlePayoutStepSubmit }: { handlePayoutStepSubmit?: (s
                   <FormattedMessage id="YourRequestHasBeenSubmitted" />
                 </UINewTypographyYourRequestHasBeenSubmitted>
                 <UINewTypographyYourTheRequestWill>
-                  <FormattedMessage id="TheRequestWill" />
+                  <Box>
+                    <FormattedMessage id="PaymentsWillBeMadeEvery" />
+                  </Box>
+                  <FormattedMessage id="ForAnyHelpAndSupport" />{' '}
                   <Box component={'span'} sx={{ color: 'primary.600' }}>
                     <FormattedMessage id="ContactAdmin" />
                   </Box>

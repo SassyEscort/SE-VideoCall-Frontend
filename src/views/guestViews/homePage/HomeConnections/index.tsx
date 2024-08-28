@@ -100,6 +100,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
   const handleFreeCreditSignupOpen = () => {
     gaEventTrigger('Signup_Button_clicked', { source: 'home_connection', category: 'Button' });
     setFreeSignupOpen(true);
+    setIsOpenLogin(false);
   };
 
   const handleFreeCreditSignupClose = () => {
