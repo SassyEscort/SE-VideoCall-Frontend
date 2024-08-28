@@ -1,34 +1,36 @@
+import { v4 } from 'uuid';
+
 export const gaEventTrigger = (action: string, data: any, credits?: number) => {
-  if (process.env.NEXT_PUBLIC_ENV === 'production') {
-    if (window.gtag) {
-      try {
-        // Check if the value is a string but not a JSON object
-        const isPlainString = typeof data.value === 'string' && !isJSON(data.value);
+  // if (process.env.NEXT_PUBLIC_ENV === 'production') {
+  if (window.gtag) {
+    try {
+      // Check if the value is a string but not a JSON object
+      const isPlainString = typeof data.value === 'string' && !isJSON(data.value);
 
-        if (!isPlainString) {
-          const parsedValue = tryParseJSON(data.value);
-          if (parsedValue) {
-            const flattenedValue = flattenObject(parsedValue, 'custom_');
-            data = { ...data, ...flattenedValue };
-          }
+      if (!isPlainString) {
+        const parsedValue = tryParseJSON(data.value);
+        if (parsedValue) {
+          const flattenedValue = flattenObject(parsedValue, 'custom_');
+          data = { ...data, ...flattenedValue };
         }
-
-        if (action === 'Credits_Purchase_Success') {
-          data = {
-            ...data,
-            value: credits,
-            currency: 'USD',
-            transaction_id: 'V_526',
-            items: [{ name: 'Credits_Purchase_Success' }],
-            item_name: 'Credits_Purchase_Success'
-          };
-        }
-      } catch (e) {
-        console.error('Error processing value field:', e);
       }
-      window.gtag('event', action, data);
+
+      if (action === 'Credits_Purchase_Success') {
+        data = {
+          ...data,
+          value: credits ?? 0,
+          currency: 'USD',
+          transaction_id: v4(),
+          items: [{ name: 'Credits_Purchase_Success', quantity: 1, price: credits ?? 0 }],
+          item_name: 'Credits_Purchase_Success'
+        };
+      }
+    } catch (e) {
+      console.error('Error processing value field:', e);
     }
+    window.gtag('event', action, data);
   }
+  // }
 };
 
 // Helper function to safely parse JSON

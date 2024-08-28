@@ -36,6 +36,12 @@ import { CircularProgress } from '@mui/material';
 import { gaEventTrigger } from 'utils/analytics';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 
+export type CustomerInfo = {
+  email: string;
+  name: string;
+  username: string;
+};
+
 const Credits = () => {
   const [open, setOpen] = useState(false);
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
@@ -43,6 +49,7 @@ const Credits = () => {
   const [balance, setBalance] = useState(0);
   const [addedCredits, setAddedCredits] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [customerInformation, setCustomerInformation] = useState<CustomerInfo>();
   const router = useRouter();
   const searchParams = useSearchParams();
   const { customerUser } = useCallFeatureContext();
@@ -84,6 +91,7 @@ const Credits = () => {
       plan_details: listCredit,
       source: 'Credit Page'
     };
+    setCustomerInformation(customerInfo);
 
     gaEventTrigger('Credits_Purchase_Initiated', {
       action: 'Credits_Purchase_Initiated',
@@ -107,25 +115,30 @@ const Credits = () => {
     setAddedCredits(Number(credit));
     getCustomerCredit();
     if (credit) {
-      const customerInfo = {
+      setOpen(true);
+      const customerInfo: CustomerInfo = {
         email: customerData?.customer_email,
         name: customerData?.customer_name,
         username: customerData?.customer_user_name
       };
-      setOpen(true);
-      gaEventTrigger(
-        'Credits_Purchase_Success',
-        {
-          action: 'Credits_Purchase_Success',
-          category: 'Page change',
-          label: 'Credits_Purchase_Success',
-          value: JSON.stringify(customerInfo)
-        },
-        Number(totalBal)
-      );
+      setCustomerInformation(customerInfo);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
+
+  useEffect(() => {
+    gaEventTrigger(
+      'Credits_Purchase_Success',
+      {
+        action: 'Credits_Purchase_Success',
+        category: 'Page change',
+        label: 'Credits_Purchase_Success',
+        value: JSON.stringify(customerInformation)
+      },
+      Number(balance)
+    );
+  }, [balance, customerInformation]);
+
   useEffect(() => {
     getCreditsListing();
     getCustomerCredit();
