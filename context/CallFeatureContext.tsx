@@ -472,11 +472,11 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (credit) {
       gaEventTrigger(
-        'Credits_Purchase_Success',
+        'purchase',
         {
-          action: 'Credits_Purchase_Success',
+          action: 'purchase',
           category: 'Page change',
-          label: 'Credits_Purchase_Success',
+          label: 'purchase',
           value: JSON.stringify(customerInfo)
         },
         Number(totalBalValue)
