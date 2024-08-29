@@ -206,7 +206,7 @@ const HomeContainer = () => {
           isFavPage={false}
           token={token}
           filters={filters ?? ({} as SearchFiltersTypes)}
-          totalRows={3000}
+          totalRows={total_rows}
           handleChangePage={handleChangePage}
           isFreeCreditAvailable={isFreeCreditAvailable}
         />
