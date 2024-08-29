@@ -332,11 +332,13 @@ const VerificationStepPromise = ({
                   type="submit"
                   variant="contained"
                   loading={loading}
-                  sx={{ width: '100%', maxWidth: { xs: '130px', sm: '133px' } }}
+                  sx={{ width: '100%', maxWidth: { xs: '148px', sm: '148px' } }}
                 >
                   <UINewTypography variant="body">
                     {isReviewEdit && !isDashboard ? (
-                      <FormattedMessage id="SaveAndReview" />
+                      <Box>
+                        <FormattedMessage id="Save" /> & <FormattedMessage id="Review" />
+                      </Box>
                     ) : isDashboard ? (
                       <FormattedMessage id="Save" />
                     ) : (

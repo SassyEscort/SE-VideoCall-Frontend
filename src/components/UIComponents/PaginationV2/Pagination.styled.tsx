@@ -12,10 +12,22 @@ export const UITheme2Pagination = styled(({ ...props }: PaginationProps) => <Pag
     alignItems: 'center',
     cursor: 'pointer',
 
+    '& ul > li:last-child': {
+      '@media (max-width: 425px)': {
+        paddingTop: '8px'
+      }
+    },
+    '& ul > li:nth-last-child(-n+2)': {
+      '@media (max-width: 375px)': {
+        paddingTop: '8px'
+      }
+    },
     '& ul > li:last-child button': {
       color: theme.palette.common.white,
-      display: page === count ? 'none' : 'flex'
+      display: page === count ? 'none' : 'flex',
+      backgroundColor: 'red'
     },
+
     '& ul > li:first-child button': {
       color: theme.palette.common.white,
       display: Number(page) > 1 ? 'flex' : 'none'
@@ -26,6 +38,10 @@ export const UITheme2Pagination = styled(({ ...props }: PaginationProps) => <Pag
       minHeight: 50,
       width: '100%',
       maxWidth: 42,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+
       '&.MuiPaginationItem-root': {
         border: '1px solid',
         borderRadius: '4px',

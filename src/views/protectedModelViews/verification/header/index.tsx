@@ -46,7 +46,7 @@ const VerificationHeader = ({
               </UINewTypography>
             </UIThemeButton>
           </Box>
-          <ImageBox prefetch={false} shallow={true} href="/">
+          <ImageBox prefetch={false} shallow={true} href="/model">
             <Image
               src="/images/header/headerlogo.png"
               alt="sassy_logo"
