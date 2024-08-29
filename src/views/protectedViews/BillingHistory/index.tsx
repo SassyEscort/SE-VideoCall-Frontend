@@ -158,7 +158,7 @@ const BillingHistory = () => {
                               <FormattedMessage id="ViewDetails" />
                             </TextBoxContainer>
                           ) : (
-                            `$${list?.free_credits ? list?.free_credits : list?.amount}`
+                            `$${list?.amount} `
                           )}
                         </DollarBillingValue>
                       </Box>
