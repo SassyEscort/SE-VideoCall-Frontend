@@ -328,12 +328,6 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         setIsCallEnded(true);
         CometChat.removeUserListener(String(modelId));
         if (isCustomer) {
-          gaEventTrigger('Video_call_ended', {
-            action: 'Video_call_ended',
-            category: 'Button',
-            label: 'Video_call_ended',
-            value: JSON.stringify(customerInfo)
-          });
           const endCallData = await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
           if (endCallData) {
             setAvailableCredits(endCallData.available_credits);
@@ -347,12 +341,6 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         setIsCallEnded(true);
         CometChat.removeUserListener(String(modelId));
         if (isCustomer) {
-          gaEventTrigger('Video_call_ended', {
-            action: 'Video_call_ended',
-            category: 'Button',
-            label: 'Video_call_ended',
-            value: JSON.stringify(customerInfo)
-          });
           const endCallData = await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
           if (endCallData) {
             setAvailableCredits(endCallData.available_credits);
@@ -426,12 +414,6 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         await CometChat.endCall(call.getSessionId());
         setIsCallEnded(true);
         if (isCustomer) {
-          gaEventTrigger('Video_call_ended', {
-            action: 'Video_call_ended',
-            category: 'Button',
-            label: 'Video_call_ended',
-            value: JSON.stringify(customerInfo)
-          });
           const endCallData = await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.ENDED);
           if (endCallData) {
             setAvailableCredits(endCallData.available_credits);
@@ -514,12 +496,6 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         await CometChat.endCall(sessionId);
         CometChatCalls.endSession();
         if (isCustomer) {
-          gaEventTrigger('Video_call_ended', {
-            action: 'Video_call_ended',
-            category: 'Button',
-            label: 'Video_call_ended',
-            value: JSON.stringify(customerInfo)
-          });
           const endCallData = await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
           if (endCallData) {
             setAvailableCredits(endCallData.available_credits);
