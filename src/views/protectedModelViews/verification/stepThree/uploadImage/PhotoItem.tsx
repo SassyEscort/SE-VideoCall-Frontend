@@ -50,7 +50,7 @@ const PhotoItem = ({
     value: unknown,
     shouldValidate?: boolean | undefined
   ) => Promise<void | FormikErrors<VerificationFormStep5TypeV2>>;
-  removeImage: (name: string, photoName: string, file_id?: string) => void;
+  removeImage: (name: string, photoName: string, isFav: boolean | undefined, file_id?: string) => void;
   handleChangeFile5Cords?: (name: string, cords: string) => void;
   handleClickThumbnailImageId?: (id: number | undefined, name: string, photoIndex: number) => void;
   token: TokenIdType;
@@ -60,12 +60,14 @@ const PhotoItem = ({
   index: number;
   existingPhotos: UploadPhotos[];
 }) => {
-  console.log(values.is_favourite, existingPhotos, isFeaturePhoto, 'values');
+  console.log(values?.is_favourite, image.name, index, isFeaturePhoto, 'is_favourite');
 
   const [openRepositionModal, setOpenRepositionModal] = useState(false);
   const [croppedImage, setCroppedImage] = useState('');
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [thumbnail, setThumbnail] = useState(false);
+
+  const favPhotoIndex = values?.is_favourite?.split('[')[1]?.split(']')[0];
 
   const open = Boolean(anchorEl);
   const videoTypeCondition =
@@ -117,7 +119,7 @@ const PhotoItem = ({
   const handleRemoveImage = (name: string) => {
     setCroppedImage('');
     setValue(name, null);
-    removeImage(image.photoURL, image.name, image.file_id);
+    removeImage(image.photoURL, image.name, image.isFavorite, image.file_id);
   };
 
   const handleSaveRepositionCords = (cords: string) => {
@@ -202,7 +204,7 @@ const PhotoItem = ({
             </Box>
           )}
           {((thumbnailImageId !== undefined && image.id !== undefined && thumbnailImageId === image?.id) ||
-            (existingPhotos.length === 0 && values?.is_favourite === image?.name && thumbnailImageId === undefined) ||
+            (Number(favPhotoIndex) === index && thumbnailImageId === undefined) ||
             isFeaturePhoto) && (
             <Box sx={{ position: 'relative' }}>
               <DragAndDropMultipleImageThumbnailPhoto

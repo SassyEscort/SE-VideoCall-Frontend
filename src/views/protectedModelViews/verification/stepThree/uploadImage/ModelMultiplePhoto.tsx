@@ -80,36 +80,40 @@ const ModelMultiplePhoto = ({
   const [existingPhotos, setExistingPhotos] = useState<UploadPhotos[]>([]);
   const [uploadedImagesURL, setUploadedImagesURL] = useState<UploadPhotos[]>([]);
   const [thumbnailImageId, setThumbnailImageId] = useState<number | undefined>(undefined);
-  const [fileIdsData, setFileIdsData] = useState<string[]>([]);
-  console.log(fileIdsData, uploadedImagesURL, values, 'file_id');
 
-  const removeImage = async (name: string, photoName: string, file_id?: string) => {
-    console.log(file_id, 'file_id');
-
-    // if (file_id) {
-    //   setFileIdsData((prev) => {
-    //     const fileIdsDeleted = [...existingPhotos, ...uploadedImagesURL].find((photo) => photo.file_id !== file_id);
-    //     const updatedFileIds = [...prev, fileIdsDeleted.file_id];
-    //     console.log(fileIdsDeleted, updatedFileIds, 'fileIdsDeleted');
-
-    //     setValue('file_ids', updatedFileIds);
-    //     return updatedFileIds;
-    //   });
-    // }
-
+  const removeImage = async (name: string, photoName: string, isFav: boolean | undefined, file_id?: string) => {
     let index = existingPhotos?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
       existingPhotos?.splice(index, 1);
-      setValue('file5Existing', existingPhotos);
+      if (isFav) {
+        const updatedPhotos = [...existingPhotos];
+        const videoTypeCondition = VideoAcceptType?.includes(
+          updatedPhotos[index]?.photoURL?.substring(updatedPhotos[index]?.photoURL?.lastIndexOf('.') + 1)
+        );
+
+        if (videoTypeCondition) {
+          const nextIndex = index + 1;
+          const nextItemCondition =
+            updatedPhotos[nextIndex] &&
+            VideoAcceptType?.includes(
+              updatedPhotos[nextIndex]?.photoURL?.substring(updatedPhotos[nextIndex]?.photoURL?.lastIndexOf('.') + 1)
+            );
+
+          if (!nextItemCondition && updatedPhotos[nextIndex]) {
+            updatedPhotos[nextIndex].isFavorite = true;
+          }
+        } else {
+          updatedPhotos[index].isFavorite = true;
+        }
+
+        setExistingPhotos(updatedPhotos);
+        setValue('file5Existing', existingPhotos);
+      }
     }
     index = uploadedImagesURL?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
       uploadedImagesURL?.splice(index, 1);
     }
-    const photoNameSplit = photoName?.split('[');
-    const nextPhoto = `${photoNameSplit[0]}[${photoNameSplit[1]}`;
-    setValue('is_favourite', nextPhoto);
-    console.log(nextPhoto, photoNameSplit[0], 'nextPhoto'); //only if it isd thumbnail image then only make next thumbnail
   };
 
   const handleChangeFile5Cords = (name: string, cords: string) => {
@@ -238,7 +242,7 @@ const ModelMultiplePhoto = ({
     const cordsChanged = workerPhotos.some((photo, index) => {
       return photo.cords !== values.file5Existing[index]?.cords;
     });
-    return cordsChanged || values?.file5 ? true : false;
+    return cordsChanged || values?.file5 || thumbnailImageId === undefined ? true : false;
   };
 
   useEffect(() => {

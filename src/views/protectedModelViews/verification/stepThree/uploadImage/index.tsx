@@ -112,6 +112,8 @@ const UploadImage = ({
   const [updated, setUpdated] = useState(false);
   const [imageWarningOpen, setImageWarningOpen] = useState(false);
 
+  const toNotValidate = pathname !== '/model/profile' && modelProfileStatus === PAYOUT_ACTION.APPROVE;
+
   const initialValuesPerStep: VerificationFormStep5TypeV2 = {
     file5: null as null | File[],
     cords5: null as null | string[],
@@ -173,12 +175,9 @@ const UploadImage = ({
   });
 
   const handlePhotoSubmit = async (values: VerificationFormStep5TypeV2) => {
-    console.log(values, 'valuesvalues');
-
     const deletedFileIds = workerPhotos
-      .filter((photo) => !values.file5Existing.some((existingPhoto) => existingPhoto.file_id === photo.file_id))
-      .map((photo) => photo.file_id);
-    console.log(deletedFileIds, 'deletedFileIds');
+      .filter((photo) => !values.file5Existing.some((existingPhoto) => existingPhoto?.file_id === photo?.file_id))
+      .map((photo) => photo?.file_id);
 
     setLoading(true);
     const allFiles: FileBody[] = [
@@ -229,7 +228,7 @@ const UploadImage = ({
             document_type: PHOTO_TYPE.MODEL_PHOTO,
             document_number: null,
             is_favourite: photo.favourite ? 1 : photo.isFavorite ? 1 : 0,
-            file_id: photo.file_id,
+            file_id: photo?.file_id,
             file_type: photo.file_type === 'non-image' ? 'Non_Image' : 'Image'
           }));
 
@@ -248,7 +247,7 @@ const UploadImage = ({
                 is_document: 0,
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
                 document_number: null,
-                file_id: x.file_id,
+                file_id: x?.file_id,
                 file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image',
                 document_front_side: 0
               });
@@ -266,7 +265,7 @@ const UploadImage = ({
                 is_document: 0,
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
                 document_number: null,
-                file_id: x.file_id,
+                file_id: x?.file_id,
                 file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image',
                 document_front_side: 0
               });
@@ -283,7 +282,6 @@ const UploadImage = ({
 
         if (deletedFileIds.length) {
           const data = await VerificationStepService.deleteMultipleImage(token.token, { file_ids: deletedFileIds });
-          console.log(data, 'datadatadata');
           if (data.code === 200) {
             handleModelApiChange();
           }
@@ -322,7 +320,7 @@ const UploadImage = ({
 
   return (
     <Formik
-      // validationSchema={validationSchema}
+      validationSchema={toNotValidate ? null : validationSchema}
       enableReinitialize
       initialValues={initialValuesPerStep}
       onSubmit={(values) => {
