@@ -63,7 +63,8 @@ const SORT_BY_OPTIONS: PaginationSortByOption[] = [
   { value: 'created_at', label: 'Newest' },
   { value: 'name', label: 'Name' },
   { value: 'email', label: 'Email' },
-  { value: 'last_active', label: 'last active' }
+  { value: 'last_active', label: 'Last active' },
+  { value: 'last_login', label: 'Last login' }
 ];
 
 const StatusOfPlan = [
@@ -443,6 +444,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                           </TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.created_at, '-')}</TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.last_active, '-')}</TableCell>
+                          <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.last_login, '-')}</TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{item?.verification_step}</TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{item?.email_verified === 0 ? 'No' : 'Yes'}</TableCell>
 
