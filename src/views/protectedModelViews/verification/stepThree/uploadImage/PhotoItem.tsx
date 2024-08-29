@@ -60,8 +60,6 @@ const PhotoItem = ({
   index: number;
   existingPhotos: UploadPhotos[];
 }) => {
-  console.log(values?.is_favourite, image.name, index, isFeaturePhoto, 'is_favourite');
-
   const [openRepositionModal, setOpenRepositionModal] = useState(false);
   const [croppedImage, setCroppedImage] = useState('');
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

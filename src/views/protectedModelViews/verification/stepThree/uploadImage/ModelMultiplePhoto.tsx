@@ -160,6 +160,7 @@ const ModelMultiplePhoto = ({
     image.isFavorite = true;
     image.name = favFile;
     image.id = undefined;
+    setValue('is_favourite', favFile);
   };
 
   const handleUploadPhotos = useCallback(
