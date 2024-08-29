@@ -1,3 +1,5 @@
+import { v4 } from 'uuid';
+
 export const gaEventTrigger = (action: string, data: any, credits?: number) => {
   if (process.env.NEXT_PUBLIC_ENV === 'production') {
     if (window.gtag) {
@@ -18,8 +20,8 @@ export const gaEventTrigger = (action: string, data: any, credits?: number) => {
             ...data,
             value: credits,
             currency: 'USD',
-            transaction_id: 'V_526',
-            items: [{ name: 'Credits_Purchase_Success' }],
+            transaction_id: v4(),
+            items: [{ name: 'Credits_Purchase_Success', quantity: 1, price: credits }],
             item_name: 'Credits_Purchase_Success'
           };
         }

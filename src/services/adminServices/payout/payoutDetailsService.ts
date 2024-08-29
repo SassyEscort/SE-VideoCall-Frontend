@@ -28,14 +28,17 @@ export type payoutResponse = {
   message: string;
 };
 export class payoutDetailsService {
-  static getPayoutDetails = async (token: string, limit: number, offset: number): Promise<payoutResponse> => {
+  static getPayoutDetails = async (token: string, limit: number, offset: number, search_field?: string): Promise<payoutResponse> => {
     try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/payouts?limit=${limit}&offset=${offset}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token
+      const res = await axios.get(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/payouts?limit=${limit}&offset=${offset}&search_field=${search_field}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+          }
         }
-      });
+      );
 
       return res.data;
     } catch (err: any) {

@@ -17,6 +17,7 @@ export type ModelListing = {
   id: number;
   is_active: number;
   last_login: string;
+  last_active: string;
   name: string;
   profile_status: string;
   updated_at: string;
