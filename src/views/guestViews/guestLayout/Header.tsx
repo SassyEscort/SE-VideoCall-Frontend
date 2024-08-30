@@ -33,6 +33,7 @@ const HeaderGuestComponent = () => {
   const isSmaller = useMediaQuery('(max-width:320px)');
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
@@ -369,7 +370,7 @@ const HeaderGuestComponent = () => {
       {/* <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} /> */}
       <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
 
-      {isMdUp && (
+      {isSmUp && (
         <FreeCreditsSignUp
           open={openFreeCredit && Boolean(isFreeCreditAvailable)}
           onClose={handleFreeCreditClose}

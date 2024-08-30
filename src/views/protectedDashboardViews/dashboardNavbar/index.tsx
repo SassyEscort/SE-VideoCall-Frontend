@@ -57,6 +57,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+  const islgDown = useMediaQuery(theme.breakpoints.down('lg'));
   const isMdFix = useMediaQuery('(min-width:900px) and (max-width:1024px)');
 
   const [value, setValue] = useState(0);
@@ -93,7 +94,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
 
   return (
     <>
-      {isMdDown && (
+      {islgDown && (
         <Availability
           modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
           token={token}

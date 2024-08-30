@@ -44,7 +44,6 @@ import { gaEventTrigger } from 'utils/analytics';
 const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const [isModalOpenFreeCredits, setIsModalOpenFreeCredits] = useState(false);
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
@@ -225,10 +224,10 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
               />
             </Box>
           </BannerContainer>
-          {isMdDown && (
+          {isSmDown && (
             <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} onSignupOpen={handleFreeCreditSignupOpen} />
           )}{' '}
-          {isMdDown && isFreeCreditAvailable && !isModalOpenFreeCredits && (
+          {isSmDown && isFreeCreditAvailable && !isModalOpenFreeCredits && (
             <Box sx={{ position: 'relative', cursor: 'pointer' }} onClick={handleBoxClick}>
               <GiftBoxFirst></GiftBoxFirst>
               <GiftBoxSecond></GiftBoxSecond>

@@ -70,10 +70,10 @@ export const SecondSubFirstBox = styled(Box)(({ theme }) => ({
   height: '100%',
   maxHeight: '80px',
   [theme.breakpoints.up('sm')]: {
-    gap: theme.spacing(20.625)
+    gap: theme.spacing(11.875)
   },
   [theme.breakpoints.only('md')]: {
-    gap: theme.spacing(10)
+    gap: theme.spacing(5)
   },
   [theme.breakpoints.between(0, 725)]: {
     gap: theme.spacing(6)
@@ -99,11 +99,15 @@ export const SecondSubFirstPartBox = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(1.5),
-    maxWidth: '214px',
+    width: '100%',
+    maxWidth: '145px',
     flexDirection: 'column'
   },
   [theme.breakpoints.only('md')]: {
     maxWidth: '195px'
+  },
+  '@media (max-width: 320px)': {
+    maxWidth: '108px'
   }
 }));
 
@@ -222,7 +226,7 @@ export const CallAgainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   marginTop: theme.spacing(2),
   [theme.breakpoints.down('sm')]: {
-    marginTop: theme.spacing(5),
+    marginTop: theme.spacing(4),
     justifyContent: 'end'
   },
   [theme.breakpoints.up('sm')]: {

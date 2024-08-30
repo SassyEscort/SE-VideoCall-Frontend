@@ -763,6 +763,9 @@
   "FREECall": "Get 1 minute of Free Call",
   "PaymentsWillBeMadeEvery": "Payments will be made every 15th and 30th of the month.",
   "ForAnyHelpAndSupport": "For any help and support,",
-  "PleaseUploadAtLeast1Photo": "Please upload at least 1 photo",
-  "Review": "review"
+  "Review": "review",
+  "Get1MinutOf": "Get 1 minute of",
+  "Free": "Free",
+  "Call": "Call",
+  "PleaseUploadAtLeast1Photo": "Please upload at least 1 photo"
 }
