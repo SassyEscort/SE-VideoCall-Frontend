@@ -1,7 +1,7 @@
 'use client';
 import { MenuItem } from '@mui/material';
 import { SidebarDropDownMainContainer } from '../sidebarDropDown/SidebarDropDown.styled';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { FormattedMessage } from 'react-intl';
@@ -44,7 +44,7 @@ const EarningsModelProfileConatiner = ({ token }: { token: TokenIdType }) => {
             </FiveBox>
             <SidebarDropDownMainContainer>
               {EarningHistoryMenuList?.map((list, index) => (
-                <>
+                <React.Fragment key={index}>
                   <MenuItem onClick={() => handleMenu(list.id)} key={index} sx={{ paddingLeft: '0', py: '12px' }}>
                     {menuId === index ? (
                       <UINewTypography variant="buttonLargeMenu" color="primary.400">
@@ -55,7 +55,7 @@ const EarningsModelProfileConatiner = ({ token }: { token: TokenIdType }) => {
                     )}
                   </MenuItem>
                   {index !== EarningHistoryMenuList.length - 1 && <FristDivider orientation="horizontal" flexItem />}
-                </>
+                </React.Fragment>
               ))}
             </SidebarDropDownMainContainer>
           </ForBox>
