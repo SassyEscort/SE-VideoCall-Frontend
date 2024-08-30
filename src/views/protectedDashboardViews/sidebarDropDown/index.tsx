@@ -93,6 +93,7 @@ const MobileSidebar = ({
             handleModelApiChange={handleModelApiChange}
             handleNext={handleSave}
             isReviewEdit={false}
+            modelProfileStatus={modelDetails?.profile_status ?? ''}
           />
         </Box>
       ) : menuId === 1 ? (

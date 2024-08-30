@@ -158,7 +158,7 @@
   "Documents": "Documentos",
   "IdFront": "ID frontal",
   "UploadPhotos": "Por favor, sube tus fotos o videos recientes",
-  "UploadPics": "Sube tus fotos (mínimo 2 y máximo 30)",
+  "UploadPics": "Sube tus fotos (mínimo 1 y máximo 30)",
   "UploadPicDesc": "Al subir fotos, adhiérete a una relación de aspecto de 3:4 como 600px por 800px para la vista en miniatura. Asegúrate de una resolución mínima de 600 X 600 píxeles para claridad. Recuerda que las imágenes clicadas se mostrarán en sus proporciones originales. Siempre puedes agregar más fotos más tarde a través de tu perfil.",
   "FeaturePhotos": "Fotos destacadas",
   "Gallery": "Galería (máximo 30 fotos)",
@@ -179,7 +179,7 @@
   "RecentWithdrawls": "Retiros recientes",
   "ToSiliconValleyBank": "Al banco Silicon Valley",
   "ShowTracking": "Mostrar seguimiento",
-  "PleaseUpload": "Por favor, suba al menos 2 fotos",
+  "PleaseUpload": "Por favor, suba al menos 1 foto",
   "LetStartWith": "Comencemos con tus detalles básicos.",
   "HowdoIFindThe": "¿Cómo encuentro el modelo adecuado para mí?",
   "WithOurIntuitiveSearchAnd": "Con nuestras herramientas intuitivas de búsqueda y filtrado, encontrar tu coincidencia es simple. Puedes filtrar modelos por intereses, idiomas hablados, ubicación y más para encontrar a alguien que cumpla con tus preferencias.",
@@ -762,5 +762,8 @@
   "Review": "revisar",
   "Get1MinutOf": "Obtén 1 minuto de",
   "Free": "Gratis",
-  "Call": "Llamar"
+  "Call": "Llamar",
+  "PleaseUploadAtLeast1Photo": "Por favor, sube al menos 1 foto",
+  "AreYouSureImageDelete": "¿Estás seguro de que deseas eliminar todas las imágenes? Si es así, no recibirás ninguna llamada.",
+  "ImagesDelete": "Eliminar imágenes"
 }
