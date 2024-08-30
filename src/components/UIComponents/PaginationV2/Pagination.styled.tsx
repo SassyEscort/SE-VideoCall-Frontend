@@ -24,8 +24,7 @@ export const UITheme2Pagination = styled(({ ...props }: PaginationProps) => <Pag
     },
     '& ul > li:last-child button': {
       color: theme.palette.common.white,
-      display: page === count ? 'none' : 'flex',
-      backgroundColor: 'red'
+      display: page === count ? 'none' : 'flex'
     },
 
     '& ul > li:first-child button': {
