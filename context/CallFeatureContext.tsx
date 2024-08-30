@@ -554,7 +554,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           modelCreditPrice={Number(modelCreditPrice)}
         />
       </ModelCreditsUIStyledDialog>
-      <UIStyledDialog open={openSuccess} maxWidth="md" fullWidth>
+      <UIStyledDialog open={openSuccess} maxWidth="md" fullWidth scroll="body">
         <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} isOutOfCredits={isOutOfCredits} />
       </UIStyledDialog>
     </CallContext.Provider>

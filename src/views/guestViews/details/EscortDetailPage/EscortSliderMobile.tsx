@@ -251,10 +251,10 @@ const EscortSliderMobile = ({
           </UIStyledShadowButtonLike>
         </Box>
       </Box>
-      <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+      <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth scroll="body">
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
       </UIStyledDialog>
-      <UIStyledDialog open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
+      <UIStyledDialog open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth scroll="body">
         <GuestLogin
           isFreeCreditAvailable={isFreeCreditAvailable}
           onClose={handleLoginClose}
@@ -267,7 +267,7 @@ const EscortSliderMobile = ({
           image="/images/auth/auth-model1.webp"
         />
       </UIStyledDialog>
-      <UIStyledDialog open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
+      <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
       <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>

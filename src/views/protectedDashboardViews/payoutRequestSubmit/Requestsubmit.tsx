@@ -14,6 +14,7 @@ import {
 } from './PayoutRequestSubmit.styled';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import Link from 'next/link';
 const Requestsubmit = ({ handlePayoutStepSubmit }: { handlePayoutStepSubmit?: (step: number) => void }) => {
   const handleClose = () => {
     if (handlePayoutStepSubmit) {
@@ -51,9 +52,11 @@ const Requestsubmit = ({ handlePayoutStepSubmit }: { handlePayoutStepSubmit?: (s
                     <FormattedMessage id="PaymentsWillBeMadeEvery" />
                   </Box>
                   <FormattedMessage id="ForAnyHelpAndSupport" />{' '}
-                  <Box component={'span'} sx={{ color: 'primary.600' }}>
-                    <FormattedMessage id="ContactAdmin" />
-                  </Box>
+                  <Link href="mailto:support@flirtbate.com">
+                    <Box component={'span'} sx={{ color: 'primary.600', cursor: 'pointer' }}>
+                      <FormattedMessage id="ContactAdmin" />
+                    </Box>
+                  </Link>
                 </UINewTypographyYourTheRequestWill>
               </FiveBox>
             </ForBox>

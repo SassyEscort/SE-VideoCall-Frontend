@@ -512,7 +512,6 @@ const VerificationBasicDetails = ({
                 }}
                 filterOptions={(options, params) => {
                   const filtered = filter(options, params);
-
                   const customOptions = filtered?.map((option) => {
                     if (typeof option === 'string') {
                       return { id: '', name: option };
@@ -521,7 +520,12 @@ const VerificationBasicDetails = ({
                     }
                   });
 
-                  if (params.inputValue !== '') {
+                  if (
+                    params.inputValue !== '' &&
+                    !filtered.some(
+                      (option) => (typeof option === 'string' ? option : option.name).toLowerCase() === params.inputValue.toLowerCase()
+                    )
+                  ) {
                     customOptions.push({
                       id: '',
                       name: params.inputValue.charAt(0).toUpperCase() + params.inputValue.slice(1),
@@ -585,7 +589,12 @@ const VerificationBasicDetails = ({
                 }
               });
 
-              if (params.inputValue !== '') {
+              if (
+                params.inputValue !== '' &&
+                !filtered.some(
+                  (option) => (typeof option === 'string' ? option : option.name).toLowerCase() === params.inputValue.toLowerCase()
+                )
+              ) {
                 customOptions.push({
                   id: '',
                   name: params.inputValue.charAt(0).toUpperCase() + params.inputValue.slice(1),

@@ -210,10 +210,10 @@ const HomeImageCard = ({
               </NotFoundModelBox>
             )}
       </WorkerCardMainBox>
-      <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+      <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
       </UIStyledDialog>
-      <UIStyledDialog open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
+      <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
         <GuestLogin
           isFreeCreditAvailable={isFreeCreditAvailable}
           onClose={handleLoginClose}
@@ -226,7 +226,7 @@ const HomeImageCard = ({
           image="/images/auth/auth-model1.webp"
         />
       </UIStyledDialog>
-      <UIStyledDialog open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
+      <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
       <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
