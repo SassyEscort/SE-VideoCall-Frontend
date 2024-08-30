@@ -145,6 +145,18 @@ const EarningOverview = () => {
                         onChange={(e) => handleDateChange(e as Moment, 'from')}
                         format="YYYY-MM-DD"
                         maxDate={toDate!}
+                        slotProps={{
+                          calendarHeader: {
+                            sx: {
+                              '& .MuiPickersArrowSwitcher-button': {
+                                color: 'white.main'
+                              },
+                              '& .MuiPickersCalendarHeader-switchViewIcon': {
+                                color: 'white.main'
+                              }
+                            }
+                          }
+                        }}
                       />
                     </ProfileDOBox>
                     <ProfileDOBox>
@@ -153,6 +165,18 @@ const EarningOverview = () => {
                         onChange={(e) => handleDateChange(e as Moment, 'to')}
                         format="YYYY-MM-DD"
                         minDate={fromDate!}
+                        slotProps={{
+                          calendarHeader: {
+                            sx: {
+                              '& .MuiPickersArrowSwitcher-button': {
+                                color: 'white.main'
+                              },
+                              '& .MuiPickersCalendarHeader-switchViewIcon': {
+                                color: 'white.main'
+                              }
+                            }
+                          }
+                        }}
                       />
                     </ProfileDOBox>
                   </ProfileDOBoxMain>
