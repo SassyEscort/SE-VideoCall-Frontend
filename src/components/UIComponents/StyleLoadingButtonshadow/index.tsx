@@ -110,7 +110,12 @@ export const UIStyledLoadingButtonShadowCallHistory = styled(LoadingButton)(({ t
   fontWeight: 700,
   color: '#290F1E',
   '&.MuiButton-root': {
-    height: '48px',
+    [theme.breakpoints.down('sm')]: {
+      height: '36px'
+    },
+    [theme.breakpoints.up('sm')]: {
+      height: '48px'
+    },
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.primary[200],
     boxShadow: '0px 0px 32px 8px #FF68C07A'
@@ -118,7 +123,14 @@ export const UIStyledLoadingButtonShadowCallHistory = styled(LoadingButton)(({ t
   [theme.breakpoints.up('sm')]: {
     '&.MuiButton-root': {
       width: '100%',
-      maxWidth: '173px !important'
+      maxWidth: '220px !important'
+    }
+  },
+
+  [theme.breakpoints.down('sm')]: {
+    '&.MuiButton-root': {
+      width: '100%',
+      maxWidth: '160px !important'
     }
   },
 

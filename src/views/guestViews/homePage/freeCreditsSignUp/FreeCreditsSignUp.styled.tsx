@@ -103,6 +103,9 @@ export const ButtonContainer = styled(UIThemeShadowButton)(({ theme }) => ({
 }));
 
 export const HeaderTextContainer = styled(Typography)(({ theme }) => ({
+  fontSize: '32px',
+  fontWeight: '700',
+  lineHeight: '44.8px',
   background: 'linear-gradient(90deg, #FBA631, #FFFFFF)',
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',

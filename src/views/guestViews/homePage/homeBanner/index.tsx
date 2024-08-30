@@ -225,10 +225,10 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
               />
             </Box>
           </BannerContainer>
-          {isMdDown && (
+          {isSmDown && (
             <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} onSignupOpen={handleFreeCreditSignupOpen} />
           )}{' '}
-          {isMdDown && isFreeCreditAvailable && !isModalOpenFreeCredits && (
+          {isSmDown && isFreeCreditAvailable && !isModalOpenFreeCredits && (
             <Box sx={{ position: 'relative', cursor: 'pointer' }} onClick={handleBoxClick}>
               <GiftBoxFirst></GiftBoxFirst>
               <GiftBoxSecond></GiftBoxSecond>

@@ -12,16 +12,16 @@ export const UITheme2Pagination = styled(({ ...props }: PaginationProps) => <Pag
     alignItems: 'center',
     cursor: 'pointer',
 
-    '& ul > li:last-child': {
-      '@media (max-width: 425px)': {
-        paddingTop: '8px'
-      }
-    },
-    '& ul > li:nth-last-child(-n+2)': {
-      '@media (max-width: 375px)': {
-        paddingTop: '8px'
-      }
-    },
+    // '& ul > li:last-child': {
+    //   '@media (max-width: 425px)': {
+    //     paddingTop: '8px'
+    //   }
+    // },
+    // '& ul > li:nth-last-child(-n+2)': {
+    //   '@media (max-width: 375px)': {
+    //     paddingTop: '8px'
+    //   }
+    // },
     '& ul > li:last-child button': {
       color: theme.palette.common.white,
       display: page === count ? 'none' : 'flex'

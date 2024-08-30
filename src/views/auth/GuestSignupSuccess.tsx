@@ -2,6 +2,7 @@ import { Typography } from '@mui/material';
 import {
   AuthSignupSuccessMainContainer,
   FirstImgAuthSignupSuccessContainer,
+  HeaderTextContainer,
   SecContainerAuthSignupSuccessContainer,
   SecImgAuthSignupSuccessContainer,
   SubContainerAuthSignupSuccessContainer,
@@ -20,9 +21,9 @@ const GuestSignupSuccess = ({ redirectSeconds }: { redirectSeconds: number }) =>
         </SubContainerAuthSignupSuccessContainer>
         <TextContainerAuthSignupSuccessContainer>
           <TextSubContainerAuthSignupSuccessContainer>
-            <Typography variant="h5" color="text.secondary" sx={{ width: '100%', maxWidth: '443px' }}>
+            <HeaderTextContainer color="text.secondary" sx={{ width: '100%' }}>
               <FormattedMessage id="You’reOneStepCloser" />
-            </Typography>
+            </HeaderTextContainer>
           </TextSubContainerAuthSignupSuccessContainer>
           <Typography variant="bodySmall" color="text.secondary">
             <FormattedMessage id="PleaseWaitABit" />

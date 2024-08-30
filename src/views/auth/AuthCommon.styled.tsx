@@ -154,3 +154,13 @@ export const ModelUITextConatiner = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column'
 }));
+
+export const HeaderTextContainer = styled(UINewTypography)(() => ({
+  fontSize: '24px',
+  fontWeight: '700',
+  lineHeight: '36px',
+  '@media (max-width: 320px)': {
+    fontSize: '19px',
+    lineHeight: '25px'
+  }
+}));
