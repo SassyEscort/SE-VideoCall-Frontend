@@ -162,8 +162,8 @@ const UploadImage = ({
           if (invalidSizeFiles.length > 0) {
             return this.createError({ message: intl.formatMessage({ id: 'PhotoVideoShouldBeLessThan5MB' }), path: 'file5' });
           }
-          if (combinedLength < 2) {
-            return this.createError({ message: intl.formatMessage({ id: 'PleaseUploadAtLeast2Photos' }), path: 'file5' });
+          if (combinedLength < 1) {
+            return this.createError({ message: intl.formatMessage({ id: 'PleaseUploadAtLeast1Photo' }), path: 'file5' });
           }
           if (combinedLength > 30) {
             return this.createError({ message: intl.formatMessage({ id: 'SorryYoucanUpload30PicturesOnly' }), path: 'file5' });

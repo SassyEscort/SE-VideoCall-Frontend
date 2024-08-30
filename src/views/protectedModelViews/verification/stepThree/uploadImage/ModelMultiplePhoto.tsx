@@ -102,7 +102,7 @@ const ModelMultiplePhoto = ({
           if (!nextItemCondition && updatedPhotos[nextIndex]) {
             updatedPhotos[nextIndex].isFavorite = true;
           }
-        } else {
+        } else if (existingPhotos.length) {
           updatedPhotos[index].isFavorite = true;
         }
 
