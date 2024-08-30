@@ -101,6 +101,7 @@ const ModelProfileContainer = ({
               handleModelApiChange={handleModelApiChange}
               handleNext={handleSave}
               isReviewEdit={false}
+              modelProfileStatus={modelDetails?.profile_status ?? ''}
             />
           ) : menuId === 1 ? (
             <VerificationStepOne

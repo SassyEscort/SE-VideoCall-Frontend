@@ -158,7 +158,7 @@
   "Documents": "Documents",
   "IdFront": "ID",
   "UploadPhotos": "Please upload your recent photos or videos",
-  "UploadPics": "Upload your photos (minimum 2 and maximum 30)",
+  "UploadPics": "Upload your photos (minimum 1 and maximum 30)",
   "UploadPicDesc": "When uploading photos, adhere to a 3:4 ratio like 600px by 800px for the thumbnail view. Ensure a minimum resolution of 600 X 600 pixels for clarity. Remember that clicked images will display in their original ratios. You can always add more photos later through your profile.",
   "FeaturePhotos": "Feature Photos",
   "Gallery": "Gallery (maximum 30 photos)",
@@ -179,7 +179,7 @@
   "RecentWithdrawls": "Recent withdrawls",
   "ToSiliconValleyBank": "To silicon valley bank",
   "ShowTracking": "Show tracking",
-  "PleaseUpload": "Please upload at least 2 photos",
+  "PleaseUpload": "Please upload at least 1 photo",
   "LetStartWith": "Let’s start with your basic details",
   "HowdoIFindThe": "How do I find the right model for me?",
   "WithOurIntuitiveSearchAnd": "With our intuitive search and filter tools, finding your match is simple. You can filter models by interests,languages spoken, location, and more to find someone who meets your preferences.",
@@ -618,6 +618,8 @@
   "IDFront": "ID front",
   "IDBack": "ID back",
   "CurrentlyOffline": "is currently offline",
+  "AreYouSureImageDelete": "Are you sure you want to delete all images? If so then you wont be receiving any calls. ",
+  "ImagesDelete": "Images Delete",
   "YourWallet": "Your wallet amount is less than the minimum withdrawal amount",
   "InvalidEmail": "Invalid email or password",
   "SomethingWent": "Something went wrong! Please try again",
@@ -761,5 +763,6 @@
   "FREECall": "Get 1 minute of Free Call",
   "PaymentsWillBeMadeEvery": "Payments will be made every 15th and 30th of the month.",
   "ForAnyHelpAndSupport": "For any help and support,",
+  "PleaseUploadAtLeast1Photo": "Please upload at least 1 photo",
   "Review": "review"
 }

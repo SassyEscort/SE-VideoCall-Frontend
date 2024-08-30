@@ -259,6 +259,7 @@ const VerificationContainer = () => {
           handlePrevVerificationStep={handlePrev}
           isReviewEdit={isReviewEdit}
           handleEdit={handleEdit}
+          modelProfileStatus={modelDetails?.profile_status ?? ''}
         />
       )}
       {activeStep === 3 && (

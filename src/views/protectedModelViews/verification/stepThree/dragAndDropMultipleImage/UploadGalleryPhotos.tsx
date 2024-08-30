@@ -62,10 +62,11 @@ const UploadGalleryPhotos = ({ setValue, name, accept, values, handleUploadPhoto
   const handleSelect = useCallback(
     (arrFiles: File[]) => {
       const data = { ...values! };
-
       arrFiles.forEach((file) => {
-        if (!data.file5) data.file5 = [];
-        if ([...data.file5, ...data.file5Existing].filter((x) => x !== undefined && x !== null).length <= 30) {
+        if (!data.file5) {
+          data.file5 = [];
+        }
+        if ([...data.file5, ...data.file5Existing].filter((x) => x !== undefined || x !== null).length <= 30) {
           data.file5.push(file);
         }
       });
