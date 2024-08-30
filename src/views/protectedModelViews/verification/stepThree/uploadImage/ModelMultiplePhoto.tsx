@@ -24,6 +24,7 @@ import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { sortExistingPhotos } from 'utils/photoUtils';
 import { ModelMultipleBoxContainer } from './RepositionPhoto.styled';
+import ImageDeleteWarning from './ImageDeleteWarning';
 
 export type UploadMultiplePhotos = {
   errors: FormikErrors<VerificationFormStep5TypeV2>;
@@ -41,6 +42,9 @@ export type UploadMultiplePhotos = {
   handleModelApiChange: () => void;
   loading: boolean;
   handelChangedIsUpdated?: () => void;
+  handleImageWarningClose: () => void;
+  imageWarningOpen: boolean;
+  handlePhotoSubmit: (values: VerificationFormStep5TypeV2) => Promise<void>;
 };
 export type UploadPhotos = {
   id?: number;
@@ -63,7 +67,10 @@ const ModelMultiplePhoto = ({
   isEdit,
   isUpdated,
   loading,
-  handelChangedIsUpdated
+  handelChangedIsUpdated,
+  handleImageWarningClose,
+  imageWarningOpen,
+  handlePhotoSubmit
 }: UploadMultiplePhotos) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -74,22 +81,34 @@ const ModelMultiplePhoto = ({
   const [uploadedImagesURL, setUploadedImagesURL] = useState<UploadPhotos[]>([]);
   const [thumbnailImageId, setThumbnailImageId] = useState<number | undefined>(undefined);
 
-  const removeImage = async (name: string, file_id?: string) => {
-    // if (file_id) {
-    //   try {
-    //     const response = await VerificationStepService.deleteImage(token.token, file_id);
-    //     if (response.code === 200) {
-    //       toast.success('Success');
-    //     }
-    //   } catch (error) {
-    //     toast.error(ErrorMessage);
-    //   }
-    // }
-
+  const removeImage = async (name: string, photoName: string, isFav: boolean | undefined, file_id?: string) => {
     let index = existingPhotos?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
       existingPhotos?.splice(index, 1);
-      setValue('file5Existing', existingPhotos);
+      if (isFav) {
+        const updatedPhotos = [...existingPhotos];
+        const videoTypeCondition = VideoAcceptType?.includes(
+          updatedPhotos[index]?.photoURL?.substring(updatedPhotos[index]?.photoURL?.lastIndexOf('.') + 1)
+        );
+
+        if (videoTypeCondition) {
+          const nextIndex = index + 1;
+          const nextItemCondition =
+            updatedPhotos[nextIndex] &&
+            VideoAcceptType?.includes(
+              updatedPhotos[nextIndex]?.photoURL?.substring(updatedPhotos[nextIndex]?.photoURL?.lastIndexOf('.') + 1)
+            );
+
+          if (!nextItemCondition && updatedPhotos[nextIndex]) {
+            updatedPhotos[nextIndex].isFavorite = true;
+          }
+        } else if (existingPhotos.length) {
+          updatedPhotos[index].isFavorite = true;
+        }
+
+        setExistingPhotos(updatedPhotos);
+        setValue('file5Existing', existingPhotos);
+      }
     }
     index = uploadedImagesURL?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
@@ -141,6 +160,7 @@ const ModelMultiplePhoto = ({
     image.isFavorite = true;
     image.name = favFile;
     image.id = undefined;
+    setValue('is_favourite', favFile);
   };
 
   const handleUploadPhotos = useCallback(
@@ -223,7 +243,7 @@ const ModelMultiplePhoto = ({
     const cordsChanged = workerPhotos.some((photo, index) => {
       return photo.cords !== values.file5Existing[index]?.cords;
     });
-    return cordsChanged || values?.file5 ? true : false;
+    return cordsChanged || values?.file5 || thumbnailImageId === undefined ? true : false;
   };
 
   useEffect(() => {
@@ -287,7 +307,7 @@ const ModelMultiplePhoto = ({
                       token={token}
                       image={photo}
                       isEdit={false}
-                      isFeaturePhoto={false}
+                      isFeaturePhoto={photo.isFavorite ?? false}
                       thumbnailImageId={thumbnailImageId}
                       height={height}
                       width={width}
@@ -297,6 +317,7 @@ const ModelMultiplePhoto = ({
                       handleClickThumbnailImageId={handleClickThumbnailImageId}
                       handleBlobThumbnail={handleBlobThumbnail}
                       index={index}
+                      existingPhotos={existingPhotos}
                     />
                   );
                 })}
@@ -331,6 +352,13 @@ const ModelMultiplePhoto = ({
           </StyleButtonV2>
         </UploadMultipleBox>
       )}
+      <ImageDeleteWarning
+        open={imageWarningOpen}
+        onClose={handleImageWarningClose}
+        handleSubmit={handlePhotoSubmit}
+        values={values}
+        handleCancel={handleCancel}
+      />
     </>
   );
 };

@@ -16,6 +16,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import { UploadButBoxContainer } from './RepositionPhoto.styled';
+import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 import { getErrorMessage } from 'utils/errorUtils';
 
 export type WorkerPhotos = {
@@ -80,6 +81,7 @@ export type VerificationStepUploadType = {
   isEdit: boolean;
   isReviewEdit: boolean;
   handleEdit?: (step: number) => void;
+  modelProfileStatus: string;
 };
 
 export interface ImagePayload {
@@ -100,12 +102,17 @@ const UploadImage = ({
   handleModelApiChange,
   isEdit,
   isReviewEdit,
-  handleEdit
+  handleEdit,
+  modelProfileStatus
 }: VerificationStepUploadType) => {
+  const { pathname } = window.location;
   const intl = useIntl();
 
   const [loading, setLoading] = useState(false);
   const [updated, setUpdated] = useState(false);
+  const [imageWarningOpen, setImageWarningOpen] = useState(false);
+
+  const toNotValidate = pathname !== '/model/profile' && modelProfileStatus === PAYOUT_ACTION.APPROVE;
 
   const initialValuesPerStep: VerificationFormStep5TypeV2 = {
     file5: null as null | File[],
@@ -131,7 +138,10 @@ const UploadImage = ({
           return true;
         };
 
-        if (file5Existing[0] && file5Existing[0].length >= 2) {
+        if (
+          (file5Existing[0] && file5Existing[0].length >= 1) ||
+          (modelProfileStatus === PAYOUT_ACTION.APPROVE && pathname !== '/model/profile')
+        ) {
           return schema.test('file-size-check', fileSizeCheck).notRequired();
         }
         return schema.test('file5-combined-length', function (this: Yup.TestContext<Yup.AnyObject>, value: File[]) {
@@ -152,8 +162,8 @@ const UploadImage = ({
           if (invalidSizeFiles.length > 0) {
             return this.createError({ message: intl.formatMessage({ id: 'PhotoVideoShouldBeLessThan5MB' }), path: 'file5' });
           }
-          if (combinedLength < 2) {
-            return this.createError({ message: intl.formatMessage({ id: 'PleaseUploadAtLeast2Photos' }), path: 'file5' });
+          if (combinedLength < 1) {
+            return this.createError({ message: intl.formatMessage({ id: 'PleaseUploadAtLeast1Photo' }), path: 'file5' });
           }
           if (combinedLength > 30) {
             return this.createError({ message: intl.formatMessage({ id: 'SorryYoucanUpload30PicturesOnly' }), path: 'file5' });
@@ -164,7 +174,11 @@ const UploadImage = ({
       })
   });
 
-  const handleSubmit = async (values: VerificationFormStep5TypeV2) => {
+  const handlePhotoSubmit = async (values: VerificationFormStep5TypeV2) => {
+    const deletedFileIds = workerPhotos
+      .filter((photo) => !values.file5Existing.some((existingPhoto) => existingPhoto?.file_id === photo?.file_id))
+      .map((photo) => photo?.file_id);
+
     setLoading(true);
     const allFiles: FileBody[] = [
       {
@@ -214,7 +228,7 @@ const UploadImage = ({
             document_type: PHOTO_TYPE.MODEL_PHOTO,
             document_number: null,
             is_favourite: photo.favourite ? 1 : photo.isFavorite ? 1 : 0,
-            file_id: photo.file_id,
+            file_id: photo?.file_id,
             file_type: photo.file_type === 'non-image' ? 'Non_Image' : 'Image'
           }));
 
@@ -233,7 +247,7 @@ const UploadImage = ({
                 is_document: 0,
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
                 document_number: null,
-                file_id: x.file_id,
+                file_id: x?.file_id,
                 file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image',
                 document_front_side: 0
               });
@@ -251,7 +265,7 @@ const UploadImage = ({
                 is_document: 0,
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
                 document_number: null,
-                file_id: x.file_id,
+                file_id: x?.file_id,
                 file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image',
                 document_front_side: 0
               });
@@ -266,19 +280,27 @@ const UploadImage = ({
           photos: uploadPhotos.filter((x) => x.link !== undefined)
         };
 
-        const response = await VerificationStepService.uploadModelPhotos(payload, token);
-
-        if (response.code === 200) {
-          handleModelApiChange();
-          setUpdated(true);
-          if (isReviewEdit && handleEdit) {
-            handleEdit(4);
-          } else {
-            handleNext();
+        if (deletedFileIds.length) {
+          const data = await VerificationStepService.deleteMultipleImage(token.token, { file_ids: deletedFileIds });
+          if (data.code === 200) {
+            handleModelApiChange();
           }
-        } else {
-          const errorMessage = getErrorMessage(response?.custom_code);
-          toast.error(intl.formatMessage({ id: errorMessage }));
+        }
+        if (payload.photos.length > 0) {
+          const response = await VerificationStepService.uploadModelPhotos(payload, token);
+
+          if (response.code === 200) {
+            handleModelApiChange();
+            setUpdated(true);
+            if (isReviewEdit && handleEdit) {
+              handleEdit(4);
+            } else {
+              handleNext();
+            }
+          } else {
+            const errorMessage = getErrorMessage(response?.custom_code);
+            toast.error(intl.formatMessage({ id: errorMessage }));
+          }
         }
       }
     } catch (error) {
@@ -292,13 +314,21 @@ const UploadImage = ({
     setUpdated(false);
   };
 
+  const handleImageWarningClose = () => {
+    setImageWarningOpen(false);
+  };
+
   return (
     <Formik
-      validationSchema={validationSchema}
+      validationSchema={toNotValidate ? null : validationSchema}
       enableReinitialize
       initialValues={initialValuesPerStep}
       onSubmit={(values) => {
-        handleSubmit(values);
+        if (values.file5 === null && !values.file5Existing.length && pathname !== '/model/profile') {
+          setImageWarningOpen(true);
+        } else {
+          handlePhotoSubmit(values);
+        }
       }}
     >
       {({ values, errors, touched, setFieldValue, handleSubmit }) => (
@@ -315,6 +345,9 @@ const UploadImage = ({
             errors={errors}
             touched={touched}
             workerPhotos={workerPhotos}
+            handleImageWarningClose={handleImageWarningClose}
+            imageWarningOpen={imageWarningOpen}
+            handlePhotoSubmit={handlePhotoSubmit}
           />
           <UploadButBoxContainer>
             <UploadBox>
