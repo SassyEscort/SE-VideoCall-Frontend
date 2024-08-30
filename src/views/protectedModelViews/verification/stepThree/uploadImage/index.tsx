@@ -140,6 +140,7 @@ const UploadImage = ({
 
         if (
           (file5Existing[0] && file5Existing[0].length >= 1) ||
+          toNotValidate ||
           (modelProfileStatus === PAYOUT_ACTION.APPROVE && pathname !== '/model/profile')
         ) {
           return schema.test('file-size-check', fileSizeCheck).notRequired();
@@ -320,7 +321,7 @@ const UploadImage = ({
 
   return (
     <Formik
-      validationSchema={toNotValidate ? null : validationSchema}
+      validationSchema={validationSchema}
       enableReinitialize
       initialValues={initialValuesPerStep}
       onSubmit={(values) => {
