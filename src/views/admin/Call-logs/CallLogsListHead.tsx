@@ -11,6 +11,7 @@ export default function CallLogsListHead() {
         <TableCell>Customer Name</TableCell>
         <TableCell>Customer Email</TableCell>
         <TableCell>Status</TableCell>
+        <TableCell>Call Created Date</TableCell>
         <TableCell>Credits Used</TableCell>
         <TableCell>Call Type</TableCell>
         <TableCell>Credits Per Minute</TableCell>

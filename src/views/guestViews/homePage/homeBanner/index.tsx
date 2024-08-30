@@ -102,10 +102,12 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
     gaEventTrigger('Signup_Button_clicked', { source: 'home_banner', category: 'Button' });
     setFreeSignupOpen(true);
     handleCloseModal();
+    setIsOpenLogin(false);
   };
 
   const handleFreeCreditSignupClose = () => {
     setFreeSignupOpen(false);
+    setIsOpenLogin(false);
   };
 
   const handleClickScroll = () => {

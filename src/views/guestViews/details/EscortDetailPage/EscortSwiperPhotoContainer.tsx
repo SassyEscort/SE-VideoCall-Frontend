@@ -43,6 +43,7 @@ const EscortSwiperPhotoContainer = ({
           width="100%"
           height="100%"
           controls={true}
+          controlsList="nodownload"
           sx={{
             objectFit: 'cover',
             maxHeight: isMain && !isMdDown ? 700 : isMdDown && !isMain ? '90px' : isMdDown && isMain ? 430 : 430

@@ -50,3 +50,8 @@ export enum DOCUMENT_UPLOAD_TYPE {
   ID_Card = 'ID Card',
   DRIVING_LICENSE = 'Driving License'
 }
+
+export enum DOCUMENT_UPLOAD_FILE_TYPE {
+  IMAGE = 'Image',
+  NON_IMAGE = 'Non_Image'
+}

@@ -29,6 +29,7 @@ import { callLogDataResponse, callLogsDetailsService } from 'services/adminServi
 import { debounce } from 'lodash';
 import { CALL_LOG_ACTION } from 'constants/payoutsConstants';
 import Link from 'next/link';
+import { formatFullDate } from 'utils/dateAndTime';
 
 export type PaginationType = {
   page: number;
@@ -235,6 +236,9 @@ export default function CallLogsContainer() {
                           )}
                         </TableCell>
                         <TableCell component="th" scope="row">
+                          {formatFullDate(item.created_at)}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
                           {item?.credits_used || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
@@ -244,10 +248,10 @@ export default function CallLogsContainer() {
                           {item?.credits_per_minute || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.rate_per_minute || '-'}
+                          {item.rate_per_minute ? `€${item.rate_per_minute.toFixed(2)}` : '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.amount_earned || '-'}
+                          {item.amount_earned ? `€${item.amount_earned.toFixed(2)}` : '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
                           {item?.start_time && item?.end_time
