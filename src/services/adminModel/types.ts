@@ -83,7 +83,7 @@ export type ModelFilterParams = {
 export type CustomerFilterParams = {
   limit: number;
   offset: number;
-  filter_text?: string;
+  search_field?: string;
   sort_order?: string;
   sort_field?: string;
 };

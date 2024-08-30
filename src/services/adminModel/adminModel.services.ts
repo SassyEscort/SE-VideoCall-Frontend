@@ -125,8 +125,8 @@ export class adminModelServices {
   };
   static getCustomerDetails = async (params: CustomerFilterParams, token: string): Promise<CustomerDetailsRes> => {
     let query = '';
-    if (params.filter_text) {
-      query += `&filter_text=${params.filter_text}`;
+    if (params.search_field) {
+      query += `&search_field=${params.search_field}`;
     }
     if (params.sort_order) {
       query += `&sort_order=${params.sort_order}`;
