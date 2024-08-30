@@ -9,7 +9,7 @@ import {
   PhotoUpload,
   ThumbnailPayload
 } from 'views/protectedModelViews/verification/stepThree/uploadImage';
-import { PHOTO_TYPE } from 'constants/workerVerification';
+import { DOCUMENT_UPLOAD_FILE_TYPE, PHOTO_TYPE } from 'constants/workerVerification';
 import { GenericRes } from 'services/guestAuth/authuser.services';
 
 export const imageKitObj = {
@@ -55,7 +55,7 @@ export class VerificationStepService {
 
         imageRes = response.data.url;
         file_id = response.data.fileId;
-        file_type = response.data.fileType;
+        file_type = response.data.videoCodec === 'bmp' ? DOCUMENT_UPLOAD_FILE_TYPE.IMAGE : response.data.fileType;
       } else {
         imageRes = fileData;
       }
@@ -128,7 +128,7 @@ export class VerificationStepService {
             photosURL: responseData?.data?.url,
             type: data?.type,
             file_id: responseData.data.fileId,
-            file_type: responseData.data.fileType,
+            file_type: responseData.data.videoCodec === 'bmp' ? DOCUMENT_UPLOAD_FILE_TYPE.IMAGE : responseData.data.fileType,
             document_front_side: 0
           });
         }
