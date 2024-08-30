@@ -43,10 +43,18 @@ export type callLogsResponse = {
   message: string;
 };
 export class callLogsDetailsService {
-  static getCallLogsDetails = async (token: string, limit: number, offset: number, search_field?: string): Promise<callLogsResponse> => {
+  static getCallLogsDetails = async (
+    token: string,
+    limit: number,
+    offset: number,
+    search_field?: string,
+    from_date?: string,
+    to_date?: string
+  ): Promise<callLogsResponse> => {
     try {
       const res = await axios.get(
-        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/analytics/call-logs?limit=${limit}&offset=${offset}&search_field=${search_field}`,
+        process.env.NEXT_PUBLIC_API_BASE_URL +
+          `/v1/admin/analytics/call-logs?limit=${limit}&offset=${offset}&search_field=${search_field}&from_date=${from_date}&to_date=${to_date}`,
         {
           headers: {
             'Content-Type': 'application/json',
