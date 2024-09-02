@@ -1,7 +1,7 @@
 'use client';
 import { MenuItem, Divider } from '@mui/material';
 import { LoadingBoxFullScreen, SidebarDropDownMainContainer } from '../sidebarDropDown/SidebarDropDown.styled';
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import UploadImage from 'views/protectedModelViews/verification/stepThree/uploadImage';
@@ -69,7 +69,7 @@ const ModelProfileContainer = ({
             </Box>
             <SidebarDropDownMainContainer>
               {profileMenuList?.map((list, index) => (
-                <>
+                <React.Fragment key={index}>
                   <MenuItem onClick={() => handleMenu(list.id)} key={index} sx={{ paddingLeft: '0', py: '12px' }}>
                     {menuId === list.id ? (
                       <UINewTypography variant="buttonLargeMenu" color="primary.400">
@@ -82,7 +82,7 @@ const ModelProfileContainer = ({
                   {index !== profileMenuList.length - 1 && (
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                   )}
-                </>
+                </React.Fragment>
               ))}
             </SidebarDropDownMainContainer>
           </Box>
