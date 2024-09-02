@@ -85,28 +85,34 @@ const ModelMultiplePhoto = ({
     let index = existingPhotos?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
       existingPhotos?.splice(index, 1);
-      if (isFav) {
-        const updatedPhotos = [...existingPhotos];
+      let updatedPhotos = [...existingPhotos];
+      if (isFav && updatedPhotos.length) {
         const videoTypeCondition = VideoAcceptType?.includes(
           updatedPhotos[index]?.photoURL?.substring(updatedPhotos[index]?.photoURL?.lastIndexOf('.') + 1)
         );
 
-        if (videoTypeCondition) {
-          const nextIndex = index + 1;
-          const nextItemCondition =
-            updatedPhotos[nextIndex] &&
-            VideoAcceptType?.includes(
-              updatedPhotos[nextIndex]?.photoURL?.substring(updatedPhotos[nextIndex]?.photoURL?.lastIndexOf('.') + 1)
+        if ((updatedPhotos.length >= index && videoTypeCondition) || photoName.startsWith('file5Existing')) {
+          while (updatedPhotos[index]) {
+            const nextItemCondition = VideoAcceptType?.includes(
+              updatedPhotos[index]?.photoURL?.substring(updatedPhotos[index]?.photoURL?.lastIndexOf('.') + 1)
             );
 
-          if (!nextItemCondition && updatedPhotos[nextIndex]) {
-            updatedPhotos[nextIndex].isFavorite = true;
+            if (!nextItemCondition) {
+              updatedPhotos[index].isFavorite = true;
+              break;
+            }
+            index++;
           }
-        } else if (existingPhotos.length) {
+          if (updatedPhotos.length > index) {
+            updatedPhotos[index].isFavorite = true;
+          }
+          setExistingPhotos(updatedPhotos);
+        } else if (existingPhotos.length && !isFav) {
           updatedPhotos[index].isFavorite = true;
+          setExistingPhotos(updatedPhotos);
         }
-
-        setExistingPhotos(updatedPhotos);
+        setValue('file5Existing', existingPhotos);
+      } else {
         setValue('file5Existing', existingPhotos);
       }
     }
@@ -155,18 +161,27 @@ const ModelMultiplePhoto = ({
   };
 
   const handleBlobThumbnail = (id: number | undefined, image: UploadPhotos, photoIndex: number) => {
+    const updatedPhotos = uploadedImagesURL.map((item) => {
+      if (item.name === image.name) {
+        return { ...item, isFavorite: true };
+      } else {
+        return { ...item, isFavorite: false };
+      }
+    });
+    setUploadedImagesURL(updatedPhotos);
     const favFile = `file5[${photoIndex}]`;
     setThumbnailImageId(id);
     image.isFavorite = true;
     image.name = favFile;
     image.id = undefined;
     setValue('is_favourite', favFile);
+    setValue('favFileIndex', photoIndex);
   };
 
   const handleUploadPhotos = useCallback(
     (values: VerificationFormStep5TypeV2) => {
       const imageUrls: UploadPhotos[] = [];
-
+      const favFile = Number(values.is_favourite?.split('[')[1].split(']')[0]);
       if (values.file5) {
         values.file5.forEach((data, index) => {
           if (data) {
@@ -175,12 +190,21 @@ const ModelMultiplePhoto = ({
                 photoURL: 'video-' + URL.createObjectURL(data),
                 name: `file5[${index}]`
               });
+            } else if (thumbnailImageId === undefined) {
+              const favFileIndex = index + existingPhotos.length;
+              imageUrls.push({
+                photoURL: URL.createObjectURL(data),
+                name: `file5[${index}]`,
+                cords: (values.cords5 && values.cords5[index]) || '',
+                isFavorite: favFile === favFileIndex ? true : false,
+                is_favourite: values.is_favourite ? values.is_favourite : 'file5[0]'
+              });
             } else {
               imageUrls.push({
                 photoURL: URL.createObjectURL(data),
                 name: `file5[${index}]`,
                 cords: (values.cords5 && values.cords5[index]) || '',
-                isFavorite: index === 0 && thumbnailImageId === undefined ? true : false,
+                isFavorite: values.isFavorite && index === 0 && thumbnailImageId === undefined ? true : false,
                 is_favourite: values.is_favourite ? values.is_favourite : 'file5[0]'
               });
             }
