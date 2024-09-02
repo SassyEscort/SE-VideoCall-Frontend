@@ -269,6 +269,7 @@ const UploadImage = ({
         if (uploadFile5) {
           const favFile = Number(values.is_favourite?.split('[')[1].split(']')[0]);
           const favFileIndex = Number(values.favFileIndex);
+          const firstFav = Number(values.is_favourite?.split('[')[1].split(']')[0]);
 
           uploadFile5.forEach((x, i) => {
             const matchedCords = values.cords5?.[i];
@@ -277,7 +278,8 @@ const UploadImage = ({
                 link: x.link ? String(x.link) : String(x.photosURL),
                 type: 'file_5',
                 cords: matchedCords ?? '',
-                is_favourite: isExistingFav.length > 0 ? 0 : favFile === favFileIndex ? 1 : 0,
+                is_favourite:
+                  isExistingFav.length > 0 ? 0 : values.favFileIndex ? (favFile === favFileIndex ? 1 : 0) : firstFav === i ? 1 : 0,
                 is_document: 0,
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
                 document_number: null,
