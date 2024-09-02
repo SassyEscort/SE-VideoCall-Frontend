@@ -766,5 +766,11 @@
   "PleaseUploadAtLeast1Photo": "Por favor, sube al menos 1 foto",
   "AreYouSureImageDelete": "¿Estás seguro de que deseas eliminar todas las imágenes? Si es así, no recibirás ninguna llamada.",
   "ImagesDelete": "Eliminar imágenes",
-  "BioShouldNotContainLinks": "La biografía no debe contener enlaces."
+  "BioShouldNotContainLinks": "La biografía no debe contener enlaces.",
+  "RatingAndReviews": "Calificación y reseñas",
+  "Skip": "Saltar",
+  "Post": "Correo",
+  "TotalRatingsReceived": "Calificaciones totales recibidas",
+  "TotalReviewsReceived": "Total de reseñas recibidas",
+  "YourRatingAndReviews": "Tu calificación y reseñas"
 }
