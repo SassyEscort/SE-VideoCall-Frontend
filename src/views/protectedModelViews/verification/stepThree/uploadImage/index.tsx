@@ -70,6 +70,7 @@ export type VerificationFormStep5TypeV2 = {
   file5Existing: WorkerPhotos[];
   isFavorite?: string;
   is_favourite?: string;
+  favFileIndex?: number;
 };
 
 export type VerificationStepUploadType = {
@@ -135,6 +136,14 @@ const UploadImage = ({
           if (invalidSizeFiles.length > 0) {
             return this.createError({ message: intl.formatMessage({ id: 'PhotoVideoShouldBeLessThan5MB' }), path: 'file5' });
           }
+
+          const isVideoThubnail = file5Existing[0]?.filter(
+            (x) => (x?.photoURL?.endsWith('mp4') || x?.photoURL?.endsWith('mov') || x?.photoURL?.endsWith('avi')) && x?.isFavorite
+          ).length;
+
+          if (isVideoThubnail) {
+            return this.createError({ message: intl.formatMessage({ id: 'VideoCannotBeUploadedForAThumbnailPhoto' }), path: 'file5' });
+          }
           return true;
         };
 
@@ -149,7 +158,11 @@ const UploadImage = ({
           const { file5Existing } = this.parent;
           if (value && value.filter((x) => x !== null).length > 0) {
             const firstFileIndex = value.findIndex((x) => x !== null);
-            const videoIndex = value.findIndex((file) => file && file.type === 'video/mp4');
+            const videoIndex = value.findIndex(
+              (file) =>
+                file &&
+                (file.type === 'video/mp4' || file.type === 'video/quicktime' || file.type === 'video/avi' || file.type === 'video/webm')
+            );
 
             if ((videoIndex > -1 && (firstFileIndex === -1 || videoIndex < firstFileIndex)) || videoIndex === 0) {
               return this.createError({ message: intl.formatMessage({ id: 'VideoCannotBeUploadedForAThumbnailPhoto' }), path: 'file5' });
@@ -253,8 +266,10 @@ const UploadImage = ({
                 document_front_side: 0
               });
           });
+        if (uploadFile5) {
+          const favFile = Number(values.is_favourite?.split('[')[1].split(']')[0]);
+          const favFileIndex = Number(values.favFileIndex);
 
-        if (uploadFile5)
           uploadFile5.forEach((x, i) => {
             const matchedCords = values.cords5?.[i];
             if (x.photosURL !== null)
@@ -262,7 +277,7 @@ const UploadImage = ({
                 link: x.link ? String(x.link) : String(x.photosURL),
                 type: 'file_5',
                 cords: matchedCords ?? '',
-                is_favourite: isExistingFav.length > 0 ? 0 : Number(values.is_favourite?.split('[')[1].split(']')[0]) === i ? 1 : 0,
+                is_favourite: isExistingFav.length > 0 ? 0 : favFile === favFileIndex ? 1 : 0,
                 is_document: 0,
                 document_type: PHOTO_TYPE.MODEL_PHOTO,
                 document_number: null,
@@ -271,7 +286,7 @@ const UploadImage = ({
                 document_front_side: 0
               });
           });
-
+        }
         const newReq = mutationImageUpload;
         newReq.uploadPhotos = uploadPhotos;
 
