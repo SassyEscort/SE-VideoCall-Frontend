@@ -767,5 +767,6 @@
   "Get1MinutOf": "Get 1 minute of",
   "Free": "Free",
   "Call": "Call",
-  "PleaseUploadAtLeast1Photo": "Please upload at least 1 photo"
+  "PleaseUploadAtLeast1Photo": "Please upload at least 1 photo",
+  "BioShouldNotContainLinks": "Bio should not contain links"
 }

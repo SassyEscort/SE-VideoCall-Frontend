@@ -765,5 +765,6 @@
   "Call": "Llamar",
   "PleaseUploadAtLeast1Photo": "Por favor, sube al menos 1 foto",
   "AreYouSureImageDelete": "¿Estás seguro de que deseas eliminar todas las imágenes? Si es así, no recibirás ninguna llamada.",
-  "ImagesDelete": "Eliminar imágenes"
+  "ImagesDelete": "Eliminar imágenes",
+  "BioShouldNotContainLinks": "La biografía no debe contener enlaces."
 }

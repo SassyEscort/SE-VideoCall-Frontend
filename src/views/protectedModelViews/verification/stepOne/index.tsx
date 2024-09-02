@@ -80,7 +80,14 @@ const VerificationStepOne = ({
     country_id: Yup.string()
       .required('Countryisrequired')
       .test('is-not-zero', 'Countryisrequired', (value) => value !== '0'),
-    bio: Yup.string().required('Bioisrequired').min(50, 'Bioshouldbeatleast50characters').max(1000, 'Bioshouldbeatmost1000characters')
+    bio: Yup.string()
+      .required('Bioisrequired')
+      .min(50, 'Bioshouldbeatleast50characters')
+      .max(1000, 'Bioshouldbeatmost1000characters')
+      .test('no-links', 'BioShouldNotContainLinks', (value) => {
+        const linkPattern = /https?:\/\/[^\s]+/;
+        return !linkPattern.test(value || '');
+      })
   });
 
   const verifyEmail = useCallback(async () => {
