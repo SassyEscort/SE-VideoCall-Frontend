@@ -2,6 +2,11 @@
 import DashboardProfile from '..';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
+
+import { Box, useMediaQuery } from '@mui/material';
+import theme from 'themes/theme';
+import Image from 'next/image';
+import StyleBoostButton from 'components/UIComponents/StyleBoostButton';
 import {
   BoxImageBackgroundBoost,
   BoxImageBackgroundChildBoost,
@@ -13,11 +18,7 @@ import {
   SeconBoxContainerBoost,
   SecondBoostButtonBox,
   SecondBoxContainer
-} from './BoostProfile2.styled';
-import { Box, useMediaQuery } from '@mui/material';
-import theme from 'themes/theme';
-import Image from 'next/image';
-import StyleBoostButton from 'components/UIComponents/StyleBoostButton';
+} from './boostProfile.styled';
 
 const BoostProfile = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));

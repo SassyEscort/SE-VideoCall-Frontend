@@ -13,7 +13,7 @@ import {
   SupBox,
   UINewTypographyMissedCall,
   UINewTypographyMissedCallBox
-} from './BoostProfile.styled';
+} from './boostProfile.styled';
 import Checkbox from '@mui/material/Checkbox';
 import UIStyledShadowButtonLike from 'components/UIComponents/UIStyledShadowButtonLike';
 
