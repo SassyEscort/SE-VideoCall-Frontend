@@ -48,7 +48,8 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
     earnings: 2,
     payouts: 3,
     'help-info': 4,
-    'download-app': 5
+    'boost-profile': 5,
+    'download-app': 6
   };
 
   const modifiedPath = router.split('/model').join('').split('/').join('');
