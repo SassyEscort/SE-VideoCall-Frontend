@@ -88,6 +88,10 @@ const VerificationStepOne = ({
         const linkPattern = /https?:\/\/[^\s]+/;
         return !linkPattern.test(value || '');
       })
+      .test('no-four-consecutive-digits', 'BioShouldNotContainNumbers', (value) => {
+        const consecutiveDigitsPattern = /\d{4,}/;
+        return !consecutiveDigitsPattern.test(value || '');
+      })
   });
 
   const verifyEmail = useCallback(async () => {
