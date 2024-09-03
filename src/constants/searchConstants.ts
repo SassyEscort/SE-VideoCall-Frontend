@@ -35,3 +35,10 @@ export const FILTER_STATUS: MultipleOptions[] = [
   { id: '1', name: 'Online' },
   { id: '0', name: 'Offline' }
 ];
+
+export const RATING = [
+  { title: '4 stars', id: '4 stars' },
+  { title: '3 stars', id: '3 stars' },
+  { title: '2 stars', id: '2 stars' },
+  { title: '1 stars', id: '1 stars' }
+];
