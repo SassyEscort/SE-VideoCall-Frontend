@@ -100,6 +100,9 @@ const ModelMultiplePhoto = ({
             if (!nextItemCondition) {
               updatedPhotos[index].isFavorite = true;
               break;
+            } else if (nextItemCondition && existingPhotos.length === 1) {
+              updatedPhotos[index].isFavorite = true;
+              break;
             }
             index++;
           }
@@ -113,6 +116,7 @@ const ModelMultiplePhoto = ({
         }
         setValue('file5Existing', existingPhotos);
       } else {
+        setValue('file5', []);
         setValue('file5Existing', existingPhotos);
       }
     }
