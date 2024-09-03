@@ -151,7 +151,7 @@ const EarningOverview = () => {
                     <ProfileDOBox>
                       <CustomDatePicker
                         value={moment(toDate, 'YYYY-MM-DD')}
-                        maxDate={fromDate!}
+                        minDate={fromDate!}
                         keyName="to"
                         handleDateChange={handleDateChange}
                       />
