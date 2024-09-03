@@ -1,6 +1,6 @@
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import MenuItem from '@mui/material/MenuItem';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { DATE_DURATION_TYPE, dateDurationTypes } from 'constants/dateRange';
 import moment, { Moment } from 'moment';
@@ -8,11 +8,12 @@ import { StyledEarningSelectInputLabel, UIStyledSelectPastPayout } from 'compone
 import {
   ProfileDOBContainer,
   ProfileDOBMainContainer,
-  ProfileDOBox,
-  StyledDatePickerPayout
+  ProfileDOBox
 } from 'views/protectedDashboardViews/earningOverview/EarningOverview.styled';
 import { FormControlContainer, InvoiceBoxContainer, ProfileDOBoxContainer } from './status.styled';
 import { PaginationType } from '..';
+import { debounce } from 'lodash';
+import CustomDatePicker from 'components/common/CustomDatePicker';
 
 const InvoiceDate = ({ handleChangeFilter, filters }: { handleChangeFilter: (value: PaginationType) => void; filters: PaginationType }) => {
   const [periodType, setPeriodType] = useState(''); // Initialize with an empty string
@@ -26,19 +27,14 @@ const InvoiceDate = ({ handleChangeFilter, filters }: { handleChangeFilter: (val
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fromDate, toDate]);
 
-  const handleFromDateChange = (date: Moment) => {
+  const handleFromToDateChange = (date: Moment, dateType: string) => {
     if (date?.isValid()) {
-      handleChangeFilter({ ...filters, fromDate: date.format('YYYY-MM-DD') });
-      setFromDate(date);
+      dateType === 'from' ? setFromDate(date) : setToDate(date);
     }
   };
 
-  const handleToDateChange = (date: Moment) => {
-    if (date?.isValid()) {
-      handleChangeFilter({ ...filters, toDate: date.format('YYYY-MM-DD') });
-      setToDate(date);
-    }
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleDateChange = useCallback(debounce(handleFromToDateChange, 1000), []);
 
   const handleChangePeriodType = (value: string) => {
     setPeriodType(value);
@@ -98,19 +94,19 @@ const InvoiceDate = ({ handleChangeFilter, filters }: { handleChangeFilter: (val
           <ProfileDOBContainer>
             <ProfileDOBoxContainer>
               <ProfileDOBox>
-                <StyledDatePickerPayout
+                <CustomDatePicker
                   value={moment(fromDate, 'YYYY-MM-DD')}
-                  onChange={(date) => handleFromDateChange(date as Moment)}
-                  format="YYYY-MM-DD"
                   maxDate={toDate!}
+                  keyName="from"
+                  handleDateChange={handleDateChange}
                 />
               </ProfileDOBox>
               <ProfileDOBox>
-                <StyledDatePickerPayout
+                <CustomDatePicker
                   value={moment(toDate, 'YYYY-MM-DD')}
-                  onChange={(date) => handleToDateChange(date as Moment)}
-                  format="YYYY-MM-DD"
                   minDate={fromDate!}
+                  keyName="to"
+                  handleDateChange={handleDateChange}
                 />
               </ProfileDOBox>
             </ProfileDOBoxContainer>
