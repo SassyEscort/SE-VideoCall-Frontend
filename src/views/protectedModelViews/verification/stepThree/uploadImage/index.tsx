@@ -136,7 +136,7 @@ const UploadImage = ({
           const isVideoThubnail = file5Existing[0]?.filter(
             (x) => (x?.photoURL?.endsWith('mp4') || x?.photoURL?.endsWith('mov') || x?.photoURL?.endsWith('avi')) && x?.isFavorite
           ).length;
-          if (value && value.filter((x) => x !== null).length > 0) {
+          if (value && value.filter((x) => x !== null).length > 0 && !file5Existing.length) {
             const firstFileIndex = value.findIndex((x) => x !== null);
             const videoIndex = value.findIndex(
               (file) =>
