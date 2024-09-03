@@ -196,3 +196,13 @@ export const SecondBoostButtonBox = styled(Box)(() => ({
   maxWidth: '193px',
   position: 'relative'
 }));
+
+export const PaidFireImageBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  alignItems: 'center',
+  marginTop: theme.spacing(6),
+  gap: theme.spacing(2),
+  width: '100%'
+}));

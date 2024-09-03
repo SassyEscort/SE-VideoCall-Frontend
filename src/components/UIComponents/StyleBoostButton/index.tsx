@@ -26,10 +26,6 @@ const UIStyledBoostButton = styled(LoadingButton)(({ theme }) => ({
     color: '#FFF',
     fontSize: '16px'
   },
-  // '&.MuiButton-text, &.MuiButton-text:hover': {
-  //   backgroundColor: 'transparent',
-  //   color: '#FFF'
-  // },
   '&.MuiButton-outlinedWhite:hover': {
     backgroundColor: theme.palette.primary[800]
   },

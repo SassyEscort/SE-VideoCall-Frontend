@@ -785,5 +785,19 @@
   "HigherVisibility": "Higher visibility leads to more interactions and bookings.",
   "Flexibility": "Flexibility",
   "UseWhenIt": "Use when it suits you best, controlling when you receive maximum exposure.",
-  "1FreeBoostAvailable": "1 Free Boost Available"
+  "1FreeBoostAvailable": "1 Free Boost Available",
+  "St": "a",
+  "Nd": "a",
+  "Rd": "a",
+  "BoostProfile": "Potenciar perfil",
+  "IfYouMissCalls": "Si pierdes llamadas durante un impulso, tu perfil enfrentará períodos de enfriamiento:",
+  "MissedCall": "llamada perdida",
+  "RemovedFrom": "Eliminado de la cuadrícula de impulso por",
+  "5Mins": "5 min",
+  "10Mins": "10 min",
+  "ProfileGets": "El perfil obtiene",
+  "OfflineModel": "desconectado",
+  "IveRead": "He leído y estoy de acuerdo con las siguientes condiciones",
+  "ProfileBoosted": "Perfil potenciado por 2 horas",
+  "BoostPaidText": "Boost ="
 }
