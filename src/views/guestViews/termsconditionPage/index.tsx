@@ -205,6 +205,14 @@ const TermaAndCondition = () => {
               <FormattedMessage id="ToMaintainASafeAndRespectfulEnvironment" />
             </UINewTypography>
           </Box>
+          <Box>
+            <FirstTextContainer color="secondary.100">
+              16. <FormattedMessage id="FakePicturePolicy" />
+            </FirstTextContainer>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <FormattedMessage id="IfWeFoundSomeoneFakePicturePolicy" />
+            </UINewTypography>
+          </Box>
         </FirstBoxMainContainer>
       </HomeMainContainer>
     </TermsAndConditionMainContainer>

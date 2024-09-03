@@ -451,6 +451,7 @@
   "WeAreEntitledToInWhole": "Tenemos derecho a ceder total o parcialmente sus derechos y obligaciones bajo estos Términos y Condiciones a un tercero. No puede ceder estos Términos y condiciones a ninguna parte.",
   "IfAnyProvisionOfTheseTermsAndConditions": "Si alguna disposición de estos Términos y condiciones fuera inválida o inaplicable, en cualquier momento o en cualquier medida, el resto de estos Términos y condiciones no se verá afectado por ello. Cada disposición de estos Términos y condiciones será válida y aplicada en la máxima medida permitida por la ley.",
   "ToMaintainASafeAndRespectfulEnvironment": "Para mantener un entorno seguro y respetuoso, tiene estrictamente prohibido publicar contenido explícito en nuestra plataforma. Esto incluye, entre otros, material sexualmente explícito, desnudez y cualquier otro contenido que se considere inapropiado según nuestros estándares. Las violaciones de esta política pueden resultar en la suspensión o cancelación inmediata de la cuenta.",
+  "IfWeFoundSomeoneFakePicturePolicy": "Si descubrimos que alguien está usando una imagen falsa en su perfil, la cuenta se eliminará inmediatamente.",
   "Introduction": "Introducción",
   "TheServiceAndGeneralLimitationsOfUse": "El Servicio y Limitaciones Generales de Uso",
   "HowToAccessTheServiceAndYourAccount": "Cómo acceder al servicio y a su cuenta",
@@ -466,6 +467,7 @@
   "Assignment": "Asignación",
   "PartialInvalidity": "Invalidez parcial",
   "ProhibitedContent": "Contenido prohibido",
+  "FakePicturePolicy": "Política de imágenes falsas",
   "ExploreMoreModels": "Explorar más modelos",
   "StartVideoCallAgain": "Iniciar llamada de video nuevamente",
   "EarningsIn": "Ingresos en $",
@@ -772,5 +774,6 @@
   "Post": "Correo",
   "TotalRatingsReceived": "Calificaciones totales recibidas",
   "TotalReviewsReceived": "Total de reseñas recibidas",
-  "YourRatingAndReviews": "Tu calificación y reseñas"
+  "YourRatingAndReviews": "Tu calificación y reseñas",
+  "BioShouldNotContainNumbers": "La biografía no debe contener números."
 }

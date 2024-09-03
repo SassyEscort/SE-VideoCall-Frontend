@@ -65,8 +65,6 @@ const PhotoItem = ({
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [thumbnail, setThumbnail] = useState(false);
 
-  const favPhotoIndex = values?.is_favourite?.split('[')[1]?.split(']')[0];
-
   const open = Boolean(anchorEl);
   const videoTypeCondition =
     VideoAcceptType.includes(image?.photoURL?.substring(image?.photoURL?.lastIndexOf('.') + 1)) ||
@@ -201,9 +199,7 @@ const PhotoItem = ({
               />
             </Box>
           )}
-          {((thumbnailImageId !== undefined && image.id !== undefined && thumbnailImageId === image?.id) ||
-            (Number(favPhotoIndex) === index && thumbnailImageId === undefined) ||
-            isFeaturePhoto) && (
+          {((thumbnailImageId !== undefined && image.id !== undefined && thumbnailImageId === image?.id) || isFeaturePhoto) && (
             <Box sx={{ position: 'relative' }}>
               <DragAndDropMultipleImageThumbnailPhoto
                 sx={{

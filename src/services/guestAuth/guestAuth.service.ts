@@ -6,11 +6,14 @@ import { LoginParams } from 'views/auth/guestLogin';
 import { ResetPasswordEmailParams, ResetPasswordParams } from 'views/auth/guestNewPassword';
 import { SignupParams } from 'views/auth/guestSignup';
 import { GenericResDataCustom } from './authuser.services';
+import { generateDeviceSignature } from 'utils/getSessionData';
 
 export class GuestAuthService {
   static guestSignup = async (params: SignupParams) => {
     try {
-      const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/customer/signup`, params, {
+      const signature = await generateDeviceSignature();
+      const body = { ...params, device_signature: signature || '' };
+      const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/customer/signup`, body, {
         headers: { 'Content-Type': 'application/json' }
       });
 
