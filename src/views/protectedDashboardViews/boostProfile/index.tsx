@@ -13,7 +13,7 @@ import {
   SeconBoxContainerBoost,
   SecondBoostButtonBox,
   SecondBoxContainer
-} from './boostProfile.styled';
+} from './BoostProfile.styled';
 import { Box, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import Image from 'next/image';
