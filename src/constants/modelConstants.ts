@@ -21,7 +21,7 @@ export const DashboardModelTabs = [
   },
   {
     name: 'BoostYourProfile',
-    img: '/images/boostProfile/fire-icon.png',
+    img: '/images/boostProfile/fire-sidebar.png',
     path: '/model/boost-profile'
   },
   {

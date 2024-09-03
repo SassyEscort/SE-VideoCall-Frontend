@@ -770,5 +770,20 @@
   "Call": "Call",
   "PleaseUploadAtLeast1Photo": "Please upload at least 1 photo",
   "BioShouldNotContainLinks": "Bio should not contain links",
-  "BioShouldNotContainNumbers": "Bio should not contain numbers"
+  "BioShouldNotContainNumbers": "Bio should not contain numbers",
+  "HowDoesThisWork": "How does this work",
+  "InstantVisibility": "Instant Visibility",
+  "ActivateTheBoost": "Activate the Boost, and your profile will immediately rise to the top of the grid.",
+  "EachBoostlLsts": "Each Boost lasts for 2 hours, giving you ample time to shine during peak hours.",
+  "Duration2": "Duration",
+  "CostEffective": "Cost-Effective",
+  "ItsAnAffordable": "At $0.10 per Boost, it's an affordable way to inc. your chances of getting booked.",
+  "WhyUseProfileBoost": "Why use profile boost?",
+  "IncreasedExposure": "Increased Exposure",
+  "BeTheFirstProfile": "Be the first profile potential clients see.",
+  "MoreEngagements": "More Engagements",
+  "HigherVisibility": "Higher visibility leads to more interactions and bookings.",
+  "Flexibility": "Flexibility",
+  "UseWhenIt": "Use when it suits you best, controlling when you receive maximum exposure.",
+  "1FreeBoostAvailable": "1 Free Boost Available"
 }
