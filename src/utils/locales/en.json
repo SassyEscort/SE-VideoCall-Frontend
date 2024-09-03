@@ -799,5 +799,6 @@
   "OfflineModel": "desconectado",
   "IveRead": "He leído y estoy de acuerdo con las siguientes condiciones",
   "ProfileBoosted": "Perfil potenciado por 2 horas",
-  "BoostPaidText": "Boost ="
+  "BoostPaidText": "Boost =",
+  "StartBoost": "Start boost for 2 hours"
 }
