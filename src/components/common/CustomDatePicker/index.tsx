@@ -4,17 +4,18 @@ import { StyledDatePicker } from 'views/protectedDashboardViews/earningOverview/
 
 interface ICustomDatePicker {
   value: Moment;
-  handleDateChange: (e: Moment, type: string) => void;
-  maxDate: Moment | null;
   keyName: string;
+  handleDateChange: (e: Moment, type: string) => void;
+  maxDate?: Moment | null;
+  minDate?: Moment | null;
 }
-const CustomDatePicker = ({ handleDateChange, maxDate, value, keyName }: ICustomDatePicker) => {
+const CustomDatePicker = ({ handleDateChange, maxDate, minDate, value, keyName }: ICustomDatePicker) => {
   return (
     <StyledDatePicker
       value={moment(value, 'YYYY-MM-DD')}
       onChange={(e) => handleDateChange(e as Moment, keyName)}
       format="YYYY-MM-DD"
-      {...(keyName === 'to' && { minDate: maxDate! })}
+      {...(keyName === 'to' && { minDate: minDate! })}
       {...(keyName === 'from' && { maxDate: maxDate! })}
       slotProps={{
         calendarHeader: {
