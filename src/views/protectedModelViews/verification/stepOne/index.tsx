@@ -84,7 +84,6 @@ const VerificationStepOne = ({
       .required('Bioisrequired')
       .min(50, 'Bioshouldbeatleast50characters')
       .max(1000, 'Bioshouldbeatmost1000characters')
-      .matches(/^(?!.*\b\d{4,}\b).*$/, 'BioShouldNotContainNumbers')
       .test('no-links', 'BioShouldNotContainLinks', (value) => {
         const linkPattern = /https?:\/\/[^\s]+/;
         return !linkPattern.test(value || '');
