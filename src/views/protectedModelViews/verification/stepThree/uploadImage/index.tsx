@@ -133,20 +133,27 @@ const UploadImage = ({
         const fileSizeCheck = function (this: Yup.TestContext<Yup.AnyObject>, value: any[]) {
           const filteredFile5 = (value || []).filter((x) => x !== null);
           const invalidSizeFiles = filteredFile5.filter((file) => file && file.size >= MAX_FILE_SIZE);
-          if (invalidSizeFiles.length > 0) {
-            return this.createError({ message: intl.formatMessage({ id: 'PhotoVideoShouldBeLessThan5MB' }), path: 'file5' });
-          }
-
           const isVideoThubnail = file5Existing[0]?.filter(
             (x) => (x?.photoURL?.endsWith('mp4') || x?.photoURL?.endsWith('mov') || x?.photoURL?.endsWith('avi')) && x?.isFavorite
           ).length;
-
-          if (isVideoThubnail) {
+          if (value && value.filter((x) => x !== null).length > 0) {
+            const firstFileIndex = value.findIndex((x) => x !== null);
+            const videoIndex = value.findIndex(
+              (file) =>
+                file &&
+                (file.type === 'video/mp4' || file.type === 'video/quicktime' || file.type === 'video/avi' || file.type === 'video/webm')
+            );
+            if ((videoIndex > -1 && (firstFileIndex === -1 || videoIndex < firstFileIndex)) || videoIndex === 0) {
+              return this.createError({ message: intl.formatMessage({ id: 'VideoCannotBeUploadedForAThumbnailPhoto' }), path: 'file5' });
+            }
+          }
+          if (invalidSizeFiles.length > 0) {
+            return this.createError({ message: intl.formatMessage({ id: 'PhotoVideoShouldBeLessThan5MB' }), path: 'file5' });
+          } else if (isVideoThubnail) {
             return this.createError({ message: intl.formatMessage({ id: 'VideoCannotBeUploadedForAThumbnailPhoto' }), path: 'file5' });
           }
           return true;
         };
-
         if (
           (file5Existing[0] && file5Existing[0].length >= 1) ||
           toNotValidate ||
