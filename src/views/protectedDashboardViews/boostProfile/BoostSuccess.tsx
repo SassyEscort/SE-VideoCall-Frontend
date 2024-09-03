@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
-import { UINewTypographySuccessBoost } from './BoostProfile.styled';
+import { UINewTypographySuccessBoost } from './BoostProfile2.styled';
 
 const BoostSuccess = () => {
   return (
