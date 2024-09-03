@@ -180,76 +180,84 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     userName: string,
     modelPrice: string
   ) => {
-    gaEventTrigger('Video_call_initiated', {
-      action: 'Video_call_initiated',
-      category: 'Button',
-      label: 'Video_call_initiated',
-      value: JSON.stringify(customerInfo)
-    });
-    setModelCreditPrice(modelPrice);
-    setModelId(guestId);
-    setModelName(modelName);
-    setModelPhoto(modelPhoto);
-    const isModelAvailable = await ModelDetailsService.getModelDetails(token.token, isCustomer, userName);
-
-    if (guestId && isCreditAvailable && !call && Boolean(token.token) && isModelAvailable.data.is_online) {
-      const isModelBusy = await CallingService.getModelCallStatus(guestId, token.token);
-      if (isModelBusy.data.ongoing_calls) {
-        gaEventTrigger('Model_busy', {
-          action: 'Model_busy',
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      if (stream) {
+        gaEventTrigger('Video_call_initiated', {
+          action: 'Video_call_initiated',
           category: 'Button',
-          label: 'Model_busy',
+          label: 'Video_call_initiated',
           value: JSON.stringify(customerInfo)
         });
-        setIsBusy(true);
-      } else {
-        setIsLoading(true);
-        await init();
-        setEndCallTime(callTime);
-        const callObject = new CometChat.Call(
-          userName,
-          CometChatUIKitConstants.MessageTypes.video,
-          CometChatUIKitConstants.MessageReceiverType.user
-        );
-        const callInitiate = await CometChat.initiateCall(callObject);
-        setCall(callInitiate);
-        setSessionId(callInitiate.getSessionId());
-        setIsCallEnded(false);
-        await creditPutCallLog(guestId, callInitiate.getSessionId(), '');
-        setIsLoading(false);
+        setModelCreditPrice(modelPrice);
+        setModelId(guestId);
+        setModelName(modelName);
+        setModelPhoto(modelPhoto);
+
+        const isModelAvailable = await ModelDetailsService.getModelDetails(token.token, isCustomer, userName);
+
+        if (guestId && isCreditAvailable && !call && Boolean(token.token) && isModelAvailable.data.is_online) {
+          const isModelBusy = await CallingService.getModelCallStatus(guestId, token.token);
+          if (isModelBusy.data.ongoing_calls) {
+            gaEventTrigger('Model_busy', {
+              action: 'Model_busy',
+              category: 'Button',
+              label: 'Model_busy',
+              value: JSON.stringify(customerInfo)
+            });
+            setIsBusy(true);
+          } else {
+            setIsLoading(true);
+            await init();
+            setEndCallTime(callTime);
+            const callObject = new CometChat.Call(
+              userName,
+              CometChatUIKitConstants.MessageTypes.video,
+              CometChatUIKitConstants.MessageReceiverType.user
+            );
+            const callInitiate = await CometChat.initiateCall(callObject);
+            setCall(callInitiate);
+            setSessionId(callInitiate.getSessionId());
+            setIsCallEnded(false);
+            await creditPutCallLog(guestId, callInitiate.getSessionId(), '');
+            setIsLoading(false);
+          }
+        } else if (call) {
+          toast.error('Please end your ONGOING call');
+          setIsLoading(false);
+        } else if (!isModelAvailable.data.is_online) {
+          gaEventTrigger('Video_call_unanswered', {
+            action: 'Video_call_unanswered',
+            category: 'Button',
+            label: 'Video_call_unanswered',
+            value: JSON.stringify(customerInfo)
+          });
+          const missedParams = {
+            model_id: guestId,
+            status: CALLING_STATUS.UNASWERED
+          };
+          setIsModelAvailable(isModelAvailable.data.is_online);
+          await CallingService.missedCallStatus(missedParams, token.token);
+        } else {
+          const creditInfoEvent = {
+            email: customerData?.customer_email,
+            name: customerData?.customer_name,
+            username: customerData?.customer_user_name,
+            model_username: userName,
+            is_credit_over: false,
+            source: 'Video calling model'
+          };
+          gaEventTrigger('Credits_Purchase_Popup_open', {
+            action: 'Credits_Purchase_Popup_open',
+            category: 'Dialog',
+            label: 'Credits_Purchase_Popup_open',
+            value: JSON.stringify(creditInfoEvent)
+          });
+          setOpen(true);
+        }
       }
-    } else if (call) {
-      toast.error('Please end your ONGOING call');
-      setIsLoading(false);
-    } else if (!isModelAvailable.data.is_online) {
-      gaEventTrigger('Video_call_unanswered', {
-        action: 'Video_call_unanswered',
-        category: 'Button',
-        label: 'Video_call_unanswered',
-        value: JSON.stringify(customerInfo)
-      });
-      const missedParams = {
-        model_id: guestId,
-        status: CALLING_STATUS.UNASWERED
-      };
-      setIsModelAvailable(isModelAvailable.data.is_online);
-      await CallingService.missedCallStatus(missedParams, token.token);
-    } else {
-      const creditInfoEvent = {
-        email: customerData?.customer_email,
-        name: customerData?.customer_name,
-        username: customerData?.customer_user_name,
-        model_username: userName,
-        is_credit_over: false,
-        source: 'Video calling model'
-      };
-      gaEventTrigger('Credits_Purchase_Popup_open', {
-        action: 'Credits_Purchase_Popup_open',
-        category: 'Dialog',
-        label: 'Credits_Purchase_Popup_open',
-        value: JSON.stringify(creditInfoEvent)
-      });
-      setOpen(true);
+    } catch (error) {
+      toast.error('Permission for audio and video is required to initiate a call.');
     }
   };
 
@@ -554,7 +562,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           modelCreditPrice={Number(modelCreditPrice)}
         />
       </ModelCreditsUIStyledDialog>
-      <UIStyledDialog open={openSuccess} maxWidth="md" fullWidth>
+      <UIStyledDialog open={openSuccess} maxWidth="md" fullWidth scroll="body">
         <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} isOutOfCredits={isOutOfCredits} />
       </UIStyledDialog>
     </CallContext.Provider>

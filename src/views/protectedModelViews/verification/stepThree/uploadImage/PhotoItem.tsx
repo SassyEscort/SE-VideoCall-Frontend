@@ -36,7 +36,8 @@ const PhotoItem = ({
   handleBlobThumbnail,
   values,
   handleModelApiChange,
-  index
+  index,
+  existingPhotos
 }: {
   image: UploadPhotos;
   isEdit: boolean;
@@ -49,7 +50,7 @@ const PhotoItem = ({
     value: unknown,
     shouldValidate?: boolean | undefined
   ) => Promise<void | FormikErrors<VerificationFormStep5TypeV2>>;
-  removeImage: (name: string, file_id?: string) => void;
+  removeImage: (name: string, photoName: string, isFav: boolean | undefined, file_id?: string) => void;
   handleChangeFile5Cords?: (name: string, cords: string) => void;
   handleClickThumbnailImageId?: (id: number | undefined, name: string, photoIndex: number) => void;
   token: TokenIdType;
@@ -57,6 +58,7 @@ const PhotoItem = ({
   values: VerificationFormStep5TypeV2;
   handleModelApiChange: () => void;
   index: number;
+  existingPhotos: UploadPhotos[];
 }) => {
   const [openRepositionModal, setOpenRepositionModal] = useState(false);
   const [croppedImage, setCroppedImage] = useState('');
@@ -113,7 +115,7 @@ const PhotoItem = ({
   const handleRemoveImage = (name: string) => {
     setCroppedImage('');
     setValue(name, null);
-    removeImage(image.photoURL, image.file_id);
+    removeImage(image.photoURL, image.name, image.isFavorite, image.file_id);
   };
 
   const handleSaveRepositionCords = (cords: string) => {
@@ -170,13 +172,11 @@ const PhotoItem = ({
     <>
       <Box>
         <>
-          {!image.isFavorite && (
-            <Box sx={{ position: 'relative' }} id="imageContainer">
-              <DragAndDropMultipleImageCloseButton size="small" onClick={() => handleRemoveImage(image.name)}>
-                <Box component="img" src="/images/verification/close-icon.svg" />
-              </DragAndDropMultipleImageCloseButton>
-            </Box>
-          )}
+          <Box sx={{ position: 'relative' }} id="imageContainer">
+            <DragAndDropMultipleImageCloseButton size="small" onClick={() => handleRemoveImage(image.name)}>
+              <Box component="img" src="/images/verification/close-icon.svg" />
+            </DragAndDropMultipleImageCloseButton>
+          </Box>
           {!videoTypeCondition && (
             <Box sx={{ position: 'relative' }}>
               <DragAndDropMultipleImageEditButton
@@ -199,9 +199,7 @@ const PhotoItem = ({
               />
             </Box>
           )}
-          {((thumbnailImageId !== undefined && image.id !== undefined && thumbnailImageId === image?.id) ||
-            (values?.is_favourite === image?.name && thumbnailImageId === undefined) ||
-            (Number(values?.is_favourite?.split('[')[1].split(']')[0]) === index && thumbnailImageId === undefined)) && (
+          {((thumbnailImageId !== undefined && image.id !== undefined && thumbnailImageId === image?.id) || isFeaturePhoto) && (
             <Box sx={{ position: 'relative' }}>
               <DragAndDropMultipleImageThumbnailPhoto
                 sx={{

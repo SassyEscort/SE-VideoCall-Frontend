@@ -24,6 +24,7 @@ import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { sortExistingPhotos } from 'utils/photoUtils';
 import { ModelMultipleBoxContainer } from './RepositionPhoto.styled';
+import ImageDeleteWarning from './ImageDeleteWarning';
 
 export type UploadMultiplePhotos = {
   errors: FormikErrors<VerificationFormStep5TypeV2>;
@@ -41,6 +42,9 @@ export type UploadMultiplePhotos = {
   handleModelApiChange: () => void;
   loading: boolean;
   handelChangedIsUpdated?: () => void;
+  handleImageWarningClose: () => void;
+  imageWarningOpen: boolean;
+  handlePhotoSubmit: (values: VerificationFormStep5TypeV2) => Promise<void>;
 };
 export type UploadPhotos = {
   id?: number;
@@ -63,7 +67,10 @@ const ModelMultiplePhoto = ({
   isEdit,
   isUpdated,
   loading,
-  handelChangedIsUpdated
+  handelChangedIsUpdated,
+  handleImageWarningClose,
+  imageWarningOpen,
+  handlePhotoSubmit
 }: UploadMultiplePhotos) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -74,22 +81,44 @@ const ModelMultiplePhoto = ({
   const [uploadedImagesURL, setUploadedImagesURL] = useState<UploadPhotos[]>([]);
   const [thumbnailImageId, setThumbnailImageId] = useState<number | undefined>(undefined);
 
-  const removeImage = async (name: string, file_id?: string) => {
-    // if (file_id) {
-    //   try {
-    //     const response = await VerificationStepService.deleteImage(token.token, file_id);
-    //     if (response.code === 200) {
-    //       toast.success('Success');
-    //     }
-    //   } catch (error) {
-    //     toast.error(ErrorMessage);
-    //   }
-    // }
-
+  const removeImage = async (name: string, photoName: string, isFav: boolean | undefined, file_id?: string) => {
     let index = existingPhotos?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
       existingPhotos?.splice(index, 1);
-      setValue('file5Existing', existingPhotos);
+      let updatedPhotos = [...existingPhotos];
+      if (isFav && updatedPhotos.length) {
+        const videoTypeCondition = VideoAcceptType?.includes(
+          updatedPhotos[index]?.photoURL?.substring(updatedPhotos[index]?.photoURL?.lastIndexOf('.') + 1)
+        );
+
+        if ((updatedPhotos.length >= index && videoTypeCondition) || photoName.startsWith('file5Existing')) {
+          while (updatedPhotos[index]) {
+            const nextItemCondition = VideoAcceptType?.includes(
+              updatedPhotos[index]?.photoURL?.substring(updatedPhotos[index]?.photoURL?.lastIndexOf('.') + 1)
+            );
+
+            if (!nextItemCondition) {
+              updatedPhotos[index].isFavorite = true;
+              break;
+            } else if (nextItemCondition && existingPhotos.length === 1) {
+              updatedPhotos[index].isFavorite = true;
+              break;
+            }
+            index++;
+          }
+          if (updatedPhotos.length > index) {
+            updatedPhotos[index].isFavorite = true;
+          }
+          setExistingPhotos(updatedPhotos);
+        } else if (existingPhotos.length && !isFav) {
+          updatedPhotos[index].isFavorite = true;
+          setExistingPhotos(updatedPhotos);
+        }
+        setValue('file5Existing', existingPhotos);
+      } else {
+        setValue('file5', []);
+        setValue('file5Existing', existingPhotos);
+      }
     }
     index = uploadedImagesURL?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
@@ -136,17 +165,27 @@ const ModelMultiplePhoto = ({
   };
 
   const handleBlobThumbnail = (id: number | undefined, image: UploadPhotos, photoIndex: number) => {
+    const updatedPhotos = uploadedImagesURL.map((item) => {
+      if (item.name === image.name) {
+        return { ...item, isFavorite: true };
+      } else {
+        return { ...item, isFavorite: false };
+      }
+    });
+    setUploadedImagesURL(updatedPhotos);
     const favFile = `file5[${photoIndex}]`;
     setThumbnailImageId(id);
     image.isFavorite = true;
     image.name = favFile;
     image.id = undefined;
+    setValue('is_favourite', favFile);
+    setValue('favFileIndex', photoIndex);
   };
 
   const handleUploadPhotos = useCallback(
     (values: VerificationFormStep5TypeV2) => {
       const imageUrls: UploadPhotos[] = [];
-
+      const favFile = Number(values.is_favourite?.split('[')[1].split(']')[0]);
       if (values.file5) {
         values.file5.forEach((data, index) => {
           if (data) {
@@ -155,12 +194,21 @@ const ModelMultiplePhoto = ({
                 photoURL: 'video-' + URL.createObjectURL(data),
                 name: `file5[${index}]`
               });
+            } else if (thumbnailImageId === undefined) {
+              const favFileIndex = index + existingPhotos.length;
+              imageUrls.push({
+                photoURL: URL.createObjectURL(data),
+                name: `file5[${index}]`,
+                cords: (values.cords5 && values.cords5[index]) || '',
+                isFavorite: favFile === favFileIndex ? true : false,
+                is_favourite: values.is_favourite ? values.is_favourite : 'file5[0]'
+              });
             } else {
               imageUrls.push({
                 photoURL: URL.createObjectURL(data),
                 name: `file5[${index}]`,
                 cords: (values.cords5 && values.cords5[index]) || '',
-                isFavorite: index === 0 && thumbnailImageId === undefined ? true : false,
+                isFavorite: values.isFavorite && index === 0 && thumbnailImageId === undefined ? true : false,
                 is_favourite: values.is_favourite ? values.is_favourite : 'file5[0]'
               });
             }
@@ -223,7 +271,7 @@ const ModelMultiplePhoto = ({
     const cordsChanged = workerPhotos.some((photo, index) => {
       return photo.cords !== values.file5Existing[index]?.cords;
     });
-    return cordsChanged || values?.file5 ? true : false;
+    return cordsChanged || values?.file5 || thumbnailImageId === undefined ? true : false;
   };
 
   useEffect(() => {
@@ -287,7 +335,7 @@ const ModelMultiplePhoto = ({
                       token={token}
                       image={photo}
                       isEdit={false}
-                      isFeaturePhoto={false}
+                      isFeaturePhoto={photo.isFavorite ?? false}
                       thumbnailImageId={thumbnailImageId}
                       height={height}
                       width={width}
@@ -297,6 +345,7 @@ const ModelMultiplePhoto = ({
                       handleClickThumbnailImageId={handleClickThumbnailImageId}
                       handleBlobThumbnail={handleBlobThumbnail}
                       index={index}
+                      existingPhotos={existingPhotos}
                     />
                   );
                 })}
@@ -331,6 +380,13 @@ const ModelMultiplePhoto = ({
           </StyleButtonV2>
         </UploadMultipleBox>
       )}
+      <ImageDeleteWarning
+        open={imageWarningOpen}
+        onClose={handleImageWarningClose}
+        handleSubmit={handlePhotoSubmit}
+        values={values}
+        handleCancel={handleCancel}
+      />
     </>
   );
 };

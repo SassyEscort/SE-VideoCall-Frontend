@@ -9,7 +9,7 @@ import {
   PhotoUpload,
   ThumbnailPayload
 } from 'views/protectedModelViews/verification/stepThree/uploadImage';
-import { PHOTO_TYPE } from 'constants/workerVerification';
+import { DOCUMENT_UPLOAD_FILE_TYPE, PHOTO_TYPE } from 'constants/workerVerification';
 import { GenericRes } from 'services/guestAuth/authuser.services';
 
 export const imageKitObj = {
@@ -22,6 +22,10 @@ export const imageKitObj = {
 export type EmailVerify = {
   email: string;
   verification_code: string;
+};
+
+export type FileIdDeleteParams = {
+  file_ids: string[];
 };
 
 export class VerificationStepService {
@@ -55,7 +59,7 @@ export class VerificationStepService {
 
         imageRes = response.data.url;
         file_id = response.data.fileId;
-        file_type = response.data.fileType;
+        file_type = response.data.videoCodec === 'bmp' ? DOCUMENT_UPLOAD_FILE_TYPE.IMAGE : response.data.fileType;
       } else {
         imageRes = fileData;
       }
@@ -128,7 +132,7 @@ export class VerificationStepService {
             photosURL: responseData?.data?.url,
             type: data?.type,
             file_id: responseData.data.fileId,
-            file_type: responseData.data.fileType,
+            file_type: responseData.data.videoCodec === 'bmp' ? DOCUMENT_UPLOAD_FILE_TYPE.IMAGE : responseData.data.fileType,
             document_front_side: 0
           });
         }
@@ -185,6 +189,19 @@ export class VerificationStepService {
     try {
       const res = await axios.delete(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/file/${fileId}`, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
+      });
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as GenericRes;
+    }
+  };
+
+  static deleteMultipleImage = async (token: string, fileId: FileIdDeleteParams): Promise<GenericRes> => {
+    try {
+      const res = await axios.delete(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/files`, {
+        headers: { 'Content-Type': 'application/json', Authorization: token },
+        data: fileId
       });
       return res.data;
     } catch (err: any) {

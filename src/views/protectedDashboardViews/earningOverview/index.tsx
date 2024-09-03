@@ -14,7 +14,7 @@ import {
   StyledDatePicker,
   UINewTypographyEarningsOverview
 } from './EarningOverview.styled';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import moment, { Moment } from 'moment';
 import FilterTimeDropdownV2 from './FilterTimeDropdownV2';
 import { DATE_DURATION_TYPE } from 'constants/dateRange';
@@ -25,6 +25,7 @@ import { ModelEarningResponse } from 'services/modelDetails/type';
 import Earnings from './Earning';
 import { CircularProgress } from '@mui/material';
 import { LoaderBox } from '../payoutRequest/PayoutRequest.styled';
+import debounce from 'lodash/debounce';
 
 const EarningOverview = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -36,17 +37,13 @@ const EarningOverview = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelEarning, setModelEarning] = useState<ModelEarningResponse>();
 
-  const handleFromDateChange = (date: Moment) => {
+  const handleFromToDateChange = (date: Moment, dateType: string) => {
     if (date?.isValid()) {
-      setFromDate(date);
+      dateType === 'from' ? setFromDate(date) : setToDate(date);
     }
   };
 
-  const handleToDateChange = (date: Moment) => {
-    if (date?.isValid()) {
-      setToDate(date);
-    }
-  };
+  const handleDateChange = useCallback(debounce(handleFromToDateChange, 1000), []);
 
   const handleChangePeriodType = (value: string) => {
     setPeriodType(value);
@@ -124,7 +121,7 @@ const EarningOverview = () => {
     if (token.token) {
       modelEarning();
     }
-  }, [fromDate, toDate, token.id, token.token]);
+  }, [fromDate, toDate]);
 
   return (
     <ProfileStatiscsMainContainer>
@@ -145,17 +142,41 @@ const EarningOverview = () => {
                     <ProfileDOBox>
                       <StyledDatePicker
                         value={moment(fromDate, 'YYYY-MM-DD')}
-                        onChange={(e) => handleFromDateChange(e as Moment)}
+                        onChange={(e) => handleDateChange(e as Moment, 'from')}
                         format="YYYY-MM-DD"
                         maxDate={toDate!}
+                        slotProps={{
+                          calendarHeader: {
+                            sx: {
+                              '& .MuiPickersArrowSwitcher-button': {
+                                color: 'white.main'
+                              },
+                              '& .MuiPickersCalendarHeader-switchViewIcon': {
+                                color: 'white.main'
+                              }
+                            }
+                          }
+                        }}
                       />
                     </ProfileDOBox>
                     <ProfileDOBox>
                       <StyledDatePicker
                         value={moment(toDate, 'YYYY-MM-DD')}
-                        onChange={(e) => handleToDateChange(e as Moment)}
+                        onChange={(e) => handleDateChange(e as Moment, 'to')}
                         format="YYYY-MM-DD"
                         minDate={fromDate!}
+                        slotProps={{
+                          calendarHeader: {
+                            sx: {
+                              '& .MuiPickersArrowSwitcher-button': {
+                                color: 'white.main'
+                              },
+                              '& .MuiPickersCalendarHeader-switchViewIcon': {
+                                color: 'white.main'
+                              }
+                            }
+                          }
+                        }}
                       />
                     </ProfileDOBox>
                   </ProfileDOBoxMain>

@@ -20,7 +20,6 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { PaginationSortByOption } from 'components/common/CustomPaginations/type';
 import PaginationSortBy from 'components/common/CustomPaginations/PaginationSortBy';
 import { PAGE_SIZE } from 'constants/pageConstants';
-import PaginationSearch from 'components/common/CustomPaginations/PaginationSearch';
 import TablePager from 'components/common/CustomPaginations/TablePager';
 import { StyledPopover } from './CallLogs.styled';
 import CallLogsListHead from './CallLogsListHead';
@@ -29,6 +28,8 @@ import { callLogDataResponse, callLogsDetailsService } from 'services/adminServi
 import { debounce } from 'lodash';
 import { CALL_LOG_ACTION } from 'constants/payoutsConstants';
 import Link from 'next/link';
+import { formatFullDate } from 'utils/dateAndTime';
+import ReportFilters from 'components/Admin/ReportFilters/ReportFilters';
 
 export type PaginationType = {
   page: number;
@@ -37,6 +38,9 @@ export type PaginationType = {
   orderField: string;
   sort_order: string;
   search_field: string;
+  duration: string;
+  fromDate: string;
+  toDate: string;
 };
 
 export default function CallLogsContainer() {
@@ -49,13 +53,20 @@ export default function CallLogsContainer() {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [totalRecords, setTotalRecords] = useState(0);
 
+  const currentMoment = moment();
+  const oneMonthAgoMoment = moment().subtract(1, 'day');
+  const fromDate = oneMonthAgoMoment.format('YYYY/MM/DD');
+  const toDate = currentMoment.format('YYYY/MM/DD');
   const [filters, setFilters] = useState<PaginationType>({
     page: 1,
     offset: 0,
     pageSize: PAGE_SIZE,
     orderField: 'newest',
     sort_order: 'desc',
-    search_field: ''
+    search_field: '',
+    duration: 'day',
+    fromDate: fromDate,
+    toDate: toDate
   });
 
   const SORT_BY_OPTIONS: PaginationSortByOption[] = [
@@ -76,7 +87,14 @@ export default function CallLogsContainer() {
 
   const handelFetch = async () => {
     setIsLoading(true);
-    const res = await callLogsDetailsService.getCallLogsDetails(token.token, filters.pageSize, filters.offset, filters.search_field);
+    const res = await callLogsDetailsService.getCallLogsDetails(
+      token.token,
+      filters.pageSize,
+      filters.offset,
+      filters.search_field,
+      filters.fromDate,
+      filters.toDate
+    );
 
     if (res) {
       if (res.code == 200) {
@@ -152,6 +170,10 @@ export default function CallLogsContainer() {
     debouncedChangeSearch(val);
   };
 
+  const handleFilterDurationChange = (duration: string, fromDate: string, toDate: string) => {
+    handleChangeFilter({ ...filters, duration, fromDate, toDate, page: 1 });
+  };
+
   return (
     <MainLayout>
       <Container>
@@ -161,7 +183,13 @@ export default function CallLogsContainer() {
           </Typography>
         </Stack>
         <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent="space-between" mb={1}>
-          <PaginationSearch placeholder="Search..." handleChangeSearch={handleChangeSearch} />
+          <ReportFilters
+            duration={filters.duration}
+            fromDate={filters.fromDate}
+            toDate={filters.toDate}
+            onFilterDurationChange={handleFilterDurationChange}
+            handleChangeSearch={handleChangeSearch}
+          />
         </Stack>
         <Box sx={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
           <PaginationSortBy
@@ -235,6 +263,9 @@ export default function CallLogsContainer() {
                           )}
                         </TableCell>
                         <TableCell component="th" scope="row">
+                          {formatFullDate(item.created_at)}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
                           {item?.credits_used || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
@@ -244,10 +275,10 @@ export default function CallLogsContainer() {
                           {item?.credits_per_minute || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.rate_per_minute || '-'}
+                          {item.rate_per_minute ? `€${item.rate_per_minute.toFixed(2)}` : '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.amount_earned || '-'}
+                          {item.amount_earned ? `€${item.amount_earned.toFixed(2)}` : '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
                           {item?.start_time && item?.end_time

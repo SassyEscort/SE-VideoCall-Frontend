@@ -39,7 +39,7 @@ export type WorkersPaginationType = {
   pageSize: number;
   orderField: string;
   orderType: string;
-  filter_Text: string;
+  search_field: string;
   duration: string;
   fromDate: string;
   toDate: string;
@@ -79,7 +79,7 @@ export default function CustomerPageContainer() {
     offset: 0,
     orderField: 'createdDate',
     orderType: 'desc',
-    filter_Text: '',
+    search_field: '',
     duration: 'month',
     fromDate: fromDate,
     toDate: toDate,
@@ -109,7 +109,7 @@ export default function CustomerPageContainer() {
       const filterparams = {
         limit: filters.pageSize,
         offset: filters.offset,
-        filter_text: filters.filter_Text,
+        search_field: filters.search_field,
         sort_order: filters.orderType,
         sort_field: filters.orderField
       };
@@ -157,7 +157,7 @@ export default function CustomerPageContainer() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedChangeSearch = useCallback(
     debounce((val: string) => {
-      handleChangeFilter({ ...filters, filter_Text: val, page: 1 });
+      handleChangeFilter({ ...filters, search_field: val, page: 1 });
     }, 500),
     [filters, handleChangeFilter]
   );
@@ -257,7 +257,7 @@ export default function CustomerPageContainer() {
                       <TableRow>
                         <TableCell colSpan={7}>
                           <NotFoundBox>
-                            <Typography variant="body1">Model is not found.</Typography>
+                            <Typography variant="body1">Customer is not found</Typography>
                           </NotFoundBox>
                         </TableCell>
                       </TableRow>
