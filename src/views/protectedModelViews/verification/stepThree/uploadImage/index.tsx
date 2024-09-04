@@ -348,7 +348,7 @@ const UploadImage = ({
       enableReinitialize
       initialValues={initialValuesPerStep}
       onSubmit={(values) => {
-        if (!values.file5?.length && !values.file5Existing.length && toNotValidate) {
+        if (!values.file5?.length && !values.file5Existing.length && pathname !== '/model/profile') {
           setImageWarningOpen(true);
         } else {
           handlePhotoSubmit(values);
