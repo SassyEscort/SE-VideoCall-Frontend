@@ -10,23 +10,44 @@ import {
   BoostProfileModelBox,
   BoostProfileTextContainer,
   DividerMainBox,
+  MainBoostButtonBox,
+  SecondBoostButtonBox,
   SupBox,
+  UINewTypographyCondition,
   UINewTypographyMissedCall,
   UINewTypographyMissedCallBox
 } from './boostProfile.styled';
 import Checkbox from '@mui/material/Checkbox';
-import UIStyledShadowButtonLike from 'components/UIComponents/UIStyledShadowButtonLike';
+import { DialogTitleBox } from '../payoutWithDraw/PayoutWidthDraw';
+import CloseIcon from '@mui/icons-material/Close';
+import { IconButton } from '@mui/material';
+import Image from 'next/image';
+import StyleBoostButton from 'components/UIComponents/StyleBoostButton';
 
 const BoostProfileContent = () => {
   return (
     <>
+      <DialogTitleBox>
+        <UINewTypography variant="h6">
+          <FormattedMessage id="BoostProfile" />
+        </UINewTypography>
+
+        <IconButton
+          aria-label="close"
+          sx={{
+            color: (theme) => theme.palette.text.secondary
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </DialogTitleBox>
       <DividerMainBox />
       <BoostBox>
         <BoostProfileMainContainer>
           <BoostProfileBox>
             <BoostProfileModelBox>
               <BoostProfileTextContainer>
-                <UINewTypography variant="bodyRegular" color="text.secondary">
+                <UINewTypography variant="bodyRegular" color="text.secondary" textAlign="center">
                   <FormattedMessage id="IfYouMissCalls" />
                 </UINewTypography>
               </BoostProfileTextContainer>
@@ -84,15 +105,30 @@ const BoostProfileContent = () => {
                 </BoostProfileMissCallBox>
               </BoostProfileMissedCallTextContainer>
             </BoostProfileModelBox>
-            <BoostProfileModelBox>
+            <Box>
               <Box>
                 <Checkbox sx={{ p: 0, pr: 1 }} />
                 <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}>
                   <FormattedMessage id="IveRead" />
                 </UINewTypography>
               </Box>
-              <UIStyledShadowButtonLike>Boost</UIStyledShadowButtonLike>
-            </BoostProfileModelBox>
+              <MainBoostButtonBox>
+                <SecondBoostButtonBox>
+                  <Image
+                    src="/images/boostProfile/fire.png"
+                    height={110}
+                    width={100}
+                    alt="fire_icon"
+                    style={{ zIndex: 10, left: '-50px', position: 'absolute', top: '-24px' }}
+                  />
+                  <StyleBoostButton>
+                    <UINewTypographyCondition>
+                      <FormattedMessage id="StartBoost" />
+                    </UINewTypographyCondition>
+                  </StyleBoostButton>
+                </SecondBoostButtonBox>
+              </MainBoostButtonBox>
+            </Box>
           </BoostProfileBox>
         </BoostProfileMainContainer>
       </BoostBox>
