@@ -19,7 +19,12 @@ export const BoostProfileTextContainer = styled(Box)(({ theme }) => ({
 export const BoostProfileMissedCallTextContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
+  [theme.breakpoints.down('sm')]: {
+    alignItems: 'center',
+    gap: theme.spacing(4),
+    flexDirection: 'column'
+  }
 }));
 
 export const BoostProfileMissCallBox = styled(Box)(({ theme }) => ({
@@ -95,7 +100,9 @@ export const BoostProfileBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(6),
   flexDirection: 'column',
-  alignItems: 'center'
+  alignItems: 'center',
+  padddingRight: theme.spacing(2),
+  padddingLeft: theme.spacing(2)
 }));
 
 export const BoostProfileModelBox = styled(Box)(({ theme }) => ({
@@ -127,6 +134,16 @@ export const BoxMainBoost = styled(Box)(() => ({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center'
+}));
+
+export const UINewTypographyCondition = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 500,
+  lineHeight: '19.2px',
+  whiteSpace: 'nowrap',
+  '@media (max-width: 320px)': {
+    whiteSpace: 'normal'
+  }
 }));
 
 export const BoxImageBackgroundBoost = styled(Box)(({ theme }) => ({
