@@ -123,6 +123,7 @@ const ModelMultiplePhoto = ({
     index = uploadedImagesURL?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
       uploadedImagesURL?.splice(index, 1);
+      setValue('file5', uploadedImagesURL);
     }
   };
 
