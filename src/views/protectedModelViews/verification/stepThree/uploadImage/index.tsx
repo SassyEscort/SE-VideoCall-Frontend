@@ -179,7 +179,7 @@ const UploadImage = ({
           if (invalidSizeFiles.length > 0) {
             return this.createError({ message: intl.formatMessage({ id: 'PhotoVideoShouldBeLessThan5MB' }), path: 'file5' });
           }
-          if (combinedLength < 1 && toNotValidate) {
+          if (combinedLength < 1 && !toNotValidate) {
             return this.createError({ message: intl.formatMessage({ id: 'PleaseUploadAtLeast1Photo' }), path: 'file5' });
           }
           if (combinedLength > 30) {
