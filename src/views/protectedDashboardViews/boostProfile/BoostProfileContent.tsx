@@ -115,7 +115,7 @@ const BoostProfileContent = () => {
               <MainBoostButtonBox>
                 <SecondBoostButtonBox>
                   <Image
-                    src="/images/boostProfile/fire.png"
+                    src="/images/boostProfile/fire-ani.gif"
                     height={110}
                     width={100}
                     alt="fire_icon"

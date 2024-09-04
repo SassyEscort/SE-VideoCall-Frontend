@@ -329,3 +329,27 @@ export const FlagAndLiveIconBoxContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
   alignItems: 'center'
 }));
+
+export const HighlyAvailableButtonBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  marginTop: 0,
+  [theme.breakpoints.down('sm')]: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '30px'
+  }
+}));
+
+export const HighlyAvailableBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  [theme.breakpoints.down('md')]: {
+    justifyContent: 'center'
+  },
+  width: '100%',
+  position: 'relative',
+  marginLeft: '30px'
+}));

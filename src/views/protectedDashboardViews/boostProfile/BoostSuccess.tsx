@@ -8,7 +8,7 @@ const BoostSuccess = () => {
     <Box width="100%" display="flex" gap="32px" flexDirection="column" alignItems="center">
       <Box
         sx={{
-          backgroundImage: 'url(/images/boostFeature/fire.png)',
+          backgroundImage: 'url(/images/boostProfile/fire-ani.gif)',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           width: '100%',

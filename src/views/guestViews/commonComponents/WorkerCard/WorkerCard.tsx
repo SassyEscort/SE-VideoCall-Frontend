@@ -7,6 +7,8 @@ import {
   FirstSubContainerWithoutImg,
   FlagAndLiveIconBoxContainer,
   HeartIconWorkerCard,
+  HighlyAvailableBox,
+  HighlyAvailableButtonBox,
   ImgWorkerCard,
   LiveIconSecBoxWorkerCard,
   LiveIconWorkerCard,
@@ -27,7 +29,7 @@ import {
 } from './WorkerCard.styled';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { Box, useMediaQuery } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { ModelHomeListing } from 'services/modelListing/modelListing.services';
 import { FormattedMessage } from 'react-intl';
@@ -63,6 +65,7 @@ const WorkerCard = ({
 }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+  const isTablet = useMediaQuery(theme.breakpoints.only('sm'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
 
   const { isCustomer, customerUser } = useCallFeatureContext();
@@ -121,38 +124,22 @@ const WorkerCard = ({
     <MainWorkerCard>
       <ImgWorkerCard ref={imageUrlRef} />
       <HeartIconWorkerCard>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: isMdDown ? 'center' : 'space-between',
-            width: '100%',
-            alignItems: isMdDown ? 'center' : 'none',
-            marginTop: isMdDown ? '30px' : 0
-          }}
-        >
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: isMdDown ? 'center' : 'space-between',
-              width: '100%',
-              position: 'relative',
-              marginLeft: '30px'
-            }}
-          >
+        <HighlyAvailableButtonBox>
+          <HighlyAvailableBox>
             <Image
               src="/images/boostProfile/fire-ani.gif"
               height={57}
               width={42}
               alt="fire_icon"
-              style={{ zIndex: 10, left: isMdDown ? '-30px' : '-22px', position: 'absolute', top: '-14px' }}
+              style={{ zIndex: 10, left: isTablet ? '-20px' : isMdDown ? '-30px' : '-22px', position: 'absolute', top: '-14px' }}
             />
             <StyleBoostUserButton>
               <UINewTypography variant="bodyUltraLarge" color="#ffff">
-                Highly available
+                <FormattedMessage id="HighlyAvailable" />
               </UINewTypography>
             </StyleBoostUserButton>
-          </Box>
-        </Box>
+          </HighlyAvailableBox>
+        </HighlyAvailableButtonBox>
         {isFavPage || liked || modelDetails?.favourite === 1 ? (
           <FavoriteIconContainer sx={{ color: 'error.main' }} />
         ) : (
