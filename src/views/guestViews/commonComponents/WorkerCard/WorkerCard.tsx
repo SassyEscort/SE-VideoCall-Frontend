@@ -27,7 +27,7 @@ import {
 } from './WorkerCard.styled';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useMediaQuery } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { ModelHomeListing } from 'services/modelListing/modelListing.services';
 import { FormattedMessage } from 'react-intl';
@@ -41,6 +41,8 @@ import { CustomerDetailsService } from 'services/customerDetails/customerDetails
 import { ErrorMessage } from 'constants/common.constants';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { gaEventTrigger } from 'utils/analytics';
+import StyleBoostUserButton from 'components/UIComponents/StyleBoostUserButton';
+import Image from 'next/image';
 
 const WorkerCard = ({
   modelDetails,
@@ -60,6 +62,7 @@ const WorkerCard = ({
   liked: boolean;
 }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
+  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
 
   const { isCustomer, customerUser } = useCallFeatureContext();
@@ -118,6 +121,38 @@ const WorkerCard = ({
     <MainWorkerCard>
       <ImgWorkerCard ref={imageUrlRef} />
       <HeartIconWorkerCard>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: isMdDown ? 'center' : 'space-between',
+            width: '100%',
+            alignItems: isMdDown ? 'center' : 'none',
+            marginTop: isMdDown ? '30px' : 0
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: isMdDown ? 'center' : 'space-between',
+              width: '100%',
+              position: 'relative',
+              marginLeft: '30px'
+            }}
+          >
+            <Image
+              src="/images/boostProfile/fire-ani.gif"
+              height={57}
+              width={42}
+              alt="fire_icon"
+              style={{ zIndex: 10, left: isMdDown ? '-30px' : '-22px', position: 'absolute', top: '-14px' }}
+            />
+            <StyleBoostUserButton>
+              <UINewTypography variant="bodyUltraLarge" color="#ffff">
+                Highly available
+              </UINewTypography>
+            </StyleBoostUserButton>
+          </Box>
+        </Box>
         {isFavPage || liked || modelDetails?.favourite === 1 ? (
           <FavoriteIconContainer sx={{ color: 'error.main' }} />
         ) : (
