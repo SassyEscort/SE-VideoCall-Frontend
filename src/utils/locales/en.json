@@ -771,5 +771,7 @@
   "Call": "Call",
   "PleaseUploadAtLeast1Photo": "Please upload at least 1 photo",
   "BioShouldNotContainLinks": "Bio should not contain links",
-  "BioShouldNotContainNumbers": "Bio should not contain numbers"
+  "BioShouldNotContainNumbers": "Bio should not contain numbers",
+  "ValidFileType": "Please enter valid file type"
+  
 }
