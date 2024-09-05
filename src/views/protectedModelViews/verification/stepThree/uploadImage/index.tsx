@@ -185,7 +185,7 @@ const UploadImage = ({
           if (combinedLength > 30) {
             return this.createError({ message: intl.formatMessage({ id: 'SorryYoucanUpload30PicturesOnly' }), path: 'file5' });
           }
-          if (combinedLength < 1 && modelProfileStatus === PAYOUT_ACTION.APPROVE) {
+          if (combinedLength < 1 && combinedLength > 30 && modelProfileStatus === PAYOUT_ACTION.APPROVE) {
             return true;
           }
 

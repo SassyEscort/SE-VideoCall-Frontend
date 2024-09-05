@@ -769,5 +769,7 @@
   "AreYouSureImageDelete": "¿Estás seguro de que deseas eliminar todas las imágenes? Si es así, no recibirás ninguna llamada.",
   "ImagesDelete": "Eliminar imágenes",
   "BioShouldNotContainLinks": "La biografía no debe contener enlaces.",
-  "BioShouldNotContainNumbers": "La biografía no debe contener números."
+  "BioShouldNotContainNumbers": "La biografía no debe contener números.",
+  "ValidFileType": "Por favor, introduce un tipo de archivo válido",
+  "PleaseEndYour": "Por favor, termine su LLAMADA en curso"
 }

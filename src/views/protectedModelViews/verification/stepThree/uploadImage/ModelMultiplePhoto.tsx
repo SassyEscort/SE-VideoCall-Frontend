@@ -274,7 +274,9 @@ const ModelMultiplePhoto = ({
     const cordsChanged = workerPhotos.some((photo, index) => {
       return photo.cords !== values.file5Existing[index]?.cords;
     });
-    return cordsChanged || values?.file5 || thumbnailImageId === undefined ? true : false;
+    return cordsChanged || values?.file5 || (thumbnailImageId === undefined && (values.file5?.length || values.file5Existing?.length))
+      ? true
+      : false;
   };
 
   useEffect(() => {
