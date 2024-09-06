@@ -780,5 +780,10 @@
   "BioShouldNotContainNumbers": "Bio should not contain numbers",
   "YourReviewHasBeenSubmitted": "Your review has been submitted, thank you!",
   "ValidFileType": "Please enter valid file type",
-  "PleaseEndYour": "Please end your ONGOING call"
+  "PleaseEndYour": "Please end your ONGOING call",
+  "5Stars": "5 stars",
+  "4Stars": "4 stars",
+  "3Stars": "3 stars",
+  "2Stars": "2 stars",
+  "1Stars": "1 stars"
 }

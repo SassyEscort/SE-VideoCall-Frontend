@@ -134,7 +134,7 @@ const EscortDetailPage = () => {
     };
 
     fetchGuestData();
-  }, [isCustomer, token.token, userName]);
+  }, [isCustomer, token.token, userName, filters]);
 
   const getCometChatInfo = async () => {
     if (guestData && token.token) {

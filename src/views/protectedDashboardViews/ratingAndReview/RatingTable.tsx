@@ -9,7 +9,7 @@ import {
 } from './RatingAndReview.styled';
 import FormControl from '@mui/material/FormControl';
 import { StyledSelectInputLabelAge } from 'components/UIComponents/UIStyledSelect';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Box from '@mui/material/Box';
 import { MenuItem } from '@mui/material';
@@ -22,6 +22,7 @@ import { CallHistoryPaginationContainer } from 'views/protectedViews/CallHistory
 import { BillingPaginationBox } from 'views/protectedViews/BillingHistory/BillingHistory.styled';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
+import { StyledClearIcon } from 'views/guestViews/searchPage/Search.styled';
 
 const RatingTable = ({
   ratingAndReview,
@@ -38,6 +39,8 @@ const RatingTable = ({
   selectedRating: string;
   handleRatingSelect: (rating: string) => void;
 }) => {
+  const intl = useIntl();
+
   return (
     <RatingDescriptionMainBoxContainer>
       <FormControl id="rating" sx={{ width: '100%', maxWidth: '140px' }}>
@@ -52,11 +55,12 @@ const RatingTable = ({
           name="rating"
           labelId="rating"
           IconComponent={ExpandMore}
+          endAdornment={selectedRating && <StyledClearIcon onClick={() => handleRatingSelect('')} />}
           sx={{ cursor: 'pointer' }}
         >
           {RATING.map((rating) => (
             <MenuItem key={rating?.id} value={rating?.id}>
-              <UINewTypography>{rating?.title}</UINewTypography>
+              <UINewTypography>{intl.formatMessage({ id: rating?.title })}</UINewTypography>
             </MenuItem>
           ))}
         </UIStyledSelectRatingFilter>

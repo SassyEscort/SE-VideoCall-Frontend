@@ -778,5 +778,10 @@
   "BioShouldNotContainNumbers": "La biografía no debe contener números.",
   "YourReviewHasBeenSubmitted": "Su reseña ha sido enviada, ¡gracias!",
   "ValidFileType": "Por favor, introduce un tipo de archivo válido",
-  "PleaseEndYour": "Por favor, termine su LLAMADA en curso"
+  "PleaseEndYour": "Por favor, termine su LLAMADA en curso",
+  "5Stars": "5 estrellas",
+  "4Stars": "4 estrellas",
+  "3Stars": "3 estrellas",
+  "2Stars": "2 estrellas",
+  "1Stars": "1 estrellas"
 }

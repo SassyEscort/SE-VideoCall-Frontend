@@ -37,9 +37,9 @@ export const FILTER_STATUS: MultipleOptions[] = [
 ];
 
 export const RATING = [
-  { title: '5 stars', id: '5', label: 'five_star_percentage' },
-  { title: '4 stars', id: '4', label: 'four_star_percentage' },
-  { title: '3 stars', id: '3', label: 'three_star_percentage' },
-  { title: '2 stars', id: '2', label: 'two_star_percentage' },
-  { title: '1 stars', id: '1', label: 'one_star_percentage' }
+  { title: '5Stars', id: '5', label: 'five_star_percentage' },
+  { title: '4Stars', id: '4', label: 'four_star_percentage' },
+  { title: '3Stars', id: '3', label: 'three_star_percentage' },
+  { title: '2Stars', id: '2', label: 'two_star_percentage' },
+  { title: '1Stars', id: '1', label: 'one_star_percentage' }
 ];

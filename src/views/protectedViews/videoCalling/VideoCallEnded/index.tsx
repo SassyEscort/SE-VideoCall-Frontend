@@ -58,7 +58,7 @@ const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: 
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
+      setToken({ id: data?.id, token: data?.token });
     };
 
     userToken();
