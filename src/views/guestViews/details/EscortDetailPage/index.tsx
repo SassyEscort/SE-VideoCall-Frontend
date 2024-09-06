@@ -231,7 +231,7 @@ const EscortDetailPage = () => {
                   <FormattedMessage id="RatingAndReviews" />
                 </RatingReviewText>
                 <UINewTypography variant="bodyLight">
-                  ({ratingAndReview?.data?.model_rating_info?.[0].total_reviews} reviews)
+                  ({ratingAndReview?.data?.model_rating_info?.[0].total_reviews} <FormattedMessage id="Reviews" />)
                 </UINewTypography>
               </RatingReviewTextBoxContainer>
               <RatingPoints

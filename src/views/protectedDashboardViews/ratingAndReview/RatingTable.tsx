@@ -89,7 +89,7 @@ const RatingTable = ({
                       </Box>
                     </RatingDescriptionStarBoxContainer>
                     <UINewTypography variant="bodySmall" color="text.secondary">
-                      {list.review} Thanks Aesha!
+                      {list.review}
                     </UINewTypography>
                     <UINewTypography variant="captionLargeBold" color="secondary.700">
                       {moment(list.created_at).format('MMM D, YYYY')}
