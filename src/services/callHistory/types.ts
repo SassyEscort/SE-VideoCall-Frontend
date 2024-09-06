@@ -1,6 +1,7 @@
 import { GenericResCustom } from 'services/guestAuth/authuser.services';
 
 export type CallHistoryDetails = {
+  call_log_id: number;
   model_id: number;
   status: string;
   start_time: string;
@@ -16,6 +17,7 @@ export type CallHistoryDetails = {
   user_name: string;
   created_at: string;
   credits_per_minute: number;
+  rating?: number;
 };
 
 export type CallHistoryLanguages = {

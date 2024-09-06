@@ -314,3 +314,9 @@ export const CallHistoryBox = styled(Box)(({ theme }) => ({
     flexDirection: 'column'
   }
 }));
+
+export const RatingAndButtonBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2.25)
+}));
