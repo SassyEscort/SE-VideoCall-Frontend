@@ -232,3 +232,33 @@ export const SecSwiperSlidBoxContainer = styled(SwiperSlide)(({ theme }) => ({
   width: '100%',
   maxWidth: '148px'
 }));
+
+export const RatingReviewMainBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(4),
+  marginTop: theme.spacing(7),
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column'
+  }
+}));
+
+export const RatingReviewInnerBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2.5),
+  width: '100%'
+}));
+
+export const RatingReviewTextBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(1.5)
+}));
+
+export const RatingReviewText = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '24px',
+  fontWeight: 400,
+  lineHeight: '32.02px',
+  color: theme.palette.common.white,
+  whiteSpace: 'nowrap'
+}));

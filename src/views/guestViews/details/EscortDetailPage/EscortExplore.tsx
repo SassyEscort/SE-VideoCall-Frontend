@@ -189,7 +189,7 @@ const EscortExplore = () => {
     <>
       <BackdropProgress open={isLoading} />
 
-      <DetailsChildTypographyBox sx={{ gap: 4.25, mt: isSmDown ? 12 : 15 }}>
+      <DetailsChildTypographyBox sx={{ gap: 4.25, mt: isSmDown ? 12 : 7 }}>
         <DetailsChildTypographyBox sx={{ gap: 7 }}>
           <ExploreEscortText>
             <HomeExploreBox>
