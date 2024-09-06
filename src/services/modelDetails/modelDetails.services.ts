@@ -28,11 +28,6 @@ export class ModelDetailsService {
       }
       let url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/details`;
 
-      // const url = user_name
-      //   ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/details?user_name=${user_name}`
-      //   : !isCustomer && !user_name
-      //     ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/details`
-      //     : '';
       const res = await axios.get(url, { headers, params });
 
       return res.data;

@@ -230,7 +230,9 @@ const EscortDetailPage = () => {
                 <RatingReviewText>
                   <FormattedMessage id="RatingAndReviews" />
                 </RatingReviewText>
-                <UINewTypography variant="bodyLight">( reviews)</UINewTypography>
+                <UINewTypography variant="bodyLight">
+                  ({ratingAndReview?.data?.model_rating_info?.[0].total_reviews} reviews)
+                </UINewTypography>
               </RatingReviewTextBoxContainer>
               <RatingPoints
                 ratingAndReview={ratingAndReview?.data?.model_rating_info?.[0] ?? ({} as RatingAndReviewDetailsInfo)}

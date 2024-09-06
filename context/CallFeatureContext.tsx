@@ -272,26 +272,18 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     router.push(pathname);
   };
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  const handleOpen = () => setOpen(true);
 
-  const handleBusyClose = () => {
-    setIsBusy(false);
-  };
+  const handleBusyClose = () => setIsBusy(false);
 
-  const handleCallEnd = () => {
-    setIsCallEnded(false);
-  };
+  const handleCallEnd = () => setIsCallEnded(false);
 
   const handleReviewClose = () => {
     setReviewOpen(false);
     window.location.reload();
   };
 
-  const handleModelOfflineClose = () => {
-    setIsModelAvailable(1);
-  };
+  const handleModelOfflineClose = () => setIsModelAvailable(1);
 
   const creditPutCallLog = async (model_id: number, comet_chat_session_id: string, status: string): Promise<CreditCallRes | undefined> => {
     const creditLog = {
@@ -530,12 +522,6 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     return () => clearTimeout(timerId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCallAccepted, isCallEnded, isCustomer, modelId, sessionId]);
-
-  // useEffect(() => {
-  //   if (isCallEnded) {
-  //     window.location.reload();
-  //   }
-  // }, [isCallEnded]);
 
   return (
     <CallContext.Provider
