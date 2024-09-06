@@ -252,7 +252,10 @@ export const RatingReviewInnerBoxContainer = styled(Box)(({ theme }) => ({
 export const RatingReviewTextBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(1.5)
+  gap: theme.spacing(1.5),
+  [theme.breakpoints.down('sm')]: {
+    alignItems: 'center'
+  }
 }));
 
 export const RatingReviewText = styled(UINewTypography)(({ theme }) => ({
