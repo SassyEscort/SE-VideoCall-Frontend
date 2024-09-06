@@ -33,6 +33,7 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
+import Link from 'next/link';
 
 const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: () => void; callLogId: number }) => {
   const { isModelAvailable } = useCallFeatureContext();
@@ -88,7 +89,7 @@ const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: 
     <DialogContentMain open={open} onClose={onClose} fullWidth scroll="body">
       <DialogTitleBox id="responsive-modal-title">
         <UINewTypography variant="h6">
-          <FormattedMessage id="VideoCalling" />
+          <FormattedMessage id="VideoCallEnded" />
         </UINewTypography>
 
         <IconButton
@@ -131,9 +132,11 @@ const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: 
                       </UIThemeShadowButton>
                     </FourBoxContent>
                   </ThirdBoxContent>
-                  <UINewTypography variant="body" color="white.main">
-                    <FormattedMessage id="ExploreOtherModels" />
-                  </UINewTypography>
+                  <Link href="/model">
+                    <UINewTypography variant="body" color="white.main">
+                      <FormattedMessage id="ExploreOtherModels" />
+                    </UINewTypography>
+                  </Link>
                 </FirstBoxContent>
               </SixBoxContent>
               {!isRatingSubmitted && (
@@ -174,7 +177,7 @@ const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: 
                         }}
                       />
                       <Box sx={{ cursor: 'pointer' }}>
-                        <SkipButtonContent variant="text">
+                        <SkipButtonContent variant="text" onClick={() => onClose()}>
                           <FormattedMessage id="Skip" />
                         </SkipButtonContent>
                         <PostButtonContent variant="text" onClick={() => handleCallRating()}>
