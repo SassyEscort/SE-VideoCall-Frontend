@@ -17,7 +17,7 @@ export type CallHistoryDetails = {
   user_name: string;
   created_at: string;
   credits_per_minute: number;
-  rating?: number;
+  rating: number;
 };
 
 export type CallHistoryLanguages = {
