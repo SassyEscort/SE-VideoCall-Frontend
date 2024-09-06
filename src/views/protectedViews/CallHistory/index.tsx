@@ -16,6 +16,7 @@ import {
   FirstBoxContainer,
   FirstTextContainer,
   ImgBoxContainer,
+  RatingAndButtonBoxContainer,
   SecImgBoxContainer,
   SecTextContainer,
   SecondContainer,
@@ -251,7 +252,7 @@ const CallHistory = () => {
                           </SecondSubFirstPartThiredBox>
                         </SecondSubFirstBox>
 
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.25 }}>
+                        <RatingAndButtonBoxContainer>
                           <CallAgainBox>
                             <UIStyledLoadingButtonShadowCallHistory
                               loading={isLoadingDetail}
@@ -270,8 +271,8 @@ const CallHistory = () => {
                               </Box>
                             </UIStyledLoadingButtonShadowCallHistory>
                           </CallAgainBox>
-                          {logDetails?.rating ? (
-                            <StartRating value={logDetails?.rating || 0} />
+                          {list?.rating ? (
+                            <StartRating value={list?.rating || 0} />
                           ) : (
                             <UINewTypography
                               variant="bodySemiBold"
@@ -282,7 +283,7 @@ const CallHistory = () => {
                               <FormattedMessage id="RateYourVideoCall" />
                             </UINewTypography>
                           )}
-                        </Box>
+                        </RatingAndButtonBoxContainer>
                       </SecondSubTextMainContainer>
                     </SecondSubContainer>
 

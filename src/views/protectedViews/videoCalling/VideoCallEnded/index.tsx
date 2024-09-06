@@ -24,7 +24,6 @@ import {
   SkipButtonContent,
   ThirdBoxContent
 } from './VideoCallEnded.styled';
-import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { useEffect, useState } from 'react';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
@@ -34,6 +33,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import Link from 'next/link';
+import StartRating from 'components/UIComponents/StartRating';
 
 const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: () => void; callLogId: number }) => {
   const { isModelAvailable } = useCallFeatureContext();
@@ -146,16 +146,7 @@ const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: 
                       <FormattedMessage id="RateYourVideoCall" />
                     </UINewTypography>
                     <Box>
-                      {[...Array(5)]?.map((_, index) => (
-                        <StarRoundedIcon
-                          key={index}
-                          sx={{
-                            color: index < rating ? '#FFB400' : 'inherit',
-                            cursor: 'pointer'
-                          }}
-                          onClick={() => handleStarClick(index)}
-                        />
-                      ))}
+                      <StartRating value={rating || 0} handleStarClick={handleStarClick} />
                     </Box>
                   </FiveBoxContent>
                   {rating > 0 && (

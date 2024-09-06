@@ -15,7 +15,6 @@ import Box from '@mui/material/Box';
 import { MenuItem } from '@mui/material';
 import { RATING } from 'constants/searchConstants';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import { RatingAndReviewDetailsRes } from 'services/ratingAndReview/ratingAndReview.service';
 import moment from 'moment';
 import { CallHistoryPaginationContainer } from 'views/protectedViews/CallHistory/CallHistory.styled';
@@ -23,6 +22,7 @@ import { BillingPaginationBox } from 'views/protectedViews/BillingHistory/Billin
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { StyledClearIcon } from 'views/guestViews/searchPage/Search.styled';
+import StartRating from 'components/UIComponents/StartRating';
 
 const RatingTable = ({
   ratingAndReview,
@@ -75,17 +75,7 @@ const RatingTable = ({
                     <RatingDescriptionStarBoxContainer>
                       <UINewTypography variant="captionLargeBold">{list.customer_name}</UINewTypography>
                       <Box>
-                        {[...Array(5)]?.map((_, index) => (
-                          <StarRoundedIcon
-                            key={index}
-                            sx={{
-                              color: index < (list.rating || 0) ? '#FFB400' : 'inherit',
-                              cursor: 'pointer',
-                              width: '16px',
-                              height: 'auto'
-                            }}
-                          />
-                        ))}
+                        <StartRating value={list.rating || 0} />
                       </Box>
                     </RatingDescriptionStarBoxContainer>
                     <UINewTypography variant="bodySmall" color="text.secondary">

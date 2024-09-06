@@ -13,6 +13,7 @@ import { Box } from '@mui/material';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import { RatingAndReviewDetailsInfo } from 'services/ratingAndReview/ratingAndReview.service';
 import { RATING } from 'constants/searchConstants';
+import StartRating from 'components/UIComponents/StartRating';
 
 const RatingPoints = ({
   ratingAndReview,
@@ -32,16 +33,8 @@ const RatingPoints = ({
     <RatingDetalisFirstPartBoxContainer>
       <RatingDetalisStarBoxContainer>
         <RatingPercentageContainer>{ratingAndReview?.average_rating || 0}</RatingPercentageContainer>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          {[...Array(5)]?.map((_, index) => (
-            <StarRoundedIcon
-              key={index}
-              sx={{
-                color: index < (ratingAndReview?.average_rating || 0) ? '#FFB400' : 'inherit',
-                cursor: 'pointer'
-              }}
-            />
-          ))}
+        <Box mt="5px">
+          <StartRating value={ratingAndReview?.average_rating || 0} />
         </Box>
       </RatingDetalisStarBoxContainer>
 
