@@ -777,5 +777,6 @@
   "TotalRatingsReceived": "Total ratings received",
   "TotalReviewsReceived": "Total reviews received",
   "YourRatingAndReviews": "Your rating and reviews",
-  "BioShouldNotContainNumbers": "Bio should not contain numbers"
+  "BioShouldNotContainNumbers": "Bio should not contain numbers",
+  "YourReviewHasBeenSubmitted": "Your review has been submitted, thank you!"
 }

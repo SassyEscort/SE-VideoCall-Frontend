@@ -12,19 +12,28 @@ export interface ModelLastActiveDetailsRes extends GenericRes {
   data: ModelLastActiveRes;
 }
 
+export type ModelDetailsParams = {
+  user_name?: string;
+  rating?: string;
+  limit?: number;
+  offset?: number;
+};
+
 export class ModelDetailsService {
-  static getModelDetails = async (token: string, isCustomer: boolean, user_name?: string) => {
+  static getModelDetails = async (token: string, isCustomer: boolean, params?: ModelDetailsParams) => {
     try {
       const headers: AxiosRequestConfig['headers'] = { 'Content-Type': 'application/json' };
       if (token) {
         headers.Authorization = `Bearer ${token}`;
       }
-      const url = user_name
-        ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/details?user_name=${user_name}`
-        : !isCustomer && !user_name
-          ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/details`
-          : '';
-      const res = await axios.get(url, { headers });
+      let url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/details`;
+
+      // const url = user_name
+      //   ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/details?user_name=${user_name}`
+      //   : !isCustomer && !user_name
+      //     ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/details`
+      //     : '';
+      const res = await axios.get(url, { headers, params });
 
       return res.data;
     } catch (err: any) {

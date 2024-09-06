@@ -103,13 +103,15 @@ export const SkipButtonContent = styled(Button)(({ theme }) => ({
   fontSize: '16px',
   fontWeight: 600,
   lineHeight: '24px',
-  color: theme.palette.secondary[700]
+  color: theme.palette.secondary[700],
+  cursor: 'pointer'
 }));
 
 export const PostButtonContent = styled(Button)(({ theme }) => ({
   fontSize: '16px',
   fontWeight: 600,
-  lineHeight: '24px'
+  lineHeight: '24px',
+  cursor: 'pointer'
 }));
 
 export const ReviewBoxAndButtonContent = styled(Box)(({ theme }) => ({
@@ -122,11 +124,22 @@ export const ReviewBoxAndButtonContent = styled(Box)(({ theme }) => ({
 export const ModelDetailsAndButtonContent = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(6)
+  gap: theme.spacing(6),
+  alignItems: 'center'
 }));
 
 export const DiagloMainBoxContent = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(4)
+}));
+
+export const ReviewSubmitBoxContent = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(0.5),
+  width: '100%',
+  maxWidth: '205.6px',
+  alignItems: 'center',
+  textAlign: 'center'
 }));

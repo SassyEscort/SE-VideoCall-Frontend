@@ -71,7 +71,13 @@ const Availability = ({
                   <SwitchText>
                     <StartView>
                       {[...Array(5)].map((_, index) => {
-                        return <StarRateRoundedIcon key={index} htmlColor="#FFB800" sx={{ width: '24px', height: '24px' }} />;
+                        return (
+                          <StarRateRoundedIcon
+                            key={index}
+                            htmlColor={index < (modelDetails?.rating || 0) ? '#FFB800' : '#FFFFFF17'}
+                            sx={{ width: '24px', height: '24px' }}
+                          />
+                        );
                       })}
                     </StartView>
                     <TextViewStartBottom>

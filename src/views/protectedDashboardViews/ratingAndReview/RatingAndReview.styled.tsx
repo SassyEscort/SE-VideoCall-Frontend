@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import { UIStyledSelectAgeFilter } from 'components/UIComponents/UIStyledSelect';
 
 export const HeadingTextAndTotalClientMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -34,15 +35,15 @@ export const TotalClientInnerBoxContainer = styled(Box)(({ theme }) => ({
 export const TotalClientAndRatingDetaiBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(4),
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3)
-  }
+  gap: theme.spacing(4)
 }));
 
 export const RatingDetalisBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(4)
+  gap: theme.spacing(4),
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column'
+  }
 }));
 
 export const RatingDetalisFirstPartBoxContainer = styled(Box)(({ theme }) => ({
@@ -69,8 +70,11 @@ export const RatingPercentageContainer = styled(UINewTypography)(({ theme }) => 
 export const RatingChartMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(1.75)
+  gap: theme.spacing(1.75),
+  cursor: 'pointer'
 }));
+
+export const UIStyledSelectRatingFilter = styled(UIStyledSelectAgeFilter)(() => ({}));
 
 export const RatingChartInnerBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -115,7 +119,8 @@ export const RatingDescriptionStarBoxContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  width: '298px',
+  width: '100%',
+  maxWidth: '275px',
   height: 10,
   borderRadius: 2,
   [`&.${linearProgressClasses.colorPrimary}`]: {
@@ -131,4 +136,9 @@ export const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
       backgroundColor: '#308fe8'
     })
   }
+}));
+
+export const PaginationBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  marginTop: theme.spacing(6)
 }));
