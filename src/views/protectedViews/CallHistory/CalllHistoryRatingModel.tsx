@@ -86,7 +86,7 @@ const CallHistoryRatingModel = ({ open, onClose, callLogId }: { open: boolean; o
     <DialogContentMain open={open} onClose={handleCloseModal} fullWidth scroll="body">
       <DialogTitleBox id="responsive-modal-title">
         <UINewTypography variant="h6">
-          <FormattedMessage id="VideoCallEnded" />
+          <FormattedMessage id="RateAndReview" />
         </UINewTypography>
 
         <IconButton
