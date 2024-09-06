@@ -11,7 +11,6 @@ import {
   ProfileStatiscsContainer,
   ProfileStatiscsMainContainer,
   ProfileTotalVisits,
-  StyledDatePicker,
   UINewTypographyEarningsOverview
 } from './EarningOverview.styled';
 import { useCallback, useEffect, useState } from 'react';
@@ -26,6 +25,7 @@ import Earnings from './Earning';
 import { CircularProgress } from '@mui/material';
 import { LoaderBox } from '../payoutRequest/PayoutRequest.styled';
 import debounce from 'lodash/debounce';
+import CustomDatePicker from 'components/common/CustomDatePicker';
 
 const EarningOverview = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -43,6 +43,7 @@ const EarningOverview = () => {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleDateChange = useCallback(debounce(handleFromToDateChange, 1000), []);
 
   const handleChangePeriodType = (value: string) => {
@@ -140,43 +141,19 @@ const EarningOverview = () => {
                 {periodType === DATE_DURATION_TYPE.ALL_TIME && (
                   <ProfileDOBoxMain>
                     <ProfileDOBox>
-                      <StyledDatePicker
+                      <CustomDatePicker
                         value={moment(fromDate, 'YYYY-MM-DD')}
-                        onChange={(e) => handleDateChange(e as Moment, 'from')}
-                        format="YYYY-MM-DD"
                         maxDate={toDate!}
-                        slotProps={{
-                          calendarHeader: {
-                            sx: {
-                              '& .MuiPickersArrowSwitcher-button': {
-                                color: 'white.main'
-                              },
-                              '& .MuiPickersCalendarHeader-switchViewIcon': {
-                                color: 'white.main'
-                              }
-                            }
-                          }
-                        }}
+                        keyName="from"
+                        handleDateChange={handleDateChange}
                       />
                     </ProfileDOBox>
                     <ProfileDOBox>
-                      <StyledDatePicker
+                      <CustomDatePicker
                         value={moment(toDate, 'YYYY-MM-DD')}
-                        onChange={(e) => handleDateChange(e as Moment, 'to')}
-                        format="YYYY-MM-DD"
                         minDate={fromDate!}
-                        slotProps={{
-                          calendarHeader: {
-                            sx: {
-                              '& .MuiPickersArrowSwitcher-button': {
-                                color: 'white.main'
-                              },
-                              '& .MuiPickersCalendarHeader-switchViewIcon': {
-                                color: 'white.main'
-                              }
-                            }
-                          }
-                        }}
+                        keyName="to"
+                        handleDateChange={handleDateChange}
                       />
                     </ProfileDOBox>
                   </ProfileDOBoxMain>

@@ -22,6 +22,7 @@ import { UIKitSettingsBuilder } from '@cometchat/uikit-shared';
 import { gaEventTrigger } from 'utils/analytics';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import VideoCallEnded from 'views/protectedViews/videoCalling/VideoCallEnded';
+import { useIntl } from 'react-intl';
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
@@ -85,6 +86,7 @@ const CallContext = createContext<CallFeatureContextProps>({
 
 export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const tokenCometChat = useSession();
+  const intl = useIntl();
   const customerUser = (tokenCometChat?.data?.user as User)?.picture;
   const customerUsername = customerUser && JSON.parse(customerUser);
 
@@ -186,12 +188,6 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
       if (stream) {
-        gaEventTrigger('Video_call_initiated', {
-          action: 'Video_call_initiated',
-          category: 'Button',
-          label: 'Video_call_initiated',
-          value: JSON.stringify(customerInfo)
-        });
         setModelCreditPrice(modelPrice);
         setModelId(guestId);
         setModelName(modelName);
@@ -218,6 +214,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
               CometChatUIKitConstants.MessageTypes.video,
               CometChatUIKitConstants.MessageReceiverType.user
             );
+            gaEventTrigger('Video_call_initiated', {
+              action: 'Video_call_initiated',
+              category: 'Button',
+              label: 'Video_call_initiated',
+              value: JSON.stringify(customerInfo)
+            });
             const callInitiate = await CometChat.initiateCall(callObject);
             setCall(callInitiate);
             setSessionId(callInitiate.getSessionId());
@@ -226,7 +228,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
             setIsLoading(false);
           }
         } else if (call) {
-          toast.error('Please end your ONGOING call');
+          toast.error(intl.formatMessage({ id: 'PleaseEndYour' }));
           setIsLoading(false);
         } else if (!isModelAvailable.data.is_online) {
           gaEventTrigger('Video_call_unanswered', {

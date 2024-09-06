@@ -2,7 +2,6 @@
 import { Box, DialogContent } from '@mui/material';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-
 import {
   DialogContentMain,
   DialogTitleBox,
