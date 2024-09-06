@@ -13,7 +13,7 @@ import {
 
 import RatingTable from './RatingTable';
 import RatingPoints from './RatingPoints';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   RatingAndReviewDetailsInfo,
   RatingAndReviewDetailsRes,
@@ -79,13 +79,6 @@ const RatingAndReview = () => {
     ratingAndReviewDetails();
   }, [ratingAndReviewDetails]);
 
-  const scrollToTable = () => {
-    const tableElement = document.getElementById('tableSection');
-    if (tableElement) {
-      tableElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const handleChangeFilter = useCallback((value: ratingAndReviewParams) => {
     setFilters(value);
   }, []);
@@ -94,7 +87,6 @@ const RatingAndReview = () => {
     (event: React.ChangeEvent<unknown>, value: number) => {
       const offset = (value - 1) * filters.limit;
       handleChangeFilter({ ...filters, page: value, offset: offset });
-      scrollToTable();
     },
     [filters, handleChangeFilter]
   );

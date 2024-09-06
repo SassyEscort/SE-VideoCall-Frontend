@@ -32,8 +32,8 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
-import Link from 'next/link';
 import StartRating from 'components/UIComponents/StartRating';
+import { useRouter } from 'next/navigation';
 
 const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: () => void; callLogId: number }) => {
   const { isModelAvailable } = useCallFeatureContext();
@@ -41,6 +41,7 @@ const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: 
   const [review, setReview] = useState<string>('');
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isRatingSubmitted, setIsRatingSubmitted] = useState(false);
+  const router = useRouter();
 
   const handleStarClick = (index: number) => {
     setRating((prevRating) => {
@@ -83,6 +84,11 @@ const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: 
     } catch (error) {
       toast.error(ErrorMessage);
     }
+  };
+
+  const handleExploreModel = () => {
+    onClose();
+    router.push('/');
   };
 
   return (
@@ -132,11 +138,9 @@ const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: 
                       </UIThemeShadowButton>
                     </FourBoxContent>
                   </ThirdBoxContent>
-                  <Link href="/model">
-                    <UINewTypography variant="body" color="white.main">
-                      <FormattedMessage id="ExploreOtherModels" />
-                    </UINewTypography>
-                  </Link>
+                  <UINewTypography variant="body" color="white.main" sx={{ cursor: 'pointer' }} onClick={handleExploreModel}>
+                    <FormattedMessage id="ExploreOtherModels" />
+                  </UINewTypography>
                 </FirstBoxContent>
               </SixBoxContent>
               {!isRatingSubmitted && (
