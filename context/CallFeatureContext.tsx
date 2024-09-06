@@ -132,8 +132,6 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [reviewOpen, setReviewOpen] = useState(false);
   const [callLogId, setCallLogId] = useState(0);
 
-  console.log(isCallEnded, sessionId, reviewOpen, 'isCallEnded');
-
   const pathname = usePathname();
   const router = useRouter();
   const init = useCallback(async () => {

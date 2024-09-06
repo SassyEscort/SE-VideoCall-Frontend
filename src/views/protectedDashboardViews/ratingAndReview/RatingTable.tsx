@@ -52,10 +52,7 @@ const RatingTable = ({
           name="rating"
           labelId="rating"
           IconComponent={ExpandMore}
-          // endAdornment={renderValue && <StyledClearIcon onClick={handleClear} />}
           sx={{ cursor: 'pointer' }}
-          // open={open}
-          // onClick={handleOpen}
         >
           {RATING.map((rating) => (
             <MenuItem key={rating?.id} value={rating?.id}>
