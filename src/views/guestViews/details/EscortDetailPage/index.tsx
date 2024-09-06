@@ -69,13 +69,6 @@ const EscortDetailPage = () => {
     setFilters({ ...filters, rating: value });
   };
 
-  const scrollToTable = () => {
-    const tableElement = document.getElementById('tableSection');
-    if (tableElement) {
-      tableElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const handleChangeFilter = useCallback((value: ratingAndReviewParams) => {
     setFilters(value);
   }, []);
@@ -83,8 +76,7 @@ const EscortDetailPage = () => {
   const handleChangePage = useCallback(
     (event: React.ChangeEvent<unknown>, value: number) => {
       const offset = (value - 1) * filters.limit;
-      handleChangeFilter({ ...filters, offset: offset });
-      scrollToTable();
+      handleChangeFilter({ ...filters, page: value, offset: offset });
     },
     [filters, handleChangeFilter]
   );

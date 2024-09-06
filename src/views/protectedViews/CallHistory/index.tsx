@@ -16,6 +16,7 @@ import {
   FirstBoxContainer,
   FirstTextContainer,
   ImgBoxContainer,
+  RatingAndButtonBoxContainer,
   SecImgBoxContainer,
   SecTextContainer,
   SecondContainer,
@@ -46,6 +47,8 @@ import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { LoaderBox } from '../Credites/Credits.styled';
 import { UIStyledLoadingButtonShadowCallHistory } from 'components/UIComponents/StyleLoadingButtonshadow';
 import { useRouter } from 'next/navigation';
+import CallHistoryRatingModel from './CalllHistoryRatingModel';
+import StartRating from 'components/UIComponents/StartRating';
 
 export type CallHistoryPaginationType = {
   page: number;
@@ -60,6 +63,8 @@ const CallHistory = () => {
   const [total_rows, setTotalRows] = useState(0);
   const [isLoadingCall, setIsLoading] = useState(false);
   const [isLoadingDetail, setIsLoadingDetails] = useState(false);
+  const [isShowRatingModel, setIsShowRatingModel] = useState(false);
+  const [logDetails, setCallLogDetails] = useState<CallHistoryDetails>({} as CallHistoryDetails);
 
   const [filters, setFilters] = useState<CallHistoryPaginationType>({
     page: 1,
@@ -162,6 +167,18 @@ const CallHistory = () => {
     }
   };
 
+  const handleRatingModel = (list: CallHistoryDetails) => {
+    if (list.call_log_id) {
+      setCallLogDetails(list);
+      setIsShowRatingModel(true);
+    }
+  };
+
+  const handleRatingModelClose = () => {
+    setCallLogDetails({} as CallHistoryDetails);
+    setIsShowRatingModel(false);
+  };
+
   return (
     <MainLayoutNav variant={'worker'} enlargedFooter={true}>
       <CallHistoryBoxContainer>
@@ -235,24 +252,38 @@ const CallHistory = () => {
                           </SecondSubFirstPartThiredBox>
                         </SecondSubFirstBox>
 
-                        <CallAgainBox>
-                          <UIStyledLoadingButtonShadowCallHistory
-                            loading={isLoadingDetail}
-                            variant="contained"
-                            onClick={() => {
-                              handleVideoCall(list);
-                            }}
-                          >
-                            <Box sx={{ display: 'flex', gap: 1.25 }}>
-                              <SecImgBoxContainer src="/images/home-connect-instantly-img.png" />
-                              <Box sx={{ whiteSpace: 'nowrap' }}>
-                                <UINewTypography variant="bodySemiBold" color="white.main">
-                                  <FormattedMessage id="CallAgain" />
-                                </UINewTypography>
+                        <RatingAndButtonBoxContainer>
+                          <CallAgainBox>
+                            <UIStyledLoadingButtonShadowCallHistory
+                              loading={isLoadingDetail}
+                              variant="contained"
+                              onClick={() => {
+                                handleVideoCall(list);
+                              }}
+                            >
+                              <Box sx={{ display: 'flex', gap: 1.25 }}>
+                                <SecImgBoxContainer src="/images/home-connect-instantly-img.png" />
+                                <Box sx={{ whiteSpace: 'nowrap' }}>
+                                  <UINewTypography variant="bodySemiBold" color="white.main">
+                                    <FormattedMessage id="CallAgain" />
+                                  </UINewTypography>
+                                </Box>
                               </Box>
-                            </Box>
-                          </UIStyledLoadingButtonShadowCallHistory>
-                        </CallAgainBox>
+                            </UIStyledLoadingButtonShadowCallHistory>
+                          </CallAgainBox>
+                          {list?.rating ? (
+                            <StartRating value={list?.rating || 0} />
+                          ) : (
+                            <UINewTypography
+                              variant="bodySemiBold"
+                              color="primary.400"
+                              onClick={() => handleRatingModel(list)}
+                              sx={{ cursor: 'pointer' }}
+                            >
+                              <FormattedMessage id="RateYourVideoCall" />
+                            </UINewTypography>
+                          )}
+                        </RatingAndButtonBoxContainer>
                       </SecondSubTextMainContainer>
                     </SecondSubContainer>
 
@@ -290,6 +321,7 @@ const CallHistory = () => {
           </CallHistoryPaginationContainer>
         )}
       </CallHistoryBoxContainer>
+      <CallHistoryRatingModel open={isShowRatingModel} onClose={handleRatingModelClose} callLogId={logDetails.call_log_id} />
     </MainLayoutNav>
   );
 };

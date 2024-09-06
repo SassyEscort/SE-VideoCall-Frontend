@@ -364,7 +364,6 @@
   "VideoCalling": "Videollamada",
   "Ringing": "El sonar.....",
   "WeAreSorry": "Lo sentimos, Kat no contestó.",
-  "CallAgian": "Llama de nuevo",
   "In": "en",
   "ThankYouForTheCall": "Gracias por la llamada. Esperamos que haya disfrutado de su conexión con Kat Winter.",
   "ExploreOtherModels": "Explora otros modelos",
@@ -785,5 +784,6 @@
   "2Stars": "2 estrellas",
   "1Stars": "1 estrellas",
   "Reviews": "opiniones",
-  "VideoCallEnded": "Videollamada finalizada"
+  "VideoCallEnded": "Videollamada finalizada",
+  "RateAndReview": "Califica y revisa"
 }
