@@ -81,28 +81,27 @@ const CallHistory = () => {
     userToken();
   }, []);
 
-  useEffect(() => {
-    const fetchCallHistoryDetails = async () => {
-      try {
-        if (token.token) {
-          setIsLoading(true);
-          const objectParams = {
-            page: filters.page,
-            limit: filters.limit,
-            offset: filters.offset
-          };
-          const data = await CallHistoryService.getCallHistoryDetails(token.token, objectParams);
-          if (data) {
-            setCallHistoryData(data);
-            setTotalRows(data.data.aggregate.total_rows);
-            setIsLoading(false);
-          }
+  const fetchCallHistoryDetails = async () => {
+    try {
+      if (token.token) {
+        setIsLoading(true);
+        const objectParams = {
+          page: filters.page,
+          limit: filters.limit,
+          offset: filters.offset
+        };
+        const data = await CallHistoryService.getCallHistoryDetails(token.token, objectParams);
+        if (data) {
+          setCallHistoryData(data);
+          setTotalRows(data.data.aggregate.total_rows);
+          setIsLoading(false);
         }
-      } catch (error) {
-        toast.error(ErrorMessage);
       }
-    };
-
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
+  useEffect(() => {
     fetchCallHistoryDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters.limit, filters.offset, token.token]);
@@ -177,6 +176,7 @@ const CallHistory = () => {
   const handleRatingModelClose = () => {
     setCallLogDetails({} as CallHistoryDetails);
     setIsShowRatingModel(false);
+    fetchCallHistoryDetails();
   };
 
   return (
