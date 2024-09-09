@@ -150,13 +150,12 @@ export const StyledEarningSelectInputLabel = styled(InputLabel)(({ theme }) => (
   color: theme.palette.secondary[200],
   gap: theme.spacing(1),
   alignItems: 'center',
+  maxWidth: '90px',
   '&.MuiInputLabel-shrink': { top: 0 },
   overflow: 'hidden',
   textOverflow: 'ellipsis',
-  maxWidth: '86px',
   [theme.breakpoints.up('md')]: {
     overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    maxWidth: '85px'
+    textOverflow: 'ellipsis'
   }
 }));
