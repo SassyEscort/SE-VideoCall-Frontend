@@ -801,5 +801,6 @@
   "ProfileBoosted": "Perfil potenciado por 2 horas",
   "BoostPaidText": "Boost =",
   "StartBoost": "Start boost for 2 hours",
-  "HighlyAvailable":"Highly available"
+  "HighlyAvailable": "Highly available",
+  "ChooseABoostPackageToSpotligh": "Choose a boost package to spotlight your profile at the top of the grid."
 }

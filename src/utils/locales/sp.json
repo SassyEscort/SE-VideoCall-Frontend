@@ -799,5 +799,6 @@
   "1FreeBoostAvailable": "1 Boost gratuito disponible",
   "BoostPaidText": "Boost =",
   "StartBoost": "Iniciar impulso por 2 horas",
-  "HighlyAvailable": "Altamente disponible"
+  "HighlyAvailable": "Altamente disponible",
+  "ChooseABoostPackageToSpotligh": "Elija un paquete de impulso para destacar su perfil en la parte superior de la cuadrícula."
 }
