@@ -29,6 +29,7 @@ import BoostProfileDialog from './BoostProfileDialog';
 import { CustomerCredit } from 'services/customerCredit/customerCredit.service';
 import { PaidProfile } from './PaidProfile';
 import moment from 'moment';
+import BoostMultiplePackage from './BoostMultiplePackage';
 
 const FreeProfile = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -36,6 +37,7 @@ const FreeProfile = () => {
   const [openBoost, setOpenBoost] = useState(false);
   const [isFreeBoostUsed, setIsFreeBoostUsed] = useState(0);
   const [freePlan, setFreePlan] = useState<ProfilePlanResData>();
+  const [allPlans, setAllPlans] = useState<ProfilePlanResData[]>([]);
   const [activePlanHours, setActivePlanHours] = useState(0);
   const [activePlanMins, setActivePlanMins] = useState(0);
   const [activeStep, setActiveStep] = useState(0);
@@ -93,6 +95,12 @@ const FreeProfile = () => {
     const getProfilePlans = async () => {
       try {
         const response = await CommonServices.getProfilePlans(token.token);
+        if (isFreeBoostUsed) {
+          const paidPlans = response.data.filter((x) => !x.is_free);
+          setAllPlans(paidPlans);
+        } else {
+          setAllPlans(response.data);
+        }
         const freePlanData = response?.data?.filter((x) => x.is_free)[0];
         setFreePlan(freePlanData);
       } catch (error) {
@@ -102,7 +110,7 @@ const FreeProfile = () => {
     if (token.token) {
       getProfilePlans();
     }
-  }, [token.token]);
+  }, [isFreeBoostUsed, token.token]);
 
   return (
     <>
@@ -112,6 +120,9 @@ const FreeProfile = () => {
             <FormattedMessage id="BoostYourProfile" />
           </UINewTypography>
         </FirstBoxContainer>
+        <Box marginTop={7}>
+          <BoostMultiplePackage allPlans={allPlans} handleBoostOpen={handleBoostOpen} />
+        </Box>
         {!isFreeBoostUsed ? (
           <>
             <Box sx={{ display: 'flex', flexDirection: isSmDown ? 'column-reverse' : 'column' }}>

@@ -1,5 +1,4 @@
 'use client';
-import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -14,62 +13,44 @@ import {
   ImagSubContainer,
   MainImagContainer
 } from './BoostMultiplePackage.styled';
+import { ProfilePlanResData } from 'services/commonApi/commonApi.services';
+import { Grid } from '@mui/material';
+import { ImagMainContainer } from 'views/protectedViews/Credites/Credits.styled';
 
-const BoostMultiplePackage = () => {
+const BoostMultiplePackage = ({ allPlans, handleBoostOpen }: { allPlans: ProfilePlanResData[]; handleBoostOpen: () => void }) => {
   return (
-    <BoostPackageMainBoxContainer>
+    <BoostPackageMainBoxContainer onClick={handleBoostOpen}>
       <UINewTypography variant="h5">
         <FormattedMessage id="ChooseABoostPackageToSpotligh" />
       </UINewTypography>
-
-      <Box>
+      <ImagMainContainer>
         <FirstBoxContainer>
-          <ImagSubContainer>
-            <MainImagContainer src="/images/credits/credits-img-1.png" />
-            <BoxFirstTextContainer>
-              <CreditCardImage src="/images/icons/boost-timer-icon.svg" />
-              <UINewTypography sx={{ fontSize: '28px', fontWeight: 500, lineHeight: '33.6px', color: 'text.secondary' }}>
-                2 hours
-              </UINewTypography>
-            </BoxFirstTextContainer>
-            <BoxSecondTextContainer>
-              <DollarCreditText color="text.secondary">Free</DollarCreditText>
-            </BoxSecondTextContainer>
-          </ImagSubContainer>
-
-          <ImagSubContainer>
-            <MainImagContainer src="/images/credits/credits-img-2.png" />
-            <BoxFirstTextContainer>
-              <CreditCardImage src="/images/icons/boost-timer-icon.svg" />
-              <UINewTypography sx={{ fontSize: '28px', fontWeight: 500, lineHeight: '33.6px', color: 'text.secondary' }}>
-                2 hours
-              </UINewTypography>
-            </BoxFirstTextContainer>
-            <BoxSecondTextContainer>
-              <CreditBuyText variant="bodySmall" color="secondary.700">
-                <FormattedMessage id="BuyNowAt" />
-              </CreditBuyText>
-              <DollarCreditText color="text.secondary">$0.1</DollarCreditText>
-            </BoxSecondTextContainer>
-          </ImagSubContainer>
-
-          <ImagSubContainer>
-            <MainImagContainer src="/images/credits/credits-img-2.png" />
-            <BoxFirstTextContainer>
-              <CreditCardImage src="/images/icons/boost-timer-icon.svg" />
-              <UINewTypography sx={{ fontSize: '28px', fontWeight: 500, lineHeight: '33.6px', color: 'text.secondary' }}>
-                4 hours
-              </UINewTypography>
-            </BoxFirstTextContainer>
-            <BoxSecondTextContainer>
-              <CreditBuyText variant="bodySmall" color="secondary.700">
-                <FormattedMessage id="BuyNowAt" />
-              </CreditBuyText>
-              <DollarCreditText color="text.secondary">$0.15</DollarCreditText>
-            </BoxSecondTextContainer>
-          </ImagSubContainer>
+          <Grid container sx={{ gap: 2 }}>
+            {allPlans?.map((plan, index) => (
+              <ImagSubContainer key={index}>
+                <MainImagContainer src="/images/credits/credits-img-1.png" />
+                <BoxFirstTextContainer>
+                  <CreditCardImage src="/images/icons/boost-timer-icon.svg" />
+                  <UINewTypography sx={{ fontSize: '28px', fontWeight: 500, lineHeight: '33.6px', color: 'text.secondary' }}>
+                    {plan.duration} <FormattedMessage id="Hours" />
+                  </UINewTypography>
+                </BoxFirstTextContainer>
+                <BoxSecondTextContainer>
+                  {!plan.is_free && (
+                    <CreditBuyText variant="bodySmall" color="secondary.700">
+                      <FormattedMessage id="BuyNowAt" />
+                    </CreditBuyText>
+                  )}
+                  <DollarCreditText color="text.secondary">
+                    {plan.is_free ? <FormattedMessage id="Free" /> : `$${plan.cost}`}
+                  </DollarCreditText>
+                </BoxSecondTextContainer>
+                <BoxSecondTextContainer></BoxSecondTextContainer>
+              </ImagSubContainer>
+            ))}
+          </Grid>
         </FirstBoxContainer>
-      </Box>
+      </ImagMainContainer>
     </BoostPackageMainBoxContainer>
   );
 };

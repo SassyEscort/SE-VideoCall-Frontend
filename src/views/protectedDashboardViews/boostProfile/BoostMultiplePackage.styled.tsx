@@ -5,7 +5,8 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 export const BoostPackageMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(4)
+  gap: theme.spacing(4),
+  cursor: 'pointer'
 }));
 
 export const ImagSubContainer = styled(Box)(({ theme }) => ({
@@ -21,7 +22,6 @@ export const ImagSubContainer = styled(Box)(({ theme }) => ({
 
 export const MainImagContainer = styled('img')(({ theme }) => ({
   display: 'flex',
-  width: '100%',
   height: '100%',
   borderRadius: theme.spacing(1),
   border: '1px solid',
