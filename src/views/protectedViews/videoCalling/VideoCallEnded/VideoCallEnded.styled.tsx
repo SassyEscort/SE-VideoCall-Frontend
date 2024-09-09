@@ -1,4 +1,4 @@
-import { Box, Dialog, DialogTitle, styled } from '@mui/material';
+import { Box, Button, Dialog, DialogTitle, styled } from '@mui/material';
 
 export const DialogTitleBox = styled(DialogTitle)(({ theme }) => ({
   display: 'flex',
@@ -88,12 +88,58 @@ export const FourBoxContent = styled(Box)(() => ({
 export const FiveBoxContent = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(0.5)
+  gap: theme.spacing(1.5),
+  alignItems: 'center'
 }));
 
 export const SixBoxContent = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(5),
+  textAlign: 'center'
+}));
+
+export const SkipButtonContent = styled(Button)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 600,
+  lineHeight: '24px',
+  color: theme.palette.secondary[700],
+  cursor: 'pointer'
+}));
+
+export const PostButtonContent = styled(Button)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 600,
+  lineHeight: '24px',
+  cursor: 'pointer'
+}));
+
+export const ReviewBoxAndButtonContent = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2.5),
+  textAlign: 'end'
+}));
+
+export const ModelDetailsAndButtonContent = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(6),
+  alignItems: 'center'
+}));
+
+export const DiagloMainBoxContent = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(4)
+}));
+
+export const ReviewSubmitBoxContent = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(0.5),
+  width: '100%',
+  maxWidth: '205.6px',
+  alignItems: 'center',
   textAlign: 'center'
 }));

@@ -21,6 +21,8 @@ import { useRouter } from 'next/navigation';
 import { UIKitSettingsBuilder } from '@cometchat/uikit-shared';
 import { gaEventTrigger } from 'utils/analytics';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+import VideoCallEnded from 'views/protectedViews/videoCalling/VideoCallEnded';
+import { useIntl } from 'react-intl';
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
@@ -84,6 +86,7 @@ const CallContext = createContext<CallFeatureContextProps>({
 
 export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const tokenCometChat = useSession();
+  const intl = useIntl();
   const customerUser = (tokenCometChat?.data?.user as User)?.picture;
   const customerUsername = customerUser && JSON.parse(customerUser);
 
@@ -128,6 +131,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [modelCreditPrice, setModelCreditPrice] = useState('');
   const [isModelAvailable, setIsModelAvailable] = useState(1);
   const [isUnanswered, setIsUnanswered] = useState(false);
+  const [reviewOpen, setReviewOpen] = useState(false);
+  const [callLogId, setCallLogId] = useState(0);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -183,18 +188,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
       if (stream) {
-        gaEventTrigger('Video_call_initiated', {
-          action: 'Video_call_initiated',
-          category: 'Button',
-          label: 'Video_call_initiated',
-          value: JSON.stringify(customerInfo)
-        });
         setModelCreditPrice(modelPrice);
         setModelId(guestId);
         setModelName(modelName);
         setModelPhoto(modelPhoto);
 
-        const isModelAvailable = await ModelDetailsService.getModelDetails(token.token, isCustomer, userName);
+        const isModelAvailable = await ModelDetailsService.getModelDetails(token.token, isCustomer, { user_name: userName || '' });
 
         if (guestId && isCreditAvailable && !call && Boolean(token.token) && isModelAvailable.data.is_online) {
           const isModelBusy = await CallingService.getModelCallStatus(guestId, token.token);
@@ -215,6 +214,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
               CometChatUIKitConstants.MessageTypes.video,
               CometChatUIKitConstants.MessageReceiverType.user
             );
+            gaEventTrigger('Video_call_initiated', {
+              action: 'Video_call_initiated',
+              category: 'Button',
+              label: 'Video_call_initiated',
+              value: JSON.stringify(customerInfo)
+            });
             const callInitiate = await CometChat.initiateCall(callObject);
             setCall(callInitiate);
             setSessionId(callInitiate.getSessionId());
@@ -223,7 +228,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
             setIsLoading(false);
           }
         } else if (call) {
-          toast.error('Please end your ONGOING call');
+          toast.error(intl.formatMessage({ id: 'PleaseEndYour' }));
           setIsLoading(false);
         } else if (!isModelAvailable.data.is_online) {
           gaEventTrigger('Video_call_unanswered', {
@@ -267,21 +272,18 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     router.push(pathname);
   };
 
-  const handleOpen = () => {
-    setOpen(true);
+  const handleOpen = () => setOpen(true);
+
+  const handleBusyClose = () => setIsBusy(false);
+
+  const handleCallEnd = () => setIsCallEnded(false);
+
+  const handleReviewClose = () => {
+    setReviewOpen(false);
+    window.location.reload();
   };
 
-  const handleBusyClose = () => {
-    setIsBusy(false);
-  };
-
-  const handleCallEnd = () => {
-    setIsCallEnded(false);
-  };
-
-  const handleModelOfflineClose = () => {
-    setIsModelAvailable(1);
-  };
+  const handleModelOfflineClose = () => setIsModelAvailable(1);
 
   const creditPutCallLog = async (model_id: number, comet_chat_session_id: string, status: string): Promise<CreditCallRes | undefined> => {
     const creditLog = {
@@ -299,10 +301,12 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           value: JSON.stringify(customerInfo)
         });
         setCall(undefined);
+        setCallLogId(creditLogData.id);
         setIsCallAccepted(false);
         await CometChat.endCall(call.getSessionId());
         CometChatCalls.endSession();
         setAvailableCredits(creditLogData.available_credits);
+        setReviewOpen(true);
         if (isCustomer && creditLogData.out_of_credits) {
           const creditInfoEvent = {
             email: customerData?.customer_email,
@@ -519,12 +523,6 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCallAccepted, isCallEnded, isCustomer, modelId, sessionId]);
 
-  useEffect(() => {
-    if (isCallEnded) {
-      window.location.reload();
-    }
-  }, [isCallEnded]);
-
   return (
     <CallContext.Provider
       value={{
@@ -565,6 +563,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       <UIStyledDialog open={openSuccess} maxWidth="md" fullWidth scroll="body">
         <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} isOutOfCredits={isOutOfCredits} />
       </UIStyledDialog>
+      <VideoCallEnded open={reviewOpen} onClose={handleReviewClose} callLogId={callLogId} />
     </CallContext.Provider>
   );
 };

@@ -4,27 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Divider } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import VideoCalling from '../commonComponent';
 import { FormattedMessage } from 'react-intl';
-import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-import {
-  DiagloMainBoxContent,
-  DialogContentFristBox,
-  DialogContentMain,
-  DialogTitleBox,
-  FirstBoxContent,
-  FiveBoxContent,
-  FourBoxContent,
-  ModelDetailsAndButtonContent,
-  PostButtonContent,
-  ReviewBoxAndButtonContent,
-  ReviewSubmitBoxContent,
-  SecondBoxContent,
-  SixBoxContent,
-  SkipButtonContent,
-  ThirdBoxContent
-} from './VideoCallEnded.styled';
-import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { useEffect, useState } from 'react';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RatingAndReviewService } from 'services/ratingAndReview/ratingAndReview.service';
@@ -32,16 +12,25 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
+import {
+  DiagloMainBoxContent,
+  DialogContentFristBox,
+  DialogContentMain,
+  DialogTitleBox,
+  FiveBoxContent,
+  ModelDetailsAndButtonContent,
+  PostButtonContent,
+  ReviewBoxAndButtonContent,
+  ReviewSubmitBoxContent,
+  SkipButtonContent
+} from '../videoCalling/VideoCallEnded/VideoCallEnded.styled';
 import StartRating from 'components/UIComponents/StartRating';
-import { useRouter } from 'next/navigation';
 
-const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: () => void; callLogId: number }) => {
-  const { isModelAvailable } = useCallFeatureContext();
+const CallHistoryRatingModel = ({ open, onClose, callLogId }: { open: boolean; onClose: () => void; callLogId: number }) => {
   const [rating, setRating] = useState<number>(0);
   const [review, setReview] = useState<string>('');
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isRatingSubmitted, setIsRatingSubmitted] = useState(false);
-  const router = useRouter();
 
   const handleStarClick = (index: number) => {
     setRating((prevRating) => {
@@ -78,7 +67,7 @@ const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: 
         if (data.code === 200) {
           setIsRatingSubmitted(true);
         } else {
-          onClose();
+          handleCloseModal();
         }
       }
     } catch (error) {
@@ -86,21 +75,23 @@ const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: 
     }
   };
 
-  const handleExploreModel = () => {
+  const handleCloseModal = () => {
+    setIsRatingSubmitted(false);
+    setRating(0);
+    setReview('');
     onClose();
-    router.push('/');
   };
 
   return (
-    <DialogContentMain open={open} onClose={onClose} fullWidth scroll="body">
+    <DialogContentMain open={open} onClose={handleCloseModal} fullWidth scroll="body">
       <DialogTitleBox id="responsive-modal-title">
         <UINewTypography variant="h6">
-          <FormattedMessage id="VideoCallEnded" />
+          <FormattedMessage id="RateAndReview" />
         </UINewTypography>
 
         <IconButton
           aria-label="close"
-          onClick={onClose}
+          onClick={handleCloseModal}
           sx={{
             color: (theme) => theme.palette.text.secondary
           }}
@@ -120,38 +111,13 @@ const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: 
         <DialogContentFristBox>
           <DiagloMainBoxContent>
             <ModelDetailsAndButtonContent>
-              <SixBoxContent>
-                <FirstBoxContent>
-                  <ThirdBoxContent>
-                    <SecondBoxContent>
-                      <VideoCalling showHeart={true} showAnother={false} isModelAvailable={isModelAvailable} />
-                      <UINewTypography variant="bodyLight" color="text.primary">
-                        <FormattedMessage id="ThankYouForTheCall" />
-                      </UINewTypography>
-                    </SecondBoxContent>
-                    <FourBoxContent>
-                      <UIThemeShadowButton variant="contained" sx={{ width: '100%' }}>
-                        <Box component="img" src="/images/home-connect-instantly-img.png" />
-                        <UINewTypography variant="bodySemiBold" color="white.main">
-                          <FormattedMessage id="CallAgain" />
-                        </UINewTypography>
-                      </UIThemeShadowButton>
-                    </FourBoxContent>
-                  </ThirdBoxContent>
-                  <UINewTypography variant="body" color="white.main" sx={{ cursor: 'pointer' }} onClick={handleExploreModel}>
-                    <FormattedMessage id="ExploreOtherModels" />
-                  </UINewTypography>
-                </FirstBoxContent>
-              </SixBoxContent>
               {!isRatingSubmitted && (
                 <>
                   <FiveBoxContent>
                     <UINewTypography variant="bodyLight" color="text.primary">
                       <FormattedMessage id="RateYourVideoCall" />
                     </UINewTypography>
-                    <Box>
-                      <StartRating value={rating || 0} handleStarClick={handleStarClick} />
-                    </Box>
+                    <StartRating value={rating} handleStarClick={handleStarClick} />
                   </FiveBoxContent>
                   {rating > 0 && (
                     <ReviewBoxAndButtonContent>
@@ -172,7 +138,7 @@ const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: 
                         }}
                       />
                       <Box sx={{ cursor: 'pointer' }}>
-                        <SkipButtonContent variant="text" onClick={() => onClose()}>
+                        <SkipButtonContent variant="text" onClick={() => handleCloseModal()}>
                           <FormattedMessage id="Skip" />
                         </SkipButtonContent>
                         <PostButtonContent variant="text" onClick={() => handleCallRating()}>
@@ -199,4 +165,4 @@ const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: 
   );
 };
 
-export default VideoCallEnded;
+export default CallHistoryRatingModel;

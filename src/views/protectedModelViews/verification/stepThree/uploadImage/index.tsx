@@ -136,7 +136,7 @@ const UploadImage = ({
           const isVideoThubnail = file5Existing[0]?.filter(
             (x) => (x?.photoURL?.endsWith('mp4') || x?.photoURL?.endsWith('mov') || x?.photoURL?.endsWith('avi')) && x?.isFavorite
           ).length;
-          if (value && value.filter((x) => x !== null).length > 0) {
+          if (value && value.filter((x) => x !== null).length > 0 && !file5Existing.length) {
             const firstFileIndex = value.findIndex((x) => x !== null);
             const videoIndex = value.findIndex(
               (file) =>
@@ -154,11 +154,7 @@ const UploadImage = ({
           }
           return true;
         };
-        if (
-          (file5Existing[0] && file5Existing[0].length >= 1) ||
-          toNotValidate ||
-          (modelProfileStatus === PAYOUT_ACTION.APPROVE && pathname !== '/model/profile')
-        ) {
+        if (file5Existing[0] && file5Existing[0].length >= 1) {
           return schema.test('file-size-check', fileSizeCheck).notRequired();
         }
         return schema.test('file5-combined-length', function (this: Yup.TestContext<Yup.AnyObject>, value: File[]) {
@@ -183,11 +179,14 @@ const UploadImage = ({
           if (invalidSizeFiles.length > 0) {
             return this.createError({ message: intl.formatMessage({ id: 'PhotoVideoShouldBeLessThan5MB' }), path: 'file5' });
           }
-          if (combinedLength < 1) {
+          if (combinedLength < 1 && !toNotValidate) {
             return this.createError({ message: intl.formatMessage({ id: 'PleaseUploadAtLeast1Photo' }), path: 'file5' });
           }
           if (combinedLength > 30) {
             return this.createError({ message: intl.formatMessage({ id: 'SorryYoucanUpload30PicturesOnly' }), path: 'file5' });
+          }
+          if (combinedLength < 1 && combinedLength > 30 && modelProfileStatus === PAYOUT_ACTION.APPROVE) {
+            return true;
           }
 
           return true;
@@ -349,7 +348,7 @@ const UploadImage = ({
       enableReinitialize
       initialValues={initialValuesPerStep}
       onSubmit={(values) => {
-        if (values.file5 === null && !values.file5Existing.length && pathname !== '/model/profile') {
+        if (!values.file5?.length && !values.file5Existing.length && pathname !== '/model/profile') {
           setImageWarningOpen(true);
         } else {
           handlePhotoSubmit(values);

@@ -364,7 +364,6 @@
   "VideoCalling": "Videollamada",
   "Ringing": "El sonar.....",
   "WeAreSorry": "Lo sentimos, Kat no contestó.",
-  "CallAgian": "Llama de nuevo",
   "In": "en",
   "ThankYouForTheCall": "Gracias por la llamada. Esperamos que haya disfrutado de su conexión con Kat Winter.",
   "ExploreOtherModels": "Explora otros modelos",
@@ -451,6 +450,7 @@
   "WeAreEntitledToInWhole": "Tenemos derecho a ceder total o parcialmente sus derechos y obligaciones bajo estos Términos y Condiciones a un tercero. No puede ceder estos Términos y condiciones a ninguna parte.",
   "IfAnyProvisionOfTheseTermsAndConditions": "Si alguna disposición de estos Términos y condiciones fuera inválida o inaplicable, en cualquier momento o en cualquier medida, el resto de estos Términos y condiciones no se verá afectado por ello. Cada disposición de estos Términos y condiciones será válida y aplicada en la máxima medida permitida por la ley.",
   "ToMaintainASafeAndRespectfulEnvironment": "Para mantener un entorno seguro y respetuoso, tiene estrictamente prohibido publicar contenido explícito en nuestra plataforma. Esto incluye, entre otros, material sexualmente explícito, desnudez y cualquier otro contenido que se considere inapropiado según nuestros estándares. Las violaciones de esta política pueden resultar en la suspensión o cancelación inmediata de la cuenta.",
+  "IfWeFoundSomeoneFakePicturePolicy": "Si descubrimos que alguien está usando una imagen falsa en su perfil, la cuenta se eliminará inmediatamente.",
   "Introduction": "Introducción",
   "TheServiceAndGeneralLimitationsOfUse": "El Servicio y Limitaciones Generales de Uso",
   "HowToAccessTheServiceAndYourAccount": "Cómo acceder al servicio y a su cuenta",
@@ -466,6 +466,7 @@
   "Assignment": "Asignación",
   "PartialInvalidity": "Invalidez parcial",
   "ProhibitedContent": "Contenido prohibido",
+  "FakePicturePolicy": "Política de imágenes falsas",
   "ExploreMoreModels": "Explorar más modelos",
   "StartVideoCallAgain": "Iniciar llamada de video nuevamente",
   "EarningsIn": "Ingresos en $",
@@ -803,8 +804,24 @@
   "ProfileBoostedFor": "Perfil impulsado por",
   "Hours": "horas",
   "Mins": "minutos",
-  "ChooseABoostPackageToSpotligh": "Elija un paquete de impulso para destacar su perfil en la parte superior de la cuadrícula."
-
+  "ChooseABoostPackageToSpotligh": "Elija un paquete de impulso para destacar su perfil en la parte superior de la cuadrícula.",
+  "RatingAndReviews": "Calificación y reseñas",
+  "Skip": "Saltar",
+  "Post": "Correo",
+  "TotalRatingsReceived": "Calificaciones totales recibidas",
+  "TotalReviewsReceived": "Total de reseñas recibidas",
+  "YourRatingAndReviews": "Tu calificación y reseñas",
+  "YourReviewHasBeenSubmitted": "Su reseña ha sido enviada, ¡gracias!",
+  "ValidFileType": "Por favor, introduce un tipo de archivo válido",
+  "PleaseEndYour": "Por favor, termine su LLAMADA en curso",
+  "5Stars": "5 estrellas",
+  "4Stars": "4 estrellas",
+  "3Stars": "3 estrellas",
+  "2Stars": "2 estrellas",
+  "1Stars": "1 estrellas",
+  "Reviews": "opiniones",
+  "VideoCallEnded": "Videollamada finalizada",
+  "RateAndReview": "Califica y revisa"
 }
 
 

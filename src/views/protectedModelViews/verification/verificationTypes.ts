@@ -50,6 +50,7 @@ export type ModelDetailsResponse = {
   profile_status: string;
   rejection_reason: string;
   favourite: number;
+  rating: number;
 };
 
 export type GuestDetailsResponse = {

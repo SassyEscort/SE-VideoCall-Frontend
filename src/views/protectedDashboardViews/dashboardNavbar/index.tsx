@@ -47,9 +47,10 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
     dashboard: 1,
     earnings: 2,
     payouts: 3,
-    'help-info': 4,
-    'boost-profile': 5,
-    'download-app': 6
+    'rating-and-review': 4,
+    'help-info': 5,
+    'download-app': 6,
+    'boost-profile': 7
   };
 
   const modifiedPath = router.split('/model').join('').split('/').join('');
@@ -58,7 +59,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
-  const islgDown = useMediaQuery(theme.breakpoints.down('lg'));
+  const ismdDown = useMediaQuery('(max-width: 1024px)');
   const isMdFix = useMediaQuery('(min-width:900px) and (max-width:1024px)');
 
   const [value, setValue] = useState(0);
@@ -95,7 +96,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
 
   return (
     <>
-      {islgDown && (
+      {ismdDown && (
         <Availability
           modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
           token={token}

@@ -6,7 +6,7 @@ import theme from 'themes/theme';
 import EscortSliderMobile from './EscortSliderMobile';
 import EscortPersonalDetail from './EscortPersonalDetail';
 import EscortExplore from './EscortExplore';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
 import { toast } from 'react-toastify';
@@ -18,9 +18,25 @@ import Box from '@mui/system/Box';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { CallingService } from 'services/calling/calling.services';
 import moment from 'moment';
-import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+import { ModelDetailsParams, ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { gaEventTrigger } from 'utils/analytics';
 import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
+import RatingTable from 'views/protectedDashboardViews/ratingAndReview/RatingTable';
+import RatingPoints from 'views/protectedDashboardViews/ratingAndReview/RatingPoints';
+import UINewTypography from 'components/UIComponents/UINewTypography';
+import {
+  RatingReviewInnerBoxContainer,
+  RatingReviewMainBoxContainer,
+  RatingReviewText,
+  RatingReviewTextBoxContainer
+} from './Escort.styled';
+import { FormattedMessage } from 'react-intl';
+import {
+  RatingAndReviewDetailsAllDetails,
+  RatingAndReviewDetailsInfo,
+  RatingAndReviewDetailsRes,
+  ratingAndReviewParams
+} from 'services/ratingAndReview/ratingAndReview.service';
 
 const EscortDetailPage = () => {
   const path = usePathname();
@@ -37,6 +53,33 @@ const EscortDetailPage = () => {
   const modelPhoto = guestData?.photos?.filter((x) => x.favourite)?.map((item) => item.link)[0];
 
   const { handleCallInitiate, call, isLoading, isCallEnded, isCustomer, handleCallEnd, isUnanswered } = useCallFeatureContext();
+
+  const [ratingAndReview, setRatingAndReview] = useState<RatingAndReviewDetailsRes>();
+  const [total_rows, setTotalRows] = useState(0);
+
+  const [filters, setFilters] = useState<ratingAndReviewParams>({
+    rating: '',
+    page: 1,
+    limit: 5,
+    offset: 0
+  });
+
+  const handleRatingSelect = (id: string) => {
+    const value = filters.rating !== id ? id : '';
+    setFilters({ ...filters, rating: value });
+  };
+
+  const handleChangeFilter = useCallback((value: ratingAndReviewParams) => {
+    setFilters(value);
+  }, []);
+
+  const handleChangePage = useCallback(
+    (event: React.ChangeEvent<unknown>, value: number) => {
+      const offset = (value - 1) * filters.limit;
+      handleChangeFilter({ ...filters, page: value, offset: offset });
+    },
+    [filters, handleChangeFilter]
+  );
 
   useEffect(() => {
     const userToken = async () => {
@@ -61,7 +104,16 @@ const EscortDetailPage = () => {
     const fetchGuestData = async () => {
       try {
         if (userName) {
-          const data = await ModelDetailsService.getModelDetails(token.token, isCustomer, userName);
+          let params: ModelDetailsParams = {
+            limit: filters.limit,
+            offset: filters.offset
+          };
+          if (userName) params.user_name = userName;
+          if (filters.rating) params.rating = filters.rating;
+          const data = await ModelDetailsService.getModelDetails(token.token, isCustomer, params);
+          const ratingData: RatingAndReviewDetailsAllDetails = data?.data?.model_ratings || {};
+          setRatingAndReview({ data: ratingData } as RatingAndReviewDetailsRes);
+          setTotalRows(ratingData?.aggregate.total_rows);
           if (data.code === 200) {
             setGuestData(data.data);
           } else {
@@ -74,7 +126,7 @@ const EscortDetailPage = () => {
     };
 
     fetchGuestData();
-  }, [isCustomer, token.token, userName]);
+  }, [isCustomer, token.token, userName, filters]);
 
   const getCometChatInfo = async () => {
     if (guestData && token.token) {
@@ -164,6 +216,31 @@ const EscortDetailPage = () => {
           )}
 
           <EscortPersonalDetail guestData={guestData ?? ({} as ModelDetailsResponse)} />
+          <RatingReviewMainBoxContainer>
+            <RatingReviewInnerBoxContainer>
+              <RatingReviewTextBoxContainer>
+                <RatingReviewText>
+                  <FormattedMessage id="RatingAndReviews" />
+                </RatingReviewText>
+                <UINewTypography variant="bodyLight">
+                  ({ratingAndReview?.data?.model_rating_info?.[0].total_reviews} <FormattedMessage id="Reviews" />)
+                </UINewTypography>
+              </RatingReviewTextBoxContainer>
+              <RatingPoints
+                ratingAndReview={ratingAndReview?.data?.model_rating_info?.[0] ?? ({} as RatingAndReviewDetailsInfo)}
+                onSelectRating={handleRatingSelect}
+                isShowPercentage={true}
+              />
+            </RatingReviewInnerBoxContainer>
+            <RatingTable
+              ratingAndReview={ratingAndReview ?? ({} as RatingAndReviewDetailsRes)}
+              total_rows={total_rows}
+              filters={filters}
+              handleChangePage={handleChangePage}
+              selectedRating={filters.rating}
+              handleRatingSelect={handleRatingSelect}
+            />
+          </RatingReviewMainBoxContainer>
           <EscortExplore />
         </Box>
       </HomeMainContainer>

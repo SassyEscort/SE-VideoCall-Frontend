@@ -100,7 +100,7 @@ const PayoutsAndInvoices = () => {
     };
 
     fetchModelPayout();
-  }, [token.token, token.id, filters]);
+  }, [token.token, filters]);
 
   const handleChangeFilter = useCallback((value: PaginationType) => {
     setFilters(value);
