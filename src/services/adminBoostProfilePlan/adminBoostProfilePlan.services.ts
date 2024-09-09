@@ -17,8 +17,16 @@ export type AdminBoostProfileData = {
   is_active: boolean;
 };
 
+export type AdminBoostProfileParam = {
+  id: number;
+  name: string;
+  duration: number;
+  cost: number;
+  is_free: boolean;
+};
+
 export interface AdminBoostProfileRes extends GenericResCustom {
-  data: AdminBoostProfileData;
+  data: AdminBoostProfileData[];
 }
 
 export class adminBoostProfilePlanServices {
@@ -81,9 +89,9 @@ export class adminBoostProfilePlanServices {
     }
   };
 
-  static adminGetBoostProfile = async (planId: number, token: string): Promise<AdminBoostProfileRes> => {
+  static adminGetBoostProfile = async (token: string): Promise<AdminBoostProfileRes> => {
     try {
-      const res = await axios.get<AdminBoostProfileRes>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/model/profile-plan/${planId}`, {
+      const res = await axios.get<AdminBoostProfileRes>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/model/profile-plan`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: token
