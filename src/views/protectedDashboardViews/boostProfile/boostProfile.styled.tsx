@@ -133,7 +133,7 @@ export const BoxMainBoost = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'left'
 }));
 
 export const UINewTypographyCondition = styled(UINewTypography)(({ theme }) => ({
@@ -149,9 +149,9 @@ export const UINewTypographyCondition = styled(UINewTypography)(({ theme }) => (
 export const BoxImageBackgroundBoost = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
-  maxWidth: '94px',
+  maxWidth: '64px',
+  minHeight: '64px',
   height: '100%',
-  minHeight: '94px',
   border: '1px solid #601244',
   borderRadius: '50%',
   backgroundColor: '#601244',
@@ -167,9 +167,9 @@ export const BoxImageBackgroundBoost = styled(Box)(({ theme }) => ({
 export const BoxImageBackgroundChildBoost = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
-  maxWidth: '64px',
+  maxWidth: '44px',
+  minHeight: '44px',
   height: '100%',
-  minHeight: '64px',
   border: '1px solid #FF68C0',
   borderRadius: '50%',
   backgroundColor: '#FF68C0',
@@ -187,12 +187,15 @@ export const FirstTextBoostTyporaphy = styled(UINewTypography)(({ theme }) => ({
   },
   [theme.breakpoints.up('sm')]: {
     marginTop: theme.spacing(2.75)
-  }
+  },
+  textAlign: 'left',
+  width: '100%'
 }));
 
 export const SeconBoxContainerBoost = styled(Box)(() => ({
   width: '100%',
   maxWidth: '314px'
+  // textAlign: 'left'
 }));
 
 export const SecondBoxContainer = styled(Box)(({ theme }) => ({
@@ -221,4 +224,14 @@ export const PaidFireImageBox = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(6),
   gap: theme.spacing(2),
   width: '100%'
+}));
+
+export const MainBoxBorder = styled(Box)(({ theme }) => ({
+  padding: '40px',
+  border: '1px solid #D4D3D63D',
+  borderRadius: '8px',
+  width: '100%',
+  maxWidth: '306px',
+  height: '272px',
+  textAlign: 'left'
 }));
