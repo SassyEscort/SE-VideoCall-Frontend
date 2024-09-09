@@ -2,7 +2,6 @@
 import Box from '@mui/material/Box';
 import LinearProgress, { linearProgressClasses, LinearProgressProps } from '@mui/material/LinearProgress';
 import { styled } from '@mui/material/styles';
-import { minWidth } from '@mui/system';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledSelectAgeFilter } from 'components/UIComponents/UIStyledSelect';
 
