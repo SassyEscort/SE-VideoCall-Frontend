@@ -20,7 +20,13 @@ const BoostSuccess = ({ activePlanHours, activePlanMins }: { activePlanHours: nu
       <Box display="flex" gap="16px" flexDirection="column" alignItems="center">
         <UINewTypography variant="buttonLargeMenu" color="common.white">
           <FormattedMessage id="ProfileBoostedFor" /> {activePlanHours ? activePlanHours : ''} <FormattedMessage id="Hours" />{' '}
-          <FormattedMessage id="And" /> {activePlanMins && activePlanMins} {activePlanMins && <FormattedMessage id="Mins" />}
+          {activePlanMins ? (
+            <>
+              <FormattedMessage id="And" /> {activePlanMins} <FormattedMessage id="Mins" />
+            </>
+          ) : (
+            <></>
+          )}
         </UINewTypography>
         <UINewTypographySuccessBoost>
           {activePlanHours}:{activePlanMins}

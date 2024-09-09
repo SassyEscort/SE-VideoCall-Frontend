@@ -25,7 +25,9 @@ export const MainImagContainer = styled('img')(({ theme }) => ({
   height: '100%',
   borderRadius: theme.spacing(1),
   border: '1px solid',
-  borderColor: theme.palette.secondary[900]
+  borderColor: theme.palette.secondary[900],
+  width: '100%',
+  minWidth: '310px'
 }));
 
 export const BoxFirstTextContainer = styled(Box)(({ theme }) => ({

@@ -45,8 +45,6 @@ const FreeProfile = () => {
   const [planDetails, setPlanDetails] = useState<ProfilePlanResData>();
   const [modelActivePlan, setModelActivePlan] = useState<ProfilePlanData>();
 
-  console.log(freePlan);
-
   const handleBoostOpen = (planDetails: ProfilePlanResData) => {
     setPlanDetails(planDetails);
     setOpenBoost(true);
@@ -109,12 +107,7 @@ const FreeProfile = () => {
         const response = await CommonServices.getProfilePlans(token.token);
         const freePlan = response.data.filter((x) => x.is_free)[0];
         setFreePlan(freePlan);
-        if (isFreeBoostUsed) {
-          const paidPlans = response.data.filter((x) => !x.is_free);
-          setAllPlans(paidPlans);
-        } else {
-          setAllPlans(response.data);
-        }
+        setAllPlans(response.data);
       } catch (error) {
         toast.error(ErrorMessage);
       }
@@ -384,7 +377,7 @@ const FreeProfile = () => {
             </Box>
           </>
         ) : (
-          <PaidProfile activePlanHours={activePlanHours} activePlanMins={activePlanMins} />
+          modelActivePlan && <PaidProfile activePlanHours={activePlanHours} activePlanMins={activePlanMins} />
         )}
         <BoostProfileDialog
           openBoost={openBoost}
