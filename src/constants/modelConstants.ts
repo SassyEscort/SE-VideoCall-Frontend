@@ -25,6 +25,11 @@ export const DashboardModelTabs = [
     path: '/model/help-info'
   },
   {
+    name: 'BoostYourProfile',
+    img: '/images/boostProfile/fire-sidebar.png',
+    path: '/model/boost-profile'
+  },
+  {
     name: 'App',
     img: '/images/icons/dashboard-img6.svg',
     path: '/model/download-app'

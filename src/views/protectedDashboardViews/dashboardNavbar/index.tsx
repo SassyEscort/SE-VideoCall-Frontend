@@ -49,7 +49,8 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
     payouts: 3,
     'rating-and-review': 4,
     'help-info': 5,
-    'download-app': 6
+    'download-app': 6,
+    'boost-profile': 7
   };
 
   const modifiedPath = router.split('/model').join('').split('/').join('');
@@ -147,12 +148,23 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
                           height="auto"
                           src={tab?.img}
                           sx={{
-                            filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)'
+                            filter:
+                              tabIndex === 5
+                                ? 'none'
+                                : 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)'
                           }}
                         />
-                        <Box sx={{ color: 'primary.400' }}>
-                          <MobileTextStyleContainer label={intl.formatMessage({ id: tab.name })} />
-                        </Box>
+
+                        <MobileTextStyleContainer
+                          label={intl.formatMessage({ id: tab.name })}
+                          sx={{
+                            ...(tabIndex === 5 && {
+                              background: 'linear-gradient(90deg, #E25C5C 0%, #FF5A00 21.5%, #FF9A00 50.5%, #FFCE00 76.5%, #FFE808 100%)',
+                              WebkitBackgroundClip: 'text',
+                              WebkitTextFillColor: 'transparent'
+                            })
+                          }}
+                        />
                       </SelectedTab>
                     </Link>
                   </CommonMenuBox>
