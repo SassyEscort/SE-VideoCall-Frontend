@@ -1,6 +1,5 @@
 'use client';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import {
   BoostPackageMainBoxContainer,
@@ -10,20 +9,52 @@ import {
   CreditCardImage,
   DollarCreditText,
   FirstBoxContainer,
+  HighlyAvailableBoxBoost,
+  HighlyAvailableButtonBoxBoost,
   ImagSubContainer,
   MainImagContainer
 } from './BoostMultiplePackage.styled';
 import { ProfilePlanResData } from 'services/commonApi/commonApi.services';
-import { Grid } from '@mui/material';
+import { Box, Grid, useMediaQuery } from '@mui/material';
 import { ImagMainContainer } from 'views/protectedViews/Credites/Credits.styled';
+import Image from 'next/image';
+import theme from 'themes/theme';
+import StyleBoostButton from 'components/UIComponents/StyleBoostButton';
 
 const BoostMultiplePackage = ({ allPlans, handleBoostOpen }: { allPlans: ProfilePlanResData[]; handleBoostOpen: () => void }) => {
+  const isTablet = useMediaQuery(theme.breakpoints.only('sm'));
+  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
     <BoostPackageMainBoxContainer onClick={handleBoostOpen}>
       <UINewTypography variant="h5">
         <FormattedMessage id="ChooseABoostPackageToSpotligh" />
       </UINewTypography>
       <ImagMainContainer>
+        <HighlyAvailableButtonBoxBoost>
+          <HighlyAvailableBoxBoost>
+            <Image
+              src="/images/boostProfile/fire-ani.gif"
+              height={57}
+              width={42}
+              alt="fire_icon"
+              style={{ zIndex: 10, left: isTablet ? '-15px' : isMdDown ? '-15px' : '-15px', position: 'absolute', bottom: '-90px' }}
+            />
+            <Box
+              sx={{
+                position: 'absolute',
+                bottom: '-90px',
+                left: isTablet ? '0px' : isMdDown ? '-1px' : '-1px'
+              }}
+            >
+              <StyleBoostButton>
+                <UINewTypography variant="bodyUltraLarge" color="#000">
+                  <FormattedMessage id="1BoostFREE" />
+                </UINewTypography>
+              </StyleBoostButton>
+            </Box>
+          </HighlyAvailableBoxBoost>
+        </HighlyAvailableButtonBoxBoost>
         <FirstBoxContainer>
           <Grid container sx={{ gap: 2 }}>
             {allPlans?.map((plan, index) => (
