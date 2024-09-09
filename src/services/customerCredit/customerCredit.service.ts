@@ -48,19 +48,18 @@ export class CustomerCredit {
     token: string,
     customer_plan_id: number,
     isOutOfCredits: number,
+    isModel: boolean,
     userName?: string
   ): Promise<ModelCreditURLResponse> => {
     try {
-      const res = await axios.post<ModelCreditURLResponse>(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/payment/stripe?is_out_of_credits=${isOutOfCredits}&user_name=${userName}`,
-        { customer_plan_id: customer_plan_id },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: token
-          }
+      const query = isModel ? '' : `is_out_of_credits=${isOutOfCredits}&user_name=${userName}`;
+      const body = isModel ? { profile_plan_id: customer_plan_id } : { customer_plan_id: customer_plan_id };
+      const res = await axios.post<ModelCreditURLResponse>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/payment/stripe?${query}`, body, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
         }
-      );
+      });
       return res.data;
     } catch (err: any) {
       const error: AxiosError = err;

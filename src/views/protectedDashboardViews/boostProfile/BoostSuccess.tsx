@@ -3,7 +3,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import { UINewTypographySuccessBoost } from './boostProfile.styled';
 
-const BoostSuccess = () => {
+const BoostSuccess = ({ activePlanHours, activePlanMins }: { activePlanHours: number; activePlanMins: number }) => {
   return (
     <Box width="100%" display="flex" gap="32px" flexDirection="column" alignItems="center">
       <Box
@@ -19,9 +19,12 @@ const BoostSuccess = () => {
       />
       <Box display="flex" gap="16px" flexDirection="column" alignItems="center">
         <UINewTypography variant="buttonLargeMenu" color="common.white">
-          <FormattedMessage id="ProfileBoosted" />
+          <FormattedMessage id="ProfileBoostedFor" /> {activePlanHours ? activePlanHours : ''} {activePlanMins && activePlanMins}{' '}
+          {activePlanMins && <FormattedMessage id="Mins" />}
         </UINewTypography>
-        <UINewTypographySuccessBoost>01:59</UINewTypographySuccessBoost>
+        <UINewTypographySuccessBoost>
+          {activePlanHours}:{activePlanMins}
+        </UINewTypographySuccessBoost>
       </Box>
     </Box>
   );

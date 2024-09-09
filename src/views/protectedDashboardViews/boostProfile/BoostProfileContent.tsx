@@ -18,29 +18,19 @@ import {
   UINewTypographyMissedCallBox
 } from './boostProfile.styled';
 import Checkbox from '@mui/material/Checkbox';
-import { DialogTitleBox } from '../payoutWithDraw/PayoutWidthDraw';
-import CloseIcon from '@mui/icons-material/Close';
-import { IconButton } from '@mui/material';
 import Image from 'next/image';
 import StyleBoostButton from 'components/UIComponents/StyleBoostButton';
+import { useState } from 'react';
 
-const BoostProfileContent = () => {
+const BoostProfileContent = ({ handleBoost }: { handleBoost: () => Promise<void> }) => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheck = () => {
+    setIsChecked(!isChecked);
+  };
+
   return (
     <>
-      <DialogTitleBox>
-        <UINewTypography variant="h6">
-          <FormattedMessage id="BoostProfile" />
-        </UINewTypography>
-
-        <IconButton
-          aria-label="close"
-          sx={{
-            color: (theme) => theme.palette.text.secondary
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-      </DialogTitleBox>
       <DividerMainBox />
       <BoostBox>
         <BoostProfileMainContainer>
@@ -107,7 +97,7 @@ const BoostProfileContent = () => {
             </BoostProfileModelBox>
             <Box>
               <Box>
-                <Checkbox sx={{ p: 0, pr: 1 }} />
+                <Checkbox sx={{ p: 0, pr: 1 }} checked={isChecked} onClick={handleCheck} />
                 <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}>
                   <FormattedMessage id="IveRead" />
                 </UINewTypography>
@@ -115,13 +105,13 @@ const BoostProfileContent = () => {
               <MainBoostButtonBox>
                 <SecondBoostButtonBox>
                   <Image
-                    src="/images/boostProfile/fire-ani.gif"
+                    src="/images/boostProfile/fire.png"
                     height={110}
                     width={100}
                     alt="fire_icon"
                     style={{ zIndex: 10, left: '-50px', position: 'absolute', top: '-24px' }}
                   />
-                  <StyleBoostButton>
+                  <StyleBoostButton onClick={handleBoost} disabled={!isChecked}>
                     <UINewTypographyCondition>
                       <FormattedMessage id="StartBoost" />
                     </UINewTypographyCondition>

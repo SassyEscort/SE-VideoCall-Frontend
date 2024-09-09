@@ -6,25 +6,42 @@ import CloseIcon from '@mui/icons-material/Close';
 import { DialogTitleBox } from '../payoutWithDraw/PayoutWidthDraw';
 import { BoostProfileDialogConatiner } from './boostProfile.styled';
 import BoostSuccess from './BoostSuccess';
+import BoostProfileContent from './BoostProfileContent';
 
-const BoostProfileDialog = () => {
+const BoostProfileDialog = ({
+  openBoost,
+  handleBoostClose,
+  handleBoost,
+  activeStep,
+  isFreeBoostUsed,
+  activePlanHours,
+  activePlanMins
+}: {
+  openBoost: boolean;
+  handleBoostClose: () => void;
+  handleBoost: () => Promise<void>;
+  activeStep: number;
+  isFreeBoostUsed: number;
+  activePlanHours: number;
+  activePlanMins: number;
+}) => {
   return (
-    <BoostProfileDialogConatiner open={true} fullWidth scroll="body">
+    <BoostProfileDialogConatiner open={openBoost} fullWidth scroll="body" onClose={handleBoostClose}>
       <DialogTitleBox id="responsive-modal-title">
         <UINewTypography variant="h6" color={'text.primary'}>
           <FormattedMessage id="BoostProfile" />
         </UINewTypography>
 
-        <IconButton
-          aria-label="close"
-          //  onClick={() => closeHandle()}
-          sx={{ color: 'text.secondary' }}
-        >
+        <IconButton aria-label="close" onClick={handleBoostClose} sx={{ color: 'text.secondary' }}>
           <CloseIcon />
         </IconButton>
       </DialogTitleBox>
-      {/* <BoostProfileContent /> */}
-      <BoostSuccess />
+
+      {activeStep === 0 ? (
+        <BoostProfileContent handleBoost={handleBoost} />
+      ) : (
+        <BoostSuccess activePlanHours={activePlanHours} activePlanMins={activePlanMins} />
+      )}
     </BoostProfileDialogConatiner>
   );
 };

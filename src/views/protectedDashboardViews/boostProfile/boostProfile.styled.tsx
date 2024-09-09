@@ -197,14 +197,13 @@ export const SeconBoxContainerBoost = styled(Box)(() => ({
 
 export const SecondBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  justifyContent: 'center',
   marginTop: theme.spacing(7.75)
 }));
 
 export const MainBoostButtonBox = styled(Box)(({ theme }) => ({
   width: '100%',
   display: 'flex',
-  justifyContent: 'center',
+  paddingLeft: theme.spacing(3),
   marginBlock: theme.spacing(4)
 }));
 

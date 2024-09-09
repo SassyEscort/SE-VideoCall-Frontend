@@ -100,7 +100,7 @@ const ModelCredits = ({
       label: 'Credits_Purchase_Initiated',
       value: JSON.stringify(customerInfo)
     });
-    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, 1, userName);
+    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, 1, false, userName);
     if (res) {
       router.push(res?.data?.url);
     }

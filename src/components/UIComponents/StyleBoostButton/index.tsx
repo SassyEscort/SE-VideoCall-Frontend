@@ -30,7 +30,7 @@ const UIStyledBoostButton = styled(LoadingButton)(({ theme }) => ({
     backgroundColor: theme.palette.primary[800]
   },
   '&.Mui-disabled': {
-    backgroundColor: theme.palette.primary[700],
+    background: theme.palette.secondary[700],
     color: theme.palette.secondary.light
   },
   '& .MuiLoadingButton-loadingIndicator': {
