@@ -229,7 +229,7 @@ const EscortDetailPage = () => {
               <RatingPoints
                 ratingAndReview={ratingAndReview?.data?.model_rating_info?.[0] ?? ({} as RatingAndReviewDetailsInfo)}
                 onSelectRating={handleRatingSelect}
-                isShowPercentage={true}
+                isShowPercentage={false}
               />
             </RatingReviewInnerBoxContainer>
             <RatingTable
