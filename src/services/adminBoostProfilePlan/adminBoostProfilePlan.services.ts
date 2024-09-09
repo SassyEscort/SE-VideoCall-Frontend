@@ -8,25 +8,27 @@ export type AdminAddBoostProfileParams = {
   is_free: boolean;
 };
 
-export type AdminBoostProfileData = {
+export interface AdminBoostProfileParam extends AdminAddBoostProfileParams {
   id: number;
-  name: string;
-  duration: number;
-  cost: number;
-  is_free: boolean;
+}
+
+export interface AdminBoostProfileData extends AdminBoostProfileParam {
   is_active: boolean;
+}
+
+export type BoostPaginationAggregation = {
+  offset: number;
+  page_size: number;
+  total_rows: number;
 };
 
-export type AdminBoostProfileParam = {
-  id: number;
-  name: string;
-  duration: number;
-  cost: number;
-  is_free: boolean;
+export type AdminBoostData = {
+  plans: AdminBoostProfileData[];
+  aggregate: BoostPaginationAggregation;
 };
 
 export interface AdminBoostProfileRes extends GenericResCustom {
-  data: AdminBoostProfileData[];
+  data: AdminBoostData;
 }
 
 export class adminBoostProfilePlanServices {
@@ -89,14 +91,22 @@ export class adminBoostProfilePlanServices {
     }
   };
 
-  static adminGetBoostProfile = async (token: string): Promise<AdminBoostProfileRes> => {
+  static adminGetBoostProfile = async (
+    token: string,
+    limit: number,
+    offset: number,
+    search_field?: string
+  ): Promise<AdminBoostProfileRes> => {
     try {
-      const res = await axios.get<AdminBoostProfileRes>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/model/profile-plan`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token
+      const res = await axios.get<AdminBoostProfileRes>(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/model/profile-plan?limit=${limit}&offset=${offset}&search_field=${search_field}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+          }
         }
-      });
+      );
 
       return res.data;
     } catch (err: any) {

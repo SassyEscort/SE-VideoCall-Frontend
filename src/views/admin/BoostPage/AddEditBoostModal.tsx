@@ -23,6 +23,8 @@ import { useEffect, useState } from 'react';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { ErrorMessage } from 'constants/common.constants';
+import { PaginationType } from './BoostContainer';
+import { PAGE_SIZE } from 'constants/pageConstants';
 
 // import { AdminCampaign } from '@/types/api/admin/auth/Campaign/AdminCampaignResponse';
 // import { CampaignPaginationType } from './CampaignPageContainer';
@@ -33,13 +35,13 @@ import { ErrorMessage } from 'constants/common.constants';
 const AddEditBoostModal = ({
   open,
   onClose,
-  selectedBoost
-  // handleChangeFilter
+  selectedBoost,
+  handleChangeFilter
 }: {
   open: boolean;
   onClose: () => void;
   selectedBoost: AdminBoostProfileData | null;
-  // handleChangeFilter: (value: CampaignPaginationType) => void;
+  handleChangeFilter: (value: PaginationType) => void;
 }) => {
   const validationSchema = yup.object({
     duration: yup.string().required('Code is required'),
@@ -58,6 +60,15 @@ const AddEditBoostModal = ({
       if (res.code === 200) {
         toast.success('Boost added successfully');
         onClose();
+        handleChangeFilter({
+          page: 1,
+          offset: 0,
+          pageSize: PAGE_SIZE,
+          orderField: 'newest',
+          sort_order: 'desc',
+          search_field: '',
+          limit: 10
+        });
       } else {
         toast.error(ErrorMessage);
       }
@@ -81,6 +92,15 @@ const AddEditBoostModal = ({
       if (res.code === 200) {
         toast.success('Boost edit successfully');
         onClose();
+        handleChangeFilter({
+          page: 1,
+          offset: 0,
+          pageSize: PAGE_SIZE,
+          orderField: 'newest',
+          sort_order: 'desc',
+          search_field: '',
+          limit: 10
+        });
       } else {
         toast.error(ErrorMessage);
       }

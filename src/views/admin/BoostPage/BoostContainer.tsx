@@ -12,7 +12,6 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
 import { Button, CircularProgress, IconButton, MenuItem } from '@mui/material';
-import moment from 'moment';
 import { MoreVert, Visibility } from '@mui/icons-material';
 import { useCallback, useEffect, useState } from 'react';
 import { getUserDataClient } from 'utils/getSessionData';
@@ -23,7 +22,6 @@ import { PAGE_SIZE } from 'constants/pageConstants';
 import TablePager from 'components/common/CustomPaginations/TablePager';
 import { StyledPopover } from './Boost.styled';
 import { debounce } from 'lodash';
-import ReportFilters from 'components/Admin/ReportFilters/ReportFilters';
 import BoostListHead from './BoostListHead';
 import BoostModel from './BoostModel';
 import AddEditBoostModal from './AddEditBoostModal';
@@ -43,9 +41,7 @@ export type PaginationType = {
   orderField: string;
   sort_order: string;
   search_field: string;
-  duration: string;
-  fromDate: string;
-  toDate: string;
+  limit: number;
 };
 
 export default function BoostContainer() {
@@ -61,10 +57,6 @@ export default function BoostContainer() {
   const [selectedBoost, setSelectedBoost] = useState<AdminBoostProfileData | null>(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
-  const currentMoment = moment();
-  const oneMonthAgoMoment = moment().subtract(1, 'day');
-  const fromDate = oneMonthAgoMoment.format('YYYY/MM/DD');
-  const toDate = currentMoment.format('YYYY/MM/DD');
   const [filters, setFilters] = useState<PaginationType>({
     page: 1,
     offset: 0,
@@ -72,9 +64,7 @@ export default function BoostContainer() {
     orderField: 'newest',
     sort_order: 'desc',
     search_field: '',
-    duration: 'day',
-    fromDate: fromDate,
-    toDate: toDate
+    limit: 10
   });
 
   const SORT_BY_OPTIONS: PaginationSortByOption[] = [
@@ -95,11 +85,11 @@ export default function BoostContainer() {
 
   const handelFetch = async () => {
     setIsLoading(true);
-    const res = await adminBoostProfilePlanServices.adminGetBoostProfile(token.token);
+    const res = await adminBoostProfilePlanServices.adminGetBoostProfile(token.token, filters.limit, filters.offset, filters.search_field);
     if (res) {
       if (res.code == 200) {
-        setData(res?.data);
-        // setTotalRecords(res?.data?.aggregate?.total_rows);
+        setData(res?.data?.plans);
+        setTotalRecords(res?.data?.aggregate.total_rows);
       }
     }
     setIsLoading(false);
@@ -170,10 +160,6 @@ export default function BoostContainer() {
     debouncedChangeSearch(val);
   };
 
-  const handleFilterDurationChange = (duration: string, fromDate: string, toDate: string) => {
-    handleChangeFilter({ ...filters, duration, fromDate, toDate, page: 1 });
-  };
-
   const handleOpenAddEditModal = () => {
     setOpenAddEditModal(true);
   };
@@ -197,6 +183,16 @@ export default function BoostContainer() {
     if (res) {
       if (res.code === 200) {
         toast.success('Boost deleted successfully');
+        handleCloseDeleteCampaign();
+        handleChangeFilter({
+          page: 1,
+          offset: 0,
+          pageSize: PAGE_SIZE,
+          orderField: 'newest',
+          sort_order: 'desc',
+          search_field: '',
+          limit: 10
+        });
       } else {
         toast.error(ErrorMessage);
       }
