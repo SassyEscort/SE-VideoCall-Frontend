@@ -24,7 +24,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
-import { BoostFeatureService } from 'services/boostFeature/boostFeature.services';
+import { BoostFeatureService, ProfilePlanData } from 'services/boostFeature/boostFeature.services';
 import { CommonServices, ProfilePlanResData } from 'services/commonApi/commonApi.services';
 import BoostProfileDialog from './BoostProfileDialog';
 import { CustomerCredit } from 'services/customerCredit/customerCredit.service';
@@ -42,8 +42,13 @@ const FreeProfile = () => {
   const [activePlanHours, setActivePlanHours] = useState(0);
   const [activePlanMins, setActivePlanMins] = useState(0);
   const [activeStep, setActiveStep] = useState(0);
+  const [planDetails, setPlanDetails] = useState<ProfilePlanResData>();
+  const [modelActivePlan, setModelActivePlan] = useState<ProfilePlanData>();
 
-  const handleBoostOpen = () => {
+  console.log(freePlan);
+
+  const handleBoostOpen = (planDetails: ProfilePlanResData) => {
+    setPlanDetails(planDetails);
     setOpenBoost(true);
   };
 
@@ -56,6 +61,10 @@ const FreeProfile = () => {
       if (token.token) {
         const response = await BoostFeatureService.getModelProfilePlan(token.token);
         const activePlan = response.data.plans.length && response.data.plans.filter((x) => x.is_active)[0];
+
+        if (activePlan) {
+          setModelActivePlan(activePlan);
+        }
         const activePlanTimeInMinutes = activePlan ? moment.utc(activePlan.end_time).diff(moment.utc(), 'minutes') : 0;
 
         const hours = Math.floor(activePlanTimeInMinutes / 60);
@@ -69,13 +78,15 @@ const FreeProfile = () => {
     }
   }, [token.token]);
 
-  const handleBoost = async () => {
-    if (freePlan) {
-      const res = await CustomerCredit.modelCreditAmount(token.token, freePlan.id, 0, true);
+  const handleBoost = async (planId: number) => {
+    try {
+      const res = await CustomerCredit.modelCreditAmount(token.token, planId, 0, true);
       if (res) {
         setActiveStep(1);
         fetchModelProfilePlan();
       }
+    } catch (error) {
+      toast.error(ErrorMessage);
     }
   };
 
@@ -96,14 +107,14 @@ const FreeProfile = () => {
     const getProfilePlans = async () => {
       try {
         const response = await CommonServices.getProfilePlans(token.token);
+        const freePlan = response.data.filter((x) => x.is_free)[0];
+        setFreePlan(freePlan);
         if (isFreeBoostUsed) {
           const paidPlans = response.data.filter((x) => !x.is_free);
           setAllPlans(paidPlans);
         } else {
           setAllPlans(response.data);
         }
-        const freePlanData = response?.data?.filter((x) => x.is_free)[0];
-        setFreePlan(freePlanData);
       } catch (error) {
         toast.error(ErrorMessage);
       }
@@ -121,9 +132,11 @@ const FreeProfile = () => {
             <FormattedMessage id="BoostYourProfile" />
           </UINewTypography>
         </FirstBoxContainer>
-        <Box marginTop={7}>
-          <BoostMultiplePackage allPlans={allPlans} handleBoostOpen={handleBoostOpen} />
-        </Box>
+        {!modelActivePlan && (
+          <Box marginTop={7}>
+            <BoostMultiplePackage allPlans={allPlans} handleBoostOpen={handleBoostOpen} />
+          </Box>
+        )}
         {!isFreeBoostUsed ? (
           <>
             <Box sx={{ display: 'flex', flexDirection: isSmDown ? 'column-reverse' : 'column' }}>
@@ -351,7 +364,7 @@ const FreeProfile = () => {
                   </Box>
                 </SecondBoxContainer>
 
-                <MainBoostButtonBox onClick={handleBoostOpen}>
+                <MainBoostButtonBox onClick={() => freePlan && handleBoostOpen(freePlan)}>
                   <SecondBoostButtonBox>
                     <Image
                       src="/images/boostProfile/fire.png"
@@ -381,6 +394,7 @@ const FreeProfile = () => {
           activeStep={activeStep}
           activePlanHours={activePlanHours}
           activePlanMins={activePlanMins}
+          planDetails={planDetails ?? ({} as ProfilePlanResData)}
         />
       </DashboardProfile>
     </>

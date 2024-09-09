@@ -10,8 +10,8 @@ export const PaidProfile = ({ activePlanHours, activePlanMins }: { activePlanHou
       <PaidFireImageBox>
         <Image src="/images/boostProfile/fire-ani.gif" height={150} width={109} alt="fire_icon" />
         <UINewTypography variant="buttonLargeMenu" color="common.white">
-          <FormattedMessage id="ProfileBoostedFor" /> {activePlanHours ? activePlanHours : ''} {activePlanMins && activePlanMins}{' '}
-          {activePlanMins && <FormattedMessage id="Mins" />}
+          <FormattedMessage id="ProfileBoostedFor" /> {activePlanHours ? activePlanHours : ''} <FormattedMessage id="Hours" />{' '}
+          <FormattedMessage id="And" /> {activePlanMins && activePlanMins} {activePlanMins && <FormattedMessage id="Mins" />}
         </UINewTypography>
         <UINewTypographySuccessBoost>
           {activePlanHours}:{activePlanMins}

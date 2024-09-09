@@ -7,6 +7,7 @@ import { DialogTitleBox } from '../payoutWithDraw/PayoutWidthDraw';
 import { BoostProfileDialogConatiner } from './boostProfile.styled';
 import BoostSuccess from './BoostSuccess';
 import BoostProfileContent from './BoostProfileContent';
+import { ProfilePlanResData } from 'services/commonApi/commonApi.services';
 
 const BoostProfileDialog = ({
   openBoost,
@@ -15,15 +16,17 @@ const BoostProfileDialog = ({
   activeStep,
   isFreeBoostUsed,
   activePlanHours,
-  activePlanMins
+  activePlanMins,
+  planDetails
 }: {
   openBoost: boolean;
   handleBoostClose: () => void;
-  handleBoost: () => Promise<void>;
+  handleBoost: (planId: number) => Promise<void>;
   activeStep: number;
   isFreeBoostUsed: number;
   activePlanHours: number;
   activePlanMins: number;
+  planDetails: ProfilePlanResData;
 }) => {
   return (
     <BoostProfileDialogConatiner open={openBoost} fullWidth scroll="body" onClose={handleBoostClose}>
@@ -38,7 +41,7 @@ const BoostProfileDialog = ({
       </DialogTitleBox>
 
       {activeStep === 0 ? (
-        <BoostProfileContent handleBoost={handleBoost} />
+        <BoostProfileContent planDetails={planDetails} handleBoost={handleBoost} />
       ) : (
         <BoostSuccess activePlanHours={activePlanHours} activePlanMins={activePlanMins} />
       )}

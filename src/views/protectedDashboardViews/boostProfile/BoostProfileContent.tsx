@@ -21,8 +21,15 @@ import Checkbox from '@mui/material/Checkbox';
 import Image from 'next/image';
 import StyleBoostButton from 'components/UIComponents/StyleBoostButton';
 import { useState } from 'react';
+import { ProfilePlanResData } from 'services/commonApi/commonApi.services';
 
-const BoostProfileContent = ({ handleBoost }: { handleBoost: () => Promise<void> }) => {
+const BoostProfileContent = ({
+  handleBoost,
+  planDetails
+}: {
+  handleBoost: (planId: number) => Promise<void>;
+  planDetails: ProfilePlanResData;
+}) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheck = () => {
@@ -111,9 +118,9 @@ const BoostProfileContent = ({ handleBoost }: { handleBoost: () => Promise<void>
                     alt="fire_icon"
                     style={{ zIndex: 10, left: '-50px', position: 'absolute', top: '-24px' }}
                   />
-                  <StyleBoostButton onClick={handleBoost} disabled={!isChecked}>
+                  <StyleBoostButton onClick={() => handleBoost(planDetails?.id)} disabled={!isChecked}>
                     <UINewTypographyCondition>
-                      <FormattedMessage id="StartBoost" />
+                      <FormattedMessage id="StartBoostFor" /> {planDetails.duration} <FormattedMessage id="Hours" />
                     </UINewTypographyCondition>
                   </StyleBoostButton>
                 </SecondBoostButtonBox>
