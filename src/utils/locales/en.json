@@ -795,7 +795,7 @@
   "MissedCall": "missed call",
   "RemovedFrom": "Removed from the boost grid for",
   "StartBoost": "Start boost for 2 hours",
-  "HighlyAvailable":"Highly available",
+  "HighlyAvailable": "Highly available",
   "ProfileBoosted": "Profile boosted for 2 hours",
   "BoostPaidText": "Boost =",
   "5Mins": "5 mins",
@@ -803,9 +803,9 @@
   "ProfileGets": "Profile gets",
   "OfflineModel": "offline",
   "IveRead": "I’ve read and agree to following conditions",
-  "ProfileBoostedFor":"Profile boosted for",
-  "Hours":"hours",
-  "Mins":"mins",
+  "ProfileBoostedFor": "Profile boosted for",
+  "Hours": "hours",
+  "Mins": "mins",
   "ChooseABoostPackageToSpotligh": "Choose a boost package to spotlight your profile at the top of the grid.",
   "RatingAndReviews": "Rating and reviews",
   "Skip": "Skip",
@@ -824,6 +824,6 @@
   "Reviews": "reviews",
   "VideoCallEnded": "Video Call ended",
   "RateAndReview": "Rate and review",
-  "StartBoostFor": "Start boost for"
+  "StartBoostFor": "Start boost for",
+  "1BoostFREE": "1st Boost FREE"
 }
- 
