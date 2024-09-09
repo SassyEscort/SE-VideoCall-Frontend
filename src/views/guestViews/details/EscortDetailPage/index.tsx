@@ -174,7 +174,7 @@ const EscortDetailPage = () => {
               workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])}
               modelId={guestData?.id ?? 0}
               token={token}
-              handleCallInitiate={() =>
+              handleCallInitiate={() => {
                 handleCallInitiate(
                   guestData?.id,
                   isCreditAvailable,
@@ -183,8 +183,8 @@ const EscortDetailPage = () => {
                   modelPhoto ?? '',
                   guestData.user_name,
                   guestData.video_call_prices[0].credits_per_minute
-                )
-              }
+                );
+              }}
               isCustomer={isCustomer}
               isLoading={isLoading}
               guestData={guestData}
@@ -196,7 +196,7 @@ const EscortDetailPage = () => {
                 workerPhotos={guestData?.photos ?? ([] as WorkerPhotos[])}
                 modelId={guestData?.id ?? 0}
                 token={token}
-                handleCallInitiate={() =>
+                handleCallInitiate={() => {
                   handleCallInitiate(
                     guestData?.id,
                     isCreditAvailable,
@@ -205,8 +205,8 @@ const EscortDetailPage = () => {
                     modelPhoto ?? '',
                     guestData.user_name,
                     guestData.video_call_prices[0].credits_per_minute
-                  )
-                }
+                  );
+                }}
                 isCustomer={isCustomer}
                 isLoading={isLoading}
                 guestData={guestData}
@@ -229,7 +229,7 @@ const EscortDetailPage = () => {
               <RatingPoints
                 ratingAndReview={ratingAndReview?.data?.model_rating_info?.[0] ?? ({} as RatingAndReviewDetailsInfo)}
                 onSelectRating={handleRatingSelect}
-                isShowPercentage={true}
+                isShowPercentage={false}
               />
             </RatingReviewInnerBoxContainer>
             <RatingTable

@@ -35,8 +35,29 @@ import { getUserDataClient } from 'utils/getSessionData';
 import StartRating from 'components/UIComponents/StartRating';
 import { useRouter } from 'next/navigation';
 
-const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: () => void; callLogId: number }) => {
-  const { isModelAvailable } = useCallFeatureContext();
+export type ModelObj = {
+  modelId: number;
+  modelName: string;
+  modelPhoto: string;
+  isCreditAvailable: boolean;
+  callTime: number;
+  modelCreditPrice: string;
+  modelUsername: string;
+};
+
+const VideoCallEnded = ({
+  open,
+  onClose,
+  callLogId,
+  modelObj
+}: {
+  open: boolean;
+  onClose: (isPrevent?: boolean) => void;
+  callLogId: number;
+
+  modelObj: ModelObj;
+}) => {
+  const { isModelAvailable, handleCallInitiate } = useCallFeatureContext();
   const [rating, setRating] = useState<number>(0);
   const [review, setReview] = useState<string>('');
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -92,7 +113,7 @@ const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: 
   };
 
   return (
-    <DialogContentMain open={open} onClose={onClose} fullWidth scroll="body">
+    <DialogContentMain open={open} onClose={() => onClose()} fullWidth scroll="body">
       <DialogTitleBox id="responsive-modal-title">
         <UINewTypography variant="h6">
           <FormattedMessage id="VideoCallEnded" />
@@ -100,7 +121,7 @@ const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: 
 
         <IconButton
           aria-label="close"
-          onClick={onClose}
+          onClick={() => onClose()}
           sx={{
             color: (theme) => theme.palette.text.secondary
           }}
@@ -130,7 +151,22 @@ const VideoCallEnded = ({ open, onClose, callLogId }: { open: boolean; onClose: 
                       </UINewTypography>
                     </SecondBoxContent>
                     <FourBoxContent>
-                      <UIThemeShadowButton variant="contained" sx={{ width: '100%' }}>
+                      <UIThemeShadowButton
+                        variant="contained"
+                        sx={{ width: '100%' }}
+                        onClick={() => {
+                          onClose(true);
+                          handleCallInitiate(
+                            modelObj.modelId,
+                            modelObj.isCreditAvailable,
+                            modelObj.callTime,
+                            modelObj.modelName,
+                            modelObj.modelPhoto,
+                            modelObj.modelUsername,
+                            modelObj.modelCreditPrice
+                          );
+                        }}
+                      >
                         <Box component="img" src="/images/home-connect-instantly-img.png" />
                         <UINewTypography variant="bodySemiBold" color="white.main">
                           <FormattedMessage id="CallAgain" />

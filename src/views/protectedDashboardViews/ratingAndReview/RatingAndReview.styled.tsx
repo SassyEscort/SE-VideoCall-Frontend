@@ -1,6 +1,6 @@
 'use client';
 import Box from '@mui/material/Box';
-import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+import LinearProgress, { linearProgressClasses, LinearProgressProps } from '@mui/material/LinearProgress';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledSelectAgeFilter } from 'components/UIComponents/UIStyledSelect';
@@ -118,9 +118,15 @@ export const RatingDescriptionStarBoxContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(0.125)
 }));
 
-export const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+interface BorderLinearProgressProps extends LinearProgressProps {
+  isShowPercentage?: boolean;
+}
+
+export const BorderLinearProgress = styled(LinearProgress, {
+  shouldForwardProp: (prop) => prop !== 'isClicked' && prop !== 'isShowPercentage'
+})<BorderLinearProgressProps>(({ theme, isShowPercentage }) => ({
   width: '100%',
-  maxWidth: '275px',
+  maxWidth: !isShowPercentage ? '504px' : '275px',
   height: 10,
   borderRadius: 2,
   [`&.${linearProgressClasses.colorPrimary}`]: {
@@ -135,7 +141,18 @@ export const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     ...theme.applyStyles('dark', {
       backgroundColor: '#308fe8'
     })
-  }
+  },
+  ...(!isShowPercentage && {
+    [theme.breakpoints.up('md')]: {
+      minWidth: '400px'
+    },
+    [theme.breakpoints.up('lg')]: {
+      minWidth: '504px'
+    },
+    [theme.breakpoints.down('md')]: {
+      maxWidth: '297px'
+    }
+  })
 }));
 
 export const PaginationBoxContainer = styled(Box)(({ theme }) => ({
