@@ -21,6 +21,7 @@ export type ProfilePlanResData = {
   is_free: number;
   name: string;
   is_active: number;
+  link: string;
 };
 
 export interface ProfilePlanRes extends GenericResCustom {

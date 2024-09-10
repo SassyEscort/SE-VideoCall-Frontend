@@ -10,12 +10,27 @@ import {
   BoxImageBackgroundBoost,
   BoxImageBackgroundChildBoost,
   FirstTextBoostTyporaphy,
-  SeconBoxContainerBoost
+  SeconBoxContainerBoost,
+  BoostMultipleFreeBox,
+  MainBoostButtonBox,
+  SecondBoostButtonBox,
+  UINewTypographyCondition,
+  PackageFreeTypography
 } from './boostProfile.styled';
 import Image from 'next/image';
 import { BoostProfileWorksBox } from './BoostMultiplePackage.styled';
+import StyleBoostButton from 'components/UIComponents/StyleBoostButton';
+import { ProfilePlanResData } from 'services/commonApi/commonApi.services';
 
-const BoostProfileWorks = () => {
+const BoostProfileWorks = ({
+  handleBoostOpen,
+  freePlan,
+  isFreeBoostUsed
+}: {
+  handleBoostOpen: (planDetails: ProfilePlanResData) => void;
+  freePlan: ProfilePlanResData;
+  isFreeBoostUsed: number;
+}) => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
@@ -217,6 +232,29 @@ const BoostProfileWorks = () => {
             </MainBoxBorder>
           </MainChildContainerBoost>
         </Box>
+        {!Boolean(isFreeBoostUsed) && (
+          <BoostMultipleFreeBox>
+            <PackageFreeTypography>
+              <FormattedMessage id="1FreeBoostAvailable" />
+            </PackageFreeTypography>
+            <MainBoostButtonBox>
+              <SecondBoostButtonBox>
+                <Image
+                  src="/images/boostProfile/fire.png"
+                  height={110}
+                  width={100}
+                  alt="fire_icon"
+                  style={{ zIndex: 10, left: '-50px', position: 'absolute', top: '-24px' }}
+                />
+                <StyleBoostButton onClick={() => handleBoostOpen(freePlan)}>
+                  <UINewTypographyCondition>
+                    <FormattedMessage id="BoostYourProfile" />
+                  </UINewTypographyCondition>
+                </StyleBoostButton>
+              </SecondBoostButtonBox>
+            </MainBoostButtonBox>
+          </BoostMultipleFreeBox>
+        )}
       </BoostProfileWorksBox>
     </>
   );

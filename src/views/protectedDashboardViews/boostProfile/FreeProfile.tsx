@@ -22,11 +22,12 @@ const FreeProfile = () => {
   const [openBoost, setOpenBoost] = useState(false);
   const [isFreeBoostUsed, setIsFreeBoostUsed] = useState(0);
   const [allPlans, setAllPlans] = useState<ProfilePlanResData[]>([]);
-  const [activePlanHours, setActivePlanHours] = useState(0);
+  const [activePlanHours, setActivePlanHours] = useState('0');
   const [activePlanMins, setActivePlanMins] = useState('0');
   const [activeStep, setActiveStep] = useState(0);
   const [planDetails, setPlanDetails] = useState<ProfilePlanResData>();
   const [modelActivePlan, setModelActivePlan] = useState<ProfilePlanData>();
+  const [freePlan, setFreePlan] = useState<ProfilePlanResData>();
 
   const handleBoostOpen = (planDetails: ProfilePlanResData) => {
     setPlanDetails(planDetails);
@@ -47,8 +48,7 @@ const FreeProfile = () => {
           setModelActivePlan(activePlan);
         }
         const activePlanTimeInMinutes = activePlan ? moment.utc(activePlan.end_time).diff(moment.utc(), 'minutes') : 0;
-
-        const hours = Math.floor(activePlanTimeInMinutes / 60);
+        const hours = ('0' + Math.floor(activePlanTimeInMinutes / 60)).slice(-2);
         const minutes = ('0' + (activePlanTimeInMinutes % 60)).slice(-2);
         setActivePlanHours(hours);
         setActivePlanMins(minutes);
@@ -88,6 +88,8 @@ const FreeProfile = () => {
     const getProfilePlans = async () => {
       try {
         const response = await CommonServices.getProfilePlans(token.token);
+        const freePlanDetails = response.data?.filter((x) => x.is_free)[0];
+        setFreePlan(freePlanDetails);
         if (isFreeBoostUsed) {
           const paidPlans = response.data.filter((x) => !x.is_free);
           setAllPlans(paidPlans);
@@ -118,7 +120,11 @@ const FreeProfile = () => {
             <BoostMultipleBox>
               <BoostMultiplePackage allPlans={allPlans} handleBoostOpen={handleBoostOpen} />
             </BoostMultipleBox>
-            <BoostProfileWorks />
+            <BoostProfileWorks
+              handleBoostOpen={handleBoostOpen}
+              freePlan={freePlan ?? ({} as ProfilePlanResData)}
+              isFreeBoostUsed={isFreeBoostUsed}
+            />
           </>
         )}
         <BoostProfileDialog

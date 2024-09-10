@@ -5,7 +5,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 export const BoostPackageMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(4)
+  gap: theme.spacing(2)
 }));
 
 export const ImagSubContainer = styled(Box)(({ theme }) => ({
@@ -27,21 +27,17 @@ export const MainImagContainer = styled('img')(({ theme }) => ({
   border: '1px solid',
   borderColor: theme.palette.secondary[900],
   width: '100%',
-  minWidth: '310px'
+  minWidth: '306px'
 }));
 
 export const BoxFirstTextContainer = styled(Box)(({ theme }) => ({
   position: 'absolute',
   top: '50%',
-  left: '75%',
+  left: '55%',
   transform: 'translate(-50%, -50%)',
   display: 'flex',
-  width: '100%',
   alignItems: 'center',
-  paddingTop: theme.spacing(0.5),
-  paddingBottom: theme.spacing(0.5),
-  paddingRight: theme.spacing(1),
-  paddingLeft: theme.spacing(1),
+  justifyContent: 'center',
   borderRadius: theme.spacing(0.5),
   gap: theme.spacing(1)
 }));
@@ -80,7 +76,6 @@ export const CreditBuyText = styled(UINewTypography)(({ theme }) => ({
 
 export const FirstBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(2),
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column'
   },
@@ -94,11 +89,10 @@ export const HighlyAvailableButtonBoxBoost = styled(Box)(({ theme }) => ({
   width: '100%',
   justifyContent: 'space-between',
   alignItems: 'flex-start',
-  marginTop: 0,
+  marginTop: '-16px',
   [theme.breakpoints.down('sm')]: {
     justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '30px'
+    alignItems: 'center'
   }
 }));
 
@@ -109,8 +103,7 @@ export const HighlyAvailableBoxBoost = styled(Box)(({ theme }) => ({
     justifyContent: 'center'
   },
   width: '100%',
-  position: 'relative',
-  marginLeft: '30px'
+  position: 'relative'
 }));
 
 export const BoostProfileWorksBox = styled(Box)(({ theme }) => ({
@@ -118,5 +111,18 @@ export const BoostProfileWorksBox = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   [theme.breakpoints.down('md')]: {
     flexDirection: 'column-reverse'
+  }
+}));
+
+export const PackageContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  width: '100%',
+  height: '100%',
+  gap: theme.spacing(3),
+  flexWrap: 'wrap',
+  [theme.breakpoints.up('md')]: {
+    justifyContent: 'space-between'
   }
 }));
