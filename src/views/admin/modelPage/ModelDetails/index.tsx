@@ -15,6 +15,8 @@ import UserInformationAccordion from './UserInformationAccordion';
 import Box from '@mui/system/Box';
 import DetailsApproveReject from './DetailsApproveReject';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
+import StyleBoostAdminButton from 'components/UIComponents/StyleBoostAdminButton';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 const ModelDetailsPage = () => {
   const { id: modelId } = useParams();
@@ -59,7 +61,18 @@ const ModelDetailsPage = () => {
           <Grid item xs={12}>
             <Box display="flex" flexDirection="column" gap={3} width="100%">
               <ProfileCrad modelData={modelData as ModelDetailsRes} />
-              {isModelPending && <DetailsApproveReject workerId={Number(modelId)} fetchModelData={fetchModelData} />}
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: isModelPending ? 'space-between' : 'end',
+                  alignItems: 'center'
+                }}
+              >
+                {isModelPending && <DetailsApproveReject workerId={Number(modelId)} fetchModelData={fetchModelData} />}
+                <StyleBoostAdminButton>
+                  <UINewTypography variant="buttonLargeMenu">Boost {modelData?.data.name} profile</UINewTypography>
+                </StyleBoostAdminButton>
+              </Box>
             </Box>
           </Grid>
 

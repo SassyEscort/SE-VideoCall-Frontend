@@ -119,27 +119,29 @@ const WorkerCard = ({
     e.preventDefault();
     handleLikeClick(modelDetails);
   };
-
   return (
     <MainWorkerCard>
       <ImgWorkerCard ref={imageUrlRef} />
       <HeartIconWorkerCard>
-        <HighlyAvailableButtonBox>
-          <HighlyAvailableBox>
-            <Image
-              src="/images/boostProfile/fire-ani.gif"
-              height={57}
-              width={42}
-              alt="fire_icon"
-              style={{ zIndex: 10, left: isTablet ? '-20px' : isMdDown ? '-30px' : '-22px', position: 'absolute', top: '-14px' }}
-            />
-            <StyleBoostUserButton>
-              <UINewTypography variant="bodyUltraLarge" color="#ffff">
-                <FormattedMessage id="HighlyAvailable" />
-              </UINewTypography>
-            </StyleBoostUserButton>
-          </HighlyAvailableBox>
-        </HighlyAvailableButtonBox>
+        {Boolean(modelDetails?.profile_plan_purchased) && (
+          <HighlyAvailableButtonBox>
+            <HighlyAvailableBox>
+              <Image
+                src="/images/boostProfile/fire-ani.gif"
+                height={57}
+                width={42}
+                alt="fire_icon"
+                style={{ zIndex: 10, left: isTablet ? '-20px' : isMdDown ? '-30px' : '-22px', position: 'absolute', top: '-14px' }}
+              />
+
+              <StyleBoostUserButton>
+                <UINewTypography variant="bodyUltraLarge" color="#ffff">
+                  <FormattedMessage id="HighlyAvailable" />
+                </UINewTypography>
+              </StyleBoostUserButton>
+            </HighlyAvailableBox>
+          </HighlyAvailableButtonBox>
+        )}
         {isFavPage || liked || modelDetails?.favourite === 1 ? (
           <FavoriteIconContainer sx={{ color: 'error.main' }} />
         ) : (
