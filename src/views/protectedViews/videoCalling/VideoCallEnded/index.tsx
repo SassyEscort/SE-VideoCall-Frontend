@@ -43,6 +43,7 @@ export type ModelObj = {
   callTime: number;
   modelCreditPrice: string;
   modelUsername: string;
+  isFavouriteModel: number;
 };
 
 const VideoCallEnded = ({
@@ -163,7 +164,8 @@ const VideoCallEnded = ({
                             modelObj.modelName,
                             modelObj.modelPhoto,
                             modelObj.modelUsername,
-                            modelObj.modelCreditPrice
+                            modelObj.modelCreditPrice,
+                            modelObj.isFavouriteModel
                           );
                         }}
                       >

@@ -24,6 +24,7 @@ import { ModelDetailsService } from 'services/modelDetails/modelDetails.services
 import VideoCallEnded from 'views/protectedViews/videoCalling/VideoCallEnded';
 import { useIntl } from 'react-intl';
 import moment from 'moment';
+import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
@@ -35,7 +36,8 @@ interface CallFeatureContextProps {
     modelName: string,
     modelPhoto: string,
     userName: string,
-    modelPrice: string
+    modelPrice: string,
+    isFavourite: number
   ) => void;
   handelNameChange: () => void;
   isNameChange: boolean;
@@ -57,6 +59,8 @@ interface CallFeatureContextProps {
   handleModelOfflineClose: () => void;
   customerUser: string | undefined;
   isUnanswered: boolean;
+  isFavouriteModel: number;
+  handelIsFavouriteModelChange: (val: number) => void;
 }
 
 const CallContext = createContext<CallFeatureContextProps>({
@@ -82,7 +86,9 @@ const CallContext = createContext<CallFeatureContextProps>({
   isModelAvailable: 0,
   handleModelOfflineClose: () => {},
   customerUser: '',
-  isUnanswered: false
+  isUnanswered: false,
+  isFavouriteModel: 0,
+  handelIsFavouriteModelChange: (val: number) => {}
 });
 
 export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
@@ -137,6 +143,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [isCreditAvailable, setIsCreditAvailable] = useState(false);
   const [callTime, setCallTime] = useState(0);
   const [modelUsername, setModelUsername] = useState('');
+  const [isFavouriteModel, setIsFavouriteModel] = useState(0);
 
   const modelObj = {
     modelId: modelId,
@@ -145,7 +152,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     modelUsername: modelUsername,
     isCreditAvailable: isCreditAvailable,
     callTime: callTime,
-    modelCreditPrice: modelCreditPrice
+    modelCreditPrice: modelCreditPrice,
+    isFavouriteModel: isFavouriteModel
   };
 
   const pathname = usePathname();
@@ -180,6 +188,11 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     setIsNameChange(!isNameChange);
   };
 
+  const handelIsFavouriteModelChange = async (val: number) => {
+    setIsFavouriteModel(val);
+    if (val && token?.token && modelId) await CustomerDetailsService.favouritePutId(modelId, token?.token);
+  };
+
   const handleCancelCall = async () => {
     await creditPutCallLog(modelId, sessionId, CALLING_STATUS.CANCELED);
     await CometChat.rejectCall(sessionId, CometChat.CALL_STATUS.CANCELLED);
@@ -210,7 +223,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     modelName: string,
     modelPhoto: string,
     userName: string,
-    modelPrice: string
+    modelPrice: string,
+    isFavourite: number
   ) => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
@@ -220,6 +234,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         setModelName(modelName);
         setModelPhoto(modelPhoto);
         setModelUsername(userName);
+        setIsFavouriteModel(isFavourite || 0);
         const isModelAvailable = await ModelDetailsService.getModelDetails(token.token, isCustomer, { user_name: userName || '' });
 
         if (guestId && isCreditAvailable && !call && Boolean(token.token) && isModelAvailable.data.is_online) {
@@ -576,7 +591,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         isModelAvailable,
         handleModelOfflineClose,
         customerUser,
-        isUnanswered
+        isUnanswered,
+        isFavouriteModel,
+        handelIsFavouriteModelChange
       }}
     >
       {children}

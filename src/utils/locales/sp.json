@@ -823,5 +823,7 @@
   "VideoCallEnded": "Videollamada finalizada",
   "RateAndReview": "Califica y revisa",
   "StartBoostFor": "Iniciar impulso por",
-  "1BoostFREE": "1er Impulso GRATIS"
+  "1BoostFREE": "1er Impulso GRATIS",
+  "YouHaven’tReceivedAnyRatin": "Aún no has recibido ninguna calificación ni reseña.",
+  "starReviewsYet": "reseñas de estrellas todavía! Por favor ajusta el filtro y mira otras calificaciones."
 }

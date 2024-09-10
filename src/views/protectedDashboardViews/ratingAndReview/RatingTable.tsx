@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
+  NoRatingTextBoxContainer,
   PaginationBoxContainer,
   RatingDescriptionDetailsBoxContainer,
   RatingDescriptionInnerBoxContainer,
@@ -40,7 +41,10 @@ const RatingTable = ({
   handleRatingSelect: (rating: string) => void;
 }) => {
   const intl = useIntl();
+  const [open, setOpen] = useState(false);
 
+  const handleOpen = () => setOpen((prevOpen) => !prevOpen);
+  console.log('selectedRating', selectedRating);
   return (
     <RatingDescriptionMainBoxContainer>
       <FormControl id="rating" sx={{ width: '100%', maxWidth: '140px' }}>
@@ -56,6 +60,8 @@ const RatingTable = ({
           labelId="rating"
           IconComponent={ExpandMore}
           endAdornment={selectedRating && <StyledClearIcon onClick={() => handleRatingSelect('')} />}
+          open={open}
+          onClick={handleOpen}
           sx={{ cursor: 'pointer' }}
         >
           {RATING.map((rating) => (
@@ -65,32 +71,42 @@ const RatingTable = ({
           ))}
         </UIStyledSelectRatingFilter>
       </FormControl>
-      {ratingAndReview?.data?.model_rating_list?.map((list, index) => (
+      {ratingAndReview?.data?.model_rating_list?.[0]?.rating ? (
         <>
-          {[...Array(1).keys()].map((item) => {
-            return (
-              <>
-                <RatingDescriptionInnerBoxContainer>
-                  <RatingDescriptionDetailsBoxContainer>
-                    <RatingDescriptionStarBoxContainer>
-                      <UINewTypography variant="captionLargeBold">{list.customer_name}</UINewTypography>
-                      <Box>
-                        <StartRating value={list.rating || 0} />
-                      </Box>
-                    </RatingDescriptionStarBoxContainer>
-                    <UINewTypography variant="bodySmall" color="text.secondary">
-                      {list.review}
-                    </UINewTypography>
-                    <UINewTypography variant="captionLargeBold" color="secondary.700">
-                      {moment(list.created_at).format('MMM D, YYYY')}
-                    </UINewTypography>
-                  </RatingDescriptionDetailsBoxContainer>
-                </RatingDescriptionInnerBoxContainer>
-              </>
-            );
-          })}
+          {ratingAndReview?.data?.model_rating_list?.map((list, index) => (
+            <>
+              {[...Array(1).keys()].map((item) => {
+                return (
+                  <>
+                    <RatingDescriptionInnerBoxContainer>
+                      <RatingDescriptionDetailsBoxContainer>
+                        <RatingDescriptionStarBoxContainer>
+                          <UINewTypography variant="captionLargeBold">{list.customer_name}</UINewTypography>
+                          <Box>
+                            <StartRating value={list.rating || 0} />
+                          </Box>
+                        </RatingDescriptionStarBoxContainer>
+                        <UINewTypography variant="bodySmall" color="text.secondary">
+                          {list.review}
+                        </UINewTypography>
+                        <UINewTypography variant="captionLargeBold" color="secondary.700">
+                          {moment(list.created_at).format('MMM D, YYYY')}
+                        </UINewTypography>
+                      </RatingDescriptionDetailsBoxContainer>
+                    </RatingDescriptionInnerBoxContainer>
+                  </>
+                );
+              })}
+            </>
+          ))}
         </>
-      ))}
+      ) : (
+        <NoRatingTextBoxContainer>
+          <UINewTypography variant="bodyLarge" color="secondary.700">
+            No {selectedRating}-<FormattedMessage id="starReviewsYet" />
+          </UINewTypography>
+        </NoRatingTextBoxContainer>
+      )}
       <PaginationBoxContainer>
         {total_rows > 0 && (
           <CallHistoryPaginationContainer>
