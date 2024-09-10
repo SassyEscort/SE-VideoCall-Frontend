@@ -17,6 +17,16 @@ import moment from 'moment';
 import BoostMultiplePackage from './BoostMultiplePackage';
 import BoostProfileWorks from './BoostProfileWorks';
 
+const backgroundImages = [
+  'https://staging.flirtbate.com/images/boostFeature/freePackbg.png',
+  'https://staging.flirtbate.com/images/boostFeature/boostPackOne.png',
+  'https://staging.flirtbate.com/images/boostFeature/boostPackTwo.png',
+  'https://staging.flirtbate.com/images/boostFeature/boostPackThree.png',
+  'https://staging.flirtbate.com/images/boostFeature/boostPackFour.png',
+  'https://staging.flirtbate.com/images/boostFeature/boostPackFive.png',
+  'https://staging.flirtbate.com/images/boostFeature/boostPackSix.png'
+];
+
 const FreeProfile = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [openBoost, setOpenBoost] = useState(false);
@@ -90,11 +100,16 @@ const FreeProfile = () => {
         const response = await CommonServices.getProfilePlans(token.token);
         const freePlanDetails = response.data?.filter((x) => x.is_free)[0];
         setFreePlan(freePlanDetails);
+        const plansWithImages = response.data.map((plan, index) => ({
+          ...plan,
+          link: backgroundImages[index % backgroundImages.length]
+        }));
+
         if (isFreeBoostUsed) {
-          const paidPlans = response.data.filter((x) => !x.is_free);
+          const paidPlans = plansWithImages.filter((x) => !x.is_free);
           setAllPlans(paidPlans);
         } else {
-          setAllPlans(response.data);
+          setAllPlans(plansWithImages);
         }
       } catch (error) {
         toast.error(ErrorMessage);

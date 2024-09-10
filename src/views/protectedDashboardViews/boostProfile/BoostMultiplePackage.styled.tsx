@@ -1,6 +1,9 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+interface MainImagContainerProps {
+  src: string;
+}
 
 export const BoostPackageMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -20,14 +23,17 @@ export const ImagSubContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const MainImagContainer = styled('img')(({ theme }) => ({
-  display: 'flex',
+export const MainImagContainer = styled(Box)<MainImagContainerProps>(({ theme, src }) => ({
   height: '100%',
   borderRadius: theme.spacing(1),
   border: '1px solid',
   borderColor: theme.palette.secondary[900],
   width: '100%',
-  minWidth: '306px'
+  minWidth: '307px',
+  background: `linear-gradient(rgba(7, 3, 14, 0.56), rgba(7, 3, 14, 0.56)), url(${src})`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  minHeight: '325px'
 }));
 
 export const BoxFirstTextContainer = styled(Box)(({ theme }) => ({
