@@ -1,5 +1,5 @@
 'use client';
-import { CircularProgress, Divider } from '@mui/material';
+import { CircularProgress, Divider, useMediaQuery } from '@mui/material';
 import Box from '@mui/material/Box';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
@@ -49,6 +49,7 @@ import { UIStyledLoadingButtonShadowCallHistory } from 'components/UIComponents/
 import { useRouter } from 'next/navigation';
 import CallHistoryRatingModel from './CalllHistoryRatingModel';
 import StartRating from 'components/UIComponents/StartRating';
+import theme from 'themes/theme';
 
 export type CallHistoryPaginationType = {
   page: number;
@@ -65,6 +66,9 @@ const CallHistory = () => {
   const [isLoadingDetail, setIsLoadingDetails] = useState(false);
   const [isShowRatingModel, setIsShowRatingModel] = useState(false);
   const [logDetails, setCallLogDetails] = useState<CallHistoryDetails>({} as CallHistoryDetails);
+
+  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [filters, setFilters] = useState<CallHistoryPaginationType>({
     page: 1,
@@ -199,6 +203,16 @@ const CallHistory = () => {
                   <SecondContainer key={index}>
                     <SecondSubContainer>
                       <SecondSubTextMainContainer>
+                        {isSmDown && (
+                          <CallHistoryBox>
+                            <FirstTextContainer color="secondary.700" sx={{ textWrap: 'nowrap' }}>
+                              {moment(list?.created_at).format('LT')},
+                            </FirstTextContainer>
+                            <FirstTextContainer color="secondary.700" sx={{ textWrap: 'nowrap' }}>
+                              {moment(list?.created_at).format('DD MMMM YYYY')}
+                            </FirstTextContainer>
+                          </CallHistoryBox>
+                        )}
                         <SecondSubFirstBox>
                           <SecondSubFirstPartBox>
                             <WorkerImg src={list?.link ? list?.link : ''} width={80} height={80} />
@@ -219,26 +233,38 @@ const CallHistory = () => {
                                   </SecTextContainer>
                                 </SecondSubFirstPartSecondBoxSecText>
                               </SecondSubFirstPartSecondBoxFirstText>
+                              {isSmUp && (
+                                <CallHistoryCreditBox>
+                                  <ImgBoxContainer src="/images/workercards/dollar-img.png" />
+                                  <UINewTypography variant="captionLargeBold" color="text.secondary">
+                                    {list.credits_per_minute} <FormattedMessage id="CreditsMin" />
+                                  </UINewTypography>
+                                </CallHistoryCreditBox>
+                              )}
+                            </SecondSubFirstPartSecondBox>
+                          </SecondSubFirstPartBox>
+                          <SecondSubFirstPartThiredBox marginRight={{ sm: '32px' }}>
+                            {isSmUp && (
+                              <CallHistoryBox>
+                                <FirstTextContainer color="secondary.700" sx={{ textWrap: 'nowrap' }}>
+                                  {moment(list?.created_at).format('LT')},
+                                </FirstTextContainer>
+                                <FirstTextContainer color="secondary.700" sx={{ textWrap: 'nowrap' }}>
+                                  {moment(list?.created_at).format('DD MMMM YYYY')}
+                                </FirstTextContainer>
+                              </CallHistoryBox>
+                            )}
+                            {isSmDown && (
                               <CallHistoryCreditBox>
                                 <ImgBoxContainer src="/images/workercards/dollar-img.png" />
                                 <UINewTypography variant="captionLargeBold" color="text.secondary">
                                   {list.credits_per_minute} <FormattedMessage id="CreditsMin" />
                                 </UINewTypography>
                               </CallHistoryCreditBox>
-                            </SecondSubFirstPartSecondBox>
-                          </SecondSubFirstPartBox>
-                          <SecondSubFirstPartThiredBox marginRight={{ sm: '32px' }}>
-                            <CallHistoryBox>
-                              <FirstTextContainer color="secondary.700" sx={{ textWrap: 'nowrap' }}>
-                                {moment(list?.created_at).format('LT')},
-                              </FirstTextContainer>
-                              <FirstTextContainer color="secondary.700" sx={{ textWrap: 'nowrap' }}>
-                                {moment(list?.created_at).format('DD MMMM YYYY')}
-                              </FirstTextContainer>
-                            </CallHistoryBox>
+                            )}
                             <FirstTextContainer color="text.primary" whiteSpace="nowrap">
                               <FormattedMessage id="Duration" />
-                              {list?.duration && formatDuration(list?.duration)}
+                              {(list?.duration && formatDuration(list?.duration)) || 0}
                             </FirstTextContainer>
                             <CreditUsedBox>
                               <FirstTextContainer color="text.primary" whiteSpace="nowrap">

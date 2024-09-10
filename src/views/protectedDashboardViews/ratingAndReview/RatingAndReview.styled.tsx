@@ -57,7 +57,10 @@ export const RatingDetalisFirstPartBoxContainer = styled(Box)(({ theme }) => ({
 export const RatingDetalisStarBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(1.5),
-  alignItems: 'center'
+  alignItems: 'center',
+  [theme.breakpoints.down('sm')]: {
+    justifyContent: 'center'
+  }
 }));
 
 export const RatingPercentageContainer = styled(UINewTypography)(({ theme }) => ({
