@@ -265,3 +265,22 @@ export const RatingReviewText = styled(UINewTypography)(({ theme }) => ({
   color: theme.palette.common.white,
   whiteSpace: 'nowrap'
 }));
+
+export const RatingReviewNotFoundBoxMainContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  height: '100%',
+  backgroundColor: '#100B19',
+  paddingTop: theme.spacing(6),
+  paddingBottom: theme.spacing(6),
+  alignItems: 'center',
+  textAlign: 'center',
+  marginTop: theme.spacing(7)
+}));
+
+export const RatingReviewNotFoundBoxInnerContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(1.5)
+}));

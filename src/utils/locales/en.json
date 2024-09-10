@@ -825,5 +825,7 @@
   "VideoCallEnded": "Video Call ended",
   "RateAndReview": "Rate and review",
   "StartBoostFor": "Start boost for",
-  "1BoostFREE": "1st Boost FREE"
+  "1BoostFREE": "1st Boost FREE",
+  "YouHaven’tReceivedAnyRatin": "You haven’t received any rating or reviews yet.",
+  "starReviewsYet": "star reviews yet! Please adjust the filter and check out other ratings"
 }

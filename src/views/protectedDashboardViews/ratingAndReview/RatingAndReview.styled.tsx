@@ -159,3 +159,26 @@ export const PaginationBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   marginTop: theme.spacing(6)
 }));
+
+export const NoRatingBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(3)
+}));
+
+export const NoRatingTextContainer = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '24px',
+  fontWeight: 500,
+  lineHeight: '38.4px'
+}));
+
+export const NoRatingTextBoxContainer = styled(UINewTypography)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  paddingTop: theme.spacing(3),
+  paddingLeft: theme.spacing(2),
+  paddingBottom: theme.spacing(3),
+  paddingRight: theme.spacing(2),
+  backgroundColor: '#100B19',
+  borderRadius: theme.spacing(1)
+}));

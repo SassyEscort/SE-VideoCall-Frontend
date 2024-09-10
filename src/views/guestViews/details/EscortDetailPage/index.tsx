@@ -27,6 +27,8 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
   RatingReviewInnerBoxContainer,
   RatingReviewMainBoxContainer,
+  RatingReviewNotFoundBoxInnerContainer,
+  RatingReviewNotFoundBoxMainContainer,
   RatingReviewText,
   RatingReviewTextBoxContainer
 } from './Escort.styled';
@@ -218,31 +220,44 @@ const EscortDetailPage = () => {
           )}
 
           <EscortPersonalDetail guestData={guestData ?? ({} as ModelDetailsResponse)} />
-          <RatingReviewMainBoxContainer>
-            <RatingReviewInnerBoxContainer>
-              <RatingReviewTextBoxContainer>
+          {ratingAndReview?.data?.model_rating_info?.[0].total_reviews ? (
+            <RatingReviewMainBoxContainer>
+              <RatingReviewInnerBoxContainer>
+                <RatingReviewTextBoxContainer>
+                  <RatingReviewText>
+                    <FormattedMessage id="RatingAndReviews" />
+                  </RatingReviewText>
+                  <UINewTypography variant="bodyLight">
+                    ({ratingAndReview?.data?.model_rating_info?.[0].total_reviews} <FormattedMessage id="Reviews" />)
+                  </UINewTypography>
+                </RatingReviewTextBoxContainer>
+                <RatingPoints
+                  ratingAndReview={ratingAndReview?.data?.model_rating_info?.[0] ?? ({} as RatingAndReviewDetailsInfo)}
+                  onSelectRating={handleRatingSelect}
+                  isShowPercentage={false}
+                />
+              </RatingReviewInnerBoxContainer>
+              <RatingTable
+                ratingAndReview={ratingAndReview ?? ({} as RatingAndReviewDetailsRes)}
+                total_rows={total_rows}
+                filters={filters}
+                handleChangePage={handleChangePage}
+                selectedRating={filters.rating}
+                handleRatingSelect={handleRatingSelect}
+              />
+            </RatingReviewMainBoxContainer>
+          ) : (
+            <RatingReviewNotFoundBoxMainContainer>
+              <RatingReviewNotFoundBoxInnerContainer>
                 <RatingReviewText>
                   <FormattedMessage id="RatingAndReviews" />
                 </RatingReviewText>
                 <UINewTypography variant="bodyLight">
                   ({ratingAndReview?.data?.model_rating_info?.[0].total_reviews} <FormattedMessage id="Reviews" />)
                 </UINewTypography>
-              </RatingReviewTextBoxContainer>
-              <RatingPoints
-                ratingAndReview={ratingAndReview?.data?.model_rating_info?.[0] ?? ({} as RatingAndReviewDetailsInfo)}
-                onSelectRating={handleRatingSelect}
-                isShowPercentage={false}
-              />
-            </RatingReviewInnerBoxContainer>
-            <RatingTable
-              ratingAndReview={ratingAndReview ?? ({} as RatingAndReviewDetailsRes)}
-              total_rows={total_rows}
-              filters={filters}
-              handleChangePage={handleChangePage}
-              selectedRating={filters.rating}
-              handleRatingSelect={handleRatingSelect}
-            />
-          </RatingReviewMainBoxContainer>
+              </RatingReviewNotFoundBoxInnerContainer>
+            </RatingReviewNotFoundBoxMainContainer>
+          )}
           <EscortExplore />
         </Box>
       </HomeMainContainer>
