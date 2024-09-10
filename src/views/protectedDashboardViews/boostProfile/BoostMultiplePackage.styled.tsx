@@ -112,3 +112,11 @@ export const HighlyAvailableBoxBoost = styled(Box)(({ theme }) => ({
   position: 'relative',
   marginLeft: '30px'
 }));
+
+export const BoostProfileWorksBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column-reverse'
+  }
+}));

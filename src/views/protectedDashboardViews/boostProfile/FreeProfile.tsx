@@ -2,23 +2,8 @@
 import DashboardProfile from '..';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
-import { Box, useMediaQuery } from '@mui/material';
-import theme from 'themes/theme';
-import Image from 'next/image';
-import StyleBoostButton from 'components/UIComponents/StyleBoostButton';
-import {
-  BoxImageBackgroundBoost,
-  BoxImageBackgroundChildBoost,
-  BoxMainBoost,
-  FirstBoxContainer,
-  FirstTextBoostTyporaphy,
-  MainBoostButtonBox,
-  MainBoxBorder,
-  MainChildContainerBoost,
-  SeconBoxContainerBoost,
-  SecondBoostButtonBox,
-  SecondBoxContainer
-} from './boostProfile.styled';
+import { Box } from '@mui/material';
+import { FirstBoxContainer } from './boostProfile.styled';
 import { useCallback, useEffect, useState } from 'react';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
@@ -31,13 +16,12 @@ import { CustomerCredit } from 'services/customerCredit/customerCredit.service';
 import { PaidProfile } from './PaidProfile';
 import moment from 'moment';
 import BoostMultiplePackage from './BoostMultiplePackage';
+import BoostProfileWorks from './BoostProfileWorks';
 
 const FreeProfile = () => {
-  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [openBoost, setOpenBoost] = useState(false);
   const [isFreeBoostUsed, setIsFreeBoostUsed] = useState(0);
-  const [freePlan, setFreePlan] = useState<ProfilePlanResData>();
   const [allPlans, setAllPlans] = useState<ProfilePlanResData[]>([]);
   const [activePlanHours, setActivePlanHours] = useState(0);
   const [activePlanMins, setActivePlanMins] = useState(0);
@@ -105,8 +89,6 @@ const FreeProfile = () => {
     const getProfilePlans = async () => {
       try {
         const response = await CommonServices.getProfilePlans(token.token);
-        const freePlan = response.data.filter((x) => x.is_free)[0];
-        setFreePlan(freePlan);
         if (isFreeBoostUsed) {
           const paidPlans = response.data.filter((x) => !x.is_free);
           setAllPlans(paidPlans);
@@ -135,255 +117,8 @@ const FreeProfile = () => {
             <BoostMultiplePackage allPlans={allPlans} handleBoostOpen={handleBoostOpen} />
           </Box>
         )}
-        {!isFreeBoostUsed ? (
-          <>
-            <Box sx={{ display: 'flex', flexDirection: isSmDown ? 'column-reverse' : 'column' }}>
-              <Box>
-                <SecondBoxContainer>
-                  <UINewTypography variant="h5" color="text.primary" lineHeight="160%">
-                    <FormattedMessage id="HowDoesThisWork" />
-                  </UINewTypography>
-                </SecondBoxContainer>
-
-                <MainChildContainerBoost
-                  sx={{
-                    mt: isSmDown ? 7 : 7,
-                    flexDirection: isSmDown ? 'column' : 'row',
-                    gap: 1.5
-                  }}
-                >
-                  <MainBoxBorder>
-                    <BoxMainBoost>
-                      <BoxImageBackgroundBoost>
-                        <BoxImageBackgroundChildBoost>
-                          <Image
-                            alt="home_model"
-                            width={24}
-                            height={24}
-                            src="/images/boostProfile/Instant.png"
-                            style={{ width: isSmDown ? 20 : 24, height: isSmDown ? 20 : 24 }}
-                          />
-                        </BoxImageBackgroundChildBoost>
-                      </BoxImageBackgroundBoost>
-                      <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
-                        <FormattedMessage id="InstantVisibility" />
-                      </FirstTextBoostTyporaphy>
-
-                      <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
-                        <UINewTypography
-                          variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                          sx={{
-                            width: '100%',
-                            maxWidth: '215px'
-                          }}
-                        >
-                          <FormattedMessage id="ActivateTheBoost" />
-                        </UINewTypography>
-                      </SeconBoxContainerBoost>
-                    </BoxMainBoost>
-                  </MainBoxBorder>
-
-                  <MainBoxBorder>
-                    <BoxMainBoost>
-                      <BoxImageBackgroundBoost>
-                        <BoxImageBackgroundChildBoost>
-                          <Image
-                            alt="home_model"
-                            width={24}
-                            height={24}
-                            src="/images/boostProfile/duration.png"
-                            style={{ width: isSmDown ? 20 : 24, height: isSmDown ? 20 : 24 }}
-                          />
-                        </BoxImageBackgroundChildBoost>
-                      </BoxImageBackgroundBoost>
-                      <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
-                        <FormattedMessage id="Duration2" />
-                      </FirstTextBoostTyporaphy>
-                      <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
-                        <UINewTypography
-                          variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                          sx={{
-                            width: '100%'
-                          }}
-                        >
-                          <FormattedMessage id="EachBoostlLsts" />
-                        </UINewTypography>
-                      </SeconBoxContainerBoost>
-                    </BoxMainBoost>
-                  </MainBoxBorder>
-
-                  <MainBoxBorder>
-                    <BoxMainBoost>
-                      <BoxImageBackgroundBoost>
-                        <BoxImageBackgroundChildBoost>
-                          <Image
-                            alt="home_model"
-                            width={24}
-                            height={24}
-                            src="/images/boostProfile/cost.png"
-                            style={{ width: isSmDown ? 15 : 15, height: isSmDown ? 20 : 20 }}
-                          />
-                        </BoxImageBackgroundChildBoost>
-                      </BoxImageBackgroundBoost>
-                      <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
-                        <FormattedMessage id="CostEffective" />
-                      </FirstTextBoostTyporaphy>
-                      <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
-                        <UINewTypography
-                          variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                          sx={{
-                            width: '100%'
-                          }}
-                        >
-                          <FormattedMessage id="ItsAnAffordable" />
-                        </UINewTypography>
-                      </SeconBoxContainerBoost>
-                    </BoxMainBoost>
-                  </MainBoxBorder>
-                </MainChildContainerBoost>
-              </Box>
-
-              <Box>
-                <SecondBoxContainer>
-                  <UINewTypography variant="h5" color="text.primary" lineHeight="160%">
-                    <FormattedMessage id="WhyUseProfileBoost" />
-                  </UINewTypography>
-                </SecondBoxContainer>
-
-                <MainChildContainerBoost
-                  sx={{
-                    mt: isSmDown ? 7 : 7,
-                    flexDirection: isSmDown ? 'column' : 'row',
-                    gap: 1.5
-                  }}
-                >
-                  <MainBoxBorder>
-                    <BoxMainBoost>
-                      <BoxImageBackgroundBoost>
-                        <BoxImageBackgroundChildBoost>
-                          <Image
-                            alt="home_model"
-                            width={24}
-                            height={24}
-                            src="/images/boostProfile/instant.png"
-                            style={{ width: isSmDown ? 20 : 24, height: isSmDown ? 20 : 24 }}
-                          />
-                        </BoxImageBackgroundChildBoost>
-                      </BoxImageBackgroundBoost>
-                      <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
-                        <FormattedMessage id="IncreasedExposure" />
-                      </FirstTextBoostTyporaphy>
-                      <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
-                        <UINewTypography
-                          variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                          sx={{
-                            width: '100%',
-                            maxWidth: '215px'
-                          }}
-                        >
-                          <FormattedMessage id="BeTheFirstProfile" />
-                        </UINewTypography>
-                      </SeconBoxContainerBoost>
-                    </BoxMainBoost>
-                  </MainBoxBorder>
-
-                  <MainBoxBorder>
-                    <BoxMainBoost>
-                      <BoxImageBackgroundBoost>
-                        <BoxImageBackgroundChildBoost>
-                          <Image
-                            alt="home_model"
-                            width={24}
-                            height={24}
-                            src="/images/boostProfile/more.png"
-                            style={{ width: isSmDown ? 20 : 24, height: isSmDown ? 20 : 24 }}
-                          />
-                        </BoxImageBackgroundChildBoost>
-                      </BoxImageBackgroundBoost>
-                      <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
-                        <FormattedMessage id="MoreEngagements" />
-                      </FirstTextBoostTyporaphy>
-                      <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
-                        <UINewTypography
-                          variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                          sx={{
-                            width: '100%'
-                          }}
-                        >
-                          <FormattedMessage id="HigherVisibility" />
-                        </UINewTypography>
-                      </SeconBoxContainerBoost>
-                    </BoxMainBoost>
-                  </MainBoxBorder>
-
-                  <MainBoxBorder>
-                    <BoxMainBoost>
-                      <BoxImageBackgroundBoost>
-                        <BoxImageBackgroundChildBoost>
-                          <Image
-                            alt="home_model"
-                            width={24}
-                            height={24}
-                            src="/images/boostProfile/flex.png"
-                            style={{ width: isSmDown ? 25 : 25, height: isSmDown ? 25 : 25 }}
-                          />
-                        </BoxImageBackgroundChildBoost>
-                      </BoxImageBackgroundBoost>
-                      <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
-                        <FormattedMessage id="Flexibility" />
-                      </FirstTextBoostTyporaphy>
-                      <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
-                        <UINewTypography
-                          variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                          sx={{
-                            width: '100%'
-                          }}
-                        >
-                          <FormattedMessage id="UseWhenIt" />
-                        </UINewTypography>
-                      </SeconBoxContainerBoost>
-                    </BoxMainBoost>
-                  </MainBoxBorder>
-                </MainChildContainerBoost>
-              </Box>
-
-              <Box>
-                <SecondBoxContainer>
-                  <Box>
-                    {isFreeBoostUsed ? (
-                      <UINewTypography variant="h5" color="text.secondary" lineHeight="160%">
-                        <FormattedMessage id="BoostPaidText" /> <span style={{ color: '#FF68C0' }}>$0.1/2hours</span>
-                      </UINewTypography>
-                    ) : (
-                      <UINewTypography variant="h5" color="text.secondary" lineHeight="160%">
-                        <FormattedMessage id="1FreeBoostAvailable" />
-                      </UINewTypography>
-                    )}
-                  </Box>
-                </SecondBoxContainer>
-
-                <MainBoostButtonBox onClick={() => freePlan && handleBoostOpen(freePlan)}>
-                  <SecondBoostButtonBox>
-                    <Image
-                      src="/images/boostProfile/fire.png"
-                      height={110}
-                      width={100}
-                      alt="fire_icon"
-                      style={{ zIndex: 10, left: '-50px', position: 'absolute', top: '-24px' }}
-                    />
-                    <StyleBoostButton>
-                      <UINewTypography variant="buttonLargeMenu">
-                        <FormattedMessage id="BoostYourProfile" />
-                      </UINewTypography>
-                    </StyleBoostButton>
-                  </SecondBoostButtonBox>
-                </MainBoostButtonBox>
-              </Box>
-            </Box>
-          </>
-        ) : (
-          modelActivePlan && <PaidProfile activePlanHours={activePlanHours} activePlanMins={activePlanMins} />
-        )}
+        <BoostProfileWorks />
+        {modelActivePlan && <PaidProfile activePlanHours={activePlanHours} activePlanMins={activePlanMins} />}
         <BoostProfileDialog
           openBoost={openBoost}
           handleBoostClose={handleBoostClose}
