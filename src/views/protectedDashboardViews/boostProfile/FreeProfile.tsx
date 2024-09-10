@@ -2,8 +2,7 @@
 import DashboardProfile from '..';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
-import { Box } from '@mui/material';
-import { FirstBoxContainer } from './boostProfile.styled';
+import { BoostMultipleBox, FirstBoxContainer } from './boostProfile.styled';
 import { useCallback, useEffect, useState } from 'react';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
@@ -116,9 +115,9 @@ const FreeProfile = () => {
           <PaidProfile activePlanHours={activePlanHours} activePlanMins={activePlanMins} />
         ) : (
           <>
-            <Box marginTop={7}>
+            <BoostMultipleBox>
               <BoostMultiplePackage allPlans={allPlans} handleBoostOpen={handleBoostOpen} />
-            </Box>
+            </BoostMultipleBox>
             <BoostProfileWorks />
           </>
         )}

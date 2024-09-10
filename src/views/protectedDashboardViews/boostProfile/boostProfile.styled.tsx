@@ -273,3 +273,7 @@ export const BoostSuccessBoxImage = styled(Box)(() => ({
   height: 'auto',
   minHeight: '150px'
 }));
+
+export const BoostMultipleBox = styled(Box)(({ theme }) => ({
+  marginTop: theme.spacing(7)
+}));
