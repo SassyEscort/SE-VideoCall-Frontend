@@ -14,7 +14,6 @@ const BoostProfileDialog = ({
   handleBoostClose,
   handleBoost,
   activeStep,
-  isFreeBoostUsed,
   activePlanHours,
   activePlanMins,
   planDetails
@@ -23,9 +22,8 @@ const BoostProfileDialog = ({
   handleBoostClose: () => void;
   handleBoost: (planId: number) => Promise<void>;
   activeStep: number;
-  isFreeBoostUsed: number;
   activePlanHours: number;
-  activePlanMins: number;
+  activePlanMins: string;
   planDetails: ProfilePlanResData;
 }) => {
   return (

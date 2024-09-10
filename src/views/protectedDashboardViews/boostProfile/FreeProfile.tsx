@@ -24,7 +24,7 @@ const FreeProfile = () => {
   const [isFreeBoostUsed, setIsFreeBoostUsed] = useState(0);
   const [allPlans, setAllPlans] = useState<ProfilePlanResData[]>([]);
   const [activePlanHours, setActivePlanHours] = useState(0);
-  const [activePlanMins, setActivePlanMins] = useState(0);
+  const [activePlanMins, setActivePlanMins] = useState('0');
   const [activeStep, setActiveStep] = useState(0);
   const [planDetails, setPlanDetails] = useState<ProfilePlanResData>();
   const [modelActivePlan, setModelActivePlan] = useState<ProfilePlanData>();
@@ -50,7 +50,7 @@ const FreeProfile = () => {
         const activePlanTimeInMinutes = activePlan ? moment.utc(activePlan.end_time).diff(moment.utc(), 'minutes') : 0;
 
         const hours = Math.floor(activePlanTimeInMinutes / 60);
-        const minutes = activePlanTimeInMinutes % 60;
+        const minutes = ('0' + (activePlanTimeInMinutes % 60)).slice(-2);
         setActivePlanHours(hours);
         setActivePlanMins(minutes);
         setIsFreeBoostUsed(response.data.free_plan_used);
@@ -112,18 +112,20 @@ const FreeProfile = () => {
             <FormattedMessage id="BoostYourProfile" />
           </UINewTypography>
         </FirstBoxContainer>
-        {!modelActivePlan && (
-          <Box marginTop={7}>
-            <BoostMultiplePackage allPlans={allPlans} handleBoostOpen={handleBoostOpen} />
-          </Box>
+        {modelActivePlan ? (
+          <PaidProfile activePlanHours={activePlanHours} activePlanMins={activePlanMins} />
+        ) : (
+          <>
+            <Box marginTop={7}>
+              <BoostMultiplePackage allPlans={allPlans} handleBoostOpen={handleBoostOpen} />
+            </Box>
+            <BoostProfileWorks />
+          </>
         )}
-        <BoostProfileWorks />
-        {modelActivePlan && <PaidProfile activePlanHours={activePlanHours} activePlanMins={activePlanMins} />}
         <BoostProfileDialog
           openBoost={openBoost}
           handleBoostClose={handleBoostClose}
           handleBoost={handleBoost}
-          isFreeBoostUsed={isFreeBoostUsed}
           activeStep={activeStep}
           activePlanHours={activePlanHours}
           activePlanMins={activePlanMins}

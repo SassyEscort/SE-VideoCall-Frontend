@@ -9,7 +9,12 @@ import {
   UINewTypographySuccessBoost
 } from './boostProfile.styled';
 
-const BoostSuccess = ({ activePlanHours, activePlanMins }: { activePlanHours: number; activePlanMins: number }) => {
+export type ActivePlan = {
+  activePlanHours: number;
+  activePlanMins: string;
+};
+
+const BoostSuccess = ({ activePlanHours, activePlanMins }: ActivePlan) => {
   return (
     <>
       <DividerMainBox />
