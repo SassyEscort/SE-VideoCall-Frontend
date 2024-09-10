@@ -139,7 +139,7 @@ const FreeProfile = () => {
           </UINewTypography>
         </FirstBoxContainer>
 
-        {!modelActivePlan ? (
+        {modelActivePlan ? (
           <PaidProfile activePlanHours={activePlanHours} activePlanMins={activePlanMins} />
         ) : !openBoost ? (
           <>
