@@ -16,6 +16,11 @@ import { PaidProfile } from './PaidProfile';
 import moment from 'moment';
 import BoostMultiplePackage from './BoostMultiplePackage';
 import BoostProfileWorks from './BoostProfileWorks';
+import BoostProfileContent from './BoostProfileContent';
+import BoostSuccess from './BoostSuccess';
+import { useRouter } from 'next/navigation';
+import { useMediaQuery } from '@mui/material';
+import theme from 'themes/theme';
 
 const backgroundImages = [
   'https://staging.flirtbate.com/images/boostFeature/freePackbg.png',
@@ -28,6 +33,9 @@ const backgroundImages = [
 ];
 
 const FreeProfile = () => {
+  const router = useRouter();
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [openBoost, setOpenBoost] = useState(false);
   const [isFreeBoostUsed, setIsFreeBoostUsed] = useState(0);
@@ -72,7 +80,9 @@ const FreeProfile = () => {
   const handleBoost = async (planId: number) => {
     try {
       const res = await CustomerCredit.modelCreditAmount(token.token, planId, 0, true);
-      if (res) {
+      if (res?.data?.url) {
+        router.push(res?.data?.url);
+      } else {
         setActiveStep(1);
         fetchModelProfilePlan();
       }
@@ -128,9 +138,10 @@ const FreeProfile = () => {
             <FormattedMessage id="BoostYourProfile" />
           </UINewTypography>
         </FirstBoxContainer>
+
         {modelActivePlan ? (
           <PaidProfile activePlanHours={activePlanHours} activePlanMins={activePlanMins} />
-        ) : (
+        ) : !openBoost ? (
           <>
             <BoostMultipleBox>
               <BoostMultiplePackage allPlans={allPlans} handleBoostOpen={handleBoostOpen} />
@@ -141,9 +152,13 @@ const FreeProfile = () => {
               isFreeBoostUsed={isFreeBoostUsed}
             />
           </>
+        ) : activeStep === 0 && openBoost ? (
+          <BoostProfileContent planDetails={planDetails ?? ({} as ProfilePlanResData)} handleBoost={handleBoost} />
+        ) : (
+          <BoostSuccess activePlanHours={activePlanHours} activePlanMins={activePlanMins} />
         )}
         <BoostProfileDialog
-          openBoost={openBoost}
+          openBoost={openBoost && !isSmDown}
           handleBoostClose={handleBoostClose}
           handleBoost={handleBoost}
           activeStep={activeStep}

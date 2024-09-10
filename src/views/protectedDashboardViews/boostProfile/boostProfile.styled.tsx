@@ -282,7 +282,11 @@ export const BoostMultipleBox = styled(Box)(({ theme }) => ({
 export const BoostMultipleFreeBox = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(7),
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  [theme.breakpoints.down('sm')]: {
+    alignItems: 'center'
+  }
 }));
 
 export const PackageFreeTypography = styled(UINewTypography)(({ theme }) => ({
@@ -290,4 +294,16 @@ export const PackageFreeTypography = styled(UINewTypography)(({ theme }) => ({
   fontWeight: 600,
   lineHeight: '30px',
   color: theme.palette.text.secondary
+}));
+
+export const MainBoostButtonBoxContainer = styled(Box)(({ theme }) => ({
+  width: '100%',
+  display: 'flex',
+  paddingLeft: theme.spacing(3),
+  marginBlock: theme.spacing(4),
+  alignItems: 'flex-start',
+  [theme.breakpoints.down('sm')]: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
 }));

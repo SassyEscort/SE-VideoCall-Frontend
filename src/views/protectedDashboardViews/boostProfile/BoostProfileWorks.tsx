@@ -12,10 +12,10 @@ import {
   FirstTextBoostTyporaphy,
   SeconBoxContainerBoost,
   BoostMultipleFreeBox,
-  MainBoostButtonBox,
   SecondBoostButtonBox,
   UINewTypographyCondition,
-  PackageFreeTypography
+  PackageFreeTypography,
+  MainBoostButtonBoxContainer
 } from './boostProfile.styled';
 import Image from 'next/image';
 import { BoostProfileWorksBox } from './BoostMultiplePackage.styled';
@@ -133,6 +133,29 @@ const BoostProfileWorks = ({
               </BoxMainBoost>
             </MainBoxBorder>
           </MainChildContainerBoost>
+          {!Boolean(isFreeBoostUsed) && isSmDown && (
+            <BoostMultipleFreeBox>
+              <PackageFreeTypography>
+                <FormattedMessage id="1FreeBoostAvailable" />
+              </PackageFreeTypography>
+              <MainBoostButtonBoxContainer>
+                <SecondBoostButtonBox>
+                  <Image
+                    src="/images/boostProfile/fire.png"
+                    height={110}
+                    width={100}
+                    alt="fire_icon"
+                    style={{ zIndex: 10, left: '-50px', position: 'absolute', top: '-24px' }}
+                  />
+                  <StyleBoostButton onClick={() => handleBoostOpen(freePlan)}>
+                    <UINewTypographyCondition>
+                      <FormattedMessage id="BoostYourProfile" />
+                    </UINewTypographyCondition>
+                  </StyleBoostButton>
+                </SecondBoostButtonBox>
+              </MainBoostButtonBoxContainer>
+            </BoostMultipleFreeBox>
+          )}
         </Box>
 
         <Box>
@@ -232,12 +255,12 @@ const BoostProfileWorks = ({
             </MainBoxBorder>
           </MainChildContainerBoost>
         </Box>
-        {!Boolean(isFreeBoostUsed) && (
+        {!isSmDown && (
           <BoostMultipleFreeBox>
             <PackageFreeTypography>
               <FormattedMessage id="1FreeBoostAvailable" />
             </PackageFreeTypography>
-            <MainBoostButtonBox>
+            <MainBoostButtonBoxContainer>
               <SecondBoostButtonBox>
                 <Image
                   src="/images/boostProfile/fire.png"
@@ -252,7 +275,7 @@ const BoostProfileWorks = ({
                   </UINewTypographyCondition>
                 </StyleBoostButton>
               </SecondBoostButtonBox>
-            </MainBoostButtonBox>
+            </MainBoostButtonBoxContainer>
           </BoostMultipleFreeBox>
         )}
       </BoostProfileWorksBox>
