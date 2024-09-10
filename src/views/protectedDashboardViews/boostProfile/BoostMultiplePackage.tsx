@@ -15,6 +15,7 @@ import {
 import { ProfilePlanResData } from 'services/commonApi/commonApi.services';
 import { Box, Grid } from '@mui/material';
 import { ImagMainContainer } from 'views/protectedViews/Credites/Credits.styled';
+import { PackageTypography } from './boostProfile.styled';
 
 const BoostMultiplePackage = ({
   allPlans,
@@ -29,7 +30,6 @@ const BoostMultiplePackage = ({
         <UINewTypography variant="h5">
           <FormattedMessage id="ChooseABoostPackageToSpotligh" />
         </UINewTypography>
-
         <Box>
           <Grid container spacing={2}>
             {allPlans?.map((plan, index) => (
@@ -40,16 +40,9 @@ const BoostMultiplePackage = ({
                       <MainImagContainer src="/images/credits/credits-img-1.png" />
                       <BoxFirstTextContainer>
                         <CreditCardImage src="/images/icons/boost-timer-icon.svg" />
-                        <UINewTypography
-                          sx={{
-                            fontSize: '28px',
-                            fontWeight: 500,
-                            lineHeight: '33.6px',
-                            color: 'text.secondary'
-                          }}
-                        >
+                        <PackageTypography>
                           {plan.duration} <FormattedMessage id="Hours" />
-                        </UINewTypography>
+                        </PackageTypography>
                       </BoxFirstTextContainer>
                       <BoxSecondTextContainer>
                         {!plan.is_free && (

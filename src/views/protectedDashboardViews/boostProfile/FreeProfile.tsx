@@ -107,7 +107,12 @@ const FreeProfile = () => {
         const response = await CommonServices.getProfilePlans(token.token);
         const freePlan = response.data.filter((x) => x.is_free)[0];
         setFreePlan(freePlan);
-        setAllPlans(response.data);
+        if (isFreeBoostUsed) {
+          const paidPlans = response.data.filter((x) => !x.is_free);
+          setAllPlans(paidPlans);
+        } else {
+          setAllPlans(response.data);
+        }
       } catch (error) {
         toast.error(ErrorMessage);
       }

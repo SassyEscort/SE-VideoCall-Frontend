@@ -226,7 +226,7 @@ export const PaidFireImageBox = styled(Box)(({ theme }) => ({
   width: '100%'
 }));
 
-export const MainBoxBorder = styled(Box)(({ theme }) => ({
+export const MainBoxBorder = styled(Box)(() => ({
   padding: '40px',
   border: '1px solid #D4D3D63D',
   borderRadius: '8px',
@@ -234,4 +234,11 @@ export const MainBoxBorder = styled(Box)(({ theme }) => ({
   maxWidth: '306px',
   height: '272px',
   textAlign: 'left'
+}));
+
+export const PackageTypography = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '28px',
+  fontWeight: 500,
+  lineHeight: '33.6px',
+  color: theme.palette.text.secondary
 }));
