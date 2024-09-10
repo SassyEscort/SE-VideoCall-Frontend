@@ -247,7 +247,8 @@ export const PackageTypography = styled(UINewTypography)(({ theme }) => ({
   fontSize: '28px',
   fontWeight: 500,
   lineHeight: '33.6px',
-  color: theme.palette.text.secondary
+  color: theme.palette.text.secondary,
+  textWrap: 'nowrap'
 }));
 
 export const BoostSucessBox = styled(Box)(({ theme }) => ({
@@ -276,4 +277,17 @@ export const BoostSuccessBoxImage = styled(Box)(() => ({
 
 export const BoostMultipleBox = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(7)
+}));
+
+export const BoostMultipleFreeBox = styled(Box)(({ theme }) => ({
+  marginTop: theme.spacing(7),
+  display: 'flex',
+  flexDirection: 'column'
+}));
+
+export const PackageFreeTypography = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '24px',
+  fontWeight: 600,
+  lineHeight: '30px',
+  color: theme.palette.text.secondary
 }));

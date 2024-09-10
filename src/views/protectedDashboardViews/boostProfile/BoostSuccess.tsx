@@ -10,7 +10,7 @@ import {
 } from './boostProfile.styled';
 
 export type ActivePlan = {
-  activePlanHours: number;
+  activePlanHours: string;
   activePlanMins: string;
 };
 

@@ -9,13 +9,17 @@ import {
   CreditCardImage,
   DollarCreditText,
   FirstBoxContainer,
+  HighlyAvailableBoxBoost,
+  HighlyAvailableButtonBoxBoost,
   ImagSubContainer,
-  MainImagContainer
+  MainImagContainer,
+  PackageContainer
 } from './BoostMultiplePackage.styled';
 import { ProfilePlanResData } from 'services/commonApi/commonApi.services';
 import { Box, Grid } from '@mui/material';
-import { ImagMainContainer } from 'views/protectedViews/Credites/Credits.styled';
 import { PackageTypography } from './boostProfile.styled';
+import Image from 'next/image';
+import StyledBoostChip from 'components/UIComponents/UIStyledBoostChip';
 
 const BoostMultiplePackage = ({
   allPlans,
@@ -31,13 +35,44 @@ const BoostMultiplePackage = ({
           <FormattedMessage id="ChooseABoostPackageToSpotligh" />
         </UINewTypography>
         <Box>
-          <Grid container spacing={2}>
+          <Grid container spacing={2.5}>
             {allPlans?.map((plan, index) => (
               <Grid item xs={12} sm={6} md={4} lg={4} key={index}>
-                <ImagMainContainer onClick={() => handleBoostOpen(plan)}>
+                <PackageContainer onClick={() => handleBoostOpen(plan)}>
                   <FirstBoxContainer>
+                    {Boolean(plan.is_free) && (
+                      <HighlyAvailableButtonBoxBoost>
+                        <HighlyAvailableBoxBoost>
+                          <Image
+                            src="/images/boostProfile/fire-ani.gif"
+                            height={38}
+                            width={24}
+                            alt="fire_icon"
+                            style={{
+                              zIndex: 10,
+                              left: '28px',
+                              position: 'absolute',
+                              bottom: '-72px'
+                            }}
+                          />
+                          <Box
+                            sx={{
+                              position: 'absolute',
+                              bottom: '-72px',
+                              left: '40px'
+                            }}
+                          >
+                            <StyledBoostChip>
+                              <UINewTypography variant="bodyUltraLarge" color="#000" sx={{ textWrap: 'nowrap' }}>
+                                <FormattedMessage id="1BoostFREE" />
+                              </UINewTypography>
+                            </StyledBoostChip>
+                          </Box>
+                        </HighlyAvailableBoxBoost>
+                      </HighlyAvailableButtonBoxBoost>
+                    )}
                     <ImagSubContainer>
-                      <MainImagContainer src="/images/credits/credits-img-1.png" />
+                      <MainImagContainer src={plan.link ?? '/images/boostFeature/boostPackOne.png'} />
                       <BoxFirstTextContainer>
                         <CreditCardImage src="/images/icons/boost-timer-icon.svg" />
                         <PackageTypography>
@@ -56,7 +91,7 @@ const BoostMultiplePackage = ({
                       </BoxSecondTextContainer>
                     </ImagSubContainer>
                   </FirstBoxContainer>
-                </ImagMainContainer>
+                </PackageContainer>
               </Grid>
             ))}
           </Grid>

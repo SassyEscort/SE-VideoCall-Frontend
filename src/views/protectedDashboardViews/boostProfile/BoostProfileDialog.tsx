@@ -22,7 +22,7 @@ const BoostProfileDialog = ({
   handleBoostClose: () => void;
   handleBoost: (planId: number) => Promise<void>;
   activeStep: number;
-  activePlanHours: number;
+  activePlanHours: string;
   activePlanMins: string;
   planDetails: ProfilePlanResData;
 }) => {
