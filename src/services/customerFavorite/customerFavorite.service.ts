@@ -16,6 +16,7 @@ export type ModelFavRes = {
   cords: string;
   languages: LanagueRes[];
   favourite: number;
+  profile_plan_purchased: number;
 };
 
 export type ModelFavResponse = {

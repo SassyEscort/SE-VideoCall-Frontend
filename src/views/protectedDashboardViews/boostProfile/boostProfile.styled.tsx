@@ -235,3 +235,27 @@ export const MainBoxBorder = styled(Box)(({ theme }) => ({
   height: '272px',
   textAlign: 'left'
 }));
+
+export const BoostSucessBox = styled(Box)(({ theme }) => ({
+  width: '100%',
+  display: 'flex',
+  gap: theme.spacing(4),
+  flexDirection: 'column',
+  alignItems: 'center'
+}));
+
+export const BoostSuccessBoxMain = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(2),
+  flexDirection: 'column',
+  alignItems: 'center'
+}));
+
+export const BoostSuccessBoxImage = styled(Box)(() => ({
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+  width: '100%',
+  maxWidth: '109px',
+  height: 'auto',
+  minHeight: '150px'
+}));
