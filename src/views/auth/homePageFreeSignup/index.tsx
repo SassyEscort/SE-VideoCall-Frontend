@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
 import GuestSignupSuccess from '../GuestSignupSuccess';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
-import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
+import { ErrorBox, ModelUICustomUIBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
 import InfoIcon from '@mui/icons-material/Info';
 import { signIn } from 'next-auth/react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -26,6 +26,7 @@ import { useRouter } from 'next/navigation';
 import { getErrorMessage } from 'utils/errorUtils';
 import AuthHomePageFreeSignupCommon from './AuthHomePageFreeSignupCommon';
 import HomePageFreeSignupMobile from './HomePageFreeSignupMobile';
+import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 
 export type SignupParams = {
   name: string;
@@ -75,7 +76,8 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
     password: yup.string().required('Passwordisrequired').min(8, 'PasswordMustBe').matches(PASSWORD_PATTERN, {
       message: 'PasswordMustContainAt',
       excludeEmptyString: true
-    })
+    }),
+    role: yup.string().required('Roleisrequired').oneOf(['customer', 'model'], 'InvalidRole')
   });
 
   return (
@@ -83,7 +85,8 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
       initialValues={{
         name: '',
         email: '',
-        password: ''
+        password: '',
+        role: ''
       }}
       validationSchema={validationSchema}
       onSubmit={async (values, { setSubmitting }) => {
@@ -226,7 +229,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                           }}
                         />
                       </ModelUITextConatiner>
-                      <ModelUITextConatiner gap={1.5}>
+                      <ModelUITextConatiner gap={0.5}>
                         <ModelUITextConatiner sx={{ gap: 0.5 }}>
                           <UITypographyText>
                             <FormattedMessage id="Password" />
@@ -254,13 +257,33 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                             }}
                           />
                         </ModelUITextConatiner>
-                        <MenuItem sx={{ p: 0, gap: { xs: '0', sm: '1' } }}>
-                          <Checkbox sx={{ p: 0, pr: 1 }} />
-                          <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
-                            <FormattedMessage id="RememberMe" />
-                          </UINewTypography>
-                        </MenuItem>
                       </ModelUITextConatiner>
+                      <ModelUITextConatiner gap={0.5}>
+                        <ModelUITextConatiner sx={{ gap: 0.5 }}>
+                          <ModelUICustomUIBox>
+                            <UITypographyText>
+                              <FormattedMessage id="SignupAs" />
+                            </UITypographyText>
+                            <FormControl component="fieldset" error={touched.role && Boolean(errors.role)}>
+                              <RadioGroup row id="role" name="role" value={values.role} onChange={handleChange}>
+                                <FormControlLabel value="customer" control={<Radio />} label={<FormattedMessage id="Customer" />} />
+                                <FormControlLabel value="model" control={<Radio />} label={<FormattedMessage id="Model" />} />
+                              </RadioGroup>
+                              {touched.role && errors.role && (
+                                <UINewTypography color="error" variant="caption">
+                                  <FormattedMessage id={errors.role} />
+                                </UINewTypography>
+                              )}
+                            </FormControl>
+                          </ModelUICustomUIBox>
+                        </ModelUITextConatiner>
+                      </ModelUITextConatiner>
+                      <MenuItem sx={{ p: 0, gap: { xs: '0', sm: '1' } }}>
+                        <Checkbox sx={{ p: 0, pr: 1 }} />
+                        <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
+                          <FormattedMessage id="RememberMe" />
+                        </UINewTypography>
+                      </MenuItem>
                     </ModelUITextConatiner>
                     <ModelUITextConatiner width="100%" gap={isSm ? '33px' : '29px'}>
                       <StyleButtonV2 variant="contained" type="submit" loading={loading} sx={{ width: isLg ? '400px' : 'auto' }}>

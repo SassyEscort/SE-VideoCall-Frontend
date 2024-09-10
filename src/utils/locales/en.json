@@ -825,5 +825,9 @@
   "VideoCallEnded": "Video Call ended",
   "RateAndReview": "Rate and review",
   "StartBoostFor": "Start boost for",
-  "1BoostFREE": "1st Boost FREE"
+  "1BoostFREE": "1st Boost FREE",
+  "SignupAs": "Signup as",
+  "Roleisrequired": "Role is required",
+  "Customer": "Customer",
+  "Model": "Model"
 }
