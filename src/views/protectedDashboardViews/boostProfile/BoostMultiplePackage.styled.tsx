@@ -25,7 +25,9 @@ export const MainImagContainer = styled('img')(({ theme }) => ({
   height: '100%',
   borderRadius: theme.spacing(1),
   border: '1px solid',
-  borderColor: theme.palette.secondary[900]
+  borderColor: theme.palette.secondary[900],
+  width: '100%',
+  minWidth: '310px'
 }));
 
 export const BoxFirstTextContainer = styled(Box)(({ theme }) => ({
@@ -109,4 +111,12 @@ export const HighlyAvailableBoxBoost = styled(Box)(({ theme }) => ({
   width: '100%',
   position: 'relative',
   marginLeft: '30px'
+}));
+
+export const BoostProfileWorksBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column-reverse'
+  }
 }));

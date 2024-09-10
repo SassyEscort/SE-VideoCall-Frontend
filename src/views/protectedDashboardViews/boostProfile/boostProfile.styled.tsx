@@ -41,7 +41,9 @@ export const BoostProfileDialogConatiner = styled(Dialog)(({ theme }) => ({
     backgroundColor: theme.palette.secondary[800],
     borderRadius: '12px',
     maxWidth: '648px',
-    height: 'auto'
+    height: 'auto',
+    border: '1px solid',
+    borderColor: theme.palette.primary[700]
   },
   '& .MuiDialog-container': {
     backdropFilter: 'blur(24px)'
@@ -84,7 +86,6 @@ export const SupBox = styled('sup')(({ theme }) => ({
 export const DividerMainBox = styled(Divider)(({ theme }) => ({
   paddingLeft: theme.spacing(1),
   paddingRight: theme.spacing(1),
-  border: '1px solid',
   display: 'block',
   borderColor: theme.palette.primary[700],
   [theme.breakpoints.down('sm')]: {
@@ -122,11 +123,17 @@ export const FirstBoxContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(4)
 }));
 
-export const MainChildContainerBoost = styled(Box)(() => ({
+export const MainChildContainerBoost = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  textAlign: 'center'
+  textAlign: 'center',
+  flexDirection: 'row',
+  marginTop: theme.spacing(7),
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column'
+  },
+  gap: theme.spacing(1.5)
 }));
 
 export const BoxMainBoost = styled(Box)(() => ({
@@ -226,7 +233,7 @@ export const PaidFireImageBox = styled(Box)(({ theme }) => ({
   width: '100%'
 }));
 
-export const MainBoxBorder = styled(Box)(({ theme }) => ({
+export const MainBoxBorder = styled(Box)(() => ({
   padding: '40px',
   border: '1px solid #D4D3D63D',
   borderRadius: '8px',
@@ -234,6 +241,13 @@ export const MainBoxBorder = styled(Box)(({ theme }) => ({
   maxWidth: '306px',
   height: '272px',
   textAlign: 'left'
+}));
+
+export const PackageTypography = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '28px',
+  fontWeight: 500,
+  lineHeight: '33.6px',
+  color: theme.palette.text.secondary
 }));
 
 export const BoostSucessBox = styled(Box)(({ theme }) => ({
