@@ -3,8 +3,9 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { PaidFireImageBox, UINewTypographySuccessBoost } from './boostProfile.styled';
 import Image from 'next/image';
 import { FormattedMessage } from 'react-intl';
+import { ActivePlan } from './BoostSuccess';
 
-export const PaidProfile = ({ activePlanHours, activePlanMins }: { activePlanHours: number; activePlanMins: number }) => {
+export const PaidProfile = ({ activePlanHours, activePlanMins }: ActivePlan) => {
   return (
     <>
       <PaidFireImageBox>
