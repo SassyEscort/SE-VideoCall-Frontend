@@ -25,14 +25,22 @@ const VideoCalling = ({
   showAnother: Boolean;
   isModelAvailable: number;
 }) => {
-  const { modelName, modelPhoto } = useCallFeatureContext();
+  const { modelName, modelPhoto, isFavouriteModel, handelIsFavouriteModelChange } = useCallFeatureContext();
+
+  const handleClickFaviourite = () => {
+    handelIsFavouriteModelChange(1);
+  };
 
   return (
     <VideoCallingCardMainContainer>
       <ImgBoxContainer src={modelPhoto} />
       {showHeart && (
         <HeartBoxContainer>
-          <FavoriteBorderRoundedIcon />
+          {Boolean(isFavouriteModel) ? (
+            <FavoriteBorderRoundedIcon sx={{ color: 'error.main' }} />
+          ) : (
+            <FavoriteBorderRoundedIcon onClick={handleClickFaviourite} />
+          )}
         </HeartBoxContainer>
       )}
       <SecondBoxContainer>

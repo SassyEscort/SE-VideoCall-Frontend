@@ -182,7 +182,8 @@ const EscortDetailPage = () => {
                   guestData?.name,
                   modelPhoto ?? '',
                   guestData.user_name,
-                  guestData.video_call_prices[0].credits_per_minute
+                  guestData.video_call_prices[0].credits_per_minute,
+                  guestData.favourite
                 );
               }}
               isCustomer={isCustomer}
@@ -204,7 +205,8 @@ const EscortDetailPage = () => {
                     guestData?.name,
                     modelPhoto ?? '',
                     guestData.user_name,
-                    guestData.video_call_prices[0].credits_per_minute
+                    guestData.video_call_prices[0].credits_per_minute,
+                    guestData.favourite
                   );
                 }}
                 isCustomer={isCustomer}

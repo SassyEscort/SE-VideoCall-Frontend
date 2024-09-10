@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   PaginationBoxContainer,
   RatingDescriptionDetailsBoxContainer,
@@ -40,6 +40,9 @@ const RatingTable = ({
   handleRatingSelect: (rating: string) => void;
 }) => {
   const intl = useIntl();
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen((prevOpen) => !prevOpen);
 
   return (
     <RatingDescriptionMainBoxContainer>
@@ -56,6 +59,8 @@ const RatingTable = ({
           labelId="rating"
           IconComponent={ExpandMore}
           endAdornment={selectedRating && <StyledClearIcon onClick={() => handleRatingSelect('')} />}
+          open={open}
+          onClick={handleOpen}
           sx={{ cursor: 'pointer' }}
         >
           {RATING.map((rating) => (

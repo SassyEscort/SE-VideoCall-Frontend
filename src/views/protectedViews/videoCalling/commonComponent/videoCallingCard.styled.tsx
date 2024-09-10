@@ -42,5 +42,6 @@ export const TextContainer = styled(Typography)(({ theme }) => ({
 export const HeartBoxContainer = styled(Box)(({ theme }) => ({
   position: 'absolute',
   top: '30px',
-  color: theme.palette.common.white
+  color: theme.palette.common.white,
+  cursor: 'pointer'
 }));
