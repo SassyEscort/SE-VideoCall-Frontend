@@ -32,14 +32,8 @@ const CallHistoryRatingModel = ({ open, onClose, callLogId }: { open: boolean; o
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isRatingSubmitted, setIsRatingSubmitted] = useState(false);
 
-  const handleStarClick = (index: number) => {
-    setRating((prevRating) => {
-      if (prevRating === index + 1) {
-        return index === 0 ? 0 : prevRating - 1;
-      } else {
-        return index + 1;
-      }
-    });
+  const handleStarClick = (value: number) => {
+    setRating(value);
   };
 
   const handleReviewChange = (value: string) => {
