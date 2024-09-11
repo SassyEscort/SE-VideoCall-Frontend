@@ -93,8 +93,19 @@ export const DividerMainBox = styled(Divider)(({ theme }) => ({
   }
 }));
 
-export const BoostBox = styled(Box)(() => ({
-  padding: '32px 24px'
+export const DividerBox = styled(Divider)(({ theme }) => ({
+  paddingLeft: theme.spacing(1),
+  marginBottom: theme.spacing(3),
+  paddingRight: theme.spacing(1),
+  display: 'block',
+  borderColor: theme.palette.primary[700]
+}));
+
+export const BoostBox = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.up('sm')]: {
+    padding: '32px 24px'
+  },
+  padding: '0px'
 }));
 
 export const BoostProfileBox = styled(Box)(({ theme }) => ({
@@ -108,8 +119,11 @@ export const BoostProfileBox = styled(Box)(({ theme }) => ({
 
 export const BoostProfileModelBox = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(4),
-  flexDirection: 'column'
+  gap: theme.spacing(3),
+  flexDirection: 'column',
+  [theme.breakpoints.up('sm')]: {
+    gap: theme.spacing(4)
+  }
 }));
 
 export const UINewTypographySuccessBoost = styled(UINewTypography)(({ theme }) => ({
@@ -202,7 +216,6 @@ export const FirstTextBoostTyporaphy = styled(UINewTypography)(({ theme }) => ({
 export const SeconBoxContainerBoost = styled(Box)(() => ({
   width: '100%',
   maxWidth: '314px'
-  // textAlign: 'left'
 }));
 
 export const SecondBoxContainer = styled(Box)(({ theme }) => ({
@@ -213,6 +226,7 @@ export const SecondBoxContainer = styled(Box)(({ theme }) => ({
 export const MainBoostButtonBox = styled(Box)(({ theme }) => ({
   width: '100%',
   display: 'flex',
+  justifyContent: 'center',
   paddingLeft: theme.spacing(3),
   marginBlock: theme.spacing(4)
 }));
