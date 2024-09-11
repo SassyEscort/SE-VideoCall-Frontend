@@ -189,7 +189,13 @@ export const NoRatingTextBoxContainer = styled(UINewTypography)(({ theme }) => (
 
 export const RatingStartBox = styled(Rating)(() => ({
   cursor: 'pointer',
-  '& .MuiRating-iconEmpty svg': {
-    fill: '#FFFFFF17'
+  '& .MuiRating-iconEmpty': {
+    color: '#FFFFFF17',
+    '& svg': {
+      fill: '#FFFFFF3B'
+    }
+  },
+  '& .MuiRating-iconFilled': {
+    color: '#FFB400'
   }
 }));

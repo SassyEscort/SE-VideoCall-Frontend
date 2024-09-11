@@ -24,6 +24,10 @@ export const CallHistoryText = styled(Box)(({ theme }) => ({
   whiteSpace: 'nowrap',
   [theme.breakpoints.up('md')]: {
     marginBottom: theme.spacing(4)
+  },
+  '@media (max-width: 320px)': {
+    whiteSpace: 'normal',
+    wordBreak: 'break-word'
   }
 }));
 
@@ -66,25 +70,23 @@ export const SecondSubTextMainContainer = styled(Box)(({ theme }) => ({
 export const SecondSubFirstBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between',
   width: '100%',
   maxWidth: '574px',
   height: '100%',
   maxHeight: '80px',
-  [theme.breakpoints.up('sm')]: {
-    gap: theme.spacing(11.875)
-  },
   [theme.breakpoints.only('md')]: {
-    gap: theme.spacing(5)
+    gap: theme.spacing(3)
   },
-  [theme.breakpoints.between(0, 725)]: {
-    gap: theme.spacing(6)
+  [theme.breakpoints.down('md')]: {
+    maxWidth: '470px'
   },
   [theme.breakpoints.down('sm')]: {
-    gap: theme.spacing(2.375)
+    justifyContent: 'space-between'
   },
   [theme.breakpoints.only('xs')]: {
-    gap: theme.spacing(2.125)
+    '@media (max-width: 425px)': {
+      maxWidth: '370px'
+    }
   }
 }));
 
@@ -172,13 +174,15 @@ export const SecondSubFirstPartThiredBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '156px',
   height: '100%',
   maxHeight: '80px',
   gap: theme.spacing(1.5),
   marginTop: theme.spacing(1.125),
   [theme.breakpoints.down('sm')]: {
     alignItems: 'end'
+  },
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '156px'
   }
 }));
 
@@ -313,6 +317,9 @@ export const CallHistoryBox = styled(Box)(({ theme }) => ({
   flexDirection: 'row',
   [theme.breakpoints.only('sm')]: {
     flexDirection: 'column'
+  },
+  '@media (max-width: 320px)': {
+    marginTop: theme.spacing(3)
   }
 }));
 
