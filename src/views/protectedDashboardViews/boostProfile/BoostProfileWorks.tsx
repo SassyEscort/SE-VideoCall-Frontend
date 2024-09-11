@@ -15,7 +15,8 @@ import {
   SecondBoostButtonBox,
   UINewTypographyCondition,
   PackageFreeTypography,
-  MainBoostButtonBoxContainer
+  MainBoostButtonBoxContainer,
+  UINewTypographyPackage
 } from './boostProfile.styled';
 import Image from 'next/image';
 import { BoostProfileWorksBox } from './BoostMultiplePackage.styled';
@@ -38,9 +39,9 @@ const BoostProfileWorks = ({
       <BoostProfileWorksBox>
         <Box>
           <SecondBoxContainer>
-            <UINewTypography variant="h5" color="text.primary" lineHeight="160%">
+            <UINewTypographyPackage>
               <FormattedMessage id="HowDoesThisWork" />
-            </UINewTypography>
+            </UINewTypographyPackage>
           </SecondBoxContainer>
 
           <MainChildContainerBoost>
