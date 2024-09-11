@@ -2,7 +2,7 @@
 import DashboardProfile from '..';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
-import { BoostMultipleBox, FirstBoxContainer } from './boostProfile.styled';
+import { BoostMultipleBox, DividerBox, FirstBoxContainer } from './boostProfile.styled';
 import { useCallback, useEffect, useState } from 'react';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
@@ -21,6 +21,9 @@ import BoostSuccess from './BoostSuccess';
 import { useRouter } from 'next/navigation';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
+import { DialogTitleBox } from '../payoutWithDraw/PayoutWidthDraw';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const backgroundImages = [
   'https://staging.flirtbate.com/images/boostFeature/freePackbg.png',
@@ -134,11 +137,13 @@ const FreeProfile = () => {
   return (
     <>
       <DashboardProfile>
-        <FirstBoxContainer>
-          <UINewTypography variant="h2" color="text.secondary">
-            <FormattedMessage id="BoostYourProfile" />
-          </UINewTypography>
-        </FirstBoxContainer>
+        {!isSmDown && (
+          <FirstBoxContainer>
+            <UINewTypography variant="h2" color="text.secondary">
+              <FormattedMessage id="BoostYourProfile" />
+            </UINewTypography>
+          </FirstBoxContainer>
+        )}
 
         {modelActivePlan ? (
           <PaidProfile activePlanHours={activePlanHours} activePlanMins={activePlanMins} />
@@ -154,7 +159,20 @@ const FreeProfile = () => {
             />
           </>
         ) : activeStep === 0 && openBoost ? (
-          <BoostProfileContent planDetails={planDetails ?? ({} as ProfilePlanResData)} handleBoost={handleBoost} />
+          <>
+            <DialogTitleBox id="responsive-modal-title">
+              <UINewTypography variant="h6" color={'text.primary'}>
+                <FormattedMessage id="BoostProfile" />
+              </UINewTypography>
+
+              <IconButton aria-label="close" onClick={handleBoostClose} sx={{ color: 'text.secondary' }}>
+                <CloseIcon />
+              </IconButton>
+            </DialogTitleBox>
+            <DividerBox id="hello" />
+
+            <BoostProfileContent planDetails={planDetails ?? ({} as ProfilePlanResData)} handleBoost={handleBoost} />
+          </>
         ) : (
           <BoostSuccess activePlanHours={activePlanHours} activePlanMins={activePlanMins} />
         )}
