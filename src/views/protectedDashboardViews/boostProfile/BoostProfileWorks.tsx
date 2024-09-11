@@ -33,6 +33,7 @@ const BoostProfileWorks = ({
   isFreeBoostUsed: number;
 }) => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <>
@@ -232,7 +233,7 @@ const BoostProfileWorks = ({
               </MainBoxBorder>
             </MainChildContainerBoost>
           </Box>
-          {isSmDown && !Boolean(isFreeBoostUsed) && (
+          {isMdDown && !Boolean(isFreeBoostUsed) && (
             <BoostMultipleFreeBox>
               <PackageFreeTypography>
                 <FormattedMessage id="1FreeBoostAvailable" />
@@ -256,7 +257,7 @@ const BoostProfileWorks = ({
             </BoostMultipleFreeBox>
           )}
         </Box>
-        {!isSmDown && !Boolean(isFreeBoostUsed) && (
+        {!isMdDown && !Boolean(isFreeBoostUsed) && (
           <BoostMultipleFreeBox>
             <PackageFreeTypography>
               <FormattedMessage id="1FreeBoostAvailable" />
