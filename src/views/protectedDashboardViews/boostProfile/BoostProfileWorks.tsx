@@ -255,7 +255,7 @@ const BoostProfileWorks = ({
             </MainBoxBorder>
           </MainChildContainerBoost>
         </Box>
-        {!isSmDown && (
+        {!isSmDown && !Boolean(isFreeBoostUsed) && (
           <BoostMultipleFreeBox>
             <PackageFreeTypography>
               <FormattedMessage id="1FreeBoostAvailable" />
