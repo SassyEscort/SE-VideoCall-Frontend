@@ -2,6 +2,7 @@
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import {
+  BoostFireImagContainer,
   BoostPackageMainBoxContainer,
   BoxFirstTextContainer,
   BoxSecondTextContainer,
@@ -9,6 +10,7 @@ import {
   CreditCardImage,
   DollarCreditText,
   FirstBoxContainer,
+  FreeBoostTextBoxContainer,
   HighlyAvailableBoxBoost,
   HighlyAvailableButtonBoxBoost,
   ImagSubContainer,
@@ -18,7 +20,6 @@ import {
 import { ProfilePlanResData } from 'services/commonApi/commonApi.services';
 import { Box, Grid } from '@mui/material';
 import { BoostMainBox, PackageTypography, UINewTypographyPackage } from './boostProfile.styled';
-import Image from 'next/image';
 import StyledBoostChip from 'components/UIComponents/UIStyledBoostChip';
 
 const BoostMultiplePackage = ({
@@ -44,31 +45,14 @@ const BoostMultiplePackage = ({
                   {Boolean(plan.is_free) && (
                     <HighlyAvailableButtonBoxBoost>
                       <HighlyAvailableBoxBoost>
-                        <Image
-                          src="/images/boostProfile/fire.png"
-                          height={70}
-                          width={60}
-                          alt="fire_icon"
-                          style={{
-                            zIndex: 10,
-                            left: '18px',
-                            position: 'absolute',
-                            bottom: '-96px'
-                          }}
-                        />
-                        <Box
-                          sx={{
-                            position: 'absolute',
-                            bottom: '-72px',
-                            left: '50px'
-                          }}
-                        >
+                        <BoostFireImagContainer src="/images/boostProfile/fire.png" height={70} width={60} alt="fire_icon" />
+                        <FreeBoostTextBoxContainer>
                           <StyledBoostChip>
                             <UINewTypography variant="bodyUltraLarge" color="#000" sx={{ textWrap: 'nowrap' }}>
                               <FormattedMessage id="1BoostFREE" />
                             </UINewTypography>
                           </StyledBoostChip>
-                        </Box>
+                        </FreeBoostTextBoxContainer>
                       </HighlyAvailableBoxBoost>
                     </HighlyAvailableButtonBoxBoost>
                   )}

@@ -179,7 +179,7 @@ const FreeProfile = () => {
                 <CloseIcon />
               </IconButton>
             </DialogTitleBox>
-            <DividerBox id="hello" />
+            <DividerBox />
 
             <BoostProfileContent planDetails={planDetails ?? ({} as ProfilePlanResData)} handleBoost={handleBoost} />
           </>

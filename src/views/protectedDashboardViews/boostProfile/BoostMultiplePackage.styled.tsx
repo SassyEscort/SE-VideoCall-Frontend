@@ -24,16 +24,20 @@ export const ImagSubContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const MainImagContainer = styled(Box)<MainImagContainerProps>(({ theme, src }) => ({
+  display: 'flex',
   height: '100%',
   borderRadius: theme.spacing(1),
   border: '1px solid',
   borderColor: theme.palette.secondary[900],
   width: '100%',
-  minWidth: '307px',
+  minWidth: '305px',
   background: `linear-gradient(rgba(7, 3, 14, 0.56), rgba(7, 3, 14, 0.56)), url(${src})`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
-  minHeight: '325px'
+  minHeight: '325px',
+  '@media (max-width: 320px)': {
+    minWidth: '290px'
+  }
 }));
 
 export const BoxFirstTextContainer = styled(Box)(({ theme }) => ({
@@ -130,5 +134,54 @@ export const PackageContainer = styled(Box)(({ theme }) => ({
   flexWrap: 'wrap',
   [theme.breakpoints.up('md')]: {
     justifyContent: 'space-between'
+  }
+}));
+
+export const BoostFireImagContainer = styled('img')(({ theme }) => ({
+  zIndex: 10,
+  left: '18px',
+  position: 'absolute',
+  bottom: '-96px',
+  '@media (min-width: 320px)': {
+    left: '0px'
+  },
+  '@media (min-width: 375px)': {
+    left: '20px'
+  },
+  '@media (min-width: 425px)': {
+    left: '40px'
+  },
+  '@media (min-width: 768px)': {
+    left: '20px'
+  },
+  [theme.breakpoints.up('md')]: {
+    left: '10px'
+  },
+  [theme.breakpoints.up('lg')]: {
+    left: '0px'
+  }
+}));
+
+export const FreeBoostTextBoxContainer = styled(Box)(({ theme }) => ({
+  position: 'absolute',
+  bottom: '-72px',
+  left: '50px',
+  '@media (min-width: 320px)': {
+    left: '30px'
+  },
+  '@media (min-width: 375px)': {
+    left: '50px'
+  },
+  '@media (min-width: 425px)': {
+    left: '70px'
+  },
+  '@media (min-width: 768px)': {
+    left: '50px'
+  },
+  [theme.breakpoints.up('md')]: {
+    left: '40px'
+  },
+  [theme.breakpoints.up('lg')]: {
+    left: '30px'
   }
 }));

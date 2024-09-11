@@ -341,3 +341,8 @@ export const BoostMainBox = styled(Box)(({ theme }) => ({
     marginBottom: theme.spacing(4)
   }
 }));
+
+export const BoostMainBoxAgree = styled(Box)(() => ({
+  display: 'flex',
+  alignItems: 'flex-start'
+}));
