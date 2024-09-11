@@ -53,7 +53,8 @@ export const SecondSubTextMainContainer = styled(Box)(({ theme }) => ({
   height: '100%',
   justifyContent: 'space-between',
   [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column'
+    flexDirection: 'column',
+    gap: theme.spacing(2)
   },
   [theme.breakpoints.up('sm')]: {
     flexDirection: 'row',
@@ -65,6 +66,7 @@ export const SecondSubTextMainContainer = styled(Box)(({ theme }) => ({
 export const SecondSubFirstBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
+  justifyContent: 'space-between',
   width: '100%',
   maxWidth: '574px',
   height: '100%',
@@ -226,7 +228,6 @@ export const CallAgainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   marginTop: theme.spacing(2),
   [theme.breakpoints.down('sm')]: {
-    marginTop: theme.spacing(4),
     justifyContent: 'end'
   },
   [theme.breakpoints.up('sm')]: {

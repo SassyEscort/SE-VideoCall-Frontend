@@ -83,7 +83,7 @@ const RatingTable = ({
                         <RatingDescriptionStarBoxContainer>
                           <UINewTypography variant="captionLargeBold">{list.customer_name}</UINewTypography>
                           <Box>
-                            <StartRating value={list.rating || 0} />
+                            <StartRating value={list.rating || 0} isReadOnly={true} resize={true} />
                           </Box>
                         </RatingDescriptionStarBoxContainer>
                         <UINewTypography variant="bodySmall" color="text.secondary">

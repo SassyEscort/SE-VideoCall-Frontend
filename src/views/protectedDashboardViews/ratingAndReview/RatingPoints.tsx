@@ -35,7 +35,7 @@ const RatingPoints = ({
         <RatingPercentageContainer>{ratingAndReview?.average_rating || 0}</RatingPercentageContainer>
         <Box mt="5px">
           {isShowPercentage ? (
-            <StartRating value={ratingAndReview?.average_rating || 0} />
+            <StartRating value={ratingAndReview?.average_rating || 0} isReadOnly={true} />
           ) : (
             <StarRoundedIcon sx={{ width: '42px', height: '42px', ...(ratingAndReview?.average_rating > 0 && { color: '#FFB400' }) }} />
           )}
