@@ -7,7 +7,7 @@ import CallFeature from 'views/protectedViews/callingFeature';
 export const metadata: Metadata = {
   title: 'Flirtbate - Live Sex Chat, Webcam Models, and Adult Cam Platform | Sex Chat',
   description:
-    ' Join our live sex chat platform for an unforgettable experience with webcam models. Connect with webcam models for private video call sex, sexcam videos, adult cam, and enjoy intimate sexual video chat sessions.'
+    'Adult video chat for meeting strangers online. Enjoy random video calls, chatrandom & live adult chat rooms on Flirbate, the worlds naughtiest adult chat and adult cam site.'
 };
 
 export default function RootLayout({
