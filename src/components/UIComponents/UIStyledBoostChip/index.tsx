@@ -6,11 +6,11 @@ import { CastedForwardRefButtonType } from '../types';
 const UIStyledBoostChip = styled(LoadingButton)(({ theme }) => ({
   textTransform: 'none',
   padding: '12px 30px 12px 30px',
-  borderRadius: '8px',
+  borderRadius: '4px',
   gap: theme.spacing(1),
   fontSize: '16px',
   fontWeight: 700,
-  minWidth: '123px',
+  maxWidth: '120px',
   color: '#290F1E',
   '&.MuiButton-root': {
     height: '32px',

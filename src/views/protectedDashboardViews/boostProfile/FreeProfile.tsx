@@ -134,6 +134,16 @@ const FreeProfile = () => {
     }
   }, [isFreeBoostUsed, token.token]);
 
+  useEffect(() => {
+    const updateMins = () => {
+      setActivePlanMins((prevMins) => (parseInt(prevMins) - 1).toString());
+    };
+
+    const timer = setTimeout(updateMins, 60000);
+
+    return () => clearTimeout(timer);
+  }, [activePlanMins]);
+
   return (
     <>
       <DashboardProfile>

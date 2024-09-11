@@ -17,7 +17,7 @@ import {
 } from './BoostMultiplePackage.styled';
 import { ProfilePlanResData } from 'services/commonApi/commonApi.services';
 import { Box, Grid } from '@mui/material';
-import { PackageTypography } from './boostProfile.styled';
+import { BoostMainBox, PackageTypography, UINewTypographyPackage } from './boostProfile.styled';
 import Image from 'next/image';
 import StyledBoostChip from 'components/UIComponents/UIStyledBoostChip';
 
@@ -31,46 +31,48 @@ const BoostMultiplePackage = ({
   return (
     <>
       <BoostPackageMainBoxContainer>
-        <UINewTypography variant="h5">
-          <FormattedMessage id="ChooseABoostPackageToSpotligh" />
-        </UINewTypography>
+        <BoostMainBox>
+          <UINewTypographyPackage>
+            <FormattedMessage id="ChooseABoostPackageToSpotligh" />
+          </UINewTypographyPackage>
+        </BoostMainBox>
         <Box>
-          <Grid container spacing={2.5} rowGap={1}>
+          <Grid container spacing={2.5}>
             {allPlans?.map((plan, index) => (
               <Grid item xs={12} sm={6} md={4} lg={4} key={index}>
                 <PackageContainer onClick={() => handleBoostOpen(plan)}>
+                  {Boolean(plan.is_free) && (
+                    <HighlyAvailableButtonBoxBoost>
+                      <HighlyAvailableBoxBoost>
+                        <Image
+                          src="/images/boostProfile/fire.png"
+                          height={70}
+                          width={60}
+                          alt="fire_icon"
+                          style={{
+                            zIndex: 10,
+                            left: '18px',
+                            position: 'absolute',
+                            bottom: '-96px'
+                          }}
+                        />
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            bottom: '-72px',
+                            left: '50px'
+                          }}
+                        >
+                          <StyledBoostChip>
+                            <UINewTypography variant="bodyUltraLarge" color="#000" sx={{ textWrap: 'nowrap' }}>
+                              <FormattedMessage id="1BoostFREE" />
+                            </UINewTypography>
+                          </StyledBoostChip>
+                        </Box>
+                      </HighlyAvailableBoxBoost>
+                    </HighlyAvailableButtonBoxBoost>
+                  )}
                   <FirstBoxContainer>
-                    {Boolean(plan.is_free) && (
-                      <HighlyAvailableButtonBoxBoost>
-                        <HighlyAvailableBoxBoost>
-                          <Image
-                            src="/images/boostProfile/fire-ani.gif"
-                            height={38}
-                            width={24}
-                            alt="fire_icon"
-                            style={{
-                              zIndex: 10,
-                              left: '28px',
-                              position: 'absolute',
-                              bottom: '-72px'
-                            }}
-                          />
-                          <Box
-                            sx={{
-                              position: 'absolute',
-                              bottom: '-72px',
-                              left: '40px'
-                            }}
-                          >
-                            <StyledBoostChip>
-                              <UINewTypography variant="bodyUltraLarge" color="#000" sx={{ textWrap: 'nowrap' }}>
-                                <FormattedMessage id="1BoostFREE" />
-                              </UINewTypography>
-                            </StyledBoostChip>
-                          </Box>
-                        </HighlyAvailableBoxBoost>
-                      </HighlyAvailableButtonBoxBoost>
-                    )}
                     <ImagSubContainer>
                       <MainImagContainer src={plan.link ?? '/images/boostFeature/boostPackOne.png'} />
                       <BoxFirstTextContainer>
