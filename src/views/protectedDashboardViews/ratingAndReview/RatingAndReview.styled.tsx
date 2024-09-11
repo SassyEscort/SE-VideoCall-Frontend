@@ -1,4 +1,5 @@
 'use client';
+import { Rating } from '@mui/material';
 import Box from '@mui/material/Box';
 import LinearProgress, { linearProgressClasses, LinearProgressProps } from '@mui/material/LinearProgress';
 import { styled } from '@mui/material/styles';
@@ -184,4 +185,11 @@ export const NoRatingTextBoxContainer = styled(UINewTypography)(({ theme }) => (
   paddingRight: theme.spacing(2),
   backgroundColor: '#100B19',
   borderRadius: theme.spacing(1)
+}));
+
+export const RatingStartBox = styled(Rating)(() => ({
+  cursor: 'pointer',
+  '& .MuiRating-iconEmpty svg': {
+    fill: '#FFFFFF17'
+  }
 }));

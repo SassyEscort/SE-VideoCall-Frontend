@@ -298,7 +298,7 @@ const CallHistory = () => {
                             </UIStyledLoadingButtonShadowCallHistory>
                           </CallAgainBox>
                           {list?.rating ? (
-                            <StartRating value={list?.rating || 0} />
+                            <StartRating value={list?.rating || 0} isReadOnly={true} />
                           ) : (
                             <UINewTypography
                               variant="bodySemiBold"
