@@ -130,7 +130,7 @@ export const UIStyledLoadingButtonShadowCallHistory = styled(LoadingButton)(({ t
   [theme.breakpoints.down('sm')]: {
     '&.MuiButton-root': {
       width: '100%',
-      maxWidth: '160px !important'
+      maxWidth: '180px !important'
     }
   },
 

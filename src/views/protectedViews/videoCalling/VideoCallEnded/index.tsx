@@ -22,11 +22,11 @@ import {
   SecondBoxContent,
   SixBoxContent,
   SkipButtonContent,
+  TextBoxContent,
   ThirdBoxContent
 } from './VideoCallEnded.styled';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { useEffect, useState } from 'react';
-import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RatingAndReviewService } from 'services/ratingAndReview/ratingAndReview.service';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
@@ -75,8 +75,29 @@ const VideoCallEnded = ({
     });
   };
 
+  const handleResetReviewRating = () => {
+    setRating(0);
+    setIsRatingSubmitted(false);
+    setReview('');
+  };
+
   const handleReviewChange = (value: string) => {
     setReview(value);
+  };
+
+  const handleCallAgainClick = () => {
+    onClose(true);
+    handleResetReviewRating();
+    handleCallInitiate(
+      modelObj.modelId,
+      modelObj.isCreditAvailable,
+      modelObj.callTime,
+      modelObj.modelName,
+      modelObj.modelPhoto,
+      modelObj.modelUsername,
+      modelObj.modelCreditPrice,
+      modelObj.isFavouriteModel
+    );
   };
 
   useEffect(() => {
@@ -152,23 +173,7 @@ const VideoCallEnded = ({
                       </UINewTypography>
                     </SecondBoxContent>
                     <FourBoxContent>
-                      <UIThemeShadowButton
-                        variant="contained"
-                        sx={{ width: '100%' }}
-                        onClick={() => {
-                          onClose(true);
-                          handleCallInitiate(
-                            modelObj.modelId,
-                            modelObj.isCreditAvailable,
-                            modelObj.callTime,
-                            modelObj.modelName,
-                            modelObj.modelPhoto,
-                            modelObj.modelUsername,
-                            modelObj.modelCreditPrice,
-                            modelObj.isFavouriteModel
-                          );
-                        }}
-                      >
+                      <UIThemeShadowButton variant="contained" sx={{ width: '100%' }} onClick={handleCallAgainClick}>
                         <Box component="img" src="/images/home-connect-instantly-img.png" />
                         <UINewTypography variant="bodySemiBold" color="white.main">
                           <FormattedMessage id="CallAgain" />
@@ -193,7 +198,7 @@ const VideoCallEnded = ({
                   </FiveBoxContent>
                   {rating > 0 && (
                     <ReviewBoxAndButtonContent>
-                      <UIStyledInputText
+                      <TextBoxContent
                         name="bio"
                         rows={6.4}
                         fullWidth
@@ -201,13 +206,6 @@ const VideoCallEnded = ({
                         placeholder="Share your review..."
                         value={review}
                         onChange={(e) => handleReviewChange(e.target.value)}
-                        sx={{
-                          '& .MuiInputBase-input': { color: 'secondary.700', margin: '12px 16px' },
-                          minWidth: '358px',
-                          '& .MuiOutlinedInput-root': {
-                            padding: '0px !important'
-                          }
-                        }}
                       />
                       <Box sx={{ cursor: 'pointer' }}>
                         <SkipButtonContent variant="text" onClick={() => onClose()}>

@@ -144,6 +144,22 @@ export const StyledSelectInputLabelAge = styled(InputLabel)(({ theme }) => ({
   }
 }));
 
+export const StyledSelectInputLabelRating = styled(InputLabel)(({ theme }) => ({
+  display: 'flex',
+  top: '-3px',
+  color: theme.palette.secondary[200],
+  gap: theme.spacing(1),
+  alignItems: 'center',
+  '&.MuiInputLabel-shrink': { top: 0 },
+  '@media (max-width: 320px)': {
+    display: 'block',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    maxWidth: '50px'
+  }
+}));
+
 export const StyledEarningSelectInputLabel = styled(InputLabel)(({ theme }) => ({
   display: 'flex',
   top: '-8px',

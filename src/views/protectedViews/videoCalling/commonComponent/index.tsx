@@ -13,7 +13,7 @@ import {
   TextContainer,
   VideoCallingCardMainContainer
 } from './videoCallingCard.styled';
-import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
 const VideoCalling = ({
@@ -37,9 +37,9 @@ const VideoCalling = ({
       {showHeart && (
         <HeartBoxContainer>
           {Boolean(isFavouriteModel) ? (
-            <FavoriteBorderRoundedIcon sx={{ color: 'error.main' }} />
+            <FavoriteRoundedIcon sx={{ color: 'error.main' }} />
           ) : (
-            <FavoriteBorderRoundedIcon onClick={handleClickFaviourite} />
+            <FavoriteRoundedIcon onClick={handleClickFaviourite} />
           )}
         </HeartBoxContainer>
       )}

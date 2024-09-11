@@ -9,7 +9,7 @@ import {
   UIStyledSelectRatingFilter
 } from './RatingAndReview.styled';
 import FormControl from '@mui/material/FormControl';
-import { StyledSelectInputLabelAge } from 'components/UIComponents/UIStyledSelect';
+import { StyledSelectInputLabelRating } from 'components/UIComponents/UIStyledSelect';
 import { FormattedMessage, useIntl } from 'react-intl';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Box from '@mui/material/Box';
@@ -44,13 +44,12 @@ const RatingTable = ({
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen((prevOpen) => !prevOpen);
-  console.log('selectedRating', selectedRating);
   return (
     <RatingDescriptionMainBoxContainer>
       <FormControl id="rating" sx={{ width: '100%', maxWidth: '140px' }}>
-        <StyledSelectInputLabelAge>
+        <StyledSelectInputLabelRating>
           <FormattedMessage id="Rating" />
-        </StyledSelectInputLabelAge>
+        </StyledSelectInputLabelRating>
         <UIStyledSelectRatingFilter
           value={selectedRating}
           onChange={(e) => handleRatingSelect(e.target.value as string)}
