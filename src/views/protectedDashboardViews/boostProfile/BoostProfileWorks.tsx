@@ -53,7 +53,7 @@ const BoostProfileWorks = ({
                       alt="home_model"
                       width={24}
                       height={24}
-                      src="/images/boostProfile/Instant.png"
+                      src="/images/boostProfile/instant.png"
                       style={{ width: isSmDown ? 20 : 24, height: isSmDown ? 20 : 24 }}
                     />
                   </BoxImageBackgroundChildBoost>
@@ -137,9 +137,9 @@ const BoostProfileWorks = ({
 
           <Box>
             <SecondBoxContainer>
-              <UINewTypography variant="h5" color="text.primary" lineHeight="160%">
+              <UINewTypographyPackage>
                 <FormattedMessage id="WhyUseProfileBoost" />
-              </UINewTypography>
+              </UINewTypographyPackage>
             </SecondBoxContainer>
 
             <MainChildContainerBoost>
