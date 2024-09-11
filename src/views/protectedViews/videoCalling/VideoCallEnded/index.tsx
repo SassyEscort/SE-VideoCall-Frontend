@@ -65,14 +65,8 @@ const VideoCallEnded = ({
   const [isRatingSubmitted, setIsRatingSubmitted] = useState(false);
   const router = useRouter();
 
-  const handleStarClick = (index: number) => {
-    setRating((prevRating) => {
-      if (prevRating === index + 1) {
-        return index === 0 ? 0 : prevRating - 1;
-      } else {
-        return index + 1;
-      }
-    });
+  const handleStarClick = (value: number) => {
+    setRating(value);
   };
 
   const handleResetReviewRating = () => {
