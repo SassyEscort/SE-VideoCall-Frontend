@@ -108,9 +108,10 @@ const FreeProfile = () => {
     const getProfilePlans = async () => {
       try {
         const response = await CommonServices.getProfilePlans(token.token);
-        const freePlanDetails = response.data?.filter((x) => x.is_free)[0];
+        const sortedPlans = response.data.sort((a, b) => b.is_free - a.is_free);
+        const freePlanDetails = sortedPlans.find((x) => x.is_free);
         setFreePlan(freePlanDetails);
-        const plansWithImages = response.data.map((plan, index) => ({
+        const plansWithImages = sortedPlans.map((plan, index) => ({
           ...plan,
           link: backgroundImages[index % backgroundImages.length]
         }));
