@@ -6,7 +6,6 @@ import { Box, Divider } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import { useEffect, useState } from 'react';
-import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RatingAndReviewService } from 'services/ratingAndReview/ratingAndReview.service';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
@@ -22,7 +21,8 @@ import {
   PostButtonContent,
   ReviewBoxAndButtonContent,
   ReviewSubmitBoxContent,
-  SkipButtonContent
+  SkipButtonContent,
+  TextBoxContent
 } from '../videoCalling/VideoCallEnded/VideoCallEnded.styled';
 import StartRating from 'components/UIComponents/StartRating';
 
@@ -115,7 +115,7 @@ const CallHistoryRatingModel = ({ open, onClose, callLogId }: { open: boolean; o
                   </FiveBoxContent>
                   {rating > 0 && (
                     <ReviewBoxAndButtonContent>
-                      <UIStyledInputText
+                      <TextBoxContent
                         name="bio"
                         rows={6.4}
                         fullWidth
@@ -123,13 +123,6 @@ const CallHistoryRatingModel = ({ open, onClose, callLogId }: { open: boolean; o
                         placeholder="Share your review..."
                         value={review}
                         onChange={(e) => handleReviewChange(e.target.value)}
-                        sx={{
-                          '& .MuiInputBase-input': { color: 'secondary.700', margin: '12px 16px' },
-                          minWidth: '358px',
-                          '& .MuiOutlinedInput-root': {
-                            padding: '0px !important'
-                          }
-                        }}
                       />
                       <Box sx={{ cursor: 'pointer' }}>
                         <SkipButtonContent variant="text" onClick={() => handleCloseModal()}>
