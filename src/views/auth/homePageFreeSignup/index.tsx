@@ -93,7 +93,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
         try {
           setLoading(true);
           values.name = values.name.trim();
-          const data = await GuestAuthService.guestSignup(values);
+          const data = await GuestAuthService.genericSignup(values);
           if (data.code === 200) {
             setActiveStep(1);
             refresh();
