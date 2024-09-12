@@ -51,7 +51,7 @@ const HomeContainer = () => {
 
   const [filters, setFilters] = useState(getInitialFilters());
 
-  const handleCHangeSearchFilter = useCallback(() => {
+  const handleChangeSearchFilter = useCallback(() => {
     const objParams: { [key: string]: string } = {};
     if (filters.fromAge) objParams.fromAge = filters.fromAge ? filters.fromAge.toString() : '';
     if (filters.toAge) objParams.toAge = filters.toAge ? filters.toAge.toString() : '';
@@ -130,7 +130,7 @@ const HomeContainer = () => {
     setIsLoading(false);
     if (initialRender.current === false) {
       if (searchFiltersRef.current) {
-        if (scroll) {
+        if (scroll || searchParams?.toString()) {
           searchFiltersRef.current.scrollIntoView({ behavior: 'smooth' });
         }
       }
@@ -140,6 +140,7 @@ const HomeContainer = () => {
   useEffect(() => {
     if (token.token) {
       handelFilterChange(filters);
+      setScroll(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.token]);
@@ -175,12 +176,10 @@ const HomeContainer = () => {
   useEffect(() => {
     if (initialRender.current) {
       initialRender.current = false;
-      setScroll(true);
     }
-    handleCHangeSearchFilter();
+    handleChangeSearchFilter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, searchParams]);
-
   useEffect(() => {
     setFilters(getInitialFilters());
     handelFilterChange(getInitialFilters());
