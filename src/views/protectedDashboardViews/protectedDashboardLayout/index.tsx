@@ -30,7 +30,8 @@ const StyledRoot = styled('div')({
 const Main = styled('div')(() => ({
   flexGrow: 1,
   overflow: 'auto',
-  minHeight: '100%'
+  minHeight: '100%',
+  scrollbarWidth: 'none'
 }));
 
 const MainLayoutNav = (props: MainLayoutType) => {

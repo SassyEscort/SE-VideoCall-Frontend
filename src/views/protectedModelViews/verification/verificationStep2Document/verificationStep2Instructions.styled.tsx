@@ -97,5 +97,16 @@ export const SomeInstructionsUI = styled(UINewTypography)(({ theme }) => ({
   lineHeight: '19.2px !important',
   [theme.breakpoints.down('sm')]: {
     textAlign: 'center'
+  },
+  '@media (max-width: 320px)': {
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1)
+  }
+}));
+
+export const TextDetailsBoxContainer = styled(Box)(({ theme }) => ({
+  '@media (max-width: 320px)': {
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1)
   }
 }));

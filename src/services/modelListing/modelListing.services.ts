@@ -37,6 +37,7 @@ export type ModelHomeListing = {
   cords: string;
   languages: Language[];
   favourite: number;
+  profile_plan_purchased: number;
 };
 
 export type ModelListingRes = {

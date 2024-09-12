@@ -1,3 +1,4 @@
+'use client';
 import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React from 'react';
@@ -15,11 +16,12 @@ import {
   TextViewStartBottom,
   SwitchBox,
   MainBoxAvailability,
-  MainBoxSwitch
+  MainBoxSwitch,
+  StartView
 } from './ModelAvilability.styled';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-// import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
+import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
 import { toast } from 'react-toastify';
 import { PayoutService } from 'services/payout/payout.service';
 import { ErrorMessage } from 'constants/common.constants';
@@ -67,11 +69,19 @@ const Availability = ({
                   </UINewTypography>
 
                   <SwitchText>
-                    {/* <StartView>
-                      {[...Array(5)].map((_, index) => (
-                        <StarRateRoundedIcon key={index} htmlColor="#FFB800" sx={{ width: '16px', height: '16px' }} />
-                      ))}
-                    </StartView> */}
+                    <StartView>
+                      {[...Array(5)].map((_, index) => {
+                        return (
+                          <StarRateRoundedIcon
+                            key={index}
+                            htmlColor={
+                              index < (modelDetails?.model_ratings?.model_rating_info?.[0]?.average_rating || 0) ? '#FFB800' : '#FFFFFF17'
+                            }
+                            sx={{ width: '24px', height: '24px' }}
+                          />
+                        );
+                      })}
+                    </StartView>
                     <TextViewStartBottom>
                       <SwitchBox onClick={handleAvailability} checked={Boolean(modelDetails?.is_online)} />
 

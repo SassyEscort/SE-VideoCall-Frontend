@@ -85,7 +85,7 @@ const VerificationStepOne = ({
       .min(50, 'Bioshouldbeatleast50characters')
       .max(1000, 'Bioshouldbeatmost1000characters')
       .test('no-links', 'BioShouldNotContainLinks', (value) => {
-        const linkPattern = /https?:\/\/[^\s]+/;
+        const linkPattern = /\b(https?:\/\/|www\.)\S+|(\.co|\.in|\.com|\.net|\.us|\.ai|\.org|\.nl)\b/i;
         return !linkPattern.test(value || '');
       })
       .test('no-four-consecutive-digits', 'BioShouldNotContainNumbers', (value) => {

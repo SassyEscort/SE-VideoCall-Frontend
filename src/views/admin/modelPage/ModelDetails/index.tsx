@@ -15,11 +15,27 @@ import UserInformationAccordion from './UserInformationAccordion';
 import Box from '@mui/system/Box';
 import DetailsApproveReject from './DetailsApproveReject';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
+import StyleBoostAdminButton from 'components/UIComponents/StyleBoostAdminButton';
+import UINewTypography from 'components/UIComponents/UINewTypography';
+import { adminBoostProfilePlanServices } from 'services/adminBoostProfilePlan/adminBoostProfilePlan.services';
 
 const ModelDetailsPage = () => {
   const { id: modelId } = useParams();
   const [modelData, setModelData] = useState<ModelDetailsRes>();
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+
+  const handleModelBoostById = async () => {
+    try {
+      const res = await adminBoostProfilePlanServices.adminModelBoostById(token.token, Number(modelId));
+      if (res.code === 200) {
+        toast.success('Free boost added');
+        fetchModelData();
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
+
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -51,6 +67,7 @@ const ModelDetailsPage = () => {
   }, [token.token]);
 
   const isModelPending = modelData?.data?.profile_status === PAYOUT_ACTION.PENDING;
+  const isFreeBoostUsed = modelData?.data?.model_profile_plans?.free_plan_used;
 
   return (
     <DashboardLayout>
@@ -59,7 +76,20 @@ const ModelDetailsPage = () => {
           <Grid item xs={12}>
             <Box display="flex" flexDirection="column" gap={3} width="100%">
               <ProfileCrad modelData={modelData as ModelDetailsRes} />
-              {isModelPending && <DetailsApproveReject workerId={Number(modelId)} fetchModelData={fetchModelData} />}
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: isModelPending ? 'space-between' : 'end',
+                  alignItems: 'center'
+                }}
+              >
+                {isModelPending && <DetailsApproveReject workerId={Number(modelId)} fetchModelData={fetchModelData} />}
+                {!isFreeBoostUsed && (
+                  <StyleBoostAdminButton onClick={handleModelBoostById}>
+                    <UINewTypography variant="buttonLargeMenu">Boost {modelData?.data.name} profile</UINewTypography>
+                  </StyleBoostAdminButton>
+                )}
+              </Box>
             </Box>
           </Grid>
 

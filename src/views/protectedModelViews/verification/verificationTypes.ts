@@ -1,3 +1,4 @@
+import { RatingAndReviewDetailsAllDetails } from 'services/ratingAndReview/ratingAndReview.service';
 import { WorkerPhotos } from './stepThree/uploadImage';
 
 export type MultipleOptionString = {
@@ -50,6 +51,8 @@ export type ModelDetailsResponse = {
   profile_status: string;
   rejection_reason: string;
   favourite: number;
+  rating: number;
+  model_ratings: RatingAndReviewDetailsAllDetails;
 };
 
 export type GuestDetailsResponse = {

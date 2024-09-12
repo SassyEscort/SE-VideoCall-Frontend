@@ -144,19 +144,34 @@ export const StyledSelectInputLabelAge = styled(InputLabel)(({ theme }) => ({
   }
 }));
 
+export const StyledSelectInputLabelRating = styled(InputLabel)(({ theme }) => ({
+  display: 'flex',
+  top: '-3px',
+  color: theme.palette.secondary[200],
+  gap: theme.spacing(1),
+  alignItems: 'center',
+  '&.MuiInputLabel-shrink': { top: 0 },
+  '@media (max-width: 320px)': {
+    display: 'block',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    maxWidth: '50px'
+  }
+}));
+
 export const StyledEarningSelectInputLabel = styled(InputLabel)(({ theme }) => ({
   display: 'flex',
   top: '-8px',
   color: theme.palette.secondary[200],
   gap: theme.spacing(1),
   alignItems: 'center',
+  maxWidth: '90px',
   '&.MuiInputLabel-shrink': { top: 0 },
   overflow: 'hidden',
   textOverflow: 'ellipsis',
-  maxWidth: '86px',
   [theme.breakpoints.up('md')]: {
     overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    maxWidth: '85px'
+    textOverflow: 'ellipsis'
   }
 }));

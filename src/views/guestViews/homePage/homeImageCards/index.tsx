@@ -126,57 +126,59 @@ const HomeImageCard = ({
     <HomeMainContainer>
       <WorkerCardMainBox id="tableSection">
         <Grid container spacing={{ xs: '13px', md: '15px' }} rowGap={{ xs: 0.875, lg: 2.125 }}>
-          {modelListing?.map((item, index) => (
-            <Grid item key={index} xs={6} sm={4} md={isFavPage ? 4 : 3} lg={isFavPage ? 4 : 3}>
-              <Box display="flex" gap={2} flexDirection="column">
-                {favModelId === item.id ? (
-                  <Box
-                    component={Link}
-                    prefetch={true}
-                    shallow={true}
-                    href={`/details/${item.user_name}`}
-                    onClick={() => handleModelRedirect(item.user_name)}
-                    sx={{
-                      textDecoration: 'none',
-                      height: '100%'
-                    }}
-                  >
-                    <WorkerCard
-                      modelDetails={item}
-                      isFavPage={isFavPage}
-                      token={token ?? ({} as TokenIdType)}
-                      handleLoginLiked={handleLoginLiked}
-                      handleLoginOpen={handleLoginOpen}
-                      handleLike={handleLike}
-                      liked={likedModels.includes(item.id)}
-                    />
-                  </Box>
-                ) : (
-                  <Box
-                    component={Link}
-                    prefetch={true}
-                    shallow={true}
-                    href={`/details/${item.user_name}`}
-                    sx={{
-                      textDecoration: 'none',
-                      height: '100%'
-                    }}
-                    onClick={() => handleModelRedirect(item.user_name)}
-                  >
-                    <WorkerCard
-                      modelDetails={item}
-                      isFavPage={isFavPage}
-                      token={token ?? ({} as TokenIdType)}
-                      handleLoginLiked={handleLoginLiked}
-                      handleLoginOpen={handleLoginOpen}
-                      handleLike={handleLike}
-                      liked={likedModels.includes(item.id)}
-                    />
-                  </Box>
-                )}
-              </Box>
-            </Grid>
-          ))}
+          {modelListing?.map((item, index) => {
+            return (
+              <Grid item key={index} xs={6} sm={4} md={isFavPage ? 4 : 3} lg={isFavPage ? 4 : 3}>
+                <Box display="flex" gap={2} flexDirection="column">
+                  {favModelId === item.id ? (
+                    <Box
+                      component={Link}
+                      prefetch={true}
+                      shallow={true}
+                      href={`/details/${item.user_name}`}
+                      onClick={() => handleModelRedirect(item.user_name)}
+                      sx={{
+                        textDecoration: 'none',
+                        height: '100%'
+                      }}
+                    >
+                      <WorkerCard
+                        modelDetails={item}
+                        isFavPage={isFavPage}
+                        token={token ?? ({} as TokenIdType)}
+                        handleLoginLiked={handleLoginLiked}
+                        handleLoginOpen={handleLoginOpen}
+                        handleLike={handleLike}
+                        liked={likedModels.includes(item.id)}
+                      />
+                    </Box>
+                  ) : (
+                    <Box
+                      component={Link}
+                      prefetch={true}
+                      shallow={true}
+                      href={`/details/${item.user_name}`}
+                      sx={{
+                        textDecoration: 'none',
+                        height: '100%'
+                      }}
+                      onClick={() => handleModelRedirect(item.user_name)}
+                    >
+                      <WorkerCard
+                        modelDetails={item}
+                        isFavPage={isFavPage}
+                        token={token ?? ({} as TokenIdType)}
+                        handleLoginLiked={handleLoginLiked}
+                        handleLoginOpen={handleLoginOpen}
+                        handleLike={handleLike}
+                        liked={likedModels.includes(item.id)}
+                      />
+                    </Box>
+                  )}
+                </Box>
+              </Grid>
+            );
+          })}
         </Grid>
 
         {totalRows && filters && totalRows > 0 ? (
