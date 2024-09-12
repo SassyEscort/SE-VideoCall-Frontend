@@ -135,17 +135,27 @@ const FreeProfile = () => {
   }, [isFreeBoostUsed, token.token]);
 
   useEffect(() => {
-    const updateMins = () => {
+    const updateTime = () => {
       setActivePlanMins((prevMins) => {
-        const updatedTime = moment(prevMins, 'mm').subtract(1, 'minute');
-        return updatedTime.format('mm');
+        let newMins = moment(prevMins, 'mm').subtract(1, 'minute').format('mm');
+
+        if (newMins === '59') {
+          setActivePlanHours((prevHours) => {
+            return moment(prevHours, 'HH').subtract(1, 'hour').format('HH');
+          });
+        }
+
+        return newMins;
       });
     };
 
-    const timer = setTimeout(updateMins, 60000);
+    const timer = setTimeout(updateTime, 60000);
+    if (activePlanHours === '00' && activePlanMins === '00') {
+      clearTimeout(timer);
+    }
 
     return () => clearTimeout(timer);
-  }, [activePlanMins]);
+  }, [activePlanHours, activePlanMins]);
 
   return (
     <>
