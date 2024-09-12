@@ -114,4 +114,24 @@ export class adminBoostProfilePlanServices {
       return error.response?.data as AdminBoostProfileRes;
     }
   };
+
+  static adminModelBoostById = async (token: string, modelId: number): Promise<GenericResCustom> => {
+    try {
+      const res = await axios.post<GenericResCustom>(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/model/boost-profile`,
+        { model_id: modelId },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+          }
+        }
+      );
+
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as GenericResCustom;
+    }
+  };
 }
