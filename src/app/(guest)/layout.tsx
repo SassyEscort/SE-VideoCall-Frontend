@@ -22,9 +22,9 @@ export default async function Layout({ children }: { children: React.ReactNode }
   const authUser: AuthUser | null = await getLoggedInUser();
 
   let HeaderComponent;
-  if (authUser?.user?.provider === 'providerGuest') {
+  if (authUser?.user?.provider === 'providerCustom') {
     HeaderComponent = <Header variant="worker" />;
-  } else if (authUser?.user?.provider === 'providerModel') {
+  } else if (authUser?.user?.provider === 'providerCustom') {
     HeaderComponent = <Header variant="dashboard" />;
   } else {
     HeaderComponent = <HeaderGuestComponent />;

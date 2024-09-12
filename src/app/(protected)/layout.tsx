@@ -12,7 +12,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
   return (
     <GuestGuard>
       <Box>
-        {authUser?.user?.provider === 'providerGuest' ? <Header variant="worker" /> : <HeaderGuestComponent />}
+        {authUser?.user?.provider === 'providerCustom' ? <Header variant="worker" /> : <HeaderGuestComponent />}
         <main>
           <Box sx={{ mt: 10 }}>{children}</Box>
         </main>

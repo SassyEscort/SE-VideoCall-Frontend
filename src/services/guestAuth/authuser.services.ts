@@ -41,7 +41,7 @@ export type ChangePassParams = {
 export class authServices {
   static loginUser = async (params: LoginUserParams): Promise<LoginUserResponse | string> => {
     try {
-      const res = await axios.post<LoginUserResponse>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/customer/login`, params, {
+      const res = await axios.post<LoginUserResponse>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/auth/login`, params, {
         headers: { 'Content-Type': 'application/json' }
       });
       return res.data;

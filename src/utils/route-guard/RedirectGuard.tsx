@@ -13,11 +13,15 @@ const RedirectGuard = ({ children }: GuardProps) => {
     const fetchData = async () => {
       const res: any = await fetch('/api/auth/protected');
       const json = await res?.json();
-      const isModelPendingSteps = JSON.parse(json?.user.picture)?.verification_step;
-      console.log(JSON.parse(json?.user.picture)?.token, isModelPendingSteps, 'jsonjson');
-      // In_Review => dashboard else /profile
-      if (json?.user?.provider === 'providerModel' && window?.location?.pathname === '/') {
-        router.push('/model/dashboard');
+      let picture;
+      if (json?.user?.picture) {
+        try {
+          picture = JSON.parse(json.user.picture);
+        } catch (error) {}
+      }
+      const role = picture?.role;
+      if (json?.user?.provider === 'providerCustom' && role === 'model' && window?.location?.pathname === '/') {
+        router.push('/model/profile');
       }
     };
     fetchData();

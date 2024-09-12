@@ -16,8 +16,8 @@ import { signIn } from 'next-auth/react';
 import getCustomErrorMessage from 'utils/error.utils';
 import { useRouter } from 'next/navigation';
 import InfoIcon from '@mui/icons-material/Info';
-import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
-import { useMediaQuery } from '@mui/material';
+import { ErrorBox, ModelUICustomUIBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
+import { FormControl, FormControlLabel, Radio, RadioGroup, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -54,7 +54,7 @@ const GuestLogin = ({
   const intl = useIntl();
 
   const route = useRouter();
-  const { refresh } = route;
+  const { refresh, push } = route;
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -62,14 +62,21 @@ const GuestLogin = ({
 
   const validationSchema = yup.object({
     email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
-    password: yup.string().required('Passwordisrequired')
+    password: yup.string().required('Passwordisrequired'),
+    role: yup.string().required('Roleisrequired').oneOf(['customer', 'model'], 'InvalidRole')
   });
   const handleFormSubmit = async (values: LoginUserParams) => {
     try {
+      const Role = values.role;
+      console.log(Role, 'Role');
       setLoading(true);
-      const res = await signIn('providerGuest', { redirect: false, email: values.email, password: values.password });
+      const res = await signIn('providerCustom', { redirect: false, email: values.email, password: values.password, role: values.role });
       if (res?.status === 200) {
-        refresh();
+        if (Role === 'model') {
+          push('/model/profile');
+        } else {
+          refresh();
+        }
         onClose();
       } else if (res?.error) {
         const errorMessage = res.error === 'CredentialsSignin' ? 'InvalidEmail' : 'SomethingWent';
@@ -87,7 +94,8 @@ const GuestLogin = ({
       <Formik
         initialValues={{
           email: '',
-          password: ''
+          password: '',
+          role: ''
         }}
         validationSchema={validationSchema}
         onSubmit={(values: LoginUserParams) => handleFormSubmit(values)}
@@ -192,6 +200,26 @@ const GuestLogin = ({
                           }}
                         />
                       </ModelUITextConatiner>
+
+                      <ModelUITextConatiner sx={{ gap: 0.5, width: isSmDown ? 'auto' : '400px' }}>
+                        <ModelUICustomUIBox>
+                          <UITypographyText>
+                            <FormattedMessage id="SignupAs" />
+                          </UITypographyText>
+                          <FormControl component="fieldset" error={touched.role && Boolean(errors.role)}>
+                            <RadioGroup row id="role" name="role" value={values.role} onChange={handleChange}>
+                              <FormControlLabel value="customer" control={<Radio />} label={<FormattedMessage id="Customer" />} />
+                              <FormControlLabel value="model" control={<Radio />} label={<FormattedMessage id="Model" />} />
+                            </RadioGroup>
+                            {touched.role && errors.role && (
+                              <UINewTypography color="error" variant="caption">
+                                <FormattedMessage id={errors.role} />
+                              </UINewTypography>
+                            )}
+                          </FormControl>
+                        </ModelUICustomUIBox>
+                      </ModelUITextConatiner>
+
                       <MenuItem
                         sx={{
                           display: 'flex',

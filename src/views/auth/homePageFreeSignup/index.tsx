@@ -118,8 +118,6 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                 email: values.email,
                 password: values.password
               });
-              console.log(loginResponse, 'loginResponse');
-
               if (loginResponse?.status === 200) {
                 push('/model/profile');
                 onClose();

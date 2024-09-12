@@ -9,29 +9,31 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET_KEY,
   providers: [
     CredentialsProvider({
-      id: 'providerGuest',
-      name: 'providerGuest',
+      id: 'providerCustom',
+      name: 'providerCustom',
       credentials: {
         email: { name: 'email', label: 'Email', type: 'text', placeholder: 'Enter Email' },
-        password: { name: 'password', label: 'Password', type: 'password', placeholder: 'Enter Password' }
+        password: { name: 'password', label: 'Password', type: 'password', placeholder: 'Enter Password' },
+        role: { name: 'role', label: 'Role', type: 'text', placeholder: 'Enter Role' }
       },
       async authorize(credentials) {
         try {
           const user = await authServices.loginUser({
             email: credentials?.email ?? '',
-            password: credentials?.password ?? ''
+            password: credentials?.password ?? '',
+            role: credentials?.role ?? ''
           });
 
           if (user && typeof user !== 'string' && user.data) {
             user.data.accessToken = user.data.token;
 
             return {
-              id: user.data.customer_id.toString(),
-              name: user.data.customer_name,
-              email: user.data.customer_email,
+              id: user.data.customer_id?.toString() || user.data.id.toString(),
+              name: user.data.customer_name || user.data.name,
+              email: user.data.customer_email || user.data.email,
               image: JSON.stringify(user.data),
-              userName: user.data.customer_user_name,
-              role: 'Guest'
+              userName: user.data.customer_user_name || user.data.user_name,
+              role: user.data.role || 'Model'
             } as User;
           }
           return null;
@@ -41,6 +43,7 @@ export const authOptions: NextAuthOptions = {
         }
       }
     }),
+
     CredentialsProvider({
       id: 'providerModel',
       name: 'providerModel',
@@ -64,7 +67,8 @@ export const authOptions: NextAuthOptions = {
               email: user.data.email,
               image: JSON.stringify(user.data),
               userName: user.data.user_name,
-              role: 'Model'
+              role: 'Model',
+              isSignIn: true
             } as User;
           }
           return null;
