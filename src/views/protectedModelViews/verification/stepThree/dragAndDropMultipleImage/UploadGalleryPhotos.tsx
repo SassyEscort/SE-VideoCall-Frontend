@@ -169,7 +169,7 @@ const UploadGalleryPhotos = ({ setValue, name, accept, values, handleUploadPhoto
         </DragAndDropImageNoImageBox>
       </DragAndDropImageMainContainer>
       {errors && touched.file5 && errors.file5 && (
-        <UINewTypography variant="bodySmall" color={'error.main'}>
+        <UINewTypography variant="bodySmall" color={'error.main'} className="Mui-error">
           {fileNullError ? <FormattedMessage id="PleaseUpload" /> : errors.file5}
         </UINewTypography>
       )}
