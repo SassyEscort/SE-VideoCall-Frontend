@@ -164,6 +164,7 @@ const VideoCallEnded = ({
                       <VideoCalling showHeart={true} showAnother={false} isModelAvailable={isModelAvailable} />
                       <UINewTypography variant="bodyLight" color="text.primary">
                         <FormattedMessage id="ThankYouForTheCall" />
+                        {modelObj?.modelName}.
                       </UINewTypography>
                     </SecondBoxContent>
                     <FourBoxContent>

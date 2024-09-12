@@ -63,8 +63,8 @@ const RatingTable = ({
           onClick={handleOpen}
           sx={{ cursor: 'pointer' }}
         >
-          {RATING.map((rating) => (
-            <MenuItem key={rating?.id} value={rating?.id}>
+          {RATING.map((rating, index) => (
+            <MenuItem key={rating?.id + index} value={rating?.id}>
               <UINewTypography>{intl.formatMessage({ id: rating?.title })}</UINewTypography>
             </MenuItem>
           ))}
@@ -73,30 +73,22 @@ const RatingTable = ({
       {ratingAndReview?.data?.model_rating_list?.[0]?.rating ? (
         <>
           {ratingAndReview?.data?.model_rating_list?.map((list, index) => (
-            <>
-              {[...Array(1).keys()].map((item) => {
-                return (
-                  <>
-                    <RatingDescriptionInnerBoxContainer>
-                      <RatingDescriptionDetailsBoxContainer>
-                        <RatingDescriptionStarBoxContainer>
-                          <UINewTypography variant="captionLargeBold">{list.customer_name}</UINewTypography>
-                          <Box>
-                            <StartRating value={list.rating || 0} isReadOnly={true} resize={true} />
-                          </Box>
-                        </RatingDescriptionStarBoxContainer>
-                        <UINewTypography variant="bodySmall" color="text.secondary">
-                          {list.review}
-                        </UINewTypography>
-                        <UINewTypography variant="captionLargeBold" color="secondary.700">
-                          {moment(list.created_at).format('MMM D, YYYY')}
-                        </UINewTypography>
-                      </RatingDescriptionDetailsBoxContainer>
-                    </RatingDescriptionInnerBoxContainer>
-                  </>
-                );
-              })}
-            </>
+            <RatingDescriptionInnerBoxContainer key={list.customer_name}>
+              <RatingDescriptionDetailsBoxContainer>
+                <RatingDescriptionStarBoxContainer>
+                  <UINewTypography variant="captionLargeBold">{list.customer_name}</UINewTypography>
+                  <Box>
+                    <StartRating value={list.rating || 0} isReadOnly={true} resize={true} />
+                  </Box>
+                </RatingDescriptionStarBoxContainer>
+                <UINewTypography variant="bodySmall" color="text.secondary">
+                  {list.review}
+                </UINewTypography>
+                <UINewTypography variant="captionLargeBold" color="secondary.700">
+                  {moment(list.created_at).format('MMM D, YYYY')}
+                </UINewTypography>
+              </RatingDescriptionDetailsBoxContainer>
+            </RatingDescriptionInnerBoxContainer>
           ))}
         </>
       ) : (

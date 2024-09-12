@@ -9,6 +9,7 @@ import {
 import {
   HeartBoxContainer,
   ImgBoxContainer,
+  ImgMainBox,
   SecondBoxContainer,
   TextContainer,
   VideoCallingCardMainContainer
@@ -33,7 +34,9 @@ const VideoCalling = ({
 
   return (
     <VideoCallingCardMainContainer>
-      <ImgBoxContainer src={modelPhoto} />
+      <ImgMainBox>
+        <ImgBoxContainer src={modelPhoto} />
+      </ImgMainBox>
       {showHeart && (
         <HeartBoxContainer>
           {Boolean(isFavouriteModel) ? (
