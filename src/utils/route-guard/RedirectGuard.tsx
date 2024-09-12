@@ -13,6 +13,9 @@ const RedirectGuard = ({ children }: GuardProps) => {
     const fetchData = async () => {
       const res: any = await fetch('/api/auth/protected');
       const json = await res?.json();
+      const isModelPendingSteps = JSON.parse(json?.user.picture)?.verification_step;
+      console.log(JSON.parse(json?.user.picture)?.token, isModelPendingSteps, 'jsonjson');
+      // In_Review => dashboard else /profile
       if (json?.user?.provider === 'providerModel' && window?.location?.pathname === '/') {
         router.push('/model/dashboard');
       }

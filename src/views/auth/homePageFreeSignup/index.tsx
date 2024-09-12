@@ -37,7 +37,7 @@ export type SignupParams = {
 const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
   const intl = useIntl();
   const route = useRouter();
-  const { refresh } = route;
+  const { refresh, push } = route;
 
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
@@ -97,18 +97,35 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
           if (data.code === 200) {
             setActiveStep(1);
             refresh();
-            const loginResponse = await signIn('providerGuest', {
-              redirect: false,
-              email: values.email,
-              password: values.password
-            });
-            if (loginResponse?.status === 200) {
-              refresh();
-              setTimeout(() => {
-                onClose();
-              }, 3000);
+            if (values?.role === 'customer') {
+              const loginResponse = await signIn('providerGuest', {
+                redirect: false,
+                email: values.email,
+                password: values.password
+              });
+
+              if (loginResponse?.status === 200) {
+                refresh();
+                setTimeout(() => {
+                  onClose();
+                }, 3000);
+              } else {
+                setAlert('Login after signup failed. Please log in manually.');
+              }
             } else {
-              setAlert('Login after signup failed. Please log in manually.');
+              const loginResponse = await signIn('providerModel', {
+                redirect: false,
+                email: values.email,
+                password: values.password
+              });
+              console.log(loginResponse, 'loginResponse');
+
+              if (loginResponse?.status === 200) {
+                push('/model/profile');
+                onClose();
+              } else {
+                setAlert('Login after signup failed. Please log in manually.');
+              }
             }
           } else if (data?.code === 403) {
             toast.error(ErrorMessage);
