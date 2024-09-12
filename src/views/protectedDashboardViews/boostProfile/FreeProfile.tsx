@@ -136,7 +136,10 @@ const FreeProfile = () => {
 
   useEffect(() => {
     const updateMins = () => {
-      setActivePlanMins((prevMins) => (parseInt(prevMins) - 1).toString());
+      setActivePlanMins((prevMins) => {
+        const updatedTime = moment(prevMins, 'mm').subtract(1, 'minute');
+        return updatedTime.format('mm');
+      });
     };
 
     const timer = setTimeout(updateMins, 60000);
