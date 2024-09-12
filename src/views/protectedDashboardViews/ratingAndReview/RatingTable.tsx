@@ -72,7 +72,7 @@ const RatingTable = ({
       </FormControl>
       {ratingAndReview?.data?.model_rating_list?.[0]?.rating ? (
         <>
-          {ratingAndReview?.data?.model_rating_list?.map((list, index) => (
+          {ratingAndReview?.data?.model_rating_list?.map((list) => (
             <RatingDescriptionInnerBoxContainer key={list.customer_name}>
               <RatingDescriptionDetailsBoxContainer>
                 <RatingDescriptionStarBoxContainer>
