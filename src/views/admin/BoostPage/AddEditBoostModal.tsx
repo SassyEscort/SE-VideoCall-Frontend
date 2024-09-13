@@ -47,7 +47,7 @@ const AddEditBoostModal = ({
   const validationSchema = yup.object({
     duration: yup.string().required('Duration is required'),
     name: yup.string().required('Name is required'),
-    cost: yup.number().required('Cost is required').min(0, 'Cost must be greater than or equal to 0'), // Ensure that the cost is a number and is non-negative
+    cost: yup.number().required('Cost is required'),
     is_free: yup.boolean().required('Is free is required')
   });
 
