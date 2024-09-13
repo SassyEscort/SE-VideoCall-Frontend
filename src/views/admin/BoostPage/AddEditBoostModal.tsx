@@ -39,7 +39,12 @@ const AddEditBoostModal = ({
   handleChangeFilter: (value: PaginationType) => void;
 }) => {
   const validationSchema = yup.object({
-    duration: yup.number().required('Duration is required').min(0.1, 'Duration is required').typeError('Duration is required'),
+    duration: yup
+      .number()
+      .required('Duration is required')
+      .test('is-greater-than-zero', 'Duration must be greater than 0', (value) => {
+        return value > 0 || value === null;
+      }),
     name: yup.string().required('Name is required'),
     cost: yup.number().required('Cost is required').moreThan(0, 'Cost must be more than 0'),
     is_free: yup.boolean().required('Is free is required')
@@ -140,7 +145,14 @@ const AddEditBoostModal = ({
           return (
             <Box component="form" onSubmit={handleSubmit}>
               <DialogContent dividers>
-                <Stack spacing={2}>
+                <Stack
+                  spacing={2}
+                  sx={{
+                    '& .MuiFormHelperText-root': {
+                      marginLeft: 0
+                    }
+                  }}
+                >
                   <TextField
                     name="name"
                     label="Name"

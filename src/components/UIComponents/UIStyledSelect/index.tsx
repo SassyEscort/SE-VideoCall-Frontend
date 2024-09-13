@@ -128,6 +128,13 @@ export const StyledSelectInputLabel = styled(InputLabel)(({ theme }) => ({
   '&.MuiInputLabel-shrink': { top: 0 }
 }));
 
+const commonStyles = {
+  display: 'block',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis'
+};
+
 export const StyledSelectInputLabelAge = styled(InputLabel)(({ theme }) => ({
   display: 'flex',
   top: '-3px',
@@ -136,18 +143,12 @@ export const StyledSelectInputLabelAge = styled(InputLabel)(({ theme }) => ({
   alignItems: 'center',
   '&.MuiInputLabel-shrink': { top: 0 },
   '@media (max-width: 320px)': {
-    display: 'block',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
+    ...commonStyles,
     maxWidth: '92px'
   },
   '@media (width: 1024px)': {
     '&.MuiFormLabel-root': {
-      display: 'block',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap',
+      ...commonStyles,
       maxWidth: '100px'
     }
   }

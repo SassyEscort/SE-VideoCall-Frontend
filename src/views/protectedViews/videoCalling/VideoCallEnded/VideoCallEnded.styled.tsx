@@ -159,9 +159,6 @@ export const TextBoxContent = styled(UIStyledInputText)(({ theme }) => ({
     minWidth: '358px'
   },
   '& .MuiInputBase-root': {
-    paddingTop: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    paddingBottom: theme.spacing(2)
+    padding: theme.spacing(2)
   }
 }));
