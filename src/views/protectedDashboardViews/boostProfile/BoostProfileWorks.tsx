@@ -62,7 +62,7 @@ const BoostProfileWorks = ({
                   <FormattedMessage id="InstantVisibility" />
                 </FirstTextBoostTyporaphy>
 
-                <SeconBoxContainerBoost sx={{ mt: 1.5 }}>
+                <SeconBoxContainerBoost>
                   <UINewTypography
                     variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
                     sx={{
@@ -92,7 +92,7 @@ const BoostProfileWorks = ({
                 <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
                   <FormattedMessage id="Duration2" />
                 </FirstTextBoostTyporaphy>
-                <SeconBoxContainerBoost sx={{ mt: 1.5 }}>
+                <SeconBoxContainerBoost>
                   <UINewTypography
                     variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
                     sx={{
@@ -121,7 +121,7 @@ const BoostProfileWorks = ({
                 <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
                   <FormattedMessage id="CostEffective" />
                 </FirstTextBoostTyporaphy>
-                <SeconBoxContainerBoost sx={{ mt: 1.5 }}>
+                <SeconBoxContainerBoost>
                   <UINewTypography
                     variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
                     sx={{
@@ -159,7 +159,7 @@ const BoostProfileWorks = ({
                   <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
                     <FormattedMessage id="IncreasedExposure" />
                   </FirstTextBoostTyporaphy>
-                  <SeconBoxContainerBoost sx={{ mt: 1.5 }}>
+                  <SeconBoxContainerBoost>
                     <UINewTypography
                       variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
                       sx={{
@@ -189,7 +189,7 @@ const BoostProfileWorks = ({
                   <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
                     <FormattedMessage id="MoreEngagements" />
                   </FirstTextBoostTyporaphy>
-                  <SeconBoxContainerBoost sx={{ mt: 1.5 }}>
+                  <SeconBoxContainerBoost>
                     <UINewTypography
                       variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
                       sx={{
@@ -218,7 +218,7 @@ const BoostProfileWorks = ({
                   <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
                     <FormattedMessage id="Flexibility" />
                   </FirstTextBoostTyporaphy>
-                  <SeconBoxContainerBoost sx={{ mt: 1.5 }}>
+                  <SeconBoxContainerBoost>
                     <UINewTypography
                       variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
                       sx={{

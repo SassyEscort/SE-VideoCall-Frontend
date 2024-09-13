@@ -215,9 +215,10 @@ export const FirstTextBoostTyporaphy = styled(UINewTypography)(({ theme }) => ({
   width: '100%'
 }));
 
-export const SeconBoxContainerBoost = styled(Box)(() => ({
+export const SeconBoxContainerBoost = styled(Box)(({ theme }) => ({
   width: '100%',
-  maxWidth: '314px'
+  maxWidth: '314px',
+  marginTop: theme.spacing(1.5)
 }));
 
 export const SecondBoxContainer = styled(Box)(({ theme }) => ({
