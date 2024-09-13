@@ -143,7 +143,7 @@ export const MainChildContainerBoost = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   textAlign: 'center',
   flexDirection: 'row',
-  marginTop: theme.spacing(7),
+  marginTop: theme.spacing(4),
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
     marginTop: theme.spacing(4)
@@ -171,7 +171,7 @@ export const UINewTypographyCondition = styled(UINewTypography)(({ theme }) => (
 export const UINewTypographyPackage = styled(UINewTypography)(() => ({
   fontSize: '24px',
   fontWeight: 700,
-  lineHeight: '36px'
+  lineHeight: '30px'
 }));
 
 export const BoxImageBackgroundBoost = styled(Box)(({ theme }) => ({
@@ -196,7 +196,7 @@ export const BoxImageBackgroundChildBoost = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
   maxWidth: '44px',
-  minHeight: '44px',
+  maxHeight: '44px',
   height: '100%',
   border: '1px solid #FF68C0',
   borderRadius: '50%',
@@ -210,12 +210,7 @@ export const BoxImageBackgroundChildBoost = styled(Box)(({ theme }) => ({
 }));
 
 export const FirstTextBoostTyporaphy = styled(UINewTypography)(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
-    marginTop: theme.spacing(2)
-  },
-  [theme.breakpoints.up('sm')]: {
-    marginTop: theme.spacing(2.75)
-  },
+  marginTop: theme.spacing(3),
   textAlign: 'left',
   width: '100%'
 }));
@@ -227,7 +222,7 @@ export const SeconBoxContainerBoost = styled(Box)(() => ({
 
 export const SecondBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  marginTop: theme.spacing(7.75)
+  marginTop: theme.spacing(7)
 }));
 
 export const MainBoostButtonBox = styled(Box)(({ theme }) => ({
@@ -241,7 +236,8 @@ export const MainBoostButtonBox = styled(Box)(({ theme }) => ({
 export const SecondBoostButtonBox = styled(Box)(() => ({
   width: '100%',
   maxWidth: '193px',
-  position: 'relative'
+  position: 'relative',
+  zIndex: 1
 }));
 
 export const PaidFireImageBox = styled(Box)(({ theme }) => ({

@@ -141,6 +141,15 @@ export const StyledSelectInputLabelAge = styled(InputLabel)(({ theme }) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     maxWidth: '92px'
+  },
+  '@media (width: 1024px)': {
+    '&.MuiFormLabel-root': {
+      display: 'block',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      maxWidth: '100px'
+    }
   }
 }));
 

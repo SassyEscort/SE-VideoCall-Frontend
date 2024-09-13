@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, InputAdornment, InputLabel, MenuItem, Select } from '@mui/material';
 import {
   AdminBoostProfileData,
   AdminBoostProfileParam,
@@ -25,6 +25,7 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { ErrorMessage } from 'constants/common.constants';
 import { PaginationType } from './BoostContainer';
 import { PAGE_SIZE } from 'constants/pageConstants';
+import { AttachMoney } from '@mui/icons-material';
 
 // import { AdminCampaign } from '@/types/api/admin/auth/Campaign/AdminCampaignResponse';
 // import { CampaignPaginationType } from './CampaignPageContainer';
@@ -44,10 +45,10 @@ const AddEditBoostModal = ({
   handleChangeFilter: (value: PaginationType) => void;
 }) => {
   const validationSchema = yup.object({
-    duration: yup.string().required('Code is required'),
+    duration: yup.string().required('Duration is required'),
     name: yup.string().required('Name is required'),
-    cost: yup.string().required('URL is required'),
-    is_free: yup.string().required('Is free is required')
+    cost: yup.number().required('Cost is required').min(0, 'Cost must be greater than or equal to 0'), // Ensure that the cost is a number and is non-negative
+    is_free: yup.boolean().required('Is free is required')
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -139,7 +140,7 @@ const AddEditBoostModal = ({
           setSubmitting(false);
         }}
       >
-        {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
+        {({ values, errors, touched, handleChange, setFieldValue, handleBlur, handleSubmit }) => (
           <Box component="form" onSubmit={handleSubmit}>
             <DialogContent dividers>
               <Stack spacing={2}>
@@ -152,15 +153,25 @@ const AddEditBoostModal = ({
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
-                <TextField
-                  name="duration"
-                  label="Duration"
-                  value={values.duration}
-                  error={Boolean(touched.duration && errors.duration)}
-                  helperText={touched.duration && errors.duration ? errors.duration : ''}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Duration</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    name="duration"
+                    id="demo-simple-select"
+                    value={values.duration}
+                    label="Duration"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={1}>1hr</MenuItem>
+                    <MenuItem value={2}>2hr</MenuItem>
+                    <MenuItem value={3}>3hr</MenuItem>
+                    <MenuItem value={4}>4hr</MenuItem>
+                    <MenuItem value={5}>5hr</MenuItem>
+                    <MenuItem value={6}>6hr</MenuItem>
+                  </Select>
+                </FormControl>
+
                 <TextField
                   name="cost"
                   label="Cost"
@@ -169,16 +180,31 @@ const AddEditBoostModal = ({
                   helperText={touched.cost && errors.cost ? errors.cost : ''}
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <AttachMoney />
+                      </InputAdornment>
+                    )
+                  }}
+                  disabled={values.is_free}
                 />
+
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Is free</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     name="is_free"
                     id="demo-simple-select"
-                    value={values.is_free}
+                    value={values.is_free ? 1 : 0}
                     label="Is free"
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      const isFree = e.target.value === 1;
+                      setFieldValue('is_free', isFree);
+                      if (isFree) {
+                        setFieldValue('cost', 0);
+                      }
+                    }}
                   >
                     <MenuItem value={1}>Yes</MenuItem>
                     <MenuItem value={0}>No</MenuItem>

@@ -204,7 +204,7 @@ export default function BoostContainer() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
           <Typography variant="h4" gutterBottom>
-            Boost Model
+            Boost Plans
           </Typography>
           <Box>
             <Button size="large" variant="contained" startIcon={<Add />} onClick={handleOpenAddEditModal} sx={{ width: '100%' }}>
@@ -255,10 +255,10 @@ export default function BoostContainer() {
                           {item?.is_active || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.duration || '-'}
+                          {item?.duration ? `${item.duration} hr` : '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.cost || '-'}
+                          {item?.cost ? `$${item.cost}` : '-'}
                         </TableCell>
                         <TableCell>
                           <IconButton

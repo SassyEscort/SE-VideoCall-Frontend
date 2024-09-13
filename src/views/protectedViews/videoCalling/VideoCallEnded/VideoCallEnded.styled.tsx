@@ -125,7 +125,7 @@ export const ReviewBoxAndButtonContent = styled(Box)(({ theme }) => ({
 export const ModelDetailsAndButtonContent = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(6),
+  gap: theme.spacing(3.75),
   alignItems: 'center'
 }));
 
@@ -157,5 +157,11 @@ export const TextBoxContent = styled(UIStyledInputText)(({ theme }) => ({
   },
   [theme.breakpoints.up('sm')]: {
     minWidth: '358px'
+  },
+  '& .MuiInputBase-root': {
+    paddingTop: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    paddingBottom: theme.spacing(2)
   }
 }));

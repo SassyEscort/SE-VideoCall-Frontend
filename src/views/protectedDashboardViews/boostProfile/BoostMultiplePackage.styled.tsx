@@ -37,6 +37,9 @@ export const MainImagContainer = styled(Box)<MainImagContainerProps>(({ theme, s
   minHeight: '325px',
   '@media (max-width: 320px)': {
     minWidth: '290px'
+  },
+  '& .mui-1dcp0mw-MuiGrid-root>.MuiGrid-item': {
+    padding: 0
   }
 }));
 
@@ -108,6 +111,7 @@ export const HighlyAvailableButtonBoxBoost = styled(Box)(({ theme }) => ({
 
 export const HighlyAvailableBoxBoost = styled(Box)(({ theme }) => ({
   display: 'flex',
+  zIndex: 1,
   justifyContent: 'space-between',
   [theme.breakpoints.down('md')]: {
     justifyContent: 'center'

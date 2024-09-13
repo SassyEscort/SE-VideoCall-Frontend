@@ -10,7 +10,7 @@ const UIStyledBoostChip = styled(LoadingButton)(({ theme }) => ({
   gap: theme.spacing(1),
   fontSize: '16px',
   fontWeight: 700,
-  maxWidth: '120px',
+  maxWidth: '150px',
   color: '#290F1E',
   '&.MuiButton-root': {
     height: '32px',
