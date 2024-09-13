@@ -98,7 +98,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
             setActiveStep(1);
             refresh();
             if (values?.role === 'customer') {
-              const loginResponse = await signIn('providerGuest', {
+              const loginResponse = await signIn('providerCustom', {
                 redirect: false,
                 email: values.email,
                 password: values.password
@@ -113,7 +113,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                 setAlert('Login after signup failed. Please log in manually.');
               }
             } else {
-              const loginResponse = await signIn('providerModel', {
+              const loginResponse = await signIn('providerCustom', {
                 redirect: false,
                 email: values.email,
                 password: values.password

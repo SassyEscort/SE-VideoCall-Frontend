@@ -53,7 +53,7 @@ const ModelSignin = ({
   const handleFormSubmit = async (values: LoginModelParams) => {
     try {
       setLoading(true);
-      const res = await signIn('providerModel', { redirect: false, email: values.email, password: values.password });
+      const res = await signIn('providerCustom', { redirect: false, email: values.email, password: values.password });
       if (res?.status === 200) {
         push('/model/profile');
         onClose();
