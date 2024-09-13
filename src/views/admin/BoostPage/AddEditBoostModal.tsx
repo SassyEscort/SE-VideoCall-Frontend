@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, FormHelperText, InputAdornment, InputLabel, MenuItem, Select } from '@mui/material';
 import {
   AdminBoostProfileData,
   AdminBoostProfileParam,
@@ -25,12 +25,7 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { ErrorMessage } from 'constants/common.constants';
 import { PaginationType } from './BoostContainer';
 import { PAGE_SIZE } from 'constants/pageConstants';
-
-// import { AdminCampaign } from '@/types/api/admin/auth/Campaign/AdminCampaignResponse';
-// import { CampaignPaginationType } from './CampaignPageContainer';
-// import useAddNewCampaign from '@/services/admin/hooks/AdminCampaign/useAddNewCampaign';
-// import { AddNewCampaignParams } from '@/types/api/admin/campaigns/AddCampaign';
-// import useEditCampaign from '@/services/admin/hooks/AdminCampaign/useEditCampaign';
+import { AttachMoney } from '@mui/icons-material';
 
 const AddEditBoostModal = ({
   open,
@@ -44,10 +39,15 @@ const AddEditBoostModal = ({
   handleChangeFilter: (value: PaginationType) => void;
 }) => {
   const validationSchema = yup.object({
-    duration: yup.string().required('Code is required'),
+    duration: yup
+      .number()
+      .required('Duration is required')
+      .test('is-greater-than-zero', 'Duration must be greater than 0', (value) => {
+        return value > 0 || value === null;
+      }),
     name: yup.string().required('Name is required'),
-    cost: yup.string().required('URL is required'),
-    is_free: yup.string().required('Is free is required')
+    cost: yup.number().required('Cost is required').moreThan(0, 'Cost must be more than 0'),
+    is_free: yup.boolean().required('Is free is required')
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -139,63 +139,103 @@ const AddEditBoostModal = ({
           setSubmitting(false);
         }}
       >
-        {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
-          <Box component="form" onSubmit={handleSubmit}>
-            <DialogContent dividers>
-              <Stack spacing={2}>
-                <TextField
-                  name="name"
-                  label="Name"
-                  value={values.name}
-                  error={Boolean(touched.name && errors.name)}
-                  helperText={touched.name && errors.name ? errors.name : ''}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-                <TextField
-                  name="duration"
-                  label="Duration"
-                  value={values.duration}
-                  error={Boolean(touched.duration && errors.duration)}
-                  helperText={touched.duration && errors.duration ? errors.duration : ''}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-                <TextField
-                  name="cost"
-                  label="Cost"
-                  value={values.cost}
-                  error={Boolean(touched.cost && errors.cost)}
-                  helperText={touched.cost && errors.cost ? errors.cost : ''}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Is free</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    name="is_free"
-                    id="demo-simple-select"
-                    value={values.is_free}
-                    label="Is free"
+        {({ values, errors, touched, handleChange, setFieldValue, handleBlur, handleSubmit }) => {
+          console.log('errors', errors);
+
+          return (
+            <Box component="form" onSubmit={handleSubmit}>
+              <DialogContent dividers>
+                <Stack
+                  spacing={2}
+                  sx={{
+                    '& .MuiFormHelperText-root': {
+                      marginLeft: 0
+                    }
+                  }}
+                >
+                  <TextField
+                    name="name"
+                    label="Name"
+                    value={values.name}
+                    error={Boolean(touched.name && errors.name)}
+                    helperText={touched.name && errors.name ? errors.name : ''}
                     onChange={handleChange}
-                  >
-                    <MenuItem value={1}>Yes</MenuItem>
-                    <MenuItem value={0}>No</MenuItem>
-                  </Select>
-                </FormControl>
-              </Stack>
-            </DialogContent>
-            <DialogActions sx={{ px: 3, py: 2 }}>
-              <Button variant="outlined" size="large" onClick={onClose}>
-                Cancel
-              </Button>
-              <LoadingButton loading={isLoading} size="large" type="submit" variant="contained" color="primary">
-                Add
-              </LoadingButton>
-            </DialogActions>
-          </Box>
-        )}
+                    onBlur={handleBlur}
+                  />
+                  <FormControl fullWidth error={Boolean(touched.duration && errors.duration)}>
+                    <InputLabel id="demo-simple-select-label">Duration</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      name="duration"
+                      id="demo-simple-select"
+                      value={values.duration}
+                      label="Duration"
+                      onChange={handleChange}
+                      error={Boolean(touched.duration && errors.duration)}
+                      // helperText={touched.duration && errors.duration ? errors.duration : ''}
+                    >
+                      <MenuItem value={1}>1 hr</MenuItem>
+                      <MenuItem value={2}>2 hr</MenuItem>
+                      <MenuItem value={3}>3 hr</MenuItem>
+                      <MenuItem value={4}>4 hr</MenuItem>
+                      <MenuItem value={5}>5 hr</MenuItem>
+                      <MenuItem value={6}>6 hr</MenuItem>
+                    </Select>
+                    <FormHelperText>{touched.duration && errors.duration ? errors.duration : ''}</FormHelperText>
+                  </FormControl>
+
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Is free</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      name="is_free"
+                      id="demo-simple-select"
+                      value={values.is_free ? 1 : 0}
+                      label="Is free"
+                      onChange={(e) => {
+                        const isFree = e.target.value === 1;
+                        setFieldValue('is_free', isFree);
+                        if (isFree) {
+                          setFieldValue('cost', 0);
+                        }
+                      }}
+                    >
+                      <MenuItem value={1}>Yes</MenuItem>
+                      <MenuItem value={0}>No</MenuItem>
+                    </Select>
+                  </FormControl>
+                  {!values.is_free && (
+                    <TextField
+                      name="cost"
+                      label="Cost"
+                      value={values.cost}
+                      error={Boolean(touched.cost && errors.cost)}
+                      helperText={touched.cost && errors.cost ? errors.cost : ''}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <AttachMoney />
+                          </InputAdornment>
+                        )
+                      }}
+                      disabled={values.is_free}
+                    />
+                  )}
+                </Stack>
+              </DialogContent>
+              <DialogActions sx={{ px: 3, py: 2 }}>
+                <Button variant="outlined" size="large" onClick={onClose}>
+                  Cancel
+                </Button>
+                <LoadingButton loading={isLoading} size="large" type="submit" variant="contained" color="primary">
+                  Add
+                </LoadingButton>
+              </DialogActions>
+            </Box>
+          );
+        }}
       </Formik>
     </Dialog>
   );

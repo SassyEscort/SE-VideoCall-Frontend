@@ -187,8 +187,9 @@ export const NoRatingTextBoxContainer = styled(UINewTypography)(({ theme }) => (
   borderRadius: theme.spacing(1)
 }));
 
-export const RatingStartBox = styled(Rating)(() => ({
+export const RatingStartBox = styled(Rating)(({ theme }) => ({
   cursor: 'pointer',
+  gap: theme.spacing(0.5),
   '& .MuiRating-iconEmpty': {
     color: '#FFFFFF17',
     '& svg': {

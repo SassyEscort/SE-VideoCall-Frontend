@@ -33,7 +33,6 @@ const BoostProfileWorks = ({
   isFreeBoostUsed: number;
 }) => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <>
@@ -54,7 +53,7 @@ const BoostProfileWorks = ({
                       alt="home_model"
                       width={24}
                       height={24}
-                      src="/images/boostProfile/instant.png"
+                      src="/images/boostProfile/Instant.png"
                       style={{ width: isSmDown ? 20 : 24, height: isSmDown ? 20 : 24 }}
                     />
                   </BoxImageBackgroundChildBoost>
@@ -63,7 +62,7 @@ const BoostProfileWorks = ({
                   <FormattedMessage id="InstantVisibility" />
                 </FirstTextBoostTyporaphy>
 
-                <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
+                <SeconBoxContainerBoost>
                   <UINewTypography
                     variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
                     sx={{
@@ -93,7 +92,7 @@ const BoostProfileWorks = ({
                 <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
                   <FormattedMessage id="Duration2" />
                 </FirstTextBoostTyporaphy>
-                <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
+                <SeconBoxContainerBoost>
                   <UINewTypography
                     variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
                     sx={{
@@ -122,7 +121,7 @@ const BoostProfileWorks = ({
                 <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
                   <FormattedMessage id="CostEffective" />
                 </FirstTextBoostTyporaphy>
-                <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
+                <SeconBoxContainerBoost>
                   <UINewTypography
                     variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
                     sx={{
@@ -138,9 +137,9 @@ const BoostProfileWorks = ({
 
           <Box>
             <SecondBoxContainer>
-              <UINewTypographyPackage>
+              <UINewTypography variant="h5" color="text.primary" lineHeight="160%">
                 <FormattedMessage id="WhyUseProfileBoost" />
-              </UINewTypographyPackage>
+              </UINewTypography>
             </SecondBoxContainer>
 
             <MainChildContainerBoost>
@@ -160,7 +159,7 @@ const BoostProfileWorks = ({
                   <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
                     <FormattedMessage id="IncreasedExposure" />
                   </FirstTextBoostTyporaphy>
-                  <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
+                  <SeconBoxContainerBoost>
                     <UINewTypography
                       variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
                       sx={{
@@ -190,7 +189,7 @@ const BoostProfileWorks = ({
                   <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
                     <FormattedMessage id="MoreEngagements" />
                   </FirstTextBoostTyporaphy>
-                  <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
+                  <SeconBoxContainerBoost>
                     <UINewTypography
                       variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
                       sx={{
@@ -219,7 +218,7 @@ const BoostProfileWorks = ({
                   <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
                     <FormattedMessage id="Flexibility" />
                   </FirstTextBoostTyporaphy>
-                  <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
+                  <SeconBoxContainerBoost>
                     <UINewTypography
                       variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
                       sx={{
@@ -233,7 +232,7 @@ const BoostProfileWorks = ({
               </MainBoxBorder>
             </MainChildContainerBoost>
           </Box>
-          {isMdDown && !Boolean(isFreeBoostUsed) && (
+          {isSmDown && !Boolean(isFreeBoostUsed) && (
             <BoostMultipleFreeBox>
               <PackageFreeTypography>
                 <FormattedMessage id="1FreeBoostAvailable" />
@@ -257,7 +256,7 @@ const BoostProfileWorks = ({
             </BoostMultipleFreeBox>
           )}
         </Box>
-        {!isMdDown && !Boolean(isFreeBoostUsed) && (
+        {!isSmDown && !Boolean(isFreeBoostUsed) && (
           <BoostMultipleFreeBox>
             <PackageFreeTypography>
               <FormattedMessage id="1FreeBoostAvailable" />
