@@ -249,13 +249,13 @@ export default function BoostContainer() {
                           {item?.name || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.is_free ?? '-'}
+                          {item?.duration ? `${item.duration} hr` : '-'}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {item?.is_free && Boolean(item?.is_free) ? 'Yes' : 'No' ?? '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
                           {item?.is_active || '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          {item?.duration ? `${item.duration} hr` : '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
                           {item?.cost ? `$${item.cost}` : '-'}
