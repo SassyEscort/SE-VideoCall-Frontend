@@ -1,4 +1,3 @@
-import UINewTypography from 'components/UIComponents/UINewTypography';
 import { LiveIconFirstBoxWorkerCard, LiveIconSecBoxWorkerCard, UIStyledSelectButton } from 'components/UIComponents/UIStyledSelectButton';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
