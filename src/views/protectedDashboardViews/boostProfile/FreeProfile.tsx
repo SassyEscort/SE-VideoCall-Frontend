@@ -123,7 +123,8 @@ const FreeProfile = () => {
           const paidPlans = plansWithImages.filter((x) => !x.is_free);
           setAllPlans(paidPlans);
         } else {
-          setAllPlans(plansWithImages);
+          const boostFreePlans = plansWithImages?.filter((x) => x.is_free);
+          setAllPlans(boostFreePlans);
         }
       } catch (error) {
         toast.error(ErrorMessage);
