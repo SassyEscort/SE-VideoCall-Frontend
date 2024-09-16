@@ -12,7 +12,7 @@ const UIStyledBoostButton = styled(LoadingButton)(({ theme }) => ({
   fontWeight: 700,
   color: '#290F1E',
   '&.MuiButton-root': {
-    height: '48px',
+    height: '51px',
     background: 'linear-gradient(90deg, #FFE808 0%, #FFCE00 23.5%, #FF9A00 46.5%, #FF5A00 72.5%, #FF5C00 100%)',
     color: '#000',
     zIndex: 1,

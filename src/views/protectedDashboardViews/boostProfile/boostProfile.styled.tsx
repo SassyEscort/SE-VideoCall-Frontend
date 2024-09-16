@@ -1,5 +1,6 @@
 import { Box, Dialog, Divider, styled } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import Image from 'next/image';
 
 export const BoostProfileMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -196,7 +197,7 @@ export const BoxImageBackgroundChildBoost = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
   maxWidth: '44px',
-  maxHeight: '44px',
+  minHeight: '44px',
   height: '100%',
   border: '1px solid #FF68C0',
   borderRadius: '50%',
@@ -231,7 +232,8 @@ export const MainBoostButtonBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   paddingLeft: theme.spacing(3),
-  marginBlock: theme.spacing(4)
+  marginTop: theme.spacing(4),
+  marginBottom: theme.spacing(0.6)
 }));
 
 export const SecondBoostButtonBox = styled(Box)(() => ({
@@ -341,5 +343,19 @@ export const BoostMainBox = styled(Box)(({ theme }) => ({
 
 export const BoostMainBoxAgree = styled(Box)(() => ({
   display: 'flex',
-  alignItems: 'flex-start'
+  alignItems: 'center'
+}));
+
+export const PaidProfileInnerBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(4),
+  alignItems: 'center'
+}));
+
+export const FireIcon = styled(Image)(({ theme }) => ({
+  zIndex: 10,
+  left: '-50px',
+  position: 'absolute',
+  top: '-22px'
 }));
