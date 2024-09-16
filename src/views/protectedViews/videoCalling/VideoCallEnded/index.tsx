@@ -15,11 +15,13 @@ import {
   // FourBoxContent,
   ModelDetailsAndButtonContent,
   PostButtonContent,
+  RatingReviewBoxContainer,
   ReviewBoxAndButtonContent,
   ReviewSubmitBoxContent,
   // SecondBoxContent,
   // SixBoxContent,
   SkipButtonContent,
+  TextBoxContainer,
   TextBoxContent
   // ThirdBoxContent
 } from './VideoCallEnded.styled';
@@ -177,7 +179,7 @@ const VideoCallEnded = ({
                   </ThirdBoxContent>
                 </FirstBoxContent>
               </SixBoxContent> */}
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+              <RatingReviewBoxContainer>
                 {!isRatingSubmitted && (
                   <>
                     <FiveBoxContent>
@@ -220,13 +222,13 @@ const VideoCallEnded = ({
                   </ReviewSubmitBoxContent>
                 )}
 
-                <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '352px', textAlign: 'center' }}>
+                <TextBoxContainer>
                   <UINewTypography variant="bodyLight" color="text.primary">
                     <FormattedMessage id="ThankYouForTheCall" />
                     {modelObj?.modelName}.
                   </UINewTypography>
-                </Box>
-              </Box>
+                </TextBoxContainer>
+              </RatingReviewBoxContainer>
 
               <UINewTypography variant="body" color="primary.400" sx={{ cursor: 'pointer' }} onClick={handleExploreModel}>
                 <FormattedMessage id="ExploreOtherModels" />

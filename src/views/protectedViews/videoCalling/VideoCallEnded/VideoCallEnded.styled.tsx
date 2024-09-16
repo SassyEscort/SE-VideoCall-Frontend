@@ -162,3 +162,17 @@ export const TextBoxContent = styled(UIStyledInputText)(({ theme }) => ({
     padding: theme.spacing(2)
   }
 }));
+
+export const TextBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  maxWidth: '352px',
+  textAlign: 'center'
+}));
+
+export const RatingReviewBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(5)
+}));
