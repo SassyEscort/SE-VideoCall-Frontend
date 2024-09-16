@@ -1,6 +1,11 @@
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import { ROLE } from 'constants/workerVerification';
+
+interface BackgroundImageBoxProps {
+  variant: string;
+}
 
 export const AuthCommonBox = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -32,10 +37,11 @@ export const AuthImageMobileBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const AuthImageBox = styled(Box)(({ theme }) => ({
+export const AuthImageBox = styled(Box)<BackgroundImageBoxProps>(({ theme, variant }) => ({
   width: '100%',
   maxWidth: '420px',
-  backgroundSize: 'calc(100% - 320px) 100%, cover',
+  backgroundSize: variant === ROLE.MODEL ? '' : 'calc(100% - 320px) 100%, cover',
+  backgroundImage: variant === ROLE.MODEL ? 'url(/images/model/model-signup/model-signup.webp)' : 'none',
   backgroundPosition: 'right',
   borderRadius: '12px',
   backgroundRepeat: 'no-repeat',
@@ -46,8 +52,8 @@ export const AuthImageBox = styled(Box)(({ theme }) => ({
   height: 'auto'
 }));
 
-export const BackgroundImageBox = styled(Box)(({ theme }) => ({
-  backgroundImage: 'url(/images/home/free-credit-signup-img.png)',
+export const BackgroundImageBox = styled(Box)<BackgroundImageBoxProps>(({ theme, variant }) => ({
+  backgroundImage: variant === ROLE.CUSTOMER ? 'url(/images/home/free-credit-signup-img.png)' : 'none',
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
   display: 'flex',

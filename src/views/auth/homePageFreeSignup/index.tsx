@@ -27,6 +27,7 @@ import { getErrorMessage } from 'utils/errorUtils';
 import AuthHomePageFreeSignupCommon from './AuthHomePageFreeSignupCommon';
 import HomePageFreeSignupMobile from './HomePageFreeSignupMobile';
 import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import { ROLE } from 'constants/workerVerification';
 
 export type SignupParams = {
   name: string;
@@ -86,7 +87,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
         name: '',
         email: '',
         password: '',
-        role: ''
+        role: ROLE.CUSTOMER
       }}
       validationSchema={validationSchema}
       onSubmit={async (values, { setSubmitting }) => {
@@ -97,7 +98,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
           if (data.code === 200) {
             setActiveStep(1);
             refresh();
-            if (values?.role === 'customer') {
+            if (values?.role === ROLE.CUSTOMER) {
               const loginResponse = await signIn('providerCustom', {
                 redirect: false,
                 email: values.email,
@@ -142,7 +143,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
-            <AuthHomePageFreeSignupCommon onClose={onClose}>
+            <AuthHomePageFreeSignupCommon onClose={onClose} role={values.role}>
               <Box
                 position="relative"
                 width="100%"
