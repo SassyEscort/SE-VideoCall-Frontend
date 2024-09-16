@@ -74,7 +74,9 @@ const Availability = ({
                         return (
                           <StarRateRoundedIcon
                             key={index}
-                            htmlColor={index < (modelDetails?.rating || 0) ? '#FFB800' : '#FFFFFF17'}
+                            htmlColor={
+                              index < (modelDetails?.model_ratings?.model_rating_info?.[0]?.average_rating || 0) ? '#FFB800' : '#FFFFFF17'
+                            }
                             sx={{ width: '24px', height: '24px' }}
                           />
                         );

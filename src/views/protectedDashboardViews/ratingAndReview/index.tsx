@@ -5,6 +5,8 @@ import { FormattedMessage } from 'react-intl';
 import {
   HeadingTextAndTotalClientMainBoxContainer,
   HeadingTextBoxContainer,
+  NoRatingBoxContainer,
+  NoRatingTextContainer,
   RatingDetalisBoxContainer,
   TotalClientAndRatingDetaiBoxContainer,
   TotalClientInnerBoxContainer,
@@ -51,7 +53,7 @@ const RatingAndReview = () => {
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
+      setToken({ id: data?.id, token: data?.token });
     };
 
     userToken();
@@ -100,51 +102,59 @@ const RatingAndReview = () => {
             </UINewTypography>
           </HeadingTextBoxContainer>
           <TotalClientAndRatingDetaiBoxContainer>
-            <TotalClientMainBoxContainer>
-              <TotalClientInnerBoxContainer>
-                <UINewTypography variant="body" color="text.orimary">
-                  <FormattedMessage id="TotalClients" />
-                </UINewTypography>
-                <UINewTypography variant="h3" color="text.secondary">
-                  {ratingAndReview?.data?.model_rating_info?.[0]?.total_clients}
-                </UINewTypography>
-              </TotalClientInnerBoxContainer>
+            <NoRatingBoxContainer>
+              {!ratingAndReview?.data?.model_rating_info?.[0]?.total_ratings && (
+                <NoRatingTextContainer>
+                  <FormattedMessage id="YouHaven’tReceivedAnyRatin" />
+                </NoRatingTextContainer>
+              )}
+              <TotalClientMainBoxContainer>
+                <TotalClientInnerBoxContainer>
+                  <UINewTypography variant="body" color="text.orimary">
+                    <FormattedMessage id="TotalClients" />
+                  </UINewTypography>
+                  <UINewTypography variant="h3" color="text.secondary">
+                    {ratingAndReview?.data?.model_rating_info?.[0]?.total_clients}
+                  </UINewTypography>
+                </TotalClientInnerBoxContainer>
 
-              <TotalClientInnerBoxContainer>
-                <UINewTypography variant="body" color="text.orimary">
-                  <FormattedMessage id="TotalRatingsReceived" />
-                </UINewTypography>
-                <UINewTypography variant="h3" color="text.secondary">
-                  {ratingAndReview?.data?.model_rating_info?.[0]?.total_ratings}
-                </UINewTypography>
-              </TotalClientInnerBoxContainer>
+                <TotalClientInnerBoxContainer>
+                  <UINewTypography variant="body" color="text.orimary">
+                    <FormattedMessage id="TotalRatingsReceived" />
+                  </UINewTypography>
+                  <UINewTypography variant="h3" color="text.secondary">
+                    {ratingAndReview?.data?.model_rating_info?.[0]?.total_ratings}
+                  </UINewTypography>
+                </TotalClientInnerBoxContainer>
 
-              <TotalClientInnerBoxContainer>
-                <UINewTypography variant="body" color="text.orimary">
-                  <FormattedMessage id="TotalReviewsReceived" />
-                </UINewTypography>
-                <UINewTypography variant="h3" color="text.secondary">
-                  {ratingAndReview?.data?.model_rating_info?.[0]?.total_reviews}
-                </UINewTypography>
-              </TotalClientInnerBoxContainer>
-            </TotalClientMainBoxContainer>
+                <TotalClientInnerBoxContainer>
+                  <UINewTypography variant="body" color="text.orimary">
+                    <FormattedMessage id="TotalReviewsReceived" />
+                  </UINewTypography>
+                  <UINewTypography variant="h3" color="text.secondary">
+                    {ratingAndReview?.data?.model_rating_info?.[0]?.total_reviews}
+                  </UINewTypography>
+                </TotalClientInnerBoxContainer>
+              </TotalClientMainBoxContainer>
+            </NoRatingBoxContainer>
+            {(ratingAndReview?.data?.model_rating_info?.[0]?.total_ratings as number) > 0 && (
+              <RatingDetalisBoxContainer>
+                <RatingPoints
+                  ratingAndReview={ratingAndReview?.data?.model_rating_info?.[0] ?? ({} as RatingAndReviewDetailsInfo)}
+                  onSelectRating={handleRatingSelect}
+                  isShowPercentage={true}
+                />
 
-            <RatingDetalisBoxContainer>
-              <RatingPoints
-                ratingAndReview={ratingAndReview?.data?.model_rating_info?.[0] ?? ({} as RatingAndReviewDetailsInfo)}
-                onSelectRating={handleRatingSelect}
-                isShowPercentage={true}
-              />
-
-              <RatingTable
-                ratingAndReview={ratingAndReview ?? ({} as RatingAndReviewDetailsRes)}
-                total_rows={total_rows}
-                filters={filters}
-                handleChangePage={handleChangePage}
-                selectedRating={filters.rating}
-                handleRatingSelect={handleRatingSelect}
-              />
-            </RatingDetalisBoxContainer>
+                <RatingTable
+                  ratingAndReview={ratingAndReview ?? ({} as RatingAndReviewDetailsRes)}
+                  total_rows={total_rows}
+                  filters={filters}
+                  handleChangePage={handleChangePage}
+                  selectedRating={filters.rating}
+                  handleRatingSelect={handleRatingSelect}
+                />
+              </RatingDetalisBoxContainer>
+            )}
           </TotalClientAndRatingDetaiBoxContainer>
         </HeadingTextAndTotalClientMainBoxContainer>
       </DashboardProfile>

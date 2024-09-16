@@ -365,7 +365,7 @@
   "Ringing": "El sonar.....",
   "WeAreSorry": "Lo sentimos, Kat no contestó.",
   "In": "en",
-  "ThankYouForTheCall": "Gracias por la llamada. Esperamos que haya disfrutado de su conexión con Kat Winter.",
+  "ThankYouForTheCall": "Gracias por la llamada. Esperamos que haya disfrutado de su conexión con ",
   "ExploreOtherModels": "Explora otros modelos",
   "RateYourVideoCall": "Califica tu videollamada",
   "PayoutFAQs": "Preguntas frecuentes sobre pagos",
@@ -823,5 +823,8 @@
   "VideoCallEnded": "Videollamada finalizada",
   "RateAndReview": "Califica y revisa",
   "StartBoostFor": "Iniciar impulso por",
-  "1BoostFREE": "1er Impulso GRATIS"
+  "1BoostFREE": "1er Impulso GRATIS",
+  "YouHaven’tReceivedAnyRatin": "Aún no has recibido ninguna calificación ni reseña.",
+  "starReviewsYet": "reseñas de estrellas todavía! Por favor ajusta el filtro y mira otras calificaciones.",
+  "Rating": "Clasificación"
 }

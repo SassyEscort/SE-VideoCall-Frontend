@@ -3,6 +3,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import {
   BoostBox,
+  BoostMainBoxAgree,
   BoostProfileBox,
   BoostProfileMainContainer,
   BoostProfileMissCallBox,
@@ -103,12 +104,12 @@ const BoostProfileContent = ({
               </BoostProfileMissedCallTextContainer>
             </BoostProfileModelBox>
             <Box>
-              <Box>
+              <BoostMainBoxAgree>
                 <Checkbox sx={{ p: 0, pr: 1 }} checked={isChecked} onClick={handleCheck} />
-                <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}>
+                <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'wrap' } }}>
                   <FormattedMessage id="IveRead" />
                 </UINewTypography>
-              </Box>
+              </BoostMainBoxAgree>
               <MainBoostButtonBox>
                 <SecondBoostButtonBox>
                   <Image

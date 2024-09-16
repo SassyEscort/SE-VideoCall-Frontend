@@ -1,4 +1,5 @@
 import { Box, Button, Dialog, DialogTitle, styled } from '@mui/material';
+import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 
 export const DialogTitleBox = styled(DialogTitle)(({ theme }) => ({
   display: 'flex',
@@ -124,7 +125,7 @@ export const ReviewBoxAndButtonContent = styled(Box)(({ theme }) => ({
 export const ModelDetailsAndButtonContent = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(6),
+  gap: theme.spacing(3.75),
   alignItems: 'center'
 }));
 
@@ -142,4 +143,22 @@ export const ReviewSubmitBoxContent = styled(Box)(({ theme }) => ({
   maxWidth: '205.6px',
   alignItems: 'center',
   textAlign: 'center'
+}));
+
+export const TextBoxContent = styled(UIStyledInputText)(({ theme }) => ({
+  '@media (min-width: 320px) ': {
+    minWidth: '230px'
+  },
+  '@media (min-width: 375px) ': {
+    minWidth: '270px'
+  },
+  '@media (min-width: 425px) ': {
+    minWidth: '320px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    minWidth: '358px'
+  },
+  '& .MuiInputBase-root': {
+    padding: theme.spacing(2)
+  }
 }));

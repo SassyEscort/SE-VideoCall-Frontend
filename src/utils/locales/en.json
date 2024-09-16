@@ -367,7 +367,7 @@
   "Ringing": "Ringing.....",
   "WeAreSorry": "We are sorry, Kat didn’t picked up",
   "In": "in",
-  "ThankYouForTheCall": "Thank you for the call. We hope you enjoyed your connection with Kat Winter.",
+  "ThankYouForTheCall": "Thank you for the call. We hope you enjoyed your connection with ",
   "ExploreOtherModels": "Explore other models",
   "RateYourVideoCall": "Rate your video call",
   "PayoutFAQs": "Payout FAQs",
@@ -829,5 +829,8 @@
   "SignupAs": "Signup as",
   "Roleisrequired": "Role is required",
   "Customer": "Customer",
-  "Model": "Model"
+  "Model": "Model",
+  "YouHaven’tReceivedAnyRatin": "You haven’t received any rating or reviews yet.",
+  "starReviewsYet": "star reviews yet! Please adjust the filter and check out other ratings",
+  "Rating": "Rating"
 }

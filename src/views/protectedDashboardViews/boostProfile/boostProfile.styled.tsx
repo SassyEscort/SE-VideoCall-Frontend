@@ -93,8 +93,19 @@ export const DividerMainBox = styled(Divider)(({ theme }) => ({
   }
 }));
 
-export const BoostBox = styled(Box)(() => ({
-  padding: '32px 24px'
+export const DividerBox = styled(Divider)(({ theme }) => ({
+  paddingLeft: theme.spacing(1),
+  marginBottom: theme.spacing(3),
+  paddingRight: theme.spacing(1),
+  display: 'block',
+  borderColor: theme.palette.primary[700]
+}));
+
+export const BoostBox = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.up('sm')]: {
+    padding: '32px 24px'
+  },
+  padding: '0px'
 }));
 
 export const BoostProfileBox = styled(Box)(({ theme }) => ({
@@ -108,8 +119,11 @@ export const BoostProfileBox = styled(Box)(({ theme }) => ({
 
 export const BoostProfileModelBox = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(4),
-  flexDirection: 'column'
+  gap: theme.spacing(3),
+  flexDirection: 'column',
+  [theme.breakpoints.up('sm')]: {
+    gap: theme.spacing(4)
+  }
 }));
 
 export const UINewTypographySuccessBoost = styled(UINewTypography)(({ theme }) => ({
@@ -129,9 +143,10 @@ export const MainChildContainerBoost = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   textAlign: 'center',
   flexDirection: 'row',
-  marginTop: theme.spacing(7),
+  marginTop: theme.spacing(4),
   [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column'
+    flexDirection: 'column',
+    marginTop: theme.spacing(4)
   },
   gap: theme.spacing(1.5)
 }));
@@ -151,6 +166,12 @@ export const UINewTypographyCondition = styled(UINewTypography)(({ theme }) => (
   '@media (max-width: 320px)': {
     whiteSpace: 'normal'
   }
+}));
+
+export const UINewTypographyPackage = styled(UINewTypography)(() => ({
+  fontSize: '24px',
+  fontWeight: 700,
+  lineHeight: '30px'
 }));
 
 export const BoxImageBackgroundBoost = styled(Box)(({ theme }) => ({
@@ -175,7 +196,7 @@ export const BoxImageBackgroundChildBoost = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
   maxWidth: '44px',
-  minHeight: '44px',
+  maxHeight: '44px',
   height: '100%',
   border: '1px solid #FF68C0',
   borderRadius: '50%',
@@ -189,30 +210,26 @@ export const BoxImageBackgroundChildBoost = styled(Box)(({ theme }) => ({
 }));
 
 export const FirstTextBoostTyporaphy = styled(UINewTypography)(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
-    marginTop: theme.spacing(2)
-  },
-  [theme.breakpoints.up('sm')]: {
-    marginTop: theme.spacing(2.75)
-  },
+  marginTop: theme.spacing(3),
   textAlign: 'left',
   width: '100%'
 }));
 
-export const SeconBoxContainerBoost = styled(Box)(() => ({
+export const SeconBoxContainerBoost = styled(Box)(({ theme }) => ({
   width: '100%',
-  maxWidth: '314px'
-  // textAlign: 'left'
+  maxWidth: '314px',
+  marginTop: theme.spacing(1.5)
 }));
 
 export const SecondBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  marginTop: theme.spacing(7.75)
+  marginTop: theme.spacing(7)
 }));
 
 export const MainBoostButtonBox = styled(Box)(({ theme }) => ({
   width: '100%',
   display: 'flex',
+  justifyContent: 'center',
   paddingLeft: theme.spacing(3),
   marginBlock: theme.spacing(4)
 }));
@@ -220,7 +237,8 @@ export const MainBoostButtonBox = styled(Box)(({ theme }) => ({
 export const SecondBoostButtonBox = styled(Box)(() => ({
   width: '100%',
   maxWidth: '193px',
-  position: 'relative'
+  position: 'relative',
+  zIndex: 1
 }));
 
 export const PaidFireImageBox = styled(Box)(({ theme }) => ({
@@ -233,12 +251,15 @@ export const PaidFireImageBox = styled(Box)(({ theme }) => ({
   width: '100%'
 }));
 
-export const MainBoxBorder = styled(Box)(() => ({
+export const MainBoxBorder = styled(Box)(({ theme }) => ({
   padding: '40px',
   border: '1px solid #D4D3D63D',
   borderRadius: '8px',
   width: '100%',
   maxWidth: '306px',
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '364px'
+  },
   height: '272px',
   textAlign: 'left'
 }));
@@ -247,7 +268,8 @@ export const PackageTypography = styled(UINewTypography)(({ theme }) => ({
   fontSize: '28px',
   fontWeight: 500,
   lineHeight: '33.6px',
-  color: theme.palette.text.secondary
+  color: theme.palette.text.secondary,
+  textWrap: 'nowrap'
 }));
 
 export const BoostSucessBox = styled(Box)(({ theme }) => ({
@@ -275,5 +297,49 @@ export const BoostSuccessBoxImage = styled(Box)(() => ({
 }));
 
 export const BoostMultipleBox = styled(Box)(({ theme }) => ({
-  marginTop: theme.spacing(7)
+  marginTop: theme.spacing(7),
+  [theme.breakpoints.down('sm')]: {
+    marginTop: 0
+  }
+}));
+
+export const BoostMultipleFreeBox = styled(Box)(({ theme }) => ({
+  marginTop: theme.spacing(7),
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  [theme.breakpoints.down('sm')]: {
+    alignItems: 'center'
+  }
+}));
+
+export const PackageFreeTypography = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '24px',
+  fontWeight: 600,
+  lineHeight: '30px',
+  color: theme.palette.text.secondary
+}));
+
+export const MainBoostButtonBoxContainer = styled(Box)(({ theme }) => ({
+  width: '100%',
+  display: 'flex',
+  paddingLeft: theme.spacing(3),
+  marginBlock: theme.spacing(4),
+  alignItems: 'flex-start',
+  [theme.breakpoints.down('sm')]: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+}));
+
+export const BoostMainBox = styled(Box)(({ theme }) => ({
+  marginBottom: 0,
+  [theme.breakpoints.down('sm')]: {
+    marginBottom: theme.spacing(4)
+  }
+}));
+
+export const BoostMainBoxAgree = styled(Box)(() => ({
+  display: 'flex',
+  alignItems: 'flex-start'
 }));

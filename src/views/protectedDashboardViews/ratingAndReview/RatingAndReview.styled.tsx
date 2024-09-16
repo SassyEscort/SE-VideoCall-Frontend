@@ -1,4 +1,5 @@
 'use client';
+import { Rating } from '@mui/material';
 import Box from '@mui/material/Box';
 import LinearProgress, { linearProgressClasses, LinearProgressProps } from '@mui/material/LinearProgress';
 import { styled } from '@mui/material/styles';
@@ -57,7 +58,10 @@ export const RatingDetalisFirstPartBoxContainer = styled(Box)(({ theme }) => ({
 export const RatingDetalisStarBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(1.5),
-  alignItems: 'center'
+  alignItems: 'center',
+  [theme.breakpoints.down('sm')]: {
+    justifyContent: 'center'
+  }
 }));
 
 export const RatingPercentageContainer = styled(UINewTypography)(({ theme }) => ({
@@ -158,4 +162,41 @@ export const BorderLinearProgress = styled(LinearProgress, {
 export const PaginationBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   marginTop: theme.spacing(6)
+}));
+
+export const NoRatingBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(3)
+}));
+
+export const NoRatingTextContainer = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '24px',
+  fontWeight: 500,
+  lineHeight: '38.4px'
+}));
+
+export const NoRatingTextBoxContainer = styled(UINewTypography)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  paddingTop: theme.spacing(3),
+  paddingLeft: theme.spacing(2),
+  paddingBottom: theme.spacing(3),
+  paddingRight: theme.spacing(2),
+  backgroundColor: '#100B19',
+  borderRadius: theme.spacing(1)
+}));
+
+export const RatingStartBox = styled(Rating)(({ theme }) => ({
+  cursor: 'pointer',
+  gap: theme.spacing(0.5),
+  '& .MuiRating-iconEmpty': {
+    color: '#FFFFFF17',
+    '& svg': {
+      fill: '#FFFFFF3B'
+    }
+  },
+  '& .MuiRating-iconFilled': {
+    color: '#FFB400'
+  }
 }));

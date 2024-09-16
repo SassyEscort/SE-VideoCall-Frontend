@@ -18,6 +18,7 @@ import * as Yup from 'yup';
 import { UploadButBoxContainer } from './RepositionPhoto.styled';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 import { getErrorMessage } from 'utils/errorUtils';
+import { scrollToError } from 'utils/scrollUtils';
 
 export type WorkerPhotos = {
   id: number;
@@ -356,7 +357,15 @@ const UploadImage = ({
       }}
     >
       {({ values, errors, touched, setFieldValue, handleSubmit }) => (
-        <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
+        <Box
+          component="form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+            scrollToError('.Mui-error');
+          }}
+          sx={{ width: '100%' }}
+        >
           <ModelMultiplePhoto
             loading={loading}
             isEdit={isEdit}

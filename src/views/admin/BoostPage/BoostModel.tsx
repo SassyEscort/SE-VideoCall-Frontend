@@ -35,6 +35,12 @@ const BoostModel = ({
             </tr>
             <tr>
               <td>
+                <strong>duration</strong>
+              </td>
+              <td>{selectedBoostData?.duration || '-'}</td>
+            </tr>
+            <tr>
+              <td>
                 <strong>Is Free</strong>
               </td>
               <td>{selectedBoostData?.is_free ?? '-'}</td>
@@ -44,12 +50,6 @@ const BoostModel = ({
                 <strong>Is active</strong>
               </td>
               <td>{selectedBoostData?.is_active || '-'}</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>duration</strong>
-              </td>
-              <td>{selectedBoostData?.duration || '-'}</td>
             </tr>
             <tr>
               <td>

@@ -128,7 +128,33 @@ export const StyledSelectInputLabel = styled(InputLabel)(({ theme }) => ({
   '&.MuiInputLabel-shrink': { top: 0 }
 }));
 
+const commonStyles = {
+  display: 'block',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis'
+};
+
 export const StyledSelectInputLabelAge = styled(InputLabel)(({ theme }) => ({
+  display: 'flex',
+  top: '-3px',
+  color: theme.palette.secondary[200],
+  gap: theme.spacing(1),
+  alignItems: 'center',
+  '&.MuiInputLabel-shrink': { top: 0 },
+  '@media (max-width: 320px)': {
+    ...commonStyles,
+    maxWidth: '92px'
+  },
+  '@media (width: 1024px)': {
+    '&.MuiFormLabel-root': {
+      ...commonStyles,
+      maxWidth: '100px'
+    }
+  }
+}));
+
+export const StyledSelectInputLabelRating = styled(InputLabel)(({ theme }) => ({
   display: 'flex',
   top: '-3px',
   color: theme.palette.secondary[200],
@@ -140,7 +166,7 @@ export const StyledSelectInputLabelAge = styled(InputLabel)(({ theme }) => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    maxWidth: '92px'
+    maxWidth: '50px'
   }
 }));
 

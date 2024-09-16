@@ -1,4 +1,5 @@
 import { FormControl, styled } from '@mui/material';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const FormControlBox = styled(FormControl)(({ theme }) => ({
   width: '100%',
@@ -9,4 +10,10 @@ export const FormControlBox = styled(FormControl)(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
     maxWidth: '442px'
   }
+}));
+
+export const CurrentlyOnlineTyporagphyBox = styled(UINewTypography)(({ theme }) => ({
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis'
 }));

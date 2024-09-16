@@ -7,9 +7,9 @@ export default function BoostListHead() {
     <TableHead>
       <TableRow>
         <TableCell sx={{ width: '1%' }}>Name</TableCell>
+        <TableCell>Duration</TableCell>
         <TableCell>Is Free</TableCell>
         <TableCell>Is Active</TableCell>
-        <TableCell>Duration</TableCell>
         <TableCell>Cost</TableCell>
         <TableCell>Action</TableCell>
       </TableRow>

@@ -1,25 +1,32 @@
 import React from 'react';
-import StarRoundedIcon from '@mui/icons-material/StarRounded';
-import Box from '@mui/material/Box';
+import { RatingStartBox } from 'views/protectedDashboardViews/ratingAndReview/RatingAndReview.styled';
 
 interface IStartRating {
   value: number;
+  isReadOnly?: boolean;
   handleStarClick?: (val: number) => void;
+  resize?: boolean;
 }
-const StartRating = ({ value, handleStarClick }: IStartRating) => {
+const StartRating = ({ value, isReadOnly, resize, handleStarClick }: IStartRating) => {
   return (
-    <Box>
-      {[...Array(5)]?.map((_, index) => (
-        <StarRoundedIcon
-          key={index}
-          sx={{
-            ...(index < value && { color: '#FFB400' }),
-            ...(handleStarClick && { cursor: 'pointer' })
-          }}
-          onClick={() => handleStarClick && handleStarClick(index)}
-        />
-      ))}
-    </Box>
+    <RatingStartBox
+      name="customized-rating"
+      value={value || 0}
+      max={5}
+      readOnly={!!isReadOnly}
+      onChange={(event, newValue) => {
+        event.preventDefault();
+        handleStarClick && handleStarClick(newValue || 0);
+      }}
+      {...(resize && {
+        sx: {
+          '& svg': {
+            width: '16px',
+            height: '16px'
+          }
+        }
+      })}
+    />
   );
 };
 

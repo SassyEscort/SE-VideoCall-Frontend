@@ -2,6 +2,7 @@
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import {
+  BoostFireImagContainer,
   BoostPackageMainBoxContainer,
   BoxFirstTextContainer,
   BoxSecondTextContainer,
@@ -9,13 +10,17 @@ import {
   CreditCardImage,
   DollarCreditText,
   FirstBoxContainer,
+  FreeBoostTextBoxContainer,
+  HighlyAvailableBoxBoost,
+  HighlyAvailableButtonBoxBoost,
   ImagSubContainer,
-  MainImagContainer
+  MainImagContainer,
+  PackageContainer
 } from './BoostMultiplePackage.styled';
 import { ProfilePlanResData } from 'services/commonApi/commonApi.services';
 import { Box, Grid } from '@mui/material';
-import { ImagMainContainer } from 'views/protectedViews/Credites/Credits.styled';
-import { PackageTypography } from './boostProfile.styled';
+import { BoostMainBox, PackageTypography, UINewTypographyPackage } from './boostProfile.styled';
+import StyledBoostChip from 'components/UIComponents/UIStyledBoostChip';
 
 const BoostMultiplePackage = ({
   allPlans,
@@ -27,17 +32,33 @@ const BoostMultiplePackage = ({
   return (
     <>
       <BoostPackageMainBoxContainer>
-        <UINewTypography variant="h5">
-          <FormattedMessage id="ChooseABoostPackageToSpotligh" />
-        </UINewTypography>
+        <BoostMainBox>
+          <UINewTypographyPackage>
+            <FormattedMessage id="ChooseABoostPackageToSpotligh" />
+          </UINewTypographyPackage>
+        </BoostMainBox>
         <Box>
-          <Grid container spacing={2}>
+          <Grid container spacing={2.5}>
             {allPlans?.map((plan, index) => (
               <Grid item xs={12} sm={6} md={4} lg={4} key={index}>
-                <ImagMainContainer onClick={() => handleBoostOpen(plan)}>
+                <PackageContainer onClick={() => handleBoostOpen(plan)}>
+                  {Boolean(plan.is_free) && (
+                    <HighlyAvailableButtonBoxBoost>
+                      <HighlyAvailableBoxBoost>
+                        <BoostFireImagContainer src="/images/boostProfile/fire.png" height={70} width={60} alt="fire_icon" />
+                        <FreeBoostTextBoxContainer>
+                          <StyledBoostChip>
+                            <UINewTypography variant="bodyUltraLarge" color="#000" sx={{ textWrap: 'nowrap' }}>
+                              <FormattedMessage id="1BoostFREE" />
+                            </UINewTypography>
+                          </StyledBoostChip>
+                        </FreeBoostTextBoxContainer>
+                      </HighlyAvailableBoxBoost>
+                    </HighlyAvailableButtonBoxBoost>
+                  )}
                   <FirstBoxContainer>
                     <ImagSubContainer>
-                      <MainImagContainer src="/images/credits/credits-img-1.png" />
+                      <MainImagContainer src={plan.link ?? '/images/boostFeature/boostPackOne.png'} />
                       <BoxFirstTextContainer>
                         <CreditCardImage src="/images/icons/boost-timer-icon.svg" />
                         <PackageTypography>
@@ -56,7 +77,7 @@ const BoostMultiplePackage = ({
                       </BoxSecondTextContainer>
                     </ImagSubContainer>
                   </FirstBoxContainer>
-                </ImagMainContainer>
+                </PackageContainer>
               </Grid>
             ))}
           </Grid>

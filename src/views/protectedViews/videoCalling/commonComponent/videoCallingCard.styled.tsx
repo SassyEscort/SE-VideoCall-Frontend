@@ -25,6 +25,13 @@ export const SecondBoxContainer = styled(Box)(({ theme }) => ({
   justifyContent: 'center'
 }));
 
+export const ImgMainBox = styled(Box)(() => ({
+  minHeight: '160px',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center'
+}));
+
 export const ImgBoxContainer = styled('img')(({ theme }) => ({
   width: '100%',
   maxWidth: '160px',
@@ -41,6 +48,7 @@ export const TextContainer = styled(Typography)(({ theme }) => ({
 
 export const HeartBoxContainer = styled(Box)(({ theme }) => ({
   position: 'absolute',
-  top: '30px',
-  color: theme.palette.common.white
+  top: '80px',
+  color: theme.palette.common.white,
+  cursor: 'pointer'
 }));

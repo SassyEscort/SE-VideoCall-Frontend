@@ -22,11 +22,11 @@ import {
   SecondBoxContent,
   SixBoxContent,
   SkipButtonContent,
+  TextBoxContent,
   ThirdBoxContent
 } from './VideoCallEnded.styled';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { useEffect, useState } from 'react';
-import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RatingAndReviewService } from 'services/ratingAndReview/ratingAndReview.service';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
@@ -43,6 +43,7 @@ export type ModelObj = {
   callTime: number;
   modelCreditPrice: string;
   modelUsername: string;
+  isFavouriteModel: number;
 };
 
 const VideoCallEnded = ({
@@ -64,18 +65,33 @@ const VideoCallEnded = ({
   const [isRatingSubmitted, setIsRatingSubmitted] = useState(false);
   const router = useRouter();
 
-  const handleStarClick = (index: number) => {
-    setRating((prevRating) => {
-      if (prevRating === index + 1) {
-        return index === 0 ? 0 : prevRating - 1;
-      } else {
-        return index + 1;
-      }
-    });
+  const handleStarClick = (value: number) => {
+    setRating(value);
+  };
+
+  const handleResetReviewRating = () => {
+    setRating(0);
+    setIsRatingSubmitted(false);
+    setReview('');
   };
 
   const handleReviewChange = (value: string) => {
     setReview(value);
+  };
+
+  const handleCallAgainClick = () => {
+    onClose(true);
+    handleResetReviewRating();
+    handleCallInitiate(
+      modelObj.modelId,
+      modelObj.isCreditAvailable,
+      modelObj.callTime,
+      modelObj.modelName,
+      modelObj.modelPhoto,
+      modelObj.modelUsername,
+      modelObj.modelCreditPrice,
+      modelObj.isFavouriteModel
+    );
   };
 
   useEffect(() => {
@@ -148,25 +164,11 @@ const VideoCallEnded = ({
                       <VideoCalling showHeart={true} showAnother={false} isModelAvailable={isModelAvailable} />
                       <UINewTypography variant="bodyLight" color="text.primary">
                         <FormattedMessage id="ThankYouForTheCall" />
+                        {modelObj?.modelName}.
                       </UINewTypography>
                     </SecondBoxContent>
                     <FourBoxContent>
-                      <UIThemeShadowButton
-                        variant="contained"
-                        sx={{ width: '100%' }}
-                        onClick={() => {
-                          onClose(true);
-                          handleCallInitiate(
-                            modelObj.modelId,
-                            modelObj.isCreditAvailable,
-                            modelObj.callTime,
-                            modelObj.modelName,
-                            modelObj.modelPhoto,
-                            modelObj.modelUsername,
-                            modelObj.modelCreditPrice
-                          );
-                        }}
-                      >
+                      <UIThemeShadowButton variant="contained" sx={{ width: '100%' }} onClick={handleCallAgainClick}>
                         <Box component="img" src="/images/home-connect-instantly-img.png" />
                         <UINewTypography variant="bodySemiBold" color="white.main">
                           <FormattedMessage id="CallAgain" />
@@ -191,7 +193,7 @@ const VideoCallEnded = ({
                   </FiveBoxContent>
                   {rating > 0 && (
                     <ReviewBoxAndButtonContent>
-                      <UIStyledInputText
+                      <TextBoxContent
                         name="bio"
                         rows={6.4}
                         fullWidth
@@ -199,13 +201,6 @@ const VideoCallEnded = ({
                         placeholder="Share your review..."
                         value={review}
                         onChange={(e) => handleReviewChange(e.target.value)}
-                        sx={{
-                          '& .MuiInputBase-input': { color: 'secondary.700', margin: '12px 16px' },
-                          minWidth: '358px',
-                          '& .MuiOutlinedInput-root': {
-                            padding: '0px !important'
-                          }
-                        }}
                       />
                       <Box sx={{ cursor: 'pointer' }}>
                         <SkipButtonContent variant="text" onClick={() => onClose()}>
