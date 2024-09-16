@@ -185,7 +185,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                           </IconButton>
                         </Box>
                       </Box>
-                      {isSmDown && <HomePageFreeSignupMobile />}
+                      {isSmDown && values.role === ROLE.CUSTOMER && <HomePageFreeSignupMobile />}
                     </Box>
 
                     <Box sx={{ color: 'primary.300' }}>
