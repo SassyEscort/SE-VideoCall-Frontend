@@ -198,7 +198,7 @@ const VideoCallEnded = ({
                         <FormattedMessage id="RateYourVideoCall" />
                       </UINewTypography>
                       <Box>
-                        <StartRating value={rating || 0} handleStarClick={handleStarClick} isModelPopup={true} />
+                        <StartRating value={rating || 0} handleStarClick={handleStarClick} isFromPopup={true} />
                       </Box>
                     </FiveBoxContent>
 
