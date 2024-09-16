@@ -24,6 +24,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { EMAIL_REGEX } from 'constants/regexConstants';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import HomePageFreeSignup from '../homePageFreeSignup';
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 
 export type LoginParams = {
   email: string;
@@ -54,7 +55,7 @@ const GuestLogin = ({
   const intl = useIntl();
 
   const route = useRouter();
-  const { refresh } = route;
+  const { refresh, push } = route;
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -66,10 +67,20 @@ const GuestLogin = ({
   });
   const handleFormSubmit = async (values: LoginUserParams) => {
     try {
+      const Role = values.role;
       setLoading(true);
-      const res = await signIn('providerGuest', { redirect: false, email: values.email, password: values.password });
+      const res = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+        role: values.role
+      });
       if (res?.status === 200) {
-        refresh();
+        if (Role === 'model') {
+          push('/model/profile');
+        } else {
+          refresh();
+        }
         onClose();
       } else if (res?.error) {
         const errorMessage = res.error === 'CredentialsSignin' ? 'InvalidEmail' : 'SomethingWent';
@@ -87,7 +98,8 @@ const GuestLogin = ({
       <Formik
         initialValues={{
           email: '',
-          password: ''
+          password: '',
+          role: ''
         }}
         validationSchema={validationSchema}
         onSubmit={(values: LoginUserParams) => handleFormSubmit(values)}
@@ -192,6 +204,7 @@ const GuestLogin = ({
                           }}
                         />
                       </ModelUITextConatiner>
+
                       <MenuItem
                         sx={{
                           display: 'flex',

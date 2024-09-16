@@ -24,6 +24,21 @@ export class GuestAuthService {
     }
   };
 
+  static genericSignup = async (params: SignupParams) => {
+    try {
+      const signature = await generateDeviceSignature();
+      const body = { ...params, device_signature: signature || '' };
+      const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/auth/signup`, body, {
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data || { error_message: error.message };
+    }
+  };
+
   static guestLogin = async (params: LoginParams): Promise<GenericResponse> => {
     try {
       const res = await axios.post<LoginParams, GenericResponseData>(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/customer/login`, params, {

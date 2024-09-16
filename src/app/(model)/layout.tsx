@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box';
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { getLoggedInUser } from 'utils/getSessionData';
 import ModelFooter from 'views/modelViews/modelLayout/footer';
 import HeaderModelComponent from 'views/modelViews/modelLayout/Header';
@@ -20,7 +21,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
 
   return (
     <Box>
-      {authUser?.user?.provider === 'providerModel' ? <Header variant="dashboard" /> : <HeaderModelComponent />}
+      {authUser?.user?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM ? <Header variant="dashboard" /> : <HeaderModelComponent />}
       <main>
         <Box sx={{ mt: 10 }}>{children}</Box>
       </main>

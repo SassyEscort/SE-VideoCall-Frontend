@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import { AuthUser } from 'app/(guest)/layout';
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { getLoggedInUser } from 'utils/getSessionData';
 import GuestGuard from 'utils/route-guard/GuestGuard';
 import Footer from 'views/guestViews/guestLayout/footer';
@@ -12,7 +13,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
   return (
     <GuestGuard>
       <Box>
-        {authUser?.user?.provider === 'providerGuest' ? <Header variant="worker" /> : <HeaderGuestComponent />}
+        {authUser?.user?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM ? <Header variant="worker" /> : <HeaderGuestComponent />}
         <main>
           <Box sx={{ mt: 10 }}>{children}</Box>
         </main>

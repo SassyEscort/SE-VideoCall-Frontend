@@ -22,6 +22,7 @@ import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '
 import { LoginModelParams } from 'services/modelAuth/types';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { EMAIL_REGEX } from 'constants/regexConstants';
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 
 export type LoginParams = {
   email: string;
@@ -38,7 +39,6 @@ const ModelSignin = ({
   onFogotPasswordLinkOpen: () => void;
 }) => {
   const intl = useIntl();
-
   const route = useRouter();
   const { push } = route;
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -50,15 +50,16 @@ const ModelSignin = ({
     email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
     password: yup.string().required('Passwordisrequired')
   });
+
   const handleFormSubmit = async (values: LoginModelParams) => {
     try {
       setLoading(true);
-      const res = await signIn('providerModel', { redirect: false, email: values.email, password: values.password });
+      const res = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, { redirect: false, email: values.email, password: values.password });
       if (res?.status === 200) {
         push('/model/profile');
         onClose();
       } else if (res?.error) {
-        const errorMessage = res.error === 'CredentialsSignin' ? 'InvalidEmail' : 'SomethingWent';
+        const errorMessage = res?.error === 'CredentialsSignin' ? 'InvalidEmail' : res?.error.replace('Error: ', '') || 'SomethingWent';
         setAlert(intl.formatMessage({ id: errorMessage }));
       }
     } catch (error: any) {

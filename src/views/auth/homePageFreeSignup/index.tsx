@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
 import GuestSignupSuccess from '../GuestSignupSuccess';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
-import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
+import { ErrorBox, ModelUICustomUIBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
 import InfoIcon from '@mui/icons-material/Info';
 import { signIn } from 'next-auth/react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -26,6 +26,9 @@ import { useRouter } from 'next/navigation';
 import { getErrorMessage } from 'utils/errorUtils';
 import AuthHomePageFreeSignupCommon from './AuthHomePageFreeSignupCommon';
 import HomePageFreeSignupMobile from './HomePageFreeSignupMobile';
+import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import { ROLE } from 'constants/workerVerification';
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 
 export type SignupParams = {
   name: string;
@@ -36,7 +39,7 @@ export type SignupParams = {
 const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
   const intl = useIntl();
   const route = useRouter();
-  const { refresh } = route;
+  const { refresh, push } = route;
 
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
@@ -75,7 +78,8 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
     password: yup.string().required('Passwordisrequired').min(8, 'PasswordMustBe').matches(PASSWORD_PATTERN, {
       message: 'PasswordMustContainAt',
       excludeEmptyString: true
-    })
+    }),
+    role: yup.string().required('Roleisrequired').oneOf(['customer', 'model'], 'InvalidRole')
   });
 
   return (
@@ -83,29 +87,45 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
       initialValues={{
         name: '',
         email: '',
-        password: ''
+        password: '',
+        role: ROLE.CUSTOMER
       }}
       validationSchema={validationSchema}
       onSubmit={async (values, { setSubmitting }) => {
         try {
           setLoading(true);
           values.name = values.name.trim();
-          const data = await GuestAuthService.guestSignup(values);
+          const data = await GuestAuthService.genericSignup(values);
           if (data.code === 200) {
             setActiveStep(1);
             refresh();
-            const loginResponse = await signIn('providerGuest', {
-              redirect: false,
-              email: values.email,
-              password: values.password
-            });
-            if (loginResponse?.status === 200) {
-              refresh();
-              setTimeout(() => {
-                onClose();
-              }, 3000);
+            if (values?.role === ROLE.CUSTOMER) {
+              const loginResponse = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {
+                redirect: false,
+                email: values.email,
+                password: values.password
+              });
+
+              if (loginResponse?.status === 200) {
+                refresh();
+                setTimeout(() => {
+                  onClose();
+                }, 3000);
+              } else {
+                setAlert('Login after signup failed. Please log in manually.');
+              }
             } else {
-              setAlert('Login after signup failed. Please log in manually.');
+              const loginResponse = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {
+                redirect: false,
+                email: values.email,
+                password: values.password
+              });
+              if (loginResponse?.status === 200) {
+                push('/model/profile');
+                onClose();
+              } else {
+                setAlert('Login after signup failed. Please log in manually.');
+              }
             }
           } else if (data?.code === 403) {
             toast.error(ErrorMessage);
@@ -124,7 +144,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
-            <AuthHomePageFreeSignupCommon onClose={onClose}>
+            <AuthHomePageFreeSignupCommon onClose={onClose} role={values.role}>
               <Box
                 position="relative"
                 width="100%"
@@ -166,7 +186,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                           </IconButton>
                         </Box>
                       </Box>
-                      {isSmDown && <HomePageFreeSignupMobile />}
+                      {isSmDown && values.role === ROLE.CUSTOMER && <HomePageFreeSignupMobile />}
                     </Box>
 
                     <Box sx={{ color: 'primary.300' }}>
@@ -226,7 +246,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                           }}
                         />
                       </ModelUITextConatiner>
-                      <ModelUITextConatiner gap={1.5}>
+                      <ModelUITextConatiner gap={0.5}>
                         <ModelUITextConatiner sx={{ gap: 0.5 }}>
                           <UITypographyText>
                             <FormattedMessage id="Password" />
@@ -254,13 +274,33 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                             }}
                           />
                         </ModelUITextConatiner>
-                        <MenuItem sx={{ p: 0, gap: { xs: '0', sm: '1' } }}>
-                          <Checkbox sx={{ p: 0, pr: 1 }} />
-                          <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
-                            <FormattedMessage id="RememberMe" />
-                          </UINewTypography>
-                        </MenuItem>
                       </ModelUITextConatiner>
+                      <ModelUITextConatiner gap={0.5}>
+                        <ModelUITextConatiner sx={{ gap: 0.5 }}>
+                          <ModelUICustomUIBox>
+                            <UITypographyText>
+                              <FormattedMessage id="SignupAs" />
+                            </UITypographyText>
+                            <FormControl component="fieldset" error={touched.role && Boolean(errors.role)}>
+                              <RadioGroup row id="role" name="role" value={values.role} onChange={handleChange}>
+                                <FormControlLabel value="customer" control={<Radio />} label={<FormattedMessage id="Customer" />} />
+                                <FormControlLabel value="model" control={<Radio />} label={<FormattedMessage id="Model" />} />
+                              </RadioGroup>
+                              {touched.role && errors.role && (
+                                <UINewTypography color="error" variant="caption">
+                                  <FormattedMessage id={errors.role} />
+                                </UINewTypography>
+                              )}
+                            </FormControl>
+                          </ModelUICustomUIBox>
+                        </ModelUITextConatiner>
+                      </ModelUITextConatiner>
+                      <MenuItem sx={{ p: 0, gap: { xs: '0', sm: '1' } }}>
+                        <Checkbox sx={{ p: 0, pr: 1 }} />
+                        <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
+                          <FormattedMessage id="RememberMe" />
+                        </UINewTypography>
+                      </MenuItem>
                     </ModelUITextConatiner>
                     <ModelUITextConatiner width="100%" gap={isSm ? '33px' : '29px'}>
                       <StyleButtonV2 variant="contained" type="submit" loading={loading} sx={{ width: isLg ? '400px' : 'auto' }}>

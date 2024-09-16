@@ -826,5 +826,9 @@
   "1BoostFREE": "1er Impulso GRATIS",
   "YouHaven’tReceivedAnyRatin": "Aún no has recibido ninguna calificación ni reseña.",
   "starReviewsYet": "reseñas de estrellas todavía! Por favor ajusta el filtro y mira otras calificaciones.",
-  "Rating": "Clasificación"
+  "Rating": "Clasificación",
+  "SignupAs": "Regístrate como",
+  "Roleisrequired": "El rol es obligatorio",
+  "Customer": "Cliente",
+  "Model": "Modelo"
 }
