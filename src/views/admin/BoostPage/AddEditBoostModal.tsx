@@ -39,14 +39,15 @@ const AddEditBoostModal = ({
   handleChangeFilter: (value: PaginationType) => void;
 }) => {
   const validationSchema = yup.object({
-    duration: yup
-      .number()
-      .required('Duration is required')
-      .test('is-greater-than-zero', 'Duration must be greater than 0', (value) => {
-        return value > 0 || value === null;
-      }),
+    duration: yup.number().required('Duration is required').moreThan(0, 'Duration must be grether than 0'),
     name: yup.string().required('Name is required'),
-    cost: yup.number().required('Cost is required').moreThan(0, 'Cost must be more than 0'),
+    cost: yup
+      .number()
+      .when('is_free', (isFree, schema) =>
+        isFree[0]
+          ? schema.nullable()
+          : schema.required('Duration is required').test('is-greater-than-zero', 'Cost is required', (value) => value > 0 || value === null)
+      ),
     is_free: yup.boolean().required('Is free is required')
   });
 
@@ -172,7 +173,6 @@ const AddEditBoostModal = ({
                       label="Duration"
                       onChange={handleChange}
                       error={Boolean(touched.duration && errors.duration)}
-                      // helperText={touched.duration && errors.duration ? errors.duration : ''}
                     >
                       <MenuItem value={1}>1 hr</MenuItem>
                       <MenuItem value={2}>2 hr</MenuItem>
