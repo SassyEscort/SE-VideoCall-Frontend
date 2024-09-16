@@ -20,7 +20,6 @@ import {
   TextBoxContainer,
   TextBoxContent
 } from './VideoCallEnded.styled';
-// import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { useEffect, useState } from 'react';
 import { RatingAndReviewService } from 'services/ratingAndReview/ratingAndReview.service';
 import { toast } from 'react-toastify';
@@ -29,7 +28,6 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import StartRating from 'components/UIComponents/StartRating';
 import { useRouter } from 'next/navigation';
-// import { tuple } from 'yup';
 
 export type ModelObj = {
   modelId: number;
@@ -53,7 +51,6 @@ const VideoCallEnded = ({
   callLogId: number;
   modelObj: ModelObj;
 }) => {
-  // const { isModelAvailable, handleCallInitiate } = useCallFeatureContext();
   const [rating, setRating] = useState<number>(0);
   const [review, setReview] = useState<string>('');
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -201,7 +198,7 @@ const VideoCallEnded = ({
                         <FormattedMessage id="RateYourVideoCall" />
                       </UINewTypography>
                       <Box>
-                        <StartRating value={rating || 0} handleStarClick={handleStarClick} newsize={true} />
+                        <StartRating value={rating || 0} handleStarClick={handleStarClick} isModelPopup={true} />
                       </Box>
                     </FiveBoxContent>
 

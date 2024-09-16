@@ -89,7 +89,6 @@ const AuthFreeCreditsSignupCommon = ({
               </Box>
               <Box sx={{ width: '100%', maxWidth: '248px', display: 'flex', textAlign: 'center' }}>
                 <UINewTypography variant="buttonLargeMenu">
-                  {' '}
                   <FormattedMessage id="JoinNowAndEnjoy" /> {modelName}
                 </UINewTypography>
               </Box>

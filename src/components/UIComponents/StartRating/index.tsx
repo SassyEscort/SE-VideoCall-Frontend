@@ -6,9 +6,9 @@ interface IStartRating {
   isReadOnly?: boolean;
   handleStarClick?: (val: number) => void;
   resize?: boolean;
-  newsize?: boolean;
+  isModelPopup?: boolean;
 }
-const StartRating = ({ value, isReadOnly, resize, newsize, handleStarClick }: IStartRating) => {
+const StartRating = ({ value, isReadOnly, resize, isModelPopup, handleStarClick }: IStartRating) => {
   return (
     <RatingStartBox
       name="customized-rating"
@@ -27,7 +27,7 @@ const StartRating = ({ value, isReadOnly, resize, newsize, handleStarClick }: IS
           }
         }
       })}
-      {...(newsize && {
+      {...(isModelPopup && {
         sx: {
           '& svg': {
             width: '48px',
