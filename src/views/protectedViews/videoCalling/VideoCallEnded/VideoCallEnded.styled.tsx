@@ -125,7 +125,7 @@ export const ReviewBoxAndButtonContent = styled(Box)(({ theme }) => ({
 export const ModelDetailsAndButtonContent = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(3.75),
+  gap: theme.spacing(7),
   alignItems: 'center'
 }));
 

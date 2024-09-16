@@ -6,8 +6,9 @@ interface IStartRating {
   isReadOnly?: boolean;
   handleStarClick?: (val: number) => void;
   resize?: boolean;
+  newsize?: boolean;
 }
-const StartRating = ({ value, isReadOnly, resize, handleStarClick }: IStartRating) => {
+const StartRating = ({ value, isReadOnly, resize, newsize, handleStarClick }: IStartRating) => {
   return (
     <RatingStartBox
       name="customized-rating"
@@ -23,6 +24,14 @@ const StartRating = ({ value, isReadOnly, resize, handleStarClick }: IStartRatin
           '& svg': {
             width: '16px',
             height: '16px'
+          }
+        }
+      })}
+      {...(newsize && {
+        sx: {
+          '& svg': {
+            width: '48px',
+            height: '48px'
           }
         }
       })}
