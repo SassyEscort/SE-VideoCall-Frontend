@@ -16,8 +16,10 @@ export const authOptions: NextAuthOptions = {
         password: { name: 'password', label: 'Password', type: 'password', placeholder: 'Enter Password' },
         role: { name: 'role', label: 'Role', type: 'text', placeholder: 'Enter Role' }
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         try {
+          const currentPage = req?.headers?.referer || '';
+
           const user = await authServices.loginUser({
             email: credentials?.email ?? '',
             password: credentials?.password ?? '',
@@ -25,20 +27,24 @@ export const authOptions: NextAuthOptions = {
           });
 
           if (user && typeof user !== 'string' && user.data) {
-            user.data.accessToken = user.data.token;
+            if (user.data?.role === 'customer' && currentPage.includes('/model')) {
+              throw new Error('Customers cannot access the model page.');
+            } else {
+              user.data.accessToken = user.data.token;
 
-            return {
-              id: user.data.customer_id?.toString() || user.data.id.toString(),
-              name: user.data.customer_name || user.data.name,
-              email: user.data.customer_email || user.data.email,
-              image: JSON.stringify(user.data),
-              userName: user.data.customer_user_name || user.data.user_name,
-              role: user.data.role || 'Model'
-            } as User;
+              return {
+                id: user.data.customer_id?.toString() || user.data.id.toString(),
+                name: user.data.customer_name || user.data.name,
+                email: user.data.customer_email || user.data.email,
+                image: JSON.stringify(user.data),
+                userName: user.data.customer_user_name || user.data.user_name,
+                role: user.data.role || 'Model'
+              } as User;
+            }
           }
           return null;
         } catch (e: any) {
-          const errorMessage = e?.response.data.message;
+          const errorMessage = e?.response?.data?.message || e;
           throw new Error(errorMessage);
         }
       }

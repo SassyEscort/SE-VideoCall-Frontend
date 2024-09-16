@@ -38,7 +38,6 @@ const ModelSignin = ({
   onFogotPasswordLinkOpen: () => void;
 }) => {
   const intl = useIntl();
-
   const route = useRouter();
   const { push } = route;
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -50,6 +49,7 @@ const ModelSignin = ({
     email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
     password: yup.string().required('Passwordisrequired')
   });
+
   const handleFormSubmit = async (values: LoginModelParams) => {
     try {
       setLoading(true);
@@ -58,7 +58,7 @@ const ModelSignin = ({
         push('/model/profile');
         onClose();
       } else if (res?.error) {
-        const errorMessage = res.error === 'CredentialsSignin' ? 'InvalidEmail' : 'SomethingWent';
+        const errorMessage = res?.error === 'CredentialsSignin' ? 'InvalidEmail' : res?.error.replace('Error: ', '') || 'SomethingWent';
         setAlert(intl.formatMessage({ id: errorMessage }));
       }
     } catch (error: any) {
