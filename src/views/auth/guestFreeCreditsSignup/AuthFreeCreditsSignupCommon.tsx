@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
-import { AuthCommonBox, AuthImageBox } from './AuthFreeCreditsSignupCommon.styled';
+import { AuthCommonBox, AuthImageBox, TextMainBox } from './AuthFreeCreditsSignupCommon.styled';
 import { FormattedMessage } from 'react-intl';
 
 const AuthFreeCreditsSignupCommon = ({
@@ -79,21 +79,16 @@ const AuthFreeCreditsSignupCommon = ({
                   }
                 }}
               >
-                <UINewTypography
-                  sx={{
-                    fontSize: '32px',
-                    fontWeight: 800,
-                    lineHeight: '44.8px',
-                    background: 'linear-gradient(90deg, #FBA631, #FFFFFF)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent'
-                  }}
-                >
-                  {modelName} <FormattedMessage id="GaveYou" /> 30 <FormattedMessage id="FREECredits" />
-                </UINewTypography>
+                <TextMainBox>
+                  {modelName} <FormattedMessage id="GaveYou" /> 30{' '}
+                  <span style={{ fontWeight: 800 }}>
+                    <FormattedMessage id="FREE" />
+                  </span>{' '}
+                  <FormattedMessage id="Credits" />
+                </TextMainBox>
               </Box>
               <Box sx={{ width: '100%', maxWidth: '248px', display: 'flex', textAlign: 'center' }}>
-                <UINewTypography>
+                <UINewTypography variant="buttonLargeMenu">
                   {' '}
                   <FormattedMessage id="JoinNowAndEnjoy" /> {modelName}
                 </UINewTypography>

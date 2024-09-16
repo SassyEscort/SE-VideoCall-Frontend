@@ -174,5 +174,6 @@ export const TextBoxContainer = styled(Box)(({ theme }) => ({
 export const RatingReviewBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
   gap: theme.spacing(5)
 }));

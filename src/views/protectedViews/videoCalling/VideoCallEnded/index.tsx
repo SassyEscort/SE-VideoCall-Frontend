@@ -10,20 +10,15 @@ import {
   DialogContentFristBox,
   DialogContentMain,
   DialogTitleBox,
-  // FirstBoxContent,
   FiveBoxContent,
-  // FourBoxContent,
   ModelDetailsAndButtonContent,
   PostButtonContent,
   RatingReviewBoxContainer,
   ReviewBoxAndButtonContent,
   ReviewSubmitBoxContent,
-  // SecondBoxContent,
-  // SixBoxContent,
   SkipButtonContent,
   TextBoxContainer,
   TextBoxContent
-  // ThirdBoxContent
 } from './VideoCallEnded.styled';
 // import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { useEffect, useState } from 'react';
@@ -56,7 +51,6 @@ const VideoCallEnded = ({
   open: boolean;
   onClose: (isPrevent?: boolean) => void;
   callLogId: number;
-
   modelObj: ModelObj;
 }) => {
   // const { isModelAvailable, handleCallInitiate } = useCallFeatureContext();
@@ -65,20 +59,20 @@ const VideoCallEnded = ({
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isRatingSubmitted, setIsRatingSubmitted] = useState(false);
   const router = useRouter();
-
-  const handleStarClick = (value: number) => {
-    setRating(value);
-  };
-
-  // const handleResetReviewRating = () => {
-  //   setRating(0);
-  //   setIsRatingSubmitted(false);
-  //   setReview('');
+  // const handleCallAgainClick = () => {
+  //   onClose(true);
+  //   handleResetReviewRating();
+  //   handleCallInitiate(
+  //     modelObj.modelId,
+  //     modelObj.isCreditAvailable,
+  //     modelObj.callTime,
+  //     modelObj.modelName,
+  //     modelObj.modelPhoto,
+  //     modelObj.modelUsername,
+  //     modelObj.modelCreditPrice,
+  //     modelObj.isFavouriteModel
+  //   );
   // };
-
-  const handleReviewChange = (value: string) => {
-    setReview(value);
-  };
 
   // const handleCallAgainClick = () => {
   //   onClose(true);
@@ -103,6 +97,24 @@ const VideoCallEnded = ({
 
     userToken();
   }, []);
+
+  useEffect(() => {
+    if (isRatingSubmitted) {
+      const timer = setTimeout(() => {
+        onClose();
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isRatingSubmitted, onClose]);
+
+  const handleStarClick = (value: number) => {
+    setRating(value);
+  };
+
+  const handleReviewChange = (value: string) => {
+    setReview(value);
+  };
 
   const handleCallRating = async () => {
     try {
@@ -146,6 +158,7 @@ const VideoCallEnded = ({
           <CloseIcon />
         </IconButton>
       </DialogTitleBox>
+
       <Box>
         <Divider
           sx={{
@@ -154,6 +167,7 @@ const VideoCallEnded = ({
           }}
         />
       </Box>
+
       <DialogContent sx={{ p: 0 }}>
         <DialogContentFristBox>
           <DiagloMainBoxContent>
@@ -190,6 +204,7 @@ const VideoCallEnded = ({
                         <StartRating value={rating || 0} handleStarClick={handleStarClick} newsize={true} />
                       </Box>
                     </FiveBoxContent>
+
                     {rating > 0 && (
                       <ReviewBoxAndButtonContent>
                         <TextBoxContent
@@ -213,26 +228,36 @@ const VideoCallEnded = ({
                     )}
                   </>
                 )}
+
                 {isRatingSubmitted && (
-                  <ReviewSubmitBoxContent>
-                    <Box component="img" src="/images/icons/rating-success-img.png" width={69.12} height={64.32} />
-                    <UINewTypography variant="body1">
-                      <FormattedMessage id="YourReviewHasBeenSubmitted" />
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, textAlign: 'center' }}>
+                    <ReviewSubmitBoxContent>
+                      <Box component="img" src="/images/icons/rating-success-img.png" width={69.12} height={64.32} />
+                      <UINewTypography variant="body1">
+                        <FormattedMessage id="YourReviewHasBeenSubmitted" />
+                      </UINewTypography>
+                    </ReviewSubmitBoxContent>
+
+                    <UINewTypography variant="body" color="primary.400" sx={{ cursor: 'pointer' }} onClick={handleExploreModel}>
+                      <FormattedMessage id="ExploreOtherModels" />
                     </UINewTypography>
-                  </ReviewSubmitBoxContent>
+                  </Box>
                 )}
 
-                <TextBoxContainer>
-                  <UINewTypography variant="bodyLight" color="text.primary">
-                    <FormattedMessage id="ThankYouForTheCall" />
-                    {modelObj?.modelName}.
-                  </UINewTypography>
-                </TextBoxContainer>
+                {!isRatingSubmitted && rating === 0 && (
+                  <TextBoxContainer>
+                    <UINewTypography variant="bodyLight" color="text.primary">
+                      <FormattedMessage id="ThankYouForTheCall" />
+                      {modelObj?.modelName}.
+                    </UINewTypography>
+                  </TextBoxContainer>
+                )}
               </RatingReviewBoxContainer>
-
-              <UINewTypography variant="body" color="primary.400" sx={{ cursor: 'pointer' }} onClick={handleExploreModel}>
-                <FormattedMessage id="ExploreOtherModels" />
-              </UINewTypography>
+              {rating === 0 && (
+                <UINewTypography variant="body" color="primary.400" sx={{ cursor: 'pointer' }} onClick={handleExploreModel}>
+                  <FormattedMessage id="ExploreOtherModels" />
+                </UINewTypography>
+              )}
             </ModelDetailsAndButtonContent>
           </DiagloMainBoxContent>
         </DialogContentFristBox>
