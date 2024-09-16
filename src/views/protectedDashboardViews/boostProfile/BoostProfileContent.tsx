@@ -11,6 +11,7 @@ import {
   BoostProfileModelBox,
   BoostProfileTextContainer,
   DividerMainBox,
+  FireIcon,
   MainBoostButtonBox,
   SecondBoostButtonBox,
   SupBox,
@@ -19,7 +20,6 @@ import {
   UINewTypographyMissedCallBox
 } from './boostProfile.styled';
 import Checkbox from '@mui/material/Checkbox';
-import Image from 'next/image';
 import StyleBoostButton from 'components/UIComponents/StyleBoostButton';
 import { useState } from 'react';
 import { ProfilePlanResData } from 'services/commonApi/commonApi.services';
@@ -112,13 +112,7 @@ const BoostProfileContent = ({
               </BoostMainBoxAgree>
               <MainBoostButtonBox>
                 <SecondBoostButtonBox>
-                  <Image
-                    src="/images/boostProfile/fire.png"
-                    height={110}
-                    width={100}
-                    alt="fire_icon"
-                    style={{ zIndex: 10, left: '-50px', position: 'absolute', top: '-24px' }}
-                  />
+                  <FireIcon src="/images/boostProfile/fire.png" height={110} width={100} alt="fire_icon" />
                   <StyleBoostButton onClick={() => handleBoost(planDetails?.id)} disabled={!isChecked}>
                     <UINewTypographyCondition>
                       <FormattedMessage id="StartBoostFor" /> {planDetails.duration} <FormattedMessage id="Hours" />
