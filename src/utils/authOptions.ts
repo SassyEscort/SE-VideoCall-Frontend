@@ -1,3 +1,4 @@
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession, type NextAuthOptions, type User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -9,8 +10,8 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET_KEY,
   providers: [
     CredentialsProvider({
-      id: 'providerCustom',
-      name: 'providerCustom',
+      id: PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM,
+      name: PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM,
       credentials: {
         email: { name: 'email', label: 'Email', type: 'text', placeholder: 'Enter Email' },
         password: { name: 'password', label: 'Password', type: 'password', placeholder: 'Enter Password' },

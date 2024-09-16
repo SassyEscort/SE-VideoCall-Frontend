@@ -24,6 +24,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { EMAIL_REGEX } from 'constants/regexConstants';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import HomePageFreeSignup from '../homePageFreeSignup';
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 
 export type LoginParams = {
   email: string;
@@ -68,7 +69,12 @@ const GuestLogin = ({
     try {
       const Role = values.role;
       setLoading(true);
-      const res = await signIn('providerCustom', { redirect: false, email: values.email, password: values.password, role: values.role });
+      const res = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+        role: values.role
+      });
       if (res?.status === 200) {
         if (Role === 'model') {
           push('/model/profile');

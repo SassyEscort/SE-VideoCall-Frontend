@@ -11,6 +11,7 @@ import Loader from 'components/Loader';
 // TYPES
 import { GuardProps } from 'types/auth';
 import { signOut, useSession } from 'next-auth/react';
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 
 // ==============================|| AUTH GUARD ||============================== //
 
@@ -32,7 +33,7 @@ const ModelGuard = ({ children }: GuardProps) => {
       const role = picture?.role;
       if (
         json?.protected &&
-        json.user.provider === 'providerCustom' &&
+        json.user.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM &&
         role === 'model' &&
         tokenExpiry < parseInt((Date.now() / 1000).toFixed(0))
       ) {

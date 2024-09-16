@@ -22,6 +22,7 @@ import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '
 import { LoginModelParams } from 'services/modelAuth/types';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { EMAIL_REGEX } from 'constants/regexConstants';
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 
 export type LoginParams = {
   email: string;
@@ -53,7 +54,7 @@ const ModelSignin = ({
   const handleFormSubmit = async (values: LoginModelParams) => {
     try {
       setLoading(true);
-      const res = await signIn('providerCustom', { redirect: false, email: values.email, password: values.password });
+      const res = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, { redirect: false, email: values.email, password: values.password });
       if (res?.status === 200) {
         push('/model/profile');
         onClose();

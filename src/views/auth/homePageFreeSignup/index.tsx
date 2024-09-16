@@ -28,6 +28,7 @@ import AuthHomePageFreeSignupCommon from './AuthHomePageFreeSignupCommon';
 import HomePageFreeSignupMobile from './HomePageFreeSignupMobile';
 import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { ROLE } from 'constants/workerVerification';
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 
 export type SignupParams = {
   name: string;
@@ -99,7 +100,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
             setActiveStep(1);
             refresh();
             if (values?.role === ROLE.CUSTOMER) {
-              const loginResponse = await signIn('providerCustom', {
+              const loginResponse = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {
                 redirect: false,
                 email: values.email,
                 password: values.password
@@ -114,7 +115,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                 setAlert('Login after signup failed. Please log in manually.');
               }
             } else {
-              const loginResponse = await signIn('providerCustom', {
+              const loginResponse = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {
                 redirect: false,
                 email: values.email,
                 password: values.password
