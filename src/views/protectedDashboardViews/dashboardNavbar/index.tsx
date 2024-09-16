@@ -44,12 +44,12 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
   const router = usePathname();
 
   const maindashboardTabIndex: { [key: string]: number } = {
-    dashboard: 1,
-    earnings: 2,
-    payouts: 3,
-    'rating-and-review': 4,
-    'help-info': 5,
-    'boost-profile': 6,
+    'boost-profile': 1,
+    dashboard: 2,
+    earnings: 3,
+    payouts: 4,
+    'rating-and-review': 5,
+    'help-info': 6,
     'download-app': 7
   };
 
@@ -148,17 +148,15 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
                           height="auto"
                           src={tab?.img}
                           sx={{
-                            filter:
-                              tabIndex === 6
-                                ? 'none'
-                                : 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)'
+                            filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)',
+                            ...(tabIndex === 1 && { filter: 'none' })
                           }}
                         />
 
                         <MobileTextStyleContainer
                           label={intl.formatMessage({ id: tab.name })}
                           sx={{
-                            ...(tabIndex === 6 && {
+                            ...(tabIndex === 1 && {
                               background: 'linear-gradient(90deg, #E25C5C 0%, #FF5A00 21.5%, #FF9A00 50.5%, #FFCE00 76.5%, #FFE808 100%)',
                               WebkitBackgroundClip: 'text',
                               WebkitTextFillColor: 'transparent'

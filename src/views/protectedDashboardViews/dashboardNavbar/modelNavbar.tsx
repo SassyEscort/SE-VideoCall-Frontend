@@ -33,17 +33,15 @@ const ModelNavbar = ({ tabIndex }: { tabIndex: number }) => {
                           component="img"
                           src={tab?.img}
                           sx={{
-                            filter:
-                              tabIndex === 6
-                                ? 'none'
-                                : 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)'
+                            filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)',
+                            ...(tabIndex === 1 && { filter: 'none' })
                           }}
                         />
                         <UINewTypography
                           variant="buttonLargeMenu"
                           sx={{
                             textWrap: 'nowrap',
-                            ...(tabIndex === 6 && {
+                            ...(tabIndex === 1 && {
                               background: 'linear-gradient(90deg, #E25C5C 0%, #FF5A00 21.5%, #FF9A00 50.5%, #FFCE00 76.5%, #FFE808 100%)',
                               WebkitBackgroundClip: 'text',
                               WebkitTextFillColor: 'transparent'

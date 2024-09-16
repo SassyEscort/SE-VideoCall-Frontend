@@ -1,5 +1,10 @@
 export const DashboardModelTabs = [
   {
+    name: 'BoostYourProfile',
+    img: '/images/boostProfile/fire-sidebar.png',
+    path: '/model/boost-profile'
+  },
+  {
     name: 'MyProfile',
     img: '/images/icons/dashboard-img1.png',
     path: '/model/dashboard'
@@ -23,11 +28,6 @@ export const DashboardModelTabs = [
     name: 'HelpAndInfo',
     img: '/images/icons/dashboard-img4.png',
     path: '/model/help-info'
-  },
-  {
-    name: 'BoostYourProfile',
-    img: '/images/boostProfile/fire-sidebar.png',
-    path: '/model/boost-profile'
   },
   {
     name: 'App',
