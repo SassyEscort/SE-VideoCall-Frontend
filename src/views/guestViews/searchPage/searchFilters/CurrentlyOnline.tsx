@@ -1,7 +1,7 @@
-import UINewTypography from 'components/UIComponents/UINewTypography';
 import { LiveIconFirstBoxWorkerCard, LiveIconSecBoxWorkerCard, UIStyledSelectButton } from 'components/UIComponents/UIStyledSelectButton';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { CurrentlyOnlineTyporagphyBox } from './Country.styled';
 
 const CurrentlyOnline = ({ onClick }: { onClick?: () => void }) => {
   const [isClicked, setIsClicked] = useState(false);
@@ -21,11 +21,11 @@ const CurrentlyOnline = ({ onClick }: { onClick?: () => void }) => {
             <LiveIconSecBoxWorkerCard />
           </LiveIconFirstBoxWorkerCard>
         }
-        sx={{ width: '100%', maxWidth: { lg: '203px', sm: '240px' } }}
+        sx={{ width: '100%', maxWidth: { lg: '203px' } }}
       >
-        <UINewTypography>
+        <CurrentlyOnlineTyporagphyBox>
           <FormattedMessage id="CurrentlyOnline" />
-        </UINewTypography>
+        </CurrentlyOnlineTyporagphyBox>
       </UIStyledSelectButton>
     </>
   );

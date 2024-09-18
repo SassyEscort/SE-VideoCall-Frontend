@@ -11,6 +11,7 @@ import Loader from 'components/Loader';
 // TYPES
 import { GuardProps } from 'types/auth';
 import { signOut, useSession } from 'next-auth/react';
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 
 // ==============================|| AUTH GUARD ||============================== //
 
@@ -23,8 +24,22 @@ const GuestGuard = ({ children }: GuardProps) => {
     const fetchData = async () => {
       const res: any = await fetch('/api/auth/protected');
       const json = await res?.json();
-      if (!json?.protected || json.user.provider !== 'providerGuest' || tokenExpiry < parseInt((Date.now() / 1000).toFixed(0))) {
+      let picture;
+      if (json?.user?.picture) {
+        try {
+          picture = JSON.parse(json.user.picture);
+        } catch (error) {}
+      }
+      const role = picture?.role;
+      if (
+        json?.protected &&
+        json.user.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM &&
+        role === 'customer' &&
+        tokenExpiry < parseInt((Date.now() / 1000).toFixed(0))
+      ) {
         signOut({ redirect: false });
+        router.push('/');
+      } else if (role !== 'customer') {
         router.push('/');
       }
     };

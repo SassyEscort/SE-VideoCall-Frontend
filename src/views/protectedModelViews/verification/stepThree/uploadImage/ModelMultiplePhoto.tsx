@@ -100,6 +100,9 @@ const ModelMultiplePhoto = ({
             if (!nextItemCondition) {
               updatedPhotos[index].isFavorite = true;
               break;
+            } else if (nextItemCondition && existingPhotos.length === 1) {
+              updatedPhotos[index].isFavorite = true;
+              break;
             }
             index++;
           }
@@ -113,12 +116,16 @@ const ModelMultiplePhoto = ({
         }
         setValue('file5Existing', existingPhotos);
       } else {
+        setValue('file5', []);
         setValue('file5Existing', existingPhotos);
       }
     }
     index = uploadedImagesURL?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
       uploadedImagesURL?.splice(index, 1);
+      if (!uploadedImagesURL.length) {
+        setValue('file5', []);
+      }
     }
   };
 
@@ -267,7 +274,9 @@ const ModelMultiplePhoto = ({
     const cordsChanged = workerPhotos.some((photo, index) => {
       return photo.cords !== values.file5Existing[index]?.cords;
     });
-    return cordsChanged || values?.file5 || thumbnailImageId === undefined ? true : false;
+    return cordsChanged || values?.file5 || (thumbnailImageId === undefined && (values.file5?.length || values.file5Existing?.length))
+      ? true
+      : false;
   };
 
   useEffect(() => {

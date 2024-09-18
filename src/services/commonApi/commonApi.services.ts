@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { PriceCommissionsRes } from './types';
-import { GenericRes } from 'services/guestAuth/authuser.services';
+import { GenericRes, GenericResCustom } from 'services/guestAuth/authuser.services';
 
 export type UserNameRes = {
   id: number;
@@ -12,6 +12,20 @@ export type UserNameRes = {
 export interface UserNameResData extends GenericRes {
   custom_code: number;
   data: UserNameRes;
+}
+
+export type ProfilePlanResData = {
+  id: number;
+  cost: number;
+  duration: number;
+  is_free: number;
+  name: string;
+  is_active: number;
+  link: string;
+};
+
+export interface ProfilePlanRes extends GenericResCustom {
+  data: ProfilePlanResData[];
 }
 
 export class CommonServices {
@@ -92,6 +106,18 @@ export class CommonServices {
       return res.data;
     } catch (error: any) {
       return error as UserNameResData;
+    }
+  };
+
+  static getProfilePlans = async (token: string): Promise<ProfilePlanRes> => {
+    try {
+      const res = await axios.get<ProfilePlanRes>(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/profile-plans`, {
+        headers: { 'Content-Type': 'application/json', Authorization: token }
+      });
+
+      return res.data;
+    } catch (error: any) {
+      return error as ProfilePlanRes;
     }
   };
 }

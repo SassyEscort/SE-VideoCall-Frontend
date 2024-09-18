@@ -155,6 +155,13 @@ export const ModelUITextConatiner = styled(Box)(() => ({
   flexDirection: 'column'
 }));
 
+export const ModelUICustomUIBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: theme.spacing(1)
+}));
+
 export const HeaderTextContainer = styled(UINewTypography)(() => ({
   fontSize: '24px',
   fontWeight: '700',

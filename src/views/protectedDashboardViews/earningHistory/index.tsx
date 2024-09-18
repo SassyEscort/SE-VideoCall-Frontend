@@ -23,16 +23,12 @@ import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Paginat
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { LoaderBox } from '../payoutRequest/PayoutRequest.styled';
 import { CircularProgress } from '@mui/material';
-import {
-  ProfileDOBContainer,
-  ProfileDOBMainContainer,
-  ProfileDOBox,
-  ProfileDOBoxMain,
-  StyledDatePicker
-} from '../earningOverview/EarningOverview.styled';
+import { ProfileDOBContainer, ProfileDOBMainContainer, ProfileDOBox, ProfileDOBoxMain } from '../earningOverview/EarningOverview.styled';
 import { DATE_DURATION_TYPE } from 'constants/dateRange';
 import moment, { Moment } from 'moment';
 import FilterTimeDropdownV2 from '../earningOverview/FilterTimeDropdownV2';
+import debounce from 'lodash/debounce';
+import CustomDatePicker from 'components/common/CustomDatePicker';
 
 export type earningParams = {
   category: string;
@@ -62,17 +58,14 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
     offset: 0
   });
 
-  const handleFromDateChange = (date: Moment) => {
+  const handleFromToDateChange = (date: Moment, dateType: string) => {
     if (date?.isValid()) {
-      setFromDate(date);
+      dateType === 'from' ? setFromDate(date) : setToDate(date);
     }
   };
 
-  const handleToDateChange = (date: Moment) => {
-    if (date?.isValid()) {
-      setToDate(date);
-    }
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleDateChange = useCallback(debounce(handleFromToDateChange, 1000), []);
 
   const handleChangePeriodType = (value: string) => {
     setPeriodType(value);
@@ -189,19 +182,19 @@ const EarningHistory = ({ token }: { token: TokenIdType }) => {
                   {periodType === DATE_DURATION_TYPE.ALL_TIME && (
                     <ProfileDOBoxMain>
                       <ProfileDOBox>
-                        <StyledDatePicker
+                        <CustomDatePicker
                           value={moment(fromDate, 'YYYY-MM-DD')}
-                          onChange={(e) => handleFromDateChange(e as Moment)}
-                          format="YYYY-MM-DD"
                           maxDate={toDate!}
+                          keyName="from"
+                          handleDateChange={handleDateChange}
                         />
                       </ProfileDOBox>
                       <ProfileDOBox>
-                        <StyledDatePicker
+                        <CustomDatePicker
                           value={moment(toDate, 'YYYY-MM-DD')}
-                          onChange={(e) => handleToDateChange(e as Moment)}
-                          format="YYYY-MM-DD"
                           minDate={fromDate!}
+                          keyName="to"
+                          handleDateChange={handleDateChange}
                         />
                       </ProfileDOBox>
                     </ProfileDOBoxMain>

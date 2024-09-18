@@ -152,7 +152,7 @@ export const SwitchText = styled(Box)(({ theme }) => ({
   justifyItems: 'center',
   alignItems: 'center',
   flexDirection: 'column',
-  gap: theme.spacing(1)
+  gap: theme.spacing(2)
 }));
 
 export const StartView = styled(Box)(({ theme }) => ({

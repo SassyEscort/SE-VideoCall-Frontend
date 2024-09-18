@@ -55,3 +55,8 @@ export enum DOCUMENT_UPLOAD_FILE_TYPE {
   IMAGE = 'Image',
   NON_IMAGE = 'Non_Image'
 }
+
+export enum ROLE {
+  MODEL = 'model',
+  CUSTOMER = 'customer'
+}

@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box';
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { getLoggedInUser } from 'utils/getSessionData';
 import RedirectGuard from 'utils/route-guard/RedirectGuard';
 import Footer from 'views/guestViews/guestLayout/footer';
@@ -22,9 +23,9 @@ export default async function Layout({ children }: { children: React.ReactNode }
   const authUser: AuthUser | null = await getLoggedInUser();
 
   let HeaderComponent;
-  if (authUser?.user?.provider === 'providerGuest') {
+  if (authUser?.user?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM) {
     HeaderComponent = <Header variant="worker" />;
-  } else if (authUser?.user?.provider === 'providerModel') {
+  } else if (authUser?.user?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM) {
     HeaderComponent = <Header variant="dashboard" />;
   } else {
     HeaderComponent = <HeaderGuestComponent />;

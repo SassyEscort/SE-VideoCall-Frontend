@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { GuardProps } from 'types/auth';
 import { useRouter } from 'next/navigation';
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 
 const RedirectGuard = ({ children }: GuardProps) => {
   const { data: session } = useSession();
@@ -13,8 +14,15 @@ const RedirectGuard = ({ children }: GuardProps) => {
     const fetchData = async () => {
       const res: any = await fetch('/api/auth/protected');
       const json = await res?.json();
-      if (json?.user?.provider === 'providerModel' && window?.location?.pathname === '/') {
-        router.push('/model/dashboard');
+      let picture;
+      if (json?.user?.picture) {
+        try {
+          picture = JSON.parse(json.user.picture);
+        } catch (error) {}
+      }
+      const role = picture?.role;
+      if (json?.user?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM && role === 'model' && window?.location?.pathname === '/') {
+        router.push('/model/profile');
       }
     };
     fetchData();

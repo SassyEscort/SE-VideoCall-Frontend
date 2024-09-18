@@ -28,7 +28,9 @@ export const DialogTitleBox = styled(DialogTitle)(({ theme }) => ({
   paddingLeft: theme.spacing(3),
   paddingRight: theme.spacing(3),
   [theme.breakpoints.down('sm')]: {
-    paddingLeftL: theme.spacing(1.875)
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingTop: 0
   }
 }));
 

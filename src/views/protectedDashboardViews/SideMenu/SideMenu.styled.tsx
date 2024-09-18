@@ -81,7 +81,7 @@ export const SiderBarSecondTextBox = styled(Box)(({ theme }) => ({
   maxWidth: '104px',
   heightL: '100%',
   maxHeight: '52px',
-  gap: theme.spacing(2)
+  gap: theme.spacing(1)
 }));
 
 export const SwitchBox = styled(Switch)(({ theme }) => ({
@@ -132,7 +132,7 @@ export const SwitchBox = styled(Switch)(({ theme }) => ({
 export const SwicthText = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(1.5)
+  gap: theme.spacing(2)
 }));
 
 export const StartView = styled(Box)(({ theme }) => ({

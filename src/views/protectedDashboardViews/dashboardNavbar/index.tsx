@@ -44,11 +44,13 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
   const router = usePathname();
 
   const maindashboardTabIndex: { [key: string]: number } = {
-    dashboard: 1,
-    earnings: 2,
-    payouts: 3,
-    'help-info': 4,
-    'download-app': 5
+    'boost-profile': 1,
+    dashboard: 2,
+    earnings: 3,
+    payouts: 4,
+    'rating-and-review': 5,
+    'help-info': 6,
+    'download-app': 7
   };
 
   const modifiedPath = router.split('/model').join('').split('/').join('');
@@ -57,7 +59,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
-  const islgDown = useMediaQuery(theme.breakpoints.down('lg'));
+  const ismdDown = useMediaQuery('(max-width: 1024px)');
   const isMdFix = useMediaQuery('(min-width:900px) and (max-width:1024px)');
 
   const [value, setValue] = useState(0);
@@ -94,7 +96,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
 
   return (
     <>
-      {islgDown && (
+      {ismdDown && (
         <Availability
           modelDetails={modelDetails ?? ({} as ModelDetailsResponse)}
           token={token}
@@ -146,12 +148,21 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
                           height="auto"
                           src={tab?.img}
                           sx={{
-                            filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)'
+                            filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)',
+                            ...(tabIndex === 1 && { filter: 'none' })
                           }}
                         />
-                        <Box sx={{ color: 'primary.400' }}>
-                          <MobileTextStyleContainer label={intl.formatMessage({ id: tab.name })} />
-                        </Box>
+
+                        <MobileTextStyleContainer
+                          label={intl.formatMessage({ id: tab.name })}
+                          sx={{
+                            ...(tabIndex === 1 && {
+                              background: 'linear-gradient(90deg, #E25C5C 0%, #FF5A00 21.5%, #FF9A00 50.5%, #FFCE00 76.5%, #FFE808 100%)',
+                              WebkitBackgroundClip: 'text',
+                              WebkitTextFillColor: 'transparent'
+                            })
+                          }}
+                        />
                       </SelectedTab>
                     </Link>
                   </CommonMenuBox>
