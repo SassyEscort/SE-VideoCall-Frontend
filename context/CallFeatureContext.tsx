@@ -228,7 +228,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     isFavourite: number
   ) => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      const stream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true });
       if (stream) {
         setModelCreditPrice(modelPrice);
         setModelId(guestId);
