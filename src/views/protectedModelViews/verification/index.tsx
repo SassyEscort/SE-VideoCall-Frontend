@@ -107,7 +107,7 @@ const VerificationContainer = () => {
   };
 
   useEffect(() => {
-    if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.BASIC_DETAILS && modelDetails?.profile_status !== MODEL_ACTION.REJECT) {
+    if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.BASIC_DETAILS) {
       setActiveStep(0);
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.UPLOAD_DOCUMENTS) {
       setActiveStep(1);
@@ -122,8 +122,6 @@ const VerificationContainer = () => {
       modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED
     ) {
       router.push('/model/dashboard');
-    } else if (modelDetails?.profile_status === MODEL_ACTION.REJECT) {
-      router.push('/model/profile-reject');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modelDetails?.verification_step]);
