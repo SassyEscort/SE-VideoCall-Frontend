@@ -273,7 +273,7 @@ export const FirstTextContainer = styled(Typography)(({ theme }) => ({
     lineHeight: '16.8px'
   },
   [theme.breakpoints.up('sm')]: {
-    fontSize: '16px',
+    fontSize: '14px',
     fontWeight: 500,
     lineHeight: '19.2px'
   }

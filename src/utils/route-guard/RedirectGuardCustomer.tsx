@@ -6,7 +6,7 @@ import { GuardProps } from 'types/auth';
 import { useRouter } from 'next/navigation';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 
-const RedirectGuard = ({ children }: GuardProps) => {
+const RedirectGuardCustomer = ({ children }: GuardProps) => {
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -21,8 +21,8 @@ const RedirectGuard = ({ children }: GuardProps) => {
         } catch (error) {}
       }
       const role = picture?.role;
-      if (json?.user?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM && role === 'model' && window?.location?.pathname === '/') {
-        router.push('/model/profile');
+      if (json?.user?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM && role === 'customer' && window?.location?.pathname === '/model') {
+        router.push('/');
       }
     };
     fetchData();
@@ -32,4 +32,4 @@ const RedirectGuard = ({ children }: GuardProps) => {
   return <>{children}</>;
 };
 
-export default RedirectGuard;
+export default RedirectGuardCustomer;

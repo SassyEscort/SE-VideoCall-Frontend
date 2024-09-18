@@ -40,7 +40,7 @@ const Earnings = ({ fromDate, toDate }: { fromDate: Moment | null; toDate: Momen
     if (token.token) {
       modelDetails();
     }
-  }, [fromDate, toDate]);
+  }, [fromDate, toDate, token.token]);
 
   const options: ApexOptions = {
     series: chartData,

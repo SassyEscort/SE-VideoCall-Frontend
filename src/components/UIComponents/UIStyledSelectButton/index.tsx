@@ -40,6 +40,10 @@ export const UIStyledSelectButton = styled(Button, {
   '@media (max-width: 393px)': {
     width: '100%',
     maxWidth: '176px'
+  },
+  '@media (max-width: 768px)': {
+    width: '100%',
+    maxWidth: '190px'
   }
 }));
 

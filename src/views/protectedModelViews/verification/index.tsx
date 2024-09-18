@@ -20,6 +20,7 @@ import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 import { useRouter } from 'next/navigation';
 import DashboardPriceView from 'views/protectedDashboardViews/dashboardPriceView';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { MODEL_ACTION } from 'constants/profileConstants';
 
 const VERIFICATION_STEPS = ['Basic Details', 'Documents', 'Photos', 'Price', 'Review'];
 
@@ -115,9 +116,9 @@ const VerificationContainer = () => {
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ADD_PRICE) {
       setActiveStep(3);
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED) {
-      setActiveStep(4);
+      modelDetails.profile_status === MODEL_ACTION.APPROVE ? router.push('/model/dashboard') : setActiveStep(4);
     } else if (
-      modelDetails?.verification_step === MODEL_ACTIVE_STEP.IN_REVIEW ||
+      (modelDetails?.verification_step === MODEL_ACTIVE_STEP.IN_REVIEW && modelDetails.profile_status === MODEL_ACTION.APPROVE) ||
       modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED
     ) {
       router.push('/model/dashboard');

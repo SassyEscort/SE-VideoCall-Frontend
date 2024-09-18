@@ -8,11 +8,11 @@ import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RiEyeLine, RiEyeOffLine, RiUserFillLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import AuthCommon from '../AuthCommon';
 import { LoginUserParams } from 'services/guestAuth/types';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import getCustomErrorMessage from 'utils/error.utils';
 import { useRouter } from 'next/navigation';
 import InfoIcon from '@mui/icons-material/Info';
@@ -24,6 +24,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { EMAIL_REGEX } from 'constants/regexConstants';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import HomePageFreeSignup from '../homePageFreeSignup';
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 
 export type LoginParams = {
   email: string;
@@ -54,9 +55,11 @@ const GuestLogin = ({
   const intl = useIntl();
 
   const route = useRouter();
-  const { refresh } = route;
+  const { refresh, push } = route;
+  const { data: session } = useSession();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [showPassword, setShowPassword] = useState(false);
+  const [isRejected, setIsRejected] = useState(false);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState('');
 
@@ -66,10 +69,20 @@ const GuestLogin = ({
   });
   const handleFormSubmit = async (values: LoginUserParams) => {
     try {
+      const Role = values.role;
       setLoading(true);
-      const res = await signIn('providerGuest', { redirect: false, email: values.email, password: values.password });
+      const res = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+        role: values.role
+      });
       if (res?.status === 200) {
-        refresh();
+        if (Role === 'model') {
+          push('/model/profile');
+        } else {
+          refresh();
+        }
         onClose();
       } else if (res?.error) {
         const errorMessage = res.error === 'CredentialsSignin' ? 'InvalidEmail' : 'SomethingWent';
@@ -82,12 +95,26 @@ const GuestLogin = ({
     }
   };
 
+  useEffect(() => {
+    if (session && session.user) {
+      const parsedPicture = JSON.parse((session?.user as any)?.picture);
+      setIsRejected(parsedPicture.profile_status === 'Rejected');
+    }
+  }, [session, session?.user]);
+
+  useEffect(() => {
+    if (isRejected) {
+      window.location.href = '/model/profile-reject';
+    }
+  }, [isRejected]);
+
   return (
     <>
       <Formik
         initialValues={{
           email: '',
-          password: ''
+          password: '',
+          role: ''
         }}
         validationSchema={validationSchema}
         onSubmit={(values: LoginUserParams) => handleFormSubmit(values)}
@@ -192,6 +219,7 @@ const GuestLogin = ({
                           }}
                         />
                       </ModelUITextConatiner>
+
                       <MenuItem
                         sx={{
                           display: 'flex',

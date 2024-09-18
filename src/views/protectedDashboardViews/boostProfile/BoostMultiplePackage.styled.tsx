@@ -30,13 +30,21 @@ export const MainImagContainer = styled(Box)<MainImagContainerProps>(({ theme, s
   border: '1px solid',
   borderColor: theme.palette.secondary[900],
   width: '100%',
-  minWidth: '305px',
   background: `linear-gradient(rgba(7, 3, 14, 0.56), rgba(7, 3, 14, 0.56)), url(${src})`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   minHeight: '325px',
   '@media (max-width: 320px)': {
     minWidth: '290px'
+  },
+  '& .mui-1dcp0mw-MuiGrid-root>.MuiGrid-item': {
+    padding: 0
+  },
+  [theme.breakpoints.down('sm')]: {
+    minWidth: '300px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    minWidth: '305px'
   }
 }));
 
@@ -108,6 +116,7 @@ export const HighlyAvailableButtonBoxBoost = styled(Box)(({ theme }) => ({
 
 export const HighlyAvailableBoxBoost = styled(Box)(({ theme }) => ({
   display: 'flex',
+  zIndex: 1,
   justifyContent: 'space-between',
   [theme.breakpoints.down('md')]: {
     justifyContent: 'center'

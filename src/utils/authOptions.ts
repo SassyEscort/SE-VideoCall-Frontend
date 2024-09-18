@@ -1,3 +1,4 @@
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession, type NextAuthOptions, type User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -9,38 +10,47 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET_KEY,
   providers: [
     CredentialsProvider({
-      id: 'providerGuest',
-      name: 'providerGuest',
+      id: PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM,
+      name: PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM,
       credentials: {
         email: { name: 'email', label: 'Email', type: 'text', placeholder: 'Enter Email' },
-        password: { name: 'password', label: 'Password', type: 'password', placeholder: 'Enter Password' }
+        password: { name: 'password', label: 'Password', type: 'password', placeholder: 'Enter Password' },
+        role: { name: 'role', label: 'Role', type: 'text', placeholder: 'Enter Role' }
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         try {
+          const currentPage = req?.headers?.referer || '';
+
           const user = await authServices.loginUser({
             email: credentials?.email ?? '',
-            password: credentials?.password ?? ''
+            password: credentials?.password ?? '',
+            role: credentials?.role ?? ''
           });
 
           if (user && typeof user !== 'string' && user.data) {
-            user.data.accessToken = user.data.token;
+            if (user.data?.role === 'customer' && currentPage.includes('/model')) {
+              throw new Error('CustomersCannotAccess');
+            } else {
+              user.data.accessToken = user.data.token;
 
-            return {
-              id: user.data.customer_id.toString(),
-              name: user.data.customer_name,
-              email: user.data.customer_email,
-              image: JSON.stringify(user.data),
-              userName: user.data.customer_user_name,
-              role: 'Guest'
-            } as User;
+              return {
+                id: user.data.customer_id?.toString() || user.data.id.toString(),
+                name: user.data.customer_name || user.data.name,
+                email: user.data.customer_email || user.data.email,
+                image: JSON.stringify(user.data),
+                userName: user.data.customer_user_name || user.data.user_name,
+                role: user.data.role || 'Model'
+              } as User;
+            }
           }
           return null;
         } catch (e: any) {
-          const errorMessage = e?.response.data.message;
+          const errorMessage = e?.response?.data?.message || e;
           throw new Error(errorMessage);
         }
       }
     }),
+
     CredentialsProvider({
       id: 'providerModel',
       name: 'providerModel',
@@ -64,7 +74,8 @@ export const authOptions: NextAuthOptions = {
               email: user.data.email,
               image: JSON.stringify(user.data),
               userName: user.data.user_name,
-              role: 'Model'
+              role: 'Model',
+              isSignIn: true
             } as User;
           }
           return null;

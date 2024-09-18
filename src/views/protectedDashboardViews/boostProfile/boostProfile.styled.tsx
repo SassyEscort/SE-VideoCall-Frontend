@@ -1,5 +1,6 @@
 import { Box, Dialog, Divider, styled } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import Image from 'next/image';
 
 export const BoostProfileMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -143,7 +144,7 @@ export const MainChildContainerBoost = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   textAlign: 'center',
   flexDirection: 'row',
-  marginTop: theme.spacing(7),
+  marginTop: theme.spacing(4),
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
     marginTop: theme.spacing(4)
@@ -210,24 +211,25 @@ export const BoxImageBackgroundChildBoost = styled(Box)(({ theme }) => ({
 }));
 
 export const FirstTextBoostTyporaphy = styled(UINewTypography)(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
-    marginTop: theme.spacing(2)
-  },
-  [theme.breakpoints.up('sm')]: {
-    marginTop: theme.spacing(2.75)
-  },
+  marginTop: theme.spacing(3),
   textAlign: 'left',
   width: '100%'
 }));
 
-export const SeconBoxContainerBoost = styled(Box)(() => ({
+export const SeconBoxContainerBoost = styled(Box)(({ theme }) => ({
   width: '100%',
-  maxWidth: '314px'
+  maxWidth: '314px',
+  marginTop: theme.spacing(1.5)
 }));
 
 export const SecondBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  marginTop: theme.spacing(7.75)
+  [theme.breakpoints.down('sm')]: {
+    marginTop: theme.spacing(6)
+  },
+  [theme.breakpoints.up('sm')]: {
+    marginTop: theme.spacing(7)
+  }
 }));
 
 export const MainBoostButtonBox = styled(Box)(({ theme }) => ({
@@ -235,13 +237,15 @@ export const MainBoostButtonBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   paddingLeft: theme.spacing(3),
-  marginBlock: theme.spacing(4)
+  marginTop: theme.spacing(4),
+  marginBottom: theme.spacing(0.6)
 }));
 
 export const SecondBoostButtonBox = styled(Box)(() => ({
   width: '100%',
   maxWidth: '193px',
-  position: 'relative'
+  position: 'relative',
+  zIndex: 1
 }));
 
 export const PaidFireImageBox = styled(Box)(({ theme }) => ({
@@ -307,12 +311,15 @@ export const BoostMultipleBox = styled(Box)(({ theme }) => ({
 }));
 
 export const BoostMultipleFreeBox = styled(Box)(({ theme }) => ({
-  marginTop: theme.spacing(7),
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
   [theme.breakpoints.down('sm')]: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: theme.spacing(6)
+  },
+  [theme.breakpoints.up('sm')]: {
+    marginTop: theme.spacing(7)
   }
 }));
 
@@ -344,5 +351,37 @@ export const BoostMainBox = styled(Box)(({ theme }) => ({
 
 export const BoostMainBoxAgree = styled(Box)(() => ({
   display: 'flex',
-  alignItems: 'flex-start'
+  alignItems: 'center'
+}));
+
+export const PaidProfileInnerBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(4),
+  alignItems: 'center'
+}));
+
+export const FireIcon = styled(Image)(({ theme }) => ({
+  zIndex: 10,
+  left: '-50px',
+  position: 'absolute',
+  top: '-22px'
+}));
+
+export const BoostInnerTextContainer = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 400,
+  lineHeight: '24px'
+}));
+
+export const ProfileBoostTextContainer = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '24px',
+  fontWeight: 700,
+  lineHeight: '30px'
+}));
+
+export const FreeBoostModelHeaderTextContainer = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '20px',
+  fontWeight: 700,
+  lineHeight: '28px'
 }));

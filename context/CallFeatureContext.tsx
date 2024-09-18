@@ -25,6 +25,7 @@ import VideoCallEnded from 'views/protectedViews/videoCalling/VideoCallEnded';
 import { useIntl } from 'react-intl';
 import moment from 'moment';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
+import { ROLE } from 'constants/workerVerification';
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
@@ -57,7 +58,7 @@ interface CallFeatureContextProps {
   handleCallEnd: () => void;
   isModelAvailable: number;
   handleModelOfflineClose: () => void;
-  customerUser: string | undefined;
+  user: string | undefined;
   isUnanswered: boolean;
   isFavouriteModel: number;
   handelIsFavouriteModelChange: (val: number) => void;
@@ -85,7 +86,7 @@ const CallContext = createContext<CallFeatureContextProps>({
   handleCallEnd: () => {},
   isModelAvailable: 0,
   handleModelOfflineClose: () => {},
-  customerUser: '',
+  user: '',
   isUnanswered: false,
   isFavouriteModel: 0,
   handelIsFavouriteModelChange: (val: number) => {}
@@ -94,12 +95,12 @@ const CallContext = createContext<CallFeatureContextProps>({
 export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const tokenCometChat = useSession();
   const intl = useIntl();
-  const customerUser = (tokenCometChat?.data?.user as User)?.picture;
-  const customerUsername = customerUser && JSON.parse(customerUser);
+  const user = (tokenCometChat?.data?.user as User)?.picture;
+  const userNameData = user && JSON.parse(user);
 
-  const customerData = JSON.parse(customerUser || '{}');
+  const providerData = JSON.parse(user || '{}');
 
-  const isCustomer = (tokenCometChat?.data?.user as User)?.provider === 'providerGuest';
+  const isCustomer = providerData?.role === ROLE.CUSTOMER;
 
   const searchParams = useSearchParams();
   const credit = searchParams.get('credit');
@@ -110,9 +111,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const userName = path.split('/')[2];
 
   const customerInfo = {
-    email: customerData?.customer_email,
-    name: customerData?.customer_name,
-    username: customerData?.customer_user_name,
+    email: providerData?.customer_email,
+    name: providerData?.customer_name,
+    username: providerData?.customer_user_name,
     model_username: userName
   };
 
@@ -170,19 +171,19 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       await CometChatUIKit.init(UIKitSettings);
       let user = await CometChatUIKit.getLoggedinUser();
 
-      if (!user && customerUsername && isCustomer) {
-        user = await CometChatUIKit.login(customerUsername?.customer_user_name);
+      if (!user && userNameData && isCustomer) {
+        user = await CometChatUIKit.login(userNameData?.customer_user_name);
       }
 
       CometChatUIKit.getLoggedinUser().then((user) => {
-        if (!user && customerUsername && isCustomer) {
-          CometChatUIKit.login(customerUsername?.customer_user_name);
+        if (!user && userNameData && isCustomer) {
+          CometChatUIKit.login(userNameData?.customer_user_name);
         }
       });
     } catch (e) {
       toast.error(ErrorMessage);
     }
-  }, [customerUsername, isCustomer]);
+  }, [userNameData, isCustomer]);
 
   const handelNameChange = () => {
     setIsNameChange(!isNameChange);
@@ -287,9 +288,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           await CallingService.missedCallStatus(missedParams, token.token);
         } else {
           const creditInfoEvent = {
-            email: customerData?.customer_email,
-            name: customerData?.customer_name,
-            username: customerData?.customer_user_name,
+            email: providerData?.customer_email,
+            name: providerData?.customer_name,
+            username: providerData?.customer_user_name,
             model_username: userName,
             is_credit_over: false,
             source: 'Video calling model'
@@ -304,7 +305,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         }
       }
     } catch (error) {
-      toast.error('Permission for audio and video is required to initiate a call.');
+      toast.error(intl.formatMessage({ id: 'PermissionForAudioAndVideo' }));
     }
   };
 
@@ -352,9 +353,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         setReviewOpen(true);
         if (isCustomer && creditLogData.out_of_credits) {
           const creditInfoEvent = {
-            email: customerData?.customer_email,
-            name: customerData?.customer_name,
-            username: customerData?.customer_user_name,
+            email: providerData?.customer_email,
+            name: providerData?.customer_name,
+            username: providerData?.customer_user_name,
             model_username: userName,
             is_credit_over: true,
             is_new_purchase: false,
@@ -590,7 +591,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         handleCallEnd,
         isModelAvailable,
         handleModelOfflineClose,
-        customerUser,
+        user,
         isUnanswered,
         isFavouriteModel,
         handelIsFavouriteModelChange

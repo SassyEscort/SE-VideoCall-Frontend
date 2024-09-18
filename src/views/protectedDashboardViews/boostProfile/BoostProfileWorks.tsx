@@ -1,5 +1,4 @@
 import { Box, useMediaQuery } from '@mui/material';
-import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import theme from 'themes/theme';
 import {
@@ -16,7 +15,9 @@ import {
   UINewTypographyCondition,
   PackageFreeTypography,
   MainBoostButtonBoxContainer,
-  UINewTypographyPackage
+  UINewTypographyPackage,
+  BoostInnerTextContainer,
+  ProfileBoostTextContainer
 } from './boostProfile.styled';
 import Image from 'next/image';
 import { BoostProfileWorksBox } from './BoostMultiplePackage.styled';
@@ -33,7 +34,6 @@ const BoostProfileWorks = ({
   isFreeBoostUsed: number;
 }) => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <>
@@ -54,7 +54,7 @@ const BoostProfileWorks = ({
                       alt="home_model"
                       width={24}
                       height={24}
-                      src="/images/boostProfile/instant.png"
+                      src="/images/boostProfile/Instant.png"
                       style={{ width: isSmDown ? 20 : 24, height: isSmDown ? 20 : 24 }}
                     />
                   </BoxImageBackgroundChildBoost>
@@ -63,16 +63,10 @@ const BoostProfileWorks = ({
                   <FormattedMessage id="InstantVisibility" />
                 </FirstTextBoostTyporaphy>
 
-                <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
-                  <UINewTypography
-                    variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                    sx={{
-                      width: '100%',
-                      maxWidth: '215px'
-                    }}
-                  >
+                <SeconBoxContainerBoost>
+                  <BoostInnerTextContainer>
                     <FormattedMessage id="ActivateTheBoost" />
-                  </UINewTypography>
+                  </BoostInnerTextContainer>
                 </SeconBoxContainerBoost>
               </BoxMainBoost>
             </MainBoxBorder>
@@ -93,15 +87,10 @@ const BoostProfileWorks = ({
                 <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
                   <FormattedMessage id="Duration2" />
                 </FirstTextBoostTyporaphy>
-                <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
-                  <UINewTypography
-                    variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                    sx={{
-                      width: '100%'
-                    }}
-                  >
+                <SeconBoxContainerBoost>
+                  <BoostInnerTextContainer>
                     <FormattedMessage id="EachBoostlLsts" />
-                  </UINewTypography>
+                  </BoostInnerTextContainer>
                 </SeconBoxContainerBoost>
               </BoxMainBoost>
             </MainBoxBorder>
@@ -122,15 +111,10 @@ const BoostProfileWorks = ({
                 <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
                   <FormattedMessage id="CostEffective" />
                 </FirstTextBoostTyporaphy>
-                <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
-                  <UINewTypography
-                    variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                    sx={{
-                      width: '100%'
-                    }}
-                  >
+                <SeconBoxContainerBoost>
+                  <BoostInnerTextContainer>
                     <FormattedMessage id="ItsAnAffordable" />
-                  </UINewTypography>
+                  </BoostInnerTextContainer>
                 </SeconBoxContainerBoost>
               </BoxMainBoost>
             </MainBoxBorder>
@@ -138,9 +122,9 @@ const BoostProfileWorks = ({
 
           <Box>
             <SecondBoxContainer>
-              <UINewTypographyPackage>
+              <ProfileBoostTextContainer color="text.primary">
                 <FormattedMessage id="WhyUseProfileBoost" />
-              </UINewTypographyPackage>
+              </ProfileBoostTextContainer>
             </SecondBoxContainer>
 
             <MainChildContainerBoost>
@@ -160,16 +144,10 @@ const BoostProfileWorks = ({
                   <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
                     <FormattedMessage id="IncreasedExposure" />
                   </FirstTextBoostTyporaphy>
-                  <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
-                    <UINewTypography
-                      variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                      sx={{
-                        width: '100%',
-                        maxWidth: '215px'
-                      }}
-                    >
+                  <SeconBoxContainerBoost>
+                    <BoostInnerTextContainer>
                       <FormattedMessage id="BeTheFirstProfile" />
-                    </UINewTypography>
+                    </BoostInnerTextContainer>
                   </SeconBoxContainerBoost>
                 </BoxMainBoost>
               </MainBoxBorder>
@@ -190,15 +168,10 @@ const BoostProfileWorks = ({
                   <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
                     <FormattedMessage id="MoreEngagements" />
                   </FirstTextBoostTyporaphy>
-                  <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
-                    <UINewTypography
-                      variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                      sx={{
-                        width: '100%'
-                      }}
-                    >
+                  <SeconBoxContainerBoost>
+                    <BoostInnerTextContainer>
                       <FormattedMessage id="HigherVisibility" />
-                    </UINewTypography>
+                    </BoostInnerTextContainer>
                   </SeconBoxContainerBoost>
                 </BoxMainBoost>
               </MainBoxBorder>
@@ -219,21 +192,16 @@ const BoostProfileWorks = ({
                   <FirstTextBoostTyporaphy variant={isSmDown ? 'body' : 'body'} color={'#E9E8EB'}>
                     <FormattedMessage id="Flexibility" />
                   </FirstTextBoostTyporaphy>
-                  <SeconBoxContainerBoost sx={{ mt: isSmDown ? 1.75 : 2 }}>
-                    <UINewTypography
-                      variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                      sx={{
-                        width: '100%'
-                      }}
-                    >
+                  <SeconBoxContainerBoost>
+                    <BoostInnerTextContainer>
                       <FormattedMessage id="UseWhenIt" />
-                    </UINewTypography>
+                    </BoostInnerTextContainer>
                   </SeconBoxContainerBoost>
                 </BoxMainBoost>
               </MainBoxBorder>
             </MainChildContainerBoost>
           </Box>
-          {isMdDown && !Boolean(isFreeBoostUsed) && (
+          {isSmDown && !Boolean(isFreeBoostUsed) && (
             <BoostMultipleFreeBox>
               <PackageFreeTypography>
                 <FormattedMessage id="1FreeBoostAvailable" />
@@ -257,7 +225,7 @@ const BoostProfileWorks = ({
             </BoostMultipleFreeBox>
           )}
         </Box>
-        {!isMdDown && !Boolean(isFreeBoostUsed) && (
+        {!isSmDown && !Boolean(isFreeBoostUsed) && (
           <BoostMultipleFreeBox>
             <PackageFreeTypography>
               <FormattedMessage id="1FreeBoostAvailable" />
