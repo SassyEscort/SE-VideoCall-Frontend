@@ -108,7 +108,7 @@ const CallHistoryRatingModel = ({ open, onClose, callLogId }: { open: boolean; o
               {!isRatingSubmitted && (
                 <>
                   <FiveBoxContent>
-                    <UINewTypography variant="bodyLight" color="text.primary">
+                    <UINewTypography variant="bodyLight" color="text.secondary">
                       <FormattedMessage id="RateYourVideoCall" />
                     </UINewTypography>
                     <StartRating value={rating || 0} handleStarClick={handleStarClick} isFromPopup={true} />
