@@ -8,11 +8,11 @@ import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RiEyeLine, RiEyeOffLine, RiUserFillLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import AuthCommon from '../AuthCommon';
 import { LoginUserParams } from 'services/guestAuth/types';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import getCustomErrorMessage from 'utils/error.utils';
 import { useRouter } from 'next/navigation';
 import InfoIcon from '@mui/icons-material/Info';
@@ -56,8 +56,10 @@ const GuestLogin = ({
 
   const route = useRouter();
   const { refresh, push } = route;
+  const { data: session } = useSession();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [showPassword, setShowPassword] = useState(false);
+  const [isRejected, setIsRejected] = useState(false);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState('');
 
@@ -92,6 +94,19 @@ const GuestLogin = ({
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (session && session.user) {
+      const parsedPicture = JSON.parse((session?.user as any)?.picture);
+      setIsRejected(parsedPicture.profile_status === 'Rejected');
+    }
+  }, [session, session?.user]);
+
+  useEffect(() => {
+    if (isRejected) {
+      window.location.href = '/model/profile-reject';
+    }
+  }, [isRejected]);
 
   return (
     <>
