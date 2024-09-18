@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const AuthCommonBox = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -50,4 +51,13 @@ export const DescriptionTextBox = styled(Box)(({ theme }) => ({
   maxWidth: '248px',
   display: 'flex',
   textAlign: 'center'
+}));
+
+export const TextMainBox = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '32px',
+  fontWeight: 700,
+  lineHeight: '44.8px',
+  background: 'linear-gradient(90deg, #FBA631, #FFFFFF)',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent'
 }));

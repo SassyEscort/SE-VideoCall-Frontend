@@ -19,17 +19,18 @@ import {
 } from './AuthHomePageFreeSignupCommon.styled';
 import Timer from './timer';
 import { FormattedMessage } from 'react-intl';
+import { ROLE } from 'constants/workerVerification';
 
 const AuthHomePageFreeSignupCommon = ({
   onClose,
-
   variant,
-  children
+  children,
+  role
 }: {
   onClose: () => void;
-
   variant?: string;
   children: ReactNode;
+  role: string;
 }) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
@@ -50,9 +51,9 @@ const AuthHomePageFreeSignupCommon = ({
         </IconButton>
       </AuthFreeCreditsMainBoxContainer>
 
-      <BackgroundImageBox>
-        <AuthImageBox />
-        {isSmUp && (
+      <BackgroundImageBox variant={role}>
+        <AuthImageBox variant={role} />
+        {isSmUp && role === ROLE.CUSTOMER && (
           <AuthFreeCreditsInnerBoxContainer>
             <Box component="img" src="/images/home/gitftsecond.png" width={170} height={210} />
             <TextMainBoxContainer>

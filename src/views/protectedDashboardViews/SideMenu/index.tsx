@@ -9,6 +9,7 @@ import {
   SiderBarSecondBox,
   SiderBarSecondTextBox,
   SiderBarThiredBox,
+  StartView,
   SwicthText,
   SwitchBox,
   TextViewStartBottom
@@ -19,6 +20,7 @@ import { PayoutService } from 'services/payout/payout.service';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { FormattedMessage } from 'react-intl';
+import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
 
 const SideMenu = ({
   modelDetails,
@@ -66,11 +68,17 @@ const SideMenu = ({
                 </Box>
 
                 <SwicthText>
-                  {/* <StartView>
+                  <StartView>
                     {[...Array(5)].map((_, index) => (
-                      <StarRateRoundedIcon key={index} htmlColor="#FFB800" sx={{ width: '16px', height: '16px' }} />
+                      <StarRateRoundedIcon
+                        key={index}
+                        htmlColor={
+                          index < (modelDetails?.model_ratings?.model_rating_info?.[0]?.average_rating || 0) ? '#FFB800' : '#FFFFFF17'
+                        }
+                        sx={{ width: '24px', height: '24px' }}
+                      />
                     ))}
-                  </StartView> */}
+                  </StartView>
                   <TextViewStartBottom>
                     <SwitchBox onClick={handleAvailability} checked={Boolean(modelDetails.is_online)} />
 

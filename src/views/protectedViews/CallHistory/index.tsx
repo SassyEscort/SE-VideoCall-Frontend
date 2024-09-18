@@ -1,5 +1,5 @@
 'use client';
-import { CircularProgress, Divider } from '@mui/material';
+import { CircularProgress, Divider, useMediaQuery } from '@mui/material';
 import Box from '@mui/material/Box';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
@@ -16,6 +16,7 @@ import {
   FirstBoxContainer,
   FirstTextContainer,
   ImgBoxContainer,
+  RatingAndButtonBoxContainer,
   SecImgBoxContainer,
   SecTextContainer,
   SecondContainer,
@@ -46,6 +47,9 @@ import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { LoaderBox } from '../Credites/Credits.styled';
 import { UIStyledLoadingButtonShadowCallHistory } from 'components/UIComponents/StyleLoadingButtonshadow';
 import { useRouter } from 'next/navigation';
+import CallHistoryRatingModel from './CalllHistoryRatingModel';
+import StartRating from 'components/UIComponents/StartRating';
+import theme from 'themes/theme';
 
 export type CallHistoryPaginationType = {
   page: number;
@@ -60,6 +64,11 @@ const CallHistory = () => {
   const [total_rows, setTotalRows] = useState(0);
   const [isLoadingCall, setIsLoading] = useState(false);
   const [isLoadingDetail, setIsLoadingDetails] = useState(false);
+  const [isShowRatingModel, setIsShowRatingModel] = useState(false);
+  const [logDetails, setCallLogDetails] = useState<CallHistoryDetails>({} as CallHistoryDetails);
+
+  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [filters, setFilters] = useState<CallHistoryPaginationType>({
     page: 1,
@@ -76,28 +85,27 @@ const CallHistory = () => {
     userToken();
   }, []);
 
-  useEffect(() => {
-    const fetchCallHistoryDetails = async () => {
-      try {
-        if (token.token) {
-          setIsLoading(true);
-          const objectParams = {
-            page: filters.page,
-            limit: filters.limit,
-            offset: filters.offset
-          };
-          const data = await CallHistoryService.getCallHistoryDetails(token.token, objectParams);
-          if (data) {
-            setCallHistoryData(data);
-            setTotalRows(data.data.aggregate.total_rows);
-            setIsLoading(false);
-          }
+  const fetchCallHistoryDetails = async () => {
+    try {
+      if (token.token) {
+        setIsLoading(true);
+        const objectParams = {
+          page: filters.page,
+          limit: filters.limit,
+          offset: filters.offset
+        };
+        const data = await CallHistoryService.getCallHistoryDetails(token.token, objectParams);
+        if (data) {
+          setCallHistoryData(data);
+          setTotalRows(data.data.aggregate.total_rows);
+          setIsLoading(false);
         }
-      } catch (error) {
-        toast.error(ErrorMessage);
       }
-    };
-
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
+  useEffect(() => {
     fetchCallHistoryDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters.limit, filters.offset, token.token]);
@@ -162,6 +170,19 @@ const CallHistory = () => {
     }
   };
 
+  const handleRatingModel = (list: CallHistoryDetails) => {
+    if (list.call_log_id) {
+      setCallLogDetails(list);
+      setIsShowRatingModel(true);
+    }
+  };
+
+  const handleRatingModelClose = () => {
+    setCallLogDetails({} as CallHistoryDetails);
+    setIsShowRatingModel(false);
+    fetchCallHistoryDetails();
+  };
+
   return (
     <MainLayoutNav variant={'worker'} enlargedFooter={true}>
       <CallHistoryBoxContainer>
@@ -182,6 +203,16 @@ const CallHistory = () => {
                   <SecondContainer key={index}>
                     <SecondSubContainer>
                       <SecondSubTextMainContainer>
+                        {isSmDown && (
+                          <CallHistoryBox>
+                            <FirstTextContainer color="secondary.700" sx={{ textWrap: 'nowrap' }}>
+                              {moment(list?.created_at).format('LT')},
+                            </FirstTextContainer>
+                            <FirstTextContainer color="secondary.700" sx={{ textWrap: 'nowrap' }}>
+                              {moment(list?.created_at).format('DD MMMM YYYY')}
+                            </FirstTextContainer>
+                          </CallHistoryBox>
+                        )}
                         <SecondSubFirstBox>
                           <SecondSubFirstPartBox>
                             <WorkerImg src={list?.link ? list?.link : ''} width={80} height={80} />
@@ -202,26 +233,38 @@ const CallHistory = () => {
                                   </SecTextContainer>
                                 </SecondSubFirstPartSecondBoxSecText>
                               </SecondSubFirstPartSecondBoxFirstText>
+                              {isSmUp && (
+                                <CallHistoryCreditBox>
+                                  <ImgBoxContainer src="/images/workercards/dollar-img.png" />
+                                  <UINewTypography variant="captionLargeBold" color="text.secondary">
+                                    {list.credits_per_minute} <FormattedMessage id="CreditsMin" />
+                                  </UINewTypography>
+                                </CallHistoryCreditBox>
+                              )}
+                            </SecondSubFirstPartSecondBox>
+                          </SecondSubFirstPartBox>
+                          <SecondSubFirstPartThiredBox marginRight={{ sm: '32px' }}>
+                            {isSmUp && (
+                              <CallHistoryBox>
+                                <FirstTextContainer color="secondary.700" sx={{ textWrap: 'nowrap' }}>
+                                  {moment(list?.created_at).format('LT')},
+                                </FirstTextContainer>
+                                <FirstTextContainer color="secondary.700" sx={{ textWrap: 'nowrap' }}>
+                                  {moment(list?.created_at).format('DD MMMM YYYY')}
+                                </FirstTextContainer>
+                              </CallHistoryBox>
+                            )}
+                            {isSmDown && (
                               <CallHistoryCreditBox>
                                 <ImgBoxContainer src="/images/workercards/dollar-img.png" />
                                 <UINewTypography variant="captionLargeBold" color="text.secondary">
                                   {list.credits_per_minute} <FormattedMessage id="CreditsMin" />
                                 </UINewTypography>
                               </CallHistoryCreditBox>
-                            </SecondSubFirstPartSecondBox>
-                          </SecondSubFirstPartBox>
-                          <SecondSubFirstPartThiredBox marginRight={{ sm: '32px' }}>
-                            <CallHistoryBox>
-                              <FirstTextContainer color="secondary.700" sx={{ textWrap: 'nowrap' }}>
-                                {moment(list?.created_at).format('LT')},
-                              </FirstTextContainer>
-                              <FirstTextContainer color="secondary.700" sx={{ textWrap: 'nowrap' }}>
-                                {moment(list?.created_at).format('DD MMMM YYYY')}
-                              </FirstTextContainer>
-                            </CallHistoryBox>
+                            )}
                             <FirstTextContainer color="text.primary" whiteSpace="nowrap">
                               <FormattedMessage id="Duration" />
-                              {list?.duration && formatDuration(list?.duration)}
+                              {(list?.duration && formatDuration(list?.duration)) || 0}
                             </FirstTextContainer>
                             <CreditUsedBox>
                               <FirstTextContainer color="text.primary" whiteSpace="nowrap">
@@ -235,24 +278,38 @@ const CallHistory = () => {
                           </SecondSubFirstPartThiredBox>
                         </SecondSubFirstBox>
 
-                        <CallAgainBox>
-                          <UIStyledLoadingButtonShadowCallHistory
-                            loading={isLoadingDetail}
-                            variant="contained"
-                            onClick={() => {
-                              handleVideoCall(list);
-                            }}
-                          >
-                            <Box sx={{ display: 'flex', gap: 1.25 }}>
-                              <SecImgBoxContainer src="/images/home-connect-instantly-img.png" />
-                              <Box sx={{ whiteSpace: 'nowrap' }}>
-                                <UINewTypography variant="bodySemiBold" color="white.main">
-                                  <FormattedMessage id="CallAgain" />
-                                </UINewTypography>
+                        <RatingAndButtonBoxContainer>
+                          <CallAgainBox>
+                            <UIStyledLoadingButtonShadowCallHistory
+                              loading={isLoadingDetail}
+                              variant="contained"
+                              onClick={() => {
+                                handleVideoCall(list);
+                              }}
+                            >
+                              <Box sx={{ display: 'flex', gap: 1.25 }}>
+                                <SecImgBoxContainer src="/images/home-connect-instantly-img.png" />
+                                <Box sx={{ whiteSpace: 'nowrap' }}>
+                                  <UINewTypography variant="bodySemiBold" color="white.main">
+                                    <FormattedMessage id="CallAgain" />
+                                  </UINewTypography>
+                                </Box>
                               </Box>
-                            </Box>
-                          </UIStyledLoadingButtonShadowCallHistory>
-                        </CallAgainBox>
+                            </UIStyledLoadingButtonShadowCallHistory>
+                          </CallAgainBox>
+                          {list?.rating ? (
+                            <StartRating value={list?.rating || 0} isReadOnly={true} />
+                          ) : (
+                            <UINewTypography
+                              variant="bodySemiBold"
+                              color="primary.400"
+                              onClick={() => handleRatingModel(list)}
+                              sx={{ cursor: 'pointer' }}
+                            >
+                              <FormattedMessage id="RateYourVideoCall" />
+                            </UINewTypography>
+                          )}
+                        </RatingAndButtonBoxContainer>
                       </SecondSubTextMainContainer>
                     </SecondSubContainer>
 
@@ -290,6 +347,7 @@ const CallHistory = () => {
           </CallHistoryPaginationContainer>
         )}
       </CallHistoryBoxContainer>
+      <CallHistoryRatingModel open={isShowRatingModel} onClose={handleRatingModelClose} callLogId={logDetails.call_log_id} />
     </MainLayoutNav>
   );
 };

@@ -41,6 +41,10 @@ export type VideoCallPrice = {
   price_per_minute_id: number;
 };
 
+export type ModelProfilePlans = {
+  free_plan_used: number;
+};
+
 export type ModelDetails = {
   id: number;
   name: string;
@@ -60,6 +64,7 @@ export type ModelDetails = {
   last_login: string;
   updated_at: string;
   profile_status: string;
+  model_profile_plans: ModelProfilePlans;
 };
 
 export interface ModelDetailsRes extends GenericRes {

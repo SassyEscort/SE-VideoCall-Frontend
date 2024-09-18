@@ -4,6 +4,7 @@ import PaymentsIcon from '@mui/icons-material/Payments';
 import PaidIcon from '@mui/icons-material/Paid';
 import PersonIcon from '@mui/icons-material/Person';
 import DuoIcon from '@mui/icons-material/Duo';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 
 export const getNavConfig = (id?: number) => {
   const navConfig = [
@@ -36,6 +37,11 @@ export const getNavConfig = (id?: number) => {
       title: 'Call Logs',
       path: '/admin/call-logs',
       icon: <DuoIcon />
+    },
+    {
+      title: 'Boost',
+      path: '/admin/boost',
+      icon: <LocalFireDepartmentIcon />
     }
   ];
 

@@ -84,10 +84,13 @@ const VerificationStepOne = ({
       .required('Bioisrequired')
       .min(50, 'Bioshouldbeatleast50characters')
       .max(1000, 'Bioshouldbeatmost1000characters')
-      .matches(/^(?!.*\b\d{4,}\b).*$/, 'BioShouldNotContainNumbers')
       .test('no-links', 'BioShouldNotContainLinks', (value) => {
-        const linkPattern = /https?:\/\/[^\s]+/;
+        const linkPattern = /\b(https?:\/\/|www\.)\S+|(\.co|\.in|\.com|\.net|\.us|\.ai|\.org|\.nl)\b/i;
         return !linkPattern.test(value || '');
+      })
+      .test('no-four-consecutive-digits', 'BioShouldNotContainNumbers', (value) => {
+        const consecutiveDigitsPattern = /\d{4,}/;
+        return !consecutiveDigitsPattern.test(value || '');
       })
   });
 

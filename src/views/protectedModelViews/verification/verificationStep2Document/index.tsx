@@ -25,6 +25,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import { useIntl } from 'react-intl';
 import { getErrorMessage } from 'utils/errorUtils';
+import { TextDetailsBoxContainer } from './verificationStep2Instructions.styled';
 
 export type VerificationPhotoWithoutFilter = {
   photoWithoutFilter: File | string;
@@ -264,9 +265,11 @@ const VerificationStepPromise = ({
                     <FormattedMessage id="PleaseUploadYourDocuments" />
                   </UINewTypography>
                 )}
-                <UINewTypography color="secondary.200">
-                  <FormattedMessage id="UploadID" />
-                </UINewTypography>
+                <TextDetailsBoxContainer>
+                  <UINewTypography color="secondary.200">
+                    <FormattedMessage id="UploadID" />
+                  </UINewTypography>
+                </TextDetailsBoxContainer>
               </Box>
             </Box>
             {docValues.idType !== DOCUMENT_UPLOAD_TYPE.PASSPORT ? (

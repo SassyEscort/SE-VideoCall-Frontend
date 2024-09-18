@@ -9,7 +9,7 @@ import { VideoAcceptType } from 'constants/workerVerification';
 import { RiUpload2Line } from 'components/common/customRemixIcons';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { VerificationFormStep5TypeV2 } from '../uploadImage';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 export type UploadFileControlType = {
   setValue: (
@@ -26,6 +26,7 @@ export type UploadFileControlType = {
 };
 
 const UploadGalleryPhotos = ({ setValue, name, accept, values, handleUploadPhotos, errors, touched }: UploadFileControlType) => {
+  const intl = useIntl();
   const fileNullError = errors.file5?.startsWith('file5');
   const [uploadedFiles, setUploadedFiles] = useState<VerificationFormStep5TypeV2>();
 
@@ -94,12 +95,12 @@ const UploadGalleryPhotos = ({ setValue, name, accept, values, handleUploadPhoto
 
         if (invalidFilesIndexes.length) {
           finalFiles = files.filter((file, index) => !invalidFilesIndexes.includes(index));
-          toast.warning('ValidFileType');
+          toast.warning(intl.formatMessage({ id: 'ValidFileType' }));
         }
         handleSelect(finalFiles);
       }
     },
-    [handleSelect, unhighlight, validateFile]
+    [handleSelect, intl, unhighlight, validateFile]
   );
 
   useEffect(() => {
@@ -168,7 +169,7 @@ const UploadGalleryPhotos = ({ setValue, name, accept, values, handleUploadPhoto
         </DragAndDropImageNoImageBox>
       </DragAndDropImageMainContainer>
       {errors && touched.file5 && errors.file5 && (
-        <UINewTypography variant="bodySmall" color={'error.main'}>
+        <UINewTypography variant="bodySmall" color={'error.main'} className="Mui-error">
           {fileNullError ? <FormattedMessage id="PleaseUpload" /> : errors.file5}
         </UINewTypography>
       )}

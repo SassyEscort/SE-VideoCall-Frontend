@@ -9,11 +9,12 @@ import {
 import {
   HeartBoxContainer,
   ImgBoxContainer,
+  ImgMainBox,
   SecondBoxContainer,
   TextContainer,
   VideoCallingCardMainContainer
 } from './videoCallingCard.styled';
-import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 
 const VideoCalling = ({
@@ -25,14 +26,24 @@ const VideoCalling = ({
   showAnother: Boolean;
   isModelAvailable: number;
 }) => {
-  const { modelName, modelPhoto } = useCallFeatureContext();
+  const { modelName, modelPhoto, isFavouriteModel, handelIsFavouriteModelChange } = useCallFeatureContext();
+
+  const handleClickFaviourite = () => {
+    handelIsFavouriteModelChange(1);
+  };
 
   return (
     <VideoCallingCardMainContainer>
-      <ImgBoxContainer src={modelPhoto} />
+      <ImgMainBox>
+        <ImgBoxContainer src={modelPhoto} />
+      </ImgMainBox>
       {showHeart && (
         <HeartBoxContainer>
-          <FavoriteBorderRoundedIcon />
+          {Boolean(isFavouriteModel) ? (
+            <FavoriteRoundedIcon sx={{ color: 'error.main' }} />
+          ) : (
+            <FavoriteRoundedIcon onClick={handleClickFaviourite} />
+          )}
         </HeartBoxContainer>
       )}
       <SecondBoxContainer>
