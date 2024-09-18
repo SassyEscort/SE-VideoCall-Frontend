@@ -830,5 +830,7 @@
   "SignupAs": "Regístrate como",
   "Roleisrequired": "El rol es obligatorio",
   "Customer": "Cliente",
-  "Model": "Modelo"
+  "Model": "Modelo",
+  "CustomersCannotAccess": "Los clientes no pueden acceder a la página de modelos.",
+  "PermissionForAudioAndVideo": "Se requiere permiso para audio y video para iniciar una llamada."
 }

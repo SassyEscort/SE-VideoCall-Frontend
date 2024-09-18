@@ -304,7 +304,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         }
       }
     } catch (error) {
-      toast.error('Permission for audio and video is required to initiate a call.');
+      toast.error('PermissionForAudioAndVideo');
     }
   };
 

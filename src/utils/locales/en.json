@@ -832,5 +832,7 @@
   "Model": "Model",
   "YouHaven’tReceivedAnyRatin": "You haven’t received any rating or reviews yet.",
   "starReviewsYet": "star reviews yet! Please adjust the filter and check out other ratings",
-  "Rating": "Rating"
+  "Rating": "Rating",
+  "CustomersCannotAccess": "Customers cannot access the model page.",
+  "PermissionForAudioAndVideo": "Permission for audio and video is required to initiate a call."
 }
