@@ -65,7 +65,7 @@ export const EscortSlider = ({
   guestData: ModelDetailsResponse;
   isFreeCreditAvailable: number;
 }) => {
-  const { customerUser } = useCallFeatureContext();
+  const { user } = useCallFeatureContext();
   const path = usePathname();
   const userName = path.split('/')[2];
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
@@ -78,7 +78,7 @@ export const EscortSlider = ({
   const swiperRef = useRef<SwiperRef | any>();
 
   const sortedWorkerPhotos = workerPhotos.sort(sortExistingPhotos);
-  const customerData = JSON.parse(customerUser || '{}');
+  const customerData = JSON.parse(user || '{}');
 
   const customerInfo = {
     email: encodeURIComponent(customerData?.customer_email ?? ''),

@@ -54,7 +54,7 @@ const EscortSliderMobile = ({
   guestData: ModelDetailsResponse;
   isFreeCreditAvailable: number;
 }) => {
-  const { customerUser } = useCallFeatureContext();
+  const { user } = useCallFeatureContext();
   const isLg = useMediaQuery(theme.breakpoints.up('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const [liked, setLiked] = useState(false);
@@ -69,7 +69,7 @@ const EscortSliderMobile = ({
 
   const path = usePathname();
   const userName = path.split('/')[2];
-  const customerData = JSON.parse(customerUser || '{}');
+  const customerData = JSON.parse(user || '{}');
 
   const customerInfo = {
     email: encodeURIComponent(customerData?.customer_email ?? ''),

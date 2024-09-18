@@ -50,12 +50,12 @@ const ModelCredits = ({
   const [balance, setBalance] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const { customerUser } = useCallFeatureContext();
+  const { user } = useCallFeatureContext();
 
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const customerData = JSON.parse(customerUser || '{}');
+  const customerData = JSON.parse(user || '{}');
 
   useEffect(() => {
     const userToken = async () => {
