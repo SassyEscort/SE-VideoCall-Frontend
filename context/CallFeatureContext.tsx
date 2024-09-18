@@ -25,6 +25,7 @@ import VideoCallEnded from 'views/protectedViews/videoCalling/VideoCallEnded';
 import { useIntl } from 'react-intl';
 import moment from 'moment';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
+import { ROLE } from 'constants/workerVerification';
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;
@@ -99,7 +100,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
 
   const providerData = JSON.parse(user || '{}');
 
-  const isCustomer = providerData?.role === 'customer';
+  const isCustomer = providerData?.role === ROLE.CUSTOMER;
 
   const searchParams = useSearchParams();
   const credit = searchParams.get('credit');
