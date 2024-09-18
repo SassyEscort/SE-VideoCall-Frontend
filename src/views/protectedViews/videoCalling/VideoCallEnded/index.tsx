@@ -194,7 +194,7 @@ const VideoCallEnded = ({
                 {!isRatingSubmitted && (
                   <>
                     <FiveBoxContent>
-                      <UINewTypography variant="bodyLight" color="text.primary">
+                      <UINewTypography variant="bodyLight" color="text.secondary">
                         <FormattedMessage id="RateYourVideoCall" />
                       </UINewTypography>
                       <Box>
