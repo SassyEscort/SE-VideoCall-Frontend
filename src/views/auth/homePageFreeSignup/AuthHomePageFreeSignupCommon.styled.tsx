@@ -40,7 +40,7 @@ export const AuthImageMobileBox = styled(Box)(({ theme }) => ({
 export const AuthImageBox = styled(Box)<BackgroundImageBoxProps>(({ theme, variant }) => ({
   width: '100%',
   maxWidth: '420px',
-  backgroundSize: variant === ROLE.MODEL ? '' : 'calc(100% - 320px) 100%, cover',
+  backgroundSize: variant === ROLE.MODEL ? 'calc(100%) 100%, cover' : 'calc(100% - 320px) 100%, cover',
   backgroundImage: variant === ROLE.MODEL ? 'url(/images/model/model-signup/model-signup.webp)' : 'none',
   backgroundPosition: 'right',
   borderRadius: '12px',
