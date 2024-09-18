@@ -305,7 +305,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         }
       }
     } catch (error) {
-      toast.error('PermissionForAudioAndVideo');
+      toast.error(intl.formatMessage({ id: 'PermissionForAudioAndVideo' }));
     }
   };
 
