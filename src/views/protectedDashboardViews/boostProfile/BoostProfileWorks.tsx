@@ -1,5 +1,4 @@
 import { Box, useMediaQuery } from '@mui/material';
-import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import theme from 'themes/theme';
 import {
@@ -16,7 +15,9 @@ import {
   UINewTypographyCondition,
   PackageFreeTypography,
   MainBoostButtonBoxContainer,
-  UINewTypographyPackage
+  UINewTypographyPackage,
+  BoostInnerTextContainer,
+  ProfileBoostTextContainer
 } from './boostProfile.styled';
 import Image from 'next/image';
 import { BoostProfileWorksBox } from './BoostMultiplePackage.styled';
@@ -63,15 +64,9 @@ const BoostProfileWorks = ({
                 </FirstTextBoostTyporaphy>
 
                 <SeconBoxContainerBoost>
-                  <UINewTypography
-                    variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                    sx={{
-                      width: '100%',
-                      maxWidth: '215px'
-                    }}
-                  >
+                  <BoostInnerTextContainer>
                     <FormattedMessage id="ActivateTheBoost" />
-                  </UINewTypography>
+                  </BoostInnerTextContainer>
                 </SeconBoxContainerBoost>
               </BoxMainBoost>
             </MainBoxBorder>
@@ -93,14 +88,9 @@ const BoostProfileWorks = ({
                   <FormattedMessage id="Duration2" />
                 </FirstTextBoostTyporaphy>
                 <SeconBoxContainerBoost>
-                  <UINewTypography
-                    variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                    sx={{
-                      width: '100%'
-                    }}
-                  >
+                  <BoostInnerTextContainer>
                     <FormattedMessage id="EachBoostlLsts" />
-                  </UINewTypography>
+                  </BoostInnerTextContainer>
                 </SeconBoxContainerBoost>
               </BoxMainBoost>
             </MainBoxBorder>
@@ -122,14 +112,9 @@ const BoostProfileWorks = ({
                   <FormattedMessage id="CostEffective" />
                 </FirstTextBoostTyporaphy>
                 <SeconBoxContainerBoost>
-                  <UINewTypography
-                    variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                    sx={{
-                      width: '100%'
-                    }}
-                  >
+                  <BoostInnerTextContainer>
                     <FormattedMessage id="ItsAnAffordable" />
-                  </UINewTypography>
+                  </BoostInnerTextContainer>
                 </SeconBoxContainerBoost>
               </BoxMainBoost>
             </MainBoxBorder>
@@ -137,9 +122,9 @@ const BoostProfileWorks = ({
 
           <Box>
             <SecondBoxContainer>
-              <UINewTypography variant="h5" color="text.primary" lineHeight="160%">
+              <ProfileBoostTextContainer color="text.primary">
                 <FormattedMessage id="WhyUseProfileBoost" />
-              </UINewTypography>
+              </ProfileBoostTextContainer>
             </SecondBoxContainer>
 
             <MainChildContainerBoost>
@@ -160,15 +145,9 @@ const BoostProfileWorks = ({
                     <FormattedMessage id="IncreasedExposure" />
                   </FirstTextBoostTyporaphy>
                   <SeconBoxContainerBoost>
-                    <UINewTypography
-                      variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                      sx={{
-                        width: '100%',
-                        maxWidth: '215px'
-                      }}
-                    >
+                    <BoostInnerTextContainer>
                       <FormattedMessage id="BeTheFirstProfile" />
-                    </UINewTypography>
+                    </BoostInnerTextContainer>
                   </SeconBoxContainerBoost>
                 </BoxMainBoost>
               </MainBoxBorder>
@@ -190,14 +169,9 @@ const BoostProfileWorks = ({
                     <FormattedMessage id="MoreEngagements" />
                   </FirstTextBoostTyporaphy>
                   <SeconBoxContainerBoost>
-                    <UINewTypography
-                      variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                      sx={{
-                        width: '100%'
-                      }}
-                    >
+                    <BoostInnerTextContainer>
                       <FormattedMessage id="HigherVisibility" />
-                    </UINewTypography>
+                    </BoostInnerTextContainer>
                   </SeconBoxContainerBoost>
                 </BoxMainBoost>
               </MainBoxBorder>
@@ -219,14 +193,9 @@ const BoostProfileWorks = ({
                     <FormattedMessage id="Flexibility" />
                   </FirstTextBoostTyporaphy>
                   <SeconBoxContainerBoost>
-                    <UINewTypography
-                      variant={isSmDown ? 'bodySmall' : 'bodyRegular'}
-                      sx={{
-                        width: '100%'
-                      }}
-                    >
+                    <BoostInnerTextContainer>
                       <FormattedMessage id="UseWhenIt" />
-                    </UINewTypography>
+                    </BoostInnerTextContainer>
                   </SeconBoxContainerBoost>
                 </BoxMainBoost>
               </MainBoxBorder>

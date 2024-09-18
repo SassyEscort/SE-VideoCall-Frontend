@@ -2,7 +2,7 @@
 import DashboardProfile from '..';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
-import { BoostMultipleBox, DividerBox, FirstBoxContainer } from './boostProfile.styled';
+import { BoostMultipleBox, DividerBox, FirstBoxContainer, FreeBoostModelHeaderTextContainer } from './boostProfile.styled';
 import { useCallback, useEffect, useState } from 'react';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
@@ -185,9 +185,9 @@ const FreeProfile = () => {
         ) : activeStep === 0 && openBoost ? (
           <>
             <DialogTitleBox id="responsive-modal-title">
-              <UINewTypography variant="h6" color={'text.primary'}>
+              <FreeBoostModelHeaderTextContainer color={'text.primary'}>
                 <FormattedMessage id="BoostProfile" />
-              </UINewTypography>
+              </FreeBoostModelHeaderTextContainer>
 
               <IconButton aria-label="close" onClick={handleBoostClose} sx={{ color: 'text.secondary' }}>
                 <CloseIcon />

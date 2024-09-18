@@ -198,5 +198,8 @@ export const RatingStartBox = styled(Rating)(({ theme }) => ({
   },
   '& .MuiRating-iconFilled': {
     color: '#FFB400'
+  },
+  '@media (max-width: 320px)': {
+    gap: 0
   }
 }));
