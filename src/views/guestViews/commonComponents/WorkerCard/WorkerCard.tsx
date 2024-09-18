@@ -68,7 +68,7 @@ const WorkerCard = ({
   const isTablet = useMediaQuery(theme.breakpoints.only('sm'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
 
-  const { isCustomer, customerUser } = useCallFeatureContext();
+  const { isCustomer, user } = useCallFeatureContext();
 
   const languages = modelDetails?.languages
     ?.map((language) => language?.language_name)
@@ -79,7 +79,7 @@ const WorkerCard = ({
 
   useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails?.cords);
 
-  const customerData = JSON.parse(customerUser || '{}');
+  const customerData = JSON.parse(user || '{}');
 
   const handleLikeClick = async (modelDetails: ModelHomeListing | ModelFavRes) => {
     try {

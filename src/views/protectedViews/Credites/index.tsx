@@ -51,8 +51,8 @@ const Credits = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { customerUser } = useCallFeatureContext();
-  const customerData = JSON.parse(customerUser || '{}');
+  const { user } = useCallFeatureContext();
+  const customerData = JSON.parse(user || '{}');
 
   const credit = searchParams.get('credit');
   const totalBal = searchParams.get('total_amount_after_txn');
