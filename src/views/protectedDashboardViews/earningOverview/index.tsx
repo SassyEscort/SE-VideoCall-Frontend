@@ -122,7 +122,7 @@ const EarningOverview = () => {
     if (token.token) {
       modelEarning();
     }
-  }, [fromDate, toDate]);
+  }, [fromDate, toDate, token.token]);
 
   return (
     <ProfileStatiscsMainContainer>
