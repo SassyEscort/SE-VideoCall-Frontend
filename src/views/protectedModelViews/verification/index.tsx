@@ -118,7 +118,7 @@ const VerificationContainer = () => {
     } else if (modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED) {
       modelDetails.profile_status === MODEL_ACTION.APPROVE ? router.push('/model/dashboard') : setActiveStep(4);
     } else if (
-      modelDetails?.verification_step === MODEL_ACTIVE_STEP.IN_REVIEW ||
+      (modelDetails?.verification_step === MODEL_ACTIVE_STEP.IN_REVIEW && modelDetails.profile_status === MODEL_ACTION.APPROVE) ||
       modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED
     ) {
       router.push('/model/dashboard');
