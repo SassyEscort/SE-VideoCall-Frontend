@@ -16,7 +16,7 @@ const WorkerDetailPage = ({ params }: { params: { id: string } }) => {
   return (
     <>
       <Head>
-        <link href={`https://flirtbate.com/details/${modelId}`} />
+        <link rel="canonical" href={`https://flirtbate.com/details/${modelId}`} />
       </Head>
       {<EscortDetailPage />}
     </>
