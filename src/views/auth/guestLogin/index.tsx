@@ -25,6 +25,8 @@ import { EMAIL_REGEX } from 'constants/regexConstants';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import HomePageFreeSignup from '../homePageFreeSignup';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
+import { ROLE } from 'constants/workerVerification';
+import { MODEL_ACTION } from 'constants/profileConstants';
 
 export type LoginParams = {
   email: string;
@@ -59,9 +61,10 @@ const GuestLogin = ({
   const { data: session } = useSession();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [showPassword, setShowPassword] = useState(false);
-  const [isRejected, setIsRejected] = useState(false);
+  const [modelStatus, setModelStatus] = useState('');
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState('');
+  const [authRole, setAuthRole] = useState('');
 
   const validationSchema = yup.object({
     email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
@@ -69,7 +72,6 @@ const GuestLogin = ({
   });
   const handleFormSubmit = async (values: LoginUserParams) => {
     try {
-      const Role = values.role;
       setLoading(true);
       const res = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {
         redirect: false,
@@ -78,11 +80,7 @@ const GuestLogin = ({
         role: values.role
       });
       if (res?.status === 200) {
-        if (Role === 'model') {
-          push('/model/profile');
-        } else {
-          refresh();
-        }
+        refresh();
         onClose();
       } else if (res?.error) {
         const errorMessage = res.error === 'CredentialsSignin' ? 'InvalidEmail' : 'SomethingWent';
@@ -98,15 +96,25 @@ const GuestLogin = ({
   useEffect(() => {
     if (session && session.user) {
       const parsedPicture = JSON.parse((session?.user as any)?.picture);
-      setIsRejected(parsedPicture.profile_status === 'Rejected');
+      setAuthRole(parsedPicture.role);
+      setModelStatus(parsedPicture.profile_status);
     }
   }, [session, session?.user]);
 
   useEffect(() => {
-    if (isRejected) {
-      window.location.href = '/model/profile-reject';
+    if (authRole === ROLE.CUSTOMER) {
+      refresh();
+    } else if (authRole === ROLE.MODEL) {
+      if (modelStatus === MODEL_ACTION.REJECT) {
+        push('/model/profile-reject');
+      } else if (modelStatus === MODEL_ACTION.APPROVE) {
+        push('/model/dashboard');
+      } else if (modelStatus === MODEL_ACTION.PENDING) {
+        push('/model/profile');
+      }
     }
-  }, [isRejected]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authRole, modelStatus]);
 
   return (
     <>
