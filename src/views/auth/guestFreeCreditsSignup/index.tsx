@@ -26,6 +26,7 @@ import { useRouter } from 'next/navigation';
 import { getErrorMessage } from 'utils/errorUtils';
 import AuthFreeCreditsSignupCommon from './AuthFreeCreditsSignupCommon';
 import GuestModelMobileSignup from './GuestModelMobileSignup';
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 
 export type SignupParams = {
   name: string;
@@ -104,7 +105,7 @@ const GuestFreeCreditsSignup = ({
           if (data.code === 200) {
             setActiveStep(1);
             refresh();
-            const loginResponse = await signIn('providerGuest', {
+            const loginResponse = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {
               redirect: false,
               email: values.email,
               password: values.password
