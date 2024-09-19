@@ -9,6 +9,7 @@ import {
   NoRatingTextContainer,
   RatingDetalisBoxContainer,
   TotalClientAndRatingDetaiBoxContainer,
+  TotalClientDescriptionText,
   TotalClientInnerBoxContainer,
   TotalClientMainBoxContainer
 } from './RatingAndReview.styled';
@@ -113,27 +114,27 @@ const RatingAndReview = () => {
                   <UINewTypography variant="body" color="text.orimary">
                     <FormattedMessage id="TotalClients" />
                   </UINewTypography>
-                  <UINewTypography variant="h3" color="text.secondary">
+                  <TotalClientDescriptionText color="text.secondary">
                     {ratingAndReview?.data?.model_rating_info?.[0]?.total_clients}
-                  </UINewTypography>
+                  </TotalClientDescriptionText>
                 </TotalClientInnerBoxContainer>
 
                 <TotalClientInnerBoxContainer>
                   <UINewTypography variant="body" color="text.orimary">
                     <FormattedMessage id="TotalRatingsReceived" />
                   </UINewTypography>
-                  <UINewTypography variant="h3" color="text.secondary">
+                  <TotalClientDescriptionText color="text.secondary">
                     {ratingAndReview?.data?.model_rating_info?.[0]?.total_ratings}
-                  </UINewTypography>
+                  </TotalClientDescriptionText>
                 </TotalClientInnerBoxContainer>
 
                 <TotalClientInnerBoxContainer>
                   <UINewTypography variant="body" color="text.orimary">
                     <FormattedMessage id="TotalReviewsReceived" />
                   </UINewTypography>
-                  <UINewTypography variant="h3" color="text.secondary">
+                  <TotalClientDescriptionText color="text.secondary">
                     {ratingAndReview?.data?.model_rating_info?.[0]?.total_reviews}
-                  </UINewTypography>
+                  </TotalClientDescriptionText>
                 </TotalClientInnerBoxContainer>
               </TotalClientMainBoxContainer>
             </NoRatingBoxContainer>

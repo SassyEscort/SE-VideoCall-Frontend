@@ -6,6 +6,7 @@ import {
   RatingDetalisFirstPartBoxContainer,
   RatingDetalisStarBoxContainer,
   RatingPercentageContainer,
+  StarComponent,
   TextAndStarBoxContainer
 } from './RatingAndReview.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -49,7 +50,7 @@ const RatingPoints = ({
               <UINewTypography variant="bodyLight" color="text.secondary">
                 {item.id}
               </UINewTypography>
-              <StarRoundedIcon sx={{ color: '#FFB400', width: '20px', height: '20px' }} />
+              <StarComponent sx={{ color: '#FFB400' }} />
             </TextAndStarBoxContainer>
             <BorderLinearProgress
               isShowPercentage={isShowPercentage}
