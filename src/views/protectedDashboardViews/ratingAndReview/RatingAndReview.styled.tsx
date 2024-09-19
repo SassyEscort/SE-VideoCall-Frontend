@@ -5,6 +5,7 @@ import LinearProgress, { linearProgressClasses, LinearProgressProps } from '@mui
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledSelectAgeFilter } from 'components/UIComponents/UIStyledSelect';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
 
 export const HeadingTextAndTotalClientMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -207,4 +208,15 @@ export const TotalClientDescriptionText = styled(UINewTypography)(({ theme }) =>
   fontSize: '30px',
   fontWeight: 600,
   lineHeight: '42px'
+}));
+
+export const StarComponent = styled(StarRoundedIcon)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    width: '12px',
+    height: '12px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    width: '20px',
+    height: '20px'
+  }
 }));
