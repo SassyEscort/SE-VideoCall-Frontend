@@ -117,7 +117,7 @@ const CallHistoryRatingModel = ({ open, onClose, callLogId }: { open: boolean; o
                     <ReviewBoxAndButtonContent>
                       <TextBoxContent
                         name="bio"
-                        rows={6.4}
+                        rows={8.35}
                         fullWidth
                         multiline
                         placeholder="Share your review..."

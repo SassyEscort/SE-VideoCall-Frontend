@@ -6,6 +6,7 @@ import HomeMainContainer from '../guestLayout/homeContainer';
 import { ContactContainer, ContactUs, UINewTypographyMainText } from '../faqPage/faqPage.style';
 import { FormattedMessage } from 'react-intl';
 import Box from '@mui/material/Box';
+import Link from 'next/link';
 
 const TermaAndCondition = () => {
   return (
@@ -38,33 +39,27 @@ const TermaAndCondition = () => {
           </Box>
           <Box>
             <FirstTextContainer color="secondary.100">
-              2. <FormattedMessage id="TheServiceAndGeneralLimitationsOfUse" />
+              2. <FormattedMessage id="TermsOfUse" />
             </FirstTextContainer>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="TheServiceIsAvailable" />
+              <FormattedMessage id="EligibilityYouMustBeAtLeast" />
             </UINewTypography>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="TheAssortmentOfContent" />
+              <FormattedMessage id="ProhibitedContentYouAgreeNot" />
             </UINewTypography>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="ContentTypesAndDescriptions" />
-            </UINewTypography>
-            <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="YouAgreeNotToUseOrLaunch" />
-            </UINewTypography>
-            <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="YouAgreeToOnlyUseContent" />
+              <FormattedMessage id="UserConductYouAgree" />
             </UINewTypography>
           </Box>
           <Box>
             <FirstTextContainer color="secondary.100">
-              3. <FormattedMessage id="HowToAccessTheServiceAndYourAccount" />
+              3. <FormattedMessage id="AccountCreation" />
             </FirstTextContainer>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="InOrderToUseTheService" />
+              <FormattedMessage id="AccurateInformationYouMust" />
             </UINewTypography>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="YouAreResponsibleFor" />
+              <FormattedMessage id="MinorsFlirtbateIsStrictly" />
             </UINewTypography>
           </Box>
           <Box>
@@ -72,59 +67,77 @@ const TermaAndCondition = () => {
               4. <FormattedMessage id="IntellectualPropertyRights" />
             </FirstTextContainer>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="YouMayNotUseTransferDisplay" />
+              <FormattedMessage id="OwnershipAllContentOnFlirtbate" />
             </UINewTypography>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="AllContentAvailable" />
+              <FormattedMessage id="LimitedLicenseFlirtbate" />
             </UINewTypography>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="ExceptForTheRightsExpressly" />
-            </UINewTypography>
-            <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="PleaseNoteThatYouMay" />
-            </UINewTypography>
-            <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="PleaseAlsoNoteThatYouAre" />
+              <FormattedMessage id="ContentPleaseNoteThatYou" />
             </UINewTypography>
           </Box>
           <Box>
             <FirstTextContainer color="secondary.100">
-              5. <FormattedMessage id="UseOfComputerResources" />
+              5. <FormattedMessage id="ThirdPartyApplicationss" />
             </FirstTextContainer>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="YouAgreeThatWeHaveTheRight" />
-            </UINewTypography>
-            <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="IfYouAreConnectedTotheInternet" />
+              <FormattedMessage id="FlirtbateMayContainLinksTo" />
             </UINewTypography>
           </Box>
           <Box>
             <FirstTextContainer color="secondary.100">
-              6. <FormattedMessage id="ThirdPartyApplications" />
+              6. <FormattedMessage id="WithdrawalPolicy" />
             </FirstTextContainer>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="TheServiceIsIntegrated" />
+              <FormattedMessage id="YouMayWithdrawFundsFrom" />
             </UINewTypography>
           </Box>
           <Box>
             <FirstTextContainer color="secondary.100">
-              7. <FormattedMessage id="Advertisement" />
+              7. <FormattedMessage id="FraudPolicy" />
             </FirstTextContainer>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="YouMaySeparatelyHaveAccepted" />
+              <FormattedMessage id="FlirtbateTakesFraudVerySeriously" />
+            </UINewTypography>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <FormattedMessage id="MultiAccountingCreatingMultiple" />
+            </UINewTypography>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <FormattedMessage id="PaymentFraudUsing" />
+            </UINewTypography>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <FormattedMessage id="IdentityTheftImpersonating" />
             </UINewTypography>
           </Box>
           <Box>
             <FirstTextContainer color="secondary.100">
-              8. <FormattedMessage id="PrivacyAndPersonalData" />
+              8. <FormattedMessage id="Advertisement" />
             </FirstTextContainer>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="WeProcessPersonalData" />
+              <FormattedMessage id="YouAcceptToBeExposed" /> <Link href="mailto:support@flirtbate.com">support@flirtbate.com</Link>{' '}
+              <FormattedMessage id="InCaseOfAnyIssues" />
             </UINewTypography>
           </Box>
           <Box>
             <FirstTextContainer color="secondary.100">
-              9. <FormattedMessage id="ServiceLevelAndDisclaimer" />
+              9. <FormattedMessage id="ServiceDisclaimer" />
+            </FirstTextContainer>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <FormattedMessage id="TheServiceIsAvailableForUsers" />
+            </UINewTypography>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <FormattedMessage id="TheAssortmentOfContent" />
+            </UINewTypography>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <FormattedMessage id="YouAgreeNotToUseOrLaunch" />
+            </UINewTypography>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <FormattedMessage id="YouAgreeToOnlyUseContentInAccordance" />
+            </UINewTypography>
+          </Box>
+          <Box>
+            <FirstTextContainer color="secondary.100">
+              10. <FormattedMessage id="ServiceInterruptionsAndMaintenance" />
             </FirstTextContainer>
             <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="WeWillMakeReasonableEfforts" />
@@ -142,75 +155,38 @@ const TermaAndCondition = () => {
               <FormattedMessage id="WESHALLINNOEVENT" />
             </UINewTypography>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="WeReservesTheRightAtAnyTime" />
+              <FormattedMessage id="WeReserveTheRightAtAnyTime" />
             </UINewTypography>
           </Box>
           <Box>
             <FirstTextContainer color="secondary.100">
-              10. <FormattedMessage id="Indemnity" />
+              11. <FormattedMessage id="GoverningLawAndJurisdiction" />
             </FirstTextContainer>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="UponRequestByUsYouAgreeToIndemnify" />
-            </UINewTypography>
-            <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="FurthermoreWeReserveTheRight" />
+              <FormattedMessage id="TheseTermsAndConditions" />
             </UINewTypography>
           </Box>
           <Box>
             <FirstTextContainer color="secondary.100">
-              11. <FormattedMessage id="Limitation" />
+              12. <FormattedMessage id="ChangesToTheseTermsAndConditions" />
             </FirstTextContainer>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="YOUAGREETHATTOTHEEXTENT" />
-            </UINewTypography>
-            <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="TOTHEFULLESTEXTENTPERMITTED" />
-            </UINewTypography>
-            <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="NothingInTheAgreementsRemoves" />
+              <FormattedMessage id="WeReserveTheRightToModify" />
             </UINewTypography>
           </Box>
           <Box>
             <FirstTextContainer color="secondary.100">
-              12. <FormattedMessage id="TermAndTermination" />
+              13. <FormattedMessage id="ContactUs" />
             </FirstTextContainer>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="ThisAgreementWillContinue" />
+              <FormattedMessage id="IfYouHaveAnyQuestionsOrConcerns" />{' '}
+              <Link href="mailto:support@flirtbate.com">support@flirtbate.com</Link>
             </UINewTypography>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="IfYouOrWeTerminateThisAgreement" />
+              <FormattedMessage id="ByUsingFlirtbateYouAcknowledge" />
             </UINewTypography>
-          </Box>
-          <Box>
-            <FirstTextContainer color="secondary.100">
-              13. <FormattedMessage id="Assignment" />
-            </FirstTextContainer>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="WeAreEntitledToInWhole" />
-            </UINewTypography>
-          </Box>
-          <Box>
-            <FirstTextContainer color="secondary.100">
-              14. <FormattedMessage id="PartialInvalidity" />
-            </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="IfAnyProvisionOfTheseTermsAndConditions" />
-            </UINewTypography>
-          </Box>
-          <Box>
-            <FirstTextContainer color="secondary.100">
-              15. <FormattedMessage id="ProhibitedContent" />
-            </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="ToMaintainASafeAndRespectfulEnvironment" />
-            </UINewTypography>
-          </Box>
-          <Box>
-            <FirstTextContainer color="secondary.100">
-              16. <FormattedMessage id="FakePicturePolicy" />
-            </FirstTextContainer>
-            <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="IfWeFoundSomeoneFakePicturePolicy" />
+              <FormattedMessage id="LastUpdated" />
             </UINewTypography>
           </Box>
         </FirstBoxMainContainer>
