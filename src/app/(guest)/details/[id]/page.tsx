@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import EscortDetailPage from 'views/guestViews/details/EscortDetailPage';
-import SEOLayout from 'views/seo/SEOLayout';
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const model = params.id;
@@ -12,15 +11,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 }
 
 const WorkerDetailPage = () => {
-  return (
-    <>
-      {
-        <SEOLayout>
-          <EscortDetailPage />
-        </SEOLayout>
-      }
-    </>
-  );
+  return <>{<EscortDetailPage />}</>;
 };
 
 export default WorkerDetailPage;
