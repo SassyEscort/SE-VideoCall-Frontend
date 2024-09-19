@@ -9,7 +9,8 @@ function PaginationInWords({
   offset,
   isEscort,
   isCall,
-  isBills
+  isBills,
+  ratingAndReview
 }: {
   page: number;
   limit: number;
@@ -18,6 +19,7 @@ function PaginationInWords({
   isEscort?: boolean;
   isCall?: boolean;
   isBills?: boolean;
+  ratingAndReview?: boolean;
 }) {
   return (
     <UINewTypography variant="SubtitleSmallRegular">
@@ -30,6 +32,8 @@ function PaginationInWords({
         <FormattedMessage id="calls" />
       ) : isEscort ? (
         <FormattedMessage id="models" />
+      ) : ratingAndReview ? (
+        <FormattedMessage id="Reviews" />
       ) : (
         <FormattedMessage id="withdrawls" />
       )}

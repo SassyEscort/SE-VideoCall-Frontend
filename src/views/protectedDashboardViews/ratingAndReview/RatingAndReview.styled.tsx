@@ -130,8 +130,8 @@ export const BorderLinearProgress = styled(LinearProgress, {
   shouldForwardProp: (prop) => prop !== 'isClicked' && prop !== 'isShowPercentage'
 })<BorderLinearProgressProps>(({ theme, isShowPercentage }) => ({
   width: '100%',
-  maxWidth: !isShowPercentage ? '504px' : '275px',
-  height: 10,
+  maxWidth: !isShowPercentage ? '504px' : '298px',
+  height: 12,
   borderRadius: 2,
   [`&.${linearProgressClasses.colorPrimary}`]: {
     backgroundColor: theme.palette.grey[200],
