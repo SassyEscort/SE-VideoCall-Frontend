@@ -49,7 +49,7 @@ const RatingPoints = ({
               <UINewTypography variant="bodyLight" color="text.secondary">
                 {item.id}
               </UINewTypography>
-              <StarRoundedIcon sx={{ color: '#FFB400', width: '20px', height: '20px' }} />
+              <StarRoundedIcon sx={{ color: '#FFB400', width: { xs: '12px', sm: '20px' }, height: { xs: '12px', sm: '20px' } }} />
             </TextAndStarBoxContainer>
             <BorderLinearProgress
               isShowPercentage={isShowPercentage}

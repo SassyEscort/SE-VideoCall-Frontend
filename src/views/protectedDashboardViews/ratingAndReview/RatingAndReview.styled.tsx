@@ -15,7 +15,9 @@ export const HeadingTextAndTotalClientMainBoxContainer = styled(Box)(({ theme })
 export const HeadingTextBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  marginTop: theme.spacing(4)
+  [theme.breakpoints.up('sm')]: {
+    marginTop: theme.spacing(4)
+  }
 }));
 
 export const TotalClientMainBoxContainer = styled(Box)(({ theme }) => ({
@@ -58,10 +60,7 @@ export const RatingDetalisFirstPartBoxContainer = styled(Box)(({ theme }) => ({
 export const RatingDetalisStarBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(1.5),
-  alignItems: 'center',
-  [theme.breakpoints.down('sm')]: {
-    justifyContent: 'center'
-  }
+  alignItems: 'center'
 }));
 
 export const RatingPercentageContainer = styled(UINewTypography)(({ theme }) => ({
@@ -202,4 +201,10 @@ export const RatingStartBox = styled(Rating)(({ theme }) => ({
   '@media (max-width: 320px)': {
     gap: 0
   }
+}));
+
+export const TotalClientDescriptionText = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '30px',
+  fontWeight: 600,
+  lineHeight: '42px'
 }));
