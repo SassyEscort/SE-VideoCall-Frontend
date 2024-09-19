@@ -46,7 +46,9 @@ const RatingPoints = ({
         {RATING.map((item) => (
           <RatingChartInnerBoxContainer key={item.id} onClick={() => handleChartClick(item.id)}>
             <TextAndStarBoxContainer>
-              <UINewTypography variant="bodyLight">{item.id}</UINewTypography>
+              <UINewTypography variant="bodyLight" color="text.secondary">
+                {item.id}
+              </UINewTypography>
               <StarRoundedIcon sx={{ color: '#FFB400', width: '20px', height: '20px' }} />
             </TextAndStarBoxContainer>
             <BorderLinearProgress
