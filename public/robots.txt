@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /search?*
 Sitemap: https://flirtbate.com/sitemap.xml
