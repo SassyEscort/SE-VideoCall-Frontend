@@ -1,6 +1,4 @@
 import { Metadata } from 'next';
-import Head from 'next/head';
-import Link from 'next/link';
 import EscortDetailPage from 'views/guestViews/details/EscortDetailPage';
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
@@ -16,9 +14,9 @@ const WorkerDetailPage = ({ params }: { params: { id: string } }) => {
   const model = params.id;
   return (
     <>
-      <Head>
-        <Link href={`https://flirtbate.com/details/${model}`} />
-      </Head>
+      <body>
+        <a href={`https://staging.flirtbate.com/details/${model}`} />
+      </body>
       {<EscortDetailPage />}
     </>
   );
