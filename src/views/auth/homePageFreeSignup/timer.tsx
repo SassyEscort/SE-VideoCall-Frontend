@@ -2,9 +2,12 @@
 import { useEffect, useState } from 'react';
 import { TimeDetails, TimeMainBox, TimeTitle, RemianingTime, TimeTypo, TimerDivider, Dotes, DotesSecond } from './Timer.Styled';
 import { FormattedMessage } from 'react-intl';
+import useConfig from 'hooks/useConfig';
 
 const Timer = () => {
   const [countdown, setCountdown] = useState({ minutes: 15, seconds: 0 });
+  const { i18n } = useConfig();
+  console.log(i18n, ':::::::i18n');
 
   const handleCalculateCountdown = () => {
     const startTime = localStorage.getItem('timerStartTime');
@@ -59,7 +62,7 @@ const Timer = () => {
         </TimeTitle>
       </TimeDetails>
 
-      <Dotes />
+      <Dotes language={i18n} />
       <DotesSecond />
 
       <TimeDetails>

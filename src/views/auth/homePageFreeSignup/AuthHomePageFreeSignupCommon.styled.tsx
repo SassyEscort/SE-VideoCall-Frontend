@@ -132,5 +132,8 @@ export const DescriptionTextMainBoxContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '332px',
   display: 'flex',
-  textAlign: 'center'
+  textAlign: 'center',
+  '@media (max-width: 768px)': {
+    maxWidth: '300px'
+  }
 }));

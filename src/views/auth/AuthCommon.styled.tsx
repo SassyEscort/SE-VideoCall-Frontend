@@ -141,7 +141,8 @@ export const ErrorBox = styled(Box)(({ theme }) => ({
 export const UITypographyText = styled(UINewTypography)(() => ({
   lineHeight: '25.6px',
   fontSize: '16px',
-  fontWeight: '600'
+  fontWeight: '600',
+  whiteSpace: 'nowrap'
 }));
 
 export const UIButtonText = styled(UINewTypography)(() => ({

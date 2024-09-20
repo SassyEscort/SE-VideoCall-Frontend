@@ -15,7 +15,6 @@ export const ModelNewPasswordBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     paddingLeft: theme.spacing(4),
     maxWidth: '400px',
-    paddingTop: theme.spacing(8),
     paddingRight: theme.spacing(0)
   },
   paddingTop: theme.spacing(0)
@@ -71,4 +70,15 @@ export const ThirdBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(0.5)
+}));
+
+export const ModelPasswordInnerBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  [theme.breakpoints.down('sm')]: {
+    paddingTop: theme.spacing(0)
+  },
+  [theme.breakpoints.up('sm')]: {
+    paddingTop: theme.spacing(6.25)
+  }
 }));
