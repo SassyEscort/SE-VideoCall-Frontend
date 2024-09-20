@@ -7,7 +7,6 @@ import useConfig from 'hooks/useConfig';
 const Timer = () => {
   const [countdown, setCountdown] = useState({ minutes: 15, seconds: 0 });
   const { i18n } = useConfig();
-  console.log(i18n, ':::::::i18n');
 
   const handleCalculateCountdown = () => {
     const startTime = localStorage.getItem('timerStartTime');
