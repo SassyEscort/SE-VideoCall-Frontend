@@ -166,9 +166,9 @@ const MainFooter = ({
                       </>
                     )}
 
-                    <UINewTypography variant="SubtitleSmallRegular">
-                      <a href="/model">Register as model</a>
-                    </UINewTypography>
+                    <a href="/model">
+                      <UINewTypography variant="SubtitleSmallRegular">Register as model</UINewTypography>
+                    </a>
                   </ModelUITextConatiner>
                 </FooterSubICon>
 
