@@ -10,16 +10,8 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   };
 }
 
-const WorkerDetailPage = ({ params }: { params: { id: string } }) => {
-  const model = params.id;
-  return (
-    <>
-      <body>
-        <a href={`https://staging.flirtbate.com/details/${model}`} />
-      </body>
-      {<EscortDetailPage />}
-    </>
-  );
+const WorkerDetailPage = () => {
+  return <>{<EscortDetailPage />}</>;
 };
 
 export default WorkerDetailPage;
