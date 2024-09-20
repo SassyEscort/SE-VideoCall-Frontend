@@ -34,10 +34,10 @@ const ChatPoc = () => {
   theme.palette.setBackground({ light: 'var(--Surface-cards, #100B19)', dark: 'var(--Surface-cards, #100B19)' }); // Background color
 
   // Title1 Typo
-  theme.typography.setTitle1({ fontFamily: "'Manrope', sans-serif", fontSize: '20px', fontWeight: '600' });
+  theme.typography.setTitle1({ fontFamily: 'Manrope', fontSize: '20px', fontWeight: '600' });
 
   // Title2 Typo  //set Contact FONT
-  theme.typography.setTitle2({ fontFamily: "'Manrope', sans-serif", fontSize: '16px', fontWeight: '700' });
+  theme.typography.setTitle2({ fontFamily: 'Manrope', fontSize: '16px', fontWeight: '700' });
 
   // Contact sub title set
   theme.typography.setSubtitle2({ fontFamily: "'Manrope', sans-serif", fontSize: '14px', fontWeight: '500' });
@@ -130,7 +130,8 @@ const ChatPoc = () => {
 
   const conversationsStyle = new ConversationsStyle({
     // background: 'var(--Surface-cards, #100B19)',
-    titleTextColor: '#B7B5B9'
+    titleTextColor: '#B7B5B9',
+    lastMessageTextColor: '#E9E8EB'
   });
 
   const messagesStyle = new MessagesStyle({
