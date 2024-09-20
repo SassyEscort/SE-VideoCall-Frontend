@@ -133,9 +133,7 @@ const MainFooter = ({
                     </UINewTypography> */}
 
                     <UINewTypography variant="SubtitleSmallRegular">
-                      <Link prefetch={false} href="/faq">
-                        <FormattedMessage id="FAQs" />
-                      </Link>
+                      <a href="/faq">FaQ</a>
                     </UINewTypography>
                     {isCustomer ? (
                       <Link prefetch={false} href="/">
@@ -168,11 +166,9 @@ const MainFooter = ({
                       </>
                     )}
 
-                    <UINewTypography variant="SubtitleSmallRegular">
-                      <Link prefetch={false} href="/model">
-                        <FormattedMessage id="RegisterAsModel" />
-                      </Link>
-                    </UINewTypography>
+                    <a href="/model">
+                      <UINewTypography variant="SubtitleSmallRegular">Register as model</UINewTypography>
+                    </a>
                   </ModelUITextConatiner>
                 </FooterSubICon>
 

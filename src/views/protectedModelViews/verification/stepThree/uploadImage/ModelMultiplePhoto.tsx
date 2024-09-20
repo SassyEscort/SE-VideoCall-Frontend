@@ -45,6 +45,10 @@ export type UploadMultiplePhotos = {
   handleImageWarningClose: () => void;
   imageWarningOpen: boolean;
   handlePhotoSubmit: (values: VerificationFormStep5TypeV2) => Promise<void>;
+  setTouched: (
+    touched: FormikTouched<VerificationFormStep5TypeV2>,
+    shouldValidate?: boolean
+  ) => Promise<void | FormikErrors<VerificationFormStep5TypeV2>>;
 };
 export type UploadPhotos = {
   id?: number;
@@ -70,7 +74,8 @@ const ModelMultiplePhoto = ({
   handelChangedIsUpdated,
   handleImageWarningClose,
   imageWarningOpen,
-  handlePhotoSubmit
+  handlePhotoSubmit,
+  setTouched
 }: UploadMultiplePhotos) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -82,6 +87,9 @@ const ModelMultiplePhoto = ({
   const [thumbnailImageId, setThumbnailImageId] = useState<number | undefined>(undefined);
 
   const removeImage = async (name: string, photoName: string, isFav: boolean | undefined, file_id?: string) => {
+    setTouched({
+      file5: true
+    });
     let index = existingPhotos?.findIndex((photo) => photo.photoURL === name);
     if (index !== -1) {
       existingPhotos?.splice(index, 1);
@@ -116,17 +124,30 @@ const ModelMultiplePhoto = ({
         }
         setValue('file5Existing', existingPhotos);
       } else {
-        setValue('file5', []);
+        const filteredFile5 = values.file5?.filter((x) => x !== null);
+        if (!filteredFile5) {
+          setThumbnailImageId(undefined);
+        }
+        setValue('file5', filteredFile5);
         setValue('file5Existing', existingPhotos);
       }
     }
     index = uploadedImagesURL?.findIndex((photo) => photo.photoURL === name);
+    const updatedImages = [...uploadedImagesURL];
     if (index !== -1) {
-      uploadedImagesURL?.splice(index, 1);
-      if (!uploadedImagesURL.length) {
+      updatedImages.splice(index, 1);
+      if (!updatedImages.length) {
         setValue('file5', []);
       }
     }
+
+    if (isFav && updatedImages.length) {
+      setThumbnailImageId(undefined);
+      updatedImages[0].isFavorite = true;
+      updatedImages[0].name = 'file5[0]';
+      setValue('is_favourite', 'file5[0]');
+    }
+    setUploadedImagesURL(updatedImages);
   };
 
   const handleChangeFile5Cords = (name: string, cords: string) => {
@@ -189,8 +210,9 @@ const ModelMultiplePhoto = ({
     (values: VerificationFormStep5TypeV2) => {
       const imageUrls: UploadPhotos[] = [];
       const favFile = Number(values.is_favourite?.split('[')[1].split(']')[0]);
-      if (values.file5) {
-        values.file5.forEach((data, index) => {
+      const filteredFiles = values.file5?.filter((x) => x !== null);
+      if (filteredFiles) {
+        filteredFiles.forEach((data, index) => {
           if (data) {
             if (VideoAcceptType.find((x) => data.name?.includes('.' + x))) {
               imageUrls.push({
@@ -198,12 +220,12 @@ const ModelMultiplePhoto = ({
                 name: `file5[${index}]`
               });
             } else if (thumbnailImageId === undefined) {
-              const favFileIndex = index + existingPhotos.length;
+              // const favFileIndex = index + existingPhotos.length;
               imageUrls.push({
                 photoURL: URL.createObjectURL(data),
                 name: `file5[${index}]`,
                 cords: (values.cords5 && values.cords5[index]) || '',
-                isFavorite: favFile === favFileIndex ? true : false,
+                isFavorite: favFile === index ? true : false,
                 is_favourite: values.is_favourite ? values.is_favourite : 'file5[0]'
               });
             } else {
@@ -320,7 +342,7 @@ const ModelMultiplePhoto = ({
               touched={touched}
               name="file"
               setValue={setValue}
-              accept="image/jpeg,image/png,image/jpg,image/avif,image/webp, image/bmp,image/svg,video/mp4,video/MP4,video/WebM,video/quicktime,video/avi"
+              accept="image/jpeg,image/png,image/jpg,image/avif,image/webp, image/bmp,image/svg,video/mp4,video/MP4,video/quicktime,video/avi"
               values={values}
               handleUploadPhotos={handleUploadPhotos}
             />

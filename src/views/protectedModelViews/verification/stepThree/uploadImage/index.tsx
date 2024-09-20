@@ -356,7 +356,7 @@ const UploadImage = ({
         }
       }}
     >
-      {({ values, errors, touched, setFieldValue, handleSubmit }) => (
+      {({ values, errors, touched, setFieldValue, handleSubmit, setTouched }) => (
         <Box
           component="form"
           onSubmit={(e) => {
@@ -375,6 +375,7 @@ const UploadImage = ({
             token={token}
             values={values}
             setValue={setFieldValue}
+            setTouched={setTouched}
             errors={errors}
             touched={touched}
             workerPhotos={workerPhotos}
