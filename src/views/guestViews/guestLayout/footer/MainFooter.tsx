@@ -133,9 +133,9 @@ const MainFooter = ({
                     </UINewTypography> */}
 
                     <UINewTypography variant="SubtitleSmallRegular">
-                      <a href="/faq">
+                      <Link prefetch={false} href="/faq" hrefLang="en">
                         <FormattedMessage id="FAQs" />
-                      </a>
+                      </Link>
                     </UINewTypography>
                     {isCustomer ? (
                       <Link prefetch={false} href="/">
