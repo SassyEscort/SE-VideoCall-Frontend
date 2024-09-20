@@ -8,6 +8,7 @@ const page = () => {
         <meta name="description" content="Page description" />
         <meta property="og:title" content="Open Graph Title" />
         <meta property="og:description" content="Open Graph description" />
+        <a href="/model" />
       </body>
       <TermaAndCondition />
     </>
