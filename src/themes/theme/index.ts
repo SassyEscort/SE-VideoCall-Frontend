@@ -2,6 +2,9 @@ import { PaletteColorOptions, createTheme } from '@mui/material/styles';
 import { CSSProperties } from 'react';
 import { Manrope } from 'next/font/google';
 
+const url = global.window && new URL(window.location.href);
+const adminPath = url?.pathname?.startsWith('/admin');
+
 const manropeFont = Manrope({ subsets: ['latin'] });
 declare module '@mui/material/styles' {
   interface PaletteOptions {
@@ -192,8 +195,8 @@ const theme = createTheme({
       main: '#000'
     },
     background: {
-      paper: '#000',
-      default: '#000'
+      paper: adminPath ? '#FFF' : '#000',
+      default: adminPath ? '#FFF' : '#000'
     },
     warning: {
       main: '#A98F00',
