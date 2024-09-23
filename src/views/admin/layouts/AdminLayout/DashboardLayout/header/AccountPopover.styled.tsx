@@ -116,3 +116,9 @@ export const NotificationsNoneBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
   padding: theme.spacing(1.5)
 }));
+
+export const UserIconMainBox = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start'
+}));
