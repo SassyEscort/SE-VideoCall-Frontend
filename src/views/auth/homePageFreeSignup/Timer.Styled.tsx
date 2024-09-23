@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { Divider } from '@mui/material';
 import { BoxProps } from '@mui/system';
+import { LANGUAGES_TYPES } from 'constants/languageConstants';
 
 export const TimeMainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -116,22 +117,22 @@ export const Dotes = styled(Box, {
   },
   '@media (max-width: 767px)': {
     left: '50%',
-    top: language === 'en' ? '32.5%' : '33.5%',
+    top: language === LANGUAGES_TYPES.EN ? '32.5%' : '33.5%',
     transform: 'translate(-50%, -93%)'
   },
   '@media (max-width: 425px)': {
     left: '50%',
-    top: language === 'en' ? '32.5%' : '32.5%',
+    top: language === LANGUAGES_TYPES.EN ? '32.5%' : '32.5%',
     transform: 'translate(-50%, -93%)'
   },
   '@media (max-width: 375px)': {
     left: '50%',
-    top: language === 'en' ? '33.5%' : '36.5%',
+    top: language === LANGUAGES_TYPES.EN ? '33.5%' : '36.5%',
     transform: 'translate(-50%, -92%)'
   },
   '@media (max-width: 320px)': {
     left: '50%',
-    top: language === 'en' ? '33.5%' : '36.5%',
+    top: language === LANGUAGES_TYPES.EN ? '33.5%' : '36.5%',
     transform: 'translate(-50%, -90%)'
   }
 }));
