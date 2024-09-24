@@ -1,20 +1,27 @@
-import { getHeaderData } from 'constants/headDataConstants';
 import { Metadata } from 'next';
+import { ModelSeoService } from 'services/modelSeo/modelSeo.services';
 import EscortDetailPage from 'views/guestViews/details/EscortDetailPage';
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  console.log(params, 'params');
-
-  const pageTitle = getHeaderData(`/details/${params.id}`);
-  console.log(pageTitle, 'pageTitle');
-
   const model = params.id;
-  return {
-    title: pageTitle?.title, // Dynamic title based on model ID
-    alternates: {
-      canonical: `https://flirtbate.com/details/${model}`
-    }
-  };
+  if (model) {
+    const res = await ModelSeoService.getModelSeo(model);
+    const title = res ? res.title : model;
+    const keywords = res ? res.keywords : model;
+    const description = res ? res.description : model;
+    const canonicalUrl = `https://flirtbate.com/details/${model}`;
+
+    return {
+      title,
+      keywords,
+      description,
+      alternates: {
+        canonical: canonicalUrl
+      }
+    };
+  }
+
+  return {};
 }
 
 const WorkerDetailPage = () => {
