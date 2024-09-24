@@ -326,7 +326,7 @@ const HeaderGuestComponent = () => {
                       gap: 1
                     }}
                   >
-                    <Box component="img" src="/images/icons/free-credit-icon.png" />
+                    <Box component="img" src="/images/icons/free-credit-icon.png" width="24px" height="30px" />
                     <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
                       <FormattedMessage id="FREECall" />
                     </UINewTypography>

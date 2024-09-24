@@ -235,7 +235,7 @@ const CallHistory = () => {
                               </SecondSubFirstPartSecondBoxFirstText>
                               {isSmUp && (
                                 <CallHistoryCreditBox>
-                                  <ImgBoxContainer src="/images/workercards/dollar-img.png" />
+                                  <ImgBoxContainer src="/images/workercards/dollar-img.avif" />
                                   <UINewTypography variant="captionLargeBold" color="text.secondary">
                                     {list.credits_per_minute} <FormattedMessage id="CreditsMin" />
                                   </UINewTypography>
@@ -256,7 +256,7 @@ const CallHistory = () => {
                             )}
                             {isSmDown && (
                               <CallHistoryCreditBox>
-                                <ImgBoxContainer src="/images/workercards/dollar-img.png" />
+                                <ImgBoxContainer src="/images/workercards/dollar-img.avif" />
                                 <UINewTypography variant="captionLargeBold" color="text.secondary">
                                   {list.credits_per_minute} <FormattedMessage id="CreditsMin" />
                                 </UINewTypography>
@@ -271,7 +271,7 @@ const CallHistory = () => {
                                 <FormattedMessage id="CreditsUsed" />
                               </FirstTextContainer>
                               <SecondSubFirstPartThiredBoxText>
-                                <ImgBoxContainer src="/images/workercards/dollar-img.png" />
+                                <ImgBoxContainer src="/images/workercards/dollar-img.avif" />
                                 <FirstTextContainer color="text.primary">{list?.credits_used}</FirstTextContainer>
                               </SecondSubFirstPartThiredBoxText>
                             </CreditUsedBox>
