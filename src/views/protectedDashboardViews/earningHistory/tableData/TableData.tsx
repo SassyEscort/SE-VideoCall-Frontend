@@ -34,7 +34,7 @@ const TableData = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningH
               <Box sx={{ display: 'flex', gap: 1 }}>
                 <Box
                   component="img"
-                  src="/images/workercards/dollar-img.png"
+                  src="/images/workercards/dollar-img.avif"
                   sx={{
                     width: '20px',
                     height: '20px'
