@@ -44,7 +44,6 @@ import { ErrorMessage } from 'constants/common.constants';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { gaEventTrigger } from 'utils/analytics';
 import StyleBoostUserButton from 'components/UIComponents/StyleBoostUserButton';
-import Image from 'next/image';
 
 const WorkerCard = ({
   modelDetails,
@@ -123,25 +122,25 @@ const WorkerCard = ({
     <MainWorkerCard>
       <ImgWorkerCard ref={imageUrlRef} />
       <HeartIconWorkerCard>
-        {Boolean(modelDetails?.profile_plan_purchased) && (
-          <HighlyAvailableButtonBox>
-            <HighlyAvailableBox>
-              <Image
-                src="/images/boostProfile/fire-ani.gif"
-                height={57}
-                width={42}
-                alt="fire_icon"
-                style={{ zIndex: 10, left: isTablet ? '-20px' : isMdDown ? '-30px' : '-22px', position: 'absolute', top: '-14px' }}
-              />
+        <HighlyAvailableButtonBox>
+          <HighlyAvailableBox>
+            <video
+              src="/images/boostProfile/fire-ani.webm"
+              height={57}
+              width={42}
+              autoPlay
+              loop
+              muted
+              style={{ zIndex: 10, left: isTablet ? '-20px' : isMdDown ? '-30px' : '-22px', position: 'absolute', top: '-14px' }}
+            />
 
-              <StyleBoostUserButton>
-                <UINewTypography variant="bodyUltraLarge" color="#ffff">
-                  <FormattedMessage id="HighlyAvailable" />
-                </UINewTypography>
-              </StyleBoostUserButton>
-            </HighlyAvailableBox>
-          </HighlyAvailableButtonBox>
-        )}
+            <StyleBoostUserButton>
+              <UINewTypography variant="bodyUltraLarge" color="#ffff">
+                <FormattedMessage id="HighlyAvailable" />
+              </UINewTypography>
+            </StyleBoostUserButton>
+          </HighlyAvailableBox>
+        </HighlyAvailableButtonBox>
         {isFavPage || liked || modelDetails?.favourite === 1 ? (
           <FavoriteIconContainer sx={{ color: 'error.main' }} />
         ) : (
@@ -177,7 +176,7 @@ const WorkerCard = ({
               </NameCardContainer>
               {!isMobile && (
                 <CreditContainer>
-                  <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
+                  <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" />
                   <UINewTypography variant="captionLargeBold" color="text.secondary">
                     {!modelDetails?.credits_per_minute ? (
                       <FormattedMessage id="NoPrice" />
@@ -201,7 +200,7 @@ const WorkerCard = ({
             </SecondMainContainerWorkerCard>
             {isMobile && (
               <CreditContainer sx={{ marginTop: isSmallScreen ? 1.5 : 1 }}>
-                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.png" />
+                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" />
                 <UINewTypography variant="captionLargeBold" color="text.secondary">
                   {!modelDetails?.price_per_minute ? (
                     <FormattedMessage id="NoPrice" />

@@ -193,6 +193,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
                 </SeconBoxContainer>
               </BoxMain>
               <ImgBoxContainer
+                loading="lazy"
                 src="/images/line.png"
                 sx={{
                   display: isSmDown || isMdDown ? 'none' : 'block'
