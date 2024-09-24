@@ -6,44 +6,59 @@ import {
   ConversationsConfiguration,
   ConversationsStyle,
   ListItemStyle,
+  MessageHeaderConfiguration,
+  MessageHeaderStyle,
   MessageInformationConfiguration,
   MessageListConfiguration,
-  MessageListStyle,
   MessagesConfiguration,
   MessagesStyle,
+  ReceiptStyle,
   // ContactsConfiguration,
   // ContactsStyle,
   // ConversationsConfiguration,
   // ConversationsStyle,
   UIKitSettingsBuilder
 } from '@cometchat/chat-uikit-react';
+import coreTheme from 'themes/theme';
 import { useContext, useEffect, useState } from 'react';
 import { COMETCHAT_CONSTANTS } from 'views/protectedViews/callingFeature/CallInitialize';
 import { ChatFeatureMainBox } from './ChatPoc.styled';
+import { useMediaQuery } from '@mui/material';
+import CustomComposerView from './CustomComposerView';
+import { CometChat } from '@cometchat/chat-sdk-javascript';
 
 const ChatPoc = () => {
   const [user, setUser] = useState(false);
+  // const [selectedUserName, setSelectedUserName] = useState('');
+  const isMobileView = useMediaQuery(coreTheme.breakpoints.down('sm'));
 
   let { theme } = useContext(CometChatThemeContext);
+  // const conversationRef = useRef(null);
 
   theme.palette.setMode('dark'); // Light mode
   theme.typography.setFontFamily('Manrope'); // Correctly set font family
-  // theme.typography.caption1 = '12px'; // You can apply specific styling if required
-  theme.palette.setPrimary({ light: '#E9E8EB', dark: '#E9E8EB' }); // Primary palette
+  theme.palette.setPrimary({ light: '#1E0815', dark: '#1E0815' }); // Primary palette
+  theme.palette.setSecondary({ light: '#611441', dark: '#611441' }); // Primary palette
   theme.palette.setAccent({ light: '#E9E8EB', dark: '#E9E8EB' }); // Accent palette
+  theme.palette.setAccent50({ light: '#232027', dark: '#232027' }); //background of send message UI Box
+  theme.palette.setAccent100({ light: '#232027', dark: '#232027' }); //background of active user
+  theme.palette.setAccent500({ light: '#E9E8EB', dark: '#E9E8EB' }); //background of auxilary menu send message UI Box
+  theme.palette.setAccent600({ light: '#B7B5B9', dark: '#B7B5B9' }); //set color of time and day label and read tick
+  // theme.palette.setAccent700({ light: '#232027', dark: 'red' }); //set color of avatar background
+  // theme.palette.setAccent900({ light: '#232027', dark: 'red' }); //set color of font inside avatar background
   theme.palette.setBackground({ light: 'var(--Surface-cards, #100B19)', dark: 'var(--Surface-cards, #100B19)' }); // Background color
 
   // Title1 Typo
-  theme.typography.setTitle1({ fontFamily: 'Manrope', fontSize: '20px', fontWeight: '600' });
+  theme.typography.setTitle1({ fontFamily: "'Manrope', sans-serif", fontSize: '20px', fontWeight: '600' });
 
   // Title2 Typo  //set Contact FONT
-  theme.typography.setTitle2({ fontFamily: 'Manrope', fontSize: '16px', fontWeight: '700' });
+  theme.typography.setTitle2({ fontFamily: "'Manrope', sans-serif", fontSize: '16px', fontWeight: '700' });
 
   // Contact sub title set
   theme.typography.setSubtitle2({ fontFamily: "'Manrope', sans-serif", fontSize: '14px', fontWeight: '500' });
 
-  //Time label typo set
-  theme.typography.setCaption2({ fontFamily: "'Manrope', sans-serif", fontSize: '12px', fontWeight: '500' });
+  //Time label typo set user side panel
+  theme.typography.setCaption2({ fontFamily: "'Manrope', sans-serif", fontSize: '14px', fontWeight: '500' });
 
   useEffect(() => {
     const init = async () => {
@@ -72,13 +87,21 @@ const ChatPoc = () => {
             CometChatUIKit.login('zia-dd0dd2');
           }
         });
-        console.log(user, 'user');
+        // console.log(user, 'user');
       } catch (e) {
         console.log('error', e);
       }
     };
     init();
   }, []);
+
+  // const handleItemClick = (conversation: IConversation) => {
+  //   console.log(conversation, 'conversation');
+
+  //   // conversation object contains the selected user's details
+  //   const selectedUser = conversation.conversationWith.name;
+  //   setSelectedUserName(selectedUser);
+  // };
 
   // useEffect(() => {
   //   if (user) {
@@ -129,14 +152,26 @@ const ChatPoc = () => {
   // });
 
   const conversationsStyle = new ConversationsStyle({
-    // background: 'var(--Surface-cards, #100B19)',
     titleTextColor: '#B7B5B9',
-    lastMessageTextColor: '#E9E8EB'
+    typingIndictorTextColor: '#B7B5B9',
+    lastMessageTextColor: '#B7B5B9'
   });
 
   const messagesStyle = new MessagesStyle({
     height: '100%'
-    // background: 'var(--Surface-cards, #100B19)'
+  });
+
+  const receiptStyle = new ReceiptStyle({
+    width: '16px',
+    height: '16px',
+    readIconTint: '#B7B5B9',
+    sentIconTint: '#B7B5B9'
+  });
+
+  const listItemStyle = new ListItemStyle({
+    background: 'transparent',
+    titleColor: '#E9E8EB',
+    titleFont: 'Manrope'
   });
 
   // const messageListStyle = new MessageComposerStyle({
@@ -158,48 +193,76 @@ const ChatPoc = () => {
   //   activeTabBackground: '#100B19'
   // });
 
+  const CustomMenu = () => null;
+
+  const handleSendMessage = (message: string) => {
+    const receiverID = 'RECEIVER_UID';
+    const receiverType = CometChat.RECEIVER_TYPE.USER;
+
+    const textMessage = new CometChat.TextMessage(receiverID, message, receiverType);
+
+    CometChat.sendMessage(textMessage).then(
+      (message) => console.log('Message sent successfully:', message),
+      (error) => console.log('Message sending failed with error:', error)
+    );
+  };
+
+  // useEffect(() => {
+  //   const getSelectedConversation = async () => {
+  //     console.log(conversationRef, 'conversationRef');
+  //     if (conversationRef.current) {
+  //       const currentConversation = await CometChat.getConversation(conversationRef.current.conversationId);
+  //       if (currentConversation && currentConversation.conversationWith) {
+  //         setSelectedUserName(currentConversation.conversationWith.name);
+  //       }
+  //     }
+  //   };
+
+  //   // Call the function to get the selected conversation on mount
+  //   getSelectedConversation();
+
+  //   // Optionally, you can set an interval to check for conversation changes
+  //   const interval = setInterval(getSelectedConversation, 3000); // Check every 3 seconds
+
+  //   return () => clearInterval(interval); // Clean up the interval on unmount
+  // }, [conversationRef.current]);
+
   return (
     <div>
       {user && (
         <ChatFeatureMainBox>
           <CometChatThemeContext.Provider value={{ theme }}>
             <CometChatConversationsWithMessages
+              // ref={conversationRef}
+              isMobileView={isMobileView}
               conversationsConfiguration={
                 new ConversationsConfiguration({
                   conversationsStyle: conversationsStyle,
+                  receiptStyle: receiptStyle,
                   hideSeparator: true,
                   listItemStyle: {
                     padding: '12px 0'
-                  }
+                  },
+                  // onItemClick: handleItemClick,
+                  menu: <CustomMenu />
                 })
               }
               messagesConfiguration={
                 new MessagesConfiguration({
+                  messageHeaderConfiguration: new MessageHeaderConfiguration({
+                    messageHeaderStyle: new MessageHeaderStyle({
+                      backButtonIconTint: 'red'
+                    })
+                  }),
+                  messageComposerView: () => <CustomComposerView onSendMessage={handleSendMessage} modelName={'Zia'} />,
                   messagesStyle: messagesStyle,
                   messageListConfiguration: new MessageListConfiguration({
-                    messageListStyle: new MessageListStyle({ nameTextColor: 'red' }),
                     messageInformationConfiguration: new MessageInformationConfiguration({
-                      listItemStyle: new ListItemStyle({
-                        background: 'transparent',
-                        titleColor: '#E9E8EB',
-                        titleFont: 'Manrope'
-                      })
+                      listItemStyle: listItemStyle
                     })
                   })
                 })
               }
-              // theme: theme,
-              // conversationsConfiguration={
-              //   new ConversationsConfiguration({
-              //     conversationsStyle: conversationsStyle
-              //   })
-              // }
-              // startConversationConfiguration={
-              //   new ContactsConfiguration({
-              //     contactsStyle: contactsStyle,
-              //     hideSubmitButton: true
-              //   })
-              // }
             />
           </CometChatThemeContext.Provider>
         </ChatFeatureMainBox>
