@@ -6,6 +6,7 @@ import {
   ConversationsConfiguration,
   ConversationsStyle,
   ListItemStyle,
+  MessageComposerConfiguration,
   MessageHeaderConfiguration,
   MessageHeaderStyle,
   MessageInformationConfiguration,
@@ -24,12 +25,11 @@ import { useContext, useEffect, useState } from 'react';
 import { COMETCHAT_CONSTANTS } from 'views/protectedViews/callingFeature/CallInitialize';
 import { ChatFeatureMainBox } from './ChatPoc.styled';
 import { useMediaQuery } from '@mui/material';
-import CustomComposerView from './CustomComposerView';
-import { CometChat } from '@cometchat/chat-sdk-javascript';
 
 const ChatPoc = () => {
   const [user, setUser] = useState(false);
   // const [selectedUserName, setSelectedUserName] = useState('');
+  // const [activeConversation, setActiveConversation] = useState(null);
   const isMobileView = useMediaQuery(coreTheme.breakpoints.down('sm'));
 
   let { theme } = useContext(CometChatThemeContext);
@@ -87,7 +87,7 @@ const ChatPoc = () => {
             CometChatUIKit.login('zia-dd0dd2');
           }
         });
-        // console.log(user, 'user');
+        // console.log(user, ':::::::::::user');
       } catch (e) {
         console.log('error', e);
       }
@@ -98,9 +98,9 @@ const ChatPoc = () => {
   // const handleItemClick = (conversation: IConversation) => {
   //   console.log(conversation, 'conversation');
 
-  //   // conversation object contains the selected user's details
-  //   const selectedUser = conversation.conversationWith.name;
-  //   setSelectedUserName(selectedUser);
+  //   // // conversation object contains the selected user's details
+  //   // const selectedUser = conversation.conversationWith.name;
+  //   // setSelectedUserName(selectedUser);
   // };
 
   // useEffect(() => {
@@ -195,17 +195,39 @@ const ChatPoc = () => {
 
   const CustomMenu = () => null;
 
-  const handleSendMessage = (message: string) => {
-    const receiverID = 'RECEIVER_UID';
-    const receiverType = CometChat.RECEIVER_TYPE.USER;
+  // const handleSendMessage = (message: string) => {
+  //   const receiverID = 'RECEIVER_UID';
+  //   const receiverType = CometChat.RECEIVER_TYPE.USER;
 
-    const textMessage = new CometChat.TextMessage(receiverID, message, receiverType);
+  //   const textMessage = new CometChat.TextMessage(receiverID, message, receiverType);
 
-    CometChat.sendMessage(textMessage).then(
-      (message) => console.log('Message sent successfully:', message),
-      (error) => console.log('Message sending failed with error:', error)
-    );
-  };
+  //   CometChat.sendMessage(textMessage).then(
+  //     (message) => console.log('Message sent successfully:', message),
+  //     (error) => console.log('Message sending failed with error:', error)
+  //   );
+  // };
+
+  // CometChat.getLoggedinUser().then(
+  //   (userData) => {
+  //     console.log('Logged in user details:', userData);
+  //     const senderUID = userData?.uid; // sender's user ID
+  //     console.log('senderUID', senderUID);
+  //   },
+  //   (error) => {
+  //     console.log('Error fetching logged in user details:', error);
+  //   }
+  // );
+
+  // CometChat.addMessageListener(
+  //   'senderUID',
+  //   new CometChat.MessageListener({
+  //     onTextMessageReceived: (message) => {
+  //       console.log('Message received:', message);
+  //       const receiverUID = message?.receiver?.uid;
+  //       const senderUID = message?.sender?.uid;
+  //     }
+  //   })
+  // );
 
   // useEffect(() => {
   //   const getSelectedConversation = async () => {
@@ -227,12 +249,37 @@ const ChatPoc = () => {
   //   return () => clearInterval(interval); // Clean up the interval on unmount
   // }, [conversationRef.current]);
 
+  // useEffect(() => {
+  //   const fetchConversations = async () => {
+  //     try {
+  //       const conversationRequest = new CometChat.ConversationsRequestBuilder()
+  //         .setLimit(50) // You can adjust the limit based on your needs
+  //         .build();
+
+  //       const conversations = await conversationRequest.fetchNext();
+
+  //       if (conversations && conversations.length > 0) {
+  //         // Assuming the first conversation is the active one or define your logic
+  //         setActiveConversation(conversations[0]);
+  //         console.log('Active Conversation:', conversations[0]);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching conversations:', error);
+  //     }
+  //   };
+
+  //   fetchConversations();
+  // }, []);
+
+  // console.log('activeConversation', activeConversation);
+
   return (
     <div>
       {user && (
         <ChatFeatureMainBox>
           <CometChatThemeContext.Provider value={{ theme }}>
             <CometChatConversationsWithMessages
+              messageText="Conversations With Messages"
               // ref={conversationRef}
               isMobileView={isMobileView}
               conversationsConfiguration={
@@ -254,12 +301,18 @@ const ChatPoc = () => {
                       backButtonIconTint: 'red'
                     })
                   }),
-                  messageComposerView: () => <CustomComposerView onSendMessage={handleSendMessage} modelName={'Zia'} />,
+                  // messageComposerView: () => <CustomComposerView onSendMessage={handleSendMessage} modelName={'Zia'} />,
                   messagesStyle: messagesStyle,
                   messageListConfiguration: new MessageListConfiguration({
                     messageInformationConfiguration: new MessageInformationConfiguration({
                       listItemStyle: listItemStyle
                     })
+                  }),
+                  messageComposerConfiguration: new MessageComposerConfiguration({
+                    auxilaryButtonView: () => <></>,
+                    secondaryButtonView: () => <></>,
+                    hideVoiceRecording: true,
+                    hideLayoutMode: true
                   })
                 })
               }
