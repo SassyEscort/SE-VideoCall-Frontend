@@ -122,25 +122,27 @@ const WorkerCard = ({
     <MainWorkerCard>
       <ImgWorkerCard ref={imageUrlRef} />
       <HeartIconWorkerCard>
-        <HighlyAvailableButtonBox>
-          <HighlyAvailableBox>
-            <video
-              src="/images/boostProfile/fire-ani.webm"
-              height={57}
-              width={42}
-              autoPlay
-              loop
-              muted
-              style={{ zIndex: 10, left: isTablet ? '-20px' : isMdDown ? '-30px' : '-22px', position: 'absolute', top: '-14px' }}
-            />
+        {Boolean(modelDetails?.profile_plan_purchased) && (
+          <HighlyAvailableButtonBox>
+            <HighlyAvailableBox>
+              <video
+                src="/images/boostProfile/fire-ani.webm"
+                height={57}
+                width={42}
+                autoPlay
+                loop
+                muted
+                style={{ zIndex: 10, left: isTablet ? '-20px' : isMdDown ? '-30px' : '-22px', position: 'absolute', top: '-14px' }}
+              />
 
-            <StyleBoostUserButton>
-              <UINewTypography variant="bodyUltraLarge" color="#ffff">
-                <FormattedMessage id="HighlyAvailable" />
-              </UINewTypography>
-            </StyleBoostUserButton>
-          </HighlyAvailableBox>
-        </HighlyAvailableButtonBox>
+              <StyleBoostUserButton>
+                <UINewTypography variant="bodyUltraLarge" color="#ffff">
+                  <FormattedMessage id="HighlyAvailable" />
+                </UINewTypography>
+              </StyleBoostUserButton>
+            </HighlyAvailableBox>
+          </HighlyAvailableButtonBox>
+        )}
         {isFavPage || liked || modelDetails?.favourite === 1 ? (
           <FavoriteIconContainer sx={{ color: 'error.main' }} />
         ) : (
