@@ -14,22 +14,24 @@ import {
   MessagesConfiguration,
   MessagesStyle,
   ReceiptStyle,
-  // ContactsConfiguration,
-  // ContactsStyle,
-  // ConversationsConfiguration,
-  // ConversationsStyle,
   UIKitSettingsBuilder
 } from '@cometchat/chat-uikit-react';
 import coreTheme from 'themes/theme';
 import { useContext, useEffect, useState } from 'react';
+import { CometChat, User } from '@cometchat/chat-sdk-javascript';
 import { COMETCHAT_CONSTANTS } from 'views/protectedViews/callingFeature/CallInitialize';
 import { ChatFeatureMainBox } from './ChatPoc.styled';
 import { useMediaQuery } from '@mui/material';
+import { useSession } from 'next-auth/react';
+import { User as AuthUser } from 'app/(guest)/layout';
 
 const ChatPoc = () => {
+  const authSession = useSession();
+  const customerUser = (authSession?.data?.user as AuthUser)?.picture;
+  const customerData = JSON.parse(customerUser || '{}');
+  console.log('customerData', customerData);
   const [user, setUser] = useState(false);
-  // const [selectedUserName, setSelectedUserName] = useState('');
-  // const [activeConversation, setActiveConversation] = useState(null);
+  const [userData, setUserData] = useState<User>();
   const isMobileView = useMediaQuery(coreTheme.breakpoints.down('sm'));
 
   let { theme } = useContext(CometChatThemeContext);
@@ -79,15 +81,18 @@ const ChatPoc = () => {
         }
 
         if (!user) {
-          user = await CometChatUIKit.login('zia-dd0dd2');
+          user = await CometChatUIKit.login(customerData.customer_user_name || 'stevie-S7nzwtH');
         }
 
+        const c_user = await CometChat.getUser('kendall-GLz6dMd');
+        console.log(c_user, 'c_user');
+
+        setUserData(c_user);
         CometChatUIKit.getLoggedinUser().then((user) => {
           if (!user) {
-            CometChatUIKit.login('zia-dd0dd2');
+            CometChatUIKit.login('stevie-S7nzwtH');
           }
         });
-        // console.log(user, ':::::::::::user');
       } catch (e) {
         console.log('error', e);
       }
@@ -95,9 +100,35 @@ const ChatPoc = () => {
     init();
   }, []);
 
-  // const handleItemClick = (conversation: IConversation) => {
-  //   console.log(conversation, 'conversation');
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     const usersRequest = new CometChat.UsersRequestBuilder()
+  //       .setLimit(100)
+  //       .setStatus(CometChat.USER_STATUS.ONLINE) // Fetch only online users
+  //       .build();
 
+  //     try {
+  //       const userDataList = await usersRequest.fetchNext();
+  //       // Filter out users whose role is "model"
+  //       const filteredUsers = userDataList.filter((item) => {
+  //         return item.getStatus() === CometChat.USER_STATUS.ONLINE && item.role !== 'model';
+  //       });
+  //       console.log(filteredUsers, '::::::::::::filteredUsers');
+
+  //       setUsers(filteredUsers);
+  //     } catch (error) {
+  //       console.error('Error fetching users:', error);
+  //     }
+  //   };
+
+  //   fetchUsers();
+  // }, []);
+
+  // const handleItemClick = async (conversation: any) => {
+  //   console.log(conversation, 'conversation');
+  //   const data = await CometChat.getUser(conversation.conversationWith.uid);
+  //   console.log(data, '::::::::::::data');
+  //   setUserData(data);
   //   // // conversation object contains the selected user's details
   //   // const selectedUser = conversation.conversationWith.name;
   //   // setSelectedUserName(selectedUser);
@@ -194,6 +225,14 @@ const ChatPoc = () => {
   // });
 
   const CustomMenu = () => null;
+  // const receiverUser = async (): User => {
+  //   const c_user = await CometChat.getUser('kendall-GLz6dMd');
+  //   console.log(c_user, 'c_user');
+
+  //   setUserData(c_user);
+
+  //   return c_user;
+  // };
 
   // const handleSendMessage = (message: string) => {
   //   const receiverID = 'RECEIVER_UID';
@@ -270,8 +309,7 @@ const ChatPoc = () => {
 
   //   fetchConversations();
   // }, []);
-
-  // console.log('activeConversation', activeConversation);
+  // console.log('users', users);
 
   return (
     <div>
@@ -279,18 +317,19 @@ const ChatPoc = () => {
         <ChatFeatureMainBox>
           <CometChatThemeContext.Provider value={{ theme }}>
             <CometChatConversationsWithMessages
+              user={userData}
               messageText="Conversations With Messages"
               // ref={conversationRef}
               isMobileView={isMobileView}
               conversationsConfiguration={
                 new ConversationsConfiguration({
+                  conversationsRequestBuilder: new CometChat.ConversationsRequestBuilder().setConversationType('user').setLimit(10),
                   conversationsStyle: conversationsStyle,
                   receiptStyle: receiptStyle,
                   hideSeparator: true,
                   listItemStyle: {
                     padding: '12px 0'
                   },
-                  // onItemClick: handleItemClick,
                   menu: <CustomMenu />
                 })
               }
@@ -301,7 +340,7 @@ const ChatPoc = () => {
                       backButtonIconTint: 'red'
                     })
                   }),
-                  // messageComposerView: () => <CustomComposerView onSendMessage={handleSendMessage} modelName={'Zia'} />,
+                  // messageComposerView: () => <CustomComposerView onSendMessage={handleSendMessage} modelName={userData?.getName()} />,
                   messagesStyle: messagesStyle,
                   messageListConfiguration: new MessageListConfiguration({
                     messageInformationConfiguration: new MessageInformationConfiguration({
@@ -316,6 +355,15 @@ const ChatPoc = () => {
                   })
                 })
               }
+
+              // usersConfiguration={
+              //   new UsersConfiguration({
+              //     onItemClick: handleOnItemClick,
+              //     usersRequestBuilder: new CometChat.UsersRequestBuilder()
+              //       .sortBy("name")
+              //       .setLimit(10),
+              //   })
+              // }
             />
           </CometChatThemeContext.Provider>
         </ChatFeatureMainBox>
