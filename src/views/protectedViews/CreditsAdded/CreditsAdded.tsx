@@ -76,7 +76,7 @@ function CreditsAdded({
             <FormattedMessage id="NewBalance" />
           </UINewTypography>
           <NewBalanceDetails>
-            <Image alt="home_model" width={24} height={24} src="/images/workercards/dollar-img.png" />
+            <Image alt="home_model" width={24} height={24} src="/images/workercards/dollar-img.avif" />
             <UINewTypography sx={{ pl: '8px' }}>
               {newBalance} <FormattedMessage id="Credits" />
             </UINewTypography>

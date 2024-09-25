@@ -65,7 +65,7 @@ const RatingTable = ({
         >
           {RATING.map((rating, index) => (
             <MenuItem key={rating?.id + index} value={rating?.id}>
-              <UINewTypography>{intl.formatMessage({ id: rating?.title })}</UINewTypography>
+              <UINewTypography color="text.secondary">{intl.formatMessage({ id: rating?.title })}</UINewTypography>
             </MenuItem>
           ))}
         </UIStyledSelectRatingFilter>
@@ -113,7 +113,7 @@ const RatingTable = ({
                   limit={filters.limit}
                   total_rows={total_rows}
                   offset={filters.offset}
-                  isEscort={true}
+                  ratingAndReview={true}
                 />
               </BillingPaginationBox>
             )}

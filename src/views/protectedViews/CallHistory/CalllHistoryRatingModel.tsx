@@ -76,6 +76,16 @@ const CallHistoryRatingModel = ({ open, onClose, callLogId }: { open: boolean; o
     onClose();
   };
 
+  useEffect(() => {
+    if (isRatingSubmitted) {
+      const timer = setTimeout(() => {
+        handleCloseModal();
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isRatingSubmitted]);
+
   return (
     <DialogContentMain open={open} onClose={handleCloseModal} fullWidth scroll="body">
       <DialogTitleBox id="responsive-modal-title">
@@ -108,7 +118,7 @@ const CallHistoryRatingModel = ({ open, onClose, callLogId }: { open: boolean; o
               {!isRatingSubmitted && (
                 <>
                   <FiveBoxContent>
-                    <UINewTypography variant="bodyLight" color="text.primary">
+                    <UINewTypography variant="bodyLight" color="text.secondary">
                       <FormattedMessage id="RateYourVideoCall" />
                     </UINewTypography>
                     <StartRating value={rating || 0} handleStarClick={handleStarClick} isFromPopup={true} />
@@ -117,7 +127,7 @@ const CallHistoryRatingModel = ({ open, onClose, callLogId }: { open: boolean; o
                     <ReviewBoxAndButtonContent>
                       <TextBoxContent
                         name="bio"
-                        rows={6.4}
+                        rows={8.35}
                         fullWidth
                         multiline
                         placeholder="Share your review..."

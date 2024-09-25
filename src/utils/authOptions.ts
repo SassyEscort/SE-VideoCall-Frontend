@@ -29,7 +29,7 @@ export const authOptions: NextAuthOptions = {
 
           if (user && typeof user !== 'string' && user.data) {
             if (user.data?.role === 'customer' && currentPage.includes('/model')) {
-              throw new Error('Customers cannot access the model page.');
+              throw new Error('CustomersCannotAccess');
             } else {
               user.data.accessToken = user.data.token;
 

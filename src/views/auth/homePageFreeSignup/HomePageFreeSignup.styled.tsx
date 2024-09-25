@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 
@@ -76,5 +76,61 @@ export const HeaderText = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     fontSize: '32px',
     lineHeight: '44.8px'
+  }
+}));
+
+export const JoinForFreeText = styled(Typography)(({ theme }) => ({
+  lineHeight: '38.4px',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '28px',
+    paddingTop: theme.spacing(0.5)
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '32px'
+  }
+}));
+
+export const RemindMeBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column'
+}));
+
+export const HomeFreeSignupMainBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  position: 'relative',
+  flexDirection: 'column',
+  width: '100%',
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    maxWidth: '100%',
+    gap: theme.spacing(3)
+  },
+  [theme.breakpoints.up('sm')]: {
+    paddingTop: theme.spacing(6.25),
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(2),
+    maxWidth: '400px',
+    gap: theme.spacing(4)
+  }
+}));
+
+export const HeaderTextMainBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between'
+}));
+
+export const HeaderTextInnerBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'flex-end',
+  justifyContent: 'flex-end'
+}));
+
+export const IconeButtonContainer = styled(IconButton)(({ theme }) => ({
+  color: theme.palette.common.white,
+  position: 'absolute',
+  top: 0,
+  [theme.breakpoints.up('md')]: {
+    right: '-84px'
   }
 }));

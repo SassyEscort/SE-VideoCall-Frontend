@@ -172,7 +172,7 @@ export const UINewTypographyCondition = styled(UINewTypography)(({ theme }) => (
 export const UINewTypographyPackage = styled(UINewTypography)(() => ({
   fontSize: '24px',
   fontWeight: 700,
-  lineHeight: '30px'
+  lineHeight: '36px'
 }));
 
 export const BoxImageBackgroundBoost = styled(Box)(({ theme }) => ({
@@ -224,7 +224,12 @@ export const SeconBoxContainerBoost = styled(Box)(({ theme }) => ({
 
 export const SecondBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  marginTop: theme.spacing(7)
+  [theme.breakpoints.down('sm')]: {
+    marginTop: theme.spacing(6)
+  },
+  [theme.breakpoints.up('sm')]: {
+    marginTop: theme.spacing(7)
+  }
 }));
 
 export const MainBoostButtonBox = styled(Box)(({ theme }) => ({
@@ -306,12 +311,15 @@ export const BoostMultipleBox = styled(Box)(({ theme }) => ({
 }));
 
 export const BoostMultipleFreeBox = styled(Box)(({ theme }) => ({
-  marginTop: theme.spacing(7),
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
   [theme.breakpoints.down('sm')]: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: theme.spacing(6)
+  },
+  [theme.breakpoints.up('sm')]: {
+    marginTop: theme.spacing(7)
   }
 }));
 
@@ -358,4 +366,22 @@ export const FireIcon = styled(Image)(({ theme }) => ({
   left: '-50px',
   position: 'absolute',
   top: '-22px'
+}));
+
+export const BoostInnerTextContainer = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 400,
+  lineHeight: '24px'
+}));
+
+export const ProfileBoostTextContainer = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '24px',
+  fontWeight: 700,
+  lineHeight: '30px'
+}));
+
+export const FreeBoostModelHeaderTextContainer = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '20px',
+  fontWeight: 700,
+  lineHeight: '28px'
 }));

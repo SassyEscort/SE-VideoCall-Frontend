@@ -18,7 +18,8 @@ import {
   ReviewSubmitBoxContent,
   SkipButtonContent,
   TextBoxContainer,
-  TextBoxContent
+  TextBoxContent,
+  VideoCallEndedTextContainer
 } from './VideoCallEnded.styled';
 import { useEffect, useState } from 'react';
 import { RatingAndReviewService } from 'services/ratingAndReview/ratingAndReview.service';
@@ -141,9 +142,9 @@ const VideoCallEnded = ({
   return (
     <DialogContentMain open={open} onClose={() => onClose()} fullWidth scroll="body">
       <DialogTitleBox id="responsive-modal-title">
-        <UINewTypography variant="h6">
+        <VideoCallEndedTextContainer>
           <FormattedMessage id="VideoCallEnded" />
-        </UINewTypography>
+        </VideoCallEndedTextContainer>
 
         <IconButton
           aria-label="close"
@@ -194,7 +195,7 @@ const VideoCallEnded = ({
                 {!isRatingSubmitted && (
                   <>
                     <FiveBoxContent>
-                      <UINewTypography variant="bodyLight" color="text.primary">
+                      <UINewTypography variant="bodyLight" color="text.secondary">
                         <FormattedMessage id="RateYourVideoCall" />
                       </UINewTypography>
                       <Box>
@@ -206,7 +207,7 @@ const VideoCallEnded = ({
                       <ReviewBoxAndButtonContent>
                         <TextBoxContent
                           name="bio"
-                          rows={6.4}
+                          rows={8.35}
                           fullWidth
                           multiline
                           placeholder="Share your review..."

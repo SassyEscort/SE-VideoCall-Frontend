@@ -5,6 +5,7 @@ import LinearProgress, { linearProgressClasses, LinearProgressProps } from '@mui
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledSelectAgeFilter } from 'components/UIComponents/UIStyledSelect';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
 
 export const HeadingTextAndTotalClientMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -15,7 +16,9 @@ export const HeadingTextAndTotalClientMainBoxContainer = styled(Box)(({ theme })
 export const HeadingTextBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  marginTop: theme.spacing(4)
+  [theme.breakpoints.up('sm')]: {
+    marginTop: theme.spacing(4)
+  }
 }));
 
 export const TotalClientMainBoxContainer = styled(Box)(({ theme }) => ({
@@ -58,10 +61,7 @@ export const RatingDetalisFirstPartBoxContainer = styled(Box)(({ theme }) => ({
 export const RatingDetalisStarBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(1.5),
-  alignItems: 'center',
-  [theme.breakpoints.down('sm')]: {
-    justifyContent: 'center'
-  }
+  alignItems: 'center'
 }));
 
 export const RatingPercentageContainer = styled(UINewTypography)(({ theme }) => ({
@@ -130,8 +130,8 @@ export const BorderLinearProgress = styled(LinearProgress, {
   shouldForwardProp: (prop) => prop !== 'isClicked' && prop !== 'isShowPercentage'
 })<BorderLinearProgressProps>(({ theme, isShowPercentage }) => ({
   width: '100%',
-  maxWidth: !isShowPercentage ? '504px' : '275px',
-  height: 10,
+  maxWidth: !isShowPercentage ? '504px' : '298px',
+  height: 12,
   borderRadius: 2,
   [`&.${linearProgressClasses.colorPrimary}`]: {
     backgroundColor: theme.palette.grey[200],
@@ -198,5 +198,25 @@ export const RatingStartBox = styled(Rating)(({ theme }) => ({
   },
   '& .MuiRating-iconFilled': {
     color: '#FFB400'
+  },
+  '@media (max-width: 320px)': {
+    gap: 0
+  }
+}));
+
+export const TotalClientDescriptionText = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '30px',
+  fontWeight: 600,
+  lineHeight: '42px'
+}));
+
+export const StarComponent = styled(StarRoundedIcon)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    width: '12px',
+    height: '12px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    width: '20px',
+    height: '20px'
   }
 }));

@@ -40,7 +40,7 @@ export const AuthImageMobileBox = styled(Box)(({ theme }) => ({
 export const AuthImageBox = styled(Box)<BackgroundImageBoxProps>(({ theme, variant }) => ({
   width: '100%',
   maxWidth: '420px',
-  backgroundSize: variant === ROLE.MODEL ? '' : 'calc(100% - 320px) 100%, cover',
+  backgroundSize: variant === ROLE.MODEL ? 'calc(100%) 100%, cover' : 'calc(100% - 320px) 100%, cover',
   backgroundImage: variant === ROLE.MODEL ? 'url(/images/model/model-signup/model-signup.webp)' : 'none',
   backgroundPosition: 'right',
   borderRadius: '12px',
@@ -53,7 +53,7 @@ export const AuthImageBox = styled(Box)<BackgroundImageBoxProps>(({ theme, varia
 }));
 
 export const BackgroundImageBox = styled(Box)<BackgroundImageBoxProps>(({ theme, variant }) => ({
-  backgroundImage: variant === ROLE.CUSTOMER ? 'url(/images/home/free-credit-signup-img.png)' : 'none',
+  backgroundImage: variant === ROLE.CUSTOMER ? 'url(/images/home/free-credit-signup-img.webp)' : 'none',
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
   display: 'flex',
@@ -132,5 +132,8 @@ export const DescriptionTextMainBoxContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '332px',
   display: 'flex',
-  textAlign: 'center'
+  textAlign: 'center',
+  '@media (max-width: 768px)': {
+    maxWidth: '300px'
+  }
 }));

@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
@@ -29,6 +28,14 @@ import HomePageFreeSignupMobile from './HomePageFreeSignupMobile';
 import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { ROLE } from 'constants/workerVerification';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
+import {
+  HeaderTextInnerBoxContainer,
+  HeaderTextMainBoxContainer,
+  HomeFreeSignupMainBoxContainer,
+  IconeButtonContainer,
+  JoinForFreeText,
+  RemindMeBoxContainer
+} from './HomePageFreeSignup.styled';
 
 export type SignupParams = {
   name: string;
@@ -145,58 +152,31 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
         return (
           <Box component="form" onSubmit={handleSubmit}>
             <AuthHomePageFreeSignupCommon onClose={onClose} role={values.role}>
-              <Box
-                position="relative"
-                width="100%"
-                height={activeStep > 0 ? '620px' : 'auto'}
-                gap={4}
-                display="flex"
-                flexDirection="column"
-                sx={{
-                  pt: { xs: 0, sm: '50px' },
-                  pl: { xs: 2, md: 4 },
-                  pr: { xs: 2, md: 0 },
-                  maxWidth: { xs: '100%', md: '400px' }
-                }}
-              >
+              <HomeFreeSignupMainBoxContainer height={activeStep > 0 ? '620px' : 'auto'}>
                 {activeStep === 0 ? (
                   <>
                     <Box>
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between', paddingTop: 2 }}>
-                        <UINewTypography
-                          variant="MediumSemiBoldText"
-                          color="common.white"
-                          sx={{ lineHeight: '38.4px', fontSize: { xs: '23px', sm: '32px' } }}
-                        >
+                      <HeaderTextMainBoxContainer>
+                        <JoinForFreeText variant="MediumSemiBoldText" color="common.white">
                           <FormattedMessage id="JoinNowForFree" />
-                        </UINewTypography>
-                        <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
-                          <IconButton
-                            size="large"
-                            sx={{
-                              color: 'common.white',
-                              position: 'absolute',
-                              top: 0,
-                              right: { xs: 0, md: '-84px' },
-                              display: { sm: 'block' }
-                            }}
-                            onClick={onClose}
-                          >
-                            <CloseIcon />
-                          </IconButton>
-                        </Box>
-                      </Box>
+                        </JoinForFreeText>
+                        <HeaderTextInnerBoxContainer>
+                          <IconeButtonContainer size="large" onClick={onClose}>
+                            {!isSmDown && <CloseIcon />}
+                          </IconeButtonContainer>
+                        </HeaderTextInnerBoxContainer>
+                      </HeaderTextMainBoxContainer>
                       {isSmDown && values.role === ROLE.CUSTOMER && <HomePageFreeSignupMobile />}
                     </Box>
 
-                    <Box sx={{ color: 'primary.300' }}>
-                      {alert && (
+                    {alert && (
+                      <Box sx={{ color: 'primary.300' }}>
                         <ErrorBox>
                           <InfoIcon />
                           <UINewTypography>{alert}</UINewTypography>
                         </ErrorBox>
-                      )}
-                    </Box>
+                      </Box>
+                    )}
 
                     <ModelUITextConatiner gap={3} sx={{ width: isLg ? '400px' : 'auto' }}>
                       <ModelUITextConatiner sx={{ gap: 0.5 }}>
@@ -275,32 +255,34 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                           />
                         </ModelUITextConatiner>
                       </ModelUITextConatiner>
-                      <ModelUITextConatiner gap={0.5}>
-                        <ModelUITextConatiner sx={{ gap: 0.5 }}>
-                          <ModelUICustomUIBox>
-                            <UITypographyText>
-                              <FormattedMessage id="SignupAs" />
-                            </UITypographyText>
-                            <FormControl component="fieldset" error={touched.role && Boolean(errors.role)}>
-                              <RadioGroup row id="role" name="role" value={values.role} onChange={handleChange}>
-                                <FormControlLabel value="customer" control={<Radio />} label={<FormattedMessage id="Customer" />} />
-                                <FormControlLabel value="model" control={<Radio />} label={<FormattedMessage id="Model" />} />
-                              </RadioGroup>
-                              {touched.role && errors.role && (
-                                <UINewTypography color="error" variant="caption">
-                                  <FormattedMessage id={errors.role} />
-                                </UINewTypography>
-                              )}
-                            </FormControl>
-                          </ModelUICustomUIBox>
+                      <RemindMeBoxContainer>
+                        <ModelUITextConatiner gap={0.5}>
+                          <ModelUITextConatiner sx={{ gap: 0.5 }}>
+                            <ModelUICustomUIBox>
+                              <UITypographyText>
+                                <FormattedMessage id="SignupAs" />
+                              </UITypographyText>
+                              <FormControl component="fieldset" error={touched.role && Boolean(errors.role)}>
+                                <RadioGroup row id="role" name="role" value={values.role} onChange={handleChange}>
+                                  <FormControlLabel value="customer" control={<Radio />} label={<FormattedMessage id="Customer" />} />
+                                  <FormControlLabel value="model" control={<Radio />} label={<FormattedMessage id="Model" />} />
+                                </RadioGroup>
+                                {touched.role && errors.role && (
+                                  <UINewTypography color="error" variant="caption">
+                                    <FormattedMessage id={errors.role} />
+                                  </UINewTypography>
+                                )}
+                              </FormControl>
+                            </ModelUICustomUIBox>
+                          </ModelUITextConatiner>
                         </ModelUITextConatiner>
-                      </ModelUITextConatiner>
-                      <MenuItem sx={{ p: 0, gap: { xs: '0', sm: '1' } }}>
-                        <Checkbox sx={{ p: 0, pr: 1 }} />
-                        <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
-                          <FormattedMessage id="RememberMe" />
-                        </UINewTypography>
-                      </MenuItem>
+                        <MenuItem sx={{ p: 0, gap: { xs: '0', sm: '1' } }}>
+                          <Checkbox sx={{ p: 0, pr: 1 }} />
+                          <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
+                            <FormattedMessage id="RememberMe" />
+                          </UINewTypography>
+                        </MenuItem>
+                      </RemindMeBoxContainer>
                     </ModelUITextConatiner>
                     <ModelUITextConatiner width="100%" gap={isSm ? '33px' : '29px'}>
                       <StyleButtonV2 variant="contained" type="submit" loading={loading} sx={{ width: isLg ? '400px' : 'auto' }}>
@@ -336,7 +318,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                 ) : (
                   <GuestSignupSuccess redirectSeconds={redirectSeconds} />
                 )}
-              </Box>
+              </HomeFreeSignupMainBoxContainer>
             </AuthHomePageFreeSignupCommon>
           </Box>
         );

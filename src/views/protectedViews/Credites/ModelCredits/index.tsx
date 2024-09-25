@@ -50,12 +50,12 @@ const ModelCredits = ({
   const [balance, setBalance] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const { customerUser } = useCallFeatureContext();
+  const { user } = useCallFeatureContext();
 
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const customerData = JSON.parse(customerUser || '{}');
+  const customerData = JSON.parse(user || '{}');
 
   useEffect(() => {
     const userToken = async () => {
@@ -129,7 +129,7 @@ const ModelCredits = ({
                 <UINewTypography variant="buttonLargeMenu" sx={{ paddingRight: '8px' }}>
                   <FormattedMessage id="Balance" />
                 </UINewTypography>
-                <CreditCardImage src="/images/workercards/dollar-img.png" />
+                <CreditCardImage src="/images/workercards/dollar-img.avif" />
 
                 <UINewTypography variant="buttonLargeMenu">{balance}</UINewTypography>
                 <FormattedMessage id="Credits" />
@@ -142,7 +142,7 @@ const ModelCredits = ({
               <UINewTypography variant="buttonLargeMenu" sx={{ paddingRight: '8px' }}>
                 <FormattedMessage id="Balance" />
               </UINewTypography>
-              <CreditCardImage src="/images/workercards/dollar-img.png" />
+              <CreditCardImage src="/images/workercards/dollar-img.avif" />
 
               <UINewTypography variant="buttonLargeMenu">{balance}</UINewTypography>
               <FormattedMessage id="Credits" />

@@ -42,6 +42,7 @@ export const ImgWorkerCard = styled(Box)(({ theme }) => ({
   backgroundSize: 'cover',
   backgroundPosition: 'center'
 }));
+
 export const HeartIconWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   position: 'absolute',

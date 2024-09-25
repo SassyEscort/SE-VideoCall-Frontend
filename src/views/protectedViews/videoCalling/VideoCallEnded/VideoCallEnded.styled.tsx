@@ -1,4 +1,5 @@
 import { Box, Button, Dialog, DialogTitle, styled } from '@mui/material';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 
 export const DialogTitleBox = styled(DialogTitle)(({ theme }) => ({
@@ -89,7 +90,7 @@ export const FourBoxContent = styled(Box)(() => ({
 export const FiveBoxContent = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(1.5),
+  gap: theme.spacing(2),
   alignItems: 'center'
 }));
 
@@ -125,7 +126,7 @@ export const ReviewBoxAndButtonContent = styled(Box)(({ theme }) => ({
 export const ModelDetailsAndButtonContent = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(7),
+  gap: theme.spacing(6),
   alignItems: 'center'
 }));
 
@@ -175,5 +176,16 @@ export const RatingReviewBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: theme.spacing(5)
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(3.75)
+  },
+  [theme.breakpoints.up('sm')]: {
+    gap: theme.spacing(6)
+  }
+}));
+
+export const VideoCallEndedTextContainer = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '20px',
+  fontWeight: 700,
+  lineHeight: '28px'
 }));

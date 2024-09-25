@@ -40,6 +40,7 @@ import React from 'react';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import { gaEventTrigger } from 'utils/analytics';
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 
 const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const [isModalOpenFreeCredits, setIsModalOpenFreeCredits] = useState(false);
@@ -131,7 +132,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
 
   return (
     <>
-      {(session?.user as User)?.provider === 'providerGuest' ? (
+      {(session?.user as User)?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM ? (
         <TopBoxContainer>
           <FristBoxContainer>
             <UINewTypography variant="MediumSemiBold" width="100%" maxWidth="710px" color="text.secondary">
