@@ -38,7 +38,7 @@ export type PaginationType = {
   page: number;
   offset: number;
   pageSize: number;
-  orderField: string;
+  sort_field: string;
   sort_order: string;
   search_field: string;
   limit: number;
@@ -61,15 +61,17 @@ export default function SEOContainer() {
     page: 1,
     offset: 0,
     pageSize: PAGE_SIZE,
-    orderField: 'newest',
+    sort_field: 'newest',
     sort_order: 'desc',
     search_field: '',
     limit: 10
   });
 
   const SORT_BY_OPTIONS: PaginationSortByOption[] = [
-    { value: 'name', label: 'Name' },
-    { value: 'email', label: 'Email' }
+    { value: 'name', label: 'Model Name' },
+    { value: 'title', label: 'Title' },
+    { value: 'keywords', label: 'Keywords' },
+    { value: 'description', label: 'description' }
   ];
   useEffect(() => {
     const userToken = async () => {
@@ -85,7 +87,14 @@ export default function SEOContainer() {
 
   const handelFetch = async () => {
     setIsLoading(true);
-    const res = await adminSEOServices.adminGetSEOProfile(token.token, filters.limit, filters.offset, filters.search_field);
+    const res = await adminSEOServices.adminGetSEOProfile(
+      token.token,
+      filters.limit,
+      filters.offset,
+      filters.search_field,
+      filters.sort_field,
+      filters.sort_order
+    );
     if (res) {
       if (res.code == 200) {
         setData(res?.data?.model_seo);
@@ -141,7 +150,7 @@ export default function SEOContainer() {
       handleChangeFilter({
         ...filters,
         sort_order: type,
-        orderField: field,
+        sort_field: field,
         page: 1
       });
     },
@@ -188,7 +197,7 @@ export default function SEOContainer() {
           page: 1,
           offset: 0,
           pageSize: PAGE_SIZE,
-          orderField: 'newest',
+          sort_field: 'newest',
           sort_order: 'desc',
           search_field: '',
           limit: 10
@@ -213,7 +222,7 @@ export default function SEOContainer() {
         <Box sx={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
           <PaginationSortBy
             sortByOptions={SORT_BY_OPTIONS}
-            orderField={filters.orderField}
+            orderField={filters.sort_field}
             orderType={filters.sort_order}
             handleChangeOrderBy={handleChangeOrderBy}
           />
