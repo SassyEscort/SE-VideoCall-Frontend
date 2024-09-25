@@ -6,9 +6,10 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   const model = params.id;
   if (model) {
     const res = await ModelSeoService.getModelSeo(model);
-    const title = res ? res.title : model;
-    const keywords = res ? res.keywords : model;
-    const description = res ? res.description : model;
+
+    const title = res.title ? res.title : model;
+    const keywords = res.keywords ? res.keywords : model;
+    const description = res.description ? res.description : model;
     const canonicalUrl = `https://flirtbate.com/details/${model}`;
 
     return {
