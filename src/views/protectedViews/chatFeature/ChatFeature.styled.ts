@@ -1,9 +1,13 @@
-import { ConversationsStyle, MessagesStyle, ReceiptStyle, ListItemStyle } from '@cometchat/chat-uikit-react';
+import { ConversationsStyle, MessagesStyle, ReceiptStyle, ListItemStyle, MessageHeaderStyle } from '@cometchat/chat-uikit-react';
 import { FormControl, OutlinedInput } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 
 export const ChatFeatureMainBox = styled(Box)(({ theme }) => ({
+  maxHeight: '728px',
+  '& .cc-conversations-with-messages__main': {
+    maxHeight: '90%'
+  },
   '& .cc-list__title': {
     lineHeight: `${theme.spacing(3)} !important`
   },
@@ -31,12 +35,22 @@ export const ChatFeatureMainBox = styled(Box)(({ theme }) => ({
     '& .cc-conversations-with-messages__wrapper': {
       minHeight: '100vh'
     }
+  },
+  '& ::-webkit-scrollbar': {
+    width: '2px'
+  },
+  '& ::-webkit-scrollbar-thumb': {
+    background: '#f0f0f0'
   }
 }));
 
 export const ComposeMessageControlWrapper = styled(FormControl)(({ theme }) => ({
   margin: theme.spacing(1)
-  // background: `var(--Surface-Tags, ${theme.palette.primary[700]})`
+}));
+
+export const VideoCallImageBox = styled(Box)(({ theme }) => ({
+  cursor: 'pointer',
+  marginRight: theme.spacing(1.5)
 }));
 
 export const ChatMessageInput = styled(OutlinedInput)(({ theme }) => ({
@@ -81,4 +95,10 @@ export const listItemStyle = new ListItemStyle({
   background: 'transparent',
   titleColor: '#E9E8EB',
   titleFont: 'Manrope'
+});
+
+export const messageHeaderStyle = new MessageHeaderStyle({
+  backButtonIconTint: 'white',
+  typingIndicatorTextColor: 'white',
+  subtitleTextFont: 'red'
 });

@@ -17,7 +17,15 @@ import coreTheme from 'themes/theme';
 import { useContext, useEffect, useState } from 'react';
 import { CometChat, User } from '@cometchat/chat-sdk-javascript';
 import { COMETCHAT_CONSTANTS } from 'views/protectedViews/callingFeature/CallInitialize';
-import { ChatFeatureMainBox, conversationsStyle, listItemStyle, messagesStyle, receiptStyle } from './ChatFeature.styled';
+import {
+  ChatFeatureMainBox,
+  conversationsStyle,
+  listItemStyle,
+  messageHeaderStyle,
+  messagesStyle,
+  receiptStyle,
+  VideoCallImageBox
+} from './ChatFeature.styled';
 import { Box, Tooltip, useMediaQuery } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import { User as AuthUser } from 'app/(guest)/layout';
@@ -30,6 +38,7 @@ const CometChatFeature = () => {
   const customerData = JSON.parse(customerUser || '{}');
 
   const path = usePathname();
+  const userName = path?.split('/')?.[2];
   const [sessionUser, seSessiontUser] = useState<User | null>(null);
   const [conversationUser, setConversationUser] = useState<User | null>(null);
   const isMobileView = useMediaQuery(coreTheme.breakpoints.down('sm'));
@@ -88,7 +97,6 @@ const CometChatFeature = () => {
   useEffect(() => {
     const fetchConversationUser = async () => {
       try {
-        const userName = path?.split('/')?.[2];
         if (userName && sessionUser?.getUid()) {
           const c_user = await CometChat.getUser(userName);
           if (c_user) setConversationUser(c_user);
@@ -98,7 +106,7 @@ const CometChatFeature = () => {
       }
     };
     fetchConversationUser();
-  }, [path, sessionUser]);
+  }, [userName, sessionUser]);
 
   return (
     <div>
@@ -114,9 +122,7 @@ const CometChatFeature = () => {
                   conversationsStyle: conversationsStyle,
                   receiptStyle: receiptStyle,
                   hideSeparator: true,
-                  listItemStyle: {
-                    padding: '12px 0'
-                  },
+                  listItemStyle: { padding: '12px 0' },
                   menu: () => null
                 })
               }
@@ -125,16 +131,12 @@ const CometChatFeature = () => {
                   messageHeaderConfiguration: new MessageHeaderConfiguration({
                     menu: () => (
                       <Tooltip title="start video call" placement="left-start">
-                        <Box sx={{ cursor: 'pointer', marginRight: 1.5 }}>
+                        <VideoCallImageBox>
                           <Image src="/images/workercards/chat-video-call.svg" alt="video-call" height={40} width={40} />
-                        </Box>
+                        </VideoCallImageBox>
                       </Tooltip>
                     ),
-                    messageHeaderStyle: new MessageHeaderStyle({
-                      backButtonIconTint: 'white',
-                      typingIndicatorTextColor: 'white',
-                      subtitleTextFont: 'red'
-                    })
+                    messageHeaderStyle: messageHeaderStyle
                   }),
                   messagesStyle: messagesStyle,
                   messageListConfiguration: new MessageListConfiguration({

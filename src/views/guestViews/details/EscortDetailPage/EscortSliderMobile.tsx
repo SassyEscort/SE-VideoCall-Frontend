@@ -55,8 +55,6 @@ const EscortSliderMobile = ({
   isFreeCreditAvailable: number;
 }) => {
   const { user } = useCallFeatureContext();
-  // const isLg = useMediaQuery(theme.breakpoints.up('sm'));
-  // const isSm = useMediaQuery(theme.breakpoints.down(330));
 
   const isLg = useMediaQuery(theme.breakpoints.up('md'));
   const isMd = useMediaQuery(theme.breakpoints.up('sm'));
