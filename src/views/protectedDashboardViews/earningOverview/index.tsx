@@ -176,7 +176,7 @@ const EarningOverview = () => {
                   <FormattedMessage id="TotalEarnings" />
                 </UINewTypography>
                 <UINewTypography variant="h3">
-                  {modelEarning?.earnings && modelEarning?.earnings > 0 ? modelEarning?.earnings.toFixed(2) : 0}
+                  {modelEarning?.earnings && modelEarning?.earnings > 0 ? modelEarning?.earnings?.toFixed(2) : 0}
                 </UINewTypography>
               </ProfileBackSide>
             </ProfilePieContainer>
