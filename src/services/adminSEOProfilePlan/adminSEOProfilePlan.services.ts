@@ -88,11 +88,12 @@ export class adminSEOServices {
     offset: number,
     search_field?: string,
     sort_field?: string,
-    sort_order?: string
+    sort_order?: string,
+    is_seo?: number
   ): Promise<AdminSEORes> => {
     try {
       const res = await axios.get<AdminSEORes>(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/model/seo-list?limit=${limit}&offset=${offset}&search_field=${search_field}&sort_field=${sort_field}&sort_order=${sort_order}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/model/seo-list?limit=${limit}&offset=${offset}&search_field=${search_field}&sort_field=${sort_field}&sort_order=${sort_order}&is_seo=${is_seo}`,
         {
           headers: {
             'Content-Type': 'application/json',
