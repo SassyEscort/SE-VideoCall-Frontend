@@ -13,27 +13,29 @@ const ModelPhotos = ({ modelData }: { modelData: ModelDetailsRes }) => {
           const fileExtension = photo?.link.split('.').pop()?.toLowerCase() ?? '';
 
           return (
-            <Grid item xs={12} sm={6} lg={4} key={index}>
-              {VideoAcceptType.includes(fileExtension) ? (
-                <video
-                  width="100%"
-                  height="366"
-                  controls
-                  style={{
-                    maxWidth: '346px',
-                    borderTopLeftRadius: '32px',
-                    borderBottomRightRadius: '32px',
-                    objectFit: 'cover'
-                  }}
-                >
-                  <source src={photo?.link} type={`video/${fileExtension}`} />
-                </video>
-              ) : (
-                <ModelPhotosImgBox sx={{ backgroundImage: `url(${photo?.link})` }}>
-                  {photo?.favourite === 1 && <ModelPhotosStyledStar />}
-                </ModelPhotosImgBox>
-              )}
-            </Grid>
+            <>
+              <Grid item xs={12} sm={6} lg={1.75} key={index}>
+                {VideoAcceptType.includes(fileExtension) ? (
+                  <video
+                    width="100%"
+                    height="193"
+                    controls
+                    style={{
+                      maxWidth: '146.2px',
+                      borderTopLeftRadius: '32px',
+                      borderBottomRightRadius: '32px',
+                      objectFit: 'cover'
+                    }}
+                  >
+                    <source src={photo?.link} type={`video/${fileExtension}`} />
+                  </video>
+                ) : (
+                  <ModelPhotosImgBox sx={{ backgroundImage: `url(${photo?.link})` }}>
+                    {photo?.favourite === 1 && <ModelPhotosStyledStar />}
+                  </ModelPhotosImgBox>
+                )}
+              </Grid>
+            </>
           );
         })
       ) : (

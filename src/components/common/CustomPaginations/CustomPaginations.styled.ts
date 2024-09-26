@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { alpha, styled } from '@mui/material/styles';
 
@@ -20,4 +21,25 @@ export const StyledSearch = styled(OutlinedInput)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     width: '100%'
   }
+}));
+
+export const TablePageMainBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between'
+}));
+
+export const TablePageInnerBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center'
+}));
+
+export const PaginationButtonBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  width: '86px',
+  height: '30px',
+  border: '1px solid rgba(213, 213, 213, 1)',
+  borderRadius: '10px',
+  backgroundColor: 'rgba(250, 251, 253, 1)',
+  alignItems: 'center'
 }));

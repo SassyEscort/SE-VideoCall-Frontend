@@ -20,7 +20,7 @@ import NotificationModal from './NotificationModal';
 
 const NAV_WIDTH = 280;
 const HEADER_MOBILE = 64;
-const HEADER_DESKTOP = 92;
+const HEADER_DESKTOP = 64;
 
 const StyledRoot = styled(AppBar)(({ theme }) => ({
   ...bgBlur({ color: theme.palette.background.default }),
