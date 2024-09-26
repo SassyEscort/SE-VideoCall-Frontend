@@ -7,7 +7,6 @@ import {
   ConversationsConfiguration,
   MessageComposerConfiguration,
   MessageHeaderConfiguration,
-  MessageHeaderStyle,
   MessageInformationConfiguration,
   MessageListConfiguration,
   MessagesConfiguration,
@@ -26,7 +25,7 @@ import {
   receiptStyle,
   VideoCallImageBox
 } from './ChatFeature.styled';
-import { Box, Tooltip, useMediaQuery } from '@mui/material';
+import { Tooltip, useMediaQuery } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import { User as AuthUser } from 'app/(guest)/layout';
 import { usePathname } from 'next/navigation';
