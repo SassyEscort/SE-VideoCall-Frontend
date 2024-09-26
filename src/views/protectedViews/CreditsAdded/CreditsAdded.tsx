@@ -68,7 +68,7 @@ function CreditsAdded({
         </ImageContainer>
         <AddedCreditsContainer>
           <UINewTypographyNew>
-            {addedCredits.toFixed(2)} <FormattedMessage id="NewCredits" />
+            {addedCredits?.toFixed(2) || 0} <FormattedMessage id="NewCredits" />
           </UINewTypographyNew>
         </AddedCreditsContainer>
         <NewBalanceDetailsConatainer>
@@ -78,7 +78,7 @@ function CreditsAdded({
           <NewBalanceDetails>
             <Image alt="home_model" width={24} height={24} src="/images/workercards/dollar-img.avif" />
             <UINewTypography sx={{ pl: '8px' }}>
-              {newBalance.toFixed(2)} <FormattedMessage id="Credits" />
+              {newBalance?.toFixed(2) || 0} <FormattedMessage id="Credits" />
             </UINewTypography>
           </NewBalanceDetails>
         </NewBalanceDetailsConatainer>
