@@ -76,7 +76,7 @@ export const DullCircles5 = styled(Box)(() => ({
 }));
 
 export const VectorLines = styled(Box)(({ theme }) => ({
-  backgroundImage: 'url(/images/vactor-line.png)',
+  backgroundImage: 'url(/images/vactor-line.webp)',
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   backgroundPosition: 'center',

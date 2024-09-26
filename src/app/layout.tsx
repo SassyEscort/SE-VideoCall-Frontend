@@ -3,11 +3,11 @@ import type { Metadata } from 'next';
 import ProviderWrapper from './ProviderWrapper';
 import { CallFeatureProvider } from '../../context/CallFeatureContext';
 import CallFeature from 'views/protectedViews/callingFeature';
+import { SEO_DATA } from 'constants/seoConstants';
 
 export const metadata: Metadata = {
-  title: 'Flirtbate - Live Sex Chat, Webcam Models, and Adult Cam Platform | Sex Chat',
-  description:
-    'Adult video chat for meeting strangers online. Enjoy random video calls, chatrandom & live adult chat rooms on Flirbate, the worlds naughtiest adult chat and adult cam site.'
+  title: SEO_DATA.TITLE,
+  description: SEO_DATA.DESCRIPTION
 };
 
 export default function RootLayout({

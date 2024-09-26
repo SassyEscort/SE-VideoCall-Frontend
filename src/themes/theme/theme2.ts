@@ -163,18 +163,18 @@ const theme = createTheme({
       fontFamily: manropeFont.style.fontFamily
     },
     h4: {
-      fontSize: '31px',
+      fontSize: '32px',
       fontStyle: 'normal',
-      fontWeight: 600,
-      lineHeight: '120%',
+      fontWeight: 700,
+      lineHeight: '43.71px',
       fontFamily: manropeFont.style.fontFamily
     },
     h5: {
-      fontSize: '25px',
+      fontSize: '24px',
       fontStyle: 'normal',
-      fontWeight: 600,
-      lineHeight: '120%',
-      fontFamily: manropeFont.style.fontFamily
+      fontWeight: 700,
+      lineHeight: '140%',
+      letterSpacing: '0.5px'
     },
     subtitle: {
       fontSize: '20px',
@@ -215,6 +215,18 @@ const theme = createTheme({
       lineHeight: '120%',
       fontWeight: 400
     },
+    bodySemiBold: {
+      fontSize: '16px',
+      fontWeight: 600,
+      lineHeight: '160%',
+      fontStyle: 'normal'
+    },
+    buttonLargeMenu: {
+      fontSize: '16px',
+      fontWeight: 500,
+      lineHeight: '120%',
+      fontStyle: 'normal'
+    },
     bodySmallBold: {
       fontSize: '14px',
       fontWeight: 600,
@@ -222,7 +234,7 @@ const theme = createTheme({
     },
     bodySmall: {
       fontSize: '14px',
-      fontWeight: 400,
+      fontWeight: 500,
       lineHeight: '120%'
     },
     caption: {

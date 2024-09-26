@@ -13,13 +13,13 @@ export const ModelPhotosStyledStar = styled(Star)(({ theme }) => ({
 }));
 
 export const ModelPhotosImgBox = styled(Box)(() => ({
-  height: 366,
+  height: 193,
   position: 'relative',
   cursor: 'pointer',
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
-  borderRadius: '32px 0px',
-  maxWidth: 346,
+  borderRadius: '8px',
+  maxWidth: 146.2,
   width: '100%'
 }));
