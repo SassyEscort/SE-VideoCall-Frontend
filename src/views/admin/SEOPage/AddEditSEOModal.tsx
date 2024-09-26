@@ -189,7 +189,7 @@ const AddEditSEOModal = ({
                   Cancel
                 </Button>
                 <LoadingButton loading={isLoading} size="large" type="submit" variant="contained" color="primary">
-                  {selectedSEO?.title && selectedSEO?.keywords && selectedSEO?.description ? 'Edit' : 'Add'}
+                  Publish
                 </LoadingButton>
               </DialogActions>
             </Box>
