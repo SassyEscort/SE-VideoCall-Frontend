@@ -103,8 +103,6 @@ export type TokenIdTypeAdmin = {
 
 export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutStep?: () => void }) {
   // const router = useRouter();
-  const [open, setOpen] = useState<null | HTMLElement>(null);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selected, setSelected] = useState<ModelListing>();
   const [modelData, setModelData] = useState<ModelListing[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -139,11 +137,9 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
   }, [token]);
 
   const handleModelDetailsDelete = async (id: number) => {
-    console.log('id', id);
     try {
       if (token.token) {
         const data = await adminModelServices.modelDetailsDelete(token.token, id);
-        handleCloseMenu();
         if (data.code === 200) {
           handleModelDetailsRefetch();
           toast.success('Success');
@@ -266,15 +262,6 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     [filters, handleChangeFilter]
   );
 
-  const handleCloseMenu = () => {
-    setOpen(null);
-    setAnchorEl(null);
-  };
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   const handleFilterDurationChange = (duration: string, fromDate: string, toDate: string) => {
     handleChangeFilter({ ...filters, duration, fromDate, toDate, page: 1 });
   };
@@ -284,16 +271,13 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
   // };
 
   const handleHideModel = async () => {
-    console.log(selected?.id, '::::id');
     await adminModelServices.modelAction(token.token, Number(selected?.id), String(selected?.profile_status), false);
     handleModelListRefetch();
-    handleCloseMenu();
   };
 
   const handleShowModel = async () => {
     await adminModelServices.modelAction(token.token, Number(selected?.id), String(selected?.profile_status), true);
     handleModelListRefetch();
-    handleCloseMenu();
   };
 
   // const handleModelDetailsIsOffline = async (id: number) => {
@@ -520,12 +504,9 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                               <Box
                                 aria-label="more"
                                 id="long-button"
-                                aria-controls={open ? 'long-menu' : undefined}
-                                aria-expanded={open ? 'true' : undefined}
                                 aria-haspopup="true"
                                 onClick={(e) => {
                                   setSelected(item);
-                                  handleClick(e);
                                 }}
                               >
                                 <Box sx={{ display: 'flex', gap: 2 }}>
