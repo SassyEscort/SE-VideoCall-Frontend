@@ -20,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link href="https://fonts.cdnfonts.com/css/manrope" rel="stylesheet" />
         {isStaging && <meta name="robots" content="noindex, nofollow" />}
         <script
           type="text/javascript"
