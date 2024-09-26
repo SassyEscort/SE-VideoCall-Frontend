@@ -11,7 +11,7 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
-import { Button, CircularProgress, IconButton, MenuItem } from '@mui/material';
+import { CircularProgress, IconButton, MenuItem } from '@mui/material';
 import { MoreVert, Visibility } from '@mui/icons-material';
 import { useCallback, useEffect, useState } from 'react';
 import { getUserDataClient } from 'utils/getSessionData';
@@ -20,33 +20,33 @@ import { PaginationSortByOption } from 'components/common/CustomPaginations/type
 import PaginationSortBy from 'components/common/CustomPaginations/PaginationSortBy';
 import { PAGE_SIZE } from 'constants/pageConstants';
 import TablePager from 'components/common/CustomPaginations/TablePager';
-import { StyledPopover } from './Boost.styled';
 import { debounce } from 'lodash';
-import BoostListHead from './BoostListHead';
-import BoostModel from './BoostModel';
-import AddEditBoostModal from './AddEditBoostModal';
 import DeleteModal from 'components/UIComponents/DeleteModal';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Add from '@mui/icons-material/Add';
-import { AdminBoostProfileData, adminBoostProfilePlanServices } from 'services/adminBoostProfilePlan/adminBoostProfilePlan.services';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import PaginationSearch from 'components/common/CustomPaginations/PaginationSearch';
+import SEOModel from './SEOModel';
+import SEOListHead from './SEOListHead';
+import { StyledPopover } from './SEO.styled';
+import { AdminSEOProfileData, adminSEOServices } from 'services/adminSEOProfilePlan/adminSEOProfilePlan.services';
+import AddEditSEOModal from './AddEditSEOModal';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 export type PaginationType = {
   page: number;
   offset: number;
   pageSize: number;
-  orderField: string;
+  sort_field: string;
   sort_order: string;
   search_field: string;
   limit: number;
 };
 
-export default function BoostContainer() {
-  const [selectedBoostData, setSelectedBoostData] = useState<AdminBoostProfileData | null>(null);
-  const [data, setData] = useState<AdminBoostProfileData[]>([]);
+export default function SEOContainer() {
+  const [selectedSEOData, setSelectedSEOData] = useState<AdminSEOProfileData | null>(null);
+  const [data, setData] = useState<AdminSEOProfileData[]>([]);
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -54,22 +54,24 @@ export default function BoostContainer() {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [totalRecords, setTotalRecords] = useState(0);
   const [openAddEditModal, setOpenAddEditModal] = useState(false);
-  const [selectedBoost, setSelectedBoost] = useState<AdminBoostProfileData | null>(null);
+  const [selectedSEO, setSelectedSEO] = useState<AdminSEOProfileData | null>(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   const [filters, setFilters] = useState<PaginationType>({
     page: 1,
     offset: 0,
     pageSize: PAGE_SIZE,
-    orderField: 'newest',
+    sort_field: 'newest',
     sort_order: 'desc',
     search_field: '',
     limit: 10
   });
 
   const SORT_BY_OPTIONS: PaginationSortByOption[] = [
-    { value: 'name', label: 'Name' },
-    { value: 'email', label: 'Email' }
+    { value: 'name', label: 'Model Name' },
+    { value: 'title', label: 'Title' },
+    { value: 'keywords', label: 'Keywords' },
+    { value: 'description', label: 'description' }
   ];
   useEffect(() => {
     const userToken = async () => {
@@ -85,10 +87,17 @@ export default function BoostContainer() {
 
   const handelFetch = async () => {
     setIsLoading(true);
-    const res = await adminBoostProfilePlanServices.adminGetBoostProfile(token.token, filters.limit, filters.offset, filters.search_field);
+    const res = await adminSEOServices.adminGetSEOProfile(
+      token.token,
+      filters.limit,
+      filters.offset,
+      filters.search_field,
+      filters.sort_field,
+      filters.sort_order
+    );
     if (res) {
       if (res.code == 200) {
-        setData(res?.data?.plans);
+        setData(res?.data?.model_seo);
         setTotalRecords(res?.data?.aggregate.total_rows);
       }
     }
@@ -109,8 +118,8 @@ export default function BoostContainer() {
     setOpen(null);
     setAnchorEl(null);
   };
-  const handleOpenCredit = (value: AdminBoostProfileData) => {
-    setSelectedBoostData(value);
+  const handleOpenCredit = (value: AdminSEOProfileData) => {
+    setSelectedSEOData(value);
     setCreditModalOpen(true);
   };
   const handleCloseCredit = () => {
@@ -141,7 +150,7 @@ export default function BoostContainer() {
       handleChangeFilter({
         ...filters,
         sort_order: type,
-        orderField: field,
+        sort_field: field,
         page: 1
       });
     },
@@ -166,7 +175,7 @@ export default function BoostContainer() {
 
   const handleCloseAddEditModal = () => {
     setOpenAddEditModal(false);
-    setSelectedBoost(null);
+    setSelectedSEO(null);
   };
 
   const handleOpenDeleteCampaign = (val: number) => {
@@ -179,16 +188,16 @@ export default function BoostContainer() {
   };
 
   const handleDeleteClick = async () => {
-    const res = await adminBoostProfilePlanServices.adminDeleteBoostProfile(Number(selectedBoostData?.id), token.token);
+    const res = await adminSEOServices.adminDeleteSEOProfile(Number(selectedSEOData?.seo_id), token.token);
     if (res) {
       if (res.code === 200) {
-        toast.success('Boost deleted successfully');
+        toast.success('SEO deleted successfully');
         handleCloseDeleteCampaign();
         handleChangeFilter({
           page: 1,
           offset: 0,
           pageSize: PAGE_SIZE,
-          orderField: 'newest',
+          sort_field: 'newest',
           sort_order: 'desc',
           search_field: '',
           limit: 10
@@ -204,13 +213,8 @@ export default function BoostContainer() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
           <Typography variant="h4" gutterBottom>
-            Boost Plans
+            SEO
           </Typography>
-          <Box>
-            <Button size="large" variant="contained" startIcon={<Add />} onClick={handleOpenAddEditModal} sx={{ width: '100%' }}>
-              Add Boost
-            </Button>
-          </Box>
         </Stack>
         <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent="space-between" mb={1}>
           <PaginationSearch placeholder="Search..." handleChangeSearch={handleChangeSearch} />
@@ -218,7 +222,7 @@ export default function BoostContainer() {
         <Box sx={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
           <PaginationSortBy
             sortByOptions={SORT_BY_OPTIONS}
-            orderField={filters.orderField}
+            orderField={filters.sort_field}
             orderType={filters.sort_order}
             handleChangeOrderBy={handleChangeOrderBy}
           />
@@ -227,7 +231,7 @@ export default function BoostContainer() {
           <Paper sx={{ overflow: 'hidden' }}>
             <TableContainer sx={{ width: '100%' }}>
               <Table>
-                <BoostListHead />
+                <SEOListHead />
                 <TableBody>
                   {isLoading ? (
                     <TableRow>
@@ -246,20 +250,18 @@ export default function BoostContainer() {
                         }}
                       >
                         <TableCell component="th" scope="row">
-                          {item?.name || '-'}
+                          {item?.model_name || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.duration ? `${item.duration} hr` : '-'}
+                          {item?.title || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.is_free ? (Boolean(item?.is_free) ? 'Yes' : 'No') : '-'}
+                          {item?.keywords || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.is_active || '-'}
+                          {item?.description || '-'}
                         </TableCell>
-                        <TableCell component="th" scope="row">
-                          {item?.cost ? `$${item.cost}` : '-'}
-                        </TableCell>
+
                         <TableCell>
                           <IconButton
                             aria-label="more"
@@ -268,7 +270,7 @@ export default function BoostContainer() {
                             aria-expanded={open ? 'true' : undefined}
                             aria-haspopup="true"
                             onClick={(e) => {
-                              setSelectedBoostData(item);
+                              setSelectedSEOData(item);
                               handleOpenMenu(e);
                             }}
                           >
@@ -281,7 +283,7 @@ export default function BoostContainer() {
                     <TableRow>
                       <TableCell colSpan={10}>
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2 }}>
-                          <Typography variant="body1">Boost history not found</Typography>
+                          <Typography variant="body1">SEO data not found</Typography>
                         </Box>
                       </TableCell>
                     </TableRow>
@@ -310,37 +312,52 @@ export default function BoostContainer() {
         anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <MenuItem
-          onClick={() => {
-            if (!selectedBoostData) return;
-            handleOpenCredit(selectedBoostData);
-            handleCloseMenu();
-          }}
-        >
-          <Visibility sx={{ mr: 2 }} />
-          View Details
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            handleOpenAddEditModal();
-            setSelectedBoost(data.filter((x) => x.id === selectedBoostData?.id)[0]);
-            handleCloseMenu();
-          }}
-        >
-          <EditIcon sx={{ mr: 2 }} />
-          Edit
-        </MenuItem>
-        <MenuItem sx={{ color: 'error.main' }} onClick={() => handleOpenDeleteCampaign(Number(selectedBoostData?.id))}>
+        {selectedSEOData?.title && selectedSEOData?.description && selectedSEOData?.keywords && (
+          <MenuItem
+            onClick={() => {
+              if (!selectedSEOData) return;
+              handleOpenCredit(selectedSEOData);
+              handleCloseMenu();
+            }}
+          >
+            <Visibility sx={{ mr: 2 }} />
+            View Details
+          </MenuItem>
+        )}
+        {selectedSEOData?.title && selectedSEOData?.description && selectedSEOData?.keywords ? (
+          <MenuItem
+            onClick={() => {
+              handleOpenAddEditModal();
+              setSelectedSEO(data.filter((x) => x.model_id === selectedSEOData?.model_id)[0]);
+              handleCloseMenu();
+            }}
+          >
+            <EditIcon sx={{ mr: 2 }} />
+            Edit
+          </MenuItem>
+        ) : (
+          <MenuItem
+            onClick={() => {
+              handleOpenAddEditModal();
+              setSelectedSEO(data.filter((x) => x.model_id === selectedSEOData?.model_id)[0]);
+              handleCloseMenu();
+            }}
+          >
+            <AddCircleOutlineIcon sx={{ mr: 2 }} />
+            Add
+          </MenuItem>
+        )}
+        <MenuItem sx={{ color: 'error.main' }} onClick={() => handleOpenDeleteCampaign(Number(selectedSEOData?.model_id))}>
           <DeleteIcon sx={{ mr: 2 }} />
           Delete
         </MenuItem>
       </StyledPopover>
-      <BoostModel open={creditModalOpen} onClose={handleCloseCredit} selectedBoostData={selectedBoostData} />
+      <SEOModel open={creditModalOpen} onClose={handleCloseCredit} selectedSEOData={selectedSEOData} />
       {openAddEditModal && (
-        <AddEditBoostModal
+        <AddEditSEOModal
           open={openAddEditModal}
           onClose={handleCloseAddEditModal}
-          selectedBoost={selectedBoost}
+          selectedSEO={selectedSEO}
           handleChangeFilter={handleChangeFilter}
         />
       )}
