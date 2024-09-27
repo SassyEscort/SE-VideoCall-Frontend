@@ -10,7 +10,7 @@ import { ModelDetailsRes } from 'services/adminModel/types';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import ProfileCrad from './ProfileCrad';
-import { Button, CircularProgress, Grid, TableCell, TableRow } from '@mui/material';
+import { Button, CircularProgress, Grid, TableCell } from '@mui/material';
 import UserInformationAccordion from './UserInformationAccordion';
 import Box from '@mui/system/Box';
 import DetailsApproveReject from './DetailsApproveReject';
