@@ -52,11 +52,10 @@ const AddEditSEOModal = ({
         handleChangeFilter({
           page: 1,
           offset: 0,
-          pageSize: PAGE_SIZE,
+          page_size: PAGE_SIZE,
           sort_field: 'newest',
           sort_order: 'desc',
-          search_field: '',
-          limit: 10
+          search_field: ''
         });
       } else {
         toast.error(ErrorMessage);
@@ -84,11 +83,10 @@ const AddEditSEOModal = ({
         handleChangeFilter({
           page: 1,
           offset: 0,
-          pageSize: PAGE_SIZE,
+          page_size: PAGE_SIZE,
           sort_field: 'newest',
           sort_order: 'desc',
-          search_field: '',
-          limit: 10
+          search_field: ''
         });
       } else {
         toast.error(ErrorMessage);
