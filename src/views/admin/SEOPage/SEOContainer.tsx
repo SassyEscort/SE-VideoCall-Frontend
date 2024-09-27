@@ -37,11 +37,10 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 export type PaginationType = {
   page: number;
   offset: number;
-  pageSize: number;
+  page_size: number;
   sort_field: string;
   sort_order: string;
   search_field: string;
-  limit: number;
   is_seo?: number;
 };
 
@@ -62,11 +61,10 @@ export default function SEOContainer() {
   const [filters, setFilters] = useState<PaginationType>({
     page: 1,
     offset: 0,
-    pageSize: PAGE_SIZE,
+    page_size: PAGE_SIZE,
     sort_field: 'newest',
     sort_order: 'desc',
     search_field: '',
-    limit: 10,
     is_seo: 2
   });
 
@@ -76,6 +74,7 @@ export default function SEOContainer() {
     { value: 'keywords', label: 'Keywords' },
     { value: 'description', label: 'description' }
   ];
+
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -92,12 +91,12 @@ export default function SEOContainer() {
     setIsLoading(true);
     const res = await adminSEOServices.adminGetSEOProfile(
       token.token,
-      filters.limit,
       filters.offset,
       filters.search_field,
       filters.sort_field,
       filters.sort_order,
-      filters.is_seo
+      filters.is_seo,
+      filters.page_size
     );
     if (res) {
       if (res.code == 200) {
@@ -136,7 +135,7 @@ export default function SEOContainer() {
 
   const handleChangePage = useCallback(
     (value: number) => {
-      const offset = (value - 1) * filters.pageSize;
+      const offset = (value - 1) * filters.page_size;
       handleChangeFilter({ ...filters, page: value, offset: offset });
     },
     [filters, handleChangeFilter]
@@ -144,7 +143,7 @@ export default function SEOContainer() {
 
   const handleChangePageSize = useCallback(
     (value: number) => {
-      handleChangeFilter({ ...filters, pageSize: value, page: 1 });
+      handleChangeFilter({ ...filters, page_size: value, page: 1 });
     },
     [filters, handleChangeFilter]
   );
@@ -193,7 +192,7 @@ export default function SEOContainer() {
 
   const handleSEODataChange = (value: number) => {
     setSEODataFilter(value);
-    handleChangeFilter({ ...filters, is_seo: value });
+    handleChangeFilter({ ...filters, is_seo: value, offset: 0, page: 1, page_size: PAGE_SIZE });
   };
 
   const handleDeleteClick = async () => {
@@ -205,11 +204,10 @@ export default function SEOContainer() {
         handleChangeFilter({
           page: 1,
           offset: 0,
-          pageSize: PAGE_SIZE,
+          page_size: PAGE_SIZE,
           sort_field: 'newest',
           sort_order: 'desc',
-          search_field: '',
-          limit: 10
+          search_field: ''
         });
       } else {
         toast.error(ErrorMessage);
@@ -320,7 +318,7 @@ export default function SEOContainer() {
               <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
                 <TablePager
                   page={filters.page}
-                  rowsPerPage={filters.pageSize}
+                  rowsPerPage={filters.page_size}
                   handleChangePage={handleChangePage}
                   handleChangePageSize={handleChangePageSize}
                   totalRecords={totalRecords}
