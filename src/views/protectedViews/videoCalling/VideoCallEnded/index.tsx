@@ -218,7 +218,7 @@ const VideoCallEnded = ({
                           <SkipButtonContent variant="text" onClick={() => onClose()}>
                             <FormattedMessage id="Skip" />
                           </SkipButtonContent>
-                          <PostButtonContent variant="text" onClick={() => handleCallRating()}>
+                          <PostButtonContent type="submit" variant="text" onClick={() => handleCallRating()}>
                             <FormattedMessage id="Post" />
                           </PostButtonContent>
                         </Box>
