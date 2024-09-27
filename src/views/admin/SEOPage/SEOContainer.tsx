@@ -163,7 +163,7 @@ export default function SEOContainer() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedChangeSearch = useCallback(
     debounce((val: string) => {
-      handleChangeFilter({ ...filters, search_field: val, page: 1 });
+      handleChangeFilter({ ...filters, search_field: val, page: 1, offset: 0 });
     }, 500),
     [filters, handleChangeFilter]
   );
@@ -181,7 +181,7 @@ export default function SEOContainer() {
     setSelectedSEO(null);
   };
 
-  const handleOpenDeleteCampaign = (val: number) => {
+  const handleOpenDeleteCampaign = () => {
     setOpenDeleteModal(true);
     handleCloseMenu();
   };
@@ -202,12 +202,13 @@ export default function SEOContainer() {
         toast.success('SEO deleted successfully');
         handleCloseDeleteCampaign();
         handleChangeFilter({
-          page: 1,
-          offset: 0,
-          page_size: PAGE_SIZE,
-          sort_field: 'newest',
-          sort_order: 'desc',
-          search_field: ''
+          page: filters.page,
+          offset: filters.offset,
+          page_size: filters.page_size,
+          sort_field: filters.sort_field,
+          sort_order: filters.sort_order,
+          search_field: filters.search_field,
+          is_seo: filters.is_seo
         });
       } else {
         toast.error(ErrorMessage);
@@ -370,7 +371,7 @@ export default function SEOContainer() {
             Add
           </MenuItem>
         )}
-        <MenuItem sx={{ color: 'error.main' }} onClick={() => handleOpenDeleteCampaign(Number(selectedSEOData?.model_id))}>
+        <MenuItem sx={{ color: 'error.main' }} onClick={handleOpenDeleteCampaign}>
           <DeleteIcon sx={{ mr: 2 }} />
           Delete
         </MenuItem>
@@ -382,6 +383,7 @@ export default function SEOContainer() {
           onClose={handleCloseAddEditModal}
           selectedSEO={selectedSEO}
           handleChangeFilter={handleChangeFilter}
+          filters={filters}
         />
       )}
       <DeleteModal open={openDeleteModal} handleClose={handleCloseDeleteCampaign} handleDeleteClick={handleDeleteClick} />
