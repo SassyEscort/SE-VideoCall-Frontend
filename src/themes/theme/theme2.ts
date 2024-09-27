@@ -1,20 +1,8 @@
 import { PaletteColorOptions, createTheme } from '@mui/material/styles';
 import { CSSProperties } from 'react';
-import { Roboto, Roboto_Slab } from 'next/font/google';
+import { Manrope } from 'next/font/google';
 
-const robotoFont = Roboto({
-  weight: ['300', '400', '500', '700'],
-  style: ['normal', 'italic'],
-  subsets: ['latin'],
-  display: 'swap'
-});
-
-const robotoSlabFont = Roboto_Slab({
-  weight: ['300', '400', '500', '600', '700'],
-  style: ['normal'],
-  subsets: ['latin'],
-  display: 'swap'
-});
+const manropeFont = Manrope({ subsets: ['latin'] });
 
 declare module '@mui/material/styles' {
   interface PaletteOptions {
@@ -151,48 +139,48 @@ const theme = createTheme({
   },
   typography: {
     // fontFamily: "'Roboto Slab', sans-serif",
-    fontFamily: `${robotoFont.style.fontFamily}, sans-serif`,
+    fontFamily: `${manropeFont.style.fontFamily}, sans-serif`,
     h1: {
       fontSize: '56px',
       fontStyle: 'normal',
       fontWeight: 600,
       lineHeight: '110%',
       letterSpacing: '-0.56px',
-      fontFamily: robotoSlabFont.style.fontFamily
+      fontFamily: manropeFont.style.fontFamily
     },
     h2: {
       fontSize: '49px',
       fontStyle: 'normal',
       fontWeight: 600,
       lineHeight: '120%',
-      fontFamily: robotoSlabFont.style.fontFamily
+      fontFamily: manropeFont.style.fontFamily
     },
     h3: {
       fontSize: '39px',
       fontStyle: 'normal',
       fontWeight: 600,
       lineHeight: '120%',
-      fontFamily: robotoSlabFont.style.fontFamily
+      fontFamily: manropeFont.style.fontFamily
     },
     h4: {
-      fontSize: '31px',
+      fontSize: '32px',
       fontStyle: 'normal',
-      fontWeight: 600,
-      lineHeight: '120%',
-      fontFamily: robotoSlabFont.style.fontFamily
+      fontWeight: 700,
+      lineHeight: '43.71px',
+      fontFamily: manropeFont.style.fontFamily
     },
     h5: {
-      fontSize: '25px',
+      fontSize: '24px',
       fontStyle: 'normal',
-      fontWeight: 600,
-      lineHeight: '120%',
-      fontFamily: robotoSlabFont.style.fontFamily
+      fontWeight: 700,
+      lineHeight: '140%',
+      letterSpacing: '0.5px'
     },
     subtitle: {
       fontSize: '20px',
       fontWeight: 500,
       lineHeight: '120%',
-      fontFamily: robotoSlabFont.style.fontFamily
+      fontFamily: manropeFont.style.fontFamily
     },
     bodyLargeBold: {
       fontSize: '18px',
@@ -227,6 +215,18 @@ const theme = createTheme({
       lineHeight: '120%',
       fontWeight: 400
     },
+    bodySemiBold: {
+      fontSize: '16px',
+      fontWeight: 600,
+      lineHeight: '160%',
+      fontStyle: 'normal'
+    },
+    buttonLargeMenu: {
+      fontSize: '16px',
+      fontWeight: 500,
+      lineHeight: '120%',
+      fontStyle: 'normal'
+    },
     bodySmallBold: {
       fontSize: '14px',
       fontWeight: 600,
@@ -234,7 +234,7 @@ const theme = createTheme({
     },
     bodySmall: {
       fontSize: '14px',
-      fontWeight: 400,
+      fontWeight: 500,
       lineHeight: '120%'
     },
     caption: {

@@ -1,8 +1,11 @@
-import MenuItem from '@mui/material/MenuItem';
+import React from 'react';
 import Typography from '@mui/material/Typography';
-import Pagination from '@mui/material/Pagination';
 import Box from '@mui/material/Box';
-import Select from '@mui/material/Select';
+import IconButton from '@mui/material/IconButton';
+import ChevronLeft from '@mui/icons-material/ChevronLeft';
+import ChevronRight from '@mui/icons-material/ChevronRight';
+import { Divider } from '@mui/material';
+import { PaginationButtonBoxContainer, TablePageInnerBoxContainer, TablePageMainBoxContainer } from './CustomPaginations.styled';
 
 export type TablePagerProps = {
   page: number;
@@ -12,30 +15,47 @@ export type TablePagerProps = {
   handleChangePageSize: (val: number) => void;
 };
 
-const TablePager = ({ page, rowsPerPage, handleChangePage, handleChangePageSize, totalRecords }: TablePagerProps) => {
+const TablePager = ({ page, rowsPerPage, handleChangePage, totalRecords }: TablePagerProps) => {
   const pagerCount = Math.ceil(totalRecords / rowsPerPage);
 
+  const handlePreviousPage = () => {
+    if (page > 1) handleChangePage(page - 1);
+  };
+
+  const handleNextPage = () => {
+    if (page < pagerCount) handleChangePage(page + 1);
+  };
+
+  const startRow = (page - 1) * rowsPerPage + 1;
+  const endRow = Math.min(page * rowsPerPage, totalRecords);
+
+  const formattedStartRow = String(startRow).padStart(2, '0');
+  const formattedEndRow = String(endRow).padStart(2, '0');
+
   return (
-    <Box
-      sx={{
-        justifyContent: 'right',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 1
-      }}
-    >
-      <Pagination count={pagerCount || 1} onChange={(e, val) => handleChangePage(val)} page={page} />
-      <Box display="flex" alignItems="center" gap={1}>
-        <Typography sx={{ display: { xs: 'none', sm: 'block' } }}>Rows per page:</Typography>
-        <Select value={rowsPerPage} onChange={(e) => handleChangePageSize(e.target.value as number)} size="small">
-          {[10, 25, 50, 100]?.map((row, index) => (
-            <MenuItem key={index} value={row}>
-              {row}
-            </MenuItem>
-          ))}
-        </Select>
+    <TablePageMainBoxContainer>
+      <Box>
+        <TablePageInnerBoxContainer>
+          <Typography sx={{ display: { xs: 'none', sm: 'block' } }}>
+            Showing {formattedStartRow}-{formattedEndRow} of {totalRecords}
+          </Typography>
+        </TablePageInnerBoxContainer>
       </Box>
-    </Box>
+      <PaginationButtonBoxContainer>
+        <Box sx={{ marginLeft: '8px' }}>
+          <IconButton onClick={handlePreviousPage} disabled={page === 1} size="small">
+            <ChevronLeft />
+          </IconButton>
+        </Box>
+        <Divider orientation="vertical" flexItem sx={{ borderColor: 'rgba(151, 151, 151, 1)' }} />
+
+        <Box>
+          <IconButton onClick={handleNextPage} disabled={page === pagerCount} size="small">
+            <ChevronRight />
+          </IconButton>
+        </Box>
+      </PaginationButtonBoxContainer>
+    </TablePageMainBoxContainer>
   );
 };
 

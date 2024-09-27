@@ -1,20 +1,18 @@
-import { MouseEvent, useState } from 'react';
+import { useState } from 'react';
 
 import Avatar from '@mui/material/Avatar';
 import Popover from '@mui/material/Popover';
 import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
-import { StyledIconButton } from './AccountPopover.styled';
 import { toast } from 'react-toastify';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
+import { Box, Typography } from '@mui/material';
+import { UserIconMainBox } from './AccountPopover.styled';
 
 export default function AccountPopover() {
   const [open, setOpen] = useState<null | HTMLElement>(null);
-
-  const handleOpen = (event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
-    setOpen(event.currentTarget);
-  };
+  const adminAuth = useSession();
 
   const handleClose = () => {
     setOpen(null);
@@ -30,9 +28,18 @@ export default function AccountPopover() {
 
   return (
     <>
-      <StyledIconButton open={Boolean(open)} onClick={handleOpen}>
-        <Avatar src={'/images/admin/avatar.jpg'} alt="photoURL" />
-      </StyledIconButton>
+      <Avatar src={'/images/admin/avatar.jpg'} alt="photoURL" />
+      <Box sx={{ ml: 2 }}>
+        <UserIconMainBox>
+          <Typography variant="subtitle2" sx={{ color: 'text.primary', textTransform: 'capitalize' }}>
+            {adminAuth.data?.user?.name}
+          </Typography>
+
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            {adminAuth.data?.user?.email}
+          </Typography>
+        </UserIconMainBox>
+      </Box>
       <Popover
         open={Boolean(open)}
         anchorEl={open}

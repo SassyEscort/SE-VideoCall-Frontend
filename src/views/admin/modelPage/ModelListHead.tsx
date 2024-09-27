@@ -1,21 +1,28 @@
 import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
-import TableCell from '@mui/material/TableCell';
+import Box from '@mui/material/Box';
+import { TableCellContent } from './ModelDelete.style';
 
 export default function ModelListHead() {
   return (
-    <TableHead>
+    <TableHead sx={{ border: '1px solid rgba(0, 0, 0, 0.12)', borderRadius: '10px' }}>
       <TableRow>
-        <TableCell>Name</TableCell>
-        <TableCell>Email</TableCell>
-        <TableCell>Country</TableCell>
-        <TableCell sx={{ textAlign: 'center' }}>Status</TableCell>
-        <TableCell sx={{ textAlign: 'left' }}>Created Date</TableCell>
-        <TableCell sx={{ textAlign: 'left' }}>Last Active</TableCell>
-        <TableCell sx={{ textAlign: 'left' }}>Last Login</TableCell>
-        <TableCell sx={{ width: '1%' }}>Verification Step</TableCell>
-        <TableCell sx={{ width: '1%' }}>Email Verified</TableCell>
-        <TableCell sx={{ width: '1%' }}>Action</TableCell>
+        <TableCellContent>Name</TableCellContent>
+        <TableCellContent>Email</TableCellContent>
+        <TableCellContent sx={{ textAlign: 'left' }}>
+          Created Date
+          <Box component="img" src="/images/icons/vector-icon.svg" marginLeft={0.75} />
+        </TableCellContent>
+        <TableCellContent sx={{ textAlign: 'left' }}>
+          No. of calls
+          <Box component="img" src="/images/icons/vector-icon.svg" marginLeft={0.75} />
+        </TableCellContent>
+        <TableCellContent sx={{ width: '1%' }}>
+          Profile views
+          <Box component="img" src="/images/icons/vector-icon.svg" marginLeft={0.75} />
+        </TableCellContent>
+        <TableCellContent sx={{ textAlign: 'center' }}>Status</TableCellContent>
+        <TableCellContent sx={{ textAlign: 'center' }}>Action</TableCellContent>
       </TableRow>
     </TableHead>
   );

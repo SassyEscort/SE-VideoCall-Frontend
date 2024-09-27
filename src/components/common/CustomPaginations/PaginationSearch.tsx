@@ -29,7 +29,16 @@ const PaginationSearch = ({ placeholder, handleChangeSearch }: PaginationSearchP
           value={keyword}
           onChange={(e) => handleSearchKeywordChange(e.target.value)}
           placeholder={placeholder}
-          sx={{ width: '100%', '&.Mui-focused': { width: '100%' } }}
+          sx={{
+            width: '100%',
+            minWidth: '388px',
+            height: '38px',
+            border: '0.6px solid #D5D5D5',
+            backgroundColor: '#F5F6FA',
+            borderRadius: '24px',
+
+            '&.Mui-focused': { width: '100%' }
+          }}
           startAdornment={
             <InputAdornment position="start">
               <SearchIcon sx={{ color: 'text.disabled', width: 20, height: 20 }} />
