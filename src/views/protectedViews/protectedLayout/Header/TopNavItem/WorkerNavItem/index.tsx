@@ -10,24 +10,17 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import MoreFilters from 'views/guestViews/searchPage/moreFilters';
 import { useCallback, useEffect, useState } from 'react';
-import { MultipleOptionString } from 'views/protectedModelViews/verification/verificationTypes';
-import { CommonServices } from 'services/commonApi/commonApi.services';
 import { SearchTitalBox } from './HeaderAuthComponent.styled';
 import { FormattedMessage } from 'react-intl';
 import { WorkerMainBox } from './WorkerNavItem.styled';
+import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
+import { CommonServices } from 'services/commonApi/commonApi.services';
 
 const WorkerNavItem = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openFilterModal, setOpenFilterModal] = useState(false);
+  const [isApiCalled, setIsApiCalled] = useState(false);
   const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
-
-  const handleLanguageApiChange = useCallback(() => {
-    const languagesData = async () => {
-      const data = await CommonServices.getLanguagesWithoutToken();
-      setLanguages(data.data);
-    };
-    languagesData();
-  }, []);
 
   const handleCloseFilterModal = () => {
     setOpenFilterModal(false);
@@ -35,12 +28,25 @@ const WorkerNavItem = () => {
 
   const handleOpenFilterModal = () => {
     setOpenFilterModal(true);
+    if (!isApiCalled) {
+      setIsApiCalled(true);
+    }
   };
 
-  useEffect(() => {
-    handleLanguageApiChange();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleLanguageApiChange = useCallback(() => {
+    const languagesData = async () => {
+      const data = await CommonServices.getLanguages();
+      setLanguages(data.data);
+    };
+    languagesData();
   }, []);
+
+  useEffect(() => {
+    if (isApiCalled) {
+      handleLanguageApiChange();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isApiCalled]);
 
   return (
     <>

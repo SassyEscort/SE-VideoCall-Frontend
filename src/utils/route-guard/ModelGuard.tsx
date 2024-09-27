@@ -10,13 +10,14 @@ import Loader from 'components/Loader';
 
 // TYPES
 import { GuardProps } from 'types/auth';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
+import { useAuthContext } from '../../../context/AuthContext';
 
 // ==============================|| AUTH GUARD ||============================== //
 
 const ModelGuard = ({ children }: GuardProps) => {
-  const { data: session, status } = useSession();
+  const { session, status } = useAuthContext();
   const router = useRouter();
   const tokenExpiry = session?.user?.image && JSON.parse(session?.user?.image!).expiry;
 

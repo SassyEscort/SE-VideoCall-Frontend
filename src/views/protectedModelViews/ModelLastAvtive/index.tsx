@@ -5,12 +5,12 @@ import { toast } from 'react-toastify';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import { ErrorMessage } from 'constants/common.constants';
-import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
+import { useAuthContext } from '../../../../context/AuthContext';
 
 const ModelLastActive = () => {
+  const { session } = useAuthContext();
   const [token, setToken] = useState<string>('');
-  const { data: session } = useSession();
 
   useEffect(() => {
     const fetchUserToken = async () => {

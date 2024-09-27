@@ -13,11 +13,11 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { getQueryParam } from 'utils/genericFunction';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
-import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
+import { useAuthContext } from '../../../../context/AuthContext';
 
 const HomeContainer = () => {
   const { isCustomer } = useCallFeatureContext();
-
+  const { isFreeCreditAvailable } = useAuthContext();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -30,7 +30,6 @@ const HomeContainer = () => {
   const [total_rows, setTotalRows] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [scroll, setScroll] = useState(false);
-  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(0);
 
   const getInitialFilters = () => ({
     fromAge: getQueryParam('fromAge') ? (getQueryParam('fromAge') as string) : '',
@@ -185,14 +184,6 @@ const HomeContainer = () => {
     handelFilterChange(getInitialFilters());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
-
-  useEffect(() => {
-    const handleIsFreeCreditAvailable = async () => {
-      const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
-      setIsFreeCreditAvailable(res.data.free_credits_available);
-    };
-    handleIsFreeCreditAvailable();
-  }, []);
 
   return (
     <>

@@ -55,24 +55,9 @@ export class CommonServices {
     }
   };
 
-  static getLanguages = async (token: string) => {
+  static getLanguages = async () => {
     try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/languages?limit=1000`, {
-        headers: { 'Content-Type': 'application/json', Authorization: token }
-      });
-
-      return res.data;
-    } catch (err: any) {
-      const error: AxiosError = err;
-      return error.response?.data || { error_message: error.message };
-    }
-  };
-
-  static getLanguagesWithoutToken = async () => {
-    try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/languages?limit=1000`, {
-        headers: { 'Content-Type': 'application/json' }
-      });
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/languages?limit=1000`);
 
       return res.data;
     } catch (err: any) {

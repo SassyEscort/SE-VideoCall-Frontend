@@ -16,9 +16,10 @@ import BackdropProgress from 'components/UIComponents/BackDropProgress';
 import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
+import { useAuthContext } from '../../../../../context/AuthContext';
 
 const EscortExplore = () => {
+  const { isFreeCreditAvailable } = useAuthContext();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -28,7 +29,6 @@ const EscortExplore = () => {
   // const [filters, setFilters] = useState<SearchFiltersTypes>();
   const [total_rows, setTotalRows] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(0);
 
   const initialRender = useRef(true);
   const scrollRender = useRef(true);
@@ -176,14 +176,6 @@ const EscortExplore = () => {
     handelFilterChange(getInitialFilters());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
-
-  useEffect(() => {
-    const handleIsFreeCreditAvailable = async () => {
-      const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
-      setIsFreeCreditAvailable(res.data.free_credits_available);
-    };
-    handleIsFreeCreditAvailable();
-  }, []);
 
   return (
     <>
