@@ -1,7 +1,13 @@
 import React, { Fragment } from 'react';
 import { ModelDetailsRes } from 'services/adminModel/types';
 import PersonalDetailsBox from '../ModelInformation/PersonalDetailsBox';
-import { ModelDocumentBox, ModelDocumentContentBox, ModelDocumentImgBox, StyledModelDocumentImgBox } from './ModelDocument.styled';
+import {
+  ModelDocumentBox,
+  ModelDocumentContentBox,
+  ModelDocumentImgBox,
+  StyledModelDocumentImgBox,
+  TitleBackgroundBoxContainer
+} from './ModelDocument.styled';
 
 const defaultPdfImage = '/images/icons/pdf-icon.svg';
 
@@ -11,11 +17,15 @@ const ModelDocument = ({ modelData }: { modelData: ModelDetailsRes }) => {
   };
   return (
     <ModelDocumentBox gap={modelData?.data ? 3 : 0}>
+      <TitleBackgroundBoxContainer>
+        {modelData?.data?.documents.length > 0 && (
+          <PersonalDetailsBox label="Document Type" value={modelData?.data?.documents[0]?.document_type || ''} />
+        )}
+      </TitleBackgroundBoxContainer>
       {modelData?.data?.documents && (
         <ModelDocumentContentBox>
           {modelData?.data?.documents?.map((item, index) => (
             <Fragment key={index}>
-              <PersonalDetailsBox label="Document Type" value={item?.document_type ? item?.document_type : ''} />
               {item?.file_type === 'Non_Image' ? (
                 <StyledModelDocumentImgBox src={defaultPdfImage} onClick={() => handleOpenPdf(item?.link)} />
               ) : (

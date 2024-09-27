@@ -19,7 +19,6 @@ import moment from 'moment';
 import ReportFilters from 'components/Admin/ReportFilters/ReportFilters';
 import { formatFullDate } from 'utils/dateAndTime';
 import ModelListHead from './ModelListHead';
-import { PaginationSortByOption } from 'components/common/CustomPaginations/type';
 import { PAGE_SIZE } from 'constants/pageConstants';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import TablePager from 'components/common/CustomPaginations/TablePager';
@@ -32,15 +31,7 @@ import FormControl from '@mui/material/FormControl';
 import { StyledSelectInputLabel } from 'components/UIComponents/StyleSelect';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
-import {
-  ErrorChipBox,
-  FilterBox,
-  NotFoundBox,
-  PandingChipBox,
-  SortBox,
-  SuccessChipBox,
-  SwitchBoxContainer
-} from './ModelPageContainer.styled';
+import { ErrorChipBox, FilterBox, NotFoundBox, PandingChipBox, SuccessChipBox, SwitchBoxContainer } from './ModelPageContainer.styled';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import Link from 'next/link';
@@ -48,7 +39,6 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { Divider } from '@mui/material';
 import ModelDelete from './ModelDelete';
 import ApproveRejectPendingModel from './ApproveRejectPendingModel';
-import PaginationSortBy from 'components/common/CustomPaginations/PaginationSortBy';
 
 export type WorkersPaginationType = {
   page: number;
@@ -65,13 +55,13 @@ export type WorkersPaginationType = {
   is_active: string;
 };
 
-const SORT_BY_OPTIONS: PaginationSortByOption[] = [
-  { value: 'created_at', label: 'Newest' },
-  { value: 'name', label: 'Name' },
-  { value: 'email', label: 'Email' },
-  { value: 'last_active', label: 'Last active' },
-  { value: 'last_login', label: 'Last login' }
-];
+// const SORT_BY_OPTIONS: PaginationSortByOption[] = [
+//   { value: 'created_at', label: 'Newest' },
+//   { value: 'name', label: 'Name' },
+//   { value: 'email', label: 'Email' },
+//   { value: 'last_active', label: 'Last active' },
+//   { value: 'last_login', label: 'Last login' }
+// ];
 
 const StatusOfPlan = [
   { value: 'Pending', label: <PandingChipBox label="Pending" /> },
@@ -219,17 +209,17 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     [filters, handleChangeFilter]
   );
 
-  const handleChangeOrderBy = useCallback(
-    (field: string, type: string) => {
-      handleChangeFilter({
-        ...filters,
-        orderType: type,
-        orderField: field,
-        page: 1
-      });
-    },
-    [filters, handleChangeFilter]
-  );
+  // const handleChangeOrderBy = useCallback(
+  //   (field: string, type: string) => {
+  //     handleChangeFilter({
+  //       ...filters,
+  //       orderType: type,
+  //       orderField: field,
+  //       page: 1
+  //     });
+  //   },
+  //   [filters, handleChangeFilter]
+  // );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedChangeSearch = useCallback(
@@ -426,14 +416,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                 </Grid>
               </Box>
             </FilterBox>
-            <SortBox>
-              <PaginationSortBy
-                sortByOptions={SORT_BY_OPTIONS}
-                orderField={filters.orderField}
-                orderType={filters.orderType}
-                handleChangeOrderBy={handleChangeOrderBy}
-              />
-            </SortBox>
+
             <Card sx={{ boxShadow: 'none' }}>
               <Paper sx={{ width: '100%', overflow: 'hidden', boxShadow: 'none' }}>
                 <TableContainer sx={{ width: '100%' }}>

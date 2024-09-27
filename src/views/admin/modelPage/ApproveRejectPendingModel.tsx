@@ -1,6 +1,6 @@
 'use client';
 import { DialogContent } from '@mui/material';
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   ApproveButton,
   ApprovedButtonContainer,
@@ -19,7 +19,6 @@ import {
   ModelDetailsInnerBoxContainer,
   ModelDetailsMainBoxContainer,
   ModelDetailsText,
-  ModelImageBoxContainer,
   ModelInnerBoxContainer,
   ModelMainBoxContainer,
   PendingButtonContainer,
@@ -31,7 +30,16 @@ import {
 } from './ApproveRejectPendingModel.styled';
 import Box from '@mui/system/Box';
 import { MODEL_ACTION } from 'constants/profileConstants';
-import { ModelListing } from 'services/adminModel/adminModel.services';
+import { adminModelServices, ModelListing } from 'services/adminModel/adminModel.services';
+import { ModelDetailsRes } from 'services/adminModel/types';
+import { ErrorMessage } from 'constants/common.constants';
+import { getUserDataClient } from 'utils/getSessionData';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import { toast } from 'react-toastify';
+import { calculateAge } from 'constants/adminAgeCalculate';
+import StyledAvatar from 'components/UIComponents/StyledAvatar';
+import Link from 'next/link';
+import moment from 'moment';
 
 const ApproveRejectPendingModel = ({
   open,
@@ -42,6 +50,41 @@ const ApproveRejectPendingModel = ({
   onClose: () => void;
   modelDetails: ModelListing | undefined;
 }) => {
+  const [modelData, setModelData] = useState<ModelDetailsRes>();
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      if (data && token) {
+        setToken({ id: data.id, token: data.token });
+      }
+    };
+
+    userToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const fetchModelData = useCallback(async () => {
+    try {
+      if (token.token && modelDetails) {
+        const data = await adminModelServices.getModelDetails(token.token, Number(modelDetails.id));
+
+        if (data) {
+          setModelData(data);
+        }
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  }, [token.token, modelDetails]);
+
+  useEffect(() => {
+    fetchModelData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token.token, modelDetails]);
+
+  const photo = modelData?.data?.photos?.filter((item) => item.favourite === 1 && item.link)[0]?.link;
+
   return (
     <DialogContentMain open={open} onClose={onClose}>
       <DialogTitleBox
@@ -74,26 +117,31 @@ const ApproveRejectPendingModel = ({
 
           <ModelInnerBoxContainer>
             <ModelDetailsMainBoxContainer>
-              <ModelImageBoxContainer />
+              <StyledAvatar image={photo ?? ''} color="secondary.light" />
               <ModelDetailsInnerBoxContainer>
                 <ModelDetailsText sx={{ color: 'black.main' }}>{modelDetails?.name}</ModelDetailsText>
                 <ModelDetailsText sx={{ color: '#666666' }}>{modelDetails?.email}</ModelDetailsText>
-                <ModelDetailsText sx={{ color: '#666666' }}>{modelDetails?.created_at}</ModelDetailsText>
+                <ModelDetailsText sx={{ color: '#666666' }}>{moment(modelDetails?.created_at).format('ll')}</ModelDetailsText>
               </ModelDetailsInnerBoxContainer>
             </ModelDetailsMainBoxContainer>
 
             <Box>
-              <ModelBioText sx={{ color: 'black.main' }}>
-                Hi, im your LadyHeart❤️.. i am very friendl, open minded with a deep respect to others
-              </ModelBioText>
+              <ModelBioText sx={{ color: 'black.main' }}>{modelData?.data.bio}</ModelBioText>
             </Box>
 
             <ModelDetailsBox>
-              <ModelBioText sx={{ color: 'black.main' }}>34</ModelBioText>
+              <ModelBioText sx={{ color: 'black.main' }}>{modelData ? calculateAge(modelData?.data?.dob) : '-'}</ModelBioText>
               <DividerContainer orientation="vertical" flexItem />
-              <ModelBioText sx={{ color: 'black.main' }}>British</ModelBioText>
+              <ModelBioText sx={{ color: 'black.main' }}>{modelData?.data.country.name}</ModelBioText>
               <DividerContainer orientation="vertical" flexItem />
-              <ModelBioText sx={{ color: 'black.main' }}>English</ModelBioText>
+              <ModelBioText sx={{ color: 'black.main' }}>
+                {' '}
+                {modelData?.data?.languages &&
+                  modelData?.data?.languages
+                    .filter((item) => item?.language_name)
+                    .map((item) => item?.language_name)
+                    .join(', ')}
+              </ModelBioText>
             </ModelDetailsBox>
 
             {modelDetails?.profile_status === MODEL_ACTION.APPROVE && (
@@ -161,9 +209,9 @@ const ApproveRejectPendingModel = ({
               </ModelInnerBoxContainer>
             )}
 
-            <Box>
+            <Link href={`/admin/model/details/${modelDetails?.id}`}>
               <ViewDetailsText sx={{ color: '#FF68C0' }}>View details</ViewDetailsText>
-            </Box>
+            </Link>
           </ModelInnerBoxContainer>
         </ModelMainBoxContainer>
       </DialogContent>

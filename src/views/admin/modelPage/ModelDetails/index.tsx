@@ -10,7 +10,7 @@ import { ModelDetailsRes } from 'services/adminModel/types';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import ProfileCrad from './ProfileCrad';
-import { Button, Grid } from '@mui/material';
+import { Button, CircularProgress, Grid, TableCell, TableRow } from '@mui/material';
 import UserInformationAccordion from './UserInformationAccordion';
 import Box from '@mui/system/Box';
 import DetailsApproveReject from './DetailsApproveReject';
@@ -20,6 +20,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { adminBoostProfilePlanServices } from 'services/adminBoostProfilePlan/adminBoostProfilePlan.services';
 import { Add } from '@mui/icons-material';
 import AddEditSEOModalData from './UserInformationAccordion/SEOData/AddEditSEOModalData';
+import { LoderBoxContainer, TableRowContainer } from './ModelDetails.styled';
 
 export type PaginationTypeModel = {
   page: number;
@@ -36,7 +37,7 @@ const ModelDetailsPage = () => {
   const [modelData, setModelData] = useState<ModelDetailsRes>();
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [openAddEditModal, setOpenAddEditModal] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
   const handleModelBoostById = async () => {
     try {
       const res = await adminBoostProfilePlanServices.adminModelBoostById(token.token, Number(modelId));
@@ -64,18 +65,22 @@ const ModelDetailsPage = () => {
   const fetchModelData = useCallback(async () => {
     try {
       if (token.token) {
+        setIsLoading(true);
         const data = await adminModelServices.getModelDetails(token.token, Number(modelId));
         if (data) {
           setModelData(data);
         }
+        setIsLoading(false);
       }
     } catch (error) {
       toast.error(ErrorMessage);
+      setIsLoading(false);
     }
   }, [modelId, token.token]);
 
   useEffect(() => {
     fetchModelData();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.token]);
 
@@ -91,56 +96,69 @@ const ModelDetailsPage = () => {
   const isFreeBoostUsed = modelData?.data?.model_profile_plans?.free_plan_used;
 
   return (
-    <DashboardLayout>
-      <Container>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Box display="flex" flexDirection="column" gap={3} width="100%">
-              <ProfileCrad modelData={modelData as ModelDetailsRes} />
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: isModelPending ? 'space-between' : 'end',
-                  alignItems: 'center',
-                  gap: 2
-                }}
-              >
-                {isModelPending && <DetailsApproveReject workerId={Number(modelId)} fetchModelData={fetchModelData} />}
-                {!isFreeBoostUsed && (
-                  <StyleBoostAdminButton onClick={handleModelBoostById}>
-                    <UINewTypography variant="buttonLargeMenu">Boost {modelData?.data?.name} profile</UINewTypography>
-                  </StyleBoostAdminButton>
-                )}
-                <Box>
-                  <Button size="large" variant="contained" startIcon={<Add />} sx={{ width: '100%' }} onClick={handleOpenAddEditModal}>
-                    <UINewTypography variant="buttonLargeMenu">
-                      {modelData?.data?.model_seo[0]?.title &&
-                      modelData?.data?.model_seo[0]?.keywords &&
-                      modelData?.data?.model_seo[0]?.description
-                        ? 'Edit'
-                        : 'Add'}{' '}
-                      {modelData?.data?.name} SEO
-                    </UINewTypography>
-                  </Button>
+    <>
+      {isLoading ? (
+        <TableRowContainer>
+          <TableCell colSpan={10} sx={{ '&.MuiTableCell-root': { borderBottom: 'none' } }}>
+            <LoderBoxContainer>
+              <CircularProgress />
+            </LoderBoxContainer>
+          </TableCell>
+        </TableRowContainer>
+      ) : (
+        <DashboardLayout>
+          <Container>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <Box display="flex" flexDirection="column" gap={3} width="100%">
+                  <ProfileCrad modelData={modelData as ModelDetailsRes} />
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: isModelPending ? 'space-between' : 'end',
+                      alignItems: 'center',
+                      gap: 2
+                    }}
+                  >
+                    {isModelPending && <DetailsApproveReject workerId={Number(modelId)} fetchModelData={fetchModelData} />}
+                    {!isFreeBoostUsed && (
+                      <StyleBoostAdminButton onClick={handleModelBoostById}>
+                        <UINewTypography variant="buttonLargeMenu">Boost {modelData?.data?.name} profile</UINewTypography>
+                      </StyleBoostAdminButton>
+                    )}
+                    <Box>
+                      <Button size="large" variant="contained" startIcon={<Add />} sx={{ width: '100%' }} onClick={handleOpenAddEditModal}>
+                        <UINewTypography variant="buttonLargeMenu">
+                          {modelData?.data?.model_seo[0]?.title &&
+                          modelData?.data?.model_seo[0]?.keywords &&
+                          modelData?.data?.model_seo[0]?.description
+                            ? 'Edit'
+                            : 'Add'}{' '}
+                          {modelData?.data?.name} SEO
+                        </UINewTypography>
+                      </Button>
+                    </Box>
+                  </Box>
                 </Box>
-              </Box>
-            </Box>
-          </Grid>
+              </Grid>
 
-          <Grid item xs={12}>
-            <UserInformationAccordion modelData={modelData as ModelDetailsRes} />
-          </Grid>
-        </Grid>
-      </Container>
-      {openAddEditModal && (
-        <AddEditSEOModalData
-          open={openAddEditModal}
-          onClose={handleCloseAddEditModal}
-          modelData={modelData}
-          fetchModelData={fetchModelData}
-        />
+              <Grid item xs={12}>
+                <UserInformationAccordion modelData={modelData as ModelDetailsRes} />
+              </Grid>
+            </Grid>
+          </Container>
+
+          {openAddEditModal && (
+            <AddEditSEOModalData
+              open={openAddEditModal}
+              onClose={handleCloseAddEditModal}
+              modelData={modelData}
+              fetchModelData={fetchModelData}
+            />
+          )}
+        </DashboardLayout>
       )}
-    </DashboardLayout>
+    </>
   );
 };
 

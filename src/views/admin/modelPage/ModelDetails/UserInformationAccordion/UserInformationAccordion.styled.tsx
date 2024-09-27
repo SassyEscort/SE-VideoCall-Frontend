@@ -24,3 +24,9 @@ export const TitleTextContainer = styled(Typography)(({ theme }) => ({
   lineHeight: '32.78px',
   color: '#202224'
 }));
+
+export const UserInformationAccordionMainBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(3)
+}));
