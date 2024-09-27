@@ -180,7 +180,7 @@ export const RatingReviewBoxContainer = styled(Box)(({ theme }) => ({
     gap: theme.spacing(3.75)
   },
   [theme.breakpoints.up('sm')]: {
-    gap: theme.spacing(5)
+    gap: theme.spacing(6)
   }
 }));
 

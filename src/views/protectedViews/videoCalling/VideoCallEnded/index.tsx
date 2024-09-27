@@ -207,7 +207,7 @@ const VideoCallEnded = ({
                       <ReviewBoxAndButtonContent>
                         <TextBoxContent
                           name="bio"
-                          rows={6.4}
+                          rows={8.35}
                           fullWidth
                           multiline
                           placeholder="Share your review..."
@@ -218,7 +218,7 @@ const VideoCallEnded = ({
                           <SkipButtonContent variant="text" onClick={() => onClose()}>
                             <FormattedMessage id="Skip" />
                           </SkipButtonContent>
-                          <PostButtonContent variant="text" onClick={() => handleCallRating()}>
+                          <PostButtonContent type="submit" variant="text" onClick={() => handleCallRating()}>
                             <FormattedMessage id="Post" />
                           </PostButtonContent>
                         </Box>

@@ -11,8 +11,7 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
-import { Chip, CircularProgress, IconButton, MenuItem } from '@mui/material';
-import moment from 'moment';
+import { CircularProgress, FormControl, IconButton, InputLabel, MenuItem, Select } from '@mui/material';
 import { MoreVert, Visibility } from '@mui/icons-material';
 import { useCallback, useEffect, useState } from 'react';
 import { getUserDataClient } from 'utils/getSessionData';
@@ -21,58 +20,61 @@ import { PaginationSortByOption } from 'components/common/CustomPaginations/type
 import PaginationSortBy from 'components/common/CustomPaginations/PaginationSortBy';
 import { PAGE_SIZE } from 'constants/pageConstants';
 import TablePager from 'components/common/CustomPaginations/TablePager';
-import { StyledPopover } from './CallLogs.styled';
-import CallLogsListHead from './CallLogsListHead';
-import CallLogsModel from './CallLogsModel';
-import { callLogDataResponse, callLogsDetailsService } from 'services/adminServices/call-list/callListDetailsService';
 import { debounce } from 'lodash';
-import { CALL_LOG_ACTION } from 'constants/payoutsConstants';
-import Link from 'next/link';
-import { formatFullDate } from 'utils/dateAndTime';
-import ReportFilters from 'components/Admin/ReportFilters/ReportFilters';
+import DeleteModal from 'components/UIComponents/DeleteModal';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { toast } from 'react-toastify';
+import { ErrorMessage } from 'constants/common.constants';
+import PaginationSearch from 'components/common/CustomPaginations/PaginationSearch';
+import SEOModel from './SEOModel';
+import SEOListHead from './SEOListHead';
+import { StyledPopover } from './SEO.styled';
+import { AdminSEOProfileData, adminSEOServices } from 'services/adminSEOProfilePlan/adminSEOProfilePlan.services';
+import AddEditSEOModal from './AddEditSEOModal';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 export type PaginationType = {
   page: number;
   offset: number;
-  pageSize: number;
-  orderField: string;
+  page_size: number;
+  sort_field: string;
   sort_order: string;
   search_field: string;
-  duration: string;
-  fromDate: string;
-  toDate: string;
+  is_seo?: number;
 };
 
-export default function CallLogsContainer() {
-  const [selectedPayoutData, setSelectedPayoutData] = useState<callLogDataResponse | null>(null);
-  const [data, setData] = useState<callLogDataResponse[]>([]);
+export default function SEOContainer() {
+  const [selectedSEOData, setSelectedSEOData] = useState<AdminSEOProfileData | null>(null);
+  const [data, setData] = useState<AdminSEOProfileData[]>([]);
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [creditModalOpen, setCreditModalOpen] = useState(false);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [totalRecords, setTotalRecords] = useState(0);
+  const [openAddEditModal, setOpenAddEditModal] = useState(false);
+  const [selectedSEO, setSelectedSEO] = useState<AdminSEOProfileData | null>(null);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [SEODataFilter, setSEODataFilter] = useState<number>(2);
 
-  const currentMoment = moment();
-  const oneMonthAgoMoment = moment().subtract(1, 'day');
-  const fromDate = oneMonthAgoMoment.format('YYYY/MM/DD');
-  const toDate = currentMoment.format('YYYY/MM/DD');
   const [filters, setFilters] = useState<PaginationType>({
     page: 1,
     offset: 0,
-    pageSize: PAGE_SIZE,
-    orderField: 'newest',
+    page_size: PAGE_SIZE,
+    sort_field: 'newest',
     sort_order: 'desc',
     search_field: '',
-    duration: 'day',
-    fromDate: fromDate,
-    toDate: toDate
+    is_seo: 2
   });
 
   const SORT_BY_OPTIONS: PaginationSortByOption[] = [
-    { value: 'name', label: 'Name' },
-    { value: 'email', label: 'Email' }
+    { value: 'name', label: 'Model Name' },
+    { value: 'title', label: 'Title' },
+    { value: 'keywords', label: 'Keywords' },
+    { value: 'description', label: 'description' }
   ];
+
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -87,19 +89,19 @@ export default function CallLogsContainer() {
 
   const handelFetch = async () => {
     setIsLoading(true);
-    const res = await callLogsDetailsService.getCallLogsDetails(
+    const res = await adminSEOServices.adminGetSEOProfile(
       token.token,
-      filters.pageSize,
       filters.offset,
       filters.search_field,
-      filters.fromDate,
-      filters.toDate
+      filters.sort_field,
+      filters.sort_order,
+      filters.is_seo,
+      filters.page_size
     );
-
     if (res) {
       if (res.code == 200) {
-        setData(res?.data?.call_logs);
-        setTotalRecords(res?.data?.aggregate?.total_rows);
+        setData(res?.data?.model_seo);
+        setTotalRecords(res?.data?.aggregate.total_rows);
       }
     }
     setIsLoading(false);
@@ -119,8 +121,8 @@ export default function CallLogsContainer() {
     setOpen(null);
     setAnchorEl(null);
   };
-  const handleOpenCredit = (value: callLogDataResponse) => {
-    setSelectedPayoutData(value);
+  const handleOpenCredit = (value: AdminSEOProfileData) => {
+    setSelectedSEOData(value);
     setCreditModalOpen(true);
   };
   const handleCloseCredit = () => {
@@ -133,7 +135,7 @@ export default function CallLogsContainer() {
 
   const handleChangePage = useCallback(
     (value: number) => {
-      const offset = (value - 1) * filters.pageSize;
+      const offset = (value - 1) * filters.page_size;
       handleChangeFilter({ ...filters, page: value, offset: offset });
     },
     [filters, handleChangeFilter]
@@ -141,7 +143,7 @@ export default function CallLogsContainer() {
 
   const handleChangePageSize = useCallback(
     (value: number) => {
-      handleChangeFilter({ ...filters, pageSize: value, page: 1 });
+      handleChangeFilter({ ...filters, page_size: value, page: 1 });
     },
     [filters, handleChangeFilter]
   );
@@ -151,7 +153,7 @@ export default function CallLogsContainer() {
       handleChangeFilter({
         ...filters,
         sort_order: type,
-        orderField: field,
+        sort_field: field,
         page: 1
       });
     },
@@ -161,7 +163,7 @@ export default function CallLogsContainer() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedChangeSearch = useCallback(
     debounce((val: string) => {
-      handleChangeFilter({ ...filters, search_field: val, page: 1 });
+      handleChangeFilter({ ...filters, search_field: val, page: 1, offset: 0 });
     }, 500),
     [filters, handleChangeFilter]
   );
@@ -170,8 +172,48 @@ export default function CallLogsContainer() {
     debouncedChangeSearch(val);
   };
 
-  const handleFilterDurationChange = (duration: string, fromDate: string, toDate: string) => {
-    handleChangeFilter({ ...filters, duration, fromDate, toDate, page: 1 });
+  const handleOpenAddEditModal = () => {
+    setOpenAddEditModal(true);
+  };
+
+  const handleCloseAddEditModal = () => {
+    setOpenAddEditModal(false);
+    setSelectedSEO(null);
+  };
+
+  const handleOpenDeleteCampaign = () => {
+    setOpenDeleteModal(true);
+    handleCloseMenu();
+  };
+
+  const handleCloseDeleteCampaign = () => {
+    setOpenDeleteModal(false);
+  };
+
+  const handleSEODataChange = (value: number) => {
+    setSEODataFilter(value);
+    handleChangeFilter({ ...filters, is_seo: value, offset: 0, page: 1, page_size: PAGE_SIZE });
+  };
+
+  const handleDeleteClick = async () => {
+    const res = await adminSEOServices.adminDeleteSEOProfile(Number(selectedSEOData?.seo_id), token.token);
+    if (res) {
+      if (res.code === 200) {
+        toast.success('SEO deleted successfully');
+        handleCloseDeleteCampaign();
+        handleChangeFilter({
+          page: filters.page,
+          offset: filters.offset,
+          page_size: filters.page_size,
+          sort_field: filters.sort_field,
+          sort_order: filters.sort_order,
+          search_field: filters.search_field,
+          is_seo: filters.is_seo
+        });
+      } else {
+        toast.error(ErrorMessage);
+      }
+    }
   };
 
   return (
@@ -179,22 +221,32 @@ export default function CallLogsContainer() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
           <Typography variant="h4" gutterBottom>
-            Call Logs History
+            SEO
           </Typography>
         </Stack>
-        <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent="space-between" mb={1}>
-          <ReportFilters
-            duration={filters.duration}
-            fromDate={filters.fromDate}
-            toDate={filters.toDate}
-            onFilterDurationChange={handleFilterDurationChange}
-            handleChangeSearch={handleChangeSearch}
-          />
+        <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" mb={1} gap={1}>
+          <PaginationSearch placeholder="Model Name" handleChangeSearch={handleChangeSearch} />
+          <FormControl fullWidth sx={{ width: '100%', maxWidth: '250px' }}>
+            <InputLabel id="demo-simple-select-label">SEO data</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              name="seo_data"
+              id="demo-simple-select"
+              label="SEO data"
+              value={SEODataFilter}
+              onChange={(e) => handleSEODataChange(Number(e.target.value))}
+            >
+              <MenuItem value={2}>All</MenuItem>
+              <MenuItem value={1}>Yes</MenuItem>
+              <MenuItem value={0}>No</MenuItem>
+            </Select>
+          </FormControl>
         </Stack>
+
         <Box sx={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
           <PaginationSortBy
             sortByOptions={SORT_BY_OPTIONS}
-            orderField={filters.orderField}
+            orderField={filters.sort_field}
             orderType={filters.sort_order}
             handleChangeOrderBy={handleChangeOrderBy}
           />
@@ -203,11 +255,11 @@ export default function CallLogsContainer() {
           <Paper sx={{ overflow: 'hidden' }}>
             <TableContainer sx={{ width: '100%' }}>
               <Table>
-                <CallLogsListHead />
+                <SEOListHead />
                 <TableBody>
                   {isLoading ? (
                     <TableRow>
-                      <TableCell colSpan={10}>
+                      <TableCell colSpan={13}>
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2 }}>
                           <CircularProgress />
                         </Box>
@@ -221,70 +273,19 @@ export default function CallLogsContainer() {
                           '&:last-child td, &:last-child th': { border: 0 }
                         }}
                       >
-                        <TableCell
-                          component="th"
-                          scope="row"
-                          sx={{
-                            cursor: 'pointer',
-                            '&:hover': {
-                              color: '#757575de'
-                            }
-                          }}
-                        >
-                          <Link href={`/admin/model/details/${item?.model_id}`}>{item?.model_name || '-'}</Link>
-                        </TableCell>
-                        <TableCell
-                          component="th"
-                          scope="row"
-                          sx={{
-                            cursor: 'pointer',
-                            '&:hover': {
-                              color: '#757575de'
-                            }
-                          }}
-                        >
-                          <Link href={`/admin/model/details/${item?.model_id}`}>{item?.model_email || '-'}</Link>
+                        <TableCell component="th" scope="row">
+                          {item?.model_name || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.customer_name || '-'}
+                          {item?.title || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.customer_email || '-'}
+                          {item?.keywords || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.status === CALL_LOG_ACTION.UNANSWERED ? (
-                            <Chip label="Unanswered" color="warning" />
-                          ) : item?.status === CALL_LOG_ACTION.ENDED ? (
-                            <Chip label="Ended" color="success" />
-                          ) : item?.status === CALL_LOG_ACTION.CANCELLED ? (
-                            <Chip label="Cancelled" color="error" />
-                          ) : (
-                            '-'
-                          )}
+                          {item?.description || '-'}
                         </TableCell>
-                        <TableCell component="th" scope="row">
-                          {formatFullDate(item.created_at)}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          {item?.credits_used || '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          {item?.call_type || '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          {item?.credits_per_minute || '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          {item.rate_per_minute ? `€${item.rate_per_minute?.toFixed(2)}` : '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          {item.amount_earned ? `€${item.amount_earned?.toFixed(2)}` : '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          {item?.start_time && item?.end_time
-                            ? moment(item.end_time).diff(moment(item.start_time), 'minutes') + ' mins'
-                            : '-'}
-                        </TableCell>
+
                         <TableCell>
                           <IconButton
                             aria-label="more"
@@ -293,7 +294,7 @@ export default function CallLogsContainer() {
                             aria-expanded={open ? 'true' : undefined}
                             aria-haspopup="true"
                             onClick={(e) => {
-                              setSelectedPayoutData(item);
+                              setSelectedSEOData(item);
                               handleOpenMenu(e);
                             }}
                           >
@@ -306,7 +307,7 @@ export default function CallLogsContainer() {
                     <TableRow>
                       <TableCell colSpan={10}>
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2 }}>
-                          <Typography variant="body1">Call logs history not found</Typography>
+                          <Typography variant="body1">SEO data not found</Typography>
                         </Box>
                       </TableCell>
                     </TableRow>
@@ -318,7 +319,7 @@ export default function CallLogsContainer() {
               <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
                 <TablePager
                   page={filters.page}
-                  rowsPerPage={filters.pageSize}
+                  rowsPerPage={filters.page_size}
                   handleChangePage={handleChangePage}
                   handleChangePageSize={handleChangePageSize}
                   totalRecords={totalRecords}
@@ -335,18 +336,57 @@ export default function CallLogsContainer() {
         anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <MenuItem
-          onClick={() => {
-            if (!selectedPayoutData) return;
-            handleOpenCredit(selectedPayoutData);
-            handleCloseMenu();
-          }}
-        >
-          <Visibility sx={{ mr: 2 }} />
-          View Details
+        {selectedSEOData?.title && selectedSEOData?.description && selectedSEOData?.keywords && (
+          <MenuItem
+            onClick={() => {
+              if (!selectedSEOData) return;
+              handleOpenCredit(selectedSEOData);
+              handleCloseMenu();
+            }}
+          >
+            <Visibility sx={{ mr: 2 }} />
+            View Details
+          </MenuItem>
+        )}
+        {selectedSEOData?.title && selectedSEOData?.description && selectedSEOData?.keywords ? (
+          <MenuItem
+            onClick={() => {
+              handleOpenAddEditModal();
+              setSelectedSEO(data.filter((x) => x.model_id === selectedSEOData?.model_id)[0]);
+              handleCloseMenu();
+            }}
+          >
+            <EditIcon sx={{ mr: 2 }} />
+            Edit
+          </MenuItem>
+        ) : (
+          <MenuItem
+            onClick={() => {
+              handleOpenAddEditModal();
+              setSelectedSEO(data.filter((x) => x.model_id === selectedSEOData?.model_id)[0]);
+              handleCloseMenu();
+            }}
+          >
+            <AddCircleOutlineIcon sx={{ mr: 2 }} />
+            Add
+          </MenuItem>
+        )}
+        <MenuItem sx={{ color: 'error.main' }} onClick={handleOpenDeleteCampaign}>
+          <DeleteIcon sx={{ mr: 2 }} />
+          Delete
         </MenuItem>
       </StyledPopover>
-      <CallLogsModel open={creditModalOpen} onClose={handleCloseCredit} selectedPayoutData={selectedPayoutData} />
+      <SEOModel open={creditModalOpen} onClose={handleCloseCredit} selectedSEOData={selectedSEOData} />
+      {openAddEditModal && (
+        <AddEditSEOModal
+          open={openAddEditModal}
+          onClose={handleCloseAddEditModal}
+          selectedSEO={selectedSEO}
+          handleChangeFilter={handleChangeFilter}
+          filters={filters}
+        />
+      )}
+      <DeleteModal open={openDeleteModal} handleClose={handleCloseDeleteCampaign} handleDeleteClick={handleDeleteClick} />
     </MainLayout>
   );
 }

@@ -15,7 +15,7 @@ export const DialogTitleBox = styled(DialogTitle)(({ theme }) => ({
 
 export const DialogContentMain = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
-    backgroundImage: 'url(/images/home/free-credit-signup-img.png)',
+    backgroundImage: 'url(/images/home/free-credit-signup-img.webp)',
     borderRadius: '12px',
     border: 'solid 1px #FF68C0A3',
     width: '100%',

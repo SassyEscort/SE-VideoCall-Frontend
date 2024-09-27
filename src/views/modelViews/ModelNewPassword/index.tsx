@@ -22,6 +22,7 @@ import {
   FirstBoxContainer,
   IconeButtonBox,
   ModelNewPasswordBox,
+  ModelPasswordInnerBoxContainer,
   SecBoxContainer,
   SetYourNewPasswordBox,
   SetupNewPasswordBox,
@@ -101,7 +102,7 @@ const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
               mobileImage="images/model/model-signup/model-signup.webp"
             >
               <ModelNewPasswordBox id="hello">
-                <Box sx={{ pt: { xs: 0, sm: '50px' } }}>
+                <ModelPasswordInnerBoxContainer>
                   <SetupNewPasswordBox>
                     <SetYourNewPasswordBox variant="MediumSemiBoldText" color="common.white">
                       <FormattedMessage id="SetupYourNewPassword" />
@@ -118,7 +119,7 @@ const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                       <CloseIcon />
                     </IconeButtonBox>
                   </Box>
-                </Box>
+                </ModelPasswordInnerBoxContainer>
                 <FirstBoxContainer>
                   <SecBoxContainer>
                     <ThirdBoxContainer>

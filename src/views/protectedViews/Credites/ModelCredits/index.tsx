@@ -129,9 +129,9 @@ const ModelCredits = ({
                 <UINewTypography variant="buttonLargeMenu" sx={{ paddingRight: '8px' }}>
                   <FormattedMessage id="Balance" />
                 </UINewTypography>
-                <CreditCardImage src="/images/workercards/dollar-img.png" />
+                <CreditCardImage src="/images/workercards/dollar-img.avif" />
 
-                <UINewTypography variant="buttonLargeMenu">{balance}</UINewTypography>
+                <UINewTypography variant="buttonLargeMenu">{balance?.toFixed(2) || 0}</UINewTypography>
                 <FormattedMessage id="Credits" />
               </BalanceInfoBox>
             )}
@@ -142,9 +142,9 @@ const ModelCredits = ({
               <UINewTypography variant="buttonLargeMenu" sx={{ paddingRight: '8px' }}>
                 <FormattedMessage id="Balance" />
               </UINewTypography>
-              <CreditCardImage src="/images/workercards/dollar-img.png" />
+              <CreditCardImage src="/images/workercards/dollar-img.avif" />
 
-              <UINewTypography variant="buttonLargeMenu">{balance}</UINewTypography>
+              <UINewTypography variant="buttonLargeMenu">{balance?.toFixed(2) || 0}</UINewTypography>
               <FormattedMessage id="Credits" />
             </BalanceInfoBoxV2>
           )}

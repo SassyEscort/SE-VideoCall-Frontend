@@ -76,6 +76,16 @@ const CallHistoryRatingModel = ({ open, onClose, callLogId }: { open: boolean; o
     onClose();
   };
 
+  useEffect(() => {
+    if (isRatingSubmitted) {
+      const timer = setTimeout(() => {
+        handleCloseModal();
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isRatingSubmitted]);
+
   return (
     <DialogContentMain open={open} onClose={handleCloseModal} fullWidth scroll="body">
       <DialogTitleBox id="responsive-modal-title">
@@ -128,7 +138,7 @@ const CallHistoryRatingModel = ({ open, onClose, callLogId }: { open: boolean; o
                         <SkipButtonContent variant="text" onClick={() => handleCloseModal()}>
                           <FormattedMessage id="Skip" />
                         </SkipButtonContent>
-                        <PostButtonContent variant="text" onClick={() => handleCallRating()}>
+                        <PostButtonContent type="submit" variant="text" onClick={() => handleCallRating()}>
                           <FormattedMessage id="Post" />
                         </PostButtonContent>
                       </Box>
