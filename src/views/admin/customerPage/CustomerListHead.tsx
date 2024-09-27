@@ -1,17 +1,26 @@
 import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
-import TableCell from '@mui/material/TableCell';
+import { Box } from '@mui/material';
+import { UserTitleText } from './CustomerContainer.styled';
 
 export default function CustomerListHead() {
   return (
     <TableHead>
       <TableRow>
-        <TableCell>Name</TableCell>
-        <TableCell>Email</TableCell>
-        <TableCell sx={{ textAlign: 'left' }}>Created Date</TableCell>
-        <TableCell sx={{ textAlign: 'left' }}>User Name</TableCell>
-        <TableCell sx={{ width: '1%' }}>Email Verified</TableCell>
-        <TableCell sx={{ width: '1%' }}>Action</TableCell>
+        <UserTitleText>Name</UserTitleText>
+        <UserTitleText>Email</UserTitleText>
+        <UserTitleText sx={{ textAlign: 'center' }}>
+          Total Call duration
+          <Box component="img" src="/images/icons/vector-icon.svg" marginLeft={0.75} />
+        </UserTitleText>
+        <UserTitleText sx={{ textAlign: 'center' }}>
+          No. of calls <Box component="img" src="/images/icons/vector-icon.svg" marginLeft={0.75} />
+        </UserTitleText>
+        <UserTitleText sx={{ textAlign: 'center' }}>
+          Amount spent
+          <Box component="img" src="/images/icons/vector-icon.svg" marginLeft={0.75} />
+        </UserTitleText>
+        <UserTitleText sx={{ textAlign: 'center' }}>Total credit packages purchased</UserTitleText>
       </TableRow>
     </TableHead>
   );

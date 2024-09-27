@@ -1,9 +1,12 @@
+import Box from '@mui/material/Box';
 import React from 'react';
 import CustomerPageContainer from 'views/admin/customerPage/CustomerPageContainer';
 
 const AdminMain = () => (
   <>
-    <CustomerPageContainer />
+    <Box sx={{ backgroundColor: '#FFFAFD' }}>
+      <CustomerPageContainer />
+    </Box>
   </>
 );
 

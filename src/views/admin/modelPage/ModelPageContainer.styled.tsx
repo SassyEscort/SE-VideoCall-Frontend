@@ -22,6 +22,7 @@ export const FilterBox = styled(Box)(({ theme }) => ({
   maxWidth: '818px',
   border: '1px solid #D5D5D5',
   borderRadius: '10px',
+  backgroundColor: theme.palette.common.white,
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column'
   }

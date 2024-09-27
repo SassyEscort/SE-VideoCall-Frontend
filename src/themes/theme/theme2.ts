@@ -37,6 +37,7 @@ declare module '@mui/material/styles' {
     bodyBold: CSSProperties;
     bodyLarge: CSSProperties;
     bodyUltraLarge: CSSProperties;
+    tableHeaderTitle: CSSProperties;
   }
 
   // allow configuration using `createTheme`
@@ -53,6 +54,7 @@ declare module '@mui/material/styles' {
     bodyBold?: CSSProperties;
     bodyLarge?: CSSProperties;
     bodyUltraLarge?: CSSProperties;
+    tableHeaderTitle?: CSSProperties;
   }
 }
 
@@ -71,6 +73,7 @@ declare module '@mui/material/Typography' {
     bodyBold: true;
     bodyLarge: true;
     bodyUltraLarge: true;
+    tableHeaderTitle: true;
   }
 }
 
@@ -264,6 +267,11 @@ const theme = createTheme({
       fontSize: '14px',
       fontWeight: 600,
       lineHeight: '120%'
+    },
+    tableHeaderTitle: {
+      fontSize: '14px',
+      fontWeight: 800,
+      lineHeight: '19.12px'
     }
   }
 });

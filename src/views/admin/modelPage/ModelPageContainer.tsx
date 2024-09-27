@@ -417,7 +417,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
               </Box>
             </FilterBox>
 
-            <Card sx={{ boxShadow: 'none' }}>
+            <Card sx={{ boxShadow: 'none', backgroundColor: 'white.main', borderRadius: '14px' }}>
               <Paper sx={{ width: '100%', overflow: 'hidden', boxShadow: 'none' }}>
                 <TableContainer sx={{ width: '100%' }}>
                   <Table>
@@ -530,19 +530,19 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                     </TableBody>
                   </Table>
                 </TableContainer>
-                {modelData && modelData?.length > 0 && (
-                  <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
-                    <TablePager
-                      page={filters.page}
-                      rowsPerPage={filters.pageSize}
-                      handleChangePage={handleChangePage}
-                      handleChangePageSize={handleChangePageSize}
-                      totalRecords={totalRecords}
-                    />
-                  </Box>
-                )}
               </Paper>
             </Card>
+            {modelData && modelData?.length > 0 && (
+              <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
+                <TablePager
+                  page={filters.page}
+                  rowsPerPage={filters.pageSize}
+                  handleChangePage={handleChangePage}
+                  handleChangePageSize={handleChangePageSize}
+                  totalRecords={totalRecords}
+                />
+              </Box>
+            )}
           </Box>
         </Container>
         <ModelDelete

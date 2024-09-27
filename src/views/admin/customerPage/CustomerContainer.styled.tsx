@@ -1,4 +1,4 @@
-import { DialogContent, DialogTitle, Stack } from '@mui/material';
+import { DialogContent, DialogTitle, Stack, TableCell } from '@mui/material';
 import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';
 import { styled } from '@mui/system';
@@ -83,4 +83,39 @@ export const DialogContainer = styled(DialogTitle)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between'
+}));
+
+export const UserTitleText = styled(TableCell)(({ theme }) => ({
+  fontSize: '14px',
+  fontWeight: 800,
+  lineHeight: '19.12px',
+  color: '#202224',
+  whiteSpace: 'nowrap'
+}));
+
+export const UserDescriptionText = styled(TableCell)(({ theme }) => ({
+  fontSize: '14px',
+  fontWeight: 700,
+  lineHeight: '19.12px',
+  color: '#202224',
+  whiteSpace: 'nowrap'
+}));
+
+export const FilterBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  width: '100%',
+  maxWidth: '465px',
+  border: '1px solid #D5D5D5',
+  borderRadius: '10px',
+  backgroundColor: theme.palette.common.white,
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column'
+  }
+}));
+
+export const CustomerMainBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(3)
 }));
