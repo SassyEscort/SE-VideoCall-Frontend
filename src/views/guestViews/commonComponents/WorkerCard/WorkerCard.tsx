@@ -44,6 +44,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { gaEventTrigger } from 'utils/analytics';
 import StyleBoostUserButton from 'components/UIComponents/StyleBoostUserButton';
+import Image from 'next/image';
 
 const WorkerCard = ({
   modelDetails,
@@ -125,13 +126,11 @@ const WorkerCard = ({
         {Boolean(modelDetails?.profile_plan_purchased) && (
           <HighlyAvailableButtonBox>
             <HighlyAvailableBox>
-              <video
-                src="/images/boostProfile/fire-ani.webm"
+              <Image
+                src="/images/boostProfile/fire-ani.gif"
+                alt="fire-gif"
                 height={57}
                 width={42}
-                autoPlay
-                loop
-                muted
                 style={{ zIndex: 10, left: isTablet ? '-20px' : isMdDown ? '-30px' : '-22px', position: 'absolute', top: '-14px' }}
               />
 
