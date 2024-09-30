@@ -191,7 +191,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                       <SignupTextContainer>
                         <FormattedMessage id="SignUpNow" />
                       </SignupTextContainer>
-                      <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} />
+                      <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} alt="signup" />
                     </UIThemeShadowButton>
                     <ExploreTextContainer onClick={handleClickScroll}>
                       <FormattedMessage id="ExploreModels" />

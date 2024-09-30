@@ -32,6 +32,7 @@ const WorkerImageCardV2 = ({
           <Box
             component="img"
             src="/images/dashboard/play_icon.svg"
+            alt="play_icon"
             sx={{
               position: 'absolute',
               top: 'calc(50% - 16px)',

@@ -31,6 +31,7 @@ const CustomPasswordRegex = ({ password }: { password: string }) => {
                 width: '20px',
                 height: '20px'
               }}
+              alt="check_fill"
             />
           ) : (
             <FiberManualRecordIcon
@@ -61,6 +62,7 @@ const CustomPasswordRegex = ({ password }: { password: string }) => {
                 width: '20px',
                 height: '20px'
               }}
+              alt="check_fill"
             />
           ) : (
             <FiberManualRecordIcon sx={{ width: '10px', height: '10px', alignSelf: 'center' }} fontSize="small" />
@@ -85,6 +87,7 @@ const CustomPasswordRegex = ({ password }: { password: string }) => {
                 width: '20px',
                 height: '20px'
               }}
+              alt="check_fill"
             />
           ) : (
             <FiberManualRecordIcon sx={{ width: '10px', height: '10px', alignSelf: 'center' }} fontSize="small" />

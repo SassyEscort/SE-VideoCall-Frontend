@@ -171,12 +171,12 @@ const DashboadrHeaderAuthComponent = () => {
         <IconButton onClick={handleOpenNotification}>
           {unReadCount ? (
             <UnReadCountMain>
-              <Box component="img" src="/images/header/dot.png" position="absolute" />
-              <Box component="img" src="/images/header/noti.png" />
+              <Box component="img" src="/images/header/dot.png" alt="dot.png" position="absolute" />
+              <Box component="img" src="/images/header/noti.png" alt="notification" />
             </UnReadCountMain>
           ) : (
             <UnReadCountMain>
-              <Box component="img" src="/images/header/noti.png" />
+              <Box component="img" src="/images/header/noti.png" alt="notification" />
             </UnReadCountMain>
           )}
         </IconButton>
@@ -220,7 +220,7 @@ const DashboadrHeaderAuthComponent = () => {
                   <ListItemIcon>
                     <Link href="/model/profile">
                       <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                        <Box component="img" src="/images/icons/userLine.png" sx={{ width: '24px', height: '24px' }} />
+                        <Box component="img" src="/images/icons/userLine.png" alt="user_line" sx={{ width: '24px', height: '24px' }} />
                       </IconButton>
                     </Link>
                   </ListItemIcon>
@@ -235,7 +235,7 @@ const DashboadrHeaderAuthComponent = () => {
                   <ListItemIcon>
                     <Link href="/model/dashboard">
                       <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                        <Box component="img" src="/images/icons/userLine.png" sx={{ width: '24px', height: '24px' }} />
+                        <Box component="img" src="/images/icons/userLine.png" alt="user_line" sx={{ width: '24px', height: '24px' }} />
                       </IconButton>
                     </Link>
                   </ListItemIcon>
@@ -251,7 +251,7 @@ const DashboadrHeaderAuthComponent = () => {
             <MenuItem onClick={handleOpenChangePassword}>
               <ListItemIcon>
                 <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                  <Box component="img" src="/images/icons/changepassword-img.png" sx={{ width: '24px', height: '24px' }} />
+                  <Box component="img" src="/images/icons/changepassword-img.png" alt="change_pwd" sx={{ width: '24px', height: '24px' }} />
                 </IconButton>
               </ListItemIcon>
               <ListItemText>
@@ -264,7 +264,7 @@ const DashboadrHeaderAuthComponent = () => {
             <MenuItem onClick={handleOpenLogout}>
               <ListItemIcon>
                 <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                  <Box component="img" src="/images/profile-vector/Vector-6.png" sx={{ width: '20px', height: '20px' }} />
+                  <Box component="img" src="/images/profile-vector/Vector-6.png" alt="vector_icon" sx={{ width: '20px', height: '20px' }} />
                 </IconButton>
               </ListItemIcon>
               <ListItemText>

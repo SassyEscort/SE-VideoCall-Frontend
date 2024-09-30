@@ -16,7 +16,7 @@ const CloseButtonNavItem = ({ handleClickClose }: { handleClickClose: () => void
           }}
         >
           <Box component={Link} prefetch={false} shallow={true} href="/" height={{ xs: 40, sm: 60 }}>
-            <Box component="img" src="/images/LogoLight.svg" height={{ xs: 40, sm: 60 }} />
+            <Box component="img" src="/images/LogoLight.svg" alt="logo_light" height={{ xs: 40, sm: 60 }} />
           </Box>
           <IconButton onClick={handleClickClose} sx={{ p: { xs: 0, sm: 1 } }}>
             <CancelRounded

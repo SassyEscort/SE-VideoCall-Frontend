@@ -19,19 +19,19 @@ const DownloadApp = () => {
           </TextFirst>
 
           <ThreeBox>
-            <ImageBox src="/images/app-logo/app-video.png" />
-            <ImageSecondBox src="/images/app-logo/fb-messenger.png" />
+            <ImageBox src="/images/app-logo/app-video.png" alt="video_icon" />
+            <ImageSecondBox src="/images/app-logo/fb-messenger.png" alt="fb_messenger" />
           </ThreeBox>
         </SecondBox>
       </MainConatiner>
       <ForBox>
         <Box>
-          <Link href="https://play.google.com/store/apps/details?id=com.holo.hsvm.prod&hl=en" target="_blank">
+          <Link href="https://play.google.com/store/apps/details?id=com.bookmyartist.app" target="_blank">
             <Box component={'img'} src="/images/app-logo/google-pay.png" sx={{ width: '120px', height: '120px' }} />
           </Link>
         </Box>
         <Box>
-          <Link href="https://apps.apple.com/in/app/book-my-artist-provider/id6630371131" target="_blank">
+          <Link href="https://apps.apple.com/us/app/book-my-artist-provider/id6630371131" target="_blank">
             <Box component={'img'} src="/images/app-logo/app-store.png" sx={{ width: '120px', height: '120px' }} />
           </Link>
         </Box>

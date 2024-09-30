@@ -21,7 +21,7 @@ const SideBarGuestMenu = ({
     <Drawer anchor="right" open={open} onClose={() => toggleDrawer(false)}>
       <Box sx={{ width: 284 }} onClick={() => toggleDrawer(false)} onKeyDown={() => toggleDrawer(false)}>
         <IconButtonContainer onClick={() => toggleDrawer(false)}>
-          <Box component="img" src="/images/headerv2/closeLine.svg" />
+          <Box component="img" src="/images/headerv2/closeLine.svg" alt="close_line_icon" />
         </IconButtonContainer>
         <Box display="flex" gap={3} flexDirection="column">
           <SideBarGuestMenuBoxContainer>

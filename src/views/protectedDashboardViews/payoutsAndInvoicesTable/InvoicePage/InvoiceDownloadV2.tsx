@@ -51,7 +51,7 @@ const InvoiceDownloadV2 = ({ invoiceData }: { invoiceData: invoiceDataType }) =>
             SINV-{invoiceData.id}
           </UINewTypography>
         </InvoiceDownloadMainContainer>
-        <Box component="img" src="/images/header/headerlogo.png" height={{ xs: 30, sm: 32 }} width={{ sm: 'auto' }} />
+        <Box component="img" src="/images/header/headerlogo.png" height={{ xs: 30, sm: 32 }} width={{ sm: 'auto' }} alt="hader_logo" />
       </HeaderInvoiceDownload>
       <InvoiceDownloadMainBox>
         <Divider orientation="horizontal" flexItem sx={{ borderColor: 'secondary.light' }} />
@@ -154,7 +154,7 @@ const InvoiceDownloadV2 = ({ invoiceData }: { invoiceData: invoiceDataType }) =>
 
           <ImgContainerBoxInvoiceDownload>
             <ImgBoxInvoiceDownload id="invoice-image-container">
-              <Box component="img" src="/images/header/paidInvoiceLayer1.png" />
+              <Box component="img" src="/images/header/paidInvoiceLayer1.png" alt="paid_invoice_layer" />
             </ImgBoxInvoiceDownload>
             <Table sx={{ height: '100%' }}>
               <TableRow>

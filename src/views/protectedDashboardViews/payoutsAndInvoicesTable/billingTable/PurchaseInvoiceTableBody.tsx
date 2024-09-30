@@ -42,7 +42,7 @@ const PurchaseInvoiceTableBodyV2 = ({ modelPayoutList }: { modelPayoutList: Mode
         <TableRowMain key={item.id}>
           <TableCellMain align="left">
             <FirstBox>
-              <Box component="img" src="/images/icons/bank-icon.svg" />
+              <Box component="img" src="/images/icons/bank-icon.svg" alt="bank_icon" />
               <SecondBox>
                 <UINewTypography variant="buttonLargeMenu" sx={{ whiteSpace: 'nowrap', color: 'text.secondary' }}>
                   {item?.bank_name}
