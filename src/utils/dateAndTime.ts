@@ -38,3 +38,19 @@ export const getLastActive = (lastActiveTime: string, intl: IntlShape) => {
     return intl.formatMessage({ id: 'YearsAgo' }, { years });
   }
 };
+
+export const formatDuration = (duration: string) => {
+  if (!duration) return '-';
+
+  const timeParts = duration.split(':').map(Number);
+
+  const [hours, minutes, seconds] = timeParts;
+
+  if (hours > 0) {
+    return `${hours}h ${minutes}m ${seconds}s`;
+  } else if (minutes > 0) {
+    return `${minutes}m ${seconds}s`;
+  } else {
+    return `${seconds}s`;
+  }
+};

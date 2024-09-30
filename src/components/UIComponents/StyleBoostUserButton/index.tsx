@@ -19,7 +19,7 @@ const UIStyledBoostUserButton = styled(LoadingButton)(({ theme }) => ({
     zIndex: 1,
     boxShadow: '0px 8px 33px 0px #FF68C08F',
     position: 'absolute',
-    '@media (max-width: 320px)': {
+    '@media (max-width: 380px)': {
       width: '118px'
     }
   },
