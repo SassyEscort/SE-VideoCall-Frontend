@@ -51,7 +51,7 @@ const BoostProfileWorks = ({
                 <BoxImageBackgroundBoost>
                   <BoxImageBackgroundChildBoost>
                     <Image
-                      alt="home_model"
+                      alt="instant_boost"
                       width={24}
                       height={24}
                       src="/images/boostProfile/Instant.png"
@@ -76,7 +76,7 @@ const BoostProfileWorks = ({
                 <BoxImageBackgroundBoost>
                   <BoxImageBackgroundChildBoost>
                     <Image
-                      alt="home_model"
+                      alt="duration_logo"
                       width={24}
                       height={24}
                       src="/images/boostProfile/duration.png"
@@ -100,7 +100,7 @@ const BoostProfileWorks = ({
                 <BoxImageBackgroundBoost>
                   <BoxImageBackgroundChildBoost>
                     <Image
-                      alt="home_model"
+                      alt="cost_icon"
                       width={24}
                       height={24}
                       src="/images/boostProfile/cost.png"
@@ -133,7 +133,7 @@ const BoostProfileWorks = ({
                   <BoxImageBackgroundBoost>
                     <BoxImageBackgroundChildBoost>
                       <Image
-                        alt="home_model"
+                        alt="instant_boost"
                         width={24}
                         height={24}
                         src="/images/boostProfile/instant.png"
@@ -157,7 +157,7 @@ const BoostProfileWorks = ({
                   <BoxImageBackgroundBoost>
                     <BoxImageBackgroundChildBoost>
                       <Image
-                        alt="home_model"
+                        alt="more_icon"
                         width={24}
                         height={24}
                         src="/images/boostProfile/more.png"
@@ -181,7 +181,7 @@ const BoostProfileWorks = ({
                   <BoxImageBackgroundBoost>
                     <BoxImageBackgroundChildBoost>
                       <Image
-                        alt="home_model"
+                        alt="flex.png"
                         width={24}
                         height={24}
                         src="/images/boostProfile/flex.png"

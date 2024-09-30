@@ -47,7 +47,7 @@ const ProfileReject = () => {
     <>
       <ReSubmitApplicationMainContainer>
         <ReSubmitApplicationMain>
-          <Box component="img" src="\images\model\profile-reject.png" />
+          <Box component="img" src="\images\model\profile-reject.png" alt="profile_reject" />
           <ReSubmitApplicationTitleContainer>
             <UINewTypography
               variant="h3"

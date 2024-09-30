@@ -55,6 +55,7 @@ const PreviewGallery = ({ image, isEdit, height, width }: { image: UploadPhotos;
           <VideoBox height={height} width={width}>
             <Box
               component="img"
+              alt="play_icon"
               src="/images/verification/play-icon.svg"
               sx={{
                 position: 'absolute'

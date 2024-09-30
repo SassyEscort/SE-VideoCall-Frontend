@@ -30,13 +30,13 @@ const ButtonFreeCredits = ({ open, onClose, onSignupOpen }: { open: boolean; onC
           }
         }}
       >
-        <ImageFirst src="/images/free-credits/gitftsecond.png" sx={{ py: 2 }} />
+        <ImageFirst src="/images/free-credits/gitftsecond.png" alt="free_credit_gift" sx={{ py: 2 }} />
       </DialogTitleBox>
 
       <DialogContent sx={{ p: 0 }}>
         <DialogContentSecondBox>
           <DialogContentBoxQuestion>
-            <ImageSecond src="/images/free-credits/coins.png" />
+            <ImageSecond src="/images/free-credits/coins.png" alt="free_credit_coin" />
             <UINewTypographyFREECredits>
               <FormattedMessage id="FREECall" />
             </UINewTypographyFREECredits>

@@ -180,7 +180,7 @@ const HomeModelTopBanner = () => {
 
           <ImageContainer>
             <Image
-              alt="home_model"
+              alt="hero_banner"
               width={isSm && isSmDown ? 300 : isSmDown ? 347 : 639}
               height={isSmDown ? 300 : 519}
               src="/images/modelHomePage/Model-Hero-area.webp"

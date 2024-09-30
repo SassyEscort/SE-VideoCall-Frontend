@@ -255,7 +255,7 @@ const HeaderGuestComponent = () => {
                     <MenuItem onClick={handleLoginOpen}>
                       <ListItemIcon>
                         <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                          <Box component="img" src="/images/header/loginCircle.svg" sx={{ width: '20px', height: '20px' }} />
+                          <Box component="img" src="/images/header/loginCircle.svg" sx={{ width: '20px', height: '20px' }} alt="login" />
                         </IconButton>
                       </ListItemIcon>
                       <ListItemText>
@@ -290,7 +290,7 @@ const HeaderGuestComponent = () => {
                           <UINewTypography variant="body" lineHeight={'150%'}>
                             <FormattedMessage id="SignUpNow" />
                           </UINewTypography>
-                          <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} />
+                          <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} alt="signup" />
                         </UIThemeShadowButton>
                       </ListItemText>
                     </MenuItem>
@@ -326,7 +326,7 @@ const HeaderGuestComponent = () => {
                       gap: 1
                     }}
                   >
-                    <Box component="img" src="/images/icons/free-credit-icon.png" width="24px" height="30px" />
+                    <Box component="img" src="/images/icons/free-credit-icon.png" width="24px" height="30px" alt="free_credit" />
                     <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
                       <FormattedMessage id="FREECall" />
                     </UINewTypography>
@@ -336,7 +336,7 @@ const HeaderGuestComponent = () => {
                     <UINewTypography variant="body" lineHeight={'150%'}>
                       <FormattedMessage id="SignUpNow" />
                     </UINewTypography>
-                    <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} />
+                    <Box component="img" src="/images/icons/signup-img.png" alt="signup" sx={{ width: '16px', height: '16px' }} />
                   </UIThemeShadowButton>
                 ))}
             </Box>

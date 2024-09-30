@@ -66,7 +66,7 @@ const AuthFreeCreditsSignupCommon = ({
               paddingLeft: '26px'
             }}
           >
-            <Box component="img" src="/images/home/free-credits-signup-img.png" />
+            <Box component="img" src="/images/home/free-credits-signup-img.png" alt="signup_free_creditsa" />
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
               <Box
                 sx={{

@@ -17,10 +17,10 @@ const HomePageFreeSignupMobile = () => {
   return (
     <MobileImageBoxContainer>
       <MobileImageInnerBoxContainer>
-        <Box component="img" src="/images/home/gitftsecond.png" width={70} height={82} />
+        <Box component="img" src="/images/home/gitftsecond.png" alt="gift_icon" width={70} height={82} />
         <ImageAndTextBoxContainer>
           <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
-            <Box component="img" src="/images/workercards/coin-1.png" width={20} height={20} />
+            <Box component="img" src="/images/workercards/coin-1.png" alt="coin.png" width={20} height={20} />
             <TitleTextBoxContainer>
               <TitleText>
                 <HeaderText>
