@@ -4,8 +4,6 @@ import MenuItem from '@mui/material/MenuItem';
 import { UIStyledCountrySelect } from 'components/UIComponents/UIStyledSelect';
 import { MouseEventHandler, useEffect, useState } from 'react';
 import { CommonServices } from 'services/commonApi/commonApi.services';
-import { getUserDataClient } from 'utils/getSessionData';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CountryFilterText, StyledClearIcon } from '../Search.styled';
 import theme from 'themes/theme';
 import CityCountryLabel from './CityCountryLabel';
@@ -26,24 +24,15 @@ type countryType = {
 const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
   const [open, setOpen] = useState(false);
   const [countries, setCountries] = useState<countryType[]>([]);
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isApiCalled, setIsApiCalled] = useState(false);
   const [loading, setLoading] = useState(true);
 
   let renderValue = value ? value : '';
 
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      setToken({ id: data?.id, token: data?.token });
-    };
-    userToken();
-  }, []);
-
   const countryData = async () => {
     setLoading(false);
     try {
-      const data = await CommonServices.getCountry(token.token, true);
+      const data = await CommonServices.getCountry(true);
       setCountries(data.data);
     } catch (error) {
       toast.error(ErrorMessage);

@@ -5,19 +5,17 @@ import HomeTopBanner from './homeBanner';
 import HomeImageCard from './homeImageCards';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
 import { HomePageMainContainer } from './Home.styled';
-import { getUserDataClient } from 'utils/getSessionData';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import SearchFilters, { SearchFiltersTypes } from '../searchPage/searchFilters';
 import BackdropProgress from 'components/UIComponents/BackDropProgress';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { getQueryParam } from 'utils/genericFunction';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import { useAuthContext } from '../../../../context/AuthContext';
 
 const HomeContainer = () => {
-  const { isCustomer } = useCallFeatureContext();
-  const { isFreeCreditAvailable } = useAuthContext();
+  const { isFreeCreditAvailable, session } = useAuthContext();
+  const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
+
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -26,7 +24,6 @@ const HomeContainer = () => {
   const initialRender = useRef(true);
 
   const [modelListing, setModelListing] = useState<ModelHomeListing[]>([]);
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [total_rows, setTotalRows] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [scroll, setScroll] = useState(false);
@@ -112,14 +109,6 @@ const HomeContainer = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, pathname, router]);
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      setToken({ id: data?.id, token: data?.token });
-    };
-    userToken();
-  }, [isCustomer]);
 
   const handelFilterChange = async (values: SearchFiltersTypes) => {
     setIsLoading(true);
