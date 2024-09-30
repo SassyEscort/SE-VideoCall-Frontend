@@ -32,6 +32,7 @@ const ModelNavbar = ({ tabIndex }: { tabIndex: number }) => {
                         <Box
                           component="img"
                           src={tab?.img}
+                          alt={tab?.name || 'tab'}
                           sx={{
                             filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)',
                             ...(tabIndex === 1 && { filter: 'none' })
@@ -64,7 +65,7 @@ const ModelNavbar = ({ tabIndex }: { tabIndex: number }) => {
                   <CommonMenuBox sx={{ color: 'text.primary' }}>
                     <DashboardSidebarBox id="basic-button">
                       <SecondBoxContainer>
-                        <Box component="img" src={tab.img} sx={{ filter: 'none' }} />
+                        <Box component="img" src={tab.img} alt={tab.name} sx={{ filter: 'none' }} />
                         <UINewTypography variant="buttonLargeMenu" whiteSpace="nowrap">
                           {intl.formatMessage({ id: tab.name })}
                         </UINewTypography>

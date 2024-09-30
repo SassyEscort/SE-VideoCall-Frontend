@@ -147,6 +147,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
                           width={16}
                           height="auto"
                           src={tab?.img}
+                          alt={tab?.name || 'tab'}
                           sx={{
                             filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)',
                             ...(tabIndex === 1 && { filter: 'none' })
@@ -170,7 +171,7 @@ export default function ModelNav({ openNav, onCloseNav }: NavProps) {
                   <CommonMenuBox key={index} sx={{ color: 'text.primary' }}>
                     <Link prefetch={false} href={tab?.path} style={{ textDecoration: 'none' }}>
                       <MobileComponentSecBoxContainer>
-                        <Box component="img" src={tab.img} width={20} height={20} />
+                        <Box component="img" src={tab.img} alt={tab.name} width={20} height={20} />
                         <MobileTextStyleContainer label={intl.formatMessage({ id: tab.name })} />
                       </MobileComponentSecBoxContainer>
                     </Link>

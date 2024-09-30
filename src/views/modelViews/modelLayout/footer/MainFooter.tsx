@@ -125,7 +125,7 @@ const MainFooter = () => {
                   src="/images/logo-footer.png"
                   width={220}
                   height={44}
-                  alt="sassy_logo"
+                  alt="footer_logo"
                   style={{
                     width: 'auto'
                   }}

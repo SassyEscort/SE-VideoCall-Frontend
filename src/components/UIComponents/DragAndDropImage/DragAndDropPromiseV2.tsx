@@ -131,7 +131,7 @@ const DragAndDropV2 = ({
       {uploadedFileURL && (
         <Box sx={{ position: 'relative' }}>
           <DragAndDropMultipleImageCloseButton size="small" onClick={handleRemoveFile}>
-            <Box component="img" src="/images/home/close-icon.svg" />
+            <Box component="img" src="/images/home/close-icon.svg" alt="close_icon" />
           </DragAndDropMultipleImageCloseButton>
         </Box>
       )}
@@ -186,7 +186,7 @@ const DragAndDropV2 = ({
                   gap: '8px'
                 }}
               >
-                <Box component="img" src="/images/icons/pdf-icon.svg" sx={{ height: '64px', width: '64px' }} />
+                <Box component="img" src="/images/icons/pdf-icon.svg" alt="pdf_icon" sx={{ height: '64px', width: '64px' }} />
                 <UINewTypography variant="bodySmall">{uploadedFileName}</UINewTypography>
               </Box>
             ) : (
@@ -194,7 +194,7 @@ const DragAndDropV2 = ({
             )
           ) : (
             <>
-              <Box component="img" src="/images/home/upload.png" sx={{ height: '64px', width: '64px' }} />
+              <Box component="img" src="/images/home/upload.png" alt="upload_icon" sx={{ height: '64px', width: '64px' }} />
 
               <Box
                 sx={{

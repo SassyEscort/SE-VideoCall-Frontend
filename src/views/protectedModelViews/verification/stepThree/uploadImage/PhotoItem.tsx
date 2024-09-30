@@ -176,7 +176,7 @@ const PhotoItem = ({
         <>
           <Box sx={{ position: 'relative' }} id="imageContainer">
             <DragAndDropMultipleImageCloseButton size="small" onClick={() => handleRemoveImage(image.name)}>
-              <Box component="img" src="/images/verification/close-icon.svg" />
+              <Box component="img" src="/images/verification/close-icon.svg" alt="close_icon" />
             </DragAndDropMultipleImageCloseButton>
           </Box>
           {!videoTypeCondition && (
@@ -189,7 +189,7 @@ const PhotoItem = ({
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
               >
-                <Box component="img" src="/images/verification/more-icon.svg" />
+                <Box component="img" src="/images/verification/more-icon.svg" alt="more_icon" />
               </DragAndDropMultipleImageEditButton>
               <ImageShotByMenu
                 anchorEl={anchorEl}
@@ -221,13 +221,14 @@ const PhotoItem = ({
           <>
             <Box sx={{ position: 'relative' }} id="imageContainer">
               <DragAndDropMultipleImageCloseVideoButton size="small" onClick={() => handleRemoveImage(image.name)}>
-                <Box component="img" src="/images/verification/close-icon.svg" />
+                <Box component="img" src="/images/verification/close-icon.svg" alt="close_icon" />
               </DragAndDropMultipleImageCloseVideoButton>
             </Box>
             <VideoBox height={height} width={width}>
               <Box
                 component="img"
                 src="/images/verification/play-icon.svg"
+                alt="play_icon"
                 sx={{
                   position: 'absolute'
                 }}

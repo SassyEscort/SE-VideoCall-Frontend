@@ -64,7 +64,7 @@ function CreditsAdded({
       <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
       <CreditsBodyContainer>
         <ImageContainer>
-          <Image alt="home_model" width={217} height={226} src="/images/credits/Frame.webp" />
+          <Image alt="frame_icon" width={217} height={226} src="/images/credits/Frame.webp" />
         </ImageContainer>
         <AddedCreditsContainer>
           <UINewTypographyNew>
@@ -76,7 +76,7 @@ function CreditsAdded({
             <FormattedMessage id="NewBalance" />
           </UINewTypography>
           <NewBalanceDetails>
-            <Image alt="home_model" width={24} height={24} src="/images/workercards/dollar-img.avif" />
+            <Image alt="dollar_icon" width={24} height={24} src="/images/workercards/dollar-img.avif" />
             <UINewTypography sx={{ pl: '8px' }}>
               {newBalance?.toFixed(2) || 0} <FormattedMessage id="Credits" />
             </UINewTypography>

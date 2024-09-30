@@ -58,7 +58,7 @@ const ProfileMenu = ({
           </MenuItem>
           <MenuItem>
             <ListItemIcon>
-              <Box component="img" src="/images/headerv2/lockPasswordLine.svg" />
+              <Box component="img" src="/images/headerv2/lockPasswordLine.svg" alt="lock_pwd_line" />
             </ListItemIcon>
             <ListItemText>
               <Typography variant="bodySemiBold" color="text.secondary">
@@ -68,7 +68,7 @@ const ProfileMenu = ({
           </MenuItem>
           <MenuItem>
             <ListItemIcon>
-              <Box component="img" src="/images/headerv2/logoutCircleLine.svg" />
+              <Box component="img" src="/images/headerv2/logoutCircleLine.svg" alt="logout" />
             </ListItemIcon>
             <ListItemText>
               <Typography variant="bodySemiBold" color="text.secondary">

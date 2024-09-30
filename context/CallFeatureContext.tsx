@@ -47,6 +47,7 @@ interface CallFeatureContextProps {
   isCallIncoming: boolean;
   modelName: string;
   modelPhoto: string;
+  modelUsername: string;
   isLoading: boolean;
   isCallEnded: boolean;
   isBusy: boolean;
@@ -75,6 +76,7 @@ const CallContext = createContext<CallFeatureContextProps>({
   isCallIncoming: false,
   modelName: '',
   modelPhoto: '',
+  modelUsername: '',
   isBusy: false,
   handleBusyClose: () => {},
   isLoading: false,
@@ -584,6 +586,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         isCallIncoming,
         modelName,
         modelPhoto,
+        modelUsername,
         isCallEnded,
         isBusy,
         handleBusyClose,

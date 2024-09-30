@@ -46,7 +46,15 @@ const RingingModel = ({ onClose }: { onClose: () => void }) => {
                 <FormattedMessage id="Ringing" />
               </UINewTypography>
             </SecondBoxContent>
-            <Box component="img" src="/images/icons/ringing-icon.png" width={40} height={40} onClick={onClose} sx={{ cursor: 'pointer' }} />
+            <Box
+              component="img"
+              src="/images/icons/ringing-icon.png"
+              alt="ringing_icon"
+              width={40}
+              height={40}
+              onClick={onClose}
+              sx={{ cursor: 'pointer' }}
+            />
           </DialogContentSecondBox>
         </DialogContentFristBox>
       </DialogContent>

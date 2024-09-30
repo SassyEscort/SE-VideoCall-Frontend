@@ -35,6 +35,7 @@ const TableData = ({ modelEarningHistory }: { modelEarningHistory: ModelEarningH
                 <Box
                   component="img"
                   src="/images/workercards/dollar-img.avif"
+                  alt="dollar_icon"
                   sx={{
                     width: '20px',
                     height: '20px'

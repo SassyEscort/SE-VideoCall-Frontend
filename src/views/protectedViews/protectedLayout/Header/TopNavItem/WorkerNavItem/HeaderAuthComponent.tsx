@@ -179,7 +179,7 @@ const HeaderAuthComponent = () => {
         {isMdUp && (
           <Link href="/profile/credit">
             <Box alignItems="center" gap={1} display="flex">
-              <Box component="img" src="/images/header/coin.png" />
+              <Box component="img" src="/images/header/coin.png" alt="coin_icon" />
               <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                 {balance?.toFixed(2) || 0}
               </UINewTypography>
@@ -197,7 +197,7 @@ const HeaderAuthComponent = () => {
                   position: 'relative'
                 }}
               >
-                <Box component="img" src="/images/header/heart.png" />
+                <Box component="img" src="/images/header/heart.png" alt="heart_logo" />
               </Box>
             </IconButton>
           </Link>
@@ -206,12 +206,12 @@ const HeaderAuthComponent = () => {
         <IconButton onClick={handleOpenNotification}>
           {unReadCount ? (
             <UnReadCountMain>
-              <Box component="img" src="/images/header/dot.png" position="absolute" />
-              <Box component="img" src="/images/header/noti.png" />
+              <Box component="img" src="/images/header/dot.png" position="absolute" alt="dot_icon" />
+              <Box component="img" src="/images/header/noti.png" alt="notification" />
             </UnReadCountMain>
           ) : (
             <UnReadCountMain>
-              <Box component="img" src="/images/header/noti.png" />
+              <Box component="img" src="/images/header/noti.png" alt="notification" />
             </UnReadCountMain>
           )}
         </IconButton>
@@ -256,7 +256,7 @@ const HeaderAuthComponent = () => {
               <ListItemIcon>
                 <Link href="/profile" onClick={handleCloseLogout}>
                   <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                    <Box component="img" src="/images/icons/userLine.png" sx={{ width: '24px', height: '24px' }} />
+                    <Box component="img" src="/images/icons/userLine.png" alt="user_line" sx={{ width: '24px', height: '24px' }} />
                   </IconButton>
                 </Link>
               </ListItemIcon>
@@ -275,7 +275,7 @@ const HeaderAuthComponent = () => {
                   <MenuItem>
                     <ListItemIcon>
                       <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                        <Box component="img" src="/images/header/coin.png" />
+                        <Box component="img" src="/images/header/coin.png" alt="coin_icon" />
                       </IconButton>
                     </ListItemIcon>
                     <ListItemText>
@@ -302,7 +302,7 @@ const HeaderAuthComponent = () => {
                               position: 'relative'
                             }}
                           >
-                            <Box component="img" src="/images/header/heart.png" />
+                            <Box component="img" src="/images/header/heart.png" alt="heart_logo" />
                           </Box>
                         </IconButton>
                       </Link>
@@ -322,7 +322,7 @@ const HeaderAuthComponent = () => {
             <MenuItem onClick={handleOpenChangePassword}>
               <ListItemIcon>
                 <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                  <Box component="img" src="/images/icons/changepassword-img.png" sx={{ width: '24px', height: '24px' }} />
+                  <Box component="img" src="/images/icons/changepassword-img.png" alt="change_pwd" sx={{ width: '24px', height: '24px' }} />
                 </IconButton>
               </ListItemIcon>
               <ListItemText>
@@ -335,7 +335,7 @@ const HeaderAuthComponent = () => {
             <MenuItem onClick={handleOpenLogout}>
               <ListItemIcon>
                 <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                  <Box component="img" src="/images/profile-vector/Vector-6.png" sx={{ width: '20px', height: '20px' }} />
+                  <Box component="img" src="/images/profile-vector/Vector-6.png" alt="vector_img" sx={{ width: '20px', height: '20px' }} />
                 </IconButton>
               </ListItemIcon>
               <ListItemText>

@@ -19,8 +19,8 @@ const DownloadApp = () => {
           </TextFirst>
 
           <ThreeBox>
-            <ImageBox src="/images/app-logo/app-video.png" />
-            <ImageSecondBox src="/images/app-logo/fb-messenger.png" />
+            <ImageBox src="/images/app-logo/app-video.png" alt="video_icon" />
+            <ImageSecondBox src="/images/app-logo/fb-messenger.png" alt="fb_messenger" />
           </ThreeBox>
         </SecondBox>
       </MainConatiner>

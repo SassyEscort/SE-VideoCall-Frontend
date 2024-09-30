@@ -59,7 +59,7 @@ const DashboardMenu = ({
           </MenuItem>
           <MenuItem>
             <ListItemIcon>
-              <Box component="img" src="/images/headerv2/lockPasswordLine.svg" />
+              <Box component="img" src="/images/headerv2/lockPasswordLine.svg" alt="lock_pwd" />
             </ListItemIcon>
             <ListItemText>
               <Typography variant="bodySemiBold" color="text.secondary">
@@ -69,7 +69,7 @@ const DashboardMenu = ({
           </MenuItem>
           <MenuItem>
             <ListItemIcon>
-              <Box component="img" src="/images/headerv2/logoutCircleLine.svg" />
+              <Box component="img" src="/images/headerv2/logoutCircleLine.svg" alt="login" />
             </ListItemIcon>
             <ListItemText>
               <Typography variant="bodySemiBold" color="text.secondary">

@@ -26,7 +26,7 @@ const VideoCalling = ({
   showAnother: Boolean;
   isModelAvailable: number;
 }) => {
-  const { modelName, modelPhoto, isFavouriteModel, handelIsFavouriteModelChange } = useCallFeatureContext();
+  const { modelName, modelPhoto, isFavouriteModel, modelUsername, handelIsFavouriteModelChange } = useCallFeatureContext();
 
   const handleClickFaviourite = () => {
     handelIsFavouriteModelChange(1);
@@ -35,7 +35,7 @@ const VideoCalling = ({
   return (
     <VideoCallingCardMainContainer>
       <ImgMainBox>
-        <ImgBoxContainer src={modelPhoto} />
+        <ImgBoxContainer src={modelPhoto} alt={modelUsername} />
       </ImgMainBox>
       {showHeart && (
         <HeartBoxContainer>
