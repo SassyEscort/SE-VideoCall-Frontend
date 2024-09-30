@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import ProviderWrapper from './ProviderWrapper';
 import { SEO_DATA } from 'constants/seoConstants';
 import { AuthFeaturProvider } from '../../context/AuthContext';
+import CallFeature from 'views/protectedViews/callingFeature';
+import { CallFeatureProvider } from '../../context/CallFeatureContext';
 
 export const metadata: Metadata = {
   title: SEO_DATA.TITLE,
@@ -114,10 +116,10 @@ export default function RootLayout({
       <body>
         <ProviderWrapper>
           <>
-            {/* <CallFeatureProvider>
-              <CallFeature /> */}
-            <AuthFeaturProvider>{children}</AuthFeaturProvider>
-            {/* </CallFeatureProvider> */}
+            <CallFeatureProvider>
+              <CallFeature />
+              <AuthFeaturProvider>{children}</AuthFeaturProvider>
+            </CallFeatureProvider>
           </>
         </ProviderWrapper>
       </body>
