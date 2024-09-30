@@ -42,7 +42,7 @@ const ProfileMenu = ({
           <MenuItem>
             <ListItemIcon>
               <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                <Box component="img" src="/images/icons/userLine.png" sx={{ width: '24px', height: '24px' }} />
+                <Box component="img" src="/images/icons/userLine.png" alt="user_line" sx={{ width: '24px', height: '24px' }} />
               </IconButton>
             </ListItemIcon>
             <ListItemText
@@ -59,7 +59,12 @@ const ProfileMenu = ({
           <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
           <MenuItem component={Link} prefetch={false} shallow={true} href="/model">
             <ListItemIcon>
-              <Box component="img" src="/images/header/register-model-img.png" sx={{ width: '24px', height: '24px' }} />
+              <Box
+                component="img"
+                src="/images/header/register-model-img.png"
+                alt="register_model"
+                sx={{ width: '24px', height: '24px' }}
+              />
             </ListItemIcon>
             <ListItemText>
               <Typography variant="bodyLight" color="text.secondary">

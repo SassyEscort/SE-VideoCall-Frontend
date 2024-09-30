@@ -76,7 +76,7 @@ const DashboardNavItem = () => {
                 src="/images/header/headerlogo.png"
                 width={182}
                 height={36}
-                alt="sassy_logo"
+                alt="header_logo"
                 style={{
                   width: '100%',
                   height: 'auto'

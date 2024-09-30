@@ -33,7 +33,12 @@ const PaginationSearch = ({ placeholder, handleChangeSearch }: PaginationSearchP
             sx={{ width: '100%', '&.Mui-focused': { width: '100%' }, color: 'text.secondary' }}
             startAdornment={
               <InputAdornment position="start">
-                <Box component="img" src="/images/payout/search-line.png" sx={{ color: 'text.primary', width: 20, height: 20 }} />
+                <Box
+                  component="img"
+                  src="/images/payout/search-line.png"
+                  sx={{ color: 'text.primary', width: 20, height: 20 }}
+                  alt="search_icon"
+                />
               </InputAdornment>
             }
             endAdornment={

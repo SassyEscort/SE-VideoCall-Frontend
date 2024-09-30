@@ -9,7 +9,7 @@ function HomeModelBottomBanner() {
   return (
     <ModelUITextConatiner sx={{ alignItems: 'center', marginTop: isSmDown ? '72px' : '120px', position: 'relative' }}>
       <Image
-        alt="home_model"
+        alt="footer_logo"
         width={1512}
         height={668.51}
         src="/images/modelHomePage/Model-footer.webp"

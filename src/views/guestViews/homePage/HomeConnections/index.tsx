@@ -143,7 +143,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
                 <BoxImageBackground>
                   <BoxImageBackgroundChild>
                     <Image
-                      alt="home_model"
+                      alt="home_search_img"
                       width={24}
                       height={24}
                       src="/images/home-search-img.png"
@@ -170,7 +170,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
                 <BoxImageBackground>
                   <BoxImageBackgroundChild>
                     <Image
-                      alt="home_model"
+                      alt="choose_your_model"
                       width={24}
                       height={24}
                       src="/images/home-choose-your-model-img.png"
@@ -198,12 +198,13 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
                 sx={{
                   display: isSmDown || isMdDown ? 'none' : 'block'
                 }}
+                alt="line_image"
               />
               <BoxMain>
                 <BoxImageBackground>
                   <BoxImageBackgroundChild>
                     <Image
-                      alt="home_model"
+                      alt="home_connect_instantly"
                       width={24}
                       height={24}
                       src="/images/home-connect-instantly-img.png"
@@ -237,7 +238,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
                 <UINewTypography variant="buttonLargeBold" sx={{ lineHeight: '150%' }}>
                   <FormattedMessage id="SignUpNow" />
                 </UINewTypography>
-                <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} />
+                <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} alt="signup" />
               </UIThemeShadowButton>
             </ThirdBoxContainer>
           </Box>

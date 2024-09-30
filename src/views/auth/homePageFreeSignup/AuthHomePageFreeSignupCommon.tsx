@@ -55,10 +55,10 @@ const AuthHomePageFreeSignupCommon = ({
         <AuthImageBox variant={role} />
         {isSmUp && role === ROLE.CUSTOMER && (
           <AuthFreeCreditsInnerBoxContainer>
-            <Box component="img" src="/images/home/gitftsecond.png" width={170} height={210} />
+            <Box component="img" src="/images/home/gitftsecond.png" alt="gift_icon" width={170} height={210} />
             <TextMainBoxContainer>
               <TextInnerBoxContainer>
-                <Box component="img" src="/images/workercards/coin-1.png" width={20} height={20} />
+                <Box component="img" src="/images/workercards/coin-1.png" alt="coin_icon" width={20} height={20} />
                 <HeaderTextMainBoxContainer>
                   <HeaderText>
                     <FormattedMessage id="FREECall" />

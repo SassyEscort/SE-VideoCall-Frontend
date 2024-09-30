@@ -265,7 +265,7 @@ const PayoutContainer = ({
                   </ButtonBox>
                 )}
                 <SecBoxConatiner>
-                  <Box component="img" src="/images/icons/payout-icon.png" width={16} height={16} />
+                  <Box component="img" alt="payout_icon" src="/images/icons/payout-icon.png" width={16} height={16} />
                   <UINewTypography>
                     <FormattedMessage id="MinimumWithdrawalAmountIs" /> ${withdrawlAmount?.data.amount}
                   </UINewTypography>
@@ -290,7 +290,7 @@ const PayoutContainer = ({
                         <FirstToSiliconValleyBankMainConatiner>
                           <FirstToSiliconValleyBank>
                             <ImageBox>
-                              <Box component={'img'} src="/images/payout/home.png" />
+                              <Box component={'img'} src="/images/payout/home.png" alt="home_icon" />
                             </ImageBox>
                             <Showtracking>
                               <UINewTypography variant="buttonLargeMenu" color="text.secondary">

@@ -29,7 +29,14 @@ const GuestModelMobileSignup = ({ image, modelName }: { image: string; modelName
       />
       {/* <ImageContainer /> */}
       <MobileImageInnerBoxContainer>
-        <Box component="img" src="/images/home/free-credits-signup-img.png" width={100} height={100} sx={{ zIndex: 2 }} />
+        <Box
+          component="img"
+          src="/images/home/free-credits-signup-img.png"
+          alt="signup_free_creditsa"
+          width={100}
+          height={100}
+          sx={{ zIndex: 2 }}
+        />
         <ImageAndTextBoxContainer>
           <TitleTextBoxContainer>
             <TitleText>

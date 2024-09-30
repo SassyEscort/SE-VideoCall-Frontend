@@ -94,7 +94,7 @@ export default function AdminSidbar() {
               );
             })}
             <CommonMenuBox sx={{ cursor: 'pointer', color: 'text.primary' }}>
-              <Box component="img" src="/images/profile-vector/Vector-6.png" />
+              <Box component="img" src="/images/profile-vector/Vector-6.png" alt="vector_icon" />
             </CommonMenuBox>
           </Tabs>
           <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />

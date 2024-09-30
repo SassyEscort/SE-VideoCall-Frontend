@@ -230,7 +230,7 @@ const VideoCallEnded = ({
                 {isRatingSubmitted && (
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, textAlign: 'center' }}>
                     <ReviewSubmitBoxContent>
-                      <Box component="img" src="/images/icons/rating-success-img.png" width={69.12} height={64.32} />
+                      <Box component="img" src="/images/icons/rating-success-img.png" alt="rating_success" width={69.12} height={64.32} />
                       <UINewTypography variant="body1">
                         <FormattedMessage id="YourReviewHasBeenSubmitted" />
                       </UINewTypography>
