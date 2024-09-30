@@ -1,9 +1,12 @@
+import Box from '@mui/material/Box';
 import React from 'react';
 import PayoutPageContainer from 'views/admin/Payout/PayoutPageContainer';
 
 const AdminMain = () => (
   <>
-    <PayoutPageContainer />
+    <Box sx={{ backgroundColor: '#FFFAFD' }}>
+      <PayoutPageContainer />
+    </Box>
   </>
 );
 

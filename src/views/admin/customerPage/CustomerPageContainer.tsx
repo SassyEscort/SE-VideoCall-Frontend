@@ -92,7 +92,7 @@ export default function CustomerPageContainer() {
   const oneMonthAgoMoment = moment().subtract(1, 'month');
   const fromDate = oneMonthAgoMoment.format('YYYY/MM/DD');
   const toDate = currentMoment.format('YYYY/MM/DD');
-  const [filters, setFilters] = useState<WorkersPaginationType>({
+  const initialFilters: WorkersPaginationType = {
     page: 0,
     pageSize: PAGE_SIZE,
     offset: 0,
@@ -105,7 +105,13 @@ export default function CustomerPageContainer() {
     status: '',
     verificationStep: '',
     is_active: ''
-  });
+  };
+
+  const [filters, setFilters] = useState<WorkersPaginationType>(initialFilters);
+
+  const handleResetFilters = () => {
+    setFilters(initialFilters);
+  };
 
   const handleChangeFilter = useCallback((value: WorkersPaginationType) => {
     setFilters(value);
@@ -266,7 +272,7 @@ export default function CustomerPageContainer() {
                 </FormControl>
               </Grid>
 
-              <Box sx={{ cursor: 'pointer' }}>
+              <Box sx={{ cursor: 'pointer' }} onClick={handleResetFilters}>
                 <Grid item xs={12} sm={6} md={4} sx={{ maxWidth: '179px', marginLeft: '24px' }}>
                   <FormControl fullWidth>
                     <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>

@@ -1,18 +1,18 @@
 import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
-import TableCell from '@mui/material/TableCell';
+import { UserTitleText } from '../customerPage/CustomerContainer.styled';
 
 export default function PayoutListHead() {
   return (
     <TableHead>
       <TableRow>
-        <TableCell>Name</TableCell>
-        <TableCell>Email</TableCell>
-        <TableCell>Amount</TableCell>
-        <TableCell>Bank Name</TableCell>
-        <TableCell>State</TableCell>
-        <TableCell>Created At</TableCell>
-        <TableCell>Action</TableCell>
+        <UserTitleText>Name</UserTitleText>
+        <UserTitleText>Email</UserTitleText>
+        <UserTitleText>Amount</UserTitleText>
+        <UserTitleText>Bank Name</UserTitleText>
+        <UserTitleText>State</UserTitleText>
+        <UserTitleText>Created At</UserTitleText>
+        <UserTitleText>Action</UserTitleText>
       </TableRow>
     </TableHead>
   );

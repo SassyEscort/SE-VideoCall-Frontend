@@ -1,24 +1,24 @@
 import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
-import TableCell from '@mui/material/TableCell';
+import { TableCellContent } from '../modelPage/ModelDelete.style';
 
 export default function CallLogsListHead() {
   return (
     <TableHead>
       <TableRow>
-        <TableCell sx={{ width: '1%' }}>Model Name</TableCell>
-        <TableCell>Model Email</TableCell>
-        <TableCell>Customer Name</TableCell>
-        <TableCell>Customer Email</TableCell>
-        <TableCell>Status</TableCell>
-        <TableCell>Call Created Date</TableCell>
-        <TableCell>Credits Used</TableCell>
-        <TableCell>Call Type</TableCell>
-        <TableCell>Credits Per Minute</TableCell>
-        <TableCell>Rate Per Minute</TableCell>
-        <TableCell>Amount Earned</TableCell>
-        <TableCell>Time duration</TableCell>
-        <TableCell>Action</TableCell>
+        <TableCellContent sx={{ width: '1%' }}>Model Name</TableCellContent>
+        <TableCellContent>Model Email</TableCellContent>
+        <TableCellContent>Customer Name</TableCellContent>
+        <TableCellContent>Customer Email</TableCellContent>
+        <TableCellContent>Status</TableCellContent>
+        <TableCellContent>Call Created Date</TableCellContent>
+        <TableCellContent>Credits Used</TableCellContent>
+        <TableCellContent>Call Type</TableCellContent>
+        <TableCellContent>Credits Per Minute</TableCellContent>
+        <TableCellContent>Rate Per Minute</TableCellContent>
+        <TableCellContent>Amount Earned</TableCellContent>
+        <TableCellContent>Time duration</TableCellContent>
+        <TableCellContent>Action</TableCellContent>
       </TableRow>
     </TableHead>
   );

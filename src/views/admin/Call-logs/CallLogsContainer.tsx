@@ -11,7 +11,7 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
-import { Chip, CircularProgress, IconButton, MenuItem } from '@mui/material';
+import { CircularProgress, IconButton, MenuItem } from '@mui/material';
 import moment from 'moment';
 import { MoreVert, Visibility } from '@mui/icons-material';
 import { useCallback, useEffect, useState } from 'react';
@@ -30,6 +30,8 @@ import { CALL_LOG_ACTION } from 'constants/payoutsConstants';
 import Link from 'next/link';
 import { formatFullDate } from 'utils/dateAndTime';
 import ReportFilters from 'components/Admin/ReportFilters/ReportFilters';
+import { UserDescriptionText } from '../customerPage/CustomerContainer.styled';
+import { ErrorChipBox, PandingChipBox, SuccessChipBox } from '../modelPage/ModelPageContainer.styled';
 
 export type PaginationType = {
   page: number;
@@ -199,7 +201,7 @@ export default function CallLogsContainer() {
             handleChangeOrderBy={handleChangeOrderBy}
           />
         </Box>
-        <Card>
+        <Card sx={{ boxShadow: 'none', backgroundColor: 'white.main', borderRadius: '14px' }}>
           <Paper sx={{ overflow: 'hidden' }}>
             <TableContainer sx={{ width: '100%' }}>
               <Table>
@@ -221,19 +223,10 @@ export default function CallLogsContainer() {
                           '&:last-child td, &:last-child th': { border: 0 }
                         }}
                       >
-                        <TableCell
-                          component="th"
-                          scope="row"
-                          sx={{
-                            cursor: 'pointer',
-                            '&:hover': {
-                              color: '#757575de'
-                            }
-                          }}
-                        >
+                        <UserDescriptionText component="th" scope="row" sx={{ color: '#FF68C0' }}>
                           <Link href={`/admin/model/details/${item?.model_id}`}>{item?.model_name || '-'}</Link>
-                        </TableCell>
-                        <TableCell
+                        </UserDescriptionText>
+                        <UserDescriptionText
                           component="th"
                           scope="row"
                           sx={{
@@ -244,47 +237,47 @@ export default function CallLogsContainer() {
                           }}
                         >
                           <Link href={`/admin/model/details/${item?.model_id}`}>{item?.model_email || '-'}</Link>
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {item?.customer_name || '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {item?.customer_email || '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {item?.status === CALL_LOG_ACTION.UNANSWERED ? (
-                            <Chip label="Unanswered" color="warning" />
+                            <PandingChipBox label="Unanswered" />
                           ) : item?.status === CALL_LOG_ACTION.ENDED ? (
-                            <Chip label="Ended" color="success" />
+                            <SuccessChipBox label="Ended" />
                           ) : item?.status === CALL_LOG_ACTION.CANCELLED ? (
-                            <Chip label="Cancelled" color="error" />
+                            <ErrorChipBox label="Cancelled" />
                           ) : (
                             '-'
                           )}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {formatFullDate(item.created_at)}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {item?.credits_used || '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {item?.call_type || '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {item?.credits_per_minute || '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {item.rate_per_minute ? `€${item.rate_per_minute.toFixed(2)}` : '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {item.amount_earned ? `€${item.amount_earned.toFixed(2)}` : '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {item?.start_time && item?.end_time
                             ? moment(item.end_time).diff(moment(item.start_time), 'minutes') + ' mins'
                             : '-'}
-                        </TableCell>
+                        </UserDescriptionText>
                         <TableCell>
                           <IconButton
                             aria-label="more"
@@ -314,19 +307,19 @@ export default function CallLogsContainer() {
                 </TableBody>
               </Table>
             </TableContainer>
-            {data && data.length > 0 && (
-              <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
-                <TablePager
-                  page={filters.page}
-                  rowsPerPage={filters.pageSize}
-                  handleChangePage={handleChangePage}
-                  handleChangePageSize={handleChangePageSize}
-                  totalRecords={totalRecords}
-                />
-              </Box>
-            )}
           </Paper>
         </Card>
+        {data && data.length > 0 && (
+          <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
+            <TablePager
+              page={filters.page}
+              rowsPerPage={filters.pageSize}
+              handleChangePage={handleChangePage}
+              handleChangePageSize={handleChangePageSize}
+              totalRecords={totalRecords}
+            />
+          </Box>
+        )}
       </Container>
       <StyledPopover
         anchorEl={anchorEl}

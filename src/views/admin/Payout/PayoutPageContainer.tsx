@@ -12,7 +12,7 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
-import { Chip, CircularProgress, IconButton, MenuItem } from '@mui/material';
+import { CircularProgress, IconButton, MenuItem } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import moment from 'moment';
@@ -31,6 +31,8 @@ import { StyledPopover } from './Payout.styled';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 import RejectModal from './RejectModal';
 import { debounce } from 'lodash';
+import { UserDescriptionText } from '../customerPage/CustomerContainer.styled';
+import { ErrorChipBox, PandingChipBox, SuccessChipBox } from '../modelPage/ModelPageContainer.styled';
 
 export type PaginationType = {
   page: number;
@@ -193,7 +195,7 @@ export default function PayoutPageContainer() {
             handleChangeOrderBy={handleChangeOrderBy}
           />
         </Box>
-        <Card>
+        <Card sx={{ boxShadow: 'none', backgroundColor: 'white.main', borderRadius: '14px' }}>
           <Paper sx={{ overflow: 'hidden' }}>
             <TableContainer sx={{ width: '100%' }}>
               <Table>
@@ -215,31 +217,35 @@ export default function PayoutPageContainer() {
                           '&:last-child td, &:last-child th': { border: 0 }
                         }}
                       >
-                        <TableCell component="th" scope="row">
+                        <UserDescriptionText component="th" scope="row" sx={{ color: '#FF68C0' }}>
                           {item?.name || '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {item?.email || '-'}
-                        </TableCell>
-                        <TableCell sx={{ textAlign: 'left' }}>{item?.amount ? `$${item?.amount.toFixed(2)}` : '-'}</TableCell>
+                        </UserDescriptionText>
+                        <UserDescriptionText sx={{ textAlign: 'left' }}>
+                          {item?.amount ? `$${item?.amount.toFixed(2)}` : '-'}
+                        </UserDescriptionText>
 
-                        <TableCell component="th" scope="row">
+                        <UserDescriptionText component="th" scope="row">
                           {item?.bank_name || '-'}
-                        </TableCell>
-                        <TableCell sx={{ textAlign: 'left' }}>
+                        </UserDescriptionText>
+                        <UserDescriptionText sx={{ textAlign: 'left' }}>
                           {item?.state === PAYOUT_ACTION.PENDING ? (
-                            <Chip label="Pending" color="warning" />
+                            <PandingChipBox label="Pending" />
                           ) : item?.state === PAYOUT_ACTION.APPROVE ? (
-                            <Chip label="Approved" color="success" />
+                            <SuccessChipBox label="Approved" />
                           ) : item?.state === PAYOUT_ACTION.REJECT ? (
-                            <Chip label="Rejected" color="error" />
+                            <ErrorChipBox label="Rejected" />
                           ) : (
                             '-'
                           )}
-                        </TableCell>
+                        </UserDescriptionText>
 
-                        <TableCell>{item?.created_at ? moment(item?.created_at).format('MMMM DD, YYYY') : '-'}</TableCell>
-                        <TableCell>
+                        <UserDescriptionText>
+                          {item?.created_at ? moment(item?.created_at).format('MMMM DD, YYYY') : '-'}
+                        </UserDescriptionText>
+                        <UserDescriptionText>
                           <IconButton
                             aria-label="more"
                             id="long-button"
@@ -253,7 +259,7 @@ export default function PayoutPageContainer() {
                           >
                             <MoreVert />
                           </IconButton>
-                        </TableCell>
+                        </UserDescriptionText>
                       </TableRow>
                     ))
                   ) : (
@@ -268,19 +274,19 @@ export default function PayoutPageContainer() {
                 </TableBody>
               </Table>
             </TableContainer>
-            {data && data.length > 0 && (
-              <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
-                <TablePager
-                  page={filters.page}
-                  rowsPerPage={filters.pageSize}
-                  handleChangePage={handleChangePage}
-                  handleChangePageSize={handleChangePageSize}
-                  totalRecords={totalRecords}
-                />
-              </Box>
-            )}
           </Paper>
         </Card>
+        {data && data.length > 0 && (
+          <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
+            <TablePager
+              page={filters.page}
+              rowsPerPage={filters.pageSize}
+              handleChangePage={handleChangePage}
+              handleChangePageSize={handleChangePageSize}
+              totalRecords={totalRecords}
+            />
+          </Box>
+        )}
       </Container>
       <StyledPopover
         anchorEl={anchorEl}

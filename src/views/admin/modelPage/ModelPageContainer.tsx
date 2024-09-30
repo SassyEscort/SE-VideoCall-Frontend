@@ -39,6 +39,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { Divider } from '@mui/material';
 import ModelDelete from './ModelDelete';
 import ApproveRejectPendingModel from './ApproveRejectPendingModel';
+import { PaginationSortByOption } from 'components/common/CustomPaginations/type';
 
 export type WorkersPaginationType = {
   page: number;
@@ -55,13 +56,13 @@ export type WorkersPaginationType = {
   is_active: string;
 };
 
-// const SORT_BY_OPTIONS: PaginationSortByOption[] = [
-//   { value: 'created_at', label: 'Newest' },
-//   { value: 'name', label: 'Name' },
-//   { value: 'email', label: 'Email' },
-//   { value: 'last_active', label: 'Last active' },
-//   { value: 'last_login', label: 'Last login' }
-// ];
+const SORT_BY_OPTIONS: PaginationSortByOption[] = [
+  { value: 'created_at', label: 'Newest' },
+  { value: 'name', label: 'Name' },
+  { value: 'email', label: 'Email' },
+  { value: 'last_active', label: 'Last active' },
+  { value: 'last_login', label: 'Last login' }
+];
 
 const StatusOfPlan = [
   { value: 'Pending', label: <PandingChipBox label="Pending" /> },
@@ -105,7 +106,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
   const oneMonthAgoMoment = moment().subtract(1, 'day');
   const fromDate = oneMonthAgoMoment.format('YYYY/MM/DD');
   const toDate = currentMoment.format('YYYY/MM/DD');
-  const [filters, setFilters] = useState<WorkersPaginationType>({
+  const initialFilters: WorkersPaginationType = {
     page: 1,
     pageSize: PAGE_SIZE,
     offset: 0,
@@ -118,7 +119,13 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     status: '',
     verificationStep: '',
     is_active: ''
-  });
+  };
+
+  const [filters, setFilters] = useState<WorkersPaginationType>(initialFilters);
+
+  const handleResetFilters = () => {
+    setFilters(initialFilters);
+  };
 
   const handleModelDetailsRefetch = useCallback(() => {
     fetchModelData();
@@ -209,17 +216,17 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     [filters, handleChangeFilter]
   );
 
-  // const handleChangeOrderBy = useCallback(
-  //   (field: string, type: string) => {
-  //     handleChangeFilter({
-  //       ...filters,
-  //       orderType: type,
-  //       orderField: field,
-  //       page: 1
-  //     });
-  //   },
-  //   [filters, handleChangeFilter]
-  // );
+  const handleChangeOrderBy = useCallback(
+    (field: string, type: string) => {
+      handleChangeFilter({
+        ...filters,
+        orderType: type,
+        orderField: field,
+        page: 1
+      });
+    },
+    [filters, handleChangeFilter]
+  );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedChangeSearch = useCallback(
@@ -330,7 +337,9 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                   </FormControl>
                 </Grid>
               </Box>
+
               <Divider orientation="vertical" flexItem sx={{ borderColor: '#979797' }} />
+
               <Box sx={{ width: '100%', maxWidth: '104px', cursor: 'pointer' }}>
                 <Grid item xs={12} sm={6} md={4} sx={{ marginLeft: '24px' }}>
                   <FormControl fullWidth>
@@ -340,6 +349,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                   </FormControl>
                 </Grid>
               </Box>
+
               <Grid item xs={12} sm={6} md={4} sx={{ width: '100%', maxWidth: '127px' }}>
                 <FormControl fullWidth>
                   <StyledSelectInputLabel>Today</StyledSelectInputLabel>
@@ -361,6 +371,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                   </Select>
                 </FormControl>
               </Grid>
+
               <Grid item xs={12} sm={6} md={4} sx={{ width: '100%', maxWidth: '170px' }}>
                 <FormControl fullWidth>
                   <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Status</StyledSelectInputLabel>
@@ -382,6 +393,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                   </Select>
                 </FormControl>
               </Grid>
+
               <Grid item xs={12} sm={6} md={4} sx={{ width: '100%', maxWidth: '179px' }}>
                 <FormControl fullWidth>
                   <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Country</StyledSelectInputLabel>
@@ -403,7 +415,8 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                   </Select>
                 </FormControl>
               </Grid>
-              <Box sx={{ cursor: 'pointer' }}>
+
+              <Box sx={{ cursor: 'pointer' }} onClick={handleResetFilters}>
                 <Grid item xs={12} sm={6} md={4} sx={{ maxWidth: '179px', marginLeft: '24px' }}>
                   <FormControl fullWidth>
                     <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
@@ -421,7 +434,12 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
               <Paper sx={{ width: '100%', overflow: 'hidden', boxShadow: 'none' }}>
                 <TableContainer sx={{ width: '100%' }}>
                   <Table>
-                    <ModelListHead />
+                    <ModelListHead
+                      sortByOptions={SORT_BY_OPTIONS}
+                      orderField={filters.orderField}
+                      orderType={filters.orderType}
+                      handleChangeOrderBy={handleChangeOrderBy}
+                    />
                     <TableBody>
                       {isLoading ? (
                         <TableRow>
