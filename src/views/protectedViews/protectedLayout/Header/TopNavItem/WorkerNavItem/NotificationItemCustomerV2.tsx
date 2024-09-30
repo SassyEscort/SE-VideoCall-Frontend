@@ -71,7 +71,7 @@ const NotificationItemCustomerV2 = ({
             </TypographyBox>
             <TypographyBox2>
               <TypographyCreate>{getLastActive(notification.created_at, intl)}</TypographyCreate>
-              <Box>{notificationIsRead ? '' : <Box component="img" src="/images/notification/unread_dot.svg" />}</Box>
+              <Box>{notificationIsRead ? '' : <Box component="img" src="/images/notification/unread_dot.svg" alt="unread_dot" />}</Box>
             </TypographyBox2>
           </MainBox>
         </ButtonBaseContainer>

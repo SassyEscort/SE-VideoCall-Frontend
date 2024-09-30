@@ -138,7 +138,7 @@ const CallHistoryRatingModel = ({ open, onClose, callLogId }: { open: boolean; o
                         <SkipButtonContent variant="text" onClick={() => handleCloseModal()}>
                           <FormattedMessage id="Skip" />
                         </SkipButtonContent>
-                        <PostButtonContent variant="text" onClick={() => handleCallRating()}>
+                        <PostButtonContent type="submit" variant="text" onClick={() => handleCallRating()}>
                           <FormattedMessage id="Post" />
                         </PostButtonContent>
                       </Box>
@@ -148,7 +148,7 @@ const CallHistoryRatingModel = ({ open, onClose, callLogId }: { open: boolean; o
               )}
               {isRatingSubmitted && (
                 <ReviewSubmitBoxContent>
-                  <Box component="img" src="/images/icons/rating-success-img.png" width={69.12} height={64.32} />
+                  <Box component="img" src="/images/icons/rating-success-img.png" width={69.12} height={64.32} alt="rating_success" />
                   <UINewTypography variant="body1">
                     <FormattedMessage id="YourReviewHasBeenSubmitted" />
                   </UINewTypography>

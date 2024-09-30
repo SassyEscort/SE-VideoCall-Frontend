@@ -37,11 +37,10 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 export type PaginationType = {
   page: number;
   offset: number;
-  pageSize: number;
+  page_size: number;
   sort_field: string;
   sort_order: string;
   search_field: string;
-  limit: number;
   is_seo?: number;
 };
 
@@ -62,11 +61,10 @@ export default function SEOContainer() {
   const [filters, setFilters] = useState<PaginationType>({
     page: 1,
     offset: 0,
-    pageSize: PAGE_SIZE,
+    page_size: PAGE_SIZE,
     sort_field: 'newest',
     sort_order: 'desc',
     search_field: '',
-    limit: 10,
     is_seo: 2
   });
 
@@ -76,6 +74,7 @@ export default function SEOContainer() {
     { value: 'keywords', label: 'Keywords' },
     { value: 'description', label: 'description' }
   ];
+
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -92,12 +91,12 @@ export default function SEOContainer() {
     setIsLoading(true);
     const res = await adminSEOServices.adminGetSEOProfile(
       token.token,
-      filters.limit,
       filters.offset,
       filters.search_field,
       filters.sort_field,
       filters.sort_order,
-      filters.is_seo
+      filters.is_seo,
+      filters.page_size
     );
     if (res) {
       if (res.code == 200) {
@@ -136,7 +135,7 @@ export default function SEOContainer() {
 
   const handleChangePage = useCallback(
     (value: number) => {
-      const offset = (value - 1) * filters.pageSize;
+      const offset = (value - 1) * filters.page_size;
       handleChangeFilter({ ...filters, page: value, offset: offset });
     },
     [filters, handleChangeFilter]
@@ -144,7 +143,7 @@ export default function SEOContainer() {
 
   const handleChangePageSize = useCallback(
     (value: number) => {
-      handleChangeFilter({ ...filters, pageSize: value, page: 1 });
+      handleChangeFilter({ ...filters, page_size: value, page: 1 });
     },
     [filters, handleChangeFilter]
   );
@@ -164,7 +163,7 @@ export default function SEOContainer() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedChangeSearch = useCallback(
     debounce((val: string) => {
-      handleChangeFilter({ ...filters, search_field: val, page: 1 });
+      handleChangeFilter({ ...filters, search_field: val, page: 1, offset: 0 });
     }, 500),
     [filters, handleChangeFilter]
   );
@@ -182,7 +181,7 @@ export default function SEOContainer() {
     setSelectedSEO(null);
   };
 
-  const handleOpenDeleteCampaign = (val: number) => {
+  const handleOpenDeleteCampaign = () => {
     setOpenDeleteModal(true);
     handleCloseMenu();
   };
@@ -193,7 +192,7 @@ export default function SEOContainer() {
 
   const handleSEODataChange = (value: number) => {
     setSEODataFilter(value);
-    handleChangeFilter({ ...filters, is_seo: value });
+    handleChangeFilter({ ...filters, is_seo: value, offset: 0, page: 1, page_size: PAGE_SIZE });
   };
 
   const handleDeleteClick = async () => {
@@ -203,13 +202,13 @@ export default function SEOContainer() {
         toast.success('SEO deleted successfully');
         handleCloseDeleteCampaign();
         handleChangeFilter({
-          page: 1,
-          offset: 0,
-          pageSize: PAGE_SIZE,
-          sort_field: 'newest',
-          sort_order: 'desc',
-          search_field: '',
-          limit: 10
+          page: filters.page,
+          offset: filters.offset,
+          page_size: filters.page_size,
+          sort_field: filters.sort_field,
+          sort_order: filters.sort_order,
+          search_field: filters.search_field,
+          is_seo: filters.is_seo
         });
       } else {
         toast.error(ErrorMessage);
@@ -320,7 +319,7 @@ export default function SEOContainer() {
               <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
                 <TablePager
                   page={filters.page}
-                  rowsPerPage={filters.pageSize}
+                  rowsPerPage={filters.page_size}
                   handleChangePage={handleChangePage}
                   handleChangePageSize={handleChangePageSize}
                   totalRecords={totalRecords}
@@ -372,7 +371,7 @@ export default function SEOContainer() {
             Add
           </MenuItem>
         )}
-        <MenuItem sx={{ color: 'error.main' }} onClick={() => handleOpenDeleteCampaign(Number(selectedSEOData?.model_id))}>
+        <MenuItem sx={{ color: 'error.main' }} onClick={handleOpenDeleteCampaign}>
           <DeleteIcon sx={{ mr: 2 }} />
           Delete
         </MenuItem>
@@ -384,6 +383,7 @@ export default function SEOContainer() {
           onClose={handleCloseAddEditModal}
           selectedSEO={selectedSEO}
           handleChangeFilter={handleChangeFilter}
+          filters={filters}
         />
       )}
       <DeleteModal open={openDeleteModal} handleClose={handleCloseDeleteCampaign} handleDeleteClick={handleDeleteClick} />

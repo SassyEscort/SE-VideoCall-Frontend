@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 const ProfileApproval = () => {
   return (
     <MainContainer>
-      <ImageBox src="/images/vectorimg.png" />
+      <ImageBox src="/images/vectorimg.png" alt="vector_icon" />
       <BoxSecond>
         <UINewTypographyText>
           <FormattedMessage id="YourProfileIsUnderReview" />

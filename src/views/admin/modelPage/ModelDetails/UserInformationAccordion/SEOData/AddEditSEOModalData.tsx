@@ -168,6 +168,9 @@ const AddEditSEOModalData = ({
                     helperText={touched.description && errors.description ? errors.description : ''}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    multiline
+                    minRows={4}
+                    maxRows={8}
                   />
                 </Stack>
               </DialogContent>

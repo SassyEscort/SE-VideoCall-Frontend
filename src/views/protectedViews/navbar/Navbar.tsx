@@ -19,6 +19,7 @@ const Navbar = ({ tabIndex }: { tabIndex: number }) => {
                 <Box
                   component="img"
                   src={tab?.img}
+                  alt={tab?.name || 'tab'}
                   sx={{
                     filter: 'invert(39%) sepia(43%) saturate(1339%) hue-rotate(280deg) brightness(87%) contrast(103%)'
                   }}
@@ -30,7 +31,7 @@ const Navbar = ({ tabIndex }: { tabIndex: number }) => {
             <>
               <Link prefetch={false} href={tab?.path} key={index} style={{ textDecoration: 'none' }}>
                 <CommonMenuBox sx={{ color: 'text.primary' }}>
-                  <Box component="img" src={tab?.img} />
+                  <Box component="img" src={tab?.img} alt={tab?.name || 'tab'} />
                   <UINewTypography variant="buttonLargeMenu">{intl.formatMessage({ id: tab.name })}</UINewTypography>
                 </CommonMenuBox>
               </Link>

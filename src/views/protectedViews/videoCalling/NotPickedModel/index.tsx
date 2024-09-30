@@ -58,7 +58,7 @@ const NotPickedModel = ({ open, onClose }: { open: boolean; onClose: () => void 
               </SecondBoxContent>
               <FourBoxContent>
                 <UIThemeShadowButton variant="contained">
-                  <Box component="img" src="/images/home-connect-instantly-img.png" />
+                  <Box component="img" src="/images/home-connect-instantly-img.png" alt="home_connect_instantly" />
                   <UINewTypography variant="bodySemiBold" color="white.main">
                     <FormattedMessage id="CallAgain" />
                   </UINewTypography>

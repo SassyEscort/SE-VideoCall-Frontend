@@ -19,6 +19,7 @@ import StyleBoostAdminButton from 'components/UIComponents/StyleBoostAdminButton
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { adminBoostProfilePlanServices } from 'services/adminBoostProfilePlan/adminBoostProfilePlan.services';
 import { Add } from '@mui/icons-material';
+import EditIcon from '@mui/icons-material/Edit';
 import AddEditSEOModalData from './UserInformationAccordion/SEOData/AddEditSEOModalData';
 
 export type PaginationTypeModel = {
@@ -112,7 +113,21 @@ const ModelDetailsPage = () => {
                   </StyleBoostAdminButton>
                 )}
                 <Box>
-                  <Button size="large" variant="contained" startIcon={<Add />} sx={{ width: '100%' }} onClick={handleOpenAddEditModal}>
+                  <Button
+                    size="large"
+                    variant="contained"
+                    startIcon={
+                      modelData?.data?.model_seo[0]?.title &&
+                      modelData?.data?.model_seo[0]?.keywords &&
+                      modelData?.data?.model_seo[0]?.description ? (
+                        <EditIcon />
+                      ) : (
+                        <Add />
+                      )
+                    }
+                    sx={{ width: '100%' }}
+                    onClick={handleOpenAddEditModal}
+                  >
                     <UINewTypography variant="buttonLargeMenu">
                       {modelData?.data?.model_seo[0]?.title &&
                       modelData?.data?.model_seo[0]?.keywords &&

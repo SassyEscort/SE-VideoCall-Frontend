@@ -95,8 +95,8 @@ const ModelHeaderAuthComponent = () => {
         <IconButton sx={{ height: 24, width: 24 }}>
           <>
             <ThirdBoxContainer>
-              <Box component="img" src="/images/header/dot.png" position="absolute" />
-              <Box component="img" src="/images/header/noti.png" />
+              <Box component="img" src="/images/header/dot.png" alt="dot.png" position="absolute" />
+              <Box component="img" src="/images/header/noti.png" alt="notification" />
             </ThirdBoxContainer>
           </>
         </IconButton>
@@ -131,7 +131,7 @@ const ModelHeaderAuthComponent = () => {
             <MenuItem onClick={handleCloseLogout}>
               <ListItemIcon>
                 <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                  <Box component="img" src="/images/icons/userLine.png" sx={{ width: '24px', height: '24px' }} />
+                  <Box component="img" src="/images/icons/userLine.png" alt="user_line" sx={{ width: '24px', height: '24px' }} />
                 </IconButton>
               </ListItemIcon>
               <Link href="/model/dashboard" onClick={handleCloseLogout}>
@@ -146,7 +146,7 @@ const ModelHeaderAuthComponent = () => {
             <MenuItem onClick={handleOpenLogout}>
               <ListItemIcon>
                 <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                  <Box component="img" src="/images/profile-vector/Vector-6.png" sx={{ width: '20px', height: '20px' }} />
+                  <Box component="img" src="/images/profile-vector/Vector-6.png" alt="vector" sx={{ width: '20px', height: '20px' }} />
                 </IconButton>
               </ListItemIcon>
               <ListItemText>

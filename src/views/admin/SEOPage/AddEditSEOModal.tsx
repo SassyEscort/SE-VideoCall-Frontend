@@ -17,7 +17,6 @@ import { useEffect, useState } from 'react';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { ErrorMessage } from 'constants/common.constants';
-import { PAGE_SIZE } from 'constants/pageConstants';
 import { PaginationType } from './SEOContainer';
 import { AdminSEOProfileData, AdminSEOProfileParam, adminSEOServices } from 'services/adminSEOProfilePlan/adminSEOProfilePlan.services';
 
@@ -25,12 +24,14 @@ const AddEditSEOModal = ({
   open,
   onClose,
   selectedSEO,
-  handleChangeFilter
+  handleChangeFilter,
+  filters
 }: {
   open: boolean;
   onClose: () => void;
   selectedSEO: AdminSEOProfileData | null;
   handleChangeFilter: (value: PaginationType) => void;
+  filters: PaginationType;
 }) => {
   const validationSchema = yup.object({
     model_name: yup.string().required('Model name is required'),
@@ -50,13 +51,13 @@ const AddEditSEOModal = ({
         toast.success('SEO added successfully');
         onClose();
         handleChangeFilter({
-          page: 1,
-          offset: 0,
-          pageSize: PAGE_SIZE,
-          sort_field: 'newest',
-          sort_order: 'desc',
-          search_field: '',
-          limit: 10
+          page: filters.page,
+          offset: filters.offset,
+          page_size: filters.page_size,
+          sort_field: filters.sort_field,
+          sort_order: filters.sort_order,
+          search_field: filters.search_field,
+          is_seo: filters.is_seo
         });
       } else {
         toast.error(ErrorMessage);
@@ -82,13 +83,13 @@ const AddEditSEOModal = ({
         toast.success('SEO edit successfully');
         onClose();
         handleChangeFilter({
-          page: 1,
-          offset: 0,
-          pageSize: PAGE_SIZE,
-          sort_field: 'newest',
-          sort_order: 'desc',
-          search_field: '',
-          limit: 10
+          page: filters.page,
+          offset: filters.offset,
+          page_size: filters.page_size,
+          sort_field: filters.sort_field,
+          sort_order: filters.sort_order,
+          search_field: filters.search_field,
+          is_seo: filters.is_seo
         });
       } else {
         toast.error(ErrorMessage);
@@ -181,6 +182,9 @@ const AddEditSEOModal = ({
                     helperText={touched.description && errors.description ? errors.description : ''}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    multiline
+                    minRows={4}
+                    maxRows={8}
                   />
                 </Stack>
               </DialogContent>

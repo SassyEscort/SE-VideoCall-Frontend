@@ -30,7 +30,7 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
     .sort()
     .join(', ');
 
-  const videoCallPrice = guestData?.video_call_prices?.length ? guestData?.video_call_prices[0]?.credits_per_minute : 0;
+  const videoCallPrice = guestData?.video_call_prices?.[0]?.credits_per_minute ? guestData?.video_call_prices[0]?.credits_per_minute : 0;
 
   return (
     <>
@@ -76,19 +76,21 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
               <DetailsChipBox>
                 <UINewTooltip title={intl.formatMessage({ id: 'Age' })} placement="top">
                   <UINewChip
-                    icon={<Box height={20} width={20} component="img" src={`/images/details-icon/age-icon.svg`} alt={'language'} />}
+                    icon={<Box height={20} width={20} component="img" src={`/images/details-icon/age-icon.svg`} alt={'age_icon'} />}
                     label={moment().diff(guestData?.dob, 'years')}
                   />
                 </UINewTooltip>
                 <UINewTooltip title={intl.formatMessage({ id: 'Gender' })} placement="top">
                   <UINewChip
-                    icon={<Box height={20} width={20} component="img" src={`/images/details-icon/gender-icon.svg`} alt={'language'} />}
+                    icon={<Box height={20} width={20} component="img" src={`/images/details-icon/gender-icon.svg`} alt={'gender_icon'} />}
                     label={guestData?.gender}
                   />
                 </UINewTooltip>
                 <UINewTooltip title={intl.formatMessage({ id: 'Languages' })} placement="top">
                   <UINewChipLanguage
-                    icon={<Box height={20} width={20} component="img" src={`/images/details-icon/language-icon.svg`} alt={'language'} />}
+                    icon={
+                      <Box height={20} width={20} component="img" src={`/images/details-icon/language-icon.svg`} alt={'language_icon'} />
+                    }
                     label={languages}
                   />
                 </UINewTooltip>
@@ -103,7 +105,7 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
                 </Box>
                 <DetailsChipBox>
                   <UINewChip
-                    icon={<Box height={16} width={16} component="img" src={`/images/details-icon/coin-icon.svg`} alt={'language'} />}
+                    icon={<Box height={16} width={16} component="img" src={`/images/details-icon/coin-icon.svg`} alt={'coin_icon'} />}
                     label={Number(videoCallPrice) === -1 ? 'N/A' : `${videoCallPrice} credits/min`}
                   />
                 </DetailsChipBox>
@@ -117,7 +119,7 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
                 </Box>
                 <DetailsChipBox>
                   <UINewChip
-                    icon={<Box height={16} width={16} component="img" src={`/images/icons/country-icons.svg`} alt={'country'} />}
+                    icon={<Box height={16} width={16} component="img" src={`/images/icons/country-icons.svg`} alt={'country_flag'} />}
                     label={guestData?.country?.name}
                   />
                 </DetailsChipBox>

@@ -42,6 +42,7 @@ const HomeModelTopBanner = () => {
 
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
+
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
@@ -159,7 +160,7 @@ const HomeModelTopBanner = () => {
               </TypographyBox>
             </DetailSubContainer>
             <ButtonContainer>
-              {isSmDown && !isCustomer && token.token && !isVerificationPendingOrCompleted(modelDetails?.verification_step) ? (
+              {!isCustomer && token.token && !isVerificationPendingOrCompleted(modelDetails?.verification_step) ? (
                 <Link href="/model/profile">
                   <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>
                     <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
@@ -179,7 +180,7 @@ const HomeModelTopBanner = () => {
 
           <ImageContainer>
             <Image
-              alt="home_model"
+              alt="hero_banner"
               width={isSm && isSmDown ? 300 : isSmDown ? 347 : 639}
               height={isSmDown ? 300 : 519}
               src="/images/modelHomePage/Model-Hero-area.webp"

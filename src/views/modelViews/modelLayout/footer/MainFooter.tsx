@@ -125,7 +125,7 @@ const MainFooter = () => {
                   src="/images/logo-footer.png"
                   width={220}
                   height={44}
-                  alt="sassy_logo"
+                  alt="footer_logo"
                   style={{
                     width: 'auto'
                   }}
@@ -139,7 +139,7 @@ const MainFooter = () => {
               </Box>
               <FooterStoreBox>
                 <Box>
-                  <Link href="https://play.google.com/store/apps/details?id=com.holo.hsvm.prod&hl=en" target="_blank">
+                  <Link href="https://play.google.com/store/apps/details?id=com.bookmyartist.app" target="_blank">
                     <Image
                       src="/images/app-logo/google-pay.png"
                       width={120}
@@ -153,7 +153,7 @@ const MainFooter = () => {
                   </Link>
                 </Box>
                 <Box>
-                  <Link href="https://apps.apple.com/in/app/book-my-artist-provider/id6630371131" target="_blank">
+                  <Link href="https://apps.apple.com/us/app/book-my-artist-provider/id6630371131" target="_blank">
                     <Image
                       src="/images/app-logo/app-store.png"
                       width={120}
