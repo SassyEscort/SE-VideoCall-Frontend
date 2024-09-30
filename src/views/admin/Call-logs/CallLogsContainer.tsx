@@ -28,7 +28,7 @@ import { callLogDataResponse, callLogsDetailsService } from 'services/adminServi
 import { debounce } from 'lodash';
 import { CALL_LOG_ACTION } from 'constants/payoutsConstants';
 import Link from 'next/link';
-import { formatFullDate } from 'utils/dateAndTime';
+import { formatDuration, formatFullDate } from 'utils/dateAndTime';
 import ReportFilters from 'components/Admin/ReportFilters/ReportFilters';
 
 export type PaginationType = {
@@ -207,7 +207,7 @@ export default function CallLogsContainer() {
                 <TableBody>
                   {isLoading ? (
                     <TableRow>
-                      <TableCell colSpan={10}>
+                      <TableCell colSpan={13}>
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2 }}>
                           <CircularProgress />
                         </Box>
@@ -281,9 +281,7 @@ export default function CallLogsContainer() {
                           {item.amount_earned ? `€${item.amount_earned?.toFixed(2)}` : '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.start_time && item?.end_time
-                            ? moment(item.end_time).diff(moment(item.start_time), 'minutes') + ' mins'
-                            : '-'}
+                          {formatDuration(item?.duration || '-')}
                         </TableCell>
                         <TableCell>
                           <IconButton

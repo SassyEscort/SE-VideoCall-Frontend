@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import { DetailsDialogContent } from './CallLogs.styled';
 import { callLogDataResponse } from 'services/adminServices/call-list/callListDetailsService';
-import moment from 'moment';
+import { formatDuration } from 'utils/dateAndTime';
 
 const CallLogsModel = ({
   open,
@@ -93,9 +93,7 @@ const CallLogsModel = ({
                 <strong>Time Duration</strong>
               </td>
               <td>
-                {selectedPayoutData?.start_time && selectedPayoutData?.end_time
-                  ? moment(selectedPayoutData.end_time).diff(moment(selectedPayoutData.start_time), 'minutes') + ' mins'
-                  : '-'}
+                <td>{formatDuration(selectedPayoutData?.duration || '-')}</td>
               </td>
             </tr>
           </tbody>
