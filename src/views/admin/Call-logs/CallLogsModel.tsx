@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import { DetailsDialogContent } from './CallLogs.styled';
 import { callLogDataResponse } from 'services/adminServices/call-list/callListDetailsService';
-import moment from 'moment';
 import { formatDuration } from 'utils/dateAndTime';
 
 const CallLogsModel = ({
