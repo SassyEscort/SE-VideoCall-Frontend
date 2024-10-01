@@ -27,6 +27,7 @@ import HomePageFreeSignup from '../homePageFreeSignup';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { ROLE } from 'constants/workerVerification';
 import { MODEL_ACTION } from 'constants/profileConstants';
+import React from 'react';
 
 export type LoginParams = {
   email: string;
