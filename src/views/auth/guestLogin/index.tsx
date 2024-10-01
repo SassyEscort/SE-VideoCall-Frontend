@@ -1,3 +1,4 @@
+import React from 'react';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Divider from '@mui/material/Divider';
@@ -12,7 +13,7 @@ import { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import AuthCommon from '../AuthCommon';
 import { LoginUserParams } from 'services/guestAuth/types';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import getCustomErrorMessage from 'utils/error.utils';
 import { useRouter } from 'next/navigation';
 import InfoIcon from '@mui/icons-material/Info';
@@ -27,7 +28,7 @@ import HomePageFreeSignup from '../homePageFreeSignup';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { ROLE } from 'constants/workerVerification';
 import { MODEL_ACTION } from 'constants/profileConstants';
-import React from 'react';
+import { useAuthContext } from '../../../../context/AuthContext';
 
 export type LoginParams = {
   email: string;
@@ -58,8 +59,8 @@ const GuestLogin = ({
   const intl = useIntl();
 
   const route = useRouter();
+  const { session } = useAuthContext();
   const { refresh, push } = route;
-  const { data: session } = useSession();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [showPassword, setShowPassword] = useState(false);
   const [modelStatus, setModelStatus] = useState('');

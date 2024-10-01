@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { useSession } from 'next-auth/react';
 import { GuardProps } from 'types/auth';
 import { useRouter } from 'next/navigation';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
+import { useAuthContext } from '../../../context/AuthContext';
 
 const RedirectGuardCustomer = ({ children }: GuardProps) => {
-  const { data: session } = useSession();
+  const { session } = useAuthContext();
   const router = useRouter();
 
   useEffect(() => {

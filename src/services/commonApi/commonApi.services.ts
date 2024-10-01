@@ -29,11 +29,9 @@ export interface ProfilePlanRes extends GenericResCustom {
 }
 
 export class CommonServices {
-  static getCountry = async (token: string, modelFilters: Boolean) => {
+  static getCountry = async (modelFilters: Boolean) => {
     try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/country?limit=1000&model_filters=${modelFilters}`, {
-        headers: { 'Content-Type': 'application/json', Authorization: token }
-      });
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/country?limit=1000&model_filters=${modelFilters}`);
 
       return res.data;
     } catch (err: any) {
@@ -55,24 +53,9 @@ export class CommonServices {
     }
   };
 
-  static getLanguages = async (token: string) => {
+  static getLanguages = async () => {
     try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/languages?limit=1000`, {
-        headers: { 'Content-Type': 'application/json', Authorization: token }
-      });
-
-      return res.data;
-    } catch (err: any) {
-      const error: AxiosError = err;
-      return error.response?.data || { error_message: error.message };
-    }
-  };
-
-  static getLanguagesWithoutToken = async () => {
-    try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/languages?limit=1000`, {
-        headers: { 'Content-Type': 'application/json' }
-      });
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/languages?limit=1000`);
 
       return res.data;
     } catch (err: any) {

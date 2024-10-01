@@ -7,22 +7,22 @@ import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import MainFooter from './MainFooter';
 import { FormattedMessage } from 'react-intl';
 import { FooterButton } from './MainFooter.styled';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestLogin from 'views/auth/guestLogin';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
-import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
 import { gaEventTrigger } from 'utils/analytics';
+import { useAuthContext } from '../../../../../context/AuthContext';
 
 const Footer = () => {
+  const { isFreeCreditAvailable } = useAuthContext();
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(1);
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
 
   const { isCustomer } = useCallFeatureContext();
@@ -77,14 +77,6 @@ const Footer = () => {
     setFreeSignupOpen(false);
     setIsOpenLogin(false);
   };
-
-  useEffect(() => {
-    const handleIsFreeCreditAvailable = async () => {
-      const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
-      setIsFreeCreditAvailable(res.data.free_credits_available);
-    };
-    handleIsFreeCreditAvailable();
-  }, []);
 
   return (
     <Banner>

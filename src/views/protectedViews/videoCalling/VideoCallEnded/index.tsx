@@ -15,6 +15,7 @@ import {
   PostButtonContent,
   RatingReviewBoxContainer,
   ReviewBoxAndButtonContent,
+  ReviewButtonBox,
   ReviewSubmitBoxContent,
   SkipButtonContent,
   TextBoxContainer,
@@ -214,14 +215,14 @@ const VideoCallEnded = ({
                           value={review}
                           onChange={(e) => handleReviewChange(e.target.value)}
                         />
-                        <Box sx={{ cursor: 'pointer' }}>
+                        <ReviewButtonBox>
                           <SkipButtonContent variant="text" onClick={() => onClose()}>
                             <FormattedMessage id="Skip" />
                           </SkipButtonContent>
                           <PostButtonContent type="submit" variant="text" onClick={() => handleCallRating()}>
                             <FormattedMessage id="Post" />
                           </PostButtonContent>
-                        </Box>
+                        </ReviewButtonBox>
                       </ReviewBoxAndButtonContent>
                     )}
                   </>
