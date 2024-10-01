@@ -19,7 +19,6 @@ import PriceFilter from './priceFilter';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import StatusFilter from './status';
 import LanguageFilter from './languageFilter';
-import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
 import { usePathname } from 'next/navigation';
 import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
@@ -27,8 +26,9 @@ import { cloneDeep } from 'lodash';
 import { useRouter } from 'next/navigation';
 import AgeFilter from './ageFilter';
 import GenderFilter from './gender';
+import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
 
-const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleClose: () => void; languages: MultipleOptionString[] }) => {
+const MoreFilters = ({ open, languages, handleClose }: { open: boolean; languages: MultipleOptionString[]; handleClose: () => void }) => {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -219,7 +219,7 @@ const MoreFilters = ({ open, handleClose, languages }: { open: boolean; handleCl
             </UINewTypography>
           </StyledAccordionSummary>
           <StyledAccordionDetails>
-            <LanguageFilter languages={languages} handleChange={handleChangeLanguage} value={filters.language ?? ''} />
+            <LanguageFilter handleChange={handleChangeLanguage} value={filters.language ?? ''} languages={languages} />
           </StyledAccordionDetails>
         </FilterAccordian>
 

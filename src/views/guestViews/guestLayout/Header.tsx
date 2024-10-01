@@ -19,17 +19,18 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 // import ProfileMenu from 'components/UIComponents/UIStyleHeader';
 import MoreFilters from '../searchPage/moreFilters';
-import { CommonServices } from 'services/commonApi/commonApi.services';
-import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
 import { MenuContainer, SearchBarBox } from './GuestLayout.styled';
 import MenuItem from '@mui/material/MenuItem';
 import { Button, Divider, ListItemIcon, ListItemText } from '@mui/material';
 import { gaEventTrigger } from 'utils/analytics';
-import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
 import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import FreeCreditsSignUp from '../homePage/freeCreditsSignUp';
+import { useAuthContext } from '../../../../context/AuthContext';
+import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
+import { CommonServices } from 'services/commonApi/commonApi.services';
 
 const HeaderGuestComponent = () => {
+  const { isFreeCreditAvailable } = useAuthContext();
   const isSmaller = useMediaQuery('(max-width:320px)');
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -41,11 +42,11 @@ const HeaderGuestComponent = () => {
   // const [openDropDown, setOpenDropDown] = useState(false);
   // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openFilterModal, setOpenFilterModal] = useState(false);
-  const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
-  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(1);
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
   const [openFreeCredit, setOpenFreeCredit] = useState(false);
+  const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
+  const [isApiCalled, setIsApiCalled] = useState(false);
 
   const handleClickLogout = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElLogout(event.currentTarget);
@@ -111,6 +112,9 @@ const HeaderGuestComponent = () => {
 
   const handleOpenFilterModal = () => {
     setOpenFilterModal(true);
+    if (!isApiCalled) {
+      setIsApiCalled(true);
+    }
   };
 
   const handleCloseFilterModal = () => {
@@ -123,23 +127,18 @@ const HeaderGuestComponent = () => {
 
   const handleLanguageApiChange = useCallback(() => {
     const languagesData = async () => {
-      const data = await CommonServices.getLanguagesWithoutToken();
+      const data = await CommonServices.getLanguages();
       setLanguages(data.data);
     };
     languagesData();
   }, []);
 
   useEffect(() => {
-    handleLanguageApiChange();
-  }, [handleLanguageApiChange]);
-
-  useEffect(() => {
-    const handleIsFreeCreditAvailable = async () => {
-      const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
-      setIsFreeCreditAvailable(res.data.free_credits_available);
-    };
-    handleIsFreeCreditAvailable();
-  }, []);
+    if (isApiCalled) {
+      handleLanguageApiChange();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isApiCalled]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
