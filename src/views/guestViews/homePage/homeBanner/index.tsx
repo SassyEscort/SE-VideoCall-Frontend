@@ -223,7 +223,6 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 src="/images/home/home-banner-model.webp"
                 style={{ borderRadius: '12px', right: 0 }}
                 priority
-                loading="lazy"
               />
             </Box>
           </BannerContainer>
