@@ -224,9 +224,8 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 placeholder="blur"
                 blurDataURL="/images/home/home-banner-model-placeholder.webp"
                 style={{ borderRadius: '12px', right: 0 }}
-                // priority
-                // sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, 462px"
-                loading="lazy"
+                priority
+                sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, 462px"
               />
             </Box>
           </BannerContainer>
