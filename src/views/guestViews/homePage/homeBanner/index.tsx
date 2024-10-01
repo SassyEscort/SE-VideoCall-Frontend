@@ -222,10 +222,9 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 height={isSmDown ? 339 : 452}
                 src="/images/home/home-banner-model.webp"
                 placeholder="blur"
-                blurDataURL="/images/home/home-banner-model-placeholder.webp"
+                blurDataURL="/images/home/home-banner-blur.webp"
                 style={{ borderRadius: '12px', right: 0 }}
                 priority
-                sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, 462px"
               />
             </Box>
           </BannerContainer>
