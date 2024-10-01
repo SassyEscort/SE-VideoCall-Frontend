@@ -29,6 +29,7 @@ const EscortExplore = () => {
   // const [filters, setFilters] = useState<SearchFiltersTypes>();
   const [total_rows, setTotalRows] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [isUserInteracted, setIsUserInteracted] = useState(false);
 
   const initialRender = useRef(true);
   const scrollRender = useRef(true);
@@ -177,6 +178,18 @@ const EscortExplore = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsUserInteracted(true);
+      window.removeEventListener('scroll', handleScroll);
+    };
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <>
       <BackdropProgress open={isLoading} />
@@ -198,7 +211,7 @@ const EscortExplore = () => {
             </HomeExploreBox>
           </ExploreEscortText>
           <HomeMainContainer>
-            <SearchFilters handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
+            <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
           </HomeMainContainer>
         </DetailsChildTypographyBox>
         <Box>
