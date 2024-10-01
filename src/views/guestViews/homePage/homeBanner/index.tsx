@@ -217,11 +217,13 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
             >
               <Image
                 alt="home_model"
+                decoding="async"
                 width={isSm && isSmDown ? 300 : isSmDown ? 347 : 462}
                 height={isSmDown ? 339 : 452}
                 src="/images/home/home-banner-model.webp"
                 style={{ borderRadius: '12px', right: 0 }}
                 priority
+                loading="lazy"
               />
             </Box>
           </BannerContainer>
