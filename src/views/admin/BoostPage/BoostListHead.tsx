@@ -1,17 +1,17 @@
 import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
-import TableCell from '@mui/material/TableCell';
+import { UserTitleText } from '../customerPage/CustomerContainer.styled';
 
 export default function BoostListHead() {
   return (
     <TableHead>
       <TableRow>
-        <TableCell sx={{ width: '1%' }}>Name</TableCell>
-        <TableCell>Duration</TableCell>
-        <TableCell>Is Free</TableCell>
-        <TableCell>Is Active</TableCell>
-        <TableCell>Cost</TableCell>
-        <TableCell>Action</TableCell>
+        <UserTitleText sx={{ width: '1%' }}>Name</UserTitleText>
+        <UserTitleText>Duration</UserTitleText>
+        <UserTitleText>Is Free</UserTitleText>
+        <UserTitleText>Is Active</UserTitleText>
+        <UserTitleText>Cost</UserTitleText>
+        <UserTitleText>Action</UserTitleText>
       </TableRow>
     </TableHead>
   );

@@ -9,14 +9,14 @@ export default function CustomerListHead() {
       <TableRow>
         <UserTitleText>Name</UserTitleText>
         <UserTitleText>Email</UserTitleText>
-        <UserTitleText sx={{ textAlign: 'center' }}>
+        <UserTitleText sx={{ textAlign: 'center', cursor: 'pointer' }}>
           Total Call duration
           <Box component="img" src="/images/icons/vector-icon.svg" marginLeft={0.75} />
         </UserTitleText>
-        <UserTitleText sx={{ textAlign: 'center' }}>
+        <UserTitleText sx={{ textAlign: 'center', cursor: 'pointer' }}>
           No. of calls <Box component="img" src="/images/icons/vector-icon.svg" marginLeft={0.75} />
         </UserTitleText>
-        <UserTitleText sx={{ textAlign: 'center' }}>
+        <UserTitleText sx={{ textAlign: 'center', cursor: 'pointer' }}>
           Amount spent
           <Box component="img" src="/images/icons/vector-icon.svg" marginLeft={0.75} />
         </UserTitleText>

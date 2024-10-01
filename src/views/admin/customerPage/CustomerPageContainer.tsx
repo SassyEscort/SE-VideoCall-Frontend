@@ -2,7 +2,6 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import debounce from 'lodash/debounce';
-import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
@@ -27,6 +26,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import MainLayout from '../../../views/admin/layouts/AdminLayout/DashboardLayout';
 import CustomerListHead from './CustomerListHead';
 import {
+  CustomerMainBoxContainer,
   FilterBoxContainer,
   ModelActionPopover,
   NotFoundBox,
@@ -43,6 +43,7 @@ import { StyledSelectInputLabel } from 'components/UIComponents/StyleSelect';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import { CardBoxContainer } from '../modelPage/ModelPageContainer.styled';
 
 export type WorkersPaginationType = {
   page: number;
@@ -219,7 +220,7 @@ export default function CustomerPageContainer() {
     <>
       <MainLayout>
         <Container>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+          <CustomerMainBoxContainer>
             <StackBoxContainer>
               <Typography variant="h4" gutterBottom color="#202224">
                 All signed up users
@@ -286,7 +287,7 @@ export default function CustomerPageContainer() {
               </Box>
             </FilterBoxContainer>
 
-            <Card sx={{ boxShadow: 'none', backgroundColor: 'white.main', borderRadius: '14px' }}>
+            <CardBoxContainer>
               <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                 <TableContainer sx={{ width: '100%' }}>
                   <Table>
@@ -348,7 +349,7 @@ export default function CustomerPageContainer() {
                   </Table>
                 </TableContainer>
               </Paper>
-            </Card>
+            </CardBoxContainer>
             {modelData && modelData?.length > 0 && (
               <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
                 <TablePager
@@ -360,7 +361,7 @@ export default function CustomerPageContainer() {
                 />
               </Box>
             )}
-          </Box>
+          </CustomerMainBoxContainer>
         </Container>
         <ModelActionPopover
           anchorEl={anchorEl}

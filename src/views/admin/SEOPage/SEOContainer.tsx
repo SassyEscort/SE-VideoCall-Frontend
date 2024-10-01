@@ -3,7 +3,6 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import MainLayout from '../layouts/AdminLayout/DashboardLayout';
 import Stack from '@mui/material/Stack';
-import Card from '@mui/material/Card';
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
@@ -33,6 +32,8 @@ import { StyledPopover } from './SEO.styled';
 import { AdminSEOProfileData, adminSEOServices } from 'services/adminSEOProfilePlan/adminSEOProfilePlan.services';
 import AddEditSEOModal from './AddEditSEOModal';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { UserDescriptionText } from '../customerPage/CustomerContainer.styled';
+import { CardBoxContainer } from '../modelPage/ModelPageContainer.styled';
 
 export type PaginationType = {
   page: number;
@@ -212,7 +213,7 @@ export default function SEOContainer() {
     <MainLayout>
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" color="#202224">
             SEO
           </Typography>
         </Stack>
@@ -227,7 +228,7 @@ export default function SEOContainer() {
             handleChangeOrderBy={handleChangeOrderBy}
           />
         </Box>
-        <Card>
+        <CardBoxContainer>
           <Paper sx={{ overflow: 'hidden' }}>
             <TableContainer sx={{ width: '100%' }}>
               <Table>
@@ -249,18 +250,18 @@ export default function SEOContainer() {
                           '&:last-child td, &:last-child th': { border: 0 }
                         }}
                       >
-                        <TableCell component="th" scope="row">
+                        <UserDescriptionText component="th" scope="row" sx={{ color: '#FF68C0' }}>
                           {item?.model_name || '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {item?.title || '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {item?.keywords || '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {item?.description || '-'}
-                        </TableCell>
+                        </UserDescriptionText>
 
                         <TableCell>
                           <IconButton
@@ -291,19 +292,19 @@ export default function SEOContainer() {
                 </TableBody>
               </Table>
             </TableContainer>
-            {data && data.length > 0 && (
-              <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
-                <TablePager
-                  page={filters.page}
-                  rowsPerPage={filters.pageSize}
-                  handleChangePage={handleChangePage}
-                  handleChangePageSize={handleChangePageSize}
-                  totalRecords={totalRecords}
-                />
-              </Box>
-            )}
           </Paper>
-        </Card>
+        </CardBoxContainer>
+        {data && data.length > 0 && (
+          <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
+            <TablePager
+              page={filters.page}
+              rowsPerPage={filters.pageSize}
+              handleChangePage={handleChangePage}
+              handleChangePageSize={handleChangePageSize}
+              totalRecords={totalRecords}
+            />
+          </Box>
+        )}
       </Container>
       <StyledPopover
         anchorEl={anchorEl}

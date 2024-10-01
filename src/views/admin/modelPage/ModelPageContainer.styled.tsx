@@ -1,4 +1,4 @@
-import { Chip, Switch } from '@mui/material';
+import { Card, Chip, Switch } from '@mui/material';
 import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';
 import { styled } from '@mui/system';
@@ -118,4 +118,28 @@ export const SwitchBoxContainer = styled(Switch)(({ theme }) => ({
     backgroundColor: 'rgba(88, 83, 94, 1)',
     opacity: 1
   }
+}));
+
+export const AllModelMainBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(3)
+}));
+
+export const FirstFilterBoxContainer = styled(Box)(({ theme }) => ({
+  width: '100%',
+  maxWidth: '68px',
+  cursor: 'pointer'
+}));
+
+export const FilterByBoxContainer = styled(Box)(({ theme }) => ({
+  width: '100%',
+  maxWidth: '104px',
+  cursor: 'pointer'
+}));
+
+export const CardBoxContainer = styled(Card)(({ theme }) => ({
+  boxShadow: 'none',
+  backgroundColor: 'white.main',
+  borderRadius: '14px'
 }));

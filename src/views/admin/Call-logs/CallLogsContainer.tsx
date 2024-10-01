@@ -3,7 +3,6 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import MainLayout from '../layouts/AdminLayout/DashboardLayout';
 import Stack from '@mui/material/Stack';
-import Card from '@mui/material/Card';
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
@@ -31,7 +30,7 @@ import Link from 'next/link';
 import { formatFullDate } from 'utils/dateAndTime';
 import ReportFilters from 'components/Admin/ReportFilters/ReportFilters';
 import { UserDescriptionText } from '../customerPage/CustomerContainer.styled';
-import { ErrorChipBox, PandingChipBox, SuccessChipBox } from '../modelPage/ModelPageContainer.styled';
+import { CardBoxContainer, ErrorChipBox, PandingChipBox, SuccessChipBox } from '../modelPage/ModelPageContainer.styled';
 
 export type PaginationType = {
   page: number;
@@ -180,7 +179,7 @@ export default function CallLogsContainer() {
     <MainLayout>
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" color="#202224">
             Call Logs History
           </Typography>
         </Stack>
@@ -201,7 +200,7 @@ export default function CallLogsContainer() {
             handleChangeOrderBy={handleChangeOrderBy}
           />
         </Box>
-        <Card sx={{ boxShadow: 'none', backgroundColor: 'white.main', borderRadius: '14px' }}>
+        <CardBoxContainer>
           <Paper sx={{ overflow: 'hidden' }}>
             <TableContainer sx={{ width: '100%' }}>
               <Table>
@@ -308,7 +307,7 @@ export default function CallLogsContainer() {
               </Table>
             </TableContainer>
           </Paper>
-        </Card>
+        </CardBoxContainer>
         {data && data.length > 0 && (
           <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
             <TablePager

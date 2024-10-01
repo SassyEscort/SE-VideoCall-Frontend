@@ -1,8 +1,11 @@
+import Box from '@mui/material/Box';
 import BoostContainer from 'views/admin/BoostPage/BoostContainer';
 
 const AdminMain = () => (
   <>
-    <BoostContainer />
+    <Box sx={{ backgroundColor: '#FFFAFD' }}>
+      <BoostContainer />
+    </Box>
   </>
 );
 

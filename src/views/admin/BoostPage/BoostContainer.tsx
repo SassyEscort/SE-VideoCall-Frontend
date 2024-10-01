@@ -3,7 +3,6 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import MainLayout from '../layouts/AdminLayout/DashboardLayout';
 import Stack from '@mui/material/Stack';
-import Card from '@mui/material/Card';
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
@@ -33,6 +32,8 @@ import { AdminBoostProfileData, adminBoostProfilePlanServices } from 'services/a
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import PaginationSearch from 'components/common/CustomPaginations/PaginationSearch';
+import { UserDescriptionText } from '../customerPage/CustomerContainer.styled';
+import { CardBoxContainer } from '../modelPage/ModelPageContainer.styled';
 
 export type PaginationType = {
   page: number;
@@ -203,7 +204,7 @@ export default function BoostContainer() {
     <MainLayout>
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" color="#202224">
             Boost Plans
           </Typography>
           <Box>
@@ -223,7 +224,7 @@ export default function BoostContainer() {
             handleChangeOrderBy={handleChangeOrderBy}
           />
         </Box>
-        <Card>
+        <CardBoxContainer>
           <Paper sx={{ overflow: 'hidden' }}>
             <TableContainer sx={{ width: '100%' }}>
               <Table>
@@ -245,21 +246,21 @@ export default function BoostContainer() {
                           '&:last-child td, &:last-child th': { border: 0 }
                         }}
                       >
-                        <TableCell component="th" scope="row">
+                        <UserDescriptionText component="th" scope="row" sx={{ color: '#FF68C0' }}>
                           {item?.name || '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {item?.duration ? `${item.duration} hr` : '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {item?.is_free ? (Boolean(item?.is_free) ? 'Yes' : 'No') : '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {item?.is_active || '-'}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
+                        </UserDescriptionText>
+                        <UserDescriptionText component="th" scope="row">
                           {item?.cost ? `$${item.cost}` : '-'}
-                        </TableCell>
+                        </UserDescriptionText>
                         <TableCell>
                           <IconButton
                             aria-label="more"
@@ -289,19 +290,19 @@ export default function BoostContainer() {
                 </TableBody>
               </Table>
             </TableContainer>
-            {data && data.length > 0 && (
-              <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
-                <TablePager
-                  page={filters.page}
-                  rowsPerPage={filters.pageSize}
-                  handleChangePage={handleChangePage}
-                  handleChangePageSize={handleChangePageSize}
-                  totalRecords={totalRecords}
-                />
-              </Box>
-            )}
           </Paper>
-        </Card>
+        </CardBoxContainer>
+        {data && data.length > 0 && (
+          <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
+            <TablePager
+              page={filters.page}
+              rowsPerPage={filters.pageSize}
+              handleChangePage={handleChangePage}
+              handleChangePageSize={handleChangePageSize}
+              totalRecords={totalRecords}
+            />
+          </Box>
+        )}
       </Container>
       <StyledPopover
         anchorEl={anchorEl}

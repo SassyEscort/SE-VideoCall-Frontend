@@ -2,7 +2,6 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import debounce from 'lodash/debounce'; // Import lodash debounce
-import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
 import Stack from '@mui/material/Stack';
 import TableRow from '@mui/material/TableRow';
@@ -31,7 +30,18 @@ import FormControl from '@mui/material/FormControl';
 import { StyledSelectInputLabel } from 'components/UIComponents/StyleSelect';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
-import { ErrorChipBox, FilterBox, NotFoundBox, PandingChipBox, SuccessChipBox, SwitchBoxContainer } from './ModelPageContainer.styled';
+import {
+  AllModelMainBoxContainer,
+  CardBoxContainer,
+  ErrorChipBox,
+  FilterBox,
+  FilterByBoxContainer,
+  FirstFilterBoxContainer,
+  NotFoundBox,
+  PandingChipBox,
+  SuccessChipBox,
+  SwitchBoxContainer
+} from './ModelPageContainer.styled';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import Link from 'next/link';
@@ -40,6 +50,7 @@ import { Divider } from '@mui/material';
 import ModelDelete from './ModelDelete';
 import ApproveRejectPendingModel from './ApproveRejectPendingModel';
 import { PaginationSortByOption } from 'components/common/CustomPaginations/type';
+import { UserDescriptionText } from '../customerPage/CustomerContainer.styled';
 
 export type WorkersPaginationType = {
   page: number;
@@ -314,9 +325,9 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     <>
       <MainLayout>
         <Container>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+          <AllModelMainBoxContainer>
             <Stack direction="row" alignItems="center" justifyContent="space-between">
-              <Typography variant="h4" color="black.main">
+              <Typography variant="h4" color="#202224">
                 All Models
               </Typography>
             </Stack>
@@ -330,17 +341,17 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
               />
             </Stack>
             <FilterBox>
-              <Box sx={{ width: '100%', maxWidth: '68px', cursor: 'pointer' }}>
+              <FirstFilterBoxContainer>
                 <Grid item xs={12} sm={6} md={4} sx={{ marginLeft: '24px' }}>
                   <FormControl fullWidth>
                     <Box component="img" src="/images/icons/filter-icon.svg" width={19.5} height={22.4}></Box>
                   </FormControl>
                 </Grid>
-              </Box>
+              </FirstFilterBoxContainer>
 
               <Divider orientation="vertical" flexItem sx={{ borderColor: '#979797' }} />
 
-              <Box sx={{ width: '100%', maxWidth: '104px', cursor: 'pointer' }}>
+              <FilterByBoxContainer>
                 <Grid item xs={12} sm={6} md={4} sx={{ marginLeft: '24px' }}>
                   <FormControl fullWidth>
                     <UINewTypography variant="bodySmall" color="black.main">
@@ -348,7 +359,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                     </UINewTypography>
                   </FormControl>
                 </Grid>
-              </Box>
+              </FilterByBoxContainer>
 
               <Grid item xs={12} sm={6} md={4} sx={{ width: '100%', maxWidth: '127px' }}>
                 <FormControl fullWidth>
@@ -430,7 +441,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
               </Box>
             </FilterBox>
 
-            <Card sx={{ boxShadow: 'none', backgroundColor: 'white.main', borderRadius: '14px' }}>
+            <CardBoxContainer>
               <Paper sx={{ width: '100%', overflow: 'hidden', boxShadow: 'none' }}>
                 <TableContainer sx={{ width: '100%' }}>
                   <Table>
@@ -464,19 +475,17 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                               '&:last-child td, &:last-child th': { border: 0 }
                             }}
                           >
-                            <TableCell component="th" scope="row">
-                              <Link href={`/admin/model/details/${item?.id}`}>
-                                <UINewTypography color="rgba(255, 104, 192, 1)">{item?.name || '-'}</UINewTypography>
-                              </Link>
-                            </TableCell>
-                            <TableCell component="th" scope="row">
+                            <UserDescriptionText component="th" scope="row" sx={{ color: '#FF68C0' }}>
+                              <Link href={`/admin/model/details/${item?.id}`}>{item?.name || '-'}</Link>
+                            </UserDescriptionText>
+                            <UserDescriptionText component="th" scope="row">
                               <Link href={`/admin/model/details/${item?.id}`}>{item?.email || '-'}</Link>
-                            </TableCell>
-                            <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.created_at, '-')}</TableCell>
-                            <TableCell sx={{ textAlign: 'left' }}>-</TableCell>
-                            <TableCell sx={{ textAlign: 'left' }}>-</TableCell>
+                            </UserDescriptionText>
+                            <UserDescriptionText sx={{ textAlign: 'left' }}>{formatFullDate(item?.created_at, '-')}</UserDescriptionText>
+                            <UserDescriptionText sx={{ textAlign: 'left' }}>-</UserDescriptionText>
+                            <UserDescriptionText sx={{ textAlign: 'left' }}>-</UserDescriptionText>
 
-                            <TableCell
+                            <UserDescriptionText
                               sx={{ textAlign: 'center' }}
                               onClick={(e) => {
                                 setSelected(item);
@@ -499,9 +508,9 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                               ) : (
                                 '-'
                               )}
-                            </TableCell>
+                            </UserDescriptionText>
 
-                            <TableCell>
+                            <UserDescriptionText>
                               <Box
                                 aria-label="more"
                                 id="long-button"
@@ -533,7 +542,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                                   </Box>
                                 </Box>
                               </Box>
-                            </TableCell>
+                            </UserDescriptionText>
                           </TableRow>
                         ))
                       ) : (
@@ -549,7 +558,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                   </Table>
                 </TableContainer>
               </Paper>
-            </Card>
+            </CardBoxContainer>
             {modelData && modelData?.length > 0 && (
               <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
                 <TablePager
@@ -561,7 +570,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                 />
               </Box>
             )}
-          </Box>
+          </AllModelMainBoxContainer>
         </Container>
         <ModelDelete
           open={deleteModelOpen}

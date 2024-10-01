@@ -97,8 +97,7 @@ export const UserDescriptionText = styled(TableCell)(({ theme }) => ({
   fontSize: '14px',
   fontWeight: 700,
   lineHeight: '19.12px',
-  color: '#202224',
-  whiteSpace: 'nowrap'
+  color: '#202224'
 }));
 
 export const FilterBoxContainer = styled(Box)(({ theme }) => ({
