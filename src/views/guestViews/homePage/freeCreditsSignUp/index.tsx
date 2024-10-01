@@ -47,7 +47,7 @@ const FreeCreditsSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onC
           <TextInnerBoxContainer>
             <TitleTextBoxContainer>
               <TitleTextInnerBoxContainer>
-                <Box component="img" src="/images/workercards/coin-1.png" alt="coin_icon" width={26} height={26}></Box>
+                <Box component="img" src="/images/workercards/dollar-img.avif" alt="coin_icon" width={26} height={26}></Box>
                 <HeaderTextContainer>
                   <FormattedMessage id="Get1MinutOf" />{' '}
                   <span style={{ fontWeight: 800 }}>

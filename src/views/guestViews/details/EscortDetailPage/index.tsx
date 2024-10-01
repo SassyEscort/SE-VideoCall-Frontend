@@ -41,7 +41,8 @@ import {
 import { useAuthContext } from '../../../../../context/AuthContext';
 
 const EscortDetailPage = () => {
-  const { isFreeCreditAvailable } = useAuthContext();
+  const { isFreeCreditAvailable, isCustomer } = useAuthContext();
+  const { handleCallInitiate, call, isLoading, isCallEnded, handleCallEnd, isUnanswered } = useCallFeatureContext();
   const path = usePathname();
   const userName = path.split('/')[2];
 
@@ -53,8 +54,6 @@ const EscortDetailPage = () => {
   const [callTime, setCallTime] = useState(0);
 
   const modelPhoto = guestData?.photos?.filter((x) => x.favourite)?.map((item) => item.link)[0];
-
-  const { handleCallInitiate, call, isLoading, isCallEnded, isCustomer, handleCallEnd, isUnanswered } = useCallFeatureContext();
 
   const [ratingAndReview, setRatingAndReview] = useState<RatingAndReviewDetailsRes>();
   const [total_rows, setTotalRows] = useState(0);
