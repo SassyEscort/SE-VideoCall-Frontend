@@ -55,6 +55,8 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
   // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [loading, setLoading] = useState(false);
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
+  const imageWidth = isSm && isSmDown ? 300 : isSmDown ? 347 : 462;
+  const imageHeight = isSmDown ? 339 : 452;
 
   // const handleDropDownOpen = (event: React.MouseEvent<HTMLElement>) => {
   //   setAnchorEl(event.currentTarget);
@@ -218,13 +220,14 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
               <Image
                 alt="home_model"
                 decoding="async"
-                width={isSm && isSmDown ? 300 : isSmDown ? 347 : 462}
-                height={isSmDown ? 339 : 452}
+                width={imageWidth}
+                height={imageHeight}
                 src="/images/home/home-banner-model.webp"
-                placeholder="blur"
-                blurDataURL="/images/home/home-banner-blur.webp"
+                // placeholder="blur"
+                // blurDataURL="/images/home/home-banner-blur.webp"
                 style={{ borderRadius: '12px', right: 0 }}
                 priority
+                fetchPriority="high"
               />
             </Box>
           </BannerContainer>
