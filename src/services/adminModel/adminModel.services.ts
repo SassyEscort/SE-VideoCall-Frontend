@@ -184,4 +184,36 @@ export class adminModelServices {
       return error as ModelDetailStatusOfflineRes;
     }
   };
+
+  static modelMarkThumbnail = async (token: string, id: number): Promise<ModelDetailsDeleteRes> => {
+    try {
+      const res = await axios.post(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/mark-thumbnail`,
+        { model_photo_id: id },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+          }
+        }
+      );
+      return res.data;
+    } catch (error) {
+      return error as ModelDetailsDeleteRes;
+    }
+  };
+
+  static modelDeleteThumbnail = async (token: string, id: string): Promise<ModelDetailsDeleteRes> => {
+    try {
+      const res = await axios.delete(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/file/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        }
+      });
+      return res.data;
+    } catch (error) {
+      return error as ModelDetailsDeleteRes;
+    }
+  };
 }
