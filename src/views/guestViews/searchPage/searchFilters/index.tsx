@@ -37,10 +37,11 @@ export type SearchFiltersTypes = {
 };
 
 type SearchFiltersProps = {
+  isUserInteracted: boolean;
   handelFilterChange: (filters: SearchFiltersTypes) => void;
 };
 
-const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFilterChange }, ref) => {
+const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFilterChange, isUserInteracted }, ref) => {
   const isMobile = useMediaQuery('(max-width:600px)');
   const searchParams = useSearchParams();
 
@@ -178,7 +179,7 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
             {isMobile && <AgeFilter fromAge={filters.fromAge} toAge={filters.toAge} onChange={handleChangeAge} />}
           </FirstBoxMainContainer>
           <SecondBoxMainContainer>
-            <CountryFilter value={filters.country} onChange={handleCountryChange} />
+            <CountryFilter isUserInteracted={isUserInteracted} value={filters.country} onChange={handleCountryChange} />
           </SecondBoxMainContainer>
           <ThiredBoxMainContainer>
             {!isMobile && <AgeFilter fromAge={filters.fromAge} toAge={filters.toAge} onChange={handleChangeAge} />}

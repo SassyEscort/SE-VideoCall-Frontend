@@ -27,6 +27,7 @@ const HomeContainer = () => {
   const [total_rows, setTotalRows] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [scroll, setScroll] = useState(false);
+  const [isUserInteracted, setIsUserInteracted] = useState(false);
 
   const getInitialFilters = () => ({
     fromAge: getQueryParam('fromAge') ? (getQueryParam('fromAge') as string) : '',
@@ -174,12 +175,23 @@ const HomeContainer = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsUserInteracted(true);
+      window.removeEventListener('scroll', handleScroll);
+    };
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   return (
     <>
       <HomePageMainContainer>
         <HomeTopBanner isFreeCreditAvailable={isFreeCreditAvailable} />
         <BackdropProgress open={isLoading} />
-        <SearchFilters handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
+        <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
         <HomeImageCard
           modelListing={modelListing}
           isFavPage={false}

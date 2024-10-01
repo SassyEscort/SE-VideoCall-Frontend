@@ -113,9 +113,7 @@ export default function RootLayout({
       </head>
       <body>
         <ProviderWrapper>
-          <>
-            <AuthFeaturProvider>{children}</AuthFeaturProvider>
-          </>
+          <AuthFeaturProvider>{children}</AuthFeaturProvider>
         </ProviderWrapper>
       </body>
     </html>

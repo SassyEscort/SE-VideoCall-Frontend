@@ -46,7 +46,6 @@ const HeaderGuestComponent = () => {
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
   const [openFreeCredit, setOpenFreeCredit] = useState(false);
   const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
-  const [isApiCalled, setIsApiCalled] = useState(false);
 
   const handleClickLogout = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElLogout(event.currentTarget);
@@ -112,9 +111,6 @@ const HeaderGuestComponent = () => {
 
   const handleOpenFilterModal = () => {
     setOpenFilterModal(true);
-    if (!isApiCalled) {
-      setIsApiCalled(true);
-    }
   };
 
   const handleCloseFilterModal = () => {
@@ -134,11 +130,17 @@ const HeaderGuestComponent = () => {
   }, []);
 
   useEffect(() => {
-    if (isApiCalled) {
+    const handleScroll = () => {
       handleLanguageApiChange();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isApiCalled]);
+      window.removeEventListener('scroll', handleScroll);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
