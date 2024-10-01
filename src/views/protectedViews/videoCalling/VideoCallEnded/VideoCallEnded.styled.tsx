@@ -101,19 +101,29 @@ export const SixBoxContent = styled(Box)(({ theme }) => ({
   textAlign: 'center'
 }));
 
+export const ReviewButtonBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(3),
+  justifyContent: 'flex-end'
+}));
+
 export const SkipButtonContent = styled(Button)(({ theme }) => ({
   fontSize: '16px',
   fontWeight: 600,
   lineHeight: '24px',
   color: theme.palette.secondary[700],
-  cursor: 'pointer'
+  cursor: 'pointer',
+  padding: theme.spacing(0),
+  minWidth: '34px'
 }));
 
 export const PostButtonContent = styled(Button)(({ theme }) => ({
   fontSize: '16px',
   fontWeight: 600,
   lineHeight: '24px',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  padding: theme.spacing(0),
+  minWidth: '36px'
 }));
 
 export const ReviewBoxAndButtonContent = styled(Box)(({ theme }) => ({
