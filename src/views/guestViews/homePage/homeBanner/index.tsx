@@ -216,6 +216,8 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
               pt={{ xs: 0, lg: '83px' }}
             >
               <Image
+                blurDataURL="/images/home/home-banner-model.webp"
+                placeholder="blur"
                 alt="home_model"
                 decoding="async"
                 width={isSm && isSmDown ? 300 : isSmDown ? 347 : 462}
@@ -223,6 +225,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 src="/images/home/home-banner-model.webp"
                 style={{ borderRadius: '12px', right: 0 }}
                 priority
+                sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, 462px"
               />
             </Box>
           </BannerContainer>
