@@ -19,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="preload" as="image" href="/images/home/home-banner-model.webp" />
         {isStaging && <meta name="robots" content="noindex, nofollow" />}
         <script
           type="text/javascript"
