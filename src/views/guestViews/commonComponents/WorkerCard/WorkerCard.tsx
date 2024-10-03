@@ -160,18 +160,15 @@ const WorkerCard = ({
                 </TextBoxContainer>
                 <FlagAndLiveIconBoxContainer>
                   {modelDetails?.is_online === 1 ? (
-                    <>
-                      <LiveIconWorkerCard>
-                        <LiveIconSecBoxWorkerCard sx={{ backgroundColor: 'success.100' }} />
-                      </LiveIconWorkerCard>
-                    </>
+                    <LiveIconWorkerCard>
+                      <LiveIconSecBoxWorkerCard sx={{ backgroundColor: 'success.100' }} />
+                    </LiveIconWorkerCard>
                   ) : (
-                    <>
-                      <OfflineIconWorkerCard>
-                        <OfflineIconSecBoxWorkerCard />
-                      </OfflineIconWorkerCard>
-                    </>
+                    <OfflineIconWorkerCard>
+                      <OfflineIconSecBoxWorkerCard />
+                    </OfflineIconWorkerCard>
                   )}
+
                   {modelFlag ? <FirstSubContainerImgWorkerCard src={modelFlag} /> : <FirstSubContainerWithoutImg />}
                 </FlagAndLiveIconBoxContainer>
               </NameCardContainer>
