@@ -100,11 +100,11 @@ const VerificationBasicDetails = ({
 
   const handleLanguageApiChange = useCallback(() => {
     const languagesData = async () => {
-      const data = await CommonServices.getLanguages(token.token);
+      const data = await CommonServices.getLanguages();
       setLanguages(data.data);
     };
     languagesData();
-  }, [token.token]);
+  }, []);
 
   const handleNationalityApiChange = useCallback(async () => {
     const nationalityData = async () => {
@@ -117,11 +117,11 @@ const VerificationBasicDetails = ({
 
   const handleCountryApiChange = useCallback(() => {
     const countryData = async () => {
-      const data = await CommonServices.getCountry(token.token, false);
+      const data = await CommonServices.getCountry(false);
       setCountries(data.data);
     };
     countryData();
-  }, [token.token]);
+  }, []);
 
   useEffect(() => {
     handleCountryApiChange();

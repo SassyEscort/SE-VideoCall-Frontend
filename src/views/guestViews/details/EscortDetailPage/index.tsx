@@ -20,7 +20,6 @@ import { CallingService } from 'services/calling/calling.services';
 import moment from 'moment';
 import { ModelDetailsParams, ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { gaEventTrigger } from 'utils/analytics';
-import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
 import RatingTable from 'views/protectedDashboardViews/ratingAndReview/RatingTable';
 import RatingPoints from 'views/protectedDashboardViews/ratingAndReview/RatingPoints';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -39,8 +38,11 @@ import {
   RatingAndReviewDetailsRes,
   ratingAndReviewParams
 } from 'services/ratingAndReview/ratingAndReview.service';
+import { useAuthContext } from '../../../../../context/AuthContext';
 
 const EscortDetailPage = () => {
+  const { isFreeCreditAvailable, isCustomer } = useAuthContext();
+  const { handleCallInitiate, call, isLoading, isCallEnded, handleCallEnd, isUnanswered } = useCallFeatureContext();
   const path = usePathname();
   const userName = path.split('/')[2];
 
@@ -50,11 +52,8 @@ const EscortDetailPage = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isCreditAvailable, setIsCreditAvailable] = useState(false);
   const [callTime, setCallTime] = useState(0);
-  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(1);
 
   const modelPhoto = guestData?.photos?.filter((x) => x.favourite)?.map((item) => item.link)[0];
-
-  const { handleCallInitiate, call, isLoading, isCallEnded, isCustomer, handleCallEnd, isUnanswered } = useCallFeatureContext();
 
   const [ratingAndReview, setRatingAndReview] = useState<RatingAndReviewDetailsRes>();
   const [total_rows, setTotalRows] = useState(0);
@@ -158,14 +157,6 @@ const EscortDetailPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUnanswered]);
-
-  useEffect(() => {
-    const handleIsFreeCreditAvailable = async () => {
-      const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
-      setIsFreeCreditAvailable(res.data.free_credits_available);
-    };
-    handleIsFreeCreditAvailable();
-  }, []);
 
   return (
     <>

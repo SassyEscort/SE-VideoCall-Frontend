@@ -27,7 +27,7 @@ const FreeCreditsSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onC
         {/* <Box component="img" src="/images/home/congrulation-gif.gif" sx={{ width: '665px', height: '485px', position: 'absolute' }} /> */}
         <FreeCreditSignupMainContainer>
           <ImageBoxContainer>
-            <Box component="img" src="/images/home/credit-signup-img.webp" alt="credit-signup-img.webp" width={291} height={291} />
+            <Box component="img" src="/images/home/free-credit.webp" alt="credit-signup-img.webp" />
           </ImageBoxContainer>
           <HeaderCloseButtonBoxContainer>
             <IconButton
@@ -47,7 +47,7 @@ const FreeCreditsSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onC
           <TextInnerBoxContainer>
             <TitleTextBoxContainer>
               <TitleTextInnerBoxContainer>
-                <Box component="img" src="/images/workercards/coin-1.png" alt="coin_icon" width={26} height={26}></Box>
+                <Box component="img" src="/images/workercards/dollar-img.avif" alt="coin_icon" width={26} height={26}></Box>
                 <HeaderTextContainer>
                   <FormattedMessage id="Get1MinutOf" />{' '}
                   <span style={{ fontWeight: 800 }}>

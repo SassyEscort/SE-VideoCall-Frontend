@@ -6,9 +6,7 @@ import theme from 'themes/theme';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import ProfileMenu from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/ProfileMenu';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
-import { getUserDataClient } from 'utils/getSessionData';
 import { SiderBarCircaleBoxHeader, SiderBarCircaleTextBoxHeader, SiderBarSecondBox, SiderBarThiredBox } from '../SideMenu/SideMenu.styled';
 import Logout from 'views/protectedViews/logout';
 import { FormattedMessage } from 'react-intl';
@@ -22,6 +20,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import MyProfileChangePassword from 'views/protectedViews/changePassword';
+import { useAuthContext } from '../../../../context/AuthContext';
 
 export type NotificationFilters = {
   page: number;
@@ -35,10 +34,12 @@ export type NotificationFiltersDashboard = {
 };
 
 const DashboadrHeaderAuthComponent = () => {
+  const { session } = useAuthContext();
+  const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
+
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorElLogout);
@@ -100,17 +101,6 @@ const DashboadrHeaderAuthComponent = () => {
   const handleDeductNotificationCount = () => {
     notificationCount.current = notificationCount.current - 1;
   };
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      if (data) {
-        setToken({ id: data.id, token: data.token });
-      }
-    };
-
-    userToken();
-  }, []);
 
   const handleCallback = useCallback(async () => {
     const notificationDetails = async () => {

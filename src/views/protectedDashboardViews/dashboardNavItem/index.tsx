@@ -67,7 +67,7 @@ const DashboardNavItem = () => {
               component={Link}
               prefetch={true}
               shallow={true}
-              href="/"
+              href="/model"
               height={{ xs: '26px', md: '36px', sm: '36px' }}
               width={{ xs: '120px', md: '182px', sm: '182px' }}
               display={'flex'}

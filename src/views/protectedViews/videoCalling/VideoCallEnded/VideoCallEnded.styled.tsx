@@ -6,10 +6,8 @@ export const DialogTitleBox = styled(DialogTitle)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  paddingTop: theme.spacing(2.5),
-  paddingBottom: theme.spacing(2.5),
-  paddingLeft: theme.spacing(3),
-  paddingRight: theme.spacing(3)
+  paddingBlock: theme.spacing(2.5),
+  paddingInline: theme.spacing(3)
 }));
 
 export const DialogContentFristBox = styled(Box)(({ theme }) => ({
@@ -37,7 +35,10 @@ export const DialogContentMain = styled(Dialog)(({ theme }) => ({
   },
   '& .MuiTypography-root': {
     [theme.breakpoints.down('sm')]: {
-      padding: 0
+      padding: 0,
+      '& p': {
+        paddingLeft: theme.spacing(1.5)
+      }
     }
   },
   '& .MuiDialog-container': {
@@ -101,19 +102,29 @@ export const SixBoxContent = styled(Box)(({ theme }) => ({
   textAlign: 'center'
 }));
 
+export const ReviewButtonBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(3),
+  justifyContent: 'flex-end'
+}));
+
 export const SkipButtonContent = styled(Button)(({ theme }) => ({
   fontSize: '16px',
   fontWeight: 600,
   lineHeight: '24px',
   color: theme.palette.secondary[700],
-  cursor: 'pointer'
+  cursor: 'pointer',
+  padding: theme.spacing(0),
+  minWidth: '34px'
 }));
 
 export const PostButtonContent = styled(Button)(({ theme }) => ({
   fontSize: '16px',
   fontWeight: 600,
   lineHeight: '24px',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  padding: theme.spacing(0),
+  minWidth: '36px'
 }));
 
 export const ReviewBoxAndButtonContent = styled(Box)(({ theme }) => ({

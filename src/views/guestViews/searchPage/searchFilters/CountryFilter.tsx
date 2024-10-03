@@ -1,48 +1,39 @@
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { SelectChangeEvent } from '@mui/material';
+import { Box, SelectChangeEvent } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { UIStyledCountrySelect } from 'components/UIComponents/UIStyledSelect';
-import { MouseEventHandler, useEffect, useState } from 'react';
+import { MouseEventHandler, useCallback, useEffect, useState } from 'react';
 import { CommonServices } from 'services/commonApi/commonApi.services';
-import { getUserDataClient } from 'utils/getSessionData';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CountryFilterText, StyledClearIcon } from '../Search.styled';
 import theme from 'themes/theme';
 import CityCountryLabel from './CityCountryLabel';
 import { FormControlBox } from './Country.styled';
+import { CircularProgress } from '@mui/material';
 
 interface CountryFilterProps {
   value: string;
   onChange: (event: SelectChangeEvent<unknown>, child: React.ReactNode) => void;
+  isUserInteracted: boolean;
 }
 type countryType = {
   id: number;
   name: string;
 };
 
-const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
+const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange, isUserInteracted }) => {
   const [open, setOpen] = useState(false);
-
   const [countries, setCountries] = useState<countryType[]>([]);
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [loading, setLoading] = useState(true);
 
   let renderValue = value ? value : '';
 
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      setToken({ id: data?.id, token: data?.token });
+  const handleCountryApiChange = useCallback(() => {
+    setLoading(false);
+    const countryData = async () => {
+      const data = await CommonServices.getCountry(true);
+      setCountries(data.data);
     };
-    userToken();
-  }, []);
-
-  const countryData = async () => {
-    const data = await CommonServices.getCountry(token.token, true);
-    setCountries(data.data);
-  };
-  useEffect(() => {
     countryData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClear: MouseEventHandler<SVGSVGElement> = (event) => {
@@ -61,6 +52,13 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
     setOpen((prevOpen) => !prevOpen);
   };
 
+  useEffect(() => {
+    if (isUserInteracted) {
+      handleCountryApiChange();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUserInteracted]);
+
   return (
     <FormControlBox id="country" fullWidth>
       <UIStyledCountrySelect
@@ -76,13 +74,19 @@ const CountryFilter: React.FC<CountryFilterProps> = ({ value, onChange }) => {
         open={open}
         onClick={handleOpen}
       >
-        {countries?.map((country, index) => {
-          return (
-            <MenuItem key={country?.name} value={country?.name}>
-              <CountryFilterText>{country?.name}</CountryFilterText>
-            </MenuItem>
-          );
-        })}
+        {loading ? (
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+            <CircularProgress size={24} />
+          </Box>
+        ) : (
+          countries?.map((country, index) => {
+            return (
+              <MenuItem key={country?.name} value={country?.name}>
+                <CountryFilterText>{country?.name}</CountryFilterText>
+              </MenuItem>
+            );
+          })
+        )}
       </UIStyledCountrySelect>
     </FormControlBox>
   );

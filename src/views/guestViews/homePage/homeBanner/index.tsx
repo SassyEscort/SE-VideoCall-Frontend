@@ -31,7 +31,6 @@ import { FormattedMessage } from 'react-intl';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestLogin from 'views/auth/guestLogin';
-import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
 // import ProfileMenu from 'components/UIComponents/UIStyleHeader';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
@@ -41,8 +40,11 @@ import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import { gaEventTrigger } from 'utils/analytics';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
+import { useAuthContext } from '../../../../../context/AuthContext';
 
 const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
+  const { session } = useAuthContext();
+
   const [isModalOpenFreeCredits, setIsModalOpenFreeCredits] = useState(false);
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
@@ -53,8 +55,8 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
   // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [loading, setLoading] = useState(false);
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
-
-  const { data: session } = useSession();
+  const imageWidth = isSm && isSmDown ? 300 : isSmDown ? 347 : 462;
+  const imageHeight = isSmDown ? 339 : 452;
 
   // const handleDropDownOpen = (event: React.MouseEvent<HTMLElement>) => {
   //   setAnchorEl(event.currentTarget);
@@ -215,13 +217,13 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
               justifyContent={{ xs: 'center', sm: 'flex-start', lg: 'flex-end' }}
               pt={{ xs: 0, lg: '83px' }}
             >
-              <Image
+              <Box
+                component="img"
                 alt="home_model"
-                width={isSm && isSmDown ? 300 : isSmDown ? 347 : 462}
-                height={isSmDown ? 339 : 452}
+                width={imageWidth}
+                height={imageHeight}
                 src="/images/home/home-banner-model.webp"
-                style={{ borderRadius: '12px', right: 0 }}
-                priority
+                sx={{ borderRadius: '12px', right: 0 }}
               />
             </Box>
           </BannerContainer>

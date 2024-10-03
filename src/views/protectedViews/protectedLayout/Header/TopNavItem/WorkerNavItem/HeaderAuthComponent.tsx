@@ -7,9 +7,7 @@ import theme from 'themes/theme';
 import ProfileMenu from './ProfileMenu';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
-import { getUserDataClient } from 'utils/getSessionData';
 import Logout from 'views/protectedViews/logout';
 import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
@@ -23,6 +21,7 @@ import { HeaderMainBox } from './HeaderAuthComponent.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useCallFeatureContext } from '../../../../../../../context/CallFeatureContext';
 import NotificationModalCustomerV2 from './NotificationModalCustomerV2';
+import { useAuthContext } from '../../../../../../../context/AuthContext';
 
 export type NotificationFilters = {
   page: number;
@@ -31,7 +30,9 @@ export type NotificationFilters = {
 };
 
 const HeaderAuthComponent = () => {
-  const { isCallEnded, avaialbleCredits, getToken, isNameChange } = useCallFeatureContext();
+  const { session } = useAuthContext();
+  const { isCallEnded, avaialbleCredits, isNameChange } = useCallFeatureContext();
+  const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -40,7 +41,6 @@ const HeaderAuthComponent = () => {
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorElLogout);
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
   const [balance, setBalance] = useState(0);
   const [openNotification, setOpenNotification] = useState<boolean>(false);
@@ -94,17 +94,6 @@ const HeaderAuthComponent = () => {
   const handleDeductNotificationCount = () => {
     notificationCount.current = notificationCount.current - 1;
   };
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      getToken({ id: data?.id, token: data?.token });
-      setToken({ id: data?.id, token: data?.token });
-    };
-
-    userToken();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isCallEnded]);
 
   const handleCallback = useCallback(async () => {
     const notificationDetails = async () => {

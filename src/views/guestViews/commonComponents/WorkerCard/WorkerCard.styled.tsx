@@ -77,12 +77,12 @@ export const LiveIconFirstBoxWorkerCard = styled(Box)(({ theme }) => ({
 }));
 
 export const LiveIconSecBoxWorkerCard = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  width: '100%',
-  maxWidth: '8px',
-  height: '100%',
-  maxHeight: '8px',
+  width: '8px',
+  height: '8px',
   border: '1px solid',
+  position: 'relative',
+  right: '-2px',
+  top: '2px',
   borderColor: theme.palette.success[100],
   borderRadius: '50%',
   backgroundColor: theme.palette.success[100]
@@ -252,12 +252,10 @@ export const FavoriteIconContainer = styled(FavoriteIcon)(({ theme }) => ({
   }
 }));
 
-export const LiveIconWorkerCard = styled(LiveIconFirstBoxWorkerCard)(({ theme }) => ({
+export const LiveIconWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
-  width: '100%',
-  minWidth: '12px',
-  height: '0',
-  minHeight: '12px',
+  width: '12px',
+  height: '12px',
   border: '1px',
   borderColor: theme.palette.secondary[400],
   borderRadius: '50%',

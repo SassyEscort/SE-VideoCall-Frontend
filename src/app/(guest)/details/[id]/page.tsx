@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
 import { ModelSeoService } from 'services/modelSeo/modelSeo.services';
 import EscortDetailPage from 'views/guestViews/details/EscortDetailPage';
+import CallFeature from 'views/protectedViews/callingFeature';
+import { CallFeatureProvider } from '../../../../../context/CallFeatureContext';
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const model = params.id;
@@ -29,7 +31,14 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 }
 
 const WorkerDetailPage = () => {
-  return <>{<EscortDetailPage />}</>;
+  return (
+    <>
+      <CallFeatureProvider>
+        <CallFeature />
+        <EscortDetailPage />
+      </CallFeatureProvider>
+    </>
+  );
 };
 
 export default WorkerDetailPage;
