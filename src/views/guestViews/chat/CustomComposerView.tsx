@@ -26,7 +26,7 @@ const CustomComposerView = ({ onSendMessage, modelName }: CustomComposerViewProp
         placeholder={`Send a message to ${modelName || ''}...`}
         endAdornment={
           <Box className="end-adornment-main-box">
-            <Box className="heart-box">
+            <Box className="heart-box" sx={{ cursor: 'pointer' }}>
               <Image alt="sticker" src={'/images/icons/heart-icon.png'} height={24} width={24} />
             </Box>
             <Button className="send-button" variant="contained" onClick={handleSend}>
