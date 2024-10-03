@@ -1,8 +1,8 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApps } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import { getFirestore } from 'firebase/firestore';
 
-export const firebaseConfig = {
+const firebaseConfig = {
   apiKey: 'AIzaSyCP0osUN3Edg_F4VZXThZNrKjqAz2UPMzc',
   authDomain: 'flirt-bate.firebaseapp.com',
   projectId: 'flirt-bate',
@@ -12,8 +12,8 @@ export const firebaseConfig = {
   measurementId: 'G-4ZNVHVM94F'
 };
 
-// Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+// Initialize Firebase only if no apps have been initialized
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
 export const analytics = getAnalytics(app);
 
 export const firbase_db = getFirestore(app);
