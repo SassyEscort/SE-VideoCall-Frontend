@@ -15,9 +15,9 @@ export const ImageContainer = styled('img')(({ theme }) => ({
 
 export const ProfileImageContainer = styled('img')(({ theme }) => ({
   width: '100%',
-  maxWidth: '24px',
+  minWidth: '24px',
   height: '100%',
-  maxHeight: '24px',
+  minHeight: '24px',
   backgroundImage: `url(/images/workercards/workercard-img.jpeg)`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',

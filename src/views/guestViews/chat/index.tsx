@@ -3,6 +3,10 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import React from 'react';
 import { ImageContainer, ProfileImageContainer } from './Chat.styled';
 import CustomComposerView from './CustomComposerView';
+import Divider from '@mui/material/Divider';
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
+import InputAdornment from '@mui/material/InputAdornment';
 
 const ChatFeature = () => {
   return (
@@ -66,27 +70,28 @@ const ChatFeature = () => {
           </Box>
         </Box>
 
-        <Box
-          sx={{
-            display: 'flex',
-            width: '100%',
-            maxWidth: '320px',
-            height: '100%',
-            maxHeight: '52px',
-            px: '16px',
-            py: '20px',
-            border: '1px solid #E9E8EB29',
-            borderRadius: '8px',
-            alignItems: 'center'
+        <TextField
+          fullWidth
+          variant="outlined"
+          placeholder="Search for a profile"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon style={{ color: '#E9E8EB' }} />
+              </InputAdornment>
+            ),
+            style: {
+              display: 'flex',
+              width: '100%',
+              maxWidth: '320px',
+              height: '100%',
+              minHeight: '52px',
+              border: '1px solid #E9E8EB29',
+              borderRadius: '8px',
+              alignItems: 'center'
+            }
           }}
-        >
-          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-            hii
-            <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-              Search for a profile
-            </UINewTypography>
-          </Box>
-        </Box>
+        />
 
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
           <Box sx={{ display: 'flex', width: '100%', height: '100%', minHeight: '73px', justifyContent: 'space-between' }}>
@@ -109,6 +114,8 @@ const ChatFeature = () => {
         </Box>
       </Box>
 
+      <Divider orientation="vertical" flexItem sx={{ borderColor: '#E9E8EB29' }} />
+
       <Box
         sx={{
           display: 'flex',
@@ -123,43 +130,56 @@ const ChatFeature = () => {
       >
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between', minHeight: '80vh' }}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-            <Box sx={{ display: 'flex', paddingRight: '20px', paddingLeft: '20px', width: '100%', justifyContent: 'space-between' }}>
-              <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center' }}>
-                <Box sx={{ display: 'flex', gap: 1 }}>
-                  <ProfileImageContainer />
-                  <UINewTypography variant="subtitle" color="text.secondary">
-                    Aesha
-                  </UINewTypography>
-                </Box>
+            <Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  paddingRight: '20px',
+                  paddingLeft: '20px',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  heigh: '100%',
+                  minHeight: '40px'
+                }}
+              >
+                <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center' }}>
+                  <Box sx={{ display: 'flex', gap: 1 }}>
+                    <ProfileImageContainer />
+                    <UINewTypography variant="subtitle" color="text.secondary">
+                      Aesha
+                    </UINewTypography>
+                  </Box>
 
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: '100%',
-                    minWidth: '12px',
-                    height: '100%',
-                    maxHeight: '12px',
-                    border: '1px  #79E02852',
-                    borderRadius: '50%',
-                    backgroundColor: '#79E02852'
-                  }}
-                >
                   <Box
                     sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
                       width: '100%',
-                      maxWidth: '8px',
+                      minWidth: '12px',
                       height: '100%',
-                      maxHeight: '8px',
-                      border: '1px  #79E028',
+                      maxHeight: '12px',
+                      border: '1px  #79E02852',
                       borderRadius: '50%',
-                      backgroundColor: '#79E028'
+                      backgroundColor: '#79E02852'
                     }}
-                  ></Box>
+                  >
+                    <Box
+                      sx={{
+                        width: '100%',
+                        maxWidth: '8px',
+                        height: '100%',
+                        maxHeight: '8px',
+                        border: '1px  #79E028',
+                        borderRadius: '50%',
+                        backgroundColor: '#79E028'
+                      }}
+                    ></Box>
+                  </Box>
                 </Box>
+                <Box component="img" src="/images/icons/chat-video-call.svg" width={40} height={40} />
               </Box>
-              hhh
+              <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29', mt: '16px' }} />
             </Box>
 
             <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', paddingRight: '32px', gap: 1 }}>
@@ -209,6 +229,203 @@ const ChatFeature = () => {
 
                 <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
                   6:38 PM
+                </UINewTypography>
+              </Box>
+
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, width: '100%', alignItems: 'flex-end' }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    height: '100%',
+                    minHeight: '46px',
+                    px: '16px',
+                    py: '12px',
+                    border: '1px solid #1E0815',
+                    borderRadius: '8px',
+                    justifyContent: 'end',
+                    backgroundColor: '#1E0815'
+                  }}
+                >
+                  <UINewTypography variant="body1" color="text.secondary">
+                    🤩 💞
+                  </UINewTypography>
+                </Box>
+
+                <UINewTypography variant="SubtitleSmallRegular" color="secondary.700" sx={{ display: 'flex', justifyContent: 'end' }}>
+                  6:34 PM
+                </UINewTypography>
+              </Box>
+
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    height: '100%',
+                    width: '100%',
+                    maxWidth: 'fit-content',
+                    minHeight: '46px',
+                    px: '16px',
+                    py: '12px',
+                    border: '1px solid #611441',
+                    borderRadius: '8px',
+                    backgroundColor: '#611441'
+                  }}
+                >
+                  <UINewTypography variant="body1" color="text.secondary">
+                    Hey Aesha, are you available at 8 in the evening?
+                  </UINewTypography>
+                </Box>
+
+                <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
+                  6:38 PM
+                </UINewTypography>
+              </Box>
+
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    height: '100%',
+                    width: '100%',
+                    maxWidth: 'fit-content',
+                    minHeight: '46px',
+                    px: '16px',
+                    py: '12px',
+                    border: '1px solid #611441',
+                    borderRadius: '8px',
+                    backgroundColor: '#611441'
+                  }}
+                >
+                  <UINewTypography variant="body1" color="text.secondary">
+                    Hey Aesha, are you available at 8 in the evening?
+                  </UINewTypography>
+                </Box>
+
+                <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
+                  6:38 PM
+                </UINewTypography>
+              </Box>
+
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    height: '100%',
+                    width: '100%',
+                    maxWidth: 'fit-content',
+                    minHeight: '46px',
+                    px: '16px',
+                    py: '12px',
+                    border: '1px solid #611441',
+                    borderRadius: '8px',
+                    backgroundColor: '#611441'
+                  }}
+                >
+                  <UINewTypography variant="body1" color="text.secondary">
+                    Hey Aesha, are you available at 8 in the evening?
+                  </UINewTypography>
+                </Box>
+
+                <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
+                  6:38 PM
+                </UINewTypography>
+              </Box>
+
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    height: '100%',
+                    width: '100%',
+                    maxWidth: 'fit-content',
+                    minHeight: '46px',
+                    px: '16px',
+                    py: '12px',
+                    border: '1px solid #611441',
+                    borderRadius: '8px',
+                    backgroundColor: '#611441'
+                  }}
+                >
+                  <UINewTypography variant="body1" color="text.secondary">
+                    Hey Aesha, are you available at 8 in the evening?
+                  </UINewTypography>
+                </Box>
+
+                <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
+                  6:38 PM
+                </UINewTypography>
+              </Box>
+
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    height: '100%',
+                    width: '100%',
+                    maxWidth: 'fit-content',
+                    minHeight: '46px',
+                    px: '16px',
+                    py: '12px',
+                    border: '1px solid #611441',
+                    borderRadius: '8px',
+                    backgroundColor: '#611441'
+                  }}
+                >
+                  <UINewTypography variant="body1" color="text.secondary">
+                    Hey Aesha, are you available at 8 in the evening?
+                  </UINewTypography>
+                </Box>
+
+                <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
+                  6:38 PM
+                </UINewTypography>
+              </Box>
+
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, width: '100%', alignItems: 'flex-end' }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    height: '100%',
+                    minHeight: '46px',
+                    px: '16px',
+                    py: '12px',
+                    border: '1px solid #1E0815',
+                    borderRadius: '8px',
+                    justifyContent: 'end',
+                    backgroundColor: '#1E0815'
+                  }}
+                >
+                  <UINewTypography variant="body1" color="text.secondary">
+                    🤩 💞
+                  </UINewTypography>
+                </Box>
+
+                <UINewTypography variant="SubtitleSmallRegular" color="secondary.700" sx={{ display: 'flex', justifyContent: 'end' }}>
+                  6:34 PM
+                </UINewTypography>
+              </Box>
+
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, width: '100%', alignItems: 'flex-end' }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    height: '100%',
+                    minHeight: '46px',
+                    px: '16px',
+                    py: '12px',
+                    border: '1px solid #1E0815',
+                    borderRadius: '8px',
+                    justifyContent: 'end',
+                    backgroundColor: '#1E0815'
+                  }}
+                >
+                  <UINewTypography variant="body1" color="text.secondary">
+                    🤩 💞
+                  </UINewTypography>
+                </Box>
+
+                <UINewTypography variant="SubtitleSmallRegular" color="secondary.700" sx={{ display: 'flex', justifyContent: 'end' }}>
+                  6:34 PM
                 </UINewTypography>
               </Box>
 
