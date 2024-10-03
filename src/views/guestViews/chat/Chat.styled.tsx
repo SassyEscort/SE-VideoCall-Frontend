@@ -1,5 +1,5 @@
 'use client';
-import { Box, TextField } from '@mui/material';
+import { Box, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const ImageContainer = styled('img')(({ theme }) => ({
@@ -11,7 +11,12 @@ export const ImageContainer = styled('img')(({ theme }) => ({
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
-  borderRadius: '50%'
+  [theme.breakpoints.down('sm')]: {
+    borderRadius: '16px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    borderRadius: '50%'
+  }
 }));
 
 export const ProfileImageContainer = styled('img')(({ theme }) => ({
@@ -39,12 +44,18 @@ export const ModelDetailsMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '372px',
-  gap: theme.spacing(4),
   paddingLeft: theme.spacing(2.5),
   paddingTop: theme.spacing(2.5),
   paddingRight: theme.spacing(4),
-  paddingBottom: theme.spacing(2.5)
+  paddingBottom: theme.spacing(2.5),
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '425px',
+    gap: theme.spacing(3)
+  },
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '372px',
+    gap: theme.spacing(4)
+  }
 }));
 
 export const ModelHeaderBoxContainer = styled(Box)(({ theme }) => ({
@@ -84,26 +95,59 @@ export const OnlineSecBoxContainer = styled(Box)(({ theme }) => ({
 export const SearchBoxContainer = styled(TextField)(({ theme }) => ({
   display: 'flex',
   width: '100%',
-  maxWidth: '320px',
-  height: '100%',
-  maxHeight: '52px',
   border: '1px solid #E9E8EB29',
   borderRadius: '8px',
-  alignItems: 'center'
+  alignItems: 'center',
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '370px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '320px'
+  }
+}));
+
+export const MobileSearchBoxContainer = styled(TextField)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  border: '1px solid #1E0815',
+  borderRadius: '4px',
+  height: '100%',
+  maxHeight: '40px',
+  alignItems: 'center',
+  backgroundColor: '#1E0815',
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '370px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '320px'
+  },
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1)
+  }
 }));
 
 export const ModelDetailsInnerBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(3)
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(1.5)
+  },
+  [theme.breakpoints.up('sm')]: {
+    gap: theme.spacing(3)
+  }
 }));
 
 export const ModelInformationMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
   height: '100%',
-  minHeight: '48px',
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
+  [theme.breakpoints.down('sm')]: {
+    minHeight: '56px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    minHeight: '48px'
+  }
 }));
 
 export const ModelInformationInnerBoxContainer = styled(Box)(({ theme }) => ({
@@ -115,7 +159,12 @@ export const ModelInformationInnerBoxContainer = styled(Box)(({ theme }) => ({
 export const ModelNameBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(0.75)
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(0.25)
+  },
+  [theme.breakpoints.up('sm')]: {
+    gap: theme.spacing(0.75)
+  }
 }));
 
 export const ChatBoxMainContainer = styled(Box)(({ theme }) => ({
@@ -185,10 +234,10 @@ export const ClientChatTextBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   height: '100%',
   minHeight: '46px',
-  paddingTop: theme.spacing(2),
-  paddingBotton: theme.spacing(2),
-  paddingLeft: theme.spacing(1.5),
-  paddingRight: theme.spacing(1.5),
+  paddingTop: theme.spacing(1.5),
+  paddingBotton: theme.spacing(1.5),
+  paddingLeft: theme.spacing(2),
+  paddingRight: theme.spacing(2),
   border: '1px solid #1E0815',
   borderRadius: '8px',
   justifyContent: 'end',
@@ -201,8 +250,10 @@ export const ModelChatTextBoxContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: 'fit-content',
   minHeight: '46px',
-  px: '16px',
-  py: '12px',
+  paddingTop: theme.spacing(1.5),
+  paddingBotton: theme.spacing(1.5),
+  paddingLeft: theme.spacing(2),
+  paddingRight: theme.spacing(2),
   border: '1px solid #611441',
   borderRadius: '8px',
   backgroundColor: '#611441'
@@ -225,4 +276,30 @@ export const PendingInnerBoxContainer = styled(Box)(({ theme }) => ({
   borderRadius: '48px',
   backgroundColor: '#FF68C0',
   justifyContent: 'center'
+}));
+
+export const ModelNameText = styled(Typography)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '14px',
+    fontWeight: 500,
+    lineHeight: '20px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '16px',
+    fontWeight: 700,
+    lineHeight: '20px'
+  }
+}));
+
+export const ModelDescriptionText = styled(Typography)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '12px',
+    fontWeight: 400,
+    lineHeight: '20px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: '16.8px'
+  }
 }));
