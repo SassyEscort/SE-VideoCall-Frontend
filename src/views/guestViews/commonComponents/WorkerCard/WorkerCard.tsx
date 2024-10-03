@@ -4,7 +4,6 @@ import {
   FavoriteBorderIconContainer,
   FavoriteIconContainer,
   FirstSubContainerImgWorkerCard,
-  FirstSubContainerWithoutImg,
   FlagAndLiveIconBoxContainer,
   HeartIconWorkerCard,
   HighlyAvailableBox,
@@ -14,8 +13,6 @@ import {
   LiveIconWorkerCard,
   MainWorkerCard,
   NameCardContainer,
-  OfflineIconSecBoxWorkerCard,
-  OfflineIconWorkerCard,
   ProfileCardContainer,
   SecondMainContainerWorkerCard,
   SecondSubContainerImgWorkerCard,
@@ -158,18 +155,19 @@ const WorkerCard = ({
                     {modelDetails?.name?.charAt(0)?.toUpperCase() + modelDetails?.name?.slice(1)}
                   </UINewTypography>
                 </TextBoxContainer>
-                <FlagAndLiveIconBoxContainer>
-                  {modelDetails?.is_online === 1 ? (
-                    <LiveIconWorkerCard>
-                      <LiveIconSecBoxWorkerCard sx={{ backgroundColor: 'success.100' }} />
-                    </LiveIconWorkerCard>
-                  ) : (
-                    <OfflineIconWorkerCard>
-                      <OfflineIconSecBoxWorkerCard />
-                    </OfflineIconWorkerCard>
-                  )}
+                <FlagAndLiveIconBoxContainer
+                  sx={{
+                    display: modelDetails?.is_online === 1 ? 'flex' : 'none'
+                  }}
+                >
+                  <LiveIconWorkerCard sx={{ display: modelDetails?.is_online === 1 ? 'flex' : 'none' }}>
+                    <LiveIconSecBoxWorkerCard sx={{ backgroundColor: modelDetails?.is_online !== 1 ? 'success.100' : 'error.100' }} />
+                  </LiveIconWorkerCard>
 
-                  {modelFlag ? <FirstSubContainerImgWorkerCard src={modelFlag} /> : <FirstSubContainerWithoutImg />}
+                  <FirstSubContainerImgWorkerCard
+                    src={modelFlag ? modelFlag : undefined}
+                    style={{ visibility: modelFlag ? 'visible' : 'hidden' }}
+                  />
                 </FlagAndLiveIconBoxContainer>
               </NameCardContainer>
               {!isMobile && (
