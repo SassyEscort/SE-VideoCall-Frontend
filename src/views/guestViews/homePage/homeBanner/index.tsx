@@ -217,17 +217,13 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
               justifyContent={{ xs: 'center', sm: 'flex-start', lg: 'flex-end' }}
               pt={{ xs: 0, lg: '83px' }}
             >
-              <Image
+              <Box
+                component="img"
                 alt="home_model"
-                decoding="async"
                 width={imageWidth}
                 height={imageHeight}
                 src="/images/home/home-banner-model.webp"
-                // placeholder="blur"
-                // blurDataURL="/images/home/home-banner-blur.webp"
-                style={{ borderRadius: '12px', right: 0 }}
-                priority
-                fetchPriority="high"
+                sx={{ borderRadius: '12px', right: 0 }}
               />
             </Box>
           </BannerContainer>
