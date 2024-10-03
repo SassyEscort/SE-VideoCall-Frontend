@@ -181,7 +181,7 @@ const HomeImageCard = ({
           })}
         </Grid>
 
-        {totalRows && filters && totalRows > 0 ? (
+        {totalRows && filters && totalRows > 0 && (
           <ButtonMainBox>
             <PaginationMainBox>
               <UITheme2Pagination
@@ -199,8 +199,6 @@ const HomeImageCard = ({
               />
             </PaginationMainBox>
           </ButtonMainBox>
-        ) : (
-          ''
         )}
         {modelListing?.length > 0
           ? ''

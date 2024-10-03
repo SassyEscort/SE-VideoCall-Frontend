@@ -4,7 +4,6 @@ import {
   FavoriteBorderIconContainer,
   FavoriteIconContainer,
   FirstSubContainerImgWorkerCard,
-  FlagAndLiveIconBoxContainer,
   HeartIconWorkerCard,
   HighlyAvailableBox,
   HighlyAvailableButtonBox,
@@ -124,6 +123,7 @@ const WorkerCard = ({
           <HighlyAvailableButtonBox>
             <HighlyAvailableBox>
               <Image
+                loading="lazy"
                 src="/images/boostProfile/fire-ani.gif"
                 alt="fire-gif"
                 height={57}
@@ -155,20 +155,14 @@ const WorkerCard = ({
                     {modelDetails?.name?.charAt(0)?.toUpperCase() + modelDetails?.name?.slice(1)}
                   </UINewTypography>
                 </TextBoxContainer>
-                <FlagAndLiveIconBoxContainer
-                  sx={{
-                    display: modelDetails?.is_online === 1 ? 'flex' : 'none'
-                  }}
-                >
-                  <LiveIconWorkerCard sx={{ display: modelDetails?.is_online === 1 ? 'flex' : 'none' }}>
-                    <LiveIconSecBoxWorkerCard sx={{ backgroundColor: modelDetails?.is_online !== 1 ? 'success.100' : 'error.100' }} />
-                  </LiveIconWorkerCard>
-
-                  <FirstSubContainerImgWorkerCard
-                    src={modelFlag ? modelFlag : undefined}
-                    style={{ visibility: modelFlag ? 'visible' : 'hidden' }}
-                  />
-                </FlagAndLiveIconBoxContainer>
+                {modelDetails?.is_online === 1 && (
+                  <>
+                    <LiveIconWorkerCard>
+                      <LiveIconSecBoxWorkerCard />
+                    </LiveIconWorkerCard>
+                    {modelFlag && <FirstSubContainerImgWorkerCard src={modelFlag} />}
+                  </>
+                )}
               </NameCardContainer>
               {!isMobile && (
                 <CreditContainer>
