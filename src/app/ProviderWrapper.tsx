@@ -10,7 +10,6 @@ import '../app/globals.scss';
 import 'react-toastify/dist/ReactToastify.css';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import ModelLastActive from 'views/protectedModelViews/ModelLastAvtive';
 import dynamic from 'next/dynamic';
 const GoogleTagManager = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleTagManager), { ssr: false });
 const GoogleAnalytics = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleAnalytics), { ssr: false });
@@ -32,7 +31,6 @@ const ProviderWrapper = ({ children }: { children: JSX.Element }) => {
                   <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID as string} />
                 </>
                 {/* )} */}
-                <ModelLastActive />
               </SessionProvider>
               <ToastContainer
                 position="bottom-center"

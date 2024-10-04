@@ -10,7 +10,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
 
   return (
     <Box>
-      {authUser?.user?.provider === 'providerModel' ? <Header variant="dashboard" /> : <HeaderModelComponent />}
+      {authUser?.user?.provider === 'providerCustom' ? <Header variant="dashboard" /> : <HeaderModelComponent />}
 
       <main>
         <Box sx={{ mt: 10 }}>{children}</Box>
