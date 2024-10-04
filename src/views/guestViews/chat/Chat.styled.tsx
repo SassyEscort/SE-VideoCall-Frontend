@@ -37,24 +37,33 @@ export const ChatMainBoxContainer = styled(Box)(({ theme }) => ({
   height: '100%',
   backgroundColor: '#100B19',
   border: '1px solid #100B19',
-  borderRadius: '24px'
+  [theme.breakpoints.down('sm')]: {
+    borderRadius: 0
+  },
+  [theme.breakpoints.up('sm')]: {
+    borderRadius: '24px'
+  }
 }));
 
 export const ModelDetailsMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  paddingLeft: theme.spacing(2.5),
-  paddingTop: theme.spacing(2.5),
-  paddingRight: theme.spacing(4),
-  paddingBottom: theme.spacing(2.5),
   [theme.breakpoints.down('sm')]: {
     maxWidth: '425px',
-    gap: theme.spacing(3)
+    gap: theme.spacing(3),
+    paddingLeft: theme.spacing(2.5),
+    paddingTop: theme.spacing(2.5),
+    paddingRight: theme.spacing(2.5),
+    paddingBottom: theme.spacing(2.5)
   },
   [theme.breakpoints.up('sm')]: {
     maxWidth: '372px',
-    gap: theme.spacing(4)
+    gap: theme.spacing(4),
+    paddingLeft: theme.spacing(2.5),
+    paddingTop: theme.spacing(2.5),
+    paddingRight: theme.spacing(4),
+    paddingBottom: theme.spacing(2.5)
   }
 }));
 
@@ -142,6 +151,7 @@ export const ModelInformationMainBoxContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   height: '100%',
   justifyContent: 'space-between',
+  cursor: 'pointer',
   [theme.breakpoints.down('sm')]: {
     minHeight: '56px'
   },

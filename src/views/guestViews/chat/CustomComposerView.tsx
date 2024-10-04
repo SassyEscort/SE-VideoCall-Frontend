@@ -14,8 +14,15 @@ const CustomComposerView = ({ onSendMessage, modelName }: CustomComposerViewProp
 
   const handleSend = () => {
     if (message.trim()) {
+      console.log(message);
       // onSendMessage(message);
       setMessage('');
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSend();
     }
   };
 
@@ -24,6 +31,9 @@ const CustomComposerView = ({ onSendMessage, modelName }: CustomComposerViewProp
       <ChatMessageInput
         id="search-input"
         placeholder={`Send a message to ${modelName || ''}...`}
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        onKeyDown={handleKeyDown}
         endAdornment={
           <Box className="end-adornment-main-box">
             <Box className="heart-box" sx={{ cursor: 'pointer' }}>
