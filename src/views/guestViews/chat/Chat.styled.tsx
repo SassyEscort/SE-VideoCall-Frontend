@@ -273,19 +273,28 @@ export const PendingMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  alignItems: 'flex-end'
+  alignItems: 'flex-end',
+  [theme.breakpoints.down('sm')]: {
+    justifyContent: 'center'
+  }
 }));
 
 export const PendingInnerBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
-  maxWidth: '29px',
   height: '100%',
-  maxHeight: '21px',
   border: '1px #FF68C0',
   borderRadius: '48px',
   backgroundColor: '#FF68C0',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  [theme.breakpoints.down('sm')]: {
+    minWidth: '29px',
+    maxHeight: '21px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '29px',
+    maxHeight: '21px'
+  }
 }));
 
 export const ModelNameText = styled(Typography)(({ theme }) => ({

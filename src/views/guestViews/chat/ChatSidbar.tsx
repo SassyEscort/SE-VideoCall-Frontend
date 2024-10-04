@@ -105,9 +105,11 @@ const ChatSidbar = () => {
               </ModelInformationInnerBoxContainer>
 
               <PendingMainBoxContainer>
-                <UINewTypography variant="bodySmall" color="text.primary" sx={{ whiteSpace: 'nowrap' }}>
-                  {model.time}
-                </UINewTypography>
+                {isSmUp && (
+                  <UINewTypography variant="bodySmall" color="text.primary" sx={{ whiteSpace: 'nowrap' }}>
+                    {model.time}
+                  </UINewTypography>
+                )}
                 {model.pending > 0 && (
                   <PendingInnerBoxContainer>
                     <UINewTypography variant="SubtitleSmallMedium" color="text.secondary">
