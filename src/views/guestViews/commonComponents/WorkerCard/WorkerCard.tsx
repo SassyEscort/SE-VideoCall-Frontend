@@ -4,8 +4,6 @@ import {
   FavoriteBorderIconContainer,
   FavoriteIconContainer,
   FirstSubContainerImgWorkerCard,
-  FirstSubContainerWithoutImg,
-  FlagAndLiveIconBoxContainer,
   HeartIconWorkerCard,
   HighlyAvailableBox,
   HighlyAvailableButtonBox,
@@ -14,8 +12,6 @@ import {
   LiveIconWorkerCard,
   MainWorkerCard,
   NameCardContainer,
-  OfflineIconSecBoxWorkerCard,
-  OfflineIconWorkerCard,
   ProfileCardContainer,
   SecondMainContainerWorkerCard,
   SecondSubContainerImgWorkerCard,
@@ -127,6 +123,7 @@ const WorkerCard = ({
           <HighlyAvailableButtonBox>
             <HighlyAvailableBox>
               <Image
+                loading="lazy"
                 src="/images/boostProfile/fire-ani.gif"
                 alt="fire-gif"
                 height={57}
@@ -158,22 +155,14 @@ const WorkerCard = ({
                     {modelDetails?.name?.charAt(0)?.toUpperCase() + modelDetails?.name?.slice(1)}
                   </UINewTypography>
                 </TextBoxContainer>
-                <FlagAndLiveIconBoxContainer>
-                  {modelDetails?.is_online === 1 ? (
-                    <>
-                      <LiveIconWorkerCard>
-                        <LiveIconSecBoxWorkerCard sx={{ backgroundColor: 'success.100' }} />
-                      </LiveIconWorkerCard>
-                    </>
-                  ) : (
-                    <>
-                      <OfflineIconWorkerCard>
-                        <OfflineIconSecBoxWorkerCard />
-                      </OfflineIconWorkerCard>
-                    </>
-                  )}
-                  {modelFlag ? <FirstSubContainerImgWorkerCard src={modelFlag} /> : <FirstSubContainerWithoutImg />}
-                </FlagAndLiveIconBoxContainer>
+                {modelDetails?.is_online === 1 && (
+                  <>
+                    <LiveIconWorkerCard>
+                      <LiveIconSecBoxWorkerCard />
+                    </LiveIconWorkerCard>
+                    {modelFlag && <FirstSubContainerImgWorkerCard src={modelFlag} />}
+                  </>
+                )}
               </NameCardContainer>
               {!isMobile && (
                 <CreditContainer>

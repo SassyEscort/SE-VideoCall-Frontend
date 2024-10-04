@@ -46,7 +46,7 @@ const HeaderGuestComponent = () => {
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
   const [openFreeCredit, setOpenFreeCredit] = useState(false);
   const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
-  const [isApiCalled, setIsApiCalled] = useState(false);
+  const [isUserInteracted, setIsUserInteracted] = useState(false);
 
   const handleClickLogout = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElLogout(event.currentTarget);
@@ -112,9 +112,6 @@ const HeaderGuestComponent = () => {
 
   const handleOpenFilterModal = () => {
     setOpenFilterModal(true);
-    if (!isApiCalled) {
-      setIsApiCalled(true);
-    }
   };
 
   const handleCloseFilterModal = () => {
@@ -134,11 +131,17 @@ const HeaderGuestComponent = () => {
   }, []);
 
   useEffect(() => {
-    if (isApiCalled) {
+    const handleScroll = () => {
       handleLanguageApiChange();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isApiCalled]);
+      window.removeEventListener('scroll', handleScroll);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -151,6 +154,18 @@ const HeaderGuestComponent = () => {
 
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsUserInteracted(true);
+      window.removeEventListener('scroll', handleScroll);
+    };
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
@@ -369,7 +384,7 @@ const HeaderGuestComponent = () => {
       {/* <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} /> */}
       <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
 
-      {isSmUp && (
+      {isSmUp && isUserInteracted && (
         <FreeCreditsSignUp
           open={openFreeCredit && Boolean(isFreeCreditAvailable)}
           onClose={handleFreeCreditClose}
