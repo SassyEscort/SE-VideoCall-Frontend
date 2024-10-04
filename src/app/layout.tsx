@@ -1,8 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
+import React from 'react';
 import type { Metadata } from 'next';
 import ProviderWrapper from './ProviderWrapper';
 import { SEO_DATA } from 'constants/seoConstants';
 import { AuthFeaturProvider } from '../../context/AuthContext';
+import { TawkProvider } from '../../context/TawkContext';
+import ModelLastActive from 'views/protectedModelViews/ModelLastAvtive';
 
 export const metadata: Metadata = {
   title: SEO_DATA.TITLE,
@@ -15,13 +18,12 @@ export default function RootLayout({
   children: JSX.Element;
 }>) {
   const isStaging = process.env.NEXT_PUBLIC_ENV === 'staging';
-  const isProduction = process.env.NEXT_PUBLIC_ENV === 'production';
   return (
     <html lang="en">
       <head>
         <link rel="preload" as="image" href="/images/home/home-banner-model.webp" />
         {isStaging && <meta name="robots" content="noindex, nofollow" />}
-        <script
+        {/* <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: `(function(c,l,a,r,i,t,y){
@@ -46,8 +48,8 @@ export default function RootLayout({
               return false;
             }`
           }}
-        />
-        {isProduction && (
+        /> */}
+        {/* {isProduction && (
           <>
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}></script>
             <script
@@ -61,11 +63,14 @@ export default function RootLayout({
               }}
             />
           </>
-        )}
+        )} */}
       </head>
       <body>
         <ProviderWrapper>
-          <AuthFeaturProvider>{children}</AuthFeaturProvider>
+          <AuthFeaturProvider>
+            <ModelLastActive />
+            <TawkProvider>{children}</TawkProvider>
+          </AuthFeaturProvider>
         </ProviderWrapper>
       </body>
     </html>

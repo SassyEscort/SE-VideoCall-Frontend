@@ -89,7 +89,6 @@ const ModelDetailsPage = () => {
   };
 
   const isModelPending = modelData?.data?.profile_status === PAYOUT_ACTION.PENDING;
-  const isFreeBoostUsed = modelData?.data?.model_profile_plans?.free_plan_used;
 
   return (
     <DashboardLayout>
@@ -107,11 +106,9 @@ const ModelDetailsPage = () => {
                 }}
               >
                 {isModelPending && <DetailsApproveReject workerId={Number(modelId)} fetchModelData={fetchModelData} />}
-                {!isFreeBoostUsed && (
-                  <StyleBoostAdminButton onClick={handleModelBoostById}>
-                    <UINewTypography variant="buttonLargeMenu">Boost {modelData?.data?.name} profile</UINewTypography>
-                  </StyleBoostAdminButton>
-                )}
+                <StyleBoostAdminButton onClick={handleModelBoostById}>
+                  <UINewTypography variant="buttonLargeMenu">Boost {modelData?.data?.name} profile</UINewTypography>
+                </StyleBoostAdminButton>
                 <Box>
                   <Button
                     size="large"
