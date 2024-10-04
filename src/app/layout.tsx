@@ -1,10 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
 import type { Metadata } from 'next';
 import ProviderWrapper from './ProviderWrapper';
 import { SEO_DATA } from 'constants/seoConstants';
 import { AuthFeaturProvider } from '../../context/AuthContext';
-import { TawkProvider } from '../../context/TawkContext';
 import ModelLastActive from 'views/protectedModelViews/ModelLastAvtive';
 
 export const metadata: Metadata = {
@@ -69,7 +67,9 @@ export default function RootLayout({
         <ProviderWrapper>
           <AuthFeaturProvider>
             <ModelLastActive />
-            <TawkProvider>{children}</TawkProvider>
+            {/* <TawkProvider> */}
+            {children}
+            {/* </TawkProvider> */}
           </AuthFeaturProvider>
         </ProviderWrapper>
       </body>
