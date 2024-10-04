@@ -11,7 +11,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import ModelLastActive from 'views/protectedModelViews/ModelLastAvtive';
-import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
+import dynamic from 'next/dynamic';
+const GoogleTagManager = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleTagManager), { ssr: false });
+const GoogleAnalytics = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleAnalytics), { ssr: false });
 
 const manropeFont = Manrope({ subsets: ['latin'] });
 
