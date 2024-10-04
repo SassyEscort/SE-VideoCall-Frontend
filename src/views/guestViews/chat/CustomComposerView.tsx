@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { ChatMessageInput, ComposeMessageControlWrapper } from './ChatFeature.styled';
 
 interface CustomComposerViewProps {
-  onSendMessage?: (message: string) => void;
+  onSendMessage: (message: string) => void;
   modelName?: string;
 }
 
@@ -15,7 +15,7 @@ const CustomComposerView = ({ onSendMessage, modelName }: CustomComposerViewProp
   const handleSend = () => {
     if (message.trim()) {
       console.log(message);
-      // onSendMessage(message);
+      onSendMessage(message);
       setMessage('');
     }
   };

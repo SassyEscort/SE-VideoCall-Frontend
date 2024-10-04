@@ -19,8 +19,10 @@ import {
 } from './Chat.styled';
 import CustomComposerView from './CustomComposerView';
 import theme from 'themes/theme';
-
-const ChatDescription = () => {
+interface IChatDescriptionProps {
+  handleMessageInputChange: (val: string) => void;
+}
+const ChatDescription = ({ handleMessageInputChange }: IChatDescriptionProps) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
@@ -90,7 +92,7 @@ const ChatDescription = () => {
                 </TextMainBoxContainer>
               </ModelDetailsInnerBoxContainer>
 
-              <CustomComposerView />
+              <CustomComposerView onSendMessage={handleMessageInputChange} />
             </ChatBoxInnerContainer>
           </ChatBoxMainContainer>
         </>

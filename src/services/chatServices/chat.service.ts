@@ -19,7 +19,7 @@ export interface IMessageResponse {
   };
 }
 
-export class CallingService {
+export class ChatService {
   static sendChatMessage = async (params: IChatMessageParams, token: string): Promise<IMessageResponse> => {
     try {
       const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/chat/send-message`, params, {

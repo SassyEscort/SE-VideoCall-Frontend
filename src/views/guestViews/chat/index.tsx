@@ -9,17 +9,21 @@ import ChatDescription from './ChatDescription';
 import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
-// import { ErrorMessage } from 'constants/common.constants';
-// import { toast } from 'react-toastify';
-// import { getUserDataClient } from 'utils/getSessionData';
-// import { TokenIdType } from 'views/protectedModelViews/verification';
+import { ErrorMessage } from 'constants/common.constants';
+import { toast } from 'react-toastify';
+import { getUserDataClient } from 'utils/getSessionData';
+import { TokenIdType } from 'views/protectedModelViews/verification';
+import { ChatService, IMessageResponse } from 'services/chatServices/chat.service';
 
 const ChatFeature = () => {
+  const [messageInput, setMessageInput] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([]);
-  // const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [chatData, setChatData] = useState<IMessageResponse>();
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
 
   const authSession = useSession();
-  const customerUser = authSession?.data?.user as User;
+  const customerUser = (authSession?.data?.user as User)?.picture;
+  const customerData = JSON.parse(customerUser || '{}');
 
   const path = usePathname();
   const modelUserName = path?.split('/')?.[2];
@@ -44,31 +48,41 @@ const ChatFeature = () => {
     // Clean up the listener on unmount
     return () => unsubscribe();
   }, []);
-  console.log('messages', messages, customerUser, modelUserName);
+  console.log('messages', messages, customerData, modelUserName);
 
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      setToken({ id: data.id, token: data.token });
+    };
+
+    userToken();
+  }, []);
+
+  const handleMessageInputChange = (input: string) => {
+    setMessageInput(input);
+    fetchEarningHistoryDetails(input);
+  };
+  const fetchEarningHistoryDetails = async (text: string) => {
+    try {
+      const params = {
+        senderUID: customerData?.customer_user_name,
+        receiverUID: modelUserName,
+        message: text
+      };
+      if (token.token) {
+        // setChatData(true);
+        const data = await ChatService.sendChatMessage(params, token.token);
+        console.log('data', data);
+        // if (data) {
+        //   setChatData(false);
+        // }
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
   // useEffect(() => {
-  //   const userToken = async () => {
-  //     const data = await getUserDataClient();
-  //     setToken({ id: data.id, token: data.token });
-  //   };
-
-  //   userToken();
-  // }, []);
-
-  // useEffect(() => {
-  //   const fetchEarningHistoryDetails = async () => {
-  //     try {
-  //       if (token.token) {
-  //         setIsLoading(true);
-  //         const data = await ModelBillingHistoryService.getBillingHistoryDetails(params, token.token);
-  //         if (data) {
-  //           setIsLoading(false);
-  //         }
-  //       }
-  //     } catch (error) {
-  //       toast.error(ErrorMessage);
-  //     }
-  //   };
 
   //   fetchEarningHistoryDetails();
   // }, []);
@@ -77,7 +91,7 @@ const ChatFeature = () => {
     <ChatMainBoxContainer>
       <ChatSidbar />
 
-      <ChatDescription />
+      <ChatDescription handleMessageInputChange={handleMessageInputChange} />
     </ChatMainBoxContainer>
   );
 };
