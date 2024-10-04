@@ -4,6 +4,7 @@ import ProviderWrapper from './ProviderWrapper';
 import { SEO_DATA } from 'constants/seoConstants';
 import { AuthFeaturProvider } from '../../context/AuthContext';
 import ModelLastActive from 'views/protectedModelViews/ModelLastAvtive';
+import { TawkProvider } from '../../context/TawkContext';
 
 export const metadata: Metadata = {
   title: SEO_DATA.TITLE,
@@ -67,9 +68,7 @@ export default function RootLayout({
         <ProviderWrapper>
           <AuthFeaturProvider>
             <ModelLastActive />
-            {/* <TawkProvider> */}
-            {children}
-            {/* </TawkProvider> */}
+            <TawkProvider>{children}</TawkProvider>
           </AuthFeaturProvider>
         </ProviderWrapper>
       </body>
