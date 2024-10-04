@@ -17,13 +17,12 @@ export default function RootLayout({
   children: JSX.Element;
 }>) {
   const isStaging = process.env.NEXT_PUBLIC_ENV === 'staging';
-  const isProduction = process.env.NEXT_PUBLIC_ENV === 'production';
   return (
     <html lang="en">
       <head>
         <link rel="preload" as="image" href="/images/home/home-banner-model.webp" />
         {isStaging && <meta name="robots" content="noindex, nofollow" />}
-        <script
+        {/* <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: `(function(c,l,a,r,i,t,y){
@@ -48,8 +47,8 @@ export default function RootLayout({
               return false;
             }`
           }}
-        />
-        {isProduction && (
+        /> */}
+        {/* {isProduction && (
           <>
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}></script>
             <script
@@ -63,7 +62,7 @@ export default function RootLayout({
               }}
             />
           </>
-        )}
+        )} */}
         <script
           id="tawk-to"
           type="text/javascript"
