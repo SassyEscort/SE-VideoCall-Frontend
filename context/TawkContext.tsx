@@ -32,7 +32,9 @@ export const TawkProvider: React.FC<{ children: React.ReactNode }> = ({ children
         document.body.removeChild(tawkScript);
       };
     };
-    loadTawk();
+    if (typeof window !== 'undefined' && !window.location.pathname.includes('/admin')) {
+      loadTawk();
+    }
   }, []);
 
   useEffect(() => {
