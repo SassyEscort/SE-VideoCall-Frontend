@@ -1,5 +1,9 @@
 import axios, { AxiosError } from 'axios';
 
+export interface IFechChatMessageParams {
+  senderUID: string;
+  receiverUID: string;
+}
 export interface IChatMessageParams {
   senderUID: string;
   receiverUID: string;
@@ -33,6 +37,22 @@ export class ChatService {
     } catch (err: any) {
       const error: AxiosError = err;
       return error.response?.data as IMessageResponse;
+    }
+  };
+
+  static fetchChatMessage = async (params: IFechChatMessageParams, token: string): Promise<IMessageResponse[]> => {
+    try {
+      const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/chat/get-messages`, params, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        }
+      });
+
+      return res.data.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as IMessageResponse[];
     }
   };
 }
