@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { orderBy, collection, query, onSnapshot } from 'firebase/firestore';
-import { firbase_db } from 'utils/firebase/config';
+import { orderBy, collection, query, onSnapshot, doc, where } from 'firebase/firestore';
+import { firebase_db } from 'utils/firebase/config';
 import { Message } from 'yup';
 import ChatSidbar from './ChatSidbar';
 import { ChatMainBoxContainer } from './Chat.styled';
@@ -19,6 +19,8 @@ const ChatFeature = () => {
   const [messageInput, setMessageInput] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [chatData, setChatData] = useState<IMessageResponse>();
+  const [isSentMessage, setIsSentMessage] = useState<boolean>(false);
+  const [lastTimestamp, setLastTimestamp] = useState<number | null>(null);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
 
   const authSession = useSession();
@@ -27,28 +29,62 @@ const ChatFeature = () => {
 
   const path = usePathname();
   const modelUserName = path?.split('/')?.[2];
+  // const userChatsRef = doc(firebase_db, 'messages', customerData.customer_user_name);
+  // useEffect(() => {
+  //   const messagesRef = collection(firbase_db, 'messages');
+  //   // Reference to the messages collection
+  //   const q = query(messagesRef, orderBy('createdAt', 'asc'));
 
-  useEffect(() => {
-    // Reference to the messages collection
-    const messagesRef = collection(firbase_db, 'messages');
-    const q = query(messagesRef, orderBy('timestamp', 'asc'));
+  //   // Real-time listener for Firestore collection
+  //   const unsubscribe = onSnapshot(q, (snapshot) => {
+  //     console.log('snapshotcall', snapshot);
+  //     const messagesData: any[] = [];
+  //     snapshot.forEach((doc) => {
+  //       console.log('doc data', doc.data());
 
-    // Real-time listener for Firestore collection
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      console.log('snapshotcall');
-      const messagesData: any[] = [];
-      snapshot.forEach((doc) => {
-        console.log('doc data', doc.data());
+  //       messagesData.push({ id: doc.id, ...doc.data() });
+  //     });
+  //     setMessages(messagesData);
+  //   });
 
-        messagesData.push({ id: doc.id, ...doc.data() });
-      });
-      setMessages(messagesData);
-    });
+  //   // Clean up the listener on unmount
+  //   return () => unsubscribe();
+  // }, [isSentMessage]);
 
-    // Clean up the listener on unmount
-    return () => unsubscribe();
-  }, []);
-  console.log('messages', messages, customerData, modelUserName);
+  // useEffect(() => {
+  //   const messagesRef = collection(firebase_db, 'messages');
+  //   // Reference to the messages collection
+
+  //   console.log('calledasdsassdd');
+  //   const q = query(messagesRef, orderBy('createdAt', 'asc'));
+
+  //   // Real-time listener for Firestore collection
+  //   const unsubscribe = onSnapshot(q, (snapshot) => {
+  //     if (!snapshot.empty) {
+  //       const messagesData: any[] = snapshot.docs.map((doc) => {
+  //         return { id: doc.id, ...doc.data() }; // Extract the document id and data
+  //       });
+  //       console.log('Messages data:', messagesData);
+  //       setMessages(messagesData);
+  //     } else {
+  //       console.log('No messages found');
+  //       setMessages([]); // Handle empty snapshot case
+  //     }
+  //   });
+
+  //   // Clean up the listener on unmount
+  //   return () => unsubscribe();
+  // }, [isSentMessage, userChatsRef]);
+
+  // useEffect(() => {
+  //   const unSub = onSnapshot(doc(firebase_db, 'messages', customerData.customer_user_name), async (res) => {
+  //     console.log(res, '::::::::::::::::::::::');
+  //   });
+
+  //   return () => {
+  //     unSub();
+  //   };
+  // }, [isSentMessage]);
 
   useEffect(() => {
     const userToken = async () => {
@@ -61,31 +97,70 @@ const ChatFeature = () => {
 
   const handleMessageInputChange = (input: string) => {
     setMessageInput(input);
-    fetchEarningHistoryDetails(input);
+    sendMessageHandler(input);
   };
-  const fetchEarningHistoryDetails = async (text: string) => {
+
+  const sendMessageHandler = async (text: string) => {
     try {
       const params = {
         senderUID: customerData?.customer_user_name,
         receiverUID: modelUserName,
-        message: text
+        message: text,
+        message_type: 'text'
       };
       if (token.token) {
-        // setChatData(true);
         const data = await ChatService.sendChatMessage(params, token.token);
-        console.log('data', data);
-        // if (data) {
-        //   setChatData(false);
-        // }
+        if (data.data.createdAt) {
+          setLastTimestamp(data.data.createdAt._seconds);
+        }
+
+        setIsSentMessage(!isSentMessage);
       }
     } catch (error) {
       toast.error(ErrorMessage);
     }
   };
-  // useEffect(() => {
 
-  //   fetchEarningHistoryDetails();
-  // }, []);
+  async function fetchMessages() {
+    // const bodyData = {
+    //   senderUID: customerData.customer_user_name,
+    //   receiverUID: modelUserName
+    // };
+    // const res = await axios.post(`${url}/get-messages`, bodyData, {
+    //   headers: { Authorization: `Bearer ${token}` }
+    // });
+    // setMessages(res.data.data);
+    // if (res.data.data.length > 0) {
+    //   setLastTimestamp(res.data.data[res.data.data.length - 1].createdAt);
+    // }
+  }
+  useEffect(() => {
+    fetchMessages();
+  }, [customerData.customer_user_name, modelUserName]);
+
+  useEffect(() => {
+    if (lastTimestamp) {
+      const messagesQuery = query(
+        collection(firebase_db, 'messages'),
+        where('senderUID', 'in', [customerData.customer_user_name, modelUserName]),
+        where('receiverUID', 'in', [customerData.customer_user_name, modelUserName]),
+        where('createdAt', '>', new Date(lastTimestamp)),
+        orderBy('createdAt')
+      );
+
+      const unsubscribe = onSnapshot(messagesQuery, (snapshot) => {
+        snapshot.forEach((doc) => {
+          console.log(doc?.data(), 'doc.data()');
+          setLastTimestamp(doc?.data()?.createdAt?._seconds?.toDate().toISOString());
+
+          // setMessages((prevMessages) => [...prevMessages, doc.data()]);
+          // setLastTimestamp(doc.data().createdAt.toDate().toISOString());
+        });
+      });
+
+      return () => unsubscribe();
+    }
+  }, [lastTimestamp, customerData.customer_user_name, modelUserName]);
 
   return (
     <ChatMainBoxContainer>
