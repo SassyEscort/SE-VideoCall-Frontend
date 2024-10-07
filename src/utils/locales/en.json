@@ -94,6 +94,7 @@
   "Username": "Username",
   "EmailAddress": "Email address",
   "Password": "Password",
+  "ConfirmPassword": "Confirm Password",
   "RememberMe": "Remember me",
   "RememberPassword": "Have an account already?",
   "LogInInstead": "Log in instead!",
@@ -731,6 +732,7 @@
   "ALinkToResetYourPassword": "A link to reset your password has been emailed to",
   "PasswordCondition": "Password Condition",
   "ConfirmPasswordIsRequired": "Confirm password is required",
+  "ConfirmPasswordDoesNotMatch": "Confirm password does not match",
   "NewPasswordDoesNotMatch": "New Password does not match",
   "Online": "Online",
   "Offline": "Offline",
@@ -867,5 +869,8 @@
   "WeReserveTheRightToModify": "We reserve the right to modify these Terms and Conditions at any time. Any changes will be effective immediately upon posting on our website. Your continued use of Flirtbate after any changes constitutes your acceptance of the modified terms.",
   "IfYouHaveAnyQuestionsOrConcerns": "If you have any questions or concerns about these Terms and Conditions, please contact us at",
   "ByUsingFlirtbateYouAcknowledge": "By using Flirtbate, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions.",
-  "LastUpdated": "Last Updated: September 18, 2024"
+  "LastUpdated": "Last Updated: September 18, 2024",
+  "Claimyourfreecredits": "Claim your FREE credits!",
+  "Verifyyourphone": "Verify your phone and email and get free credits.",
+  "phoneNumber": "Phone Number"
 }

@@ -20,6 +20,7 @@ export const InnerBox = styled(Box)(({ theme }) => ({
 export const VerifiedColumn = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(2),
+  alignItems: 'center',
   cursor: 'pointer',
   '@media (max-width: 320px)': {
     flexDirection: 'column'

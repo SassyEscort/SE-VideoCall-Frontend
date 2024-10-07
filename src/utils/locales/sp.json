@@ -94,6 +94,8 @@
   "Username": "Nombre de usuario",
   "EmailAddress": "Dirección de correo electrónico",
   "Password": "Contraseña",
+  "ConfirmPassword": "confirmar Contraseña",
+  "ConfirmPasswordDoesNotMatch": "Confirmar que la contraseña no coincide",
   "RememberMe": "Recuérdame",
   "RememberPassword": "¿Ya tienes una cuenta?",
   "LogInInstead": "¡Inicia sesión en su lugar!",
@@ -865,5 +867,6 @@
   "WeReserveTheRightToModify": "Nos reservamos el derecho de modificar estos Términos y Condiciones en cualquier momento. Cualquier cambio entrará en vigor inmediatamente después de su publicación en nuestro sitio web. Su uso continuado de Flirtbate después de cualquier cambio constituye su aceptación de los términos modificados.",
   "IfYouHaveAnyQuestionsOrConcerns": "Si tiene alguna pregunta o inquietud sobre estos Términos y condiciones, contáctenos en",
   "ByUsingFlirtbateYouAcknowledge": "Al utilizar Flirtbate, usted reconoce que ha leído, comprendido y aceptado regirse por estos Términos y condiciones.",
-  "LastUpdated": "Última actualización: 18 de septiembre de 2024"
+  "LastUpdated": "Última actualización: 18 de septiembre de 2024",
+  "phoneNumber": "Número de teléfono"
 }

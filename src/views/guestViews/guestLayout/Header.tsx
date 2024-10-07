@@ -24,10 +24,11 @@ import MenuItem from '@mui/material/MenuItem';
 import { Button, Divider, ListItemIcon, ListItemText } from '@mui/material';
 import { gaEventTrigger } from 'utils/analytics';
 import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
-import FreeCreditsSignUp from '../homePage/freeCreditsSignUp';
+// import FreeCreditsSignUp from '../homePage/freeCreditsSignUp';
 import { useAuthContext } from '../../../../context/AuthContext';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
 import { CommonServices } from 'services/commonApi/commonApi.services';
+import ClaimCreditSignUp from '../homePage/ClaimCreditSignUp';
 
 const HeaderGuestComponent = () => {
   const { isFreeCreditAvailable } = useAuthContext();
@@ -385,7 +386,7 @@ const HeaderGuestComponent = () => {
       <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
 
       {isSmUp && isUserInteracted && (
-        <FreeCreditsSignUp
+        <ClaimCreditSignUp
           open={openFreeCredit && Boolean(isFreeCreditAvailable)}
           onClose={handleFreeCreditClose}
           onSignupOpen={handleFreeCreditSignupOpen}

@@ -33,7 +33,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
 
   const handleCustomerFreeCredits = useCallback(async () => {
     const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
-    setIsFreeCreditAvailable(res.data.free_credits_available);
+    setIsFreeCreditAvailable(res?.data?.free_credits_available);
   }, []);
 
   useEffect(() => {

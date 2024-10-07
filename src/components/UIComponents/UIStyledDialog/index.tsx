@@ -11,7 +11,7 @@ const UIStyledDialog = styled(Dialog)(({ theme }) => ({
     backdropFilter: 'blur(12px)'
   },
   '& .MuiPaper-root': {
-    maxWidth: 920,
+    maxWidth: '1080px',
     borderRadius: theme.spacing(1.5)
   }
 }));

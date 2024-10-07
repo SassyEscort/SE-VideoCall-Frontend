@@ -1,5 +1,5 @@
 'use client';
-import { Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, Tooltip } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React, { useEffect, useState } from 'react';
 import { DisableButtonBox, MyProfileContainerMain } from './MyProfile.styled';
@@ -18,11 +18,15 @@ import { ErrorMessage } from 'constants/common.constants';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import { getErrorMessage } from 'utils/errorUtils';
+import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
 export type MyProfile = {
   username: string;
   email: string;
+  phone: string;
   password: string;
+  emailOtp: string;
+  phoneOtp: string;
 };
 
 const MyProfile = () => {
@@ -37,6 +41,10 @@ const MyProfile = () => {
     username: yup.string().required('Username is required').min(2, 'Username is too short').max(20, 'Username is too long'),
     email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required')
   });
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [isPhoneVerified, setIsPhoneVerified] = useState(false);
+
+  console.log(customerDetails, 'customerDetails');
 
   const handleSubmit = async (name: string, email: string) => {
     try {
@@ -73,12 +81,15 @@ const MyProfile = () => {
       setIsLoading(true);
       const customerData = await CustomerDetailsService.customerModelDetails(token.token);
       setCustomerDetails(customerData.data);
+      setIsEmailVerified(customerData.data.email_verified === 1 ? true : false);
+      setIsPhoneVerified(customerData.data.phone_verified === 1 ? true : false);
       setIsLoading(false);
     };
     if (token.token) {
       customerDetails();
     }
   }, [token.id, token.token]);
+  console.log(isPhoneVerified, isPhoneVerified, 'isPhoneVerified , isEmailVerified');
 
   return (
     <Formik
@@ -86,7 +97,10 @@ const MyProfile = () => {
       initialValues={{
         username: customerDetails?.customer_name || '',
         email: customerDetails?.customer_email || '',
-        password: 'test123'
+        password: 'test123',
+        emailOtp: '',
+        phoneOtp: '',
+        phone: customerDetails?.customer_phone_number || ''
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
@@ -112,8 +126,37 @@ const MyProfile = () => {
                   handleBlur={handleBlur}
                   token={token}
                   isEmailVerified={customerDetails?.email_verified as number}
+                  isPhoneNumberVerified={customerDetails?.phone_verified as number}
                 />
                 <DisableButtonBox>
+                  <Tooltip
+                    title={
+                      isPhoneVerified && isEmailVerified
+                        ? 'Email and phone verification pending'
+                        : isPhoneVerified
+                          ? 'Phone verification pending'
+                          : isEmailVerified
+                            ? 'Email verification pending'
+                            : ''
+                    }
+                    disableHoverListener={false}
+                  >
+                    <UIThemeButton
+                      disabled={true}
+                      sx={{
+                        width: '252px',
+                        background: customerDetails?.email_verified === 1 ? '' : 'linear-gradient(90deg, #FECD3D, #FFF1C6, #FF68C0)',
+                        boxShadow: customerDetails?.email_verified === 1 ? '' : '0px 4px 10px #FF68C07A',
+                        borderRadius: '8px',
+                        gap: 1
+                      }}
+                    >
+                      <Box component="img" src="/images/icons/free-credit-icon.png" width="24px" height="30px" alt="free_credit" />
+                      <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
+                        Claim Free Credits
+                      </UINewTypography>
+                    </UIThemeButton>
+                  </Tooltip>
                   <Box>
                     <StyleButtonV2 variant="contained" type="submit" loading={loadingButton}>
                       <UINewTypography variant="buttonSmallBold" color={buttonColor}>
