@@ -207,9 +207,10 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 )}
               </ThirdBoxContainer>
             </FirstBoxContainer>
-
             <BannerImageCard>
-              <BannerImage src="/images/home/home-banner-model.webp" alt="home_model" />
+              <picture>
+                <BannerImage src="/images/home/home-banner-model.webp" alt="home_model" />
+              </picture>
             </BannerImageCard>
           </BannerContainer>
           {isSmDown && (
