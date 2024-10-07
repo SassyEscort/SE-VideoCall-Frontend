@@ -16,8 +16,13 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ChatService, IMessageResponse } from 'services/chatServices/chat.service';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
+import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import { useAuthContext } from '../../../../context/AuthContext';
 
 const ChatFeature = () => {
+  const { isCustomer } = useAuthContext();
+
   const [messageInput, setMessageInput] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [chatData, setChatData] = useState<IMessageResponse>();
@@ -26,6 +31,9 @@ const ChatFeature = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [selectedModel, setSelectedModel] = useState<boolean>(true);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
+  console.log(token, 'token');
+  console.log(isCustomer, 'isCustomer');
 
   const handleModelSelect = (model: boolean) => {
     setSelectedModel(model);
@@ -37,6 +45,31 @@ const ChatFeature = () => {
 
   const path = usePathname();
   const modelUserName = path?.split('/')?.[2];
+
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      if (data) {
+        setToken({ id: data.id, token: data.token });
+      }
+    };
+
+    userToken();
+  }, []);
+
+  useEffect(() => {
+    const modelDetails = async () => {
+      const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer);
+      if (modelData) {
+        console.log(modelData, 'modelData');
+        setModelDetails(modelData.data);
+      }
+    };
+    if (token.token) {
+      modelDetails();
+    }
+  }, [isCustomer, token.id, token.token]);
+
   // const userChatsRef = doc(firebase_db, 'messages', customerData.customer_user_name);
   // useEffect(() => {
   //   const messagesRef = collection(firbase_db, 'messages');
@@ -94,15 +127,6 @@ const ChatFeature = () => {
   //   };
   // }, [isSentMessage]);
 
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
-    };
-
-    userToken();
-  }, []);
-
   const handleMessageInputChange = (input: string) => {
     setMessageInput(input);
     sendMessageHandler(input);
@@ -118,8 +142,6 @@ const ChatFeature = () => {
       };
       if (token.token) {
         const data = await ChatService.sendChatMessage(params, token.token);
-        console.log(data, 'data');
-
         if (data.data.createdAt) {
           setLastTimestamp(data.data.createdAt);
         }
@@ -132,21 +154,20 @@ const ChatFeature = () => {
   };
 
   async function fetchMessages() {
-    // const bodyData = {
-    //   senderUID: customerData.customer_user_name,
-    //   receiverUID: modelUserName
-    // };
-    // const res = await axios.post(`${url}/get-messages`, bodyData, {
-    //   headers: { Authorization: `Bearer ${token}` }
-    // });
+    const bodyData = {
+      senderUID: customerData.customer_user_name,
+      receiverUID: modelUserName
+    };
+    const res = await ChatService.fetchChatMessage(bodyData, token.token);
+    console.log(res, ':::::::::res');
     // setMessages(res.data.data);
-    // if (res.data.data.length > 0) {
-    //   setLastTimestamp(res.data.data[res.data.data.length - 1].createdAt);
+    // if (res.data.length > 0) {
+    //   setLastTimestamp(res.data[res.data.data.length - 1].createdAt);
     // }
   }
   useEffect(() => {
-    fetchMessages();
-  }, [customerData.customer_user_name, modelUserName]);
+    if (token.token) fetchMessages();
+  }, [customerData.customer_user_name, modelUserName, token.token]);
 
   useEffect(() => {
     if (lastTimestamp) {
@@ -175,7 +196,7 @@ const ChatFeature = () => {
   return (
     <ChatMainBoxContainer>
       {isSmUp || !selectedModel ? (
-        <ChatSidbar onSelectModel={handleModelSelect} />
+        <ChatSidbar onSelectModel={handleModelSelect} modelDetails={modelDetails} />
       ) : (
         <ChatDescription handleMessageInputChange={handleMessageInputChange} />
       )}

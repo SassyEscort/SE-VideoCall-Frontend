@@ -22,8 +22,9 @@ import {
 import theme from 'themes/theme';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 
-const ChatSidbar = ({ onSelectModel }: { onSelectModel: (model: any) => void }) => {
+const ChatSidbar = ({ onSelectModel, modelDetails }: { onSelectModel: (model: any) => void; modelDetails?: ModelDetailsResponse }) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   const [searchQuery, setSearchQuery] = useState('');
