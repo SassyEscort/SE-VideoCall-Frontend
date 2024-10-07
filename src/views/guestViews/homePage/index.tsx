@@ -1,5 +1,5 @@
 'use client';
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { lazy, memo, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
 import { HomePageMainContainer } from './Home.styled';
 import HomeTopBanner from './homeBanner';
@@ -16,7 +16,7 @@ const SearchFilters = lazy(() => import('../searchPage/searchFilters'));
 
 const HomeContainer = () => {
   const { isFreeCreditAvailable, session } = useAuthContext();
-  const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
+  const token = useMemo(() => (session?.user ? JSON.parse((session.user as any)?.picture) : ''), [session]);
 
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -113,12 +113,7 @@ const HomeContainer = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, pathname, router]);
 
-  const debounceHandleChangeSearchFilter = useCallback(
-    debounce(() => {
-      handleChangeSearchFilter();
-    }, 300),
-    [filters, pathname, router]
-  );
+  const debounceHandleChangeSearchFilter = useMemo(() => debounce(handleChangeSearchFilter, 300), [handleChangeSearchFilter]);
 
   const handelFilterChange = async (values: SearchFiltersTypes) => {
     setIsLoading(true);
@@ -178,6 +173,7 @@ const HomeContainer = () => {
     debounceHandleChangeSearchFilter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, searchParams]);
+
   useEffect(() => {
     setFilters(getInitialFilters());
     handelFilterChange(getInitialFilters());
@@ -224,4 +220,4 @@ const HomeContainer = () => {
   );
 };
 
-export default HomeContainer;
+export default memo(HomeContainer);
