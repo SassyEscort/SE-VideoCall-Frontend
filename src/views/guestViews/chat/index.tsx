@@ -22,7 +22,7 @@ const ChatFeature = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [chatData, setChatData] = useState<IMessageResponse>();
   const [isSentMessage, setIsSentMessage] = useState<boolean>(false);
-  const [lastTimestamp, setLastTimestamp] = useState<number | null>(null);
+  const [lastTimestamp, setLastTimestamp] = useState<string | null>(null);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [selectedModel, setSelectedModel] = useState<boolean>(true);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
@@ -118,8 +118,10 @@ const ChatFeature = () => {
       };
       if (token.token) {
         const data = await ChatService.sendChatMessage(params, token.token);
+        console.log(data, 'data');
+
         if (data.data.createdAt) {
-          setLastTimestamp(data.data.createdAt._seconds);
+          setLastTimestamp(data.data.createdAt);
         }
 
         setIsSentMessage(!isSentMessage);

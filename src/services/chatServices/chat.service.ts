@@ -16,10 +16,7 @@ export interface IMessageResponse {
     senderUID: string;
     message: string;
     receiverUID: string;
-    createdAt: {
-      _seconds: number;
-      _nanoseconds: number;
-    };
+    createdAt: string;
   };
 }
 
@@ -33,7 +30,7 @@ export class ChatService {
         }
       });
 
-      return res.data.data;
+      return res.data;
     } catch (err: any) {
       const error: AxiosError = err;
       return error.response?.data as IMessageResponse;
