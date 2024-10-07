@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   experimental: {
+    serverActions: true,
     staleTimes: {
       dynamic: 0,
       static: 0

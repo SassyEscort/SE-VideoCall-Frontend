@@ -8,7 +8,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { getQueryParam } from 'utils/genericFunction';
 import { useAuthContext } from '../../../../context/AuthContext';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import { SearchFiltersTypes } from '../searchPage/searchFilters';
 const HomeConnections = lazy(() => import('./HomeConnections'));
 const BackdropProgress = lazy(() => import('components/UIComponents/BackDropProgress'));
