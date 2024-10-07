@@ -31,6 +31,7 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import ModelNewPassword from 'views/modelViews/ModelNewPassword';
 import { useAuthContext } from '../../../../../context/AuthContext';
+import React from 'react';
 
 const HomeModelTopBanner = () => {
   const { isCustomer } = useAuthContext();
@@ -160,7 +161,8 @@ const HomeModelTopBanner = () => {
               </TypographyBox>
             </DetailSubContainer>
             <ButtonContainer>
-              {!isCustomer && token.token && !isVerificationPendingOrCompleted(modelDetails?.verification_step) ? (
+              {(!isCustomer && isVerificationPendingOrCompleted(modelDetails?.verification_step)) ||
+              modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED ? (
                 <Link href="/model/profile">
                   <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>
                     <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">

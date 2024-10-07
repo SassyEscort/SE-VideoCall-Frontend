@@ -26,7 +26,7 @@ export const getUserDataServer = async () => {
 
 export const getUserTokenClient = async () => {
   const details = await getUserDataClient();
-  return details.token;
+  return details?.token;
 };
 
 export const getUserDataClient = async () => {
