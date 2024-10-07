@@ -1,8 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { orderBy, collection, query, onSnapshot, where } from 'firebase/firestore';
-import { firebase_db } from 'utils/firebase/config';
-import { Message } from 'yup';
+import { firebase_db, generateFirebaseId } from 'utils/firebase/config';
 import ChatSidbar from './ChatSidbar';
 import { ChatMainBoxContainer } from './Chat.styled';
 import ChatDescription from './ChatDescription';
@@ -13,7 +12,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import { toast } from 'react-toastify';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { ChatService, IMessageResponse } from 'services/chatServices/chat.service';
+import { ChatService, IMessage, IMessageResponse } from 'services/chatServices/chat.service';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
@@ -24,7 +23,7 @@ const ChatFeature = () => {
   const { isCustomer } = useAuthContext();
 
   const [messageInput, setMessageInput] = useState<string>('');
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<IMessage[]>([]);
   const [chatData, setChatData] = useState<IMessageResponse>();
   const [isSentMessage, setIsSentMessage] = useState<boolean>(false);
   const [lastTimestamp, setLastTimestamp] = useState<string | null>(null);
@@ -59,16 +58,16 @@ const ChatFeature = () => {
 
   useEffect(() => {
     const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer);
+      const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer, { user_name: modelUserName });
       if (modelData) {
         console.log(modelData, 'modelData');
         setModelDetails(modelData.data);
       }
     };
-    if (token.token) {
+    if (token.token && modelUserName) {
       modelDetails();
     }
-  }, [isCustomer, token.id, token.token]);
+  }, [isCustomer, token.id, token.token, modelUserName]);
 
   // const userChatsRef = doc(firebase_db, 'messages', customerData.customer_user_name);
   // useEffect(() => {
@@ -158,12 +157,11 @@ const ChatFeature = () => {
       senderUID: customerData.customer_user_name,
       receiverUID: modelUserName
     };
-    const res = await ChatService.fetchChatMessage(bodyData, token.token);
-    console.log(res, ':::::::::res');
-    // setMessages(res.data.data);
-    // if (res.data.length > 0) {
-    //   setLastTimestamp(res.data[res.data.data.length - 1].createdAt);
-    // }
+    const chatHistory = await ChatService.fetchChatMessage(bodyData, token.token);
+    if (chatHistory?.length > 0) {
+      setMessages(chatHistory);
+      setLastTimestamp(chatHistory[chatHistory.length - 1]?.createdAt?.toString());
+    }
   }
   useEffect(() => {
     if (token.token) fetchMessages();
@@ -181,11 +179,16 @@ const ChatFeature = () => {
 
       const unsubscribe = onSnapshot(messagesQuery, (snapshot) => {
         snapshot.forEach((doc) => {
-          console.log(doc?.data(), 'doc.data()');
-          setLastTimestamp(doc?.data()?.createdAt?._seconds?.toDate().toISOString());
-
-          // setMessages((prevMessages) => [...prevMessages, doc.data()]);
-          // setLastTimestamp(doc.data().createdAt.toDate().toISOString());
+          const newChatData: IMessage[] = [
+            ...messages,
+            {
+              ...doc.data(),
+              id: generateFirebaseId(),
+              createdAt: doc.data().createdAt?.toDate().toISOString()
+            } as IMessage
+          ];
+          setMessages(newChatData);
+          setLastTimestamp(doc?.data()?.createdAt?.toDate().toISOString());
         });
       });
 

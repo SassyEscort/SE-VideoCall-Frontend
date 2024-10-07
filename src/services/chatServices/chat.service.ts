@@ -10,6 +10,15 @@ export interface IChatMessageParams {
   message: string;
 }
 
+export interface IMessage {
+  id: string;
+  senderUID: string;
+  message: string;
+  message_type: string;
+  receiverUID: string;
+  createdAt: string;
+}
+
 export interface IMessageResponse {
   data: {
     id: string;
@@ -37,7 +46,7 @@ export class ChatService {
     }
   };
 
-  static fetchChatMessage = async (params: IFechChatMessageParams, token: string): Promise<IMessageResponse[]> => {
+  static fetchChatMessage = async (params: IFechChatMessageParams, token: string): Promise<IMessage[]> => {
     try {
       const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/chat/get-messages`, params, {
         headers: {
@@ -49,7 +58,7 @@ export class ChatService {
       return res.data.data;
     } catch (err: any) {
       const error: AxiosError = err;
-      return error.response?.data as IMessageResponse[];
+      return error.response?.data as IMessage[];
     }
   };
 }
