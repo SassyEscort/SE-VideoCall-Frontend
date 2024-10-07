@@ -38,7 +38,10 @@ export const ChatMainBoxContainer = styled(Box)(({ theme }) => ({
   backgroundColor: '#100B19',
   border: '1px solid #100B19',
   [theme.breakpoints.down('sm')]: {
-    borderRadius: 0
+    borderRadius: 0,
+    height: '90vh',
+    maxHeight: '100%',
+    overflowY: 'auto'
   },
   [theme.breakpoints.up('sm')]: {
     borderRadius: '24px'
@@ -138,12 +141,7 @@ export const MobileSearchBoxContainer = styled(TextField)(({ theme }) => ({
 export const ModelDetailsInnerBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  [theme.breakpoints.down('sm')]: {
-    gap: theme.spacing(1.5)
-  },
-  [theme.breakpoints.up('sm')]: {
-    gap: theme.spacing(3)
-  }
+  gap: theme.spacing(3)
 }));
 
 export const ModelInformationMainBoxContainer = styled(Box)(({ theme }) => ({
@@ -180,12 +178,14 @@ export const ModelNameBoxContainer = styled(Box)(({ theme }) => ({
 export const ChatBoxMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  paddingLeft: theme.spacing(2.5),
-  paddingTop: theme.spacing(2.5),
-  paddingRight: theme.spacing(4),
-  paddingBottom: theme.spacing(2.5),
   width: '100%',
-  height: '100%'
+  height: '100%',
+  [theme.breakpoints.up('sm')]: {
+    paddingLeft: theme.spacing(2.5),
+    paddingTop: theme.spacing(2.5),
+    paddingRight: theme.spacing(4),
+    paddingBottom: theme.spacing(2.5)
+  }
 }));
 
 export const ChatBoxInnerContainer = styled(Box)(({ theme }) => ({
@@ -193,7 +193,12 @@ export const ChatBoxInnerContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   height: '100%',
   justifyContent: 'space-between',
-  minHeight: '80vh'
+  [theme.breakpoints.down('sm')]: {
+    minHeight: '90vh'
+  },
+  [theme.breakpoints.up('sm')]: {
+    minHeight: '85vh'
+  }
 }));
 
 export const ChatBoxHeaderContainer = styled(Box)(({ theme }) => ({
@@ -203,7 +208,16 @@ export const ChatBoxHeaderContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   justifyContent: 'space-between',
   heigh: '100%',
-  minHeight: '40px'
+  minHeight: '40px',
+  [theme.breakpoints.down('sm')]: {
+    paddingTop: theme.spacing(1.5)
+  }
+}));
+
+export const ArrowBoxWraper = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  cursor: 'pointer'
 }));
 
 export const ChatBoxHeaderInnerContainer = styled(Box)(({ theme }) => ({
@@ -222,8 +236,15 @@ export const TextMainBoxContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   width: '100%',
   height: '100%',
-  paddingRight: theme.spacing(4),
-  gap: theme.spacing(1)
+  gap: theme.spacing(1),
+  [theme.breakpoints.down('sm')]: {
+    paddingRight: theme.spacing(1.875),
+    paddingLeft: theme.spacing(1.875),
+    paddingBottom: theme.spacing(1.5)
+  },
+  [theme.breakpoints.up('sm')]: {
+    paddingRight: theme.spacing(4)
+  }
 }));
 
 export const ClientChatMainBoxContainer = styled(Box)(({ theme }) => ({

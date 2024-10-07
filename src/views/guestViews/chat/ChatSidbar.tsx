@@ -23,20 +23,16 @@ import theme from 'themes/theme';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 
-const ChatSidbar = () => {
+const ChatSidbar = ({ onSelectModel }: { onSelectModel: (model: any) => void }) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
-  // State to store the search query
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Mock data for model list
   const modelList = [
     { name: 'Kat Winter', description: 'Hey Sammy, How are...', time: '30 mins ago', pending: 2 },
     { name: 'John Doe', description: "Hey, Let's meet...", time: '1 hour ago', pending: 1 }
-    // Add more models as needed
   ];
 
-  // Filter models based on search query
   const filteredModels = modelList.filter((model) => model.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
@@ -95,7 +91,7 @@ const ChatSidbar = () => {
       <ModelDetailsInnerBoxContainer>
         {filteredModels.map((model, index) => (
           <React.Fragment key={index}>
-            <ModelInformationMainBoxContainer>
+            <ModelInformationMainBoxContainer onClick={() => onSelectModel(model)}>
               <ModelInformationInnerBoxContainer>
                 <ImageContainer />
                 <ModelNameBoxContainer>

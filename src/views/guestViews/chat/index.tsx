@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { orderBy, collection, query, onSnapshot, doc, where } from 'firebase/firestore';
+import { orderBy, collection, query, onSnapshot, where } from 'firebase/firestore';
 import { firebase_db } from 'utils/firebase/config';
 import { Message } from 'yup';
 import ChatSidbar from './ChatSidbar';
@@ -14,6 +14,8 @@ import { toast } from 'react-toastify';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ChatService, IMessageResponse } from 'services/chatServices/chat.service';
+import { useMediaQuery } from '@mui/material';
+import theme from 'themes/theme';
 
 const ChatFeature = () => {
   const [messageInput, setMessageInput] = useState<string>('');
@@ -22,6 +24,12 @@ const ChatFeature = () => {
   const [isSentMessage, setIsSentMessage] = useState<boolean>(false);
   const [lastTimestamp, setLastTimestamp] = useState<number | null>(null);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [selectedModel, setSelectedModel] = useState<boolean>(true);
+  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+
+  const handleModelSelect = (model: boolean) => {
+    setSelectedModel(model);
+  };
 
   const authSession = useSession();
   const customerUser = (authSession?.data?.user as User)?.picture;
@@ -164,9 +172,12 @@ const ChatFeature = () => {
 
   return (
     <ChatMainBoxContainer>
-      <ChatSidbar />
-
-      <ChatDescription handleMessageInputChange={handleMessageInputChange} />
+      {isSmUp || !selectedModel ? (
+        <ChatSidbar onSelectModel={handleModelSelect} />
+      ) : (
+        <ChatDescription handleMessageInputChange={handleMessageInputChange} />
+      )}
+      {isSmUp && <ChatDescription handleMessageInputChange={handleMessageInputChange} />}
     </ChatMainBoxContainer>
   );
 };
