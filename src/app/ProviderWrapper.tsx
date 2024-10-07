@@ -4,15 +4,15 @@ import ThemeCustomization from 'themes';
 import Locales from 'components/Locales';
 import { ConfigProvider } from 'contexts/configContext';
 import { Manrope } from 'next/font/google';
-import { ToastContainer } from 'react-toastify';
-import { SessionProvider } from 'next-auth/react';
 import '../app/globals.scss';
 import 'react-toastify/dist/ReactToastify.css';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import dynamic from 'next/dynamic';
+import { SessionProvider } from 'next-auth/react';
 const GoogleTagManager = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleTagManager), { ssr: false });
 const GoogleAnalytics = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleAnalytics), { ssr: false });
+const ToastContainer = dynamic(() => import('react-toastify').then((module) => module.ToastContainer), { ssr: false });
 
 const manropeFont = Manrope({ subsets: ['latin'] });
 
@@ -25,12 +25,12 @@ const ProviderWrapper = ({ children }: { children: JSX.Element }) => {
             <>
               <SessionProvider refetchInterval={0}>
                 {children}
-                {/* {process.env.NEXT_PUBLIC_ENV === 'production' && ( */}
-                <>
-                  <GoogleTagManager gtmId={'GTM-P6BCQRQV'} />
-                  <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID as string} />
-                </>
-                {/* )} */}
+                {process.env.NEXT_PUBLIC_ENV === 'production' && (
+                  <>
+                    <GoogleTagManager gtmId={'GTM-P6BCQRQV'} />
+                    <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID as string} />
+                  </>
+                )}
               </SessionProvider>
               <ToastContainer
                 position="bottom-center"
