@@ -91,6 +91,7 @@ const HeaderGuestComponent = () => {
 
   const handleFreeCreditSignupClose = () => {
     setFreeSignupOpen(false);
+    setOpenFreeCredit(false);
   };
 
   const handleLoginResetPasswordOpen = () => {
@@ -100,6 +101,7 @@ const HeaderGuestComponent = () => {
 
   const handleLoginClose = () => {
     setIsOpenLogin(false);
+    setOpenFreeCredit(false);
   };
 
   const handleResetPasswordLinkOpen = () => {
@@ -389,7 +391,7 @@ const HeaderGuestComponent = () => {
         <ClaimCreditSignUp
           open={openFreeCredit && Boolean(isFreeCreditAvailable)}
           onClose={handleFreeCreditClose}
-          onSignupOpen={handleFreeCreditSignupOpen}
+          onSignupOpen={handleLoginOpen}
         />
       )}
     </HomeMainContainer>

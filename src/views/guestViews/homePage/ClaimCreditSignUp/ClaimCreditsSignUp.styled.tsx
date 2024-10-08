@@ -87,22 +87,23 @@ export const TitleTextInnerBoxContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center'
 }));
 
-export const DescriptionTextBoxContainer = styled(Box)(({ theme }) => ({
+export const DescriptionTextBoxContainer = styled(Box)(() => ({
   // width: '100%',
   // maxWidth: '332px',
   textAlign: 'center'
 }));
 
-export const ButtonContainer = styled(UIThemeShadowButton)(({ theme }) => ({
+export const ButtonContainer = styled(UIThemeShadowButton)(() => ({
   width: '100%',
   maxWidth: '232px',
   whiteSpace: 'nowrap',
+  zIndex: 2,
   '&.MuiButtonBase-root': {
     height: '51px'
   }
 }));
 
-export const HeaderTextContainer = styled(Typography)(({ theme }) => ({
+export const HeaderTextContainer = styled(Typography)(() => ({
   fontSize: '32px',
   fontWeight: '700',
   lineHeight: '44.8px',
@@ -112,7 +113,7 @@ export const HeaderTextContainer = styled(Typography)(({ theme }) => ({
   backgroundClip: 'text'
 }));
 
-export const GiftImageBox = styled(Box)(({ theme }) => ({
+export const GiftImageBox = styled(Box)(() => ({
   backgroundImage: 'url(/images/free-credits/giftup.png)',
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
