@@ -15,4 +15,3 @@ export type TopNavItemVariantProps =
   | { variant: 'guest' }
   | { variant: 'worker' }
   | { variant: 'dashboard' };
-  
