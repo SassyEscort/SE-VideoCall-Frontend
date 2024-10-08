@@ -198,7 +198,7 @@ const HeaderGuestComponent = () => {
               display={'flex'}
             >
               <Image
-                src="/images/header/headerlogo.png"
+                src="/images/header/headerlogo.webp"
                 width={182}
                 height={36}
                 alt="sassy_logo"
