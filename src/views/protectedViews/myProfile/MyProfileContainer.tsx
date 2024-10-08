@@ -136,7 +136,7 @@ const MyProfileContainer = ({
   };
   const handelVerfifyPhoneOtp = async () => {
     const payload = {
-      phone_number: String(values.phone),
+      phone_number: String(countryCode.phone + values.phone),
       otp: String(values.phoneOtp)
     };
     try {
@@ -296,7 +296,11 @@ const MyProfileContainer = ({
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', gap: 1 }}>
               {isPhoneNumberVerified !== 1 && (
-                <CountryCodeSelect values={countryCode} handleChange={handleChangeCountryTel1}></CountryCodeSelect>
+                <CountryCodeSelect
+                  disabled={!isNumberEditable}
+                  values={countryCode}
+                  handleChange={handleChangeCountryTel1}
+                ></CountryCodeSelect>
               )}
               <UIStyledInputText
                 fullWidth

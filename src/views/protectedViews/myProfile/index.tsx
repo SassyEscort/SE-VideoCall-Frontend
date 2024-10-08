@@ -20,6 +20,7 @@ import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import { getErrorMessage } from 'utils/errorUtils';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { customerVerificationService } from 'services/customerVerification/customerVerification.services';
+import { useAuthContext } from '../../../../context/AuthContext';
 
 export type MyProfile = {
   username: string;
@@ -32,6 +33,7 @@ export type MyProfile = {
 
 const MyProfile = () => {
   const { handelNameChange } = useCallFeatureContext();
+  const { handleFreeCreditClaim } = useAuthContext();
   const intl = useIntl();
 
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -71,10 +73,11 @@ const MyProfile = () => {
       setLoadingButton(true);
       if (token.token) {
         const res = await customerVerificationService.claimFreeCredit(token.token);
-        if (res) {
-          if (res.code === 200) {
-            toast.success('Success');
-          }
+        handleFreeCreditClaim();
+
+        if (res.code === 200) {
+          toast.success('Free Credit Claimed');
+          FetchCustomerDetails();
         }
       }
     } catch (error) {
@@ -86,13 +89,14 @@ const MyProfile = () => {
 
   const FetchCustomerDetails = async () => {
     setIsLoading(true);
+
     try {
       const customerData = await CustomerDetailsService.customerModelDetails(token.token);
       setCustomerDetails(customerData?.data);
       setIsEmailVerified(customerData?.data?.email_verified === 1 ? true : false);
       setIsPhoneVerified(customerData?.data?.phone_verified === 1 ? true : false);
-      setIsLoading(false);
     } catch (error) {}
+    setIsLoading(false);
   };
 
   useEffect(() => {

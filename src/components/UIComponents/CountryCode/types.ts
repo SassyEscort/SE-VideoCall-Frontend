@@ -10,4 +10,5 @@ export interface CountrySelectProps {
   handleChange: (value: CountryType | null) => void;
   title?: React.ReactNode;
   error?: boolean;
+  disabled: boolean;
 }

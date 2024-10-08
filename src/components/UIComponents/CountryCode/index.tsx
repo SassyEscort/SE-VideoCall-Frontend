@@ -6,10 +6,11 @@ import countries from './countrylist';
 
 import { CountrySelectProps } from './types';
 
-const CountryCodeSelect = ({ values, handleChange, error = false }: CountrySelectProps) => (
+const CountryCodeSelect = ({ values, handleChange, error = false, disabled }: CountrySelectProps) => (
   <Autocomplete
     id="country-select-demo"
     size="small"
+    disabled={disabled}
     sx={{
       width: 150,
       '& .MuiAutocomplete-clearIndicator svg': {
