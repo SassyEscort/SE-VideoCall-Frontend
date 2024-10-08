@@ -110,7 +110,7 @@ export const HomeFreeSignupMainBoxContainer = styled(Box)(({ theme }) => ({
     paddingTop: theme.spacing(6.25),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(2),
-    maxWidth: '400px',
+    // maxWidth: '400px',
     gap: theme.spacing(4)
   }
 }));

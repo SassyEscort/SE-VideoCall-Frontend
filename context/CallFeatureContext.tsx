@@ -104,8 +104,6 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
 
   const isCustomer = providerData?.role === ROLE.CUSTOMER;
 
-  console.log(isCustomer, 'isCustomer');
-
   const searchParams = useSearchParams();
   const credit = searchParams.get('credit');
   const totalBal = searchParams.get('total_credits_after_txn');
