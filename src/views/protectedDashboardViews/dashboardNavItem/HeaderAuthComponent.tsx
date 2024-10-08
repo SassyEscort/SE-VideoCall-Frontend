@@ -277,7 +277,9 @@ const DashboadrHeaderAuthComponent = () => {
             modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED ||
             modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED
           )) ||
-          (modelDetails?.profile_status === PAYOUT_ACTION.PENDING && isSmUP)) && (
+          (modelDetails?.profile_status === PAYOUT_ACTION.PENDING &&
+            modelDetails?.verification_step !== MODEL_ACTIVE_STEP.IN_REVIEW &&
+            isSmUP)) && (
           <Link href="/model/profile">
             <CompleteProfileBox variant="contained">
               <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">

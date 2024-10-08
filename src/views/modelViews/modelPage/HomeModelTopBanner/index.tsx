@@ -164,8 +164,9 @@ const HomeModelTopBanner = () => {
             <ButtonContainer>
               {(!isCustomer &&
                 isVerificationPendingOrCompleted(modelDetails?.verification_step) &&
-                modelDetails?.verification_step !== MODEL_ACTIVE_STEP.VERIFIED) ||
-              modelDetails?.profile_status === PAYOUT_ACTION.PENDING ||
+                modelDetails?.verification_step !== MODEL_ACTIVE_STEP.VERIFIED &&
+                modelDetails?.verification_step !== MODEL_ACTIVE_STEP.IN_REVIEW) ||
+              (modelDetails?.profile_status === PAYOUT_ACTION.PENDING && modelDetails?.verification_step !== MODEL_ACTIVE_STEP.IN_REVIEW) ||
               modelDetails?.profile_status === PAYOUT_ACTION.REJECT ? (
                 <Link href="/model/profile">
                   <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>
@@ -174,7 +175,8 @@ const HomeModelTopBanner = () => {
                     </UINewTypography>
                   </UIThemeButton>
                 </Link>
-              ) : modelDetails?.verification_step !== MODEL_ACTIVE_STEP.VERIFIED ? (
+              ) : modelDetails?.verification_step !== MODEL_ACTIVE_STEP.VERIFIED &&
+                modelDetails?.verification_step !== MODEL_ACTIVE_STEP.IN_REVIEW ? (
                 <UIThemeShadowButton onClick={handleSignupOpen} variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
                   <UINewTypography variant="body" sx={{ lineHeight: '150%' }}>
                     <FormattedMessage id="JoinForFREE" />
