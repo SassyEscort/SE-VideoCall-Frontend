@@ -2,12 +2,11 @@
 import { Box, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-export const ImageContainer = styled('img')(({ theme }) => ({
+export const ImageContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '48px',
   height: '100%',
   maxHeight: '48px',
-  backgroundImage: `url(/images/workercards/workercard-img.jpeg)`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
@@ -15,20 +14,19 @@ export const ImageContainer = styled('img')(({ theme }) => ({
     borderRadius: '16px'
   },
   [theme.breakpoints.up('sm')]: {
-    borderRadius: '50%'
+    borderRadius: '40px'
   }
 }));
 
-export const ProfileImageContainer = styled('img')(({ theme }) => ({
+export const ProfileImageContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   minWidth: '24px',
   height: '100%',
   minHeight: '24px',
-  backgroundImage: `url(/images/workercards/workercard-img.jpeg)`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
-  borderRadius: '50%'
+  borderRadius: '40px'
 }));
 
 export const ChatMainBoxContainer = styled(Box)(({ theme }) => ({
@@ -251,7 +249,6 @@ export const ClientChatMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(1),
-  width: '100%',
   alignItems: 'flex-end'
 }));
 
@@ -265,13 +262,14 @@ export const ClientChatTextBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   height: '100%',
   minHeight: '46px',
+  width: '100%',
+  maxWidth: 'fit-content',
   paddingTop: theme.spacing(1.5),
-  paddingBotton: theme.spacing(1.5),
+  paddingBottom: theme.spacing(1.5),
   paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(2),
   border: '1px solid #1E0815',
   borderRadius: '8px',
-  justifyContent: 'end',
   backgroundColor: '#1E0815'
 }));
 
@@ -282,7 +280,7 @@ export const ModelChatTextBoxContainer = styled(Box)(({ theme }) => ({
   maxWidth: 'fit-content',
   minHeight: '46px',
   paddingTop: theme.spacing(1.5),
-  paddingBotton: theme.spacing(1.5),
+  paddingBottom: theme.spacing(1.5),
   paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(2),
   border: '1px solid #611441',

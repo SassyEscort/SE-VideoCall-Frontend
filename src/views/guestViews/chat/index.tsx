@@ -31,8 +31,6 @@ const ChatFeature = () => {
   const [selectedModel, setSelectedModel] = useState<boolean>(true);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
-  console.log(token, 'token');
-  console.log(isCustomer, 'isCustomer');
 
   const handleModelSelect = (model: boolean) => {
     setSelectedModel(model);
@@ -60,7 +58,6 @@ const ChatFeature = () => {
     const modelDetails = async () => {
       const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer, { user_name: modelUserName });
       if (modelData) {
-        console.log(modelData, 'modelData');
         setModelDetails(modelData.data);
       }
     };
@@ -194,16 +191,16 @@ const ChatFeature = () => {
 
       return () => unsubscribe();
     }
-  }, [lastTimestamp, customerData.customer_user_name, modelUserName]);
+  }, [messages, lastTimestamp, customerData.customer_user_name, modelUserName]);
 
   return (
     <ChatMainBoxContainer>
       {isSmUp || !selectedModel ? (
         <ChatSidbar onSelectModel={handleModelSelect} modelDetails={modelDetails} />
       ) : (
-        <ChatDescription handleMessageInputChange={handleMessageInputChange} />
+        <ChatDescription handleMessageInputChange={handleMessageInputChange} modelDetails={modelDetails} messages={messages} />
       )}
-      {isSmUp && <ChatDescription handleMessageInputChange={handleMessageInputChange} />}
+      {isSmUp && <ChatDescription handleMessageInputChange={handleMessageInputChange} modelDetails={modelDetails} messages={messages} />}
     </ChatMainBoxContainer>
   );
 };

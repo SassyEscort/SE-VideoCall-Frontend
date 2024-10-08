@@ -22,21 +22,27 @@ import CustomComposerView from './CustomComposerView';
 import theme from 'themes/theme';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ChatSidbar from './ChatSidbar';
+import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import { IMessage } from 'services/chatServices/chat.service';
+import moment from 'moment';
 interface IChatDescriptionProps {
   handleMessageInputChange: (val: string) => void;
+  modelDetails?: ModelDetailsResponse;
+  messages: IMessage[];
 }
-const ChatDescription = ({ handleMessageInputChange }: IChatDescriptionProps) => {
+const ChatDescription = ({ handleMessageInputChange, modelDetails, messages }: IChatDescriptionProps) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   const handleBackClick = () => {
     setShowSidebar(true);
   };
+  const favPhoto = modelDetails?.photos?.filter((x) => x.favourite).map((item) => item.link)[0];
 
   return (
     <>
       {showSidebar ? (
-        <ChatSidbar onSelectModel={() => setShowSidebar(false)} />
+        <ChatSidbar onSelectModel={() => setShowSidebar(false)} modelDetails={modelDetails} />
       ) : (
         <>
           {isSmUp && (
@@ -50,9 +56,13 @@ const ChatDescription = ({ handleMessageInputChange }: IChatDescriptionProps) =>
                       <ChatBoxHeaderContainer>
                         <ChatBoxHeaderInnerContainer>
                           <ModelNameContainer>
-                            <ProfileImageContainer />
+                            <ProfileImageContainer
+                              sx={{
+                                backgroundImage: `url(${favPhoto})`
+                              }}
+                            />
                             <UINewTypography variant="subtitle" color="text.secondary">
-                              Aesha
+                              {modelDetails?.name}
                             </UINewTypography>
                           </ModelNameContainer>
 
@@ -64,52 +74,44 @@ const ChatDescription = ({ handleMessageInputChange }: IChatDescriptionProps) =>
                       </ChatBoxHeaderContainer>
                       <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29', mt: '16px' }} />
                     </Box>
+                    <Box
+                      sx={{
+                        maxHeight: '60vh',
+                        overflowY: 'auto'
+                      }}
+                    >
+                      {messages.map((messages, index) => (
+                        <TextMainBoxContainer key={index}>
+                          <ClientChatMainBoxContainer>
+                            <ClientChatTextBoxContainer>
+                              <UINewTypography variant="body1" color="text.secondary">
+                                {messages?.message}
+                              </UINewTypography>
+                            </ClientChatTextBoxContainer>
 
-                    <TextMainBoxContainer>
-                      <ClientChatMainBoxContainer>
-                        <ClientChatTextBoxContainer>
-                          <UINewTypography variant="body1" color="text.secondary">
-                            Hey Aesha, are you available at 8 in the evening?
-                          </UINewTypography>
-                        </ClientChatTextBoxContainer>
+                            <UINewTypography
+                              variant="SubtitleSmallRegular"
+                              color="secondary.700"
+                              sx={{ display: 'flex', justifyContent: 'end' }}
+                            >
+                              {messages?.createdAt ? moment(messages.createdAt).format('LT') : moment().format('LT')}
+                            </UINewTypography>
+                          </ClientChatMainBoxContainer>
 
-                        <UINewTypography
-                          variant="SubtitleSmallRegular"
-                          color="secondary.700"
-                          sx={{ display: 'flex', justifyContent: 'end' }}
-                        >
-                          6:34 PM
-                        </UINewTypography>
-                      </ClientChatMainBoxContainer>
+                          <ModelChatMainBoxContainer>
+                            <ModelChatTextBoxContainer>
+                              <UINewTypography variant="body1" color="text.secondary">
+                                Hey Aesha, are you available at 8 in the evening?
+                              </UINewTypography>
+                            </ModelChatTextBoxContainer>
 
-                      <ModelChatMainBoxContainer>
-                        <ModelChatTextBoxContainer>
-                          <UINewTypography variant="body1" color="text.secondary">
-                            Hey Aesha, are you available at 8 in the evening?
-                          </UINewTypography>
-                        </ModelChatTextBoxContainer>
-
-                        <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
-                          6:38 PM
-                        </UINewTypography>
-                      </ModelChatMainBoxContainer>
-
-                      <ClientChatMainBoxContainer>
-                        <ClientChatTextBoxContainer>
-                          <UINewTypography variant="body1" color="text.secondary">
-                            🤩 💞
-                          </UINewTypography>
-                        </ClientChatTextBoxContainer>
-
-                        <UINewTypography
-                          variant="SubtitleSmallRegular"
-                          color="secondary.700"
-                          sx={{ display: 'flex', justifyContent: 'end' }}
-                        >
-                          6:34 PM
-                        </UINewTypography>
-                      </ClientChatMainBoxContainer>
-                    </TextMainBoxContainer>
+                            <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
+                              6:38 PM
+                            </UINewTypography>
+                          </ModelChatMainBoxContainer>
+                        </TextMainBoxContainer>
+                      ))}
+                    </Box>
                   </ModelDetailsInnerBoxContainer>
 
                   <CustomComposerView onSendMessage={handleMessageInputChange} />
@@ -130,9 +132,13 @@ const ChatDescription = ({ handleMessageInputChange }: IChatDescriptionProps) =>
                         </ArrowBoxWraper>
                         <ChatBoxHeaderInnerContainer>
                           <ModelNameContainer>
-                            <ProfileImageContainer />
+                            <ProfileImageContainer
+                              sx={{
+                                backgroundImage: `url(${favPhoto})`
+                              }}
+                            />
                             <UINewTypography variant="subtitle" color="text.secondary">
-                              Aesha
+                              {modelDetails?.name}
                             </UINewTypography>
                           </ModelNameContainer>
 
@@ -144,52 +150,37 @@ const ChatDescription = ({ handleMessageInputChange }: IChatDescriptionProps) =>
                       </ChatBoxHeaderContainer>
                       <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29', mt: '16px' }} />
                     </Box>
+                    {messages.map((messages, index) => (
+                      <TextMainBoxContainer key={index}>
+                        <ClientChatMainBoxContainer>
+                          <ClientChatTextBoxContainer>
+                            <UINewTypography variant="body1" color="text.secondary">
+                              {messages.message}
+                            </UINewTypography>
+                          </ClientChatTextBoxContainer>
 
-                    <TextMainBoxContainer>
-                      <ClientChatMainBoxContainer>
-                        <ClientChatTextBoxContainer>
-                          <UINewTypography variant="body1" color="text.secondary">
-                            Hey Aesha, are you available at 8 in the evening?
+                          <UINewTypography
+                            variant="SubtitleSmallRegular"
+                            color="secondary.700"
+                            sx={{ display: 'flex', justifyContent: 'end' }}
+                          >
+                            {messages?.createdAt ? moment(messages.createdAt).format('LT') : moment().format('LT')}
                           </UINewTypography>
-                        </ClientChatTextBoxContainer>
+                        </ClientChatMainBoxContainer>
 
-                        <UINewTypography
-                          variant="SubtitleSmallRegular"
-                          color="secondary.700"
-                          sx={{ display: 'flex', justifyContent: 'end' }}
-                        >
-                          6:34 PM
-                        </UINewTypography>
-                      </ClientChatMainBoxContainer>
+                        <ModelChatMainBoxContainer>
+                          <ModelChatTextBoxContainer>
+                            <UINewTypography variant="body1" color="text.secondary">
+                              Hey Aesha, are you available at 8 in the evening?
+                            </UINewTypography>
+                          </ModelChatTextBoxContainer>
 
-                      <ModelChatMainBoxContainer>
-                        <ModelChatTextBoxContainer>
-                          <UINewTypography variant="body1" color="text.secondary">
-                            Hey Aesha, are you available at 8 in the evening?
+                          <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
+                            6:38 PM
                           </UINewTypography>
-                        </ModelChatTextBoxContainer>
-
-                        <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
-                          6:38 PM
-                        </UINewTypography>
-                      </ModelChatMainBoxContainer>
-
-                      <ClientChatMainBoxContainer>
-                        <ClientChatTextBoxContainer>
-                          <UINewTypography variant="body1" color="text.secondary">
-                            🤩 💞
-                          </UINewTypography>
-                        </ClientChatTextBoxContainer>
-
-                        <UINewTypography
-                          variant="SubtitleSmallRegular"
-                          color="secondary.700"
-                          sx={{ display: 'flex', justifyContent: 'end' }}
-                        >
-                          6:34 PM
-                        </UINewTypography>
-                      </ClientChatMainBoxContainer>
-                    </TextMainBoxContainer>
+                        </ModelChatMainBoxContainer>
+                      </TextMainBoxContainer>
+                    ))}
                   </ModelDetailsInnerBoxContainer>
 
                   <CustomComposerView onSendMessage={handleMessageInputChange} />

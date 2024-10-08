@@ -26,15 +26,13 @@ import { ModelDetailsResponse } from 'views/protectedModelViews/verification/ver
 
 const ChatSidbar = ({ onSelectModel, modelDetails }: { onSelectModel: (model: any) => void; modelDetails?: ModelDetailsResponse }) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-
   const [searchQuery, setSearchQuery] = useState('');
 
-  const modelList = [
-    { name: 'Kat Winter', description: 'Hey Sammy, How are...', time: '30 mins ago', pending: 2 },
-    { name: 'John Doe', description: "Hey, Let's meet...", time: '1 hour ago', pending: 1 }
-  ];
+  const favPhoto = modelDetails?.photos?.filter((x) => x.favourite).map((item) => item.link)[0];
 
-  const filteredModels = modelList.filter((model) => model.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  const searchLower = searchQuery.toLowerCase();
+
+  const isMatchingModel = modelDetails?.name?.toLowerCase().includes(searchLower);
 
   return (
     <ModelDetailsMainBoxContainer>
@@ -90,36 +88,38 @@ const ChatSidbar = ({ onSelectModel, modelDetails }: { onSelectModel: (model: an
       )}
 
       <ModelDetailsInnerBoxContainer>
-        {filteredModels.map((model, index) => (
-          <React.Fragment key={index}>
-            <ModelInformationMainBoxContainer onClick={() => onSelectModel(model)}>
+        {isMatchingModel && (
+          <React.Fragment>
+            <ModelInformationMainBoxContainer onClick={() => onSelectModel(true)}>
               <ModelInformationInnerBoxContainer>
-                <ImageContainer />
+                <ImageContainer
+                  sx={{
+                    backgroundImage: `url(${favPhoto})`
+                  }}
+                />
                 <ModelNameBoxContainer>
-                  <ModelNameText color="text.secondary">{model.name}</ModelNameText>
-                  <ModelDescriptionText color="text.primary">{model.description}</ModelDescriptionText>
+                  <ModelNameText color="text.secondary">{modelDetails?.name}</ModelNameText>
+                  <ModelDescriptionText color="text.primary">description</ModelDescriptionText>
                 </ModelNameBoxContainer>
               </ModelInformationInnerBoxContainer>
 
               <PendingMainBoxContainer>
                 {isSmUp && (
                   <UINewTypography variant="bodySmall" color="text.primary" sx={{ whiteSpace: 'nowrap' }}>
-                    {model.time}
+                    time
                   </UINewTypography>
                 )}
-                {model.pending > 0 && (
-                  <PendingInnerBoxContainer>
-                    <UINewTypography variant="SubtitleSmallMedium" color="text.secondary">
-                      {model.pending}
-                    </UINewTypography>
-                  </PendingInnerBoxContainer>
-                )}
+                <PendingInnerBoxContainer>
+                  <UINewTypography variant="SubtitleSmallMedium" color="text.secondary">
+                    2
+                  </UINewTypography>
+                </PendingInnerBoxContainer>
               </PendingMainBoxContainer>
             </ModelInformationMainBoxContainer>
 
             <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29' }} />
           </React.Fragment>
-        ))}
+        )}
       </ModelDetailsInnerBoxContainer>
     </ModelDetailsMainBoxContainer>
   );
