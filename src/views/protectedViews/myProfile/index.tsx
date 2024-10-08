@@ -45,12 +45,10 @@ const MyProfile = () => {
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [isPhoneVerified, setIsPhoneVerified] = useState(false);
 
-  console.log(customerDetails, 'customerDetails');
-
-  const handleSubmit = async (name: string, email: string) => {
+  const handleSubmit = async (name: string) => {
     try {
       setLoadingButton(true);
-      const res = await CommonServices.updateUserName(token.token, name, email);
+      const res = await CommonServices.updateUserName(token.token, name);
 
       handelNameChange();
       if (res) {
@@ -86,6 +84,17 @@ const MyProfile = () => {
     }
   };
 
+  const FetchCustomerDetails = async () => {
+    setIsLoading(true);
+    try {
+      const customerData = await CustomerDetailsService.customerModelDetails(token.token);
+      setCustomerDetails(customerData?.data);
+      setIsEmailVerified(customerData?.data?.email_verified === 1 ? true : false);
+      setIsPhoneVerified(customerData?.data?.phone_verified === 1 ? true : false);
+      setIsLoading(false);
+    } catch (error) {}
+  };
+
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -96,17 +105,10 @@ const MyProfile = () => {
   }, []);
 
   useEffect(() => {
-    const customerDetails = async () => {
-      setIsLoading(true);
-      const customerData = await CustomerDetailsService.customerModelDetails(token.token);
-      setCustomerDetails(customerData?.data);
-      setIsEmailVerified(customerData?.data?.email_verified === 1 ? true : false);
-      setIsPhoneVerified(customerData?.data?.phone_verified === 1 ? true : false);
-      setIsLoading(false);
-    };
     if (token.token) {
-      customerDetails();
+      FetchCustomerDetails();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.id, token.token]);
 
   return (
@@ -122,7 +124,7 @@ const MyProfile = () => {
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        handleSubmit(values.username, values.email);
+        handleSubmit(values.username);
       }}
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue, setFieldTouched }) => {
@@ -145,8 +147,7 @@ const MyProfile = () => {
                   token={token}
                   isEmailVerified={customerDetails?.email_verified as number}
                   isPhoneNumberVerified={customerDetails?.phone_verified as number}
-                  setFieldValue={setFieldValue}
-                  setFieldTouched={setFieldTouched}
+                  FetchCustomerDetails={FetchCustomerDetails}
                 />
                 <DisableButtonBox>
                   {customerDetails?.free_credits_claimed === 0 ? (

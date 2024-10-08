@@ -63,7 +63,7 @@ const ClaimCreditSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onC
             </ButtonContainer>
           </TextInnerBoxContainer>
           <Box sx={{ maxWidth: '655px', overflow: 'hidden', position: 'absolute', bottom: 0 }}>
-            <Image src="/images/free-credits/gift.png" alt="claim-credit" width={655} height={295} />
+            <Image src="/images/free-credits/gift.webp" alt="claim-credit" width={655} height={295} />
           </Box>
         </TextMainBoxContainer>
       </DialogContent>

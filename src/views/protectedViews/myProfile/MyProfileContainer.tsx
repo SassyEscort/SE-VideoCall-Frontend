@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { InputTypeBox, ProfileTextHeader } from './MyProfile.styled';
-import { FormikErrors, FormikTouched, FormikProps } from 'formik';
+import { FormikErrors, FormikTouched } from 'formik';
 import { MyProfile } from '.';
 import { toast } from 'react-toastify';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -15,7 +15,6 @@ import MyProfileChangePassword from './MyProfileChangePassword';
 import { InnerBox, MainContainer, MyProfileTitle, VerifiedColumn } from './MyProfileContainer.styled';
 import { customerVerificationService } from 'services/customerVerification/customerVerification.services';
 import DoneIcon from '@mui/icons-material/Done';
-import { useRouter } from 'next/navigation';
 import CountryCodeSelect from 'components/UIComponents/CountryCode';
 
 const MyProfileContainer = ({
@@ -27,8 +26,7 @@ const MyProfileContainer = ({
   token,
   isEmailVerified,
   isPhoneNumberVerified,
-  setFieldTouched,
-  setFieldValue
+  FetchCustomerDetails
 }: {
   values: MyProfile;
   handleChange: (e: any) => void;
@@ -38,8 +36,7 @@ const MyProfileContainer = ({
   token: TokenIdType;
   isEmailVerified: number;
   isPhoneNumberVerified: number;
-  setFieldTouched: FormikProps<MyProfile>['setFieldTouched'];
-  setFieldValue: FormikProps<MyProfile>['setFieldValue'];
+  FetchCustomerDetails: () => void;
 }) => {
   const [open, setOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
@@ -49,9 +46,6 @@ const MyProfileContainer = ({
   const [isEmailOptSent, setIsEmailOptSent] = useState(false);
   const [isPhoneOptSent, setIsPhoneOptSent] = useState(false);
   const [countryCode, setCountryCode] = useState<any>(null);
-
-  const route = useRouter();
-  const { refresh } = route;
 
   const sendLinkVerify = async () => {
     touched.email = true;
@@ -88,7 +82,6 @@ const MyProfileContainer = ({
               setActiveStep(1);
               setIsPhoneOptSent(true);
             } else {
-              console.log(res.response.data?.custom_code, '=====>');
               if (res?.response?.data?.custom_code == 3015) toast.error('Phone number already exist');
               else toast.error('Something went wrong');
             }
@@ -132,7 +125,7 @@ const MyProfileContainer = ({
           toast.success('Email verified successfully');
           setIsEmailOptSent(false);
           setIsEditable(false);
-          refresh();
+          FetchCustomerDetails();
         } else {
           toast.error('Invalid OTP');
         }
@@ -155,7 +148,7 @@ const MyProfileContainer = ({
           setIsPhoneOptSent(false);
           setIsEditable(false);
           setIsNumberEditable(false);
-          refresh();
+          FetchCustomerDetails();
         } else {
           toast.error('Invalid OTP');
         }
