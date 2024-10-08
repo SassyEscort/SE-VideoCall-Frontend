@@ -10,6 +10,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import dynamic from 'next/dynamic';
 import { SessionProvider } from 'next-auth/react';
+import { memo } from 'react';
 const GoogleTagManager = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleTagManager), { ssr: false });
 const GoogleAnalytics = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleAnalytics), { ssr: false });
 const ToastContainer = dynamic(() => import('react-toastify').then((module) => module.ToastContainer), { ssr: false });
@@ -55,4 +56,4 @@ const ProviderWrapper = ({ children }: { children: JSX.Element }) => {
   );
 };
 
-export default ProviderWrapper;
+export default memo(ProviderWrapper);

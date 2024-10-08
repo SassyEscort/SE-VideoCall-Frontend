@@ -1,4 +1,4 @@
-import { EmotionJSX } from "@emotion/react/types/jsx-namespace";
+import { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 
 export type InternalProps = {
   bgColor: string;

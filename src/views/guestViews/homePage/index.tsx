@@ -1,22 +1,20 @@
 'use client';
-import { lazy, memo, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
-import { HomePageMainContainer } from './Home.styled';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import HomeConnections from './HomeConnections';
 import HomeTopBanner from './homeBanner';
 import HomeImageCard from './homeImageCards';
+import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
+import { HomePageMainContainer } from './Home.styled';
+import SearchFilters, { SearchFiltersTypes } from '../searchPage/searchFilters';
+import BackdropProgress from 'components/UIComponents/BackDropProgress';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { getQueryParam } from 'utils/genericFunction';
 import { useAuthContext } from '../../../../context/AuthContext';
-import debounce from 'lodash/debounce';
-import { SearchFiltersTypes } from '../searchPage/searchFilters';
-const HomeConnections = lazy(() => import('./HomeConnections'));
-const BackdropProgress = lazy(() => import('components/UIComponents/BackDropProgress'));
-const SearchFilters = lazy(() => import('../searchPage/searchFilters'));
 
 const HomeContainer = () => {
   const { isFreeCreditAvailable, session } = useAuthContext();
-  const token = useMemo(() => (session?.user ? JSON.parse((session.user as any)?.picture) : ''), [session]);
+  const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
 
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -113,8 +111,6 @@ const HomeContainer = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, pathname, router]);
 
-  const debounceHandleChangeSearchFilter = useMemo(() => debounce(handleChangeSearchFilter, 300), [handleChangeSearchFilter]);
-
   const handelFilterChange = async (values: SearchFiltersTypes) => {
     setIsLoading(true);
     const getModel = await ModelListingService.getModelListing(values, token.token);
@@ -170,7 +166,7 @@ const HomeContainer = () => {
     if (initialRender.current) {
       initialRender.current = false;
     }
-    debounceHandleChangeSearchFilter();
+    handleChangeSearchFilter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, searchParams]);
 
@@ -191,33 +187,26 @@ const HomeContainer = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
   return (
     <>
       <HomePageMainContainer>
-        <Suspense fallback={<div>Loading banner...</div>}>
-          <HomeTopBanner isFreeCreditAvailable={isFreeCreditAvailable} />
-        </Suspense>
-        <Suspense fallback={<div>Loading...</div>}>
-          <BackdropProgress open={isLoading} />
-          <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
-        </Suspense>
-        <Suspense fallback={<div>Loading cards...</div>}>
-          <HomeImageCard
-            modelListing={modelListing}
-            isFavPage={false}
-            token={token}
-            filters={filters ?? ({} as SearchFiltersTypes)}
-            totalRows={total_rows}
-            handleChangePage={handleChangePage}
-            isFreeCreditAvailable={isFreeCreditAvailable}
-          />
-        </Suspense>
-        <Suspense fallback={<div>Loading connections...</div>}>
-          <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
-        </Suspense>
+        <HomeTopBanner isFreeCreditAvailable={isFreeCreditAvailable} />
+        <BackdropProgress open={isLoading} />
+        <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
+        <HomeImageCard
+          modelListing={modelListing}
+          isFavPage={false}
+          token={token}
+          filters={filters ?? ({} as SearchFiltersTypes)}
+          totalRows={total_rows}
+          handleChangePage={handleChangePage}
+          isFreeCreditAvailable={isFreeCreditAvailable}
+        />
+        <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
       </HomePageMainContainer>
     </>
   );
 };
 
-export default memo(HomeContainer);
+export default HomeContainer;

@@ -4,7 +4,6 @@ import type { Metadata } from 'next';
 import ProviderWrapper from './ProviderWrapper';
 import { SEO_DATA } from 'constants/seoConstants';
 import { AuthFeaturProvider } from '../../context/AuthContext';
-import ModelLastActive from 'views/protectedModelViews/ModelLastAvtive';
 import { TawkProvider } from '../../context/TawkContext';
 import Script from 'next/script';
 
@@ -81,7 +80,6 @@ export default function RootLayout({
       <body>
         <ProviderWrapper>
           <AuthFeaturProvider>
-            <ModelLastActive />
             <TawkProvider>{children}</TawkProvider>
           </AuthFeaturProvider>
         </ProviderWrapper>

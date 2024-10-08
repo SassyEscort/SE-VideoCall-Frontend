@@ -84,6 +84,7 @@ const CallHistoryRatingModel = ({ open, onClose, callLogId }: { open: boolean; o
 
       return () => clearTimeout(timer);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRatingSubmitted]);
 
   return (

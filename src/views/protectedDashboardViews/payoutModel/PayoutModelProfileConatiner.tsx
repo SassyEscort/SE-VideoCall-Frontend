@@ -63,6 +63,7 @@ const PayoutModelProfileConatiner = ({ token, modelDetails }: { token: TokenIdTy
 
   useEffect(() => {
     fetchBankDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.token]);
 
   useEffect(() => {
