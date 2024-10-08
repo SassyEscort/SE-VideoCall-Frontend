@@ -36,7 +36,11 @@ export type GenericResDataCustom = {
   error: string;
   message: string;
   custom_code: number;
-  data: GenericResponse;
+  response: {
+    data: GenericResponse & {
+      custom_code: number;
+    };
+  };
 };
 
 export type ChangePassParams = {
@@ -66,14 +70,14 @@ export class customerVerificationService {
       return error as GenericRes;
     }
   };
-  static sendPhoneOtp = async (params: PhoneVerifyParams, token: string): Promise<GenericRes> => {
+  static sendPhoneOtp = async (params: PhoneVerifyParams, token: string): Promise<GenericResDataCustom> => {
     try {
-      const res = await axios.post<GenericRes>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/customer/phone-otp`, params, {
+      const res = await axios.post<GenericResDataCustom>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/customer/phone-otp`, params, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
       });
       return res.data;
     } catch (error) {
-      return error as GenericResCustom;
+      return error as GenericResDataCustom;
     }
   };
 
@@ -82,6 +86,21 @@ export class customerVerificationService {
       const res = await axios.post<GenericRes>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/customer/verify-phone-otp`, params, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
       });
+      return res.data;
+    } catch (error) {
+      return error as GenericRes;
+    }
+  };
+
+  static claimFreeCredit = async (token: string): Promise<GenericRes> => {
+    try {
+      const res = await axios.post<GenericRes>(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/customer/claim-free-credits`,
+        {},
+        {
+          headers: { 'Content-Type': 'application/json', Authorization: token }
+        }
+      );
       return res.data;
     } catch (error) {
       return error as GenericRes;

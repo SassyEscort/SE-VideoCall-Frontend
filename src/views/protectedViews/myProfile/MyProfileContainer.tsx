@@ -3,22 +3,20 @@ import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { InputTypeBox, ProfileTextHeader } from './MyProfile.styled';
-import { FormikErrors, FormikTouched } from 'formik';
+import { FormikErrors, FormikTouched, FormikProps } from 'formik';
 import { MyProfile } from '.';
 import { toast } from 'react-toastify';
-// import { authServices } from 'services/guestAuth/authuser.services';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { GuestStyleComponent } from 'views/guestViews/guestLayout/GuestLayout.styled';
 import CheckInboxVerify from 'views/modelViews/checkInBox';
 import { useState } from 'react';
-// import { useRouter } from 'next/navigation';
 import { ErrorMessage } from 'constants/common.constants';
 import MyProfileChangePassword from './MyProfileChangePassword';
 import { InnerBox, MainContainer, MyProfileTitle, VerifiedColumn } from './MyProfileContainer.styled';
 import { customerVerificationService } from 'services/customerVerification/customerVerification.services';
-// import { getErrorMessage } from 'utils/errorUtils';
 import DoneIcon from '@mui/icons-material/Done';
 import { useRouter } from 'next/navigation';
+import CountryCodeSelect from 'components/UIComponents/CountryCode';
 
 const MyProfileContainer = ({
   values,
@@ -28,7 +26,9 @@ const MyProfileContainer = ({
   errors,
   token,
   isEmailVerified,
-  isPhoneNumberVerified
+  isPhoneNumberVerified,
+  setFieldTouched,
+  setFieldValue
 }: {
   values: MyProfile;
   handleChange: (e: any) => void;
@@ -38,6 +38,8 @@ const MyProfileContainer = ({
   token: TokenIdType;
   isEmailVerified: number;
   isPhoneNumberVerified: number;
+  setFieldTouched: FormikProps<MyProfile>['setFieldTouched'];
+  setFieldValue: FormikProps<MyProfile>['setFieldValue'];
 }) => {
   const [open, setOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
@@ -45,6 +47,8 @@ const MyProfileContainer = ({
   const [isEditable, setIsEditable] = useState(false);
   const [isNumberEditable, setIsNumberEditable] = useState(false);
   const [isEmailOptSent, setIsEmailOptSent] = useState(false);
+  const [isPhoneOptSent, setIsPhoneOptSent] = useState(false);
+  const [countryCode, setCountryCode] = useState<any>(null);
 
   const route = useRouter();
   const { refresh } = route;
@@ -60,9 +64,8 @@ const MyProfileContainer = ({
             toast.success('Success');
             setOpen(true);
             setActiveStep(1);
-            handleEditClick();
           } else {
-            toast.error(res.message);
+            toast.error('Something went wrong');
           }
         } catch (error) {
           toast.error(ErrorMessage);
@@ -74,18 +77,23 @@ const MyProfileContainer = ({
   };
 
   const sendPhoneOtp = async () => {
-    touched.email = true;
-    setIsEmailOptSent(true);
+    touched.phone = true;
     try {
-      if (!errors.email && token.token) {
+      if (!errors.phone && token.token) {
         try {
-          const res = await customerVerificationService.sendPhoneOtp({ phone_number: values.phone }, token.token);
-          if (res.code === 200) {
-            toast.success('Success');
-            setOpen(true);
-            setActiveStep(1);
+          if (countryCode) {
+            const res = await customerVerificationService.sendPhoneOtp({ phone_number: countryCode.phone + values.phone }, token.token);
+            if (res.code === 200) {
+              toast.success('OTP sent successfully');
+              setActiveStep(1);
+              setIsPhoneOptSent(true);
+            } else {
+              console.log(res.response.data?.custom_code, '=====>');
+              if (res?.response?.data?.custom_code == 3015) toast.error('Phone number already exist');
+              else toast.error('Something went wrong');
+            }
           } else {
-            toast.error(res.message);
+            toast.error('Country code is required');
           }
         } catch (error) {
           toast.error(ErrorMessage);
@@ -121,7 +129,7 @@ const MyProfileContainer = ({
         const res = await customerVerificationService.emailVerify(payload, token.token);
 
         if (res.code === 200) {
-          toast.success('Success');
+          toast.success('Email verified successfully');
           setIsEmailOptSent(false);
           setIsEditable(false);
           refresh();
@@ -138,14 +146,13 @@ const MyProfileContainer = ({
       phone_number: String(values.phone),
       otp: String(values.phoneOtp)
     };
-
     try {
       if (Boolean(token.token && payload)) {
         const res = await customerVerificationService.phoneVerify(payload, token.token);
 
         if (res.code === 200) {
-          toast.success('Success');
-          setIsEmailOptSent(false);
+          toast.success('Phone number verified successfully');
+          setIsPhoneOptSent(false);
           setIsEditable(false);
           setIsNumberEditable(false);
           refresh();
@@ -158,11 +165,14 @@ const MyProfileContainer = ({
     }
   };
 
+  const handleChangeCountryTel1 = (value: any) => {
+    setCountryCode(value);
+  };
+
   // const changePasswordOpenModel = () => {
   //   setOpenModel(true);
   // };
 
-  // console.log(values.emailOtp, 'values.emailOtp');
   return (
     <>
       <MyProfileTitle>
@@ -264,7 +274,6 @@ const MyProfileContainer = ({
                             }}
                           >
                             Confirm
-                            {/* {isEmailVerified === 1 ? <FormattedMessage id="Verified" /> : <FormattedMessage id="Verify" />} */}
                           </UINewTypography>
                         </VerifiedColumn>
                       )
@@ -292,7 +301,10 @@ const MyProfileContainer = ({
                 <FormattedMessage id="phoneNumber" />
               </ProfileTextHeader>
             </Box>
-            <Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', gap: 1 }}>
+              {isPhoneNumberVerified !== 1 && (
+                <CountryCodeSelect values={countryCode} handleChange={handleChangeCountryTel1}></CountryCodeSelect>
+              )}
               <UIStyledInputText
                 fullWidth
                 disabled={!isNumberEditable}
@@ -313,7 +325,7 @@ const MyProfileContainer = ({
                         </UINewTypography>
                       )}
 
-                      {(!isEmailOptSent || isNumberEditable) && (
+                      {(!isPhoneOptSent || isNumberEditable) && (
                         <UINewTypography
                           color={isPhoneNumberVerified === 1 && !isEditable ? 'green' : 'primary.400'}
                           variant="buttonSmallBold"
@@ -328,14 +340,8 @@ const MyProfileContainer = ({
                   )
                 }}
               />
-
-              {activeStep === 1 && (
-                <GuestStyleComponent scroll="body" open={open} onClose={handleClose} maxWidth="md" fullWidth>
-                  <CheckInboxVerify onOpen={open} onClose={handleClose} email={values.email} />
-                </GuestStyleComponent>
-              )}
             </Box>
-            {isEmailOptSent && (
+            {isPhoneOptSent && (
               <>
                 <Box>
                   <UIStyledInputText
@@ -350,14 +356,13 @@ const MyProfileContainer = ({
                       endAdornment: (
                         <VerifiedColumn>
                           <UINewTypography
-                            color={isEmailVerified === 1 && !isEditable ? 'green' : 'primary.400'}
+                            color={isPhoneNumberVerified === 1 && !isEditable ? 'green' : 'primary.400'}
                             variant="buttonSmallBold"
                             onClick={() => {
-                              if (isEmailVerified !== 1 || isEditable) handelVerfifyPhoneOtp();
+                              if (isPhoneNumberVerified !== 1 || isEditable) handelVerfifyPhoneOtp();
                             }}
                           >
                             Confirm
-                            {/* {isEmailVerified === 1 ? <FormattedMessage id="Verified" /> : <FormattedMessage id="Verify" />} */}
                           </UINewTypography>
                         </VerifiedColumn>
                       )
