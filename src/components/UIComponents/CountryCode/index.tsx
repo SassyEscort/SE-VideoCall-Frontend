@@ -35,7 +35,8 @@ const CountryCodeSelect = ({ values, handleChange, error = false }: CountrySelec
       const { ...optionProps } = props;
       return (
         <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...optionProps}>
-          <img
+          <Box
+            component="img"
             loading="lazy"
             width="20"
             srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
