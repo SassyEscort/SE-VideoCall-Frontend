@@ -32,6 +32,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import ModelNewPassword from 'views/modelViews/ModelNewPassword';
 import { useAuthContext } from '../../../../../context/AuthContext';
 import React from 'react';
+import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 
 const HomeModelTopBanner = () => {
   const { isCustomer } = useAuthContext();
@@ -162,7 +163,8 @@ const HomeModelTopBanner = () => {
             </DetailSubContainer>
             <ButtonContainer>
               {(!isCustomer && isVerificationPendingOrCompleted(modelDetails?.verification_step)) ||
-              modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED ? (
+              modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED ||
+              modelDetails?.profile_status === PAYOUT_ACTION.PENDING ? (
                 <Link href="/model/profile">
                   <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>
                     <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
