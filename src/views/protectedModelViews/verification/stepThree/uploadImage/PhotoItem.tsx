@@ -60,8 +60,6 @@ const PhotoItem = ({
   index: number;
   existingPhotos: UploadPhotos[];
 }) => {
-  console.log(image?.photoURL?.substring(image?.photoURL?.lastIndexOf('.') + 1), 'imageee');
-
   const [openRepositionModal, setOpenRepositionModal] = useState(false);
   const [croppedImage, setCroppedImage] = useState('');
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

@@ -59,6 +59,7 @@ const Favorites = () => {
       setIsLoading(false);
       setTotalRows(getModel.aggregate.total_rows);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.token]);
 
   useEffect(() => {

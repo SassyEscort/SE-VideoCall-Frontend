@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
@@ -11,6 +12,8 @@ import { useAuthContext } from '../../../../context/AuthContext';
 const ModelLastActive = () => {
   const { session } = useAuthContext();
   const [token, setToken] = useState<string>('');
+  const user = (session?.user as User)?.picture;
+  const providerData = user && JSON.parse(user || '{}');
 
   useEffect(() => {
     const fetchUserToken = async () => {
@@ -21,13 +24,13 @@ const ModelLastActive = () => {
         toast.error('Failed to fetch user data');
       }
     };
-    if ((session?.user as User)?.provider === 'providerModel') {
+    if ((session?.user as User)?.provider === 'providerCustom' && providerData?.role === 'model') {
       fetchUserToken();
     }
-  }, [session?.user]);
+  }, [providerData, session]);
 
   useEffect(() => {
-    if (token && (session?.user as User)?.provider === 'providerModel') {
+    if (token && (session?.user as User)?.provider === 'providerCustom' && providerData?.role === 'model') {
       const fetchModelLastActive = async () => {
         try {
           const response = await ModelDetailsService.modelLastActive(token);
@@ -43,8 +46,7 @@ const ModelLastActive = () => {
       const intervalId = setInterval(fetchModelLastActive, 15000);
       return () => clearInterval(intervalId);
     }
-  }, [session?.user, token]);
-
+  }, [providerData, session?.user, token]);
   return <></>;
 };
 

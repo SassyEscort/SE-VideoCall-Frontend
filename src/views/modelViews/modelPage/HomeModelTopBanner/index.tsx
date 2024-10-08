@@ -30,10 +30,12 @@ import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import ModelNewPassword from 'views/modelViews/ModelNewPassword';
-import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import { useAuthContext } from '../../../../../context/AuthContext';
+import React from 'react';
+import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 
 const HomeModelTopBanner = () => {
-  const { isCustomer } = useCallFeatureContext();
+  const { isCustomer } = useAuthContext();
 
   const url = new URL(window.location.href);
   const email = url.searchParams.get('email');
@@ -160,7 +162,12 @@ const HomeModelTopBanner = () => {
               </TypographyBox>
             </DetailSubContainer>
             <ButtonContainer>
-              {!isCustomer && token.token && !isVerificationPendingOrCompleted(modelDetails?.verification_step) ? (
+              {(!isCustomer &&
+                isVerificationPendingOrCompleted(modelDetails?.verification_step) &&
+                modelDetails?.verification_step !== MODEL_ACTIVE_STEP.VERIFIED &&
+                modelDetails?.verification_step !== MODEL_ACTIVE_STEP.IN_REVIEW) ||
+              (modelDetails?.profile_status === PAYOUT_ACTION.PENDING && modelDetails?.verification_step !== MODEL_ACTIVE_STEP.IN_REVIEW) ||
+              modelDetails?.profile_status === PAYOUT_ACTION.REJECT ? (
                 <Link href="/model/profile">
                   <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>
                     <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
@@ -168,13 +175,14 @@ const HomeModelTopBanner = () => {
                     </UINewTypography>
                   </UIThemeButton>
                 </Link>
-              ) : (
+              ) : modelDetails?.verification_step !== MODEL_ACTIVE_STEP.VERIFIED &&
+                modelDetails?.verification_step !== MODEL_ACTIVE_STEP.IN_REVIEW ? (
                 <UIThemeShadowButton onClick={handleSignupOpen} variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
                   <UINewTypography variant="body" sx={{ lineHeight: '150%' }}>
                     <FormattedMessage id="JoinForFREE" />
                   </UINewTypography>
                 </UIThemeShadowButton>
-              )}
+              ) : null}
             </ButtonContainer>
           </DetailContainer>
 

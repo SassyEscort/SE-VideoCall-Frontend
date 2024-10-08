@@ -1,6 +1,7 @@
 import DashboardNavItem from 'views/protectedDashboardViews/dashboardNavItem';
 import WorkerNavItem from './TopNavItem/WorkerNavItem';
 import { TopNavItemVariantProps } from './types';
+import React from 'react';
 
 const Header = <V extends TopNavItemVariantProps>(props: V) => {
   const { variant } = props;

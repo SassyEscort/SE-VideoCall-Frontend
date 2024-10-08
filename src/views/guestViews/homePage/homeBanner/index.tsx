@@ -26,13 +26,12 @@ import {
 } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestLogin from 'views/auth/guestLogin';
 import { User } from 'app/(guest)/layout';
-// import ProfileMenu from 'components/UIComponents/UIStyleHeader';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import ButtonFreeCredits from '../buttonFreeCredits';
 import React from 'react';
@@ -41,6 +40,7 @@ import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import { gaEventTrigger } from 'utils/analytics';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { useAuthContext } from '../../../../../context/AuthContext';
+import { BannerImage, BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 
 const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const { session } = useAuthContext();
@@ -55,8 +55,6 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
   // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [loading, setLoading] = useState(false);
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
-  const imageWidth = isSm && isSmDown ? 300 : isSmDown ? 347 : 462;
-  const imageHeight = isSmDown ? 339 : 452;
 
   // const handleDropDownOpen = (event: React.MouseEvent<HTMLElement>) => {
   //   setAnchorEl(event.currentTarget);
@@ -208,24 +206,11 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 )}
               </ThirdBoxContainer>
             </FirstBoxContainer>
-
-            <Box
-              pr={{ xs: 3, sm: 0 }}
-              pl={{ xs: 3, sm: 0 }}
-              display="flex"
-              alignItems="flex-end"
-              justifyContent={{ xs: 'center', sm: 'flex-start', lg: 'flex-end' }}
-              pt={{ xs: 0, lg: '83px' }}
-            >
-              <Box
-                component="img"
-                alt="home_model"
-                width={imageWidth}
-                height={imageHeight}
-                src="/images/home/home-banner-model.webp"
-                sx={{ borderRadius: '12px', right: 0 }}
-              />
-            </Box>
+            <BannerImageCard>
+              <picture>
+                <BannerImage loading="eager" src="/images/home/home-banner-model.webp" alt="home_model" />
+              </picture>
+            </BannerImageCard>
           </BannerContainer>
           {isSmDown && (
             <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} onSignupOpen={handleFreeCreditSignupOpen} />
@@ -344,4 +329,4 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
   );
 };
 
-export default HomeTopBanner;
+export default memo(HomeTopBanner);

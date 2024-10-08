@@ -1,3 +1,5 @@
+import { ErrorMessage } from 'constants/common.constants';
+import { toast } from 'react-toastify';
 import { v4 } from 'uuid';
 
 export const gaEventTrigger = (action: string, data: any, credits?: number) => {
@@ -26,7 +28,7 @@ export const gaEventTrigger = (action: string, data: any, credits?: number) => {
           };
         }
       } catch (e) {
-        console.error('Error processing value field:', e);
+        toast.error(ErrorMessage);
       }
       window.gtag('event', action, data);
     }
@@ -41,7 +43,7 @@ const tryParseJSON = (jsonString: string): any => {
       return obj;
     }
   } catch (e) {
-    console.error('Invalid JSON string:', jsonString);
+    toast.error(ErrorMessage);
   }
   return null;
 };

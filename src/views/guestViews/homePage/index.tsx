@@ -169,6 +169,7 @@ const HomeContainer = () => {
     handleChangeSearchFilter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, searchParams]);
+
   useEffect(() => {
     setFilters(getInitialFilters());
     handelFilterChange(getInitialFilters());
@@ -186,6 +187,7 @@ const HomeContainer = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
   return (
     <>
       <HomePageMainContainer>
@@ -202,7 +204,6 @@ const HomeContainer = () => {
           isFreeCreditAvailable={isFreeCreditAvailable}
         />
         <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
-        {/* <HomePageFAQ /> */}
       </HomePageMainContainer>
     </>
   );

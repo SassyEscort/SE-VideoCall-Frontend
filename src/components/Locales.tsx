@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { IntlProvider, MessageFormatElement } from 'react-intl';
 import useConfig from 'hooks/useConfig';
 import { I18n } from 'types/config';
@@ -38,4 +38,4 @@ const Locales = ({ children }: Props) => {
   );
 };
 
-export default Locales;
+export default memo(Locales);

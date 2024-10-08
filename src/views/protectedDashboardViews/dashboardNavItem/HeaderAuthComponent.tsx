@@ -21,6 +21,8 @@ import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import MyProfileChangePassword from 'views/protectedViews/changePassword';
 import { useAuthContext } from '../../../../context/AuthContext';
+import { PAYOUT_ACTION } from 'constants/payoutsConstants';
+import React from 'react';
 
 export type NotificationFilters = {
   page: number;
@@ -269,20 +271,23 @@ const DashboadrHeaderAuthComponent = () => {
 
           <ProfileMenu profilePic={firstChar} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
         </IconButtonBox>
-        {isSmUP &&
+        {((isSmUP &&
           !(
             modelDetails?.verification_step === MODEL_ACTIVE_STEP.IN_REVIEW ||
             modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED ||
             modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED
-          ) && (
-            <Link href="/model/profile">
-              <CompleteProfileBox variant="contained">
-                <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
-                  <FormattedMessage id="CompleteYourProfile" />
-                </UINewTypography>
-              </CompleteProfileBox>
-            </Link>
-          )}
+          )) ||
+          (modelDetails?.profile_status === PAYOUT_ACTION.PENDING &&
+            modelDetails?.verification_step !== MODEL_ACTIVE_STEP.IN_REVIEW &&
+            isSmUP)) && (
+          <Link href="/model/profile">
+            <CompleteProfileBox variant="contained">
+              <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
+                <FormattedMessage id="CompleteYourProfile" />
+              </UINewTypography>
+            </CompleteProfileBox>
+          </Link>
+        )}
       </Box>
       {notificationDetails && (
         <NotificationModalV2

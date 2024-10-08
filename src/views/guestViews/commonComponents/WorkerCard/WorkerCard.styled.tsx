@@ -352,3 +352,37 @@ export const HighlyAvailableBox = styled(Box)(({ theme }) => ({
   position: 'relative',
   marginLeft: '30px'
 }));
+
+export const BannerImageCard = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'flex-end',
+  paddingRight: 0,
+  paddingLeft: 0,
+  justifyContent: 'flex-end',
+  paddingTop: 83,
+  '@media (max-width: 768px)': {
+    justifyContent: 'flex-start'
+  },
+  [theme.breakpoints.down('sm')]: {
+    justifyContent: 'center',
+    paddingTop: 0
+  },
+  [theme.breakpoints.down('xs')]: {
+    justifyContent: 'center',
+    paddingRight: theme.spacing(3)
+  }
+}));
+
+export const BannerImage = styled('img')(({ theme }) => ({
+  borderRadius: '12px',
+  right: 0,
+  width: 462,
+  height: 452,
+  [theme.breakpoints.down('sm')]: {
+    width: 347,
+    height: 339
+  },
+  '@media (max-width: 330px)': {
+    width: 300
+  }
+}));
