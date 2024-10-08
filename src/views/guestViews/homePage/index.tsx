@@ -1,6 +1,5 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import HomeConnections from './HomeConnections';
 import HomeTopBanner from './homeBanner';
 import HomeImageCard from './homeImageCards';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
@@ -11,6 +10,8 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { getQueryParam } from 'utils/genericFunction';
 import { useAuthContext } from '../../../../context/AuthContext';
+import dynamic from 'next/dynamic';
+const HomeConnections = dynamic(() => import('./HomeConnections'));
 
 const HomeContainer = () => {
   const { isFreeCreditAvailable, session } = useAuthContext();
