@@ -14,7 +14,6 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import HomeMainContainer from './homeContainer';
-import { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import MoreFilters from '../searchPage/moreFilters';
 import { MenuContainer, SearchBarBox } from './GuestLayout.styled';
@@ -42,6 +41,9 @@ const ClaimCreditSignUp = dynamic(() => import('../homePage/ClaimCreditSignUp'),
   ssr: false
 });
 const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
+  ssr: false
+});
+const NewUIStyledSignUpDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
   ssr: false
 });
 
