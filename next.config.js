@@ -1,13 +1,17 @@
 /** @type {import('next').NextConfig} */
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
 const nextConfig = {
   reactStrictMode: false,
   experimental: {
-    optimizePackageImports: ['moment', 'lodash', '@mui/material', '@mui/icons-material'],
+    optimizePackageImports: ['moment', 'lodash', '@mui/material', '@mui/icons-material','react-intl','yup','formik','apexcharts'],
     serverActions: true,
     staleTimes: {
       dynamic: 0,
-      static: 0
-    }
+      static: 0,
+    },
   },
   async headers() {
     return [
@@ -16,28 +20,28 @@ const nextConfig = {
         headers: [
           {
             key: 'X-Robots-Tag',
-            value: 'index, follow'
-          }
-        ]
+            value: 'index, follow',
+          },
+        ],
       },
       {
         source: '/robots.txt',
         headers: [
           {
             key: 'Content-Type',
-            value: 'text/plain'
-          }
-        ]
-      }
+            value: 'text/plain',
+          },
+        ],
+      },
     ];
   },
   modularizeImports: {
     '@mui/material': {
-      transform: '@mui/material/{{member}}'
+      transform: '@mui/material/{{member}}',
     },
     '@mui/lab': {
-      transform: '@mui/lab/{{member}}'
-    }
+      transform: '@mui/lab/{{member}}',
+    },
   },
   images: {
     unoptimized: true,
@@ -45,14 +49,14 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'flagcdn.com',
-        pathname: '**'
-      }
-    ]
+        pathname: '**',
+      },
+    ],
   },
   pages: {
     '*': {
-      maxChunkSize: 30000
-    }
+      maxChunkSize: 30000,
+    },
   },
   env: {
     NEXT_APP_VERSION: 'v1.0.0',
@@ -62,8 +66,19 @@ const nextConfig = {
     NEXT_APP_API_URL: 'https://mock-data-api-nextjs.vercel.app',
     NEXT_APP_JWT_SECRET: 'ikRgjkhi15HJiU78-OLKfjngiu',
     NEXT_APP_JWT_TIMEOUT: '86400',
-    NEXTAUTH_SECRET_KEY: 'LlKq6ZtYbr+hTC073mAmAh9/h2HwMfsFo4hrfCx5mLg='
-  }
+    NEXTAUTH_SECRET_KEY: 'LlKq6ZtYbr+hTC073mAmAh9/h2HwMfsFo4hrfCx5mLg=',
+  },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      Object.assign(config.resolve.alias, {
+        react: "preact/compat",
+        "react-dom/test-utils": "preact/test-utils",
+        "react-dom": "preact/compat",
+      });
+    }
+    return config;
+  },
 };
 
-module.exports = nextConfig;
+// Export the combined configuration
+module.exports = withBundleAnalyzer(nextConfig);

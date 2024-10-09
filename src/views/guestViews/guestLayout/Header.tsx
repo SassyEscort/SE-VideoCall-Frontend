@@ -152,6 +152,7 @@ const HeaderGuestComponent = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      setIsUserInteracted(true);
       handleLanguageApiChange();
       window.removeEventListener('scroll', handleScroll);
     };
@@ -173,18 +174,6 @@ const HeaderGuestComponent = () => {
 
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsUserInteracted(true);
-      window.removeEventListener('scroll', handleScroll);
-    };
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
   }, []);
 
   return (
