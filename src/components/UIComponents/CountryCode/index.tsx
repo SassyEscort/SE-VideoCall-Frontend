@@ -1,32 +1,14 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import countries from './countrylist';
-
 import { CountrySelectProps } from './types';
+import { CountryCode, CountryCodeTextField } from './countrycode.styled';
 
 const CountryCodeSelect = ({ values, handleChange, error = false, disabled }: CountrySelectProps) => (
-  <Autocomplete
+  <CountryCode
     id="country-select-demo"
     size="small"
     disabled={disabled}
-    sx={{
-      width: 150,
-      '& .MuiAutocomplete-clearIndicator svg': {
-        display: 'none'
-      },
-      '& .MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-popupIndicator svg': {
-        display: 'none'
-      },
-      '& .MuiAutocomplete-inputRoot .MuiAutocomplete-input': {
-        width: '100%',
-        minWidth: '38px'
-      },
-      '& .MuiAutocomplete-popupIndicator svg': {
-        display: 'none'
-      }
-    }}
     options={countries}
     autoHighlight
     value={values}
@@ -49,24 +31,13 @@ const CountryCodeSelect = ({ values, handleChange, error = false, disabled }: Co
       );
     }}
     renderInput={(params) => (
-      <TextField
+      <CountryCodeTextField
         placeholder="code"
         {...params}
         error={error}
         inputProps={{
           ...params.inputProps,
-          autoComplete: 'new-password',
-          sx: {
-            '& .MuiOutlinedInput-notchedOutline': {
-              borderColor: '#232027'
-            },
-            '&:hover .MuiOutlinedInput-notchedOutline': {
-              borderColor: '#FF68C0'
-            },
-            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              borderColor: '#FF68C0'
-            }
-          }
+          autoComplete: 'new-password'
         }}
       />
     )}

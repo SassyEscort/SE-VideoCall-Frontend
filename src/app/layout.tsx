@@ -17,13 +17,12 @@ export default function RootLayout({
 }: Readonly<{
   children: JSX.Element;
 }>) {
-  const isStaging = process.env.NEXT_PUBLIC_ENV === 'staging';
   const isProduction = process.env.NEXT_PUBLIC_ENV === 'production';
   return (
     <html lang="en">
       <head>
+        <meta name="robots" content="noindex, nofollow" />
         <link rel="preload" as="image" href="/images/home/home-banner-model.webp" />
-        {isStaging && <meta name="robots" content="noindex, nofollow" />}
         <Script
           defer
           id="clarity-script"

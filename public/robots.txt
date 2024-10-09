@@ -1,4 +1,9 @@
+# *
 User-agent: *
 Allow: /
-Disallow: /search?*
+
+# Host
+Host: https://flirtbate.com/
+
+# Sitemaps
 Sitemap: https://flirtbate.com/sitemap.xml

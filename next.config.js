@@ -8,6 +8,28 @@ const nextConfig = {
       static: 0
     }
   },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'index, follow'
+          }
+        ]
+      },
+      {
+        source: '/robots.txt',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'text/plain'
+          }
+        ]
+      }
+    ];
+  },
   modularizeImports: {
     '@mui/material': {
       transform: '@mui/material/{{member}}'
@@ -25,6 +47,11 @@ const nextConfig = {
         pathname: '**'
       }
     ]
+  },
+  pages: {
+    '*': {
+      maxChunkSize: 30000
+    }
   },
   env: {
     NEXT_APP_VERSION: 'v1.0.0',

@@ -56,6 +56,7 @@ const MyProfile = () => {
       if (res) {
         if (res.code === 200 && res.custom_code === null) {
           toast.success('Success');
+          FetchCustomerDetails();
         } else {
           const errorMessage = getErrorMessage(res?.custom_code);
           toast.error(intl.formatMessage({ id: errorMessage }));

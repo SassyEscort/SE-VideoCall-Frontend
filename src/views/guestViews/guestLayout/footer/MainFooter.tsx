@@ -12,7 +12,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import { ModelUITextConatiner } from 'views/auth/AuthCommon.styled';
 import HomeMainContainer from '../homeContainer';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import UIStyledDialog, { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestLogin from 'views/auth/guestLogin';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
@@ -223,9 +223,9 @@ const MainFooter = ({
         <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
           <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
         </UIStyledDialog>
-        <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+        <NewUIStyledSignUpDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
           <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-        </UIStyledDialog>
+        </NewUIStyledSignUpDialog>
       </HomeMainContainer>
     </>
   );
