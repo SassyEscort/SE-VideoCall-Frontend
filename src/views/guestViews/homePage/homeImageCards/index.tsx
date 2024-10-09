@@ -8,7 +8,7 @@ import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service'
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { memo, useMemo, useState } from 'react';
 import Link from 'next/link';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import UIStyledDialog, { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestLogin from 'views/auth/guestLogin';
 import GuestSignup from 'views/auth/guestSignup';
@@ -229,9 +229,9 @@ const HomeImageCard = ({
       <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
-      <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+      <NewUIStyledSignUpDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
         <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-      </UIStyledDialog>
+      </NewUIStyledSignUpDialog>
     </HomeMainContainer>
   );
 };

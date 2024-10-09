@@ -14,12 +14,11 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import HomeMainContainer from './homeContainer';
+import { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import MoreFilters from '../searchPage/moreFilters';
 import { MenuContainer, SearchBarBox } from './GuestLayout.styled';
 import MenuItem from '@mui/material/MenuItem';
-import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
-import FreeCreditsSignUp from '../homePage/freeCreditsSignUp';
 import { useAuthContext } from '../../../../context/AuthContext';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -37,6 +36,12 @@ const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
   ssr: false
 });
 const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
+  ssr: false
+});
+const ClaimCreditSignUp = dynamic(() => import('../homePage/ClaimCreditSignUp'), {
+  ssr: false
+});
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
   ssr: false
 });
 
@@ -101,6 +106,7 @@ const HeaderGuestComponent = () => {
 
   const handleFreeCreditSignupClose = () => {
     setFreeSignupOpen(false);
+    setOpenFreeCredit(false);
   };
 
   const handleLoginResetPasswordOpen = () => {
@@ -110,6 +116,7 @@ const HeaderGuestComponent = () => {
 
   const handleLoginClose = () => {
     setIsOpenLogin(false);
+    setOpenFreeCredit(false);
   };
 
   const handleResetPasswordLinkOpen = () => {
@@ -387,18 +394,18 @@ const HeaderGuestComponent = () => {
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
 
-      <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+      <NewUIStyledSignUpDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
         <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-      </UIStyledDialog>
+      </NewUIStyledSignUpDialog>
 
       {/* <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} /> */}
       <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
 
       {isSmUp && isUserInteracted && (
-        <FreeCreditsSignUp
+        <ClaimCreditSignUp
           open={openFreeCredit && Boolean(isFreeCreditAvailable)}
           onClose={handleFreeCreditClose}
-          onSignupOpen={handleFreeCreditSignupOpen}
+          onSignupOpen={handleLoginOpen}
         />
       )}
     </HomeMainContainer>

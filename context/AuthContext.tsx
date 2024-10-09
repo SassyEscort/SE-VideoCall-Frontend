@@ -12,6 +12,8 @@ export type AuthContextProps = {
   user: string | undefined;
   isFreeCreditAvailable: number;
   status: string;
+  handleFreeCreditClaim: () => void;
+  isFreeCreditsClaimed: boolean;
 };
 
 const AuthContext = createContext<AuthContextProps>({
@@ -19,21 +21,28 @@ const AuthContext = createContext<AuthContextProps>({
   isCustomer: false,
   user: '',
   isFreeCreditAvailable: 1,
-  status: ''
+  status: '',
+  handleFreeCreditClaim: () => {},
+  isFreeCreditsClaimed: false
 });
 
 export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const { data, status } = useSession();
   const [session, setSession] = useState<Session | null>(null);
   const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(1);
+  const [isFreeCreditsClaimed, setIsFreeCreditsClaimed] = useState(false);
 
   const user = (session?.user as User)?.picture;
   const providerData = JSON.parse(user || '{}');
   const isCustomer = providerData?.role === ROLE.CUSTOMER;
 
+  const handleFreeCreditClaim = () => {
+    setIsFreeCreditsClaimed(!isFreeCreditsClaimed);
+  };
+
   const handleCustomerFreeCredits = useCallback(async () => {
     const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
-    setIsFreeCreditAvailable(res.data.free_credits_available);
+    setIsFreeCreditAvailable(res?.data?.free_credits_available);
   }, []);
 
   useEffect(() => {
@@ -47,7 +56,21 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <AuthContext.Provider value={{ session, isCustomer, user, isFreeCreditAvailable, status }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{
+        session,
+        isCustomer,
+        user,
+        isFreeCreditAvailable,
+        status,
+        handleFreeCreditClaim,
+        isFreeCreditsClaimed
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuthContext = (): AuthContextProps => {

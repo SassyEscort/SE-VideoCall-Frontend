@@ -6,7 +6,10 @@ export type CustomerDetails = {
   customer_id: number;
   customer_name: string;
   customer_user_name: string;
+  customer_phone_number: string;
   email_verified: number;
+  phone_verified: number;
+  free_credits_claimed: number;
 };
 
 export type CustomerDetailsRes = {
