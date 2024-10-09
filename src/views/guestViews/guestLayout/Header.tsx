@@ -7,27 +7,38 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import { useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { gaEventTrigger } from 'utils/analytics';
+import UINewTypography from 'components/UIComponents/UINewTypography';
+import { CommonServices } from 'services/commonApi/commonApi.services';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import HomeMainContainer from './homeContainer';
-import { FormattedMessage } from 'react-intl';
-import GuestSignup from 'views/auth/guestSignup';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestLogin from 'views/auth/guestLogin';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
-import UINewTypography from 'components/UIComponents/UINewTypography';
 import LanguageDropdown from 'components/common/LanguageDropdown';
-// import ProfileMenu from 'components/UIComponents/UIStyleHeader';
 import MoreFilters from '../searchPage/moreFilters';
 import { MenuContainer, SearchBarBox } from './GuestLayout.styled';
 import MenuItem from '@mui/material/MenuItem';
-import { Button, Divider, ListItemIcon, ListItemText } from '@mui/material';
-import { gaEventTrigger } from 'utils/analytics';
 import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import FreeCreditsSignUp from '../homePage/freeCreditsSignUp';
 import { useAuthContext } from '../../../../context/AuthContext';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
-import { CommonServices } from 'services/commonApi/commonApi.services';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+import Button from '@mui/material/Button';
+import dynamic from 'next/dynamic';
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false
+});
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
+  ssr: false
+});
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
+  ssr: false
+});
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
+  ssr: false
+});
 
 const HeaderGuestComponent = () => {
   const { isFreeCreditAvailable } = useAuthContext();
@@ -394,4 +405,4 @@ const HeaderGuestComponent = () => {
   );
 };
 
-export default HeaderGuestComponent;
+export default memo(HeaderGuestComponent);
