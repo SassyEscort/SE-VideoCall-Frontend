@@ -15,7 +15,7 @@ const nextConfig = {
         headers: [
           {
             key: 'X-Robots-Tag',
-            value: 'noindex, nofollow'
+            value: 'index, nofollow'
           }
         ]
       },
@@ -51,7 +51,7 @@ const nextConfig = {
   pages: {
     '*': {
       maxChunkSize: 30000
-    },
+    }
   },
   env: {
     NEXT_APP_VERSION: 'v1.0.0',
