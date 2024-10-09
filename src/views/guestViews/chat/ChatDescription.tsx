@@ -101,7 +101,7 @@ const ChatDescription = ({ handleMessageInputChange, modelDetails, messages }: I
                           <ModelChatMainBoxContainer>
                             <ModelChatTextBoxContainer>
                               <UINewTypography variant="body1" color="text.secondary">
-                                Hey Aesha, are you available at 8 in the evening?
+                                Hey {modelDetails?.name}, are you available at 8 in the evening?
                               </UINewTypography>
                             </ModelChatTextBoxContainer>
 

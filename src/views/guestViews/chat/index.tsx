@@ -12,7 +12,8 @@ import { ErrorMessage } from 'constants/common.constants';
 import { toast } from 'react-toastify';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { ChatService, IMessage, IMessageResponse } from 'services/chatServices/chat.service';
+// import { ChatService, IMessage, IMessageResponse } from 'services/chatServices/chat.service';
+import { ChatService, IMessage } from 'services/chatServices/chat.service';
 import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
@@ -22,9 +23,10 @@ import { useAuthContext } from '../../../../context/AuthContext';
 const ChatFeature = () => {
   const { isCustomer } = useAuthContext();
 
-  const [messageInput, setMessageInput] = useState<string>('');
+  // const [messageInput, setMessageInput] = useState<string>('');
+  const [, setMessageInput] = useState<string>('');
   const [messages, setMessages] = useState<IMessage[]>([]);
-  const [chatData, setChatData] = useState<IMessageResponse>();
+  // const [chatData, setChatData] = useState<IMessageResponse>();
   const [isSentMessage, setIsSentMessage] = useState<boolean>(false);
   const [lastTimestamp, setLastTimestamp] = useState<string | null>(null);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -165,12 +167,12 @@ const ChatFeature = () => {
   }, [customerData.customer_user_name, modelUserName, token.token]);
 
   useEffect(() => {
-    if (lastTimestamp) {
+    if (customerData.customer_user_name && modelUserName) {
       const messagesQuery = query(
         collection(firebase_db, 'messages'),
         where('senderUID', 'in', [customerData.customer_user_name, modelUserName]),
         where('receiverUID', 'in', [customerData.customer_user_name, modelUserName]),
-        where('createdAt', '>', new Date(lastTimestamp)),
+        lastTimestamp ? where('createdAt', '>', new Date(lastTimestamp)) : orderBy('createdAt'),
         orderBy('createdAt')
       );
 
