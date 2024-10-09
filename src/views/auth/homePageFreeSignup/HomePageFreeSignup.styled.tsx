@@ -128,6 +128,4 @@ export const HeaderTextInnerBoxContainer = styled(Box)(({ theme }) => ({
 
 export const IconeButtonContainer = styled(IconButton)(({ theme }) => ({
   color: theme.palette.common.white
-  // position: 'absolute',
-  // top: 0
 }));

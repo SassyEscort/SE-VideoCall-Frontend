@@ -49,7 +49,6 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
   const { refresh, push } = route;
 
   const isSm = useMediaQuery(theme.breakpoints.down(330));
-  // const isLg = useMediaQuery(theme.breakpoints.up('lg'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
