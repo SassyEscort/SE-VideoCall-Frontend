@@ -1,9 +1,12 @@
 'use client';
+import { useEffect } from 'react';
 import { CometChatIncomingCall, CometChatOngoingCall, CometChatOutgoingCall } from '@cometchat/chat-uikit-react';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import RingingModel from '../videoCalling/RingingModel';
 import AnotherCallModel from '../videoCalling/AnotherCallModel';
 import OfflineModel from '../videoCalling/offlineModel';
+import html2canvas from 'html2canvas';
+import moment from 'moment';
 
 const CallFeature = () => {
   const {
@@ -17,6 +20,29 @@ const CallFeature = () => {
     isModelAvailable,
     handleModelOfflineClose
   } = useCallFeatureContext();
+
+  const saveScreenshot = () => {
+    const captureElement = document.querySelector('#cc-callscreen_ref') as HTMLElement;
+    if (captureElement) {
+      html2canvas(captureElement).then((canvas) => {
+        canvas.toBlob(function (blob) {
+          if (blob) {
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${call?.getSessionId()}_${moment().format('DD_MM_YYYY_hh:mm:ss_a')}.png`;
+            link.click();
+          }
+        });
+      });
+    }
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (isCallAccepted) saveScreenshot();
+    }, 10000);
+    return () => clearInterval(intervalId);
+  }, [isCallAccepted]);
 
   return (
     <>
