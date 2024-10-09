@@ -48,6 +48,11 @@ const nextConfig = {
       }
     ]
   },
+  pages: {
+    '*': {
+      maxChunkSize: 30000
+    },
+  },
   env: {
     NEXT_APP_VERSION: 'v1.0.0',
     NEXTAUTH_SECRET: 'LlKq6ZtYbr+hTC073mAmAh9/h2HwMfsFo4hrfCx5mLg=',

@@ -1,10 +1,12 @@
 import Box from '@mui/material/Box';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 import { getLoggedInUser } from 'utils/getSessionData';
 import RedirectGuard from 'utils/route-guard/RedirectGuard';
-import Footer from 'views/guestViews/guestLayout/footer';
 import HeaderGuestComponent from 'views/guestViews/guestLayout/Header';
 import Header from 'views/protectedViews/protectedLayout/Header';
+const Footer = dynamic(() => import('views/guestViews/guestLayout/footer').then((module) => module.default));
 
 export interface User {
   name?: string | null;
@@ -24,22 +26,34 @@ export default async function Layout({ children }: { children: React.ReactNode }
 
   let HeaderComponent;
   if (authUser?.user?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM) {
-    HeaderComponent = <Header variant="worker" />;
+    HeaderComponent = (
+      <>
+        <RedirectGuard>
+          <Header variant="worker" />;
+        </RedirectGuard>
+      </>
+    );
   } else if (authUser?.user?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM) {
-    HeaderComponent = <Header variant="dashboard" />;
+    HeaderComponent = (
+      <>
+        <RedirectGuard>
+          <Header variant="dashboard" />;
+        </RedirectGuard>
+      </>
+    );
   } else {
     HeaderComponent = <HeaderGuestComponent />;
   }
 
   return (
-    <RedirectGuard>
-      <Box>
-        {HeaderComponent}
-        <main>
-          <Box sx={{ mt: 10 }}>{children}</Box>
-        </main>
+    <>
+      {HeaderComponent}
+      <main>
+        <Box sx={{ mt: 10 }}>{children}</Box>
+      </main>
+      <Suspense fallback={<div>Loading Footer...</div>}>
         <Footer />
-      </Box>
-    </RedirectGuard>
+      </Suspense>
+    </>
   );
 }
