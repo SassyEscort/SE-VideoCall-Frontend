@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://staging.flirtbate.com/
+Host: https://flirtbate.com/
 
 # Sitemaps
-Sitemap: https://staging.flirtbate.com/sitemap.xml
+Sitemap: https://flirtbate.com/sitemap.xml
