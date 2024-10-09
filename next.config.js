@@ -2,7 +2,6 @@
 const nextConfig = {
   reactStrictMode: false,
   experimental: {
-    optimizePackageImports: ['moment', 'lodash', '@mui/material', '@mui/icons-material','axios','yup','formik'],
     serverActions: true,
     staleTimes: {
       dynamic: 0,
