@@ -35,7 +35,7 @@ import { User } from 'app/(guest)/layout';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import ButtonFreeCredits from '../buttonFreeCredits';
 import React from 'react';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
 import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import { gaEventTrigger } from 'utils/analytics';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
@@ -321,9 +321,9 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
       >
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </Dialog>
-      <UIStyledDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
+      <NewUIStyledSignUpDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
         <HomePageFreeSignup onLoginOpen={handleLoginOpen} onClose={handleFreeCreditSignupClose} />
-      </UIStyledDialog>
+      </NewUIStyledSignUpDialog>
       {/* <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} /> */}
     </>
   );
