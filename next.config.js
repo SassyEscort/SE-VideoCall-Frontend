@@ -51,7 +51,7 @@ const nextConfig = {
   pages: {
     '*': {
       maxChunkSize: 30000
-    },
+    }
   },
   env: {
     NEXT_APP_VERSION: 'v1.0.0',
