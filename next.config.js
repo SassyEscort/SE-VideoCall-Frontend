@@ -8,6 +8,28 @@ const nextConfig = {
       static: 0
     }
   },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex, nofollow'
+          }
+        ]
+      },
+      {
+        source: '/robots.txt',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'text/plain'
+          }
+        ]
+      }
+    ];
+  },
   modularizeImports: {
     '@mui/material': {
       transform: '@mui/material/{{member}}'
