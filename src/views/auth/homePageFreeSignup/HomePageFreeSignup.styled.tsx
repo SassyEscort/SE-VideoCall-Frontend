@@ -107,7 +107,7 @@ export const HomeFreeSignupMainBoxContainer = styled(Box)(({ theme }) => ({
     gap: theme.spacing(3)
   },
   [theme.breakpoints.up('sm')]: {
-    paddingTop: theme.spacing(6.25),
+    paddingTop: theme.spacing(4),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(2),
     // maxWidth: '400px',
@@ -127,10 +127,7 @@ export const HeaderTextInnerBoxContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const IconeButtonContainer = styled(IconButton)(({ theme }) => ({
-  color: theme.palette.common.white,
-  position: 'absolute',
-  top: 0,
-  [theme.breakpoints.up('md')]: {
-    right: '-84px'
-  }
+  color: theme.palette.common.white
+  // position: 'absolute',
+  // top: 0
 }));
