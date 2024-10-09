@@ -50,6 +50,7 @@ const MyProfileContainer = ({
   const sendLinkVerify = async () => {
     touched.email = true;
     setIsEmailOptSent(true);
+    setIsEditable(false);
     try {
       if (!errors.email && token.token) {
         try {
@@ -72,6 +73,7 @@ const MyProfileContainer = ({
 
   const sendPhoneOtp = async () => {
     touched.phone = true;
+    setIsNumberEditable(false);
     try {
       if (!errors.phone && token.token) {
         try {
