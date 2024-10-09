@@ -15,12 +15,17 @@ import { FormattedMessage } from 'react-intl';
 import { WorkerMainBox } from './WorkerNavItem.styled';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
 import { CommonServices } from 'services/commonApi/commonApi.services';
+import ClaimCreditSignUp from 'views/guestViews/homePage/ClaimCreditSignUp';
+import { usePathname } from 'next/navigation';
 
 const WorkerNavItem = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [isApiCalled, setIsApiCalled] = useState(false);
   const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
+  const [openFreeCredit, setOpenFreeCredit] = useState(false);
+
+  const path = usePathname();
 
   const handleCloseFilterModal = () => {
     setOpenFilterModal(false);
@@ -33,6 +38,14 @@ const WorkerNavItem = () => {
     }
   };
 
+  const handleFreeCreditClose = () => {
+    setOpenFreeCredit(false);
+  };
+
+  const handleProfileRedirect = () => {
+    window.location.href = '/profile';
+  };
+
   const handleLanguageApiChange = useCallback(() => {
     const languagesData = async () => {
       const data = await CommonServices.getLanguages();
@@ -40,11 +53,25 @@ const WorkerNavItem = () => {
     };
     languagesData();
   }, []);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (path === '/') {
+        setOpenFreeCredit(true);
+      }
+    }, 5000);
+
+    if (openFreeCredit) {
+      clearTimeout(timer);
+    }
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (isApiCalled) {
       handleLanguageApiChange();
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isApiCalled]);
 
@@ -102,6 +129,7 @@ const WorkerNavItem = () => {
         </WorkerNavItemContainer>
       </AppBar>
       <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
+      <ClaimCreditSignUp open={openFreeCredit} onClose={handleFreeCreditClose} onSignupOpen={handleProfileRedirect} />
     </>
   );
 };

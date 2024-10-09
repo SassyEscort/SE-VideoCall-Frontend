@@ -25,6 +25,8 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import dynamic from 'next/dynamic';
+import { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
+import FreeCreditsSignUp from '../homePage/freeCreditsSignUp';
 const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
   ssr: false
 });
@@ -37,13 +39,7 @@ const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
 const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
   ssr: false
 });
-const ClaimCreditSignUp = dynamic(() => import('../homePage/ClaimCreditSignUp'), {
-  ssr: false
-});
 const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
-  ssr: false
-});
-const NewUIStyledSignUpDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
   ssr: false
 });
 
@@ -393,10 +389,10 @@ const HeaderGuestComponent = () => {
       <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
 
       {isSmUp && isUserInteracted && (
-        <ClaimCreditSignUp
+        <FreeCreditsSignUp
           open={openFreeCredit && Boolean(isFreeCreditAvailable)}
           onClose={handleFreeCreditClose}
-          onSignupOpen={handleLoginOpen}
+          onSignupOpen={handleFreeCreditSignupOpen}
         />
       )}
     </HomeMainContainer>

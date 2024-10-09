@@ -155,15 +155,15 @@ const MyProfile = () => {
                   FetchCustomerDetails={FetchCustomerDetails}
                 />
                 <DisableButtonBox>
-                  {customerDetails?.free_credits_claimed === 0 ? (
+                  {customerDetails?.free_credits_claimed === 0 && (
                     <Tooltip
                       title={
                         !isPhoneVerified && !isEmailVerified
-                          ? 'Email and phone verification pending'
+                          ? 'Please verify your email and phone'
                           : !isPhoneVerified
-                            ? 'Phone verification pending'
+                            ? 'Please verify your phone'
                             : !isEmailVerified
-                              ? 'Email verification pending'
+                              ? 'Please verify your email'
                               : ''
                       }
                       disableHoverListener={false}
@@ -187,21 +187,21 @@ const MyProfile = () => {
                         </UIThemeButton>
                       </Box>
                     </Tooltip>
-                  ) : (
-                    <Box></Box>
                   )}
-                  <Box>
-                    <StyleButtonV2
-                      variant="contained"
-                      type="submit"
-                      loading={loadingButton}
-                      disabled={customerDetails?.customer_name === values.username}
-                    >
-                      <UINewTypography variant="buttonSmallBold" color={buttonColor}>
-                        <FormattedMessage id="Save" />
-                      </UINewTypography>
-                    </StyleButtonV2>
-                  </Box>
+                  {customerDetails?.free_credits_claimed === 1 && (
+                    <Box>
+                      <StyleButtonV2
+                        variant="contained"
+                        type="submit"
+                        loading={loadingButton}
+                        disabled={customerDetails?.customer_name === values.username}
+                      >
+                        <UINewTypography variant="buttonSmallBold" color={buttonColor}>
+                          <FormattedMessage id="Save" />
+                        </UINewTypography>
+                      </StyleButtonV2>
+                    </Box>
+                  )}
                 </DisableButtonBox>
               </Box>
             )}

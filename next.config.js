@@ -15,7 +15,7 @@ const nextConfig = {
         headers: [
           {
             key: 'X-Robots-Tag',
-            value: 'index, follow'
+            value: 'noindex, nofollow'
           }
         ]
       },

@@ -49,8 +49,8 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
   const { refresh, push } = route;
 
   const isSm = useMediaQuery(theme.breakpoints.down(330));
-  // const isLg = useMediaQuery(theme.breakpoints.up('lg'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -168,7 +168,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                         </JoinForFreeText>
                         <HeaderTextInnerBoxContainer>
                           <IconeButtonContainer size="large" onClick={onClose}>
-                            {!isMdDown && <CloseIcon />}
+                            {isSmUp && <CloseIcon />}
                           </IconeButtonContainer>
                         </HeaderTextInnerBoxContainer>
                       </HeaderTextMainBoxContainer>
