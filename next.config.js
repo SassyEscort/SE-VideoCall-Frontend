@@ -1,28 +1,19 @@
 /** @type {import('next').NextConfig} **/
 const nextConfig = {
   reactStrictMode: false,
-  async headers() {
-    return [
+  compress: true,
+  images: {
+    remotePatterns: [
       {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Robots-Tag',
-            value: 'noindex, nofollow'
-          }
-        ]
-      },
-      {
-        source: '/robots.txt',
-        headers: [
-          {
-            key: 'Content-Type',
-            value: 'text/plain'
-          }
-        ]
+        protocol: 'https',
+        hostname: 'ik.imagekit.io',
+        pathname: '**'
       }
-    ];
+    ],
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 60,
   },
+
   modularizeImports: {
     '@mui/material': {
       transform: '@mui/material/{{member}}'
@@ -31,21 +22,11 @@ const nextConfig = {
       transform: '@mui/lab/{{member}}'
     }
   },
-  images: {
-    unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'flagcdn.com',
-        pathname: '**'
-      }
-    ]
+
+  experimental: {
+    scrollRestoration: true,
   },
-  pages: {
-    '*': {
-      maxChunkSize: 30000
-    }
-  },
+
   env: {
     NEXT_APP_VERSION: 'v1.0.0',
     NEXTAUTH_SECRET: 'LlKq6ZtYbr+hTC073mAmAh9/h2HwMfsFo4hrfCx5mLg=',
