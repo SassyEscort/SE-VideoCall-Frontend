@@ -17,6 +17,7 @@ import { MultipleOptionString } from 'views/protectedModelViews/verification/ste
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import ClaimCreditSignUp from 'views/guestViews/homePage/ClaimCreditSignUp';
 import { usePathname } from 'next/navigation';
+import { CustomerDetails } from 'services/customerDetails/customerDetails.services';
 
 const WorkerNavItem = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -24,6 +25,7 @@ const WorkerNavItem = () => {
   const [isApiCalled, setIsApiCalled] = useState(false);
   const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
   const [openFreeCredit, setOpenFreeCredit] = useState(false);
+  const [isCreditsClaimed, setIsCreditsClaimed] = useState(true);
 
   const path = usePathname();
 
@@ -53,9 +55,16 @@ const WorkerNavItem = () => {
     };
     languagesData();
   }, []);
+
+  const handelCustomerDetails = (Data: CustomerDetails) => {
+    if (Data) {
+      if (Data.free_credits_claimed === 0) setIsCreditsClaimed(false);
+    }
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (path === '/') {
+      if (path === '/' && !isCreditsClaimed) {
         setOpenFreeCredit(true);
       }
     }, 5000);
@@ -65,7 +74,7 @@ const WorkerNavItem = () => {
     }
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isCreditsClaimed]);
 
   useEffect(() => {
     if (isApiCalled) {
@@ -124,7 +133,7 @@ const WorkerNavItem = () => {
             )}
           </WorkerMainBox>
           <Box display="flex" gap={2}>
-            <HeaderAuthComponent />
+            <HeaderAuthComponent customerDataProps={handelCustomerDetails} />
           </Box>
         </WorkerNavItemContainer>
       </AppBar>
