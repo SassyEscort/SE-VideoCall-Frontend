@@ -187,7 +187,7 @@ const Credits = () => {
                         <CreditBuyText variant="bodySmall" color="secondary.700">
                           <FormattedMessage id="BuyNowAt" />
                         </CreditBuyText>
-                        <DollarCreditText color="text.secondary">${listCredit?.amount.toFixed(2)}</DollarCreditText>
+                        <DollarCreditText color="text.secondary">${listCredit?.amount?.toFixed(2)}</DollarCreditText>
                       </BoxSecondTextContainer>
                     </ImagSubContainer>
                   ))}
