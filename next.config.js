@@ -1,13 +1,6 @@
-/** @type {import('next').NextConfig} */
+/** @type {import('next').NextConfig} **/
 const nextConfig = {
   reactStrictMode: false,
-  experimental: {
-    serverActions: true,
-    staleTimes: {
-      dynamic: 0,
-      static: 0
-    }
-  },
   async headers() {
     return [
       {
