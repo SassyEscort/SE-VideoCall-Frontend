@@ -33,13 +33,13 @@ export const RemianingTime = styled(Box)(({ theme }) => ({
   boxShadow: '0px 0px 20px 4px rgba(255, 104, 192, 0.5)'
 }));
 
-export const TimeTypo = styled(UINewTypography)(({ theme }) => ({
+export const TimeTypo = styled(UINewTypography)(() => ({
   fontSize: '29.09px',
   fontWeight: 800,
   lineHeight: '39.73px',
   zIndex: 1
 }));
-export const TimerDivider = styled(Divider)(({ theme }) => ({
+export const TimerDivider = styled(Divider)(() => ({
   width: '100%',
   position: 'absolute',
   border: '2px solid',
@@ -47,7 +47,7 @@ export const TimerDivider = styled(Divider)(({ theme }) => ({
   color: '#FFCFC5'
 }));
 
-export const TimeTitle = styled(UINewTypography)(({ theme }) => ({
+export const TimeTitle = styled(UINewTypography)(() => ({
   fontSize: '12px',
   fontWeight: 300,
   lineHeight: '16.39px',

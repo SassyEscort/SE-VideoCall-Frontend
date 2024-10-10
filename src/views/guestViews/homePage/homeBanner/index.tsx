@@ -209,7 +209,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
             </FirstBoxContainer>
             <BannerImageCard>
               <picture>
-                <BannerImage loading="eager" src="/images/home/home-banner-model.webp" alt="home_model" />
+                <BannerImage loading="eager" src="/images/home/home-banner-model1.webp" alt="home_model" />
               </picture>
             </BannerImageCard>
           </BannerContainer>
