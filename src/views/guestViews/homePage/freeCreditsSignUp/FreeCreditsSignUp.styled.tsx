@@ -39,7 +39,7 @@ export const DialogContentMain = styled(Dialog)(({ theme }) => ({
   }
 }));
 
-export const FreeCreditSignupMainContainer = styled(Box)(({ theme }) => ({
+export const FreeCreditSignupMainContainer = styled(Box)(() => ({
   display: 'flex',
   width: '100%',
   justifyContent: 'space-between',
@@ -54,14 +54,14 @@ export const ImageBoxContainer = styled(Box)(({ theme }) => ({
   top: -'26px'
 }));
 
-export const HeaderCloseButtonBoxContainer = styled(Box)(({ theme }) => ({
+export const HeaderCloseButtonBoxContainer = styled(Box)(() => ({
   display: 'flex',
   width: '100%',
   justifyContent: 'end',
   position: 'absolute'
 }));
 
-export const TextMainBoxContainer = styled(Box)(({ theme }) => ({
+export const TextMainBoxContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center'
@@ -87,13 +87,13 @@ export const TitleTextInnerBoxContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center'
 }));
 
-export const DescriptionTextBoxContainer = styled(Box)(({ theme }) => ({
+export const DescriptionTextBoxContainer = styled(Box)(() => ({
   width: '100%',
   maxWidth: '332px',
   textAlign: 'center'
 }));
 
-export const ButtonContainer = styled(UIThemeShadowButton)(({ theme }) => ({
+export const ButtonContainer = styled(UIThemeShadowButton)(() => ({
   width: '100%',
   maxWidth: '232px',
   whiteSpace: 'nowrap',
@@ -102,7 +102,7 @@ export const ButtonContainer = styled(UIThemeShadowButton)(({ theme }) => ({
   }
 }));
 
-export const HeaderTextContainer = styled(Typography)(({ theme }) => ({
+export const HeaderTextContainer = styled(Typography)(() => ({
   fontSize: '32px',
   fontWeight: '700',
   lineHeight: '44.8px',

@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="robots" content="noindex, nofollow" />
-        <link rel="preload" as="image" href="/images/home/home-banner-model.webp" />
+        <link rel="preload" as="image" href="/images/home/home-banner-model1.webp" />
         <Script
           defer
           id="clarity-script"

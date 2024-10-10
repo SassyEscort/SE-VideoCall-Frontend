@@ -233,13 +233,13 @@ export const TextContainer = styled(Typography)(({ theme }) => ({
   }
 }));
 
-export const SignupTextContainer = styled(Typography)(({ theme }) => ({
+export const SignupTextContainer = styled(Typography)(() => ({
   fontSize: '16px',
   fontWeight: 700,
   lineHeight: '24px'
 }));
 
-export const ExploreTextContainer = styled(Typography)(({ theme }) => ({
+export const ExploreTextContainer = styled(Typography)(() => ({
   fontSize: '16px',
   fontWeight: 600,
   lineHeight: '19.2px'

@@ -39,14 +39,14 @@ export const DialogContentMain = styled(Dialog)(({ theme }) => ({
   }
 }));
 
-export const FreeCreditSignupMainContainer = styled(Box)(({ theme }) => ({
+export const FreeCreditSignupMainContainer = styled(Box)(() => ({
   display: 'flex',
   width: '100%',
   justifyContent: 'space-between',
   position: 'relative'
 }));
 
-export const ImageBoxContainer = styled(Box)(({ theme }) => ({
+export const ImageBoxContainer = styled(Box)(() => ({
   display: 'flex',
   width: '100%',
   justifyContent: 'center',
@@ -54,7 +54,7 @@ export const ImageBoxContainer = styled(Box)(({ theme }) => ({
   top: -'26px'
 }));
 
-export const HeaderCloseButtonBoxContainer = styled(Box)(({ theme }) => ({
+export const HeaderCloseButtonBoxContainer = styled(Box)(() => ({
   display: 'flex',
   width: '100%',
   justifyContent: 'end',
