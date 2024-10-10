@@ -41,5 +41,10 @@ export const NotificationTypeDetailsV2: NotificationTypeDetailsTypeV2 = {
     icon: <BoxIconNotification src="/images/notification/profile_approved.png" />,
     href: '',
     isReadMore: true
+  },
+  Verify_For_Free_Credits: {
+    icon: <BoxIconNotification src="/images/header/coin.png" />,
+    href: '/profile',
+    isReadMore: true
   }
 };
