@@ -36,6 +36,7 @@ const HeaderAuthComponent = () => {
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+  const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
@@ -161,16 +162,64 @@ const HeaderAuthComponent = () => {
   return (
     <>
       <HeaderMainBox>
-        <Box display="flex">
-          <LanguageDropdown />
-        </Box>
+        {isSMDown ? (
+          <Box>
+            <LanguageDropdown />
+          </Box>
+        ) : (
+          <Box
+            sx={{
+              width: '100%',
+              maxWidth: '420px',
+              border: '1px solid #E9E8EB33',
+              borderRadius: '8px',
+              padding: '12px 16px 12px 16px',
+              height: '100%',
+              maxHeight: '46px',
+              alignItems: 'center',
+              textAlign: 'center',
+              display: 'flex'
+            }}
+          >
+            <LanguageDropdown />
+          </Box>
+        )}
+
         {isMdUp && (
           <Link href="/profile/credit">
-            <Box alignItems="center" gap={1} display="flex">
+            <Box
+              alignItems="center"
+              gap={1}
+              display="flex"
+              sx={{
+                width: '100%',
+                maxWidth: '420px',
+                border: '1px solid #E9E8EB33',
+                borderRadius: '8px',
+                padding: '12px 16px 12px 16px',
+                height: '100%',
+                maxHeight: '46px',
+                alignItems: 'center',
+                textAlign: 'center'
+              }}
+            >
               <Box component="img" src="/images/header/coin.png" alt="coin_icon" />
-              <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                {balance?.toFixed(2) || 0}
-              </UINewTypography>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  gap: 1,
+                  cursor: 'pointer'
+                }}
+              >
+                <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+                  {balance?.toFixed(2) || 0}
+                </UINewTypography>
+                <Divider orientation="vertical" flexItem sx={{ borderColor: '#E9E8EB33' }} />
+                <Box component="img" src="/images/header/plus-icon-header.png" alt="coin_icon" />
+              </Box>
             </Box>
           </Link>
         )}

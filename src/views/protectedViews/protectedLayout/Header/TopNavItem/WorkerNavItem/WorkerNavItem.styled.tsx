@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 export const WorkerMainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(6),
+  alignItems: 'center',
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(3)
   },

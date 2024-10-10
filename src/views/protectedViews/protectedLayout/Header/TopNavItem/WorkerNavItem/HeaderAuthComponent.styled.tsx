@@ -23,3 +23,22 @@ export const SearchTitalBox = styled(Box)(({ theme }) => ({
     paddingRight: theme.spacing(1.25)
   }
 }));
+
+export const SearchTitalBoxSm = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(1),
+  cursor: 'pointer',
+  width: '100%',
+  maxWidth: '420px',
+  border: '1px solid #E9E8EB33',
+  borderRadius: '8px',
+  padding: '12px 16px 12px 16px',
+  [theme.breakpoints.down('sm')]: {
+    paddingRight: theme.spacing(1.25)
+  },
+  '@media (max-width: 1024px)': {
+    width: 'auto',
+    maxWidth: 'none'
+  }
+}));
