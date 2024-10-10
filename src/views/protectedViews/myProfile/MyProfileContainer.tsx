@@ -188,6 +188,7 @@ const MyProfileContainer = ({
                 fullWidth
                 id="username"
                 name="username"
+                disabled={isEmailVerified === 0 || isPhoneNumberVerified === 0}
                 value={values.username}
                 onChange={handleChange}
                 onBlur={handleBlur}

@@ -1,14 +1,6 @@
-/** @type {import('next').NextConfig} */
+/** @type {import('next').NextConfig} **/
 const nextConfig = {
   reactStrictMode: false,
-  experimental: {
-    optimizePackageImports: ['moment', 'lodash', '@mui/material', '@mui/icons-material'],
-    serverActions: true,
-    staleTimes: {
-      dynamic: 0,
-      static: 0
-    }
-  },
   async headers() {
     return [
       {
@@ -16,7 +8,7 @@ const nextConfig = {
         headers: [
           {
             key: 'X-Robots-Tag',
-            value: 'index, follow'
+            value: 'noindex, nofollow'
           }
         ]
       },

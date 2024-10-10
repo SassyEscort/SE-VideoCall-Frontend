@@ -29,7 +29,11 @@ export type NotificationFilters = {
   pageSize: number;
 };
 
-const HeaderAuthComponent = () => {
+interface customerData {
+  customerDataProps: (data: CustomerDetails) => void;
+}
+
+const HeaderAuthComponent = ({ customerDataProps }: customerData) => {
   const { session, isFreeCreditsClaimed } = useAuthContext();
   const { isCallEnded, avaialbleCredits, isNameChange } = useCallFeatureContext();
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
@@ -119,6 +123,7 @@ const HeaderAuthComponent = () => {
     const customerDetails = async () => {
       const customerData = await CustomerDetailsService.customerModelDetails(token.token);
       setCustomerDetails(customerData.data);
+      customerDataProps(customerData.data);
     };
     if (token.token) {
       customerDetails();
