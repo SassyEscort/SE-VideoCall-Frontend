@@ -19,10 +19,14 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import Image from 'next/image';
 import Box from '@mui/material/Box';
+import { useMediaQuery } from '@mui/material';
+import theme from 'themes/theme';
 
 const ClaimCreditSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onClose: () => void; onSignupOpen: () => void }) => {
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
-    <DialogContentMain open={open} fullWidth onClose={onClose} scroll="body">
+    <DialogContentMain open={true} fullWidth onClose={onClose} scroll="body">
       <DialogTitleBox id="responsive-modal-title">
         {/* <Box component="img" src="/images/home/congrulation-gif.gif" sx={{ width: '665px', height: '485px', position: 'absolute' }} /> */}
         <FreeCreditSignupMainContainer>
@@ -39,7 +43,7 @@ const ClaimCreditSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onC
           </HeaderCloseButtonBoxContainer>
         </FreeCreditSignupMainContainer>
       </DialogTitleBox>
-      <DialogContent sx={{ p: 0 }}>
+      <DialogContent sx={{ overflowY: 'unset' }}>
         <TextMainBoxContainer>
           <TextInnerBoxContainer>
             <TitleTextBoxContainer>
@@ -55,16 +59,21 @@ const ClaimCreditSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onC
                 </UINewTypography>
               </DescriptionTextBoxContainer>
             </TitleTextBoxContainer>
-
             <ButtonContainer variant="contained" onClick={onSignupOpen}>
               <UINewTypography variant="bodySemiBold" lineHeight={'150%'} color="white.main">
-                Verify now!
+                <FormattedMessage id="VerifyNow" />
               </UINewTypography>
             </ButtonContainer>
           </TextInnerBoxContainer>
-          <Box sx={{ maxWidth: '655px', overflow: 'hidden', position: 'absolute', bottom: 0 }}>
-            <Image src="/images/free-credits/gift.webp" alt="claim-credit" width={655} height={295} />
-          </Box>
+          {isSmDown ? (
+            <Box sx={{ overflow: 'hidden', position: 'absolute', bottom: 0 }}>
+              <Image src="/images/free-credits/gift.webp" alt="claim-credit" width={250} height={190} />
+            </Box>
+          ) : (
+            <Box sx={{ maxWidth: '655px', overflow: 'hidden', position: 'absolute', bottom: 0 }}>
+              <Image src="/images/free-credits/gift.webp" alt="claim-credit" width={655} height={295} />
+            </Box>
+          )}
         </TextMainBoxContainer>
       </DialogContent>
     </DialogContentMain>

@@ -1,4 +1,4 @@
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
@@ -43,6 +43,8 @@ const MyProfileContainer = ({
   const [isPhoneOptSent, setIsPhoneOptSent] = useState(false);
   const [countryCode, setCountryCode] = useState<any>(null);
 
+  const intl = useIntl();
+
   const sendLinkVerify = async () => {
     touched.email = true;
     setIsEmailOptSent(true);
@@ -52,7 +54,7 @@ const MyProfileContainer = ({
         try {
           const res = await customerVerificationService.sendEmailOtp({ email: values.email }, token.token);
           if (res.code === 200) {
-            toast.success('otp send on your email');
+            toast.success(intl.formatMessage({ id: 'OTPSendOnYourEmail' }));
           } else {
             toast.error(res?.response?.data?.error || 'Something went wrong');
           }
