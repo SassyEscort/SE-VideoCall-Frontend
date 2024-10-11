@@ -26,7 +26,7 @@ const ClaimCreditSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onC
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <DialogContentMain open={true} fullWidth onClose={onClose} scroll="body">
+    <DialogContentMain open={open} fullWidth onClose={onClose} scroll="body">
       <DialogTitleBox id="responsive-modal-title">
         {/* <Box component="img" src="/images/home/congrulation-gif.gif" sx={{ width: '665px', height: '485px', position: 'absolute' }} /> */}
         <FreeCreditSignupMainContainer>
