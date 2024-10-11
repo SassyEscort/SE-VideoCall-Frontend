@@ -141,14 +141,12 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
               }
             }
           } else if (data?.code === 403) {
-            console.log('10');
             toast.error(ErrorMessage);
           } else {
             const errorMessage = getErrorMessage(data?.custom_code);
             setAlert(intl.formatMessage({ id: errorMessage }));
           }
         } catch (error) {
-          console.log('11');
           toast.error(ErrorMessage);
         } finally {
           setLoading(false);

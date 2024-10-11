@@ -39,7 +39,6 @@ const ModelLastActive = () => {
             toast.error(response.message);
           }
         } catch (error) {
-          console.log('16');
           toast.error(ErrorMessage);
         }
       };

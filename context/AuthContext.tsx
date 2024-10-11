@@ -47,7 +47,6 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
       const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
       setIsFreeCreditAvailable(res?.data?.free_credits_available);
     } catch (error) {
-      console.log('come 2');
       toast.error(ErrorMessage);
     }
   }, []);

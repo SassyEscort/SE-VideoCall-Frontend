@@ -125,14 +125,12 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
               }
             }
           } else if (data?.code === 403) {
-            console.log('8');
             toast.error(ErrorMessage);
           } else {
             const errorMessage = getErrorMessage(data?.custom_code);
             setAlert(intl.formatMessage({ id: errorMessage }));
           }
         } catch (error) {
-          console.log('9');
           toast.error(ErrorMessage);
         } finally {
           setLoading(false);
