@@ -111,14 +111,12 @@ const WorkerCard = ({
             value: customerInfoString
           });
         } else {
-          console.log('14');
           toast.error(ErrorMessage);
         }
       } else {
         handleLoginOpen();
       }
     } catch (erro) {
-      console.log('15');
       toast.error(ErrorMessage);
     }
   };
