@@ -315,6 +315,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           label: 'Uid_Not_Found',
           value: modelId
         });
+        console.log('1');
         toast.error(intl.formatMessage({ id: ErrorMessage }));
       } else {
         toast.error(intl.formatMessage({ id: 'PermissionForAudioAndVideo' }));

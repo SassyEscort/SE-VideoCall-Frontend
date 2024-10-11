@@ -44,6 +44,7 @@ const tryParseJSON = (jsonString: string): any => {
       return obj;
     }
   } catch (e) {
+    console.log('2');
     toast.error(ErrorMessage);
   }
   return null;

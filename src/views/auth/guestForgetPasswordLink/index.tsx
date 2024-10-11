@@ -56,6 +56,7 @@ const GuestForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
             setAlert(intl.formatMessage({ id: errorMessage }));
           }
         } catch (error) {
+          console.log('3');
           toast.error(ErrorMessage);
         } finally {
           setLoading(false);

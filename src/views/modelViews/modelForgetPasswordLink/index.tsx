@@ -66,6 +66,8 @@ const ModelForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
             setAlert(intl.formatMessage({ id: errorMessage }));
           }
         } catch (error) {
+          console.log('come');
+
           toast.error(ErrorMessage);
         } finally {
           setLoading(false);
