@@ -22,6 +22,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useCallFeatureContext } from '../../../../../../../context/CallFeatureContext';
 import NotificationModalCustomerV2 from './NotificationModalCustomerV2';
 import { useAuthContext } from '../../../../../../../context/AuthContext';
+import CreditSideDrawer from 'views/protectedViews/CreditSideDrawer';
 
 export type NotificationFilters = {
   page: number;
@@ -57,10 +58,15 @@ const HeaderAuthComponent = ({ customerDataProps }: customerData) => {
   });
   const [notificationDetails, setNotificationDetails] = useState<Root>();
   const [openChangePassword, setOpenChangePassword] = useState(false);
+  const [openCreditSideDrawer, setOpenCreditSideDrawer] = useState(false);
 
   const uploadedImageURL = '/images/headerv2/profilePic.png';
   const firstChar = customerDetails?.customer_name ? customerDetails.customer_name.charAt(0).toUpperCase() : '';
   const notificationCount = useRef(0);
+
+  const handleCloseCreditSideDrawer = () => {
+    setOpenCreditSideDrawer(false);
+  };
 
   const handleOpenChangePassword = () => {
     setOpenChangePassword(true);
@@ -191,42 +197,44 @@ const HeaderAuthComponent = ({ customerDataProps }: customerData) => {
         )}
 
         {isMdUp && (
-          <Link href="/profile/credit">
+          // <Link href="/profile/credit">
+          <Box
+            alignItems="center"
+            gap={1}
+            display="flex"
+            sx={{
+              width: '100%',
+              maxWidth: '420px',
+              border: '1px solid #E9E8EB33',
+              borderRadius: '8px',
+              padding: '12px 16px 12px 16px',
+              height: '100%',
+              maxHeight: '46px',
+              alignItems: 'center',
+              textAlign: 'center',
+              cursor: 'pointer'
+            }}
+            onClick={() => setOpenCreditSideDrawer(true)}
+          >
+            <Box component="img" src="/images/header/coin.png" alt="coin_icon" />
             <Box
-              alignItems="center"
-              gap={1}
-              display="flex"
               sx={{
-                width: '100%',
-                maxWidth: '420px',
-                border: '1px solid #E9E8EB33',
-                borderRadius: '8px',
-                padding: '12px 16px 12px 16px',
-                height: '100%',
-                maxHeight: '46px',
+                display: 'flex',
                 alignItems: 'center',
-                textAlign: 'center'
+                width: '100%',
+                justifyContent: 'space-between',
+                gap: 1,
+                cursor: 'pointer'
               }}
             >
-              <Box component="img" src="/images/header/coin.png" alt="coin_icon" />
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  width: '100%',
-                  justifyContent: 'space-between',
-                  gap: 1,
-                  cursor: 'pointer'
-                }}
-              >
-                <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                  {balance?.toFixed(2) || 0}
-                </UINewTypography>
-                <Divider orientation="vertical" flexItem sx={{ borderColor: '#E9E8EB33' }} />
-                <Box component="img" src="/images/header/plus-icon-header.png" alt="coin_icon" />
-              </Box>
+              <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+                {balance?.toFixed(2) || 0}
+              </UINewTypography>
+              <Divider orientation="vertical" flexItem sx={{ borderColor: '#E9E8EB33' }} />
+              <Box component="img" src="/images/header/plus-icon-header.png" alt="coin_icon" />
             </Box>
-          </Link>
+          </Box>
+          // </Link>
         )}
 
         {isMdUp && (
@@ -405,6 +413,7 @@ const HeaderAuthComponent = ({ customerDataProps }: customerData) => {
           handleCallback={handleCallback}
         />
       )}
+      <CreditSideDrawer open={openCreditSideDrawer} handleClose={handleCloseCreditSideDrawer} />
     </>
   );
 };

@@ -67,7 +67,6 @@ const WorkerNavItem = () => {
       const getFreeCreditsCookie = getCookie(`${userName}`);
       if (!getFreeCreditsCookie) {
         setCookie(`${userName}`, 'true', 1, '/');
-        console.log('dataset');
         const timer = setTimeout(() => {
           if (path === '/' && !isCreditsClaimed) {
             setOpenFreeCredit(true);
