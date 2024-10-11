@@ -53,7 +53,8 @@ export const AuthImageBox = styled(Box)<BackgroundImageBoxProps>(({ theme, varia
 }));
 
 export const BackgroundImageBox = styled(Box)<BackgroundImageBoxProps>(({ theme, variant }) => ({
-  backgroundImage: variant === ROLE.CUSTOMER ? 'url(/images/home/free-credit-signup-img.webp)' : 'none',
+  // backgroundImage: variant === ROLE.CUSTOMER ? 'url(/images/home/free-credit-signup-img.webp)' : 'none',
+  backgroundImage: variant === ROLE.CUSTOMER ? 'none' : 'none',
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
   display: 'flex',
