@@ -1,5 +1,4 @@
 'use client';
-import { Grid, Box } from '@mui/material';
 import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
 import { ButtonMainBox, WorkerCardMainBox } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
@@ -8,10 +7,6 @@ import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service'
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { memo, useMemo, useState } from 'react';
 import Link from 'next/link';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestLogin from 'views/auth/guestLogin';
-import GuestSignup from 'views/auth/guestSignup';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
@@ -20,7 +15,15 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { NotFoundModelBox } from './HomeImageCard.styled';
 import { FormattedMessage } from 'react-intl';
 import { gaEventTrigger } from 'utils/analytics';
-import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
+import dynamic from 'next/dynamic';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
+const NewUIStyledSignUpDialog = dynamic(() => import('components/UIComponents/UIStyledDialog').then((mod) => mod.NewUIStyledSignUpDialog));
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'));
 
 export const pageview = (url: string) => {
   window.gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, {
@@ -229,9 +232,9 @@ const HomeImageCard = ({
       <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
-      <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+      <NewUIStyledSignUpDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
         <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-      </UIStyledDialog>
+      </NewUIStyledSignUpDialog>
     </HomeMainContainer>
   );
 };

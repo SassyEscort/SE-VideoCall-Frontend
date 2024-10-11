@@ -29,8 +29,12 @@ export type NotificationFilters = {
   pageSize: number;
 };
 
-const HeaderAuthComponent = () => {
-  const { session } = useAuthContext();
+interface customerData {
+  customerDataProps: (data: CustomerDetails) => void;
+}
+
+const HeaderAuthComponent = ({ customerDataProps }: customerData) => {
+  const { session, isFreeCreditsClaimed } = useAuthContext();
   const { isCallEnded, avaialbleCredits, isNameChange } = useCallFeatureContext();
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
 
@@ -118,13 +122,13 @@ const HeaderAuthComponent = () => {
     const customerDetails = async () => {
       const customerData = await CustomerDetailsService.customerModelDetails(token.token);
       setCustomerDetails(customerData.data);
+      customerDataProps(customerData.data);
     };
     if (token.token) {
       customerDetails();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.id, token.token, isCallEnded, isNameChange]);
-
   useEffect(() => {
     const getCustomerCredit = async () => {
       if (token.token) {
@@ -141,13 +145,13 @@ const HeaderAuthComponent = () => {
       getCustomerCredit();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.id, token.token, isCallEnded]);
+  }, [token.id, token.token, isFreeCreditsClaimed, isCallEnded]);
 
   useEffect(() => {
     if (isCallEnded && avaialbleCredits !== undefined) {
       setBalance(avaialbleCredits);
     }
-  }, [avaialbleCredits, isCallEnded]);
+  }, [avaialbleCredits, isCallEnded, isFreeCreditsClaimed]);
 
   const handleOpenLogout = () => {
     setIsLogoutOpen(true);

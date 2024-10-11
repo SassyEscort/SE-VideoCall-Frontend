@@ -22,13 +22,12 @@ import {
 import Box from '@mui/material/Box';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Image from 'next/image';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import { useState } from 'react';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import UIStyledDialog, { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestLogin from 'views/auth/guestLogin';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
@@ -37,6 +36,7 @@ import { useRouter } from 'next/navigation';
 import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import { gaEventTrigger } from 'utils/analytics';
 import { useAuthContext } from '../../../../../context/AuthContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const { push } = useRouter();
@@ -268,9 +268,9 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
         <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
           <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
         </UIStyledDialog>
-        <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+        <NewUIStyledSignUpDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
           <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-        </UIStyledDialog>
+        </NewUIStyledSignUpDialog>
       </HomeMainContainer>
     </>
   );

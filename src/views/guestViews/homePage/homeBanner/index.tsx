@@ -26,22 +26,22 @@ import {
 } from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import GuestSignup from 'views/auth/guestSignup';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestLogin from 'views/auth/guestLogin';
 import { User } from 'app/(guest)/layout';
-// import ProfileMenu from 'components/UIComponents/UIStyleHeader';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import ButtonFreeCredits from '../buttonFreeCredits';
 import React from 'react';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
-import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
+import { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
 import { gaEventTrigger } from 'utils/analytics';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { useAuthContext } from '../../../../../context/AuthContext';
 import { BannerImage, BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
+import dynamic from 'next/dynamic';
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'));
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
 
 const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const { session } = useAuthContext();
@@ -207,9 +207,10 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 )}
               </ThirdBoxContainer>
             </FirstBoxContainer>
-
             <BannerImageCard>
-              <BannerImage src="/images/home/home-banner-model.webp" alt="home_model" />
+              <picture>
+                <BannerImage loading="eager" src="/images/home/home-banner-model1.webp" alt="home_model" />
+              </picture>
             </BannerImageCard>
           </BannerContainer>
           {isSmDown && (
@@ -321,12 +322,12 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
       >
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </Dialog>
-      <UIStyledDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
+      <NewUIStyledSignUpDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
         <HomePageFreeSignup onLoginOpen={handleLoginOpen} onClose={handleFreeCreditSignupClose} />
-      </UIStyledDialog>
+      </NewUIStyledSignUpDialog>
       {/* <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} /> */}
     </>
   );
 };
 
-export default HomeTopBanner;
+export default memo(HomeTopBanner);

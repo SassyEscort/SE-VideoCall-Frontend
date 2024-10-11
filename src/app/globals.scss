@@ -21,23 +21,14 @@ a {
   z-index: 1000;
 }
 
-.react-tel-input .form-control.MobileVerificationInput {
-  width: 100% !important;
-  height: 50px !important;
-  border-radius: 8px !important;
-  border: 2px solid !important;
-  border-color: #232027 !important;
-  background-color: #100b19 !important;
-  color: #86838a !important;
-}
-
+.react-tel-input .form-control.MobileVerificationInput, 
 .react-tel-input .form-control.EnterCurrentEmailPhone {
   width: 100% !important;
   height: 50px !important;
   border-radius: 8px !important;
   border: 2px solid !important;
   border-color: #232027 !important;
-  background-color: #07030e !important;
+  background-color: #100b19 !important;
   color: #86838a !important;
 }
 
@@ -56,12 +47,12 @@ a {
   border: 2px solid !important;
 }
 
-.react-tel-input .form-control:hover {
+.react-tel-input .form-control:hover,
+.react-tel-input .form-control:focus {
   border-color: #86838a !important;
 }
 
 .react-tel-input .form-control:focus {
-  border-color: #86838a !important;
   box-shadow: none !important;
 }
 
@@ -71,6 +62,7 @@ a {
 
 .phone-error {
   .react-tel-input {
+
     .form-control,
     .form-control:focus,
     .form-control:hover {

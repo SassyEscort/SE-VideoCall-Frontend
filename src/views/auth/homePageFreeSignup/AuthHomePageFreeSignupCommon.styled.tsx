@@ -9,7 +9,7 @@ interface BackgroundImageBoxProps {
 
 export const AuthCommonBox = styled(Box)(({ theme }) => ({
   width: '100%',
-  maxWidth: '920px',
+  maxWidth: '1080px',
   overflowY: 'scroll',
   scrollbarWidth: 'none',
   paddingTop: 0,
@@ -46,7 +46,7 @@ export const AuthImageBox = styled(Box)<BackgroundImageBoxProps>(({ theme, varia
   borderRadius: '12px',
   backgroundRepeat: 'no-repeat',
   display: 'block',
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     display: 'none'
   },
   height: 'auto'

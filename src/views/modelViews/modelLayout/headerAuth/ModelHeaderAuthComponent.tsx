@@ -160,7 +160,7 @@ const ModelHeaderAuthComponent = () => {
           <ProfileMenu profilePic={firstChar} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
         </FirstBoxContainer>
 
-        {isSmUP && !isVerificationPendingOrCompleted(modelDetails?.verification_step) && (
+        {isSmUP && isVerificationPendingOrCompleted(modelDetails?.verification_step) && (
           <Link href="/model/profile">
             <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>
               <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">

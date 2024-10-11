@@ -1,5 +1,4 @@
 'use client';
-import { Box, DialogContent } from '@mui/material';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import {
@@ -19,6 +18,8 @@ import {
   ImageSecond
 } from './ButtonfreeCredits.styled';
 import TimerUI from '../Timer';
+import DialogContent from '@mui/material/DialogContent';
+import Box from '@mui/material/Box';
 
 const ButtonFreeCredits = ({ open, onClose, onSignupOpen }: { open: boolean; onClose: () => void; onSignupOpen: () => void }) => {
   return (

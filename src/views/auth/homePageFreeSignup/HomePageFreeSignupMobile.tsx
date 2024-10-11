@@ -15,7 +15,12 @@ import Timer from './timer';
 
 const HomePageFreeSignupMobile = () => {
   return (
-    <MobileImageBoxContainer>
+    <MobileImageBoxContainer
+      sx={{
+        backgroundImage: 'linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.72) 100%),url(/images/auth/auth-model1.webp)',
+        backgroundSize: 'cover'
+      }}
+    >
       <MobileImageInnerBoxContainer>
         <Box component="img" src="/images/home/gitftsecond.png" alt="gift_icon" width={70} height={82} />
         <ImageAndTextBoxContainer>

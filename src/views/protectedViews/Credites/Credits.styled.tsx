@@ -213,3 +213,9 @@ export const SecondBoxContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'row',
   gap: theme.spacing(1)
 }));
+
+export const BalanceBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: theme.spacing(1)
+}));

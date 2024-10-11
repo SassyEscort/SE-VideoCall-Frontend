@@ -12,7 +12,7 @@ import {
   SecondBoxMainContainer,
   ThiredBoxMainContainer
 } from '../Search.styled';
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, memo, useEffect, useState } from 'react';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
@@ -192,4 +192,4 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
   );
 });
 
-export default SearchFilters;
+export default memo(SearchFilters);

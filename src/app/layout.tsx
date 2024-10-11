@@ -1,9 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
+import React from 'react';
 import type { Metadata } from 'next';
 import ProviderWrapper from './ProviderWrapper';
 import { SEO_DATA } from 'constants/seoConstants';
 import { AuthFeaturProvider } from '../../context/AuthContext';
-import ModelLastActive from 'views/protectedModelViews/ModelLastAvtive';
+import { TawkProvider } from '../../context/TawkContext';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: SEO_DATA.TITLE,
@@ -15,23 +17,30 @@ export default function RootLayout({
 }: Readonly<{
   children: JSX.Element;
 }>) {
-  const isStaging = process.env.NEXT_PUBLIC_ENV === 'staging';
+  const isProduction = process.env.NEXT_PUBLIC_ENV === 'production';
   return (
     <html lang="en">
       <head>
-        <link rel="preload" as="image" href="/images/home/home-banner-model.webp" />
-        {isStaging && <meta name="robots" content="noindex, nofollow" />}
-        {/* <script
+        <meta name="robots" content="noindex, nofollow" />
+        <link rel="preload" as="image" href="/images/home/home-banner-model1.webp" />
+        <Script
+          defer
+          id="clarity-script"
           type="text/javascript"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `(function(c,l,a,r,i,t,y){
-              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "mxxnph7kub");`
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+          })(window, document, "clarity", "script", "mxxnph7kub");`
           }}
         />
-        <script
+        <Script
+          defer
+          id="gtag-script"
+          type="text/javascript"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `function gtag_report_conversion(url) {
               var callback = function () {
@@ -46,11 +55,15 @@ export default function RootLayout({
               return false;
             }`
           }}
-        /> */}
-        {/* {isProduction && (
+        />
+        {isProduction && (
           <>
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}></script>
-            <script
+            <Script defer async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`} />
+            <Script
+              defer
+              id="dataLayer-script"
+              type="text/javascript"
+              strategy="afterInteractive"
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];
@@ -61,15 +74,12 @@ export default function RootLayout({
               }}
             />
           </>
-        )} */}
+        )}
       </head>
       <body>
         <ProviderWrapper>
           <AuthFeaturProvider>
-            <ModelLastActive />
-            {/* <TawkProvider> */}
-            {children}
-            {/* </TawkProvider> */}
+            <TawkProvider>{children}</TawkProvider>
           </AuthFeaturProvider>
         </ProviderWrapper>
       </body>

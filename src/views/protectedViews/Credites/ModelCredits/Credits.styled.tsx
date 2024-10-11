@@ -2,6 +2,7 @@ import { IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
 export const CreditsMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -166,9 +167,26 @@ export const FirstBoxContainer = styled(Box)(({ theme }) => ({
 export const OutOfCreditBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(2),
-  flexDirection: 'column',
+  flexDirection: 'row',
   width: '100%',
-  paddingLeft: theme.spacing(2)
+  paddingLeft: theme.spacing(2),
+  paddingRight: theme.spacing(2),
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  [theme.breakpoints.down(700)]: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+}));
+
+export const ClaimFreeNewButton = styled(UIThemeButton)(({ theme }) => ({
+  width: '100%',
+  maxWidth: '300px',
+  background: 'linear-gradient(90deg, #FECD3D, #FFF1C6, #FF68C0)',
+  boxShadow: '0px 4px 10px #FF68C07A',
+  borderRadius: '8px',
+  gap: 1
 }));
 
 export const OutOfCreditInnerBox = styled(Box)(() => ({
