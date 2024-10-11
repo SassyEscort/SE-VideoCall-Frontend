@@ -2,10 +2,33 @@
 const nextConfig = {
   reactStrictMode: false,
   experimental: {
+    serverActions: true,
     staleTimes: {
       dynamic: 0,
       static: 0
     }
+  },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'index, follow'
+          }
+        ]
+      },
+      {
+        source: '/robots.txt',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'text/plain'
+          }
+        ]
+      }
+    ];
   },
   modularizeImports: {
     '@mui/material': {
