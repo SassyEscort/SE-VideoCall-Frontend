@@ -8,7 +8,7 @@ import MainFooter from './MainFooter';
 import { FormattedMessage } from 'react-intl';
 import { FooterButton } from './MainFooter.styled';
 import { useState } from 'react';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import UIStyledDialog, { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
 import GuestSignup from 'views/auth/guestSignup';
 import GuestLogin from 'views/auth/guestLogin';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
@@ -138,9 +138,9 @@ const Footer = () => {
           backgroundImage: `url(${'/images/Footer-min.webp'})`
         }}
       />
-      <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+      <NewUIStyledSignUpDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </UIStyledDialog>
+      </NewUIStyledSignUpDialog>
       <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
         <GuestLogin
           isFreeCreditAvailable={isFreeCreditAvailable}

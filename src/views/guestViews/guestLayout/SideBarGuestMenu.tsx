@@ -11,6 +11,7 @@ import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import { useState } from 'react';
 import Link from 'next/link';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
 
 const SideBarGuestMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer: (open: boolean) => void }) => {
   const [openSignup, setIsSignupOpen] = useState(false);
@@ -83,9 +84,9 @@ const SideBarGuestMenu = ({ open, toggleDrawer }: { open: boolean; toggleDrawer:
           </SideBarBox>
         </Box>
       </Box>
-      <GuestStyleComponent scroll="body" open={openSignup} onClose={handleSignupClose} maxWidth="md" fullWidth>
+      <NewUIStyledSignUpDialog scroll="body" open={openSignup} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </GuestStyleComponent>
+      </NewUIStyledSignUpDialog>
       <GuestStyleComponent open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth></GuestStyleComponent>
       <GuestStyleComponent open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />

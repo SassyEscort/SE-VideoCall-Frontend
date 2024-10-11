@@ -211,9 +211,9 @@ const HomeImageCard = ({
               </NotFoundModelBox>
             )}
       </WorkerCardMainBox>
-      <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+      <NewUIStyledSignUpDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </UIStyledDialog>
+      </NewUIStyledSignUpDialog>
       <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
         <GuestLogin
           isFreeCreditAvailable={isFreeCreditAvailable}

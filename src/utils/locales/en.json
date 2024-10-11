@@ -732,7 +732,7 @@
   "ALinkToResetYourPassword": "A link to reset your password has been emailed to",
   "PasswordCondition": "Password Condition",
   "ConfirmPasswordIsRequired": "Confirm password is required",
-  "ConfirmPasswordDoesNotMatch": "Confirm password does not match",
+  "ConfirmPasswordDoesNotMatch": "Confirm password does not match with password",
   "NewPasswordDoesNotMatch": "New Password does not match",
   "Online": "Online",
   "Offline": "Offline",
