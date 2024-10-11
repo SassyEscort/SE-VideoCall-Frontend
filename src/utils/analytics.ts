@@ -28,6 +28,7 @@ export const gaEventTrigger = (action: string, data: any, credits?: number) => {
           };
         }
       } catch (e) {
+        console.log(e, '::::::::Error');
         toast.error(ErrorMessage);
       }
       window.gtag('event', action, data);
