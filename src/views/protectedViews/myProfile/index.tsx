@@ -173,7 +173,6 @@ const MyProfile = () => {
                           disabled={!isPhoneVerified || !isEmailVerified}
                           onClick={handelClaimFreeCredit}
                           sx={{
-                            width: '252px',
                             background: isPhoneVerified && isEmailVerified ? 'linear-gradient(90deg, #FECD3D, #FFF1C6, #FF68C0)' : '',
                             boxShadow: isPhoneVerified && isEmailVerified ? '0px 4px 10px #FF68C07A' : '',
                             borderRadius: '8px',
@@ -182,7 +181,7 @@ const MyProfile = () => {
                         >
                           <Box component="img" src="/images/icons/free-credit-icon.png" width="24px" height="30px" alt="free_credit" />
                           <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
-                            Claim Free Credits
+                            <FormattedMessage id="ClaimFreeCredits" />
                           </UINewTypography>
                         </UIThemeButton>
                       </Box>
