@@ -1,9 +1,11 @@
 'use client';
 import { User } from 'app/(guest)/layout';
+import { ErrorMessage } from 'constants/common.constants';
 import { ROLE } from 'constants/workerVerification';
 import { Session } from 'next-auth';
 import { useSession } from 'next-auth/react';
 import { createContext, ReactNode, useContext, useEffect, useState, useCallback } from 'react';
+import { toast } from 'react-toastify';
 import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
 
 export type AuthContextProps = {
@@ -41,8 +43,13 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const handleCustomerFreeCredits = useCallback(async () => {
-    const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
-    setIsFreeCreditAvailable(res?.data?.free_credits_available);
+    try {
+      const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
+      setIsFreeCreditAvailable(res?.data?.free_credits_available);
+    } catch (error) {
+      console.log('come 2');
+      toast.error(ErrorMessage);
+    }
   }, []);
 
   useEffect(() => {
