@@ -119,14 +119,12 @@ const GuestFreeCreditsSignup = ({
               setAlert('Login after signup failed. Please log in manually.');
             }
           } else if (data?.code === 403) {
-            console.log('4');
             toast.error(ErrorMessage);
           } else {
             const errorMessage = getErrorMessage(data?.custom_code);
             setAlert(intl.formatMessage({ id: errorMessage }));
           }
         } catch (error) {
-          console.log('5');
           toast.error(ErrorMessage);
         } finally {
           setLoading(false);

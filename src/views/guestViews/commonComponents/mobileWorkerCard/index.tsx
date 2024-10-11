@@ -62,12 +62,10 @@ const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRe
             setLiked(false);
           }
         } else {
-          console.log('12');
           toast.error(ErrorMessage);
         }
       }
     } catch (err) {
-      console.log('13');
       toast.error(ErrorMessage);
     }
   };
