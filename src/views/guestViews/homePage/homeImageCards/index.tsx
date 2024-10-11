@@ -15,15 +15,13 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { NotFoundModelBox } from './HomeImageCard.styled';
 import { FormattedMessage } from 'react-intl';
 import { gaEventTrigger } from 'utils/analytics';
-import dynamic from 'next/dynamic';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
-const NewUIStyledSignUpDialog = dynamic(() => import('components/UIComponents/UIStyledDialog').then((mod) => mod.NewUIStyledSignUpDialog));
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
-const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'));
+import UIStyledDialog, { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
+import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
+import GuestLogin from 'views/auth/guestLogin';
+import GuestSignup from 'views/auth/guestSignup';
+import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 
 export const pageview = (url: string) => {
   window.gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, {
