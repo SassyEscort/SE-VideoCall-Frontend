@@ -41,6 +41,7 @@ import { gaEventTrigger } from 'utils/analytics';
 import StyleBoostUserButton from 'components/UIComponents/StyleBoostUserButton';
 import Image from 'next/image';
 import { useAuthContext } from '../../../../../context/AuthContext';
+import { VideoAcceptType } from 'constants/workerVerification';
 
 const WorkerCard = ({
   modelDetails,
@@ -72,8 +73,18 @@ const WorkerCard = ({
     .join(', ');
   const modelFlag = countryWithFlag.filter((country) => country.name === modelDetails?.country).map((data) => data.flag)[0];
   const imageUrlRef = useRef<HTMLElement>();
+  const videoTypeCondition = VideoAcceptType?.includes(modelDetails?.link?.substring(modelDetails?.link?.lastIndexOf('.') + 1));
 
-  useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails?.cords);
+  useImageOptimize(
+    imageUrlRef,
+    modelDetails?.link ?? '',
+    videoTypeCondition ? 'IMG' : 'BG',
+    videoTypeCondition ? true : false,
+    false,
+    modelDetails?.cords
+  );
+
+  // useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails?.cords);
 
   const customerData = JSON.parse(user || '{}');
 
