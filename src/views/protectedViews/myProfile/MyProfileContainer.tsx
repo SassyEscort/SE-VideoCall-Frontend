@@ -217,7 +217,7 @@ const MyProfileContainer = ({
                         </UINewTypography>
                       )}
 
-                      {(!isEmailOptSent || isEditable) && (
+                      {(!isEmailOptSent || isEditable) && !isPhoneOptSent && (
                         <UINewTypography
                           color={isEmailVerified === 1 && !isEditable ? 'green' : 'primary.400'}
                           variant="buttonSmallBold"
@@ -310,7 +310,7 @@ const MyProfileContainer = ({
                         </UINewTypography>
                       )}
 
-                      {(!isPhoneOptSent || isNumberEditable) && (
+                      {(!isPhoneOptSent || isNumberEditable) && !isEmailOptSent && (
                         <UINewTypography
                           color={isPhoneNumberVerified === 1 && !isEditable ? 'green' : 'primary.400'}
                           variant="buttonSmallBold"

@@ -24,24 +24,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
-import dynamic from 'next/dynamic';
-import { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
+import UIStyledDialog, { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
 import FreeCreditsSignUp from '../homePage/freeCreditsSignUp';
-const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
-  ssr: false
-});
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
-  ssr: false
-});
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
-  ssr: false
-});
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
-  ssr: false
-});
-const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
-  ssr: false
-});
+import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
+import GuestLogin from 'views/auth/guestLogin';
+import GuestSignup from 'views/auth/guestSignup';
+import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 
 const HeaderGuestComponent = () => {
   const { isFreeCreditAvailable } = useAuthContext();
