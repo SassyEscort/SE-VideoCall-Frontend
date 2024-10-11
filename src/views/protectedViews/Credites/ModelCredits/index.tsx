@@ -6,6 +6,7 @@ import {
   BalanceInfoBoxV2,
   BoxFirstTextContainer,
   BoxSecondTextContainer,
+  ClaimFreeNewButton,
   CreditBuyText,
   CreditCardImage,
   CreditCardText,
@@ -28,11 +29,12 @@ import { getUserDataClient } from 'utils/getSessionData';
 import Grid from '@mui/material/Grid';
 import { useRouter } from 'next/navigation';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
-import { CircularProgress, Divider, useMediaQuery } from '@mui/material';
+import { Box, CircularProgress, Divider, useMediaQuery } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import theme from 'themes/theme';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { gaEventTrigger } from 'utils/analytics';
+import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 
 const ModelCredits = ({
   onClose,
@@ -49,6 +51,8 @@ const ModelCredits = ({
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [balance, setBalance] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
+
   const router = useRouter();
   const { user } = useCallFeatureContext();
 
@@ -107,9 +111,18 @@ const ModelCredits = ({
     setIsLoading(false);
   };
 
+  const getCustomerDetails = async () => {
+    if (token.token) {
+      const customerData = await CustomerDetailsService.customerModelDetails(token.token);
+      if (customerData) setCustomerDetails(customerData.data);
+    }
+  };
+
   useEffect(() => {
     getCreditsListing();
     getCustomerCredit();
+    getCustomerDetails();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
@@ -158,6 +171,16 @@ const ModelCredits = ({
                 <UINewTypography variant="h5">
                   <FormattedMessage id="PleaseChoose" />
                 </UINewTypography>
+                <Box>
+                  {customerDetails?.free_credits_claimed === 0 && (
+                    <ClaimFreeNewButton onClick={() => router.push('/profile')}>
+                      <Box component="img" src="/images/icons/free-credit-icon.png" width="24px" height="30px" alt="free_credit" />
+                      <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
+                        <FormattedMessage id="ClaimFreeCredits" />
+                      </UINewTypography>
+                    </ClaimFreeNewButton>
+                  )}
+                </Box>
               </OutOfCreditBox>
               <FirstBoxContainer>
                 <Grid container sx={{ gap: 2, justifyContent: 'center' }}>
