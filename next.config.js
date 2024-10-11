@@ -2,10 +2,33 @@
 const nextConfig = {
   reactStrictMode: false,
   experimental: {
+    serverActions: true,
     staleTimes: {
       dynamic: 0,
       static: 0
     }
+  },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'index, follow'
+          }
+        ]
+      },
+      {
+        source: '/robots.txt',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'text/plain'
+          }
+        ]
+      }
+    ];
   },
   modularizeImports: {
     '@mui/material': {
@@ -16,6 +39,7 @@ const nextConfig = {
     }
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -23,6 +47,11 @@ const nextConfig = {
         pathname: '**'
       }
     ]
+  },
+  pages: {
+    '*': {
+      maxChunkSize: 30000
+    }
   },
   env: {
     NEXT_APP_VERSION: 'v1.0.0',
