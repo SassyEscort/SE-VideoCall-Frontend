@@ -1,5 +1,5 @@
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { Box, SelectChangeEvent } from '@mui/material';
+import { Box, CircularProgress, SelectChangeEvent } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { UIStyledCountrySelect } from 'components/UIComponents/UIStyledSelect';
 import { MouseEventHandler, useCallback, useEffect, useState } from 'react';
@@ -8,7 +8,6 @@ import { CountryFilterText, StyledClearIcon } from '../Search.styled';
 import theme from 'themes/theme';
 import CityCountryLabel from './CityCountryLabel';
 import { FormControlBox } from './Country.styled';
-import { CircularProgress } from '@mui/material';
 
 interface CountryFilterProps {
   value: string;

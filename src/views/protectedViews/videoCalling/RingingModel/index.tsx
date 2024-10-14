@@ -2,12 +2,13 @@
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Divider } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { DialogContentFristBox, DialogContentMain, DialogContentSecondBox, DialogTitleBox, SecondBoxContent } from './RingingModel.styled';
 import VideoCalling from '../commonComponent';
 import { FormattedMessage } from 'react-intl';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 
 const RingingModel = ({ onClose }: { onClose: () => void }) => {
   const { isModelAvailable } = useCallFeatureContext();

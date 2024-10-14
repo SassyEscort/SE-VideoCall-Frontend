@@ -1,9 +1,12 @@
-import { Box, Button, DialogTitle, Drawer, styled } from '@mui/material';
-
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import DialogTitle from '@mui/material/DialogTitle';
+import Drawer from '@mui/material/Drawer';
+import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
-export const DialogTitleBox = styled(DialogTitle)(({ theme }) => ({
+export const DialogTitleBox = styled(DialogTitle)(() => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -27,7 +30,7 @@ export const DialogContentBoxQuestion = styled(Box)(({ theme }) => ({
   paddingLeft: theme.spacing(2)
 }));
 
-export const DialogContentBoxButton = styled(Box)(({ theme }) => ({
+export const DialogContentBoxButton = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -116,7 +119,7 @@ export const UINewTypographyWithDrawButtonText2 = styled(UINewTypography)(({ the
   borderColor: theme.palette.primary[700]
 }));
 
-export const UINewTypographyFREECredits = styled(UINewTypography)(({ theme }) => ({
+export const UINewTypographyFREECredits = styled(UINewTypography)(() => ({
   fontWeight: 700,
   fontSize: '32px',
   lineHeight: '44.8px',
@@ -130,7 +133,7 @@ export const UINewTypographyFREECredits = styled(UINewTypography)(({ theme }) =>
     fontSize: '23px'
   }
 }));
-export const UINewTypographyFREE = styled(UINewTypography)(({ theme }) => ({
+export const UINewTypographyFREE = styled(UINewTypography)(() => ({
   fontWeight: 800,
   fontSize: '32px',
   lineHeight: '44.8px',
@@ -170,7 +173,7 @@ export const UINewTypographySign = styled(UINewTypography)(({ theme }) => ({
   }
 }));
 
-export const UINewTypographyOffer = styled(UINewTypography)(({ theme }) => ({
+export const UINewTypographyOffer = styled(UINewTypography)(() => ({
   fontWeight: 400,
   fontStyle: 'italic',
   fontSize: '14px',
@@ -210,12 +213,12 @@ export const JoinNowAndEnjoyAEREEVideoCallMainBox = styled(Box)(({ theme }) => (
   gap: theme.spacing(3)
 }));
 
-export const ImageFirst = styled('img')(({ theme }) => ({
+export const ImageFirst = styled('img')(() => ({
   width: '100%',
   maxWidth: '100px'
 }));
 
-export const ImageSecond = styled('img')(({ theme }) => ({
+export const ImageSecond = styled('img')(() => ({
   width: '100%',
   maxWidth: '25.95px',
   height: '100%',

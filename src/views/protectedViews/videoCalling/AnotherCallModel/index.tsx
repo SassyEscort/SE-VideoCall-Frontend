@@ -2,7 +2,6 @@
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Divider } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import VideoCalling from '../commonComponent';
 import { FormattedMessage } from 'react-intl';
@@ -18,6 +17,8 @@ import {
 } from './Another.styled';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { useRouter } from 'next/navigation';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 
 const AnotherCallModel = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const router = useRouter();

@@ -13,7 +13,6 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIStyledShadowButtonLike from 'components/UIComponents/UIStyledShadowButtonLike';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
@@ -34,6 +33,7 @@ import { gaEventTrigger } from 'utils/analytics';
 import { usePathname } from 'next/navigation';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import GuestFreeCreditsSignup from 'views/auth/guestFreeCreditsSignup';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const EscortSliderMobile = ({
   workerPhotos,

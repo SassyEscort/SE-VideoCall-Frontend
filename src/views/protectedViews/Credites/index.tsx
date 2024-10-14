@@ -32,9 +32,9 @@ import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import CreditsAdded from '../CreditsAdded/CreditsAdded';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import Loader from 'components/Loader';
-import { CircularProgress } from '@mui/material';
 import { gaEventTrigger } from 'utils/analytics';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export type CustomerInfo = {
   email: string;

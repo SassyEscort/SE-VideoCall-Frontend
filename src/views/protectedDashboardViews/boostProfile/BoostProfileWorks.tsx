@@ -1,4 +1,3 @@
-import { Box, useMediaQuery } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 import theme from 'themes/theme';
 import {
@@ -23,6 +22,8 @@ import Image from 'next/image';
 import { BoostProfileWorksBox } from './BoostMultiplePackage.styled';
 import StyleBoostButton from 'components/UIComponents/StyleBoostButton';
 import { ProfilePlanResData } from 'services/commonApi/commonApi.services';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Box from '@mui/material/Box';
 
 const BoostProfileWorks = ({
   handleBoostOpen,

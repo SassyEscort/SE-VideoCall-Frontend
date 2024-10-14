@@ -17,8 +17,8 @@ import {
 } from './ClaimCreditsSignUp.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
-import { Box } from '@mui/material';
 import Image from 'next/image';
+import Box from '@mui/material/Box';
 
 const ClaimCreditSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onClose: () => void; onSignupOpen: () => void }) => {
   return (

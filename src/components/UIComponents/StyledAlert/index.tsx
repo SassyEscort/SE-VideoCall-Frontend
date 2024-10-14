@@ -1,7 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { Alert } from '@mui/material';
+import Alert from '@mui/material/Alert';
 
 const StyledAlert = styled(Alert)(() => ({
   display: 'flex',

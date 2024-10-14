@@ -2,8 +2,8 @@
 import { useEffect, useState } from 'react';
 import { TimeDetails, TimeMainBox, TimeTitle, RemianingTime, TimeTypo, TimerDivider } from './Timer.Styled';
 import { FormattedMessage } from 'react-intl';
+import Box from '@mui/material/Box';
 // import useConfig from 'hooks/useConfig';
-import { Box } from '@mui/material';
 
 const Timer = () => {
   const [countdown, setCountdown] = useState({ minutes: 15, seconds: 0 });

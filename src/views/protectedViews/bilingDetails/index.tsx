@@ -2,7 +2,6 @@
 
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Divider, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import theme from 'themes/theme';
 import { SecondSubContainerImgWorkerCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
@@ -27,6 +26,9 @@ import { useRouter } from 'next/navigation';
 import { ViewDetailsRes } from 'services/guestBilling/types';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { TokenIdType } from 'views/protectedModelViews/verification';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 
 const BillingDetails = ({
   open,

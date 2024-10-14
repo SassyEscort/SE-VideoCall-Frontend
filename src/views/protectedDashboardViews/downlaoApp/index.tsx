@@ -1,9 +1,9 @@
 'use client';
-import { Box } from '@mui/material';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Dwonload, ForBox, ImageBox, ImageSecondBox, MainConatiner, SecondBox, TextFirst, ThreeBox } from './DownloadApp.styled';
 import Link from 'next/link';
+import Box from '@mui/material/Box';
 const DownloadApp = () => {
   // const isSmallScreen = useMediaQuery('(max-width:320px)');
   return (

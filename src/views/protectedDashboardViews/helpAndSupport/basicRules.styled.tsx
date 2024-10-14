@@ -1,6 +1,8 @@
-import { Dialog, DialogTitle, styled } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import { styled } from '@mui/material/styles';
 
-export const DialogTitleBox = styled(DialogTitle)(({ theme }) => ({
+export const DialogTitleBox = styled(DialogTitle)(() => ({
   display: 'flex',
   justifyContent: 'flex-end'
 }));

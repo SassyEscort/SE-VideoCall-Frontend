@@ -1,5 +1,4 @@
 'use client';
-import { Grid, Box } from '@mui/material';
 import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
 import { ButtonMainBox, WorkerCardMainBox } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
@@ -21,6 +20,8 @@ import { NotFoundModelBox } from './HomeImageCard.styled';
 import { FormattedMessage } from 'react-intl';
 import { gaEventTrigger } from 'utils/analytics';
 import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 
 export const pageview = (url: string) => {
   window.gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, {

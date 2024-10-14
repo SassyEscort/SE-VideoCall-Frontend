@@ -1,6 +1,8 @@
-import { Divider, Stack, TableRow } from '@mui/material';
 import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
+import TableRow from '@mui/material/TableRow';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const FilterDropdownBox = styled(Box)(({ theme }) => ({

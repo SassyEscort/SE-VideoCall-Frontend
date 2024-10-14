@@ -28,11 +28,13 @@ import { getUserDataClient } from 'utils/getSessionData';
 import Grid from '@mui/material/Grid';
 import { useRouter } from 'next/navigation';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
-import { CircularProgress, Divider, useMediaQuery } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import theme from 'themes/theme';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { gaEventTrigger } from 'utils/analytics';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Divider from '@mui/material/Divider';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const ModelCredits = ({
   onClose,

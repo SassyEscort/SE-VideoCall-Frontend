@@ -1,7 +1,7 @@
 'use client';
-import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 export const VideoCallingCardMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -32,7 +32,7 @@ export const ImgMainBox = styled(Box)(() => ({
   alignItems: 'center'
 }));
 
-export const ImgBoxContainer = styled('img')(({ theme }) => ({
+export const ImgBoxContainer = styled('img')(() => ({
   width: '100%',
   maxWidth: '160px',
   height: '100%',
@@ -40,7 +40,7 @@ export const ImgBoxContainer = styled('img')(({ theme }) => ({
   borderRadius: '12px'
 }));
 
-export const TextContainer = styled(Typography)(({ theme }) => ({
+export const TextContainer = styled(Typography)(() => ({
   fontSize: '24px',
   fontWeight: 600,
   lineHeight: '33.6px'

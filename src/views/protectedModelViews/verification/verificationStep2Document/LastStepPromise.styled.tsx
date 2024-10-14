@@ -80,7 +80,7 @@ export const MainMakeSure = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const UIRulesHeader = styled(UINewTypography)(({ theme }) => ({
+export const UIRulesHeader = styled(UINewTypography)(() => ({
   fontSize: '16px !important',
   lineHeight: '25.6px !important'
 }));

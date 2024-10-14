@@ -46,14 +46,14 @@ export const AuthImageBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const DescriptionTextBox = styled(Box)(({ theme }) => ({
+export const DescriptionTextBox = styled(Box)(() => ({
   width: '100%',
   maxWidth: '248px',
   display: 'flex',
   textAlign: 'center'
 }));
 
-export const TextMainBox = styled(UINewTypography)(({ theme }) => ({
+export const TextMainBox = styled(UINewTypography)(() => ({
   fontSize: '32px',
   fontWeight: 700,
   lineHeight: '44.8px',

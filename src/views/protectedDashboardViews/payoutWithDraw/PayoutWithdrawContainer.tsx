@@ -1,4 +1,3 @@
-import { Box, CircularProgress, DialogContent, FormHelperText, IconButton, InputAdornment } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
@@ -46,6 +45,12 @@ import PayoutRequestSubmit from '../payoutRequestSubmit';
 import { LoaderBox } from '../payoutRequest/PayoutRequest.styled';
 import { CancelBox, ConfirmBox } from '../payoutPaymentContainer/PayoutPaymentConatiner';
 import { getErrorMessage } from 'utils/errorUtils';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import DialogContent from '@mui/material/DialogContent';
+import InputAdornment from '@mui/material/InputAdornment';
+import CircularProgress from '@mui/material/CircularProgress';
+import FormHelperText from '@mui/material/FormHelperText';
 
 export type RequestPayoutParams = {
   amount: number | null;

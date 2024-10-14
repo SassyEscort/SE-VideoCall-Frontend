@@ -31,8 +31,8 @@ import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import { RiArrowLeftLine, RiArrowRightLine } from 'components/common/customRemixIcons';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
-import { InputAdornment } from '@mui/material';
 import { getErrorMessage } from 'utils/errorUtils';
+import InputAdornment from '@mui/material/InputAdornment';
 
 export type PricePerMinute = {
   price_per_minute: number;

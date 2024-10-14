@@ -1,7 +1,7 @@
 'use client';
-import { Switch } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import Switch from '@mui/material/Switch';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const SideBarMainContainer = styled(Box)(({ theme }) => ({
@@ -13,12 +13,12 @@ export const SideBarMainContainer = styled(Box)(({ theme }) => ({
   paddingBottom: theme.spacing(1)
 }));
 
-export const SideBarFirstBox = styled(Box)(({ theme }) => ({
+export const SideBarFirstBox = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column'
 }));
 
-export const SideBarSecondBox = styled(Box)(({ theme }) => ({
+export const SideBarSecondBox = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -41,7 +41,7 @@ export const MainBoxSwitch = styled(Box)(({ theme }) => ({
   gap: theme.spacing(0.75)
 }));
 
-export const SideBarThirdBox = styled(Box)(({ theme }) => ({
+export const SideBarThirdBox = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -155,7 +155,7 @@ export const SwitchText = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2)
 }));
 
-export const StartView = styled(Box)(({ theme }) => ({
+export const StartView = styled(Box)(() => ({
   display: 'flex'
 }));
 

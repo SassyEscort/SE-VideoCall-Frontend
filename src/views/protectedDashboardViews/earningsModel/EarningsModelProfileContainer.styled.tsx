@@ -1,16 +1,18 @@
-import { Box, Divider, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import { styled } from '@mui/material/styles';
 
-export const MainConatiner = styled(Box)(({ theme }) => ({
+export const MainConatiner = styled(Box)(() => ({
   display: 'flex',
   width: '100%'
 }));
 
-export const SecondBox = styled(Box)(({ theme }) => ({
+export const SecondBox = styled(Box)(() => ({
   display: 'flex',
   width: '100%'
 }));
 
-export const ThirdBox = styled(Box)(({ theme }) => ({
+export const ThirdBox = styled(Box)(() => ({
   display: 'flex'
 }));
 
@@ -26,7 +28,7 @@ export const FiveBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(7.75)
 }));
 
-export const MenuListText = styled(Box)(({ theme }) => ({
+export const MenuListText = styled(Box)(() => ({
   display: 'flex',
   width: '100%'
 }));

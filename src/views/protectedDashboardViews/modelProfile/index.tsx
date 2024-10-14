@@ -6,10 +6,10 @@ import ModelProfileContainer from './ModelProfileContainer';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { getUserDataClient } from 'utils/getSessionData';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import MobileSidebar from '../sidebarDropDown';
 import { useAuthContext } from '../../../../context/AuthContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const ModelProfile = () => {
   const { isCustomer } = useAuthContext();

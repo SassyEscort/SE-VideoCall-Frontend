@@ -1,5 +1,5 @@
-import { Select } from '@mui/material';
 import Box from '@mui/material/Box';
+import Select from '@mui/material/Select';
 import { styled } from '@mui/material/styles';
 
 export const SidebarDropDownMainContainer = styled(Box)(({ theme }) => ({
@@ -41,7 +41,7 @@ export const LoadingBoxAdd = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(8)
 }));
 
-export const LoadingBoxFullScreen = styled(Box)(({ theme }) => ({
+export const LoadingBoxFullScreen = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

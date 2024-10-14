@@ -25,7 +25,6 @@ import {
 } from './WorkerCard.styled';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { ModelHomeListing } from 'services/modelListing/modelListing.services';
 import { FormattedMessage } from 'react-intl';
@@ -41,6 +40,7 @@ import { gaEventTrigger } from 'utils/analytics';
 import StyleBoostUserButton from 'components/UIComponents/StyleBoostUserButton';
 import Image from 'next/image';
 import { useAuthContext } from '../../../../../context/AuthContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const WorkerCard = ({
   modelDetails,

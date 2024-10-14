@@ -1,4 +1,5 @@
-import { IconButton, styled } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import { styled } from '@mui/material/styles';
 
 export const IconButtonCheckBox = styled(IconButton)(({ theme }) => ({
   color: theme.palette.common.white,

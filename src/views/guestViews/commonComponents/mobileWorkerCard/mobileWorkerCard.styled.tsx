@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { IconButton } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 
 export const MainWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -195,7 +195,7 @@ export const WorkerCardContainer = styled(Box)(() => ({
   flexDirection: 'column'
 }));
 
-export const ProfileCardContainer = styled(Box)(({ theme }) => ({
+export const ProfileCardContainer = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between'

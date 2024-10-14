@@ -1,5 +1,5 @@
-import { useMediaQuery } from '@mui/material';
 import Box from '@mui/material/Box';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { VideoAcceptType } from 'constants/workerVerification';
 import theme from 'themes/theme';
 

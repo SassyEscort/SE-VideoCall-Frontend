@@ -1,5 +1,6 @@
-import { Box, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 export const AuthCommonBox = styled(Typography)(({ theme }) => ({
   fontSize: '16px',

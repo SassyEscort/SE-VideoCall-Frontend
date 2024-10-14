@@ -1,5 +1,4 @@
 import { FormattedMessage } from 'react-intl';
-import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { InputTypeBox, ProfileTextHeader } from './MyProfile.styled';
@@ -16,6 +15,7 @@ import { InnerBox, MainContainer, MyProfileTitle, VerifiedColumn } from './MyPro
 import { customerVerificationService } from 'services/customerVerification/customerVerification.services';
 import DoneIcon from '@mui/icons-material/Done';
 import CountryCodeSelect from 'components/UIComponents/CountryCode';
+import Box from '@mui/material/Box';
 
 const MyProfileContainer = ({
   values,

@@ -12,7 +12,6 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { FormControl, FormHelperText, InputAdornment, InputLabel, MenuItem, Select } from '@mui/material';
 import {
   AdminBoostProfileData,
   AdminBoostProfileParam,
@@ -26,6 +25,12 @@ import { ErrorMessage } from 'constants/common.constants';
 import { PaginationType } from './BoostContainer';
 import { PAGE_SIZE } from 'constants/pageConstants';
 import { AttachMoney } from '@mui/icons-material';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import InputAdornment from '@mui/material/InputAdornment';
 
 const AddEditBoostModal = ({
   open,

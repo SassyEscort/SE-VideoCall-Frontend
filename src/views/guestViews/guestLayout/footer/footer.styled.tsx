@@ -1,8 +1,8 @@
-import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
-export const TextContainerMain = styled(Box)(({ theme }) => ({
+export const TextContainerMain = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'center',
   width: '100%'

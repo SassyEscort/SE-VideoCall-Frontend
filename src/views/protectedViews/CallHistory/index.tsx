@@ -1,5 +1,4 @@
 'use client';
-import { CircularProgress, Divider, useMediaQuery } from '@mui/material';
 import Box from '@mui/material/Box';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
@@ -50,6 +49,9 @@ import { useRouter } from 'next/navigation';
 import CallHistoryRatingModel from './CalllHistoryRatingModel';
 import StartRating from 'components/UIComponents/StartRating';
 import theme from 'themes/theme';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import CircularProgress from '@mui/material/CircularProgress';
+import Divider from '@mui/material/Divider';
 
 export type CallHistoryPaginationType = {
   page: number;

@@ -2,9 +2,9 @@
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { Divider } from '@mui/material';
 import { BoxProps } from '@mui/system';
 import { LANGUAGES_TYPES } from 'constants/languageConstants';
+import Divider from '@mui/material/Divider';
 
 export const TimeMainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -48,7 +48,7 @@ export const RemianingTime = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const TimeTypo = styled(UINewTypography)(({ theme }) => ({
+export const TimeTypo = styled(UINewTypography)(() => ({
   fontSize: '29.09px',
   fontWeight: 800,
   lineHeight: '39.73px',
