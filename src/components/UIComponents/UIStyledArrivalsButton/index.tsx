@@ -27,7 +27,7 @@ export const UIStyledArrivalsButton = styled(Button)<UIStyledSelectButtonProps>(
   }
 }));
 
-export const StareIcone = styled(Box)(({ theme }) => ({
+export const StareIcone = styled(Box)(() => ({
   display: 'flex',
   width: '24px',
   height: '100%',

@@ -1,6 +1,6 @@
-import { Toolbar } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
 
 export const ProfileMenuMainContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -31,7 +31,7 @@ export const WorkerNavItemContainer = styled(Toolbar)(({ theme }) => ({
   }
 }));
 
-export const WorkerHeaderMainContainer = styled(Box)(({ theme }) => ({
+export const WorkerHeaderMainContainer = styled(Box)(() => ({
   display: 'flex',
   textAlign: 'center',
   alignItems: 'center',

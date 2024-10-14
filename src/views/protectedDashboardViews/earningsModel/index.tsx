@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import DashboardProfile from '..';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import EarningsModelProfileConatiner from './EarningsModelProfileContainer';
 import EarningMobileSidebar from '../earningSidebarDropDown';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const EarningModel = () => {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });

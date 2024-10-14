@@ -1,4 +1,7 @@
-import { Dialog, DialogTitle, styled, Typography } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import Box from '@mui/system/Box';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 

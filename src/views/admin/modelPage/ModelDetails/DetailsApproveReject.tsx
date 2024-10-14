@@ -3,13 +3,13 @@ import Check from '@mui/icons-material/Check';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
-import { CircularProgress } from '@mui/material';
 import { adminModelServices } from 'services/adminModel/adminModel.services';
 import RejectModal from '../RejectModal';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import { toast } from 'react-toastify';
+import CircularProgress from '@mui/material/CircularProgress';
 
 interface DetailsApproveRejectProps {
   workerId: number;

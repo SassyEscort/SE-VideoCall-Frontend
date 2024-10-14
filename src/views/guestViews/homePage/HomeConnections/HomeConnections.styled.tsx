@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 export const HomeMainBox = styled(Box)(({ theme }) => ({
   display: 'flex',

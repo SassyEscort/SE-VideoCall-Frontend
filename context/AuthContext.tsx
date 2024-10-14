@@ -16,6 +16,7 @@ export type AuthContextProps = {
   status: string;
   handleFreeCreditClaim: () => void;
   isFreeCreditsClaimed: boolean;
+  isModel: boolean;
 };
 
 const AuthContext = createContext<AuthContextProps>({
@@ -25,7 +26,8 @@ const AuthContext = createContext<AuthContextProps>({
   isFreeCreditAvailable: 1,
   status: '',
   handleFreeCreditClaim: () => {},
-  isFreeCreditsClaimed: false
+  isFreeCreditsClaimed: false,
+  isModel: false
 });
 
 export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
@@ -37,6 +39,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const user = (session?.user as User)?.picture;
   const providerData = JSON.parse(user || '{}');
   const isCustomer = providerData?.role === ROLE.CUSTOMER;
+  const isModel = providerData?.role === ROLE.MODEL;
 
   const handleFreeCreditClaim = () => {
     setIsFreeCreditsClaimed(!isFreeCreditsClaimed);
@@ -71,7 +74,8 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         isFreeCreditAvailable,
         status,
         handleFreeCreditClaim,
-        isFreeCreditsClaimed
+        isFreeCreditsClaimed,
+        isModel
       }}
     >
       {children}

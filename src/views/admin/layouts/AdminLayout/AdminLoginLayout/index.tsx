@@ -3,8 +3,10 @@
 import { ReactNode } from 'react';
 import { StyledContent, StyledRoot, StyledSection } from './AdminLoginLayout.styled';
 import Container from '@mui/material/Container';
-import { Box, Typography, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 interface AdminLoginLayoutProps {
   children: ReactNode;

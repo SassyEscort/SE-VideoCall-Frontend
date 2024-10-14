@@ -40,7 +40,7 @@ export const getLastActive = (lastActiveTime: string, intl: IntlShape) => {
 };
 
 export const formatDuration = (duration: string) => {
-  if (!duration) return '-';
+  if (!duration) return `0s`;
 
   const timeParts = duration.split(':').map(Number);
 

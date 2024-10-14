@@ -1,4 +1,3 @@
-import { AccordionDetails } from '@mui/material';
 import { MuiAccordion, MuiAccordionSummary } from 'components/UIComponents/StyleAccordion';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React, { SyntheticEvent, useState } from 'react';
@@ -8,6 +7,7 @@ import ModelInformation from './ModelInformation';
 import ModelDocument from './ModelDocument';
 import { UserInformationAccordionBox } from './UserInformationAccordion.styled';
 import SEOData from './SEOData';
+import AccordionDetails from '@mui/material/AccordionDetails';
 
 const UserInformationAccordion = ({ modelData }: { modelData: ModelDetailsRes }) => {
   const [expanded, setExpanded] = useState<string | false>(false);

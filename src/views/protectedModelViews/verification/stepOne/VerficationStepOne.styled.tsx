@@ -94,12 +94,12 @@ export const StepOneContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const VerificationUITypography = styled(UINewTypography)(({ theme }) => ({
+export const VerificationUITypography = styled(UINewTypography)(() => ({
   fontSize: '20px !important',
   lineHeight: '28px !important'
 }));
 
-export const VerificationHeaderText = styled(UINewTypography)(({ theme }) => ({
+export const VerificationHeaderText = styled(UINewTypography)(() => ({
   fontSize: '16px !important',
   lineHeight: '25.6px !important'
 }));

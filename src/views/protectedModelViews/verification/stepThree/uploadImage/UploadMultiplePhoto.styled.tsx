@@ -1,6 +1,6 @@
-import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const GalleryMainContainer = styled(Box)(({ theme }) => ({
@@ -149,7 +149,7 @@ export const UploadMultiplePhotos = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const UploadPhotostext = styled(Typography)(({ theme }) => ({
+export const UploadPhotostext = styled(Typography)(() => ({
   fontSize: '20px',
   fontWeight: 700,
   lineHeight: '28px'

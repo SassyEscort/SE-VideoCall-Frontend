@@ -11,7 +11,6 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
-import { Button, CircularProgress, IconButton, MenuItem } from '@mui/material';
 import { MoreVert, Visibility } from '@mui/icons-material';
 import { useCallback, useEffect, useState } from 'react';
 import { getUserDataClient } from 'utils/getSessionData';
@@ -33,6 +32,10 @@ import { AdminBoostProfileData, adminBoostProfilePlanServices } from 'services/a
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import PaginationSearch from 'components/common/CustomPaginations/PaginationSearch';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
+import MenuItem from '@mui/material/MenuItem';
 
 export type PaginationType = {
   page: number;

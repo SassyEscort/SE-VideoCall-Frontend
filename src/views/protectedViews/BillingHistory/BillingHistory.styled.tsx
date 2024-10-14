@@ -1,6 +1,7 @@
-import { Divider, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const BillingHistoryMainContainer = styled(Box)(({ theme }) => ({
@@ -23,7 +24,7 @@ export const TextMainContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(3)
 }));
 
-export const FirstTextContainer = styled(Box)(({ theme }) => ({
+export const FirstTextContainer = styled(Box)(() => ({
   display: 'flex',
   height: '100%',
   maxHeight: '50px',
@@ -54,7 +55,7 @@ export const DividerContainer = styled(Divider)(({ theme }) => ({
   maxWidth: '929px'
 }));
 
-export const BillingUIContainer = styled(Box)(({ theme }) => ({
+export const BillingUIContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column'
 }));
@@ -98,7 +99,7 @@ export const TextBoxContainer = styled(Typography)(({ theme }) => ({
   lineHeight: '20px'
 }));
 
-export const FirstBoxContainer = styled(Box)(({ theme }) => ({
+export const FirstBoxContainer = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center'

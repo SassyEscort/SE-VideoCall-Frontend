@@ -7,14 +7,16 @@ import Header from 'views/protectedViews/protectedLayout/Header';
 export default async function Layout({ children }: { children: React.ReactNode }) {
   return (
     <ModelGuard>
-      <ModelLastActive />
-      <Box>
-        <Header variant="dashboard" />
-        <main>
-          <Box sx={{ mt: 10 }}>{children}</Box>
-        </main>
-        <ModelFooter />
-      </Box>
+      <>
+        <ModelLastActive />
+        <Box>
+          <Header variant="dashboard" />
+          <main>
+            <Box sx={{ mt: 10 }}>{children}</Box>
+          </main>
+          <ModelFooter />
+        </Box>
+      </>
     </ModelGuard>
   );
 }

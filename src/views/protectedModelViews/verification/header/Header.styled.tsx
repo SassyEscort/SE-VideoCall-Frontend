@@ -15,7 +15,7 @@ export const VerificationHeaderBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const UINewTypographyBox = styled(Box)(({ theme }) => ({
+export const UINewTypographyBox = styled(Box)(() => ({
   top: 0,
   left: 0,
   bottom: 0,

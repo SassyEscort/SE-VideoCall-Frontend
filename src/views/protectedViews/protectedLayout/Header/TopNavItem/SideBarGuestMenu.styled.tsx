@@ -1,8 +1,8 @@
-import { IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 
-export const SideBarGuestMenuBoxContainer = styled(Box)(({ theme }) => ({
+export const SideBarGuestMenuBoxContainer = styled(Box)(() => ({
   width: '100%',
   minWidth: '130px',
   display: 'flex',
@@ -11,7 +11,7 @@ export const SideBarGuestMenuBoxContainer = styled(Box)(({ theme }) => ({
   '& .MuiMenuItem-root ': { width: '100%' }
 }));
 
-export const IconButtonContainer = styled(IconButton)(({ theme }) => ({
+export const IconButtonContainer = styled(IconButton)(() => ({
   display: 'flex',
   alignItems: 'flex-end',
   width: '100%',
@@ -28,4 +28,4 @@ export const SideBarMenuMainContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(3.25)
 }));
 
-export const SideBarMenuContainer = styled(Box)(({ theme }) => ({}));
+export const SideBarMenuContainer = styled(Box)(() => ({}));

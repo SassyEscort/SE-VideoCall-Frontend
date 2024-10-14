@@ -19,11 +19,11 @@ import BoostProfileWorks from './BoostProfileWorks';
 import BoostProfileContent from './BoostProfileContent';
 import BoostSuccess from './BoostSuccess';
 import { useRouter } from 'next/navigation';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { DialogTitleBox } from '../payoutWithDraw/PayoutWidthDraw';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const backgroundImages = [
   'https://staging.flirtbate.com/images/boostFeature/freePackbg.png',

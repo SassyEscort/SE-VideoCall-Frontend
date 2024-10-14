@@ -252,7 +252,8 @@ const HeaderGuestComponent = () => {
                     open={Boolean(anchorElLogout)}
                     onClose={handleCloseLogout}
                     MenuListProps={{
-                      'aria-labelledby': 'basic-button'
+                      'aria-labelledby': 'basic-button',
+                      'aria-label': 'basic-button'
                     }}
                     sx={{
                       backdropFilter: isSmDown ? 'blur(12px)' : ''

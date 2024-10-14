@@ -1,5 +1,5 @@
-import { FormControl } from '@mui/material';
 import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
 import { styled } from '@mui/material/styles';
 import { DatePicker } from '@mui/x-date-pickers';
 import UINewTypography from 'components/UIComponents/UINewTypography';

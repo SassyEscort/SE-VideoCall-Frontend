@@ -1,7 +1,7 @@
 'use client';
 
-import { styled } from '@mui/material';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 
 export const ReSubmitApplicationMainContainer = styled(Box)(() => ({
   display: 'flex',

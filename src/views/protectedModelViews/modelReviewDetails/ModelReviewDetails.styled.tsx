@@ -1,4 +1,6 @@
-import { Box, Typography, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 export const MainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -57,7 +59,7 @@ export const BasicDetailsConatiner = styled(Box)(() => ({
   maxWidth: '824px'
 }));
 
-export const FirstColumnContainer = styled(Box)(({ theme }) => ({
+export const FirstColumnContainer = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'space-between',
   maxWidth: '824px',
@@ -193,7 +195,7 @@ export const FirstBoxContainer = styled(Box)(({ theme }) => ({
   width: '100%'
 }));
 
-export const FirstTextContainer = styled(Typography)(({ theme }) => ({
+export const FirstTextContainer = styled(Typography)(() => ({
   fontSize: '20px',
   lineHeight: '32px',
   fontWeight: 700
@@ -211,25 +213,25 @@ export const GellaryTextContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const SecTextContainer = styled(Typography)(({ theme }) => ({
+export const SecTextContainer = styled(Typography)(() => ({
   fontSize: '16px',
   lineHeight: '25.6px',
   fontWeight: 500
 }));
 
-export const ThirdTextContainer = styled(Typography)(({ theme }) => ({
+export const ThirdTextContainer = styled(Typography)(() => ({
   fontSize: '16px',
   lineHeight: '25.6px',
   fontWeight: 700
 }));
 
-export const BtnTextContainer = styled(Typography)(({ theme }) => ({
+export const BtnTextContainer = styled(Typography)(() => ({
   fontSize: '16px',
   lineHeight: '19.2px',
   fontWeight: 700
 }));
 
-export const FourTextContainer = styled(Typography)(({ theme }) => ({
+export const FourTextContainer = styled(Typography)(() => ({
   fontSize: '20px',
   lineHeight: '32px',
   fontWeight: 700

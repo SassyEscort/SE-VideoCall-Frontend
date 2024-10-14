@@ -1,5 +1,4 @@
 'use client';
-import { Box } from '@mui/material';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
@@ -7,11 +6,12 @@ import {
   FirstImgAuthModelSignupSuccessContainer,
   SecContainerAuthModelSignupSuccessContainer
 } from './ModelSignup.styled';
+import Box from '@mui/material/Box';
 
 const ModelSignupSuccess = () => {
   return (
     <AuthModelSignupSuccessMainContainer>
-      <FirstImgAuthModelSignupSuccessContainer src="/images/model/model-signup/success-right.webp"></FirstImgAuthModelSignupSuccessContainer>
+      <FirstImgAuthModelSignupSuccessContainer src="/images/model/model-signup/success-right.webp" alt="success-img" />
 
       <SecContainerAuthModelSignupSuccessContainer>
         <Box sx={{ width: '100%', textAlign: 'center', maxWidth: '443px' }}>

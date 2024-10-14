@@ -1,5 +1,4 @@
 'use client';
-import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -25,6 +24,7 @@ import StarRateRoundedIcon from '@mui/icons-material/StarRateRounded';
 import { toast } from 'react-toastify';
 import { PayoutService } from 'services/payout/payout.service';
 import { ErrorMessage } from 'constants/common.constants';
+import Box from '@mui/material/Box';
 
 const Availability = ({
   modelDetails,

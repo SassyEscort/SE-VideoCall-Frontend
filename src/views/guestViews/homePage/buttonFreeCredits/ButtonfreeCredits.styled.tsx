@@ -1,5 +1,8 @@
-import { Box, Button, DialogTitle, Drawer, styled } from '@mui/material';
-
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import DialogTitle from '@mui/material/DialogTitle';
+import Drawer from '@mui/material/Drawer';
+import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 

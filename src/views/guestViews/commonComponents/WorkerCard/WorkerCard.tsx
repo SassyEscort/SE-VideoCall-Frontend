@@ -25,7 +25,6 @@ import {
 } from './WorkerCard.styled';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { ModelHomeListing } from 'services/modelListing/modelListing.services';
 import { FormattedMessage } from 'react-intl';
@@ -41,6 +40,7 @@ import { gaEventTrigger } from 'utils/analytics';
 import StyleBoostUserButton from 'components/UIComponents/StyleBoostUserButton';
 import Image from 'next/image';
 import { useAuthContext } from '../../../../../context/AuthContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { VideoAcceptType } from 'constants/workerVerification';
 
 const WorkerCard = ({
@@ -72,6 +72,8 @@ const WorkerCard = ({
     .sort()
     .join(', ');
   const modelFlag = countryWithFlag.filter((country) => country.name === modelDetails?.country).map((data) => data.flag)[0];
+  const modelAltName = countryWithFlag.filter((country) => country.name === modelDetails?.country).map((data) => data.name)[0];
+
   const imageUrlRef = useRef<HTMLElement>();
   const videoTypeCondition = VideoAcceptType?.includes(modelDetails?.link?.substring(modelDetails?.link?.lastIndexOf('.') + 1));
 
@@ -171,13 +173,13 @@ const WorkerCard = ({
                     <LiveIconWorkerCard>
                       <LiveIconSecBoxWorkerCard />
                     </LiveIconWorkerCard>
-                    {modelFlag && <FirstSubContainerImgWorkerCard src={modelFlag} />}
+                    {modelFlag && <FirstSubContainerImgWorkerCard src={modelFlag} alt={modelAltName} />}
                   </>
                 )}
               </NameCardContainer>
               {!isMobile && (
                 <CreditContainer>
-                  <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" />
+                  <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" alt="dollar-img" />
                   <UINewTypography variant="captionLargeBold" color="text.secondary">
                     {!modelDetails?.credits_per_minute ? (
                       <FormattedMessage id="NoPrice" />
@@ -201,7 +203,7 @@ const WorkerCard = ({
             </SecondMainContainerWorkerCard>
             {isMobile && (
               <CreditContainer sx={{ marginTop: isSmallScreen ? 1.5 : 1 }}>
-                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" />
+                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" alt="dollar-img" />
                 <UINewTypography variant="captionLargeBold" color="text.secondary">
                   {!modelDetails?.price_per_minute ? (
                     <FormattedMessage id="NoPrice" />

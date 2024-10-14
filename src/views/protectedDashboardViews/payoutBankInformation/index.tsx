@@ -1,5 +1,4 @@
 'use client';
-import { Box, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import React, { useState } from 'react';
@@ -18,6 +17,9 @@ import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import AddbankDetails from '../addBankDetails';
 import { TokenIdType } from 'views/protectedModelViews/verification';
+import Box from '@mui/material/Box';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 const PayoutBankInformation = ({ token, fetchBankDetails }: { token: TokenIdType; fetchBankDetails: () => void }) => {
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 

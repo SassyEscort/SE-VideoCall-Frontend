@@ -1,4 +1,3 @@
-import { DialogContent, Box } from '@mui/material';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import {
@@ -15,6 +14,8 @@ import {
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link';
+import DialogContent from '@mui/material/DialogContent';
+import Box from '@mui/material/Box';
 const Requestsubmit = ({ handlePayoutStepSubmit }: { handlePayoutStepSubmit?: (step: number) => void }) => {
   const handleClose = () => {
     if (handlePayoutStepSubmit) {
@@ -42,7 +43,7 @@ const Requestsubmit = ({ handlePayoutStepSubmit }: { handlePayoutStepSubmit?: (s
 
           <DialogContent sx={{ p: 0 }}>
             <ForBox>
-              <Box component={'img'} src="/images/payout/payoutSuccess.webp" sx={{ width: '214px', height: '169px' }} />
+              <Box component={'img'} src="/images/payout/payoutSuccess.webp" alt="payoutSuccess" sx={{ width: '214px', height: '169px' }} />
               <FiveBox>
                 <UINewTypographyYourRequestHasBeenSubmitted>
                   <FormattedMessage id="YourRequestHasBeenSubmitted" />

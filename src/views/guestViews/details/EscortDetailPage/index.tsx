@@ -1,7 +1,6 @@
 'use client';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { EscortSlider } from './EscortSlider';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import EscortSliderMobile from './EscortSliderMobile';
 import EscortPersonalDetail from './EscortPersonalDetail';
@@ -39,6 +38,7 @@ import {
   ratingAndReviewParams
 } from 'services/ratingAndReview/ratingAndReview.service';
 import { useAuthContext } from '../../../../../context/AuthContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const EscortDetailPage = () => {
   const { isFreeCreditAvailable, isCustomer } = useAuthContext();

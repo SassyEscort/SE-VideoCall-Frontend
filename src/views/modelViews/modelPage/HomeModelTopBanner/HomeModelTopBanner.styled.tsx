@@ -102,7 +102,7 @@ export const TitleContainer = styled(Box)(({ theme }) => ({
   lineHeight: '64.8px'
 }));
 
-export const NewDialogBox = styled(Dialog)(({ theme }) => ({
+export const NewDialogBox = styled(Dialog)(() => ({
   '& .MuiDialog-paper': {
     backgroundColor: '#07030E',
     borderRadius: '12px'

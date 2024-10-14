@@ -1,4 +1,5 @@
-import { Box, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const MainConatiner = styled(Box)(({ theme }) => ({
@@ -44,12 +45,12 @@ export const ThreeBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const ImageBox = styled('img')(({ theme }) => ({
+export const ImageBox = styled('img')(() => ({
   width: '100%',
   maxWidth: '55.4px'
 }));
 
-export const ImageSecondBox = styled('img')(({ theme }) => ({
+export const ImageSecondBox = styled('img')(() => ({
   width: '100%',
   maxWidth: '150.8px'
 }));
@@ -81,7 +82,7 @@ export const Dwonload = styled(UINewTypography)(({ theme }) => ({
   }
 }));
 
-export const GradientTypography = styled(UINewTypography)(({ theme }) => ({
+export const GradientTypography = styled(UINewTypography)(() => ({
   background: 'linear-gradient(90deg, #FD28A6, #FFFFFF)',
   '-webkit-background-clip': 'text',
   '-webkit-text-fill-color': 'transparent'

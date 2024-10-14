@@ -25,7 +25,6 @@ import { useRouter } from 'next/navigation';
 import { getErrorMessage } from 'utils/errorUtils';
 import AuthHomePageFreeSignupCommon from './AuthHomePageFreeSignupCommon';
 import HomePageFreeSignupMobile from './HomePageFreeSignupMobile';
-import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { ROLE } from 'constants/workerVerification';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import {
@@ -36,6 +35,10 @@ import {
   JoinForFreeText,
   RemindMeBoxContainer
 } from './HomePageFreeSignup.styled';
+import FormControl from '@mui/material/FormControl';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 export type SignupParams = {
   name: string;
