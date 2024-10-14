@@ -95,7 +95,7 @@
   "EmailAddress": "Dirección de correo electrónico",
   "Password": "Contraseña",
   "ConfirmPassword": "confirmar Contraseña",
-  "ConfirmPasswordDoesNotMatch": "Confirmar que la contraseña no coincide",
+  "ConfirmPasswordDoesNotMatch": "Confirmar contraseña no coincide con la contraseña",
   "RememberMe": "Recuérdame",
   "RememberPassword": "¿Ya tienes una cuenta?",
   "LogInInstead": "¡Inicia sesión en su lugar!",

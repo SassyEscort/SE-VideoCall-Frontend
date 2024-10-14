@@ -34,7 +34,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import GuestLogin from 'views/auth/guestLogin';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import UIStyledDialog, { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestSignup from 'views/auth/guestSignup';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
@@ -296,9 +296,9 @@ export const EscortSlider = ({
           </UIStyledShadowButtonLike>
         </Box>
 
-        <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth scroll="body">
+        <NewUIStyledSignUpDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth scroll="body">
           <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-        </UIStyledDialog>
+        </NewUIStyledSignUpDialog>
         <UIStyledDialog open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth scroll="body">
           <GuestLogin
             isFreeCreditAvailable={isFreeCreditAvailable}
