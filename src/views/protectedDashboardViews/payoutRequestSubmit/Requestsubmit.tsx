@@ -43,7 +43,7 @@ const Requestsubmit = ({ handlePayoutStepSubmit }: { handlePayoutStepSubmit?: (s
 
           <DialogContent sx={{ p: 0 }}>
             <ForBox>
-              <Box component={'img'} src="/images/payout/payoutSuccess.webp" sx={{ width: '214px', height: '169px' }} />
+              <Box component={'img'} src="/images/payout/payoutSuccess.webp" alt="payoutSuccess" sx={{ width: '214px', height: '169px' }} />
               <FiveBox>
                 <UINewTypographyYourRequestHasBeenSubmitted>
                   <FormattedMessage id="YourRequestHasBeenSubmitted" />

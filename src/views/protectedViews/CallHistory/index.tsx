@@ -290,7 +290,7 @@ const CallHistory = () => {
                               }}
                             >
                               <Box sx={{ display: 'flex', gap: 1.25 }}>
-                                <SecImgBoxContainer src="/images/home-connect-instantly-img.png" />
+                                <SecImgBoxContainer src="/images/home-connect-instantly-img.png" alt="home-connect-instantly-img" />
                                 <Box sx={{ whiteSpace: 'nowrap' }}>
                                   <UINewTypography variant="bodySemiBold" color="white.main">
                                     <FormattedMessage id="CallAgain" />

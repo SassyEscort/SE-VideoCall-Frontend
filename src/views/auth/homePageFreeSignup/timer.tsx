@@ -63,7 +63,7 @@ const Timer = () => {
         </TimeTitle>
       </TimeDetails>
       <Box sx={{ display: 'flex', position: 'relative', top: '-10px' }}>
-        <Box component={'img'} src="/images/icons/timeDots.svg"></Box>
+        <Box component={'img'} src="/images/icons/timeDots.svg" alt="dots"></Box>
         {/* <Dotes language={i18n} />
         <DotesSecond /> */}
       </Box>

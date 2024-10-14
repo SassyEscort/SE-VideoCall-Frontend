@@ -171,9 +171,9 @@ const Credits = () => {
                 </UINewTypography>
                 <SecondBoxContainer>
                   <BalanceBoxContainer>
-                    <SecondSubContainerImgWorkerCard src="/images/workercards/coin-1.png" />
+                    <SecondSubContainerImgWorkerCard src="/images/workercards/coin-1.png" alt="coin_icon" />
                     <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                      {balance.toFixed(2)}
+                      {balance?.toFixed(2) || 0}
                     </UINewTypography>
                   </BalanceBoxContainer>
                 </SecondBoxContainer>
@@ -202,7 +202,7 @@ const Credits = () => {
                     <ImagSubContainer key={index} onClick={() => handleCreditClick(listCredit)} sx={{ cursor: 'pointer' }}>
                       <MainImagContainer src={listCredit?.link} />
                       <BoxFirstTextContainer>
-                        <CreditCardImage src="/images/workercards/coin-1.png" />
+                        <CreditCardImage src="/images/workercards/coin-1.png" alt="coin_icon" />
                         <CreditCardText variant="subtitle" color="text.secondary">
                           {listCredit?.credits}
                           <FormattedMessage id="Credits" />

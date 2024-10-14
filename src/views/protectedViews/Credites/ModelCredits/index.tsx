@@ -145,7 +145,7 @@ const ModelCredits = ({
                 <UINewTypography variant="buttonLargeMenu" sx={{ paddingRight: '8px' }}>
                   <FormattedMessage id="Balance" />
                 </UINewTypography>
-                <CreditCardImage src="/images/workercards/dollar-img.avif" />
+                <CreditCardImage src="/images/workercards/dollar-img.avif" alt="dollar-img" />
 
                 <UINewTypography variant="buttonLargeMenu">{balance?.toFixed(2) || 0}</UINewTypography>
                 <FormattedMessage id="Credits" />
@@ -158,7 +158,7 @@ const ModelCredits = ({
               <UINewTypography variant="buttonLargeMenu" sx={{ paddingRight: '8px' }}>
                 <FormattedMessage id="Balance" />
               </UINewTypography>
-              <CreditCardImage src="/images/workercards/dollar-img.avif" />
+              <CreditCardImage src="/images/workercards/dollar-img.avif" alt="dollar-img" />
 
               <UINewTypography variant="buttonLargeMenu">{balance?.toFixed(2) || 0}</UINewTypography>
               <FormattedMessage id="Credits" />
@@ -191,7 +191,7 @@ const ModelCredits = ({
                     <ImagSubContainer key={index} onClick={() => handleCreditClick(listCredit)} sx={{ cursor: 'pointer' }}>
                       <MainImagContainer src={listCredit?.link} />
                       <BoxFirstTextContainer>
-                        <CreditCardImage src="/images/workercards/coin-1.png" />
+                        <CreditCardImage src="/images/workercards/coin-1.png" alt="coin_icon" />
                         <CreditCardText variant="subtitle" color="text.secondary">
                           {listCredit?.credits}
                           <FormattedMessage id="Credits" />

@@ -297,6 +297,7 @@ const PayoutWithdrawContainer = ({
                                               <Box
                                                 component={'img'}
                                                 src="/images/payout/home.png"
+                                                alt="home-icon"
                                                 width={'38px'}
                                                 height={'42px'}
                                                 color={'text.secondary'}
@@ -327,6 +328,7 @@ const PayoutWithdrawContainer = ({
                                                   <Box
                                                     component={'img'}
                                                     src="/images/payout/edit.webp"
+                                                    alt="edit-icon"
                                                     sx={{ width: '18px', height: '18px', cursor: 'pointer' }}
                                                     onClick={() => {
                                                       handleBankDetailsEdit(bankList);
@@ -337,6 +339,7 @@ const PayoutWithdrawContainer = ({
                                                   <Box
                                                     component={'img'}
                                                     src="/images/payout/delete.webp"
+                                                    alt="delete-icon"
                                                     sx={{ width: '16px', height: '18px', cursor: 'pointer' }}
                                                     onClick={() => setDeleteId(bankList.id)}
                                                   />

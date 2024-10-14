@@ -177,7 +177,7 @@ const WorkerCard = ({
               </NameCardContainer>
               {!isMobile && (
                 <CreditContainer>
-                  <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" />
+                  <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" alt="dollar-img" />
                   <UINewTypography variant="captionLargeBold" color="text.secondary">
                     {!modelDetails?.credits_per_minute ? (
                       <FormattedMessage id="NoPrice" />
@@ -201,7 +201,7 @@ const WorkerCard = ({
             </SecondMainContainerWorkerCard>
             {isMobile && (
               <CreditContainer sx={{ marginTop: isSmallScreen ? 1.5 : 1 }}>
-                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" />
+                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" alt="dollar-img" />
                 <UINewTypography variant="captionLargeBold" color="text.secondary">
                   {!modelDetails?.price_per_minute ? (
                     <FormattedMessage id="NoPrice" />

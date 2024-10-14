@@ -61,7 +61,7 @@ const BoostMultiplePackage = ({
                     <ImagSubContainer>
                       <MainImagContainer src={plan.link ?? '/images/boostFeature/boostPackOne.png'} />
                       <BoxFirstTextContainer>
-                        <CreditCardImage src="/images/icons/boost-timer-icon.svg" />
+                        <CreditCardImage src="/images/icons/boost-timer-icon.svg" alt="boost-timer-icon" />
                         <PackageTypography>
                           {plan.duration} <FormattedMessage id="Hours" />
                         </PackageTypography>
