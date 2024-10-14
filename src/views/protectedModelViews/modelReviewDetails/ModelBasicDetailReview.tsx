@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import moment from 'moment';
@@ -34,6 +33,7 @@ import {
 } from './ModelReviewDetails.styled';
 import { useEffect, useState } from 'react';
 import { DOCUMENT_UPLOAD_TYPE } from 'constants/workerVerification';
+import Box from '@mui/material/Box';
 
 const ModelBasicDetailReview = ({
   modelDetails,

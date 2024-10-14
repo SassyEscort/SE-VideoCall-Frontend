@@ -1,5 +1,6 @@
-import { Box, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 export const GuestNewPasswordText = styled(Typography)(({ theme }) => ({
   display: 'flex',
@@ -41,7 +42,7 @@ export const ThirdBoxContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(0.5)
 }));
 
-export const SecTextContainer = styled(Typography)(({ theme }) => ({
+export const SecTextContainer = styled(Typography)(() => ({
   fontSize: '16px',
   lineHeight: '19.2px',
   fontWeight: '700'

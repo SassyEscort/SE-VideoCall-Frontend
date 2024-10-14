@@ -1,4 +1,8 @@
-import { Box, Dialog, IconButton, Menu, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import { styled } from '@mui/material/styles';
 
 export const SideBarBox = styled(Box)(() => ({
   width: '100%',

@@ -1,4 +1,3 @@
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
@@ -23,6 +22,7 @@ import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContai
 import { FormattedMessage } from 'react-intl';
 import { HomeModelConnectionsTypography } from 'components/UIComponents/UIthemeTypography/HomeConnections.styled';
 import { UIThemeNextImage } from 'components/UIComponents/UIThemeImageNext';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const HomeModelConnections = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));

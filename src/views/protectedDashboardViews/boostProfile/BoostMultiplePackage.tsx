@@ -18,9 +18,10 @@ import {
   PackageContainer
 } from './BoostMultiplePackage.styled';
 import { ProfilePlanResData } from 'services/commonApi/commonApi.services';
-import { Box, Grid } from '@mui/material';
 import { BoostMainBox, PackageTypography, UINewTypographyPackage } from './boostProfile.styled';
 import StyledBoostChip from 'components/UIComponents/UIStyledBoostChip';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 
 const BoostMultiplePackage = ({
   allPlans,

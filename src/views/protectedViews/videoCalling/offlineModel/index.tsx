@@ -2,7 +2,6 @@
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Divider } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import VideoCalling from '../commonComponent';
 import { FormattedMessage } from 'react-intl';
@@ -11,6 +10,8 @@ import { useCallFeatureContext } from '../../../../../context/CallFeatureContext
 import { useRouter } from 'next/navigation';
 import { ThirdBoxContent, FourBoxContent } from '../AnotherCallModel/Another.styled';
 import { DialogContentMain, DialogTitleBox, DialogContentFristBox, SecondBoxContent } from '../RingingModel/RingingModel.styled';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 
 const OfflineModel = ({ open, onClose, isModelAvailable }: { open: boolean; onClose: () => void; isModelAvailable: number }) => {
   const router = useRouter();

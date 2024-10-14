@@ -3,7 +3,6 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { ReactNode } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import {
   AuthCommonBox,
@@ -20,6 +19,7 @@ import {
 import Timer from './timer';
 import { FormattedMessage } from 'react-intl';
 import { ROLE } from 'constants/workerVerification';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const AuthHomePageFreeSignupCommon = ({
   onClose,

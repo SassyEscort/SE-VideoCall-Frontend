@@ -1,5 +1,4 @@
 'use client';
-import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
   MobileImageInnerBoxContainer,
@@ -10,6 +9,7 @@ import {
 } from './GuestFreeCreditsSignup.styled';
 import { FormattedMessage } from 'react-intl';
 import { AuthCommonBox } from '../AuthCommon.styled';
+import Box from '@mui/material/Box';
 
 const GuestModelMobileSignup = ({ image, modelName }: { image: string; modelName: string }) => {
   return (

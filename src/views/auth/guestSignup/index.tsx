@@ -24,9 +24,12 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { ErrorMessage } from 'constants/common.constants';
 import { useRouter } from 'next/navigation';
 import { getErrorMessage } from 'utils/errorUtils';
-import { FormControl, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { ROLE } from 'constants/workerVerification';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
+import FormControl from '@mui/material/FormControl';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
 import NewAuthCommon from './NewAuthCommon';
 
 export type SignupParams = {

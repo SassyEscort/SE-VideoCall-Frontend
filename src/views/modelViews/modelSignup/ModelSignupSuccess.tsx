@@ -1,5 +1,4 @@
 'use client';
-import { Box } from '@mui/material';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
@@ -7,6 +6,7 @@ import {
   FirstImgAuthModelSignupSuccessContainer,
   SecContainerAuthModelSignupSuccessContainer
 } from './ModelSignup.styled';
+import Box from '@mui/material/Box';
 
 const ModelSignupSuccess = () => {
   return (

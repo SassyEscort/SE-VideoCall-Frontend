@@ -1,14 +1,10 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionDetailsProps,
-  AccordionSummary,
-  AccordionSummaryProps,
-  Box,
-  Drawer,
-  Slider,
-  styled
-} from '@mui/material';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails, { AccordionDetailsProps } from '@mui/material/AccordionDetails';
+import AccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import Slider from '@mui/material/Slider';
+import { styled } from '@mui/material/styles';
 
 export const FilterAction = styled(Box)(({ theme }) => ({
   width: '100%',

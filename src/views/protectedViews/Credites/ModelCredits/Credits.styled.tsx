@@ -1,15 +1,15 @@
-import { IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
-export const CreditsMainContainer = styled(Box)(({ theme }) => ({
+export const CreditsMainContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column'
 }));
 
-export const CreditsSubContainer = styled(Box)(({ theme }) => ({
+export const CreditsSubContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column'
 }));
@@ -142,13 +142,13 @@ export const CreditCardImage = styled('img')(() => ({
   maxWidth: '16px'
 }));
 
-export const DollarCreditText = styled(UINewTypography)(({ theme }) => ({
+export const DollarCreditText = styled(UINewTypography)(() => ({
   fontSize: '40px',
   fontWeight: 800,
   lineHeight: '48px'
 }));
 
-export const CreditBuyText = styled(UINewTypography)(({ theme }) => ({
+export const CreditBuyText = styled(UINewTypography)(() => ({
   display: 'flex',
   justifyContent: 'center'
 }));

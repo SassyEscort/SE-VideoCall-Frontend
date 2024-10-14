@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
@@ -37,6 +36,7 @@ import {
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { ViewDetailsRes } from 'services/guestBilling/types';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRes; token?: TokenIdType }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));

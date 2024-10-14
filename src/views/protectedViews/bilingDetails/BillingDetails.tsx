@@ -1,4 +1,8 @@
-import { Box, Dialog, DialogContent, DialogTitle, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 export const DialogTitleContainer = styled(DialogTitle)(({ theme }) => ({

@@ -10,7 +10,6 @@ import { ModelDetailsRes } from 'services/adminModel/types';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import ProfileCrad from './ProfileCrad';
-import { Button, Grid } from '@mui/material';
 import UserInformationAccordion from './UserInformationAccordion';
 import Box from '@mui/system/Box';
 import DetailsApproveReject from './DetailsApproveReject';
@@ -21,6 +20,8 @@ import { adminBoostProfilePlanServices } from 'services/adminBoostProfilePlan/ad
 import { Add } from '@mui/icons-material';
 import EditIcon from '@mui/icons-material/Edit';
 import AddEditSEOModalData from './UserInformationAccordion/SEOData/AddEditSEOModalData';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 
 export type PaginationTypeModel = {
   page: number;

@@ -1,5 +1,4 @@
 'use client';
-import { IconButton, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -9,6 +8,8 @@ import theme from 'themes/theme';
 import PayoutWithdrawContainer from './PayoutWithdrawContainer';
 import { BankDetailsListRes } from 'services/payout/types';
 import { TokenIdType } from 'views/protectedModelViews/verification';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import IconButton from '@mui/material/IconButton';
 
 const PayoutWidthDraw = ({
   open,

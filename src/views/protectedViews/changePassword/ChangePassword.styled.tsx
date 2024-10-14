@@ -1,4 +1,7 @@
-import { Box, Dialog, DialogTitle, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import { styled } from '@mui/material/styles';
 
 export const MainDialogBox = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {

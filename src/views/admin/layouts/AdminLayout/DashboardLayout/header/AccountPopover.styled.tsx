@@ -1,6 +1,12 @@
 import FiberManualRecord from '@mui/icons-material/FiberManualRecord';
-import { AppBar, Avatar, Box, IconButton, Popover, Toolbar, styled } from '@mui/material';
+import AppBar from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
 import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Popover from '@mui/material/Popover';
+import { styled } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
 
 export interface ButtonBaseContainer {
   notificationBgColor: string;
@@ -79,7 +85,7 @@ export const TypographyBox = styled(Box)(({ theme }) => ({
   alignItems: 'start'
 }));
 
-export const ButtonBaseContainerAvatar = styled(Avatar)<ButtonBaseContainer>(({ theme, notificationBgColor }) => ({
+export const ButtonBaseContainerAvatar = styled(Avatar)<ButtonBaseContainer>(({ notificationBgColor }) => ({
   height: 32,
   width: 32,
   backgroundColor: notificationBgColor ? 'transparent' : '#290F1E'

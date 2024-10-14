@@ -2,7 +2,6 @@
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
-import { Divider, ListItemIcon, ListItemText, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import Link from 'next/link';
@@ -19,6 +18,12 @@ import ProfileMenu from 'views/protectedViews/protectedLayout/Header/TopNavItem/
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FirstBoxContainer, SecBoxContainer, ThirdBoxContainer } from './ModelHeaderAuthComponent.styled';
 import { useAuthContext } from '../../../../../context/AuthContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
 
 export type NotificationFilters = {
   page: number;

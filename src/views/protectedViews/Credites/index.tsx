@@ -33,11 +33,12 @@ import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import CreditsAdded from '../CreditsAdded/CreditsAdded';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import Loader from 'components/Loader';
-import { Box, CircularProgress } from '@mui/material';
 import { gaEventTrigger } from 'utils/analytics';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import { ClaimFreeNewButton } from './ModelCredits/Credits.styled';
 import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export type CustomerInfo = {
   email: string;

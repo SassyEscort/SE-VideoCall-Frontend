@@ -1,6 +1,5 @@
 'use client';
 
-import { Box } from '@mui/material';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import Image from 'next/image';
 import React from 'react';
@@ -17,6 +16,7 @@ import {
   TypographyContainer2
 } from './profileCreated.styled';
 import Link from 'next/link';
+import Box from '@mui/material/Box';
 
 const ProfileCreated = () => {
   return (

@@ -1,5 +1,9 @@
-import { Box, Dialog, DialogTitle, Divider, styled } from '@mui/material';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
+import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import Divider from '@mui/material/Divider';
+import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 
@@ -238,7 +242,7 @@ export const PayoutDetailSixBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(0.5)
 }));
 
-export const ImageBox = styled('img')(({ theme }) => ({
+export const ImageBox = styled('img')(() => ({
   borderRadius: '50%',
   width: '100%',
   maxWidth: '20px',
@@ -300,7 +304,7 @@ export const UIStyledInputTextAmount = styled(UIStyledInputText)(({ theme }) => 
     color: theme.palette.text.secondary
   }
 }));
-export const ExpandIcon = styled(ExpandMoreOutlinedIcon)(({ theme }) => ({
+export const ExpandIcon = styled(ExpandMoreOutlinedIcon)(() => ({
   width: '16px',
   height: '16px'
 }));

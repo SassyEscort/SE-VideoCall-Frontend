@@ -33,9 +33,9 @@ import TableHead from '@mui/material/TableHead';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { formatFullDateWithoutTime } from 'utils/dateAndTime';
 import moment from 'moment';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { invoiceDataType } from '../billingTable/PurchaseInvoiceTableBody';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const InvoiceDownloadV2 = ({ invoiceData }: { invoiceData: invoiceDataType }) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));

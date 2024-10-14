@@ -81,13 +81,13 @@ export const CreditCardImage = styled('img')(() => ({
   maxWidth: '26px'
 }));
 
-export const DollarCreditText = styled(UINewTypography)(({ theme }) => ({
+export const DollarCreditText = styled(UINewTypography)(() => ({
   fontSize: '40px',
   fontWeight: 800,
   lineHeight: '48px'
 }));
 
-export const CreditBuyText = styled(UINewTypography)(({ theme }) => ({
+export const CreditBuyText = styled(UINewTypography)(() => ({
   display: 'flex',
   justifyContent: 'center'
 }));

@@ -22,10 +22,10 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { ModelEarningResponse } from 'services/modelDetails/type';
 import Earnings from './Earning';
-import { CircularProgress } from '@mui/material';
 import { LoaderBox } from '../payoutRequest/PayoutRequest.styled';
 import debounce from 'lodash/debounce';
 import CustomDatePicker from 'components/common/CustomDatePicker';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const EarningOverview = () => {
   const [isLoading, setIsLoading] = useState(false);

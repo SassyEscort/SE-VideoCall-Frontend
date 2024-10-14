@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { Divider } from '@mui/material';
+import Divider from '@mui/material/Divider';
 
 export const TimeMainBox = styled(Box)(({ theme }) => ({
   display: 'flex',

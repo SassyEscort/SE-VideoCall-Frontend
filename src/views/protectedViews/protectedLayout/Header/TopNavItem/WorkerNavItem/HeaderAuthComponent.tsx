@@ -2,7 +2,6 @@
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
-import { Divider, ListItemIcon, ListItemText, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import ProfileMenu from './ProfileMenu';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -22,6 +21,12 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useCallFeatureContext } from '../../../../../../../context/CallFeatureContext';
 import NotificationModalCustomerV2 from './NotificationModalCustomerV2';
 import { useAuthContext } from '../../../../../../../context/AuthContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
 
 export type NotificationFilters = {
   page: number;

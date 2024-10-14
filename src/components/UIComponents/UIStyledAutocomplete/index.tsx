@@ -1,7 +1,8 @@
 import React from 'react';
-import { FilterOptionsState, styled } from '@mui/material';
 import Autocomplete, { AutocompleteChangeDetails, AutocompleteChangeReason, AutocompleteProps } from '@mui/material/Autocomplete';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/verificationTypes';
+import { styled } from '@mui/material/styles';
+import { FilterOptionsState } from '@mui/material/useAutocomplete';
 
 const UIStyledAutocomplete = styled(
   (

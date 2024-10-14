@@ -19,8 +19,8 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import Image from 'next/image';
 import Box from '@mui/material/Box';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const ClaimCreditSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onClose: () => void; onSignupOpen: () => void }) => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));

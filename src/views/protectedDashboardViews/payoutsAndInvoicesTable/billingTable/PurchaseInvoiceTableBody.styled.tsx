@@ -1,4 +1,8 @@
-import { Box, TableCell, TableHead, TableRow, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const TableRowMain = styled(TableRow)(({ theme }) => ({
@@ -25,7 +29,7 @@ export const SecondBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1)
 }));
 
-export const TableHeadMain = styled(TableHead)(({ theme }) => ({
+export const TableHeadMain = styled(TableHead)(() => ({
   '& .MuiTableCell-root': {
     border: 'none'
   }

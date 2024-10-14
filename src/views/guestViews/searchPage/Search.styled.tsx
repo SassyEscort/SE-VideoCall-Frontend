@@ -80,7 +80,7 @@ export const DollarImageContainer = styled('img')(() => ({
   maxHeight: '22px'
 }));
 
-export const CountryFilterText = styled(UINewTypography)(({ theme }) => ({
+export const CountryFilterText = styled(UINewTypography)(() => ({
   display: 'block',
   overflow: 'hidden',
   textOverflow: 'ellipsis'

@@ -1,4 +1,5 @@
-import { Box, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 
 export const ModelDocumentBox = styled(Box)(() => ({
   display: 'flex',
@@ -25,7 +26,7 @@ export const ModelDocumentImgBox = styled('img')(() => ({
   height: 366
 }));
 
-export const StyledModelDocumentImgBox = styled('img')(({ theme }) => ({
+export const StyledModelDocumentImgBox = styled('img')(() => ({
   cursor: 'pointer',
   width: '180px',
   height: '180px'

@@ -11,7 +11,6 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
-import { CircularProgress, FormControl, IconButton, InputLabel, MenuItem, Select } from '@mui/material';
 import { MoreVert, Visibility } from '@mui/icons-material';
 import { useCallback, useEffect, useState } from 'react';
 import { getUserDataClient } from 'utils/getSessionData';
@@ -33,6 +32,12 @@ import { StyledPopover } from './SEO.styled';
 import { AdminSEOProfileData, adminSEOServices } from 'services/adminSEOProfilePlan/adminSEOProfilePlan.services';
 import AddEditSEOModal from './AddEditSEOModal';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
 
 export type PaginationType = {
   page: number;

@@ -5,7 +5,8 @@ import Close from '@mui/icons-material/Close';
 import { memo } from 'react';
 import { StyledRoot, StyledSearch } from './PaginationSearch.styled';
 import useRebounceSearch from 'hooks/useRebounce';
-import { Box, FormControl } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
+import Box from '@mui/material/Box';
 
 export type PaginationSearchProps = {
   placeholder: string;

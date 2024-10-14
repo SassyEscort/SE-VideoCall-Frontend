@@ -10,11 +10,11 @@ import {
   TextAndStarBoxContainer
 } from './RatingAndReview.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { Box } from '@mui/material';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import { RatingAndReviewDetailsInfo } from 'services/ratingAndReview/ratingAndReview.service';
 import { RATING } from 'constants/searchConstants';
 import StartRating from 'components/UIComponents/StartRating';
+import Box from '@mui/material/Box';
 
 const RatingPoints = ({
   ratingAndReview,

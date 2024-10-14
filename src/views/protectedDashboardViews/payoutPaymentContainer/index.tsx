@@ -1,5 +1,4 @@
 'use client';
-import { Box, CircularProgress } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { useCallback, useState } from 'react';
@@ -31,6 +30,8 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import AddbankDetails from '../addBankDetails';
 import AddBankDetailsModel from '../addBankDetails/addBankDetailsModel';
 import { LoaderBox } from '../payoutRequest/PayoutRequest.styled';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 export type BankDetailsEdit = {
   id: number;

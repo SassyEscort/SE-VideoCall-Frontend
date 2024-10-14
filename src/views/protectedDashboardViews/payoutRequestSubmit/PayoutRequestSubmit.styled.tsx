@@ -1,4 +1,9 @@
-import { Box, Dialog, DialogTitle, Divider, Typography, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import Divider from '@mui/material/Divider';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 export const MainDailgConatiner = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
@@ -110,7 +115,7 @@ export const SecondBoxRequestSubmit = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const TextBox = styled(Typography)(({ theme }) => ({
+export const TextBox = styled(Typography)(() => ({
   fontSize: '20px',
   fontWeight: 700,
   lineHeight: '28px'

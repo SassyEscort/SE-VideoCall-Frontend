@@ -1,5 +1,4 @@
 'use client';
-import { useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import IconButton from '@mui/material/IconButton';
@@ -7,6 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { DialogTitleBox, MainDailgConatiner } from './PayoutRequestSubmit.styled';
 import theme from 'themes/theme';
 import Requestsubmit from './Requestsubmit';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const PayoutRequestSubmit = ({
   open,

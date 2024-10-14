@@ -25,9 +25,9 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import moment from 'moment';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
-import { CircularProgress } from '@mui/material';
 import { LoaderBox, TextMainContainer } from '../Credites/Credits.styled';
 import BillingDetails from '../bilingDetails';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export type billingHistoryParams = {
   category: string;

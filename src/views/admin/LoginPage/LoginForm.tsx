@@ -13,13 +13,13 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Box } from '@mui/material';
 import { ErrorBox } from 'views/auth/AuthCommon.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import InfoIcon from '@mui/icons-material/Info';
 import getCustomErrorMessage from 'utils/error.utils';
 import { AdminLoginParams } from 'services/adminAuth/types';
 import { LoginPageFirstTextBox } from './LoginPage.styled';
+import Box from '@mui/material/Box';
 
 export default function LoginForm() {
   const route = useRouter();

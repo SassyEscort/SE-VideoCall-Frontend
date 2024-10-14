@@ -1,8 +1,9 @@
-import { IconButton, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
-export const MobileImageBoxContainer = styled(Box)(({ theme }) => ({
+export const MobileImageBoxContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -10,7 +11,7 @@ export const MobileImageBoxContainer = styled(Box)(({ theme }) => ({
   paddingTop: '32px'
 }));
 
-export const MobileImageInnerBoxContainer = styled(Box)(({ theme }) => ({
+export const MobileImageInnerBoxContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -36,7 +37,7 @@ export const ImageAndTextBoxContainer = styled(Box)(({ theme }) => ({
 //   maxHeight: '290px'
 // }));
 
-export const TitleTextBoxContainer = styled(Box)(({ theme }) => ({
+export const TitleTextBoxContainer = styled(Box)(() => ({
   width: '100%',
   maxWidth: '275px',
   display: 'flex',
@@ -56,7 +57,7 @@ export const TitleText = styled(Typography)(({ theme }) => ({
   gap: theme.spacing(1)
 }));
 
-export const DescriptionTextBoxContainer = styled(Box)(({ theme }) => ({
+export const DescriptionTextBoxContainer = styled(Box)(() => ({
   width: '100%',
   maxWidth: '228px',
   display: 'flex',
@@ -90,7 +91,7 @@ export const JoinForFreeText = styled(Typography)(({ theme }) => ({
   }
 }));
 
-export const RemindMeBoxContainer = styled(Box)(({ theme }) => ({
+export const RemindMeBoxContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column'
 }));
@@ -114,12 +115,12 @@ export const HomeFreeSignupMainBoxContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const HeaderTextMainBoxContainer = styled(Box)(({ theme }) => ({
+export const HeaderTextMainBoxContainer = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'space-between'
 }));
 
-export const HeaderTextInnerBoxContainer = styled(Box)(({ theme }) => ({
+export const HeaderTextInnerBoxContainer = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'flex-end',
   justifyContent: 'flex-end'

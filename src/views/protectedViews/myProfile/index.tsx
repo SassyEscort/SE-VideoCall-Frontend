@@ -1,5 +1,4 @@
 'use client';
-import { Box, CircularProgress, Tooltip } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React, { useEffect, useState } from 'react';
 import { DisableButtonBox, MyProfileContainerMain } from './MyProfile.styled';
@@ -21,6 +20,9 @@ import { getErrorMessage } from 'utils/errorUtils';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { customerVerificationService } from 'services/customerVerification/customerVerification.services';
 import { useAuthContext } from '../../../../context/AuthContext';
+import Box from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export type MyProfile = {
   username: string;
