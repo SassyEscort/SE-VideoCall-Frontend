@@ -157,7 +157,7 @@ const MyProfile = () => {
                   FetchCustomerDetails={FetchCustomerDetails}
                 />
                 <DisableButtonBox>
-                  {customerDetails?.free_credits_claimed === 0 && isFreeCreditAvailable && (
+                  {customerDetails?.free_credits_claimed === 0 && Boolean(isFreeCreditAvailable) && (
                     <Tooltip
                       title={
                         !isPhoneVerified && !isEmailVerified
