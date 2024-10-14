@@ -26,14 +26,11 @@ import { useRouter } from 'next/navigation';
 import { getErrorMessage } from 'utils/errorUtils';
 import { ROLE } from 'constants/workerVerification';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
-<<<<<<< HEAD
 import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
-=======
 import NewAuthCommon from './NewAuthCommon';
->>>>>>> 0bf810f4722a6e44ac45402f653a4ecda587e496
 
 export type SignupParams = {
   name: string;

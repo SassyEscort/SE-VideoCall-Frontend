@@ -22,8 +22,6 @@ import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestLogin from 'views/auth/guestLogin';
 import GuestSignup from 'views/auth/guestSignup';
 import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 
 export const pageview = (url: string) => {
   window.gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, {
