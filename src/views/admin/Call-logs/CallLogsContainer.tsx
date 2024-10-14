@@ -284,7 +284,7 @@ export default function CallLogsContainer() {
                           {item.amount_earned ? `€${item.amount_earned?.toFixed(2)}` : '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {formatDuration(item?.duration || '-')}
+                          {formatDuration(item?.duration ?? 0)}
                         </TableCell>
                         <TableCell>
                           <IconButton

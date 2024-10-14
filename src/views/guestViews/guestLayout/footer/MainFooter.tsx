@@ -38,7 +38,7 @@ const MainFooter = ({
   handleLoginClose: () => void;
   openLogin: boolean;
 }) => {
-  const { isCustomer } = useAuthContext();
+  const { isCustomer, isModel } = useAuthContext();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [open, setIsOpen] = useState(false);
@@ -138,7 +138,7 @@ const MainFooter = ({
                         <FormattedMessage id="FAQs" />
                       </Link>
                     </UINewTypography>
-                    {isCustomer ? (
+                    {isCustomer || isModel ? (
                       <Link prefetch={false} href="/">
                         <UINewTypography variant="SubtitleSmallRegular" sx={{ cursor: 'pointer' }}>
                           <FormattedMessage id="ExploreModels" />

@@ -24,7 +24,7 @@ const Footer = () => {
   const [loading, setLoading] = useState(false);
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
 
-  const { isCustomer } = useAuthContext();
+  const { isCustomer, isModel } = useAuthContext();
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -99,7 +99,15 @@ const Footer = () => {
               }}
             >
               <Box sx={{ width: '100%', maxWidth: '195px' }}>
-                {!isCustomer ? (
+                {isCustomer || isModel ? (
+                  <Link prefetch={false} href="/">
+                    <StyleButtonShadowV2 fullWidth variant="contained" onClick={handleClick} loading={loading}>
+                      <FooterButton variant="buttonLargeBold">
+                        <FormattedMessage id="ExploreModels" />
+                      </FooterButton>
+                    </StyleButtonShadowV2>
+                  </Link>
+                ) : (
                   <UIThemeShadowButton
                     fullWidth
                     variant="contained"
@@ -110,14 +118,6 @@ const Footer = () => {
                     </FooterButton>
                     <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} alt="signup" />
                   </UIThemeShadowButton>
-                ) : (
-                  <Link prefetch={false} href="/">
-                    <StyleButtonShadowV2 fullWidth variant="contained" onClick={handleClick} loading={loading}>
-                      <FooterButton variant="buttonLargeBold">
-                        <FormattedMessage id="ExploreModels" />
-                      </FooterButton>
-                    </StyleButtonShadowV2>
-                  </Link>
                 )}
               </Box>
             </Box>
