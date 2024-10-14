@@ -252,7 +252,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
         }}
         PaperProps={{
           sx: {
-            maxWidth: 920,
+            maxWidth: 1080,
             borderRadius: '12px'
           }
         }}
