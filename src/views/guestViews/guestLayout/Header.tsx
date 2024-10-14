@@ -22,7 +22,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
-import dynamic from 'next/dynamic';
 import { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
 import FreeCreditsSignUp from '../homePage/freeCreditsSignUp';
 import { SearchTitalBoxSm } from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/HeaderAuthComponent.styled';
@@ -41,6 +40,7 @@ const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPass
 const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
   ssr: false
 });
+import dynamic from 'next/dynamic';
 
 const HeaderGuestComponent = () => {
   const { isFreeCreditAvailable } = useAuthContext();
@@ -291,7 +291,8 @@ const HeaderGuestComponent = () => {
                 open={Boolean(anchorElLogout)}
                 onClose={handleCloseLogout}
                 MenuListProps={{
-                  'aria-labelledby': 'basic-button'
+                  'aria-labelledby': 'basic-button',
+                  'aria-label': 'basic-button'
                 }}
                 sx={{
                   backdropFilter: isSmDown ? 'blur(12px)' : ''
@@ -399,9 +400,9 @@ const HeaderGuestComponent = () => {
         {/* </Box> */}
         {/* </Toolbar> */}
       </AppBar>
-      <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+      <NewUIStyledSignUpDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </UIStyledDialog>
+      </NewUIStyledSignUpDialog>
       <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
         <GuestLogin
           onClose={handleLoginClose}

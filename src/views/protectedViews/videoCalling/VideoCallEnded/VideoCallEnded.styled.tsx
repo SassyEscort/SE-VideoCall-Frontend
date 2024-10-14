@@ -1,4 +1,8 @@
-import { Box, Button, Dialog, DialogTitle, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 
@@ -175,7 +179,7 @@ export const TextBoxContent = styled(UIStyledInputText)(({ theme }) => ({
   }
 }));
 
-export const TextBoxContainer = styled(Box)(({ theme }) => ({
+export const TextBoxContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
@@ -195,7 +199,7 @@ export const RatingReviewBoxContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const VideoCallEndedTextContainer = styled(UINewTypography)(({ theme }) => ({
+export const VideoCallEndedTextContainer = styled(UINewTypography)(() => ({
   fontSize: '20px',
   fontWeight: 700,
   lineHeight: '28px'

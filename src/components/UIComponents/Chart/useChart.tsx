@@ -1,7 +1,7 @@
 import { alpha, useTheme } from '@mui/material/styles';
 import { merge } from 'lodash';
 import { ApexOptions } from 'apexcharts';
-import { useMediaQuery } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function useChart(options: ApexOptions) {
   const theme = useTheme();

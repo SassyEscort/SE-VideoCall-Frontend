@@ -1,9 +1,9 @@
 'use client';
 import { styled } from '@mui/material/styles';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import Box from '@mui/system/Box';
 
-export const FirstTextContainer = styled(Typography)(({ theme }) => ({
+export const FirstTextContainer = styled(Typography)(() => ({
   fontSize: '16px',
   fontWeight: 600,
   lineHeight: '25.6px'

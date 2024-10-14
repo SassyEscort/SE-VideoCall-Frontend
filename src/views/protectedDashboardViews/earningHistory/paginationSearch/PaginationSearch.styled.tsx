@@ -3,7 +3,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Toolbar from '@mui/material/Toolbar';
 import { styled } from '@mui/material/styles';
 
-export const StyledRoot = styled(Toolbar)(({ theme }) => ({
+export const StyledRoot = styled(Toolbar)(() => ({
   height: 40,
   display: 'flex',
   justifyContent: 'space-between',

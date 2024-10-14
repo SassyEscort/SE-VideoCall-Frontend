@@ -111,12 +111,12 @@ export const UINewTypographyTextMenuItem = styled(UINewTypography)(({ theme }) =
   maxWidth: '390px'
 }));
 
-export const VerificationTwoHeaderText = styled(UINewTypography)(({ theme }) => ({
+export const VerificationTwoHeaderText = styled(UINewTypography)(() => ({
   fontSize: '16px !important',
   lineHeight: '25.6px !important'
 }));
 
-export const VerificationButtonText = styled(UINewTypography)(({ theme }) => ({
+export const VerificationButtonText = styled(UINewTypography)(() => ({
   fontSize: '16px !important',
   lineHeight: '19.2px !important'
 }));

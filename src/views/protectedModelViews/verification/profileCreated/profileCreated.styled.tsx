@@ -1,5 +1,5 @@
-import { styled } from '@mui/material';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import theme from 'themes/theme';
 

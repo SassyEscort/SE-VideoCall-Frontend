@@ -1,5 +1,4 @@
 'use client';
-import { MenuItem } from '@mui/material';
 import { SidebarDropDownMainContainer } from '../sidebarDropDown/SidebarDropDown.styled';
 import React, { useState } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -18,6 +17,7 @@ import {
 } from './EarningsModelProfileContainer.styled';
 import EarningHistory from '../earningHistory';
 import EarningOverview from '../earningOverview';
+import MenuItem from '@mui/material/MenuItem';
 
 const EarningHistoryMenuList = [
   { menuName: <FormattedMessage id="Overview" />, id: 0 },

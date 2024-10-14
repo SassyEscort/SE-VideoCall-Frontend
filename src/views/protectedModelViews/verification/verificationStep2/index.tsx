@@ -1,5 +1,4 @@
 'use client';
-import { Box, FormHelperText, MenuItem } from '@mui/material';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { useEffect, useMemo, useState } from 'react';
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
@@ -30,6 +29,9 @@ import { TokenIdType } from '..';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { DocumentDataPhoto, ModelDetailsResponse } from '../verificationTypes';
 import VerificationStepPromise from '../verificationStep2Document';
+import Box from '@mui/material/Box';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
 
 export type VerificationStepSecond = {
   idType: string;

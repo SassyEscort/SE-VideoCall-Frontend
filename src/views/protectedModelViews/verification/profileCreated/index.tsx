@@ -1,6 +1,5 @@
 'use client';
 
-import { Box } from '@mui/material';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import Image from 'next/image';
 import React from 'react';
@@ -17,6 +16,7 @@ import {
   TypographyContainer2
 } from './profileCreated.styled';
 import Link from 'next/link';
+import Box from '@mui/material/Box';
 
 const ProfileCreated = () => {
   return (
@@ -44,10 +44,20 @@ const ProfileCreated = () => {
 
               <FristBoxContent>
                 <Link href="https://play.google.com/store/apps/details?id=com.bookmyartist.app" target="_blank">
-                  <Box component={'img'} src="/images/app-logo/google-pay.png" sx={{ width: '120px', height: '120px' }} />
+                  <Box
+                    component={'img'}
+                    src="/images/app-logo/google-pay.png"
+                    alt="google-pay-icon"
+                    sx={{ width: '120px', height: '120px' }}
+                  />
                 </Link>
                 <Link href="https://apps.apple.com/us/app/book-my-artist-provider/id6630371131" target="_blank">
-                  <Box component={'img'} src="/images/app-logo/app-store.png" sx={{ width: '120px', height: '120px' }} />
+                  <Box
+                    component={'img'}
+                    src="/images/app-logo/app-store.png"
+                    alt="app-store-icon"
+                    sx={{ width: '120px', height: '120px' }}
+                  />
                 </Link>
               </FristBoxContent>
               {/* 

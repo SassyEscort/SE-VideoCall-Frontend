@@ -1,9 +1,11 @@
 'use client';
 import { User } from 'app/(guest)/layout';
+import { ErrorMessage } from 'constants/common.constants';
 import { ROLE } from 'constants/workerVerification';
 import { Session } from 'next-auth';
 import { useSession } from 'next-auth/react';
 import { createContext, ReactNode, useContext, useEffect, useState, useCallback } from 'react';
+import { toast } from 'react-toastify';
 import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
 
 export type AuthContextProps = {
@@ -14,6 +16,7 @@ export type AuthContextProps = {
   status: string;
   handleFreeCreditClaim: () => void;
   isFreeCreditsClaimed: boolean;
+  isModel: boolean;
 };
 
 const AuthContext = createContext<AuthContextProps>({
@@ -23,7 +26,8 @@ const AuthContext = createContext<AuthContextProps>({
   isFreeCreditAvailable: 1,
   status: '',
   handleFreeCreditClaim: () => {},
-  isFreeCreditsClaimed: false
+  isFreeCreditsClaimed: false,
+  isModel: false
 });
 
 export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
@@ -35,14 +39,19 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const user = (session?.user as User)?.picture;
   const providerData = JSON.parse(user || '{}');
   const isCustomer = providerData?.role === ROLE.CUSTOMER;
+  const isModel = providerData?.role === ROLE.MODEL;
 
   const handleFreeCreditClaim = () => {
     setIsFreeCreditsClaimed(!isFreeCreditsClaimed);
   };
 
   const handleCustomerFreeCredits = useCallback(async () => {
-    const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
-    setIsFreeCreditAvailable(res?.data?.free_credits_available);
+    try {
+      const res = await CustomerFreeCreditsService.getCustomerFreeCredits();
+      setIsFreeCreditAvailable(res?.data?.free_credits_available);
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
   }, []);
 
   useEffect(() => {
@@ -65,7 +74,8 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         isFreeCreditAvailable,
         status,
         handleFreeCreditClaim,
-        isFreeCreditsClaimed
+        isFreeCreditsClaimed,
+        isModel
       }}
     >
       {children}

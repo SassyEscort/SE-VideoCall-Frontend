@@ -71,7 +71,7 @@ const WorkerNavItem = () => {
           if (path === '/' && !isCreditsClaimed) {
             setOpenFreeCredit(true);
           }
-        }, 5000);
+        }, 2000);
 
         if (openFreeCredit) {
           clearTimeout(timer);

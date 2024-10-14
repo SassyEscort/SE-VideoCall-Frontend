@@ -11,7 +11,6 @@ import UploadImage from './stepThree/uploadImage';
 import DocumentMainContainer from './documentContainer';
 import CircularProgressWithLabel from './header/CircularProgressWithLabel';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import ModelReviewDetails from '../modelReviewDetails';
@@ -21,6 +20,7 @@ import { useRouter } from 'next/navigation';
 import DashboardPriceView from 'views/protectedDashboardViews/dashboardPriceView';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import { useAuthContext } from '../../../../context/AuthContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const VERIFICATION_STEPS = ['Basic Details', 'Documents', 'Photos', 'Price', 'Review'];
 

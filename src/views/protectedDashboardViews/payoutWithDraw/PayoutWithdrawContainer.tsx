@@ -1,4 +1,3 @@
-import { Box, CircularProgress, DialogContent, FormHelperText, IconButton, InputAdornment } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
@@ -46,6 +45,12 @@ import PayoutRequestSubmit from '../payoutRequestSubmit';
 import { LoaderBox } from '../payoutRequest/PayoutRequest.styled';
 import { CancelBox, ConfirmBox } from '../payoutPaymentContainer/PayoutPaymentConatiner';
 import { getErrorMessage } from 'utils/errorUtils';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import DialogContent from '@mui/material/DialogContent';
+import InputAdornment from '@mui/material/InputAdornment';
+import CircularProgress from '@mui/material/CircularProgress';
+import FormHelperText from '@mui/material/FormHelperText';
 
 export type RequestPayoutParams = {
   amount: number | null;
@@ -292,6 +297,7 @@ const PayoutWithdrawContainer = ({
                                               <Box
                                                 component={'img'}
                                                 src="/images/payout/home.png"
+                                                alt="home-icon"
                                                 width={'38px'}
                                                 height={'42px'}
                                                 color={'text.secondary'}
@@ -322,6 +328,7 @@ const PayoutWithdrawContainer = ({
                                                   <Box
                                                     component={'img'}
                                                     src="/images/payout/edit.webp"
+                                                    alt="edit-icon"
                                                     sx={{ width: '18px', height: '18px', cursor: 'pointer' }}
                                                     onClick={() => {
                                                       handleBankDetailsEdit(bankList);
@@ -332,6 +339,7 @@ const PayoutWithdrawContainer = ({
                                                   <Box
                                                     component={'img'}
                                                     src="/images/payout/delete.webp"
+                                                    alt="delete-icon"
                                                     sx={{ width: '16px', height: '18px', cursor: 'pointer' }}
                                                     onClick={() => setDeleteId(bankList.id)}
                                                   />

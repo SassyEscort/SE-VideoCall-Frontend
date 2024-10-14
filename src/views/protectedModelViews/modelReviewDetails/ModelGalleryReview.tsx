@@ -1,4 +1,3 @@
-import { useMediaQuery } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 import PreviewGallery from '../verification/stepThree/uploadImage/PreviewGallery';
 import { ModelDetailsResponse } from '../verification/verificationTypes';
@@ -6,6 +5,7 @@ import { GalleryTextContainer, GellaryTextContainer, ModelGalleryTitleBox } from
 import { useMemo } from 'react';
 import theme from 'themes/theme';
 import { sortExistingPhotos } from 'utils/photoUtils';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const ModelGalleryReview = ({ modelDetails }: { modelDetails: ModelDetailsResponse }) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));

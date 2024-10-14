@@ -2,7 +2,6 @@
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
-import { Divider, ListItemIcon, ListItemText, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import ProfileMenu from './ProfileMenu';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -23,6 +22,12 @@ import { useCallFeatureContext } from '../../../../../../../context/CallFeatureC
 import NotificationModalCustomerV2 from './NotificationModalCustomerV2';
 import { useAuthContext } from '../../../../../../../context/AuthContext';
 import CreditSideDrawer from 'views/protectedViews/CreditSideDrawer';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
 
 export type NotificationFilters = {
   page: number;
@@ -298,7 +303,8 @@ const HeaderAuthComponent = ({ customerDataProps }: customerData) => {
             open={open}
             onClose={handleCloseLogout}
             MenuListProps={{
-              'aria-labelledby': 'basic-button'
+              'aria-labelledby': 'basic-button',
+              'aria-label': 'basic-button'
             }}
             sx={{ '& .MuiMenu-paper > ul': { backgroundColor: '#1E0815 !important' } }}
           >

@@ -1,7 +1,6 @@
 'use client';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import { Divider, ListItemIcon, ListItemText, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import ProfileMenu from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/ProfileMenu';
@@ -23,6 +22,12 @@ import MyProfileChangePassword from 'views/protectedViews/changePassword';
 import { useAuthContext } from '../../../../context/AuthContext';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 import React from 'react';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
 
 export type NotificationFilters = {
   page: number;
@@ -202,7 +207,8 @@ const DashboadrHeaderAuthComponent = () => {
             open={open}
             onClose={handleCloseLogout}
             MenuListProps={{
-              'aria-labelledby': 'basic-button'
+              'aria-labelledby': 'basic-button',
+              'aria-label': 'basic-button'
             }}
             sx={{ '& .MuiMenu-paper > ul': { backgroundColor: '#1E0815 !important' } }}
           >

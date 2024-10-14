@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 import Accordion, { AccordionProps } from '@mui/material/Accordion';
 import AccordionDetails, { AccordionDetailsProps } from '@mui/material/AccordionDetails';
 import AccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 export const ContactContainer = styled(Box)(() => ({
   position: 'relative',
@@ -154,7 +154,7 @@ export const StyledAccordionDetails = styled((props: AccordionDetailsProps) => <
   marginBottom: 24
 }));
 
-export const FirstTextContainer = styled(Typography)(({ theme }) => ({
+export const FirstTextContainer = styled(Typography)(() => ({
   fontSize: '16px',
   fontWeight: 600,
   lineHeight: '25.6px'

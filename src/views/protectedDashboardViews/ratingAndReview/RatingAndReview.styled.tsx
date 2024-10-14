@@ -1,11 +1,11 @@
 'use client';
-import { Rating } from '@mui/material';
 import Box from '@mui/material/Box';
 import LinearProgress, { linearProgressClasses, LinearProgressProps } from '@mui/material/LinearProgress';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledSelectAgeFilter } from 'components/UIComponents/UIStyledSelect';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
+import Rating from '@mui/material/Rating';
 
 export const HeadingTextAndTotalClientMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -86,7 +86,7 @@ export const RatingChartInnerBoxContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center'
 }));
 
-export const TextAndStarBoxContainer = styled(Box)(({ theme }) => ({
+export const TextAndStarBoxContainer = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -170,7 +170,7 @@ export const NoRatingBoxContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(3)
 }));
 
-export const NoRatingTextContainer = styled(UINewTypography)(({ theme }) => ({
+export const NoRatingTextContainer = styled(UINewTypography)(() => ({
   fontSize: '24px',
   fontWeight: 500,
   lineHeight: '38.4px'
@@ -204,7 +204,7 @@ export const RatingStartBox = styled(Rating)(({ theme }) => ({
   }
 }));
 
-export const TotalClientDescriptionText = styled(UINewTypography)(({ theme }) => ({
+export const TotalClientDescriptionText = styled(UINewTypography)(() => ({
   fontSize: '30px',
   fontWeight: 600,
   lineHeight: '42px'

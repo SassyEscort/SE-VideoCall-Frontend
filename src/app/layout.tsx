@@ -21,9 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="robots" content="noindex, nofollow" />
-        <link rel="preload" as="image" href="/images/home/home-banner-model.webp" />
-        <Script
+        <meta name="robots" content="index, follow" />
+        <link rel="preload" as="image" href="/images/home/home-banner-model1.webp" />
+        {/* <Script
           defer
           id="clarity-script"
           type="text/javascript"
@@ -35,7 +35,7 @@ export default function RootLayout({
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
           })(window, document, "clarity", "script", "mxxnph7kub");`
           }}
-        />
+        /> */}
         <Script
           defer
           id="gtag-script"

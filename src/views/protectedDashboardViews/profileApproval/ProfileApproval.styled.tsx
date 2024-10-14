@@ -1,5 +1,8 @@
 'use client';
-import { Box, styled, Typography } from '@mui/material';
+
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 export const MainContainer = styled(Box)(({ theme }) => ({
   height: '36px',
@@ -18,7 +21,7 @@ export const MainContainer = styled(Box)(({ theme }) => ({
     height: '30px'
   }
 }));
-export const ImageBox = styled('img')(({ theme }) => ({
+export const ImageBox = styled('img')(() => ({
   height: '20px',
   width: '20px'
 }));

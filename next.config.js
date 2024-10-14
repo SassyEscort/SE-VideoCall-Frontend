@@ -1,6 +1,13 @@
-/** @type {import('next').NextConfig} **/
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
+  experimental: {
+    serverActions: true,
+    staleTimes: {
+      dynamic: 0,
+      static: 0
+    }
+  },
   async headers() {
     return [
       {
@@ -8,7 +15,7 @@ const nextConfig = {
         headers: [
           {
             key: 'X-Robots-Tag',
-            value: 'noindex, nofollow'
+            value: 'index, follow'
           }
         ]
       },
@@ -32,7 +39,6 @@ const nextConfig = {
     }
   },
   images: {
-    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -40,11 +46,6 @@ const nextConfig = {
         pathname: '**'
       }
     ]
-  },
-  pages: {
-    '*': {
-      maxChunkSize: 30000
-    }
   },
   env: {
     NEXT_APP_VERSION: 'v1.0.0',

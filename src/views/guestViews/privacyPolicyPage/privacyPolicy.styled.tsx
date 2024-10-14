@@ -8,7 +8,7 @@ export const PrivacyPolicyMainContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(7)
 }));
 
-export const FirstTextContainer = styled(Typography)(({ theme }) => ({
+export const FirstTextContainer = styled(Typography)(() => ({
   fontSize: '16px',
   fontWeight: 600,
   lineHeight: '25.6px'

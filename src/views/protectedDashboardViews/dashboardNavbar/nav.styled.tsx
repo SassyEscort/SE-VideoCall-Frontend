@@ -1,6 +1,6 @@
-import { Tab } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import Tab from '@mui/material/Tab';
 
 export const MainDashboardSideMenuMainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -82,14 +82,14 @@ export const MobileComponentBoxContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const MobileTextStyleContainer = styled(Tab)(({ theme }) => ({
+export const MobileTextStyleContainer = styled(Tab)(() => ({
   whiteSpace: 'nowrap',
   fontSize: '16px',
   fontWeight: 500,
   lineHeight: '19.2px'
 }));
 
-export const MobileComponentSecBoxContainer = styled(Box)(({ theme }) => ({
+export const MobileComponentSecBoxContainer = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center',
   textDecoration: 'none'
@@ -139,7 +139,7 @@ export const SecondBoxContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center'
 }));
 
-export const FirstBoxContainer = styled(Box)(({ theme }) => ({
+export const FirstBoxContainer = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'space-between',
   width: '100%',

@@ -1,5 +1,5 @@
-import { styled } from '@mui/material';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { SwiperSlide } from 'swiper/react';
@@ -18,7 +18,7 @@ export const DetailsChildBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1)
 }));
 
-export const DetailsTypographyBox = styled(Box)(({ theme }) => ({
+export const DetailsTypographyBox = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column'
 }));
@@ -179,14 +179,14 @@ export const FirstSwiperMainContainer = styled(Box)(({ theme }) => ({
   maxHeight: '728px'
 }));
 
-export const FirstSwiperInnerContainer = styled(Box)(({ theme }) => ({
+export const FirstSwiperInnerContainer = styled(Box)(() => ({
   maxWidth: '1084px',
   width: '100%',
   cursor: 'pointer',
   height: '100%'
 }));
 
-export const FirstSwiperBlurContainer = styled(Box)(({ theme }) => ({
+export const FirstSwiperBlurContainer = styled(Box)(() => ({
   zIndex: 1,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
@@ -195,7 +195,7 @@ export const FirstSwiperBlurContainer = styled(Box)(({ theme }) => ({
   width: '100%'
 }));
 
-export const SecondSwiperBlurContainer = styled(Box)(({ theme }) => ({
+export const SecondSwiperBlurContainer = styled(Box)(() => ({
   filter: 'blur(10px)',
   zIndex: 1,
   backgroundSize: 'cover',
@@ -228,7 +228,7 @@ export const SwiperSlidBoxContainer = styled(SwiperSlide)(({ theme }) => ({
   backgroundSize: 'cover'
 }));
 
-export const SecSwiperSlidBoxContainer = styled(SwiperSlide)(({ theme }) => ({
+export const SecSwiperSlidBoxContainer = styled(SwiperSlide)(() => ({
   width: '100%',
   maxWidth: '148px'
 }));

@@ -15,7 +15,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import { toast } from 'react-toastify';
 import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
-import AuthCommon from '../AuthCommon';
 import GuestSignupSuccess from '../GuestSignupSuccess';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { ErrorBox, ModelUICustomUIBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
@@ -25,9 +24,13 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { ErrorMessage } from 'constants/common.constants';
 import { useRouter } from 'next/navigation';
 import { getErrorMessage } from 'utils/errorUtils';
-import { FormControl, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { ROLE } from 'constants/workerVerification';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
+import FormControl from '@mui/material/FormControl';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
+import NewAuthCommon from './NewAuthCommon';
 
 export type SignupParams = {
   name: string;
@@ -41,12 +44,14 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
   const { refresh, push } = route;
 
   const isSm = useMediaQuery(theme.breakpoints.down(330));
-  const isLg = useMediaQuery(theme.breakpoints.up('lg'));
+  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [redirectSeconds, setRedirectSeconds] = useState(3);
   const [activeStep, setActiveStep] = useState(0);
   const [alert, setAlert] = useState('');
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   useEffect(() => {
     if (activeStep > 0) {
@@ -76,6 +81,10 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
       message: 'PasswordMustContainAt',
       excludeEmptyString: true
     }),
+    confirmPassword: yup
+      .string()
+      .required('ConfirmPasswordIsRequired')
+      .oneOf([yup.ref('password'), ''], 'ConfirmPasswordDoesNotMatch'),
     role: yup.string().required('Roleisrequired').oneOf(['customer', 'model'], 'InvalidRole')
   });
 
@@ -85,6 +94,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
         name: '',
         email: '',
         password: '',
+        confirmPassword: '',
         role: ROLE.CUSTOMER
       }}
       validationSchema={validationSchema}
@@ -141,7 +151,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
-            <AuthCommon onClose={onClose} image="/images/auth/auth-model1.webp" mobileImage="/images/auth/auth-model1.webp">
+            <NewAuthCommon onClose={onClose} image="/images/auth/auth-model1.webp" mobileImage="/images/auth/auth-model1.webp">
               <Box
                 position="relative"
                 width="100%"
@@ -150,33 +160,26 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                 display="flex"
                 flexDirection="column"
                 sx={{
-                  pt: { xs: 0, sm: '50px' },
-                  pl: { xs: 2, md: 4 },
-                  pr: { xs: 2, md: 0 },
-                  maxWidth: { xs: '100%', md: '400px' }
+                  pt: { xs: 0, sm: 4 },
+                  pl: { xs: 2, md: 5 },
+                  pr: { xs: 2, md: 5 }
+                  // maxWidth: { xs: '100%', md: '400px' }
                 }}
               >
                 {activeStep === 0 ? (
                   <>
-                    <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <UINewTypography variant="MediumSemiBoldText" color="common.white" sx={{ lineHeight: '38.4px' }}>
                         <FormattedMessage id="JoinNowForFree" />
                       </UINewTypography>
-                      <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
-                        <IconButton
-                          size="large"
-                          sx={{
-                            color: 'common.white',
-                            position: 'absolute',
-                            top: 0,
-                            right: { xs: 0, md: '-84px' },
-                            display: { sm: 'block' }
-                          }}
-                          onClick={onClose}
-                        >
-                          <CloseIcon />
-                        </IconButton>
-                      </Box>
+                      <IconButton
+                        sx={{
+                          color: 'common.white'
+                        }}
+                        onClick={onClose}
+                      >
+                        <CloseIcon height={20} width={20} onClick={onClose} />
+                      </IconButton>
                     </Box>
                     <Box sx={{ color: 'primary.300' }}>
                       {alert && (
@@ -186,7 +189,27 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                         </ErrorBox>
                       )}
                     </Box>
-                    <ModelUITextConatiner gap={3} sx={{ width: isLg ? '400px' : 'auto' }}>
+                    <ModelUITextConatiner gap={3}>
+                      <ModelUITextConatiner gap={0.5}>
+                        <ModelUITextConatiner sx={{ gap: 0.5 }}>
+                          <ModelUICustomUIBox>
+                            <UITypographyText>
+                              <FormattedMessage id="SignupAs" />
+                            </UITypographyText>
+                            <FormControl component="fieldset" error={touched.role && Boolean(errors.role)}>
+                              <RadioGroup row id="role" name="role" value={values.role} onChange={handleChange}>
+                                <FormControlLabel value="customer" control={<Radio />} label={<FormattedMessage id="Customer" />} />
+                                <FormControlLabel value="model" control={<Radio />} label={<FormattedMessage id="Model" />} />
+                              </RadioGroup>
+                              {touched.role && errors.role && (
+                                <UINewTypography color="error" variant="caption">
+                                  <FormattedMessage id={errors.role} />
+                                </UINewTypography>
+                              )}
+                            </FormControl>
+                          </ModelUICustomUIBox>
+                        </ModelUITextConatiner>
+                      </ModelUITextConatiner>
                       <ModelUITextConatiner sx={{ gap: 0.5 }}>
                         <UITypographyText>
                           <FormattedMessage id="ClientName" />
@@ -236,52 +259,69 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                       </ModelUITextConatiner>
                       <ModelUITextConatiner gap={1.5}>
                         <ModelUITextConatiner sx={{ gap: 0.5 }}>
-                          <UITypographyText>
-                            <FormattedMessage id="Password" />
-                          </UITypographyText>
-                          <UIStyledInputText
-                            fullWidth
-                            type={showPassword ? 'text' : 'password'}
-                            id="password"
-                            name="password"
-                            value={values.password}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            error={touched.password && Boolean(errors.password)}
-                            helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
-                            sx={{
-                              border: '2px solid',
-                              borderColor: 'secondary.light'
-                            }}
-                            InputProps={{
-                              endAdornment: (
-                                <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setShowPassword(!showPassword)}>
-                                  {showPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
-                                </Box>
-                              )
-                            }}
-                          />
-                        </ModelUITextConatiner>
-                        <ModelUITextConatiner gap={0.5}>
-                          <ModelUITextConatiner sx={{ gap: 0.5 }}>
-                            <ModelUICustomUIBox>
+                          <Box sx={{ display: 'flex', gap: 4, flexDirection: isMdDown ? 'column' : 'row' }}>
+                            <ModelUITextConatiner sx={{ gap: 0.5, width: '100%' }}>
                               <UITypographyText>
-                                <FormattedMessage id="SignupAs" />
+                                <FormattedMessage id="Password" />
                               </UITypographyText>
-                              <FormControl component="fieldset" error={touched.role && Boolean(errors.role)}>
-                                <RadioGroup row id="role" name="role" value={values.role} onChange={handleChange}>
-                                  <FormControlLabel value="customer" control={<Radio />} label={<FormattedMessage id="Customer" />} />
-                                  <FormControlLabel value="model" control={<Radio />} label={<FormattedMessage id="Model" />} />
-                                </RadioGroup>
-                                {touched.role && errors.role && (
-                                  <UINewTypography color="error" variant="caption">
-                                    <FormattedMessage id={errors.role} />
-                                  </UINewTypography>
-                                )}
-                              </FormControl>
-                            </ModelUICustomUIBox>
-                          </ModelUITextConatiner>
+                              <UIStyledInputText
+                                fullWidth
+                                type={showPassword ? 'text' : 'password'}
+                                id="password"
+                                name="password"
+                                value={values.password}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                error={touched.password && Boolean(errors.password)}
+                                helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
+                                sx={{
+                                  border: '2px solid',
+                                  borderColor: 'secondary.light'
+                                }}
+                                InputProps={{
+                                  endAdornment: (
+                                    <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setShowPassword(!showPassword)}>
+                                      {showPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
+                                    </Box>
+                                  )
+                                }}
+                              />
+                            </ModelUITextConatiner>{' '}
+                            <ModelUITextConatiner sx={{ gap: 0.5, width: '100%' }}>
+                              <UITypographyText>
+                                <FormattedMessage id="ConfirmPassword" />
+                              </UITypographyText>
+                              <UIStyledInputText
+                                fullWidth
+                                type={showConfirmPassword ? 'text' : 'password'}
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                value={values.confirmPassword}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                error={touched.confirmPassword && Boolean(errors.confirmPassword)}
+                                helperText={
+                                  touched.confirmPassword && errors.confirmPassword ? <FormattedMessage id={errors.confirmPassword} /> : ''
+                                }
+                                sx={{
+                                  border: '2px solid',
+                                  borderColor: 'secondary.light'
+                                }}
+                                InputProps={{
+                                  endAdornment: (
+                                    <Box
+                                      sx={{ cursor: 'pointer', display: 'flex' }}
+                                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                    >
+                                      {showConfirmPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
+                                    </Box>
+                                  )
+                                }}
+                              />
+                            </ModelUITextConatiner>
+                          </Box>
                         </ModelUITextConatiner>
+
                         <MenuItem sx={{ p: 0, gap: { xs: '0', sm: '1' } }}>
                           <Checkbox sx={{ p: 0, pr: 1 }} />
                           <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
@@ -291,7 +331,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                       </ModelUITextConatiner>
                     </ModelUITextConatiner>
                     <ModelUITextConatiner width="100%" gap={isSm ? '33px' : '29px'}>
-                      <StyleButtonV2 variant="contained" type="submit" loading={loading} sx={{ width: isLg ? '400px' : 'auto' }}>
+                      <StyleButtonV2 variant="contained" type="submit" loading={loading}>
                         <UIButtonText>
                           <FormattedMessage id="SignUp" />
                         </UIButtonText>
@@ -325,7 +365,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                   <GuestSignupSuccess redirectSeconds={redirectSeconds} />
                 )}
               </Box>
-            </AuthCommon>
+            </NewAuthCommon>
           </Box>
         );
       }}

@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
-export const CreditsMainContainer = styled(Box)(({ theme }) => ({
+export const CreditsMainContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column'
 }));
@@ -36,7 +36,7 @@ export const FirsTextSubContainer = styled(Box)(({ theme }) => ({
   maxHeight: '22px'
 }));
 
-export const SecondTextSubContainer = styled(Box)(({ theme }) => ({
+export const SecondTextSubContainer = styled(Box)(() => ({
   display: 'flex',
   width: '100%',
   maxWidth: '657px',
@@ -140,7 +140,7 @@ export const BuyCreditsText = styled(UINewTypography)(({ theme }) => ({
   }
 }));
 
-export const CreditCardText = styled(UINewTypography)(({ theme }) => ({
+export const CreditCardText = styled(UINewTypography)(() => ({
   fontSize: '20px !important',
   fontWeight: '500 !important',
   lineHeight: '24px !important',
@@ -154,18 +154,18 @@ export const CreditCardImage = styled('img')(() => ({
   maxWidth: '16px'
 }));
 
-export const DollarCreditText = styled(UINewTypography)(({ theme }) => ({
+export const DollarCreditText = styled(UINewTypography)(() => ({
   fontSize: '40px',
   fontWeight: 800,
   lineHeight: '48px'
 }));
 
-export const CreditBuyText = styled(UINewTypography)(({ theme }) => ({
+export const CreditBuyText = styled(UINewTypography)(() => ({
   display: 'flex',
   justifyContent: 'center'
 }));
 
-export const CreditBestValue = styled(UINewTypography)(({ theme }) => ({
+export const CreditBestValue = styled(UINewTypography)(() => ({
   width: '92px',
   height: '30px',
   borderRadius: '4px',
@@ -176,7 +176,7 @@ export const CreditBestValue = styled(UINewTypography)(({ theme }) => ({
   justifyContent: 'center'
 }));
 
-export const CreditMostPopular = styled(UINewTypography)(({ theme }) => ({
+export const CreditMostPopular = styled(UINewTypography)(() => ({
   width: '110px',
   height: '30px',
   borderRadius: '4px',
@@ -187,7 +187,7 @@ export const CreditMostPopular = styled(UINewTypography)(({ theme }) => ({
   alignItems: 'center'
 }));
 
-export const CancelCreditValue = styled(UINewTypography)(({ theme }) => ({
+export const CancelCreditValue = styled(UINewTypography)(() => ({
   fontSize: '24px',
   fontWeight: 500,
   lineHeight: '28px',
@@ -209,6 +209,12 @@ export const FirstBoxContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const SecondBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: theme.spacing(1)
+}));
+
+export const BalanceBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   gap: theme.spacing(1)

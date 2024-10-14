@@ -1,4 +1,7 @@
-import { Dialog, DialogTitle, styled, Typography } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import Box from '@mui/system/Box';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 
@@ -15,7 +18,7 @@ export const DialogTitleBox = styled(DialogTitle)(({ theme }) => ({
 
 export const DialogContentMain = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
-    backgroundImage: 'url(/images/home/free-credit-signup-img.webp)',
+    // backgroundImage: 'url(/images/home/free-credit-signup-img.webp)',
     borderRadius: '12px',
     border: 'solid 1px #FF68C0A3',
     width: '100%',
@@ -39,14 +42,14 @@ export const DialogContentMain = styled(Dialog)(({ theme }) => ({
   }
 }));
 
-export const FreeCreditSignupMainContainer = styled(Box)(({ theme }) => ({
+export const FreeCreditSignupMainContainer = styled(Box)(() => ({
   display: 'flex',
   width: '100%',
   justifyContent: 'space-between',
   position: 'relative'
 }));
 
-export const ImageBoxContainer = styled(Box)(({ theme }) => ({
+export const ImageBoxContainer = styled(Box)(() => ({
   display: 'flex',
   width: '100%',
   justifyContent: 'center',
@@ -54,7 +57,7 @@ export const ImageBoxContainer = styled(Box)(({ theme }) => ({
   top: -'26px'
 }));
 
-export const HeaderCloseButtonBoxContainer = styled(Box)(({ theme }) => ({
+export const HeaderCloseButtonBoxContainer = styled(Box)(() => ({
   display: 'flex',
   width: '100%',
   justifyContent: 'end',
@@ -84,13 +87,19 @@ export const TitleTextBoxContainer = styled(Box)(({ theme }) => ({
 export const TitleTextInnerBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(2),
-  alignItems: 'center'
+  alignItems: 'center',
+  textAlign: 'center',
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '250px'
+  }
 }));
 
-export const DescriptionTextBoxContainer = styled(Box)(() => ({
-  // width: '100%',
-  // maxWidth: '332px',
-  textAlign: 'center'
+export const DescriptionTextBoxContainer = styled(Box)(({ theme }) => ({
+  width: '100%',
+  textAlign: 'center',
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '250px'
+  }
 }));
 
 export const ButtonContainer = styled(UIThemeShadowButton)(() => ({

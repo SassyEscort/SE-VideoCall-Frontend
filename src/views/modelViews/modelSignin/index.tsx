@@ -14,7 +14,6 @@ import { signIn, useSession } from 'next-auth/react';
 import getCustomErrorMessage from 'utils/error.utils';
 import { useRouter } from 'next/navigation';
 import InfoIcon from '@mui/icons-material/Info';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import AuthModelCommon from '../modelSignup/AuthModelCommon';
@@ -25,6 +24,7 @@ import { EMAIL_REGEX } from 'constants/regexConstants';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { ROLE } from 'constants/workerVerification';
 import { MODEL_ACTION } from 'constants/profileConstants';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export type LoginParams = {
   email: string;

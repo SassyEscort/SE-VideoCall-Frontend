@@ -88,7 +88,7 @@ export const LiveIconSecBoxWorkerCard = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.success[100]
 }));
 
-export const LiveIconSecBoxWorkerCardSec = styled(Box)(({ theme }) => ({
+export const LiveIconSecBoxWorkerCardSec = styled(Box)(() => ({
   display: 'flex',
   width: '100%',
   maxWidth: '8px',
@@ -200,7 +200,7 @@ export const WorkerCardContainer = styled(Box)(() => ({
   flexDirection: 'column'
 }));
 
-export const ProfileCardContainer = styled(Box)(({ theme }) => ({
+export const ProfileCardContainer = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between'
@@ -262,7 +262,7 @@ export const LiveIconWorkerCard = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.secondary[400]
 }));
 
-export const LiveIconWorkerCardSec = styled(LiveIconFirstBoxWorkerCard)(({ theme }) => ({
+export const LiveIconWorkerCardSec = styled(LiveIconFirstBoxWorkerCard)(() => ({
   display: 'flex',
   width: '100%',
   minWidth: '12px',

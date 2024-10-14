@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/system/Box';
 
 interface StatusBoxProps {

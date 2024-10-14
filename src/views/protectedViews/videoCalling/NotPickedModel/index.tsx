@@ -2,7 +2,6 @@
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Divider } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import VideoCalling from '../commonComponent';
 import { FormattedMessage } from 'react-intl';
@@ -17,6 +16,8 @@ import {
 } from './NotePickedModel.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 
 const NotPickedModel = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const { isModelAvailable } = useCallFeatureContext();

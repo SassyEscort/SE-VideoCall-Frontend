@@ -37,11 +37,10 @@ import { gaEventTrigger } from 'utils/analytics';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { useAuthContext } from '../../../../../context/AuthContext';
 import { BannerImage, BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
-import dynamic from 'next/dynamic';
-const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'));
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
+import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
+import GuestLogin from 'views/auth/guestLogin';
+import GuestSignup from 'views/auth/guestSignup';
+import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 
 const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const { session } = useAuthContext();
@@ -209,7 +208,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
             </FirstBoxContainer>
             <BannerImageCard>
               <picture>
-                <BannerImage loading="eager" src="/images/home/home-banner-model.webp" alt="home_model" />
+                <BannerImage loading="eager" src="/images/home/home-banner-model1.webp" alt="home_model" />
               </picture>
             </BannerImageCard>
           </BannerContainer>
@@ -253,7 +252,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
         }}
         PaperProps={{
           sx: {
-            maxWidth: 920,
+            maxWidth: 1080,
             borderRadius: '12px'
           }
         }}

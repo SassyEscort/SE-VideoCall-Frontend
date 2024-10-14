@@ -1,5 +1,4 @@
 'use client';
-import { Box, DialogContent, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useCallback, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -28,6 +27,9 @@ import {
 } from './AddbankDetailsModel.styled';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { BankDetailsEdit } from '../payoutPaymentContainer';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Box from '@mui/material/Box';
+import DialogContent from '@mui/material/DialogContent';
 
 const AddBankDetailsModel = ({
   open,

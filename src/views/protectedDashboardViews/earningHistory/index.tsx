@@ -22,13 +22,13 @@ import { ModelEarningHistoryPageDetailsRes } from 'services/modelEarningHistory/
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { LoaderBox } from '../payoutRequest/PayoutRequest.styled';
-import { CircularProgress } from '@mui/material';
 import { ProfileDOBContainer, ProfileDOBMainContainer, ProfileDOBox, ProfileDOBoxMain } from '../earningOverview/EarningOverview.styled';
 import { DATE_DURATION_TYPE } from 'constants/dateRange';
 import moment, { Moment } from 'moment';
 import FilterTimeDropdownV2 from '../earningOverview/FilterTimeDropdownV2';
 import debounce from 'lodash/debounce';
 import CustomDatePicker from 'components/common/CustomDatePicker';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export type earningParams = {
   category: string;

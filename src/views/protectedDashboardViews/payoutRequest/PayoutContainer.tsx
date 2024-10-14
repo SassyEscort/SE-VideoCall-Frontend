@@ -1,5 +1,4 @@
 'use client';
-import { Box, CircularProgress, Divider, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React, { useCallback, useEffect, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -57,6 +56,10 @@ import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import { WithdrawalAmountDetailsRes } from 'services/withdrawalAmount/type';
 import { ModelWithdrawalAmountService } from 'services/withdrawalAmount/withdrawalAmount.services';
 import { getErrorMessage } from 'utils/errorUtils';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import Divider from '@mui/material/Divider';
 
 export type PayoutPaginationType = {
   page: number;
