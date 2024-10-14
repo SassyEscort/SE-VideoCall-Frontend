@@ -178,7 +178,7 @@ const ModelCredits = ({
                   <FormattedMessage id="PleaseChoose" />
                 </UINewTypography>
                 <Box>
-                  {customerDetails?.free_credits_claimed === 0 && isFreeCreditAvailable && (
+                  {customerDetails?.free_credits_claimed === 0 && Boolean(isFreeCreditAvailable) && (
                     <ClaimFreeNewButton onClick={() => router.push('/profile')}>
                       <Box component="img" src="/images/icons/free-credit-icon.png" width="24px" height="30px" alt="free_credit" />
                       <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
