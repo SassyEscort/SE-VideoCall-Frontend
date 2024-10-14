@@ -12,7 +12,7 @@ export class GuestAuthService {
   static guestSignup = async (params: SignupParams) => {
     try {
       const signature = await generateDeviceSignature();
-      const body = { ...params, device_signature: signature || '' };
+      const body = { ...params, device_signature: signature || '', user_device_agent: navigator?.userAgent || '' };
       const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/customer/signup`, body, {
         headers: { 'Content-Type': 'application/json' }
       });
@@ -27,7 +27,7 @@ export class GuestAuthService {
   static genericSignup = async (params: SignupParams) => {
     try {
       const signature = await generateDeviceSignature();
-      const body = { ...params, device_signature: signature || '' };
+      const body = { ...params, device_signature: signature || '', user_device_agent: navigator?.userAgent || '' };
       const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/auth/signup`, body, {
         headers: { 'Content-Type': 'application/json' }
       });

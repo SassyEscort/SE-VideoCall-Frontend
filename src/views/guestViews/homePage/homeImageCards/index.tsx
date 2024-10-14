@@ -7,10 +7,6 @@ import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service'
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { memo, useMemo, useState } from 'react';
 import Link from 'next/link';
-import UIStyledDialog, { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestLogin from 'views/auth/guestLogin';
-import GuestSignup from 'views/auth/guestSignup';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
@@ -19,6 +15,12 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { NotFoundModelBox } from './HomeImageCard.styled';
 import { FormattedMessage } from 'react-intl';
 import { gaEventTrigger } from 'utils/analytics';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import UIStyledDialog, { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
+import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
+import GuestLogin from 'views/auth/guestLogin';
+import GuestSignup from 'views/auth/guestSignup';
 import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -211,9 +213,9 @@ const HomeImageCard = ({
               </NotFoundModelBox>
             )}
       </WorkerCardMainBox>
-      <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+      <NewUIStyledSignUpDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </UIStyledDialog>
+      </NewUIStyledSignUpDialog>
       <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
         <GuestLogin
           isFreeCreditAvailable={isFreeCreditAvailable}

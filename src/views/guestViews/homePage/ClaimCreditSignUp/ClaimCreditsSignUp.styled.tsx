@@ -18,7 +18,7 @@ export const DialogTitleBox = styled(DialogTitle)(({ theme }) => ({
 
 export const DialogContentMain = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
-    backgroundImage: 'url(/images/home/free-credit-signup-img.webp)',
+    // backgroundImage: 'url(/images/home/free-credit-signup-img.webp)',
     borderRadius: '12px',
     border: 'solid 1px #FF68C0A3',
     width: '100%',
@@ -87,13 +87,19 @@ export const TitleTextBoxContainer = styled(Box)(({ theme }) => ({
 export const TitleTextInnerBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(2),
-  alignItems: 'center'
+  alignItems: 'center',
+  textAlign: 'center',
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '250px'
+  }
 }));
 
-export const DescriptionTextBoxContainer = styled(Box)(() => ({
-  // width: '100%',
-  // maxWidth: '332px',
-  textAlign: 'center'
+export const DescriptionTextBoxContainer = styled(Box)(({ theme }) => ({
+  width: '100%',
+  textAlign: 'center',
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '250px'
+  }
 }));
 
 export const ButtonContainer = styled(UIThemeShadowButton)(() => ({

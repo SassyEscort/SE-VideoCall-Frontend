@@ -28,19 +28,19 @@ import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
 import { memo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import GuestSignup from 'views/auth/guestSignup';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestLogin from 'views/auth/guestLogin';
 import { User } from 'app/(guest)/layout';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import ButtonFreeCredits from '../buttonFreeCredits';
 import React from 'react';
 import { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
-import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import { gaEventTrigger } from 'utils/analytics';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { useAuthContext } from '../../../../../context/AuthContext';
 import { BannerImage, BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
+import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
+import GuestLogin from 'views/auth/guestLogin';
+import GuestSignup from 'views/auth/guestSignup';
+import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 
 const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const { session } = useAuthContext();
@@ -208,7 +208,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
             </FirstBoxContainer>
             <BannerImageCard>
               <picture>
-                <BannerImage loading="eager" src="/images/home/home-banner-model.webp" alt="home_model" />
+                <BannerImage loading="eager" src="/images/home/home-banner-model1.webp" alt="home_model" />
               </picture>
             </BannerImageCard>
           </BannerContainer>
@@ -252,7 +252,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
         }}
         PaperProps={{
           sx: {
-            maxWidth: 920,
+            maxWidth: 1080,
             borderRadius: '12px'
           }
         }}

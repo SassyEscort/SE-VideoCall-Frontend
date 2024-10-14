@@ -3,6 +3,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useCallback, useEffect, useState } from 'react';
 import { SecondSubContainerImgWorkerCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import {
+  BalanceBoxContainer,
   BoxFirstTextContainer,
   BoxSecondTextContainer,
   CreditBuyText,
@@ -34,6 +35,9 @@ import { ModelDetailsService } from 'services/modelDetails/modelDetails.services
 import Loader from 'components/Loader';
 import { gaEventTrigger } from 'utils/analytics';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { ClaimFreeNewButton } from './ModelCredits/Credits.styled';
+import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
+import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 
 export type CustomerInfo = {
@@ -49,6 +53,8 @@ const Credits = () => {
   const [balance, setBalance] = useState(0);
   const [addedCredits, setAddedCredits] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user } = useCallFeatureContext();
@@ -135,9 +141,17 @@ const Credits = () => {
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
 
+  const getCustomerDetails = async () => {
+    if (token.token) {
+      const customerData = await CustomerDetailsService.customerModelDetails(token.token);
+      if (customerData) setCustomerDetails(customerData.data);
+    }
+  };
+
   useEffect(() => {
     getCreditsListing();
     getCustomerCredit();
+    getCustomerDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
@@ -156,15 +170,26 @@ const Credits = () => {
                   <FormattedMessage id="Balance" />
                 </UINewTypography>
                 <SecondBoxContainer>
-                  <SecondSubContainerImgWorkerCard src="/images/workercards/coin-1.png" />
-                  <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                    {balance.toFixed(2)}
-                  </UINewTypography>
+                  <BalanceBoxContainer>
+                    <SecondSubContainerImgWorkerCard src="/images/workercards/coin-1.png" />
+                    <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+                      {balance.toFixed(2)}
+                    </UINewTypography>
+                  </BalanceBoxContainer>
                 </SecondBoxContainer>
               </FirsTextSubContainer>
             </FirsTextMainContainer>
           </TextMainContainer>
-
+          <Box>
+            {customerDetails?.free_credits_claimed === 0 && (
+              <ClaimFreeNewButton onClick={() => router.push('/profile')}>
+                <Box component="img" src="/images/icons/free-credit-icon.png" width="24px" height="30px" alt="free_credit" />
+                <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
+                  <FormattedMessage id="ClaimFreeCredits" />
+                </UINewTypography>
+              </ClaimFreeNewButton>
+            )}
+          </Box>
           {isLoading ? (
             <LoaderBox>
               <CircularProgress />
@@ -187,7 +212,7 @@ const Credits = () => {
                         <CreditBuyText variant="bodySmall" color="secondary.700">
                           <FormattedMessage id="BuyNowAt" />
                         </CreditBuyText>
-                        <DollarCreditText color="text.secondary">${listCredit?.amount.toFixed(2)}</DollarCreditText>
+                        <DollarCreditText color="text.secondary">${listCredit?.amount?.toFixed(2)}</DollarCreditText>
                       </BoxSecondTextContainer>
                     </ImagSubContainer>
                   ))}

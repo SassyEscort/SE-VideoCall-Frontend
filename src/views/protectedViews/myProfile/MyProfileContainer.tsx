@@ -1,4 +1,4 @@
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { InputTypeBox, ProfileTextHeader } from './MyProfile.styled';
@@ -6,8 +6,6 @@ import { FormikErrors, FormikTouched } from 'formik';
 import { MyProfile } from '.';
 import { toast } from 'react-toastify';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { GuestStyleComponent } from 'views/guestViews/guestLayout/GuestLayout.styled';
-import CheckInboxVerify from 'views/modelViews/checkInBox';
 import { useState } from 'react';
 import { ErrorMessage } from 'constants/common.constants';
 import MyProfileChangePassword from './MyProfileChangePassword';
@@ -38,14 +36,14 @@ const MyProfileContainer = ({
   isPhoneNumberVerified: number;
   FetchCustomerDetails: () => void;
 }) => {
-  const [open, setOpen] = useState(false);
-  const [activeStep, setActiveStep] = useState(0);
   const [openModel, setOpenModel] = useState(false);
   const [isEditable, setIsEditable] = useState(false);
   const [isNumberEditable, setIsNumberEditable] = useState(false);
   const [isEmailOptSent, setIsEmailOptSent] = useState(false);
   const [isPhoneOptSent, setIsPhoneOptSent] = useState(false);
   const [countryCode, setCountryCode] = useState<any>(null);
+
+  const intl = useIntl();
 
   const sendLinkVerify = async () => {
     touched.email = true;
@@ -56,11 +54,9 @@ const MyProfileContainer = ({
         try {
           const res = await customerVerificationService.sendEmailOtp({ email: values.email }, token.token);
           if (res.code === 200) {
-            toast.success('Success');
-            setOpen(true);
-            setActiveStep(1);
+            toast.success(intl.formatMessage({ id: 'OTPSendOnYourEmail' }));
           } else {
-            toast.error('Something went wrong');
+            toast.error(res?.response?.data?.error || 'Something went wrong');
           }
         } catch (error) {
           toast.error(ErrorMessage);
@@ -81,7 +77,6 @@ const MyProfileContainer = ({
             const res = await customerVerificationService.sendPhoneOtp({ phone_number: countryCode.phone + values.phone }, token.token);
             if (res.code === 200) {
               toast.success('OTP sent successfully');
-              setActiveStep(1);
               setIsPhoneOptSent(true);
             } else {
               if (res?.response?.data?.custom_code == 3015) toast.error('Phone number already exist');
@@ -97,10 +92,6 @@ const MyProfileContainer = ({
     } catch (error) {
       toast.error(ErrorMessage);
     }
-  };
-
-  const handleClose = () => {
-    setActiveStep(0);
   };
 
   const handleClsoeModel = () => {
@@ -226,7 +217,7 @@ const MyProfileContainer = ({
                         </UINewTypography>
                       )}
 
-                      {(!isEmailOptSent || isEditable) && (
+                      {(!isEmailOptSent || isEditable) && !isPhoneOptSent && (
                         <UINewTypography
                           color={isEmailVerified === 1 && !isEditable ? 'green' : 'primary.400'}
                           variant="buttonSmallBold"
@@ -241,12 +232,6 @@ const MyProfileContainer = ({
                   )
                 }}
               />
-
-              {activeStep === 1 && (
-                <GuestStyleComponent scroll="body" open={open} onClose={handleClose} maxWidth="md" fullWidth>
-                  <CheckInboxVerify onOpen={open} onClose={handleClose} email={values.email} />
-                </GuestStyleComponent>
-              )}
             </Box>
             {isEmailOptSent && (
               <>
@@ -325,7 +310,7 @@ const MyProfileContainer = ({
                         </UINewTypography>
                       )}
 
-                      {(!isPhoneOptSent || isNumberEditable) && (
+                      {(!isPhoneOptSent || isNumberEditable) && !isEmailOptSent && (
                         <UINewTypography
                           color={isPhoneNumberVerified === 1 && !isEditable ? 'green' : 'primary.400'}
                           variant="buttonSmallBold"

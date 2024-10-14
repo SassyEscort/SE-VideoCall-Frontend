@@ -18,6 +18,7 @@ import { CommonServices } from 'services/commonApi/commonApi.services';
 import ClaimCreditSignUp from 'views/guestViews/homePage/ClaimCreditSignUp';
 import { usePathname } from 'next/navigation';
 import { CustomerDetails } from 'services/customerDetails/customerDetails.services';
+import { getCookie, setCookie } from './CookieData';
 
 const WorkerNavItem = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -26,7 +27,7 @@ const WorkerNavItem = () => {
   const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
   const [openFreeCredit, setOpenFreeCredit] = useState(false);
   const [isCreditsClaimed, setIsCreditsClaimed] = useState(true);
-
+  const [userName, setUserName] = useState('');
   const path = usePathname();
 
   const handleCloseFilterModal = () => {
@@ -58,21 +59,28 @@ const WorkerNavItem = () => {
 
   const handelCustomerDetails = (Data: CustomerDetails) => {
     if (Data) {
+      setUserName(Data.customer_user_name);
       if (Data.free_credits_claimed === 0) setIsCreditsClaimed(false);
     }
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (path === '/' && !isCreditsClaimed) {
-        setOpenFreeCredit(true);
-      }
-    }, 5000);
+    if (userName !== '') {
+      const getFreeCreditsCookie = getCookie(`${userName}`);
+      if (!getFreeCreditsCookie) {
+        setCookie(`${userName}`, 'true', 1, '/');
+        const timer = setTimeout(() => {
+          if (path === '/' && !isCreditsClaimed) {
+            setOpenFreeCredit(true);
+          }
+        }, 2000);
 
-    if (openFreeCredit) {
-      clearTimeout(timer);
+        if (openFreeCredit) {
+          clearTimeout(timer);
+        }
+        return () => clearTimeout(timer);
+      }
     }
-    return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCreditsClaimed]);
 
@@ -80,7 +88,6 @@ const WorkerNavItem = () => {
     if (isApiCalled) {
       handleLanguageApiChange();
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isApiCalled]);
 
