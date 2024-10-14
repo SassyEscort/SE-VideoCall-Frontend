@@ -47,6 +47,8 @@ const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRe
     .sort()
     .join(', ');
   const modelFlag = countryWithFlag.filter((country) => country.name === modelDetails?.country_name).map((data) => data.flag)[0];
+  const modelAltName = countryWithFlag.filter((country) => country.name === modelDetails?.country_name).map((data) => data.name)[0];
+
   const imageUrlRef = useRef<HTMLElement>();
 
   useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails?.cords);
@@ -99,7 +101,7 @@ const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRe
                     </OfflineIconWorkerCard>
                   </>
                 )}
-                {modelFlag ? <FirstSubContainerImgWorkerCard src={modelFlag} /> : <FirstSubContainerWithoutImg />}
+                {modelFlag ? <FirstSubContainerImgWorkerCard src={modelFlag} alt={modelAltName} /> : <FirstSubContainerWithoutImg />}
               </NameCardContainer>
               {!isMobile && (
                 <CreditContainer>
