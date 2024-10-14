@@ -103,7 +103,7 @@ const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRe
               </NameCardContainer>
               {!isMobile && (
                 <CreditContainer>
-                  <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" />
+                  <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" alt="dollar-img" />
                   <UINewTypography variant="captionLargeBold" color="text.secondary">
                     {!modelDetails?.credits_per_minute ? (
                       <FormattedMessage id="NoPrice" />
@@ -127,7 +127,7 @@ const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRe
             </SecondMainContainerWorkerCard>
             {isMobile && (
               <CreditContainer sx={{ marginTop: isSmallScreen ? 1.5 : 1 }}>
-                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" />
+                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" alt="dollar-img" />
                 <UINewTypography variant="captionLargeBold" color="text.secondary">
                   {!modelDetails?.credits_per_minute ? (
                     <FormattedMessage id="NoPrice" />

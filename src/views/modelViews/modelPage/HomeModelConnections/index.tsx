@@ -50,7 +50,7 @@ const HomeModelConnections = () => {
             <BoxMain>
               <BoxImageBackground>
                 <BoxImageBackgroundChild>
-                  <UIThemeNextImage alt="home_model" width={17} height={17} src="/images/home-search-img.png" />
+                  <UIThemeNextImage alt="home-search-img" width={17} height={17} src="/images/home-search-img.png" />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
               <HomeModelConnectionsTypography variant={isSmDown ? 'body' : 'h6'}>
@@ -66,7 +66,7 @@ const HomeModelConnections = () => {
             <BoxMain>
               <BoxImageBackground>
                 <BoxImageBackgroundChild>
-                  <UIThemeNextImage alt="home_model" width={15} height={20} src="/images/icons/doller.png" />
+                  <UIThemeNextImage alt="doller" width={15} height={20} src="/images/icons/doller.png" />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
               <HomeModelConnectionsTypography variant={isSmDown ? 'body' : 'h6'}>
@@ -82,7 +82,7 @@ const HomeModelConnections = () => {
             <BoxMain>
               <BoxImageBackground>
                 <BoxImageBackgroundChild>
-                  <UIThemeNextImage alt="home_model" width={17} height={20} src="/images/icons/lock.png" />
+                  <UIThemeNextImage alt="lock_img" width={17} height={20} src="/images/icons/lock.png" />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
               <HomeModelConnectionsTypography variant={isSmDown ? 'body' : 'h6'}>
@@ -101,7 +101,7 @@ const HomeModelConnections = () => {
             <BoxMain>
               <BoxImageBackground>
                 <BoxImageBackgroundChild>
-                  <UIThemeNextImage alt="home_model" width={21} height={21} src="/images/icons/earth.png" />
+                  <UIThemeNextImage alt="earth_img" width={21} height={21} src="/images/icons/earth.png" />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
               <HomeModelConnectionsTypography variant={isSmDown ? 'body' : 'h6'}>
@@ -117,7 +117,7 @@ const HomeModelConnections = () => {
             <BoxMain>
               <BoxImageBackground>
                 <BoxImageBackgroundChild>
-                  <UIThemeNextImage alt="home_model" width={15} height={21} src="/images/icons/user.png" />
+                  <UIThemeNextImage alt="user_img" width={15} height={21} src="/images/icons/user.png" />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
               <HomeModelConnectionsTypography variant={isSmDown ? 'body' : 'h6'}>
@@ -133,7 +133,7 @@ const HomeModelConnections = () => {
             <BoxMain>
               <BoxImageBackground>
                 <BoxImageBackgroundChild>
-                  <UIThemeNextImage alt="home_model" width={21} height={21} src="/images/icons/easy-access-img.png" />
+                  <UIThemeNextImage alt="easy-access-img" width={21} height={21} src="/images/icons/easy-access-img.png" />
                 </BoxImageBackgroundChild>
               </BoxImageBackground>
               <HomeModelConnectionsTypography variant={isSmDown ? 'body' : 'h6'}>

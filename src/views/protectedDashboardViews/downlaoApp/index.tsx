@@ -27,12 +27,12 @@ const DownloadApp = () => {
       <ForBox>
         <Box>
           <Link href="https://play.google.com/store/apps/details?id=com.bookmyartist.app" target="_blank">
-            <Box component={'img'} src="/images/app-logo/google-pay.png" sx={{ width: '120px', height: '120px' }} />
+            <Box component={'img'} src="/images/app-logo/google-pay.png" alt="google-pay-icon" sx={{ width: '120px', height: '120px' }} />
           </Link>
         </Box>
         <Box>
           <Link href="https://apps.apple.com/us/app/book-my-artist-provider/id6630371131" target="_blank">
-            <Box component={'img'} src="/images/app-logo/app-store.png" sx={{ width: '120px', height: '120px' }} />
+            <Box component={'img'} src="/images/app-logo/app-store.png" alt="app-store-icon" sx={{ width: '120px', height: '120px' }} />
           </Link>
         </Box>
       </ForBox>

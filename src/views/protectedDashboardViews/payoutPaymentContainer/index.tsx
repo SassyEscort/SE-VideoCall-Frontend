@@ -145,6 +145,7 @@ const PayoutPaymentConatiner = ({
                         <Box
                           component={'img'}
                           src="/images/payout/home.png"
+                          alt="home-icon"
                           sx={{ width: '38px', height: '42px', color: 'text.secondary' }}
                         />
                         <IamgeBigScreenNone>
@@ -163,6 +164,7 @@ const PayoutPaymentConatiner = ({
                                 <Box
                                   component={'img'}
                                   src="/images/payout/edit.webp"
+                                  alt="edit-icon"
                                   sx={{ width: '18px', height: '18px' }}
                                   onClick={() => {
                                     handleBankDetailsEdit(list);
@@ -173,6 +175,7 @@ const PayoutPaymentConatiner = ({
                                 <Box
                                   component={'img'}
                                   src="/images/payout/delete.webp"
+                                  alt="delete-icon"
                                   sx={{ width: '16px', height: '18px' }}
                                   onClick={() => handleDeleteClick(list.id)}
                                 />
@@ -203,6 +206,7 @@ const PayoutPaymentConatiner = ({
                               <Box
                                 component={'img'}
                                 src="/images/payout/edit.webp"
+                                alt="edit-icon"
                                 sx={{ width: '18px', height: '18px', cursor: 'pointer' }}
                                 onClick={() => {
                                   handleBankDetailsEdit(list);
@@ -213,6 +217,7 @@ const PayoutPaymentConatiner = ({
                               <Box
                                 component={'img'}
                                 src="/images/payout/delete.webp"
+                                alt="delete-icon"
                                 sx={{ width: '16px', height: '18px', cursor: 'pointer' }}
                                 onClick={() => handleDeleteClick(list.id)}
                               />
