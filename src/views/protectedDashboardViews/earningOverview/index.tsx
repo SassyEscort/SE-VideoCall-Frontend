@@ -168,7 +168,7 @@ const EarningOverview = () => {
                 <UINewTypography variant="buttonLargeBold" lineHeight="160%">
                   <FormattedMessage id="CurrentBalance" />
                 </UINewTypography>
-                <UINewTypography variant="h3">{modelEarning?.amount.toFixed(2)}</UINewTypography>
+                <UINewTypography variant="h3">{modelEarning?.amount?.toFixed(2) || 0}</UINewTypography>
               </ProfileBackSide>
 
               <ProfileBackSide>
