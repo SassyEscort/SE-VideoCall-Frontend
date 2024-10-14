@@ -72,6 +72,8 @@ const WorkerCard = ({
     .sort()
     .join(', ');
   const modelFlag = countryWithFlag.filter((country) => country.name === modelDetails?.country).map((data) => data.flag)[0];
+  const modelAltName = countryWithFlag.filter((country) => country.name === modelDetails?.country).map((data) => data.name)[0];
+
   const imageUrlRef = useRef<HTMLElement>();
   const videoTypeCondition = VideoAcceptType?.includes(modelDetails?.link?.substring(modelDetails?.link?.lastIndexOf('.') + 1));
 
@@ -171,7 +173,7 @@ const WorkerCard = ({
                     <LiveIconWorkerCard>
                       <LiveIconSecBoxWorkerCard />
                     </LiveIconWorkerCard>
-                    {modelFlag && <FirstSubContainerImgWorkerCard src={modelFlag} />}
+                    {modelFlag && <FirstSubContainerImgWorkerCard src={modelFlag} alt={modelAltName} />}
                   </>
                 )}
               </NameCardContainer>
