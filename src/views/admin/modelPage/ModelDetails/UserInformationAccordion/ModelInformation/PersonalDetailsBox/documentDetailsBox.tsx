@@ -2,6 +2,17 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { PersonalDetailsBoxContainer } from './PersonalDetailsBox.styled';
 import Box from '@mui/material/Box';
 
+const DetailBox = ({ label, value }: { label: string; value: string | number }) => {
+  return (
+    <Box>
+      <UINewTypography variant="body">{label}: </UINewTypography>
+      <UINewTypography variant="bodyLight" textAlign="end">
+        {value}
+      </UINewTypography>
+    </Box>
+  );
+};
+
 const DocumentDetailsBox = ({ label, value, isBordor }: { label: string; value: string | number; isBordor?: boolean }) => (
   <PersonalDetailsBoxContainer
     sx={{
@@ -9,16 +20,8 @@ const DocumentDetailsBox = ({ label, value, isBordor }: { label: string; value: 
       borderBottomColor: 'secondary.light'
     }}
   >
-    <Box>
-      <UINewTypography variant="body">Document Number: </UINewTypography>
-      <UINewTypography variant="bodyLight">{label}</UINewTypography>
-    </Box>
-    <Box>
-      <UINewTypography variant="body">Document Type: </UINewTypography>
-      <UINewTypography variant="bodyLight" textAlign="end">
-        {value}
-      </UINewTypography>
-    </Box>
+    <DetailBox label="Document Number" value={label} />
+    <DetailBox label="Document Type" value={value} />
   </PersonalDetailsBoxContainer>
 );
 
