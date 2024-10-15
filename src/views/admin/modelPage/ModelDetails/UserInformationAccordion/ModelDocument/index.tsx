@@ -17,7 +17,7 @@ const ModelDocument = ({ modelData }: { modelData: ModelDetailsRes }) => {
             <Fragment key={index}>
               <PersonalDetailsBox label="Document Type" value={item?.document_type ? item?.document_type : ''} />
               {item?.file_type === 'Non_Image' ? (
-                <StyledModelDocumentImgBox src={defaultPdfImage} onClick={() => handleOpenPdf(item?.link)} />
+                <StyledModelDocumentImgBox src={defaultPdfImage} alt="pdf-icon" onClick={() => handleOpenPdf(item?.link)} />
               ) : (
                 <ModelDocumentImgBox src={item?.link} />
               )}
