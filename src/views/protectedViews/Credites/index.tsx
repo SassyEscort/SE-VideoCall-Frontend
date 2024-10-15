@@ -39,6 +39,7 @@ import { ClaimFreeNewButton } from './ModelCredits/Credits.styled';
 import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useAuthContext } from '../../../../context/AuthContext';
 
 export type CustomerInfo = {
   email: string;
@@ -47,6 +48,8 @@ export type CustomerInfo = {
 };
 
 const Credits = () => {
+  const { isFreeCreditAvailable } = useAuthContext();
+
   const [open, setOpen] = useState(false);
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -181,7 +184,7 @@ const Credits = () => {
             </FirsTextMainContainer>
           </TextMainContainer>
           <Box>
-            {customerDetails?.free_credits_claimed === 0 && (
+            {customerDetails?.free_credits_claimed === 0 && Boolean(isFreeCreditAvailable) && (
               <ClaimFreeNewButton onClick={() => router.push('/profile')}>
                 <Box component="img" src="/images/icons/free-credit-icon.png" width="24px" height="30px" alt="free_credit" />
                 <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">

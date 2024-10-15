@@ -35,7 +35,7 @@ export type MyProfile = {
 
 const MyProfile = () => {
   const { handelNameChange } = useCallFeatureContext();
-  const { handleFreeCreditClaim } = useAuthContext();
+  const { handleFreeCreditClaim, isFreeCreditAvailable } = useAuthContext();
   const intl = useIntl();
 
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -157,7 +157,7 @@ const MyProfile = () => {
                   FetchCustomerDetails={FetchCustomerDetails}
                 />
                 <DisableButtonBox>
-                  {customerDetails?.free_credits_claimed === 0 && (
+                  {customerDetails?.free_credits_claimed === 0 && Boolean(isFreeCreditAvailable) && (
                     <Tooltip
                       title={
                         !isPhoneVerified && !isEmailVerified
