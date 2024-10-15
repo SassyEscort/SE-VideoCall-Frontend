@@ -458,7 +458,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           label: 'Video_call_unanswered',
           value: JSON.stringify(customerInfo)
         });
-        await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.UNASWERED);
+        await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.UNASWERED, ROLE.MODEL);
         setEndCallTime(180000);
         if (isCustomer) {
           await CometChatUIKit.logout();
