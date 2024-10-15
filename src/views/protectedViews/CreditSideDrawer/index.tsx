@@ -27,6 +27,7 @@ import { useRouter } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
 import { CustomerDetails } from 'services/customerDetails/customerDetails.services';
 import { FormattedMessage } from 'react-intl';
+import { useAuthContext } from '../../../../context/AuthContext';
 
 const CreditSideDrawer = ({
   open,
@@ -42,6 +43,8 @@ const CreditSideDrawer = ({
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isLoading, setIsLoading] = useState(false);
+
+  const { isFreeCreditAvailable } = useAuthContext();
 
   const { user } = useCallFeatureContext();
   const customerData = JSON.parse(user || '{}');
@@ -129,7 +132,7 @@ const CreditSideDrawer = ({
             <MainImageBox />
             <CreditListMainBox>
               {/* FREE CRDITS  */}
-              {customerDetails && customerDetails?.free_credits_claimed === 0 && (
+              {customerDetails && customerDetails?.free_credits_claimed === 0 && isFreeCreditAvailable === 1 && (
                 <CreditListContainer
                   sx={{
                     background: 'linear-gradient(90deg, #FECD3D 11.5%, #FFF1C6 52%, #FF69C1 90%)',
