@@ -43,3 +43,25 @@ export const SearchTitalBoxSm = styled(Box)(({ theme }) => ({
     maxWidth: 'none'
   }
 }));
+
+export const BorderBox = styled(Box)(({ theme }) => ({
+  width: '100%',
+  maxWidth: '420px',
+  border: '1px solid #E9E8EB33',
+  borderRadius: '8px',
+  padding: '12px 16px 12px 16px',
+  height: '100%',
+  maxHeight: '46px',
+  alignItems: 'center',
+  textAlign: 'center',
+  display: 'flex'
+}));
+
+export const BalanceBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  width: '100%',
+  justifyContent: 'space-between',
+  gap: theme.spacing(1),
+  cursor: 'pointer'
+}));

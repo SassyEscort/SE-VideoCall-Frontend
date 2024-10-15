@@ -7,6 +7,7 @@ export type ModelCreditRes = {
   discount: number;
   is_active: boolean;
   link: string;
+  tag?: string;
 };
 
 export type ModelCreditResponse = {

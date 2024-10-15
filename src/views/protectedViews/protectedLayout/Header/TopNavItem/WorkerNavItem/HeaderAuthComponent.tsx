@@ -16,7 +16,7 @@ import { Root } from 'services/notification/type';
 import MyProfileChangePassword from 'views/protectedViews/myProfile/MyProfileChangePassword';
 import { IconButtonBoxInner, UnReadCountMain } from 'views/protectedDashboardViews/dashboardNavItem/DashboardMenu.styled';
 import { IconButtonBoxNew } from './Notification.styled';
-import { HeaderMainBox } from './HeaderAuthComponent.styled';
+import { BalanceBox, BorderBox, HeaderMainBox } from './HeaderAuthComponent.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useCallFeatureContext } from '../../../../../../../context/CallFeatureContext';
 import NotificationModalCustomerV2 from './NotificationModalCustomerV2';
@@ -46,7 +46,6 @@ const HeaderAuthComponent = ({ customerDataProps }: customerData) => {
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
-  const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
@@ -178,68 +177,27 @@ const HeaderAuthComponent = ({ customerDataProps }: customerData) => {
   return (
     <>
       <HeaderMainBox>
-        {isSMDown ? (
+        {isMdDown ? (
           <Box>
             <LanguageDropdown />
           </Box>
         ) : (
-          <Box
-            sx={{
-              width: '100%',
-              maxWidth: '420px',
-              border: '1px solid #E9E8EB33',
-              borderRadius: '8px',
-              padding: '12px 16px 12px 16px',
-              height: '100%',
-              maxHeight: '46px',
-              alignItems: 'center',
-              textAlign: 'center',
-              display: 'flex'
-            }}
-          >
+          <BorderBox>
             <LanguageDropdown />
-          </Box>
+          </BorderBox>
         )}
 
         {isMdUp && (
-          // <Link href="/profile/credit">
-          <Box
-            alignItems="center"
-            gap={1}
-            display="flex"
-            sx={{
-              width: '100%',
-              maxWidth: '420px',
-              border: '1px solid #E9E8EB33',
-              borderRadius: '8px',
-              padding: '12px 16px 12px 16px',
-              height: '100%',
-              maxHeight: '46px',
-              alignItems: 'center',
-              textAlign: 'center',
-              cursor: 'pointer'
-            }}
-            onClick={() => setOpenCreditSideDrawer(true)}
-          >
+          <BorderBox alignItems="center" gap={1} display="flex" onClick={() => setOpenCreditSideDrawer(true)}>
             <Box component="img" src="/images/header/coin.png" alt="coin_icon" />
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                width: '100%',
-                justifyContent: 'space-between',
-                gap: 1,
-                cursor: 'pointer'
-              }}
-            >
+            <BalanceBox>
               <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                 {balance?.toFixed(2) || 0}
               </UINewTypography>
               <Divider orientation="vertical" flexItem sx={{ borderColor: '#E9E8EB33' }} />
               <Box component="img" src="/images/header/plus-icon-header.png" alt="coin_icon" />
-            </Box>
-          </Box>
-          // </Link>
+            </BalanceBox>
+          </BorderBox>
         )}
 
         {isMdUp && (
@@ -327,20 +285,27 @@ const HeaderAuthComponent = ({ customerDataProps }: customerData) => {
             <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
             {isMdDown && (
               <>
-                <Link href="/profile/credit">
-                  <MenuItem>
-                    <ListItemIcon>
-                      <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                        <Box component="img" src="/images/header/coin.png" alt="coin_icon" />
-                      </IconButton>
-                    </ListItemIcon>
-                    <ListItemText>
-                      <UINewTypography variant="bodyLight" color="text.secondary">
+                <MenuItem
+                  onClick={() => {
+                    setAnchorElLogout(null);
+                    setOpenCreditSideDrawer(true);
+                  }}
+                >
+                  <ListItemIcon>
+                    <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                      <Box component="img" src="/images/header/coin.png" alt="coin_icon" />
+                    </IconButton>
+                  </ListItemIcon>
+                  <ListItemText>
+                    <BalanceBox>
+                      <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                         {balance?.toFixed(2) || 0}
                       </UINewTypography>
-                    </ListItemText>
-                  </MenuItem>
-                </Link>
+                      <Divider orientation="vertical" flexItem sx={{ borderColor: '#E9E8EB33' }} />
+                      <Box component="img" src="/images/header/plus-icon-header.png" alt="coin_icon" />
+                    </BalanceBox>
+                  </ListItemText>
+                </MenuItem>
                 <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
               </>
             )}

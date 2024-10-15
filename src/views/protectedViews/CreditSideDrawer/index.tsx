@@ -68,7 +68,6 @@ const CreditSideDrawer = ({ open, handleClose }: { open: boolean; handleClose: (
   }, [token.token]);
 
   const handleCreditClick = async (listCredit: ModelCreditRes) => {
-    setIsLoading(true);
     const customerInfo = {
       email: customerData?.customer_email,
       name: customerData?.customer_name,
@@ -88,16 +87,16 @@ const CreditSideDrawer = ({ open, handleClose }: { open: boolean; handleClose: (
     if (res) {
       router.push(res?.data?.url);
     }
-    setIsLoading(false);
   };
 
   const FetchCustomerDetails = async () => {
     setIsLoading(true);
-
-    try {
-      const customerData = await CustomerDetailsService.customerModelDetails(token.token);
-      setCustomerDetails(customerData?.data);
-    } catch (error) {}
+    if (token.token) {
+      try {
+        const customerData = await CustomerDetailsService.customerModelDetails(token.token);
+        setCustomerDetails(customerData?.data);
+      } catch (error) {}
+    }
     setIsLoading(false);
   };
 
@@ -164,123 +163,52 @@ const CreditSideDrawer = ({ open, handleClose }: { open: boolean; handleClose: (
                 </CreditListContainer>
               )}
 
-              {/* NORMAL CRDITS  1*/}
-              <CreditListContainer onClick={() => handleCreditClick(creditsListing[0])}>
-                <CreditInfoBox>
-                  <Box component={'img'} src="/images/credits/coinwthIcon.png" alt="coin.png" width={18} height={18} />
-                  <Box>
-                    <UINewTypography variant="buttonLargeMenu" color={'white.main'}>
-                      {creditsListing[0]?.credits} <FormattedMessage id="Credits" />
-                    </UINewTypography>
-                  </Box>
-                </CreditInfoBox>
-                <CreditPriceBox>
-                  <CreditTypography color={'white.main'}>${creditsListing[0]?.amount}</CreditTypography>
-                </CreditPriceBox>
-              </CreditListContainer>
-
-              {/* NORMAL CRDITS  2*/}
-              <CreditListContainer onClick={() => handleCreditClick(creditsListing[1])}>
-                <CreditInfoBox>
-                  <Box component={'img'} src="/images/credits/coinwthIcon.png" alt="coin.png" width={18} height={18} />
-                  <Box>
-                    <UINewTypography variant="buttonLargeMenu" color={'white.main'}>
-                      {creditsListing[1]?.credits} <FormattedMessage id="Credits" />
-                    </UINewTypography>
-                  </Box>
-                </CreditInfoBox>
-                <CreditPriceBox>
-                  <CreditTypography color={'white.main'}>${creditsListing[1]?.amount}</CreditTypography>
-                </CreditPriceBox>
-              </CreditListContainer>
-
               {/* MOST POPULAR CRDITS  1*/}
-              <CreditListContainer
-                sx={{
-                  background: 'linear-gradient(90deg, #FF68C0 0%, #9F1666 100%)',
-                  position: 'relative',
-                  border: 'none'
-                }}
-                onClick={() => handleCreditClick(creditsListing[2])}
-              >
-                <CreditPopularChip>
-                  <Box component={'img'} src="/images/credits/StarPink.svg" alt="coin.png" width={16} height={16} />
-                  <UINewTypography variant="bodySmallBold" color={'primary.400'}>
-                    <FormattedMessage id="MostPopular" />
-                  </UINewTypography>
-                </CreditPopularChip>
-                <CreditInfoBox>
-                  <Box component={'img'} src="/images/credits/coinwthIcon.png" alt="coin.png" width={18} height={18} />
-                  <Box>
-                    <UINewTypography variant="buttonLargeMenu" color={'white.main'}>
-                      {creditsListing[2]?.credits} <FormattedMessage id="Credits" />
-                    </UINewTypography>
-                  </Box>
-                </CreditInfoBox>
-                <CreditPriceBox>
-                  <CreditTypography color={'white.main'}>${creditsListing[2]?.amount}</CreditTypography>
-                </CreditPriceBox>
-              </CreditListContainer>
-
-              {/* NORMAL CRDITS  4*/}
-
-              {/* Best Value */}
-              <CreditListContainer
-                sx={{
-                  background: 'linear-gradient(90deg, #B88A4A 0%, #E0AA3E 31.5%, #E0AA3E 61.5%, #F9F295 100%)',
-                  position: 'relative',
-                  border: 'none'
-                }}
-                onClick={() => handleCreditClick(creditsListing[3])}
-              >
-                <CreditPopularChip>
-                  <Box component={'img'} src="/images/credits/dollar.svg" alt="coin.png" width={9} height={18} />
-                  <UINewTypography variant="bodySmallBold" color={'primary.400'}>
-                    <FormattedMessage id="BestValue" />
-                  </UINewTypography>
-                </CreditPopularChip>
-                <CreditInfoBox>
-                  <Box component={'img'} src="/images/credits/coinwthIcon.png" alt="coin.png" width={18} height={18} />
-                  <Box>
-                    <UINewTypography variant="buttonLargeMenu" color={'secondary.800'}>
-                      {creditsListing[3]?.credits} <FormattedMessage id="Credits" />
-                    </UINewTypography>
-                  </Box>
-                </CreditInfoBox>
-                <CreditPriceBox>
-                  <CreditTypography color={'secondary.800'}>$ {creditsListing[3]?.amount}</CreditTypography>
-                </CreditPriceBox>
-              </CreditListContainer>
-
-              {/* NORMAL CRDITS  5*/}
-              <CreditListContainer onClick={() => handleCreditClick(creditsListing[4])}>
-                <CreditInfoBox>
-                  <Box component={'img'} src="/images/credits/coinwthIcon.png" alt="coin.png" width={18} height={18} />
-                  <Box>
-                    <UINewTypography variant="buttonLargeMenu" color={'white.main'}>
-                      {creditsListing[4]?.credits} <FormattedMessage id="Credits" />
-                    </UINewTypography>
-                  </Box>
-                </CreditInfoBox>
-                <CreditPriceBox>
-                  <CreditTypography color={'white.main'}>${creditsListing[4]?.amount}</CreditTypography>
-                </CreditPriceBox>
-              </CreditListContainer>
-
-              {/* NORMAL CRDITS  6*/}
-              <CreditListContainer onClick={() => handleCreditClick(creditsListing[5])}>
-                <CreditInfoBox>
-                  <Box component={'img'} src="/images/credits/coinwthIcon.png" alt="coin.png" width={18} height={18} />
-                  <Box>
-                    <UINewTypography variant="buttonLargeMenu" color={'white.main'}>
-                      {creditsListing[5]?.credits} <FormattedMessage id="Credits" />
-                    </UINewTypography>
-                  </Box>
-                </CreditInfoBox>
-                <CreditPriceBox>
-                  <CreditTypography color={'white.main'}>${creditsListing[5]?.amount}</CreditTypography>
-                </CreditPriceBox>
-              </CreditListContainer>
+              {creditsListing &&
+                creditsListing?.map((creditsListing, index) => (
+                  <CreditListContainer
+                    sx={{
+                      background:
+                        creditsListing?.tag === 'Most Popular'
+                          ? 'linear-gradient(90deg, #FF68C0 0%, #9F1666 100%)'
+                          : creditsListing?.tag === 'Best Value'
+                            ? 'linear-gradient(90deg, #B88A4A 0%, #E0AA3E 31.5%, #E0AA3E 61.5%, #F9F295 100%)'
+                            : '',
+                      position: 'relative',
+                      border: creditsListing?.tag !== null ? 'none' : ''
+                    }}
+                    onClick={() => handleCreditClick(creditsListing)}
+                    key={index}
+                  >
+                    {creditsListing?.tag !== null && (
+                      <CreditPopularChip>
+                        {creditsListing?.tag === 'Most Popular' ? (
+                          <Box component={'img'} src="/images/credits/StarPink.svg" alt="coin.png" width={16} height={16} />
+                        ) : (
+                          <Box component={'img'} src="/images/credits/dollar.svg" alt="coin.png" width={9} height={18} />
+                        )}
+                        <UINewTypography variant="bodySmallBold" color={'primary.400'}>
+                          {creditsListing?.tag === 'Most Popular' ? (
+                            <FormattedMessage id="MostPopular" />
+                          ) : (
+                            <FormattedMessage id="BestValue" />
+                          )}
+                        </UINewTypography>
+                      </CreditPopularChip>
+                    )}
+                    <CreditInfoBox>
+                      <Box component={'img'} src="/images/credits/coinwthIcon.png" alt="coin.png" width={18} height={18} />
+                      <Box>
+                        <UINewTypography variant="buttonLargeMenu" color={'white.main'}>
+                          {creditsListing?.credits} <FormattedMessage id="Credits" />
+                        </UINewTypography>
+                      </Box>
+                    </CreditInfoBox>
+                    <CreditPriceBox>
+                      <CreditTypography color={'white.main'}>${creditsListing?.amount}</CreditTypography>
+                    </CreditPriceBox>
+                  </CreditListContainer>
+                ))}
 
               {/* LIST END */}
             </CreditListMainBox>
