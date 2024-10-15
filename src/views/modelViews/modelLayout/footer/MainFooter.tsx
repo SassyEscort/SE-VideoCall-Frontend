@@ -21,17 +21,11 @@ import ModelSignin from 'views/modelViews/modelSignin';
 import ModelForgetPasswordLink from 'views/modelViews/modelForgetPasswordLink';
 // import ModelNewPassword from 'views/modelViews/ModelNewPassword';
 import { useEffect, useState } from 'react';
-import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
-import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
-import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { gaEventTrigger } from 'utils/analytics';
-import { useAuthContext } from '../../../../../context/AuthContext';
 
 const MainFooter = () => {
-  const { isCustomer } = useAuthContext();
-
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   // const url = new URL(window.location.href);
   // const email = url.searchParams.get('email');
@@ -40,7 +34,6 @@ const MainFooter = () => {
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   // const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && !emailId ? true : false);
 
@@ -84,10 +77,6 @@ const MainFooter = () => {
   //   setIsOpenLogin(true);
   // };
 
-  const isVerificationPendingOrCompleted = (step: string | undefined) => {
-    return step === MODEL_ACTIVE_STEP.IN_REVIEW || step === MODEL_ACTIVE_STEP.ONBOARDED || step === MODEL_ACTIVE_STEP.VERIFIED;
-  };
-
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -98,18 +87,6 @@ const MainFooter = () => {
 
     userToken();
   }, []);
-
-  useEffect(() => {
-    const modelDetails = async () => {
-      const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer);
-      if (modelData) {
-        setModelDetails(modelData.data);
-      }
-    };
-    if (token.token) {
-      modelDetails();
-    }
-  }, [isCustomer, token.id, token.token]);
 
   return (
     <>
@@ -188,14 +165,7 @@ const MainFooter = () => {
                       <FormattedMessage id="FAQs" />
                     </Link>
                   </UINewTypography>
-                  {token.token && isVerificationPendingOrCompleted(modelDetails?.verification_step) ? (
-                    // <Link href="/">
-                    //   <UINewTypography variant="SubtitleSmallRegular" sx={{ cursor: 'pointer' }}>
-                    //     <FormattedMessage id="ExploreModels" />
-                    //   </UINewTypography>
-                    // </Link>
-                    <></>
-                  ) : (
+                  {!token.token && (
                     <UINewTypography variant="SubtitleSmallRegular" onClick={handleSignupOpen} sx={{ cursor: 'pointer' }}>
                       <FormattedMessage id="SignUp" />
                     </UINewTypography>
