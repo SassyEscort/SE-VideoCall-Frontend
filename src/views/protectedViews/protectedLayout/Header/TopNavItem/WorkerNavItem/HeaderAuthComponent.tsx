@@ -384,7 +384,12 @@ const HeaderAuthComponent = ({ customerDataProps }: customerData) => {
           handleCallback={handleCallback}
         />
       )}
-      <CreditSideDrawer open={openCreditSideDrawer} handleClose={handleCloseCreditSideDrawer} />
+      <CreditSideDrawer
+        open={openCreditSideDrawer}
+        handleClose={handleCloseCreditSideDrawer}
+        balance={balance}
+        customerDetails={customerDetails}
+      />
     </>
   );
 };

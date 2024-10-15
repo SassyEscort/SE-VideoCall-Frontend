@@ -22,19 +22,26 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customerCredit.service';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import { useRouter } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
-import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
+import { CustomerDetails } from 'services/customerDetails/customerDetails.services';
 import { FormattedMessage } from 'react-intl';
 
-const CreditSideDrawer = ({ open, handleClose }: { open: boolean; handleClose: () => void }) => {
+const CreditSideDrawer = ({
+  open,
+  handleClose,
+  balance,
+  customerDetails
+}: {
+  open: boolean;
+  handleClose: () => void;
+  balance: number;
+  customerDetails: CustomerDetails | undefined;
+}) => {
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
-  const [balance, setBalance] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
 
   const { user } = useCallFeatureContext();
   const customerData = JSON.parse(user || '{}');
@@ -52,19 +59,12 @@ const CreditSideDrawer = ({ open, handleClose }: { open: boolean; handleClose: (
   }, []);
 
   const getCreditsListing = useCallback(async () => {
+    setIsLoading(true);
     if (token.token) {
-      setIsLoading(true);
       const getModel = await CustomerCredit.getCustomerCredit(token.token);
       setCreditsListing(getModel.data);
-      setIsLoading(false);
     }
-  }, [token.token]);
-
-  const getCustomerCredit = useCallback(async () => {
-    if (token.token) {
-      const getModel = await ModelDetailsService.getModelWithDraw(token.token);
-      setBalance(getModel?.data?.credits);
-    }
+    setIsLoading(false);
   }, [token.token]);
 
   const handleCreditClick = async (listCredit: ModelCreditRes) => {
@@ -89,23 +89,14 @@ const CreditSideDrawer = ({ open, handleClose }: { open: boolean; handleClose: (
     }
   };
 
-  const FetchCustomerDetails = async () => {
+  useEffect(() => {
     setIsLoading(true);
-    if (token.token) {
-      try {
-        const customerData = await CustomerDetailsService.customerModelDetails(token.token);
-        setCustomerDetails(customerData?.data);
-      } catch (error) {}
+    if (open && token.token && customerDetails && creditsListing.length === 0) {
+      getCreditsListing();
     }
     setIsLoading(false);
-  };
-
-  useEffect(() => {
-    getCreditsListing();
-    getCustomerCredit();
-    FetchCustomerDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, [token, open]);
 
   return (
     <CreditSideMainDrawer anchor="right" open={open} onClose={handleClose}>
@@ -138,7 +129,7 @@ const CreditSideDrawer = ({ open, handleClose }: { open: boolean; handleClose: (
             <MainImageBox />
             <CreditListMainBox>
               {/* FREE CRDITS  */}
-              {customerDetails?.free_credits_claimed === 0 && (
+              {customerDetails && customerDetails?.free_credits_claimed === 0 && (
                 <CreditListContainer
                   sx={{
                     background: 'linear-gradient(90deg, #FECD3D 11.5%, #FFF1C6 52%, #FF69C1 90%)',
