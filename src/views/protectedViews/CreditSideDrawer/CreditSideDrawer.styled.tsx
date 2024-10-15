@@ -45,7 +45,10 @@ export const CreditsHeader = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   gap: theme.spacing(1.5),
   width: '100%',
-  maxWidth: '352px'
+  maxWidth: '352px',
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(1.5)
+  }
 }));
 
 export const CreditsContent = styled(Box)(({ theme }) => ({
