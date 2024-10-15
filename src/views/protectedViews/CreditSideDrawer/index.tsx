@@ -132,7 +132,7 @@ const CreditSideDrawer = ({
             <MainImageBox />
             <CreditListMainBox>
               {/* FREE CRDITS  */}
-              {customerDetails && customerDetails?.free_credits_claimed === 0 && isFreeCreditAvailable === 1 && (
+              {customerDetails && !Boolean(customerDetails?.free_credits_claimed) && isFreeCreditAvailable === 1 && (
                 <CreditListContainer
                   sx={{
                     background: 'linear-gradient(90deg, #FECD3D 11.5%, #FFF1C6 52%, #FF69C1 90%)',
@@ -169,12 +169,12 @@ const CreditSideDrawer = ({
                             ? 'linear-gradient(90deg, #B88A4A 0%, #E0AA3E 31.5%, #E0AA3E 61.5%, #F9F295 100%)'
                             : '',
                       position: 'relative',
-                      border: creditsListing?.tag !== null ? 'none' : ''
+                      border: creditsListing?.tag === 'Most Popular' || creditsListing?.tag === 'Best Value' ? 'none' : ''
                     }}
                     onClick={() => handleCreditClick(creditsListing)}
                     key={index}
                   >
-                    {creditsListing?.tag !== null && (
+                    {(creditsListing?.tag === 'Most Popular' || creditsListing?.tag === 'Best Value') && (
                       <CreditPopularChip>
                         {creditsListing?.tag === 'Most Popular' ? (
                           <Box component={'img'} src="/images/credits/StarPink.svg" alt="coin.png" width={16} height={16} />

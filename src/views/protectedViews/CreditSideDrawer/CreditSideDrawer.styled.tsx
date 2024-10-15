@@ -45,7 +45,10 @@ export const CreditsHeader = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   gap: theme.spacing(1.5),
   width: '100%',
-  maxWidth: '352px'
+  maxWidth: '352px',
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(1.5)
+  }
 }));
 
 export const CreditsContent = styled(Box)(({ theme }) => ({
@@ -96,7 +99,7 @@ export const MainImageBox = styled(Box)(({ theme }) => ({
     rgba(0, 0, 0, 0.9) 0%, 
     rgba(0, 0, 0, 0) 100%   
   ),
-  url(/images/credits/CreditsMainimg.png)
+  url(/images/credits/CreditsMainImg.png)
 `,
   repeat: 'no-repeat',
   backgroundSize: 'cover',
