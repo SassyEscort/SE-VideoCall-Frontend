@@ -217,7 +217,7 @@ const CallHistory = () => {
                         )}
                         <SecondSubFirstBox>
                           <SecondSubFirstPartBox>
-                            <WorkerImg src={list?.link ? list?.link : ''} width={80} height={80} />
+                            <WorkerImg src={list?.link ? list?.link : ''} width={80} height={80} alt="img" />
                             <SecondSubFirstPartSecondBox>
                               <SecondSubFirstPartSecondBoxFirstText>
                                 <CallHistoryName variant="h6" color="white.main" whiteSpace="nowrap">
