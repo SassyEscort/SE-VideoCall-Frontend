@@ -3,7 +3,7 @@ import {
   CreditContainer,
   FavoriteBorderIconContainer,
   FavoriteIconContainer,
-  FirstSubContainerImgWorkerCard,
+  // FirstSubContainerImgWorkerCard,
   HeartIconWorkerCard,
   HighlyAvailableBox,
   HighlyAvailableButtonBox,
@@ -30,7 +30,7 @@ import { ModelHomeListing } from 'services/modelListing/modelListing.services';
 import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
 import useImageOptimize from 'hooks/useImageOptimize';
-import { countryWithFlag } from 'constants/country';
+// import { countryWithFlag } from 'constants/country';
 import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { toast } from 'react-toastify';
@@ -71,8 +71,8 @@ const WorkerCard = ({
     ?.map((language) => language?.language_name)
     .sort()
     .join(', ');
-  const modelFlag = countryWithFlag.filter((country) => country.name === modelDetails?.country).map((data) => data.flag)[0];
-  const modelAltName = countryWithFlag.filter((country) => country.name === modelDetails?.country).map((data) => data.name)[0];
+  // const modelFlag = countryWithFlag.filter((country) => country.name === modelDetails?.country).map((data) => data.flag)[0];
+  // const modelAltName = countryWithFlag.filter((country) => country.name === modelDetails?.country).map((data) => data.name)[0];
 
   const imageUrlRef = useRef<HTMLElement>();
   const videoTypeCondition = VideoAcceptType?.includes(modelDetails?.link?.substring(modelDetails?.link?.lastIndexOf('.') + 1));
@@ -173,7 +173,7 @@ const WorkerCard = ({
                     <LiveIconWorkerCard>
                       <LiveIconSecBoxWorkerCard />
                     </LiveIconWorkerCard>
-                    {modelFlag && <FirstSubContainerImgWorkerCard src={modelFlag} alt={modelAltName} />}
+                    {/* {modelFlag && <FirstSubContainerImgWorkerCard src={modelFlag} alt={modelAltName} />} */}
                   </>
                 )}
               </NameCardContainer>

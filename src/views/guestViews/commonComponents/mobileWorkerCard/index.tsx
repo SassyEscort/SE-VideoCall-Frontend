@@ -5,7 +5,7 @@ import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
 import useImageOptimize from 'hooks/useImageOptimize';
-import { countryWithFlag } from 'constants/country';
+// import { countryWithFlag } from 'constants/country';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { toast } from 'react-toastify';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
@@ -13,8 +13,8 @@ import { ErrorMessage } from 'constants/common.constants';
 import {
   CreditContainer,
   FavoriteIconContainer,
-  FirstSubContainerImgWorkerCard,
-  FirstSubContainerWithoutImg,
+  // FirstSubContainerImgWorkerCard,
+  // FirstSubContainerWithoutImg,
   HeartIconWorkerCard,
   ImgWorkerCard,
   LiveIconSecBoxWorkerCard,
@@ -46,8 +46,8 @@ const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRe
     ?.map((language) => language?.language_name)
     .sort()
     .join(', ');
-  const modelFlag = countryWithFlag.filter((country) => country.name === modelDetails?.country_name).map((data) => data.flag)[0];
-  const modelAltName = countryWithFlag.filter((country) => country.name === modelDetails?.country_name).map((data) => data.name)[0];
+  // const modelFlag = countryWithFlag.filter((country) => country.name === modelDetails?.country_name).map((data) => data.flag)[0];
+  // const modelAltName = countryWithFlag.filter((country) => country.name === modelDetails?.country_name).map((data) => data.name)[0];
 
   const imageUrlRef = useRef<HTMLElement>();
 
@@ -101,7 +101,7 @@ const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRe
                     </OfflineIconWorkerCard>
                   </>
                 )}
-                {modelFlag ? <FirstSubContainerImgWorkerCard src={modelFlag} alt={modelAltName} /> : <FirstSubContainerWithoutImg />}
+                {/* {modelFlag ? <FirstSubContainerImgWorkerCard src={modelFlag} alt={modelAltName} /> : <FirstSubContainerWithoutImg />} */}
               </NameCardContainer>
               {!isMobile && (
                 <CreditContainer>
