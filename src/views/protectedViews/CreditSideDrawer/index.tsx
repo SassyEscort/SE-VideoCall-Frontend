@@ -91,7 +91,7 @@ const CreditSideDrawer = ({
 
   useEffect(() => {
     setIsLoading(true);
-    if (open && token.token && customerDetails && creditsListing.length === 0) {
+    if (open && token.token && customerDetails && creditsListing?.length === 0) {
       getCreditsListing();
     }
     setIsLoading(false);
