@@ -16,11 +16,12 @@ import { Root } from 'services/notification/type';
 import MyProfileChangePassword from 'views/protectedViews/myProfile/MyProfileChangePassword';
 import { IconButtonBoxInner, UnReadCountMain } from 'views/protectedDashboardViews/dashboardNavItem/DashboardMenu.styled';
 import { IconButtonBoxNew } from './Notification.styled';
-import { HeaderMainBox } from './HeaderAuthComponent.styled';
+import { BalanceBox, BorderBox, HeaderMainBox } from './HeaderAuthComponent.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useCallFeatureContext } from '../../../../../../../context/CallFeatureContext';
 import NotificationModalCustomerV2 from './NotificationModalCustomerV2';
 import { useAuthContext } from '../../../../../../../context/AuthContext';
+import CreditSideDrawer from 'views/protectedViews/CreditSideDrawer';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -61,10 +62,15 @@ const HeaderAuthComponent = ({ customerDataProps }: customerData) => {
   });
   const [notificationDetails, setNotificationDetails] = useState<Root>();
   const [openChangePassword, setOpenChangePassword] = useState(false);
+  const [openCreditSideDrawer, setOpenCreditSideDrawer] = useState(false);
 
   const uploadedImageURL = '/images/headerv2/profilePic.png';
   const firstChar = customerDetails?.customer_name ? customerDetails.customer_name.charAt(0).toUpperCase() : '';
   const notificationCount = useRef(0);
+
+  const handleCloseCreditSideDrawer = () => {
+    setOpenCreditSideDrawer(false);
+  };
 
   const handleOpenChangePassword = () => {
     setOpenChangePassword(true);
@@ -171,18 +177,27 @@ const HeaderAuthComponent = ({ customerDataProps }: customerData) => {
   return (
     <>
       <HeaderMainBox>
-        <Box display="flex">
-          <LanguageDropdown />
-        </Box>
+        {isMdDown ? (
+          <Box>
+            <LanguageDropdown />
+          </Box>
+        ) : (
+          <BorderBox>
+            <LanguageDropdown />
+          </BorderBox>
+        )}
+
         {isMdUp && (
-          <Link href="/profile/credit">
-            <Box alignItems="center" gap={1} display="flex">
-              <Box component="img" src="/images/header/coin.png" alt="coin_icon" />
+          <BorderBox alignItems="center" gap={1} display="flex" onClick={() => setOpenCreditSideDrawer(true)}>
+            <Box component="img" src="/images/header/coin.png" alt="coin_icon" />
+            <BalanceBox>
               <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                 {balance?.toFixed(2) || 0}
               </UINewTypography>
-            </Box>
-          </Link>
+              <Divider orientation="vertical" flexItem sx={{ borderColor: '#E9E8EB33' }} />
+              <Box component="img" src="/images/header/plus-icon-header.png" alt="coin_icon" />
+            </BalanceBox>
+          </BorderBox>
         )}
 
         {isMdUp && (
@@ -270,20 +285,27 @@ const HeaderAuthComponent = ({ customerDataProps }: customerData) => {
             <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
             {isMdDown && (
               <>
-                <Link href="/profile/credit">
-                  <MenuItem>
-                    <ListItemIcon>
-                      <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                        <Box component="img" src="/images/header/coin.png" alt="coin_icon" />
-                      </IconButton>
-                    </ListItemIcon>
-                    <ListItemText>
-                      <UINewTypography variant="bodyLight" color="text.secondary">
+                <MenuItem
+                  onClick={() => {
+                    setAnchorElLogout(null);
+                    setOpenCreditSideDrawer(true);
+                  }}
+                >
+                  <ListItemIcon>
+                    <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                      <Box component="img" src="/images/header/coin.png" alt="coin_icon" />
+                    </IconButton>
+                  </ListItemIcon>
+                  <ListItemText>
+                    <BalanceBox>
+                      <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                         {balance?.toFixed(2) || 0}
                       </UINewTypography>
-                    </ListItemText>
-                  </MenuItem>
-                </Link>
+                      <Divider orientation="vertical" flexItem sx={{ borderColor: '#E9E8EB33' }} />
+                      <Box component="img" src="/images/header/plus-icon-header.png" alt="coin_icon" />
+                    </BalanceBox>
+                  </ListItemText>
+                </MenuItem>
                 <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
               </>
             )}
@@ -362,6 +384,12 @@ const HeaderAuthComponent = ({ customerDataProps }: customerData) => {
           handleCallback={handleCallback}
         />
       )}
+      <CreditSideDrawer
+        open={openCreditSideDrawer}
+        handleClose={handleCloseCreditSideDrawer}
+        balance={balance}
+        customerDetails={customerDetails}
+      />
     </>
   );
 };
