@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useRef, useState, useLayoutEffect } from 'react';
+import { useCallback, useRef, useState, useLayoutEffect } from 'react';
 import HomeTopBanner from './homeBanner';
 import HomeImageCard from './homeImageCards';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
@@ -127,7 +127,7 @@ const HomeContainer = () => {
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (token.token) {
       handelFilterChange(filters);
       setScroll(true);
@@ -163,7 +163,7 @@ const HomeContainer = () => {
     setScroll(true);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (initialRender.current) {
       initialRender.current = false;
     }
@@ -177,7 +177,7 @@ const HomeContainer = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handleScroll = () => {
       setIsUserInteracted(true);
       window.removeEventListener('scroll', handleScroll);
