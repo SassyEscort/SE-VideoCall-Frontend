@@ -36,7 +36,7 @@ import { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog'
 import { gaEventTrigger } from 'utils/analytics';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { useAuthContext } from '../../../../../context/AuthContext';
-import { BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
+import { BannerImage, BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestLogin from 'views/auth/guestLogin';
 import GuestSignup from 'views/auth/guestSignup';
@@ -55,7 +55,6 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
   // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [loading, setLoading] = useState(false);
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
-  const imageSize = isSm ? { width: 300, height: 339 } : isSmDown ? { width: 347, height: 339 } : { width: 462, height: 452 };
 
   // const handleDropDownOpen = (event: React.MouseEvent<HTMLElement>) => {
   //   setAnchorEl(event.currentTarget);
@@ -192,8 +191,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                       <SignupTextContainer>
                         <FormattedMessage id="SignUpNow" />
                       </SignupTextContainer>
-                      <Image src="/images/icons/signup-img.png" alt="signup" width={16} height={16} layout="intrinsic" loading="eager" />
-                      {/* <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} alt="signup" /> */}
+                      <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} alt="signup" />
                     </UIThemeShadowButton>
                     <ExploreTextContainer onClick={handleClickScroll}>
                       <FormattedMessage id="ExploreModels" />
@@ -210,20 +208,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
             </FirstBoxContainer>
             <BannerImageCard>
               <picture>
-                <Image
-                  loading="eager"
-                  src="/images/home/home-banner-model1.webp"
-                  alt="home_model"
-                  width={imageSize.width}
-                  height={imageSize.height}
-                  layout="responsive"
-                  sizes="(max-width: 300px) 300px, (max-width: 600px) 347px, 462px"
-                  style={{
-                    borderRadius: '12px',
-                    right: 0
-                  }}
-                />
-                {/* <BannerImage loading="eager" src="/images/home/home-banner-model1.webp" alt="home_model" /> */}
+                <BannerImage loading="eager" src="/images/home/home-banner-model1.webp" alt="home_model" />
               </picture>
             </BannerImageCard>
           </BannerContainer>
