@@ -5,7 +5,7 @@ import ProviderWrapper from './ProviderWrapper';
 import { SEO_DATA } from 'constants/seoConstants';
 import Script from 'next/script';
 import Head from 'next/head';
-import '../app/globals.scss';
+// import '../app/globals.scss';
 
 const AuthFeaturProvider = React.lazy(() => import('../../context/AuthContext').then((module) => ({ default: module.AuthFeaturProvider })));
 const TawkProvider = React.lazy(() => import('../../context/TawkContext').then((module) => ({ default: module.TawkProvider })));
