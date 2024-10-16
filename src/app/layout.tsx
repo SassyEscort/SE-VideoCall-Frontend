@@ -27,6 +27,45 @@ export default function RootLayout({
         <meta name="robots" content="index, follow" />
         <link rel="preload" as="image" href="/images/home/home-banner-model1.webp" />
       </Head>
+      <Script
+        async
+        id="gtag-script"
+        type="text/javascript"
+        strategy="lazyOnload"
+        dangerouslySetInnerHTML={{
+          __html: `function gtag_report_conversion(url) {
+              var callback = function () {
+                if (typeof(url) != 'undefined') {
+                  window.location = url;
+                }
+              };
+              gtag('event', 'conversion', {
+                  'send_to': 'AW-16620775104/u-m-CLqVyb0ZEMDNs_U9',
+                  'event_callback': callback
+              });
+              return false;
+            }`
+        }}
+      />
+      {isProduction && (
+        <>
+          <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`} />
+          <Script
+            async
+            id="dataLayer-script"
+            type="text/javascript"
+            strategy="lazyOnload"
+            dangerouslySetInnerHTML={{
+              __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');
+                `
+            }}
+          />
+        </>
+      )}
       <body>
         {/* <Script
           defer
@@ -41,11 +80,11 @@ export default function RootLayout({
           })(window, document, "clarity", "script", "mxxnph7kub");`
           }}
         /> */}
-        <Script
-          defer
+        {/* <Script
+          async
           id="gtag-script"
           type="text/javascript"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `function gtag_report_conversion(url) {
               var callback = function () {
@@ -68,7 +107,7 @@ export default function RootLayout({
               async
               id="dataLayer-script"
               type="text/javascript"
-              strategy="afterInteractive"
+              strategy="lazyOnload"
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];
@@ -79,7 +118,7 @@ export default function RootLayout({
               }}
             />
           </>
-        )}
+        )} */}
         <ProviderWrapper>
           <Suspense fallback={<div>Loading...</div>}>
             <AuthFeaturProvider>
