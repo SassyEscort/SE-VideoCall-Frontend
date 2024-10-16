@@ -3,6 +3,7 @@ import {
   CreditContainer,
   FavoriteBorderIconContainer,
   FavoriteIconContainer,
+  FirstSubContainerImgWorkerCard,
   HeartIconWorkerCard,
   HighlyAvailableBox,
   HighlyAvailableButtonBox,
@@ -13,6 +14,7 @@ import {
   NameCardContainer,
   ProfileCardContainer,
   SecondMainContainerWorkerCard,
+  SecondSubContainerImgWorkerCard,
   SecondSubContainerWorkerCard,
   SeconderContainerWorkerCard,
   SubContainertWorkerCard,
@@ -40,17 +42,6 @@ import Image from 'next/image';
 import { useAuthContext } from '../../../../../context/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { VideoAcceptType } from 'constants/workerVerification';
-import dynamic from 'next/dynamic';
-
-const FirstSubContainerImgWorkerCard = dynamic(
-  () => import('./WorkerCard.styled').then((module) => module.FirstSubContainerImgWorkerCard),
-  { ssr: false }
-);
-
-const SecondSubContainerImgWorkerCard = dynamic(
-  () => import('./WorkerCard.styled').then((module) => module.SecondSubContainerImgWorkerCard),
-  { ssr: false }
-);
 
 const WorkerCard = ({
   modelDetails,
@@ -145,7 +136,6 @@ const WorkerCard = ({
           <HighlyAvailableButtonBox>
             <HighlyAvailableBox>
               <Image
-                priority
                 loading="lazy"
                 src="/images/boostProfile/fire-ani.gif"
                 alt="fire-gif"
