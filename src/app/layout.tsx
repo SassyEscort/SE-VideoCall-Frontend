@@ -3,9 +3,9 @@ import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import ProviderWrapper from './ProviderWrapper';
 import { SEO_DATA } from 'constants/seoConstants';
-// import { AuthFeaturProvider } from '../../context/AuthContext';
-// import { TawkProvider } from '../../context/TawkContext';
 import Script from 'next/script';
+import Head from 'next/head';
+// import '../app/globals.scss';
 
 const AuthFeaturProvider = React.lazy(() => import('../../context/AuthContext').then((module) => ({ default: module.AuthFeaturProvider })));
 const TawkProvider = React.lazy(() => import('../../context/TawkContext').then((module) => ({ default: module.TawkProvider })));
@@ -23,9 +23,11 @@ export default function RootLayout({
   const isProduction = process.env.NEXT_PUBLIC_ENV === 'production';
   return (
     <html lang="en">
-      <head>
+      <Head>
         <meta name="robots" content="index, follow" />
         <link rel="preload" as="image" href="/images/home/home-banner-model1.webp" />
+      </Head>
+      <body>
         {/* <Script
           defer
           id="clarity-script"
@@ -40,7 +42,7 @@ export default function RootLayout({
           }}
         /> */}
         <Script
-          async
+          defer
           id="gtag-script"
           type="text/javascript"
           strategy="afterInteractive"
@@ -78,8 +80,6 @@ export default function RootLayout({
             />
           </>
         )}
-      </head>
-      <body>
         <ProviderWrapper>
           <Suspense fallback={<div>Loading...</div>}>
             <AuthFeaturProvider>
