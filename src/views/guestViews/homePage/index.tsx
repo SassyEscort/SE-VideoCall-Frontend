@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, useLayoutEffect } from 'react';
 import HomeTopBanner from './homeBanner';
 import HomeImageCard from './homeImageCards';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
@@ -171,7 +171,7 @@ const HomeContainer = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, searchParams]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setFilters(getInitialFilters());
     handelFilterChange(getInitialFilters());
     // eslint-disable-next-line react-hooks/exhaustive-deps
