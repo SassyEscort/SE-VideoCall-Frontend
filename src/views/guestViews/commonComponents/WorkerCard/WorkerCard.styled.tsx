@@ -169,7 +169,7 @@ export const SecondSubContainerWorkerCard = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const SecondSubContainerImgWorkerCard = styled(FirstSubContainerImgWorkerCard)(() => ({
+export const SecondSubContainerImgWorkerCard = styled(Image)(() => ({
   display: 'flex',
   width: '100%',
   height: '100%',
