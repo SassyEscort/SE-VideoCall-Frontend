@@ -63,6 +63,7 @@ export default function RootLayout({
           <>
             <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`} />
             <Script
+              async
               id="dataLayer-script"
               type="text/javascript"
               strategy="afterInteractive"
