@@ -11,8 +11,21 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: '/_next/image(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=60, s-maxage=31536000, stale-while-revalidate=59'
+          }
+        ]
+      },
+      {
         source: '/(.*)',
         headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store, must-revalidate'
+          },
           {
             key: 'X-Robots-Tag',
             value: 'index, follow'
