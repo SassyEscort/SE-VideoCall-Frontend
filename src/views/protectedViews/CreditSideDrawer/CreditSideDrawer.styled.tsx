@@ -1,4 +1,6 @@
-import { Box, Drawer, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const CreditLoaderBox = styled(Box)(() => ({
@@ -89,7 +91,7 @@ export const CurrentBalanceTypography = styled(UINewTypography)(({ theme }) => (
   color: theme.palette.text.secondary
 }));
 
-export const MainImageBox = styled(Box)(({ theme }) => ({
+export const MainImageBox = styled(Box)(() => ({
   width: '100%',
   position: 'absolute',
   height: '268px',
@@ -128,7 +130,7 @@ export const CreditListMainBox = styled(Box)(({ theme }) => ({
   paddingBottom: theme.spacing(2)
 }));
 
-export const CreditTypography = styled(UINewTypography)(({ theme }) => ({
+export const CreditTypography = styled(UINewTypography)(() => ({
   fontSize: '24px',
   fontWeight: '600',
   lineHeight: '28.8px'
