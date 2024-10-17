@@ -23,7 +23,7 @@ export interface DropdownLanguageAPIRes extends GenericRes {
 }
 
 export type Document_type = {
-  document_type: string;
+  document_number: string;
 };
 
 export type DocumentVerification = {

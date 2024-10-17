@@ -24,7 +24,7 @@ import {
 } from './VerificationStep2.styled';
 import { useFormik } from 'formik';
 import { UIStyledSelectItemContainer } from 'components/UIComponents/UINewSelectItem';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { TokenIdType } from '..';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { DocumentDataPhoto, ModelDetailsResponse } from '../verificationTypes';
@@ -80,6 +80,7 @@ const VerificationStep2 = ({
   isDashboard: boolean;
 }) => {
   const [loading, setLoading] = useState(false);
+  const intl = useIntl();
 
   const modelDocuments = useMemo(() => {
     if (modelDetails?.documents?.length) return modelDetails.documents[0];
@@ -97,10 +98,8 @@ const VerificationStep2 = ({
     onSubmit: async (values) => {
       setLoading(true);
       try {
-        const response = await ModelVerificationService.modelDocumentVerification({ document_type: values.idNumber }, token.token);
+        const response = await ModelVerificationService.modelDocumentVerification({ document_number: values.idNumber }, token.token);
         if (response.is_document_exists === 0) {
-          toast.success('Document verification successful!');
-
           if (isDashboard) {
             const button = document.getElementById('document-id-photo');
             if (button) {
@@ -110,10 +109,10 @@ const VerificationStep2 = ({
             handleChaneDocuModal(true);
           }
         } else if (response.is_document_exists === 1) {
-          toast.error('Document verification failed. Please try again.');
+          toast.error(intl.formatMessage({ id: 'DuplicateDetected' }));
         }
       } catch (error) {
-        toast.error('Document verification failed. Please try again.');
+        toast.error(intl.formatMessage({ id: 'DuplicateDetected' }));
       } finally {
         setTimeout(() => {
           setLoading(false);
