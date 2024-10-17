@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { LoadingButton } from '@mui/lab';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { styled } from '@mui/material/styles';
 import { CastedForwardRefButtonType } from '../types';
 

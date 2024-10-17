@@ -26,7 +26,7 @@ export default function RootLayout({
       <Head>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <meta name="robots" content="index, follow" />
-        <link rel="preload" as="image" href="/images/home/home-banner-model1.webp" />
+        <link rel="preload" as="image" href="https://ik.imagekit.io/gpgv4gnda/images/1729084436818home-banner-model1_1qobIoZFu.webp" />
       </Head>
       <Script
         async

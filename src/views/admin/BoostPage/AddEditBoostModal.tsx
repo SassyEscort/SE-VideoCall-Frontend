@@ -24,7 +24,7 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { ErrorMessage } from 'constants/common.constants';
 import { PaginationType } from './BoostContainer';
 import { PAGE_SIZE } from 'constants/pageConstants';
-import { AttachMoney } from '@mui/icons-material';
+import AttachMoney from '@mui/icons-material/AttachMoney';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';

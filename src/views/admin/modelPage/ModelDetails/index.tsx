@@ -17,7 +17,7 @@ import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 import StyleBoostAdminButton from 'components/UIComponents/StyleBoostAdminButton';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { adminBoostProfilePlanServices } from 'services/adminBoostProfilePlan/adminBoostProfilePlan.services';
-import { Add } from '@mui/icons-material';
+import Add from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import AddEditSEOModalData from './UserInformationAccordion/SEOData/AddEditSEOModalData';
 import Grid from '@mui/material/Grid';

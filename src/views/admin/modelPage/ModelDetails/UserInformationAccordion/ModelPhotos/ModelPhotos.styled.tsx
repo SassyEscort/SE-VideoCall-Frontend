@@ -1,5 +1,5 @@
 import Star from '@mui/icons-material/Star';
-import { StarBorder } from '@mui/icons-material';
+import StarBorder from '@mui/icons-material/StarBorder';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
