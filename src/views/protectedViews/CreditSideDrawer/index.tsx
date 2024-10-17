@@ -16,7 +16,7 @@ import {
   MainImageBox,
   TitleSerachBox
 } from './CreditSideDrawer.styled';
-import { Close } from '@mui/icons-material';
+import Close from '@mui/icons-material/Close';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customerCredit.service';
 import { getUserDataClient } from 'utils/getSessionData';
