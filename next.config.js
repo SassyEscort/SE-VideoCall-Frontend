@@ -66,7 +66,8 @@ const nextConfig = {
     NEXT_APP_JWT_SECRET: 'ikRgjkhi15HJiU78-OLKfjngiu',
     NEXT_APP_JWT_TIMEOUT: '86400',
     NEXTAUTH_SECRET_KEY: 'LlKq6ZtYbr+hTC073mAmAh9/h2HwMfsFo4hrfCx5mLg='
-  }
+  },
+  transpilePackages: ["@mui/system", "@mui/material", "@mui/icons-material"],
 };
 
 module.exports = nextConfig;
