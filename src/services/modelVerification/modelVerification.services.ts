@@ -26,10 +26,6 @@ export type Document_type = {
   document_number: string;
 };
 
-export type DocumentVerification = {
-  document_number: string;
-};
-
 export interface DocumentVerificationRes extends GenericRes {
   is_document_exists: number;
 }
