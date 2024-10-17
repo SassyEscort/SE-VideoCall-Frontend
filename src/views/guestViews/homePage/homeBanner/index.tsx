@@ -213,7 +213,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                   decoding="async"
                   width={isSm && isSmDown ? 300 : isSmDown ? 347 : 462}
                   height={isSmDown ? 339 : 452}
-                  src="/images/home/home-banner-model1.webp"
+                  src="https://ik.imagekit.io/gpgv4gnda/images/1729084436818home-banner-model1_1qobIoZFu.webp"
                   placeholder="blur"
                   blurDataURL="/images/home/home-banner-blur.webp"
                   style={{ borderRadius: '12px', right: 0 }}
@@ -230,8 +230,8 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
           )}{' '}
           {isSmDown && isFreeCreditAvailable && !isModalOpenFreeCredits && !freeSignupOpen && !openLogin && (
             <Box sx={{ position: 'relative', cursor: 'pointer' }} onClick={handleBoxClick}>
-              <GiftBoxFirst></GiftBoxFirst>
-              <GiftBoxSecond></GiftBoxSecond>
+              <GiftBoxFirst />
+              <GiftBoxSecond />
               {/* <GiftBoxThird></GiftBoxThird> */}
             </Box>
           )}
