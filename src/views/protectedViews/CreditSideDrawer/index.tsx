@@ -16,7 +16,6 @@ import {
   MainImageBox,
   TitleSerachBox
 } from './CreditSideDrawer.styled';
-import { Box, CircularProgress, IconButton } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customerCredit.service';
@@ -28,6 +27,9 @@ import { gaEventTrigger } from 'utils/analytics';
 import { CustomerDetails } from 'services/customerDetails/customerDetails.services';
 import { FormattedMessage } from 'react-intl';
 import { useAuthContext } from '../../../../context/AuthContext';
+import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
 
 const CreditSideDrawer = ({
   open,

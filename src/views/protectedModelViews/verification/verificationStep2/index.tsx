@@ -32,6 +32,8 @@ import VerificationStepPromise from '../verificationStep2Document';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
+import { toast } from 'react-toastify';
+import { ModelVerificationService } from 'services/modelVerification/modelVerification.services';
 
 export type VerificationStepSecond = {
   idType: string;
@@ -92,19 +94,31 @@ const VerificationStep2 = ({
   const { errors, values, touched, handleBlur, handleChange, handleSubmit, setValues } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
+    onSubmit: async (values) => {
       setLoading(true);
-      if (isDashboard) {
-        const button = document.getElementById('document-id-photo');
-        if (button) {
-          button.click();
+      try {
+        const response = await ModelVerificationService.modelDocumentVerification({ document_type: values.idNumber }, token.token);
+        if (response.is_document_exists === 0) {
+          toast.success('Document verification successful!');
+
+          if (isDashboard) {
+            const button = document.getElementById('document-id-photo');
+            if (button) {
+              button.click();
+            }
+          } else {
+            handleChaneDocuModal(true);
+          }
+        } else if (response.is_document_exists === 1) {
+          toast.error('Document verification failed. Please try again.');
         }
-      } else {
-        handleChaneDocuModal(true);
+      } catch (error) {
+        toast.error('Document verification failed. Please try again.');
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       }
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
     }
   });
 
