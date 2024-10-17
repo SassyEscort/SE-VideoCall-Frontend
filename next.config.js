@@ -48,7 +48,7 @@ const nextConfig = {
     }
   },
   images: {
-    domains: ['ik.imagekit.io'], 
+    domains: ['ik.imagekit.io'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -67,7 +67,11 @@ const nextConfig = {
     NEXT_APP_JWT_TIMEOUT: '86400',
     NEXTAUTH_SECRET_KEY: 'LlKq6ZtYbr+hTC073mAmAh9/h2HwMfsFo4hrfCx5mLg='
   },
-  transpilePackages: ["@mui/system", "@mui/material", "@mui/icons-material"],
+  transpilePackages: ['@mui/system', '@mui/material', '@mui/icons-material']
 };
 
-module.exports = nextConfig;
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true'
+});
+
+module.exports = withBundleAnalyzer(nextConfig);
