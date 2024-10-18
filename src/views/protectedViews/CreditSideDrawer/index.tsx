@@ -204,7 +204,7 @@ const CreditSideDrawer = ({
                             sx={{ boxShadow: '0px 8px 32px 0px #FFBE6666' }}
                           />
                           <FirstTimeTypography variant="bodySmallBold" position={'absolute'}>
-                            first time free
+                            <FormattedMessage id="firstTimeOnly" />
                           </FirstTimeTypography>
                         </Box>
                       </FirstTimeChip>

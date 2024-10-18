@@ -875,5 +875,6 @@
   "VerifyNow": "¡Verifique ahora!",
   "OTPSendOnYourEmail": "Envío OTP en su correo electrónico",
   "Addcredits": "Agregar créditos",
-  "DuplicateDetected": "Duplicado detectado: El documento que subiste ya existe."
+  "DuplicateDetected": "Duplicado detectado: El documento que subiste ya existe.",
+  "firstTimeOnly": "SOLO PRIMERA VEZ"
 }
