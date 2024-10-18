@@ -11,7 +11,11 @@ import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { getQueryParam } from 'utils/genericFunction';
 import { useAuthContext } from '../../../../context/AuthContext';
 import dynamic from 'next/dynamic';
-const HomeConnections = dynamic(() => import('./HomeConnections'));
+import Loading from 'loading';
+const HomeConnections = dynamic(() => import('./HomeConnections'), {
+  ssr: false,
+  loading: Loading
+});
 
 const HomeContainer = () => {
   const { isFreeCreditAvailable, session } = useAuthContext();

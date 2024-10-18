@@ -143,6 +143,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
                 <BoxImageBackground>
                   <BoxImageBackgroundChild>
                     <Image
+                      loading="lazy"
                       alt="home_search_img"
                       width={24}
                       height={24}
@@ -170,6 +171,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
                 <BoxImageBackground>
                   <BoxImageBackgroundChild>
                     <Image
+                      loading="lazy"
                       alt="choose_your_model"
                       width={24}
                       height={24}
@@ -204,6 +206,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
                 <BoxImageBackground>
                   <BoxImageBackgroundChild>
                     <Image
+                      loading="lazy"
                       alt="home_connect_instantly"
                       width={24}
                       height={24}
