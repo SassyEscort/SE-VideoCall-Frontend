@@ -33,7 +33,7 @@ export const FirstTimeTypography = styled(UINewTypography)(({ theme }) => ({
   lineHeight: '12.29px',
   color: '#000000',
   letterSpacing: '0.03em',
-  left: '25%',
+  left: '19%',
   top: '13%'
 }));
 
