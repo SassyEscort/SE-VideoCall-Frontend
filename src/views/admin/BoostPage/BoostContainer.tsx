@@ -21,7 +21,7 @@ import PaginationSortBy from 'components/common/CustomPaginations/PaginationSort
 import { PAGE_SIZE } from 'constants/pageConstants';
 import TablePager from 'components/common/CustomPaginations/TablePager';
 import { StyledPopover } from './Boost.styled';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import BoostListHead from './BoostListHead';
 import BoostModel from './BoostModel';
 import AddEditBoostModal from './AddEditBoostModal';

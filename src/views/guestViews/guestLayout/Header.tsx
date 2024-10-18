@@ -225,7 +225,7 @@ const HeaderGuestComponent = () => {
           </Box>
           {isMdUp && (
             <SearchTitalBoxSm onClick={handleOpenFilterModal}>
-              <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" loading="lazy" />
+              <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
               <UINewTypography variant="buttonLargeMenu">
                 <FormattedMessage id="Search" />
               </UINewTypography>

@@ -1,5 +1,5 @@
 import { alpha, useTheme } from '@mui/material/styles';
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 import { ApexOptions } from 'apexcharts';
 import useMediaQuery from '@mui/material/useMediaQuery';
 

@@ -8,7 +8,6 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { memo, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
-import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
 import { PaginationMainBox } from 'views/protectedDashboardViews/payoutRequest/PayoutRequest.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -17,17 +16,36 @@ import { FormattedMessage } from 'react-intl';
 import { gaEventTrigger } from 'utils/analytics';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import UIStyledDialog, { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestLogin from 'views/auth/guestLogin';
-import GuestSignup from 'views/auth/guestSignup';
-import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
-
-export const pageview = (url: string) => {
-  window.gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, {
-    page_path: url
-  });
-};
+import dynamic from 'next/dynamic';
+import Loading from 'loading';
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false,
+  loading: Loading
+});
+const NewUIStyledSignUpDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false,
+  loading: Loading
+});
+const PaginationInWords = dynamic(() => import('components/UIComponents/PaginationINWords'), {
+  ssr: false,
+  loading: Loading
+});
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
+  ssr: false,
+  loading: Loading
+});
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
+  ssr: false,
+  loading: Loading
+});
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
+  ssr: false,
+  loading: Loading
+});
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
+  ssr: false,
+  loading: Loading
+});
 
 const HomeImageCard = ({
   modelListing,

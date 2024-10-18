@@ -12,7 +12,6 @@ import { CALLING_STATUS } from 'constants/callingConstants';
 import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
 import { ErrorMessage } from 'constants/common.constants';
-import { COMETCHAT_CONSTANTS } from 'views/protectedViews/callingFeature/CallInitialize';
 // import { CometChatCalls } from '@cometchat/calls-sdk-javascript';
 import UIStyledDialog, { ModelCreditsUIStyledDialog } from 'components/UIComponents/UIStyledDialog';
 import ModelCredits from 'views/protectedViews/Credites/ModelCredits';
@@ -27,6 +26,12 @@ import { useIntl } from 'react-intl';
 import moment from 'moment';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { ROLE } from 'constants/workerVerification';
+
+export const COMETCHAT_CONSTANTS = {
+  APP_ID: process.env.NEXT_PUBLIC_COMET_CHAT_APP_ID!,
+  REGION: process.env.NEXT_PUBLIC_COMET_CHAT_REGION!,
+  AUTH_KEY: process.env.NEXT_PUBLIC_COMET_CHAT_AUTH_KEY!
+};
 
 interface CallFeatureContextProps {
   call: CometChat.Call | undefined;

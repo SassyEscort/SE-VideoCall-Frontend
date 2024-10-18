@@ -114,7 +114,10 @@ const TermaAndCondition = () => {
               8. <FormattedMessage id="Advertisement" />
             </FirstTextContainer>
             <UINewTypography sx={{ marginTop: 3 }}>
-              <FormattedMessage id="YouAcceptToBeExposed" /> <Link href="mailto:support@flirtbate.com">support@flirtbate.com</Link>{' '}
+              <FormattedMessage id="YouAcceptToBeExposed" />{' '}
+              <Link prefetch={false} href="mailto:support@flirtbate.com">
+                support@flirtbate.com
+              </Link>{' '}
               <FormattedMessage id="InCaseOfAnyIssues" />
             </UINewTypography>
           </Box>
@@ -180,7 +183,9 @@ const TermaAndCondition = () => {
             </FirstTextContainer>
             <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="IfYouHaveAnyQuestionsOrConcerns" />{' '}
-              <Link href="mailto:support@flirtbate.com">support@flirtbate.com</Link>
+              <Link prefetch={false} href="mailto:support@flirtbate.com">
+                support@flirtbate.com
+              </Link>
             </UINewTypography>
             <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="ByUsingFlirtbateYouAcknowledge" />

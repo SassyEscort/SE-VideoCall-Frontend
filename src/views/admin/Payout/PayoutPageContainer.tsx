@@ -30,7 +30,7 @@ import TablePager from 'components/common/CustomPaginations/TablePager';
 import { StyledPopover } from './Payout.styled';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 import RejectModal from './RejectModal';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import CircularProgress from '@mui/material/CircularProgress';
 import Chip from '@mui/material/Chip';
 import IconButton from '@mui/material/IconButton';

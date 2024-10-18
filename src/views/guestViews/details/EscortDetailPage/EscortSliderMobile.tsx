@@ -231,7 +231,7 @@ const EscortSliderMobile = ({
             variant="contained"
           >
             <Box display="flex" alignItems="center" gap="10px">
-              <Image src="/images/workercards/video-call.svg" alt="video-call" height={20} width={20} />
+              <Image loading="lazy" src="/images/workercards/video-call.svg" alt="video-call" height={20} width={20} />
               <UINewTypography color="common.white" variant="bodySemiBold" sx={{ textWrap: 'no-wrap' }}>
                 <FormattedMessage id="StartVideoCall" />
               </UINewTypography>
