@@ -3,12 +3,12 @@ import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import ProviderWrapper from './ProviderWrapper';
 import { SEO_DATA } from 'constants/seoConstants';
-// import Script from 'next/script';
+import Script from 'next/script';
 import Head from 'next/head';
 // import '../app/globals.scss';
 
 const AuthFeaturProvider = React.lazy(() => import('../../context/AuthContext').then((module) => ({ default: module.AuthFeaturProvider })));
-// const TawkProvider = React.lazy(() => import('../../context/TawkContext').then((module) => ({ default: module.TawkProvider })));
+const TawkProvider = React.lazy(() => import('../../context/TawkContext').then((module) => ({ default: module.TawkProvider })));
 
 export const metadata: Metadata = {
   title: SEO_DATA.TITLE,
@@ -20,7 +20,7 @@ export default function RootLayout({
 }: Readonly<{
   children: JSX.Element;
 }>) {
-  // const isProduction = process.env.NEXT_PUBLIC_ENV === 'production';
+  const isProduction = process.env.NEXT_PUBLIC_ENV === 'production';
   return (
     <html lang="en">
       <Head>
@@ -28,7 +28,7 @@ export default function RootLayout({
         <meta name="robots" content="index, follow" />
         <link rel="preload" as="image" href="https://ik.imagekit.io/gpgv4gnda/images/1729084436818home-banner-model1_1qobIoZFu.webp" />
       </Head>
-      {/* <Script
+      <Script
         async
         id="gtag-script"
         type="text/javascript"
@@ -66,7 +66,7 @@ export default function RootLayout({
             }}
           />
         </>
-      )} */}
+      )}
       <body>
         {/* <Script
           defer
@@ -123,8 +123,7 @@ export default function RootLayout({
         <ProviderWrapper>
           <Suspense fallback={<div>Loading...</div>}>
             <AuthFeaturProvider>
-              {children}
-              {/* <TawkProvider></TawkProvider> */}
+              <TawkProvider>{children}</TawkProvider>
             </AuthFeaturProvider>
           </Suspense>
         </ProviderWrapper>
