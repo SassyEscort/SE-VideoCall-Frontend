@@ -1,3 +1,4 @@
+import { Close } from '@mui/icons-material';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import { styled } from '@mui/material/styles';
@@ -18,15 +19,29 @@ export const CreditPopularChip = styled(Box)(({ theme }) => ({
   top: '-25%',
   background: theme.palette.text.secondary,
   boxShadow: '0px -2px 20px 0px #FD85CAA3',
-  padding: '6px 12px',
+  padding: '2px 6px',
   borderRadius: '4px'
+}));
+export const FirstTimeChip = styled(Box)(({ theme }) => ({
+  position: 'absolute',
+  top: '-25%'
+}));
+
+export const FirstTimeTypography = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '9px',
+  fontWeight: '600',
+  lineHeight: '12.29px',
+  color: '#000000',
+  letterSpacing: '0.03em',
+  left: '25%',
+  top: '13%'
 }));
 
 export const CreditSideMainDrawer = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
     width: '100%',
     height: '100%',
-    maxWidth: '400px',
+    maxWidth: '350px',
     backgroundColor: '#1E0815',
     display: 'flex',
     flexDirection: 'column',
@@ -43,11 +58,11 @@ export const CreditsHeader = styled(Box)(({ theme }) => ({
   backgroundColor: '#1E0815',
   display: 'flex',
   justifyContent: 'space-between',
-  paddingTop: theme.spacing(3),
+  paddingTop: theme.spacing(1),
   alignItems: 'center',
   gap: theme.spacing(1.5),
   width: '100%',
-  maxWidth: '352px',
+  maxWidth: '300px',
   [theme.breakpoints.down('sm')]: {
     paddingLeft: theme.spacing(1.5)
   }
@@ -85,7 +100,14 @@ export const CurrentBalanceBox = styled(Box)(({ theme }) => ({
 }));
 
 export const CurrentBalanceTypography = styled(UINewTypography)(({ theme }) => ({
-  fontSize: '24px',
+  fontSize: '20px',
+  fontWeight: '500',
+  lineHeight: '28.8px',
+  color: theme.palette.text.secondary
+}));
+
+export const CurrentAmountTypography = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '18px',
   fontWeight: '500',
   lineHeight: '28.8px',
   color: theme.palette.text.secondary
@@ -115,7 +137,7 @@ export const CreditListMainBox = styled(Box)(({ theme }) => ({
   zIndex: '1',
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(4),
+  gap: theme.spacing(3),
   paddingTop: theme.spacing(2.5),
   paddingLeft: theme.spacing(1.875),
   paddingRight: theme.spacing(2.75),
@@ -130,8 +152,8 @@ export const CreditListMainBox = styled(Box)(({ theme }) => ({
   paddingBottom: theme.spacing(2)
 }));
 
-export const CreditTypography = styled(UINewTypography)(() => ({
-  fontSize: '24px',
+export const CreditTypography = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '18px',
   fontWeight: '600',
   lineHeight: '28.8px'
 }));
@@ -140,7 +162,7 @@ export const CreditListContainer = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  padding: '20px 16px',
+  padding: '8px 16px',
   borderRadius: '8px',
   cursor: 'pointer',
   border: '1px solid #D4D3D63D'
@@ -156,4 +178,18 @@ export const CreditPriceBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: theme.spacing(2)
+}));
+
+export const CreditAmountBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1.25),
+  alignItems: 'center'
+}));
+
+export const CloseButtonContainer = styled(Close)(({ theme }) => ({
+  color: theme.palette.text.secondary,
+  height: 30,
+  width: 30,
+  border: '1px solid #E9E8EB33',
+  borderRadius: '5px'
 }));

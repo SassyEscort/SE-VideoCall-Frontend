@@ -203,7 +203,7 @@ const WorkerCard = ({
             </SecondMainContainerWorkerCard>
             {isMobile && (
               <CreditContainer sx={{ marginTop: isSmallScreen ? 1.5 : 1 }}>
-                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" alt="dollar-img" />
+                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" alt="dollar-img" width={22} height={22} />
                 <UINewTypography variant="captionLargeBold" color="text.secondary">
                   {!modelDetails?.price_per_minute ? (
                     <FormattedMessage id="NoPrice" />
