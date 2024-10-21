@@ -64,14 +64,6 @@ export const SecondBoxContent = styled(Box)(({ theme }) => ({
   textAlign: 'center'
 }));
 
-export const FirstBoxContent = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-  justifyContent: 'center',
-  alignItems: 'center'
-}));
-
 export const ThirdBoxContent = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',

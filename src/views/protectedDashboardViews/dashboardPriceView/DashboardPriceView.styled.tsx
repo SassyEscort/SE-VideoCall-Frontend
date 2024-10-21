@@ -115,10 +115,6 @@ export const RightSecondText = styled(UINewTypography)(({ theme }) => ({
   paddingBottom: theme.spacing(1.5),
   textAlign: 'center'
 }));
-export const SelectMenucontainer = styled(Box)(({ theme }) => ({
-  maxWidth: '390px',
-  borderRadius: theme.spacing(1.875)
-}));
 
 export const ButtonConatiner = styled(Box)(({ theme }) => ({
   display: 'flex',

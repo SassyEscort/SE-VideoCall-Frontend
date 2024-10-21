@@ -27,17 +27,6 @@ export const StepSecondMainBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const Step7InnerBox = styled(Box)(({ theme }) => ({
-  width: '100%',
-  maxWidth: '824px',
-  gap: theme.spacing(2.25),
-  backgroundColor: theme.palette.secondary[500],
-  borderRadius: '12px',
-  padding: '24px 16px',
-  display: 'flex',
-  flexDirection: 'column'
-}));
-
 export const Step7UploadImagBox = styled(Box)(({ theme }) => ({
   padding: '24px 0px 0px 0px',
   display: 'flex',
@@ -47,17 +36,6 @@ export const Step7UploadImagBox = styled(Box)(({ theme }) => ({
   borderRadius: '12px',
   width: '100%',
   maxWidth: '824px'
-}));
-
-export const Step7UploadImageInnerBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(1.5),
-  alignItems: 'center',
-  border: '1px dashed #86838A',
-  padding: theme.spacing(3),
-  borderRadius: 1.5,
-  width: '100%'
 }));
 
 export const StepButtonNext = styled(Box)(({ theme }) => ({

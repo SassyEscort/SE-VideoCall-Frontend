@@ -1,5 +1,4 @@
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import TableCell from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 
@@ -130,18 +129,6 @@ export const LastTopDataTableInvoiceDownload = styled(TableCell)(({ theme }) => 
   paddingTop: 10,
   paddingBottom: 10,
   paddingLeft: 0
-}));
-
-export const DividerTableInvoiceDownload = styled(Divider)(({ theme }) => ({
-  borderColor: theme.palette.common.black,
-  height: 12,
-  alignSelf: 'center',
-  [theme.breakpoints.up('sm')]: {
-    display: 'none'
-  },
-  [theme.breakpoints.down('sm')]: {
-    display: 'flex'
-  }
 }));
 
 export const FooterInvoiceDownload = styled(Box)(({ theme }) => ({
