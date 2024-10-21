@@ -4,14 +4,10 @@ import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { InputTypeBox, ProfileTextHeader } from './MyProfile.styled';
 import { FormikErrors, FormikTouched } from 'formik';
 import { MyProfile } from '.';
-// import { toast } from 'react-toastify';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { useState } from 'react';
-// import { ErrorMessage } from 'constants/common.constants';
 import MyProfileChangePassword from './MyProfileChangePassword';
 import { InnerBox, MainContainer, MyProfileTitle } from './MyProfileContainer.styled';
-// import { customerVerificationService } from 'services/customerVerification/customerVerification.services';
-// import DoneIcon from '@mui/icons-material/Done';
 import Box from '@mui/material/Box';
 
 const MyProfileContainer = ({
@@ -22,6 +18,7 @@ const MyProfileContainer = ({
   errors,
   token,
   isEditable
+  //TODO for verify email and phone and claim free credits
   // isEmailVerified
   // isPhoneNumberVerified
   // FetchCustomerDetails
@@ -33,19 +30,22 @@ const MyProfileContainer = ({
   touched: FormikTouched<MyProfile>;
   token: TokenIdType;
   isEditable: boolean;
+  //TODO for verify email and phone and claim free credits
   // isEmailVerified: number;
   // isPhoneNumberVerified: number;
   // FetchCustomerDetails: () => void;
 }) => {
   const [openModel, setOpenModel] = useState(false);
+
+  //TODO for verify email and phone and claim free credits
   // const [isEditable, setIsEditable] = useState(false);
   // const [isNumberEditable, setIsNumberEditable] = useState(false);
   // const [isEmailOptSent, setIsEmailOptSent] = useState(false);
   // const [isPhoneOptSent, setIsPhoneOptSent] = useState(false);
   // const [countryCode, setCountryCode] = useState<any>(null);
-
   // const intl = useIntl();
 
+  //TODO for verify email and phone and claim free credits
   // const sendLinkVerify = async () => {
   //   touched.email = true;
   //   setIsEmailOptSent(true);
@@ -68,6 +68,7 @@ const MyProfileContainer = ({
   //   }
   // };
 
+  //TODO for verify email and phone and claim free credits
   // const sendPhoneOtp = async () => {
   //   touched.phone = true;
   //   setIsNumberEditable(false);
@@ -98,6 +99,8 @@ const MyProfileContainer = ({
   const handleClsoeModel = () => {
     setOpenModel(false);
   };
+
+  //TODO for verify email and phone and claim free credits
   // const handleEditClick = () => {
   //   setIsEditable(true);
   // };
@@ -209,6 +212,8 @@ const MyProfileContainer = ({
                 onBlur={handleBlur}
                 error={touched.email && Boolean(errors.email)}
                 helperText={touched.email && errors.email}
+
+                //TODO for verify email and phone and claim free credits
                 // InputProps={{
                 //   endAdornment: (
                 //     <VerifiedColumn>
@@ -234,7 +239,8 @@ const MyProfileContainer = ({
                 // }}
               />
             </Box>
-            {/* {isEmailOptSent && (
+            {/* //TODO for verify email and phone and claim free credits
+             {isEmailOptSent && (
               <>
                 <Box>
                   <UIStyledInputText
@@ -268,7 +274,8 @@ const MyProfileContainer = ({
           </InnerBox>
         </InputTypeBox>
 
-        {/* <InputTypeBox>
+        {/*//TODO for verify email and phone and claim free credits
+         <InputTypeBox>
           <InnerBox>
             <Box>
               <ProfileTextHeader variant="bodySemiBold" color="text.primary">
@@ -352,7 +359,7 @@ const MyProfileContainer = ({
           </InnerBox>
         </InputTypeBox> */}
 
-        {/* 
+        {/* //TODO for verify email and phone and claim free credits
         <InputTypeBox>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
             <Box>

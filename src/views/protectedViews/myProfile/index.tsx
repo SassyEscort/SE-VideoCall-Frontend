@@ -30,6 +30,7 @@ export type MyProfile = {
 
 const MyProfile = () => {
   const { handelNameChange } = useCallFeatureContext();
+  //TODO for verify email and phone and claim free credits
   // const { handleFreeCreditClaim, isFreeCreditAvailable } = useAuthContext();
   const intl = useIntl();
 
@@ -43,6 +44,7 @@ const MyProfile = () => {
   });
   const [isEditable, setIsEditable] = useState(false);
 
+  //TODO for verify email and phone and claim free credits
   // const [isEmailVerified, setIsEmailVerified] = useState(false);
   // const [isPhoneVerified, setIsPhoneVerified] = useState(false);
 
@@ -67,6 +69,8 @@ const MyProfile = () => {
       setLoadingButton(false);
     }
   };
+
+  //TODO for verify email and phone and claim free credits
 
   // const handelClaimFreeCredit = async () => {
   //   try {
@@ -93,6 +97,8 @@ const MyProfile = () => {
     try {
       const customerData = await CustomerDetailsService.customerModelDetails(token.token);
       setCustomerDetails(customerData?.data);
+
+      //TODO for verify email and phone and claim free credits
       // setIsEmailVerified(customerData?.data?.email_verified === 1 ? true : false);
       // setIsPhoneVerified(customerData?.data?.phone_verified === 1 ? true : false);
     } catch (error) {}
@@ -150,12 +156,14 @@ const MyProfile = () => {
                   handleBlur={handleBlur}
                   token={token}
                   isEditable={isEditable}
+                  //TODO for verify email and phone and claim free credits
                   // isEmailVerified={customerDetails?.email_verified as number}
                   // isPhoneNumberVerified={customerDetails?.phone_verified as number}
                   // FetchCustomerDetails={FetchCustomerDetails}
                 />
                 <DisableButtonBox>
-                  {/* {customerDetails?.free_credits_claimed === 0 && Boolean(isFreeCreditAvailable) && (
+                  {/* //TODO for verify email and phone and claim free credits
+                   {customerDetails?.free_credits_claimed === 0 && Boolean(isFreeCreditAvailable) && (
                     <Tooltip
                       title={
                         !isPhoneVerified && !isEmailVerified
