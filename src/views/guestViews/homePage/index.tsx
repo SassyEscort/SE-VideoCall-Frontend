@@ -1,11 +1,11 @@
 'use client';
 import { useCallback, useRef, useState, useLayoutEffect } from 'react';
 import HomeTopBanner from './homeBanner';
-import HomeImageCard from './homeImageCards';
+// import HomeImageCard from './homeImageCards';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
 import { HomePageMainContainer } from './Home.styled';
-import SearchFilters, { SearchFiltersTypes } from '../searchPage/searchFilters';
-import BackdropProgress from 'components/UIComponents/BackDropProgress';
+import { SearchFiltersTypes } from '../searchPage/searchFilters';
+// import BackdropProgress from 'components/UIComponents/BackDropProgress';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { getQueryParam } from 'utils/genericFunction';
@@ -13,6 +13,18 @@ import { useAuthContext } from '../../../../context/AuthContext';
 import dynamic from 'next/dynamic';
 import Loading from 'loading';
 const HomeConnections = dynamic(() => import('./HomeConnections'), {
+  ssr: false,
+  loading: Loading
+});
+const SearchFilters = dynamic(() => import('../searchPage/searchFilters'), {
+  ssr: false,
+  loading: Loading
+});
+const HomeImageCard = dynamic(() => import('./homeImageCards'), {
+  ssr: false,
+  loading: Loading
+});
+const BackdropProgress = dynamic(() => import('components/UIComponents/BackDropProgress'), {
   ssr: false,
   loading: Loading
 });
