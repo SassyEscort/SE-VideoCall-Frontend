@@ -4,15 +4,24 @@ import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+// import jsPDF from 'jspdf';
+// import html2canvas from 'html2canvas';
+async function loadhtml2canvas() {
+  const { default: html2canvas } = await import('html2canvas');
+  return html2canvas;
+}
+async function loadjsPDF() {
+  const { default: jsPDF } = await import('jspdf');
+  return jsPDF;
+}
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import InvoiceDownloadV2 from './InvoiceDownloadV2';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { invoiceDataType } from '../billingTable/PurchaseInvoiceTableBody';
+import { FormattedMessage } from 'react-intl';
 
 const InvoiceModalV2 = ({ open, onClose, invoiceData }: { open: boolean; onClose: () => void; invoiceData: invoiceDataType }) => {
-  const generatePDF = () => {
+  const generatePDF = async () => {
     const id = 'html-content';
     const containerId = 'invoice-image-container';
     const footerId = 'footer-container';
@@ -28,8 +37,10 @@ const InvoiceModalV2 = ({ open, onClose, invoiceData }: { open: boolean; onClose
       imgContainer.style.paddingTop = '150px';
       footerContainer.style.flexDirection = 'row';
       dividerContainer.style.display = 'flex';
+      const jsPDF = await loadjsPDF();
 
       const pdf = new jsPDF('p', 'mm', 'a4');
+      const html2canvas = await loadhtml2canvas();
       html2canvas(element, {
         width: element.clientWidth,
         height: element.clientHeight,
@@ -65,7 +76,7 @@ const InvoiceModalV2 = ({ open, onClose, invoiceData }: { open: boolean; onClose
         }}
       >
         <UINewTypography variant="subtitle" color="secondary.500">
-          Invoice Report
+          <FormattedMessage id="InvoiceReport" />
         </UINewTypography>
         <IconButton onClick={onClose}>
           <CloseIcon />
