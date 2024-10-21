@@ -86,9 +86,3 @@ export const FooterStoreBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(3.5)
 }));
-
-export const GradientTypography = styled(UINewTypography)(() => ({
-  background: 'linear-gradient(90deg, #FD28A6, #FFFFFF)',
-  '-webkit-background-clip': 'text',
-  '-webkit-text-fill-color': 'transparent'
-}));

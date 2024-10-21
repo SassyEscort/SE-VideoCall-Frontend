@@ -1,4 +1,3 @@
-import Dialog from '@mui/material/Dialog';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
@@ -95,28 +94,6 @@ export const ImageContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const TitleContainer = styled(Box)(({ theme }) => ({
-  display: 'inline',
-  fontsize: theme.typography.h1.fontSize,
-  fontWeight: 700,
-  lineHeight: '64.8px'
-}));
-
-export const NewDialogBox = styled(Dialog)(() => ({
-  '& .MuiDialog-paper': {
-    backgroundColor: '#07030E',
-    borderRadius: '12px'
-  },
-  '& .MuiDialog-container': {
-    backgroundColor: 'linear-gradient(rgba(19, 6, 23, 1)), rgba(7, 3, 14, 1))',
-    backdropFilter: 'blur(12px)'
-  },
-  '& .MuiPaper-root': {
-    maxWidth: 920,
-    borderRadius: '12px'
-  }
-}));
-
 export const InlineBox = styled(Box)(({ theme }) => ({
   color: theme.palette.common.white,
   flexFlow: 'column-wrap',
@@ -160,21 +137,6 @@ export const TypographyBox = styled(Typography)(({ theme }) => ({
   }
 }));
 
-export const Banner = styled(Box)(({ theme }) => ({
-  backgroundImage: 'url(/images/NewThemeImages/home/banner-bg.webp)',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  height: 267,
-  justifyContent: 'center',
-  width: '100%',
-  marginBottom: theme.spacing(7),
-  [theme.breakpoints.down('sm')]: {
-    height: 450,
-    marginBottom: theme.spacing(4)
-  }
-}));
-
 export const InlineBoxRelative = styled(Box)(({ theme }) => ({
   display: 'flex',
   position: 'relative',
@@ -189,44 +151,5 @@ export const InlineBoxRelativeNocolor = styled(Box)(({ theme }) => ({
   position: 'relative',
   [theme.breakpoints.down('sm')]: {
     justifyContent: 'center'
-  }
-}));
-
-export const HomeExploreBox = styled(Box)(({ theme }) => ({
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  textAlign: 'center',
-  maxWidth: 320,
-  gap: theme.spacing(1.5),
-  [theme.breakpoints.only('sm')]: {
-    maxWidth: 385,
-    gap: theme.spacing(2)
-  },
-  [theme.breakpoints.up('sm')]: {
-    maxWidth: 688,
-    gap: theme.spacing(2)
-  }
-}));
-
-export const SubTitle = styled(Typography)(({ theme }) => ({
-  color: theme.palette.text.secondary,
-  textAlign: 'center',
-  whiteSpace: 'nowrap',
-  [theme.breakpoints.up('sm')]: {
-    fontSize: '20px',
-    fontWeight: 400,
-    lineHeight: '32px'
-  },
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '32px',
-    whiteSpace: 'nowrap'
-  },
-  [theme.breakpoints.down(330)]: {
-    whiteSpace: 'normal'
   }
 }));

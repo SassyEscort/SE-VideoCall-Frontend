@@ -65,18 +65,6 @@ export const DullCirclesEscort2 = styled(Box)(() => ({
   left: -450
 }));
 
-export const ExploreEscort = styled(Box)(({ theme }) => ({
-  width: '100%',
-  paddingTop: '120px',
-  [theme.breakpoints.down('sm')]: {
-    paddingTop: '96px'
-  },
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center'
-}));
-
 export const ExploreEscortText = styled(Box)(() => ({
   width: '100%',
   display: 'flex',
@@ -107,50 +95,6 @@ export const DetailsChildTypographyBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(1.5)
-}));
-
-export const SearchMainContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  width: '100%',
-  maxWidth: '1244px',
-  [theme.breakpoints.up('sm')]: {
-    paddingTop: theme.spacing(2)
-  }
-}));
-
-export const SearchSubContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    flexDirection: 'row',
-    gap: theme.spacing(1.5),
-    flexWrap: 'wrap'
-  },
-  [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column',
-    gap: theme.spacing(1.5)
-  },
-  [theme.breakpoints.up('md')]: {
-    flexWrap: 'noWrap'
-  }
-}));
-
-export const FirstBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(1.5)
-}));
-
-export const SecondBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(1.5),
-  width: '100%',
-  maxWidth: '442px'
-}));
-
-export const ThirdBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(1.5),
-  width: '100%'
 }));
 
 export const SwiperContainer = styled(Box)(() => ({
