@@ -1,11 +1,11 @@
 'use client';
-import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
+// import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
 import { ButtonMainBox, WorkerCardMainBox } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { ModelHomeListing } from 'services/modelListing/modelListing.services';
 import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { memo, useMemo, useState } from 'react';
+import { lazy, Suspense, memo, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
@@ -46,6 +46,8 @@ const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup')
   ssr: false,
   loading: Loading
 });
+
+const WorkerCard = lazy(() => import('views/guestViews/commonComponents/WorkerCard/WorkerCard'));
 
 const HomeImageCard = ({
   modelListing,
@@ -161,15 +163,17 @@ const HomeImageCard = ({
                         height: '100%'
                       }}
                     >
-                      <WorkerCard
-                        modelDetails={item}
-                        isFavPage={isFavPage}
-                        token={token ?? ({} as TokenIdType)}
-                        handleLoginLiked={handleLoginLiked}
-                        handleLoginOpen={handleLoginOpen}
-                        handleLike={handleLike}
-                        liked={likedModels.includes(item.id)}
-                      />
+                      <Suspense>
+                        <WorkerCard
+                          modelDetails={item}
+                          isFavPage={isFavPage}
+                          token={token ?? ({} as TokenIdType)}
+                          handleLoginLiked={handleLoginLiked}
+                          handleLoginOpen={handleLoginOpen}
+                          handleLike={handleLike}
+                          liked={likedModels.includes(item.id)}
+                        />
+                      </Suspense>
                     </Box>
                   ) : (
                     <Box
@@ -183,15 +187,17 @@ const HomeImageCard = ({
                       }}
                       onClick={() => handleModelRedirect(item.user_name)}
                     >
-                      <WorkerCard
-                        modelDetails={item}
-                        isFavPage={isFavPage}
-                        token={token ?? ({} as TokenIdType)}
-                        handleLoginLiked={handleLoginLiked}
-                        handleLoginOpen={handleLoginOpen}
-                        handleLike={handleLike}
-                        liked={likedModels.includes(item.id)}
-                      />
+                      <Suspense>
+                        <WorkerCard
+                          modelDetails={item}
+                          isFavPage={isFavPage}
+                          token={token ?? ({} as TokenIdType)}
+                          handleLoginLiked={handleLoginLiked}
+                          handleLoginOpen={handleLoginOpen}
+                          handleLike={handleLike}
+                          liked={likedModels.includes(item.id)}
+                        />
+                      </Suspense>
                     </Box>
                   )}
                 </Box>
