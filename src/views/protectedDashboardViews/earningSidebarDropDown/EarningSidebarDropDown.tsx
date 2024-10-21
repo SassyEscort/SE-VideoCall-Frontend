@@ -1,19 +1,5 @@
-import Box from '@mui/material/Box';
 import Select from '@mui/material/Select';
 import { styled } from '@mui/material/styles';
-
-export const SidebarDropDownMainContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  width: '100%',
-  maxWidth: '180px',
-  borderRadius: theme.spacing(1.5),
-  paddingLeft: theme.spacing(2),
-  paddingRight: theme.spacing(2),
-  paddingTop: theme.spacing(1.75),
-  paddingBottom: theme.spacing(1.75),
-  backgroundColor: theme.palette.secondary[500],
-  flexDirection: 'column'
-}));
 
 export const SelectDropdown = styled(Select)(({ theme }) => ({
   display: 'flex',

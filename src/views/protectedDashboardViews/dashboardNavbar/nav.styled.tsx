@@ -28,23 +28,6 @@ export const CommonMenuBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const MainMenuBox = styled(Box)(() => ({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: 2,
-  alignSelf: 'stretch'
-}));
-
-export const MainMenuBoxChlid = styled(Box)(() => ({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: 1
-}));
-
 export const SelectedTab = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -62,24 +45,6 @@ export const NavBarBoxContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(4),
   width: '100%',
   maxWidth: '268px'
-}));
-
-export const MobileComponentBoxContainer = styled(Box)(({ theme }) => ({
-  '& .MuiTabs-indicator': {
-    display: 'none'
-  },
-  '& .MuiButtonBase-root': {
-    paddingLeft: theme.spacing(1.5),
-    paddingRight: theme.spacing(4),
-    paddingBottom: theme.spacing(3),
-    alignItems: 'flex-start'
-  },
-  [theme.breakpoints.down('sm')]: {
-    maxWidth: 420
-  },
-  [theme.breakpoints.down('sm')]: {
-    maxWidth: 768
-  }
 }));
 
 export const MobileTextStyleContainer = styled(Tab)(() => ({

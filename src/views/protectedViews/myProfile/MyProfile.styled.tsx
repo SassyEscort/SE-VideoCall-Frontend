@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
 export const MyProfileContainerMain = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -32,12 +31,4 @@ export const ProfileTextHeader = styled(UINewTypography)(() => ({
   fontSize: '16px !important',
   fontWeight: '600 !important',
   lineHeight: '25.6px !important'
-}));
-
-export const ClaimNewButton = styled(UIThemeButton)(({ theme }) => ({
-  width: '252px',
-  background: 'linear-gradient(90deg, #FECD3D, #FFF1C6, #FF68C0)',
-  boxShadow: '0px 4px 10px #FF68C07A',
-  borderRadius: '8px',
-  gap: theme.spacing(1)
 }));
