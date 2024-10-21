@@ -180,13 +180,13 @@ const UploadImage = ({
           if (invalidSizeFiles.length > 0) {
             return this.createError({ message: intl.formatMessage({ id: 'PhotoVideoShouldBeLessThan5MB' }), path: 'file5' });
           }
-          if (combinedLength < 1 && !toNotValidate) {
-            return this.createError({ message: intl.formatMessage({ id: 'PleaseUploadAtLeast1Photo' }), path: 'file5' });
+          if (combinedLength < 4 && !toNotValidate) {
+            return this.createError({ message: intl.formatMessage({ id: 'PleaseUploadAtLeast4Photo' }), path: 'file5' });
           }
           if (combinedLength > 30) {
             return this.createError({ message: intl.formatMessage({ id: 'SorryYoucanUpload30PicturesOnly' }), path: 'file5' });
           }
-          if (combinedLength < 1 && combinedLength > 30 && modelProfileStatus === PAYOUT_ACTION.APPROVE) {
+          if (combinedLength < 4 && combinedLength > 30 && modelProfileStatus === PAYOUT_ACTION.APPROVE) {
             return true;
           }
 

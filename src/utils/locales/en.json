@@ -772,6 +772,7 @@
   "Free": "Free",
   "Call": "Call",
   "PleaseUploadAtLeast1Photo": "Please upload at least 1 photo",
+  "PleaseUploadAtLeast4Photo": "Please upload at least 4 photos",
   "BioShouldNotContainLinks": "Bio should not contain links",
   "BioShouldNotContainNumbers": "Bio should not contain numbers",
   "HowDoesThisWork": "How does this work",
