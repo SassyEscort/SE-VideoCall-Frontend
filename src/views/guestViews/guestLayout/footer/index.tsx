@@ -1,5 +1,4 @@
 'use client';
-
 import Box from '@mui/material/Box';
 import Link from 'next/link';
 import { Banner, BannerImg, SubTitleText, TextContainer, TextContainerMain, TitleText } from './footer.styled';
@@ -8,13 +7,25 @@ import MainFooter from './MainFooter';
 import { FormattedMessage } from 'react-intl';
 import { FooterButton } from './MainFooter.styled';
 import { useState } from 'react';
-import UIStyledDialog, { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
-import GuestSignup from 'views/auth/guestSignup';
-import GuestLogin from 'views/auth/guestLogin';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import { gaEventTrigger } from 'utils/analytics';
 import { useAuthContext } from '../../../../../context/AuthContext';
+import dynamic from 'next/dynamic';
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
+  ssr: false
+});
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
+  ssr: false
+});
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
+  ssr: false
+});
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false
+});
+const NewUIStyledSignUpDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false
+});
 
 const Footer = () => {
   const { isFreeCreditAvailable } = useAuthContext();
