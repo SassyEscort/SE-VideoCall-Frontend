@@ -4,7 +4,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Drawer from '@mui/material/Drawer';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
 export const DialogTitleBox = styled(DialogTitle)(() => ({
   display: 'flex',
@@ -39,12 +38,6 @@ export const DialogContentBoxButton = styled(Box)(() => ({
   maxWidth: '302px',
   height: '100%',
   maxHeight: '44px'
-}));
-
-export const DialogContentBoxUIThemeButton = styled(UIThemeButton)(() => ({
-  width: '100%',
-  maxWidth: '231px',
-  backgroundColor: '#D4D3D6 !important'
 }));
 
 export const DialogContentMain = styled(Drawer)(({ theme }) => ({
@@ -83,42 +76,6 @@ export const DialogContentMain = styled(Drawer)(({ theme }) => ({
   }
 }));
 
-export const UINewTypographyDollar = styled(UINewTypography)(({ theme }) => ({
-  fontWeight: 500,
-  fontSize: '24px',
-  lineHeight: '30px',
-  color: theme.palette.text.secondary
-}));
-export const UINewTypographyAmount = styled(UINewTypography)(({ theme }) => ({
-  fontWeight: 700,
-  fontSize: '24px',
-  lineHeight: '30px',
-  color: theme.palette.text.secondary
-}));
-
-export const UINewTypographyWithDrawButtonText = styled(UINewTypography)(({ theme }) => ({
-  fontWeight: 700,
-  fontSize: '16px',
-  lineHeight: '19.2px',
-  color: theme.palette.primary[200]
-}));
-
-export const UINewTypographyWithDrawRecentWithdrawls = styled(UINewTypography)(({ theme }) => ({
-  fontWeight: 500,
-  fontSize: '14px',
-  lineHeight: '17.5px',
-  color: theme.palette.secondary[200]
-}));
-
-export const UINewTypographyWithDrawButtonText2 = styled(UINewTypography)(({ theme }) => ({
-  fontWeight: 700,
-  fontSize: '16px',
-  lineHeight: '19.2px',
-  color: theme.palette.text.disabled,
-  backgroundColor: theme.palette.primary[700],
-  borderColor: theme.palette.primary[700]
-}));
-
 export const UINewTypographyFREECredits = styled(UINewTypography)(() => ({
   fontWeight: 700,
   fontSize: '32px',
@@ -129,19 +86,6 @@ export const UINewTypographyFREECredits = styled(UINewTypography)(() => ({
   backgroundClip: 'text',
   textFillColor: 'transparent',
   textAlign: 'center',
-  '@media (max-width: 320px)': {
-    fontSize: '23px'
-  }
-}));
-export const UINewTypographyFREE = styled(UINewTypography)(() => ({
-  fontWeight: 800,
-  fontSize: '32px',
-  lineHeight: '44.8px',
-  background: 'linear-gradient(90deg, #333333 0%, #775F17 50%, #530633 100%)',
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-  backgroundClip: 'text',
-  textFillColor: 'transparent',
   '@media (max-width: 320px)': {
     fontSize: '23px'
   }

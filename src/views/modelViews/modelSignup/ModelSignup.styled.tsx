@@ -45,29 +45,6 @@ export const AuthModelImageBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const AuthModelSignupSuccessMainContainer = styled(Box)(() => ({
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
-  maxWidth: '509px',
-  alignItems: 'center',
-  justifyContent: 'center',
-  zIndex: 0
-}));
-
-export const FirstImgAuthModelSignupSuccessContainer = styled('img')(() => ({
-  paddingBottom: 1.375
-}));
-
-export const SecContainerAuthModelSignupSuccessContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: theme.spacing(1),
-  paddingBottom: theme.spacing(4)
-}));
-
 export const ModelSignUpUIRemember = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',

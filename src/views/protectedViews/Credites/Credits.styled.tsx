@@ -36,14 +36,6 @@ export const FirsTextSubContainer = styled(Box)(({ theme }) => ({
   maxHeight: '22px'
 }));
 
-export const SecondTextSubContainer = styled(Box)(() => ({
-  display: 'flex',
-  width: '100%',
-  maxWidth: '657px',
-  height: '100%',
-  maxHeight: '96px'
-}));
-
 export const LoaderBox = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'center',
@@ -112,34 +104,6 @@ export const BoxSecondTextContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(0.5)
 }));
 
-export const TopTextContainer = styled(Box)(({ theme }) => ({
-  position: 'absolute',
-  top: '5%',
-  left: '5%',
-  paddingBottom: theme.spacing(0.5),
-  paddingRight: theme.spacing(1),
-  paddingLeft: theme.spacing(1),
-  borderRadius: '4px',
-  backgroundColor: 'primary.100',
-  textAlign: 'center',
-  justifyContent: 'center',
-  alignItems: 'center'
-}));
-
-export const BuyCreditsText = styled(UINewTypography)(({ theme }) => ({
-  color: theme.palette.text.secondary,
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '26px',
-    fontWeight: 400,
-    lineHeight: '32px'
-  },
-  [theme.breakpoints.up('sm')]: {
-    fontSize: '32px',
-    fontWeight: 700,
-    lineHeight: '48px'
-  }
-}));
-
 export const CreditCardText = styled(UINewTypography)(() => ({
   fontSize: '20px !important',
   fontWeight: '500 !important',
@@ -163,38 +127,6 @@ export const DollarCreditText = styled(UINewTypography)(() => ({
 export const CreditBuyText = styled(UINewTypography)(() => ({
   display: 'flex',
   justifyContent: 'center'
-}));
-
-export const CreditBestValue = styled(UINewTypography)(() => ({
-  width: '92px',
-  height: '30px',
-  borderRadius: '4px',
-  backgroundColor: '#D12288',
-  fontSize: '14px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center'
-}));
-
-export const CreditMostPopular = styled(UINewTypography)(() => ({
-  width: '110px',
-  height: '30px',
-  borderRadius: '4px',
-  backgroundColor: '#D12288',
-  fontSize: '14px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center'
-}));
-
-export const CancelCreditValue = styled(UINewTypography)(() => ({
-  fontSize: '24px',
-  fontWeight: 500,
-  lineHeight: '28px',
-  textDecoration: 'line-through',
-  width: '76px',
-  height: '29px',
-  marginLeft: '20px'
 }));
 
 export const FirstBoxContainer = styled(Box)(({ theme }) => ({

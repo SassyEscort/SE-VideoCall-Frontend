@@ -76,46 +76,6 @@ export const FAQConatainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const FAQMainContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  flexDirection: 'column',
-  [theme.breakpoints.down('sm')]: {
-    gap: theme.spacing(1.5)
-  },
-  [theme.breakpoints.up('sm')]: {
-    gap: theme.spacing(2)
-  }
-}));
-
-export const FAQTitle = styled(Typography)(({ theme }) => ({
-  color: theme.palette.text.secondary,
-  textAlign: 'center',
-  fontWeight: 700,
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '24px',
-    lineHeight: '32px'
-  },
-  [theme.breakpoints.up('sm')]: {
-    fontSize: '40px',
-    lineHeight: '52px'
-  }
-}));
-
-export const FAQSubTitle = styled(Typography)(({ theme }) => ({
-  color: theme.palette.secondary[100],
-  textAlign: 'center',
-  fontWeight: 400,
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '14px',
-    lineHeight: '21px'
-  },
-  [theme.breakpoints.up('sm')]: {
-    fontSize: '20px',
-    lineHeight: '32px'
-  }
-}));
-
 export const StyledAccordion = styled((props: AccordionProps) => <Accordion disableGutters elevation={0} square {...props} />)(
   ({ theme }) => ({
     padding: '0px',

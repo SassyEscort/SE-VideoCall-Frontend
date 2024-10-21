@@ -13,13 +13,6 @@ export const SideBarBox = styled(Box)(() => ({
   '& .MuiMenuItem-root ': { width: '100%' }
 }));
 
-export const SearchBarBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: theme.spacing(1),
-  cursor: 'pointer'
-}));
-
 export const IconSideBar = styled(IconButton)(() => ({
   display: 'flex',
   alignItems: 'flex-end',

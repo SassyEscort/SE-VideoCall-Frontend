@@ -49,14 +49,6 @@ export const FreeCreditSignupMainContainer = styled(Box)(() => ({
   position: 'relative'
 }));
 
-export const ImageBoxContainer = styled(Box)(() => ({
-  display: 'flex',
-  width: '100%',
-  justifyContent: 'center',
-  position: 'relative',
-  top: -'26px'
-}));
-
 export const HeaderCloseButtonBoxContainer = styled(Box)(() => ({
   display: 'flex',
   width: '100%',
@@ -120,11 +112,4 @@ export const HeaderTextContainer = styled(Typography)(() => ({
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
   backgroundClip: 'text'
-}));
-
-export const GiftImageBox = styled(Box)(() => ({
-  backgroundImage: 'url(/images/free-credits/giftup.png)',
-  backgroundRepeat: 'no-repeat',
-  backgroundPosition: 'center',
-  backgroundSize: 'cover'
 }));
