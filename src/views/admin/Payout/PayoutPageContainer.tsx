@@ -12,11 +12,11 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
-import { Chip, CircularProgress, IconButton, MenuItem } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import moment from 'moment';
-import { MoreVert, Visibility } from '@mui/icons-material';
+import Visibility from '@mui/icons-material/Visibility';
+import MoreVert from '@mui/icons-material/MoreVert';
 import { useCallback, useEffect, useState } from 'react';
 import { payoutDataResponse, payoutDetailsService } from 'services/adminServices/payout/payoutDetailsService';
 import PayoutModel from './PayoutModel';
@@ -30,7 +30,11 @@ import TablePager from 'components/common/CustomPaginations/TablePager';
 import { StyledPopover } from './Payout.styled';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 import RejectModal from './RejectModal';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
+import CircularProgress from '@mui/material/CircularProgress';
+import Chip from '@mui/material/Chip';
+import IconButton from '@mui/material/IconButton';
+import MenuItem from '@mui/material/MenuItem';
 
 export type PaginationType = {
   page: number;

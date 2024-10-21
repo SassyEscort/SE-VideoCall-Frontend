@@ -1,5 +1,7 @@
-import { Avatar, Drawer, IconButton } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
@@ -121,7 +123,7 @@ export const NotificationsNoneBox = styled(IconButton)(({ theme }) => ({
   color: theme.palette.text.secondary
 }));
 
-export const DrawerBox = styled(Drawer)(({ theme }) => ({
+export const DrawerBox = styled(Drawer)(() => ({
   '& .MuiPaper-root': {
     width: '100%',
     maxWidth: 596,

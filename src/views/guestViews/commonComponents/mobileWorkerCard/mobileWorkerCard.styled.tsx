@@ -1,9 +1,8 @@
 'use client';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { IconButton } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 
 export const MainWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -171,21 +170,6 @@ export const SecondSubContainerImgWorkerCard = styled('img')(() => ({
   maxHeight: '16px'
 }));
 
-export const WorkerCardMainBox = styled(Box)(({ theme }) => ({
-  width: '100%',
-  [theme.breakpoints.down(330)]: {
-    paddingLeft: theme.spacing(0.5),
-    paddingRight: theme.spacing(0.5)
-  }
-}));
-
-export const ButtonMainBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  marginTop: theme.spacing(6),
-  width: '100%'
-}));
-
 export const WorkerCardContainer = styled(Box)(() => ({
   display: 'flex',
   width: '100%',
@@ -195,7 +179,7 @@ export const WorkerCardContainer = styled(Box)(() => ({
   flexDirection: 'column'
 }));
 
-export const ProfileCardContainer = styled(Box)(({ theme }) => ({
+export const ProfileCardContainer = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between'
@@ -212,15 +196,6 @@ export const CreditContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(1),
   whiteSpace: 'nowrap'
-}));
-
-export const FavoriteBorderIconContainer = styled(FavoriteBorderIcon)(({ theme }) => ({
-  width: '20px',
-  height: '20px',
-  [theme.breakpoints.up('sm')]: {
-    width: '24px',
-    height: '24px'
-  }
 }));
 
 export const FavoriteIconContainer = styled(IconButton)(({ theme }) => ({

@@ -13,12 +13,11 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIStyledShadowButtonLike from 'components/UIComponents/UIStyledShadowButtonLike';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
 import { FirstSwiperBlurContainer, SecondSwiperBlurContainer, SwiperSlidBoxContainer } from './Escort.styled';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+import UIStyledDialog, { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
 import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import { toast } from 'react-toastify';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
@@ -34,6 +33,7 @@ import { gaEventTrigger } from 'utils/analytics';
 import { usePathname } from 'next/navigation';
 import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import GuestFreeCreditsSignup from 'views/auth/guestFreeCreditsSignup';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const EscortSliderMobile = ({
   workerPhotos,
@@ -231,7 +231,7 @@ const EscortSliderMobile = ({
             variant="contained"
           >
             <Box display="flex" alignItems="center" gap="10px">
-              <Image src="/images/workercards/video-call.svg" alt="video-call" height={20} width={20} />
+              <Image loading="lazy" src="/images/workercards/video-call.svg" alt="video-call" height={20} width={20} />
               <UINewTypography color="common.white" variant="bodySemiBold" sx={{ textWrap: 'no-wrap' }}>
                 <FormattedMessage id="StartVideoCall" />
               </UINewTypography>
@@ -251,9 +251,9 @@ const EscortSliderMobile = ({
           </UIStyledShadowButtonLike>
         </Box>
       </Box>
-      <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth scroll="body">
+      <NewUIStyledSignUpDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth scroll="body">
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </UIStyledDialog>
+      </NewUIStyledSignUpDialog>
       <UIStyledDialog open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth scroll="body">
         <GuestLogin
           isFreeCreditAvailable={isFreeCreditAvailable}

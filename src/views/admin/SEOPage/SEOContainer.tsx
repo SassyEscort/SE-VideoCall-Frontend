@@ -11,8 +11,8 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
-import { CircularProgress, FormControl, IconButton, InputLabel, MenuItem, Select } from '@mui/material';
-import { MoreVert, Visibility } from '@mui/icons-material';
+import Visibility from '@mui/icons-material/Visibility';
+import MoreVert from '@mui/icons-material/MoreVert';
 import { useCallback, useEffect, useState } from 'react';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -20,7 +20,7 @@ import { PaginationSortByOption } from 'components/common/CustomPaginations/type
 import PaginationSortBy from 'components/common/CustomPaginations/PaginationSortBy';
 import { PAGE_SIZE } from 'constants/pageConstants';
 import TablePager from 'components/common/CustomPaginations/TablePager';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import DeleteModal from 'components/UIComponents/DeleteModal';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -33,6 +33,12 @@ import { StyledPopover } from './SEO.styled';
 import { AdminSEOProfileData, adminSEOServices } from 'services/adminSEOProfilePlan/adminSEOProfilePlan.services';
 import AddEditSEOModal from './AddEditSEOModal';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
 
 export type PaginationType = {
   page: number;

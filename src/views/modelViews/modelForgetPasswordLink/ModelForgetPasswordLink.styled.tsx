@@ -1,5 +1,5 @@
-import { IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 
 export const ForgetPasswordLinkMainContainer = styled(Box)(({ theme }) => ({

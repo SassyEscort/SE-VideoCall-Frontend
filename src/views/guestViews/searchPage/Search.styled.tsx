@@ -1,4 +1,4 @@
-import { Clear } from '@mui/icons-material';
+import Clear from '@mui/icons-material/Clear';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -80,7 +80,7 @@ export const DollarImageContainer = styled('img')(() => ({
   maxHeight: '22px'
 }));
 
-export const CountryFilterText = styled(UINewTypography)(({ theme }) => ({
+export const CountryFilterText = styled(UINewTypography)(() => ({
   display: 'block',
   overflow: 'hidden',
   textOverflow: 'ellipsis'

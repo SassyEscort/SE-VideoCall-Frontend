@@ -35,13 +35,6 @@ export const BannerContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const TitleContainer = styled(Box)(({ theme }) => ({
-  display: 'inline',
-  fontsize: theme.typography.h1.fontSize,
-  fontWeight: 700,
-  lineHeight: '64.8px'
-}));
-
 export const InlineBox = styled(Box)(({ theme }) => ({
   color: theme.palette.common.white,
   flexFlow: 'column-wrap',
@@ -84,21 +77,6 @@ export const TypographyBox = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     fontSize: 20,
     lineHeight: '32px'
-  }
-}));
-
-export const Banner = styled(Box)(({ theme }) => ({
-  backgroundImage: 'url(/images/NewThemeImages/home/banner-bg.webp)',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  height: 267,
-  justifyContent: 'center',
-  width: '100%',
-  marginBottom: theme.spacing(7),
-  [theme.breakpoints.down('sm')]: {
-    height: 450,
-    marginBottom: theme.spacing(4)
   }
 }));
 
@@ -233,13 +211,13 @@ export const TextContainer = styled(Typography)(({ theme }) => ({
   }
 }));
 
-export const SignupTextContainer = styled(Typography)(({ theme }) => ({
+export const SignupTextContainer = styled(Typography)(() => ({
   fontSize: '16px',
   fontWeight: 700,
   lineHeight: '24px'
 }));
 
-export const ExploreTextContainer = styled(Typography)(({ theme }) => ({
+export const ExploreTextContainer = styled(Typography)(() => ({
   fontSize: '16px',
   fontWeight: 600,
   lineHeight: '19.2px'

@@ -1,4 +1,7 @@
-import { Box, Dialog, Divider, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import Divider from '@mui/material/Divider';
+import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Image from 'next/image';
 
@@ -11,7 +14,7 @@ export const BoostProfileMainContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center'
 }));
 
-export const BoostProfileTextContainer = styled(Box)(({ theme }) => ({
+export const BoostProfileTextContainer = styled(Box)(() => ({
   display: 'flex',
   width: '100%',
   justifyContent: 'center'
@@ -127,7 +130,7 @@ export const BoostProfileModelBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const UINewTypographySuccessBoost = styled(UINewTypography)(({ theme }) => ({
+export const UINewTypographySuccessBoost = styled(UINewTypography)(() => ({
   fontSize: '36px',
   fontWeight: 700,
   lineHeight: '43.2px',
@@ -159,7 +162,7 @@ export const BoxMainBoost = styled(Box)(() => ({
   alignItems: 'left'
 }));
 
-export const UINewTypographyCondition = styled(UINewTypography)(({ theme }) => ({
+export const UINewTypographyCondition = styled(UINewTypography)(() => ({
   fontSize: '16px',
   fontWeight: 500,
   lineHeight: '19.2px',
@@ -368,19 +371,19 @@ export const FireIcon = styled(Image)(({ theme }) => ({
   top: '-22px'
 }));
 
-export const BoostInnerTextContainer = styled(UINewTypography)(({ theme }) => ({
+export const BoostInnerTextContainer = styled(UINewTypography)(() => ({
   fontSize: '16px',
   fontWeight: 400,
   lineHeight: '24px'
 }));
 
-export const ProfileBoostTextContainer = styled(UINewTypography)(({ theme }) => ({
+export const ProfileBoostTextContainer = styled(UINewTypography)(() => ({
   fontSize: '24px',
   fontWeight: 700,
   lineHeight: '30px'
 }));
 
-export const FreeBoostModelHeaderTextContainer = styled(UINewTypography)(({ theme }) => ({
+export const FreeBoostModelHeaderTextContainer = styled(UINewTypography)(() => ({
   fontSize: '20px',
   fontWeight: 700,
   lineHeight: '28px'

@@ -1,4 +1,3 @@
-import { Box, Grid, MenuItem } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React, { useEffect, useState } from 'react';
 import { ModelDetailsRes, Photo } from 'services/adminModel/types';
@@ -16,6 +15,9 @@ import { adminModelServices } from 'services/adminModel/adminModel.services';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import DeleteModal from 'components/UIComponents/DeleteModal';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import MenuItem from '@mui/material/MenuItem';
 
 const ModelPhotos = ({ modelData }: { modelData: ModelDetailsRes }) => {
   const [open, setOpen] = useState<null | HTMLElement>(null);

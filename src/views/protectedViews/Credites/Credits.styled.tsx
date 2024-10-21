@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
-export const CreditsMainContainer = styled(Box)(({ theme }) => ({
+export const CreditsMainContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column'
 }));
@@ -34,14 +34,6 @@ export const FirsTextSubContainer = styled(Box)(({ theme }) => ({
   maxWidth: '131px',
   height: '100%',
   maxHeight: '22px'
-}));
-
-export const SecondTextSubContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  width: '100%',
-  maxWidth: '657px',
-  height: '100%',
-  maxHeight: '96px'
 }));
 
 export const LoaderBox = styled(Box)(() => ({
@@ -112,35 +104,7 @@ export const BoxSecondTextContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(0.5)
 }));
 
-export const TopTextContainer = styled(Box)(({ theme }) => ({
-  position: 'absolute',
-  top: '5%',
-  left: '5%',
-  paddingBottom: theme.spacing(0.5),
-  paddingRight: theme.spacing(1),
-  paddingLeft: theme.spacing(1),
-  borderRadius: '4px',
-  backgroundColor: 'primary.100',
-  textAlign: 'center',
-  justifyContent: 'center',
-  alignItems: 'center'
-}));
-
-export const BuyCreditsText = styled(UINewTypography)(({ theme }) => ({
-  color: theme.palette.text.secondary,
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '26px',
-    fontWeight: 400,
-    lineHeight: '32px'
-  },
-  [theme.breakpoints.up('sm')]: {
-    fontSize: '32px',
-    fontWeight: 700,
-    lineHeight: '48px'
-  }
-}));
-
-export const CreditCardText = styled(UINewTypography)(({ theme }) => ({
+export const CreditCardText = styled(UINewTypography)(() => ({
   fontSize: '20px !important',
   fontWeight: '500 !important',
   lineHeight: '24px !important',
@@ -154,47 +118,15 @@ export const CreditCardImage = styled('img')(() => ({
   maxWidth: '16px'
 }));
 
-export const DollarCreditText = styled(UINewTypography)(({ theme }) => ({
+export const DollarCreditText = styled(UINewTypography)(() => ({
   fontSize: '40px',
   fontWeight: 800,
   lineHeight: '48px'
 }));
 
-export const CreditBuyText = styled(UINewTypography)(({ theme }) => ({
+export const CreditBuyText = styled(UINewTypography)(() => ({
   display: 'flex',
   justifyContent: 'center'
-}));
-
-export const CreditBestValue = styled(UINewTypography)(({ theme }) => ({
-  width: '92px',
-  height: '30px',
-  borderRadius: '4px',
-  backgroundColor: '#D12288',
-  fontSize: '14px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center'
-}));
-
-export const CreditMostPopular = styled(UINewTypography)(({ theme }) => ({
-  width: '110px',
-  height: '30px',
-  borderRadius: '4px',
-  backgroundColor: '#D12288',
-  fontSize: '14px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center'
-}));
-
-export const CancelCreditValue = styled(UINewTypography)(({ theme }) => ({
-  fontSize: '24px',
-  fontWeight: 500,
-  lineHeight: '28px',
-  textDecoration: 'line-through',
-  width: '76px',
-  height: '29px',
-  marginLeft: '20px'
 }));
 
 export const FirstBoxContainer = styled(Box)(({ theme }) => ({
@@ -209,6 +141,12 @@ export const FirstBoxContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const SecondBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: theme.spacing(1)
+}));
+
+export const BalanceBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   gap: theme.spacing(1)

@@ -38,7 +38,7 @@ const MainFooter = ({
   handleLoginClose: () => void;
   openLogin: boolean;
 }) => {
-  const { isCustomer } = useAuthContext();
+  const { isCustomer, isModel } = useAuthContext();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [open, setIsOpen] = useState(false);
@@ -138,7 +138,7 @@ const MainFooter = ({
                         <FormattedMessage id="FAQs" />
                       </Link>
                     </UINewTypography>
-                    {isCustomer ? (
+                    {isCustomer || isModel ? (
                       <Link prefetch={false} href="/">
                         <UINewTypography variant="SubtitleSmallRegular" sx={{ cursor: 'pointer' }}>
                           <FormattedMessage id="ExploreModels" />
@@ -168,12 +168,13 @@ const MainFooter = ({
                         </UINewTypography>
                       </>
                     )}
-
-                    <UINewTypography variant="SubtitleSmallRegular">
-                      <Link prefetch={false} href="/model">
-                        <FormattedMessage id="RegisterAsModel" />
-                      </Link>
-                    </UINewTypography>
+                    {isCustomer && (
+                      <UINewTypography variant="SubtitleSmallRegular">
+                        <Link prefetch={false} href="/model">
+                          <FormattedMessage id="RegisterAsModel" />
+                        </Link>
+                      </UINewTypography>
+                    )}
                   </ModelUITextConatiner>
                 </FooterSubICon>
 
@@ -204,9 +205,9 @@ const MainFooter = ({
             </UINewTypography>
           </Box>
         </Box>
-        <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+        <NewUIStyledSignUpDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
           <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-        </UIStyledDialog>
+        </NewUIStyledSignUpDialog>
         <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
           <GuestLogin
             isFreeCreditAvailable={isFreeCreditAvailable}

@@ -16,7 +16,7 @@ export const DragAndDropMultipleImageCloseButton = styled(IconButton)(() => ({
   }
 }));
 
-export const DragAndDropMultipleImageCloseVideoButton = styled(IconButton)(({ theme }) => ({
+export const DragAndDropMultipleImageCloseVideoButton = styled(IconButton)(() => ({
   height: '22px',
   width: '21px',
   position: 'absolute',

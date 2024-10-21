@@ -11,8 +11,8 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
-import { Button, CircularProgress, IconButton, MenuItem } from '@mui/material';
-import { MoreVert, Visibility } from '@mui/icons-material';
+import Visibility from '@mui/icons-material/Visibility';
+import MoreVert from '@mui/icons-material/MoreVert';
 import { useCallback, useEffect, useState } from 'react';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -21,7 +21,7 @@ import PaginationSortBy from 'components/common/CustomPaginations/PaginationSort
 import { PAGE_SIZE } from 'constants/pageConstants';
 import TablePager from 'components/common/CustomPaginations/TablePager';
 import { StyledPopover } from './Boost.styled';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import BoostListHead from './BoostListHead';
 import BoostModel from './BoostModel';
 import AddEditBoostModal from './AddEditBoostModal';
@@ -33,6 +33,10 @@ import { AdminBoostProfileData, adminBoostProfilePlanServices } from 'services/a
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import PaginationSearch from 'components/common/CustomPaginations/PaginationSearch';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
+import MenuItem from '@mui/material/MenuItem';
 
 export type PaginationType = {
   page: number;

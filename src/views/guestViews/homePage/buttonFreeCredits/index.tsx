@@ -1,5 +1,4 @@
 'use client';
-import { Box, DialogContent } from '@mui/material';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import {
@@ -19,6 +18,8 @@ import {
   ImageSecond
 } from './ButtonfreeCredits.styled';
 import TimerUI from '../Timer';
+import DialogContent from '@mui/material/DialogContent';
+import Box from '@mui/material/Box';
 
 const ButtonFreeCredits = ({ open, onClose, onSignupOpen }: { open: boolean; onClose: () => void; onSignupOpen: () => void }) => {
   return (
@@ -30,13 +31,13 @@ const ButtonFreeCredits = ({ open, onClose, onSignupOpen }: { open: boolean; onC
           }
         }}
       >
-        <ImageFirst src="/images/free-credits/gitftsecond.png" alt="free_credit_gift" sx={{ py: 2 }} />
+        <ImageFirst loading="eager" src="/images/free-credits/gitftsecond.png" alt="free_credit_gift" sx={{ py: 2 }} />
       </DialogTitleBox>
 
       <DialogContent sx={{ p: 0 }}>
         <DialogContentSecondBox>
           <DialogContentBoxQuestion>
-            <ImageSecond src="/images/free-credits/coins.png" alt="free_credit_coin" />
+            <ImageSecond loading="eager" src="/images/free-credits/coins.png" alt="free_credit_coin" />
             <UINewTypographyFREECredits>
               <FormattedMessage id="FREECall" />
             </UINewTypographyFREECredits>

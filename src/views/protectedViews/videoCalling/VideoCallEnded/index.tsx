@@ -2,7 +2,6 @@
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Divider } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import {
@@ -30,6 +29,8 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import StartRating from 'components/UIComponents/StartRating';
 import { useRouter } from 'next/navigation';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 
 export type ModelObj = {
   modelId: number;

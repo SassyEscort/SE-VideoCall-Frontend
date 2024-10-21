@@ -1,5 +1,4 @@
 'use client';
-import { MenuItem, Divider } from '@mui/material';
 import { LoadingBoxFullScreen, SidebarDropDownMainContainer } from '../sidebarDropDown/SidebarDropDown.styled';
 import React, { useMemo, useState } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -13,6 +12,8 @@ import { FormattedMessage } from 'react-intl';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import DocumentMainContainer from 'views/protectedModelViews/verification/documentContainer';
+import Divider from '@mui/material/Divider';
+import MenuItem from '@mui/material/MenuItem';
 
 const profileMenuList = [
   { menuName: <FormattedMessage id="Photos" />, id: 0 },

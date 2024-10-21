@@ -1,6 +1,9 @@
-import { Box, IconButton, Popover, styled } from '@mui/material';
 import Star from '@mui/icons-material/Star';
-import { StarBorder } from '@mui/icons-material';
+import StarBorder from '@mui/icons-material/StarBorder';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
+import Popover from '@mui/material/Popover';
 
 export const ModelPhotosStyledStar = styled(Star)(({ theme }) => ({
   width: 24,

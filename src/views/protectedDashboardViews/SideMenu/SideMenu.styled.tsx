@@ -1,7 +1,7 @@
 'use client';
-import { Switch } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import Switch from '@mui/material/Switch';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const SiderBarMainContainer = styled(Box)(({ theme }) => ({
@@ -16,14 +16,14 @@ export const SiderBarFirstBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(3)
 }));
 
-export const SiderBarSecondBox = styled(Box)(({ theme }) => ({
+export const SiderBarSecondBox = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'end',
   justifyContent: 'flex-end'
 }));
 
-export const SiderBarThiredBox = styled(Box)(({ theme }) => ({
+export const SiderBarThiredBox = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',

@@ -1,6 +1,9 @@
-import { Box, Dialog, DialogContent, DialogTitle, styled } from '@mui/material';
-import UINewTypography from 'components/UIComponents/UINewTypography';
-import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
+import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import { styled } from '@mui/material/styles';
+
 export const DialogTitleContainer = styled(DialogTitle)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -64,50 +67,12 @@ export const ButtonMainContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const VideoImage = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: theme.spacing(1.5),
-  [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column',
-    gap: theme.spacing(1)
-  }
-}));
-
-export const VideoCallButton = styled(UIThemeShadowButton)(({ theme }) => ({
-  maxWidth: '100%',
-
-  [theme.breakpoints.down('sm')]: {
-    '&.MuiButtonBase-root': {
-      height: '50px',
-      width: '175px'
-    }
-  },
-  [theme.breakpoints.up('sm')]: {
-    '&.MuiButtonBase-root': {
-      height: '44px'
-    }
-  }
-}));
-
 export const BoxImage = styled('img')(({ theme }) => ({
   height: '24px',
   width: '24',
   [theme.breakpoints.down('sm')]: {
     height: '20px',
     width: '20px'
-  }
-}));
-
-export const ButtonText = styled(UINewTypography)(({ theme }) => ({
-  fontSize: '16px',
-  fontWeight: 600,
-  lineHeight: '19.2px',
-  color: theme.palette.common.white,
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '13px',
-    fontWeight: 400,
-    lineHeight: '11.8px'
   }
 }));
 

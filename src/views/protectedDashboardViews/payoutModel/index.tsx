@@ -4,13 +4,13 @@ import DashboardProfile from '..';
 
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import PayoutModelProfileConatiner from './PayoutModelProfileConatiner';
 import PayoutMobileSidebar from '../payoutSidebarDropDown';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { useAuthContext } from '../../../../context/AuthContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const PayoutModel = () => {
   const { isCustomer } = useAuthContext();

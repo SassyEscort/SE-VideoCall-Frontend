@@ -1,7 +1,6 @@
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Box from '@mui/material/Box';
 import HomeImageCard from 'views/guestViews/homePage/homeImageCards';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { HomeExploreBox, SubTitle } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
@@ -17,6 +16,7 @@ import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useAuthContext } from '../../../../../context/AuthContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const EscortExplore = () => {
   const { isFreeCreditAvailable } = useAuthContext();

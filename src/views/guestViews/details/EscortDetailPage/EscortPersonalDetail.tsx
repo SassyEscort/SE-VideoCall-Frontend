@@ -1,4 +1,3 @@
-import { Box, useMediaQuery } from '@mui/material';
 import {
   DetailSubTypographyBox,
   DetailsChildBox,
@@ -19,6 +18,8 @@ import moment from 'moment';
 import { getLastActive } from 'utils/dateAndTime';
 import UINewChipLanguage from 'components/UIComponents/UINewChipLanguage';
 import { RateCountryBoxContainet } from './EscortDetailPage.styled';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Box from '@mui/material/Box';
 
 const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }) => {
   const intl = useIntl();

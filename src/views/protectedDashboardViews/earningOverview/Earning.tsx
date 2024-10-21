@@ -153,7 +153,7 @@ const Earnings = ({ fromDate, toDate }: { fromDate: Moment | null; toDate: Momen
         <FormattedMessage id="TotalCallTime" />
       </UINewTypography>
 
-      <UINewTypography variant="h3">{modelDetails?.total_minutes?.toFixed(2) ?? 0}</UINewTypography>
+      <UINewTypography variant="h3">{modelDetails?.total_minutes?.toFixed(2) || 0}</UINewTypography>
 
       <Box>
         <Chart dir="ltr" type="bar" series={chartData} options={chartOptions} width="100%" height={243} />

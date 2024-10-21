@@ -1,5 +1,4 @@
 'use client';
-import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
   MobileImageBoxContainer,
@@ -12,6 +11,7 @@ import {
 } from './HomePageFreeSignup.styled';
 import { FormattedMessage } from 'react-intl';
 import Timer from './timer';
+import Box from '@mui/material/Box';
 
 const HomePageFreeSignupMobile = () => {
   return (

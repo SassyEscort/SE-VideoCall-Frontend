@@ -1,4 +1,8 @@
-import { Box, Dialog, IconButton, Menu, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import { styled } from '@mui/material/styles';
 
 export const SideBarBox = styled(Box)(() => ({
   width: '100%',
@@ -7,13 +11,6 @@ export const SideBarBox = styled(Box)(() => ({
   flexDirection: 'column',
   alignItems: 'flex-start',
   '& .MuiMenuItem-root ': { width: '100%' }
-}));
-
-export const SearchBarBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: theme.spacing(1),
-  cursor: 'pointer'
 }));
 
 export const IconSideBar = styled(IconButton)(() => ({

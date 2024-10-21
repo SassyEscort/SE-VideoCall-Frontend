@@ -3,10 +3,10 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { ReactNode } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { AuthCommonBox, AuthImageBox, TextMainBox } from './AuthFreeCreditsSignupCommon.styled';
 import { FormattedMessage } from 'react-intl';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const AuthFreeCreditsSignupCommon = ({
   onClose,

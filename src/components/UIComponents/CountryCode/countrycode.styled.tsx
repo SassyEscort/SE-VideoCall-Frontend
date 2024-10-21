@@ -1,8 +1,9 @@
-import { Autocomplete, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { CountryType } from './types';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 
-export const CountryCode = styled(Autocomplete<CountryType>)(({ theme }) => ({
+export const CountryCode = styled(Autocomplete<CountryType>)(() => ({
   width: 150,
   '& .MuiAutocomplete-clearIndicator svg': {
     display: 'none'

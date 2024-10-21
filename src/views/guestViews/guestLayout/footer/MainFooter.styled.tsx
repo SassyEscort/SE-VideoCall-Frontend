@@ -7,7 +7,7 @@ export const FooterSubICon = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1)
 }));
 
-export const FooterButton = styled(UINewTypography)(({ theme }) => ({
+export const FooterButton = styled(UINewTypography)(() => ({
   fontSize: '16px !important',
   fontWeight: '700 !important',
   lineHeight: '24px !important'

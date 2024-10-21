@@ -15,7 +15,7 @@ const GoogleTagManager = dynamic(() => import('@next/third-parties/google').then
 const GoogleAnalytics = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleAnalytics), { ssr: false });
 const ToastContainer = dynamic(() => import('react-toastify').then((module) => module.ToastContainer), { ssr: false });
 
-const manropeFont = Manrope({ subsets: ['latin'] });
+const manropeFont = Manrope({ subsets: ['latin'], display: 'swap' });
 
 const ProviderWrapper = ({ children }: { children: JSX.Element }) => {
   return (

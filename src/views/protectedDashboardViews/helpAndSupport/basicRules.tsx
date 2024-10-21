@@ -2,12 +2,12 @@
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { DialogTitle, useMediaQuery } from '@mui/material';
-
 import theme from 'themes/theme';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { DialogBoxContainer, DialogTitleBox } from './basicRules.styled';
 import { FormattedMessage } from 'react-intl';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const BasicRules = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));

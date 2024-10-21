@@ -1,4 +1,4 @@
-import { AppBar } from '@mui/material';
+import AppBar from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import Link from 'next/link';
 

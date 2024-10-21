@@ -2,10 +2,11 @@ import Table from '@mui/material/Table';
 import InvoiceTableHeader from './InvoiceTableHeader';
 import PurchaseInvoiceTableBodyV2 from './PurchaseInvoiceTableBody';
 import { ModelPastPayoutDetailRes } from 'services/payout/types';
-import { TableCell, TableRow } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { NotFoundBox, StyledTableContainer } from './BillingTable.styled';
 import { FormattedMessage } from 'react-intl';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
 
 const BillingTable = ({ modelPayoutList }: { modelPayoutList: ModelPastPayoutDetailRes }) => {
   return (

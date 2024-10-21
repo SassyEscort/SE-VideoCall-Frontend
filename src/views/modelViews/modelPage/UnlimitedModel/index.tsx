@@ -10,7 +10,6 @@ import {
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
-import { Box, useMediaQuery } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 import theme from 'themes/theme';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
@@ -20,6 +19,8 @@ import ModelSignin from 'views/modelViews/modelSignin';
 import ModelForgetPasswordLink from 'views/modelViews/modelForgetPasswordLink';
 import { useAuthContext } from '../../../../../context/AuthContext';
 import { User } from 'app/(guest)/layout';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Box from '@mui/material/Box';
 
 // import ModelNewPassword from 'views/modelViews/ModelNewPassword';
 

@@ -30,23 +30,6 @@ export const AuthImageMobileBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const AuthImageDetailsBox = styled(Box)(({ theme }) => ({
-  width: '100%',
-  height: '100%',
-  maxHeight: '290px',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  display: 'none',
-  maxWidth: 363,
-  [theme.breakpoints.up('sm')]: {
-    maxWidth: '100%'
-  },
-  [theme.breakpoints.only('xs')]: {
-    display: 'block'
-  }
-}));
-
 export const AuthImageBox = styled(Box)(({ theme }) => ({
   width: '100%',
   height: '100%',

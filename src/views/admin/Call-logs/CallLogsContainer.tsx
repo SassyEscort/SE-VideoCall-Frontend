@@ -11,9 +11,9 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
-import { Chip, CircularProgress, IconButton, MenuItem } from '@mui/material';
 import moment from 'moment';
-import { MoreVert, Visibility } from '@mui/icons-material';
+import Visibility from '@mui/icons-material/Visibility';
+import MoreVert from '@mui/icons-material/MoreVert';
 import { useCallback, useEffect, useState } from 'react';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -25,11 +25,15 @@ import { StyledPopover } from './CallLogs.styled';
 import CallLogsListHead from './CallLogsListHead';
 import CallLogsModel from './CallLogsModel';
 import { callLogDataResponse, callLogsDetailsService } from 'services/adminServices/call-list/callListDetailsService';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import { CALL_LOG_ACTION } from 'constants/payoutsConstants';
 import Link from 'next/link';
 import { formatDuration, formatFullDate } from 'utils/dateAndTime';
 import ReportFilters from 'components/Admin/ReportFilters/ReportFilters';
+import CircularProgress from '@mui/material/CircularProgress';
+import Chip from '@mui/material/Chip';
+import IconButton from '@mui/material/IconButton';
+import MenuItem from '@mui/material/MenuItem';
 
 export type PaginationType = {
   page: number;
@@ -281,7 +285,7 @@ export default function CallLogsContainer() {
                           {item.amount_earned ? `€${item.amount_earned?.toFixed(2)}` : '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {formatDuration(item?.duration || '-')}
+                          {formatDuration(item?.duration ?? 0)}
                         </TableCell>
                         <TableCell>
                           <IconButton

@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState, useLayoutEffect } from 'react';
 import HomeTopBanner from './homeBanner';
 import HomeImageCard from './homeImageCards';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
@@ -11,7 +11,11 @@ import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { getQueryParam } from 'utils/genericFunction';
 import { useAuthContext } from '../../../../context/AuthContext';
 import dynamic from 'next/dynamic';
-const HomeConnections = dynamic(() => import('./HomeConnections'));
+import Loading from 'loading';
+const HomeConnections = dynamic(() => import('./HomeConnections'), {
+  ssr: false,
+  loading: Loading
+});
 
 const HomeContainer = () => {
   const { isFreeCreditAvailable, session } = useAuthContext();
@@ -127,7 +131,7 @@ const HomeContainer = () => {
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (token.token) {
       handelFilterChange(filters);
       setScroll(true);
@@ -163,7 +167,7 @@ const HomeContainer = () => {
     setScroll(true);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (initialRender.current) {
       initialRender.current = false;
     }
@@ -171,13 +175,13 @@ const HomeContainer = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, searchParams]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setFilters(getInitialFilters());
     handelFilterChange(getInitialFilters());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handleScroll = () => {
       setIsUserInteracted(true);
       window.removeEventListener('scroll', handleScroll);

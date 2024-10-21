@@ -2,7 +2,6 @@
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box } from '@mui/material';
 import {
   ButtonContainer,
   DescriptionTextBoxContainer,
@@ -19,6 +18,7 @@ import {
 } from './FreeCreditsSignUp.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
+import Box from '@mui/material/Box';
 
 const FreeCreditsSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onClose: () => void; onSignupOpen: () => void }) => {
   return (
@@ -27,7 +27,7 @@ const FreeCreditsSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onC
         {/* <Box component="img" src="/images/home/congrulation-gif.gif" sx={{ width: '665px', height: '485px', position: 'absolute' }} /> */}
         <FreeCreditSignupMainContainer>
           <ImageBoxContainer>
-            <Box component="img" src="/images/home/free-credit.webp" alt="credit-signup-img.webp" />
+            <Box component="img" loading="lazy" src="/images/home/free-credit.webp" alt="credit-signup-img.webp" />
           </ImageBoxContainer>
           <HeaderCloseButtonBoxContainer>
             <IconButton

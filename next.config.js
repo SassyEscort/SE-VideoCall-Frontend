@@ -11,6 +11,24 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: '/image(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=60, s-maxage=31536000, stale-while-revalidate=59'
+          }
+        ]
+      },
+      {
+        source: '/_next/image(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=60, s-maxage=31536000, stale-while-revalidate=59'
+          }
+        ]
+      },
+      {
         source: '/(.*)',
         headers: [
           {
@@ -39,7 +57,7 @@ const nextConfig = {
     }
   },
   images: {
-    unoptimized: true,
+    domains: ['ik.imagekit.io'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -47,11 +65,6 @@ const nextConfig = {
         pathname: '**'
       }
     ]
-  },
-  pages: {
-    '*': {
-      maxChunkSize: 30000
-    }
   },
   env: {
     NEXT_APP_VERSION: 'v1.0.0',
@@ -62,7 +75,12 @@ const nextConfig = {
     NEXT_APP_JWT_SECRET: 'ikRgjkhi15HJiU78-OLKfjngiu',
     NEXT_APP_JWT_TIMEOUT: '86400',
     NEXTAUTH_SECRET_KEY: 'LlKq6ZtYbr+hTC073mAmAh9/h2HwMfsFo4hrfCx5mLg='
-  }
+  },
+  transpilePackages: ['@mui/system', '@mui/material', '@mui/icons-material']
 };
 
-module.exports = nextConfig;
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true'
+});
+
+module.exports = withBundleAnalyzer(nextConfig);

@@ -113,6 +113,7 @@ const RepositionPhoto = ({
                 max={3}
                 step={0.1}
                 aria-labelledby="Zoom"
+                aria-label="Zoom"
                 onChange={(e, zoom) => setZoom(Number(zoom))}
                 classes={{ root: 'slider' }}
               />

@@ -2,7 +2,6 @@
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
-import { Divider, ListItemIcon, ListItemText, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import Link from 'next/link';
@@ -19,6 +18,12 @@ import ProfileMenu from 'views/protectedViews/protectedLayout/Header/TopNavItem/
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FirstBoxContainer, SecBoxContainer, ThirdBoxContainer } from './ModelHeaderAuthComponent.styled';
 import { useAuthContext } from '../../../../../context/AuthContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
 
 export type NotificationFilters = {
   page: number;
@@ -124,7 +129,8 @@ const ModelHeaderAuthComponent = () => {
             open={open}
             onClose={handleCloseLogout}
             MenuListProps={{
-              'aria-labelledby': 'basic-button'
+              'aria-labelledby': 'basic-button',
+              'aria-label': 'basic-button'
             }}
             sx={{ '& .MuiMenu-paper > ul': { backgroundColor: 'secondary.dark !important' } }}
           >
@@ -134,7 +140,7 @@ const ModelHeaderAuthComponent = () => {
                   <Box component="img" src="/images/icons/userLine.png" alt="user_line" sx={{ width: '24px', height: '24px' }} />
                 </IconButton>
               </ListItemIcon>
-              <Link href="/model/dashboard" onClick={handleCloseLogout}>
+              <Link prefetch={false} href="/model/dashboard" onClick={handleCloseLogout}>
                 <ListItemText>
                   <UINewTypography variant="bodyLight" color="text.secondary">
                     <FormattedMessage id="MyProfile" />
@@ -161,7 +167,7 @@ const ModelHeaderAuthComponent = () => {
         </FirstBoxContainer>
 
         {isSmUP && isVerificationPendingOrCompleted(modelDetails?.verification_step) && (
-          <Link href="/model/profile">
+          <Link prefetch={false} href="/model/profile">
             <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>
               <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
                 <FormattedMessage id="CompleteYourProfile" />

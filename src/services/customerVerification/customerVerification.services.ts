@@ -29,6 +29,11 @@ export type GenericResCustom = {
   error: string;
   message: string;
   custom_code: number;
+  response: {
+    data: GenericResponse & {
+      error: string;
+    };
+  };
 };
 
 export type GenericResDataCustom = {
@@ -49,9 +54,9 @@ export type ChangePassParams = {
 };
 
 export class customerVerificationService {
-  static sendEmailOtp = async (params: EmailVerifyParams, token: string): Promise<GenericRes> => {
+  static sendEmailOtp = async (params: EmailVerifyParams, token: string): Promise<GenericResCustom> => {
     try {
-      const res = await axios.post<GenericRes>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/customer/email-otp`, params, {
+      const res = await axios.post<GenericResCustom>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/customer/email-otp`, params, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
       });
       return res.data;

@@ -1,5 +1,7 @@
 'use client';
-import { Dialog, styled } from '@mui/material';
+
+import Dialog from '@mui/material/Dialog';
+import { styled } from '@mui/material/styles';
 
 const UIStyledDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {

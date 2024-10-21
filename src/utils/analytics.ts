@@ -1,5 +1,3 @@
-import { ErrorMessage } from 'constants/common.constants';
-import { toast } from 'react-toastify';
 import { v4 } from 'uuid';
 
 export const gaEventTrigger = (action: string, data: any, credits?: number) => {
@@ -9,7 +7,7 @@ export const gaEventTrigger = (action: string, data: any, credits?: number) => {
         // Check if the value is a string but not a JSON object
         const isPlainString = typeof data.value === 'string' && !isJSON(data.value);
 
-        if (!isPlainString) {
+        if (!isPlainString && data?.value) {
           const parsedValue = tryParseJSON(data.value);
           if (parsedValue) {
             const flattenedValue = flattenObject(parsedValue, 'custom_');
@@ -28,7 +26,7 @@ export const gaEventTrigger = (action: string, data: any, credits?: number) => {
           };
         }
       } catch (e) {
-        toast.error(ErrorMessage);
+        /* empty */
       }
       window.gtag('event', action, data);
     }
@@ -43,7 +41,7 @@ const tryParseJSON = (jsonString: string): any => {
       return obj;
     }
   } catch (e) {
-    toast.error(ErrorMessage);
+    /* empty */
   }
   return null;
 };

@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import {
   AuthSignupSuccessMainContainer,
   FirstImgAuthSignupSuccessContainer,
@@ -14,10 +14,10 @@ import { FormattedMessage } from 'react-intl';
 const GuestSignupSuccess = ({ redirectSeconds }: { redirectSeconds: number }) => {
   return (
     <AuthSignupSuccessMainContainer>
-      <FirstImgAuthSignupSuccessContainer src="/images/auth/congratulations-img1.png" />
+      <FirstImgAuthSignupSuccessContainer src="/images/auth/congratulations-img1.png" alt="congratulations_img" />
       <SecContainerAuthSignupSuccessContainer>
         <SubContainerAuthSignupSuccessContainer>
-          <SecImgAuthSignupSuccessContainer src="/images/auth/congratulations-img2.png" />
+          <SecImgAuthSignupSuccessContainer src="/images/auth/congratulations-img2.png" alt="congratulations_img" />
         </SubContainerAuthSignupSuccessContainer>
         <TextContainerAuthSignupSuccessContainer>
           <TextSubContainerAuthSignupSuccessContainer>

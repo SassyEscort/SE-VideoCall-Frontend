@@ -18,7 +18,7 @@ export const FirstBoxMainContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const FirstTextContainer = styled(Typography)(({ theme }) => ({
+export const FirstTextContainer = styled(Typography)(() => ({
   fontSize: '16px',
   fontWeight: 600,
   lineHeight: '25.6px'

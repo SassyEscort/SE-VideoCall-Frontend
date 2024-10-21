@@ -1,5 +1,4 @@
 'use client';
-import { Box, CircularProgress, Tooltip } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React, { useEffect, useState } from 'react';
 import { DisableButtonBox, MyProfileContainerMain } from './MyProfile.styled';
@@ -21,6 +20,9 @@ import { getErrorMessage } from 'utils/errorUtils';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { customerVerificationService } from 'services/customerVerification/customerVerification.services';
 import { useAuthContext } from '../../../../context/AuthContext';
+import Box from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export type MyProfile = {
   username: string;
@@ -33,7 +35,7 @@ export type MyProfile = {
 
 const MyProfile = () => {
   const { handelNameChange } = useCallFeatureContext();
-  const { handleFreeCreditClaim } = useAuthContext();
+  const { handleFreeCreditClaim, isFreeCreditAvailable } = useAuthContext();
   const intl = useIntl();
 
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -155,15 +157,15 @@ const MyProfile = () => {
                   FetchCustomerDetails={FetchCustomerDetails}
                 />
                 <DisableButtonBox>
-                  {customerDetails?.free_credits_claimed === 0 ? (
+                  {customerDetails?.free_credits_claimed === 0 && Boolean(isFreeCreditAvailable) && (
                     <Tooltip
                       title={
                         !isPhoneVerified && !isEmailVerified
-                          ? 'Email and phone verification pending'
+                          ? 'Please verify your email and phone'
                           : !isPhoneVerified
-                            ? 'Phone verification pending'
+                            ? 'Please verify your phone'
                             : !isEmailVerified
-                              ? 'Email verification pending'
+                              ? 'Please verify your email'
                               : ''
                       }
                       disableHoverListener={false}
@@ -173,7 +175,6 @@ const MyProfile = () => {
                           disabled={!isPhoneVerified || !isEmailVerified}
                           onClick={handelClaimFreeCredit}
                           sx={{
-                            width: '252px',
                             background: isPhoneVerified && isEmailVerified ? 'linear-gradient(90deg, #FECD3D, #FFF1C6, #FF68C0)' : '',
                             boxShadow: isPhoneVerified && isEmailVerified ? '0px 4px 10px #FF68C07A' : '',
                             borderRadius: '8px',
@@ -182,26 +183,26 @@ const MyProfile = () => {
                         >
                           <Box component="img" src="/images/icons/free-credit-icon.png" width="24px" height="30px" alt="free_credit" />
                           <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
-                            Claim Free Credits
+                            <FormattedMessage id="ClaimFreeCredits" />
                           </UINewTypography>
                         </UIThemeButton>
                       </Box>
                     </Tooltip>
-                  ) : (
-                    <Box></Box>
                   )}
-                  <Box>
-                    <StyleButtonV2
-                      variant="contained"
-                      type="submit"
-                      loading={loadingButton}
-                      disabled={customerDetails?.customer_name === values.username}
-                    >
-                      <UINewTypography variant="buttonSmallBold" color={buttonColor}>
-                        <FormattedMessage id="Save" />
-                      </UINewTypography>
-                    </StyleButtonV2>
-                  </Box>
+                  {customerDetails?.free_credits_claimed === 1 && (
+                    <Box>
+                      <StyleButtonV2
+                        variant="contained"
+                        type="submit"
+                        loading={loadingButton}
+                        disabled={customerDetails?.customer_name === values.username}
+                      >
+                        <UINewTypography variant="buttonSmallBold" color={buttonColor}>
+                          <FormattedMessage id="Save" />
+                        </UINewTypography>
+                      </StyleButtonV2>
+                    </Box>
+                  )}
                 </DisableButtonBox>
               </Box>
             )}

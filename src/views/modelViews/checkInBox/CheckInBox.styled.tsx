@@ -1,4 +1,7 @@
-import { Dialog, DialogContent, DialogTitle, styled } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/system/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
@@ -14,7 +17,7 @@ export const MianDailogConatiner = styled(Dialog)(({ theme }) => ({
   }
 }));
 
-export const DialogtitleContainer = styled(DialogTitle)(({ theme }) => ({
+export const DialogtitleContainer = styled(DialogTitle)(() => ({
   display: 'flex',
   alignItems: 'flex-end',
   justifyContent: 'flex-end'

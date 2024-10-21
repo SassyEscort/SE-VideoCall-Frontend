@@ -1,5 +1,4 @@
 'use client';
-import { Grid, Box } from '@mui/material';
 import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
 import { ButtonMainBox, WorkerCardMainBox } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
@@ -8,25 +7,45 @@ import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service'
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { memo, useMemo, useState } from 'react';
 import Link from 'next/link';
-import UIStyledDialog, { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestLogin from 'views/auth/guestLogin';
-import GuestSignup from 'views/auth/guestSignup';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
-import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
 import { PaginationMainBox } from 'views/protectedDashboardViews/payoutRequest/PayoutRequest.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { NotFoundModelBox } from './HomeImageCard.styled';
 import { FormattedMessage } from 'react-intl';
 import { gaEventTrigger } from 'utils/analytics';
-import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
-
-export const pageview = (url: string) => {
-  window.gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, {
-    page_path: url
-  });
-};
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import dynamic from 'next/dynamic';
+import Loading from 'loading';
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false,
+  loading: Loading
+});
+const NewUIStyledSignUpDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false,
+  loading: Loading
+});
+const PaginationInWords = dynamic(() => import('components/UIComponents/PaginationINWords'), {
+  ssr: false,
+  loading: Loading
+});
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
+  ssr: false,
+  loading: Loading
+});
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
+  ssr: false,
+  loading: Loading
+});
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
+  ssr: false,
+  loading: Loading
+});
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
+  ssr: false,
+  loading: Loading
+});
 
 const HomeImageCard = ({
   modelListing,
@@ -181,7 +200,7 @@ const HomeImageCard = ({
           })}
         </Grid>
 
-        {totalRows && filters && totalRows > 0 && (
+        {typeof totalRows !== 'undefined' && filters && Number(totalRows) > 0 && (
           <ButtonMainBox>
             <PaginationMainBox>
               <UITheme2Pagination
@@ -210,9 +229,9 @@ const HomeImageCard = ({
               </NotFoundModelBox>
             )}
       </WorkerCardMainBox>
-      <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+      <NewUIStyledSignUpDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </UIStyledDialog>
+      </NewUIStyledSignUpDialog>
       <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
         <GuestLogin
           isFreeCreditAvailable={isFreeCreditAvailable}

@@ -136,7 +136,7 @@ export const countryWithFlag = [
   },
   {
     name: 'British Indian Ocean Territory',
-    flag: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Flag_of_the_British_Indian_Ocean_Territory.svg',
+    flag: 'https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_the_Commissioner_of_the_British_Indian_Ocean_Territory.svg',
     number: '+246'
   },
   {

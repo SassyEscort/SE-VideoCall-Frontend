@@ -25,7 +25,7 @@ const CookieStatement = () => {
             <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="WithinThisCookieDisclosure" />
               <span style={{ color: theme.palette.primary[100] }}>
-                <Link href="https://flirtbate.com/" style={{ textDecoration: 'underline' }}>
+                <Link prefetch={false} href="https://flirtbate.com/" style={{ textDecoration: 'underline' }}>
                   {' '}
                   https://flirtbate.com{' '}
                 </Link>
@@ -61,7 +61,7 @@ const CookieStatement = () => {
             <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="InOurQuestToDetermine" />
               <span style={{ color: theme.palette.primary[100] }}>
-                <Link href="https://policies.google.com/privacy" style={{ textDecoration: 'underline' }}>
+                <Link prefetch={false} href="https://policies.google.com/privacy" style={{ textDecoration: 'underline' }}>
                   {' '}
                   https://policies.google.com/privacy
                 </Link>
@@ -75,7 +75,7 @@ const CookieStatement = () => {
             <UINewTypography sx={{ marginTop: 3 }}>
               <FormattedMessage id="TheseCookiesAreUsed" />
               <span style={{ color: theme.palette.primary[100] }}>
-                <Link href="https://flirtbate.com/" style={{ textDecoration: 'underline' }}>
+                <Link prefetch={false} href="https://flirtbate.com/" style={{ textDecoration: 'underline' }}>
                   {' '}
                   https://flirtbate.com{' '}
                 </Link>

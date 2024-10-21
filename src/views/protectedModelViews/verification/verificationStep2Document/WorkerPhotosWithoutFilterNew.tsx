@@ -3,9 +3,10 @@ import { FormikErrors, FormikTouched } from 'formik';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { MainMakeSure, Step7MainBox, Step7UploadImagBox, StepSecondMainBox, UIRulesHeader } from './LastStepPromise.styled';
 import DragAndDropPromiseV2 from 'components/UIComponents/DragAndDropImage/DragAndDropPromiseV2';
-import { List, ListItem } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 import { ModelDetailsResponse } from '../verificationTypes';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 
 export type UploadPhotoWithoutFilter = {
   errors: string | undefined;

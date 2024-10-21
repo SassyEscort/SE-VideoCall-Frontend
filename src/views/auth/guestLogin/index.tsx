@@ -18,7 +18,6 @@ import getCustomErrorMessage from 'utils/error.utils';
 import { useRouter } from 'next/navigation';
 import InfoIcon from '@mui/icons-material/Info';
 import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -29,6 +28,7 @@ import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { ROLE } from 'constants/workerVerification';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import { useAuthContext } from '../../../../context/AuthContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export type LoginParams = {
   email: string;
