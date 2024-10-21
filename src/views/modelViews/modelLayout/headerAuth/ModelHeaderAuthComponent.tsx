@@ -140,7 +140,7 @@ const ModelHeaderAuthComponent = () => {
                   <Box component="img" src="/images/icons/userLine.png" alt="user_line" sx={{ width: '24px', height: '24px' }} />
                 </IconButton>
               </ListItemIcon>
-              <Link href="/model/dashboard" onClick={handleCloseLogout}>
+              <Link prefetch={false} href="/model/dashboard" onClick={handleCloseLogout}>
                 <ListItemText>
                   <UINewTypography variant="bodyLight" color="text.secondary">
                     <FormattedMessage id="MyProfile" />
@@ -167,7 +167,7 @@ const ModelHeaderAuthComponent = () => {
         </FirstBoxContainer>
 
         {isSmUP && isVerificationPendingOrCompleted(modelDetails?.verification_step) && (
-          <Link href="/model/profile">
+          <Link prefetch={false} href="/model/profile">
             <UIThemeButton variant="contained" sx={{ width: '195px', height: '48px', borderRadius: '8px' }}>
               <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
                 <FormattedMessage id="CompleteYourProfile" />

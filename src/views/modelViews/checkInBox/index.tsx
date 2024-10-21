@@ -48,7 +48,7 @@ const CheckInboxVerify = ({ onOpen, onClose, email }: { onOpen: boolean; onClose
       <TextContainer>
         <DialogContent sx={{ p: 0 }}>
           <DialogContentSecondBox>
-            <Image src="/images/auth/check-email.png" width={175} height={123} alt="check-email.png" />
+            <Image loading="lazy" src="/images/auth/check-email.png" width={175} height={123} alt="check-email.png" />
             <CheckYourInbox variant="h2" color="text.secondary">
               <FormattedMessage id="CheckYourInbox" />
             </CheckYourInbox>

@@ -27,7 +27,7 @@ const FreeCreditsSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onC
         {/* <Box component="img" src="/images/home/congrulation-gif.gif" sx={{ width: '665px', height: '485px', position: 'absolute' }} /> */}
         <FreeCreditSignupMainContainer>
           <ImageBoxContainer>
-            <Box component="img" src="/images/home/free-credit.webp" alt="credit-signup-img.webp" />
+            <Box component="img" loading="lazy" src="/images/home/free-credit.webp" alt="credit-signup-img.webp" />
           </ImageBoxContainer>
           <HeaderCloseButtonBoxContainer>
             <IconButton

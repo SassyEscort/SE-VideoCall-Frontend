@@ -116,7 +116,7 @@ const MainFooter = () => {
               </Box>
               <FooterStoreBox>
                 <Box>
-                  <Link href="https://play.google.com/store/apps/details?id=com.bookmyartist.app" target="_blank">
+                  <Link prefetch={false} href="https://play.google.com/store/apps/details?id=com.bookmyartist.app" target="_blank">
                     <Image
                       src="/images/app-logo/google-pay.png"
                       width={120}
@@ -130,7 +130,7 @@ const MainFooter = () => {
                   </Link>
                 </Box>
                 <Box>
-                  <Link href="https://apps.apple.com/us/app/book-my-artist-provider/id6630371131" target="_blank">
+                  <Link prefetch={false} href="https://apps.apple.com/us/app/book-my-artist-provider/id6630371131" target="_blank">
                     <Image
                       src="/images/app-logo/app-store.png"
                       width={120}

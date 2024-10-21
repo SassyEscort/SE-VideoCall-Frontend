@@ -67,11 +67,11 @@ const ClaimCreditSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onC
           </TextInnerBoxContainer>
           {isSmDown ? (
             <Box sx={{ overflow: 'hidden', position: 'absolute', bottom: 0 }}>
-              <Image src="/images/free-credits/gift.webp" alt="claim-credit" width={250} height={190} />
+              <Image loading="lazy" src="/images/free-credits/gift.webp" alt="claim-credit" width={250} height={190} />
             </Box>
           ) : (
             <Box sx={{ maxWidth: '655px', overflow: 'hidden', position: 'absolute', bottom: 0 }}>
-              <Image src="/images/free-credits/gift.webp" alt="claim-credit" width={655} height={295} />
+              <Image loading="lazy" src="/images/free-credits/gift.webp" alt="claim-credit" width={655} height={295} />
             </Box>
           )}
         </TextMainBoxContainer>

@@ -2,7 +2,6 @@ import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import AgeFilter from './AgeFilter';
 import CountryFilter from './CountryFilter';
 import CurrentlyOnline from './CurrentlyOnline';
-// import NewArrivals from './NewArrivals';
 import Price from './Price';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {

@@ -52,6 +52,7 @@ const BoostProfileWorks = ({
                 <BoxImageBackgroundBoost>
                   <BoxImageBackgroundChildBoost>
                     <Image
+                      loading="lazy"
                       alt="instant_boost"
                       width={24}
                       height={24}
@@ -77,6 +78,7 @@ const BoostProfileWorks = ({
                 <BoxImageBackgroundBoost>
                   <BoxImageBackgroundChildBoost>
                     <Image
+                      loading="lazy"
                       alt="duration_logo"
                       width={24}
                       height={24}
@@ -101,6 +103,7 @@ const BoostProfileWorks = ({
                 <BoxImageBackgroundBoost>
                   <BoxImageBackgroundChildBoost>
                     <Image
+                      loading="lazy"
                       alt="cost_icon"
                       width={24}
                       height={24}
@@ -134,6 +137,7 @@ const BoostProfileWorks = ({
                   <BoxImageBackgroundBoost>
                     <BoxImageBackgroundChildBoost>
                       <Image
+                        loading="lazy"
                         alt="instant_boost"
                         width={24}
                         height={24}
@@ -158,6 +162,7 @@ const BoostProfileWorks = ({
                   <BoxImageBackgroundBoost>
                     <BoxImageBackgroundChildBoost>
                       <Image
+                        loading="lazy"
                         alt="more_icon"
                         width={24}
                         height={24}
@@ -182,6 +187,7 @@ const BoostProfileWorks = ({
                   <BoxImageBackgroundBoost>
                     <BoxImageBackgroundChildBoost>
                       <Image
+                        loading="lazy"
                         alt="flex.png"
                         width={24}
                         height={24}
@@ -210,6 +216,7 @@ const BoostProfileWorks = ({
               <MainBoostButtonBoxContainer>
                 <SecondBoostButtonBox>
                   <Image
+                    loading="lazy"
                     src="/images/boostProfile/fire.png"
                     height={110}
                     width={100}
@@ -234,6 +241,7 @@ const BoostProfileWorks = ({
             <MainBoostButtonBoxContainer>
               <SecondBoostButtonBox>
                 <Image
+                  loading="lazy"
                   src="/images/boostProfile/fire.png"
                   height={110}
                   width={100}

@@ -25,7 +25,7 @@ import { StyledPopover } from './CallLogs.styled';
 import CallLogsListHead from './CallLogsListHead';
 import CallLogsModel from './CallLogsModel';
 import { callLogDataResponse, callLogsDetailsService } from 'services/adminServices/call-list/callListDetailsService';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import { CALL_LOG_ACTION } from 'constants/payoutsConstants';
 import Link from 'next/link';
 import { formatDuration, formatFullDate } from 'utils/dateAndTime';

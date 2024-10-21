@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl';
 const CheckInbox = ({ onClose, email }: { onClose: () => void; email: string }) => {
   return (
     <Box display="flex" flexDirection="column" alignItems="center" gap={2} sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
-      <Image src="/images/auth/check-email.png" width={175} height={123} alt="check-email.png" />
+      <Image loading="lazy" src="/images/auth/check-email.png" width={175} height={123} alt="check-email.png" />
       <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
         <IconButton
           size="large"
