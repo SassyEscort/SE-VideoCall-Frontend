@@ -29,35 +29,12 @@ export const StepTwoBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.secondary[500]
 }));
 
-export const StepTwoInfoBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  padding: '24px 16px',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-  borderRadius: theme.spacing(1.5),
-  backgroundColor: theme.palette.secondary[500]
-}));
-
 export const StepTwoInputOuterBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(0.5),
   justifyContent: 'center',
   width: '100%'
-}));
-
-export const ActionButtonsContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  width: '100%',
-  gap: theme.spacing(2),
-  padding: theme.spacing(2),
-  backgroundColor: '#07030E',
-  borderRadius: theme.spacing(2),
-  position: 'sticky',
-  bottom: -1,
-  right: 0
 }));
 
 export const DateOfBirthMainContainer = styled(Box)(({ theme }) => ({

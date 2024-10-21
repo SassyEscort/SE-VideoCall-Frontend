@@ -197,7 +197,7 @@ const HomeContainer = () => {
     <>
       <HomePageMainContainer>
         <HomeTopBanner isFreeCreditAvailable={isFreeCreditAvailable} />
-        <BackdropProgress open={isLoading} />
+        {modelListing?.length > 0 && <BackdropProgress open={isLoading} />}
         <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
         <HomeImageCard
           modelListing={modelListing}

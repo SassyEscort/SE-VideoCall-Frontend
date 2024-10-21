@@ -12,14 +12,26 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import { ModelUITextConatiner } from 'views/auth/AuthCommon.styled';
 import HomeMainContainer from '../homeContainer';
-import UIStyledDialog, { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
-import GuestSignup from 'views/auth/guestSignup';
-import GuestLogin from 'views/auth/guestLogin';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import { gaEventTrigger } from 'utils/analytics';
 import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import { useState } from 'react';
 import { useAuthContext } from '../../../../../context/AuthContext';
+import dynamic from 'next/dynamic';
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
+  ssr: false
+});
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
+  ssr: false
+});
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
+  ssr: false
+});
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false
+});
+const NewUIStyledSignUpDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false
+});
 
 const MainFooter = ({
   isFreeCreditAvailable,

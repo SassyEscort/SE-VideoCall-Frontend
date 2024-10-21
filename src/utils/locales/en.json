@@ -878,5 +878,6 @@
   "OTPSendOnYourEmail": "OTP send on your email",
   "Addcredits": "Add credits",
   "DuplicateDetected": "Duplicate detected: The document you uploaded already exists.",
-  "firstTimeOnly": "FIRST TIME ONLY"
+  "firstTimeOnly": "FIRST TIME ONLY",
+  "InvoiceReport":"Invoice Report"
 }

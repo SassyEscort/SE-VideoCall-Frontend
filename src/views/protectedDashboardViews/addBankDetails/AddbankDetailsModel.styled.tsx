@@ -59,12 +59,6 @@ export const ButtonBox = styled(Box)(({ theme }) => ({
   paddingBottom: theme.spacing(2)
 }));
 
-export const PayoutText = styled(UINewTypography)(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
-    paddingLeft: '14px'
-  }
-}));
-
 export const AddBankDetail = styled(UINewTypography)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(0)

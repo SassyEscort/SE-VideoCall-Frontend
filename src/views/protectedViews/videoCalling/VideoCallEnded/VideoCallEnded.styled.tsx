@@ -59,51 +59,11 @@ export const DialogContentMain = styled(Dialog)(({ theme }) => ({
   }
 }));
 
-export const SecondBoxContent = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(0.5),
-  textAlign: 'center'
-}));
-
-export const FirstBoxContent = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  width: '100%',
-  maxWidth: '352px',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-  justifyContent: 'center',
-  alignItems: 'center'
-}));
-
-export const ThirdBoxContent = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(5),
-  justifyContent: 'center',
-  alignItems: 'center'
-}));
-
-export const FourBoxContent = styled(Box)(() => ({
-  width: '100%',
-  maxWidth: '300px',
-  height: '100%',
-  maxHeight: '48px',
-  whiteSpace: 'nowrap'
-}));
-
 export const FiveBoxContent = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(2),
   alignItems: 'center'
-}));
-
-export const SixBoxContent = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(5),
-  textAlign: 'center'
 }));
 
 export const ReviewButtonBox = styled(Box)(({ theme }) => ({

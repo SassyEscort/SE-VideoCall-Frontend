@@ -69,12 +69,6 @@ export const SecondUsdBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const UsdBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(1.5),
-  alignItems: 'start'
-}));
-
 export const DollerBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(1.5)
@@ -147,24 +141,6 @@ export const Pendingconatiner = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1.25),
   alignItems: 'flex-end',
   position: 'relative'
-}));
-
-export const Pending = styled(UINewTypography)(({ theme }) => ({
-  color: theme.palette.primary['600'],
-  borderRadius: '48px',
-  border: '1px solid',
-  textAlign: 'center',
-  padding: '4px 12px',
-  borderColor: theme.palette.primary['600']
-}));
-
-export const PendingSecond = styled(UINewTypography)(({ theme }) => ({
-  color: theme.palette.success['100'],
-  borderRadius: '48px',
-  border: '1px solid',
-  textAlign: 'center',
-  padding: '4px 12px',
-  borderColor: theme.palette.success['100']
 }));
 
 export const ButtonBox = styled(UIThemeButton)(({ theme }) => ({
