@@ -216,9 +216,11 @@ const CreditSideDrawer = ({
                     </CreditInfoBox>
                     <CreditPriceBox>
                       <CreditAmountBox>
-                        <UINewTypography color={'text.primary'} variant="buttonLargeMenu" sx={{ textDecorationLine: 'line-through' }}>
-                          ${creditsListing?.amount}
-                        </UINewTypography>
+                        {creditsListing.discount > 0 && (
+                          <UINewTypography color={'text.primary'} variant="buttonLargeMenu" sx={{ textDecorationLine: 'line-through' }}>
+                            ${creditsListing?.discount}
+                          </UINewTypography>
+                        )}
                         <CreditTypography color={'white.main'}>${creditsListing?.amount}</CreditTypography>
                       </CreditAmountBox>
                     </CreditPriceBox>

@@ -46,8 +46,8 @@ interface CallFeatureContextProps {
     modelPrice: string,
     isFavourite: number
   ) => void;
-  handelNameChange: () => void;
-  isNameChange: boolean;
+  // handelNameChange: () => void;
+  // isNameChange: boolean;
   isCallAccepted: boolean;
   isCustomer: boolean;
   isCallIncoming: boolean;
@@ -75,8 +75,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   call: undefined,
   handleCancelCall: () => {},
   handleCallInitiate: () => {},
-  handelNameChange: () => {},
-  isNameChange: false,
+  // handelNameChange: () => {},
+  // isNameChange: false,
   isCallAccepted: false,
   isCustomer: false,
   isCallIncoming: false,
@@ -168,7 +168,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [balance, setBalance] = useState(0);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [avaialbleCredits, setAvailableCredits] = useState(0);
-  const [isNameChange, setIsNameChange] = useState(false);
+  // const [isNameChange, setIsNameChange] = useState(false);
   const [modelCreditPrice, setModelCreditPrice] = useState('');
   const [isModelAvailable, setIsModelAvailable] = useState(1);
   const [isUnanswered, setIsUnanswered] = useState(false);
@@ -220,9 +220,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [userNameData, isCustomer]);
 
-  const handelNameChange = () => {
-    setIsNameChange(!isNameChange);
-  };
+  // const handelNameChange = () => {
+  //   setIsNameChange(!isNameChange);
+  // };
 
   const handelIsFavouriteModelChange = async (val: number) => {
     setIsFavouriteModel(val);
@@ -647,8 +647,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         call,
         handleCancelCall,
         handleCallInitiate,
-        handelNameChange,
-        isNameChange,
+        // handelNameChange,
+        // isNameChange,
         isCallAccepted,
         isCustomer,
         isCallIncoming,
