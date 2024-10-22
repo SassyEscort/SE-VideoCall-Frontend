@@ -236,7 +236,7 @@
   "Balance": "Balance:",
   "Credits": " Credits",
   "BuyNowAt": "Buy now at",
-  "BestValue": "BestValue",
+  "BestValue": "Best Value",
   "MostPopular": "Most popular",
   "RequestPayout": "Request Payout",
   "PaymentMethods": "Payment Methods",
@@ -880,5 +880,5 @@
   "Addcredits": "Add credits",
   "DuplicateDetected": "Duplicate detected: The document you uploaded already exists.",
   "firstTimeOnly": "FIRST TIME ONLY",
-  "InvoiceReport":"Invoice Report"
+  "InvoiceReport": "Invoice Report"
 }
