@@ -41,7 +41,7 @@ export type NotificationFiltersDashboard = {
 };
 
 const DashboadrHeaderAuthComponent = () => {
-  const { session } = useAuthContext();
+  const { session, isNameChange } = useAuthContext();
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -62,7 +62,7 @@ const DashboadrHeaderAuthComponent = () => {
   const [notificationDetails, setNotificationDetails] = useState<Root>();
   const notificationCount = useRef(0);
 
-  const { isNameChange, isCustomer } = useCallFeatureContext();
+  const { isCustomer } = useCallFeatureContext();
 
   const handleOpenChangePassword = () => {
     setOpenChangePassword(true);
