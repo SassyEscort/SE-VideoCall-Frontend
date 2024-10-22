@@ -36,9 +36,10 @@ export default function RootLayout({
 
       {isProduction && (
         <>
-          <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`} />
+          <Script defer async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`} />
           <Script
             async
+            defer
             id="dataLayer-script"
             type="text/javascript"
             strategy="lazyOnload"
@@ -53,6 +54,7 @@ export default function RootLayout({
           />
           <Script
             async
+            defer
             id="gtag-script"
             type="text/javascript"
             strategy="lazyOnload"

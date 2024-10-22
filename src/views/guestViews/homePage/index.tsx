@@ -1,6 +1,6 @@
 'use client';
 import { useCallback, useRef, useState, useLayoutEffect } from 'react';
-import HomeTopBanner from './homeBanner';
+// import HomeTopBanner from './homeBanner';
 // import HomeImageCard from './homeImageCards';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
 import { HomePageMainContainer } from './Home.styled';
@@ -25,6 +25,10 @@ const HomeImageCard = dynamic(() => import('./homeImageCards'), {
   loading: Loading
 });
 const BackdropProgress = dynamic(() => import('components/UIComponents/BackDropProgress'), {
+  ssr: false,
+  loading: Loading
+});
+const HomeTopBanner = dynamic(() => import('./homeBanner'), {
   ssr: false,
   loading: Loading
 });
@@ -206,23 +210,21 @@ const HomeContainer = () => {
   }, []);
 
   return (
-    <>
-      <HomePageMainContainer>
-        <HomeTopBanner isFreeCreditAvailable={isFreeCreditAvailable} />
-        {modelListing?.length > 0 && <BackdropProgress open={isLoading} />}
-        <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
-        <HomeImageCard
-          modelListing={modelListing}
-          isFavPage={false}
-          token={token}
-          filters={filters ?? ({} as SearchFiltersTypes)}
-          totalRows={total_rows}
-          handleChangePage={handleChangePage}
-          isFreeCreditAvailable={isFreeCreditAvailable}
-        />
-        <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
-      </HomePageMainContainer>
-    </>
+    <HomePageMainContainer>
+      <HomeTopBanner isFreeCreditAvailable={isFreeCreditAvailable} />
+      {modelListing?.length > 0 && <BackdropProgress open={isLoading} />}
+      <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
+      <HomeImageCard
+        modelListing={modelListing}
+        isFavPage={false}
+        token={token}
+        filters={filters ?? ({} as SearchFiltersTypes)}
+        totalRows={total_rows}
+        handleChangePage={handleChangePage}
+        isFreeCreditAvailable={isFreeCreditAvailable}
+      />
+      <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
+    </HomePageMainContainer>
   );
 };
 
