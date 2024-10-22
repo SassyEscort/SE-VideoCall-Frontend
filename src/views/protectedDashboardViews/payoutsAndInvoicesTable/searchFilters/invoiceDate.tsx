@@ -12,7 +12,7 @@ import {
 } from 'views/protectedDashboardViews/earningOverview/EarningOverview.styled';
 import { FormControlContainer, InvoiceBoxContainer, ProfileDOBoxContainer } from './status.styled';
 import { PaginationType } from '..';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import CustomDatePicker from 'components/common/CustomDatePicker';
 
 const InvoiceDate = ({ handleChangeFilter, filters }: { handleChangeFilter: (value: PaginationType) => void; filters: PaginationType }) => {

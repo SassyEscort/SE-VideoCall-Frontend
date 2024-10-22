@@ -27,12 +27,6 @@ export const HeadingContainer = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between'
 }));
 
-export const CreditsCloseIconContainer = styled(Box)(() => ({
-  display: 'flex',
-  alignItems: 'flex-end',
-  justifyContent: 'flex-end'
-}));
-
 export const NewUIIconButton = styled(IconButton)(({ theme }) => ({
   color: theme.palette.common.white,
   position: 'absolute',
@@ -187,10 +181,4 @@ export const ClaimFreeNewButton = styled(UIThemeButton)(({ theme }) => ({
   boxShadow: '0px 4px 10px #FF68C07A',
   borderRadius: '8px',
   gap: 1
-}));
-
-export const OutOfCreditInnerBox = styled(Box)(() => ({
-  width: '100%',
-  maxWidth: '407px',
-  textAlign: 'center'
 }));

@@ -19,7 +19,7 @@ import {
   videoCallAmountServices,
   videoCallParams
 } from 'services/adminServices/videoCallConfiguration/videoCallConfiguration.services';
-import { DetailsBox } from './ModelVideoMax.styled';
+import { DetailsBox } from '../ModelVideoCallPrice/ModelVideo.styled';
 
 export default function ModelVideoMaxCallContainer() {
   const [isLoading, setIsLoading] = useState(false);

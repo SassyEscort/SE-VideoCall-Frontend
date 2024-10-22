@@ -3,11 +3,9 @@ import { useEffect, useState } from 'react';
 import { TimeDetails, TimeMainBox, TimeTitle, RemianingTime, TimeTypo, TimerDivider } from './Timer.Styled';
 import { FormattedMessage } from 'react-intl';
 import Box from '@mui/material/Box';
-// import useConfig from 'hooks/useConfig';
 
 const Timer = () => {
   const [countdown, setCountdown] = useState({ minutes: 15, seconds: 0 });
-  // const { i18n } = useConfig();
 
   const handleCalculateCountdown = () => {
     const startTime = localStorage.getItem('timerStartTime');
@@ -64,8 +62,6 @@ const Timer = () => {
       </TimeDetails>
       <Box sx={{ display: 'flex', position: 'relative', top: '-10px' }}>
         <Box component={'img'} src="/images/icons/timeDots.svg" alt="dots"></Box>
-        {/* <Dotes language={i18n} />
-        <DotesSecond /> */}
       </Box>
 
       <TimeDetails>

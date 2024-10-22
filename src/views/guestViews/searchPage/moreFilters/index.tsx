@@ -22,7 +22,7 @@ import LanguageFilter from './languageFilter';
 import { usePathname } from 'next/navigation';
 import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { useRouter } from 'next/navigation';
 import AgeFilter from './ageFilter';
 import GenderFilter from './gender';

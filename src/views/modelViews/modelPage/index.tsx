@@ -11,7 +11,6 @@ const HomeContainerModel = () => {
       <HomeModelConnections />
       <UnlimitedModel />
       <HomeModelFAQ />
-      {/* <HomeModelBottomBanner /> */}
     </>
   );
 };

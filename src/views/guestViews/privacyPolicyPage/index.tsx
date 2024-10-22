@@ -225,7 +225,10 @@ const PrivacyPolicy = () => {
                 <FormattedMessage id="Emailp" />
               </span>
               {'  '}
-              <Link href="mailto:support@flirtbate.com"> support@flirtbate.com</Link>
+              <Link prefetch={false} href="mailto:support@flirtbate.com">
+                {' '}
+                support@flirtbate.com
+              </Link>
             </UINewTypography>
           </Box>
         </FirstBoxMainContainer>

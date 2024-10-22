@@ -61,19 +61,6 @@ export const SideBarCircleBox = styled(Box)(({ theme }) => ({
   position: 'relative'
 }));
 
-export const SideBarCircleBoxHeader = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  border: '1px solid',
-  borderRadius: '50%',
-  width: '100%',
-  minWidth: '24px',
-  height: '100%',
-  minHeight: '24px',
-  backgroundColor: theme.palette.secondary[700],
-  borderColor: theme.palette.secondary[700],
-  position: 'relative'
-}));
-
 export const SideBarCircleTextBox = styled(UINewTypography)(({ theme }) => ({
   fontSize: '32px',
   fontWeight: 500,
@@ -81,25 +68,6 @@ export const SideBarCircleTextBox = styled(UINewTypography)(({ theme }) => ({
   color: theme.palette.common.white,
   position: 'absolute',
   textAlign: 'center'
-}));
-
-export const SiderBarCircleTextBoxHeader = styled(UINewTypography)(({ theme }) => ({
-  fontSize: '12px',
-  fontWeight: 500,
-  lineHeight: '14.4px',
-  color: theme.palette.common.white,
-  position: 'absolute',
-  textAlign: 'center'
-}));
-
-export const SiderBarSecondTextBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
-  maxWidth: '104px',
-  heightL: '100%',
-  maxHeight: '52px',
-  gap: theme.spacing(2)
 }));
 
 export const SwitchBox = styled(Switch)(({ theme }) => ({

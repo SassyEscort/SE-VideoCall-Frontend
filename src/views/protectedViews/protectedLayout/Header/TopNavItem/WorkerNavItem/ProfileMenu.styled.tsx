@@ -30,10 +30,3 @@ export const WorkerNavItemContainer = styled(Toolbar)(({ theme }) => ({
     paddingLeft: theme.spacing(16.75)
   }
 }));
-
-export const WorkerHeaderMainContainer = styled(Box)(() => ({
-  display: 'flex',
-  textAlign: 'center',
-  alignItems: 'center',
-  cursor: 'pointer'
-}));

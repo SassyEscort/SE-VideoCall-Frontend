@@ -1,12 +1,9 @@
 import FiberManualRecord from '@mui/icons-material/FiberManualRecord';
-import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import Popover from '@mui/material/Popover';
 import { styled } from '@mui/material/styles';
-import Toolbar from '@mui/material/Toolbar';
 
 export interface ButtonBaseContainer {
   notificationBgColor: string;
@@ -24,31 +21,6 @@ export const StyledIconButton = styled(IconButton)(({ open }: { open: boolean })
       position: 'absolute'
     }
   })
-}));
-
-export const StyledRoot = styled(AppBar)(({ theme }) => ({
-  backgroundColor: theme.palette.background.default,
-  boxShadow: 'none',
-  paddingRight: '0 !important'
-}));
-
-export const StyledToolbar = styled(Toolbar)(({ theme }) => ({
-  [theme.breakpoints.up('lg')]: {
-    padding: theme.spacing(0, 5)
-  }
-}));
-
-export const StyledPopover = styled(Popover)(({ theme }) => ({
-  '& .MuiPaper-root': {
-    padding: 0,
-    marginTop: theme.spacing(1.5),
-    marginLeft: theme.spacing(0.75),
-    width: 180
-  },
-  '& .MuiMenuItem-root': {
-    typography: 'body2',
-    borderRadius: 0.75
-  }
 }));
 
 export const NotificationBadge = styled(Badge)(({ theme }) => ({

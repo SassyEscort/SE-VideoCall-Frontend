@@ -1,9 +1,8 @@
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
-import AgeFilter from './AgeFilter';
-import CountryFilter from './CountryFilter';
-import CurrentlyOnline from './CurrentlyOnline';
-// import NewArrivals from './NewArrivals';
-import Price from './Price';
+// import AgeFilter from './AgeFilter';
+// import CountryFilter from './CountryFilter';
+// import CurrentlyOnline from './CurrentlyOnline';
+// import Price from './Price';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   FirstBoxMainContainer,
@@ -12,12 +11,18 @@ import {
   SecondBoxMainContainer,
   ThiredBoxMainContainer
 } from '../Search.styled';
-import { forwardRef, memo, useEffect, useState } from 'react';
+import { lazy, forwardRef, memo, Suspense, useEffect, useState } from 'react';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { useSearchParams } from 'next/navigation';
-import GenderFilter from './GenderFilter';
+// import GenderFilter from './GenderFilter';
+
+const AgeFilter = lazy(() => import('./AgeFilter'));
+const GenderFilter = lazy(() => import('./GenderFilter'));
+const CountryFilter = lazy(() => import('./CountryFilter'));
+const CurrentlyOnline = lazy(() => import('./CurrentlyOnline'));
+const Price = lazy(() => import('./Price'));
 
 export type SearchFiltersTypes = {
   fromAge: string;
@@ -173,18 +178,24 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
       <SearchBarMainContainer ref={ref}>
         <SearchBarSubMainContainer>
           <FirstBoxMainContainer>
-            {/* <NewArrivals onClick={handleNewArrivals} /> */}
-            {!isMobile && <CurrentlyOnline onClick={handelChangeIsOnline} />}
-            {isMobile && <CurrentlyOnline onClick={handelChangeIsOnline} />}
-            {isMobile && <AgeFilter fromAge={filters.fromAge} toAge={filters.toAge} onChange={handleChangeAge} />}
+            <Suspense>
+              {/* <NewArrivals onClick={handleNewArrivals} /> */}
+              {!isMobile && <CurrentlyOnline onClick={handelChangeIsOnline} />}
+              {isMobile && <CurrentlyOnline onClick={handelChangeIsOnline} />}
+              {isMobile && <AgeFilter fromAge={filters.fromAge} toAge={filters.toAge} onChange={handleChangeAge} />}
+            </Suspense>
           </FirstBoxMainContainer>
           <SecondBoxMainContainer>
-            <CountryFilter isUserInteracted={isUserInteracted} value={filters.country} onChange={handleCountryChange} />
+            <Suspense>
+              <CountryFilter isUserInteracted={isUserInteracted} value={filters.country} onChange={handleCountryChange} />
+            </Suspense>
           </SecondBoxMainContainer>
           <ThiredBoxMainContainer>
-            {!isMobile && <AgeFilter fromAge={filters.fromAge} toAge={filters.toAge} onChange={handleChangeAge} />}
-            <GenderFilter onChange={handleGender} Value={filters?.gender} />
-            <Price onChange={handleChangePrice} fromValue={filters?.fromPrice} toValue={filters?.toPrice} />
+            <Suspense>
+              {!isMobile && <AgeFilter fromAge={filters.fromAge} toAge={filters.toAge} onChange={handleChangeAge} />}
+              <GenderFilter onChange={handleGender} Value={filters?.gender} />
+              <Price onChange={handleChangePrice} fromValue={filters?.fromPrice} toValue={filters?.toPrice} />
+            </Suspense>
           </ThiredBoxMainContainer>
         </SearchBarSubMainContainer>
       </SearchBarMainContainer>

@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import Image from 'next/image';
 
 export const MainWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -129,16 +130,7 @@ export const SubContainertWorkerCard = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const FirstSubContainerImgWorkerCard = styled('img')(() => ({
-  display: 'flex',
-  width: '100%',
-  maxWidth: '16px',
-  height: '100%',
-  maxHeight: '8px',
-  marginTop: '3px'
-}));
-
-export const FirstSubContainerWithoutImg = styled(Box)(() => ({
+export const FirstSubContainerImgWorkerCard = styled(Image)(() => ({
   display: 'flex',
   width: '100%',
   maxWidth: '16px',
@@ -168,7 +160,7 @@ export const SecondSubContainerWorkerCard = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const SecondSubContainerImgWorkerCard = styled('img')(() => ({
+export const SecondSubContainerImgWorkerCard = styled(Image)(() => ({
   display: 'flex',
   width: '100%',
   height: '100%',
@@ -284,25 +276,6 @@ export const UITypographyBox = styled(UINewTypography)(({ theme }) => ({
   }
 }));
 
-export const OfflineIconSecBoxWorkerCard = styled(Box)(() => ({
-  display: 'flex',
-  width: '100%',
-  maxWidth: '8px',
-  height: '100%',
-  maxHeight: '8px',
-  borderRadius: '50%'
-}));
-
-export const OfflineIconWorkerCard = styled(Box)(() => ({
-  display: 'flex',
-  width: '100%',
-  minWidth: '12px',
-  height: '0',
-  minHeight: '12px',
-  border: '1px',
-  borderRadius: '50%'
-}));
-
 export const UITypographyBoxContainer = styled(UINewTypography)(({ theme }) => ({
   whiteSpace: 'nowrap',
   overflow: 'hidden',
@@ -321,12 +294,6 @@ export const TextBoxContainer = styled(Box)(() => ({
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   maxWidth: '150px'
-}));
-
-export const FlagAndLiveIconBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(1),
-  alignItems: 'center'
 }));
 
 export const HighlyAvailableButtonBox = styled(Box)(({ theme }) => ({
@@ -370,19 +337,5 @@ export const BannerImageCard = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('xs')]: {
     justifyContent: 'center',
     paddingRight: theme.spacing(3)
-  }
-}));
-
-export const BannerImage = styled('img')(({ theme }) => ({
-  borderRadius: '12px',
-  right: 0,
-  width: 462,
-  height: 452,
-  [theme.breakpoints.down('sm')]: {
-    width: 347,
-    height: 339
-  },
-  '@media (max-width: 330px)': {
-    width: 300
   }
 }));

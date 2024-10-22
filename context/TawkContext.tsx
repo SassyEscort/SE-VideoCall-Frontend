@@ -33,16 +33,18 @@ export const TawkProvider: React.FC<{ children: React.ReactNode }> = ({ children
       };
     };
     if (typeof window !== 'undefined' && !window.location.pathname.includes('/admin')) {
-      loadTawk();
+      if (session?.user) {
+        loadTawk();
+      }
     }
-  }, []);
+  }, [session?.user]);
 
   useEffect(() => {
     if (isLoaded && (window as any).Tawk_API && session?.user) {
       window.Tawk_API.onLoad = function () {
         window.Tawk_API.setAttributes({
-          name: 'Mayur',
-          email: 'mayur.divtech@yopmail.com'
+          name: session?.user?.name,
+          email: session?.user?.email
         });
       };
     }

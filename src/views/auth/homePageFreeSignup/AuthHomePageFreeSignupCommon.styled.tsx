@@ -19,24 +19,6 @@ export const AuthCommonBox = styled(Box)(({ theme }) => ({
   position: 'relative'
 }));
 
-export const AuthImageMobileBox = styled(Box)(({ theme }) => ({
-  width: '100%',
-  height: '100%',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-  position: 'absolute',
-  borderRadius: '12px',
-  backgroundPosition: 'center',
-  display: 'none',
-  maxWidth: 420,
-  [theme.breakpoints.up('sm')]: {
-    maxWidth: '100%'
-  },
-  [theme.breakpoints.only('xs')]: {
-    display: 'block'
-  }
-}));
-
 export const AuthImageBox = styled(Box)<BackgroundImageBoxProps>(({ theme, variant }) => ({
   width: '100%',
   maxWidth: '420px',

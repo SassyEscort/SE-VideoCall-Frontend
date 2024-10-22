@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
@@ -25,7 +26,8 @@ export const DisableButtonBox = styled(Box)(({ theme }) => ({
   justifyContent: 'end',
   width: '100%',
   maxWidth: '613px',
-  padding: theme.spacing(2)
+  padding: theme.spacing(2),
+  gap: theme.spacing(2)
 }));
 
 export const ProfileTextHeader = styled(UINewTypography)(() => ({
@@ -34,10 +36,13 @@ export const ProfileTextHeader = styled(UINewTypography)(() => ({
   lineHeight: '25.6px !important'
 }));
 
-export const ClaimNewButton = styled(UIThemeButton)(({ theme }) => ({
-  width: '252px',
-  background: 'linear-gradient(90deg, #FECD3D, #FFF1C6, #FF68C0)',
-  boxShadow: '0px 4px 10px #FF68C07A',
-  borderRadius: '8px',
-  gap: theme.spacing(1)
+export const SaveButton = styled(StyleButtonV2)(() => ({
+  '&.MuiButton-root': {
+    height: '40px'
+  }
+}));
+export const EditButton = styled(UIThemeButton)(() => ({
+  '&.MuiButton-root': {
+    height: '40px'
+  }
 }));

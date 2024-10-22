@@ -192,7 +192,7 @@ const ModelCredits = ({
                 <Grid container sx={{ gap: 2, justifyContent: 'center' }}>
                   {creditsListing?.map((listCredit, index) => (
                     <ImagSubContainer key={index} onClick={() => handleCreditClick(listCredit)} sx={{ cursor: 'pointer' }}>
-                      <MainImagContainer src={listCredit?.link} />
+                      <MainImagContainer src={listCredit?.link} alt="image" />
                       <BoxFirstTextContainer>
                         <CreditCardImage src="/images/workercards/coin-1.png" alt="coin_icon" />
                         <CreditCardText variant="subtitle" color="text.secondary">

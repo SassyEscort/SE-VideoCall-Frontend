@@ -772,6 +772,7 @@
   "Free": "Free",
   "Call": "Call",
   "PleaseUploadAtLeast1Photo": "Please upload at least 1 photo",
+  "PleaseUploadAtLeast4Photo": "Please upload at least 4 photos",
   "BioShouldNotContainLinks": "Bio should not contain links",
   "BioShouldNotContainNumbers": "Bio should not contain numbers",
   "HowDoesThisWork": "How does this work",
@@ -875,5 +876,9 @@
   "phoneNumber": "Phone Number",
   "ClaimFreeCredits": "Claim Free Credits",
   "VerifyNow": "Verify now!",
-  "OTPSendOnYourEmail": "OTP send on your email"
+  "OTPSendOnYourEmail": "OTP send on your email",
+  "Addcredits": "Add credits",
+  "DuplicateDetected": "Duplicate detected: The document you uploaded already exists.",
+  "firstTimeOnly": "FIRST TIME ONLY",
+  "InvoiceReport":"Invoice Report"
 }

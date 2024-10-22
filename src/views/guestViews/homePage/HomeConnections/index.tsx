@@ -27,16 +27,28 @@ import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import { useState } from 'react';
-import UIStyledDialog, { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
-import GuestSignup from 'views/auth/guestSignup';
-import GuestLogin from 'views/auth/guestLogin';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import GuestNewPassword from 'views/auth/guestNewPassword';
 import { useRouter } from 'next/navigation';
 import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import { gaEventTrigger } from 'utils/analytics';
 import { useAuthContext } from '../../../../../context/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import dynamic from 'next/dynamic';
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
+  ssr: false
+});
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
+  ssr: false
+});
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
+  ssr: false
+});
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false
+});
+const NewUIStyledSignUpDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false
+});
 
 const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const { push } = useRouter();
@@ -143,6 +155,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
                 <BoxImageBackground>
                   <BoxImageBackgroundChild>
                     <Image
+                      loading="lazy"
                       alt="home_search_img"
                       width={24}
                       height={24}
@@ -170,6 +183,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
                 <BoxImageBackground>
                   <BoxImageBackgroundChild>
                     <Image
+                      loading="lazy"
                       alt="choose_your_model"
                       width={24}
                       height={24}
@@ -204,6 +218,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
                 <BoxImageBackground>
                   <BoxImageBackgroundChild>
                     <Image
+                      loading="lazy"
                       alt="home_connect_instantly"
                       width={24}
                       height={24}

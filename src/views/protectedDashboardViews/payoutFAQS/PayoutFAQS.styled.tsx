@@ -67,20 +67,6 @@ export const PayoutFAQTitle = styled(Typography)(({ theme }) => ({
   }
 }));
 
-export const FAQSubTitle = styled(Typography)(({ theme }) => ({
-  color: theme.palette.secondary[100],
-  textAlign: 'center',
-  fontWeight: 400,
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '14px',
-    lineHeight: '21px'
-  },
-  [theme.breakpoints.up('sm')]: {
-    fontSize: '20px',
-    lineHeight: '32px'
-  }
-}));
-
 export const StyledAccordion = styled((props: AccordionProps) => <Accordion disableGutters elevation={0} square {...props} />)(
   ({ theme }) => ({
     padding: '0px',

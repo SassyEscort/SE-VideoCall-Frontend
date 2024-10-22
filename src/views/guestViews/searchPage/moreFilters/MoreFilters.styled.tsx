@@ -3,7 +3,6 @@ import AccordionDetails, { AccordionDetailsProps } from '@mui/material/Accordion
 import AccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 
 export const FilterAction = styled(Box)(({ theme }) => ({
@@ -92,16 +91,4 @@ export const TitleSerachBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(1.5),
   alignItems: 'center'
-}));
-
-export const StyledSliderBar = styled(Slider)(({ theme }) => ({
-  color: theme.palette.text.secondary,
-  '& .MuiSlider-valueLabel': {
-    transform: 'translateY(100%) scale(1) !important',
-    backgroundColor: 'transparent',
-    fontSize: 16,
-    fontWeight: 400,
-    lineHeight: '160%',
-    color: theme.palette.text.primary
-  }
 }));

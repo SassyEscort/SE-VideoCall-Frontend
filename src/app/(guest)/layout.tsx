@@ -1,12 +1,19 @@
 import Box from '@mui/material/Box';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
+import Loading from 'loading';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import { getLoggedInUser } from 'utils/getSessionData';
 import RedirectGuard from 'utils/route-guard/RedirectGuard';
-import HeaderGuestComponent from 'views/guestViews/guestLayout/Header';
 import Header from 'views/protectedViews/protectedLayout/Header';
-const Footer = dynamic(() => import('views/guestViews/guestLayout/footer').then((module) => module.default));
+const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/Header'), {
+  ssr: false,
+  loading: Loading
+});
+const Footer = dynamic(() => import('views/guestViews/guestLayout/footer'), {
+  ssr: false,
+  loading: Loading
+});
 
 export interface User {
   name?: string | null;
