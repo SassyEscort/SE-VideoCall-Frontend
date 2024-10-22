@@ -43,21 +43,23 @@ const MyProfile = () => {
     email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required')
   });
   const [isEditable, setIsEditable] = useState(false);
+  const [isReset, setIsReset] = useState(false);
 
   //TODO for verify email and phone and claim free credits
   // const [isEmailVerified, setIsEmailVerified] = useState(false);
   // const [isPhoneVerified, setIsPhoneVerified] = useState(false);
 
-  const handleSubmit = async (name: string) => {
+  const handleSubmit = async (name: string, email: string) => {
     try {
       setLoadingButton(true);
-      const res = await CommonServices.updateUserName(token.token, name);
+      const res = await CommonServices.updateUserName(token.token, name, email);
 
-      handelNameChange();
       if (res) {
         if (res.code === 200 && res.custom_code === null) {
-          toast.success('Success');
+          toast.success('Updated Successfully');
           FetchCustomerDetails();
+          handelNameChange();
+          setIsEditable(false);
         } else {
           const errorMessage = getErrorMessage(res?.custom_code);
           toast.error(intl.formatMessage({ id: errorMessage }));
@@ -134,12 +136,17 @@ const MyProfile = () => {
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        handleSubmit(values.username);
+        handleSubmit(values.username, values.email);
       }}
     >
-      {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue, setFieldTouched }) => {
+      {({ values, errors, touched, handleChange, handleBlur, handleSubmit, resetForm }) => {
         const isButtonDisabled = !values.username || !values.email;
         const buttonColor = isButtonDisabled ? 'secondary.light' : 'secondary.main';
+        const handleCancel = () => {
+          setIsEditable(false);
+          resetForm();
+          setIsReset(!isReset);
+        };
         return (
           <MyProfileContainerMain>
             {isLoading ? (
@@ -196,12 +203,19 @@ const MyProfile = () => {
                     </Tooltip>
                   )} */}
                   {/* {customerDetails?.free_credits_claimed === 1 && ( */}
-
-                  <EditButton variant="contained" onClick={() => setIsEditable(!isEditable)}>
-                    <UINewTypography variant="buttonSmallBold" color={buttonColor}>
-                      {isEditable ? <FormattedMessage id="Cancel" /> : <FormattedMessage id="Edit" />}
-                    </UINewTypography>
-                  </EditButton>
+                  {isEditable ? (
+                    <EditButton variant="contained" onClick={() => handleCancel()}>
+                      <UINewTypography variant="buttonSmallBold" color={'secondary.main'}>
+                        <FormattedMessage id="Cancel" />
+                      </UINewTypography>
+                    </EditButton>
+                  ) : (
+                    <EditButton variant="contained" onClick={() => setIsEditable(!isEditable)}>
+                      <UINewTypography variant="buttonSmallBold" color={'secondary.main'}>
+                        <FormattedMessage id="Edit" />
+                      </UINewTypography>
+                    </EditButton>
+                  )}
 
                   <SaveButton variant="contained" type="submit" loading={loadingButton} disabled={!isEditable}>
                     <UINewTypography variant="buttonSmallBold" color={buttonColor}>
