@@ -23,6 +23,7 @@ export type callLogDataResponse = {
   model_email: string;
   created_at: string;
   updated_at: string;
+  ended_by: string;
 };
 export type PaginationAggregation = {
   offset: number;

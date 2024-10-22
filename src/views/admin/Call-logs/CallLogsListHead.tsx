@@ -18,6 +18,7 @@ export default function CallLogsListHead() {
         <TableCell>Rate Per Minute</TableCell>
         <TableCell>Amount Earned</TableCell>
         <TableCell>Time duration</TableCell>
+        <TableCell>Ended by</TableCell>
         <TableCell>Action</TableCell>
       </TableRow>
     </TableHead>
