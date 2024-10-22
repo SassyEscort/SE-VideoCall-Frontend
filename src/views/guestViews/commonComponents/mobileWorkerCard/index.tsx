@@ -12,31 +12,33 @@ import { CustomerDetailsService } from 'services/customerDetails/customerDetails
 import { ErrorMessage } from 'constants/common.constants';
 import {
   CreditContainer,
-  FavoriteIconContainer,
-  FirstSubContainerImgWorkerCard,
-  FirstSubContainerWithoutImg,
   HeartIconWorkerCard,
   ImgWorkerCard,
   LiveIconSecBoxWorkerCard,
   LiveIconWorkerCard,
-  MainWorkerCard,
   NameCardContainer,
   OfflineIconSecBoxWorkerCard,
   OfflineIconWorkerCard,
-  ProfileCardContainer,
-  SeconderContainerWorkerCard,
-  SecondMainContainerWorkerCard,
   SecondSubContainerImgWorkerCard,
   SecondSubContainerWorkerCard,
-  SubContainertWorkerCard,
-  UITypographyBox,
-  UITypographyBoxContainer,
-  WorkerCardContainer
+  FirstSubContainerWithoutImg
 } from './mobileWorkerCard.styled';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { ViewDetailsRes } from 'services/guestBilling/types';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import {
+  MainWorkerCard,
+  FavoriteIconContainer,
+  WorkerCardContainer,
+  SeconderContainerWorkerCard,
+  SubContainertWorkerCard,
+  ProfileCardContainer,
+  FirstSubContainerImgWorkerCard,
+  SecondMainContainerWorkerCard,
+  UITypographyBox,
+  UITypographyBoxContainer
+} from '../WorkerCard/WorkerCard.styled';
 
 const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRes; token?: TokenIdType }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
