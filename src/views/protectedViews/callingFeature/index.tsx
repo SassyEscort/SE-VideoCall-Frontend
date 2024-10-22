@@ -1,12 +1,13 @@
 'use client';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import RingingModel from '../videoCalling/RingingModel';
 import AnotherCallModel from '../videoCalling/AnotherCallModel';
 import OfflineModel from '../videoCalling/offlineModel';
-import html2canvas from 'html2canvas';
+import { TokenIdType } from 'views/protectedModelViews/verification';
 import moment from 'moment';
 import dynamic from 'next/dynamic';
+import { CallingService } from 'services/calling/calling.services';
 
 const CometChatIncomingCall = dynamic(() => import('@cometchat/chat-uikit-react').then((mod) => mod.CometChatIncomingCall), { ssr: false });
 const CometChatOngoingCall = dynamic(() => import('@cometchat/chat-uikit-react').then((mod) => mod.CometChatOngoingCall), { ssr: false });
@@ -22,31 +23,56 @@ const CallFeature = () => {
     handleBusyClose,
     isLoading,
     isModelAvailable,
-    handleModelOfflineClose
+    handleModelOfflineClose,
+    isUserJoin,
+    getToken
   } = useCallFeatureContext();
 
-  const saveScreenshot = () => {
+  const token: TokenIdType = getToken();
+
+  const [ssTime, setSSTime] = useState(10000);
+
+  const saveScreenshot = async () => {
     const captureElement = document.querySelector('#cc-callscreen_ref') as HTMLElement;
     if (captureElement) {
-      html2canvas(captureElement).then((canvas) => {
-        canvas.toBlob(function (blob) {
-          if (blob) {
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = `${call?.getSessionId()}_${moment().format('DD_MM_YYYY_hh:mm:ss_a')}.png`;
-            link.click();
-          }
-        });
-      });
+      const html2canvas = (await import('html2canvas')).default;
+      const canvas = await html2canvas(captureElement);
+
+      canvas.toBlob(function (blob) {
+        if (blob) {
+          console.log(blob, ':::::::: blob');
+
+          const link = document.createElement('a');
+          const url = URL.createObjectURL(blob);
+          link.href = url;
+          link.download = `${call?.getSessionId()}_${moment().format('DD_MM_YYYY_hh:mm:ss_a')}.webp`;
+          link.click();
+          URL.revokeObjectURL(url);
+        }
+      }, 'image/webp');
     }
   };
 
-  useEffect(() => {
+  const videoCallScreenshotEventListener = useCallback(async () => {
+    if (!isCallAccepted || !token?.token) return;
+
+    const { data } = await CallingService.fetchScreenShotDuration(token.token);
+    const intervalDuration = parseInt(data?.screenshot_interval_duration?.toString() || '0', 0);
+    console.log(intervalDuration, ':::::::intervalDuration');
+
+    if (!intervalDuration) return;
+    if (intervalDuration * 1000 !== ssTime) setSSTime(intervalDuration * 1000);
+
     const intervalId = setInterval(() => {
-      if (isCallAccepted) saveScreenshot();
-    }, 10000);
+      if (isUserJoin) saveScreenshot();
+    }, intervalDuration * 1000);
+
     return () => clearInterval(intervalId);
-  }, [isCallAccepted]);
+  }, [isCallAccepted, isUserJoin]);
+
+  useEffect(() => {
+    videoCallScreenshotEventListener();
+  }, [videoCallScreenshotEventListener, isCallAccepted, isUserJoin]);
 
   return (
     <>

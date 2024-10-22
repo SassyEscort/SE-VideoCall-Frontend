@@ -59,7 +59,7 @@ interface CallFeatureContextProps {
   isBusy: boolean;
   handleBusyClose: () => void;
   avaialbleCredits: number;
-  getToken: (token: TokenIdType) => void;
+  getToken: () => TokenIdType;
   handleOpen: () => void;
   modelCreditPrice: string;
   handleCallEnd: () => void;
@@ -69,6 +69,7 @@ interface CallFeatureContextProps {
   isUnanswered: boolean;
   isFavouriteModel: number;
   handelIsFavouriteModelChange: (val: number) => void;
+  isUserJoin: boolean;
 }
 
 const CallContext = createContext<CallFeatureContextProps>({
@@ -88,7 +89,7 @@ const CallContext = createContext<CallFeatureContextProps>({
   isLoading: false,
   isCallEnded: false,
   avaialbleCredits: 0,
-  getToken: () => {},
+  getToken: () => ({ id: 0, token: '' }),
   handleOpen: () => {},
   modelCreditPrice: '',
   handleCallEnd: () => {},
@@ -97,7 +98,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   user: '',
   isUnanswered: false,
   isFavouriteModel: 0,
-  handelIsFavouriteModelChange: (val: number) => {}
+  handelIsFavouriteModelChange: (val: number) => {},
+  isUserJoin: false
 });
 
 export async function loadUIKitSettingsBuilder() {
@@ -178,6 +180,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [callTime, setCallTime] = useState(0);
   const [modelUsername, setModelUsername] = useState('');
   const [isFavouriteModel, setIsFavouriteModel] = useState(0);
+  const [isUserJoin, setIsUserJoin] = useState(false);
 
   const modelObj = {
     modelId: modelId,
@@ -236,9 +239,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     setCall(undefined);
   };
 
-  const getToken = (token: TokenIdType) => {
-    setToken(token);
-  };
+  const getToken = () => token;
 
   const getCometChatInfo = async () => {
     if (modelId && token.token) {
@@ -403,6 +404,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         setCall(undefined);
         setCallLogId(creditLogData.id);
         setIsCallAccepted(false);
+        setIsUserJoin(false);
         await CometChat.endCall(call.getSessionId());
         CometChatCalls.endSession();
         await getCometChatInfo();
@@ -443,11 +445,13 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     const CometChatCalls = await loadCometChatCalls();
     CometChatCalls.addCallEventListener(String(modelId), {
       onUserJoined: async () => {
+        setIsUserJoin(true);
         await creditPutCallLog(modelId, sessionId, '');
       },
       onCallEnded: async () => {
         const { CometChat } = await loadCometChatModules();
         setIsCallAccepted(false);
+        setIsUserJoin(false);
         setCall(undefined);
         setIsCallEnded(true);
         CometChat.removeUserListener(String(modelId));
@@ -463,6 +467,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       onCallEndButtonPressed: async () => {
         const { CometChat } = await loadCometChatModules();
         setIsCallAccepted(false);
+        setIsUserJoin(false);
         setCall(undefined);
         setIsCallEnded(true);
         CometChat.removeUserListener(String(modelId));
@@ -480,77 +485,80 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const cometChatCallListener = async () => {
-    const { CometChat } = await import('@cometchat/chat-sdk-javascript');
-    const callListener = new CometChat.CallListener({
-      onIncomingCallReceived: async (call: Call) => {
-        setIsCallIncoming(true);
-        setSessionId(call.getSessionId());
-      },
-      onOutgoingCallAccepted: async () => {
-        gaEventTrigger('Video_call_started', {
-          action: 'Video_call_started',
-          category: 'Button',
-          label: 'Video_call_started',
-          value: JSON.stringify(customerInfo)
-        });
-        setIsCallAccepted(true);
-      },
-      onOutgoingCallRejected: async (call: Call) => {
-        if (call.getStatus() === CALLING_STATUS.BUSY) {
-          setIsBusy(true);
-        }
-        setCall(undefined);
-        setIsUnanswered(true);
-        gaEventTrigger('Video_call_unanswered', {
-          action: 'Video_call_unanswered',
-          category: 'Button',
-          label: 'Video_call_unanswered',
-          value: JSON.stringify(customerInfo)
-        });
-        await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.UNASWERED, ROLE.MODEL);
-        setEndCallTime(180000);
-        if (isCustomer) {
-          const CometChatUIKit = await loadCometChatUIKit();
-          await CometChatUIKit.logout();
-        }
-      },
-      onIncomingCallCancelled: async (call: Call) => {
-        setCall(undefined);
-        gaEventTrigger('Video_call_canceled', {
-          action: 'Video_call_canceled',
-          category: 'Button',
-          label: 'Video_call_canceled',
-          value: JSON.stringify(customerInfo)
-        });
-        await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.CANCELED);
-        setEndCallTime(180000);
-        if (isCustomer) {
-          const CometChatUIKit = await loadCometChatUIKit();
-          await CometChatUIKit.logout();
-        }
-      },
-      onCallEndedMessageReceived: async (call: Call) => {
-        setIsCallAccepted(false);
-        setCall(undefined);
-        CometChat.removeUserListener(String(modelId));
-        await CometChat.endCall(call.getSessionId());
-        setIsCallEnded(true);
-        if (isCustomer) {
-          const endCallData = await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.ENDED, ROLE.MODEL);
-          if (endCallData) {
-            setAvailableCredits(endCallData.available_credits);
+    if (modelId && isCustomer && call) {
+      const { CometChat } = await import('@cometchat/chat-sdk-javascript');
+      const callListener = new CometChat.CallListener({
+        onIncomingCallReceived: async (call: Call) => {
+          setIsCallIncoming(true);
+          setSessionId(call.getSessionId());
+        },
+        onOutgoingCallAccepted: async () => {
+          gaEventTrigger('Video_call_started', {
+            action: 'Video_call_started',
+            category: 'Button',
+            label: 'Video_call_started',
+            value: JSON.stringify(customerInfo)
+          });
+          setIsCallAccepted(true);
+        },
+        onOutgoingCallRejected: async (call: Call) => {
+          if (call.getStatus() === CALLING_STATUS.BUSY) {
+            setIsBusy(true);
           }
-          const CometChatUIKit = await loadCometChatUIKit();
-          await CometChatUIKit.logout();
+          setCall(undefined);
+          setIsUnanswered(true);
+          gaEventTrigger('Video_call_unanswered', {
+            action: 'Video_call_unanswered',
+            category: 'Button',
+            label: 'Video_call_unanswered',
+            value: JSON.stringify(customerInfo)
+          });
+          await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.UNASWERED, ROLE.MODEL);
+          setEndCallTime(180000);
+          if (isCustomer) {
+            const CometChatUIKit = await loadCometChatUIKit();
+            await CometChatUIKit.logout();
+          }
+        },
+        onIncomingCallCancelled: async (call: Call) => {
+          setCall(undefined);
+          gaEventTrigger('Video_call_canceled', {
+            action: 'Video_call_canceled',
+            category: 'Button',
+            label: 'Video_call_canceled',
+            value: JSON.stringify(customerInfo)
+          });
+          await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.CANCELED);
+          setEndCallTime(180000);
+          if (isCustomer) {
+            const CometChatUIKit = await loadCometChatUIKit();
+            await CometChatUIKit.logout();
+          }
+        },
+        onCallEndedMessageReceived: async (call: Call) => {
+          setIsCallAccepted(false);
+          setIsUserJoin(false);
+          setCall(undefined);
+          CometChat.removeUserListener(String(modelId));
+          await CometChat.endCall(call.getSessionId());
+          setIsCallEnded(true);
+          if (isCustomer) {
+            const endCallData = await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.ENDED, ROLE.MODEL);
+            if (endCallData) {
+              setAvailableCredits(endCallData.available_credits);
+            }
+            const CometChatUIKit = await loadCometChatUIKit();
+            await CometChatUIKit.logout();
+          }
         }
-      }
-    });
+      });
 
-    CometChat.addCallListener(String(modelId), callListener);
+      CometChat.addCallListener(String(modelId), callListener);
 
-    return () => {
-      CometChat.removeCallListener(String(modelId));
-    };
+      return () => {
+        CometChat.removeCallListener(String(modelId));
+      };
+    }
   };
 
   useEffect(() => {
@@ -619,6 +627,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       if (isCallAccepted || isCallEnded) {
         setCall(undefined);
         setIsCallAccepted(false);
+        setIsUserJoin(false);
         setIsCallEnded(true);
         const { CometChat } = await loadCometChatModules();
         await CometChat.endCall(sessionId);
@@ -669,7 +678,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         user,
         isUnanswered,
         isFavouriteModel,
-        handelIsFavouriteModelChange
+        handelIsFavouriteModelChange,
+        isUserJoin
       }}
     >
       {children}
