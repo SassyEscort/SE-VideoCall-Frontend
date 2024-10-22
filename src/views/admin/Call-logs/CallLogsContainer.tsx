@@ -287,6 +287,9 @@ export default function CallLogsContainer() {
                         <TableCell component="th" scope="row">
                           {formatDuration(item?.duration ?? 0)}
                         </TableCell>
+                        <TableCell component="th" scope="row">
+                          {item?.ended_by || '-'}
+                        </TableCell>
                         <TableCell>
                           <IconButton
                             aria-label="more"
