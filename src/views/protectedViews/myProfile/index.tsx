@@ -14,10 +14,10 @@ import { LoaderBox } from '../Credites/Credits.styled';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import { getErrorMessage } from 'utils/errorUtils';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useAuthContext } from '../../../../context/AuthContext';
 
 export type MyProfile = {
   username: string;
@@ -29,7 +29,7 @@ export type MyProfile = {
 };
 
 const MyProfile = () => {
-  const { handelNameChange } = useCallFeatureContext();
+  const { handelNameChange } = useAuthContext();
   //TODO for verify email and phone and claim free credits
   // const { handleFreeCreditClaim, isFreeCreditAvailable } = useAuthContext();
   const intl = useIntl();

@@ -41,8 +41,8 @@ export type NotificationFilters = {
 // }
 
 const HeaderAuthComponent = () => {
-  const { session, isFreeCreditsClaimed } = useAuthContext();
-  const { isCallEnded, avaialbleCredits, isNameChange } = useCallFeatureContext();
+  const { session, isFreeCreditsClaimed, isNameChange } = useAuthContext();
+  const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));

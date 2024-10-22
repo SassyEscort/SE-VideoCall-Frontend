@@ -17,6 +17,8 @@ export type AuthContextProps = {
   handleFreeCreditClaim: () => void;
   isFreeCreditsClaimed: boolean;
   isModel: boolean;
+  isNameChange: boolean;
+  handelNameChange: () => void;
 };
 
 const AuthContext = createContext<AuthContextProps>({
@@ -27,7 +29,9 @@ const AuthContext = createContext<AuthContextProps>({
   status: '',
   handleFreeCreditClaim: () => {},
   isFreeCreditsClaimed: false,
-  isModel: false
+  isModel: false,
+  isNameChange: false,
+  handelNameChange: () => {}
 });
 
 export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
@@ -35,6 +39,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(1);
   const [isFreeCreditsClaimed, setIsFreeCreditsClaimed] = useState(false);
+  const [isNameChange, setIsNameChange] = useState(false);
 
   const user = (session?.user as User)?.picture;
   const providerData = JSON.parse(user || '{}');
@@ -43,6 +48,10 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
 
   const handleFreeCreditClaim = () => {
     setIsFreeCreditsClaimed(!isFreeCreditsClaimed);
+  };
+
+  const handelNameChange = () => {
+    setIsNameChange(!isNameChange);
   };
 
   const handleCustomerFreeCredits = useCallback(async () => {
@@ -69,6 +78,8 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     <AuthContext.Provider
       value={{
         session,
+        isNameChange,
+        handelNameChange,
         isCustomer,
         user,
         isFreeCreditAvailable,
