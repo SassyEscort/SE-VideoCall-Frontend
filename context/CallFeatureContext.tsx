@@ -442,9 +442,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const cometChatCallEventListner = async () => {
     const CometChatCalls = await loadCometChatCalls();
     CometChatCalls.addCallEventListener(String(modelId), {
-      onUserJoined: async () => {
-        await creditPutCallLog(modelId, sessionId, '');
-      },
+      // onUserJoined: async () => {
+      //   await creditPutCallLog(modelId, sessionId, '');
+      // },
       onCallEnded: async () => {
         const { CometChat } = await loadCometChatModules();
         setIsCallAccepted(false);
