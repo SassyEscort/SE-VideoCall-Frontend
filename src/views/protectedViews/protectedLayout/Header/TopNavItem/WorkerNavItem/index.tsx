@@ -13,20 +13,18 @@ import { SearchTitalBox, SearchTitalBoxSm } from './HeaderAuthComponent.styled';
 import { FormattedMessage } from 'react-intl';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
 import { CommonServices } from 'services/commonApi/commonApi.services';
-import ClaimCreditSignUp from 'views/guestViews/homePage/ClaimCreditSignUp';
-import { usePathname } from 'next/navigation';
-import { CustomerDetails } from 'services/customerDetails/customerDetails.services';
-import { getCookie, setCookie } from './CookieData';
 
 const WorkerNavItem = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [isApiCalled, setIsApiCalled] = useState(false);
   const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
-  const [openFreeCredit, setOpenFreeCredit] = useState(false);
-  const [isCreditsClaimed, setIsCreditsClaimed] = useState(true);
-  const [userName, setUserName] = useState('');
-  const path = usePathname();
+
+  // for free credits Modal
+  // const [openFreeCredit, setOpenFreeCredit] = useState(false);
+  // const [isCreditsClaimed, setIsCreditsClaimed] = useState(true);
+  // const [userName, setUserName] = useState('');
+  // const path = usePathname();
 
   const handleCloseFilterModal = () => {
     setOpenFilterModal(false);
@@ -39,13 +37,13 @@ const WorkerNavItem = () => {
     }
   };
 
-  const handleFreeCreditClose = () => {
-    setOpenFreeCredit(false);
-  };
-
-  const handleProfileRedirect = () => {
-    window.location.href = '/profile';
-  };
+  // for free credits Modal
+  // const handleFreeCreditClose = () => {
+  //   setOpenFreeCredit(false);
+  // };
+  // const handleProfileRedirect = () => {
+  //   window.location.href = '/profile';
+  // };
 
   const handleLanguageApiChange = useCallback(() => {
     const languagesData = async () => {
@@ -55,32 +53,32 @@ const WorkerNavItem = () => {
     languagesData();
   }, []);
 
-  const handelCustomerDetails = (Data: CustomerDetails) => {
-    if (Data) {
-      setUserName(Data.customer_user_name);
-      if (Data.free_credits_claimed === 0) setIsCreditsClaimed(false);
-    }
-  };
+  // for free credits Modal
+  // const handelCustomerDetails = (Data: CustomerDetails) => {
+  //   if (Data) {
+  //     setUserName(Data.customer_user_name);
+  //     if (Data.free_credits_claimed === 0) setIsCreditsClaimed(false);
+  //   }
+  // };
+  // useEffect(() => {
+  //   if (userName !== '') {
+  //     const getFreeCreditsCookie = getCookie(`${userName}`);
+  //     if (!getFreeCreditsCookie) {
+  //       setCookie(`${userName}`, 'true', 1, '/');
+  //       const timer = setTimeout(() => {
+  //         if (path === '/' && !isCreditsClaimed) {
+  //           setOpenFreeCredit(true);
+  //         }
+  //       }, 2000);
 
-  useEffect(() => {
-    if (userName !== '') {
-      const getFreeCreditsCookie = getCookie(`${userName}`);
-      if (!getFreeCreditsCookie) {
-        setCookie(`${userName}`, 'true', 1, '/');
-        const timer = setTimeout(() => {
-          if (path === '/' && !isCreditsClaimed) {
-            setOpenFreeCredit(true);
-          }
-        }, 2000);
-
-        if (openFreeCredit) {
-          clearTimeout(timer);
-        }
-        return () => clearTimeout(timer);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isCreditsClaimed]);
+  //       if (openFreeCredit) {
+  //         clearTimeout(timer);
+  //       }
+  //       return () => clearTimeout(timer);
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isCreditsClaimed]);
 
   useEffect(() => {
     if (isApiCalled) {
@@ -144,11 +142,14 @@ const WorkerNavItem = () => {
               </Typography>
             </SearchTitalBoxSm>
           )}
-          <HeaderAuthComponent customerDataProps={handelCustomerDetails} />
+          {/* here got customer data for claimcrditsignup modal for credit calaimed or not */}
+          {/* <HeaderAuthComponent customerDataProps={handelCustomerDetails} /> */}
+          <HeaderAuthComponent />
         </Box>
       </AppBar>
       <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
-      <ClaimCreditSignUp open={openFreeCredit} onClose={handleFreeCreditClose} onSignupOpen={handleProfileRedirect} />
+      {/*   // for free credits Modal
+<ClaimCreditSignUp open={openFreeCredit} onClose={handleFreeCreditClose} onSignupOpen={handleProfileRedirect} /> */}
     </>
   );
 };
