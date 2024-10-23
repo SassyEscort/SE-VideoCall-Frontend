@@ -46,7 +46,7 @@ const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPass
 const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
   ssr: false
 });
-const NewUIStyledSignUpDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
   ssr: false
 });
 
@@ -261,9 +261,9 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
           ' '
         )}
 
-        <NewUIStyledSignUpDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+        <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
           <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-        </NewUIStyledSignUpDialog>
+        </NewSignupStyledModalDialog>
         <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
           <GuestLogin
             isFreeCreditAvailable={isFreeCreditAvailable}
@@ -283,9 +283,9 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
         <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
           <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
         </UIStyledDialog>
-        <NewUIStyledSignUpDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+        <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
           <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-        </NewUIStyledSignUpDialog>
+        </NewSignupStyledModalDialog>
       </HomeMainContainer>
     </>
   );

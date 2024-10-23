@@ -47,7 +47,7 @@ const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
 const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
   ssr: false
 });
-const NewUIStyledSignUpDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
   ssr: false
 });
 
@@ -343,9 +343,9 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
       >
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </Dialog>
-      <NewUIStyledSignUpDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
+      <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
         <HomePageFreeSignup onLoginOpen={handleLoginOpen} onClose={handleFreeCreditSignupClose} />
-      </NewUIStyledSignUpDialog>
+      </NewSignupStyledModalDialog>
       {/* <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} /> */}
     </>
   );

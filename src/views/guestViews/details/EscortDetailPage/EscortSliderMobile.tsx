@@ -43,7 +43,7 @@ const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPass
 const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
   ssr: false
 });
-const NewUIStyledSignUpDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
   ssr: false
 });
 
@@ -263,9 +263,9 @@ const EscortSliderMobile = ({
           </UIStyledShadowButtonLike>
         </Box>
       </Box>
-      <NewUIStyledSignUpDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth scroll="body">
+      <NewSignupStyledModalDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth scroll="body">
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </NewUIStyledSignUpDialog>
+      </NewSignupStyledModalDialog>
       <UIStyledDialog open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth scroll="body">
         <GuestLogin
           isFreeCreditAvailable={isFreeCreditAvailable}

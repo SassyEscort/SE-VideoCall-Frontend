@@ -22,14 +22,16 @@ import theme from 'themes/theme';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { EMAIL_REGEX } from 'constants/regexConstants';
-import { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
 import HomePageFreeSignup from '../homePageFreeSignup';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { ROLE } from 'constants/workerVerification';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import { useAuthContext } from '../../../../context/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
+import dynamic from 'next/dynamic';
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
+  ssr: false
+});
 export type LoginParams = {
   email: string;
   password: string;
@@ -294,9 +296,9 @@ const GuestLogin = ({
           );
         }}
       </Formik>
-      <NewUIStyledSignUpDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
+      <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
         <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-      </NewUIStyledSignUpDialog>
+      </NewSignupStyledModalDialog>
     </>
   );
 };
