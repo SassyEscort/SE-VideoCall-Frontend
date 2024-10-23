@@ -174,7 +174,7 @@ const Credits = () => {
                 </UINewTypography>
                 <SecondBoxContainer>
                   <BalanceBoxContainer>
-                    <SecondSubContainerImgWorkerCard src="/images/workercards/coin-1.png" alt="coin_icon" />
+                    <SecondSubContainerImgWorkerCard src="/images/workercards/coin-1.png" alt="coin_icon" width={22} height={22} />
                     <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                       {balance?.toFixed(2) || 0}
                     </UINewTypography>
