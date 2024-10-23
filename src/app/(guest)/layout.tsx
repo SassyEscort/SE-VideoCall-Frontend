@@ -4,13 +4,17 @@ import Loading from 'loading';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import { getLoggedInUser } from 'utils/getSessionData';
-import RedirectGuard from 'utils/route-guard/RedirectGuard';
+// import RedirectGuard from 'utils/route-guard/RedirectGuard';
 import Header from 'views/protectedViews/protectedLayout/Header';
 const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/Header'), {
   ssr: false,
   loading: Loading
 });
 const Footer = dynamic(() => import('views/guestViews/guestLayout/footer'), {
+  ssr: false,
+  loading: Loading
+});
+const RedirectGuard = dynamic(() => import('utils/route-guard/RedirectGuard'), {
   ssr: false,
   loading: Loading
 });

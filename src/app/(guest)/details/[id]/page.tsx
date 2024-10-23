@@ -1,8 +1,18 @@
 import { Metadata } from 'next';
 import { ModelSeoService } from 'services/modelSeo/modelSeo.services';
-import EscortDetailPage from 'views/guestViews/details/EscortDetailPage';
-import CallFeature from 'views/protectedViews/callingFeature';
+// import EscortDetailPage from 'views/guestViews/details/EscortDetailPage';
+// import CallFeature from 'views/protectedViews/callingFeature';
 import { CallFeatureProvider } from '../../../../../context/CallFeatureContext';
+import Loading from 'loading';
+import dynamic from 'next/dynamic';
+const EscortDetailPage = dynamic(() => import('views/guestViews/details/EscortDetailPage'), {
+  ssr: false,
+  loading: Loading
+});
+const CallFeature = dynamic(() => import('views/protectedViews/callingFeature'), {
+  ssr: false,
+  loading: Loading
+});
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const model = params.id;

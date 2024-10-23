@@ -2,6 +2,8 @@
 const nextConfig = {
   reactStrictMode: false,
   experimental: {
+    scrollRestoration: true, 
+    cpus: 4, 
     serverActions: true,
     staleTimes: {
       dynamic: 0,
