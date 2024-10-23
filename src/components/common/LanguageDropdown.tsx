@@ -51,87 +51,6 @@ const LanguageDropdown = () => {
           paddingRight: 0,
           '& .MuiSelect-icon': {
             display: 'none'
-          },
-          willChange: 'transform, opacity',
-          transition: 'transform 0.2s ease, opacity 0.2s ease'
-        }}
-        // Customize the Menu using MenuProps and PaperProps
-        MenuProps={{
-          PaperProps: {
-            sx: {
-              // Ensure GPU acceleration and smooth transitions
-              willChange: 'transform, opacity',
-              transition: 'opacity 0.2s ease, transform 0.2s ease'
-            }
-          }
-        }}
-        endAdornment={
-          <KeyboardArrowDownRoundedIcon
-            sx={{
-              height: 16,
-              width: 16,
-              color: 'common.white',
-              paddingRight: '0px !important',
-              cursor: 'pointer'
-            }}
-          />
-        }
-        renderValue={(value) => {
-          const imagePath = FLAG_IMAGES[value].replace('g/', '\\');
-          return (
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <Image
-                src={imagePath}
-                alt={`${value} flag`}
-                width={20}
-                height={12}
-                style={{
-                  display: 'flex'
-                }}
-                loading="lazy" // Ensure lazy loading to avoid offscreen image issues
-              />
-              <Typography marginRight={0.5} variant="buttonLargeMenu" color="text.secondary">
-                {value.toUpperCase()}
-              </Typography>
-            </Box>
-          );
-        }}
-      >
-        {LANGUAGES?.map((lang, key: number) => {
-          const imagePath = FLAG_IMAGES[lang.locale].replace('g/', '\\');
-          return (
-            <MenuItem key={key} value={lang.locale}>
-              <Image
-                src={imagePath}
-                alt={`${lang.title} flag`}
-                width={20}
-                height={12}
-                style={{
-                  marginRight: '10px',
-                  display: 'flex'
-                }}
-                loading="lazy" // Lazy load for menu items
-              />
-              <Typography variant="buttonLargeMenu" color="text.secondary">
-                {lang.title}
-              </Typography>
-            </MenuItem>
-          );
-        })}
-      </Select>
-
-      {/* <Select
-        value={i18n}
-        onChange={handleLanguageChange}
-        autoWidth
-        size="small"
-        open={open}
-        onClose={() => setOpen(false)}
-        onClick={handleToggle}
-        sx={{
-          paddingRight: 0,
-          '& .MuiSelect-icon': {
-            display: 'none'
           }
         }}
         endAdornment={
@@ -181,7 +100,7 @@ const LanguageDropdown = () => {
             </MenuItem>
           );
         })}
-      </Select> */}
+      </Select>
     </FormControl>
   );
 };
