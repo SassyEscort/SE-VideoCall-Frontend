@@ -1,12 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
-import ProviderWrapper from './ProviderWrapper';
+// import ProviderWrapper from './ProviderWrapper';
 import { SEO_DATA } from 'constants/seoConstants';
 import Script from 'next/script';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
+import Loading from 'loading';
 // import '../app/globals.scss';
-
+const ProviderWrapper = dynamic(() => import('./ProviderWrapper'), {
+  ssr: false,
+  loading: Loading
+});
 const AuthFeaturProvider = React.lazy(() => import('../../context/AuthContext').then((module) => ({ default: module.AuthFeaturProvider })));
 const TawkProvider = React.lazy(() => import('../../context/TawkContext').then((module) => ({ default: module.TawkProvider })));
 
@@ -28,26 +33,7 @@ export default function RootLayout({
         <meta name="robots" content="index, follow" />
         <link rel="preload" as="image" href="https://ik.imagekit.io/gpgv4gnda/images/1729084436818home-banner-model1_1qobIoZFu.webp" />
       </Head>
-      <Script
-        async
-        id="gtag-script"
-        type="text/javascript"
-        strategy="lazyOnload"
-        dangerouslySetInnerHTML={{
-          __html: `function gtag_report_conversion(url) {
-              var callback = function () {
-                if (typeof(url) != 'undefined') {
-                  window.location = url;
-                }
-              };
-              gtag('event', 'conversion', {
-                  'send_to': 'AW-16620775104/u-m-CLqVyb0ZEMDNs_U9',
-                  'event_callback': callback
-              });
-              return false;
-            }`
-        }}
-      />
+
       {isProduction && (
         <>
           <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`} />
@@ -63,6 +49,26 @@ export default function RootLayout({
                   gtag('js', new Date());
                   gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');
                 `
+            }}
+          />
+          <Script
+            async
+            id="gtag-script"
+            type="text/javascript"
+            strategy="lazyOnload"
+            dangerouslySetInnerHTML={{
+              __html: `function gtag_report_conversion(url) {
+              var callback = function () {
+                if (typeof(url) != 'undefined') {
+                  window.location = url;
+                }
+              };
+              gtag('event', 'conversion', {
+                  'send_to': 'AW-16620775104/u-m-CLqVyb0ZEMDNs_U9',
+                  'event_callback': callback
+              });
+              return false;
+            }`
             }}
           />
         </>

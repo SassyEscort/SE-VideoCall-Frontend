@@ -33,7 +33,6 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { useRouter } from 'next/navigation';
 import MainLayout from '../../../views/admin/layouts/AdminLayout/DashboardLayout';
 import FormControl from '@mui/material/FormControl';
-import { StyledSelectInputLabel } from 'components/UIComponents/StyleSelect';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import { FilterBox, ModelActionPopover, NotFoundBox, SortBox } from './ModelPageContainer.styled';
@@ -43,6 +42,7 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import Link from 'next/link';
 import HideSourceOutlinedIcon from '@mui/icons-material/HideSourceOutlined';
+import { StyledSelectInputLabel } from 'components/UIComponents/UIStyledSelect';
 
 export type WorkersPaginationType = {
   page: number;

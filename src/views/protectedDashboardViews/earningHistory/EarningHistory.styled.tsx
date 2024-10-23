@@ -1,14 +1,6 @@
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-
-export const FilterDropdownBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: theme.spacing(2),
-  width: '100%'
-}));
 
 export const EarningHistoryMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -25,17 +17,6 @@ export const EarningHistoryMainContainer = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.only('sm')]: {
     maxWidth: '730px'
-  }
-}));
-
-export const EarningHistorySubContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: '28px',
-  width: '100%',
-  height: '100%',
-  maxHeight: '40px',
-  [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column'
   }
 }));
 
@@ -85,12 +66,6 @@ export const PaginationBox = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   gap: theme.spacing(2)
-}));
-
-export const DividerContainer = styled(Divider)(({ theme }) => ({
-  borderColor: theme.palette.text.disabled,
-  height: '40px',
-  alignItems: 'center'
 }));
 
 export const DataNotBox = styled(Box)(({ theme }) => ({

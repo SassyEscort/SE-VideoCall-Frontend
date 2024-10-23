@@ -29,7 +29,6 @@ import { useRouter } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
 import { CustomerDetails } from 'services/customerDetails/customerDetails.services';
 import { FormattedMessage } from 'react-intl';
-import { useAuthContext } from '../../../../context/AuthContext';
 import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
@@ -49,7 +48,7 @@ const CreditSideDrawer = ({
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isLoading, setIsLoading] = useState(false);
 
-  const { isFreeCreditAvailable } = useAuthContext();
+  // const { isFreeCreditAvailable } = useAuthContext();
 
   const { user } = useCallFeatureContext();
   const customerData = JSON.parse(user || '{}');
@@ -98,11 +97,9 @@ const CreditSideDrawer = ({
   };
 
   useEffect(() => {
-    setIsLoading(true);
     if (open && token.token && customerDetails && creditsListing?.length === 0) {
       getCreditsListing();
     }
-    setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, open]);
 
@@ -136,7 +133,7 @@ const CreditSideDrawer = ({
             </CurrentBalanceBox>
             <MainImageBox />
             <CreditListMainBox>
-              {customerDetails && !Boolean(customerDetails?.free_credits_claimed) && isFreeCreditAvailable === 1 && (
+              {/* {customerDetails && !Boolean(customerDetails?.free_credits_claimed) && isFreeCreditAvailable === 1 && (
                 <CreditListContainer
                   sx={{
                     background: 'linear-gradient(90deg, #FECD3D 11.5%, #FFF1C6 52%, #FF69C1 90%)',
@@ -154,12 +151,12 @@ const CreditSideDrawer = ({
                   </CreditInfoBox>
                   <CreditPriceBox>
                     <Box component={'img'} src="/images/home/gitftsecond.png" alt="coin.png" width={24} height={29} />
-                    {/* <CreditTypography color={'primary.200'}>
+                    /* <CreditTypography color={'primary.200'}>
                       <FormattedMessage id="FREE" />
-                    </CreditTypography> */}
+                    </CreditTypography> /
                   </CreditPriceBox>
                 </CreditListContainer>
-              )}
+              )} */}
 
               {creditsListing &&
                 creditsListing?.map((creditsListing, index) => (
@@ -219,9 +216,11 @@ const CreditSideDrawer = ({
                     </CreditInfoBox>
                     <CreditPriceBox>
                       <CreditAmountBox>
-                        <UINewTypography color={'text.primary'} variant="buttonLargeMenu" sx={{ textDecorationLine: 'line-through' }}>
-                          ${creditsListing?.amount}
-                        </UINewTypography>
+                        {creditsListing.discount > 0 && (
+                          <UINewTypography color={'text.primary'} variant="buttonLargeMenu" sx={{ textDecorationLine: 'line-through' }}>
+                            ${creditsListing?.discount}
+                          </UINewTypography>
+                        )}
                         <CreditTypography color={'white.main'}>${creditsListing?.amount}</CreditTypography>
                       </CreditAmountBox>
                     </CreditPriceBox>

@@ -1,7 +1,7 @@
 'use client';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React, { useEffect, useState } from 'react';
-import { DisableButtonBox, MyProfileContainerMain } from './MyProfile.styled';
+import { DisableButtonBox, EditButton, MyProfileContainerMain, SaveButton } from './MyProfile.styled';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -14,15 +14,10 @@ import { LoaderBox } from '../Credites/Credits.styled';
 import { CommonServices } from 'services/commonApi/commonApi.services';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
-import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import { getErrorMessage } from 'utils/errorUtils';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
-import { customerVerificationService } from 'services/customerVerification/customerVerification.services';
-import { useAuthContext } from '../../../../context/AuthContext';
 import Box from '@mui/material/Box';
-import Tooltip from '@mui/material/Tooltip';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useAuthContext } from '../../../../context/AuthContext';
 
 export type MyProfile = {
   username: string;
@@ -34,8 +29,9 @@ export type MyProfile = {
 };
 
 const MyProfile = () => {
-  const { handelNameChange } = useCallFeatureContext();
-  const { handleFreeCreditClaim, isFreeCreditAvailable } = useAuthContext();
+  const { handelNameChange } = useAuthContext();
+  //TODO for verify email and phone and claim free credits
+  // const { handleFreeCreditClaim, isFreeCreditAvailable } = useAuthContext();
   const intl = useIntl();
 
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -46,19 +42,24 @@ const MyProfile = () => {
     username: yup.string().required('Username is required').min(2, 'Username is too short').max(20, 'Username is too long'),
     email: yup.string().matches(EMAIL_REGEX, 'Enter a valid email').required('Email is required')
   });
-  const [isEmailVerified, setIsEmailVerified] = useState(false);
-  const [isPhoneVerified, setIsPhoneVerified] = useState(false);
+  const [isEditable, setIsEditable] = useState(false);
+  const [isReset, setIsReset] = useState(false);
 
-  const handleSubmit = async (name: string) => {
+  //TODO for verify email and phone and claim free credits
+  // const [isEmailVerified, setIsEmailVerified] = useState(false);
+  // const [isPhoneVerified, setIsPhoneVerified] = useState(false);
+
+  const handleSubmit = async (name: string, email: string) => {
     try {
       setLoadingButton(true);
-      const res = await CommonServices.updateUserName(token.token, name);
+      const res = await CommonServices.updateUserName(token.token, name, email);
 
-      handelNameChange();
       if (res) {
         if (res.code === 200 && res.custom_code === null) {
-          toast.success('Success');
+          toast.success('Updated Successfully');
           FetchCustomerDetails();
+          handelNameChange();
+          setIsEditable(false);
         } else {
           const errorMessage = getErrorMessage(res?.custom_code);
           toast.error(intl.formatMessage({ id: errorMessage }));
@@ -71,24 +72,26 @@ const MyProfile = () => {
     }
   };
 
-  const handelClaimFreeCredit = async () => {
-    try {
-      setLoadingButton(true);
-      if (token.token) {
-        const res = await customerVerificationService.claimFreeCredit(token.token);
-        handleFreeCreditClaim();
+  //TODO for verify email and phone and claim free credits
 
-        if (res.code === 200) {
-          toast.success('Free Credit Claimed');
-          FetchCustomerDetails();
-        }
-      }
-    } catch (error) {
-      toast.error(ErrorMessage);
-    } finally {
-      setLoadingButton(false);
-    }
-  };
+  // const handelClaimFreeCredit = async () => {
+  //   try {
+  //     setLoadingButton(true);
+  //     if (token.token) {
+  //       const res = await customerVerificationService.claimFreeCredit(token.token);
+  //       handleFreeCreditClaim();
+
+  //       if (res.code === 200) {
+  //         toast.success('Free Credit Claimed');
+  //         FetchCustomerDetails();
+  //       }
+  //     }
+  //   } catch (error) {
+  //     toast.error(ErrorMessage);
+  //   } finally {
+  //     setLoadingButton(false);
+  //   }
+  // };
 
   const FetchCustomerDetails = async () => {
     setIsLoading(true);
@@ -96,8 +99,10 @@ const MyProfile = () => {
     try {
       const customerData = await CustomerDetailsService.customerModelDetails(token.token);
       setCustomerDetails(customerData?.data);
-      setIsEmailVerified(customerData?.data?.email_verified === 1 ? true : false);
-      setIsPhoneVerified(customerData?.data?.phone_verified === 1 ? true : false);
+
+      //TODO for verify email and phone and claim free credits
+      // setIsEmailVerified(customerData?.data?.email_verified === 1 ? true : false);
+      // setIsPhoneVerified(customerData?.data?.phone_verified === 1 ? true : false);
     } catch (error) {}
     setIsLoading(false);
   };
@@ -131,12 +136,17 @@ const MyProfile = () => {
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        handleSubmit(values.username);
+        handleSubmit(values.username, values.email);
       }}
     >
-      {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue, setFieldTouched }) => {
+      {({ values, errors, touched, handleChange, handleBlur, handleSubmit, resetForm }) => {
         const isButtonDisabled = !values.username || !values.email;
         const buttonColor = isButtonDisabled ? 'secondary.light' : 'secondary.main';
+        const handleCancel = () => {
+          setIsEditable(false);
+          resetForm();
+          setIsReset(!isReset);
+        };
         return (
           <MyProfileContainerMain>
             {isLoading ? (
@@ -152,12 +162,15 @@ const MyProfile = () => {
                   errors={errors}
                   handleBlur={handleBlur}
                   token={token}
-                  isEmailVerified={customerDetails?.email_verified as number}
-                  isPhoneNumberVerified={customerDetails?.phone_verified as number}
-                  FetchCustomerDetails={FetchCustomerDetails}
+                  isEditable={isEditable}
+                  //TODO for verify email and phone and claim free credits
+                  // isEmailVerified={customerDetails?.email_verified as number}
+                  // isPhoneNumberVerified={customerDetails?.phone_verified as number}
+                  // FetchCustomerDetails={FetchCustomerDetails}
                 />
                 <DisableButtonBox>
-                  {customerDetails?.free_credits_claimed === 0 && Boolean(isFreeCreditAvailable) && (
+                  {/* //TODO for verify email and phone and claim free credits
+                   {customerDetails?.free_credits_claimed === 0 && Boolean(isFreeCreditAvailable) && (
                     <Tooltip
                       title={
                         !isPhoneVerified && !isEmailVerified
@@ -188,21 +201,28 @@ const MyProfile = () => {
                         </UIThemeButton>
                       </Box>
                     </Tooltip>
+                  )} */}
+                  {/* {customerDetails?.free_credits_claimed === 1 && ( */}
+                  {isEditable ? (
+                    <EditButton variant="contained" onClick={() => handleCancel()}>
+                      <UINewTypography variant="buttonSmallBold" color={'secondary.main'}>
+                        <FormattedMessage id="Cancel" />
+                      </UINewTypography>
+                    </EditButton>
+                  ) : (
+                    <EditButton variant="contained" onClick={() => setIsEditable(!isEditable)}>
+                      <UINewTypography variant="buttonSmallBold" color={'secondary.main'}>
+                        <FormattedMessage id="Edit" />
+                      </UINewTypography>
+                    </EditButton>
                   )}
-                  {customerDetails?.free_credits_claimed === 1 && (
-                    <Box>
-                      <StyleButtonV2
-                        variant="contained"
-                        type="submit"
-                        loading={loadingButton}
-                        disabled={customerDetails?.customer_name === values.username}
-                      >
-                        <UINewTypography variant="buttonSmallBold" color={buttonColor}>
-                          <FormattedMessage id="Save" />
-                        </UINewTypography>
-                      </StyleButtonV2>
-                    </Box>
-                  )}
+
+                  <SaveButton variant="contained" type="submit" loading={loadingButton} disabled={!isEditable}>
+                    <UINewTypography variant="buttonSmallBold" color={buttonColor}>
+                      <FormattedMessage id="Save" />
+                    </UINewTypography>
+                  </SaveButton>
+                  {/* )} */}
                 </DisableButtonBox>
               </Box>
             )}

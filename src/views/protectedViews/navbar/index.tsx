@@ -38,9 +38,9 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
     profile: 2,
     favourites: 3,
     call: 4,
-    credit: 5,
-    billing: 6,
-    logout: 7
+    // credit: 5,
+    billing: 5,
+    logout: 6
   };
 
   const modifiedPath = router.split('/profile').join('').split('/').join('');

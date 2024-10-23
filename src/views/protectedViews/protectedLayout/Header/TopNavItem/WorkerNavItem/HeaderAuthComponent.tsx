@@ -35,13 +35,14 @@ export type NotificationFilters = {
   pageSize: number;
 };
 
-interface customerData {
-  customerDataProps: (data: CustomerDetails) => void;
-}
+// for this modal Claimyourfreecredits
+// interface customerData {
+//   customerDataProps: (data: CustomerDetails) => void;
+// }
 
-const HeaderAuthComponent = ({ customerDataProps }: customerData) => {
-  const { session, isFreeCreditsClaimed } = useAuthContext();
-  const { isCallEnded, avaialbleCredits, isNameChange } = useCallFeatureContext();
+const HeaderAuthComponent = () => {
+  const { session, isFreeCreditsClaimed, isNameChange } = useAuthContext();
+  const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -133,7 +134,8 @@ const HeaderAuthComponent = ({ customerDataProps }: customerData) => {
     const customerDetails = async () => {
       const customerData = await CustomerDetailsService.customerModelDetails(token.token);
       setCustomerDetails(customerData.data);
-      customerDataProps(customerData.data);
+      // pass this to praent for this modal ClaimCreditSignUp
+      // customerDataProps(customerData.data);
     };
     if (token.token) {
       customerDetails();

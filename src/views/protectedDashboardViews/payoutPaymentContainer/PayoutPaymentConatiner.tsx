@@ -105,11 +105,6 @@ export const SmallScreenImg = styled(Box)(({ theme }) => ({
   gap: theme.spacing(3)
 }));
 
-export const ImgHome = styled(Box)(() => ({
-  width: 48,
-  height: 48
-}));
-
 export const MapBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(6),

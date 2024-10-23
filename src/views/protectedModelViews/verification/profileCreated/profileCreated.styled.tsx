@@ -20,11 +20,6 @@ export const ChildContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(7)
 }));
 
-export const ImageContainer = styled(Box)(() => ({
-  display: 'flex',
-  justifyContent: 'center'
-}));
-
 export const TypographyContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',

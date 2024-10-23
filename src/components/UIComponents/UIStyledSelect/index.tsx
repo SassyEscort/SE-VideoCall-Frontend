@@ -49,29 +49,6 @@ export const UIStyledSelectAgeFilter = styled(Select)(({ theme }) => ({
   }
 }));
 
-export const UIStyledSelectAgeFilterSecond = styled(Select)(({ theme }) => ({
-  display: 'flex',
-  borderRadius: theme.spacing(1),
-  width: '100%',
-  height: '48px',
-  backgroundColor: theme.palette.primary[700],
-  paddingInline: theme.spacing(1.5),
-  paddingTop: theme.spacing(1.375),
-  paddingBottom: theme.spacing(1.375),
-  '&:hover': {
-    '.MuiOutlinedInput-notchedOutline': {
-      borderColor: theme.palette.secondary[700]
-    }
-  },
-  '& .MuiSelect-select': {
-    display: 'flex',
-    overflow: 'hidden',
-    gap: theme.spacing(1)
-  },
-  '& .MuiSvgIcon-root': {
-    color: 'rgba(183, 181, 185, 1)'
-  }
-}));
 export const UIStyledCountrySelect = styled(Select)(({ theme }) => ({
   display: 'flex',
   borderRadius: theme.spacing(1),

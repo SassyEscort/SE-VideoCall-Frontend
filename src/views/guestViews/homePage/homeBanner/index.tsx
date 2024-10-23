@@ -32,15 +32,24 @@ import { User } from 'app/(guest)/layout';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import ButtonFreeCredits from '../buttonFreeCredits';
 import React from 'react';
-import { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
 import { gaEventTrigger } from 'utils/analytics';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { useAuthContext } from '../../../../../context/AuthContext';
 import { BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestLogin from 'views/auth/guestLogin';
-import GuestSignup from 'views/auth/guestSignup';
 import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
+import dynamic from 'next/dynamic';
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
+  ssr: false
+});
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
+  ssr: false
+});
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
+  ssr: false
+});
+const NewUIStyledSignUpDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false
+});
 
 const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const { session } = useAuthContext();

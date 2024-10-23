@@ -767,6 +767,7 @@
   "Free": "Gratis",
   "Call": "Llamar",
   "PleaseUploadAtLeast1Photo": "Por favor, sube al menos 1 foto",
+  "PleaseUploadAtLeast4Photo": "Por favor, sube al menos 4 fotos",
   "AreYouSureImageDelete": "¿Estás seguro de que deseas eliminar todas las imágenes? Si es así, no recibirás ninguna llamada.",
   "ImagesDelete": "Eliminar imágenes",
   "BioShouldNotContainLinks": "La biografía no debe contener enlaces.",
@@ -876,5 +877,6 @@
   "OTPSendOnYourEmail": "Envío OTP en su correo electrónico",
   "Addcredits": "Agregar créditos",
   "DuplicateDetected": "Duplicado detectado: El documento que subiste ya existe.",
-  "firstTimeOnly": "SOLO PRIMERA VEZ"
+  "firstTimeOnly": "SOLO PRIMERA VEZ",
+  "InvoiceReport": "Informe de Facturas"
 }

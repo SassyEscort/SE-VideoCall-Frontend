@@ -76,11 +76,11 @@ export class CommonServices {
     }
   };
 
-  static updateUserName = async (token: string, name: string): Promise<UserNameResData> => {
+  static updateUserName = async (token: string, name: string, email: string): Promise<UserNameResData> => {
     try {
       const res = await axios.patch<UserNameResData>(
         process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/user-details`,
-        { name: name },
+        { name: name, email: email },
         {
           headers: { 'Content-Type': 'application/json', Authorization: token }
         }

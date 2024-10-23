@@ -46,8 +46,8 @@ interface CallFeatureContextProps {
     modelPrice: string,
     isFavourite: number
   ) => void;
-  handelNameChange: () => void;
-  isNameChange: boolean;
+  // handelNameChange: () => void;
+  // isNameChange: boolean;
   isCallAccepted: boolean;
   isCustomer: boolean;
   isCallIncoming: boolean;
@@ -76,8 +76,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   call: undefined,
   handleCancelCall: () => {},
   handleCallInitiate: () => {},
-  handelNameChange: () => {},
-  isNameChange: false,
+  // handelNameChange: () => {},
+  // isNameChange: false,
   isCallAccepted: false,
   isCustomer: false,
   isCallIncoming: false,
@@ -170,7 +170,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [balance, setBalance] = useState(0);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [avaialbleCredits, setAvailableCredits] = useState(0);
-  const [isNameChange, setIsNameChange] = useState(false);
+  // const [isNameChange, setIsNameChange] = useState(false);
   const [modelCreditPrice, setModelCreditPrice] = useState('');
   const [isModelAvailable, setIsModelAvailable] = useState(1);
   const [isUnanswered, setIsUnanswered] = useState(false);
@@ -180,7 +180,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [callTime, setCallTime] = useState(0);
   const [modelUsername, setModelUsername] = useState('');
   const [isFavouriteModel, setIsFavouriteModel] = useState(0);
-  const [isUserJoin, setIsUserJoin] = useState(false);
+  const [isModelJoin, setIsModelJoin] = useState(false);
 
   const modelObj = {
     modelId: modelId,
@@ -223,9 +223,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [userNameData, isCustomer]);
 
-  const handelNameChange = () => {
-    setIsNameChange(!isNameChange);
-  };
+  // const handelNameChange = () => {
+  //   setIsNameChange(!isNameChange);
+  // };
 
   const handelIsFavouriteModelChange = async (val: number) => {
     setIsFavouriteModel(val);
@@ -404,7 +404,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         setCall(undefined);
         setCallLogId(creditLogData.id);
         setIsCallAccepted(false);
-        setIsUserJoin(false);
+        setIsModelJoin(false);
         await CometChat.endCall(call.getSessionId());
         CometChatCalls.endSession();
         await getCometChatInfo();
@@ -445,13 +445,13 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     const CometChatCalls = await loadCometChatCalls();
     CometChatCalls.addCallEventListener(String(modelId), {
       onUserJoined: async () => {
-        setIsUserJoin(true);
-        await creditPutCallLog(modelId, sessionId, '');
+        setIsModelJoin(true);
+        // await creditPutCallLog(modelId, sessionId, '');
       },
       onCallEnded: async () => {
         const { CometChat } = await loadCometChatModules();
         setIsCallAccepted(false);
-        setIsUserJoin(false);
+        setIsModelJoin(false);
         setCall(undefined);
         setIsCallEnded(true);
         CometChat.removeUserListener(String(modelId));
@@ -467,7 +467,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       onCallEndButtonPressed: async () => {
         const { CometChat } = await loadCometChatModules();
         setIsCallAccepted(false);
-        setIsUserJoin(false);
+        setIsModelJoin(false);
         setCall(undefined);
         setIsCallEnded(true);
         CometChat.removeUserListener(String(modelId));
@@ -537,7 +537,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         },
         onCallEndedMessageReceived: async (call: Call) => {
           setIsCallAccepted(false);
-          setIsUserJoin(false);
+          setIsModelJoin(false);
           setCall(undefined);
           CometChat.removeUserListener(String(modelId));
           await CometChat.endCall(call.getSessionId());
@@ -627,7 +627,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       if (isCallAccepted || isCallEnded) {
         setCall(undefined);
         setIsCallAccepted(false);
-        setIsUserJoin(false);
+        setIsModelJoin(false);
         setIsCallEnded(true);
         const { CometChat } = await loadCometChatModules();
         await CometChat.endCall(sessionId);
@@ -656,8 +656,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         call,
         handleCancelCall,
         handleCallInitiate,
-        handelNameChange,
-        isNameChange,
+        // handelNameChange,
+        // isNameChange,
         isCallAccepted,
         isCustomer,
         isCallIncoming,
@@ -679,7 +679,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         isUnanswered,
         isFavouriteModel,
         handelIsFavouriteModelChange,
-        isUserJoin
+        isUserJoin: isModelJoin
       }}
     >
       {children}

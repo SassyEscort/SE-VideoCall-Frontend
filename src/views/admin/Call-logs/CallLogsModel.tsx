@@ -93,7 +93,15 @@ const CallLogsModel = ({
                 <strong>Time Duration</strong>
               </td>
               <td>
-                <td>{formatDuration(selectedPayoutData?.duration || '-')}</td>
+                <td>{formatDuration(selectedPayoutData?.duration ?? 0)}</td>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Ended by</strong>
+              </td>
+              <td>
+                <td>{selectedPayoutData?.ended_by || '-'}</td>
               </td>
             </tr>
           </tbody>
