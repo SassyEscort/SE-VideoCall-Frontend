@@ -69,7 +69,8 @@ interface CallFeatureContextProps {
   isUnanswered: boolean;
   isFavouriteModel: number;
   handelIsFavouriteModelChange: (val: number) => void;
-  isUserJoin: boolean;
+  isModelJoin: boolean;
+  callLogId: number;
 }
 
 const CallContext = createContext<CallFeatureContextProps>({
@@ -99,7 +100,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   isUnanswered: false,
   isFavouriteModel: 0,
   handelIsFavouriteModelChange: (val: number) => {},
-  isUserJoin: false
+  isModelJoin: false,
+  callLogId: 0
 });
 
 export async function loadUIKitSettingsBuilder() {
@@ -306,7 +308,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
             setCall(callInitiate);
             setSessionId(callInitiate.getSessionId());
             setIsCallEnded(false);
-            await creditPutCallLog(guestId, callInitiate.getSessionId(), '');
+            const res = await creditPutCallLog(guestId, callInitiate.getSessionId(), '');
+            if (res?.id) setCallLogId(res.id);
             setIsLoading(false);
           }
         } else if (call) {
@@ -607,10 +610,13 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       if (isCallAccepted && isCustomer) {
         try {
           const endCall = await creditPutCallLog(modelId, sessionId, '');
-          if (endCall && endCall.end_call) {
-            setIsCallEnded(true);
-            clearInterval(intervalId);
-            return;
+          if (endCall) {
+            if (endCall?.id) setCallLogId(endCall.id);
+            if (endCall.end_call) {
+              setIsCallEnded(true);
+              clearInterval(intervalId);
+              return;
+            }
           }
         } catch (error) {
           toast.error(ErrorMessage);
@@ -679,7 +685,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         isUnanswered,
         isFavouriteModel,
         handelIsFavouriteModelChange,
-        isUserJoin: isModelJoin
+        isModelJoin,
+        callLogId
       }}
     >
       {children}

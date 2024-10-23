@@ -5,9 +5,8 @@ import RingingModel from '../videoCalling/RingingModel';
 import AnotherCallModel from '../videoCalling/AnotherCallModel';
 import OfflineModel from '../videoCalling/offlineModel';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import moment from 'moment';
 import dynamic from 'next/dynamic';
-import { CallingService } from 'services/calling/calling.services';
+import { ScreenshotService } from 'services/screenshot/screenshot.service';
 
 const CometChatIncomingCall = dynamic(() => import('@cometchat/chat-uikit-react').then((mod) => mod.CometChatIncomingCall), { ssr: false });
 const CometChatOngoingCall = dynamic(() => import('@cometchat/chat-uikit-react').then((mod) => mod.CometChatOngoingCall), { ssr: false });
@@ -24,8 +23,9 @@ const CallFeature = () => {
     isLoading,
     isModelAvailable,
     handleModelOfflineClose,
-    isUserJoin,
-    getToken
+    isModelJoin,
+    getToken,
+    callLogId
   } = useCallFeatureContext();
 
   const token: TokenIdType = getToken();
@@ -38,41 +38,38 @@ const CallFeature = () => {
       const html2canvas = (await import('html2canvas')).default;
       const canvas = await html2canvas(captureElement);
 
-      canvas.toBlob(function (blob) {
+      canvas.toBlob(async (blob) => {
         if (blob) {
-          console.log(blob, ':::::::: blob');
+          const fileName = `${callLogId.toString()}_${Date.now()}`;
+          const formData = new FormData();
+          formData.append('call_log_id', callLogId.toString());
+          formData.append('screenshot', blob, fileName);
 
-          const link = document.createElement('a');
-          const url = URL.createObjectURL(blob);
-          link.href = url;
-          link.download = `${call?.getSessionId()}_${moment().format('DD_MM_YYYY_hh:mm:ss_a')}.webp`;
-          link.click();
-          URL.revokeObjectURL(url);
+          await ScreenshotService.uploadScreenShotImage(formData, token.token);
         }
-      }, 'image/webp');
+      });
     }
   };
 
   const videoCallScreenshotEventListener = useCallback(async () => {
     if (!isCallAccepted || !token?.token) return;
 
-    const { data } = await CallingService.fetchScreenShotDuration(token.token);
-    const intervalDuration = parseInt(data?.screenshot_interval_duration?.toString() || '0', 0);
-    console.log(intervalDuration, ':::::::intervalDuration');
+    const durationRes = await ScreenshotService.fetchScreenShotDuration(token.token);
+    const intervalDuration = parseInt(durationRes?.data?.screenshot_interval_duration?.toString() || '0', 0);
 
     if (!intervalDuration) return;
     if (intervalDuration * 1000 !== ssTime) setSSTime(intervalDuration * 1000);
 
     const intervalId = setInterval(() => {
-      if (isUserJoin) saveScreenshot();
+      if (isModelJoin && callLogId) saveScreenshot();
     }, intervalDuration * 1000);
 
     return () => clearInterval(intervalId);
-  }, [isCallAccepted, isUserJoin]);
+  }, [isModelJoin, callLogId]);
 
   useEffect(() => {
     videoCallScreenshotEventListener();
-  }, [videoCallScreenshotEventListener, isCallAccepted, isUserJoin]);
+  }, [videoCallScreenshotEventListener, isModelJoin, callLogId, ssTime]);
 
   return (
     <>

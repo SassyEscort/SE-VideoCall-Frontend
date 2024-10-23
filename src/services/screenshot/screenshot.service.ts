@@ -12,11 +12,11 @@ export interface ScreenShotMainRes {
 }
 
 export class ScreenshotService {
-  static uploadScreenShotImage = async (token: string): Promise<ScreenShotMainRes> => {
+  static uploadScreenShotImage = async (payload: FormData, token: string): Promise<ScreenShotMainRes> => {
     try {
-      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/screenshot-duration`, {
+      const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/call/upload-screenshot`, payload, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data',
           Authorization: token
         }
       });
