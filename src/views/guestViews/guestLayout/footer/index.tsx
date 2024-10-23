@@ -23,7 +23,7 @@ const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPass
 const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
   ssr: false
 });
-const NewUIStyledSignUpDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
   ssr: false
 });
 
@@ -149,9 +149,9 @@ const Footer = () => {
           backgroundImage: `url(${'/images/Footer-min.webp'})`
         }}
       />
-      <NewUIStyledSignUpDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+      <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </NewUIStyledSignUpDialog>
+      </NewSignupStyledModalDialog>
       <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
         <GuestLogin
           isFreeCreditAvailable={isFreeCreditAvailable}

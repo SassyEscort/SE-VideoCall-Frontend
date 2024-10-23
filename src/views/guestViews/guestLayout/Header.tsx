@@ -22,7 +22,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
-import { NewUIStyledSignUpDialog } from 'components/UIComponents/UIStyledDialog';
 import FreeCreditsSignUp from '../homePage/freeCreditsSignUp';
 import { SearchTitalBoxSm } from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/HeaderAuthComponent.styled';
 const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
@@ -41,6 +40,10 @@ const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup')
   ssr: false
 });
 import dynamic from 'next/dynamic';
+
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
+  ssr: false
+});
 
 const HeaderGuestComponent = () => {
   const { isFreeCreditAvailable } = useAuthContext();
@@ -400,9 +403,9 @@ const HeaderGuestComponent = () => {
         {/* </Box> */}
         {/* </Toolbar> */}
       </AppBar>
-      <NewUIStyledSignUpDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+      <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </NewUIStyledSignUpDialog>
+      </NewSignupStyledModalDialog>
       <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
         <GuestLogin
           onClose={handleLoginClose}
@@ -420,9 +423,9 @@ const HeaderGuestComponent = () => {
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
 
-      <NewUIStyledSignUpDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+      <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
         <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-      </NewUIStyledSignUpDialog>
+      </NewSignupStyledModalDialog>
 
       {/* <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} /> */}
       <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
