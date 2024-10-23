@@ -1,8 +1,3 @@
-import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
-// import AgeFilter from './AgeFilter';
-// import CountryFilter from './CountryFilter';
-// import CurrentlyOnline from './CurrentlyOnline';
-// import Price from './Price';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   FirstBoxMainContainer,
@@ -11,18 +6,43 @@ import {
   SecondBoxMainContainer,
   ThiredBoxMainContainer
 } from '../Search.styled';
-import { lazy, forwardRef, memo, Suspense, useEffect, useState } from 'react';
+import { forwardRef, memo, Suspense, useEffect, useState } from 'react';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { useSearchParams } from 'next/navigation';
+import Loading from 'loading';
+import dynamic from 'next/dynamic';
 // import GenderFilter from './GenderFilter';
-
-const AgeFilter = lazy(() => import('./AgeFilter'));
-const GenderFilter = lazy(() => import('./GenderFilter'));
-const CountryFilter = lazy(() => import('./CountryFilter'));
-const CurrentlyOnline = lazy(() => import('./CurrentlyOnline'));
-const Price = lazy(() => import('./Price'));
+const AgeFilter = dynamic(() => import('./AgeFilter'), {
+  ssr: false,
+  loading: Loading
+});
+const GenderFilter = dynamic(() => import('./GenderFilter'), {
+  ssr: false,
+  loading: Loading
+});
+const CountryFilter = dynamic(() => import('./CountryFilter'), {
+  ssr: false,
+  loading: Loading
+});
+const CurrentlyOnline = dynamic(() => import('./CurrentlyOnline'), {
+  ssr: false,
+  loading: Loading
+});
+const Price = dynamic(() => import('./Price'), {
+  ssr: false,
+  loading: Loading
+});
+const HomeMainContainer = dynamic(() => import('views/guestViews/guestLayout/homeContainer'), {
+  ssr: false,
+  loading: Loading
+});
+// const AgeFilter = lazy(() => import('./AgeFilter'));
+// const GenderFilter = lazy(() => import('./GenderFilter'));
+// const CountryFilter = lazy(() => import('./CountryFilter'));
+// const CurrentlyOnline = lazy(() => import('./CurrentlyOnline'));
+// const Price = lazy(() => import('./Price'));
 
 export type SearchFiltersTypes = {
   fromAge: string;

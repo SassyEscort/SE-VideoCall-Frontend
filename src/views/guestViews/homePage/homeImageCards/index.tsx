@@ -22,7 +22,7 @@ const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDia
   ssr: false,
   loading: Loading
 });
-const NewUIStyledSignUpDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
   ssr: false,
   loading: Loading
 });
@@ -235,9 +235,9 @@ const HomeImageCard = ({
               </NotFoundModelBox>
             )}
       </WorkerCardMainBox>
-      <NewUIStyledSignUpDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+      <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </NewUIStyledSignUpDialog>
+      </NewSignupStyledModalDialog>
       <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
         <GuestLogin
           isFreeCreditAvailable={isFreeCreditAvailable}
@@ -254,9 +254,9 @@ const HomeImageCard = ({
       <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
-      <NewUIStyledSignUpDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+      <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
         <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-      </NewUIStyledSignUpDialog>
+      </NewSignupStyledModalDialog>
     </HomeMainContainer>
   );
 };
