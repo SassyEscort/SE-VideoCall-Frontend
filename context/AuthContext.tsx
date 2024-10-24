@@ -81,6 +81,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const credit = searchParams.get('credit');
   const totalBal = searchParams.get('total_credits_after_txn');
   const totalBalValue = searchParams.get('total_amount_after_txn');
+  const transaction_id = searchParams.get('transaction_id');
 
   const handleFreeCreditClaim = () => {
     setIsFreeCreditsClaimed(!isFreeCreditsClaimed);
@@ -127,7 +128,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     setAddedCredits(Number(credit));
     if (credit) {
       setOpenSuccess(true);
-      window.flux.track('conversion', { rev: Number(credit), tx: 'OPTIONAL_TXID' });
+      window.flux.track('conversion', { rev: Number(credit), tx: transaction_id?.toString() });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
