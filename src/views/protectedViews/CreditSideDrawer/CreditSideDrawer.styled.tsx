@@ -148,7 +148,7 @@ export const CreditListMainBox = styled(Box)(({ theme }) => ({
   position: 'relative',
   overflowY: 'scroll',
   scrollbarWidth: 'none',
-  maxHeight: '73vh',
+  maxHeight: 'calc(100vh-200px)',
   paddingBottom: theme.spacing(2)
 }));
 
