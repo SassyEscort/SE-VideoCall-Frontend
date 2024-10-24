@@ -56,6 +56,7 @@ const CreditSideDrawer = ({
   const router = useRouter();
   const pathname = usePathname();
   const isDetailsPage = pathname.startsWith('/details');
+  const userName = pathname?.split('/')?.[2] || '';
 
   useEffect(() => {
     const userToken = async () => {
@@ -92,7 +93,7 @@ const CreditSideDrawer = ({
       label: 'Credits_Purchase_Initiated',
       value: JSON.stringify(customerInfo)
     });
-    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, 0, false, isDetailsPage ? 'details' : 'home');
+    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, 0, false, isDetailsPage ? 'details' : 'home', userName);
     if (res) {
       router.push(res?.data?.url);
     }
