@@ -273,7 +273,7 @@ export const GiftBoxSecond = styled(Box)(() => ({
   maxWidth: '35px',
   height: '35px',
   borderRadius: '12px',
-  backgroundImage: `url(/images/free-credits/gift-img.png)`,
+  backgroundImage: `url(/images/free-credits/gift-img.webp)`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat'
