@@ -1,12 +1,16 @@
 'use client';
 import { User } from 'app/(guest)/layout';
+import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import { ErrorMessage } from 'constants/common.constants';
 import { ROLE } from 'constants/workerVerification';
 import { Session } from 'next-auth';
 import { useSession } from 'next-auth/react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { createContext, ReactNode, useContext, useEffect, useState, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
+import { gaEventTrigger } from 'utils/analytics';
+import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
 
 export type AuthContextProps = {
   session: Session | null;
@@ -19,6 +23,9 @@ export type AuthContextProps = {
   isModel: boolean;
   isNameChange: boolean;
   handelNameChange: () => void;
+  handleOpen: () => void;
+  handleCreditDrawerClose: () => void;
+  openCreditDrawer: boolean;
 };
 
 const AuthContext = createContext<AuthContextProps>({
@@ -31,7 +38,10 @@ const AuthContext = createContext<AuthContextProps>({
   isFreeCreditsClaimed: false,
   isModel: false,
   isNameChange: false,
-  handelNameChange: () => {}
+  handleOpen: () => {},
+  handelNameChange: () => {},
+  handleCreditDrawerClose: () => {},
+  openCreditDrawer: false
 });
 
 export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
@@ -40,11 +50,38 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(1);
   const [isFreeCreditsClaimed, setIsFreeCreditsClaimed] = useState(false);
   const [isNameChange, setIsNameChange] = useState(false);
+  const [addedCredits, setAddedCredits] = useState(0);
+  const [balance, setBalance] = useState(0);
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openCreditDrawer, setOpenCreditDrawer] = useState(false);
 
   const user = (session?.user as User)?.picture;
   const providerData = JSON.parse(user || '{}');
   const isCustomer = providerData?.role === ROLE.CUSTOMER;
   const isModel = providerData?.role === ROLE.MODEL;
+
+  const path = usePathname();
+  const userName = path.split('/')[2];
+
+  const customerInfo = {
+    email: providerData?.customer_email,
+    name: providerData?.customer_name,
+    username: providerData?.customer_user_name,
+    model_username: userName
+  };
+
+  const handleOpen = () => {
+    setOpenCreditDrawer(true);
+  };
+
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const credit = searchParams.get('credit');
+  const totalBal = searchParams.get('total_credits_after_txn');
+  const totalBalValue = searchParams.get('total_amount_after_txn');
+  const transaction_id = searchParams.get('transaction_id');
 
   const handleFreeCreditClaim = () => {
     setIsFreeCreditsClaimed(!isFreeCreditsClaimed);
@@ -52,6 +89,17 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
 
   const handelNameChange = () => {
     setIsNameChange(!isNameChange);
+  };
+
+  const handleClose = () => {
+    setOpenSuccess(false);
+    router.push(pathname);
+  };
+
+  const handleCreditDrawerClose = () => {
+    setOpenCreditDrawer(false);
+    // setOpenSuccess(false);
+    // router.push(pathname);
   };
 
   const handleCustomerFreeCredits = useCallback(async () => {
@@ -74,6 +122,33 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    setBalance(Number(totalBal));
+    setBalance(Number(totalBalValue));
+    setAddedCredits(Number(credit));
+    if (credit) {
+      setOpenSuccess(true);
+      window.flux.track('conversion', { rev: Number(credit), tx: transaction_id?.toString() });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (credit) {
+      gaEventTrigger(
+        'purchase',
+        {
+          action: 'purchase',
+          category: 'Page change',
+          label: 'purchase',
+          value: JSON.stringify(customerInfo)
+        },
+        Number(totalBalValue)
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
@@ -86,10 +161,16 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         status,
         handleFreeCreditClaim,
         isFreeCreditsClaimed,
-        isModel
+        isModel,
+        handleOpen,
+        openCreditDrawer,
+        handleCreditDrawerClose
       }}
     >
       {children}
+      <UIStyledDialog open={openSuccess} maxWidth="md" fullWidth scroll="body">
+        <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} isOutOfCredits={false} />
+      </UIStyledDialog>
     </AuthContext.Provider>
   );
 };
