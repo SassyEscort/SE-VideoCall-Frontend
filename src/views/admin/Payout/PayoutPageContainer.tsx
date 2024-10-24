@@ -158,10 +158,7 @@ export default function PayoutPageContainer() {
   };
 
   const handelChangeStatus = async (value: boolean) => {
-    const res = await payoutDetailsService.payoutAction(token.token, Number(selectedPayoutData?.id), value);
-    if (res?.state === 'Approved') {
-      await payoutDetailsService.AdminDeleteScreenshot(Number(selectedPayoutData?.model_id), token.token);
-    }
+    await payoutDetailsService.payoutAction(token.token, Number(selectedPayoutData?.id), value);
     handleRefetch();
     handleCloseMenu();
   };

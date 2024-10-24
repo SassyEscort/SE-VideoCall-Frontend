@@ -71,21 +71,4 @@ export class payoutDetailsService {
       return error.response?.data as payoutDataResponse;
     }
   };
-
-  static AdminDeleteScreenshot = async (model_id: number, token: string): Promise<payoutResponse> => {
-    try {
-      const res = await axios.delete<payoutResponse>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/call/delete-screenshots`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token
-        },
-        data: { model_id: model_id }
-      });
-
-      return res.data;
-    } catch (err: any) {
-      const error: AxiosError = err;
-      return error.response?.data as payoutResponse;
-    }
-  };
 }
