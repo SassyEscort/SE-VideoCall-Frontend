@@ -213,8 +213,8 @@ const CreditSideDrawer = ({
                       <Box component={'img'} src="/images/credits/coinwthIcon.png" alt="coin.png" width={18} height={18} />
                       <Box>
                         <UINewTypography variant="SubtitleSmallMedium" color={'white.main'}>
-                          {creditsListing?.credits} {(creditsListing?.tag === 'First Time Only' && '+ 10') || ''}{' '}
-                          <FormattedMessage id="Credits" />
+                          {creditsListing?.credits}
+                          {(creditsListing?.tag === 'First Time Only' && '+ 10') || ''} <FormattedMessage id="Credits" />
                         </UINewTypography>
                       </Box>
                     </CreditInfoBox>
