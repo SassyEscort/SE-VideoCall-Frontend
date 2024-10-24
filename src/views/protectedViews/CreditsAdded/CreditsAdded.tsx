@@ -39,11 +39,11 @@ function CreditsAdded({
   useEffect(() => {
     const timer = setTimeout(() => {
       setRedirectSeconds((prevSeconds) => prevSeconds - 1);
+      onClose();
     }, 1000);
 
     if (redirectSeconds === 0) {
       clearTimeout(timer);
-      onClose();
     }
 
     return () => clearTimeout(timer);
