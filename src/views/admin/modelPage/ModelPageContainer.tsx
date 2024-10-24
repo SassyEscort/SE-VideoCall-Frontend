@@ -8,7 +8,6 @@ import Stack from '@mui/material/Stack';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import TableContainer from '@mui/material/TableContainer';
@@ -305,7 +304,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
   return (
     <>
       <MainLayout>
-        <Container>
+        <>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
             <Typography variant="h4" gutterBottom>
               Models
@@ -490,7 +489,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
               )}
             </Paper>
           </Card>
-        </Container>
+        </>
         <ModelActionPopover
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}

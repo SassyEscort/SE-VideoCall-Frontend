@@ -1,5 +1,4 @@
 'use client';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import MainLayout from '../layouts/AdminLayout/DashboardLayout';
 import Stack from '@mui/material/Stack';
@@ -180,7 +179,7 @@ export default function CallLogsContainer() {
 
   return (
     <MainLayout>
-      <Container>
+      <>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
           <Typography variant="h4" gutterBottom>
             Call Logs History
@@ -338,7 +337,7 @@ export default function CallLogsContainer() {
             )}
           </Paper>
         </Card>
-      </Container>
+      </>
       <StyledPopover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}

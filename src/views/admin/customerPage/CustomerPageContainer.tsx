@@ -7,7 +7,6 @@ import Table from '@mui/material/Table';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import TableContainer from '@mui/material/TableContainer';
@@ -186,7 +185,7 @@ export default function CustomerPageContainer() {
   return (
     <>
       <MainLayout>
-        <Container>
+        <>
           <StackBoxContainer>
             <Typography variant="h4" gutterBottom>
               Customer
@@ -278,7 +277,7 @@ export default function CustomerPageContainer() {
               )}
             </Paper>
           </Card>
-        </Container>
+        </>
         <ModelActionPopover
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
