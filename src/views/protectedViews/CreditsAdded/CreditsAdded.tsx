@@ -33,6 +33,8 @@ function CreditsAdded({
   isOutOfCredits: boolean;
 }) {
   const [redirectSeconds, setRedirectSeconds] = useState(3);
+  const addedCreditsStored = addedCredits;
+  const newBalanceStored = newBalance;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -67,7 +69,7 @@ function CreditsAdded({
         </ImageContainer>
         <AddedCreditsContainer>
           <UINewTypographyNew>
-            {addedCredits?.toFixed(2) || 0} <FormattedMessage id="NewCredits" />
+            {addedCreditsStored?.toFixed(2) || 0} <FormattedMessage id="NewCredits" />
           </UINewTypographyNew>
         </AddedCreditsContainer>
         <NewBalanceDetailsConatainer>
@@ -77,7 +79,7 @@ function CreditsAdded({
           <NewBalanceDetails>
             <Image alt="dollar_icon" width={24} height={24} src="/images/workercards/dollar-img.avif" />
             <UINewTypography sx={{ pl: '8px' }}>
-              {newBalance?.toFixed(2) || 0} <FormattedMessage id="Credits" />
+              {newBalanceStored?.toFixed(2) || 0} <FormattedMessage id="Credits" />
             </UINewTypography>
           </NewBalanceDetails>
         </NewBalanceDetailsConatainer>
