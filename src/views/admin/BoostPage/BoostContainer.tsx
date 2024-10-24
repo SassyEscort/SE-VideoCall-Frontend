@@ -1,5 +1,4 @@
 'use client';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import MainLayout from '../layouts/AdminLayout/DashboardLayout';
 import Stack from '@mui/material/Stack';
@@ -205,7 +204,7 @@ export default function BoostContainer() {
 
   return (
     <MainLayout>
-      <Container>
+      <>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
           <Typography variant="h4" gutterBottom>
             Boost Plans
@@ -306,7 +305,7 @@ export default function BoostContainer() {
             )}
           </Paper>
         </Card>
-      </Container>
+      </>
       <StyledPopover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}

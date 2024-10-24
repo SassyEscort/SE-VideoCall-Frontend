@@ -6,10 +6,11 @@ import { useState } from 'react';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { FormattedMessage } from 'react-intl';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { Box, SelectChangeEvent } from '@mui/material';
+import { SelectChangeEvent } from '@mui/material';
 import { SelectDropdown } from './EarningSidebarDropDown';
 import EarningHistory from '../earningHistory';
 import EarningOverview from '../earningOverview';
+import Box from '@mui/material/Box';
 
 const EarningHistoryMenuList = [
   { menuName: <FormattedMessage id="Overview" />, id: 0 },

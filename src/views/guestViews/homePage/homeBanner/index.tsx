@@ -35,19 +35,31 @@ import React from 'react';
 import { gaEventTrigger } from 'utils/analytics';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { useAuthContext } from '../../../../../context/AuthContext';
-import { BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
-import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
+// import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import dynamic from 'next/dynamic';
+import Loading from 'loading';
+// import HomeHeroBanner from './HomeHeroBanner';
+const HomeHeroBanner = dynamic(() => import('./HomeHeroBanner'), {
+  ssr: false,
+  loading: Loading
+});
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
-  ssr: false
+  ssr: false,
+  loading: Loading
+});
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
+  ssr: false,
+  loading: Loading
 });
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
-  ssr: false
+  ssr: false,
+  loading: Loading
 });
 const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
-  ssr: false
+  ssr: false,
+  loading: Loading
 });
-const NewUIStyledSignUpDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
   ssr: false
 });
 
@@ -215,24 +227,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 )}
               </ThirdBoxContainer>
             </FirstBoxContainer>
-            <BannerImageCard>
-              <picture>
-                <Image
-                  alt="home_model"
-                  decoding="async"
-                  width={isSm && isSmDown ? 300 : isSmDown ? 347 : 462}
-                  height={isSmDown ? 339 : 452}
-                  src="https://ik.imagekit.io/gpgv4gnda/images/1729084436818home-banner-model1_1qobIoZFu.webp"
-                  placeholder="blur"
-                  blurDataURL="/images/home/home-banner-blur.webp"
-                  style={{ borderRadius: '12px', right: 0 }}
-                  priority
-                  loading="eager"
-                  fetchPriority="high"
-                  sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, 462px"
-                />
-              </picture>
-            </BannerImageCard>
+            <HomeHeroBanner isSm={isSm} isSmDown={isSmDown} />
           </BannerContainer>
           {isSmDown && (
             <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} onSignupOpen={handleFreeCreditSignupOpen} />
@@ -343,9 +338,9 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
       >
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </Dialog>
-      <NewUIStyledSignUpDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
+      <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
         <HomePageFreeSignup onLoginOpen={handleLoginOpen} onClose={handleFreeCreditSignupClose} />
-      </NewUIStyledSignUpDialog>
+      </NewSignupStyledModalDialog>
       {/* <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} /> */}
     </>
   );

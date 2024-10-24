@@ -67,6 +67,17 @@ export interface MissedCallMainRes {
   custom_code: null | number;
 }
 
+export type ScreenShotRes = {
+  screenshot_interval_duration: number;
+};
+export interface ScreenShotMainRes {
+  message: string;
+  code: number;
+  error: null | string;
+  data: ScreenShotRes;
+  custom_code: null | number;
+}
+
 export class CallingService {
   static getCometChatInfo = async (modelId: number, token: string): Promise<CallingUserIdRes> => {
     try {

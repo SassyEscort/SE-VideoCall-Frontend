@@ -21,7 +21,6 @@ import {
 } from './CreditsAddded.styled';
 
 import { FormattedMessage } from 'react-intl';
-import Link from 'next/link';
 function CreditsAdded({
   onClose,
   addedCredits,
@@ -34,15 +33,17 @@ function CreditsAdded({
   isOutOfCredits: boolean;
 }) {
   const [redirectSeconds, setRedirectSeconds] = useState(3);
+  const addedCreditsStored = addedCredits;
+  const newBalanceStored = newBalance;
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setRedirectSeconds((prevSeconds) => prevSeconds - 1);
+      onClose();
     }, 1000);
 
     if (redirectSeconds === 0) {
       clearTimeout(timer);
-      onClose();
     }
 
     return () => clearTimeout(timer);
@@ -68,7 +69,7 @@ function CreditsAdded({
         </ImageContainer>
         <AddedCreditsContainer>
           <UINewTypographyNew>
-            {addedCredits?.toFixed(2) || 0} <FormattedMessage id="NewCredits" />
+            {addedCreditsStored?.toFixed(2) || 0} <FormattedMessage id="NewCredits" />
           </UINewTypographyNew>
         </AddedCreditsContainer>
         <NewBalanceDetailsConatainer>
@@ -78,19 +79,19 @@ function CreditsAdded({
           <NewBalanceDetails>
             <Image alt="dollar_icon" width={24} height={24} src="/images/workercards/dollar-img.avif" />
             <UINewTypography sx={{ pl: '8px' }}>
-              {newBalance?.toFixed(2) || 0} <FormattedMessage id="Credits" />
+              {newBalanceStored?.toFixed(2) || 0} <FormattedMessage id="Credits" />
             </UINewTypography>
           </NewBalanceDetails>
         </NewBalanceDetailsConatainer>
         {!isOutOfCredits ? (
           <ExploreButtonContainer>
-            <Link prefetch={false} href="/">
-              <UIThemeShadowButton variant="contained" sx={{ p: '10px 29px', width: '176px' }}>
-                <UINewTypography variant="buttonLargeBold" color="white.main" whiteSpace={'nowrap'}>
-                  <FormattedMessage id="ExploreModels" />
-                </UINewTypography>
-              </UIThemeShadowButton>
-            </Link>
+            {/* <Link prefetch={false} href="/"> */}
+            <UIThemeShadowButton variant="contained" sx={{ p: '10px 29px', width: '176px' }}>
+              <UINewTypography variant="buttonLargeBold" color="white.main" whiteSpace={'nowrap'}>
+                <FormattedMessage id="ExploreModels" />
+              </UINewTypography>
+            </UIThemeShadowButton>
+            {/* </Link> */}
           </ExploreButtonContainer>
         ) : (
           <ExploreButtonContainer>
