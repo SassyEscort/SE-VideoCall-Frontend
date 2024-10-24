@@ -128,7 +128,8 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     setAddedCredits(Number(credit));
     if (credit) {
       setOpenSuccess(true);
-      window.flux.track('conversion', { rev: Number(credit), tx: transaction_id?.toString() });
+      if (typeof window !== 'undefined' && window?.flux)
+        window.flux.track('conversion', { rev: Number(credit), tx: transaction_id?.toString() });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
