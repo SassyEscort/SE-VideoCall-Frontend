@@ -9,7 +9,14 @@ import { formatDuration } from 'utils/dateAndTime';
 import Image from 'next/image';
 import { Box } from '@mui/material';
 import { useState } from 'react';
-import { MainScreenshotBox, MainScreenshotBoxChild, MainScreenshotBoxImage, SelectedImageBox } from './CallLogs.styled';
+import {
+  DetailRowBox,
+  MainScreenshot,
+  MainScreenshotBox,
+  MainScreenshotBoxChild,
+  MainScreenshotBoxImage,
+  SelectedImageBox
+} from './CallLogs.styled';
 
 export const DetailRow = ({ label, value }: { label: string; value: string | number }) => (
   <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0' }}>
@@ -69,7 +76,7 @@ const CallLogsModel = ({
         >
           <MainScreenshotBoxChild>
             {selectedPayoutData && (
-              <>
+              <DetailRowBox>
                 <DetailRow label="Model Name" value={selectedPayoutData?.model_name} />
                 <DetailRow label="Model Email" value={selectedPayoutData?.model_email} />
                 <DetailRow label="Customer Name" value={selectedPayoutData?.customer_name} />
@@ -82,28 +89,30 @@ const CallLogsModel = ({
                 <DetailRow label="Amount Earned" value={selectedPayoutData?.amount_earned} />
                 <DetailRow label="Time Duration" value={formatDuration(selectedPayoutData?.duration ?? 0)} />
                 <DetailRow label="Ended by" value={selectedPayoutData?.ended_by} />
-              </>
+              </DetailRowBox>
             )}
           </MainScreenshotBoxChild>
-          <MainScreenshotBoxImage>
-            {selectedPayoutData?.screenshots && selectedPayoutData?.screenshots.length > 0 ? (
-              selectedPayoutData.screenshots.map((e) => (
-                <Image
-                  key={e.id}
-                  src={e.link}
-                  alt="Screenshot"
-                  width={200}
-                  height={200}
-                  style={{ objectFit: 'cover', borderRadius: '4px' }}
-                  onClick={() => handleClick(e.link)}
-                />
-              ))
-            ) : (
-              <Typography variant="body1" color="textSecondary">
-                No screenshot available
-              </Typography>
-            )}
-          </MainScreenshotBoxImage>
+          <MainScreenshot>
+            <MainScreenshotBoxImage>
+              {selectedPayoutData?.screenshots && selectedPayoutData?.screenshots.length > 0 ? (
+                selectedPayoutData.screenshots.map((e) => (
+                  <Image
+                    key={e.id}
+                    src={e.link}
+                    alt="Screenshot"
+                    width={200}
+                    height={200}
+                    style={{ objectFit: 'cover', borderRadius: '4px' }}
+                    onClick={() => handleClick(e.link)}
+                  />
+                ))
+              ) : (
+                <Typography variant="body1" color="textSecondary">
+                  No screenshot available
+                </Typography>
+              )}
+            </MainScreenshotBoxImage>
+          </MainScreenshot>
         </MainScreenshotBox>
       </Dialog>
 
@@ -116,7 +125,13 @@ const CallLogsModel = ({
         </DialogTitle>
         <SelectedImageBox>
           {selectedImage && (
-            <Image src={selectedImage} alt="Selected Screenshot" width={900} height={450} style={{ maxWidth: '100%', maxHeight: '80vh' }} />
+            <Image
+              src={selectedImage}
+              alt="Selected Screenshot"
+              width={900}
+              height={450}
+              style={{ maxWidth: '100%', maxHeight: '80vh', objectFit: 'scale-down' }}
+            />
           )}
         </SelectedImageBox>
       </Dialog>

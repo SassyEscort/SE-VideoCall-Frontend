@@ -42,8 +42,7 @@ export const MainScreenshotBoxChild = styled(Box)(() => ({
   borderRadius: '8px',
   boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
   backgroundColor: '#fafafa',
-  overflowY: 'auto',
-  maxHeight: '400px'
+  overflowY: 'auto'
 }));
 
 export const MainScreenshotBoxImage = styled(Box)(() => ({
@@ -55,8 +54,6 @@ export const MainScreenshotBoxImage = styled(Box)(() => ({
   borderRadius: '8px',
   boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
   backgroundColor: '#fafafa',
-  maxHeight: '400px',
-  overflowY: 'auto',
   justifyContent: 'center',
   alignItems: 'center',
   cursor: 'pointer'
@@ -67,4 +64,14 @@ export const SelectedImageBox = styled(Box)(() => ({
   justifyContent: 'center',
   alignItems: 'center',
   padding: '24px'
+}));
+
+export const MainScreenshot = styled(Box)(() => ({
+  maxHeight: '400px',
+  overflowY: 'auto',
+  height: '100%'
+}));
+
+export const DetailRowBox = styled(Box)(() => ({
+  maxHeight: '400px'
 }));
