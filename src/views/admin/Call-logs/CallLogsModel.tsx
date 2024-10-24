@@ -88,6 +88,8 @@ const CallLogsModel = ({
                 <DetailRow label="Rate Per Minute" value={selectedPayoutData?.rate_per_minute} />
                 <DetailRow label="Amount Earned" value={selectedPayoutData?.amount_earned} />
                 <DetailRow label="Time Duration" value={formatDuration(selectedPayoutData?.duration ?? 0)} />
+                <DetailRow label="Screenshot interval" value={selectedPayoutData?.screenshot_interval} />
+                <DetailRow label="Screenshot count" value={selectedPayoutData?.screenshot_count} />
                 <DetailRow label="Ended by" value={selectedPayoutData?.ended_by} />
               </DetailRowBox>
             )}

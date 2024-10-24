@@ -288,6 +288,12 @@ export default function CallLogsContainer() {
                           {formatDuration(item?.duration ?? 0)}
                         </TableCell>
                         <TableCell component="th" scope="row">
+                          {item?.screenshot_interval || '-'}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {item?.screenshot_count ?? 0}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
                           {item?.ended_by || '-'}
                         </TableCell>
                         <TableCell>

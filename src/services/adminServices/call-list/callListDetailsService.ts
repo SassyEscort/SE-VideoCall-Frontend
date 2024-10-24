@@ -30,6 +30,8 @@ export type CallLogDataResponse = {
   updated_at: string;
   ended_by: string;
   screenshots: ScreenshotData[];
+  screenshot_interval: string;
+  screenshot_count: number;
 };
 
 export type PaginationAggregation = {
