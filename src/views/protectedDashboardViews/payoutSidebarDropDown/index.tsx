@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { FormattedMessage } from 'react-intl';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { Box, SelectChangeEvent } from '@mui/material';
+import { SelectChangeEvent } from '@mui/material';
 import { SelectDropdown } from './PayoutSidebarDropDown';
 import PayoutContainer from '../payoutRequest/PayoutContainer';
 import PayoutBankInformation from '../payoutBankInformation';
@@ -18,6 +18,7 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { BankDetailsListRes } from 'services/payout/types';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import Box from '@mui/material/Box';
 
 const profileMenuList = [
   { menuName: <FormattedMessage id="RequestPayout" />, id: 0 },

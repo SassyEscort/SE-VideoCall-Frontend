@@ -13,11 +13,7 @@ import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
 import { ErrorMessage } from 'constants/common.constants';
 // import { CometChatCalls } from '@cometchat/calls-sdk-javascript';
-import UIStyledDialog, { ModelCreditsUIStyledDialog } from 'components/UIComponents/UIStyledDialog';
-import ModelCredits from 'views/protectedViews/Credites/ModelCredits';
-import { usePathname, useSearchParams } from 'next/navigation';
-import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 // import { UIKitSettingsBuilder } from '@cometchat/uikit-shared';
 import { gaEventTrigger } from 'utils/analytics';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
@@ -26,6 +22,7 @@ import { useIntl } from 'react-intl';
 import moment from 'moment';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { ROLE } from 'constants/workerVerification';
+import { useAuthContext } from './AuthContext';
 
 export const COMETCHAT_CONSTANTS = {
   APP_ID: process.env.NEXT_PUBLIC_COMET_CHAT_APP_ID!,
@@ -71,6 +68,8 @@ interface CallFeatureContextProps {
   handelIsFavouriteModelChange: (val: number) => void;
   isModelJoin: boolean;
   callLogId: number;
+  // handleCreditDrawerClose: () => void;
+  // openCreditDrawer: boolean;
 }
 
 const CallContext = createContext<CallFeatureContextProps>({
@@ -102,6 +101,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   handelIsFavouriteModelChange: (val: number) => {},
   isModelJoin: false,
   callLogId: 0
+  // handleCreditDrawerClose: () => {},
+  // openCreditDrawer: false
 });
 
 export async function loadUIKitSettingsBuilder() {
@@ -139,10 +140,10 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
 
   const isCustomer = providerData?.role === ROLE.CUSTOMER;
 
-  const searchParams = useSearchParams();
-  const credit = searchParams.get('credit');
-  const totalBal = searchParams.get('total_credits_after_txn');
-  const totalBalValue = searchParams.get('total_amount_after_txn');
+  // const searchParams = useSearchParams();
+  // const credit = searchParams.get('credit');
+  // const totalBal = searchParams.get('total_credits_after_txn');
+  // const totalBalValue = searchParams.get('total_amount_after_txn');
 
   const path = usePathname();
   const userName = path.split('/')[2];
@@ -165,12 +166,13 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [modelPhoto, setModelPhoto] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isCallEnded, setIsCallEnded] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [isOutOfCredits, setIsOutOfCredits] = useState(false);
+  // const [open, setOpen] = useState(false);
+  // const [openCreditDrawer, setOpenCreditDrawer] = useState(false);
+  // const [isOutOfCredits, setIsOutOfCredits] = useState(false);
   const [isBusy, setIsBusy] = useState(false);
-  const [addedCredits, setAddedCredits] = useState(0);
-  const [balance, setBalance] = useState(0);
-  const [openSuccess, setOpenSuccess] = useState(false);
+  // const [addedCredits, setAddedCredits] = useState(0);
+  // const [balance, setBalance] = useState(0);
+  // const [openSuccess, setOpenSuccess] = useState(false);
   const [avaialbleCredits, setAvailableCredits] = useState(0);
   // const [isNameChange, setIsNameChange] = useState(false);
   const [modelCreditPrice, setModelCreditPrice] = useState('');
@@ -184,6 +186,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [isFavouriteModel, setIsFavouriteModel] = useState(0);
   const [isModelJoin, setIsModelJoin] = useState(false);
 
+  const { handleOpen } = useAuthContext();
+
   const modelObj = {
     modelId: modelId,
     modelName: modelName,
@@ -194,9 +198,10 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     modelCreditPrice: modelCreditPrice,
     isFavouriteModel: isFavouriteModel
   };
+  // console.log('OPen drawer ', openCreditDrawer);
 
-  const pathname = usePathname();
-  const router = useRouter();
+  // const pathname = usePathname();
+  // const router = useRouter();
   const init = useCallback(async () => {
     try {
       const CometChatUIKit = await loadCometChatUIKit();
@@ -343,7 +348,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
             label: 'Credits_Purchase_Popup_open',
             value: JSON.stringify(creditInfoEvent)
           });
-          setOpen(true);
+          handleOpen(); // Open drawer
         }
       }
     } catch (error: any) {
@@ -362,14 +367,17 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const handleClose = () => {
-    setOpen(false);
-    setOpenSuccess(false);
-    router.push(pathname);
-  };
+  // const handleCreditDrawerClose = () => {
+  //   setOpenCreditDrawer(false);
+  //   // setOpenSuccess(false);
+  //   // router.push(pathname);
+  //   console.log('handleCreditDrawerClose');
+  // };
 
-  const handleOpen = () => setOpen(true);
-
+  // const handleOpen = () => {
+  //   console.log('called handleOpen');
+  //   setOpenCreditDrawer(true);
+  // };
   const handleBusyClose = () => setIsBusy(false);
 
   const handleCallEnd = () => setIsCallEnded(false);
@@ -429,8 +437,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
             label: 'Credits_Purchase_Popup_open',
             value: JSON.stringify(creditInfoEvent)
           });
-          setIsOutOfCredits(true);
-          setOpen(true);
+          // setIsOutOfCredits(true);
+          // setOpenCreditDrawer(true); // OPEN DRAWER
+          handleOpen(); // OPEN DRAWER
           const CometChatUIKit = await loadCometChatUIKit();
           await CometChatUIKit.logout();
         }
@@ -578,32 +587,31 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
     };
     userToken();
   }, []);
+  // useEffect(() => {
+  //   setBalance(Number(totalBal));
+  //   setBalance(Number(totalBalValue));
+  //   setAddedCredits(Number(credit));
+  //   if (credit) {
+  //     setOpenSuccess(true);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [searchParams]);
 
-  useEffect(() => {
-    setBalance(Number(totalBal));
-    setBalance(Number(totalBalValue));
-    setAddedCredits(Number(credit));
-    if (credit) {
-      setOpenSuccess(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
-
-  useEffect(() => {
-    if (credit) {
-      gaEventTrigger(
-        'purchase',
-        {
-          action: 'purchase',
-          category: 'Page change',
-          label: 'purchase',
-          value: JSON.stringify(customerInfo)
-        },
-        Number(totalBalValue)
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   if (credit) {
+  //     gaEventTrigger(
+  //       'purchase',
+  //       {
+  //         action: 'purchase',
+  //         category: 'Page change',
+  //         label: 'purchase',
+  //         value: JSON.stringify(customerInfo)
+  //       },
+  //       Number(totalBalValue)
+  //     );
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(() => {
     const intervalId = setInterval(async () => {
@@ -644,7 +652,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           if (endCallData) {
             setAvailableCredits(endCallData.available_credits);
           }
-          setOpen(true);
+          // setOpen(true);
           const CometChatUIKit = await loadCometChatUIKit();
           await CometChatUIKit.logout();
           return;
@@ -687,20 +695,22 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         handelIsFavouriteModelChange,
         isModelJoin,
         callLogId
+        // handleCreditDrawerClose,
+        // openCreditDrawer
       }}
     >
       {children}
-      <ModelCreditsUIStyledDialog open={open} maxWidth="md" fullWidth scroll="body">
+      {/* <ModelCreditsUIStyledDialog open={open} maxWidth="md" fullWidth scroll="body">
         <ModelCredits
           onClose={handleClose}
           isOutOfCredits={isOutOfCredits}
           userName={userName}
           modelCreditPrice={Number(modelCreditPrice)}
         />
-      </ModelCreditsUIStyledDialog>
-      <UIStyledDialog open={openSuccess} maxWidth="md" fullWidth scroll="body">
+      </ModelCreditsUIStyledDialog> */}
+      {/* <UIStyledDialog open={openSuccess} maxWidth="md" fullWidth scroll="body">
         <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} isOutOfCredits={isOutOfCredits} />
-      </UIStyledDialog>
+      </UIStyledDialog> */}
       <VideoCallEnded open={reviewOpen} onClose={handleReviewClose} callLogId={callLogId} modelObj={modelObj} />
     </CallContext.Provider>
   );

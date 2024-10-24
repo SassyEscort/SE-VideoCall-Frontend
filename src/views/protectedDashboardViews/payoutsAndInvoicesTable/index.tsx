@@ -27,12 +27,13 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
-import { CircularProgress, SelectChangeEvent } from '@mui/material';
+import { SelectChangeEvent } from '@mui/material';
 import { PayoutService } from 'services/payout/payout.service';
 import { ModelPastPayoutDetailRes } from 'services/payout/types';
 import { PaginationBox } from './billingTable/BillingTable.styled';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export type PaginationType = {
   page: number;
