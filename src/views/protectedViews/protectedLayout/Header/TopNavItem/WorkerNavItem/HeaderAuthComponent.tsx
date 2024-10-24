@@ -41,7 +41,7 @@ export type NotificationFilters = {
 // }
 
 const HeaderAuthComponent = () => {
-  const { session, isFreeCreditsClaimed, isNameChange } = useAuthContext();
+  const { session, isFreeCreditsClaimed, isNameChange, openCreditDrawer, handleCreditDrawerClose } = useAuthContext();
   const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
 
@@ -71,6 +71,7 @@ const HeaderAuthComponent = () => {
 
   const handleCloseCreditSideDrawer = () => {
     setOpenCreditSideDrawer(false);
+    handleCreditDrawerClose();
   };
 
   const handleOpenChangePassword = () => {
@@ -175,6 +176,11 @@ const HeaderAuthComponent = () => {
   };
 
   const unReadCount = notificationDetails?.data?.aggregate?.enabled && notificationDetails?.data?.aggregate?.enabled > 0;
+  useEffect(() => {
+    if (openCreditDrawer) {
+      setOpenCreditSideDrawer(true);
+    }
+  }, [openCreditDrawer]);
 
   return (
     <>

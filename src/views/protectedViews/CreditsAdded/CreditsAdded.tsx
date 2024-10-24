@@ -21,7 +21,6 @@ import {
 } from './CreditsAddded.styled';
 
 import { FormattedMessage } from 'react-intl';
-import Link from 'next/link';
 function CreditsAdded({
   onClose,
   addedCredits,
@@ -84,13 +83,13 @@ function CreditsAdded({
         </NewBalanceDetailsConatainer>
         {!isOutOfCredits ? (
           <ExploreButtonContainer>
-            <Link prefetch={false} href="/">
-              <UIThemeShadowButton variant="contained" sx={{ p: '10px 29px', width: '176px' }}>
-                <UINewTypography variant="buttonLargeBold" color="white.main" whiteSpace={'nowrap'}>
-                  <FormattedMessage id="ExploreModels" />
-                </UINewTypography>
-              </UIThemeShadowButton>
-            </Link>
+            {/* <Link prefetch={false} href="/"> */}
+            <UIThemeShadowButton variant="contained" sx={{ p: '10px 29px', width: '176px' }}>
+              <UINewTypography variant="buttonLargeBold" color="white.main" whiteSpace={'nowrap'}>
+                <FormattedMessage id="ExploreModels" />
+              </UINewTypography>
+            </UIThemeShadowButton>
+            {/* </Link> */}
           </ExploreButtonContainer>
         ) : (
           <ExploreButtonContainer>
