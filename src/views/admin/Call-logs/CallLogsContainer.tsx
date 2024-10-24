@@ -24,7 +24,7 @@ import TablePager from 'components/common/CustomPaginations/TablePager';
 import { StyledPopover } from './CallLogs.styled';
 import CallLogsListHead from './CallLogsListHead';
 import CallLogsModel from './CallLogsModel';
-import { callLogDataResponse, callLogsDetailsService } from 'services/adminServices/call-list/callListDetailsService';
+import { CallLogDataResponse, CallLogsDetailsService } from 'services/adminServices/call-list/callListDetailsService';
 import debounce from 'lodash/debounce';
 import { CALL_LOG_ACTION } from 'constants/payoutsConstants';
 import Link from 'next/link';
@@ -48,8 +48,8 @@ export type PaginationType = {
 };
 
 export default function CallLogsContainer() {
-  const [selectedPayoutData, setSelectedPayoutData] = useState<callLogDataResponse | null>(null);
-  const [data, setData] = useState<callLogDataResponse[]>([]);
+  const [selectedPayoutData, setSelectedPayoutData] = useState<CallLogDataResponse | null>(null);
+  const [data, setData] = useState<CallLogDataResponse[]>([]);
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -91,7 +91,7 @@ export default function CallLogsContainer() {
 
   const handelFetch = async () => {
     setIsLoading(true);
-    const res = await callLogsDetailsService.getCallLogsDetails(
+    const res = await CallLogsDetailsService.getCallLogsDetails(
       token.token,
       filters.pageSize,
       filters.offset,
@@ -123,7 +123,7 @@ export default function CallLogsContainer() {
     setOpen(null);
     setAnchorEl(null);
   };
-  const handleOpenCredit = (value: callLogDataResponse) => {
+  const handleOpenCredit = (value: CallLogDataResponse) => {
     setSelectedPayoutData(value);
     setCreditModalOpen(true);
   };
@@ -286,6 +286,12 @@ export default function CallLogsContainer() {
                         </TableCell>
                         <TableCell component="th" scope="row">
                           {formatDuration(item?.duration ?? 0)}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {item?.screenshot_interval || '-'}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {item?.screenshot_count ?? 0}
                         </TableCell>
                         <TableCell component="th" scope="row">
                           {item?.ended_by || '-'}

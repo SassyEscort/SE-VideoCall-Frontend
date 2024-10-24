@@ -1,6 +1,11 @@
 import axios, { AxiosError } from 'axios';
 
-export type callLogDataResponse = {
+export type ScreenshotData = {
+  id: number;
+  link: string;
+  created_at: string;
+};
+export type CallLogDataResponse = {
   id: number;
   model_id: number;
   customer_id: number;
@@ -24,7 +29,11 @@ export type callLogDataResponse = {
   created_at: string;
   updated_at: string;
   ended_by: string;
+  screenshots: ScreenshotData[];
+  screenshot_interval: string;
+  screenshot_count: number;
 };
+
 export type PaginationAggregation = {
   offset: number;
   page_size: number;
@@ -33,17 +42,17 @@ export type PaginationAggregation = {
   sort_order?: string;
   sort_field?: string;
 };
-export type data = {
-  call_logs: callLogDataResponse[];
+export type CallLogsData = {
+  call_logs: CallLogDataResponse[];
   aggregate: PaginationAggregation;
 };
-export type callLogsResponse = {
-  data: data;
+export type CallLogsResponse = {
+  data: CallLogsData;
   code: number;
   error: string | null;
   message: string;
 };
-export class callLogsDetailsService {
+export class CallLogsDetailsService {
   static getCallLogsDetails = async (
     token: string,
     limit: number,
@@ -51,7 +60,7 @@ export class callLogsDetailsService {
     search_field?: string,
     from_date?: string,
     to_date?: string
-  ): Promise<callLogsResponse> => {
+  ): Promise<CallLogsResponse> => {
     try {
       const res = await axios.get(
         process.env.NEXT_PUBLIC_API_BASE_URL +
@@ -67,7 +76,7 @@ export class callLogsDetailsService {
       return res.data;
     } catch (err: any) {
       const error: AxiosError = err;
-      return error.response?.data as callLogsResponse;
+      return error.response?.data as CallLogsResponse;
     }
   };
 }

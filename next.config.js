@@ -57,7 +57,7 @@ const nextConfig = {
     }
   },
   images: {
-    domains: ['ik.imagekit.io'],
+    domains: ['ik.imagekit.io', 'flirtbate-storage.ams3.digitaloceanspaces.com'],
     remotePatterns: [
       {
         protocol: 'https',
