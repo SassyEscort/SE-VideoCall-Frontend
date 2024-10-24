@@ -37,49 +37,6 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <meta name="robots" content="index, follow" />
       </head>
-
-      <Script
-        async
-        defer
-        id="lumetric-script"
-        type="text/javascript"
-        strategy="lazyOnload"
-        dangerouslySetInnerHTML={{
-          __html: `
-            !function(f,l,u,x,j,s,a,b){
-              window.flux || 
-              (j="undefined"!=typeof fluxOptions?fluxOptions:{}, 
-               s="undefined"!=typeof fluxDefaults?fluxDefaults:{}, 
-               (a=l.createElement("script")).src="https://"+u+"/integration/lumetricv2.min.js?v="+x, 
-               a.type="text/javascript", 
-               a.async="true", 
-               queue=[], 
-               window.flux={track:function(){queue.push(arguments)}}, 
-               a.onload=a.onreadystatechange=function(){
-                 var rs=this.readyState; 
-                 if(!rs || "complete"==rs || "loaded"==rs) {
-                   try {
-                     for(window.flux=new Lumetric(u,x,j,s); 0!=queue.length;) {
-                       var args=queue.pop(); 
-                       window.flux.track.apply(null,args);
-                     }
-                   } catch(e) {}
-                 }
-               }, 
-               (b=document.getElementsByTagName("script")[0]).parentNode.insertBefore(a,b));
-            }(window,document,"tracking.flirtbate.com","3.3.0");
-          `
-        }}
-      />
-      <Script
-        async
-        defer
-        id="ff-pro-view-event"
-        strategy="lazyOnload"
-        dangerouslySetInnerHTML={{
-          __html: `flux.track("view");`
-        }}
-      />
       {isProduction && (
         <>
           <Script defer async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`} />
@@ -117,6 +74,48 @@ export default function RootLayout({
               });
               return false;
             }`
+            }}
+          />
+          <Script
+            async
+            defer
+            id="lumetric-script"
+            type="text/javascript"
+            strategy="lazyOnload"
+            dangerouslySetInnerHTML={{
+              __html: `
+            !function(f,l,u,x,j,s,a,b){
+              window.flux || 
+              (j="undefined"!=typeof fluxOptions?fluxOptions:{}, 
+               s="undefined"!=typeof fluxDefaults?fluxDefaults:{}, 
+               (a=l.createElement("script")).src="https://"+u+"/integration/lumetricv2.min.js?v="+x, 
+               a.type="text/javascript", 
+               a.async="true", 
+               queue=[], 
+               window.flux={track:function(){queue.push(arguments)}}, 
+               a.onload=a.onreadystatechange=function(){
+                 var rs=this.readyState; 
+                 if(!rs || "complete"==rs || "loaded"==rs) {
+                   try {
+                     for(window.flux=new Lumetric(u,x,j,s); 0!=queue.length;) {
+                       var args=queue.pop(); 
+                       window.flux.track.apply(null,args);
+                     }
+                   } catch(e) {}
+                 }
+               }, 
+               (b=document.getElementsByTagName("script")[0]).parentNode.insertBefore(a,b));
+            }(window,document,"tracking.flirtbate.com","3.3.0");
+          `
+            }}
+          />
+          <Script
+            async
+            defer
+            id="ff-pro-view-event"
+            strategy="lazyOnload"
+            dangerouslySetInnerHTML={{
+              __html: `flux.track("view");`
             }}
           />
         </>

@@ -30,7 +30,8 @@ const CallFeature = () => {
 
   const token: TokenIdType = getToken();
 
-  const [ssTime, setSSTime] = useState(10000);
+  const [intervalDuration, setIntervalDuration] = useState<number | null>(null);
+  const [nextScreenshotTime, setNextScreenshotTime] = useState<number | null>(null);
 
   const saveScreenshot = async () => {
     const captureElement = document.querySelector('#cc-callscreen_ref') as HTMLElement;
@@ -44,32 +45,53 @@ const CallFeature = () => {
           const formData = new FormData();
           formData.append('call_log_id', callLogId.toString());
           formData.append('screenshot', blob, fileName);
-
           await ScreenshotService.uploadScreenShotImage(formData, token.token);
         }
       });
     }
   };
 
-  const videoCallScreenshotEventListener = useCallback(async () => {
-    if (!isCallAccepted || !token?.token) return;
+  const fetchAndScheduleScreenshot = useCallback(async () => {
+    if (!isCallAccepted || !token?.token || !isModelJoin || !callLogId) return;
 
     const durationRes = await ScreenshotService.fetchScreenShotDuration(token.token);
-    const intervalDuration = parseInt(durationRes?.data?.screenshot_interval_duration?.toString() || '0', 0);
+    const intervalInSeconds = parseInt(durationRes?.data?.screenshot_interval_duration?.toString() || '0', 10);
 
-    if (!intervalDuration) return;
-    if (intervalDuration * 1000 !== ssTime) setSSTime(intervalDuration * 1000);
+    if (intervalInSeconds && intervalInSeconds > 0) {
+      const intervalInMilliseconds = (intervalInSeconds - 1) * 1000;
+      setIntervalDuration(intervalInMilliseconds);
 
-    const intervalId = setInterval(() => {
-      if (isModelJoin && callLogId) saveScreenshot();
-    }, intervalDuration * 1000);
+      const currentTime = Date.now();
+      const nextTime = currentTime + intervalInMilliseconds;
+      setNextScreenshotTime(nextTime);
+    }
+  }, [token, isCallAccepted, isModelJoin, callLogId]);
 
-    return () => clearInterval(intervalId);
-  }, [isModelJoin, callLogId]);
+  const handleScreenshotInterval = useCallback(() => {
+    if (!nextScreenshotTime || !intervalDuration) return;
+
+    const currentTime = Date.now();
+    const timeUntilNextScreenshot = nextScreenshotTime - currentTime;
+
+    if (timeUntilNextScreenshot <= 0) {
+      saveScreenshot();
+      fetchAndScheduleScreenshot();
+    } else {
+      setTimeout(() => {
+        handleScreenshotInterval();
+      }, timeUntilNextScreenshot);
+    }
+  }, [nextScreenshotTime, intervalDuration, fetchAndScheduleScreenshot]);
 
   useEffect(() => {
-    videoCallScreenshotEventListener();
-  }, [videoCallScreenshotEventListener, isModelJoin, callLogId, ssTime]);
+    fetchAndScheduleScreenshot();
+  }, [fetchAndScheduleScreenshot]);
+
+  useEffect(() => {
+    if (nextScreenshotTime && intervalDuration) {
+      handleScreenshotInterval();
+    }
+  }, [nextScreenshotTime, intervalDuration, handleScreenshotInterval]);
 
   return (
     <>
