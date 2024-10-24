@@ -25,7 +25,7 @@ import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customer
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
 import { CustomerDetails } from 'services/customerDetails/customerDetails.services';
 import { FormattedMessage } from 'react-intl';
@@ -54,6 +54,8 @@ const CreditSideDrawer = ({
   const customerData = JSON.parse(user || '{}');
 
   const router = useRouter();
+  const pathname = usePathname();
+  const isDetailsPage = pathname.startsWith('/details');
 
   useEffect(() => {
     const userToken = async () => {
@@ -90,7 +92,7 @@ const CreditSideDrawer = ({
       label: 'Credits_Purchase_Initiated',
       value: JSON.stringify(customerInfo)
     });
-    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, 0, false);
+    const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, 0, false, isDetailsPage ? 'details' : 'home');
     if (res) {
       router.push(res?.data?.url);
     }
