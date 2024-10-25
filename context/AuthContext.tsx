@@ -124,7 +124,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     setBalance(Number(totalBal));
-    setBalance(Number(totalBalValue));
+    // setBalance(Number(totalBalValue));
     setAddedCredits(Number(credit));
     if (credit) {
       setOpenSuccess(true);

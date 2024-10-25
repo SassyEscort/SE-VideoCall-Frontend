@@ -88,7 +88,8 @@ const HomeContainer = () => {
     const queryString = new URLSearchParams(objParams).toString();
 
     if (pathname === '/' && filterCount === 0) {
-      router.push('/');
+      const credit = searchParams.get('credit');
+      if (!credit) router.push('/');
     }
     if (pathname === '/' && filterCount === 1 && objParams.page) return;
 
@@ -110,7 +111,8 @@ const HomeContainer = () => {
         const credit = searchParams.get('credit');
         if (!credit) router.push(pathname);
       } else {
-        router.push('/');
+        const credit = searchParams.get('credit');
+        if (!credit) router.push('/');
       }
     } else {
       if (isMultiple.length) {
