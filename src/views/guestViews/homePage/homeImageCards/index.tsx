@@ -11,13 +11,15 @@ import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Paginat
 import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
 import { PaginationMainBox } from 'views/protectedDashboardViews/payoutRequest/PayoutRequest.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { NotFoundModelBox } from './HomeImageCard.styled';
 import { FormattedMessage } from 'react-intl';
 import { gaEventTrigger } from 'utils/analytics';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import dynamic from 'next/dynamic';
 import Loading from 'loading';
+
+const NotFoundModelBox = lazy(() => import('./HomeImageCard.styled').then((module) => ({ default: module.NotFoundModelBox })));
+
 const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
   ssr: false,
   loading: Loading
@@ -228,11 +230,13 @@ const HomeImageCard = ({
         {modelListing?.length > 0
           ? ''
           : !isFavPage && (
-              <NotFoundModelBox>
-                <UINewTypography variant="h1">
-                  <FormattedMessage id="NoModelsFound" />
-                </UINewTypography>
-              </NotFoundModelBox>
+              <Suspense fallback={<div>Loading...</div>}>
+                <NotFoundModelBox>
+                  <UINewTypography variant="h1">
+                    <FormattedMessage id="NoModelsFound" />
+                  </UINewTypography>
+                </NotFoundModelBox>
+              </Suspense>
             )}
       </WorkerCardMainBox>
       <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>

@@ -1,28 +1,4 @@
-import React, { useRef } from 'react';
-import {
-  CreditContainer,
-  FavoriteBorderIconContainer,
-  FavoriteIconContainer,
-  FirstSubContainerImgWorkerCard,
-  HeartIconWorkerCard,
-  HighlyAvailableBox,
-  HighlyAvailableButtonBox,
-  ImgWorkerCard,
-  LiveIconSecBoxWorkerCard,
-  LiveIconWorkerCard,
-  MainWorkerCard,
-  NameCardContainer,
-  ProfileCardContainer,
-  SecondMainContainerWorkerCard,
-  SecondSubContainerImgWorkerCard,
-  SecondSubContainerWorkerCard,
-  SeconderContainerWorkerCard,
-  SubContainertWorkerCard,
-  TextBoxContainer,
-  UITypographyBox,
-  UITypographyBoxContainer,
-  WorkerCardContainer
-} from './WorkerCard.styled';
+import React, { lazy, Suspense, useRef } from 'react';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import theme from 'themes/theme';
@@ -42,6 +18,41 @@ import Image from 'next/image';
 import { useAuthContext } from '../../../../../context/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { VideoAcceptType } from 'constants/workerVerification';
+
+const CreditContainer = lazy(() => import('./WorkerCard.styled').then((module) => ({ default: module.CreditContainer })));
+const FavoriteBorderIconContainer = lazy(() =>
+  import('./WorkerCard.styled').then((module) => ({ default: module.FavoriteBorderIconContainer }))
+);
+const FavoriteIconContainer = lazy(() => import('./WorkerCard.styled').then((module) => ({ default: module.FavoriteIconContainer })));
+const FirstSubContainerImgWorkerCard = lazy(() =>
+  import('./WorkerCard.styled').then((module) => ({ default: module.FirstSubContainerImgWorkerCard }))
+);
+const HeartIconWorkerCard = lazy(() => import('./WorkerCard.styled').then((module) => ({ default: module.HeartIconWorkerCard })));
+const HighlyAvailableBox = lazy(() => import('./WorkerCard.styled').then((module) => ({ default: module.HighlyAvailableBox })));
+const HighlyAvailableButtonBox = lazy(() => import('./WorkerCard.styled').then((module) => ({ default: module.HighlyAvailableButtonBox })));
+const ImgWorkerCard = lazy(() => import('./WorkerCard.styled').then((module) => ({ default: module.ImgWorkerCard })));
+const LiveIconSecBoxWorkerCard = lazy(() => import('./WorkerCard.styled').then((module) => ({ default: module.LiveIconSecBoxWorkerCard })));
+const LiveIconWorkerCard = lazy(() => import('./WorkerCard.styled').then((module) => ({ default: module.LiveIconWorkerCard })));
+const MainWorkerCard = lazy(() => import('./WorkerCard.styled').then((module) => ({ default: module.MainWorkerCard })));
+const NameCardContainer = lazy(() => import('./WorkerCard.styled').then((module) => ({ default: module.NameCardContainer })));
+const ProfileCardContainer = lazy(() => import('./WorkerCard.styled').then((module) => ({ default: module.ProfileCardContainer })));
+const SecondMainContainerWorkerCard = lazy(() =>
+  import('./WorkerCard.styled').then((module) => ({ default: module.SecondMainContainerWorkerCard }))
+);
+const SecondSubContainerImgWorkerCard = lazy(() =>
+  import('./WorkerCard.styled').then((module) => ({ default: module.SecondSubContainerImgWorkerCard }))
+);
+const SecondSubContainerWorkerCard = lazy(() =>
+  import('./WorkerCard.styled').then((module) => ({ default: module.SecondSubContainerWorkerCard }))
+);
+const SeconderContainerWorkerCard = lazy(() =>
+  import('./WorkerCard.styled').then((module) => ({ default: module.SeconderContainerWorkerCard }))
+);
+const SubContainertWorkerCard = lazy(() => import('./WorkerCard.styled').then((module) => ({ default: module.SubContainertWorkerCard })));
+const TextBoxContainer = lazy(() => import('./WorkerCard.styled').then((module) => ({ default: module.TextBoxContainer })));
+const UITypographyBox = lazy(() => import('./WorkerCard.styled').then((module) => ({ default: module.UITypographyBox })));
+const UITypographyBoxContainer = lazy(() => import('./WorkerCard.styled').then((module) => ({ default: module.UITypographyBoxContainer })));
+const WorkerCardContainer = lazy(() => import('./WorkerCard.styled').then((module) => ({ default: module.WorkerCardContainer })));
 
 const WorkerCard = ({
   modelDetails,
@@ -129,59 +140,84 @@ const WorkerCard = ({
     handleLikeClick(modelDetails);
   };
   return (
-    <MainWorkerCard>
-      <ImgWorkerCard ref={imageUrlRef} />
-      <HeartIconWorkerCard>
-        {Boolean(modelDetails?.profile_plan_purchased) && (
-          <HighlyAvailableButtonBox>
-            <HighlyAvailableBox>
-              <Image
-                loading="lazy"
-                src="/images/boostProfile/fire-ani.gif"
-                alt="fire-gif"
-                height={57}
-                width={42}
-                style={{ zIndex: 10, left: isTablet ? '-20px' : isMdDown ? '-30px' : '-22px', position: 'absolute', top: '-14px' }}
-              />
+    <Suspense>
+      <MainWorkerCard>
+        <ImgWorkerCard ref={imageUrlRef} />
+        <HeartIconWorkerCard>
+          {Boolean(modelDetails?.profile_plan_purchased) && (
+            <HighlyAvailableButtonBox>
+              <HighlyAvailableBox>
+                <Image
+                  loading="lazy"
+                  src="/images/boostProfile/fire-ani.gif"
+                  alt="fire-gif"
+                  height={57}
+                  width={42}
+                  style={{ zIndex: 10, left: isTablet ? '-20px' : isMdDown ? '-30px' : '-22px', position: 'absolute', top: '-14px' }}
+                />
 
-              <StyleBoostUserButton>
-                <UINewTypography variant="bodyUltraLarge" color="#ffff">
-                  <FormattedMessage id="HighlyAvailable" />
-                </UINewTypography>
-              </StyleBoostUserButton>
-            </HighlyAvailableBox>
-          </HighlyAvailableButtonBox>
-        )}
-        {isFavPage || liked || modelDetails?.favourite === 1 ? (
-          <FavoriteIconContainer sx={{ color: 'error.main' }} />
-        ) : (
-          <FavoriteBorderIconContainer onClick={handleIconClick} />
-        )}
-      </HeartIconWorkerCard>
-      <WorkerCardContainer>
-        <SeconderContainerWorkerCard>
-          <SubContainertWorkerCard>
-            <ProfileCardContainer>
-              <NameCardContainer>
-                <TextBoxContainer>
-                  <UINewTypography variant="newTitle" color="#ffff">
-                    {modelDetails?.name?.charAt(0)?.toUpperCase() + modelDetails?.name?.slice(1)}
+                <StyleBoostUserButton>
+                  <UINewTypography variant="bodyUltraLarge" color="#ffff">
+                    <FormattedMessage id="HighlyAvailable" />
                   </UINewTypography>
-                </TextBoxContainer>
-                {modelDetails?.is_online === 1 && (
-                  <>
-                    <LiveIconWorkerCard>
-                      <LiveIconSecBoxWorkerCard />
-                    </LiveIconWorkerCard>
-                    {modelFlag && <FirstSubContainerImgWorkerCard src={modelFlag} alt={modelAltName} width={16} height={8} />}
-                  </>
+                </StyleBoostUserButton>
+              </HighlyAvailableBox>
+            </HighlyAvailableButtonBox>
+          )}
+          {isFavPage || liked || modelDetails?.favourite === 1 ? (
+            <FavoriteIconContainer sx={{ color: 'error.main' }} />
+          ) : (
+            <FavoriteBorderIconContainer onClick={handleIconClick} />
+          )}
+        </HeartIconWorkerCard>
+        <WorkerCardContainer>
+          <SeconderContainerWorkerCard>
+            <SubContainertWorkerCard>
+              <ProfileCardContainer>
+                <NameCardContainer>
+                  <TextBoxContainer>
+                    <UINewTypography variant="newTitle" color="#ffff">
+                      {modelDetails?.name?.charAt(0)?.toUpperCase() + modelDetails?.name?.slice(1)}
+                    </UINewTypography>
+                  </TextBoxContainer>
+                  {modelDetails?.is_online === 1 && (
+                    <>
+                      <LiveIconWorkerCard>
+                        <LiveIconSecBoxWorkerCard />
+                      </LiveIconWorkerCard>
+                      {modelFlag && <FirstSubContainerImgWorkerCard src={modelFlag} alt={modelAltName} width={16} height={8} />}
+                    </>
+                  )}
+                </NameCardContainer>
+                {!isMobile && (
+                  <CreditContainer>
+                    <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" alt="dollar-img" width={22} height={22} />
+                    <UINewTypography variant="captionLargeBold" color="text.secondary">
+                      {!modelDetails?.credits_per_minute ? (
+                        <FormattedMessage id="NoPrice" />
+                      ) : (
+                        <>
+                          {modelDetails?.credits_per_minute} <FormattedMessage id="CreditsMin" />
+                        </>
+                      )}
+                    </UINewTypography>
+                  </CreditContainer>
                 )}
-              </NameCardContainer>
-              {!isMobile && (
-                <CreditContainer>
+              </ProfileCardContainer>
+              <SecondMainContainerWorkerCard>
+                <SecondSubContainerWorkerCard>
+                  <UITypographyBox variant="SubtitleSmallMedium" color="text.primary">
+                    {moment().diff(modelDetails?.dob, 'years')}
+                  </UITypographyBox>
+                  <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
+                  <UITypographyBoxContainer variant="SubtitleSmallMedium">{languages}</UITypographyBoxContainer>
+                </SecondSubContainerWorkerCard>
+              </SecondMainContainerWorkerCard>
+              {isMobile && (
+                <CreditContainer sx={{ marginTop: isSmallScreen ? 1.5 : 1 }}>
                   <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" alt="dollar-img" width={22} height={22} />
                   <UINewTypography variant="captionLargeBold" color="text.secondary">
-                    {!modelDetails?.credits_per_minute ? (
+                    {!modelDetails?.price_per_minute ? (
                       <FormattedMessage id="NoPrice" />
                     ) : (
                       <>
@@ -191,34 +227,11 @@ const WorkerCard = ({
                   </UINewTypography>
                 </CreditContainer>
               )}
-            </ProfileCardContainer>
-            <SecondMainContainerWorkerCard>
-              <SecondSubContainerWorkerCard>
-                <UITypographyBox variant="SubtitleSmallMedium" color="text.primary">
-                  {moment().diff(modelDetails?.dob, 'years')}
-                </UITypographyBox>
-                <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
-                <UITypographyBoxContainer variant="SubtitleSmallMedium">{languages}</UITypographyBoxContainer>
-              </SecondSubContainerWorkerCard>
-            </SecondMainContainerWorkerCard>
-            {isMobile && (
-              <CreditContainer sx={{ marginTop: isSmallScreen ? 1.5 : 1 }}>
-                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" alt="dollar-img" width={22} height={22} />
-                <UINewTypography variant="captionLargeBold" color="text.secondary">
-                  {!modelDetails?.price_per_minute ? (
-                    <FormattedMessage id="NoPrice" />
-                  ) : (
-                    <>
-                      {modelDetails?.credits_per_minute} <FormattedMessage id="CreditsMin" />
-                    </>
-                  )}
-                </UINewTypography>
-              </CreditContainer>
-            )}
-          </SubContainertWorkerCard>
-        </SeconderContainerWorkerCard>
-      </WorkerCardContainer>
-    </MainWorkerCard>
+            </SubContainertWorkerCard>
+          </SeconderContainerWorkerCard>
+        </WorkerCardContainer>
+      </MainWorkerCard>
+    </Suspense>
   );
 };
 
