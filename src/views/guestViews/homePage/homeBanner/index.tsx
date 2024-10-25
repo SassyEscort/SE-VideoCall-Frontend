@@ -3,30 +3,9 @@ import theme from 'themes/theme';
 import Image from 'next/image';
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import {
-  BannerContainer,
-  InlineBox,
-  InlineBoxRelative,
-  TypographyBox,
-  HomeExploreBox,
-  SubTitle,
-  TextBoxContainer,
-  ModelsHeadingBox,
-  FristBoxContainer,
-  SecondBoxContainer,
-  TopBoxContainer,
-  ThirdBoxContainer,
-  TextContainer,
-  SignupTextContainer,
-  ExploreTextContainer,
-  FirstBoxContainer,
-  SecBoxContainer,
-  GiftBoxFirst,
-  GiftBoxSecond
-} from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
-import { memo, useState } from 'react';
+import { lazy, memo, Suspense, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { User } from 'app/(guest)/layout';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
@@ -39,6 +18,27 @@ import { useAuthContext } from '../../../../../context/AuthContext';
 import dynamic from 'next/dynamic';
 import Loading from 'loading';
 // import HomeHeroBanner from './HomeHeroBanner';
+
+const BannerContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.BannerContainer })));
+const InlineBox = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.InlineBox })));
+const InlineBoxRelative = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.InlineBoxRelative })));
+const TypographyBox = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.TypographyBox })));
+const HomeExploreBox = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.HomeExploreBox })));
+const SubTitle = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.SubTitle })));
+const TextBoxContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.TextBoxContainer })));
+const ModelsHeadingBox = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.ModelsHeadingBox })));
+const FristBoxContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.FristBoxContainer })));
+const SecondBoxContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.SecondBoxContainer })));
+const TopBoxContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.TopBoxContainer })));
+const ThirdBoxContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.ThirdBoxContainer })));
+const TextContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.TextContainer })));
+const SignupTextContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.SignupTextContainer })));
+const ExploreTextContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.ExploreTextContainer })));
+const FirstBoxContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.FirstBoxContainer })));
+const SecBoxContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.SecBoxContainer })));
+const GiftBoxFirst = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.GiftBoxFirst })));
+const GiftBoxSecond = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.GiftBoxSecond })));
+
 const HomeHeroBanner = dynamic(() => import('./HomeHeroBanner'), {
   ssr: false,
   loading: Loading
@@ -152,7 +152,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
   };
 
   return (
-    <>
+    <Suspense>
       {(session?.user as User)?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM ? (
         <TopBoxContainer>
           <FristBoxContainer>
@@ -342,7 +342,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
         <HomePageFreeSignup onLoginOpen={handleLoginOpen} onClose={handleFreeCreditSignupClose} />
       </NewSignupStyledModalDialog>
       {/* <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} /> */}
-    </>
+    </Suspense>
   );
 };
 
