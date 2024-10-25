@@ -1,31 +1,17 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
 import { ZegoInvitationType, ZegoUIKitPrebuilt, ZegoUser } from '@zegocloud/zego-uikit-prebuilt';
-
-function randomID(len = 5) {
-  let result = '';
-  const chars = '12345qwertyuiopasdfgh67890jklmnbvcxzMNBVCZXASDQWERTYHGFUIOLKJP';
-  const maxPos = chars.length;
-  for (let i = 0; i < len; i++) {
-    result += chars.charAt(Math.floor(Math.random() * maxPos));
-  }
-  return result;
-}
-
-export function getUrlParams(url = '') {
-  if (typeof window === 'undefined') return new URLSearchParams();
-  const urlStr = window.location.href.split('?')[1];
-  return new URLSearchParams(urlStr);
-}
+import { getUrlParams, randomID } from 'utils/videoCall';
 
 const VideoCall = () => {
   const roomID = getUrlParams().get('roomID') || randomID();
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined' || !containerRef.current) return;
 
     const myMeeting = async () => {
+      if (typeof window === 'undefined' || !containerRef.current) return;
       const appID = 1140452996;
       const serverSecret = process.env.NEXT_PUBLIC_SECRET_KEY!;
 
@@ -38,7 +24,10 @@ const VideoCall = () => {
         sharedLinks: [
           {
             name: 'Personal link',
-            url: `${window.location.protocol}//${window.location.host}${window.location.pathname}?roomID=${roomID}`
+            url:
+              (typeof window !== 'undefined' &&
+                `${window.location.protocol}//${window.location.host}${window.location.pathname}?roomID=${roomID}`) ||
+              ''
           }
         ],
         turnOnMicrophoneWhenJoining: true,
@@ -46,12 +35,12 @@ const VideoCall = () => {
         showMyCameraToggleButton: true,
         showMyMicrophoneToggleButton: true,
         showAudioVideoSettingsButton: true,
-        showScreenSharingButton: true,
-        showTextChat: true,
+        showScreenSharingButton: false,
+        showTextChat: false,
         showUserList: false,
         maxUsers: 2,
         layout: 'Auto',
-        showLayoutButton: true,
+        showLayoutButton: false,
         scenario: {
           mode: ZegoUIKitPrebuilt.OneONoneCall,
           config: {
