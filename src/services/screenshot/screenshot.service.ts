@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios';
 
 export type ScreenShotRes = {
   screenshot_interval_duration: number;
+  screenshot_start_duration: number;
 };
 export interface ScreenShotMainRes {
   message: string;
