@@ -107,7 +107,13 @@ const Favorites = () => {
             <CircularProgress />
           </LoadingBox>
         ) : (
-          <HomeImageCard modelListing={favListing} isFavPage={true} token={token} isFreeCreditAvailable={isFreeCreditAvailable} />
+          <HomeImageCard
+            modelListing={favListing}
+            isFavPage={true}
+            token={token}
+            isFreeCreditAvailable={isFreeCreditAvailable}
+            isLoading={false}
+          />
         )}
       </FavoriteBox>
       {total_rows > 0 && (

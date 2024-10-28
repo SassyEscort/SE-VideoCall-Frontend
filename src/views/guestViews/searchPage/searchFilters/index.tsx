@@ -11,32 +11,25 @@ import { SelectChangeEvent } from '@mui/material/Select';
 import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { useSearchParams } from 'next/navigation';
-import Loading from 'loading';
 import dynamic from 'next/dynamic';
 // import GenderFilter from './GenderFilter';
 const AgeFilter = dynamic(() => import('./AgeFilter'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const GenderFilter = dynamic(() => import('./GenderFilter'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const CountryFilter = dynamic(() => import('./CountryFilter'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const CurrentlyOnline = dynamic(() => import('./CurrentlyOnline'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const Price = dynamic(() => import('./Price'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const HomeMainContainer = dynamic(() => import('views/guestViews/guestLayout/homeContainer'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 // const AgeFilter = lazy(() => import('./AgeFilter'));
 // const GenderFilter = lazy(() => import('./GenderFilter'));

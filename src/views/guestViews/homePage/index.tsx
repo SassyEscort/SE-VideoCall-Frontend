@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useRef, useState, useLayoutEffect } from 'react';
+import { useCallback, useRef, useState, useLayoutEffect, lazy, Suspense } from 'react';
 // import HomeTopBanner from './homeBanner';
 // import HomeImageCard from './homeImageCards';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
@@ -11,26 +11,16 @@ import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { getQueryParam } from 'utils/genericFunction';
 import { useAuthContext } from '../../../../context/AuthContext';
 import dynamic from 'next/dynamic';
-import Loading from 'loading';
+import HomeImageCards from './homeImageCards';
 const HomeConnections = dynamic(() => import('./HomeConnections'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
-const SearchFilters = dynamic(() => import('../searchPage/searchFilters'), {
-  ssr: false,
-  loading: Loading
-});
-const HomeImageCard = dynamic(() => import('./homeImageCards'), {
-  ssr: false,
-  loading: Loading
-});
+const SearchFilters = lazy(() => import('../searchPage/searchFilters'));
 const BackdropProgress = dynamic(() => import('components/UIComponents/BackDropProgress'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const HomeTopBanner = dynamic(() => import('./homeBanner'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 
 const HomeContainer = () => {
@@ -215,8 +205,11 @@ const HomeContainer = () => {
     <HomePageMainContainer>
       <HomeTopBanner isFreeCreditAvailable={isFreeCreditAvailable} />
       {modelListing?.length > 0 && <BackdropProgress open={isLoading} />}
-      <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
-      <HomeImageCard
+      <Suspense fallback={<div>Loading...</div>}>
+        <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
+      </Suspense>
+
+      <HomeImageCards
         modelListing={modelListing}
         isFavPage={false}
         token={token}
@@ -224,6 +217,7 @@ const HomeContainer = () => {
         totalRows={total_rows}
         handleChangePage={handleChangePage}
         isFreeCreditAvailable={isFreeCreditAvailable}
+        isLoading={isLoading}
       />
       <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
     </HomePageMainContainer>
