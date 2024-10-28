@@ -7,7 +7,7 @@ const BannerImageCard = lazy(() =>
 
 const HomeHeroBanner = ({ isSmDown, isSm }: { isSmDown: boolean; isSm: boolean }) => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense>
       <BannerImageCard>
         <picture>
           <source

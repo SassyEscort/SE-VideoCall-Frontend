@@ -1,6 +1,6 @@
 'use client';
-import { useCallback, useRef, useState, useLayoutEffect } from 'react';
-// import HomeTopBanner from './homeBanner';
+import { useCallback, useRef, useState, useLayoutEffect, Suspense } from 'react';
+import HomeTopBanner from './homeBanner';
 // import HomeImageCard from './homeImageCards';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
 import { HomePageMainContainer } from './Home.styled';
@@ -12,13 +12,11 @@ import { getQueryParam } from 'utils/genericFunction';
 import { useAuthContext } from '../../../../context/AuthContext';
 import dynamic from 'next/dynamic';
 import HomeImageCards from './homeImageCards';
+
 const HomeConnections = dynamic(() => import('./HomeConnections'), {
   ssr: false
 });
 const BackdropProgress = dynamic(() => import('components/UIComponents/BackDropProgress'), {
-  ssr: false
-});
-const HomeTopBanner = dynamic(() => import('./homeBanner'), {
   ssr: false
 });
 
@@ -204,19 +202,21 @@ const HomeContainer = () => {
     <HomePageMainContainer>
       <HomeTopBanner isFreeCreditAvailable={isFreeCreditAvailable} />
       {modelListing?.length > 0 && <BackdropProgress open={isLoading} />}
-      <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
+      <Suspense>
+        <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
 
-      <HomeImageCards
-        modelListing={modelListing}
-        isFavPage={false}
-        token={token}
-        filters={filters ?? ({} as SearchFiltersTypes)}
-        totalRows={total_rows}
-        handleChangePage={handleChangePage}
-        isFreeCreditAvailable={isFreeCreditAvailable}
-        isLoading={isLoading}
-      />
-      <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
+        <HomeImageCards
+          modelListing={modelListing}
+          isFavPage={false}
+          token={token}
+          filters={filters ?? ({} as SearchFiltersTypes)}
+          totalRows={total_rows}
+          handleChangePage={handleChangePage}
+          isFreeCreditAvailable={isFreeCreditAvailable}
+          isLoading={isLoading}
+        />
+        <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
+      </Suspense>
     </HomePageMainContainer>
   );
 };
