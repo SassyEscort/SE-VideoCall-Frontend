@@ -1,10 +1,10 @@
 'use client';
-import { useCallback, useRef, useState, useLayoutEffect, lazy } from 'react';
+import { useCallback, useRef, useState, useLayoutEffect } from 'react';
 // import HomeTopBanner from './homeBanner';
 // import HomeImageCard from './homeImageCards';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
 import { HomePageMainContainer } from './Home.styled';
-import { SearchFiltersTypes } from '../searchPage/searchFilters';
+import SearchFilters, { SearchFiltersTypes } from '../searchPage/searchFilters';
 // import BackdropProgress from 'components/UIComponents/BackDropProgress';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
@@ -15,7 +15,6 @@ import HomeImageCards from './homeImageCards';
 const HomeConnections = dynamic(() => import('./HomeConnections'), {
   ssr: false
 });
-const SearchFilters = lazy(() => import('../searchPage/searchFilters'));
 const BackdropProgress = dynamic(() => import('components/UIComponents/BackDropProgress'), {
   ssr: false
 });
