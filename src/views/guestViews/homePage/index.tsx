@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useRef, useState, useLayoutEffect, Suspense } from 'react';
+import { useCallback, useRef, useState, useLayoutEffect } from 'react';
 import HomeTopBanner from './homeBanner';
 // import HomeImageCard from './homeImageCards';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
@@ -202,21 +202,19 @@ const HomeContainer = () => {
     <HomePageMainContainer>
       <HomeTopBanner isFreeCreditAvailable={isFreeCreditAvailable} />
       {modelListing?.length > 0 && <BackdropProgress open={isLoading} />}
-      <Suspense>
-        <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
+      <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
 
-        <HomeImageCards
-          modelListing={modelListing}
-          isFavPage={false}
-          token={token}
-          filters={filters ?? ({} as SearchFiltersTypes)}
-          totalRows={total_rows}
-          handleChangePage={handleChangePage}
-          isFreeCreditAvailable={isFreeCreditAvailable}
-          isLoading={isLoading}
-        />
-        <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
-      </Suspense>
+      <HomeImageCards
+        modelListing={modelListing}
+        isFavPage={false}
+        token={token}
+        filters={filters ?? ({} as SearchFiltersTypes)}
+        totalRows={total_rows}
+        handleChangePage={handleChangePage}
+        isFreeCreditAvailable={isFreeCreditAvailable}
+        isLoading={isLoading}
+      />
+      <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
     </HomePageMainContainer>
   );
 };
