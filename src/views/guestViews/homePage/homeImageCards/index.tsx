@@ -16,7 +16,7 @@ import { gaEventTrigger } from 'utils/analytics';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import dynamic from 'next/dynamic';
-import Skeleton from '@mui/material/Skeleton';
+// import Skeleton from '@mui/material/Skeleton';
 import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
 import { NotFoundModelBox } from './HomeImageCard.styled';
 const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
@@ -145,7 +145,7 @@ const HomeImageCard = ({
             ? Array.from({ length: 24 }, (_, index) => (
                 <Grid key={index} item xs={6} sm={4} md={3}>
                   <Box sx={{ width: '100%', maxWidth: '299px', height: '400px', margin: 'auto' }}>
-                    <Skeleton
+                    {/* <Skeleton
                       variant="rectangular"
                       width="100%"
                       height="100%"
@@ -155,12 +155,12 @@ const HomeImageCard = ({
                           height: '400px'
                         }
                       }}
-                    />
-                    <Box sx={{ pt: 0.5 }}>
+                    /> */}
+                    {/* <Box sx={{ pt: 0.5 }}>
                       <Skeleton width="100%" />
                       <Skeleton width="60%" />
                       <Skeleton width="60%" />
-                    </Box>
+                    </Box> */}
                   </Box>
                 </Grid>
               ))

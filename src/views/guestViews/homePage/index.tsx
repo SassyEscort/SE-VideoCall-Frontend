@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useRef, useState, useLayoutEffect, lazy, Suspense } from 'react';
+import { useCallback, useRef, useState, useLayoutEffect, lazy } from 'react';
 // import HomeTopBanner from './homeBanner';
 // import HomeImageCard from './homeImageCards';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
@@ -205,9 +205,7 @@ const HomeContainer = () => {
     <HomePageMainContainer>
       <HomeTopBanner isFreeCreditAvailable={isFreeCreditAvailable} />
       {modelListing?.length > 0 && <BackdropProgress open={isLoading} />}
-      <Suspense fallback={<div>Loading...</div>}>
-        <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
-      </Suspense>
+      <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
 
       <HomeImageCards
         modelListing={modelListing}
