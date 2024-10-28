@@ -223,6 +223,7 @@ const EscortExplore = () => {
             totalRows={total_rows}
             handleChangePage={handleChangePage}
             isFreeCreditAvailable={isFreeCreditAvailable}
+            isLoading={false}
           />
         </Box>
       </DetailsChildTypographyBox>

@@ -5,11 +5,9 @@ import type { Metadata } from 'next';
 import { SEO_DATA } from 'constants/seoConstants';
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
-import Loading from 'loading';
 // import '../app/globals.scss';
 const ProviderWrapper = dynamic(() => import('./ProviderWrapper'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const AuthFeaturProvider = React.lazy(() => import('../../context/AuthContext').then((module) => ({ default: module.AuthFeaturProvider })));
 const TawkProvider = React.lazy(() => import('../../context/TawkContext').then((module) => ({ default: module.TawkProvider })));

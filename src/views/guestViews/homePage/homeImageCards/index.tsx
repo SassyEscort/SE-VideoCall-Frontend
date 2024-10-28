@@ -16,40 +16,32 @@ import { gaEventTrigger } from 'utils/analytics';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import dynamic from 'next/dynamic';
-import Loading from 'loading';
+import Skeleton from '@mui/material/Skeleton';
+import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
 
 const NotFoundModelBox = lazy(() => import('./HomeImageCard.styled').then((module) => ({ default: module.NotFoundModelBox })));
 
 const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const PaginationInWords = dynamic(() => import('components/UIComponents/PaginationINWords'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
-
-const WorkerCard = lazy(() => import('views/guestViews/commonComponents/WorkerCard/WorkerCard'));
 
 const HomeImageCard = ({
   modelListing,
@@ -58,7 +50,8 @@ const HomeImageCard = ({
   totalRows,
   handleChangePage,
   filters,
-  isFreeCreditAvailable
+  isFreeCreditAvailable,
+  isLoading
 }: {
   modelListing: ModelHomeListing[] | ModelFavRes[];
   isFavPage: boolean;
@@ -67,6 +60,7 @@ const HomeImageCard = ({
   handleChangePage?: (page: number) => void;
   filters?: SearchFiltersTypes;
   isFreeCreditAvailable: number;
+  isLoading: boolean;
 }) => {
   const [favModelId, setFavModelId] = useState(0);
   const [open, setIsOpen] = useState(false);
@@ -149,63 +143,82 @@ const HomeImageCard = ({
     <HomeMainContainer>
       <WorkerCardMainBox id="tableSection">
         <Grid container spacing={{ xs: '13px', md: '15px' }} rowGap={{ xs: 0.875, lg: 2.125 }}>
-          {modelListing?.map((item, index) => {
-            return (
-              <Grid item key={index} xs={6} sm={4} md={isFavPage ? 4 : 3} lg={isFavPage ? 4 : 3}>
-                <Box display="flex" gap={2} flexDirection="column">
-                  {favModelId === item.id ? (
-                    <Box
-                      component={Link}
-                      prefetch={true}
-                      shallow={true}
-                      href={`/details/${item.user_name}`}
-                      onClick={() => handleModelRedirect(item.user_name)}
+          {isLoading
+            ? Array.from({ length: 24 }, (_, index) => (
+                <Grid key={index} item xs={6} sm={4} md={3}>
+                  <Box sx={{ width: '100%', maxWidth: '299px', height: '400px', margin: 'auto' }}>
+                    <Skeleton
+                      variant="rectangular"
+                      width="100%"
+                      height="100%"
                       sx={{
-                        textDecoration: 'none',
-                        height: '100%'
+                        '&.MuiSkeleton-root': {
+                          maxWidth: '299px',
+                          height: '400px'
+                        }
                       }}
-                    >
-                      <Suspense>
-                        <WorkerCard
-                          modelDetails={item}
-                          isFavPage={isFavPage}
-                          token={token ?? ({} as TokenIdType)}
-                          handleLoginLiked={handleLoginLiked}
-                          handleLoginOpen={handleLoginOpen}
-                          handleLike={handleLike}
-                          liked={likedModels.includes(item.id)}
-                        />
-                      </Suspense>
+                    />
+                    <Box sx={{ pt: 0.5 }}>
+                      <Skeleton width="100%" />
+                      <Skeleton width="60%" />
+                      <Skeleton width="60%" />
                     </Box>
-                  ) : (
-                    <Box
-                      component={Link}
-                      prefetch={true}
-                      shallow={true}
-                      href={`/details/${item.user_name}`}
-                      sx={{
-                        textDecoration: 'none',
-                        height: '100%'
-                      }}
-                      onClick={() => handleModelRedirect(item.user_name)}
-                    >
-                      <Suspense>
-                        <WorkerCard
-                          modelDetails={item}
-                          isFavPage={isFavPage}
-                          token={token ?? ({} as TokenIdType)}
-                          handleLoginLiked={handleLoginLiked}
-                          handleLoginOpen={handleLoginOpen}
-                          handleLike={handleLike}
-                          liked={likedModels.includes(item.id)}
-                        />
-                      </Suspense>
+                  </Box>
+                </Grid>
+              ))
+            : modelListing?.map((item, index) => {
+                return (
+                  <Grid item key={index} xs={6} sm={4} md={isFavPage ? 4 : 3} lg={isFavPage ? 4 : 3}>
+                    <Box display="flex" gap={2} flexDirection="column">
+                      {favModelId === item.id ? (
+                        <Box
+                          component={Link}
+                          prefetch={true}
+                          shallow={true}
+                          href={`/details/${item.user_name}`}
+                          onClick={() => handleModelRedirect(item.user_name)}
+                          sx={{
+                            textDecoration: 'none',
+                            height: '100%'
+                          }}
+                        >
+                          <WorkerCard
+                            modelDetails={item}
+                            isFavPage={isFavPage}
+                            token={token ?? ({} as TokenIdType)}
+                            handleLoginLiked={handleLoginLiked}
+                            handleLoginOpen={handleLoginOpen}
+                            handleLike={handleLike}
+                            liked={likedModels.includes(item.id)}
+                          />
+                        </Box>
+                      ) : (
+                        <Box
+                          component={Link}
+                          prefetch={true}
+                          shallow={true}
+                          href={`/details/${item.user_name}`}
+                          sx={{
+                            textDecoration: 'none',
+                            height: '100%'
+                          }}
+                          onClick={() => handleModelRedirect(item.user_name)}
+                        >
+                          <WorkerCard
+                            modelDetails={item}
+                            isFavPage={isFavPage}
+                            token={token ?? ({} as TokenIdType)}
+                            handleLoginLiked={handleLoginLiked}
+                            handleLoginOpen={handleLoginOpen}
+                            handleLike={handleLike}
+                            liked={likedModels.includes(item.id)}
+                          />
+                        </Box>
+                      )}
                     </Box>
-                  )}
-                </Box>
-              </Grid>
-            );
-          })}
+                  </Grid>
+                );
+              })}
         </Grid>
 
         {typeof totalRows !== 'undefined' && filters && Number(totalRows) > 0 && (

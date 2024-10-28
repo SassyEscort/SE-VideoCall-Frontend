@@ -1,22 +1,16 @@
 import Box from '@mui/material/Box';
+// import Skeleton from '@mui/material/Skeleton';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
-import Loading from 'loading';
 import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
 import { getLoggedInUser } from 'utils/getSessionData';
+import Footer from 'views/guestViews/guestLayout/footer';
 // import RedirectGuard from 'utils/route-guard/RedirectGuard';
 import Header from 'views/protectedViews/protectedLayout/Header';
 const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/Header'), {
-  ssr: false,
-  loading: Loading
-});
-const Footer = dynamic(() => import('views/guestViews/guestLayout/footer'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const RedirectGuard = dynamic(() => import('utils/route-guard/RedirectGuard'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 
 export interface User {
@@ -62,9 +56,8 @@ export default async function Layout({ children }: { children: React.ReactNode }
       <main>
         <Box sx={{ mt: 10 }}>{children}</Box>
       </main>
-      <Suspense fallback={<div>Loading Footer...</div>}>
-        <Footer />
-      </Suspense>
+
+      <Footer />
     </>
   );
 }

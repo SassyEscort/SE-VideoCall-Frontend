@@ -16,7 +16,6 @@ import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { useAuthContext } from '../../../../../context/AuthContext';
 // import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import dynamic from 'next/dynamic';
-import Loading from 'loading';
 // import HomeHeroBanner from './HomeHeroBanner';
 
 const BannerContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.BannerContainer })));
@@ -40,24 +39,19 @@ const GiftBoxFirst = lazy(() => import('./HomeBanner.styled').then((module) => (
 const GiftBoxSecond = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.GiftBoxSecond })));
 
 const HomeHeroBanner = dynamic(() => import('./HomeHeroBanner'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
   ssr: false
