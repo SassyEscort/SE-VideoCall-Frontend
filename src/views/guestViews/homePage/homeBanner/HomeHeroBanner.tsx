@@ -1,6 +1,5 @@
 import React, { lazy, Suspense } from 'react';
 import Image from 'next/image';
-import { Skeleton } from '@mui/material';
 
 const BannerImageCard = lazy(() =>
   import('views/guestViews/commonComponents/WorkerCard/WorkerCard.styled').then((module) => ({ default: module.BannerImageCard }))
@@ -8,7 +7,7 @@ const BannerImageCard = lazy(() =>
 
 const HomeHeroBanner = ({ isSmDown, isSm }: { isSmDown: boolean; isSm: boolean }) => {
   return (
-    <Suspense fallback={<Skeleton></Skeleton>}>
+    <Suspense>
       <BannerImageCard>
         <picture>
           <source
