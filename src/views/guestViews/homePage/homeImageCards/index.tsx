@@ -5,7 +5,7 @@ import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { ModelHomeListing } from 'services/modelListing/modelListing.services';
 import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { lazy, Suspense, memo, useMemo, useState } from 'react';
+import { Suspense, memo, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
@@ -18,9 +18,7 @@ import Box from '@mui/material/Box';
 import dynamic from 'next/dynamic';
 import Skeleton from '@mui/material/Skeleton';
 import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
-
-const NotFoundModelBox = lazy(() => import('./HomeImageCard.styled').then((module) => ({ default: module.NotFoundModelBox })));
-
+import { NotFoundModelBox } from './HomeImageCard.styled';
 const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
   ssr: false
 });
