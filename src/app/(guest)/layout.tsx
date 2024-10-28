@@ -3,13 +3,15 @@ import Box from '@mui/material/Box';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import dynamic from 'next/dynamic';
 import { getLoggedInUser } from 'utils/getSessionData';
-import Footer from 'views/guestViews/guestLayout/footer';
 // import RedirectGuard from 'utils/route-guard/RedirectGuard';
 import Header from 'views/protectedViews/protectedLayout/Header';
 const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/Header'), {
   ssr: false
 });
 const RedirectGuard = dynamic(() => import('utils/route-guard/RedirectGuard'), {
+  ssr: false
+});
+const Footer = dynamic(() => import('views/guestViews/guestLayout/footer'), {
   ssr: false
 });
 

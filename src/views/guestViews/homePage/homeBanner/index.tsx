@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
-import { lazy, memo, useState } from 'react';
+import { memo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { User } from 'app/(guest)/layout';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
@@ -17,28 +17,28 @@ import { useAuthContext } from '../../../../../context/AuthContext';
 // import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import dynamic from 'next/dynamic';
 import HomeHeroBanner from './HomeHeroBanner';
+import {
+  TopBoxContainer,
+  FristBoxContainer,
+  TextBoxContainer,
+  BannerContainer,
+  FirstBoxContainer,
+  SecBoxContainer,
+  InlineBox,
+  InlineBoxRelative,
+  TypographyBox,
+  ThirdBoxContainer,
+  SecondBoxContainer,
+  SignupTextContainer,
+  ExploreTextContainer,
+  TextContainer,
+  GiftBoxFirst,
+  GiftBoxSecond,
+  ModelsHeadingBox,
+  HomeExploreBox,
+  SubTitle
+} from './HomeBanner.styled';
 // import HomeHeroBanner from './HomeHeroBanner';
-
-const BannerContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.BannerContainer })));
-const InlineBox = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.InlineBox })));
-const InlineBoxRelative = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.InlineBoxRelative })));
-const TypographyBox = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.TypographyBox })));
-const HomeExploreBox = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.HomeExploreBox })));
-const SubTitle = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.SubTitle })));
-const TextBoxContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.TextBoxContainer })));
-const ModelsHeadingBox = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.ModelsHeadingBox })));
-const FristBoxContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.FristBoxContainer })));
-const SecondBoxContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.SecondBoxContainer })));
-const TopBoxContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.TopBoxContainer })));
-const ThirdBoxContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.ThirdBoxContainer })));
-const TextContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.TextContainer })));
-const SignupTextContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.SignupTextContainer })));
-const ExploreTextContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.ExploreTextContainer })));
-const FirstBoxContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.FirstBoxContainer })));
-const SecBoxContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.SecBoxContainer })));
-const GiftBoxFirst = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.GiftBoxFirst })));
-const GiftBoxSecond = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.GiftBoxSecond })));
-
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
   ssr: false
 });
