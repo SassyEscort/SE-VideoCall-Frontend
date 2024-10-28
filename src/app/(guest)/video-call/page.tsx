@@ -1,101 +1,171 @@
 'use client';
-import React, { useEffect, useRef } from 'react';
-import { ZegoInvitationType, ZegoUIKitPrebuilt, ZegoUser } from '@zegocloud/zego-uikit-prebuilt';
-import { getUrlParams, randomID } from 'utils/videoCall';
+import React, { useState, useEffect, useCallback } from 'react';
+import { ZegoCloudRoomConfig, ZegoInvitationType, ZegoUIKitPrebuilt, ZegoUser } from '@zegocloud/zego-uikit-prebuilt';
+import ZIM from 'zego-zim-web';
+import { randomID } from 'utils/videoCall';
+import { Card, CardContent, CardActions, Button, Box, TextField } from '@mui/material';
 
-const VideoCall = () => {
-  const roomID = getUrlParams().get('roomID') || randomID();
-  const containerRef = useRef<HTMLDivElement | null>(null);
+const CallInvitation: React.FC = () => {
+  const [user_id, setUser_Id] = useState<string>('');
+  const [waitingPageVisible, setWaitingPageVisible] = useState<boolean>(false);
+  const [confirmDialogVisible, setConfirmDialogVisible] = useState<boolean>(false);
+  const [callees, setCallees] = useState<ZegoUser[]>([]);
+  const [callerName, setCallerName] = useState<string>('');
+
+  const [cancelCallback, setCancelCallback] = useState<(() => void) | null>(null);
+  const [refuseCallback, setRefuseCallback] = useState<(() => void) | null>(null);
+  const [acceptCallback, setAcceptCallback] = useState<(() => void) | null>(null);
+
+  const roomID = randomID();
+  const userID = '304193';
+  const userName = `Stevie_304193`;
+  const appID = 1140452996; // Add your App ID
+  const serverSecret = process.env.NEXT_PUBLIC_SECRET_KEY!; // Add your Server Secret
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !containerRef.current) return;
+    const TOKEN = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, userID, userName);
 
-    const myMeeting = async () => {
-      if (typeof window === 'undefined' || !containerRef.current) return;
-      const appID = 1140452996;
-      const serverSecret = process.env.NEXT_PUBLIC_SECRET_KEY!;
+    const zp = ZegoUIKitPrebuilt.create(TOKEN);
 
-      const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, randomID(), randomID());
+    zp.addPlugins({ ZIM });
+    zp.setCallInvitationConfig({
+      enableCustomCallInvitationDialog: true,
+      enableCustomCallInvitationWaitingPage: true,
 
-      const zp = ZegoUIKitPrebuilt.create(kitToken);
-
-      zp.joinRoom({
-        container: containerRef.current,
-        sharedLinks: [
-          {
-            name: 'Personal link',
-            url:
-              (typeof window !== 'undefined' &&
-                `${window.location.protocol}//${window.location.host}${window.location.pathname}?roomID=${roomID}`) ||
-              ''
+      onWaitingPageWhenSending: (callType: ZegoInvitationType, calleesList: ZegoUser[], cancel: () => void) => {
+        setWaitingPageVisible(true);
+        setCallees(calleesList);
+        setCancelCallback(() => cancel);
+      },
+      onSetRoomConfigBeforeJoining: (): ZegoCloudRoomConfig => {
+        setWaitingPageVisible(false);
+        return {
+          turnOnMicrophoneWhenJoining: true,
+          turnOnCameraWhenJoining: true,
+          showMyCameraToggleButton: true,
+          showMyMicrophoneToggleButton: true,
+          showAudioVideoSettingsButton: true,
+          showScreenSharingButton: false,
+          showTextChat: false,
+          showUserList: false,
+          maxUsers: 2,
+          layout: 'Auto',
+          showLayoutButton: false,
+          scenario: {
+            mode: ZegoUIKitPrebuilt.OneONoneCall,
+            config: {
+              role: ZegoUIKitPrebuilt.Host || 'Host'
+            }
           }
-        ],
-        turnOnMicrophoneWhenJoining: true,
-        turnOnCameraWhenJoining: true,
-        showMyCameraToggleButton: true,
-        showMyMicrophoneToggleButton: true,
-        showAudioVideoSettingsButton: true,
-        showScreenSharingButton: false,
-        showTextChat: false,
-        showUserList: false,
-        maxUsers: 2,
-        layout: 'Auto',
-        showLayoutButton: false,
-        scenario: {
-          mode: ZegoUIKitPrebuilt.OneONoneCall,
-          config: {
-            role: ZegoUIKitPrebuilt.Host || 'Host'
-          }
-        },
-        onJoinRoom: () => {
-          // Get the roomID
-          const roomID = zp.getRoomID();
-          // Store it in sessionStorage
-          sessionStorage.setItem('roomID', roomID);
-        }
-      });
-      zp.setCallInvitationConfig({
-        // The callee will receive the notification through this callback when receiving a call invitation.
-        onIncomingCallReceived: (callID: string, caller: ZegoUser, callType: ZegoInvitationType, callees: ZegoUser[]) => {
-          console.log('Incoming call received:', { callID, caller, callType, callees });
-        },
+        };
+      },
+      onCallInvitationEnded: (reason: string) => {
+        console.log('===onCallInvitationEnded', reason);
+        setWaitingPageVisible(false);
+        setConfirmDialogVisible(false);
+      },
+      onConfirmDialogWhenReceiving: (callType: ZegoInvitationType, caller: ZegoUser, refuse: () => void, accept: () => void) => {
+        setConfirmDialogVisible(true);
+        if (caller && caller.userName) setCallerName(caller.userName);
+        setRefuseCallback(() => () => {
+          refuse();
+          setConfirmDialogVisible(false);
+        });
+        setAcceptCallback(() => () => {
+          accept();
+          setConfirmDialogVisible(false);
+        });
+      }
+    });
+  }, []);
 
-        // The callee will receive the notification through this callback when the caller canceled the call invitation.
-        onIncomingCallCanceled: (callID: any, caller: ZegoUser) => {
-          console.log('Incoming call canceled:', { callID, caller });
-        },
-
-        // The caller will receive the notification through this callback when the callee accepts the call invitation.
-        onOutgoingCallAccepted: (callID: any, callee: ZegoUser) => {
-          console.log('Outgoing call accepted:', { callID, callee });
-        },
-
-        // The caller will receive the notification through this callback when the callee is on a call.
-        onOutgoingCallRejected: (callID: any, callee: ZegoUser) => {
-          console.log('Outgoing call rejected:', { callID, callee });
-        },
-
-        // The caller will receive the notification through this callback when the callee declines the call invitation.
-        onOutgoingCallDeclined: (callID: any, callee: ZegoUser) => {
-          console.log('Outgoing call declined:', { callID, callee });
-        },
-
-        // The callee will receive the notification through this callback when he didn't respond to the call invitation.
-        onIncomingCallTimeout: (callID: string, caller: ZegoUser) => {
-          console.log('Incoming call timeout:', { callID, caller });
-        },
-
-        // The caller will receive the notification through this callback when the call invitation timed out.
-        onOutgoingCallTimeout: (callID: any, callees: ZegoUser[]) => {
-          console.log('Outgoing call timeout:', { callID, callees });
-        }
-      });
+  const invite = useCallback(() => {
+    const targetUser: ZegoUser = {
+      userID: '304193',
+      userName: 'Stevie_304193'
     };
+    const TOKEN = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, userID, userName);
 
-    myMeeting();
-  }, [roomID]);
+    const zp = ZegoUIKitPrebuilt.create(TOKEN);
+    zp.sendCallInvitation({
+      callees: [targetUser],
+      callType: ZegoUIKitPrebuilt.InvitationTypeVideoCall,
+      timeout: 60
+    })
+      .then((res) => {
+        console.warn(res);
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  }, []);
 
-  return <div ref={containerRef} style={{ width: '100vw', height: '100vh' }}></div>;
+  // const handleSend = (callType) => {
+  //   const callee = document.querySelector('#userID').value;
+  //   if (!callee) {
+  //     alert('userID cannot be empty!!');
+  //     return;
+  //   }
+  //   const users = callee.split(',').map((id) => ({
+  //     userID: id.trim(),
+  //     userName: 'user_' + id
+  //   }));
+  //   // send call invitation
+  //   zp.sendCallInvitation({
+  //     callees: users,
+  //     callType: callType,
+  //     timeout: 60
+  //   })
+  //     .then((res) => {
+  //       console.warn(res);
+  //       if (res.errorInvitees.length) {
+  //         alert('The user dose not exist or is offline.');
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // };
+
+  return (
+    <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+      <Card sx={{ minWidth: 300, maxWidth: 300, background: '#fff' }}>
+        <CardContent>
+          <TextField id="invitee-id" label="Invitee ID " variant="outlined" />
+        </CardContent>
+        <CardActions>
+          <Box display={'flex'} flexDirection={'column'} gap={1} width={'100%'}>
+            <Button variant="contained" fullWidth onClick={invite}>
+              Video Call
+            </Button>
+            <Button variant="contained" fullWidth onClick={invite}>
+              Voice Call
+            </Button>
+          </Box>
+        </CardActions>
+      </Card>
+    </Box>
+    // <div style={{ width: '100vw', height: '100vh' }}>
+    //   {waitingPageVisible && (
+    //     <div id="waitingPage">
+    //       <div id="calleesBox">
+    //         {callees.map((callee) => (
+    //           <div key={callee.userID}>{callee.userName}</div>
+    //         ))}
+    //       </div>
+    //       <button onClick={cancelCallback ?? undefined}>cancel</button>
+    //     </div>
+    //   )}
+    //   {confirmDialogVisible && (
+    //     <div id="confirmDialog">
+    //       <div id="caller">{callerName}</div>
+    //       <button onClick={acceptCallback ?? undefined}>accept</button>
+    //       <button onClick={refuseCallback ?? undefined}>refuse</button>
+    //     </div>
+    //   )}
+    //   <button onClick={invite}>invite</button>
+    // </div>
+  );
 };
 
-export default VideoCall;
+export default CallInvitation;
