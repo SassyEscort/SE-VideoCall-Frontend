@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
-import { lazy, memo, Suspense, useState } from 'react';
+import { lazy, memo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { User } from 'app/(guest)/layout';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
@@ -16,6 +16,7 @@ import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { useAuthContext } from '../../../../../context/AuthContext';
 // import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import dynamic from 'next/dynamic';
+import HomeHeroBanner from './HomeHeroBanner';
 // import HomeHeroBanner from './HomeHeroBanner';
 
 const BannerContainer = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.BannerContainer })));
@@ -38,9 +39,6 @@ const SecBoxContainer = lazy(() => import('./HomeBanner.styled').then((module) =
 const GiftBoxFirst = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.GiftBoxFirst })));
 const GiftBoxSecond = lazy(() => import('./HomeBanner.styled').then((module) => ({ default: module.GiftBoxSecond })));
 
-const HomeHeroBanner = dynamic(() => import('./HomeHeroBanner'), {
-  ssr: false
-});
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
   ssr: false
 });
@@ -144,9 +142,8 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
   const handleCloseModal = () => {
     setIsModalOpenFreeCredits(false);
   };
-
   return (
-    <Suspense>
+    <>
       {(session?.user as User)?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM ? (
         <TopBoxContainer>
           <FristBoxContainer>
@@ -336,7 +333,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
         <HomePageFreeSignup onLoginOpen={handleLoginOpen} onClose={handleFreeCreditSignupClose} />
       </NewSignupStyledModalDialog>
       {/* <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} /> */}
-    </Suspense>
+    </>
   );
 };
 
