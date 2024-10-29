@@ -879,5 +879,6 @@
   "DuplicateDetected": "Duplicado detectado: El documento que subiste ya existe.",
   "firstTimeOnly": "SOLO PRIMERA VEZ",
   "InvoiceReport": "Informe de Facturas",
-  "ClickToChat": "Haga clic para chatear"
+  "ClickToChat": "Haga clic para chatear",
+  "LimitedOffer": "Oferta Limitada"
 }
