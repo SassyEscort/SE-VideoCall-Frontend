@@ -880,5 +880,6 @@
   "Addcredits": "Add credits",
   "DuplicateDetected": "Duplicate detected: The document you uploaded already exists.",
   "firstTimeOnly": "FIRST TIME ONLY",
-  "InvoiceReport": "Invoice Report"
+  "InvoiceReport": "Invoice Report",
+  "ClickToChat": "Click to chat"
 }

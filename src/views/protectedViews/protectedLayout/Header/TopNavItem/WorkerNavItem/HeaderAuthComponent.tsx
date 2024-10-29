@@ -28,6 +28,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
+import { useTawk } from '../../../../../../../context/TawkContext';
 
 export type NotificationFilters = {
   page: number;
@@ -41,6 +42,7 @@ export type NotificationFilters = {
 // }
 
 const HeaderAuthComponent = () => {
+  const { maximizeChat } = useTawk();
   const { session, isFreeCreditsClaimed, isNameChange, openCreditDrawer, handleCreditDrawerClose } = useAuthContext();
   const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
@@ -181,6 +183,10 @@ const HeaderAuthComponent = () => {
       setOpenCreditSideDrawer(true);
     }
   }, [openCreditDrawer]);
+
+  const handleChatOpen = () => {
+    maximizeChat();
+  };
 
   return (
     <>
@@ -374,6 +380,19 @@ const HeaderAuthComponent = () => {
               </ListItemText>
             </MenuItem>
             <Logout open={isLogoutOpen} onClose={handleCloseLogoutt} />
+            <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+            <MenuItem onClick={handleChatOpen}>
+              <ListItemIcon>
+                <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                  <Box component="img" src="/images/profile-vector/chat-icon.png" alt="vector_img" sx={{ width: '20px', height: '20px' }} />
+                </IconButton>
+              </ListItemIcon>
+              <ListItemText>
+                <UINewTypography variant="bodyLight" color="text.secondary">
+                  <FormattedMessage id="ClickToChat" />
+                </UINewTypography>
+              </ListItemText>
+            </MenuItem>
           </Menu>
           <ProfileMenu profilePic={uploadedImageURL} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
           <MyProfileChangePassword onOpen={openChangePassword} onClose={handleCloseChnagePassword} token={token} />
