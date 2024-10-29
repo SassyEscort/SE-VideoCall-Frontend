@@ -17,6 +17,7 @@ import {
   CurrentBalanceTypography,
   FirstTimeChip,
   FirstTimeTypography,
+  LimitedOfferBox,
   MainImageBox,
   TitleSerachBox
 } from './CreditSideDrawer.styled';
@@ -196,27 +197,18 @@ const CreditSideDrawer = ({
 
                     {creditsListing?.tag === 'Limited Offer' && (
                       <FirstTimeChip>
-                        <Box position={'relative'} sx={{ width: '100%' }}>
+                        <Box sx={{ width: '100%', position: 'relative' }}>
                           <Box
                             component={'img'}
                             src="/images/credits/firstTime.png"
                             alt="coin.png"
                             sx={{ boxShadow: '0px 8px 32px 0px #FFBE6666' }}
                           />
-                          <Box
-                            sx={{
-                              width: '100%',
-                              position: 'absolute',
-                              top: '3px',
-                              alignItems: 'center',
-                              display: 'flex',
-                              justifyContent: 'center'
-                            }}
-                          >
-                            <UINewTypography variant="captionLargeSemiBold" color={'black.main'}>
+                          <LimitedOfferBox>
+                            <UINewTypography variant="ExtraSmallerText" color={'black.main'}>
                               <FormattedMessage id="LimitedOffer" />
                             </UINewTypography>
-                          </Box>
+                          </LimitedOfferBox>
                         </Box>
                       </FirstTimeChip>
                     )}

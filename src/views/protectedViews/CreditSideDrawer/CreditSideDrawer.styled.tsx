@@ -193,3 +193,12 @@ export const CloseButtonContainer = styled(Close)(({ theme }) => ({
   border: '1px solid #E9E8EB33',
   borderRadius: '5px'
 }));
+
+export const LimitedOfferBox = styled(Box)(() => ({
+  width: '100%',
+  position: 'absolute',
+  top: '3px',
+  alignItems: 'center',
+  display: 'flex',
+  justifyContent: 'center'
+}));
