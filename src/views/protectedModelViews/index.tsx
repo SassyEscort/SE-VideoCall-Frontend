@@ -3,11 +3,7 @@
 import VerificationContainer from './verification';
 
 const ModelPage = () => {
-  return (
-    <>
-      <VerificationContainer />
-    </>
-  );
+  return <VerificationContainer />;
 };
 
 export default ModelPage;

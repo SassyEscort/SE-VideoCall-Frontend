@@ -1,10 +1,11 @@
 import Box from '@mui/material/Box';
 import { AuthUser, User } from 'app/(guest)/layout';
 import { getLoggedInUser } from 'utils/getSessionData';
-import ModelFooter from 'views/modelViews/modelLayout/footer';
+const ModelFooter = dynamic(() => import('views/modelViews/modelLayout/footer'));
 import Header from 'views/protectedViews/protectedLayout/Header';
 import { ROLE } from 'constants/workerVerification';
 import HeaderModelComponent from 'views/modelViews/modelLayout/Header';
+import dynamic from 'next/dynamic';
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const authUser: AuthUser | null = await getLoggedInUser();
