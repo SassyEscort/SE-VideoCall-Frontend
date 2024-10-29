@@ -4,13 +4,18 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { SwiperSlide } from 'swiper/react';
 
-export const DetailsMainBox = styled(Box)(() => ({
+export const DetailsMainBox = styled(Box)(({ theme }) => ({
   width: '100%',
-  minWidth: '517px',
   backgroundColor: '#1E0815',
   padding: '16px 32px 16px 32px',
   borderRadius: '12px',
-  height: '100%'
+  height: '100%',
+  [theme.breakpoints.down('md')]: {
+    minWidth: '290px'
+  },
+  [theme.breakpoints.up('md')]: {
+    minWidth: '517px'
+  }
 }));
 
 export const DetailsChildBox = styled(Box)(({ theme }) => ({
