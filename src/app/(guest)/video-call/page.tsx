@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { ZegoUIKitPrebuilt, ZegoInvitationType, ZegoCloudRoomConfig } from '@zegocloud/zego-uikit-prebuilt';
+import { ZegoUIKitPrebuilt, ZegoInvitationType, ZegoCloudRoomConfig, ZegoUser } from '@zegocloud/zego-uikit-prebuilt';
 import { ZIM } from 'zego-zim-web';
 import { Box, Card, CardContent, TextField, CardActions, Button } from '@mui/material';
 import { randomID } from 'utils/videoCall';
@@ -26,6 +26,34 @@ const App: React.FC = () => {
       const zpInstance = ZegoUIKitPrebuilt.create(KitToken);
       zpInstance.addPlugins({ ZIM });
       zpInstance.setCallInvitationConfig({
+        enableCustomCallInvitationDialog: true,
+        enableNotifyWhenAppRunningInBackgroundOrQuit: true,
+        // ringtoneConfig: {
+        //   incomingCallUrl: 'https://dl.prokerala.com/downloads/ringtones/files/mp3/ringing-2425.mp3',
+        //   outgoingCallUrl: 'https://dl.prokerala.com/downloads/ringtones/files/mp3/ringing-2425.mp3'
+        // }
+
+        onConfirmDialogWhenReceiving: (callType, caller, accept, reject) => {
+          console.log('Incoming call invitation:', { callType, caller });
+
+          // Show browser notification
+          if (caller?.userName) showNotification(caller?.userName);
+
+          const isConfirmed = window.confirm(
+            `Incoming ${callType === ZegoInvitationType.VideoCall ? 'video' : 'voice'} call from ${caller.userName}. Accept?`
+          );
+
+          if (isConfirmed) {
+            accept(); // Accepts the call
+          } else {
+            reject(); // Rejects the call
+          }
+        },
+
+        onCallInvitationEnded(reason, data) {
+          console.log('on call invitation ended:', { reason, data });
+        },
+
         onSetRoomConfigBeforeJoining: (): ZegoCloudRoomConfig => {
           return {
             turnOnMicrophoneWhenJoining: true,
@@ -36,6 +64,7 @@ const App: React.FC = () => {
             showScreenSharingButton: false,
             showTextChat: false,
             showUserList: false,
+            showWaitingCallAcceptAudioVideoView: true,
             maxUsers: 2,
             layout: 'Auto',
             showLayoutButton: false,
@@ -46,6 +75,40 @@ const App: React.FC = () => {
               }
             }
           };
+        },
+
+        onIncomingCallReceived: (callID: string, caller: ZegoUser, callType: ZegoInvitationType, callees: ZegoUser[]) => {
+          console.log('Incoming call received:', { callID, caller, callType, callees });
+        },
+
+        // The callee will receive the notification through this callback when the caller canceled the call invitation.
+        onIncomingCallCanceled: (callID: any, caller: ZegoUser) => {
+          console.log('Incoming call canceled:', { callID, caller });
+        },
+
+        // The caller will receive the notification through this callback when the callee accepts the call invitation.
+        onOutgoingCallAccepted: (callID: any, callee: ZegoUser) => {
+          console.log('Outgoing call accepted:', { callID, callee });
+        },
+
+        // The caller will receive the notification through this callback when the callee is on a call.
+        onOutgoingCallRejected: (callID: any, callee: ZegoUser) => {
+          console.log('Outgoing call rejected:', { callID, callee });
+        },
+
+        // The caller will receive the notification through this callback when the callee declines the call invitation.
+        onOutgoingCallDeclined: (callID: any, callee: ZegoUser) => {
+          console.log('Outgoing call declined:', { callID, callee });
+        },
+
+        // The callee will receive the notification through this callback when he didn't respond to the call invitation.
+        onIncomingCallTimeout: (callID: string, caller: ZegoUser) => {
+          console.log('Incoming call timeout:', { callID, caller });
+        },
+
+        // The caller will receive the notification through this callback when the call invitation timed out.
+        onOutgoingCallTimeout: (callID: any, callees: ZegoUser[]) => {
+          console.log('Outgoing call timeout:', { callID, callees });
         }
       });
       console.log('Zego initialized successfully');
@@ -55,6 +118,20 @@ const App: React.FC = () => {
     initZego();
   }, [randomID]);
 
+  const showNotification = (callerName: string) => {
+    if (Notification.permission !== 'granted') {
+      Notification.requestPermission();
+    }
+
+    const notification = new Notification('Incoming Call', {
+      body: `Incoming call from ${callerName}`,
+      icon: 'path_to_icon.png' // Add your icon path
+    });
+
+    notification.onclick = () => {
+      // Action to perform when the notification is clicked
+    };
+  };
   const handleSend = async (callType: ZegoInvitationType) => {
     if (!inviteeID) {
       alert('User ID cannot be empty!');
@@ -114,21 +191,6 @@ const App: React.FC = () => {
         </Card>
       </Box>
     </div>
-    // <div id="app">
-    //   <p>
-    //     my userName: <span className="name">{userName}</span>
-    //   </p>
-    //   <p>
-    //     my userID: <span className="id">{userID}</span>
-    //   </p>
-    //   <input type="text" id="userID" placeholder="callee's userID" />
-    //   <button className="videoCall" onClick={() => handleSend(ZegoUIKitPrebuilt.InvitationTypeVideoCall)}>
-    //     Video Call
-    //   </button>
-    //   <button className="voiceCall" onClick={() => handleSend(ZegoUIKitPrebuilt.InvitationTypeVoiceCall)}>
-    //     Voice Call
-    //   </button>
-    // </div>
   );
 };
 
