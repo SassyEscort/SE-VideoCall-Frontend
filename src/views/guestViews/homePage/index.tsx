@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useRef, useState, useLayoutEffect, Suspense } from 'react';
+import { useCallback, useRef, useState, useEffect } from 'react';
 import HomeTopBanner from './homeBanner';
 // import HomeImageCard from './homeImageCards';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
@@ -136,7 +136,7 @@ const HomeContainer = () => {
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (token.token) {
       handelFilterChange(filters);
       setScroll(true);
@@ -172,21 +172,25 @@ const HomeContainer = () => {
     setScroll(true);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (initialRender.current) {
       initialRender.current = false;
     }
-    handleChangeSearchFilter();
+    setTimeout(() => {
+      handleChangeSearchFilter();
+    }, 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, searchParams]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setFilters(getInitialFilters());
-    handelFilterChange(getInitialFilters());
+    setTimeout(() => {
+      handelFilterChange(getInitialFilters());
+    }, 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const handleScroll = () => {
       setIsUserInteracted(true);
       window.removeEventListener('scroll', handleScroll);
@@ -202,21 +206,19 @@ const HomeContainer = () => {
     <HomePageMainContainer>
       <HomeTopBanner isFreeCreditAvailable={isFreeCreditAvailable} />
       {modelListing?.length > 0 && <BackdropProgress open={isLoading} />}
-      <Suspense>
-        <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
+      <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
 
-        <HomeImageCards
-          modelListing={modelListing}
-          isFavPage={false}
-          token={token}
-          filters={filters ?? ({} as SearchFiltersTypes)}
-          totalRows={total_rows}
-          handleChangePage={handleChangePage}
-          isFreeCreditAvailable={isFreeCreditAvailable}
-          isLoading={isLoading}
-        />
-        <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
-      </Suspense>
+      <HomeImageCards
+        modelListing={modelListing}
+        isFavPage={false}
+        token={token}
+        filters={filters ?? ({} as SearchFiltersTypes)}
+        totalRows={total_rows}
+        handleChangePage={handleChangePage}
+        isFreeCreditAvailable={isFreeCreditAvailable}
+        isLoading={isLoading}
+      />
+      <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
     </HomePageMainContainer>
   );
 };

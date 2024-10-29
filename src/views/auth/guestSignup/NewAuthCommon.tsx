@@ -1,8 +1,10 @@
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { ReactNode } from 'react';
-import { AuthCommonBox, AuthImageBox, AuthImageMobileBox } from './../AuthCommon.styled';
+import { lazy, ReactNode } from 'react';
+const AuthCommonBox = lazy(() => import('./../AuthCommon.styled').then((module) => ({ default: module.AuthCommonBox })));
+const AuthImageBox = lazy(() => import('./../AuthCommon.styled').then((module) => ({ default: module.AuthImageBox })));
+const AuthImageMobileBox = lazy(() => import('./../AuthCommon.styled').then((module) => ({ default: module.AuthImageMobileBox })));
 
 const NewAuthCommon = ({
   onClose,

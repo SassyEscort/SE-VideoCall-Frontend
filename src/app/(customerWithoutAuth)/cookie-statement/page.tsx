@@ -1,11 +1,7 @@
 import CookieStatement from 'views/guestViews/cookieStatementPage';
 
 const page = () => {
-  return (
-    <>
-      <CookieStatement />
-    </>
-  );
+  return <CookieStatement />;
 };
 
 export default page;

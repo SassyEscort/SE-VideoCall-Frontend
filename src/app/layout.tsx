@@ -6,9 +6,7 @@ import { SEO_DATA } from 'constants/seoConstants';
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
 // import '../app/globals.scss';
-const ProviderWrapper = dynamic(() => import('./ProviderWrapper'), {
-  ssr: false
-});
+const ProviderWrapper = dynamic(() => import('./ProviderWrapper'));
 const AuthFeaturProvider = React.lazy(() => import('../../context/AuthContext').then((module) => ({ default: module.AuthFeaturProvider })));
 const TawkProvider = React.lazy(() => import('../../context/TawkContext').then((module) => ({ default: module.TawkProvider })));
 
@@ -27,10 +25,11 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link
-          crossOrigin="anonymous"
           rel="preload"
+          fetchPriority="high"
           as="image"
           href="https://ik.imagekit.io/gpgv4gnda/images/1729084436818home-banner-model1_1qobIoZFu.webp"
+          type="image/webp"
         />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <meta name="robots" content="index, follow" />

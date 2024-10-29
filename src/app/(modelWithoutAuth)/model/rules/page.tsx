@@ -1,11 +1,7 @@
 import ModelRules from 'views/modelViews/modelRules';
 
 const page = () => {
-  return (
-    <>
-      <ModelRules />
-    </>
-  );
+  return <ModelRules />;
 };
 
 export default page;

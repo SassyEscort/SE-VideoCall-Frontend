@@ -1,11 +1,7 @@
 import TermaAndCondition from 'views/guestViews/termsconditionPage';
 
 const page = () => {
-  return (
-    <>
-      <TermaAndCondition />
-    </>
-  );
+  return <TermaAndCondition />;
 };
 
 export default page;
