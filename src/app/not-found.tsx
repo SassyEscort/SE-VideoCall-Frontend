@@ -2,7 +2,6 @@
 import Box from '@mui/material/Box';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { FormattedMessage } from 'react-intl';
 
@@ -10,7 +9,7 @@ function NotFoundPage() {
   const pathName = usePathname();
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '80vh' }}>
-      <Image alt="404 NOT FOUND PAGE" src="/images/404page.png" width={455} height={230} />
+      <Box component="img" alt="404 NOT FOUND PAGE" src="/images/404page.png" width={455} height={230} />
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, alignItems: 'center' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
           <UINewTypography variant="h3" color="text.secondary">
