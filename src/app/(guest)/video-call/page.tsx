@@ -46,8 +46,9 @@ const App: React.FC = () => {
 
       zpInstance.setCallInvitationConfig({
         enableCustomCallInvitationDialog: true,
-        enableCustomCallInvitationWaitingPage: true,
+        // enableCustomCallInvitationWaitingPage: true,
         enableNotifyWhenAppRunningInBackgroundOrQuit: true,
+
         ringtoneConfig: {
           incomingCallUrl: 'https://dl.prokerala.com/downloads/ringtones/files/mp3/ringing-2425.mp3'
           // outgoingCallUrl: 'https://dl.prokerala.com/downloads/ringtones/files/mp3/ringing-2425.mp3'
@@ -109,22 +110,31 @@ const App: React.FC = () => {
 
         onOutgoingCallAccepted: (callID: string, callee: ZegoUser) => {
           console.log('Outgoing call accepted:', { callID, callee });
+          // setOutgoingCallDialogOpen(false);
         },
 
         onOutgoingCallRejected: (callID: string, callee: ZegoUser) => {
           console.log('Outgoing call rejected:', { callID, callee });
+          setOutgoingCallInfo(null);
+          setOutgoingCallDialogOpen(false);
         },
 
         onOutgoingCallDeclined: (callID: string, callee: ZegoUser) => {
           console.log('Outgoing call declined:', { callID, callee });
+          setOutgoingCallInfo(null);
+          setOutgoingCallDialogOpen(false);
         },
 
         onIncomingCallTimeout: (callID: string, caller: ZegoUser) => {
           console.log('Incoming call timeout:', { callID, caller });
+          setIncomingCallInfo(null);
+          setIncomingCallDialogOpen(false);
         },
 
         onOutgoingCallTimeout: (callID: string, callees: ZegoUser[]) => {
           console.log('Outgoing call timeout:', { callID, callees });
+          setOutgoingCallInfo(null);
+          setOutgoingCallDialogOpen(false);
         }
       });
       console.log('Zego initialized successfully');
