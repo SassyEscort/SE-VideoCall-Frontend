@@ -880,5 +880,8 @@
   "firstTimeOnly": "SOLO PRIMERA VEZ",
   "InvoiceReport": "Informe de Facturas",
   "ClickToChat": "Haga clic para chatear",
-  "LimitedOffer": "Oferta Limitada"
+  "LimitedOffer": "Oferta Limitada",
+  "SorryThatPage": "Lo sentimos, esa página no se pudo encontrar.",
+  "ThePageYouAre": "La página que estás buscando no existe. Ve a nuestra página de inicio para explorar más.",
+  "GoToHomePage": "Ir a la página de inicio"
 }

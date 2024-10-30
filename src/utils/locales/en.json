@@ -882,5 +882,8 @@
   "firstTimeOnly": "FIRST TIME ONLY",
   "InvoiceReport": "Invoice Report",
   "ClickToChat": "Click to chat",
-  "LimitedOffer": "Limited Offer"
+  "LimitedOffer": "Limited Offer",
+  "SorryThatPage": "Sorry, that page could not be found.",
+  "ThePageYouAre": "The page you are looking for does not exist. Go to our home page to explore more.",
+  "GoToHomePage": "Go to Home Page"
 }
