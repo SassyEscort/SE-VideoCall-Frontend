@@ -23,7 +23,7 @@ import Divider from '@mui/material/Divider';
 const AnotherCallModel = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const router = useRouter();
 
-  const { modelName, isModelAvailable } = useCallFeatureContext();
+  const { modelName, isModelAvailable, isModelEndedCall } = useCallFeatureContext();
 
   const handleExploreModel = () => {
     onClose();
@@ -62,7 +62,7 @@ const AnotherCallModel = ({ open, onClose }: { open: boolean; onClose: () => voi
               <VideoCalling showHeart={false} showAnother={true} isModelAvailable={isModelAvailable} />
               <UINewTypography variant="bodyLight" color="text.secondary">
                 <FormattedMessage id="Sorry" />
-                {modelName} <FormattedMessage id="AnotherCall" />
+                {modelName} {isModelEndedCall ? <FormattedMessage id="IsBusy" /> : <FormattedMessage id="AnotherCall" />}
               </UINewTypography>
             </SecondBoxContent>
             <FourBoxContent>
