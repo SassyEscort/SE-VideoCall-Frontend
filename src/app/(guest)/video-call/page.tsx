@@ -26,14 +26,13 @@ const App: React.FC = () => {
   const [cancelCallInvitationFn, setCancelCallInvitationFn] = useState<CancelCallInvitationFunc | null>(null);
   const [acceptCallInvitationFn, setAcceptCallInvitationFn] = useState<AcceptCallInvitationFunc | null>(null);
   const [rejectCallInvitationFn, setRejectCallInvitationFn] = useState<RefuseCallInvitationFunc | null>(null);
-  // const [cancelCallback, setCancelCallback] = useState<CancelCallInvitationFunc | null>(null);
 
   const appID = 1140452996; // Add your App ID
   const serverSecret = process.env.NEXT_PUBLIC_SECRET_KEY!; // Add your Server Secret
 
   useEffect(() => {
+    const roomID = randomID();
     const initZego = async () => {
-      const roomID = randomID();
       const id = '408';
       const name = `user_${id}`;
       setUserID(id);
@@ -49,6 +48,10 @@ const App: React.FC = () => {
         enableCustomCallInvitationDialog: true,
         enableCustomCallInvitationWaitingPage: true,
         enableNotifyWhenAppRunningInBackgroundOrQuit: true,
+        ringtoneConfig: {
+          incomingCallUrl: 'https://dl.prokerala.com/downloads/ringtones/files/mp3/ringing-2425.mp3'
+          // outgoingCallUrl: 'https://dl.prokerala.com/downloads/ringtones/files/mp3/ringing-2425.mp3'
+        },
 
         onWaitingPageWhenSending: (callType, callees, cancel) => {
           setCancelCallInvitationFn(() => cancel);
@@ -100,19 +103,19 @@ const App: React.FC = () => {
           console.log('Incoming call received:', { callID, caller, callType, callees });
         },
 
-        onIncomingCallCanceled: (callID: any, caller: ZegoUser) => {
+        onIncomingCallCanceled: (callID: string, caller: ZegoUser) => {
           console.log('Incoming call canceled:', { callID, caller });
         },
 
-        onOutgoingCallAccepted: (callID: any, callee: ZegoUser) => {
+        onOutgoingCallAccepted: (callID: string, callee: ZegoUser) => {
           console.log('Outgoing call accepted:', { callID, callee });
         },
 
-        onOutgoingCallRejected: (callID: any, callee: ZegoUser) => {
+        onOutgoingCallRejected: (callID: string, callee: ZegoUser) => {
           console.log('Outgoing call rejected:', { callID, callee });
         },
 
-        onOutgoingCallDeclined: (callID: any, callee: ZegoUser) => {
+        onOutgoingCallDeclined: (callID: string, callee: ZegoUser) => {
           console.log('Outgoing call declined:', { callID, callee });
         },
 
@@ -120,7 +123,7 @@ const App: React.FC = () => {
           console.log('Incoming call timeout:', { callID, caller });
         },
 
-        onOutgoingCallTimeout: (callID: any, callees: ZegoUser[]) => {
+        onOutgoingCallTimeout: (callID: string, callees: ZegoUser[]) => {
           console.log('Outgoing call timeout:', { callID, callees });
         }
       });
@@ -201,12 +204,18 @@ const App: React.FC = () => {
     }
   };
 
+  const handleOutGoingCallCancel = () => {
+    setOutgoingCallDialogOpen(false);
+    setOutgoingCallInfo(null);
+    cancelCallInvitationFn && cancelCallInvitationFn();
+  };
+
   return (
     <div id="app">
       <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-        <Card sx={{ minWidth: 300, maxWidth: 300, background: '#fff' }}>
+        <Card sx={{ width: 600, background: '#fff' }}>
           <CardContent>
-            <Box mb={2}>
+            <Box mb={4} gap={2} display={'flex'} flexDirection={'column'}>
               <Box component="div">
                 My userName: <span className="name">{userName}</span>
               </Box>
@@ -215,6 +224,7 @@ const App: React.FC = () => {
               </Box>
             </Box>
             <TextField
+              fullWidth
               id="invitee-id"
               label="Invitee ID"
               variant="outlined"
@@ -224,10 +234,10 @@ const App: React.FC = () => {
           </CardContent>
           <CardActions>
             <Box display={'flex'} flexDirection={'column'} gap={1} width={'100%'}>
-              <Button variant="contained" fullWidth onClick={() => handleSend(ZegoUIKitPrebuilt.InvitationTypeVideoCall)}>
+              <Button variant="contained" size="large" fullWidth onClick={() => handleSend(ZegoUIKitPrebuilt.InvitationTypeVideoCall)}>
                 Video Call
               </Button>
-              <Button variant="contained" fullWidth onClick={() => handleSend(ZegoUIKitPrebuilt.InvitationTypeVoiceCall)}>
+              <Button variant="contained" size="large" fullWidth onClick={() => handleSend(ZegoUIKitPrebuilt.InvitationTypeVoiceCall)}>
                 Voice Call
               </Button>
             </Box>
@@ -235,7 +245,7 @@ const App: React.FC = () => {
         </Card>
       </Box>
 
-      <Dialog open={incomingCallDialogOpen} onClose={handleDialogClose}>
+      <Dialog open={incomingCallDialogOpen} onClose={handleDialogClose} fullWidth>
         <Box sx={{ background: '#FFF' }}>
           <DialogTitle>Incoming Call</DialogTitle>
           <DialogContent>
@@ -258,7 +268,7 @@ const App: React.FC = () => {
         </Box>
       </Dialog>
 
-      <Dialog open={outgoingCallDialogOpen} onClose={() => setOutgoingCallDialogOpen(false)}>
+      <Dialog open={outgoingCallDialogOpen} onClose={handleOutGoingCallCancel} fullWidth>
         <Box sx={{ background: '#FFF' }}>
           <DialogTitle>Outgoing Call</DialogTitle>
           <DialogContent>
@@ -270,16 +280,7 @@ const App: React.FC = () => {
             )}
           </DialogContent>
           <DialogActions>
-            <Button
-              color="primary"
-              variant="contained"
-              id="cancelButton"
-              onClick={() => {
-                setOutgoingCallDialogOpen(false);
-                setOutgoingCallInfo(null);
-                cancelCallInvitationFn && cancelCallInvitationFn();
-              }}
-            >
+            <Button color="primary" variant="contained" id="cancelButton" onClick={handleOutGoingCallCancel}>
               Cancel
             </Button>
           </DialogActions>
