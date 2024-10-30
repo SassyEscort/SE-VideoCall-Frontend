@@ -39,9 +39,7 @@ const App: React.FC = () => {
       setUserName(name);
 
       const token = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, id, name);
-      const KitToken = ZegoUIKitPrebuilt.generateKitTokenForProduction(appID, token, roomID, id, name);
-
-      const zpInstance = ZegoUIKitPrebuilt.create(KitToken);
+      const zpInstance = ZegoUIKitPrebuilt.create(token);
       zpInstance.addPlugins({ ZIM });
 
       zpInstance.setCallInvitationConfig({
@@ -49,10 +47,10 @@ const App: React.FC = () => {
         // enableCustomCallInvitationWaitingPage: true,
         enableNotifyWhenAppRunningInBackgroundOrQuit: true,
 
-        ringtoneConfig: {
-          incomingCallUrl: 'https://dl.prokerala.com/downloads/ringtones/files/mp3/ringing-2425.mp3'
-          // outgoingCallUrl: 'https://dl.prokerala.com/downloads/ringtones/files/mp3/ringing-2425.mp3'
-        },
+        // ringtoneConfig: {
+        //   incomingCallUrl: 'https://dl.prokerala.com/downloads/ringtones/files/mp3/ringing-2425.mp3'
+        //   // outgoingCallUrl: 'https://dl.prokerala.com/downloads/ringtones/files/mp3/ringing-2425.mp3'
+        // },
 
         onWaitingPageWhenSending: (callType, callees, cancel) => {
           setCancelCallInvitationFn(() => cancel);
@@ -110,7 +108,7 @@ const App: React.FC = () => {
 
         onOutgoingCallAccepted: (callID: string, callee: ZegoUser) => {
           console.log('Outgoing call accepted:', { callID, callee });
-          // setOutgoingCallDialogOpen(false);
+          setOutgoingCallDialogOpen(false);
         },
 
         onOutgoingCallRejected: (callID: string, callee: ZegoUser) => {
