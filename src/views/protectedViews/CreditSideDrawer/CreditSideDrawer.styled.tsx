@@ -17,8 +17,7 @@ export const CreditPopularChip = styled(Box)(({ theme }) => ({
   position: 'absolute',
   alignItems: 'center',
   top: '-25%',
-  background: theme.palette.text.secondary,
-  boxShadow: '0px -2px 20px 0px #FD85CAA3',
+  background: '#07030E',
   padding: '2px 6px',
   borderRadius: '4px'
 }));
