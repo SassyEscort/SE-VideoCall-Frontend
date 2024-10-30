@@ -882,5 +882,6 @@
   "firstTimeOnly": "FIRST TIME ONLY",
   "InvoiceReport": "Invoice Report",
   "ClickToChat": "Click to chat",
-  "IsBusy":"is busy"
+  "IsBusy":"is busy",
+  "LimitedOffer": "Limited Offer"
 }

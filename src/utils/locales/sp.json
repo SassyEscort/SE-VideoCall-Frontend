@@ -880,5 +880,6 @@
   "firstTimeOnly": "SOLO PRIMERA VEZ",
   "InvoiceReport": "Informe de Facturas",
   "ClickToChat": "Haga clic para chatear",
-  "IsBusy":"Esta ocupada"
+  "IsBusy":"Esta ocupada",
+  "LimitedOffer": "Oferta Limitada"
 }
