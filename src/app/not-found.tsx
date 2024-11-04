@@ -20,7 +20,14 @@ function NotFoundPage() {
           </UINewTypography>
         </Box>
         <StyleButtonV2 variant="contained" href={pathName.startsWith('/model') ? '/model' : '/'}>
-          <FormattedMessage id="GoToHomePage" />
+          <UINewTypography
+            variant="buttonLargeBold"
+            sx={{
+              color: '#290F1E'
+            }}
+          >
+            <FormattedMessage id="GoToHomePage" />
+          </UINewTypography>
         </StyleButtonV2>
       </Box>
     </Box>

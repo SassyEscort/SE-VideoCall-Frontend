@@ -193,7 +193,7 @@ const CreditSideDrawer = ({
                       <CreditPopularChip sx={{ maxHeight: '22px', gap: 0 }}>
                         <Box component={'img'} src="/images/credits/hot-icon.svg" alt="StarPink" width={'18px'} height={'15px'} />
                         <UINewTypography variant="captionLargeSemiBold" color={'primary.400'} sx={{ lineHeight: '22px' }}>
-                          Hot
+                          <FormattedMessage id="Hot" />
                         </UINewTypography>
                       </CreditPopularChip>
                     )}
