@@ -7,33 +7,55 @@ import { LoadingButton } from '@mui/lab';
 import { TextField, Typography } from '@mui/material';
 import * as yup from 'yup';
 import { useEffect, useState } from 'react';
-import { AdminSettingResponseData, adminSettingsServices } from 'services/adminSettings/adminSettingsServices';
+import { adminSettingsServices } from 'services/adminSettings/adminSettingsServices';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 
+export type AdminSettingData = {
+  id: number;
+  category: string;
+  label: string;
+  content: string;
+};
+
 function SupportSettingPageContainer() {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
-  const [data, setData] = useState<AdminSettingResponseData>({} as AdminSettingResponseData);
+  const [data, setData] = useState<AdminSettingData[]>([]);
   //   const [isLoading, setIsLoading] = useState(false);
+  //   const [getInitialValues, setInitialValues] = useState({
+  //     Email: '',
+  //     Phone: '',
+  //     Max_Video_CallRate: '',
+  //     Min_Video_CallRate: '',
+  //     Total_Free_Credits: '',
+  //     Free_Credis_Per_Customer: '',
+  //     Free_Credits_Per_Existing_Customer: '',
+  //     Duration_For_Screenshot: '',
+  //     Duration_For_Screenshot_Start: ''
+  //   });
 
-  const validationSchema = yup.object({
-    email: yup.string().email('Enter a valid email').required('Email is required'),
-    phone: yup.number().required('Phone is required'),
-    maxVideoCallRate: yup.number().required('Max Video Call Rate is required'),
-    minVideoCallRate: yup.number().required('Min Video Call Rate is required'),
-    totalFreeCredits: yup.number().required('Total Free Credits is required'),
-    freeCredisPerCustomer: yup.number().required('Free Credis Per Customer is required'),
-    freeCreditsPerExistingCustomer: yup.number().required('Free Credits Per Existing Customer is required'),
-    durationForScreenshot: yup.number().required('Duration For Screenshot is required'),
-    durationForScreenshotStart: yup.number().required('Duration For Screenshot Start is required')
-  });
+  //   const validationSchema = yup.object({
+  //     email: yup.string().email('Enter a valid email').required('Email is required'),
+  //     phone: yup.number().required('Phone is required'),
+  //     maxVideoCallRate: yup.number().required('Max Video Call Rate is required'),
+  //     minVideoCallRate: yup.number().required('Min Video Call Rate is required'),
+  //     totalFreeCredits: yup.number().required('Total Free Credits is required'),
+  //     freeCredisPerCustomer: yup.number().required('Free Credis Per Customer is required'),
+  //     freeCreditsPerExistingCustomer: yup.number().required('Free Credits Per Existing Customer is required'),
+  //     durationForScreenshot: yup.number().required('Duration For Screenshot is required'),
+  //     durationForScreenshotStart: yup.number().required('Duration For Screenshot Start is required')
+  //   });
 
   const handleGetAdminSettings = async () => {
     if (token.token) {
       const res = await adminSettingsServices.getAdminSettings(token.token);
 
-      if (res) {
-        console.log(res);
+      if (res && Array.isArray(res.data)) {
+        setData(res.data);
+        console.log(res.data);
+        // res.data.map((item) => {
+        //     item.category===
+        // });
       }
     }
   };
@@ -56,179 +78,51 @@ function SupportSettingPageContainer() {
     <MainLayout>
       <Formik
         initialValues={{
-          email: '',
-          phone: '',
-          maxVideoCallRate: '',
-          minVideoCallRate: '',
-          totalFreeCredits: '',
-          freeCredisPerCustomer: '',
-          freeCreditsPerExistingCustomer: '',
-          durationForScreenshot: '',
-          durationForScreenshotStart: ''
+          Email: '',
+          Phone: '',
+          Max_Video_CallRate: '',
+          Min_Video_CallRate: '',
+          Total_Free_Credits: '',
+          Free_Credis_Per_Customer: '',
+          Free_Credits_Per_Existing_Customer: '',
+          Duration_For_Screenshot: '',
+          Duration_For_Screenshot_Start: ''
         }}
-        validationSchema={validationSchema}
+        // validationSchema={validationSchema}
         onSubmit={(values) => {
           console.log(values);
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
-          <Box component="form" onSubmit={handleSubmit}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: '1300px' }}>
             <Grid
               container
               rowSpacing={3}
               columnSpacing={{ xs: 1, sm: 2 }}
               sx={{ padding: { sm: '0 90px ', lg: '0 90px 0 0', xs: '0 20px' } }}
             >
-              <Grid item xs={12} sm={6}>
-                <Typography variant="h6" gutterBottom>
-                  Support Email
-                </Typography>
-                <TextField
-                  name="email"
-                  label="Support Email"
-                  type="string"
-                  value={values.email}
-                  error={Boolean(touched.email && errors.email)}
-                  helperText={touched.email && errors.email ? errors.email : ''}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  sx={{ width: '100%', maxWidth: '500px' }}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="h6" gutterBottom>
-                  Support Phone
-                </Typography>
-                <TextField
-                  name="phone"
-                  label="Support phone"
-                  type="number"
-                  value={values.phone}
-                  error={Boolean(touched.phone && errors.phone)}
-                  helperText={touched.phone && errors.phone ? errors.phone : ''}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  sx={{ width: '100%', maxWidth: '500px' }}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="h6" gutterBottom>
-                  Max Video Call Rate
-                </Typography>
-                <TextField
-                  name="maxVideoCallRate"
-                  label="Max Video Call Rate"
-                  type="number"
-                  value={values.maxVideoCallRate}
-                  error={Boolean(touched.maxVideoCallRate && errors.maxVideoCallRate)}
-                  helperText={touched.maxVideoCallRate && errors.maxVideoCallRate ? errors.maxVideoCallRate : ''}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  sx={{ width: '100%', maxWidth: '500px' }}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="h6" gutterBottom>
-                  Min Video Call Rate
-                </Typography>
-                <TextField
-                  name="minVideoCallRate"
-                  label="Min Video Call Rate"
-                  type="number"
-                  value={values.minVideoCallRate}
-                  error={Boolean(touched.minVideoCallRate && errors.minVideoCallRate)}
-                  helperText={touched.minVideoCallRate && errors.minVideoCallRate ? errors.minVideoCallRate : ''}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  sx={{ width: '100%', maxWidth: '500px' }}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="h6" gutterBottom>
-                  Total Free Credits
-                </Typography>
-                <TextField
-                  name="totalFreeCredits"
-                  label="Total Free Credits"
-                  type="number"
-                  value={values.totalFreeCredits}
-                  error={Boolean(touched.totalFreeCredits && errors.totalFreeCredits)}
-                  helperText={touched.totalFreeCredits && errors.totalFreeCredits ? errors.totalFreeCredits : ''}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  sx={{ width: '100%', maxWidth: '500px' }}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="h6" gutterBottom>
-                  Free Credis Per Customer
-                </Typography>
-                <TextField
-                  name="freeCredisPerCustomer"
-                  label="Free Credis Per Customer"
-                  type="number"
-                  value={values.freeCredisPerCustomer}
-                  error={Boolean(touched.freeCredisPerCustomer && errors.freeCredisPerCustomer)}
-                  helperText={touched.freeCredisPerCustomer && errors.freeCredisPerCustomer ? errors.freeCredisPerCustomer : ''}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  sx={{ width: '100%', maxWidth: '500px' }}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="h6" gutterBottom>
-                  Free Credits Per Existing Customer
-                </Typography>
-                <TextField
-                  name="freeCreditsPerExistingCustomer"
-                  label="Free Credits Per Existing Customer"
-                  type="number"
-                  value={values.freeCreditsPerExistingCustomer}
-                  error={Boolean(touched.freeCreditsPerExistingCustomer && errors.freeCreditsPerExistingCustomer)}
-                  helperText={
-                    touched.freeCreditsPerExistingCustomer && errors.freeCreditsPerExistingCustomer
-                      ? errors.freeCreditsPerExistingCustomer
-                      : ''
-                  }
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  sx={{ width: '100%', maxWidth: '500px' }}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="h6" gutterBottom>
-                  Duration For Screenshot
-                </Typography>
-                <TextField
-                  name="durationForScreenshot"
-                  label="Duration For Screenshot"
-                  type="number"
-                  value={values.durationForScreenshot}
-                  error={Boolean(touched.durationForScreenshot && errors.durationForScreenshot)}
-                  helperText={touched.durationForScreenshot && errors.durationForScreenshot ? errors.durationForScreenshot : ''}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  sx={{ width: '100%', maxWidth: '500px' }}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="h6" gutterBottom>
-                  Duration For Screenshot Start
-                </Typography>
-                <TextField
-                  name="durationForScreenshotStart"
-                  label="Duration For Screenshot Start"
-                  type="number"
-                  value={values.durationForScreenshotStart}
-                  error={Boolean(touched.durationForScreenshotStart && errors.durationForScreenshotStart)}
-                  helperText={
-                    touched.durationForScreenshotStart && errors.durationForScreenshotStart ? errors.durationForScreenshotStart : ''
-                  }
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  sx={{ width: '100%', maxWidth: '500px' }}
-                />
-              </Grid>
+              {data.map((item) => (
+                <Grid item xs={12} sm={6} key={item.id}>
+                  <Typography variant="h6" gutterBottom>
+                    {item.label}
+                  </Typography>
+                  <TextField
+                    name={item.category}
+                    // label={item.label}
+                    type="string"
+                    value={values[item.category as keyof typeof values]}
+                    error={Boolean(touched[item.category as keyof typeof touched] && errors[item.category as keyof typeof errors])}
+                    helperText={
+                      touched[item.category as keyof typeof touched] && errors[item.category as keyof typeof errors]
+                        ? errors[item.category as keyof typeof errors]
+                        : ''
+                    }
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    sx={{ width: '100%', maxWidth: '500px' }}
+                  />
+                </Grid>
+              ))}
             </Grid>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', pr: { xs: '20px', sm: '100px', xl: '225px' }, mt: '10px' }}>
               <LoadingButton loading={false} size="large" type="submit" variant="contained" color="primary">

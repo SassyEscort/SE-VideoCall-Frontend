@@ -12,29 +12,29 @@ export type commissionResponse = {
   message: string;
 };
 
-export interface AdminSettingResponseData {
+export interface AdminCommissionResponseData {
   id: number;
   category: String;
   label: String;
   content: String;
 }
 
-export type AdminSettingResponse = GenericResponse & {
-  data: AdminSettingResponseData;
+export type AdminCommissionResponse = GenericResponse & {
+  data: AdminCommissionResponseData;
 };
 
 export class adminSettingsServices {
-  static getAdminSettings = async (token: string): Promise<AdminSettingResponse> => {
+  static getAdminSettings = async (token: string): Promise<AdminCommissionResponse> => {
     try {
       const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/platform-settings`;
 
-      const res = await axios.get<AdminSettingResponse>(url, {
+      const res = await axios.get<AdminCommissionResponse>(url, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
       });
 
       return res.data;
     } catch (error) {
-      return error as AdminSettingResponse;
+      return error as AdminCommissionResponse;
     }
   };
 
