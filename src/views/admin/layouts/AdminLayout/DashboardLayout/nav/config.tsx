@@ -6,6 +6,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import DuoIcon from '@mui/icons-material/Duo';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 export const getNavConfig = (id?: number) => {
   const navConfig = [
@@ -48,6 +49,11 @@ export const getNavConfig = (id?: number) => {
       title: 'SEO',
       path: '/admin/seo',
       icon: <PostAddIcon />
+    },
+    {
+      title: 'Setting',
+      path: '/admin/setting',
+      icon: <SettingsIcon />
     }
   ];
 
