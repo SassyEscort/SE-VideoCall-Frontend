@@ -21,21 +21,14 @@ const SupportSettingComponet = ({
   );
 
   return (
-    <Formik
-      initialValues={supportSettingData}
-      enableReinitialize
-      validationSchema={validationSchema}
-      onSubmit={(values) => {
-        console.log(values);
-      }}
-    >
-      {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
+    <Formik initialValues={supportSettingData} enableReinitialize validationSchema={validationSchema} onSubmit={(values) => {}}>
+      {({ values, errors, touched, handleChange, handleBlur, setFieldValue }) => {
         const handleUpdateValues = (value: string, index: number) => {
           setFieldValue(`${[index]}.content`, value);
         };
 
         return (
-          <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: '1300px' }}>
+          <Box component="form" sx={{ maxWidth: '1300px' }}>
             <Grid
               container
               rowSpacing={3}
