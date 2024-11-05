@@ -31,12 +31,11 @@ export const CamToCamDashboardBanner = () => {
                   mt: { xs: '32px', sm: '40px' }
                 }}
               >
-                <Box sx={{ width: '100%', maxWidth: '195px' }}>
+                <Box sx={{ width: '100%', maxWidth: '236px' }}>
                   <UIThemeShadowButton fullWidth variant="contained">
-                    <FooterButton variant="buttonLargeBold">
-                      <FormattedMessage id="SignUpNow" />
+                    <FooterButton variant="buttonLargeBold" color="common.white">
+                      <FormattedMessage id="StartFreeVideoChat" />
                     </FooterButton>
-                    <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} alt="signup" />
                   </UIThemeShadowButton>
                 </Box>
               </Box>
