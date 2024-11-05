@@ -14,25 +14,9 @@ const SupportSettingComponet = ({
   supportSettingData: AdminSettingData[];
   handleUpdate: (item: AdminSettingData) => void;
 }) => {
-  //   const validationSchema = Yup.array().of(
-  //     Yup.object().shape({
-  //       content: Yup.string().required('Content is required')
-  //     })
-  //   );
-
   const validationSchema = Yup.array().of(
     Yup.object().shape({
-      content: Yup.string()
-        .required('Content is required') // Default required validation
-        .test('is-email', 'Enter a valid email', function (value) {
-          const { category } = this.parent; // Access sibling fields with this.parent
-          if (category === 'email') {
-            return Yup.string().email().isValidSync(value); // Check email format if category is email
-          }
-          return true; // Otherwise, just return true
-        })
-        .min(2, 'Content must be at least 2 characters')
-        .max(500, 'Content cannot exceed 500 characters')
+      content: Yup.string().required('Content is required')
     })
   );
 
