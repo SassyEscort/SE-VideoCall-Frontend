@@ -1,11 +1,14 @@
 import axios, { AxiosError } from 'axios';
 import { GenericResponse } from 'types/commonApiTypes';
 
-export type commissionParams = {
-  percentage: string;
+export type AdminSupportSettingParames = {
+  id: string;
+  category: string;
+  label: string;
+  content: string;
 };
 
-export type commissionResponse = {
+export type AdminSupportSettingResponse = {
   data: string | null;
   code: number;
   error: string | null;
@@ -38,9 +41,9 @@ export class adminSettingsServices {
     }
   };
 
-  static modelCommissionMinAmount = async (params: commissionParams, token: string): Promise<commissionResponse> => {
+  static postAdminSettings = async (params: AdminSupportSettingParames, token: string): Promise<AdminSupportSettingResponse> => {
     try {
-      const res = await axios.post<commissionResponse>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/model/commission`, params, {
+      const res = await axios.put<AdminSupportSettingResponse>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/update-settings`, params, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: token
@@ -49,7 +52,7 @@ export class adminSettingsServices {
       return res.data;
     } catch (err: any) {
       const error: AxiosError = err;
-      return error.response?.data as commissionResponse;
+      return error.response?.data as AdminSupportSettingResponse;
     }
   };
 }
