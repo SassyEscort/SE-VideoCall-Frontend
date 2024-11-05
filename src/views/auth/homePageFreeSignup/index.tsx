@@ -39,6 +39,7 @@ import FormControl from '@mui/material/FormControl';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type SignupParams = {
   name: string;
@@ -139,6 +140,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
               if (loginResponse?.status === 200) {
                 push('/model/profile');
                 onClose();
+                gaEventTrigger('client_signup_completed', { source: 'generic_signup', category: 'Button' });
               } else {
                 setAlert('Login after signup failed. Please log in manually.');
               }
