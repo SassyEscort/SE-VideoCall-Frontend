@@ -21,6 +21,7 @@ function SupportSettingPageContainer() {
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [data, setData] = useState<AdminSettingData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingButtons, setLoadingButtons] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
     const userToken = async () => {
@@ -43,7 +44,7 @@ function SupportSettingPageContainer() {
   };
 
   const handleUpdateAdminSettings = async (item: AdminSettingData) => {
-    console.log(item, 'item');
+    setLoadingButtons((prev) => ({ ...prev, [item.id]: true }));
     try {
       if (token.token) {
         const res = await adminSettingsServices.postAdminSettings(item, token.token);
@@ -55,6 +56,8 @@ function SupportSettingPageContainer() {
       }
     } catch (error) {
       toast.error('Something went wrong');
+    } finally {
+      setLoadingButtons((prev) => ({ ...prev, [item.id]: false }));
     }
   };
 
@@ -70,7 +73,7 @@ function SupportSettingPageContainer() {
           <CircularProgress />
         </Box>
       ) : (
-        <SupportSettingComponet supportSettingData={data} handleUpdate={handleUpdateAdminSettings} />
+        <SupportSettingComponet supportSettingData={data} handleUpdate={handleUpdateAdminSettings} loadingButtons={loadingButtons} />
       )}
     </MainLayout>
   );

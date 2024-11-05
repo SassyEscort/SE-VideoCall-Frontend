@@ -9,10 +9,12 @@ import * as Yup from 'yup';
 
 const SupportSettingComponet = ({
   supportSettingData,
-  handleUpdate
+  handleUpdate,
+  loadingButtons
 }: {
   supportSettingData: AdminSettingData[];
   handleUpdate: (item: AdminSettingData) => void;
+  loadingButtons: { [key: string]: boolean };
 }) => {
   const validationSchema = Yup.array().of(
     Yup.object().shape({
@@ -55,7 +57,13 @@ const SupportSettingComponet = ({
                       />
                     </Grid>
                     <Grid item xs={2} md={2} sx={{ alignContent: 'end', marginBottom: '13px' }}>
-                      <LoadingButton loading={false} size="large" onClick={() => handleUpdate(item)} variant="contained" color="primary">
+                      <LoadingButton
+                        loading={loadingButtons[item.id] || false}
+                        size="large"
+                        onClick={() => handleUpdate(item)}
+                        variant="contained"
+                        color="primary"
+                      >
                         Save
                       </LoadingButton>
                     </Grid>
