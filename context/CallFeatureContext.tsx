@@ -68,6 +68,7 @@ interface CallFeatureContextProps {
   handelIsFavouriteModelChange: (val: number) => void;
   isModelJoin: boolean;
   callLogId: number;
+  isModelEndedCall: boolean;
   // handleCreditDrawerClose: () => void;
   // openCreditDrawer: boolean;
 }
@@ -100,7 +101,8 @@ const CallContext = createContext<CallFeatureContextProps>({
   isFavouriteModel: 0,
   handelIsFavouriteModelChange: (val: number) => {},
   isModelJoin: false,
-  callLogId: 0
+  callLogId: 0,
+  isModelEndedCall: false
   // handleCreditDrawerClose: () => {},
   // openCreditDrawer: false
 });
@@ -186,6 +188,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [isFavouriteModel, setIsFavouriteModel] = useState(0);
   const [isModelJoin, setIsModelJoin] = useState(false);
   const [isAutodisconnected, setIsAutodisconnected] = useState(false);
+  const [isModelEndedCall, setIsisModelEndedCall] = useState(false);
 
   const { handleOpen } = useAuthContext();
 
@@ -526,6 +529,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
             label: 'Video_call_unanswered',
             value: JSON.stringify(customerInfo)
           });
+          setIsisModelEndedCall(true);
+          setIsBusy(true);
           await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.UNASWERED, ROLE.MODEL);
           setEndCallTime(180000);
           if (isCustomer) {
@@ -696,7 +701,8 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         isFavouriteModel,
         handelIsFavouriteModelChange,
         isModelJoin,
-        callLogId
+        callLogId,
+        isModelEndedCall
         // handleCreditDrawerClose,
         // openCreditDrawer
       }}
