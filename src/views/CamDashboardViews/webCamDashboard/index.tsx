@@ -2,8 +2,8 @@ import { useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import { FormattedMessage } from 'react-intl';
 import theme from 'themes/theme';
-import { TypographyBox } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
 import { WebBannerContainer, WebBannerImageCard, WebFirstBoxContainer, WebInlineBox, WebSecBoxContainer } from './webCamDashboard.styled';
+import { TypographyBox } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
 
 export const WebcamDashboard = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
