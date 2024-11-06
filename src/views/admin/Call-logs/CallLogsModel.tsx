@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import { CallLogDataResponse } from 'services/adminServices/call-list/callListDetailsService';
 import { formatDuration } from 'utils/dateAndTime';
-import Image from 'next/image';
 import { Box } from '@mui/material';
 import { useState } from 'react';
 import {
@@ -98,7 +97,8 @@ const CallLogsModel = ({
             <MainScreenshotBoxImage>
               {selectedPayoutData?.screenshots && selectedPayoutData?.screenshots.length > 0 ? (
                 selectedPayoutData.screenshots.map((e) => (
-                  <Image
+                  <Box
+                    component="img"
                     key={e.id}
                     src={e.link}
                     alt="Screenshot"
@@ -127,7 +127,8 @@ const CallLogsModel = ({
         </DialogTitle>
         <SelectedImageBox>
           {selectedImage && (
-            <Image
+            <Box
+              component="img"
               src={selectedImage}
               alt="Selected Screenshot"
               width={900}
