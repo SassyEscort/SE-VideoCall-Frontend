@@ -62,7 +62,7 @@ export const InlineBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const TypographyBox = styled(Typography)(({ theme }) => ({
+export const TypographyBeyondBox = styled(Typography)(({ theme }) => ({
   fontWeight: 400,
   width: '100%',
   maxWidth: '440px',
