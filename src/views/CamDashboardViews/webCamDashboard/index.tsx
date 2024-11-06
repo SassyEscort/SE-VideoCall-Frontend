@@ -7,7 +7,25 @@ import { TypographyBox } from 'views/guestViews/homePage/homeBanner/HomeBanner.s
 
 export const WebcamDashboard = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const isSm = useMediaQuery(theme.breakpoints.down(330));
+  const isMdDown = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+  const isLgDown = useMediaQuery(theme.breakpoints.down('lg'));
+
+  let imageWidth, imageHeight;
+
+  if (isSmDown) {
+    imageWidth = 300;
+    imageHeight = 339;
+  } else if (isMdDown) {
+    imageWidth = 500;
+    imageHeight = 500;
+  } else if (isLgDown) {
+    imageWidth = 600;
+    imageHeight = 540;
+  } else {
+    imageWidth = 780;
+    imageHeight = 540;
+  }
+
   return (
     <>
       <WebBannerContainer>
@@ -25,13 +43,13 @@ export const WebcamDashboard = () => {
           <Image
             alt="home_model"
             decoding="async"
-            width={isSm && isSmDown ? 300 : isSmDown ? 347 : 780}
-            height={isSmDown ? 339 : 540}
+            width={imageWidth}
+            height={imageHeight}
             src="/images/web-cam.webp"
             priority={true}
             loading="eager"
             fetchPriority="high"
-            sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, 462px"
+            sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, (max-width: 1024px) 500px, 780px"
           />
         </WebBannerImageCard>
       </WebBannerContainer>
