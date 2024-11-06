@@ -3,15 +3,12 @@ import { ModelSeoService } from 'services/modelSeo/modelSeo.services';
 // import EscortDetailPage from 'views/guestViews/details/EscortDetailPage';
 // import CallFeature from 'views/protectedViews/callingFeature';
 import { CallFeatureProvider } from '../../../../../context/CallFeatureContext';
-import Loading from 'loading';
 import dynamic from 'next/dynamic';
 const EscortDetailPage = dynamic(() => import('views/guestViews/details/EscortDetailPage'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const CallFeature = dynamic(() => import('views/protectedViews/callingFeature'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {

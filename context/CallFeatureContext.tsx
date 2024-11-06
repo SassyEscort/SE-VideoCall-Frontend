@@ -185,6 +185,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [modelUsername, setModelUsername] = useState('');
   const [isFavouriteModel, setIsFavouriteModel] = useState(0);
   const [isModelJoin, setIsModelJoin] = useState(false);
+  const [isAutodisconnected, setIsAutodisconnected] = useState(false);
 
   const { handleOpen } = useAuthContext();
 
@@ -467,7 +468,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         setCall(undefined);
         setIsCallEnded(true);
         CometChat.removeUserListener(String(modelId));
-        if (isCustomer) {
+        if (isCustomer && isAutodisconnected) {
           const endCallData = await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED, ROLE.MODEL);
           if (endCallData) {
             setAvailableCredits(endCallData.available_credits);
@@ -554,7 +555,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
           CometChat.removeUserListener(String(modelId));
           await CometChat.endCall(call.getSessionId());
           setIsCallEnded(true);
-          if (isCustomer) {
+          if (isCustomer && !isAutodisconnected) {
             const endCallData = await creditPutCallLog(modelId, call.getSessionId(), CALLING_STATUS.ENDED, ROLE.MODEL);
             if (endCallData) {
               setAvailableCredits(endCallData.available_credits);
@@ -622,6 +623,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
             if (endCall?.id) setCallLogId(endCall.id);
             if (endCall.end_call) {
               setIsCallEnded(true);
+              setIsAutodisconnected(true);
               clearInterval(intervalId);
               return;
             }

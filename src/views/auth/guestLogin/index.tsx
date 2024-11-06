@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Divider from '@mui/material/Divider';
@@ -17,12 +17,16 @@ import { signIn } from 'next-auth/react';
 import getCustomErrorMessage from 'utils/error.utils';
 import { useRouter } from 'next/navigation';
 import InfoIcon from '@mui/icons-material/Info';
-import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
+const StyleButtonV2 = lazy(() => import('components/UIComponents/StyleLoadingButton'));
+const ErrorBox = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })));
+const ModelUITextConatiner = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })));
+const UIButtonText = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })));
+const UITypographyText = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })));
+// import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
+// import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import theme from 'themes/theme';
-import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { EMAIL_REGEX } from 'constants/regexConstants';
-import HomePageFreeSignup from '../homePageFreeSignup';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { ROLE } from 'constants/workerVerification';
 import { MODEL_ACTION } from 'constants/profileConstants';
@@ -32,6 +36,10 @@ import dynamic from 'next/dynamic';
 const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
   ssr: false
 });
+const HomePageFreeSignup = dynamic(() => import('../homePageFreeSignup'), {
+  ssr: false
+});
+
 export type LoginParams = {
   email: string;
   password: string;

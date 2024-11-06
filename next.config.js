@@ -34,7 +34,11 @@ const nextConfig = {
           {
             key: 'X-Robots-Tag',
             value: 'index, follow'
-          }
+          },
+          {
+            key: 'Cache-Control',
+            value: 'no-cache, must-revalidate, max-age=0',
+          },
         ]
       },
       {

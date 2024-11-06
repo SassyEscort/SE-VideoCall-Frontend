@@ -3,27 +3,6 @@ import theme from 'themes/theme';
 import Image from 'next/image';
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import {
-  BannerContainer,
-  InlineBox,
-  InlineBoxRelative,
-  TypographyBox,
-  HomeExploreBox,
-  SubTitle,
-  TextBoxContainer,
-  ModelsHeadingBox,
-  FristBoxContainer,
-  SecondBoxContainer,
-  TopBoxContainer,
-  ThirdBoxContainer,
-  TextContainer,
-  SignupTextContainer,
-  ExploreTextContainer,
-  FirstBoxContainer,
-  SecBoxContainer,
-  GiftBoxFirst,
-  GiftBoxSecond
-} from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
 import { memo, useState } from 'react';
@@ -37,27 +16,40 @@ import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { useAuthContext } from '../../../../../context/AuthContext';
 // import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import dynamic from 'next/dynamic';
-import Loading from 'loading';
+import {
+  TopBoxContainer,
+  FristBoxContainer,
+  TextBoxContainer,
+  BannerContainer,
+  FirstBoxContainer,
+  SecBoxContainer,
+  InlineBox,
+  InlineBoxRelative,
+  TypographyBox,
+  ThirdBoxContainer,
+  SecondBoxContainer,
+  SignupTextContainer,
+  ExploreTextContainer,
+  TextContainer,
+  GiftBoxFirst,
+  GiftBoxSecond,
+  ModelsHeadingBox,
+  HomeExploreBox,
+  SubTitle
+} from './HomeBanner.styled';
+import { BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 // import HomeHeroBanner from './HomeHeroBanner';
-const HomeHeroBanner = dynamic(() => import('./HomeHeroBanner'), {
-  ssr: false,
-  loading: Loading
-});
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
   ssr: false
@@ -150,7 +142,6 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
   const handleCloseModal = () => {
     setIsModalOpenFreeCredits(false);
   };
-
   return (
     <>
       {(session?.user as User)?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM ? (
@@ -227,7 +218,21 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 )}
               </ThirdBoxContainer>
             </FirstBoxContainer>
-            <HomeHeroBanner isSm={isSm} isSmDown={isSmDown} />
+            {/* <HomeHeroBanner isSm={isSm} isSmDown={isSmDown} /> */}
+            <BannerImageCard>
+              <Image
+                alt="home_model"
+                decoding="async"
+                width={isSm && isSmDown ? 300 : isSmDown ? 347 : 462}
+                height={isSmDown ? 339 : 452}
+                src="/images/home/home-banner-model1.webp"
+                style={{ borderRadius: '12px', right: 0 }}
+                priority={true}
+                loading="eager"
+                fetchPriority="high"
+                sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, 462px"
+              />
+            </BannerImageCard>
           </BannerContainer>
           {isSmDown && (
             <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} onSignupOpen={handleFreeCreditSignupOpen} />

@@ -17,8 +17,7 @@ export const CreditPopularChip = styled(Box)(({ theme }) => ({
   position: 'absolute',
   alignItems: 'center',
   top: '-25%',
-  background: theme.palette.text.secondary,
-  boxShadow: '0px -2px 20px 0px #FD85CAA3',
+  background: '#07030E',
   padding: '2px 6px',
   borderRadius: '4px'
 }));
@@ -192,4 +191,13 @@ export const CloseButtonContainer = styled(Close)(({ theme }) => ({
   width: 30,
   border: '1px solid #E9E8EB33',
   borderRadius: '5px'
+}));
+
+export const LimitedOfferBox = styled(Box)(() => ({
+  width: '100%',
+  position: 'absolute',
+  top: '3px',
+  alignItems: 'center',
+  display: 'flex',
+  justifyContent: 'center'
 }));

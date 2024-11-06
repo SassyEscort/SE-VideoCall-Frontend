@@ -1,42 +1,33 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
-import {
-  FirstBoxMainContainer,
-  SearchBarMainContainer,
-  SearchBarSubMainContainer,
-  SecondBoxMainContainer,
-  ThiredBoxMainContainer
-} from '../Search.styled';
-import { forwardRef, memo, Suspense, useEffect, useState } from 'react';
+const FirstBoxMainContainer = lazy(() => import('../Search.styled').then((module) => ({ default: module.FirstBoxMainContainer })));
+const SearchBarMainContainer = lazy(() => import('../Search.styled').then((module) => ({ default: module.SearchBarMainContainer })));
+const SearchBarSubMainContainer = lazy(() => import('../Search.styled').then((module) => ({ default: module.SearchBarSubMainContainer })));
+const SecondBoxMainContainer = lazy(() => import('../Search.styled').then((module) => ({ default: module.SecondBoxMainContainer })));
+const ThiredBoxMainContainer = lazy(() => import('../Search.styled').then((module) => ({ default: module.ThiredBoxMainContainer })));
+import { forwardRef, lazy, memo, Suspense, useEffect, useState } from 'react';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { useSearchParams } from 'next/navigation';
-import Loading from 'loading';
 import dynamic from 'next/dynamic';
 // import GenderFilter from './GenderFilter';
 const AgeFilter = dynamic(() => import('./AgeFilter'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const GenderFilter = dynamic(() => import('./GenderFilter'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const CountryFilter = dynamic(() => import('./CountryFilter'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const CurrentlyOnline = dynamic(() => import('./CurrentlyOnline'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const Price = dynamic(() => import('./Price'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const HomeMainContainer = dynamic(() => import('views/guestViews/guestLayout/homeContainer'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 // const AgeFilter = lazy(() => import('./AgeFilter'));
 // const GenderFilter = lazy(() => import('./GenderFilter'));
@@ -194,32 +185,34 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
   };
 
   return (
-    <HomeMainContainer>
-      <SearchBarMainContainer ref={ref}>
-        <SearchBarSubMainContainer>
-          <FirstBoxMainContainer>
-            <Suspense>
-              {/* <NewArrivals onClick={handleNewArrivals} /> */}
-              {!isMobile && <CurrentlyOnline onClick={handelChangeIsOnline} />}
-              {isMobile && <CurrentlyOnline onClick={handelChangeIsOnline} />}
-              {isMobile && <AgeFilter fromAge={filters.fromAge} toAge={filters.toAge} onChange={handleChangeAge} />}
-            </Suspense>
-          </FirstBoxMainContainer>
-          <SecondBoxMainContainer>
-            <Suspense>
-              <CountryFilter isUserInteracted={isUserInteracted} value={filters.country} onChange={handleCountryChange} />
-            </Suspense>
-          </SecondBoxMainContainer>
-          <ThiredBoxMainContainer>
-            <Suspense>
-              {!isMobile && <AgeFilter fromAge={filters.fromAge} toAge={filters.toAge} onChange={handleChangeAge} />}
-              <GenderFilter onChange={handleGender} Value={filters?.gender} />
-              <Price onChange={handleChangePrice} fromValue={filters?.fromPrice} toValue={filters?.toPrice} />
-            </Suspense>
-          </ThiredBoxMainContainer>
-        </SearchBarSubMainContainer>
-      </SearchBarMainContainer>
-    </HomeMainContainer>
+    <Suspense>
+      <HomeMainContainer>
+        <SearchBarMainContainer ref={ref}>
+          <SearchBarSubMainContainer>
+            <FirstBoxMainContainer>
+              <Suspense>
+                {/* <NewArrivals onClick={handleNewArrivals} /> */}
+                {!isMobile && <CurrentlyOnline onClick={handelChangeIsOnline} />}
+                {isMobile && <CurrentlyOnline onClick={handelChangeIsOnline} />}
+                {isMobile && <AgeFilter fromAge={filters.fromAge} toAge={filters.toAge} onChange={handleChangeAge} />}
+              </Suspense>
+            </FirstBoxMainContainer>
+            <SecondBoxMainContainer>
+              <Suspense>
+                <CountryFilter isUserInteracted={isUserInteracted} value={filters.country} onChange={handleCountryChange} />
+              </Suspense>
+            </SecondBoxMainContainer>
+            <ThiredBoxMainContainer>
+              <Suspense>
+                {!isMobile && <AgeFilter fromAge={filters.fromAge} toAge={filters.toAge} onChange={handleChangeAge} />}
+                <GenderFilter onChange={handleGender} Value={filters?.gender} />
+                <Price onChange={handleChangePrice} fromValue={filters?.fromPrice} toValue={filters?.toPrice} />
+              </Suspense>
+            </ThiredBoxMainContainer>
+          </SearchBarSubMainContainer>
+        </SearchBarMainContainer>
+      </HomeMainContainer>
+    </Suspense>
   );
 });
 

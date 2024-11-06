@@ -1,36 +1,23 @@
 'use client';
-import { useCallback, useRef, useState, useLayoutEffect } from 'react';
-// import HomeTopBanner from './homeBanner';
+import { useCallback, useRef, useState, useEffect } from 'react';
+import HomeTopBanner from './homeBanner';
 // import HomeImageCard from './homeImageCards';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
 import { HomePageMainContainer } from './Home.styled';
-import { SearchFiltersTypes } from '../searchPage/searchFilters';
+import SearchFilters, { SearchFiltersTypes } from '../searchPage/searchFilters';
 // import BackdropProgress from 'components/UIComponents/BackDropProgress';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { getQueryParam } from 'utils/genericFunction';
 import { useAuthContext } from '../../../../context/AuthContext';
 import dynamic from 'next/dynamic';
-import Loading from 'loading';
+import HomeImageCards from './homeImageCards';
+
 const HomeConnections = dynamic(() => import('./HomeConnections'), {
-  ssr: false,
-  loading: Loading
-});
-const SearchFilters = dynamic(() => import('../searchPage/searchFilters'), {
-  ssr: false,
-  loading: Loading
-});
-const HomeImageCard = dynamic(() => import('./homeImageCards'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 const BackdropProgress = dynamic(() => import('components/UIComponents/BackDropProgress'), {
-  ssr: false,
-  loading: Loading
-});
-const HomeTopBanner = dynamic(() => import('./homeBanner'), {
-  ssr: false,
-  loading: Loading
+  ssr: false
 });
 
 const HomeContainer = () => {
@@ -88,7 +75,8 @@ const HomeContainer = () => {
     const queryString = new URLSearchParams(objParams).toString();
 
     if (pathname === '/' && filterCount === 0) {
-      router.push('/');
+      const credit = searchParams.get('credit');
+      if (!credit) router.push('/');
     }
     if (pathname === '/' && filterCount === 1 && objParams.page) return;
 
@@ -110,7 +98,8 @@ const HomeContainer = () => {
         const credit = searchParams.get('credit');
         if (!credit) router.push(pathname);
       } else {
-        router.push('/');
+        const credit = searchParams.get('credit');
+        if (!credit) router.push('/');
       }
     } else {
       if (isMultiple.length) {
@@ -147,7 +136,7 @@ const HomeContainer = () => {
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (token.token) {
       handelFilterChange(filters);
       setScroll(true);
@@ -183,21 +172,25 @@ const HomeContainer = () => {
     setScroll(true);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (initialRender.current) {
       initialRender.current = false;
     }
-    handleChangeSearchFilter();
+    setTimeout(() => {
+      handleChangeSearchFilter();
+    }, 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, searchParams]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setFilters(getInitialFilters());
-    handelFilterChange(getInitialFilters());
+    setTimeout(() => {
+      handelFilterChange(getInitialFilters());
+    }, 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const handleScroll = () => {
       setIsUserInteracted(true);
       window.removeEventListener('scroll', handleScroll);
@@ -214,7 +207,8 @@ const HomeContainer = () => {
       <HomeTopBanner isFreeCreditAvailable={isFreeCreditAvailable} />
       {modelListing?.length > 0 && <BackdropProgress open={isLoading} />}
       <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
-      <HomeImageCard
+
+      <HomeImageCards
         modelListing={modelListing}
         isFavPage={false}
         token={token}
@@ -222,6 +216,7 @@ const HomeContainer = () => {
         totalRows={total_rows}
         handleChangePage={handleChangePage}
         isFreeCreditAvailable={isFreeCreditAvailable}
+        isLoading={isLoading}
       />
       <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
     </HomePageMainContainer>

@@ -1,28 +1,4 @@
 import React, { useRef } from 'react';
-import {
-  CreditContainer,
-  FavoriteBorderIconContainer,
-  FavoriteIconContainer,
-  FirstSubContainerImgWorkerCard,
-  HeartIconWorkerCard,
-  HighlyAvailableBox,
-  HighlyAvailableButtonBox,
-  ImgWorkerCard,
-  LiveIconSecBoxWorkerCard,
-  LiveIconWorkerCard,
-  MainWorkerCard,
-  NameCardContainer,
-  ProfileCardContainer,
-  SecondMainContainerWorkerCard,
-  SecondSubContainerImgWorkerCard,
-  SecondSubContainerWorkerCard,
-  SeconderContainerWorkerCard,
-  SubContainertWorkerCard,
-  TextBoxContainer,
-  UITypographyBox,
-  UITypographyBoxContainer,
-  WorkerCardContainer
-} from './WorkerCard.styled';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import theme from 'themes/theme';
@@ -42,6 +18,30 @@ import Image from 'next/image';
 import { useAuthContext } from '../../../../../context/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { VideoAcceptType } from 'constants/workerVerification';
+import {
+  MainWorkerCard,
+  ImgWorkerCard,
+  HeartIconWorkerCard,
+  HighlyAvailableButtonBox,
+  HighlyAvailableBox,
+  FavoriteIconContainer,
+  FavoriteBorderIconContainer,
+  WorkerCardContainer,
+  SeconderContainerWorkerCard,
+  SubContainertWorkerCard,
+  ProfileCardContainer,
+  NameCardContainer,
+  TextBoxContainer,
+  LiveIconWorkerCard,
+  LiveIconSecBoxWorkerCard,
+  FirstSubContainerImgWorkerCard,
+  CreditContainer,
+  SecondSubContainerImgWorkerCard,
+  SecondMainContainerWorkerCard,
+  SecondSubContainerWorkerCard,
+  UITypographyBox,
+  UITypographyBoxContainer
+} from './WorkerCard.styled';
 
 const WorkerCard = ({
   modelDetails,

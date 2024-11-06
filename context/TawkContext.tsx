@@ -6,6 +6,7 @@ interface TawkContextType {
   isLoaded: boolean;
   showWidget: () => void;
   hideWidget: () => void;
+  initializeChat: () => void;
   maximizeChat: () => void;
   minimizeChat: () => void;
   toggleChat: () => void;
@@ -20,24 +21,15 @@ export const TawkProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoaded, setIsLoaded] = useState(false);
   const { session } = useAuthContext();
 
-  useEffect(() => {
-    const loadTawk = () => {
+  const initializeChat = () => {
+    if (!isLoaded && typeof window !== 'undefined' && !window.location.pathname.includes('/admin')) {
       const tawkScript = document.createElement('script');
       tawkScript.src = 'https://embed.tawk.to/66fbef6be5982d6c7bb726ab/1i941ug0n';
       tawkScript.async = true;
       tawkScript.onload = () => setIsLoaded(true);
       document.body.appendChild(tawkScript);
-
-      return () => {
-        document.body.removeChild(tawkScript);
-      };
-    };
-    if (typeof window !== 'undefined' && !window.location.pathname.includes('/admin')) {
-      if (session?.user) {
-        loadTawk();
-      }
     }
-  }, [session?.user]);
+  };
 
   useEffect(() => {
     if (isLoaded && (window as any).Tawk_API && session?.user) {
@@ -103,6 +95,7 @@ export const TawkProvider: React.FC<{ children: React.ReactNode }> = ({ children
       value={{
         isLoaded,
         showWidget,
+        initializeChat,
         hideWidget,
         maximizeChat,
         minimizeChat,
