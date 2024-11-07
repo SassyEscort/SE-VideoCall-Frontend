@@ -27,6 +27,7 @@ import { getErrorMessage } from 'utils/errorUtils';
 import AuthFreeCreditsSignupCommon from './AuthFreeCreditsSignupCommon';
 import GuestModelMobileSignup from './GuestModelMobileSignup';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type SignupParams = {
   name: string;
@@ -115,6 +116,7 @@ const GuestFreeCreditsSignup = ({
               setTimeout(() => {
                 onClose();
               }, 3000);
+              gaEventTrigger('client_signup_completed', { source: 'details_signup', category: 'Button' });
             } else {
               setAlert('Login after signup failed. Please log in manually.');
             }

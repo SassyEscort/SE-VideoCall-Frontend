@@ -52,7 +52,7 @@ const SupportSettingComponet = ({
                         onChange={(e) => handleUpdateValues(e.target.value, index)}
                         onBlur={handleBlur}
                         error={touched[index]?.content && Boolean(errors[index]?.content)}
-                        helperText={touched[index]?.content && errors[index]?.content}
+                        helperText={touched[index]?.content && errors[index]?.content ? `${item.label} is required` : null}
                         sx={{ width: '100%', maxWidth: '500px' }}
                       />
                     </Grid>
