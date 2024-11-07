@@ -34,6 +34,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 const NewAuthCommon = lazy(() => import('./NewAuthCommon').then((module) => ({ default: module.default })));
+import { gaEventTrigger } from 'utils/analytics';
 
 export type SignupParams = {
   name: string;
@@ -122,6 +123,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                 setTimeout(() => {
                   onClose();
                 }, 3000);
+                gaEventTrigger('client_signup_completed', { source: 'guest_signup', category: 'Button' });
               } else {
                 setAlert('Login after signup failed. Please log in manually.');
               }

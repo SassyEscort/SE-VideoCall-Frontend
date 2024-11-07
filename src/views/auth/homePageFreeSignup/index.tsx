@@ -47,6 +47,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { signIn } from 'next-auth/react';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type SignupParams = {
   name: string;
@@ -135,6 +136,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                   refresh();
                   setTimeout(() => {
                     onClose();
+                    gaEventTrigger('client_signup_completed', { source: 'generic_signup', category: 'Button' });
                   }, 3000);
                 } else {
                   setAlert('Login after signup failed. Please log in manually.');
