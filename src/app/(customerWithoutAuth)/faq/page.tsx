@@ -1,10 +1,6 @@
 import FaqPage from 'views/guestViews/faqPage';
 const page = () => {
-  return (
-    <>
-      <FaqPage />
-    </>
-  );
+  return <FaqPage />;
 };
 
 export default page;

@@ -1,17 +1,15 @@
 'use client';
-import React from 'react';
-import {
-  ContactContainer,
-  ContactUs,
-  FAQConatainer,
-  FaqPageMainContainer,
-  FaqPageSubBoxContainer,
-  FirstTextContainer,
-  StyledAccordion,
-  StyledAccordionDetails,
-  StyledAccordionSummary,
-  UINewTypographyMainText
-} from './faqPage.style';
+import React, { lazy, Suspense } from 'react';
+const ContactContainer = lazy(() => import('./faqPage.style').then((module) => ({ default: module.ContactContainer })));
+const ContactUs = lazy(() => import('./faqPage.style').then((module) => ({ default: module.ContactUs })));
+const FAQConatainer = lazy(() => import('./faqPage.style').then((module) => ({ default: module.FAQConatainer })));
+const FaqPageMainContainer = lazy(() => import('./faqPage.style').then((module) => ({ default: module.FaqPageMainContainer })));
+const FaqPageSubBoxContainer = lazy(() => import('./faqPage.style').then((module) => ({ default: module.FaqPageSubBoxContainer })));
+const FirstTextContainer = lazy(() => import('./faqPage.style').then((module) => ({ default: module.FirstTextContainer })));
+const StyledAccordion = lazy(() => import('./faqPage.style').then((module) => ({ default: module.StyledAccordion })));
+const StyledAccordionDetails = lazy(() => import('./faqPage.style').then((module) => ({ default: module.StyledAccordionDetails })));
+const StyledAccordionSummary = lazy(() => import('./faqPage.style').then((module) => ({ default: module.StyledAccordionSummary })));
+const UINewTypographyMainText = lazy(() => import('./faqPage.style').then((module) => ({ default: module.UINewTypographyMainText })));
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import HomeMainContainer from '../guestLayout/homeContainer';
@@ -19,7 +17,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const FaqPage = () => {
   return (
-    <>
+    <Suspense>
       <FaqPageMainContainer>
         <ContactContainer>
           <ContactUs>
@@ -235,7 +233,7 @@ const FaqPage = () => {
           </FaqPageSubBoxContainer>
         </HomeMainContainer>
       </FaqPageMainContainer>
-    </>
+    </Suspense>
   );
 };
 

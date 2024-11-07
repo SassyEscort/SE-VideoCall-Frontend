@@ -8,18 +8,21 @@ import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RiEyeLine, RiEyeOffLine, RiMailLine, RiUserFillLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
-import { useEffect, useState } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { EMAIL_REGEX, NAME_REGEX, PASSWORD_PATTERN } from 'constants/regexConstants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import { toast } from 'react-toastify';
 import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
-import GuestSignupSuccess from '../GuestSignupSuccess';
-import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
-import { ErrorBox, ModelUICustomUIBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
+const GuestSignupSuccess = lazy(() => import('../GuestSignupSuccess'));
+const StyleButtonV2 = lazy(() => import('components/UIComponents/StyleLoadingButton'));
+const ErrorBox = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })));
+const ModelUICustomUIBox = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUICustomUIBox })));
+const ModelUITextConatiner = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })));
+const UIButtonText = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })));
+const UITypographyText = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })));
 import InfoIcon from '@mui/icons-material/Info';
-import { signIn } from 'next-auth/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { ErrorMessage } from 'constants/common.constants';
 import { useRouter } from 'next/navigation';
@@ -30,7 +33,7 @@ import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
-import NewAuthCommon from './NewAuthCommon';
+const NewAuthCommon = lazy(() => import('./NewAuthCommon').then((module) => ({ default: module.default })));
 import { gaEventTrigger } from 'utils/analytics';
 
 export type SignupParams = {
@@ -107,6 +110,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
           if (data.code === 200) {
             setActiveStep(1);
             refresh();
+            const { signIn } = await import('next-auth/react');
             if (values?.role === ROLE.CUSTOMER) {
               const loginResponse = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {
                 redirect: false,

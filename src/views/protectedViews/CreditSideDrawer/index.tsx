@@ -17,6 +17,7 @@ import {
   CurrentBalanceTypography,
   FirstTimeChip,
   FirstTimeTypography,
+  LimitedOfferBox,
   MainImageBox,
   TitleSerachBox
 } from './CreditSideDrawer.styled';
@@ -165,14 +166,9 @@ const CreditSideDrawer = ({
                 creditsListing?.map((creditsListing, index) => (
                   <CreditListContainer
                     sx={{
-                      background:
-                        creditsListing?.tag === 'Most Popular'
-                          ? 'linear-gradient(90deg, #FF68C0 0%, #9F1666 100%)'
-                          : creditsListing?.tag === 'Best Value'
-                            ? 'linear-gradient(90deg, #B88A4A 0%, #E0AA3E 31.5%, #E0AA3E 61.5%, #F9F295 100%)'
-                            : '',
+                      background: creditsListing?.tag === 'Most Popular' ? 'linear-gradient(90deg, #FF68C0 0%, #9F1666 100%)' : '',
                       position: 'relative',
-                      border: creditsListing?.tag === 'Most Popular' || creditsListing?.tag === 'Best Value' ? 'none' : ''
+                      border: creditsListing?.tag === 'Most Popular' ? 'none' : ''
                     }}
                     onClick={() => handleCreditClick(creditsListing)}
                     key={index}
@@ -180,9 +176,9 @@ const CreditSideDrawer = ({
                     {(creditsListing?.tag === 'Most Popular' || creditsListing?.tag === 'Best Value') && (
                       <CreditPopularChip>
                         {creditsListing?.tag === 'Most Popular' ? (
-                          <Box component={'img'} src="/images/credits/StarPink.svg" alt="coin.png" width={12} height={12} />
+                          <Box component={'img'} src="/images/credits/StarPink.svg" alt="StarPink" width={12} height={12} />
                         ) : (
-                          <Box component={'img'} src="/images/credits/dollar.svg" alt="coin.png" width={8} height={18} />
+                          <Box component={'img'} src="/images/credits/dollar.svg" alt="dollar" width={8} height={18} />
                         )}
                         <UINewTypography variant="captionLargeSemiBold" color={'primary.400'}>
                           {creditsListing?.tag === 'Most Popular' ? (
@@ -193,7 +189,32 @@ const CreditSideDrawer = ({
                         </UINewTypography>
                       </CreditPopularChip>
                     )}
+                    {creditsListing?.tag === 'hot' && (
+                      <CreditPopularChip sx={{ maxHeight: '22px', gap: 0 }}>
+                        <Box component={'img'} src="/images/credits/hot-icon.svg" alt="StarPink" width={'18px'} height={'15px'} />
+                        <UINewTypography variant="captionLargeSemiBold" color={'primary.400'} sx={{ lineHeight: '22px' }}>
+                          <FormattedMessage id="Hot" />
+                        </UINewTypography>
+                      </CreditPopularChip>
+                    )}
 
+                    {creditsListing?.tag === 'Limited Offer' && (
+                      <FirstTimeChip>
+                        <Box sx={{ width: '100%', position: 'relative' }}>
+                          <Box
+                            component={'img'}
+                            src="/images/credits/firstTime.png"
+                            alt="coin.png"
+                            sx={{ boxShadow: '0px 8px 32px 0px #FFBE6666' }}
+                          />
+                          <LimitedOfferBox>
+                            <UINewTypography variant="ExtraSmallerText" color={'black.main'}>
+                              <FormattedMessage id="LimitedOffer" />
+                            </UINewTypography>
+                          </LimitedOfferBox>
+                        </Box>
+                      </FirstTimeChip>
+                    )}
                     {creditsListing?.tag === 'First Time Only' && (
                       <FirstTimeChip>
                         <Box position={'relative'} sx={{ width: '100%' }}>

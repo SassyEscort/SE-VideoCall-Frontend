@@ -1,4 +1,7 @@
 'use client';
+import { useAuthContext } from '../../../../../context/AuthContext';
+import { gaEventTrigger } from 'utils/analytics';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Image from 'next/image';
@@ -6,15 +9,9 @@ import theme from 'themes/theme';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
-import { lazy, Suspense, useState } from 'react';
-import GuestNewPassword from 'views/auth/guestNewPassword';
+import { lazy, memo, Suspense, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
-import { gaEventTrigger } from 'utils/analytics';
-import { useAuthContext } from '../../../../../context/AuthContext';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
-
 const BoxImageBackground = lazy(() => import('./HomeConnections.styled').then((module) => ({ default: module.BoxImageBackground })));
 const BoxImageBackgroundChild = lazy(() =>
   import('./HomeConnections.styled').then((module) => ({ default: module.BoxImageBackgroundChild }))
@@ -51,6 +48,12 @@ const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDia
   ssr: false
 });
 const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
+  ssr: false
+});
+const GuestNewPassword = dynamic(() => import('views/auth/guestNewPassword'), {
+  ssr: false
+});
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
   ssr: false
 });
 
@@ -295,4 +298,4 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
   );
 };
 
-export default HomeConnections;
+export default memo(HomeConnections);
