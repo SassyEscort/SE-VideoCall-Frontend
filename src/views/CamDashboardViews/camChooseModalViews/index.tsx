@@ -1,5 +1,5 @@
-import Typography from '@mui/material/Typography';
-import React from 'react';
+'use client';
+
 import {
   CamChooseModalContainer,
   CamChooseModalInnerContainer,
@@ -8,35 +8,35 @@ import {
   CamRotateChipContainer,
   CamChooseModalSubTextStyledBox
 } from './chooseModal.styled';
-import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
+import { CamConnectionSubTitleTypography, CamConnectionTitleTypography } from '../camConnectinonLevelViews/camConnectinonLevel.styled';
 
 const CamToCamChooseModal = () => (
   <CamChooseModalMainContainer>
     <CamChooseModalContainer>
       <CamChooseModalInnerContainer>
-        <Typography variant="h1">
+        <CamConnectionTitleTypography>
           <FormattedMessage id="ChooseYourModelAnd" />
-        </Typography>
+        </CamConnectionTitleTypography>
 
         <CamChooseModalTitleStyledBox>
-          <Typography variant="h1">
+          <CamConnectionTitleTypography>
             <FormattedMessage id="Start" />
-          </Typography>
+          </CamConnectionTitleTypography>
           <CamRotateChipContainer>
-            <Typography variant="h1">
+            <CamConnectionTitleTypography>
               <FormattedMessage id="Cam2Cam" />
-            </Typography>
+            </CamConnectionTitleTypography>
           </CamRotateChipContainer>
         </CamChooseModalTitleStyledBox>
       </CamChooseModalInnerContainer>
       <CamChooseModalSubTextStyledBox>
-        <UINewTypography variant="subtitle">
+        <CamConnectionSubTitleTypography>
           <FormattedMessage id="SimplySelectYourFavoriteModel" />
-        </UINewTypography>
-        <UINewTypography variant="subtitle">
+        </CamConnectionSubTitleTypography>
+        <CamConnectionSubTitleTypography>
           <FormattedMessage id="UnlikeOtherPlatforms" />
-        </UINewTypography>
+        </CamConnectionSubTitleTypography>
       </CamChooseModalSubTextStyledBox>
     </CamChooseModalContainer>
   </CamChooseModalMainContainer>

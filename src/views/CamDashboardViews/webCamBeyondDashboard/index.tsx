@@ -1,3 +1,5 @@
+'use client';
+
 import { useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import { FormattedMessage } from 'react-intl';
@@ -5,17 +7,18 @@ import theme from 'themes/theme';
 import {
   WebBannerBeyondContainer,
   WebBannerBeyondImageCard,
+  WebBannerTypographySubtitleBox,
   WebFirstBeyondBoxContainer,
   WebInlineBeyondBox,
   WebSecBoxBeyondContainer
 } from './webCamBeyondDashboard.styled';
-import { TypographyBox } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
+import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 
-export const WebcamDashboardBeyond = () => {
+const WebcamDashboardBeyond = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   return (
-    <>
+    <HomeMainContainer>
       <WebBannerBeyondContainer>
         <WebBannerBeyondImageCard>
           <Image
@@ -35,18 +38,20 @@ export const WebcamDashboardBeyond = () => {
             <WebInlineBeyondBox>
               <FormattedMessage id="WhatIsCamToCam" />
             </WebInlineBeyondBox>
-            <TypographyBox>
+            <WebBannerTypographySubtitleBox>
               <FormattedMessage id="OnFlirtBateCamToCam" />
-            </TypographyBox>
-            <TypographyBox>
+            </WebBannerTypographySubtitleBox>
+            <WebBannerTypographySubtitleBox>
               <FormattedMessage id="WithHighQuality" />
-            </TypographyBox>
-            <TypographyBox>
+            </WebBannerTypographySubtitleBox>
+            <WebBannerTypographySubtitleBox>
               <FormattedMessage id="WhetherYouWantASimple" />
-            </TypographyBox>
+            </WebBannerTypographySubtitleBox>
           </WebSecBoxBeyondContainer>
         </WebFirstBeyondBoxContainer>
       </WebBannerBeyondContainer>
-    </>
+    </HomeMainContainer>
   );
 };
+
+export default WebcamDashboardBeyond;

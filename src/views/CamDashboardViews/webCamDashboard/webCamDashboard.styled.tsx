@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 export const WebBannerContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -17,11 +18,11 @@ export const WebBannerContainer = styled(Box)(({ theme }) => ({
     justifyContent: 'center'
   },
   [theme.breakpoints.down('lg')]: {
-    paddingLeft: '20px',
-    paddingRight: '20px'
+    paddingInline: theme.spacing(1.87)
   },
   [theme.breakpoints.down('md')]: {
-    flexDirection: 'column'
+    flexDirection: 'column',
+    marginTop: theme.spacing(8)
   },
   [theme.breakpoints.up('lg')]: {
     alignItems: 'center',
@@ -38,7 +39,7 @@ export const WebFirstBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '449px',
+  // maxWidth: '449px',
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(4.5)
   },
@@ -65,14 +66,13 @@ export const WebInlineBox = styled(Box)(({ theme }) => ({
   flexFlow: 'column-wrap',
   wordBreak: 'break-word',
   display: 'inline',
-
   [theme.breakpoints.down('sm')]: {
     fontSize: 30,
     fontWeight: 700,
     lineHeight: '50px',
-    textAlign: 'center',
-    textWrap: 'nowrap',
-    marginTop: theme.spacing(6.75)
+    textAlign: 'center'
+    // textWrap: 'nowrap',
+    // marginTop: theme.spacing(6.75)
   },
   [theme.breakpoints.down(330)]: {
     textWrap: 'wrap'
@@ -98,7 +98,7 @@ export const WebInlineBoxRelative = styled(Box)(({ theme }) => ({
 
 export const WebBannerImageCard = styled(Box)(({ theme }) => ({
   display: 'flex',
-  alignItems: 'flex-end',
+  alignItems: 'center',
   justifyContent: 'flex-end',
   '@media (max-width: 768px)': {
     justifyContent: 'flex-start'
@@ -109,5 +109,24 @@ export const WebBannerImageCard = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('xs')]: {
     justifyContent: 'center',
     paddingRight: theme.spacing(3)
+  },
+  [theme.breakpoints.down('md')]: {
+    justifyContent: 'center'
+  }
+}));
+
+export const WebCamSubtitleTypographyBox = styled(Typography)(({ theme }) => ({
+  fontWeight: 400,
+  width: '100%',
+  color: theme.palette.secondary[100],
+  [theme.breakpoints.down('sm')]: {
+    fontSize: 14,
+    lineHeight: '24px',
+    textAlign: '-webkit-center',
+    fontWeight: 400
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: 20,
+    lineHeight: '32px'
   }
 }));

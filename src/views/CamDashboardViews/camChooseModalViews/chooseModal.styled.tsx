@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import styled from '@mui/system/styled';
 
-export const CamChooseModalMainContainer = styled(Box)(() => ({
+export const CamChooseModalMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -10,7 +10,12 @@ export const CamChooseModalMainContainer = styled(Box)(() => ({
   width: '100%',
   backgroundImage: 'url(/images/camtocamDashboard/camChooseModal.webp)',
   backgroundRepeat: 'no-repeat',
-  backgroundPosition: 'center'
+  backgroundPosition: 'center',
+  [theme.breakpoints.down('md')]: {
+    height: 690
+  },
+  marginBlock: theme.spacing(2),
+  paddingInline: theme.spacing(1.87)
 }));
 
 export const CamRotateChipContainer = styled(Box)(({ theme }) => ({
@@ -29,7 +34,10 @@ export const CamChooseModalContainer = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   width: '100%',
-  maxWidth: 687
+  maxWidth: 687,
+  [theme.breakpoints.down('md')]: {
+    maxWidth: '100%'
+  }
 }));
 
 export const CamChooseModalInnerContainer = styled(Box)(({ theme }) => ({
@@ -53,5 +61,6 @@ export const CamChooseModalSubTextStyledBox = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(3)
+  gap: theme.spacing(3),
+  color: theme.palette.white.main
 }));

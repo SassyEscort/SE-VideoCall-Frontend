@@ -1,11 +1,20 @@
+'use client';
+
 import { useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import { FormattedMessage } from 'react-intl';
 import theme from 'themes/theme';
-import { WebBannerContainer, WebBannerImageCard, WebFirstBoxContainer, WebInlineBox, WebSecBoxContainer } from './webCamDashboard.styled';
-import { TypographyBox } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
+import {
+  WebBannerContainer,
+  WebBannerImageCard,
+  WebCamSubtitleTypographyBox,
+  WebFirstBoxContainer,
+  WebInlineBox,
+  WebSecBoxContainer
+} from './webCamDashboard.styled';
+import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 
-export const WebcamDashboard = () => {
+const WebcamDashboard = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isMdDown = useMediaQuery(theme.breakpoints.between('sm', 'md'));
   const isLgDown = useMediaQuery(theme.breakpoints.down('lg'));
@@ -27,16 +36,16 @@ export const WebcamDashboard = () => {
   }
 
   return (
-    <>
+    <HomeMainContainer>
       <WebBannerContainer>
         <WebFirstBoxContainer>
           <WebSecBoxContainer>
             <WebInlineBox>
               <FormattedMessage id="FlirtBateCamToCam" />
             </WebInlineBox>
-            <TypographyBox>
+            <WebCamSubtitleTypographyBox>
               <FormattedMessage id="DiveText" />
-            </TypographyBox>
+            </WebCamSubtitleTypographyBox>
           </WebSecBoxContainer>
         </WebFirstBoxContainer>
         <WebBannerImageCard>
@@ -53,6 +62,8 @@ export const WebcamDashboard = () => {
           />
         </WebBannerImageCard>
       </WebBannerContainer>
-    </>
+    </HomeMainContainer>
   );
 };
+
+export default WebcamDashboard;

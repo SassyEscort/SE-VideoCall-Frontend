@@ -1,85 +1,103 @@
-import React from 'react';
-import Typography from '@mui/material/Typography';
+'use client';
+
 import {
+  CamConnectinonInfoContainer,
+  CamConnectinonInfoMainContainer,
   CamConnectinonLevelMainContainer,
   CamConnectinonLevelRotateChipContainer,
+  CamConnectionContainer,
+  CamConnectionDescriptionSubTitleTypography,
+  CamConnectionDescriptionTitleTypography,
+  CamConnectionSubTitleTypography,
+  CamConnectionTitleStyledBox,
+  CamConnectionTitleTypography,
   LightCirclesBox,
   PinkLightCirclesBox
 } from './camConnectinonLevel.styled';
-import UINewTypography from 'components/UIComponents/UINewTypography';
-import {
-  CamChooseModalContainer,
-  CamChooseModalInnerContainer,
-  CamChooseModalSubTextStyledBox,
-  CamChooseModalTitleStyledBox
-} from '../camChooseModalViews/chooseModal.styled';
+import { CamChooseModalInnerContainer, CamChooseModalSubTextStyledBox } from '../camChooseModalViews/chooseModal.styled';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import { FormattedMessage } from 'react-intl';
 
 const CamConnectinonLevel = () => (
   <CamConnectinonLevelMainContainer>
-    <CamChooseModalContainer>
+    <CamConnectionContainer>
       <CamChooseModalInnerContainer>
-        <Typography variant="h1">Live Cam to Cam – A New</Typography>
-        <CamChooseModalTitleStyledBox>
-          <Typography variant="h1">Level of</Typography>
+        <CamConnectionTitleTypography>
+          <FormattedMessage id="LiveCamtoCamANew" />
+        </CamConnectionTitleTypography>
+        <CamConnectionTitleStyledBox>
+          <CamConnectionTitleTypography>
+            <FormattedMessage id="LevelOf" />
+          </CamConnectionTitleTypography>
           <CamConnectinonLevelRotateChipContainer>
-            <Typography variant="h1">Connection❤️💋</Typography>
+            <CamConnectionTitleTypography>
+              <FormattedMessage id="Connection" />
+            </CamConnectionTitleTypography>
           </CamConnectinonLevelRotateChipContainer>
-        </CamChooseModalTitleStyledBox>
+        </CamConnectionTitleStyledBox>
       </CamChooseModalInnerContainer>
       <CamChooseModalSubTextStyledBox>
-        <UINewTypography variant="subtitle">
-          Experience the thrill of real-time interaction with FlirtBate’s cam match feature, where every cam to cam session is private,
-          personalized, and secure.
-        </UINewTypography>
-        <UINewTypography variant="subtitle">
-          This isn’t just a call—this is an immersive adult webcam encounter with real models ready to explore your desires. Whether you’re
-          looking for a soft flirtation or steamy cam to cam nude sessions, you’ll find exactly what you&apos;re searching for.
-        </UINewTypography>
+        <CamConnectionSubTitleTypography>
+          <FormattedMessage id="ExperienceTheThrill" />
+        </CamConnectionSubTitleTypography>
+        <CamConnectionSubTitleTypography>
+          <FormattedMessage id="ThisIsnotJustACall" />
+        </CamConnectionSubTitleTypography>
       </CamChooseModalSubTextStyledBox>
-    </CamChooseModalContainer>
+    </CamConnectionContainer>
+
     <Box position="relative">
       <Box
         component="img"
         src="/images/camtocamDashboard/camConnectLevel.png"
         width="100%"
         height="48px"
-        position={'absolute'}
+        position="absolute"
         sx={{ zIndex: -1 }}
       />
-
       <LightCirclesBox />
       <PinkLightCirclesBox />
-
-      <Box sx={{ mt: '8px', color: '#fff' }}>
+      <Box sx={{ mt: '8px', color: 'white.main' }}>
         <Grid container spacing={2}>
           <Grid item xs={4}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '55px' }}>
+            <CamConnectinonInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/Video.svg" width="100%" height="32px" />
-              <Box sx={{ width: '100%', maxWidth: '361px', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <UINewTypography variant="newTitle">INTERACTIVE VIDEO CALLS</UINewTypography>
-                <UINewTypography variant="body1">Engage in live, two-way video chats with models.</UINewTypography>
-              </Box>
-            </Box>
+              <CamConnectinonInfoContainer>
+                <CamConnectionDescriptionTitleTypography>
+                  <FormattedMessage id="INTERACTIVEVIDEO" />
+                </CamConnectionDescriptionTitleTypography>
+                <CamConnectionDescriptionSubTitleTypography>
+                  <FormattedMessage id="EngageInLive" />
+                </CamConnectionDescriptionSubTitleTypography>
+              </CamConnectinonInfoContainer>
+            </CamConnectinonInfoMainContainer>
           </Grid>
           <Grid item xs={4}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '55px' }}>
+            <CamConnectinonInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/People.svg" width="100%" height="32px" />
-              <Box sx={{ width: '100%', maxWidth: '361px', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <UINewTypography variant="newTitle">PRIVATE AND PERSONALIZED</UINewTypography>
-                <UINewTypography variant="body1">Every session is tailored to your preferences, making each call unique.</UINewTypography>
-              </Box>
-            </Box>
+              <CamConnectinonInfoContainer>
+                <CamConnectionDescriptionTitleTypography>
+                  <FormattedMessage id="PrivateAndPersonalized" />
+                </CamConnectionDescriptionTitleTypography>
+                <CamConnectionDescriptionSubTitleTypography>
+                  <FormattedMessage id="EverySessionIsTailored" />
+                </CamConnectionDescriptionSubTitleTypography>
+              </CamConnectinonInfoContainer>
+            </CamConnectinonInfoMainContainer>
           </Grid>
           <Grid item xs={4}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '55px' }}>
+            <CamConnectinonInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/Private.svg" width="100%" height="32px" />
-              <Box sx={{ width: '100%', maxWidth: '361px', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <UINewTypography variant="newTitle">REAL PEOPLE, REAL MOMENTS</UINewTypography>
-                <UINewTypography variant="body1">You choose the model you want to interact with—no random matching.</UINewTypography>
-              </Box>
-            </Box>
+              <CamConnectinonInfoContainer>
+                <CamConnectionDescriptionTitleTypography>
+                  <FormattedMessage id="RealPeopleRealMoments" />
+                </CamConnectionDescriptionTitleTypography>
+                <CamConnectionDescriptionSubTitleTypography>
+                  <FormattedMessage id="ChooseYourModelRandomMatching" />
+                </CamConnectionDescriptionSubTitleTypography>
+              </CamConnectinonInfoContainer>
+            </CamConnectinonInfoMainContainer>
           </Grid>
         </Grid>
       </Box>

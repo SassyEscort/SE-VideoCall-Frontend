@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 export const WebBannerBeyondContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -7,6 +8,7 @@ export const WebBannerBeyondContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   height: '100%',
   position: 'relative',
+  alignItems: 'center',
   [theme.breakpoints.down('sm')]: {
     gap: '48px',
     flexDirection: 'column'
@@ -16,8 +18,7 @@ export const WebBannerBeyondContainer = styled(Box)(({ theme }) => ({
     justifyContent: 'center'
   },
   [theme.breakpoints.down('lg')]: {
-    paddingLeft: '20px',
-    paddingRight: '20px'
+    paddingInline: theme.spacing(1.87)
   },
   [theme.breakpoints.down('md')]: {
     flexDirection: 'column'
@@ -37,12 +38,15 @@ export const WebFirstBeyondBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '449px',
+  maxWidth: 449,
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(4.5)
   },
   [theme.breakpoints.up('sm')]: {
     gap: theme.spacing(6)
+  },
+  [theme.breakpoints.down('md')]: {
+    maxWidth: '100%'
   }
 }));
 
@@ -56,6 +60,9 @@ export const WebSecBoxBeyondContainer = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.up('sm')]: {
     alignItems: 'flex-start'
+  },
+  [theme.breakpoints.only('md')]: {
+    alignItems: 'center'
   }
 }));
 
@@ -64,14 +71,11 @@ export const WebInlineBeyondBox = styled(Box)(({ theme }) => ({
   flexFlow: 'column-wrap',
   wordBreak: 'break-word',
   display: 'inline',
-
   [theme.breakpoints.down('sm')]: {
     fontSize: 30,
     fontWeight: 700,
     lineHeight: '50px',
-    textAlign: 'center',
-    textWrap: 'nowrap',
-    marginTop: theme.spacing(6.75)
+    textAlign: 'center'
   },
   [theme.breakpoints.down(330)]: {
     textWrap: 'wrap'
@@ -108,5 +112,21 @@ export const WebBannerBeyondImageCard = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('xs')]: {
     justifyContent: 'center',
     paddingRight: theme.spacing(3)
+  }
+}));
+
+export const WebBannerTypographySubtitleBox = styled(Typography)(({ theme }) => ({
+  fontWeight: 400,
+  width: '100%',
+  color: theme.palette.secondary[100],
+  [theme.breakpoints.down('sm')]: {
+    fontSize: 14,
+    lineHeight: '24px',
+    textAlign: '-webkit-center',
+    fontWeight: 400
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: 20,
+    lineHeight: '32px'
   }
 }));

@@ -70,12 +70,31 @@ export const CamTitleText = styled(Typography)(({ theme }) => ({
 export const CamBannerImg = styled(Box)(({ theme }) => ({
   width: '100%',
   height: '100%',
+  backgroundImage: 'url(/images/cam-main-new-min.png)',
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
   backgroundSize: 'cover',
   [theme.breakpoints.down('lg')]: {
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right',
     position: 'absolute'
   }
+}));
+
+export const CamBannerInnerBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  width: '100%',
+  [theme.breakpoints.only('xs')]: {
+    marginTop: theme.spacing(4)
+  },
+  [theme.breakpoints.only('sm')]: {
+    marginTop: theme.spacing(5)
+  }
+}));
+
+export const CamBannerInnerBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  alignItems: 'center'
 }));

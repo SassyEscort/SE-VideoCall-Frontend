@@ -41,7 +41,15 @@ export const TypographyTitleBox = styled(Typography)(({ theme }) => ({
   width: '100%',
   fontSize: 48,
   color: theme.palette.white.main,
-  lineHeight: '68.16px'
+  lineHeight: '68.16px',
+  [theme.breakpoints.down('md')]: {
+    lineHeight: '60px',
+    fontSize: 40
+  },
+  [theme.breakpoints.down('sm')]: {
+    lineHeight: '55px',
+    fontSize: 36
+  }
 }));
 
 export const TypographySubtitleBox = styled(Typography)(({ theme }) => ({
@@ -49,7 +57,15 @@ export const TypographySubtitleBox = styled(Typography)(({ theme }) => ({
   width: '100%',
   fontSize: 20,
   color: theme.palette.white.main,
-  lineHeight: '34.4px'
+  lineHeight: '34.4px',
+  [theme.breakpoints.down('md')]: {
+    lineHeight: '30px',
+    fontSize: 18
+  },
+  [theme.breakpoints.down('sm')]: {
+    lineHeight: '28px',
+    fontSize: 16
+  }
 }));
 
 export const TypographyGradiantSubtitleBox = styled(Typography)(({ theme }) => ({
@@ -58,5 +74,13 @@ export const TypographyGradiantSubtitleBox = styled(Typography)(({ theme }) => (
   lineHeight: '52.8px',
   background: 'linear-gradient(180deg, #FFFFFF 0%, #FF68C0 100%)',
   WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent'
+  WebkitTextFillColor: 'transparent',
+  [theme.breakpoints.down('md')]: {
+    lineHeight: '48px',
+    fontSize: 36
+  },
+  [theme.breakpoints.down('sm')]: {
+    lineHeight: '44px',
+    fontSize: 32
+  }
 }));

@@ -1,14 +1,20 @@
 import Box from '@mui/material/Box';
 import styled from '@mui/system/styled';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 
-export const CamConnectinonLevelMainContainer = styled(Box)(() => ({
+export const CamConnectinonLevelMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
   height: 823,
   width: '100%',
-  gap: '72px'
+  gap: '72px',
+  padding: theme.spacing(2),
+  marginBlock: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    height: '100%'
+  }
 }));
 
 export const LightCirclesBox = styled(Box)(() => ({
@@ -42,4 +48,104 @@ export const CamConnectinonLevelRotateChipContainer = styled(Box)(({ theme }) =>
   width: 'fit-content',
   paddingBlock: theme.spacing(0.5),
   paddingInline: theme.spacing(1.25)
+}));
+
+export const CamConnectinonInfoContainer = styled(Box)(({ theme }) => ({
+  width: '100%',
+  maxWidth: '361px',
+  textAlign: 'center',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(1)
+}));
+
+export const CamConnectinonInfoMainContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(6.875)
+}));
+
+export const CamConnectionTitleStyledBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1.25),
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+  [theme.breakpoints.down('md')]: {
+    justifyContent: 'start',
+    flexDirection: 'column'
+  }
+}));
+
+export const CamConnectionContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(5.6),
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  maxWidth: 687,
+  [theme.breakpoints.down('md')]: {
+    maxWidth: '100%'
+  }
+}));
+
+export const CamConnectionTitleTypography = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '48px',
+  fontWeight: 800,
+  lineHeight: '72px',
+  color: theme.palette.white.main,
+  [theme.breakpoints.down('md')]: {
+    fontSize: '40px',
+    lineHeight: '60px'
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '30px',
+    lineHeight: '50px'
+  }
+}));
+
+export const CamConnectionSubTitleTypography = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '20px',
+  fontWeight: 400,
+  lineHeight: '34.4px',
+  color: theme.palette.white.main,
+  [theme.breakpoints.down('md')]: {
+    fontSize: '18px',
+    lineHeight: '30px'
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '16px',
+    lineHeight: '28px'
+  }
+}));
+
+export const CamConnectionDescriptionTitleTypography = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '20px',
+  fontWeight: 600,
+  lineHeight: '27.32px',
+  color: theme.palette.white.main,
+  [theme.breakpoints.down('md')]: {
+    fontSize: '18px',
+    lineHeight: '24px'
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '16px',
+    lineHeight: '20px'
+  }
+}));
+
+export const CamConnectionDescriptionSubTitleTypography = styled(UINewTypography)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 300,
+  lineHeight: '21.86px',
+  color: theme.palette.white.main,
+  [theme.breakpoints.down('md')]: {
+    fontSize: '14px',
+    lineHeight: '19px'
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '12px',
+    lineHeight: '17px'
+  }
 }));
