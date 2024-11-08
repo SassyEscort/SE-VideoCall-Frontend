@@ -1,9 +1,7 @@
 import Box from '@mui/material/Box';
-// import Skeleton from '@mui/material/Skeleton';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import dynamic from 'next/dynamic';
 import { getLoggedInUser } from 'utils/getSessionData';
-// import RedirectGuard from 'utils/route-guard/RedirectGuard';
 import Header from 'views/protectedViews/protectedLayout/Header';
 const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/Header'), {
   ssr: false

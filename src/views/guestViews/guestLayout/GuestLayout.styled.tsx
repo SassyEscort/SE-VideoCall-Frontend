@@ -48,3 +48,14 @@ export const MenuContainer = styled(Menu)(({ theme }) => ({
     }
   }
 }));
+
+export const HeaderDropdownStyledBox = styled(Box)(({ theme }) => ({
+  border: '1px solid #E9E8EB33',
+  borderRadius: theme.spacing(1),
+  padding: '12px 16px 12px 16px',
+  height: '100%',
+  maxHeight: '46px',
+  alignItems: 'center',
+  textAlign: 'center',
+  display: 'flex'
+}));

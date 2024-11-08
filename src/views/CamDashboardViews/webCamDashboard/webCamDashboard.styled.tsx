@@ -40,7 +40,6 @@ export const WebFirstBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  // maxWidth: '449px',
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(4.5)
   },
@@ -72,8 +71,6 @@ export const WebInlineBox = styled(Box)(({ theme }) => ({
     fontWeight: 700,
     lineHeight: '50px',
     textAlign: 'center'
-    // textWrap: 'nowrap',
-    // marginTop: theme.spacing(6.75)
   },
   [theme.breakpoints.down(330)]: {
     textWrap: 'wrap'

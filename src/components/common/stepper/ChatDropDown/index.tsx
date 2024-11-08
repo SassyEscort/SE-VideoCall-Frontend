@@ -1,13 +1,11 @@
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import { CHATROOM } from 'constants/languageConstants';
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Link from 'next/link';
+import { DropdownStyledBox, DropdownStyledFormControl, KeyboardArrowDownRoundedIconStyled } from './ChatRoomDrop.styled';
 
 const ChatRoomDropdown = () => {
   const [open, setOpen] = useState(false);
@@ -17,21 +15,7 @@ const ChatRoomDropdown = () => {
   };
 
   return (
-    <FormControl
-      sx={{
-        display: 'flex',
-        '& .MuiOutlinedInput-notchedOutline': {
-          border: 'none'
-        },
-        '& .MuiInputBase-input': {
-          p: '0px !important',
-          mt: '5px'
-        },
-        '& .mui-lleihv-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root': {
-          padding: '0px !important'
-        }
-      }}
-    >
+    <DropdownStyledFormControl>
       <Select
         value="Chat Room"
         autoWidth
@@ -45,17 +29,13 @@ const ChatRoomDropdown = () => {
             display: 'none'
           }
         }}
-        endAdornment={
-          <KeyboardArrowDownRoundedIcon
-            sx={{ height: 16, width: 16, color: 'common.white', paddingRight: '0px !important', cursor: 'pointer' }}
-          />
-        }
+        endAdornment={<KeyboardArrowDownRoundedIconStyled />}
         renderValue={() => (
-          <Box style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <DropdownStyledBox>
             <Typography marginRight={0.5} variant="buttonLargeMenu" color="text.secondary">
               <FormattedMessage id="ChatRoom" />
             </Typography>
-          </Box>
+          </DropdownStyledBox>
         )}
       >
         {CHATROOM?.map((chat, key: number) => (
@@ -68,7 +48,7 @@ const ChatRoomDropdown = () => {
           </MenuItem>
         ))}
       </Select>
-    </FormControl>
+    </DropdownStyledFormControl>
   );
 };
 

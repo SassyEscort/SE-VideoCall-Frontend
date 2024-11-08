@@ -1,7 +1,6 @@
 'use client';
 
 import Box from '@mui/material/Box';
-import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import { FormattedMessage } from 'react-intl';
 import { FooterButton } from 'views/guestViews/guestLayout/footer/MainFooter.styled';
 import {
@@ -12,7 +11,8 @@ import {
   CamTitleText,
   CamBannerImg,
   CamBannerInnerBox,
-  CamBannerInnerBoxContainer
+  CamBannerInnerBoxContainer,
+  CamBannerUIThemeShadowButton
 } from './camDashboard.styled';
 
 const CamToCamDashboardBanner = () => (
@@ -33,11 +33,11 @@ const CamToCamDashboardBanner = () => (
           </CamBannerInnerBoxContainer>
           <CamBannerInnerBox>
             <Box sx={{ width: '100%', maxWidth: '236px' }}>
-              <UIThemeShadowButton fullWidth variant="contained" sx={{ padding: { xs: '0px', sm: '0px' } }}>
+              <CamBannerUIThemeShadowButton fullWidth variant="contained">
                 <FooterButton variant="buttonLargeBold" color="common.white">
                   <FormattedMessage id="StartFreeVideoChat" />
                 </FooterButton>
-              </UIThemeShadowButton>
+              </CamBannerUIThemeShadowButton>
             </Box>
           </CamBannerInnerBox>
         </CamBannerInnerBoxContainer>

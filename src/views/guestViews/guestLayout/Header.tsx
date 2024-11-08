@@ -14,7 +14,7 @@ import { CommonServices } from 'services/commonApi/commonApi.services';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import MoreFilters from '../searchPage/moreFilters';
-import { MenuContainer } from './GuestLayout.styled';
+import { HeaderDropdownStyledBox, MenuContainer } from './GuestLayout.styled';
 import MenuItem from '@mui/material/MenuItem';
 import { useAuthContext } from '../../../../context/AuthContext';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
@@ -39,7 +39,7 @@ const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPass
 const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
   ssr: false
 });
-const ChatRoomDropdown = dynamic(() => import('components/common/ChatRoomDropDown'), {
+const ChatRoomDropdown = dynamic(() => import('components/common/stepper/ChatDropDown'), {
   ssr: false
 });
 import dynamic from 'next/dynamic';
@@ -272,35 +272,13 @@ const HeaderGuestComponent = () => {
             </Box>
           ) : (
             <>
-              <Box
-                sx={{
-                  border: '1px solid #E9E8EB33',
-                  borderRadius: '8px',
-                  padding: '12px 16px 12px 16px',
-                  height: '100%',
-                  maxHeight: '46px',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                  display: 'flex'
-                }}
-              >
+              <HeaderDropdownStyledBox>
                 <LanguageDropdown />
-              </Box>
+              </HeaderDropdownStyledBox>
               {path === '/cam-to-cam' && (
-                <Box
-                  sx={{
-                    border: '1px solid #E9E8EB33',
-                    borderRadius: '8px',
-                    padding: '12px 16px 12px 16px',
-                    height: '100%',
-                    maxHeight: '46px',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    display: 'flex'
-                  }}
-                >
+                <HeaderDropdownStyledBox>
                   <ChatRoomDropdown />
-                </Box>
+                </HeaderDropdownStyledBox>
               )}
             </>
           )}

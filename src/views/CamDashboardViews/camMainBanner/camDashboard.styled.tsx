@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 
 export const CamBanner = styled(Box)(({ theme }) => ({
   backgroundColor: 'rgba(30, 8, 21, 1)',
@@ -97,4 +98,10 @@ export const CamBannerInnerBoxContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   width: '100%',
   alignItems: 'center'
+}));
+
+export const CamBannerUIThemeShadowButton = styled(UIThemeShadowButton)(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    padding: 0
+  }
 }));
