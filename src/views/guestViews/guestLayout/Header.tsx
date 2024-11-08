@@ -14,7 +14,7 @@ import { CommonServices } from 'services/commonApi/commonApi.services';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import MoreFilters from '../searchPage/moreFilters';
-import { MenuContainer } from './GuestLayout.styled';
+import { HeaderDropdownStyledBox, MenuContainer } from './GuestLayout.styled';
 import MenuItem from '@mui/material/MenuItem';
 import { useAuthContext } from '../../../../context/AuthContext';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
@@ -39,7 +39,11 @@ const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPass
 const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
   ssr: false
 });
+const ChatRoomDropdown = dynamic(() => import('components/common/stepper/ChatDropDown'), {
+  ssr: false
+});
 import dynamic from 'next/dynamic';
+import { usePathname } from 'next/navigation';
 
 const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
   ssr: false
@@ -47,8 +51,8 @@ const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents
 
 const HeaderGuestComponent = () => {
   const { isFreeCreditAvailable } = useAuthContext();
+  const path = usePathname();
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
-
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
@@ -267,20 +271,16 @@ const HeaderGuestComponent = () => {
               <LanguageDropdown />
             </Box>
           ) : (
-            <Box
-              sx={{
-                border: '1px solid #E9E8EB33',
-                borderRadius: '8px',
-                padding: '12px 16px 12px 16px',
-                height: '100%',
-                maxHeight: '46px',
-                alignItems: 'center',
-                textAlign: 'center',
-                display: 'flex'
-              }}
-            >
-              <LanguageDropdown />
-            </Box>
+            <>
+              <HeaderDropdownStyledBox>
+                <LanguageDropdown />
+              </HeaderDropdownStyledBox>
+              {path === '/cam-to-cam' && (
+                <HeaderDropdownStyledBox>
+                  <ChatRoomDropdown />
+                </HeaderDropdownStyledBox>
+              )}
+            </>
           )}
           {!isMdUp && (
             <>
@@ -343,6 +343,27 @@ const HeaderGuestComponent = () => {
                     </UIThemeShadowButton>
                   </ListItemText>
                 </MenuItem>
+                {path === '/cam-to-cam' && isSMDown && (
+                  <>
+                    <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                    <MenuItem>
+                      <Box
+                        sx={{
+                          border: '1px solid #E9E8EB33',
+                          borderRadius: '8px',
+                          padding: '12px 16px 12px 16px',
+                          height: '100%',
+                          maxHeight: '46px',
+                          alignItems: 'center',
+                          textAlign: 'center',
+                          display: 'flex'
+                        }}
+                      >
+                        <ChatRoomDropdown />
+                      </Box>
+                    </MenuItem>
+                  </>
+                )}
               </MenuContainer>
             </>
           )}
