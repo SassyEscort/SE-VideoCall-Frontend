@@ -71,7 +71,7 @@ export const CamTitleText = styled(Typography)(({ theme }) => ({
 export const CamBannerImg = styled(Box)(({ theme }) => ({
   width: '100%',
   height: '100%',
-  backgroundImage: 'url(/images/cam-main-new-min.png)',
+  backgroundImage: 'url(/images/camtocamDashboard/cam-main-new-min.avif)',
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
   backgroundSize: 'cover',

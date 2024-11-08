@@ -68,7 +68,8 @@ export const CamConnectinonInfoContainer = styled(Box)(({ theme }) => ({
 export const CamConnectinonInfoMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(6.875)
+  gap: theme.spacing(6.875),
+  alignItems: 'center'
 }));
 
 export const CamConnectionTitleStyledBox = styled(Box)(({ theme }) => ({

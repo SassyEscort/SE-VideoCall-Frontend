@@ -62,7 +62,7 @@ const CamConnectinonLevel = () => (
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <CamConnectinonInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/Video.svg" width="100%" height="32px" />
+              <Box component="img" src="/images/camtocamDashboard/Video.png" width="32px" height="100%" />
               <CamConnectinonInfoContainer>
                 <CamConnectionDescriptionTitleTypography>
                   <FormattedMessage id="INTERACTIVEVIDEO" />
@@ -75,7 +75,7 @@ const CamConnectinonLevel = () => (
           </Grid>
           <Grid item xs={4}>
             <CamConnectinonInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/People.svg" width="100%" height="32px" />
+              <Box component="img" src="/images/camtocamDashboard/Private.png" width="26px" height="26px" />
               <CamConnectinonInfoContainer>
                 <CamConnectionDescriptionTitleTypography>
                   <FormattedMessage id="PrivateAndPersonalized" />
@@ -88,7 +88,7 @@ const CamConnectinonLevel = () => (
           </Grid>
           <Grid item xs={4}>
             <CamConnectinonInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/Private.svg" width="100%" height="32px" />
+              <Box component="img" src="/images/camtocamDashboard/People.png" width="32px" height="100%" />
               <CamConnectinonInfoContainer>
                 <CamConnectionDescriptionTitleTypography>
                   <FormattedMessage id="RealPeopleRealMoments" />
