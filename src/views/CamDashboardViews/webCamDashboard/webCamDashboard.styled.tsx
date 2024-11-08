@@ -8,7 +8,7 @@ export const WebBannerContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   height: '100%',
   position: 'relative',
-  marginTop: theme.spacing(15.75),
+  marginTop: theme.spacing(8),
   [theme.breakpoints.down('sm')]: {
     gap: '48px',
     flexDirection: 'column'

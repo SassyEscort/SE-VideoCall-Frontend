@@ -9,11 +9,17 @@ export const CamConnectinonLevelMainContainer = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   height: 823,
   width: '100%',
-  gap: '72px',
+  gap: theme.spacing(9),
   padding: theme.spacing(2),
   marginBlock: theme.spacing(2),
   [theme.breakpoints.down('sm')]: {
-    height: '100%'
+    height: '100%',
+    gap: theme.spacing(3)
+  },
+  [theme.breakpoints.down('md')]: {
+    gap: theme.spacing(6),
+    height: '100%',
+    marginBlock: theme.spacing(4)
   }
 }));
 
@@ -72,6 +78,10 @@ export const CamConnectionTitleStyledBox = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   [theme.breakpoints.down('md')]: {
+    justifyContent: 'start',
+    flexDirection: 'row'
+  },
+  [theme.breakpoints.down('sm')]: {
     justifyContent: 'start',
     flexDirection: 'column'
   }

@@ -6,7 +6,7 @@ export const CamChooseModalMainContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  height: 823,
+  height: 700,
   width: '100%',
   backgroundImage: 'url(/images/camtocamDashboard/camChooseModal.webp)',
   backgroundRepeat: 'no-repeat',
@@ -18,7 +18,6 @@ export const CamChooseModalMainContainer = styled(Box)(({ theme }) => ({
     marginBlock: theme.spacing(3),
     height: '100%'
   },
-  marginBlock: theme.spacing(2),
   paddingInline: theme.spacing(1.87)
 }));
 
