@@ -15,6 +15,6 @@ export enum LANGUAGES_TYPES {
 }
 
 export const CHATROOM = [
-  { title: 'SexChat', id: 1 },
-  { title: 'CamToCam', id: 2 }
+  { title: 'SexChat', id: 1, url: '/sex-chat' },
+  { title: 'CamToCam', id: 2, url: '/cam-to-cam' }
 ];

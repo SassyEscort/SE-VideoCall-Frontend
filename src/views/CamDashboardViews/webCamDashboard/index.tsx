@@ -15,17 +15,20 @@ import {
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 
 const WebcamDashboard = () => {
+  const isXsDown = useMediaQuery(theme.breakpoints.down(321));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isMdDown = useMediaQuery(theme.breakpoints.between('sm', 'md'));
   const isLgDown = useMediaQuery(theme.breakpoints.down('lg'));
 
   let imageWidth, imageHeight;
-
-  if (isSmDown) {
+  if (isXsDown) {
     imageWidth = 300;
+    imageHeight = 300;
+  } else if (isSmDown) {
+    imageWidth = 337;
     imageHeight = 339;
   } else if (isMdDown) {
-    imageWidth = 500;
+    imageWidth = 580;
     imageHeight = 500;
   } else if (isLgDown) {
     imageWidth = 600;
@@ -58,7 +61,7 @@ const WebcamDashboard = () => {
             priority={true}
             loading="eager"
             fetchPriority="high"
-            sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, (max-width: 1024px) 500px, 780px"
+            sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, (max-width: 1024px) 580px, 780px"
           />
         </WebBannerImageCard>
       </WebBannerContainer>

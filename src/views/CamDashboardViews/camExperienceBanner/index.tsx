@@ -1,6 +1,5 @@
 'use client';
 
-import { Box } from '@mui/material';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import React from 'react';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
@@ -11,7 +10,8 @@ import {
   Cam2CamInnerContainer,
   HeadingTypography,
   SubtitleTypography,
-  ButtonBox
+  ButtonBox,
+  CamExperienceBannerInnerBox
 } from './camExperienceBanner.styled';
 import { FormattedMessage } from 'react-intl';
 
@@ -20,16 +20,14 @@ const CamExperienceBanner = () => (
     <BackGroundContainer>
       <HomeMainContainer>
         <Cam2CamInnerContainer>
-          <Box>
-            <Box>
-              <HeadingTypography>
-                <FormattedMessage id="StartYourFlirtBateCam2CamExperienceNow" />
-              </HeadingTypography>
-            </Box>
+          <CamExperienceBannerInnerBox>
+            <HeadingTypography>
+              <FormattedMessage id="StartYourFlirtBateCam2CamExperienceNow" />
+            </HeadingTypography>
             <SubtitleTypography>
               <FormattedMessage id="ThousandsOfModelsAreReady" />
             </SubtitleTypography>
-          </Box>
+          </CamExperienceBannerInnerBox>
           <ButtonBox>
             <UIThemeShadowButton variant="contained" sx={{ width: '236px' }}>
               <UINewTypography variant="body" color="common.white">

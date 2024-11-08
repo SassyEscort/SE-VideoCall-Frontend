@@ -34,7 +34,8 @@ export const CamPerkMainContainer = styled(Box)(({ theme }) => ({
     marginBlock: theme.spacing(6)
   },
   [theme.breakpoints.down('md')]: {
-    gap: theme.spacing(6)
+    gap: theme.spacing(6),
+    marginBlock: theme.spacing(8)
   }
 }));
 

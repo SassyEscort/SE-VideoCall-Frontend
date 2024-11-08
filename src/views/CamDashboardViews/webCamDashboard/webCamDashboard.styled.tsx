@@ -22,8 +22,9 @@ export const WebBannerContainer = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down('md')]: {
     flexDirection: 'column',
-    marginTop: theme.spacing(8)
+    marginTop: theme.spacing(5)
   },
+
   [theme.breakpoints.up('lg')]: {
     alignItems: 'center',
     justifyContent: 'center'

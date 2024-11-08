@@ -1,5 +1,5 @@
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
@@ -7,13 +7,10 @@ import { CHATROOM } from 'constants/languageConstants';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+import Link from 'next/link';
 
 const ChatRoomDropdown = () => {
   const [open, setOpen] = useState(false);
-
-  const handleChatsChange = (event: SelectChangeEvent) => {
-    setOpen(false);
-  };
 
   const handleToggle = () => {
     setOpen(!open);
@@ -37,7 +34,6 @@ const ChatRoomDropdown = () => {
     >
       <Select
         value="Chat Room"
-        onChange={handleChatsChange}
         autoWidth
         size="small"
         open={open}
@@ -64,9 +60,11 @@ const ChatRoomDropdown = () => {
       >
         {CHATROOM?.map((chat, key: number) => (
           <MenuItem key={key} value={chat.id}>
-            <Typography variant="buttonLargeMenu" color="text.secondary">
-              <FormattedMessage id={chat.title} />
-            </Typography>
+            <Link href={chat.url} passHref onClick={() => setOpen(false)}>
+              <Typography variant="buttonLargeMenu" color="text.secondary">
+                <FormattedMessage id={chat.title} />
+              </Typography>
+            </Link>
           </MenuItem>
         ))}
       </Select>

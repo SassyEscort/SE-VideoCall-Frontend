@@ -47,9 +47,11 @@ export const HeadingTypography = styled(UINewTypography)(({ theme }) => ({
   background: 'linear-gradient(180deg, #FFFFFF 0%, #FF68C0 100%)',
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
+  lineHeight: '84.48px',
   [theme.breakpoints.down('sm')]: {
     fontSize: '48px',
-    fontWeight: 700
+    fontWeight: 700,
+    lineHeight: '60px'
   }
 }));
 
@@ -67,4 +69,10 @@ export const ButtonBox = styled(Box)(({ theme }) => ({
     justifyContent: 'center',
     alignItems: 'center'
   }
+}));
+
+export const CamExperienceBannerInnerBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(3)
 }));

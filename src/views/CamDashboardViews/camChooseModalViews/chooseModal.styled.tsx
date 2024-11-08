@@ -12,7 +12,11 @@ export const CamChooseModalMainContainer = styled(Box)(({ theme }) => ({
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
   [theme.breakpoints.down('md')]: {
-    height: 690
+    height: 500
+  },
+  [theme.breakpoints.down('sm')]: {
+    marginBlock: theme.spacing(3),
+    height: '100%'
   },
   marginBlock: theme.spacing(2),
   paddingInline: theme.spacing(1.87)
