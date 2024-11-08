@@ -16,11 +16,12 @@ function useImageOptimize(
 
   useEffect(() => {
     if (imageUrlRef.current && photo) {
-      const height = imageUrlRef.current.clientHeight;
+      // const height = imageUrlRef.current.clientHeight;
 
-      setImageUrl(
-        photo.split('/images')[0] + `/images/tr:` + (coordinates ? '' : !noResize ? `:h-${height + 100}` : '') + photo.split('/images')[1]
-      );
+      setImageUrl(photo);
+      // setImageUrl(
+      //   photo.split('/images')[0] + `/images/tr:` + (coordinates ? '' : !noResize ? `:h-${height + 100}` : '') + photo.split('/images')[1]
+      // );
     }
   }, [coordinates, imageUrlRef, isWaterMark, noResize, photo]);
 

@@ -75,7 +75,7 @@ const CallFeature = () => {
         });
       }
     }
-  }, [isModelJoin, callLogId]);
+  }, [isModelJoin, callLogId, token.token]);
 
   useEffect(() => {
     let initialTimeout: ReturnType<typeof setTimeout> | undefined;

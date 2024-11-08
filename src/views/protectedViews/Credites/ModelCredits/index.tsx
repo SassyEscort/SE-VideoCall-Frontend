@@ -31,7 +31,8 @@ import { useRouter } from 'next/navigation';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import CloseIcon from '@mui/icons-material/Close';
 import theme from 'themes/theme';
-import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+// import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../../../context/ZegoCallContext';
 import { gaEventTrigger } from 'utils/analytics';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Divider from '@mui/material/Divider';
@@ -60,7 +61,8 @@ const ModelCredits = ({
   const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
 
   const router = useRouter();
-  const { user } = useCallFeatureContext();
+  // const { user } = useCallFeatureContext();
+  const { user } = useZegoCallFeatureContext();
 
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));

@@ -1,20 +1,19 @@
 'use client';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
-import { EscortSlider } from './EscortSlider';
+import EscortSlider from './EscortSlider';
 import theme from 'themes/theme';
 import EscortSliderMobile from './EscortSliderMobile';
 import EscortPersonalDetail from './EscortPersonalDetail';
 import EscortExplore from './EscortExplore';
-import { useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
-import { TokenIdType } from 'views/protectedModelViews/verification';
-import { getUserDataClient } from 'utils/getSessionData';
 import { usePathname } from 'next/navigation';
 import Box from '@mui/system/Box';
-import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+// import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../../../context/ZegoCallFeatureContext';
 import { CallingService } from 'services/calling/calling.services';
 import moment from 'moment';
 import { ModelDetailsParams, ModelDetailsService } from 'services/modelDetails/modelDetails.services';
@@ -42,14 +41,14 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 const EscortDetailPage = () => {
   const { isFreeCreditAvailable, isCustomer } = useAuthContext();
-  const { handleCallInitiate, call, isLoading, isCallEnded, handleCallEnd, isUnanswered } = useCallFeatureContext();
+  // const { handleCallInitiate, call, isLoading, isCallEnded, handleCallEnd, isUnanswered } = useCallFeatureContext();
+  const { handleCallInitiate, call, isLoading, isCallEnded, handleCallEnd, isUnanswered, token } = useZegoCallFeatureContext();
+
   const path = usePathname();
   const userName = path.split('/')[2];
-
   const isLgDown = useMediaQuery(theme.breakpoints.down('lg'));
 
   const [guestData, setGuestData] = useState<ModelDetailsResponse>();
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isCreditAvailable, setIsCreditAvailable] = useState(false);
   const [callTime, setCallTime] = useState(0);
 
@@ -81,17 +80,6 @@ const EscortDetailPage = () => {
     },
     [filters, handleChangeFilter]
   );
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      if (data) {
-        setToken({ id: data.id, token: data.token });
-      }
-    };
-
-    userToken();
-  }, [userName, isCustomer]);
 
   useEffect(() => {
     gaEventTrigger('model_page_view', {
@@ -256,4 +244,4 @@ const EscortDetailPage = () => {
   );
 };
 
-export default EscortDetailPage;
+export default memo(EscortDetailPage);

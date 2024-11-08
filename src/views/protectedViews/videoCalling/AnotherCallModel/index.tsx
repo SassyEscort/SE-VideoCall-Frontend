@@ -15,7 +15,8 @@ import {
   SecondBoxContent,
   ThirdBoxContent
 } from './Another.styled';
-import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+// import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../../../context/ZegoCallFeatureContext';
 import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -23,7 +24,8 @@ import Divider from '@mui/material/Divider';
 const AnotherCallModel = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const router = useRouter();
 
-  const { modelName, isModelAvailable, isModelEndedCall } = useCallFeatureContext();
+  // const { modelName, isModelAvailable, isModelEndedCall } = useCallFeatureContext();
+  const { modelName, isModelAvailable, isModelEndedCall } = useZegoCallFeatureContext();
 
   const handleExploreModel = () => {
     onClose();

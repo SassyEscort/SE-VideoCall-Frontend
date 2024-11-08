@@ -20,7 +20,8 @@ import {
 } from './BillingDetails';
 import WorkerCardMobile from 'views/guestViews/commonComponents/mobileWorkerCard';
 import { FormattedMessage } from 'react-intl';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+// import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../../context/ZegoCallFeatureContext';
 import moment from 'moment';
 import { useRouter } from 'next/navigation';
 import { ViewDetailsRes } from 'services/guestBilling/types';
@@ -43,7 +44,8 @@ const BillingDetails = ({
 }) => {
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
   const router = useRouter();
-  const { isLoading } = useCallFeatureContext();
+  // const { isLoading } = useCallFeatureContext();
+  const { isLoading } = useZegoCallFeatureContext();
   const callDurationString = selectDetails.call_duration;
   const callDuration = moment.duration(callDurationString);
   const hours = Math.floor(callDuration.asHours());

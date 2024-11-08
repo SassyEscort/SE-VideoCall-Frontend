@@ -25,7 +25,8 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customerCredit.service';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+// import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../../context/ZegoCallContext';
 import { usePathname, useRouter } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
 import { CustomerDetails } from 'services/customerDetails/customerDetails.services';
@@ -51,7 +52,8 @@ const CreditSideDrawer = ({
 
   // const { isFreeCreditAvailable } = useAuthContext();
 
-  const { user } = useCallFeatureContext();
+  // const { user } = useCallFeatureContext();
+  const { user } = useZegoCallFeatureContext();
   const customerData = JSON.parse(user || '{}');
 
   const router = useRouter();

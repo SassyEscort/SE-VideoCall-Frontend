@@ -1,14 +1,7 @@
 // /* eslint-disable no-console */
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  ZegoInvitationType,
-  ZegoCloudRoomConfig,
-  ZegoUser,
-  CancelCallInvitationFunc,
-  AcceptCallInvitationFunc,
-  RefuseCallInvitationFunc
-} from '@zegocloud/zego-uikit-prebuilt';
+import { ZegoInvitationType, ZegoCloudRoomConfig, ZegoUser } from '@zegocloud/zego-uikit-prebuilt';
 import { Box, Card, CardContent, TextField, CardActions, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { randomID } from 'utils/videoCall';
 import { CALL_INVITATION_END_REASON } from 'constants/callingConstants';
@@ -30,28 +23,27 @@ const VideoCall: React.FC = () => {
   const [outgoingCallInfo, setOutgoingCallInfo] = useState<{ caller: ZegoUser } | null>(null);
   const [incomingCallDialogOpen, setIncomingCallDialogOpen] = useState(false);
   const [incomingCallInfo, setIncomingCallInfo] = useState<{ caller: ZegoUser; callType: ZegoInvitationType } | null>(null);
-  const [cancelCallInvitationFn, setCancelCallInvitationFn] = useState<CancelCallInvitationFunc | null>(null);
-  const [acceptCallInvitationFn, setAcceptCallInvitationFn] = useState<AcceptCallInvitationFunc | null>(null);
-  const [rejectCallInvitationFn, setRejectCallInvitationFn] = useState<RefuseCallInvitationFunc | null>(null);
 
-  const appID = 1140452996; // Add your App ID
-  const serverSecret = process.env.NEXT_PUBLIC_SECRET_KEY!; // Add your Server Secret
-
+  const appID = process.env.NEXT_PUBLIC_ZEGO_APP_KEY!;
+  const serverSecret = process.env.NEXT_PUBLIC_SECRET_KEY!;
   const roomID = randomID();
+
   const initZego = async () => {
-    const userID = '408';
-    const userName = `user_${userID}`;
-    setUserId(userID);
-    setUser_Name(userName);
-    if (!userID || !userName) {
-      throw new Error('User ID and User Name must be set before initializing Zego.');
+    if (!isNaN(Number(appID))) {
+      const userID = '408';
+      const userName = `user_${userID}`;
+      setUserId(userID);
+      setUser_Name(userName);
+      if (!userID || !userName) {
+        throw new Error('User ID and User Name must be set before initializing Zego.');
+      }
+      const { ZegoUIKitPrebuilt: UIKitPrebuilt } = await import('@zegocloud/zego-uikit-prebuilt');
+      const token = UIKitPrebuilt.generateKitTokenForTest(Number(appID), serverSecret, roomID, userID, userName);
+      const zpInstance = UIKitPrebuilt.create(token);
+      const zimModule = await import('zego-zim-web');
+      zpInstance.addPlugins({ ZIM: zimModule.ZIM });
+      setZp(zpInstance);
     }
-    const { ZegoUIKitPrebuilt: UIKitPrebuilt } = await import('@zegocloud/zego-uikit-prebuilt');
-    const token = UIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, userID, userName);
-    const zpInstance = UIKitPrebuilt.create(token);
-    const zimModule = await import('zego-zim-web');
-    zpInstance.addPlugins({ ZIM: zimModule.ZIM });
-    setZp(zpInstance);
   };
 
   useEffect(() => {
@@ -98,21 +90,17 @@ const VideoCall: React.FC = () => {
             outgoingCallUrl: 'https://dl.prokerala.com/downloads/ringtones/files/mp3/iphone-ringtone-47958.mp3'
           },
 
-          onWaitingPageWhenSending: (callType: string, callees: any, cancel: CancelCallInvitationFunc) => {
-            setCancelCallInvitationFn(() => cancel);
-            setOutgoingCallDialogOpen(true);
+          // onWaitingPageWhenSending: (callType: string, callees: any, cancel: CancelCallInvitationFunc) => {
+          //   setCancelCallInvitationFn(() => cancel);
+          //   setOutgoingCallDialogOpen(true);
 
-            for (var i = 0; i < callees.length; i++) {
-              setOutgoingCallInfo({ caller: { userID: callees[i].userID, userName: callees[i].userName } });
-            }
-          },
+          //   for (var i = 0; i < callees.length; i++) {
+          //     setOutgoingCallInfo({ caller: { userID: callees[i].userID, userName: callees[i].userName } });
+          //   }
+          // },
 
-          onConfirmDialogWhenReceiving: (callType: any, caller: any, reject: any, accept: any) => {
+          onConfirmDialogWhenReceiving: (callType: any, caller: any) => {
             console.log('Incoming call invitation:', { callType, caller });
-            setAcceptCallInvitationFn(() => accept);
-            setRejectCallInvitationFn(() => reject);
-            setIncomingCallInfo({ caller, callType });
-            setIncomingCallDialogOpen(true);
           },
 
           onCallInvitationEnded(reason: string, data: any) {
@@ -123,8 +111,6 @@ const VideoCall: React.FC = () => {
             } else if (reason == CALL_INVITATION_END_REASON.DECLINED) {
               console.log('userRef?.current:', userRef?.current);
             }
-            setIncomingCallInfo(null);
-            setIncomingCallDialogOpen(false);
           },
 
           onSetRoomConfigBeforeJoining: (): ZegoCloudRoomConfig => {
@@ -173,44 +159,30 @@ const VideoCall: React.FC = () => {
             };
           },
 
-          onIncomingCallReceived: (callID: string, caller: ZegoUser, callType: ZegoInvitationType, callees: ZegoUser[]) => {
-            console.log('Incoming call received:', { callID, caller, callType, callees });
-          },
-
-          onIncomingCallCanceled: (callID: string, caller: ZegoUser) => {
-            console.log('Incoming call canceled:', { callID, caller });
-          },
-
           onOutgoingCallAccepted: async (callID: string, callee: ZegoUser) => {
             console.log('Outgoing call accepted:', { callID, callee });
             setCallID(callID);
-            setOutgoingCallDialogOpen(false);
           },
 
           onOutgoingCallRejected: (callID: string, callee: ZegoUser) => {
             console.log('Outgoing call rejected:', { callID, callee });
-            setOutgoingCallInfo(null);
-            setOutgoingCallDialogOpen(false);
+            setCallID('');
           },
 
           onOutgoingCallDeclined: (callID: string, callee: ZegoUser) => {
             console.log('Outgoing call declined:', { callID, callee });
-            setOutgoingCallInfo(null);
-            setOutgoingCallDialogOpen(false);
+            setCallID('');
           },
 
           onIncomingCallTimeout: (callID: string, caller: ZegoUser) => {
             console.log('Incoming call timeout:', { callID, caller });
-            setIncomingCallInfo(null);
-            setIncomingCallDialogOpen(false);
           },
 
           onOutgoingCallTimeout: (callID: string, callees: ZegoUser[]) => {
             console.log('Outgoing call timeout:', { callID, callees });
-            setOutgoingCallInfo(null);
-            setOutgoingCallDialogOpen(false);
           }
         });
+
         const response = await zp.sendCallInvitation({
           callees: users,
           callType: ZegoUIKitPrebuilt.InvitationTypeVideoCall,
@@ -234,7 +206,6 @@ const VideoCall: React.FC = () => {
       console.log('Accepting call from userID:', userID);
 
       try {
-        acceptCallInvitationFn && acceptCallInvitationFn();
         console.log('Call accepted successfully');
       } catch (error) {
         console.error('Error accepting call:', error);
@@ -252,7 +223,6 @@ const VideoCall: React.FC = () => {
       console.log('Rejecting call from userID:', userID);
 
       try {
-        rejectCallInvitationFn && rejectCallInvitationFn();
         console.log('Call rejected successfully');
       } catch (error) {
         console.error('Error rejecting call:', error);
@@ -267,7 +237,6 @@ const VideoCall: React.FC = () => {
   const handleOutGoingCallCancel = () => {
     setOutgoingCallDialogOpen(false);
     setOutgoingCallInfo(null);
-    cancelCallInvitationFn && cancelCallInvitationFn();
   };
 
   return (

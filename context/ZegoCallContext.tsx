@@ -5,8 +5,6 @@ import {
   ZegoUIKitPrebuilt,
   ZegoInvitationType,
   CancelCallInvitationFunc,
-  AcceptCallInvitationFunc,
-  RefuseCallInvitationFunc,
   ZegoCloudRoomConfig,
   ZegoUser
 } from '@zegocloud/zego-uikit-prebuilt';
@@ -37,8 +35,7 @@ type CallFeatureContextProps = {
     modelPhoto: string,
     userName: string,
     modelPrice: string,
-    isFavourite: number,
-    callType: ZegoInvitationType
+    isFavourite: number
   ) => void;
   handleCancelCall: () => void;
   isCallAccepted: boolean;
@@ -103,6 +100,8 @@ const gaEventTrigger = async (action: string, data: any, credits?: number) => {
   gaEventTrigger(action, data);
 };
 
+const VideoCallEnded = lazy(() => import('views/protectedViews/videoCalling/VideoCallEnded'));
+
 export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const tokenCometChat = useSession();
   const intl = useIntl();
@@ -154,18 +153,13 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isModelJoin, setIsModelJoin] = useState(false);
   const [, setIsAutodisconnected] = useState(false);
 
-  const [cancelCallInvitationFn, setCancelCallInvitationFn] = useState<CancelCallInvitationFunc | null>(null);
-  const [, setAcceptCallInvitationFn] = useState<AcceptCallInvitationFunc | null>(null);
-  const [, setRejectCallInvitationFn] = useState<RefuseCallInvitationFunc | null>(null);
-
+  const [cancelCallInvitationFn] = useState<CancelCallInvitationFunc | null>(null);
   const [outgoingCallDialogOpen, setOutgoingCallDialogOpen] = useState(false);
   const [, setOutgoingCallInfo] = useState<{ caller: ZegoUser } | null>(null);
 
   const { handleOpen } = useAuthContext();
 
-  const VideoCallEnded = lazy(() => import('views/protectedViews/videoCalling/VideoCallEnded'));
-
-  const appID = 1140452996;
+  const appID = process.env.NEXT_PUBLIC_ZEGO_APP_KEY!;
   const serverSecret = process.env.NEXT_PUBLIC_SECRET_KEY!;
 
   const userToken = async () => {
@@ -187,15 +181,16 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const initCall = async () => {
-    const roomID = randomID();
-    const id = String(userNameData?.customer_id || '');
-    const name = userNameData?.customer_user_name;
+    if (!isNaN(Number(appID))) {
+      const roomID = randomID();
+      const id = String(userNameData?.customer_id || '');
+      const name = userNameData?.customer_user_name;
 
-    const token = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, id, name);
-    const callInstance = ZegoUIKitPrebuilt.create(token);
-    callInstance.addPlugins({ ZIM });
-    callInstance?.sendInRoomCustomCommand;
-    setCall(callInstance);
+      const token = ZegoUIKitPrebuilt.generateKitTokenForTest(Number(appID), serverSecret, roomID, id, name);
+      const callInstance = ZegoUIKitPrebuilt.create(token);
+      callInstance.addPlugins({ ZIM });
+      setCall(callInstance);
+    }
   };
 
   useEffect(() => {
@@ -248,19 +243,8 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
           outgoingCallUrl: 'https://dl.prokerala.com/downloads/ringtones/files/mp3/iphone-ringtone-47958.mp3'
         },
 
-        onWaitingPageWhenSending: (callType, callees, cancel) => {
-          setCancelCallInvitationFn(() => cancel);
-          setOutgoingCallDialogOpen(true);
-
-          for (var i = 0; i < callees.length; i++) {
-            setOutgoingCallInfo({ caller: { userID: callees[i].userID, userName: callees[i].userName } });
-          }
-        },
-
-        onConfirmDialogWhenReceiving: (callType, caller, reject, accept) => {
+        onConfirmDialogWhenReceiving: (callType, caller) => {
           console.log('Incoming call invitation:', { callType, caller });
-          setAcceptCallInvitationFn(() => accept);
-          setRejectCallInvitationFn(() => reject);
         },
 
         onCallInvitationEnded(reason, data) {
@@ -393,8 +377,7 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
     modelPhoto: string,
     userName: string,
     modelPrice: string,
-    isFavourite: number,
-    callType: ZegoInvitationType
+    isFavourite: number
   ) => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true });
@@ -619,7 +602,7 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }}
     >
       {children}
-      <VideoCallEnded open={reviewOpen} onClose={handleReviewClose} callLogId={callLogId} modelObj={modelObj} />
+      <VideoCallEnded open={reviewOpen} onClose={handleReviewClose} callLogId={callLogId} modelObj={modelObj} token={token} />
     </CallContext.Provider>
   );
 };

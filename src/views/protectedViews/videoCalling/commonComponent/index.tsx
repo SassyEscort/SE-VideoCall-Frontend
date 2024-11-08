@@ -15,7 +15,8 @@ import {
   VideoCallingCardMainContainer
 } from './videoCallingCard.styled';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
-import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+// import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../../../context/ZegoCallContext';
 
 const VideoCalling = ({
   showHeart,
@@ -26,7 +27,8 @@ const VideoCalling = ({
   showAnother: Boolean;
   isModelAvailable: number;
 }) => {
-  const { modelName, modelPhoto, isFavouriteModel, modelUsername, handelIsFavouriteModelChange } = useCallFeatureContext();
+  // const { modelName, modelPhoto, isFavouriteModel, modelUsername, handelIsFavouriteModelChange } = useCallFeatureContext();
+  const { modelName, modelPhoto, isFavouriteModel, modelUsername, handelIsFavouriteModelChange } = useZegoCallFeatureContext();
 
   const handleClickFaviourite = () => {
     handelIsFavouriteModelChange(1);

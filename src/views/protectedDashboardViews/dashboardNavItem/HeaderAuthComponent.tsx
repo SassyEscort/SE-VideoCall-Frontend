@@ -17,7 +17,8 @@ import { NotificationDetailsService } from 'services/notification/notification.s
 import { Root } from 'services/notification/type';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+// import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../../context/ZegoCallContext';
 import MyProfileChangePassword from 'views/protectedViews/changePassword';
 import { useAuthContext } from '../../../../context/AuthContext';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
@@ -62,7 +63,8 @@ const DashboadrHeaderAuthComponent = () => {
   const [notificationDetails, setNotificationDetails] = useState<Root>();
   const notificationCount = useRef(0);
 
-  const { isCustomer } = useCallFeatureContext();
+  // const { isCustomer } = useCallFeatureContext();
+  const { isCustomer } = useZegoCallFeatureContext();
 
   const handleOpenChangePassword = () => {
     setOpenChangePassword(true);

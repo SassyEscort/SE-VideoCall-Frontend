@@ -18,7 +18,8 @@ import { IconButtonBoxInner, UnReadCountMain } from 'views/protectedDashboardVie
 import { IconButtonBoxNew } from './Notification.styled';
 import { BalanceBox, BorderBox, HeaderMainBox } from './HeaderAuthComponent.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useCallFeatureContext } from '../../../../../../../context/CallFeatureContext';
+// import { useCallFeatureContext } from '../../../../../../../context/CallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../../../../../context/ZegoCallContext';
 import NotificationModalCustomerV2 from './NotificationModalCustomerV2';
 import { useAuthContext } from '../../../../../../../context/AuthContext';
 import CreditSideDrawer from 'views/protectedViews/CreditSideDrawer';
@@ -44,7 +45,8 @@ export type NotificationFilters = {
 const HeaderAuthComponent = () => {
   const { maximizeChat, initializeChat } = useTawk();
   const { session, isFreeCreditsClaimed, isNameChange, openCreditDrawer, handleCreditDrawerClose } = useAuthContext();
-  const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
+  // const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
+  const { isCallEnded, avaialbleCredits } = useZegoCallFeatureContext();
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));

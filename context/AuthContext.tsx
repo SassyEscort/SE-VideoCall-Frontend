@@ -10,6 +10,7 @@ import { createContext, ReactNode, useContext, useEffect, useState, useCallback 
 import { toast } from 'react-toastify';
 import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
 import { gaEventTrigger } from 'utils/analytics';
+import { TokenIdType } from 'views/protectedModelViews/verification';
 import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
 
 export type AuthContextProps = {
@@ -26,6 +27,7 @@ export type AuthContextProps = {
   handleOpen: () => void;
   handleCreditDrawerClose: () => void;
   openCreditDrawer: boolean;
+  tokenDetails: TokenIdType;
 };
 
 const AuthContext = createContext<AuthContextProps>({
@@ -41,7 +43,8 @@ const AuthContext = createContext<AuthContextProps>({
   handleOpen: () => {},
   handelNameChange: () => {},
   handleCreditDrawerClose: () => {},
-  openCreditDrawer: false
+  openCreditDrawer: false,
+  tokenDetails: { id: 0, token: '' }
 });
 
 export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
@@ -57,8 +60,10 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
 
   const user = (session?.user as User)?.picture;
   const providerData = JSON.parse(user || '{}');
+
   const isCustomer = providerData?.role === ROLE.CUSTOMER;
   const isModel = providerData?.role === ROLE.MODEL;
+  const tokenDetails = { id: providerData?.customer_id || 0, token: providerData?.token || '' };
 
   const path = usePathname();
   const userName = path.split('/')[2];
@@ -164,7 +169,8 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         isModel,
         handleOpen,
         openCreditDrawer,
-        handleCreditDrawerClose
+        handleCreditDrawerClose,
+        tokenDetails
       }}
     >
       {children}
