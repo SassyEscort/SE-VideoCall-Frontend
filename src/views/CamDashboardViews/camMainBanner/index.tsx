@@ -33,7 +33,7 @@ const CamToCamDashboardBanner = () => (
           </CamBannerInnerBoxContainer>
           <CamBannerInnerBox>
             <Box sx={{ width: '100%', maxWidth: '236px' }}>
-              <UIThemeShadowButton fullWidth variant="contained">
+              <UIThemeShadowButton fullWidth variant="contained" sx={{ padding: { xs: '0px', sm: '0px' } }}>
                 <FooterButton variant="buttonLargeBold" color="common.white">
                   <FormattedMessage id="StartFreeVideoChat" />
                 </FooterButton>
