@@ -2,20 +2,71 @@
 import React, { useEffect, useState } from 'react';
 import MainLayout from '../layouts/AdminLayout/DashboardLayout';
 import Box from '@mui/material/Box';
-import { Button, FormControl, FormControlLabel, Grid, Radio, RadioGroup, TextField, Typography } from '@mui/material';
+import {
+  Button,
+  FormControl,
+  FormControlLabel,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Radio,
+  RadioGroup,
+  TextField,
+  Typography
+} from '@mui/material';
 import { Formik } from 'formik';
-import { adminUserServices, ModuleListResponseData, UserRegistrationParames } from 'services/adminUserService/adminUserServices';
+import {
+  adminUserServices,
+  getUserByIdData,
+  ModuleListResponseData,
+  UserRegistrationParames
+} from 'services/adminUserService/adminUserServices';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
-import { useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
+import EditIcon from '@mui/icons-material/Edit';
+import UpdateUserPassword from './UpdateUserPassword';
+import * as yup from 'yup';
+import { PASSWORD_PATTERN } from 'constants/regexConstants';
 
 const UpsertUser = () => {
   const router = useRouter();
-
+  const { id: userId } = useParams();
   const [moduleList, setModuleList] = useState<ModuleListResponseData[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [userData, setUserData] = useState<getUserByIdData>();
+  const [open, setOpen] = useState(false);
+  const isCreatePage = usePathname().includes('update-permission');
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const validationSchema = () =>
+    yup.object({
+      email: yup.string().required('Email is required').email('Enter a valid email'),
+      password: !isCreatePage
+        ? yup.string().required('New Password Is Required').min(8, 'Password Must Be 8 character long').matches(PASSWORD_PATTERN, {
+            message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+            excludeEmptyString: true
+          })
+        : yup.string()
+    });
+
+  const handelFetchUserData = async (id: number) => {
+    try {
+      if (token.token) {
+        const res = await adminUserServices.getUserById(id, token.token);
+        if (res && res.data) {
+          setUserData(res.data);
+        }
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
 
   const fetchModuleList = async () => {
     try {
@@ -31,8 +82,23 @@ const UpsertUser = () => {
   const handelUserRegistration = async (values: UserRegistrationParames) => {
     try {
       if (token.token) {
-        if (values && values.email && values.password && values.permission && values.permission.length > 0) {
+        if (values && values.email && values.password && values.permissions && values.permissions.length > 0) {
           const res = await adminUserServices.userRegistration({ ...values, role: 'user' }, token.token);
+          if (res && res.code === 200) {
+            toast.success('User created successfully');
+            router.push('/admin/users');
+          }
+        }
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
+  const handelUpdateUser = async (id: number, values: UserRegistrationParames) => {
+    try {
+      if (token.token) {
+        if (values && values.email && values.password && values.permissions && values.permissions.length > 0) {
+          const res = await adminUserServices.updateUser(id, { permissions: values.permissions }, token.token);
           if (res && res.code === 200) {
             toast.success('User created successfully');
             router.push('/admin/users');
@@ -53,6 +119,9 @@ const UpsertUser = () => {
   }, []);
 
   useEffect(() => {
+    if (userId) {
+      handelFetchUserData(Number(userId));
+    }
     fetchModuleList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.token]);
@@ -61,13 +130,26 @@ const UpsertUser = () => {
     <MainLayout>
       <Formik
         initialValues={{
-          email: '',
-          password: '',
-          permission: moduleList.map((module) => ({ module_id: module.id, permission: 'None' })) || []
+          email: userData?.email || '',
+          password: userData?.password || '',
+          permission: userId
+            ? userData?.module_permissions.map((user) => ({ module_id: user.id, permission: user.permission || 'None' }))
+            : moduleList.map((module) => ({ module_id: module.id, permission: 'None' }))
         }}
+        validationSchema={validationSchema}
         enableReinitialize
         onSubmit={(values) => {
-          handelUserRegistration(values);
+          if (values) {
+            // handelUserRegistration(values);
+            const userRegistrationParams: UserRegistrationParames = {
+              ...values,
+              permissions: values.permission || []
+            };
+
+            if (userId) {
+              handelUpdateUser(Number(userId), userRegistrationParams);
+            } else handelUserRegistration(userRegistrationParams);
+          }
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => (
@@ -80,25 +162,40 @@ const UpsertUser = () => {
                 <TextField
                   name="email"
                   type="string"
+                  disabled={userId ? true : false}
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   error={touched.email && Boolean(errors.email)}
+                  helperText={touched.email && errors.email}
                   sx={{ width: '100%', maxWidth: '500px' }}
                 />
               </Grid>
+
               <Grid item xs={12} sm={6}>
                 <Typography variant="h6" gutterBottom>
                   Password
                 </Typography>
+
                 <TextField
                   name="password"
-                  type="string"
+                  type="password"
+                  disabled={userId ? true : false}
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   error={touched.password && Boolean(errors.password)}
+                  helperText={touched.password && errors.password}
                   sx={{ width: '100%', maxWidth: '500px' }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={() => setOpen(true)}>
+                          <EditIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
                 />
               </Grid>
             </Grid>
@@ -120,27 +217,36 @@ const UpsertUser = () => {
                       <FormControl>
                         <RadioGroup
                           row
-                          value={values.permission[index]?.permission || ''}
+                          value={values.permission ? values.permission[index]?.permission : 'None'}
                           onChange={(e) => {
                             setFieldValue(`permission[${index}].module_id`, module.id);
                             setFieldValue(`permission[${index}].permission`, e.target.value);
                           }}
+                          defaultValue="None"
                         >
                           <FormControlLabel value="None" control={<Radio />} label="None" />
                           <FormControlLabel value="Read" control={<Radio />} label="Read" />
-                          <FormControlLabel value="Write" control={<Radio />} label="Read & Write" />
+                          <FormControlLabel value="Update" control={<Radio />} label="Read & Update" />
                         </RadioGroup>
                       </FormControl>
                     </Grid>
                   </Grid>
                 ))}
             </Grid>
-            <Button size="large" variant="contained" type="submit">
-              Create User
-            </Button>
+
+            {userId ? (
+              <Button size="large" variant="contained" type="submit">
+                Update User
+              </Button>
+            ) : (
+              <Button size="large" variant="contained" type="submit">
+                Create User
+              </Button>
+            )}
           </Box>
         )}
       </Formik>
+      <UpdateUserPassword open={open} onClose={handleClose} userId={Number(userId)} />
     </MainLayout>
   );
 };

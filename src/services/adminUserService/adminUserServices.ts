@@ -3,7 +3,7 @@ import { GenericResponse } from 'types/commonApiTypes';
 
 export interface UserPermissions {
   module_id: number | null;
-  permission: String | null;
+  permission: string;
 }
 
 export type UserRegistrationParames = {
@@ -11,7 +11,7 @@ export type UserRegistrationParames = {
   email: string;
   password: string;
   role?: string;
-  permission: UserPermissions[];
+  permissions: UserPermissions[];
 };
 
 export type UserRegistrationResponse = {
@@ -23,14 +23,39 @@ export type UserRegistrationResponse = {
 
 export interface ModuleListResponseData {
   id: number;
-  module_name: String;
+  module_name: string;
 }
 
-export interface UserListResponseData {
+export interface UserData {
   id: number;
-  name: String;
-  email: String;
-  permission: String;
+  name: string;
+  email: string;
+  permissions: string;
+}
+
+export interface getPermissionByIdData {
+  id: number;
+  module_name: string;
+  permission: string;
+}
+
+export interface getUserByIdData {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+  module_permissions: getPermissionByIdData[];
+}
+
+export type PaginationAggregation = {
+  offset: number;
+  page_size: number;
+  total_rows: number;
+};
+
+export interface UserListResponseData {
+  aggregate: PaginationAggregation;
+  user_info: UserData[];
 }
 
 export type ModuleListResponse = GenericResponse & {
@@ -38,7 +63,15 @@ export type ModuleListResponse = GenericResponse & {
 };
 
 export type UserListResponse = GenericResponse & {
-  data: UserListResponseData[];
+  data: UserListResponseData;
+};
+
+export type getUserByIdResponse = GenericResponse & {
+  data: getUserByIdData;
+};
+
+export type UpdateUserParams = {
+  permissions: UserPermissions[];
 };
 
 export class adminUserServices {
@@ -53,6 +86,34 @@ export class adminUserServices {
       return res.data;
     } catch (error) {
       return error as UserListResponse;
+    }
+  };
+
+  static getUserById = async (id: number, token: string): Promise<getUserByIdResponse> => {
+    try {
+      const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/user/${id}`;
+
+      const res = await axios.get<getUserByIdResponse>(url, {
+        headers: { 'Content-Type': 'application/json', Authorization: token }
+      });
+
+      return res.data;
+    } catch (error) {
+      return error as getUserByIdResponse;
+    }
+  };
+
+  static updateUserPassword = async (id: number, password: { password: string }, token: string): Promise<GenericResponse> => {
+    try {
+      const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/user/update-password/${id}`;
+
+      const res = await axios.put<GenericResponse>(url, password, {
+        headers: { 'Content-Type': 'application/json', Authorization: token }
+      });
+
+      return res.data;
+    } catch (error) {
+      return error as GenericResponse;
     }
   };
 
@@ -73,6 +134,20 @@ export class adminUserServices {
   static userRegistration = async (params: UserRegistrationParames, token: string): Promise<UserRegistrationResponse> => {
     try {
       const res = await axios.post<UserRegistrationResponse>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/user/register`, params, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        }
+      });
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as UserRegistrationResponse;
+    }
+  };
+  static updateUser = async (id: number, params: UpdateUserParams, token: string): Promise<UserRegistrationResponse> => {
+    try {
+      const res = await axios.put<UserRegistrationResponse>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/user/${id}`, params, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: token

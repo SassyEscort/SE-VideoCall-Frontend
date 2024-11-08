@@ -10,7 +10,7 @@ import UserListHead from './UserListHead';
 import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
-import { Button, CircularProgress } from '@mui/material';
+import { Button, CircularProgress, IconButton } from '@mui/material';
 import TablePager from 'components/common/CustomPaginations/TablePager';
 import { PAGE_SIZE } from 'constants/pageConstants';
 import EditIcon from '@mui/icons-material/Edit';
@@ -20,13 +20,13 @@ import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from 'next/navigation';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { adminUserServices } from 'services/adminUserService/adminUserServices';
+import { adminUserServices, UserData } from 'services/adminUserService/adminUserServices';
 import { ErrorMessage } from 'constants/common.constants';
 import { toast } from 'react-toastify';
 
 const UserPageContainer = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [UserList, setUserList] = useState([]);
+  const [UserList, setUserList] = useState<UserData[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [totalRecords, setTotalRecords] = useState(0);
   const [filters, setFilters] = useState({
@@ -42,7 +42,9 @@ const UserPageContainer = () => {
       if (token.token) {
         const res = await adminUserServices.getUserList(token.token);
         // setUserList(res.data);
-        if (res && res.data) console.log(res.data, 'res.data');
+        if (res && res.data.user_info) {
+          setUserList(res.data.user_info);
+        }
       }
     } catch (error) {
       toast.error(ErrorMessage);
@@ -117,28 +119,35 @@ const UserPageContainer = () => {
                         </TableCell>
                       </TableRow>
                     ) : (
-                      <TableRow
-                        sx={{
-                          '&:last-child td, &:last-child th': { border: 0 }
-                        }}
-                      >
-                        <TableCell component="th" scope="row">
-                          test
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          test@yopmail.com
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          test
-                        </TableCell>
+                      UserList &&
+                      UserList.length > 0 &&
+                      UserList.map((item, index) => (
+                        <TableRow
+                          sx={{
+                            '&:last-child td, &:last-child th': { border: 0 }
+                          }}
+                          key={index}
+                        >
+                          <TableCell component="th" scope="row">
+                            {item.id}
+                          </TableCell>
+                          <TableCell component="th" scope="row">
+                            {item.email}
+                          </TableCell>
+                          <TableCell component="th" scope="row">
+                            {item.permissions}
+                          </TableCell>
 
-                        <TableCell>
-                          <Box sx={{ display: 'flex', gap: 2 }}>
-                            <EditIcon />
-                            <DeleteOutlineIcon color="error" />
-                          </Box>
-                        </TableCell>
-                      </TableRow>
+                          <TableCell>
+                            <Box sx={{ display: 'flex', gap: 2 }}>
+                              <IconButton onClick={() => router.push(`/admin/users/update-permission/${item.id}`)}>
+                                <EditIcon />
+                              </IconButton>
+                              <DeleteOutlineIcon color="error" />
+                            </Box>
+                          </TableCell>
+                        </TableRow>
+                      ))
                     )}
                   </TableBody>
                 </Table>
