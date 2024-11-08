@@ -65,7 +65,7 @@ export const InlineBox = styled(Box)(({ theme }) => ({
 export const TypographyBox = styled(Typography)(({ theme }) => ({
   fontWeight: 400,
   width: '100%',
-  maxWidth: '600px',
+  maxWidth: '440px',
   color: theme.palette.secondary[100],
   [theme.breakpoints.down('sm')]: {
     maxWidth: '293px',
