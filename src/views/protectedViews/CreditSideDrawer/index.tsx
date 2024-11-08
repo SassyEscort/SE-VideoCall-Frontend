@@ -233,8 +233,26 @@ const CreditSideDrawer = ({
                     <CreditInfoBox>
                       <Box component={'img'} src="/images/credits/coinwthIcon.png" alt="coin.png" width={18} height={18} />
                       <Box>
-                        <UINewTypography variant="SubtitleSmallMedium" color={'white.main'}>
-                          {creditsListing?.label || creditsListing?.credits} <FormattedMessage id="Credits" />
+                        <UINewTypography variant="SubtitleSmallMedium" color="white.main">
+                          {creditsListing?.label ? (
+                            <>
+                              {creditsListing.label.split('+')[0]}
+                              <span
+                                style={{
+                                  background: 'linear-gradient(89.96deg, #FDD296 36.76%, #FEA832 99.97%)',
+                                  WebkitBackgroundClip: 'text',
+                                  WebkitTextFillColor: 'transparent',
+                                  backgroundClip: 'text',
+                                  fontWeight: 700
+                                }}
+                              >
+                                +{creditsListing.label.split('+')[1]}
+                                <FormattedMessage id="Credits" />
+                              </span>
+                            </>
+                          ) : (
+                            creditsListing?.credits
+                          )}{' '}
                         </UINewTypography>
                       </Box>
                     </CreditInfoBox>

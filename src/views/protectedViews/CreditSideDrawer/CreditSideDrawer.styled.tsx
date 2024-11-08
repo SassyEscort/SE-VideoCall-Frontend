@@ -40,7 +40,7 @@ export const CreditSideMainDrawer = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
     width: '100%',
     height: '100%',
-    maxWidth: '350px',
+    maxWidth: '375px',
     backgroundColor: '#1E0815',
     display: 'flex',
     flexDirection: 'column',
