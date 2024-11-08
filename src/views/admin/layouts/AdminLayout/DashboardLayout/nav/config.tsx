@@ -7,6 +7,7 @@ import DuoIcon from '@mui/icons-material/Duo';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import SettingsIcon from '@mui/icons-material/Settings';
+import GroupIcon from '@mui/icons-material/Group';
 
 export const getNavConfig = (id?: number) => {
   const navConfig = [
@@ -54,6 +55,11 @@ export const getNavConfig = (id?: number) => {
       title: 'Setting',
       path: '/admin/setting',
       icon: <SettingsIcon />
+    },
+    {
+      title: 'Users',
+      path: '/admin/users',
+      icon: <GroupIcon />
     }
   ];
 
