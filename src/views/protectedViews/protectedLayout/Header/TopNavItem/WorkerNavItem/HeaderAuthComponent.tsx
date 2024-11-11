@@ -395,7 +395,7 @@ const HeaderAuthComponent = () => {
             <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
             <MenuItem>
               <ListItemIcon>
-                <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0, color: '#86838a' }}>
+                <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0, color: 'secondary.700' }}>
                   <QuestionAnswerIcon />
                 </IconButton>
               </ListItemIcon>
