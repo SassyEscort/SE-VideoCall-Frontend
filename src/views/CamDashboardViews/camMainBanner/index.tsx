@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import { FormattedMessage } from 'react-intl';
-import { gaEventTrigger } from 'utils/analytics';
 import { FooterButton } from 'views/guestViews/guestLayout/footer/MainFooter.styled';
 import {
   CamBanner,
@@ -16,16 +15,33 @@ import {
   CamBannerInnerBoxContainer,
   CamBannerUIThemeShadowButton
 } from './camDashboard.styled';
-import NewSignupStyledModalDialog from 'components/UIComponents/NewSignupStyledModalDialog';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestLogin from 'views/auth/guestLogin';
-import GuestSignup from 'views/auth/guestSignup';
-import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import { useAuthContext } from '../../../../context/AuthContext';
+import dynamic from 'next/dynamic';
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
+  ssr: false
+});
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
+  ssr: false
+});
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
+  ssr: false
+});
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false
+});
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
+  ssr: false
+});
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
+  ssr: false
+});
 
 const CamToCamDashboardBanner = () => {
   const { isFreeCreditAvailable } = useAuthContext();
+  const gaEventTrigger = async (action: string, data: any) => {
+    const { gaEventTrigger } = await import('utils/analytics');
+    gaEventTrigger(action, data);
+  };
 
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
