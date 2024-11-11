@@ -42,7 +42,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 const EscortDetailPage = () => {
   const { isFreeCreditAvailable, isCustomer } = useAuthContext();
   // const { handleCallInitiate, call, isLoading, isCallEnded, handleCallEnd, isUnanswered } = useCallFeatureContext();
-  const { handleCallInitiate, call, isLoading, isCallEnded, handleCallEnd, isUnanswered, token } = useZegoCallFeatureContext();
+  const { handleCallInitiate, isLoading, isCallEnded, handleCallEnd, isUnanswered, token } = useZegoCallFeatureContext();
 
   const path = usePathname();
   const userName = path.split('/')[2];
@@ -137,7 +137,7 @@ const EscortDetailPage = () => {
       getCometChatInfo();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [guestData, token, userName, call, isCallEnded]);
+  }, [guestData, token.token, isCallEnded]);
 
   useEffect(() => {
     if (isUnanswered) {
