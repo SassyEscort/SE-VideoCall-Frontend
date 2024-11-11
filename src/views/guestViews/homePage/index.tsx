@@ -154,10 +154,16 @@ const HomeContainer = () => {
         handelFilterChange(newFilters);
       }
       if (filters) {
+        const isCamtoCamPage = pathname.startsWith('/cam-to-cam');
         const offset = (value - 1) * filters.pageSize;
         const newFilters = { ...filters, page: value, offset: offset };
         setFilters(newFilters);
         handelFilterChange(newFilters);
+        if (!isCamtoCamPage) {
+          const queryParams = new URLSearchParams(window.location.search);
+          queryParams.set('page', value.toString());
+          router.push(`/?${queryParams.toString()}`);
+        }
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
