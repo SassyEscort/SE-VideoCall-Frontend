@@ -14,7 +14,6 @@ import {
   CamExperienceBannerInnerBox
 } from './camExperienceBanner.styled';
 import { FormattedMessage } from 'react-intl';
-import { gaEventTrigger } from 'utils/analytics';
 import { useAuthContext } from '../../../../context/AuthContext';
 import dynamic from 'next/dynamic';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
@@ -38,6 +37,11 @@ const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup')
 
 const CamExperienceBanner = ({ token }: { token: string }) => {
   const { isFreeCreditAvailable } = useAuthContext();
+
+  const gaEventTrigger = async (action: string, data: any) => {
+    const { gaEventTrigger } = await import('utils/analytics');
+    gaEventTrigger(action, data);
+  };
 
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
