@@ -16,6 +16,7 @@ import {
 import { FormattedMessage } from 'react-intl';
 import { useAuthContext } from '../../../../context/AuthContext';
 import dynamic from 'next/dynamic';
+import { gaEventTrigger } from 'utils/analytics';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
   ssr: false
 });
@@ -37,11 +38,6 @@ const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup')
 
 const CamExperienceBanner = ({ token }: { token: string }) => {
   const { isFreeCreditAvailable } = useAuthContext();
-
-  const gaEventTrigger = async (action: string, data: any) => {
-    const { gaEventTrigger } = await import('utils/analytics');
-    gaEventTrigger(action, data);
-  };
 
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
