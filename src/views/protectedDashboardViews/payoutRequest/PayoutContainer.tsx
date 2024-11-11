@@ -53,7 +53,7 @@ import {
 } from 'views/protectedViews/logout/Logout.styled';
 import { NotFoundBox } from '../payoutsAndInvoicesTable/billingTable/BillingTable.styled';
 // import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
-import { useZegoCallFeatureContext } from '../../../../context/ZegoCallContext';
+import { useZegoCallFeatureContext } from '../../../contexts/ZegoCallContext';
 import { WithdrawalAmountDetailsRes } from 'services/withdrawalAmount/type';
 import { ModelWithdrawalAmountService } from 'services/withdrawalAmount/withdrawalAmount.services';
 import { getErrorMessage } from 'utils/errorUtils';

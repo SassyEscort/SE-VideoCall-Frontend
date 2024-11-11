@@ -16,7 +16,7 @@ import {
   ThirdBoxContent
 } from './Another.styled';
 // import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
-import { useZegoCallFeatureContext } from '../../../../../context/ZegoCallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallFeatureContext';
 import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';

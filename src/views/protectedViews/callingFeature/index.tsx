@@ -1,5 +1,5 @@
 'use client';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { useCallFeatureContext } from '../../../contexts/CallFeatureContext';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import RingingModel from '../videoCalling/RingingModel';
 import AnotherCallModel from '../videoCalling/AnotherCallModel';

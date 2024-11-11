@@ -26,7 +26,7 @@ import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customer
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 // import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
-import { useZegoCallFeatureContext } from '../../../../context/ZegoCallContext';
+import { useZegoCallFeatureContext } from '../../../contexts/ZegoCallContext';
 import { usePathname, useRouter } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
 import { CustomerDetails } from 'services/customerDetails/customerDetails.services';

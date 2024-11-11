@@ -9,7 +9,7 @@ import SearchFilters, { SearchFiltersTypes } from '../searchPage/searchFilters';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { getQueryParam } from 'utils/genericFunction';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 import dynamic from 'next/dynamic';
 import HomeImageCards from './homeImageCards';
 

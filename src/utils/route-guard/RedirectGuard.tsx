@@ -5,7 +5,7 @@ import { GuardProps } from 'types/auth';
 import { useRouter } from 'next/navigation';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
-import { useAuthContext } from '../../../context/AuthContext';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 const RedirectGuard = ({ children }: GuardProps) => {
   const { session } = useAuthContext();

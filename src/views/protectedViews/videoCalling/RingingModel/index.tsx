@@ -6,7 +6,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { DialogContentFristBox, DialogContentMain, DialogContentSecondBox, DialogTitleBox, SecondBoxContent } from './RingingModel.styled';
 import VideoCalling from '../commonComponent';
 import { FormattedMessage } from 'react-intl';
-import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import { useCallFeatureContext } from '../../../../contexts/CallFeatureContext';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 

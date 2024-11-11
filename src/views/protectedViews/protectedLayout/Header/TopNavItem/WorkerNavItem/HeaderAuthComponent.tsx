@@ -19,9 +19,9 @@ import { IconButtonBoxNew } from './Notification.styled';
 import { BalanceBox, BorderBox, HeaderMainBox } from './HeaderAuthComponent.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 // import { useCallFeatureContext } from '../../../../../../../context/CallFeatureContext';
-import { useZegoCallFeatureContext } from '../../../../../../../context/ZegoCallContext';
+import { useZegoCallFeatureContext } from '../../../../../../contexts/ZegoCallContext';
 import NotificationModalCustomerV2 from './NotificationModalCustomerV2';
-import { useAuthContext } from '../../../../../../../context/AuthContext';
+import { useAuthContext } from '../../../../../../contexts/AuthContext';
 import CreditSideDrawer from 'views/protectedViews/CreditSideDrawer';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Menu from '@mui/material/Menu';
@@ -29,7 +29,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import { useTawk } from '../../../../../../../context/TawkContext';
+import { useTawk } from 'contexts/TawkContext';
 
 export type NotificationFilters = {
   page: number;

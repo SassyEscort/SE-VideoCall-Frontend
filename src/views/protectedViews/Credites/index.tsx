@@ -35,12 +35,12 @@ import { ModelDetailsService } from 'services/modelDetails/modelDetails.services
 import Loader from 'components/Loader';
 import { gaEventTrigger } from 'utils/analytics';
 // import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
-import { useZegoCallFeatureContext } from '../../../../context/ZegoCallContext';
+import { useZegoCallFeatureContext } from '../../../contexts/ZegoCallContext';
 import { ClaimFreeNewButton } from './ModelCredits/Credits.styled';
 import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
 export type CustomerInfo = {
   email: string;

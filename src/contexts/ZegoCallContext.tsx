@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// CallContext.tsx
 import React, { createContext, useContext, useState, useEffect, useCallback, lazy, useRef } from 'react';
 import {
   ZegoUIKitPrebuilt,
@@ -18,7 +17,6 @@ import { CallingService, CreditCallRes } from 'services/calling/calling.services
 import { useSession } from 'next-auth/react';
 import { useIntl } from 'react-intl';
 import { User } from 'app/(guest)/layout';
-import { getUserDataClient } from 'utils/getSessionData';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';

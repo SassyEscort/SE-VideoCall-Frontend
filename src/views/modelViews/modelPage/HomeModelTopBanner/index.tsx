@@ -30,7 +30,7 @@ import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import ModelNewPassword from 'views/modelViews/ModelNewPassword';
-import { useAuthContext } from '../../../../../context/AuthContext';
+import { useAuthContext } from '../../../../contexts/AuthContext';
 import React from 'react';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 

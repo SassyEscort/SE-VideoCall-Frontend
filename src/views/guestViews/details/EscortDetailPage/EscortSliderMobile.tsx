@@ -31,7 +31,7 @@ import GuestFreeCreditsSignup from 'views/auth/guestFreeCreditsSignup';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
 // import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
-import { useZegoCallFeatureContext } from '../../../../../context/ZegoCallContext';
+import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
   ssr: false
 });

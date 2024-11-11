@@ -13,7 +13,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import { usePathname } from 'next/navigation';
 import Box from '@mui/system/Box';
 // import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
-import { useZegoCallFeatureContext } from '../../../../../context/ZegoCallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallFeatureContext';
 import { CallingService } from 'services/calling/calling.services';
 import moment from 'moment';
 import { ModelDetailsParams, ModelDetailsService } from 'services/modelDetails/modelDetails.services';
@@ -36,7 +36,7 @@ import {
   RatingAndReviewDetailsRes,
   ratingAndReviewParams
 } from 'services/ratingAndReview/ratingAndReview.service';
-import { useAuthContext } from '../../../../../context/AuthContext';
+import { useAuthContext } from '../../../../contexts/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 const EscortDetailPage = () => {

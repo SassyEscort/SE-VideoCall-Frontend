@@ -8,7 +8,7 @@ import { ModelDetailsService } from 'services/modelDetails/modelDetails.services
 import { getUserDataClient } from 'utils/getSessionData';
 import theme from 'themes/theme';
 import MobileSidebar from '../sidebarDropDown';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 const ModelProfile = () => {

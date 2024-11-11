@@ -7,7 +7,7 @@ import VideoCalling from '../commonComponent';
 import { FormattedMessage } from 'react-intl';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 // import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
-import { useZegoCallFeatureContext } from '../../../../../context/ZegoCallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallFeatureContext';
 import { useRouter } from 'next/navigation';
 import { ThirdBoxContent, FourBoxContent } from '../AnotherCallModel/Another.styled';
 import { DialogContentMain, DialogTitleBox, DialogContentFristBox, SecondBoxContent } from '../RingingModel/RingingModel.styled';

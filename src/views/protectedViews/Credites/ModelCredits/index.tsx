@@ -32,14 +32,14 @@ import { ModelDetailsService } from 'services/modelDetails/modelDetails.services
 import CloseIcon from '@mui/icons-material/Close';
 import theme from 'themes/theme';
 // import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
-import { useZegoCallFeatureContext } from '../../../../../context/ZegoCallContext';
+import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
 import { gaEventTrigger } from 'utils/analytics';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Divider from '@mui/material/Divider';
 import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import { useAuthContext } from '../../../../../context/AuthContext';
+import { useAuthContext } from '../../../../contexts/AuthContext';
 
 const ModelCredits = ({
   onClose,

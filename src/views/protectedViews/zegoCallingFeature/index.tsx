@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 'use client';
-import { useZegoCallFeatureContext } from '../../../../context/ZegoCallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../contexts/ZegoCallFeatureContext';
 import AnotherCallModel from '../videoCalling/AnotherCallModel';
 import OfflineModel from '../videoCalling/offlineModel';
 
