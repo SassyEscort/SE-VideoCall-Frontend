@@ -31,7 +31,6 @@ import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import Divider from '@mui/material/Divider';
 import { useTawk } from '../../../../../../../context/TawkContext';
 import ChatRoomDropdown from 'components/common/stepper/ChatDropDown';
-import { usePathname } from 'next/navigation';
 
 export type NotificationFilters = {
   page: number;
@@ -46,7 +45,6 @@ export type NotificationFilters = {
 
 const HeaderAuthComponent = () => {
   const { maximizeChat, initializeChat } = useTawk();
-  const path = usePathname();
   const { session, isFreeCreditsClaimed, isNameChange, openCreditDrawer, handleCreditDrawerClose } = useAuthContext();
   const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
@@ -150,6 +148,7 @@ const HeaderAuthComponent = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.id, token.token, isCallEnded, isNameChange]);
+
   useEffect(() => {
     const getCustomerCredit = async () => {
       if (token.token) {
@@ -206,7 +205,7 @@ const HeaderAuthComponent = () => {
             <BorderBox>
               <LanguageDropdown />
             </BorderBox>
-            {!isLgDown && path === '/cam-to-cam' && (
+            {!isLgDown && (
               <BorderBox>
                 <ChatRoomDropdown />
               </BorderBox>
@@ -392,19 +391,16 @@ const HeaderAuthComponent = () => {
                 </UINewTypography>
               </ListItemText>
             </MenuItem>
-            {isLgDown && path === '/cam-to-cam' && (
-              <>
-                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                <MenuItem>
-                  <ListItemIcon>
-                    <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0, color: '#86838a' }}>
-                      <QuestionAnswerIcon />
-                    </IconButton>
-                  </ListItemIcon>
-                  <ChatRoomDropdown />
-                </MenuItem>
-              </>
-            )}
+
+            <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+            <MenuItem>
+              <ListItemIcon>
+                <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0, color: 'secondary.700' }}>
+                  <QuestionAnswerIcon />
+                </IconButton>
+              </ListItemIcon>
+              <ChatRoomDropdown />
+            </MenuItem>
 
             <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
             <MenuItem onClick={handleOpenLogout}>
