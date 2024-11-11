@@ -27,8 +27,11 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import Divider from '@mui/material/Divider';
 import { useTawk } from '../../../../../../../context/TawkContext';
+import ChatRoomDropdown from 'components/common/stepper/ChatDropDown';
+import { usePathname } from 'next/navigation';
 
 export type NotificationFilters = {
   page: number;
@@ -43,12 +46,14 @@ export type NotificationFilters = {
 
 const HeaderAuthComponent = () => {
   const { maximizeChat, initializeChat } = useTawk();
+  const path = usePathname();
   const { session, isFreeCreditsClaimed, isNameChange, openCreditDrawer, handleCreditDrawerClose } = useAuthContext();
   const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+  const isLgDown = useMediaQuery(theme.breakpoints.down('lg'));
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
@@ -197,9 +202,16 @@ const HeaderAuthComponent = () => {
             <LanguageDropdown />
           </Box>
         ) : (
-          <BorderBox>
-            <LanguageDropdown />
-          </BorderBox>
+          <>
+            <BorderBox>
+              <LanguageDropdown />
+            </BorderBox>
+            {!isLgDown && path === '/cam-to-cam' && (
+              <BorderBox>
+                <ChatRoomDropdown />
+              </BorderBox>
+            )}
+          </>
         )}
 
         {isMdUp && (
@@ -380,6 +392,20 @@ const HeaderAuthComponent = () => {
                 </UINewTypography>
               </ListItemText>
             </MenuItem>
+            {isLgDown && path === '/cam-to-cam' && (
+              <>
+                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                <MenuItem>
+                  <ListItemIcon>
+                    <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0, color: '#86838a' }}>
+                      <QuestionAnswerIcon />
+                    </IconButton>
+                  </ListItemIcon>
+                  <ChatRoomDropdown />
+                </MenuItem>
+              </>
+            )}
+
             <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
             <MenuItem onClick={handleOpenLogout}>
               <ListItemIcon>
@@ -393,6 +419,7 @@ const HeaderAuthComponent = () => {
                 </UINewTypography>
               </ListItemText>
             </MenuItem>
+
             <Logout open={isLogoutOpen} onClose={handleCloseLogoutt} />
           </Menu>
           <ProfileMenu profilePic={uploadedImageURL} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
