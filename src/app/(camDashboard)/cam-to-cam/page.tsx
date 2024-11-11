@@ -1,7 +1,5 @@
 import { CamToCamDashboard } from 'views/CamDashboardViews';
 
-const Home = () => {
-  return <CamToCamDashboard />;
-};
+const Home = () => <CamToCamDashboard />;
 
 export default Home;
