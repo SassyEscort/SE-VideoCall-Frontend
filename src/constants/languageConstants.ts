@@ -14,7 +14,4 @@ export enum LANGUAGES_TYPES {
   NL = 'nl'
 }
 
-export const CHATROOM = [
-  { title: 'SexChat', id: 1, url: '/sex-chat' },
-  { title: 'CamToCam', id: 2, url: '/cam-to-cam' }
-];
+export const CHATROOM = [{ title: 'CamToCam', id: 1, url: '/cam-to-cam' }];
