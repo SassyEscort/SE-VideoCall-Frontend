@@ -12,6 +12,7 @@ import NavSection from 'components/Admin/nav-section';
 import { navRoleConfigIdType, navRoleConfigSubmenuIdType } from 'components/Admin/nav-section/type';
 import useResponsive from 'hooks/useResponsive';
 import { useSession } from 'next-auth/react';
+import { useAuthContext } from '../../../../../../../context/AuthContext';
 
 const NAV_WIDTH = 280;
 
@@ -37,9 +38,11 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
   const { pathname } = window.location;
   const isDesktop = useResponsive('up', 'lg', 'xs');
 
+  const { adminUserPermissions, isAdmin } = useAuthContext();
+
   const adminAuth = useSession();
 
-  const navConfig = getNavConfig() as unknown as (navRoleConfigIdType | navRoleConfigSubmenuIdType)[];
+  const navConfig = getNavConfig(adminUserPermissions, isAdmin) as unknown as (navRoleConfigIdType | navRoleConfigSubmenuIdType)[];
 
   useEffect(() => {
     if (openNav) {

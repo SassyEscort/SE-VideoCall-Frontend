@@ -8,8 +8,9 @@ import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import SettingsIcon from '@mui/icons-material/Settings';
 import GroupIcon from '@mui/icons-material/Group';
+import { AdminUserPermissions } from '../../../../../../../context/AuthContext';
 
-export const getNavConfig = (id?: number) => {
+export const getNavConfig = (adminUserPermissions: AdminUserPermissions[] | undefined, isAdmin: boolean, id?: number) => {
   const navConfig = [
     {
       title: 'Dashboard',
@@ -63,5 +64,15 @@ export const getNavConfig = (id?: number) => {
     }
   ];
 
-  return navConfig.filter(Boolean);
+  const filteredNavConfig = navConfig.filter(
+    (item) =>
+      adminUserPermissions?.some(
+        (permission) =>
+          (permission.module_name.toLowerCase() === item.title.toLowerCase() &&
+            (permission.permission === 'Read' || permission.permission === 'Update')) ||
+          item.title === 'Dashboard'
+      )
+  );
+
+  return isAdmin ? navConfig.filter(Boolean) : filteredNavConfig.filter(Boolean);
 };
