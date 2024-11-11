@@ -24,7 +24,6 @@ import Divider from '@mui/material/Divider';
 import FreeCreditsSignUp from '../homePage/freeCreditsSignUp';
 import { SearchTitalBoxSm } from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/HeaderAuthComponent.styled';
 import dynamic from 'next/dynamic';
-import { usePathname } from 'next/navigation';
 const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
   ssr: false
 });
@@ -50,7 +49,6 @@ const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents
 
 const HeaderGuestComponent = () => {
   const { isFreeCreditAvailable } = useAuthContext();
-  const path = usePathname();
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -222,11 +220,9 @@ const HeaderGuestComponent = () => {
               <HeaderDropdownStyledBox>
                 <LanguageDropdown />
               </HeaderDropdownStyledBox>
-              {path === '/cam-to-cam' && (
-                <HeaderDropdownStyledBox>
-                  <ChatRoomDropdown />
-                </HeaderDropdownStyledBox>
-              )}
+              <HeaderDropdownStyledBox>
+                <ChatRoomDropdown />
+              </HeaderDropdownStyledBox>
             </>
           )}
           {!isMdUp && (
@@ -275,7 +271,7 @@ const HeaderGuestComponent = () => {
                     </UIThemeShadowButton>
                   </ListItemText>
                 </MenuItem>
-                {path === '/cam-to-cam' && isSMDown && (
+                {isSMDown && (
                   <>
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                     <MenuItem>
