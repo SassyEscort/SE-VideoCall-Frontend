@@ -358,7 +358,10 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const response = await call?.sendCallInvitation({
         callees: [calleeDetails],
         callType: ZegoUIKitPrebuilt.InvitationTypeVideoCall,
-        timeout: 60
+        timeout: 60,
+        notificationConfig: {
+          resourcesID: 'zego_data'
+        }
       });
 
       if (response?.errorInvitees.length) {
