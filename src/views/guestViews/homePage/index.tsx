@@ -1,11 +1,10 @@
 'use client';
+
 import { useCallback, useRef, useState, useEffect } from 'react';
 import HomeTopBanner from './homeBanner';
-// import HomeImageCard from './homeImageCards';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
 import { HomePageMainContainer } from './Home.styled';
 import SearchFilters, { SearchFiltersTypes } from '../searchPage/searchFilters';
-// import BackdropProgress from 'components/UIComponents/BackDropProgress';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { getQueryParam } from 'utils/genericFunction';
@@ -81,6 +80,8 @@ const HomeContainer = () => {
     if (pathname === '/' && filterCount === 1 && objParams.page) return;
 
     const isDetailsPage = pathname.startsWith('/details/');
+    const isCamtoCamPage = pathname.startsWith('/cam-to-cam');
+
     const isMultiple = [
       'language',
       'isOnline',
@@ -94,7 +95,7 @@ const HomeContainer = () => {
       'gender'
     ].filter((x) => Object.keys(objParams).includes(x));
     if (filterCount === 0) {
-      if (isDetailsPage) {
+      if (isDetailsPage || isCamtoCamPage) {
         const credit = searchParams.get('credit');
         if (!credit) router.push(pathname);
       } else {
@@ -103,13 +104,13 @@ const HomeContainer = () => {
       }
     } else {
       if (isMultiple.length) {
-        if (isDetailsPage) {
+        if (isDetailsPage || isCamtoCamPage) {
           router.push(`${pathname}?${queryString}`);
         } else {
           router.push(`/?${queryString}`);
         }
       } else {
-        if (isDetailsPage) {
+        if (isDetailsPage || isCamtoCamPage) {
           router.push(`${pathname}?${queryString}`);
         } else if (objParams.email) {
           return;
@@ -119,7 +120,7 @@ const HomeContainer = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, pathname, router]);
+  }, [filters, router]);
 
   const handelFilterChange = async (values: SearchFiltersTypes) => {
     setIsLoading(true);
@@ -157,9 +158,6 @@ const HomeContainer = () => {
         const newFilters = { ...filters, page: value, offset: offset };
         setFilters(newFilters);
         handelFilterChange(newFilters);
-        const queryParams = new URLSearchParams(window.location.search);
-        queryParams.set('page', value.toString());
-        router.push(`/?${queryParams.toString()}`);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
