@@ -106,13 +106,12 @@ const CamToCamDashboardBanner = () => {
                 </CamSubTitleText>
               </CamBannerInnerBoxContainer>
               <CamBannerInnerBox>
-                <Box sx={{ width: '100%', maxWidth: '236px' }}>
+                <Box
+                  sx={{ width: '100%', maxWidth: '236px' }}
+                  onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
+                >
                   <CamBannerUIThemeShadowButton fullWidth variant="contained">
-                    <FooterButton
-                      variant="buttonLargeBold"
-                      color="common.white"
-                      onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
-                    >
+                    <FooterButton variant="buttonLargeBold" color="common.white">
                       <FormattedMessage id="StartFreeVideoChat" />
                     </FooterButton>
                   </CamBannerUIThemeShadowButton>
