@@ -176,7 +176,11 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       const id = String(userNameData?.customer_user_name || '');
       const name = userNameData?.customer_user_name;
 
+      console.log(id, '::::::::::::::id', '\n', name, '::::::::::::::name');
+
       const token = ZegoUIKitPrebuilt.generateKitTokenForTest(Number(appID), serverSecret, roomID, id, name);
+      console.log(token, '::::::::::::::token');
+
       const callInstance = ZegoUIKitPrebuilt.create(token);
       callInstance?.addPlugins({ ZIM });
       setCall(callInstance);
