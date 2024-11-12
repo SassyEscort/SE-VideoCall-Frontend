@@ -27,7 +27,7 @@ export type AuthContextProps = {
   handleOpen: () => void;
   handleCreditDrawerClose: () => void;
   openCreditDrawer: boolean;
-  tokenDetails: TokenIdType;
+  token: TokenIdType;
 };
 
 const AuthContext = createContext<AuthContextProps>({
@@ -44,7 +44,7 @@ const AuthContext = createContext<AuthContextProps>({
   handelNameChange: () => {},
   handleCreditDrawerClose: () => {},
   openCreditDrawer: false,
-  tokenDetails: { id: 0, token: '' }
+  token: { id: 0, token: '' }
 });
 
 export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
@@ -170,7 +170,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         handleOpen,
         openCreditDrawer,
         handleCreditDrawerClose,
-        tokenDetails
+        token: tokenDetails
       }}
     >
       {children}

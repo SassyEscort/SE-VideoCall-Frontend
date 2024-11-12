@@ -111,9 +111,6 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const userNameData = user && JSON.parse(user);
 
   const providerData = JSON.parse(user || '{}');
-  const token = { id: providerData?.customer_id, token: providerData?.token };
-
-  const isCustomer = Boolean(providerData?.role === ROLE.CUSTOMER);
 
   const path = usePathname();
   const userName = path.split('/')[2];
@@ -145,7 +142,6 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
   });
 
   const [call, setCall] = useState<ZegoUIKitPrebuilt | null>(null);
-  // const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelId, setModelId] = useState(0);
   const [userId, setUserId] = useState(0);
   const [isCallAccepted, setIsCallAccepted] = useState(false);
@@ -175,17 +171,10 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [, setOutgoingCallInfo] = useState<{ caller: ZegoUser } | null>(null);
   const [isModelEndedCall, setIsisModelEndedCall] = useState(false);
 
-  const { handleOpen } = useAuthContext();
+  const { handleOpen, token, isCustomer } = useAuthContext();
 
   const appID = process.env.NEXT_PUBLIC_ZEGO_APP_KEY!;
   const serverSecret = process.env.NEXT_PUBLIC_SECRET_KEY!;
-
-  // const userToken = async () => {
-  //   const data = await getUserDataClient();
-  //   if (data) {
-  //     setToken({ id: data.id, token: data.token });
-  //   }
-  // };
 
   const modelObj = {
     modelId: modelId,
@@ -205,7 +194,14 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const id = String(userNameData?.customer_user_name || '');
       const name = userNameData?.customer_user_name;
 
-      const token = ZegoUIKitPrebuilt.generateKitTokenForTest(Number(appID), serverSecret, roomID, id, name);
+      const token = ZegoUIKitPrebuilt.generateKitTokenForTest(
+        Number(appID),
+        serverSecret,
+        roomID,
+        String(userNameData?.customer_id || id),
+        name
+      );
+
       const callInstance = ZegoUIKitPrebuilt.create(token);
       callInstance?.addPlugins({ ZIM });
       setCall(callInstance);

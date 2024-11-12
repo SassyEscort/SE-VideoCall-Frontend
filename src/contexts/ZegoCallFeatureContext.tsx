@@ -15,7 +15,6 @@ import { User } from 'app/(guest)/layout';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
-import { ROLE } from 'constants/workerVerification';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 
 type CallFeatureContextProps = {
@@ -100,11 +99,6 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const user = (tokenCometChat?.data?.user as User)?.picture;
   const userNameData = user && JSON.parse(user);
 
-  const providerData = JSON.parse(user || '{}');
-  const token = { id: providerData?.customer_id, token: providerData?.token };
-
-  const isCustomer = Boolean(providerData?.role === ROLE.CUSTOMER);
-
   const path = usePathname();
   const userName = path.split('/')[2];
 
@@ -154,7 +148,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const [, setOutgoingCallInfo] = useState<{ caller: ZegoUser } | null>(null);
   const [isModelEndedCall, setIsisModelEndedCall] = useState(false);
 
-  const { handleOpen } = useAuthContext();
+  const { handleOpen, token, isCustomer } = useAuthContext();
   const appID = process.env.NEXT_PUBLIC_ZEGO_APP_KEY!;
   const serverSecret = process.env.NEXT_PUBLIC_SECRET_KEY!;
 
@@ -176,7 +170,13 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       const id = String(userNameData?.customer_user_name || '');
       const name = userNameData?.customer_user_name;
 
-      const token = ZegoUIKitPrebuilt.generateKitTokenForTest(Number(appID), serverSecret, roomID, id, name);
+      const token = ZegoUIKitPrebuilt.generateKitTokenForTest(
+        Number(appID),
+        serverSecret,
+        roomID,
+        String(userNameData?.customer_id || id),
+        name
+      );
 
       const callInstance = ZegoUIKitPrebuilt.create(token);
       callInstance?.addPlugins({ ZIM });
