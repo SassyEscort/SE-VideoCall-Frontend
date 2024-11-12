@@ -15,9 +15,9 @@ import {
   CamBannerInnerBoxContainer,
   CamBannerUIThemeShadowButton
 } from './camDashboard.styled';
-import { useAuthContext } from '../../../../context/AuthContext';
 import dynamic from 'next/dynamic';
 import { gaEventTrigger } from 'utils/analytics';
+import { useAuthContext } from 'contexts/AuthContext';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
   ssr: false
 });
