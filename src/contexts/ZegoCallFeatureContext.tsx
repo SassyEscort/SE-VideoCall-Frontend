@@ -115,6 +115,14 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     isCustomerLeave: false
   });
 
+  const callDurationRef = useRef<{
+    startTime: string;
+    endTime: string;
+  }>({
+    startTime: '',
+    endTime: ''
+  });
+
   const [call, setCall] = useState<ZegoUIKitPrebuilt | null>(null);
   const [modelId, setModelId] = useState(0);
   const [userId, setUserId] = useState(0);
@@ -165,7 +173,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     if (!isNaN(Number(appID)) && userNameData?.customer_id && userNameData?.customer_id !== userId) {
       setUserId(userNameData.customer_id);
       const roomID = randomID();
-      const id = String(userNameData?.customer_id || '');
+      const id = String(userNameData?.customer_user_name || '');
       const name = userNameData?.customer_user_name;
 
       const token = ZegoUIKitPrebuilt.generateKitTokenForTest(Number(appID), serverSecret, roomID, id, name);
@@ -206,167 +214,167 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   const handleModelOfflineClose = () => setIsModelAvailable(1);
 
-  const init = useCallback(
-    async (guestId: number) => {
-      if (!guestId) {
-        alert('User ID cannot be empty!');
-        return;
-      }
-      const calleeDetails = {
-        userID: String(guestId)?.trim(),
-        userName: modelUsername
-      };
+  const init = useCallback(async () => {
+    if (!modelUsername) {
+      return;
+    }
+    const calleeDetails = {
+      userID: modelUsername?.trim(),
+      userName: modelUsername
+    };
 
-      try {
-        if (call) {
-          call.setCallInvitationConfig({
-            enableCustomCallInvitationDialog: true,
-            enableNotifyWhenAppRunningInBackgroundOrQuit: true,
-            endCallWhenInitiatorLeave: true,
-            ringtoneConfig: {
-              outgoingCallUrl: 'https://dl.prokerala.com/downloads/ringtones/files/mp3/iphone-ringtone-47958.mp3'
-            },
+    try {
+      if (call) {
+        call.setCallInvitationConfig({
+          enableCustomCallInvitationDialog: true,
+          enableNotifyWhenAppRunningInBackgroundOrQuit: true,
+          endCallWhenInitiatorLeave: true,
+          // ringtoneConfig: {
+          //   outgoingCallUrl: 'https://dl.prokerala.com/downloads/ringtones/files/mp3/iphone-ringtone-47958.mp3'
+          // },
 
-            onConfirmDialogWhenReceiving: (callType, caller) => {
-              console.log('Incoming call invitation:', { callType, caller });
-            },
+          onConfirmDialogWhenReceiving: (callType, caller) => {
+            console.log('Incoming call invitation:', { callType, caller });
+          },
 
-            onCallInvitationEnded: async (reason, data) => {
-              console.log('on call invitation ended:', { reason, data });
-              if (reason === CALL_INVITATION_END_REASON.CANCELED) {
-                console.log('userRef?.current:', userRef?.current);
-              } else if (reason == CALL_INVITATION_END_REASON.DECLINED) {
-                console.log('userRef?.current:', userRef?.current);
-              }
-              setIsCallAccepted(false);
-              setIsModelJoin(false);
-              setIsCallEnded(true);
-              setCall(null);
-              setIsLoading(false);
+          onCallInvitationEnded: async (reason, data) => {
+            console.log('on call invitation ended:', { reason, data });
+            if (reason === CALL_INVITATION_END_REASON.CANCELED) {
+              console.log('userRef?.current:', userRef?.current);
+            } else if (reason == CALL_INVITATION_END_REASON.DECLINED) {
+              console.log('userRef?.current:', userRef?.current);
+            }
+            setIsCallAccepted(false);
+            setIsModelJoin(false);
+            setIsCallEnded(true);
+            setCall(null);
+            setIsLoading(false);
 
-              //removed after api integration
+            //removed after api integration
 
-              await getChatInformation();
-              setReviewOpen(true);
-            },
+            await getChatInformation();
+            setReviewOpen(true);
+          },
 
-            onSetRoomConfigBeforeJoining: (): ZegoCloudRoomConfig => {
-              return {
-                turnOnMicrophoneWhenJoining: true,
-                turnOnCameraWhenJoining: true,
-                showMyCameraToggleButton: true,
-                showMyMicrophoneToggleButton: true,
-                showAudioVideoSettingsButton: true,
-                showScreenSharingButton: false,
-                showTextChat: false,
-                showUserList: false,
-                showWaitingCallAcceptAudioVideoView: true,
-                maxUsers: 2,
-                layout: 'Auto',
-                showLayoutButton: false,
-                scenario: {
-                  mode: ZegoUIKitPrebuilt.OneONoneCall,
-                  config: {
-                    role: ZegoUIKitPrebuilt.Host || 'Host'
-                  }
-                },
-                onUserLeave: (users) => {
-                  console.log('on User Leave:', { users });
-                  if (users?.[0]) {
-                    userRef.current = {
-                      userID: users?.[0]?.userID || '',
-                      userName: users?.[0]?.userName || '',
-                      isUserLeave: true,
-                      isCustomerLeave: false
-                    };
-                  }
-                },
-
-                onLeaveRoom() {
-                  console.log('on Leave Room', userRef.current, modelId);
-                  if (!userRef.current.isUserLeave) {
-                    userRef.current = {
-                      userID: '408',
-                      userName: 'user_408',
-                      isUserLeave: false,
-                      isCustomerLeave: true
-                    };
-                  }
+          onSetRoomConfigBeforeJoining: (): ZegoCloudRoomConfig => {
+            return {
+              turnOnMicrophoneWhenJoining: true,
+              turnOnCameraWhenJoining: true,
+              showMyCameraToggleButton: true,
+              showMyMicrophoneToggleButton: true,
+              showAudioVideoSettingsButton: true,
+              showScreenSharingButton: false,
+              showTextChat: false,
+              showUserList: false,
+              showWaitingCallAcceptAudioVideoView: true,
+              maxUsers: 2,
+              layout: 'Auto',
+              showLayoutButton: false,
+              scenario: {
+                mode: ZegoUIKitPrebuilt.OneONoneCall,
+                config: {
+                  role: ZegoUIKitPrebuilt.Host || 'Host'
                 }
-              };
-            },
+              },
+              onUserLeave: (users) => {
+                console.log('on User Leave:', { users });
+                if (users?.[0]) {
+                  userRef.current = {
+                    userID: users?.[0]?.userID || '',
+                    userName: users?.[0]?.userName || '',
+                    isUserLeave: true,
+                    isCustomerLeave: false
+                  };
+                }
+              },
+              onJoinRoom() {
+                console.log('JOIN ROOM:::::::::::::::::::', new Date());
+              },
 
-            onIncomingCallReceived: (callID: string, caller: ZegoUser, callType: ZegoInvitationType, callees: ZegoUser[]) => {
-              setSessionId(callID);
-              setIsCallIncoming(true);
-              console.log('Incoming call received:', { callID, caller, callType, callees });
-            },
+              onLeaveRoom() {
+                callDurationRef.current = { startTime: callDurationRef?.current?.startTime || '', endTime: String(new Date()) };
+                console.log('on Leave Room', userRef.current, modelId, callDurationRef.current);
+                if (!userRef.current.isUserLeave) {
+                  userRef.current = {
+                    userID: '408',
+                    userName: 'user_408',
+                    isUserLeave: false,
+                    isCustomerLeave: true
+                  };
+                }
+              }
+            };
+          },
 
-            onIncomingCallCanceled: async (callID: string, caller: ZegoUser) => {
-              console.log('Incoming call canceled:', { callID, caller });
-              setCall(null);
-              // await creditPutCallLog(modelId, callID, CALLING_STATUS.CANCELED);
-              setEndCallTime(180000);
-            },
+          onIncomingCallReceived: (callID: string, caller: ZegoUser, callType: ZegoInvitationType, callees: ZegoUser[]) => {
+            setSessionId(callID);
+            setIsCallIncoming(true);
+            console.log('Incoming call received:', { callID, caller, callType, callees });
+          },
 
-            onOutgoingCallAccepted: (callID: string, callee: ZegoUser) => {
-              console.log('Outgoing call accepted:', { callID, callee });
+          onIncomingCallCanceled: async (callID: string, caller: ZegoUser) => {
+            console.log('Incoming call canceled:', { callID, caller });
+            setCall(null);
+            // await creditPutCallLog(modelId, callID, CALLING_STATUS.CANCELED);
+            setEndCallTime(180000);
+          },
 
-              setIsCallAccepted(true);
-              setOutgoingCallDialogOpen(false);
-            },
+          onOutgoingCallAccepted: (callID: string, callee: ZegoUser) => {
+            console.log('Outgoing call accepted:', { callID, callee }, '\n', 'DATE-----> ' + new Date());
+            callDurationRef.current = { startTime: String(new Date()), endTime: '' };
+            setIsCallAccepted(true);
+            setOutgoingCallDialogOpen(false);
+          },
 
-            onOutgoingCallRejected: async (callID: string, callee: ZegoUser) => {
-              console.log('Outgoing call rejected:', { callID, callee });
-              setOutgoingCallInfo(null);
-              setOutgoingCallDialogOpen(false);
-              setIsisModelEndedCall(true);
-              setIsBusy(true);
-              // await creditPutCallLog(modelId, callID, CALLING_STATUS.UNASWERED, ROLE.MODEL);
-              setEndCallTime(180000);
-            },
+          onOutgoingCallRejected: async (callID: string, callee: ZegoUser) => {
+            console.log('Outgoing call rejected:', { callID, callee });
+            setOutgoingCallInfo(null);
+            setOutgoingCallDialogOpen(false);
+            setIsisModelEndedCall(true);
+            setIsBusy(true);
+            // await creditPutCallLog(modelId, callID, CALLING_STATUS.UNASWERED, ROLE.MODEL);
+            setEndCallTime(180000);
+          },
 
-            onOutgoingCallDeclined: (callID: string, callee: ZegoUser) => {
-              console.log('Outgoing call declined:', { callID, callee });
-              setCall(null);
-              setIsUnanswered(true);
-              setOutgoingCallInfo(null);
-              setOutgoingCallDialogOpen(false);
-            },
+          onOutgoingCallDeclined: (callID: string, callee: ZegoUser) => {
+            console.log('Outgoing call declined:', { callID, callee });
+            setCall(null);
+            setIsUnanswered(true);
+            setOutgoingCallInfo(null);
+            setOutgoingCallDialogOpen(false);
+          },
 
-            onIncomingCallTimeout: (callID: string, caller: ZegoUser) => {
-              console.log('Incoming call timeout:', { callID, caller });
-            },
+          onIncomingCallTimeout: (callID: string, caller: ZegoUser) => {
+            console.log('Incoming call timeout:', { callID, caller });
+          },
 
-            onOutgoingCallTimeout: (callID: string, callees: ZegoUser[]) => {
-              console.log('Outgoing call timeout:', { callID, callees });
-              setOutgoingCallInfo(null);
-              setOutgoingCallDialogOpen(false);
-              setCall(null);
-              setIsUnanswered(true);
-              setOutgoingCallInfo(null);
-              setOutgoingCallDialogOpen(false);
-            }
-          });
-
-          const response = await call.sendCallInvitation({
-            callees: [calleeDetails],
-            callType: ZegoUIKitPrebuilt.InvitationTypeVideoCall,
-            timeout: 60,
-            notificationConfig: {
-              resourcesID: 'zego_data'
-            }
-          });
-          if (response?.errorInvitees.length) {
-            alert('The model does not exist or is offline.');
+          onOutgoingCallTimeout: (callID: string, callees: ZegoUser[]) => {
+            console.log('Outgoing call timeout:', { callID, callees });
+            setOutgoingCallInfo(null);
+            setOutgoingCallDialogOpen(false);
+            setCall(null);
+            setIsUnanswered(true);
+            setOutgoingCallInfo(null);
+            setOutgoingCallDialogOpen(false);
           }
+        });
+
+        const response = await call.sendCallInvitation({
+          callees: [calleeDetails],
+          callType: ZegoUIKitPrebuilt.InvitationTypeVideoCall,
+          timeout: 60,
+          notificationConfig: {
+            resourcesID: 'zego_data'
+          }
+        });
+        if (response?.errorInvitees.length) {
+          alert('The model does not exist or is offline.');
         }
-      } catch (error) {
-        console.error('Error sending call invitation:', error);
       }
-    },
-    [call]
-  );
+    } catch (error) {
+      console.error('Error sending call invitation:', error);
+    }
+  }, [call]);
 
   const handleCallInitiate = async (
     guestId: number,
@@ -396,7 +404,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
             setIsBusy(true);
           } else {
             setIsLoading(true);
-            await init(guestId);
+            await init();
             setEndCallTime(callTime);
           }
         } else if (!isModelAvailable.data.is_online) {
