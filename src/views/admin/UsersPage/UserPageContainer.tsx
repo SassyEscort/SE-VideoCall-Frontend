@@ -43,10 +43,10 @@ const UserPageContainer = () => {
   });
 
   const handelFetchUsers = async () => {
+    setIsLoading(true);
     try {
       if (token.token) {
         const res = await adminUserServices.getUserList(token.token);
-        // setUserList(res.data);
         if (res && res.data.user_info) {
           setUserList(res.data.user_info);
         }
@@ -54,6 +54,7 @@ const UserPageContainer = () => {
     } catch (error) {
       toast.error(ErrorMessage);
     }
+    setIsLoading(false);
   };
 
   const handelUserDelete = async (id: number | undefined) => {
