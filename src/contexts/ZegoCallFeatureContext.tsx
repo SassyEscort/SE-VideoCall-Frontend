@@ -170,16 +170,13 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   };
 
   const initCall = async () => {
-    if (!isNaN(Number(appID)) && userNameData?.customer_id && userNameData?.customer_id !== userId) {
+    if (!isNaN(Number(appID)) && userNameData?.customer_id && userNameData?.customer_id !== userId && token.token) {
       setUserId(userNameData.customer_id);
       const roomID = randomID();
       const id = String(userNameData?.customer_user_name || '');
       const name = userNameData?.customer_user_name;
 
-      console.log(id, '::::::::::::::id', '\n', name, '::::::::::::::name');
-
       const token = ZegoUIKitPrebuilt.generateKitTokenForTest(Number(appID), serverSecret, roomID, id, name);
-      console.log(token, '::::::::::::::token');
 
       const callInstance = ZegoUIKitPrebuilt.create(token);
       callInstance?.addPlugins({ ZIM });
@@ -189,7 +186,8 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   useEffect(() => {
     initCall();
-  }, [userNameData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userNameData, token.token]);
 
   const getToken = () => token;
 
