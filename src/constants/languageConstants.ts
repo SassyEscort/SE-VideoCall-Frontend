@@ -13,3 +13,5 @@ export enum LANGUAGES_TYPES {
   SP = 'sp',
   NL = 'nl'
 }
+
+export const CHATROOM = [{ title: 'CamToCam', id: 1, url: '/cam-to-cam' }];

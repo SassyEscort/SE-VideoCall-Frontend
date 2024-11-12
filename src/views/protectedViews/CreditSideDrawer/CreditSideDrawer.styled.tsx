@@ -40,7 +40,7 @@ export const CreditSideMainDrawer = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
     width: '100%',
     height: '100%',
-    maxWidth: '350px',
+    maxWidth: '375px',
     backgroundColor: '#1E0815',
     display: 'flex',
     flexDirection: 'column',
@@ -200,4 +200,12 @@ export const LimitedOfferBox = styled(Box)(() => ({
   alignItems: 'center',
   display: 'flex',
   justifyContent: 'center'
+}));
+
+export const CreditsListingBox = styled('span')(() => ({
+  background: 'linear-gradient(89.96deg, #FDD296 36.76%, #FEA832 99.97%)',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  backgroundClip: 'text',
+  fontWeight: 700
 }));

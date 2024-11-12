@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
@@ -47,4 +48,36 @@ export const MenuContainer = styled(Menu)(({ theme }) => ({
       minWidth: '285px'
     }
   }
+}));
+
+export const HeaderDropdownStyledBox = styled(Box)(({ theme }) => ({
+  border: '1px solid #E9E8EB33',
+  borderRadius: theme.spacing(1),
+  padding: '12px 16px 12px 16px',
+  height: '100%',
+  maxHeight: '46px',
+  alignItems: 'center',
+  textAlign: 'center',
+  display: 'flex'
+}));
+
+export const GuestLoginButton = styled(HeaderDropdownStyledBox)(({ theme }) => ({
+  cursor: 'pointer',
+  gap: theme.spacing(1)
+}));
+
+export const CreditAvailableButton = styled(Button)(({ theme }) => ({
+  width: '318px',
+  background: 'linear-gradient(90deg, #FECD3D, #FFF1C6, #FF68C0)',
+  boxShadow: '0px 4px 10px #FF68C07A',
+  borderRadius: '8px',
+  gap: theme.spacing(1)
+}));
+
+export const AppBarBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(4.5),
+  justifyContent: 'center',
+  padding: '12px 10px 12px 10px'
 }));
