@@ -42,6 +42,9 @@ import { ErrorMessage } from 'constants/common.constants';
 import Link from 'next/link';
 import HideSourceOutlinedIcon from '@mui/icons-material/HideSourceOutlined';
 import { StyledSelectInputLabel } from 'components/UIComponents/UIStyledSelect';
+import { useAuthContext } from '../../../../context/AuthContext';
+import { ModalPage } from 'constants/adminUserAccessConstants';
+import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
 
 export type WorkersPaginationType = {
   page: number;
@@ -121,6 +124,9 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     verificationStep: '',
     is_active: ''
   });
+
+  const { adminUserPermissions, isAdmin } = useAuthContext();
+  const UpdatePermission = adminUserPermissions ? haveUpdatePermission(ModalPage, adminUserPermissions) : false;
 
   const handleModelDetailsRefetch = useCallback(() => {
     fetchModelData();
@@ -300,6 +306,14 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
       toast.error(ErrorMessage);
     }
   };
+
+  useEffect(() => {
+    if (adminUserPermissions) {
+      const isAccessiable = isPageAccessiable(ModalPage, adminUserPermissions) || isAdmin;
+      isAccessiable ? '' : router.push('/admin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adminUserPermissions, isAdmin]);
 
   return (
     <>
@@ -502,34 +516,37 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
             View Details
           </MenuItem>
 
-          {selected?.is_visible && selected?.profile_status === MODEL_ACTION.APPROVE ? (
+          {(UpdatePermission || isAdmin) && (
             <>
-              <MenuItem onClick={handleHideModel}>
-                <RiEyeOffLine style={{ marginRight: '4px' }} />
-                Hide from listing
+              {selected?.is_visible && selected?.profile_status === MODEL_ACTION.APPROVE ? (
+                <>
+                  <MenuItem onClick={handleHideModel}>
+                    <RiEyeOffLine style={{ marginRight: '4px' }} />
+                    Hide from listing
+                  </MenuItem>
+                </>
+              ) : (
+                selected?.profile_status === MODEL_ACTION.APPROVE && (
+                  <>
+                    <MenuItem onClick={handleShowModel}>
+                      <RiEyeLine />
+                      Show in listing
+                    </MenuItem>
+                  </>
+                )
+              )}
+              {selected?.is_online === 1 && (
+                <MenuItem onClick={() => handleModelDetailsIsOffline(selected?.id as number)}>
+                  <HideSourceOutlinedIcon sx={{ '&.MuiSvgIcon-root': { width: '15px', height: '15px', marginRight: '4px' } }} />
+                  Mark offline
+                </MenuItem>
+              )}
+              <MenuItem onClick={() => handleModelDetailsDelete(selected?.id as number)}>
+                <DeleteOutlineIcon sx={{ mr: 0.5, color: 'error.main' }} />
+                Delete
               </MenuItem>
             </>
-          ) : (
-            selected?.profile_status === MODEL_ACTION.APPROVE && (
-              <>
-                <MenuItem onClick={handleShowModel}>
-                  <RiEyeLine />
-                  Show in listing
-                </MenuItem>
-              </>
-            )
           )}
-          {selected?.is_online === 1 && (
-            <MenuItem onClick={() => handleModelDetailsIsOffline(selected?.id as number)}>
-              <HideSourceOutlinedIcon sx={{ '&.MuiSvgIcon-root': { width: '15px', height: '15px', marginRight: '4px' } }} />
-              Mark offline
-            </MenuItem>
-          )}
-
-          <MenuItem onClick={() => handleModelDetailsDelete(selected?.id as number)}>
-            <DeleteOutlineIcon sx={{ mr: 0.5, color: 'error.main' }} />
-            Delete
-          </MenuItem>
         </ModelActionPopover>
       </MainLayout>
     </>
