@@ -15,7 +15,6 @@ import { toast } from 'react-toastify';
 const AuthCommon = lazy(() => import('../AuthCommon'));
 import CustomPasswordRegex from '../customPasswordRegex';
 import InputAdornment from '@mui/material/InputAdornment';
-import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { ErrorMessage } from 'constants/common.constants';
 import { FormattedMessage } from 'react-intl';
@@ -47,10 +46,11 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
   const isSm = useMediaQuery(theme.breakpoints.down(330));
 
   const validationSchema = yup.object({
-    password: yup.string().required('NewPasswordIsRequired').min(8, 'PasswordMustBe').matches(PASSWORD_PATTERN, {
-      message: 'PasswordMustContainAt',
-      excludeEmptyString: true
-    }),
+    password: yup.string().required('NewPasswordIsRequired').min(8, 'PasswordMustBe'),
+    // .matches(PASSWORD_PATTERN, {
+    //   message: 'PasswordMustContainAt',
+    //   excludeEmptyString: true
+    // })
     confirmPassword: yup
       .string()
       .required('ConfirmPasswordIsRequired')
