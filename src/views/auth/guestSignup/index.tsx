@@ -197,6 +197,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                         </ErrorBox>
                       )}
                     </Box>
+
                     <ModelUITextConatiner gap={3}>
                       <ModelUITextConatiner gap={0.5}>
                         <ModelUITextConatiner sx={{ gap: 0.5 }}>
