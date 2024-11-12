@@ -175,7 +175,7 @@ const UpsertUser = () => {
             <Box
               component="form"
               onSubmit={handleSubmit}
-              sx={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}
+              sx={{ display: 'flex', flexDirection: 'column', gap: '60px', alignItems: 'center' }}
             >
               <Grid container>
                 <Grid item xs={12} sm={6}>
@@ -222,40 +222,42 @@ const UpsertUser = () => {
                   />
                 </Grid>
               </Grid>
-              <Grid container rowGap={1}>
+              <Grid container rowGap={3}>
                 <Grid item xs={6}>
                   <Typography variant="h6">Modules</Typography>
                 </Grid>
                 <Grid item xs={6}>
                   <Typography variant="h6">Permissions</Typography>
                 </Grid>
-                {moduleList &&
-                  moduleList.length > 0 &&
-                  moduleList.map((module, index) => (
-                    <Grid container key={index}>
-                      <Grid item xs={3} sm={6}>
-                        <Typography variant="h6">{module.module_name}</Typography>
-                      </Grid>
-                      <Grid item xs={9} sm={6}>
-                        <FormControl>
-                          <RadioGroup
-                            row
-                            value={values.permission ? values.permission[index]?.permission : 'None'}
-                            onChange={(e) => {
-                              setFieldValue(`permission[${index}].module_id`, module.id);
-                              setFieldValue(`permission[${index}].permission`, e.target.value);
-                            }}
-                            defaultValue="None"
-                          >
-                            <FormControlLabel value="None" control={<Radio />} label="None" sx={{ mr: { xs: 1, sm: 4 } }} />
-                            <FormControlLabel value="Read" control={<Radio />} label="Read" sx={{ mr: { xs: 1, sm: 4 } }} />
-                            <FormControlLabel value="Update" control={<Radio />} label="Read & Update" sx={{ mr: { xs: 1, sm: 4 } }} />
-                          </RadioGroup>
-                        </FormControl>
-                      </Grid>
-                    </Grid>
-                  ))}
 
+                <Grid item xs={12}>
+                  {moduleList &&
+                    moduleList.length > 0 &&
+                    moduleList.map((module, index) => (
+                      <Grid container key={index} rowGap={1}>
+                        <Grid item xs={3} sm={6}>
+                          <Typography variant="h6">{module.module_name}</Typography>
+                        </Grid>
+                        <Grid item xs={9} sm={6}>
+                          <FormControl>
+                            <RadioGroup
+                              row
+                              value={values.permission ? values.permission[index]?.permission : 'None'}
+                              onChange={(e) => {
+                                setFieldValue(`permission[${index}].module_id`, module.id);
+                                setFieldValue(`permission[${index}].permission`, e.target.value);
+                              }}
+                              defaultValue="None"
+                            >
+                              <FormControlLabel value="None" control={<Radio />} label="None" sx={{ mr: { xs: 1, sm: 4 } }} />
+                              <FormControlLabel value="Read" control={<Radio />} label="Read" sx={{ mr: { xs: 1, sm: 4 } }} />
+                              <FormControlLabel value="Update" control={<Radio />} label="Read & Update" sx={{ mr: { xs: 1, sm: 4 } }} />
+                            </RadioGroup>
+                          </FormControl>
+                        </Grid>
+                      </Grid>
+                    ))}
+                </Grid>
                 <Grid item xs={11}>
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                     {userId ? (
