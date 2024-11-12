@@ -209,12 +209,12 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                               </UITypographyText>
                               <FormControl
                                 component="fieldset"
-                                sx={{ gap: '48px' }}
+                                sx={{ gap: 6 }}
                                 error={touched.role && Boolean(errors.role)}
                                 onChange={(e) => {
                                   const target = e.target as HTMLInputElement;
                                   if (target.value === 'model') {
-                                    gaEventTrigger('signup_form_model_click', { source: 'model_click', category: 'Button' });
+                                    gaEventTrigger('signup_form_model_click', { source: 'model_click', category: 'Radio' });
                                   }
                                 }}
                               >
@@ -246,7 +246,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                             }}
                             onBlur={() => {
                               handleBlur;
-                              gaEventTrigger('signup_form_name_click', { source: 'model_name_click', category: 'Button' });
+                              gaEventTrigger('signup_form_name_click', { source: 'model_name_click', category: 'TextField' });
                             }}
                             error={touched.name && Boolean(errors.name)}
                             helperText={touched.name && errors.name ? <FormattedMessage id={errors.name} /> : ''}
@@ -271,7 +271,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                             onChange={handleChange}
                             onBlur={() => {
                               handleBlur;
-                              gaEventTrigger('signup_form_email_click', { source: 'model_email_click', category: 'Button' });
+                              gaEventTrigger('signup_form_email_click', { source: 'model_email_click', category: 'TextField' });
                             }}
                             error={touched.email && Boolean(errors.email)}
                             helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
@@ -299,7 +299,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                                 onChange={handleChange}
                                 onBlur={() => {
                                   handleBlur;
-                                  gaEventTrigger('signup_form_password_click', { source: 'model_password_click', category: 'Button' });
+                                  gaEventTrigger('signup_form_password_click', { source: 'model_password_click', category: 'TextField' });
                                 }}
                                 error={touched.password && Boolean(errors.password)}
                                 helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
@@ -331,7 +331,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                                   handleBlur;
                                   gaEventTrigger('signup_form_confirm_password_click', {
                                     source: 'model_confirm_password_click',
-                                    category: 'Button'
+                                    category: 'TextField'
                                   });
                                 }}
                                 error={touched.confirmPassword && Boolean(errors.confirmPassword)}
