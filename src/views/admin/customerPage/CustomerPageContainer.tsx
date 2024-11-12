@@ -31,6 +31,10 @@ import { ModelActionPopover, NotFoundBox, SortBox, StackBoxContainer, StackFirst
 import PaginationSearch from 'components/common/CustomPaginations/PaginationSearch';
 import { CustomerDetailsPage } from 'services/adminModel/types';
 import CustorModel from './CustomerModel';
+import { useAuthContext } from '../../../../context/AuthContext';
+import { isPageAccessiable } from 'utils/Admin/PagePermission';
+import { CustomerPage } from 'constants/adminUserAccessConstants';
+import { useRouter } from 'next/navigation';
 
 export type WorkersPaginationType = {
   page: number;
@@ -58,6 +62,8 @@ export type TokenIdTypeAdmin = {
 };
 
 export default function CustomerPageContainer() {
+  const router = useRouter();
+
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selected, setSelected] = useState<CustomerDetailsPage>();
@@ -67,6 +73,8 @@ export default function CustomerPageContainer() {
   const [totalRecords, setTotalRecords] = useState(0);
   const [creditModalOpen, setCreditModalOpen] = useState(false);
   const [selectedPayoutData, setSelectedPayoutData] = useState<CustomerDetailsPage | null>(null);
+
+  const { adminUserPermissions, isAdmin } = useAuthContext();
 
   const currentMoment = moment();
   const oneMonthAgoMoment = moment().subtract(1, 'month');
@@ -181,6 +189,14 @@ export default function CustomerPageContainer() {
   const handleCloseCredit = () => {
     setCreditModalOpen(false);
   };
+
+  useEffect(() => {
+    if (adminUserPermissions) {
+      const isAccessiable = isPageAccessiable(CustomerPage, adminUserPermissions) || isAdmin;
+      isAccessiable ? '' : router.push('/admin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adminUserPermissions, isAdmin]);
 
   return (
     <>

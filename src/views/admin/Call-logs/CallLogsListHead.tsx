@@ -2,7 +2,7 @@ import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
 import TableCell from '@mui/material/TableCell';
 
-export default function CallLogsListHead() {
+export default function CallLogsListHead({ isAdmin, UpdatePermission }: { isAdmin: boolean; UpdatePermission: boolean }) {
   return (
     <TableHead>
       <TableRow>
@@ -21,7 +21,7 @@ export default function CallLogsListHead() {
         <TableCell>Screenshot interval</TableCell>
         <TableCell>Screenshot count</TableCell>
         <TableCell>Ended by</TableCell>
-        <TableCell>Action</TableCell>
+        {(isAdmin || UpdatePermission) && <TableCell>Action</TableCell>}
       </TableRow>
     </TableHead>
   );

@@ -23,8 +23,12 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { adminUserServices, UserData } from 'services/adminUserService/adminUserServices';
 import { ErrorMessage } from 'constants/common.constants';
 import { toast } from 'react-toastify';
+import { useAuthContext } from '../../../../context/AuthContext';
 
 const UserPageContainer = () => {
+  const router = useRouter();
+  const { isAdmin } = useAuthContext();
+
   const [isLoading, setIsLoading] = useState(false);
   const [UserList, setUserList] = useState<UserData[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -34,8 +38,6 @@ const UserPageContainer = () => {
     pageSize: PAGE_SIZE,
     offset: 0
   });
-
-  const router = useRouter();
 
   const handelFetchUsers = async () => {
     try {
@@ -87,6 +89,13 @@ const UserPageContainer = () => {
     handelFetchUsers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.token]);
+
+  useEffect(() => {
+    if (isAdmin) {
+      isAdmin ? '' : router.push('/admin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAdmin]);
 
   return (
     <MainLayout>

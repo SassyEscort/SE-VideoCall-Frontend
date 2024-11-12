@@ -19,7 +19,15 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 
-const ModelPhotos = ({ modelData }: { modelData: ModelDetailsRes }) => {
+const ModelPhotos = ({
+  modelData,
+  UpdatePermission,
+  isAdmin
+}: {
+  modelData: ModelDetailsRes;
+  isAdmin: boolean;
+  UpdatePermission: boolean;
+}) => {
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -130,13 +138,15 @@ const ModelPhotos = ({ modelData }: { modelData: ModelDetailsRes }) => {
                   <ModelPhotosImgBox sx={{ backgroundImage: `url(${photo?.link})` }}>
                     {photo?.favourite === 1 ? (
                       <ModelPhotosStyledStar />
-                    ) : (
+                    ) : UpdatePermission || isAdmin ? (
                       <ModelPhotosStyledStarBorder onClick={() => handelLiked(photo?.id)} />
+                    ) : (
+                      ''
                     )}
 
                     {photo?.favourite === 1 ? (
                       ''
-                    ) : (
+                    ) : UpdatePermission || isAdmin ? (
                       <ModelPhotosStyledIconButton
                         aria-label="more"
                         id="long-button"
@@ -150,6 +160,8 @@ const ModelPhotos = ({ modelData }: { modelData: ModelDetailsRes }) => {
                       >
                         <MoreVertIcon sx={{ color: '#fff' }} />
                       </ModelPhotosStyledIconButton>
+                    ) : (
+                      ''
                     )}
                   </ModelPhotosImgBox>
                 )}

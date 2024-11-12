@@ -159,7 +159,7 @@ const ModelDetailsPage = () => {
             </Box>
           </Grid>
           <Grid item xs={12}>
-            <UserInformationAccordion modelData={modelData as ModelDetailsRes} />
+            <UserInformationAccordion modelData={modelData as ModelDetailsRes} isAdmin={isAdmin} UpdatePermission={UpdatePermission} />
           </Grid>
         </Grid>
       </Container>

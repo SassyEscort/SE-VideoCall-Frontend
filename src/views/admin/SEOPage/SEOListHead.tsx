@@ -2,7 +2,7 @@ import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
 import TableCell from '@mui/material/TableCell';
 
-export default function SEOListHead() {
+export default function SEOListHead({ isAdmin, UpdatePermission }: { isAdmin: boolean; UpdatePermission: boolean }) {
   return (
     <TableHead>
       <TableRow>
@@ -10,7 +10,7 @@ export default function SEOListHead() {
         <TableCell>Title</TableCell>
         <TableCell>Keywords</TableCell>
         <TableCell>Description</TableCell>
-        <TableCell>Action</TableCell>
+        {(isAdmin || UpdatePermission) && <TableCell>Action</TableCell>}
       </TableRow>
     </TableHead>
   );

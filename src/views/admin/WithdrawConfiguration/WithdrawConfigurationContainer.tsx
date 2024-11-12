@@ -20,7 +20,7 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 
-export default function WithdrawConfigurationContainer() {
+export default function WithdrawConfigurationContainer({ isAdmin, UpdatePermission }: { isAdmin: boolean; UpdatePermission: boolean }) {
   const [isLoading, setIsLoading] = useState(false);
   const [withdrawAmount, setWithdrawAmount] = useState<AdminWithdrawResponse>({} as AdminWithdrawResponse);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -97,6 +97,7 @@ export default function WithdrawConfigurationContainer() {
               name="withdrawal_amt"
               label="Withdraw Amount"
               type="number"
+              disabled={UpdatePermission || isAdmin ? false : true}
               value={values.withdrawal_amt}
               error={Boolean(touched.withdrawal_amt && errors.withdrawal_amt)}
               helperText={touched.withdrawal_amt && errors.withdrawal_amt ? errors.withdrawal_amt : ''}
@@ -107,11 +108,13 @@ export default function WithdrawConfigurationContainer() {
               }}
               sx={{ width: '100%', maxWidth: '500px' }}
             />
-            <DialogActions>
-              <LoadingButton loading={isLoading} size="large" type="submit" variant="contained" color="primary">
-                Save
-              </LoadingButton>
-            </DialogActions>
+            {(UpdatePermission || isAdmin) && (
+              <DialogActions>
+                <LoadingButton loading={isLoading} size="large" type="submit" variant="contained" color="primary">
+                  Save
+                </LoadingButton>
+              </DialogActions>
+            )}
           </Box>
         )}
       </Formik>
