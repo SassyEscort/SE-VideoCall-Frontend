@@ -24,12 +24,15 @@ import { adminUserServices, UserData } from 'services/adminUserService/adminUser
 import { ErrorMessage } from 'constants/common.constants';
 import { toast } from 'react-toastify';
 import { useAuthContext } from '../../../../context/AuthContext';
+import DeleteModal from 'components/UIComponents/DeleteModal';
 
 const UserPageContainer = () => {
   const router = useRouter();
   const { isAdmin } = useAuthContext();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserData>();
   const [UserList, setUserList] = useState<UserData[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [totalRecords, setTotalRecords] = useState(0);
@@ -46,6 +49,21 @@ const UserPageContainer = () => {
         // setUserList(res.data);
         if (res && res.data.user_info) {
           setUserList(res.data.user_info);
+        }
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
+
+  const handelUserDelete = async (id: number | undefined) => {
+    setOpenDeleteModal(false);
+    try {
+      if (token.token && id) {
+        const res = await adminUserServices.deleteUserById(id, token.token);
+        if (res && res.code === 200) {
+          toast.success('user delete successfullly');
+          handelFetchUsers();
         }
       }
     } catch (error) {
@@ -152,7 +170,14 @@ const UserPageContainer = () => {
                               <IconButton onClick={() => router.push(`/admin/users/update-permission/${item.id}`)}>
                                 <EditIcon />
                               </IconButton>
-                              <DeleteOutlineIcon color="error" />
+                              <IconButton
+                                onClick={() => {
+                                  setSelectedUser(item);
+                                  setOpenDeleteModal(true);
+                                }}
+                              >
+                                <DeleteOutlineIcon color="error" />
+                              </IconButton>
                             </Box>
                           </TableCell>
                         </TableRow>
@@ -175,6 +200,13 @@ const UserPageContainer = () => {
           </Card>
         </Box>
       </Box>
+      <DeleteModal
+        open={openDeleteModal}
+        handleClose={() => {
+          setOpenDeleteModal(false);
+        }}
+        handleDeleteClick={() => handelUserDelete(selectedUser?.id)}
+      />
     </MainLayout>
   );
 };

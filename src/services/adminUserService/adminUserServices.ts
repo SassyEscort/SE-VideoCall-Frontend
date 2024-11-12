@@ -103,6 +103,20 @@ export class adminUserServices {
     }
   };
 
+  static deleteUserById = async (id: number, token: string): Promise<getUserByIdResponse> => {
+    try {
+      const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/user/${id}`;
+
+      const res = await axios.delete<getUserByIdResponse>(url, {
+        headers: { 'Content-Type': 'application/json', Authorization: token }
+      });
+
+      return res.data;
+    } catch (error) {
+      return error as getUserByIdResponse;
+    }
+  };
+
   static updateUserPassword = async (id: number, password: { password: string }, token: string): Promise<GenericResponse> => {
     try {
       const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/user/update-password/${id}`;
