@@ -30,7 +30,6 @@ export const StyledRoot = styled('div')({
 });
 
 export const TypographyStyled = styled(Typography)({
-  color: 'text.secondary',
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',

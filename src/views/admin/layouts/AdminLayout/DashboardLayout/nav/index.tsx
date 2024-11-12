@@ -74,7 +74,9 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
               <Typography variant="subtitle2" sx={{ color: 'text.primary', textTransform: 'capitalize' }}>
                 {adminAuth.data?.user?.name}
               </Typography>
-              <TypographyStyled variant="body2">{adminAuth.data?.user?.email}</TypographyStyled>
+              <TypographyStyled color="text.secondary" variant="body2">
+                {adminAuth.data?.user?.email}
+              </TypographyStyled>
             </Box>
           </StyledAccount>
         </Link>
