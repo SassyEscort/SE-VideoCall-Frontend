@@ -28,7 +28,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import Divider from '@mui/material/Divider';
+import ChatRoomDropdown from 'components/common/stepper/ChatDropDown';
 import { useTawk } from 'contexts/TawkContext';
 
 export type NotificationFilters = {
@@ -51,6 +53,7 @@ const HeaderAuthComponent = () => {
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+  const isLgDown = useMediaQuery(theme.breakpoints.down('lg'));
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
@@ -147,6 +150,7 @@ const HeaderAuthComponent = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.id, token.token, isCallEnded, isNameChange]);
+
   useEffect(() => {
     const getCustomerCredit = async () => {
       if (token.token) {
@@ -199,9 +203,16 @@ const HeaderAuthComponent = () => {
             <LanguageDropdown />
           </Box>
         ) : (
-          <BorderBox>
-            <LanguageDropdown />
-          </BorderBox>
+          <>
+            <BorderBox>
+              <LanguageDropdown />
+            </BorderBox>
+            {!isLgDown && (
+              <BorderBox>
+                <ChatRoomDropdown />
+              </BorderBox>
+            )}
+          </>
         )}
 
         {isMdUp && (
@@ -382,6 +393,17 @@ const HeaderAuthComponent = () => {
                 </UINewTypography>
               </ListItemText>
             </MenuItem>
+
+            <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+            <MenuItem>
+              <ListItemIcon>
+                <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0, color: 'secondary.700' }}>
+                  <QuestionAnswerIcon />
+                </IconButton>
+              </ListItemIcon>
+              <ChatRoomDropdown />
+            </MenuItem>
+
             <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
             <MenuItem onClick={handleOpenLogout}>
               <ListItemIcon>
@@ -395,6 +417,7 @@ const HeaderAuthComponent = () => {
                 </UINewTypography>
               </ListItemText>
             </MenuItem>
+
             <Logout open={isLogoutOpen} onClose={handleCloseLogoutt} />
           </Menu>
           <ProfileMenu profilePic={uploadedImageURL} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />

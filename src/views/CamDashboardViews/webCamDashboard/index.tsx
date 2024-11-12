@@ -1,7 +1,6 @@
 'use client';
 
 import { useMediaQuery } from '@mui/material';
-import Image from 'next/image';
 import { FormattedMessage } from 'react-intl';
 import theme from 'themes/theme';
 import {
@@ -13,6 +12,7 @@ import {
   WebSecBoxContainer
 } from './webCamDashboard.styled';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
+import Box from '@mui/system/Box';
 
 const WebcamDashboard = () => {
   const isXsDown = useMediaQuery(theme.breakpoints.down(321));
@@ -52,13 +52,13 @@ const WebcamDashboard = () => {
           </WebSecBoxContainer>
         </WebFirstBoxContainer>
         <WebBannerImageCard>
-          <Image
+          <Box
+            component="img"
             alt="home_model"
             decoding="async"
             width={imageWidth}
             height={imageHeight}
             src="/images/web-cam.webp"
-            priority={true}
             loading="eager"
             fetchPriority="high"
             sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, (max-width: 1024px) 580px, 780px"

@@ -201,3 +201,11 @@ export const LimitedOfferBox = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'center'
 }));
+
+export const CreditsListingBox = styled('span')(() => ({
+  background: 'linear-gradient(89.96deg, #FDD296 36.76%, #FEA832 99.97%)',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  backgroundClip: 'text',
+  fontWeight: 700
+}));
