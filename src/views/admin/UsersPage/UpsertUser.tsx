@@ -31,6 +31,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import UpdateUserPassword from './UpdateUserPassword';
 import * as yup from 'yup';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
+import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
+import { LoadingButton } from '@mui/lab';
 
 const UpsertUser = () => {
   const router = useRouter();
@@ -40,6 +42,7 @@ const UpsertUser = () => {
   const [userData, setUserData] = useState<getUserByIdData>();
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
 
   const isCreatePage = usePathname().includes('update-permission');
 
@@ -107,7 +110,7 @@ const UpsertUser = () => {
         if (values && values.email && values.password && values.permissions && values.permissions.length > 0) {
           const res = await adminUserServices.updateUser(id, { permissions: values.permissions }, token.token);
           if (res && res.code === 200) {
-            toast.success('User created successfully');
+            toast.success('User Updated successfully');
             router.push('/admin/users');
           }
         }
@@ -202,7 +205,7 @@ const UpsertUser = () => {
 
                   <TextField
                     name="password"
-                    type="password"
+                    type={showNewPassword ? 'text' : 'password'}
                     disabled={userId ? true : false}
                     value={values.password}
                     onChange={handleChange}
@@ -213,9 +216,14 @@ const UpsertUser = () => {
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
+                          !userId ?
                           <IconButton onClick={() => setOpen(true)}>
                             <EditIcon />
                           </IconButton>
+                          :
+                          <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setShowNewPassword(!showNewPassword)}>
+                            {showNewPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
+                          </Box>
                         </InputAdornment>
                       )
                     }}
@@ -260,14 +268,17 @@ const UpsertUser = () => {
                 </Grid>
                 <Grid item xs={11}>
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <Button variant="outlined" onClick={() => router.push('/admin/users')}>
+                      Back
+                    </Button>
                     {userId ? (
-                      <Button size="large" variant="contained" type="submit" sx={{ width: 'fit-content' }}>
+                      <LoadingButton loading={isLoading} size="large" variant="contained" type="submit" sx={{ width: 'fit-content' }}>
                         Update User
-                      </Button>
+                      </LoadingButton>
                     ) : (
-                      <Button size="large" variant="contained" type="submit" sx={{ width: 'fit-content' }}>
+                      <LoadingButton loading={isLoading} size="large" variant="contained" type="submit" sx={{ width: 'fit-content' }}>
                         Create User
-                      </Button>
+                      </LoadingButton>
                     )}
                   </Box>
                 </Grid>
