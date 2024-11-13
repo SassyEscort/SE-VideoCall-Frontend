@@ -206,6 +206,16 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     }
   };
 
+  const handleSetUserRef = (userID: string, userName: string, endedBy: string, isUserLeave = false, isCustomerLeave = false) => {
+    userRef.current = {
+      userID: userID || '',
+      userName: userName || '',
+      endedBy: endedBy || '-',
+      isUserLeave: isUserLeave,
+      isCustomerLeave: isCustomerLeave
+    };
+  };
+
   const handleBusyClose = () => setIsBusy(false);
 
   const handleCallEnd = () => setIsCallEnded(false);
@@ -281,15 +291,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
               },
               onUserLeave: (users) => {
                 console.log('on User Leave:', { users });
-                if (users?.[0]) {
-                  userRef.current = {
-                    userID: users?.[0]?.userID || '',
-                    userName: users?.[0]?.userName || '',
-                    isUserLeave: true,
-                    isCustomerLeave: false,
-                    endedBy: CALL_ENDED_BY.MODEL
-                  };
-                }
+                if (users?.[0]) handleSetUserRef(users?.[0]?.userID || '', users?.[0]?.userName || '', CALL_ENDED_BY.MODEL, true, false);
               },
               onJoinRoom() {
                 console.log('JOIN ROOM:::::::::::::::::::', new Date());
@@ -299,13 +301,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
                 callDurationRef.current = { startTime: callDurationRef?.current?.startTime || '', endTime: String(new Date()) };
                 console.log('on Leave Room', userRef.current, modelId, callDurationRef.current);
                 if (!userRef.current.isUserLeave) {
-                  userRef.current = {
-                    userID: userRef.current?.userID || '',
-                    userName: userRef.current?.userName || '',
-                    isUserLeave: false,
-                    isCustomerLeave: true,
-                    endedBy: CALL_ENDED_BY.CUSTOMER
-                  };
+                  handleSetUserRef(userRef.current?.userID || '', userRef.current?.userName || '', CALL_ENDED_BY.CUSTOMER, false, true);
                 }
               }
             };
@@ -326,6 +322,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
           onOutgoingCallAccepted: (callID: string, callee: ZegoUser) => {
             console.log('Outgoing call accepted:', { callID, callee }, '\n', 'DATE-----> ' + new Date());
+            handleSetUserRef(userRef.current?.userID || '', userRef.current?.userName || '', '', false, true);
             callDurationRef.current = { startTime: String(new Date()), endTime: '' };
             setIsCallAccepted(true);
             setOutgoingCallDialogOpen(false);
