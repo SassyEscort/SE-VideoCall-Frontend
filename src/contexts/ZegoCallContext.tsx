@@ -12,7 +12,7 @@ import { usePathname } from 'next/navigation';
 import { randomID } from 'utils/videoCall';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { useAuthContext } from './AuthContext';
-import { CALL_INVITATION_END_REASON, CALLING_STATUS } from 'constants/callingConstants';
+import { CALL_ENDED_BY, CALL_INVITATION_END_REASON, CALLING_STATUS } from 'constants/callingConstants';
 import { CallingService, CreditCallRes } from 'services/calling/calling.services';
 import { useSession } from 'next-auth/react';
 import { useIntl } from 'react-intl';
@@ -121,14 +121,10 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
     username: providerData?.customer_user_name,
     model_username: userName
   };
-  const userRef = useRef<{
-    userID: string;
-    userName: string;
-    isUserLeave: boolean;
-    isCustomerLeave: boolean;
-  }>({
+  const userRef = useRef<{ userID: string; userName: string; endedBy: string; isUserLeave: boolean; isCustomerLeave: boolean }>({
     userID: '',
     userName: '',
+    endedBy: '',
     isUserLeave: false,
     isCustomerLeave: false
   });
@@ -228,6 +224,16 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const handleSetUserRef = (userID: string, userName: string, endedBy: string, isUserLeave = false, isCustomerLeave = false) => {
+    userRef.current = {
+      userID: userID || '',
+      userName: userName || '',
+      endedBy: endedBy || '-',
+      isUserLeave: isUserLeave,
+      isCustomerLeave: isCustomerLeave
+    };
+  };
+
   const handleBusyClose = () => setIsBusy(false);
 
   const handleCallEnd = () => setIsCallEnded(false);
@@ -304,26 +310,14 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
               },
               onUserLeave: (users) => {
                 console.log('on User Leave:', { users });
-                if (users?.[0]) {
-                  userRef.current = {
-                    userID: users?.[0]?.userID || '',
-                    userName: users?.[0]?.userName || '',
-                    isUserLeave: true,
-                    isCustomerLeave: false
-                  };
-                }
+                if (users?.[0]) handleSetUserRef(users?.[0]?.userID || '', users?.[0]?.userName || '', CALL_ENDED_BY.MODEL, true, false);
               },
 
               onLeaveRoom() {
                 console.log('on Leave Room', userRef.current, modelId);
                 callDurationRef.current = { startTime: callDurationRef?.current?.startTime || '', endTime: String(new Date()) };
                 if (!userRef.current.isUserLeave) {
-                  userRef.current = {
-                    userID: '408',
-                    userName: 'user_408',
-                    isUserLeave: false,
-                    isCustomerLeave: true
-                  };
+                  handleSetUserRef(userRef.current?.userID || '', userRef.current?.userName || '', CALL_ENDED_BY.CUSTOMER, false, true);
                 }
               }
             };
@@ -344,12 +338,7 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
           },
 
           onOutgoingCallAccepted: (callID: string, callee: ZegoUser) => {
-            userRef.current = {
-              userID: userRef.current?.userID || '',
-              userName: userRef.current?.userName || '',
-              isUserLeave: false,
-              isCustomerLeave: true
-            };
+            handleSetUserRef(userRef.current?.userID || '', userRef.current?.userName || '', '', false, true);
 
             callDurationRef.current = { startTime: String(new Date()), endTime: '' };
             console.log('Outgoing call accepted:', { callID, callee });

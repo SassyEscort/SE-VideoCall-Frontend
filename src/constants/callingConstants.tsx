@@ -13,3 +13,8 @@ export const CALL_INVITATION_END_REASON = {
   BUSY: 'Busy',
   LEAVEROOM: 'LeaveRoom'
 };
+
+export const CALL_ENDED_BY = {
+  CUSTOMER: 'customer',
+  MODEL: 'model'
+};

@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 import { randomID } from 'utils/videoCall';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { useAuthContext } from './AuthContext';
-import { CALL_INVITATION_END_REASON } from 'constants/callingConstants';
+import { CALL_ENDED_BY, CALL_INVITATION_END_REASON } from 'constants/callingConstants';
 import { CallingService } from 'services/calling/calling.services';
 import { useSession } from 'next-auth/react';
 import { useIntl } from 'react-intl';
@@ -102,9 +102,10 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const path = usePathname();
   const userName = path.split('/')[2];
 
-  const userRef = useRef<{ userID: string; userName: string; isUserLeave: boolean; isCustomerLeave: boolean }>({
+  const userRef = useRef<{ userID: string; userName: string; endedBy: string; isUserLeave: boolean; isCustomerLeave: boolean }>({
     userID: '',
     userName: '',
+    endedBy: '',
     isUserLeave: false,
     isCustomerLeave: false
   });
@@ -285,7 +286,8 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
                     userID: users?.[0]?.userID || '',
                     userName: users?.[0]?.userName || '',
                     isUserLeave: true,
-                    isCustomerLeave: false
+                    isCustomerLeave: false,
+                    endedBy: CALL_ENDED_BY.MODEL
                   };
                 }
               },
@@ -298,10 +300,11 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
                 console.log('on Leave Room', userRef.current, modelId, callDurationRef.current);
                 if (!userRef.current.isUserLeave) {
                   userRef.current = {
-                    userID: '408',
-                    userName: 'user_408',
+                    userID: userRef.current?.userID || '',
+                    userName: userRef.current?.userName || '',
                     isUserLeave: false,
-                    isCustomerLeave: true
+                    isCustomerLeave: true,
+                    endedBy: CALL_ENDED_BY.CUSTOMER
                   };
                 }
               }
