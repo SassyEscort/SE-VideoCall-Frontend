@@ -22,6 +22,11 @@ export interface User {
   id?: string | null;
   provider?: string;
   picture?: string;
+  module_permissions?: {
+    module_id: number | null;
+    permission: string | null;
+    module_name: string | null;
+  }[];
 }
 
 export interface AuthUser {

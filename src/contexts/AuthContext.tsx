@@ -13,6 +13,12 @@ import { gaEventTrigger } from 'utils/analytics';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
 
+export type AdminUserPermissions = {
+  module_id: number;
+  module_name: string;
+  permission: string;
+};
+
 export type AuthContextProps = {
   session: Session | null;
   isCustomer: boolean;
@@ -22,12 +28,14 @@ export type AuthContextProps = {
   handleFreeCreditClaim: () => void;
   isFreeCreditsClaimed: boolean;
   isModel: boolean;
+  isAdmin: boolean;
   isNameChange: boolean;
   handelNameChange: () => void;
   handleOpen: () => void;
   handleCreditDrawerClose: () => void;
   openCreditDrawer: boolean;
   token: TokenIdType;
+  adminUserPermissions: AdminUserPermissions[] | undefined;
 };
 
 const AuthContext = createContext<AuthContextProps>({
@@ -44,7 +52,9 @@ const AuthContext = createContext<AuthContextProps>({
   handelNameChange: () => {},
   handleCreditDrawerClose: () => {},
   openCreditDrawer: false,
-  token: { id: 0, token: '' }
+  token: { id: 0, token: '' },
+  isAdmin: false,
+  adminUserPermissions: [{} as AdminUserPermissions]
 });
 
 export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
@@ -64,6 +74,9 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const isCustomer = providerData?.role === ROLE.CUSTOMER;
   const isModel = providerData?.role === ROLE.MODEL;
   const tokenDetails = { id: providerData?.customer_id || 0, token: providerData?.token || '' };
+  const isAdmin = providerData?.role === ROLE.ADMIN;
+
+  const adminUserPermissions = providerData?.module_permissions;
 
   const path = usePathname();
   const userName = path.split('/')[2];
@@ -152,7 +165,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [credit]);
 
   return (
     <AuthContext.Provider
@@ -170,7 +183,9 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         handleOpen,
         openCreditDrawer,
         handleCreditDrawerClose,
-        token: tokenDetails
+        token: tokenDetails,
+        isAdmin,
+        adminUserPermissions
       }}
     >
       {children}

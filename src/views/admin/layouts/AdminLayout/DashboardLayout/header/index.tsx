@@ -17,6 +17,9 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { NotificationFiltersDashboard } from 'views/protectedDashboardViews/dashboardNavItem/HeaderAuthComponent';
 import { NotificationBadge } from './AccountPopover.styled';
 import NotificationModal from './NotificationModal';
+import { useAuthContext } from '../../../../../../../context/AuthContext';
+import { isPageAccessiable } from 'utils/Admin/PagePermission';
+import { ModalPage } from 'constants/adminUserAccessConstants';
 
 const NAV_WIDTH = 280;
 const HEADER_MOBILE = 64;
@@ -48,6 +51,9 @@ interface HeaderProps {
 }
 
 export default function Header({ onOpenNav }: HeaderProps) {
+  const { adminUserPermissions, isAdmin } = useAuthContext();
+  const isAccessiable = (adminUserPermissions ? isPageAccessiable(ModalPage, adminUserPermissions) : '') || isAdmin;
+
   const [filters, setFilters] = useState<NotificationFiltersDashboard>({
     page: 1,
     pageSize: 10,
@@ -130,15 +136,17 @@ export default function Header({ onOpenNav }: HeaderProps) {
               sm: 1
             }}
           >
-            <IconButton onClick={handleOpenNotification}>
-              {unReadCount ? (
-                <NotificationBadge variant="dot" color="error">
+            {isAccessiable && (
+              <IconButton onClick={handleOpenNotification}>
+                {unReadCount ? (
+                  <NotificationBadge variant="dot" color="error">
+                    <NotificationsNone sx={{ color: 'secondary.dark' }} />
+                  </NotificationBadge>
+                ) : (
                   <NotificationsNone sx={{ color: 'secondary.dark' }} />
-                </NotificationBadge>
-              ) : (
-                <NotificationsNone sx={{ color: 'secondary.dark' }} />
-              )}
-            </IconButton>
+                )}
+              </IconButton>
+            )}
             <AccountPopover />
           </Stack>
         </StyledToolbar>

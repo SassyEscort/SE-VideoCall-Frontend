@@ -12,6 +12,8 @@ import NavSection from 'components/Admin/nav-section';
 import { navRoleConfigIdType, navRoleConfigSubmenuIdType } from 'components/Admin/nav-section/type';
 import useResponsive from 'hooks/useResponsive';
 import { useSession } from 'next-auth/react';
+import { useAuthContext } from '../../../../../../../context/AuthContext';
+import { TypographyStyled, TypographyStyledMain } from '../../AdminLoginLayout/AdminLoginLayout.styled';
 
 const NAV_WIDTH = 280;
 
@@ -37,9 +39,11 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
   const { pathname } = window.location;
   const isDesktop = useResponsive('up', 'lg', 'xs');
 
+  const { adminUserPermissions, isAdmin } = useAuthContext();
+
   const adminAuth = useSession();
 
-  const navConfig = getNavConfig() as unknown as (navRoleConfigIdType | navRoleConfigSubmenuIdType)[];
+  const navConfig = getNavConfig(adminUserPermissions, isAdmin) as unknown as (navRoleConfigIdType | navRoleConfigSubmenuIdType)[];
 
   useEffect(() => {
     if (openNav) {
@@ -49,7 +53,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
 
   const renderContent = (
     <>
-      <Box
+      <TypographyStyledMain
         sx={{
           py: 3,
           display: 'inline-flex',
@@ -59,7 +63,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
         }}
       >
         <Box component="img" src="/images/header/headerlogo.png" alt="logo" width={180} />
-      </Box>
+      </TypographyStyledMain>
 
       <Box sx={{ mb: 2, mx: 2.5 }}>
         <Link underline="none">
@@ -70,10 +74,9 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
               <Typography variant="subtitle2" sx={{ color: 'text.primary', textTransform: 'capitalize' }}>
                 {adminAuth.data?.user?.name}
               </Typography>
-
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+              <TypographyStyled color="text.secondary" variant="body2">
                 {adminAuth.data?.user?.email}
-              </Typography>
+              </TypographyStyled>
             </Box>
           </StyledAccount>
         </Link>

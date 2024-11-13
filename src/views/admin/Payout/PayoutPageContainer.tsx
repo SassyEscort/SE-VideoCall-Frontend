@@ -34,6 +34,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Chip from '@mui/material/Chip';
 import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
+import { useRouter } from 'next/navigation';
+import { useAuthContext } from '../../../../context/AuthContext';
+import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
+import { PayoutPage } from 'constants/adminUserAccessConstants';
 
 export type PaginationType = {
   page: number;
@@ -45,6 +49,11 @@ export type PaginationType = {
 };
 
 export default function PayoutPageContainer() {
+  const router = useRouter();
+
+  const { adminUserPermissions, isAdmin } = useAuthContext();
+  const UpdatePermission = adminUserPermissions ? haveUpdatePermission(PayoutPage, adminUserPermissions) : false;
+
   const [selectedPayoutData, setSelectedPayoutData] = useState<payoutDataResponse | null>(null);
   const [data, setData] = useState<payoutDataResponse[]>([]);
   const [open, setOpen] = useState<null | HTMLElement>(null);
@@ -177,6 +186,14 @@ export default function PayoutPageContainer() {
     setOpenReject(false);
   };
 
+  useEffect(() => {
+    if (adminUserPermissions) {
+      const isAccessiable = isPageAccessiable(PayoutPage, adminUserPermissions) || isAdmin;
+      isAccessiable ? '' : router.push('/admin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adminUserPermissions, isAdmin]);
+
   return (
     <MainLayout>
       <>
@@ -302,7 +319,7 @@ export default function PayoutPageContainer() {
           <Visibility sx={{ mr: 2 }} />
           View Details
         </MenuItem>
-        {selectedPayoutData?.state === PAYOUT_ACTION.PENDING && (
+        {(UpdatePermission || isAdmin) && selectedPayoutData?.state === PAYOUT_ACTION.PENDING && (
           <>
             <MenuItem onClick={() => handelChangeStatus(false)}>
               <CheckIcon sx={{ mr: 2, color: 'success.main' }} />

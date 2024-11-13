@@ -33,6 +33,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Chip from '@mui/material/Chip';
 import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
+import { useAuthContext } from '../../../../context/AuthContext';
+import { useRouter } from 'next/navigation';
+import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
+import { CallLogsPage } from 'constants/adminUserAccessConstants';
 
 export type PaginationType = {
   page: number;
@@ -47,6 +51,10 @@ export type PaginationType = {
 };
 
 export default function CallLogsContainer() {
+  const router = useRouter();
+  const { adminUserPermissions, isAdmin } = useAuthContext();
+  const UpdatePermission = adminUserPermissions ? haveUpdatePermission(CallLogsPage, adminUserPermissions) : false;
+
   const [selectedPayoutData, setSelectedPayoutData] = useState<CallLogDataResponse | null>(null);
   const [data, setData] = useState<CallLogDataResponse[]>([]);
   const [open, setOpen] = useState<null | HTMLElement>(null);
@@ -177,6 +185,14 @@ export default function CallLogsContainer() {
     handleChangeFilter({ ...filters, duration, fromDate, toDate, page: 1 });
   };
 
+  useEffect(() => {
+    if (adminUserPermissions) {
+      const isAccessiable = isPageAccessiable(CallLogsPage, adminUserPermissions) || isAdmin;
+      isAccessiable ? '' : router.push('/admin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adminUserPermissions, isAdmin]);
+
   return (
     <MainLayout>
       <>
@@ -206,7 +222,7 @@ export default function CallLogsContainer() {
           <Paper sx={{ overflow: 'hidden' }}>
             <TableContainer sx={{ width: '100%' }}>
               <Table>
-                <CallLogsListHead />
+                <CallLogsListHead isAdmin={isAdmin} UpdatePermission={UpdatePermission} />
                 <TableBody>
                   {isLoading ? (
                     <TableRow>
@@ -295,21 +311,23 @@ export default function CallLogsContainer() {
                         <TableCell component="th" scope="row">
                           {item?.ended_by || '-'}
                         </TableCell>
-                        <TableCell>
-                          <IconButton
-                            aria-label="more"
-                            id="long-button"
-                            aria-controls={open ? 'long-menu' : undefined}
-                            aria-expanded={open ? 'true' : undefined}
-                            aria-haspopup="true"
-                            onClick={(e) => {
-                              setSelectedPayoutData(item);
-                              handleOpenMenu(e);
-                            }}
-                          >
-                            <MoreVert />
-                          </IconButton>
-                        </TableCell>
+                        {(isAdmin || UpdatePermission) && (
+                          <TableCell>
+                            <IconButton
+                              aria-label="more"
+                              id="long-button"
+                              aria-controls={open ? 'long-menu' : undefined}
+                              aria-expanded={open ? 'true' : undefined}
+                              aria-haspopup="true"
+                              onClick={(e) => {
+                                setSelectedPayoutData(item);
+                                handleOpenMenu(e);
+                              }}
+                            >
+                              <MoreVert />
+                            </IconButton>
+                          </TableCell>
+                        )}
                       </TableRow>
                     ))
                   ) : (

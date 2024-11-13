@@ -9,6 +9,8 @@ import SupportSettingComponet from './SupportSettingComponet';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
+import { useAuthContext } from '../../../../context/AuthContext';
 
 export type AdminSettingData = {
   id: string;
@@ -18,6 +20,9 @@ export type AdminSettingData = {
 };
 
 function SupportSettingPageContainer() {
+  const router = useRouter();
+  const { isAdmin } = useAuthContext();
+
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [data, setData] = useState<AdminSettingData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -65,6 +70,13 @@ function SupportSettingPageContainer() {
     handleGetAdminSettings();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.token]);
+
+  useEffect(() => {
+    if (isAdmin) {
+      isAdmin ? '' : router.push('/admin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAdmin]);
 
   return (
     <MainLayout>

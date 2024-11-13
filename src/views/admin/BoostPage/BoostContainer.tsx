@@ -36,6 +36,10 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
+import { useAuthContext } from '../../../../context/AuthContext';
+import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
+import { BoostPage } from 'constants/adminUserAccessConstants';
+import { useRouter } from 'next/navigation';
 
 export type PaginationType = {
   page: number;
@@ -48,6 +52,10 @@ export type PaginationType = {
 };
 
 export default function BoostContainer() {
+  const router = useRouter();
+  const { adminUserPermissions, isAdmin } = useAuthContext();
+  const UpdatePermission = adminUserPermissions ? haveUpdatePermission(BoostPage, adminUserPermissions) : false;
+
   const [selectedBoostData, setSelectedBoostData] = useState<AdminBoostProfileData | null>(null);
   const [data, setData] = useState<AdminBoostProfileData[]>([]);
   const [open, setOpen] = useState<null | HTMLElement>(null);
@@ -202,6 +210,14 @@ export default function BoostContainer() {
     }
   };
 
+  useEffect(() => {
+    if (adminUserPermissions) {
+      const isAccessiable = isPageAccessiable(BoostPage, adminUserPermissions) || isAdmin;
+      isAccessiable ? '' : router.push('/admin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adminUserPermissions, isAdmin]);
+
   return (
     <MainLayout>
       <>
@@ -210,9 +226,11 @@ export default function BoostContainer() {
             Boost Plans
           </Typography>
           <Box>
-            <Button size="large" variant="contained" startIcon={<Add />} onClick={handleOpenAddEditModal} sx={{ width: '100%' }}>
-              Add Boost
-            </Button>
+            {(isAdmin || UpdatePermission) && (
+              <Button size="large" variant="contained" startIcon={<Add />} onClick={handleOpenAddEditModal} sx={{ width: '100%' }}>
+                Add Boost
+              </Button>
+            )}
           </Box>
         </Stack>
         <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent="space-between" mb={1}>
@@ -323,20 +341,24 @@ export default function BoostContainer() {
           <Visibility sx={{ mr: 2 }} />
           View Details
         </MenuItem>
-        <MenuItem
-          onClick={() => {
-            handleOpenAddEditModal();
-            setSelectedBoost(data.filter((x) => x.id === selectedBoostData?.id)[0]);
-            handleCloseMenu();
-          }}
-        >
-          <EditIcon sx={{ mr: 2 }} />
-          Edit
-        </MenuItem>
-        <MenuItem sx={{ color: 'error.main' }} onClick={() => handleOpenDeleteCampaign(Number(selectedBoostData?.id))}>
-          <DeleteIcon sx={{ mr: 2 }} />
-          Delete
-        </MenuItem>
+        {(isAdmin || UpdatePermission) && (
+          <>
+            <MenuItem
+              onClick={() => {
+                handleOpenAddEditModal();
+                setSelectedBoost(data.filter((x) => x.id === selectedBoostData?.id)[0]);
+                handleCloseMenu();
+              }}
+            >
+              <EditIcon sx={{ mr: 2 }} />
+              Edit
+            </MenuItem>
+            <MenuItem sx={{ color: 'error.main' }} onClick={() => handleOpenDeleteCampaign(Number(selectedBoostData?.id))}>
+              <DeleteIcon sx={{ mr: 2 }} />
+              Delete
+            </MenuItem>
+          </>
+        )}
       </StyledPopover>
       <BoostModel open={creditModalOpen} onClose={handleCloseCredit} selectedBoostData={selectedBoostData} />
       {openAddEditModal && (
