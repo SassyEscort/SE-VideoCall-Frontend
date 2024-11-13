@@ -147,7 +147,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [credit]);
 
   return (
     <AuthContext.Provider
