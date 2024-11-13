@@ -13,7 +13,7 @@ import { randomID } from 'utils/videoCall';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { useAuthContext } from './AuthContext';
 import { CALL_ENDED_BY, CALL_INVITATION_END_REASON, CALLING_STATUS } from 'constants/callingConstants';
-import { CallingService, CreditCallRes } from 'services/calling/calling.services';
+import { CallingService, CreditCallRes, CreditZegoCallRes } from 'services/calling/calling.services';
 import { useSession } from 'next-auth/react';
 import { useIntl } from 'react-intl';
 import { User } from 'app/(guest)/layout';
@@ -22,6 +22,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { ROLE } from 'constants/workerVerification';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
+import moment from 'moment';
 
 type CallFeatureContextProps = {
   call: ZegoUIKitPrebuilt | null;
@@ -509,15 +510,28 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
     comet_chat_session_id: string,
     status: string,
     ended_by?: string
-  ): Promise<CreditCallRes | undefined> => {
-    const creditLog = {
+  ): Promise<CreditZegoCallRes | undefined> => {
+    let creditLog = {
       model_id: model_id,
       comet_chat_session_id: comet_chat_session_id,
+      zego_call_session_id: comet_chat_session_id,
       status: status,
-      ended_by: ended_by
+      ended_by: ended_by || '',
+      start_time: '',
+      end_time: '',
+      duration: null
     };
+    if (status === CALLING_STATUS.ENDED) {
+      const start_time = (callDurationRef.current.startTime && moment(callDurationRef.current.startTime)) || '';
+      const end_time = (callDurationRef.current.endTime && moment(callDurationRef.current.endTime)) || '';
+      const duration = (Boolean(start_time && end_time) && moment(end_time).diff(start_time, 'second')) || null;
+
+      creditLog.start_time = String(start_time);
+      creditLog.end_time = String(end_time);
+      creditLog.duration = duration as unknown as null;
+    }
     if (token.token && model_id) {
-      const creditLogData = await CallingService.creditPutCallLog(creditLog, token.token);
+      const creditLogData = await CallingService.creditPutZegoCallLog(creditLog, token.token);
       if (call && (creditLogData.end_call || status === CALLING_STATUS.ENDED)) {
         gaEventTrigger('Video_call_ended', {
           action: 'Video_call_ended',
