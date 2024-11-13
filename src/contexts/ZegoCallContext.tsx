@@ -13,7 +13,7 @@ import { randomID } from 'utils/videoCall';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { useAuthContext } from './AuthContext';
 import { CALL_ENDED_BY, CALL_INVITATION_END_REASON, CALLING_STATUS } from 'constants/callingConstants';
-import { CallingService, CreditCallRes, CreditZegoCallRes } from 'services/calling/calling.services';
+import { CallingService, CreditZegoCallRes } from 'services/calling/calling.services';
 import { useSession } from 'next-auth/react';
 import { useIntl } from 'react-intl';
 import { User } from 'app/(guest)/layout';
