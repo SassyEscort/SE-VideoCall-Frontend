@@ -28,6 +28,11 @@ export const getNavConfig = (adminUserPermissions: AdminUserPermissions[] | unde
       icon: <PersonIcon />
     },
     {
+      title: 'Users',
+      path: '/admin/users',
+      icon: <GroupIcon />
+    },
+    {
       title: 'Payout',
       path: '/admin/payout',
       icon: <PaymentsIcon />
@@ -56,11 +61,6 @@ export const getNavConfig = (adminUserPermissions: AdminUserPermissions[] | unde
       title: 'Setting',
       path: '/admin/setting',
       icon: <SettingsIcon />
-    },
-    {
-      title: 'Users',
-      path: '/admin/users',
-      icon: <GroupIcon />
     }
   ];
 

@@ -42,6 +42,7 @@ const UpsertUser = () => {
   const [userData, setUserData] = useState<getUserByIdData>();
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
 
   const isCreatePage = usePathname().includes('update-permission');
@@ -91,6 +92,7 @@ const UpsertUser = () => {
 
   const handelUserRegistration = async (values: UserRegistrationParames) => {
     try {
+      setIsButtonLoading(true);
       if (token.token) {
         if (values && values.email && values.password && values.permissions && values.permissions.length > 0) {
           const res = await adminUserServices.userRegistration({ ...values, role: 'user' }, token.token);
@@ -100,11 +102,13 @@ const UpsertUser = () => {
           }
         }
       }
+      setIsButtonLoading(false);
     } catch (error) {
       toast.error(ErrorMessage);
     }
   };
   const handelUpdateUser = async (id: number, values: UserRegistrationParames) => {
+    setIsButtonLoading(true);
     try {
       if (token.token) {
         if (values && values.email && values.password && values.permissions && values.permissions.length > 0) {
@@ -118,6 +122,7 @@ const UpsertUser = () => {
     } catch (error) {
       toast.error(ErrorMessage);
     }
+    setIsButtonLoading(false);
   };
 
   useEffect(() => {
@@ -216,14 +221,15 @@ const UpsertUser = () => {
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
-                          !userId ?
-                          <IconButton onClick={() => setOpen(true)}>
-                            <EditIcon />
-                          </IconButton>
-                          :
-                          <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setShowNewPassword(!showNewPassword)}>
-                            {showNewPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
-                          </Box>
+                          {userId ? (
+                            <IconButton onClick={() => setOpen(true)}>
+                              <EditIcon />
+                            </IconButton>
+                          ) : (
+                            <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setShowNewPassword(!showNewPassword)}>
+                              {showNewPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
+                            </Box>
+                          )}
                         </InputAdornment>
                       )
                     }}
@@ -272,11 +278,18 @@ const UpsertUser = () => {
                       Back
                     </Button>
                     {userId ? (
-                      <LoadingButton loading={isLoading} size="large" variant="contained" type="submit" sx={{ width: 'fit-content' }}>
+                      <LoadingButton loading={isButtonLoading} size="large" variant="contained" type="submit" sx={{ width: 'fit-content' }}>
                         Update User
                       </LoadingButton>
                     ) : (
-                      <LoadingButton loading={isLoading} size="large" variant="contained" type="submit" sx={{ width: 'fit-content' }}>
+                      <LoadingButton
+                        disabled={userData?.email === values.email || values.email === '' || values.password === ''}
+                        loading={isButtonLoading}
+                        size="large"
+                        variant="contained"
+                        type="submit"
+                        sx={{ width: 'fit-content' }}
+                      >
                         Create User
                       </LoadingButton>
                     )}
