@@ -8,6 +8,18 @@ const nextConfig = {
       static: 0
     }
   },
+  async rewrites() {
+    return [
+      {
+        source: '/sitemap/page-sitemap.xml',
+        destination: '/sitemap/sitemap.xml'
+      },
+      {
+        source: '/sitemap/model-sitemap.xml',
+        destination: '/model/sitemap.xml'
+      }
+    ];
+  },
   async headers() {
     return [
       {
