@@ -1,5 +1,5 @@
 import { PermissionConstants } from 'constants/adminUserAccessConstants';
-import { AdminUserPermissions } from '../../../context/AuthContext';
+import { AdminUserPermissions } from 'contexts/AuthContext';
 
 export const isPageAccessiable = (pageName: string, adminUserPermissions: AdminUserPermissions[]) => {
   const isAccessiable = adminUserPermissions.filter(

@@ -8,7 +8,7 @@ import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import SettingsIcon from '@mui/icons-material/Settings';
 import GroupIcon from '@mui/icons-material/Group';
-import { AdminUserPermissions } from '../../../../../../../context/AuthContext';
+import { AdminUserPermissions } from 'contexts/AuthContext';
 
 export const getNavConfig = (adminUserPermissions: AdminUserPermissions[] | undefined, isAdmin: boolean, id?: number) => {
   const navConfig = [
