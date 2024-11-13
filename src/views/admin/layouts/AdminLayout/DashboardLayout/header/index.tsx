@@ -18,9 +18,6 @@ import { NotificationFiltersDashboard } from 'views/protectedDashboardViews/dash
 import { NotificationBadge } from './AccountPopover.styled';
 import NotificationModal from './NotificationModal';
 import { useAuthContext } from '../../../../../../../context/AuthContext';
-import { isPageAccessiable } from 'utils/Admin/PagePermission';
-import { ModalPage } from 'constants/adminUserAccessConstants';
-import { useRouter } from 'next/navigation';
 
 const NAV_WIDTH = 280;
 const HEADER_MOBILE = 64;
@@ -52,9 +49,7 @@ interface HeaderProps {
 }
 
 export default function Header({ onOpenNav }: HeaderProps) {
-  const { adminUserPermissions, isAdmin } = useAuthContext();
-  const isAccessiable = adminUserPermissions ? isPageAccessiable(ModalPage, adminUserPermissions) || isAdmin : '';
-  const router = useRouter();
+  const { isAdmin } = useAuthContext();
 
   const [filters, setFilters] = useState<NotificationFiltersDashboard>({
     page: 1,
@@ -115,12 +110,6 @@ export default function Header({ onOpenNav }: HeaderProps) {
     handleCallback();
   }, [handleCallback]);
 
-  useEffect(() => {
-    isAccessiable ? '' : router.push('/admin');
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [adminUserPermissions, isAdmin]);
-
   return (
     <>
       <StyledRoot>
@@ -144,7 +133,7 @@ export default function Header({ onOpenNav }: HeaderProps) {
               sm: 1
             }}
           >
-            {isAccessiable && (
+            {isAdmin && (
               <IconButton onClick={handleOpenNotification}>
                 {unReadCount ? (
                   <NotificationBadge variant="dot" color="error">
