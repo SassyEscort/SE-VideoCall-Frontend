@@ -267,7 +267,7 @@ const UpsertUser = () => {
                     ))}
                 </Grid>
                 <Grid item xs={11}>
-                  <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: '20px' }}>
                     <Button variant="outlined" onClick={() => router.push('/admin/users')}>
                       Back
                     </Button>
