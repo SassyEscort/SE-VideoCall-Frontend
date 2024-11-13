@@ -10,7 +10,7 @@ import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useState } from 'react';
 import * as yup from 'yup';
-import { EMAIL_REGEX, NAME_REGEX, PASSWORD_PATTERN } from 'constants/regexConstants';
+import { EMAIL_REGEX, NAME_REGEX } from 'constants/regexConstants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import { toast } from 'react-toastify';
@@ -27,6 +27,7 @@ import { getErrorMessage } from 'utils/errorUtils';
 import AuthFreeCreditsSignupCommon from './AuthFreeCreditsSignupCommon';
 import GuestModelMobileSignup from './GuestModelMobileSignup';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type SignupParams = {
   name: string;
@@ -83,10 +84,11 @@ const GuestFreeCreditsSignup = ({
       .max(20, 'Nameistoolong')
       .matches(NAME_REGEX, 'Noleadingspaces'),
     email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
-    password: yup.string().required('Passwordisrequired').min(8, 'PasswordMustBe').matches(PASSWORD_PATTERN, {
-      message: 'PasswordMustContainAt',
-      excludeEmptyString: true
-    })
+    password: yup.string().required('Passwordisrequired').min(8, 'PasswordMustBe')
+    // .matches(PASSWORD_PATTERN, {
+    //   message: 'PasswordMustContainAt',
+    //   excludeEmptyString: true
+    // })
   });
 
   return (
@@ -115,6 +117,7 @@ const GuestFreeCreditsSignup = ({
               setTimeout(() => {
                 onClose();
               }, 3000);
+              gaEventTrigger('client_signup_completed', { source: 'details_signup', category: 'Button' });
             } else {
               setAlert('Login after signup failed. Please log in manually.');
             }

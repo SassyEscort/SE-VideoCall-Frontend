@@ -10,7 +10,7 @@ import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
 import { lazy, useEffect, useState } from 'react';
 import * as yup from 'yup';
-import { EMAIL_REGEX, NAME_REGEX, PASSWORD_PATTERN } from 'constants/regexConstants';
+import { EMAIL_REGEX, NAME_REGEX } from 'constants/regexConstants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import { toast } from 'react-toastify';
@@ -34,6 +34,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 const NewAuthCommon = lazy(() => import('./NewAuthCommon').then((module) => ({ default: module.default })));
+import { gaEventTrigger } from 'utils/analytics';
 
 export type SignupParams = {
   name: string;
@@ -80,10 +81,11 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
       .max(20, 'Nameistoolong')
       .matches(NAME_REGEX, 'Noleadingspaces'),
     email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
-    password: yup.string().required('Passwordisrequired').min(8, 'PasswordMustBe').matches(PASSWORD_PATTERN, {
-      message: 'PasswordMustContainAt',
-      excludeEmptyString: true
-    }),
+    password: yup.string().required('Passwordisrequired').min(8, 'PasswordMustBe'),
+    // .matches(PASSWORD_PATTERN, {
+    //   message: 'PasswordMustContainAt',
+    //   excludeEmptyString: true
+    // })
     confirmPassword: yup
       .string()
       .required('ConfirmPasswordIsRequired')
@@ -122,6 +124,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                 setTimeout(() => {
                   onClose();
                 }, 3000);
+                gaEventTrigger('client_signup_completed', { source: 'guest_signup', category: 'Button' });
               } else {
                 setAlert('Login after signup failed. Please log in manually.');
               }
@@ -134,6 +137,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
               if (loginResponse?.status === 200) {
                 push('/model/profile');
                 onClose();
+                gaEventTrigger('signup_form_CTA_click', { source: 'model_signup', category: 'Button' });
               } else {
                 setAlert('Login after signup failed. Please log in manually.');
               }
@@ -193,6 +197,7 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                         </ErrorBox>
                       )}
                     </Box>
+
                     <ModelUITextConatiner gap={3}>
                       <ModelUITextConatiner gap={0.5}>
                         <ModelUITextConatiner sx={{ gap: 0.5 }}>
@@ -200,7 +205,16 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             <UITypographyText>
                               <FormattedMessage id="SignupAs" />
                             </UITypographyText>
-                            <FormControl component="fieldset" error={touched.role && Boolean(errors.role)}>
+                            <FormControl
+                              component="fieldset"
+                              error={touched.role && Boolean(errors.role)}
+                              onChange={(e) => {
+                                const target = e.target as HTMLInputElement;
+                                if (target.value === 'model') {
+                                  gaEventTrigger('signup_form_model_click', { source: 'model_click', category: 'Radio' });
+                                }
+                              }}
+                            >
                               <RadioGroup row id="role" name="role" value={values.role} onChange={handleChange}>
                                 <FormControlLabel value="customer" control={<Radio />} label={<FormattedMessage id="Customer" />} />
                                 <FormControlLabel value="model" control={<Radio />} label={<FormattedMessage id="Model" />} />
@@ -227,7 +241,10 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             e.target.value = e.target.value.trimStart();
                             handleChange(e);
                           }}
-                          onBlur={handleBlur}
+                          onBlur={() => {
+                            handleBlur;
+                            gaEventTrigger('signup_form_name_click', { source: 'model_name_click', category: 'TextField' });
+                          }}
                           error={touched.name && Boolean(errors.name)}
                           helperText={touched.name && errors.name ? <FormattedMessage id={errors.name} /> : ''}
                           sx={{
@@ -249,7 +266,10 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           name="email"
                           value={values.email}
                           onChange={handleChange}
-                          onBlur={handleBlur}
+                          onBlur={() => {
+                            handleBlur;
+                            gaEventTrigger('signup_form_email_click', { source: 'model_email_click', category: 'TextField' });
+                          }}
                           error={touched.email && Boolean(errors.email)}
                           helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
                           sx={{
@@ -275,7 +295,10 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                                 name="password"
                                 value={values.password}
                                 onChange={handleChange}
-                                onBlur={handleBlur}
+                                onBlur={() => {
+                                  handleBlur;
+                                  gaEventTrigger('signup_form_password_click', { source: 'model_password_click', category: 'TextField' });
+                                }}
                                 error={touched.password && Boolean(errors.password)}
                                 helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
                                 sx={{
@@ -302,7 +325,13 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                                 name="confirmPassword"
                                 value={values.confirmPassword}
                                 onChange={handleChange}
-                                onBlur={handleBlur}
+                                onBlur={() => {
+                                  handleBlur;
+                                  gaEventTrigger('signup_form_confirm_password_click', {
+                                    source: 'model_confirm_password_click',
+                                    category: 'TextField'
+                                  });
+                                }}
                                 error={touched.confirmPassword && Boolean(errors.confirmPassword)}
                                 helperText={
                                   touched.confirmPassword && errors.confirmPassword ? <FormattedMessage id={errors.confirmPassword} /> : ''
@@ -357,7 +386,13 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             whiteSpace="nowrap"
                             variant="body"
                             sx={{ color: 'text.secondary', cursor: 'pointer' }}
-                            onClick={onLoginOpen}
+                            onClick={() => {
+                              onLoginOpen();
+                              gaEventTrigger('signup_form_login_instead_click', {
+                                source: 'model_login_instead_click',
+                                category: 'Button'
+                              });
+                            }}
                           >
                             <FormattedMessage id="LogInInstead" />
                           </UINewTypography>

@@ -14,16 +14,16 @@ import { CommonServices } from 'services/commonApi/commonApi.services';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import MoreFilters from '../searchPage/moreFilters';
-import { MenuContainer } from './GuestLayout.styled';
+import { AppBarBox, CreditAvailableButton, GuestLoginButton, HeaderDropdownStyledBox, MenuContainer } from './GuestLayout.styled';
 import MenuItem from '@mui/material/MenuItem';
 import { useAuthContext } from '../../../../context/AuthContext';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import Button from '@mui/material/Button';
 import FreeCreditsSignUp from '../homePage/freeCreditsSignUp';
 import { SearchTitalBoxSm } from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/HeaderAuthComponent.styled';
+import dynamic from 'next/dynamic';
 const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
   ssr: false
 });
@@ -39,7 +39,9 @@ const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPass
 const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
   ssr: false
 });
-import dynamic from 'next/dynamic';
+const ChatRoomDropdown = dynamic(() => import('components/common/stepper/ChatDropDown'), {
+  ssr: false
+});
 
 const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
   ssr: false
@@ -48,7 +50,6 @@ const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents
 const HeaderGuestComponent = () => {
   const { isFreeCreditAvailable } = useAuthContext();
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
-
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
@@ -56,8 +57,6 @@ const HeaderGuestComponent = () => {
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  // const [openDropDown, setOpenDropDown] = useState(false);
-  // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
@@ -72,15 +71,6 @@ const HeaderGuestComponent = () => {
   const handleCloseLogout = () => {
     setAnchorElLogout(null);
   };
-
-  // const handleDropDownOpen = (event: React.MouseEvent<HTMLElement>) => {
-  //   setAnchorEl(event.currentTarget);
-  //   setOpenDropDown(true);
-  // };
-
-  // const handleDropDownClose = () => {
-  //   setOpenDropDown(false);
-  // };
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -186,25 +176,7 @@ const HeaderGuestComponent = () => {
           boxShadow: 'none'
         }}
       >
-        {/* <Toolbar
-          disableGutters
-          sx={{
-            px: { xs: '15px', lg: '134px' },
-            pt: { xs: '18px', sm: '12px' },
-            pb: { xs: '18px', sm: '12px' },
-            justifyContent: 'space-between'
-          }}
-        > */}
-        {/* <Box display="flex" gap="65px"> */}
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 4.5,
-            justifyContent: 'center',
-            padding: '12px 10px 12px 10px'
-          }}
-        >
+        <AppBarBox>
           <Box
             component={Link}
             prefetch={true}
@@ -234,53 +206,24 @@ const HeaderGuestComponent = () => {
               </UINewTypography>
             </SearchTitalBoxSm>
           )}
-          {/* </Box> */}
-
-          {/* <Box display="flex" gap={2}> */}
-          {/* <Box
-            display="flex"
-            alignItems="center"
-            sx={{
-              gap: isSmaller
-                ? 1
-                : {
-                    xs: 2.5,
-                    sm: 4.5
-                  }
-            }}
-          > */}
-
           {!isMdUp && (
             <Box display="flex" alignItems="center" gap={1} onClick={handleOpenFilterModal}>
               <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
             </Box>
           )}
-          {/* <ListItemText>
-                <Link href="/model">
-                  <UINewTypography variant="bodyLight" color="text.secondary">
-                    <FormattedMessage id="RegisterAsModel" />
-                  </UINewTypography>
-                </Link>
-              </ListItemText> */}
           {isSMDown ? (
             <Box>
               <LanguageDropdown />
             </Box>
           ) : (
-            <Box
-              sx={{
-                border: '1px solid #E9E8EB33',
-                borderRadius: '8px',
-                padding: '12px 16px 12px 16px',
-                height: '100%',
-                maxHeight: '46px',
-                alignItems: 'center',
-                textAlign: 'center',
-                display: 'flex'
-              }}
-            >
-              <LanguageDropdown />
-            </Box>
+            <>
+              <HeaderDropdownStyledBox>
+                <LanguageDropdown />
+              </HeaderDropdownStyledBox>
+              <HeaderDropdownStyledBox>
+                <ChatRoomDropdown />
+              </HeaderDropdownStyledBox>
+            </>
           )}
           {!isMdUp && (
             <>
@@ -313,21 +256,6 @@ const HeaderGuestComponent = () => {
                     </UINewTypography>
                   </ListItemText>
                 </MenuItem>
-                {/* <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                    <MenuItem>
-                      <ListItemIcon>
-                        <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                          <Box component="img" src="/images/header/register-model-img.png" sx={{ width: '24px', height: '24px' }} />
-                        </IconButton>
-                      </ListItemIcon>
-                      <ListItemText>
-                        <Link href="/model">
-                          <UINewTypography variant="bodyLight" color="text.secondary">
-                            <FormattedMessage id="RegisterAsModel" />
-                          </UINewTypography>
-                        </Link>
-                      </ListItemText>
-                    </MenuItem> */}
                 <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                 <MenuItem>
                   <ListItemText>
@@ -343,53 +271,40 @@ const HeaderGuestComponent = () => {
                     </UIThemeShadowButton>
                   </ListItemText>
                 </MenuItem>
+                {isSMDown && (
+                  <>
+                    <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                    <MenuItem>
+                      <HeaderDropdownStyledBox>
+                        <ChatRoomDropdown />
+                      </HeaderDropdownStyledBox>
+                    </MenuItem>
+                  </>
+                )}
               </MenuContainer>
             </>
           )}
           {isMdUp && (
-            <Box
-              display="flex"
-              alignItems="center"
-              gap={1}
+            <GuestLoginButton
               onClick={() => {
                 gaEventTrigger('Login_Button_clicked', { source: 'header', category: 'Button' });
                 handleLoginOpen();
-              }}
-              sx={{
-                border: '1px solid #E9E8EB33',
-                borderRadius: '8px',
-                padding: '12px 16px 12px 16px',
-                height: '100%',
-                maxHeight: '46px',
-                alignItems: 'center',
-                textAlign: 'center',
-                display: 'flex',
-                cursor: 'pointer'
               }}
             >
               <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
               <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                 <FormattedMessage id="LogIn" />
               </UINewTypography>
-            </Box>
+            </GuestLoginButton>
           )}
           {isMdUp &&
             (isFreeCreditAvailable ? (
-              <Button
-                onClick={handleFreeCreditSignupOpen}
-                sx={{
-                  width: '318px',
-                  background: 'linear-gradient(90deg, #FECD3D, #FFF1C6, #FF68C0)',
-                  boxShadow: '0px 4px 10px #FF68C07A',
-                  borderRadius: '8px',
-                  gap: 1
-                }}
-              >
+              <CreditAvailableButton onClick={handleFreeCreditSignupOpen}>
                 <Box component="img" src="/images/icons/free-credit-icon.png" width="24px" height="30px" alt="free_credit" />
                 <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
                   <FormattedMessage id="FREECall" />
                 </UINewTypography>
-              </Button>
+              </CreditAvailableButton>
             ) : (
               <UIThemeShadowButton variant="contained" onClick={handleSignupOpen} sx={{ width: '195px' }}>
                 <UINewTypography variant="body" lineHeight={'150%'}>
@@ -398,10 +313,7 @@ const HeaderGuestComponent = () => {
                 <Box component="img" src="/images/icons/signup-img.png" alt="signup" sx={{ width: '16px', height: '16px' }} />
               </UIThemeShadowButton>
             ))}
-        </Box>
-        {/* </Box> */}
-        {/* </Box> */}
-        {/* </Toolbar> */}
+        </AppBarBox>
       </AppBar>
       <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
@@ -427,7 +339,6 @@ const HeaderGuestComponent = () => {
         <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
       </NewSignupStyledModalDialog>
 
-      {/* <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} /> */}
       <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
 
       {isSmUp && isUserInteracted && (

@@ -8,6 +8,18 @@ const nextConfig = {
       static: 0
     }
   },
+  async rewrites() {
+    return [
+      {
+        source: '/sitemap/page-sitemap.xml',
+        destination: '/sitemap/sitemap.xml'
+      },
+      {
+        source: '/sitemap/model-sitemap.xml',
+        destination: '/model/sitemap.xml'
+      }
+    ];
+  },
   async headers() {
     return [
       {
@@ -61,7 +73,7 @@ const nextConfig = {
     }
   },
   images: {
-    domains: ['ik.imagekit.io', 'flirtbate-storage.ams3.digitaloceanspaces.com'],
+    domains: ['ik.imagekit.io', 'flirtbate-storage.ams3.digitaloceanspaces.com', 'flirtbate-profile-media.ams3.cdn.digitaloceanspaces.com'],
     remotePatterns: [
       {
         protocol: 'https',

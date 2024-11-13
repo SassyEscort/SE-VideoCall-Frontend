@@ -12,6 +12,7 @@ import {
   CreditTypography,
   CreditsContent,
   CreditsHeader,
+  CreditsListingBox,
   CurrentAmountTypography,
   CurrentBalanceBox,
   CurrentBalanceTypography,
@@ -137,31 +138,6 @@ const CreditSideDrawer = ({
             </CurrentBalanceBox>
             <MainImageBox />
             <CreditListMainBox>
-              {/* {customerDetails && !Boolean(customerDetails?.free_credits_claimed) && isFreeCreditAvailable === 1 && (
-                <CreditListContainer
-                  sx={{
-                    background: 'linear-gradient(90deg, #FECD3D 11.5%, #FFF1C6 52%, #FF69C1 90%)',
-                    border: 'none'
-                  }}
-                  onClick={() => router.push('/profile')}
-                >
-                  <CreditInfoBox>
-                    <Box component={'img'} src="/images/credits/coinwthIcon.png" alt="coin.png" width={18} height={18} />
-                    <Box>
-                      <UINewTypography variant="SubtitleSmallMedium" color={'primary.200'}>
-                        <FormattedMessage id="ClaimFreeCredits" />
-                      </UINewTypography>
-                    </Box>
-                  </CreditInfoBox>
-                  <CreditPriceBox>
-                    <Box component={'img'} src="/images/home/gitftsecond.png" alt="coin.png" width={24} height={29} />
-                    /* <CreditTypography color={'primary.200'}>
-                      <FormattedMessage id="FREE" />
-                    </CreditTypography> /
-                  </CreditPriceBox>
-                </CreditListContainer>
-              )} */}
-
               {creditsListing &&
                 creditsListing?.map((creditsListing, index) => (
                   <CreditListContainer
@@ -233,9 +209,18 @@ const CreditSideDrawer = ({
                     <CreditInfoBox>
                       <Box component={'img'} src="/images/credits/coinwthIcon.png" alt="coin.png" width={18} height={18} />
                       <Box>
-                        <UINewTypography variant="SubtitleSmallMedium" color={'white.main'}>
-                          {(creditsListing?.tag === 'First Time Only' && creditsListing?.credits - 10 + '+ 10') || creditsListing?.credits}{' '}
-                          <FormattedMessage id="Credits" />
+                        <UINewTypography variant="SubtitleSmallMedium" color="white.main">
+                          {creditsListing?.label ? (
+                            <>
+                              {creditsListing?.label?.split('+')[0]}
+                              <CreditsListingBox>
+                                +{creditsListing?.label?.split('+')[1]}
+                                <FormattedMessage id="Credits" />
+                              </CreditsListingBox>
+                            </>
+                          ) : (
+                            creditsListing?.credits
+                          )}{' '}
                         </UINewTypography>
                       </Box>
                     </CreditInfoBox>
