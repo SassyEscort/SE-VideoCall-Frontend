@@ -58,5 +58,6 @@ export enum DOCUMENT_UPLOAD_FILE_TYPE {
 
 export enum ROLE {
   MODEL = 'model',
-  CUSTOMER = 'customer'
+  CUSTOMER = 'customer',
+  ADMIN = 'admin'
 }

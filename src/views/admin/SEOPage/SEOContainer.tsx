@@ -38,6 +38,10 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
+import { useAuthContext } from '../../../../context/AuthContext';
+import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
+import { useRouter } from 'next/navigation';
+import { SEOPage } from 'constants/adminUserAccessConstants';
 
 export type PaginationType = {
   page: number;
@@ -50,6 +54,10 @@ export type PaginationType = {
 };
 
 export default function SEOContainer() {
+  const router = useRouter();
+  const { adminUserPermissions, isAdmin } = useAuthContext();
+  const UpdatePermission = adminUserPermissions ? haveUpdatePermission(SEOPage, adminUserPermissions) : false;
+
   const [selectedSEOData, setSelectedSEOData] = useState<AdminSEOProfileData | null>(null);
   const [data, setData] = useState<AdminSEOProfileData[]>([]);
   const [open, setOpen] = useState<null | HTMLElement>(null);
@@ -221,6 +229,14 @@ export default function SEOContainer() {
     }
   };
 
+  useEffect(() => {
+    if (adminUserPermissions) {
+      const isAccessiable = isPageAccessiable(SEOPage, adminUserPermissions) || isAdmin;
+      isAccessiable ? '' : router.push('/admin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adminUserPermissions, isAdmin]);
+
   return (
     <MainLayout>
       <>
@@ -260,7 +276,7 @@ export default function SEOContainer() {
           <Paper sx={{ overflow: 'hidden' }}>
             <TableContainer sx={{ width: '100%' }}>
               <Table>
-                <SEOListHead />
+                <SEOListHead isAdmin={isAdmin} UpdatePermission={UpdatePermission} />
                 <TableBody>
                   {isLoading ? (
                     <TableRow>
@@ -291,21 +307,23 @@ export default function SEOContainer() {
                           {item?.description || '-'}
                         </TableCell>
 
-                        <TableCell>
-                          <IconButton
-                            aria-label="more"
-                            id="long-button"
-                            aria-controls={open ? 'long-menu' : undefined}
-                            aria-expanded={open ? 'true' : undefined}
-                            aria-haspopup="true"
-                            onClick={(e) => {
-                              setSelectedSEOData(item);
-                              handleOpenMenu(e);
-                            }}
-                          >
-                            <MoreVert />
-                          </IconButton>
-                        </TableCell>
+                        {(isAdmin || UpdatePermission) && (
+                          <TableCell>
+                            <IconButton
+                              aria-label="more"
+                              id="long-button"
+                              aria-controls={open ? 'long-menu' : undefined}
+                              aria-expanded={open ? 'true' : undefined}
+                              aria-haspopup="true"
+                              onClick={(e) => {
+                                setSelectedSEOData(item);
+                                handleOpenMenu(e);
+                              }}
+                            >
+                              <MoreVert />
+                            </IconButton>
+                          </TableCell>
+                        )}
                       </TableRow>
                     ))
                   ) : (
