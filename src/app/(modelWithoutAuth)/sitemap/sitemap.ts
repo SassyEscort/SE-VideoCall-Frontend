@@ -1,5 +1,4 @@
 import type { MetadataRoute } from 'next';
-//sitemap
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
