@@ -107,10 +107,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
 
   const handleClose = () => {
     setOpenSuccess(false);
-
-    // setTimeout(() => {
     router.push(pathname);
-    // }, 2000);
   };
 
   const handleCreditDrawerClose = () => {
@@ -142,9 +139,16 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     setBalance(Number(totalBal));
     setAddedCredits(Number(credit));
-    console.log(credit, 'credit');
     if (credit) {
       setOpenSuccess(true);
+      // if (typeof window !== 'undefined' && window?.flux)
+      //   window.flux.track('conversion', { rev: Number(credit), tx: transaction_id?.toString() });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (credit) {
       gaEventTrigger(
         'purchase',
         {
@@ -155,27 +159,9 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         },
         Number(totalBalValue)
       );
-      // if (typeof window !== 'undefined' && window?.flux)
-      //   window.flux.track('conversion', { rev: Number(credit), tx: transaction_id?.toString() });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
-
-  // useEffect(() => {
-  //   if (credit) {
-  //     gaEventTrigger(
-  //       'purchase',
-  //       {
-  //         action: 'purchase',
-  //         category: 'Page change',
-  //         label: 'purchase',
-  //         value: JSON.stringify(customerInfo)
-  //       },
-  //       Number(totalBalValue)
-  //     );
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [credit]);
+  }, [credit]);
 
   return (
     <AuthContext.Provider

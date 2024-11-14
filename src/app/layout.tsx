@@ -20,7 +20,7 @@ export default function RootLayout({
 }: Readonly<{
   children: JSX.Element;
 }>) {
-  // const isProduction = process.env.NEXT_PUBLIC_ENV === 'production';
+  const isProduction = process.env.NEXT_PUBLIC_ENV === 'production';
   return (
     <html lang="en">
       <head>
@@ -35,32 +35,32 @@ export default function RootLayout({
         <meta name="robots" content="index, follow" />
       </head>
 
-      {/* {isProduction && ( */}
-      <>
-        <Script defer async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`} />
-        <Script
-          async
-          defer
-          id="dataLayer-script"
-          type="text/javascript"
-          strategy="lazyOnload"
-          dangerouslySetInnerHTML={{
-            __html: `
+      {isProduction && (
+        <>
+          <Script defer async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`} />
+          <Script
+            async
+            defer
+            id="dataLayer-script"
+            type="text/javascript"
+            strategy="lazyOnload"
+            dangerouslySetInnerHTML={{
+              __html: `
                   window.dataLayer = window.dataLayer || [];
                   function gtag(){dataLayer.push(arguments);}
                   gtag('js', new Date());
                   gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');
                 `
-          }}
-        />
-        <Script
-          async
-          defer
-          id="gtag-script"
-          type="text/javascript"
-          strategy="lazyOnload"
-          dangerouslySetInnerHTML={{
-            __html: `function gtag_report_conversion(url) {
+            }}
+          />
+          <Script
+            async
+            defer
+            id="gtag-script"
+            type="text/javascript"
+            strategy="lazyOnload"
+            dangerouslySetInnerHTML={{
+              __html: `function gtag_report_conversion(url) {
               var callback = function () {
                 if (typeof(url) != 'undefined') {
                   window.location = url;
@@ -72,10 +72,10 @@ export default function RootLayout({
               });
               return false;
             }`
-          }}
-        />
+            }}
+          />
 
-        {/* <Script
+          {/* <Script
             async
             defer
             id="lumetric-script"
@@ -117,8 +117,8 @@ export default function RootLayout({
               __html: `flux.track("view");`
             }}
           /> */}
-      </>
-      {/* )} */}
+        </>
+      )}
       <body>
         {/* <Script
           defer
