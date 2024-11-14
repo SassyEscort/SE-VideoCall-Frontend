@@ -112,6 +112,7 @@ export class VerificationStepService {
 
   static modelMultipleImageUplaodApi = async (fileData: FileBody[], token: string) => {
     const payload: ImageUploadPayload[] = [];
+
     for (const data of fileData) {
       if (Array.isArray(data.file)) {
         for (const value of data.file) {
@@ -137,7 +138,7 @@ export class VerificationStepService {
             type: data?.type,
             file_id: res?.data?.data.fileId,
             file_type:
-              res?.data?.data.url.split('.').pop() === 'bmp' ? DOCUMENT_UPLOAD_FILE_TYPE.IMAGE : res?.data?.data.url.split('.').pop(),
+              res?.data?.data.url.split('.').pop() === 'pdf' ? DOCUMENT_UPLOAD_FILE_TYPE.NON_IMAGE : DOCUMENT_UPLOAD_FILE_TYPE.IMAGE,
             document_front_side: 0
           });
         }

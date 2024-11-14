@@ -210,7 +210,7 @@ const VerificationStepPromise = ({
                   document_type: String(selectedDocument) ?? modelDetails?.documents[0].document_type,
                   document_number: docValues.idNumber ? docValues.idNumber : modelDetails?.documents[0].document_number ?? '',
                   file_id: x.file_id,
-                  file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image',
+                  file_type: x.file_type,
                   document_front_side: i === 0 ? 1 : 0
                 });
             });
