@@ -2,9 +2,9 @@ import Box from '@mui/material/Box';
 import React from 'react';
 import { HowChatWorksInnerBox, HowChatWorksMainContainer, HowChatWorksTableBox, HowVideoChatWorksTypography } from './howChatWorks.styled';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
-import { ChatWhyChooseTitleTypography } from '../chatWhyChooseViews/chatWhyChoose.styled';
+import { ChatWhyChooseTitleTypography } from '../startVideoChatViews/startVideoChat.styled';
 
-const CamPerks = () => (
+const HowChatWorks = () => (
   <HomeMainContainer>
     <HowChatWorksMainContainer>
       <Box>
@@ -42,4 +42,4 @@ const CamPerks = () => (
   </HomeMainContainer>
 );
 
-export default CamPerks;
+export default HowChatWorks;

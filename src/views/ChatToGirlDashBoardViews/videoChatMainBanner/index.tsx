@@ -37,7 +37,7 @@ const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup')
   ssr: false
 });
 
-const CamToCamDashboardBanner = () => {
+const VideoChatDashboardBanner = () => {
   const { isFreeCreditAvailable } = useAuthContext();
 
   const [open, setIsOpen] = useState(false);
@@ -151,4 +151,4 @@ const CamToCamDashboardBanner = () => {
   );
 };
 
-export default CamToCamDashboardBanner;
+export default VideoChatDashboardBanner;

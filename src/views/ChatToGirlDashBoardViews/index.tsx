@@ -1,13 +1,13 @@
 'use client';
 
-import CamToCamDashboardBanner from './videoChatMainBanner';
-import CamToCamChooseModal from './chatChooseModalViews';
-import CamConnectinonLevel from './chatWhyChooseViews';
-import WebcamDashboard from './whyChooseDashboard';
-import CamSexExperience from './VideoChatExperienceViews';
-import WebcamDashboardBeyond from './whatMakesChatSpecial';
-import CamExperienceBanner from './chatExperienceBanner';
-import CamPerks from './howVideoChatWorkViews';
+import VideoChatDashboardBanner from './videoChatMainBanner';
+import WhyChatChooseModal from './chatChooseModalViews';
+import StartYourVideoChatLevel from './startVideoChatViews';
+import WhyChooseDashboard from './whyChooseDashboard';
+import VideoChatExperience from './VideoChatExperienceViews';
+import WhySpecialDashboardBeyond from './whatMakesChatSpecial';
+import VideoChatExperienceBanner from './chatExperienceBanner';
+import HowChatWorks from './howVideoChatWorkViews';
 import HomeContainer from 'views/guestViews/homePage';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -28,14 +28,14 @@ export const ChatToGirlDashBoard = () => {
 
   return (
     <>
-      {token.token ? <HomeContainer /> : <CamToCamDashboardBanner />}
-      <WebcamDashboard />
-      <CamToCamChooseModal />
-      <WebcamDashboardBeyond />
-      <CamConnectinonLevel />
-      <CamSexExperience />
-      <CamPerks />
-      <CamExperienceBanner token={token.token} />
+      {token.token ? <HomeContainer /> : <VideoChatDashboardBanner />}
+      <WhyChooseDashboard />
+      <WhyChatChooseModal />
+      <WhySpecialDashboardBeyond />
+      <StartYourVideoChatLevel />
+      <VideoChatExperience />
+      <HowChatWorks />
+      <VideoChatExperienceBanner token={token.token} />
     </>
   );
 };

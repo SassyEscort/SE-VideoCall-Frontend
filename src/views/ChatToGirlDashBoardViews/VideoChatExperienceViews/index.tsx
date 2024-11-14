@@ -14,7 +14,7 @@ import {
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { FormattedMessage } from 'react-intl';
 
-const CamSexExperience = () => (
+const VideoChatExperience = () => (
   <VideoChatExperienceMainContainer>
     <HomeMainContainer>
       <Grid container direction={{ xs: 'column-reverse', sm: 'column-reverse', md: 'row' }} sx={{ padding: '15px' }}>
@@ -38,4 +38,4 @@ const CamSexExperience = () => (
   </VideoChatExperienceMainContainer>
 );
 
-export default CamSexExperience;
+export default VideoChatExperience;

@@ -36,7 +36,7 @@ const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup')
   ssr: false
 });
 
-const CamExperienceBanner = ({ token }: { token: string }) => {
+const VideoChatExperienceBanner = ({ token }: { token: string }) => {
   const { isFreeCreditAvailable } = useAuthContext();
 
   const [open, setIsOpen] = useState(false);
@@ -147,4 +147,4 @@ const CamExperienceBanner = ({ token }: { token: string }) => {
   );
 };
 
-export default CamExperienceBanner;
+export default VideoChatExperienceBanner;

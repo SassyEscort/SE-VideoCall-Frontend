@@ -9,9 +9,9 @@ import {
   ChatWhyChooseSubTitleTypography,
   ChatWhyChooseTitleTypography,
   ChatSubTitlePointTypography
-} from '../chatWhyChooseViews/chatWhyChoose.styled';
+} from '../startVideoChatViews/startVideoChat.styled';
 
-const CamToCamChooseModal = () => (
+const WhyChatChooseModal = () => (
   <ChatToGirlsChooseModalMainContainer>
     <ChatToGirlsChooseModalContainer>
       <ChatWhyChooseTitleTypography>Why Choose FlirtBate to Video Chat with Girls?</ChatWhyChooseTitleTypography>
@@ -33,4 +33,4 @@ const CamToCamChooseModal = () => (
   </ChatToGirlsChooseModalMainContainer>
 );
 
-export default CamToCamChooseModal;
+export default WhyChatChooseModal;

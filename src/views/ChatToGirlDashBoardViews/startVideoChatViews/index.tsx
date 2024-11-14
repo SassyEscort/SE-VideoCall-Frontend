@@ -11,12 +11,12 @@ import {
   ChatWhyChooseTitleTypography,
   LightCirclesBox,
   PinkLightCirclesBox
-} from './chatWhyChoose.styled';
+} from './startVideoChat.styled';
 import { ChatToGirlsChooseModalInnerContainer, ChatToGirlsChooseModalSubTextStyledBox } from '../chatChooseModalViews/chooseModal.styled';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
-const CamConnectinonLevel = () => (
+const StartYourVideoChatLevel = () => (
   <ChatWhyChooseMainContainer>
     <ChatWhyChooseContainer>
       <ChatToGirlsChooseModalInnerContainer>
@@ -87,4 +87,4 @@ const CamConnectinonLevel = () => (
   </ChatWhyChooseMainContainer>
 );
 
-export default CamConnectinonLevel;
+export default StartYourVideoChatLevel;

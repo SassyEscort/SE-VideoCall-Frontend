@@ -14,7 +14,7 @@ import {
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import Box from '@mui/system/Box';
 
-const WebcamDashboardBeyond = () => {
+const WhySpecialDashboardBeyond = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   return (
@@ -59,4 +59,4 @@ const WebcamDashboardBeyond = () => {
   );
 };
 
-export default WebcamDashboardBeyond;
+export default WhySpecialDashboardBeyond;

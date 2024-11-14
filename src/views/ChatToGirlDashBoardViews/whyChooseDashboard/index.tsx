@@ -14,7 +14,7 @@ import {
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import Box from '@mui/system/Box';
 
-const WebcamDashboard = () => {
+const WhyChooseDashboard = () => {
   const isXsDown = useMediaQuery(theme.breakpoints.down(321));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isMdDown = useMediaQuery(theme.breakpoints.between('sm', 'md'));
@@ -70,4 +70,4 @@ const WebcamDashboard = () => {
   );
 };
 
-export default WebcamDashboard;
+export default WhyChooseDashboard;
