@@ -10,11 +10,13 @@ import * as Yup from 'yup';
 const SupportSettingComponet = ({
   supportSettingData,
   handleUpdate,
-  loadingButtons
+  loadingButtons,
+  UpdatePermission
 }: {
   supportSettingData: AdminSettingData[];
   handleUpdate: (item: AdminSettingData) => void;
   loadingButtons: { [key: string]: boolean };
+  UpdatePermission: boolean;
 }) => {
   const validationSchema = Yup.array().of(
     Yup.object().shape({
@@ -40,7 +42,7 @@ const SupportSettingComponet = ({
               {values &&
                 values.map((item, index) => (
                   <>
-                    <Grid item xs={10} md={4} key={item.id}>
+                    <Grid item xs={UpdatePermission ? 10 : 12} md={UpdatePermission ? 4 : 6} key={item.id}>
                       <Typography variant="h6" gutterBottom>
                         {item.label}
                       </Typography>
@@ -48,6 +50,7 @@ const SupportSettingComponet = ({
                         id={item.label}
                         name={`${index}.content`}
                         type="string"
+                        disabled={!UpdatePermission}
                         value={item.content}
                         onChange={(e) => handleUpdateValues(e.target.value, index)}
                         onBlur={handleBlur}
@@ -56,17 +59,19 @@ const SupportSettingComponet = ({
                         sx={{ width: '100%', maxWidth: '500px' }}
                       />
                     </Grid>
-                    <Grid item xs={2} md={2} sx={{ alignContent: 'end', marginBottom: '13px' }}>
-                      <LoadingButton
-                        loading={loadingButtons[item.id] || false}
-                        size="large"
-                        onClick={() => handleUpdate(item)}
-                        variant="contained"
-                        color="primary"
-                      >
-                        Save
-                      </LoadingButton>
-                    </Grid>
+                    {UpdatePermission && (
+                      <Grid item xs={2} md={2} sx={{ alignContent: 'end', marginBottom: '13px' }}>
+                        <LoadingButton
+                          loading={loadingButtons[item.id] || false}
+                          size="large"
+                          onClick={() => handleUpdate(item)}
+                          variant="contained"
+                          color="primary"
+                        >
+                          Save
+                        </LoadingButton>
+                      </Grid>
+                    )}
                   </>
                 ))}
             </Grid>
