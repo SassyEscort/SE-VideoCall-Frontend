@@ -18,6 +18,7 @@ import DeleteModal from 'components/UIComponents/DeleteModal';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
+import { toast } from 'react-toastify';
 
 const ModelPhotos = ({ modelData }: { modelData: ModelDetailsRes }) => {
   const [open, setOpen] = useState<null | HTMLElement>(null);
@@ -48,13 +49,19 @@ const ModelPhotos = ({ modelData }: { modelData: ModelDetailsRes }) => {
   const handelDeletePhoto = async () => {
     try {
       if (selectedPhoto) {
-        const isDelete = await adminModelServices.modelDeleteThumbnail(token.token, selectedPhoto?.file_id as string);
+        const isDelete = await adminModelServices.modelPhotoDelete(token.token, selectedPhoto?.file_id as string);
+
         if (isDelete.code === 200) {
           const newModalPhoto = modalPhoto.filter((photo) => photo.file_id !== selectedPhoto?.file_id);
           newModalPhoto.sort((a, b) => b.favourite - a.favourite);
 
           setModalPhoto(newModalPhoto);
           setSelectedPhoto(null);
+          toast.success('Photo deleted successfully');
+        } else if (isDelete.code === 400) {
+          toast.error(isDelete.message);
+        } else {
+          toast.error('Something went wrong');
         }
         handleCloseModal();
       }

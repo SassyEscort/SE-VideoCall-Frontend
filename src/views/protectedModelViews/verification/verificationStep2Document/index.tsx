@@ -133,7 +133,7 @@ const VerificationStepPromise = ({
           let payload: ImagePayload;
           setLoading(true);
           if (values.photoWithoutFilter) {
-            const mutationImageUpload = await VerificationStepService.imageKitUplaodApi(values.photoWithoutFilter as File);
+            const mutationImageUpload = await VerificationStepService.customImageUploadApi(values.photoWithoutFilter as File, token.token);
 
             const selectedDocument = DocumentList.find((item) => item.key === docValues.idType)?.value;
             payload = {
@@ -193,7 +193,7 @@ const VerificationStepPromise = ({
               }
             ];
 
-            const mutationMultipleImageUpload = await VerificationStepService.multipleImageKitUplaodApi(fileBody);
+            const mutationMultipleImageUpload = await VerificationStepService.customMultipleImageUplaodApi(fileBody, token.token);
             const selectedDocument = DocumentList.find((item) => item.key === docValues.idType)?.value;
 
             const uploadPhotos: ImageUploadPayload[] = [];
@@ -261,9 +261,7 @@ const VerificationStepPromise = ({
             >
               <Box display="flex" gap={1.5} flexDirection="column">
                 {!isDashboard && (
-                  <UINewTypography variant="h2">
-                    <FormattedMessage id="PleaseUploadYourDocuments" />
-                  </UINewTypography>
+                  <UINewTypography variant="h2">{/* <FormattedMessage id="PleaseUploadYourDocuments" /> */}</UINewTypography>
                 )}
                 <TextDetailsBoxContainer>
                   <UINewTypography color="secondary.200">

@@ -7,6 +7,7 @@ import {
   ModelDetailStatusOfflineRes,
   ModelFilterParams
 } from './types';
+import { GenericRes } from 'services/guestAuth/authuser.services';
 
 export type ModelListing = {
   country_id: number;
@@ -203,17 +204,18 @@ export class adminModelServices {
     }
   };
 
-  static modelDeleteThumbnail = async (token: string, id: string): Promise<ModelDetailsDeleteRes> => {
+  static modelPhotoDelete = async (token: string, id: string): Promise<GenericRes> => {
     try {
-      const res = await axios.delete(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/file/${id}`, {
+      const res = await axios.delete(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/do-file/${id}`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: token
         }
       });
       return res.data;
-    } catch (error) {
-      return error as ModelDetailsDeleteRes;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as GenericRes;
     }
   };
 }
