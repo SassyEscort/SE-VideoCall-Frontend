@@ -235,7 +235,7 @@ const UploadImage = ({
     });
     try {
       if (values.file5 || workerPhotos.length > 0) {
-        const mutationImageUpload = await VerificationStepService.customMultipleImageUplaodApi(allFilesToUpload, token.token);
+        const mutationImageUpload = await VerificationStepService.modelMultipleImageUplaodApi(allFilesToUpload, token.token);
         const uploadFile5: ImageUploadPayload[] = [...mutationImageUpload.uploadPhotos?.filter((x) => !x.is_document)];
 
         const uploadFile5Existing = [...values.file5Existing]
@@ -306,7 +306,7 @@ const UploadImage = ({
         };
 
         if (deletedFileIds.length) {
-          const data = await VerificationStepService.customDeleteMultipleImage(token.token, { file_ids: deletedFileIds });
+          const data = await VerificationStepService.modelMultipleImageDelete(token.token, { file_ids: deletedFileIds });
           if (data.code === 200) {
             handleModelApiChange();
             // Register Case For Next Step

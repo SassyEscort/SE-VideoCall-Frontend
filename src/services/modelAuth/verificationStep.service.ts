@@ -81,7 +81,7 @@ export class VerificationStepService {
     }
   };
 
-  static customImageUploadApi = async (fileData: CustomFile, token: string): Promise<ImageUploadPayload> => {
+  static modelImageUploadApi = async (fileData: CustomFile, token: string): Promise<ImageUploadPayload> => {
     try {
       const formData = new FormData();
       formData.append('file', fileData);
@@ -101,7 +101,7 @@ export class VerificationStepService {
     }
   };
 
-  static customMultipleImageUplaodApi = async (fileData: FileBody[], token: string) => {
+  static modelMultipleImageUplaodApi = async (fileData: FileBody[], token: string) => {
     const payload: ImageUploadPayload[] = [];
     for (const data of fileData) {
       if (Array.isArray(data.file)) {
@@ -141,7 +141,7 @@ export class VerificationStepService {
     return uploadBody;
   };
 
-  static customDeleteMultipleImage = async (token: string, fileId: FileIdDeleteParams): Promise<GenericRes> => {
+  static modelMultipleImageDelete = async (token: string, fileId: FileIdDeleteParams): Promise<GenericRes> => {
     try {
       const res = await axios.delete(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/do-files`, {
         headers: { 'Content-Type': 'application/json', Authorization: token },
