@@ -126,15 +126,6 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     setBalance(Number(totalBal));
     setAddedCredits(Number(credit));
     if (credit) {
-      setOpenSuccess(true);
-      // if (typeof window !== 'undefined' && window?.flux)
-      //   window.flux.track('conversion', { rev: Number(credit), tx: transaction_id?.toString() });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
-
-  useEffect(() => {
-    if (credit) {
       gaEventTrigger(
         'purchase',
         {
@@ -145,9 +136,12 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         },
         Number(totalBalValue)
       );
+      setOpenSuccess(true);
+      // if (typeof window !== 'undefined' && window?.flux)
+      //   window.flux.track('conversion', { rev: Number(credit), tx: transaction_id?.toString() });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [credit]);
+  }, [searchParams]);
 
   return (
     <AuthContext.Provider
