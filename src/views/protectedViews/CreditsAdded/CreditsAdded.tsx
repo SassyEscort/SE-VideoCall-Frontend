@@ -38,7 +38,7 @@ function CreditsAdded({
     const timer = setTimeout(() => {
       setRedirectSeconds((prevSeconds) => prevSeconds - 1);
       onClose();
-    }, 3000);
+    }, 5000);
 
     if (redirectSeconds === 0) {
       clearTimeout(timer);
