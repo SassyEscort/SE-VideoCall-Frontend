@@ -151,14 +151,14 @@ const HomeContainer = () => {
         const offset = (value - 1) * filters.pageSize;
         const newFilters = { ...filters, page: value, offset: offset };
         setFilters(newFilters);
-        handelFilterChange(newFilters);
+        // handelFilterChange(newFilters);
       }
       if (filters) {
         const isCamtoCamPage = pathname.startsWith('/cam-to-cam');
         const offset = (value - 1) * filters.pageSize;
         const newFilters = { ...filters, page: value, offset: offset };
         setFilters(newFilters);
-        handelFilterChange(newFilters);
+        // handelFilterChange(newFilters);
         if (!isCamtoCamPage) {
           const queryParams = new URLSearchParams(window.location.search);
           queryParams.set('page', value.toString());
@@ -180,9 +180,9 @@ const HomeContainer = () => {
     if (initialRender.current) {
       initialRender.current = false;
     }
-    setTimeout(() => {
-      handleChangeSearchFilter();
-    }, 1000);
+    // setTimeout(() => {
+    handleChangeSearchFilter();
+    // }, 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, searchParams]);
 

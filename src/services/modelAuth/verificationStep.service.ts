@@ -1,23 +1,11 @@
 import axios, { AxiosError } from 'axios';
-import { CustomFile, ImagekitTokenResponse, ImageUplaodBody } from 'views/protectedModelViews/verification/verificationStep2Document/type';
+import { CustomFile } from 'views/protectedModelViews/verification/verificationStep2Document/type';
 import { VerificationPayload } from './types';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { FileBody } from 'views/protectedModelViews/verification/verificationTypes';
-import {
-  ImagePayload,
-  ImageUploadPayload,
-  PhotoUpload,
-  ThumbnailPayload
-} from 'views/protectedModelViews/verification/stepThree/uploadImage';
+import { ImagePayload, ImageUploadPayload, ThumbnailPayload } from 'views/protectedModelViews/verification/stepThree/uploadImage';
 import { DOCUMENT_UPLOAD_FILE_TYPE, PHOTO_TYPE } from 'constants/workerVerification';
-import { GenericRes } from 'services/guestAuth/authuser.services';
-
-export const imageKitObj = {
-  publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_KEY!,
-  folder: 'images',
-  authenticationEndPoint: process.env.AUTHENTICATION_END_POINT!,
-  uploadApi: 'https://upload.imagekit.io/api/v1/files/upload'
-};
+import { GenericRes, GenericResCustom } from 'services/guestAuth/authuser.services';
 
 export type EmailVerify = {
   email: string;
@@ -28,53 +16,16 @@ export type FileIdDeleteParams = {
   file_ids: string[];
 };
 
+export type SingleFileRes = {
+  fileId: string;
+  url: string;
+};
+
+export interface SingleFileUploadRes extends GenericResCustom {
+  data: SingleFileRes;
+}
+
 export class VerificationStepService {
-  static imageKitAuthApi = async () => {
-    const res = await axios.get<ImagekitTokenResponse>(`${process.env.NEXT_PUBLIC_API_BASE_URL_IMAGE}/api/imagekit`, {
-      headers: { 'Content-Type': 'application/json' }
-    });
-    return res.data;
-  };
-
-  static imageKitUplaodApi = async (fileData: CustomFile): Promise<ImageUploadPayload> => {
-    try {
-      let imageRes;
-      let file_id;
-      let file_type;
-      if (typeof fileData !== 'string') {
-        const getToken = await this.imageKitAuthApi();
-        const body: ImageUplaodBody = {
-          file: fileData,
-          publicKey: imageKitObj.publicKey,
-          signature: getToken.signature,
-          expire: getToken.expire,
-          token: getToken.token,
-          fileName: Date.now().toString() + fileData.name,
-          folder: imageKitObj.folder
-        };
-
-        const response = await axios.post(imageKitObj.uploadApi, body, {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        });
-
-        imageRes = response.data.url;
-        file_id = response.data.fileId;
-        file_type = response.data.videoCodec === 'bmp' ? DOCUMENT_UPLOAD_FILE_TYPE.IMAGE : response.data.fileType;
-      } else {
-        imageRes = fileData;
-      }
-
-      return {
-        photosURL: imageRes,
-        file_id: file_id,
-        file_type: file_type
-      } as unknown as PhotoUpload;
-    } catch (err: any) {
-      const error: AxiosError = err;
-      return error.response?.data as ImageUploadPayload;
-    }
-  };
-
   static verificationtepSecond = async (params: VerificationPayload, token: TokenIdType) => {
     try {
       const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/photos`, params, {
@@ -97,52 +48,6 @@ export class VerificationStepService {
       const error: AxiosError = err;
       return error.response?.data || { error_message: error.message };
     }
-  };
-
-  static multipleImageKitUplaodApi = async (fileData: FileBody[]) => {
-    const payload: ImageUploadPayload[] = [];
-    for (const data of fileData) {
-      if (Array.isArray(data.file)) {
-        for (const value of data.file) {
-          const getToken = await this.imageKitAuthApi();
-
-          const body = {
-            file: value,
-            publicKey: imageKitObj.publicKey,
-            signature: getToken.signature,
-            expire: getToken.expire,
-            token: getToken.token,
-            fileName: Date.now() + (value.name || 'name'),
-            folder: imageKitObj.folder
-          };
-
-          const responseData = await axios.post(imageKitObj.uploadApi, body, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          });
-
-          payload.push({
-            link: responseData?.data?.url,
-            cords: data.cords ? String(data.cords) : '',
-            is_favourite: 0,
-            is_document: 0,
-            document_type: PHOTO_TYPE.MODEL_PHOTO,
-            document_number: null,
-            photosURL: responseData?.data?.url,
-            type: data?.type,
-            file_id: responseData.data.fileId,
-            file_type: responseData.data.videoCodec === 'bmp' ? DOCUMENT_UPLOAD_FILE_TYPE.IMAGE : responseData.data.fileType,
-            document_front_side: 0
-          });
-        }
-      }
-    }
-    const uploadBody = {
-      uploadPhotos: payload
-    };
-
-    return uploadBody;
   };
 
   static modelThumbnailPhoto = async (payload: ThumbnailPayload, token: TokenIdType) => {
@@ -185,24 +90,73 @@ export class VerificationStepService {
     }
   };
 
-  static deleteImage = async (token: string, fileId: string): Promise<GenericRes> => {
+  static modelImageUploadApi = async (fileData: CustomFile, token: string): Promise<SingleFileUploadRes> => {
     try {
-      const res = await axios.delete(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/file/${fileId}`, {
-        headers: { 'Content-Type': 'application/json', Authorization: token }
+      const formData = new FormData();
+      formData.append('file', fileData);
+      formData.append('fileName', Date.now().toString() + fileData.name);
+
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/model-photo`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: token
+        }
       });
-      return res.data;
+
+      return res?.data;
     } catch (err: any) {
       const error: AxiosError = err;
-      return error.response?.data as GenericRes;
+      return error.response?.data as SingleFileUploadRes;
     }
   };
 
-  static deleteMultipleImage = async (token: string, fileId: FileIdDeleteParams): Promise<GenericRes> => {
+  static modelMultipleImageUplaodApi = async (fileData: FileBody[], token: string) => {
+    const payload: ImageUploadPayload[] = [];
+    for (const data of fileData) {
+      if (Array.isArray(data.file)) {
+        for (const value of data.file) {
+          const formData = new FormData();
+          formData.append('file', value);
+          formData.append('fileName', Date.now().toString() + value.name);
+
+          const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/model-photo`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: token
+            }
+          });
+
+          payload.push({
+            link: res?.data?.data.url,
+            cords: data.cords ? String(data.cords) : '',
+            is_favourite: 0,
+            is_document: 0,
+            document_type: PHOTO_TYPE.MODEL_PHOTO,
+            document_number: null,
+            photosURL: res?.data?.data.url,
+            type: data?.type,
+            file_id: res?.data?.data.fileId,
+            file_type:
+              res?.data?.data.url.split('.').pop() === 'bmp' ? DOCUMENT_UPLOAD_FILE_TYPE.IMAGE : res?.data?.data.url.split('.').pop(),
+            document_front_side: 0
+          });
+        }
+      }
+    }
+    const uploadBody = {
+      uploadPhotos: payload
+    };
+
+    return uploadBody;
+  };
+
+  static modelMultipleImageDelete = async (token: string, fileId: FileIdDeleteParams): Promise<GenericRes> => {
     try {
-      const res = await axios.delete(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/files`, {
+      const res = await axios.delete(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/do-files`, {
         headers: { 'Content-Type': 'application/json', Authorization: token },
         data: fileId
       });
+
       return res.data;
     } catch (err: any) {
       const error: AxiosError = err;
