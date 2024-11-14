@@ -136,20 +136,21 @@ const VerificationStepPromise = ({
             const mutationImageUpload = await VerificationStepService.modelImageUploadApi(values.photoWithoutFilter as File, token.token);
 
             const selectedDocument = DocumentList.find((item) => item.key === docValues.idType)?.value;
+
             payload = {
               is_document: true,
               photos: [
                 {
                   id: modelDetails?.documents[0].id ? Number(modelDetails?.documents[0].id) : 0,
-                  link: typeof mutationImageUpload !== 'string' ? String(mutationImageUpload.photosURL) : '',
-                  type: mutationImageUpload.file_type,
+                  link: typeof mutationImageUpload !== 'string' ? String(mutationImageUpload.data.url) : '',
+                  type: mutationImageUpload?.data?.url ? String(mutationImageUpload?.data?.url.split('.').pop()) : '',
                   cords: '',
                   is_favourite: 0,
                   is_document: 1,
                   document_type: String(selectedDocument) ?? modelDetails?.documents[0].document_type,
                   document_number: docValues.idNumber ? docValues.idNumber : modelDetails?.documents[0].document_number ?? '',
-                  file_id: mutationImageUpload.file_id,
-                  file_type: mutationImageUpload.file_type === 'non-image' ? 'Non_Image' : 'Image',
+                  file_id: mutationImageUpload.data.fileId,
+                  file_type: mutationImageUpload?.data?.url.split('.').pop() === 'pdf' ? 'Non_Image' : 'Image',
                   document_front_side: 0
                 }
               ],

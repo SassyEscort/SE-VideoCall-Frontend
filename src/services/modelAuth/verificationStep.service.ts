@@ -5,7 +5,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { FileBody } from 'views/protectedModelViews/verification/verificationTypes';
 import { ImagePayload, ImageUploadPayload, ThumbnailPayload } from 'views/protectedModelViews/verification/stepThree/uploadImage';
 import { DOCUMENT_UPLOAD_FILE_TYPE, PHOTO_TYPE } from 'constants/workerVerification';
-import { GenericRes } from 'services/guestAuth/authuser.services';
+import { GenericRes, GenericResCustom } from 'services/guestAuth/authuser.services';
 
 export type EmailVerify = {
   email: string;
@@ -15,6 +15,15 @@ export type EmailVerify = {
 export type FileIdDeleteParams = {
   file_ids: string[];
 };
+
+export type SingleFileRes = {
+  fileId: string;
+  url: string;
+};
+
+export interface SingleFileUploadRes extends GenericResCustom {
+  data: SingleFileRes;
+}
 
 export class VerificationStepService {
   static verificationtepSecond = async (params: VerificationPayload, token: TokenIdType) => {
@@ -81,7 +90,7 @@ export class VerificationStepService {
     }
   };
 
-  static modelImageUploadApi = async (fileData: CustomFile, token: string): Promise<ImageUploadPayload> => {
+  static modelImageUploadApi = async (fileData: CustomFile, token: string): Promise<SingleFileUploadRes> => {
     try {
       const formData = new FormData();
       formData.append('file', fileData);
@@ -94,10 +103,10 @@ export class VerificationStepService {
         }
       });
 
-      return res.data;
+      return res?.data;
     } catch (err: any) {
       const error: AxiosError = err;
-      return error.response?.data as ImageUploadPayload;
+      return error.response?.data as SingleFileUploadRes;
     }
   };
 
