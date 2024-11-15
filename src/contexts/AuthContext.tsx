@@ -10,6 +10,7 @@ import { createContext, ReactNode, useContext, useEffect, useState, useCallback 
 import { toast } from 'react-toastify';
 import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
 import { gaEventTrigger } from 'utils/analytics';
+import { randomID } from 'utils/videoCall';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
 
@@ -25,6 +26,7 @@ export type AuthContextProps = {
   user: string | undefined;
   isFreeCreditAvailable: number;
   status: string;
+  roomID: string;
   handleFreeCreditClaim: () => void;
   isFreeCreditsClaimed: boolean;
   isModel: boolean;
@@ -44,6 +46,7 @@ const AuthContext = createContext<AuthContextProps>({
   user: '',
   isFreeCreditAvailable: 1,
   status: '',
+  roomID: '',
   handleFreeCreditClaim: () => {},
   isFreeCreditsClaimed: false,
   isModel: false,
@@ -94,6 +97,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
 
   const pathname = usePathname();
   const router = useRouter();
+  const roomID = randomID();
 
   const searchParams = useSearchParams();
   const credit = searchParams.get('credit');
@@ -185,7 +189,8 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         handleCreditDrawerClose,
         token: tokenDetails,
         isAdmin,
-        adminUserPermissions
+        adminUserPermissions,
+        roomID
       }}
     >
       {children}

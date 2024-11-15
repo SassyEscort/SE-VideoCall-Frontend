@@ -39,7 +39,7 @@ import { ModelDetailsResponse } from 'views/protectedModelViews/verification/ver
 import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
 import { usePathname } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
-import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
 // import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import dynamic from 'next/dynamic';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {

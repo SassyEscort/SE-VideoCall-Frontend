@@ -3,7 +3,7 @@ import { ModelSeoService } from 'services/modelSeo/modelSeo.services';
 // import EscortDetailPage from 'views/guestViews/details/EscortDetailPage';
 // import CallFeature from 'views/protectedViews/callingFeature';
 // import { CallFeatureProvider } from '../../../../../context/CallFeatureContext';
-import { CallFeatureProvider } from '../../../../contexts/ZegoCallFeatureContext';
+import { CallFeatureProvider } from '../../../../contexts/ZegoCallContext';
 import dynamic from 'next/dynamic';
 const EscortDetailPage = dynamic(() => import('views/guestViews/details/EscortDetailPage'), {
   ssr: false

@@ -11,7 +11,8 @@ export const CALL_INVITATION_END_REASON = {
   TIMEOUT: 'Timeout',
   CANCELED: 'Canceled',
   BUSY: 'Busy',
-  LEAVEROOM: 'LeaveRoom'
+  LEAVEROOM: 'LeaveRoom',
+  ENDED: 'Ended'
 };
 
 export const CALL_ENDED_BY = {

@@ -13,7 +13,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import { usePathname } from 'next/navigation';
 import Box from '@mui/system/Box';
 // import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
-import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
 import { CallingService } from 'services/calling/calling.services';
 import moment from 'moment';
 import { ModelDetailsParams, ModelDetailsService } from 'services/modelDetails/modelDetails.services';

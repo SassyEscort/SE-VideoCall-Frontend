@@ -129,8 +129,8 @@ const EscortExplore = () => {
     setIsLoading(true);
     if (values) {
       const getModel = await ModelListingService.getModelListing(values, token.token);
-      setModelListing(getModel.model_details);
-      setTotalRows(getModel.aggregate.total_rows);
+      setModelListing(getModel?.model_details);
+      setTotalRows(getModel?.aggregate?.total_rows);
       if (scrollRender.current === false) {
         scrollToTable();
       } else {

@@ -16,6 +16,7 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
+import moment from 'moment';
 
 type CallFeatureContextProps = {
   call: ZegoUIKitPrebuilt | null;
@@ -147,7 +148,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   const [outgoingCallDialogOpen, setOutgoingCallDialogOpen] = useState(false);
   const [, setOutgoingCallInfo] = useState<{ caller: ZegoUser } | null>(null);
-  const [isModelEndedCall, setIsisModelEndedCall] = useState(false);
+  const [isModelEndedCall, setIsModelEndedCall] = useState(false);
 
   const { handleOpen, token, isCustomer } = useAuthContext();
   const appID = process.env.NEXT_PUBLIC_ZEGO_APP_KEY!;
@@ -260,6 +261,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
             setIsCallAccepted(false);
             setIsModelJoin(false);
             setIsCallEnded(true);
+            call?.destroy();
             setCall(null);
             setIsLoading(false);
 
@@ -299,7 +301,10 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
               onLeaveRoom() {
                 callDurationRef.current = { startTime: callDurationRef?.current?.startTime || '', endTime: String(new Date()) };
-                console.log('on Leave Room', userRef.current, modelId, callDurationRef.current);
+                const start_time = (callDurationRef.current.startTime && moment.utc(callDurationRef.current.startTime).format()) || '';
+                const end_time = (callDurationRef.current.endTime && moment.utc(callDurationRef.current.endTime).format()) || '';
+                const duration = (Boolean(start_time && end_time) && moment(end_time).diff(start_time, 'second')) || null;
+                console.log('on Leave Room', userRef.current, modelId, start_time, end_time, duration);
                 if (!userRef.current.isUserLeave) {
                   handleSetUserRef(userRef.current?.userID || '', userRef.current?.userName || '', CALL_ENDED_BY.CUSTOMER, false, true);
                 }
@@ -332,7 +337,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
             console.log('Outgoing call rejected:', { callID, callee });
             setOutgoingCallInfo(null);
             setOutgoingCallDialogOpen(false);
-            setIsisModelEndedCall(true);
+            setIsModelEndedCall(true);
             setIsBusy(true);
             // await creditPutCallLog(modelId, callID, CALLING_STATUS.UNASWERED, ROLE.MODEL);
             setEndCallTime(180000);
@@ -340,6 +345,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
           onOutgoingCallDeclined: (callID: string, callee: ZegoUser) => {
             console.log('Outgoing call declined:', { callID, callee });
+            call?.destroy();
             setCall(null);
             setIsUnanswered(true);
             setOutgoingCallInfo(null);
@@ -354,6 +360,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
             console.log('Outgoing call timeout:', { callID, callees });
             setOutgoingCallInfo(null);
             setOutgoingCallDialogOpen(false);
+            call?.destroy();
             setCall(null);
             setIsUnanswered(true);
             setOutgoingCallInfo(null);
@@ -402,7 +409,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         if (guestId && isCreditAvailable && Boolean(token.token) && isModelAvailable.data.is_online) {
           const isModelBusy = await CallingService.getModelCallStatus(guestId, token.token);
           if (isModelBusy.data.ongoing_calls) {
-            setIsisModelEndedCall(true);
+            setIsModelEndedCall(true);
             setIsBusy(true);
           } else {
             setIsLoading(true);
