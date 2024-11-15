@@ -13,6 +13,7 @@ import {
 } from './whyChooseDashboard.styled';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import Box from '@mui/system/Box';
+import { FormattedMessage } from 'react-intl';
 
 const WhyChooseDashboard = () => {
   const isXsDown = useMediaQuery(theme.breakpoints.down(321));
@@ -43,12 +44,14 @@ const WhyChooseDashboard = () => {
       <WhyDashboardContainer>
         <WhyDashboardFirstBoxContainer>
           <WhyDashboardSecBoxContainer>
-            <WhyDashboardInlineBox>Why Choose FlirtBate to Video Chat with Girls?</WhyDashboardInlineBox>
-            <WhyDashboardSubtitlePointsTypography>Exclusive One-on-One Video Chats : </WhyDashboardSubtitlePointsTypography>
+            <WhyDashboardInlineBox>
+              <FormattedMessage id="WhyChooseFlirtBate" />
+            </WhyDashboardInlineBox>
+            <WhyDashboardSubtitlePointsTypography>
+              <FormattedMessage id="ExclusiveOneonOne" />
+            </WhyDashboardSubtitlePointsTypography>
             <WhyDashboardCamSubtitleTypographyBox>
-              When you want to video chat with babes, privacy and intimacy matter. FlirtBate offers exclusive private video chats, allowing
-              you to focus on getting to know the model of your choice without distractions. These horny girl video chat sessions are
-              designed to create a space for genuine connections and thrilling encounters.
+              <FormattedMessage id="WhenYouWantToVideo" />
             </WhyDashboardCamSubtitleTypographyBox>
           </WhyDashboardSecBoxContainer>
         </WhyDashboardFirstBoxContainer>

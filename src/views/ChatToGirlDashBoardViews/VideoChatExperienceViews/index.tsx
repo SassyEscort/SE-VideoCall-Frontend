@@ -20,10 +20,11 @@ const VideoChatExperience = () => (
       <Grid container direction={{ xs: 'column-reverse', sm: 'column-reverse', md: 'row' }} sx={{ padding: '15px' }}>
         <VideoChatExperienceGridContainer item xs={12} md={6}>
           <VideoChatExperienceInnerContainer>
-            <TypographyTitleBox>Ready to Experience Sex Chat ? </TypographyTitleBox>
+            <TypographyTitleBox>
+              <FormattedMessage id="ReadyExperienceSexChat" />
+            </TypographyTitleBox>
             <TypographySubtitleBox>
-              If you{`'`}re ready to explore the world of sex chat, sign up for free on FlirtBate today. With a wide selection of models
-              available, you can browse profiles, select based on your interests, and start a personalized cam match with ease.
+              <FormattedMessage id="ExploreTheWorldOfSexChat" />
             </TypographySubtitleBox>
           </VideoChatExperienceInnerContainer>
           <TypographyGradiantSubtitleBox>

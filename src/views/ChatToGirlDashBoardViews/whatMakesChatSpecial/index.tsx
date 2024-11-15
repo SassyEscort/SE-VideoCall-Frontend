@@ -13,6 +13,7 @@ import {
 } from './whatMakesChatSpecial.styled';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import Box from '@mui/system/Box';
+import { FormattedMessage } from 'react-intl';
 
 const WhySpecialDashboardBeyond = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -35,22 +36,26 @@ const WhySpecialDashboardBeyond = () => {
         </ChatSpecialBannerBeyondImageCard>
         <ChatSpecialFirstBeyondBoxContainer>
           <ChatSpecialSecBoxBeyondContainer>
-            <ChatSpecialInlineBeyondBox>What Makes FlirtBate Special?</ChatSpecialInlineBeyondBox>
+            <ChatSpecialInlineBeyondBox>
+              <FormattedMessage id="WhatFlirtBateSpecial" />
+            </ChatSpecialInlineBeyondBox>
             <ChatSpecialBannerTypographySubtitleBox>
-              <ChatSpecialBannerPointTypography> Instant Access to Beautiful Girls :</ChatSpecialBannerPointTypography>
-              When you join FlirtBate, you can instantly connect to gorgeous models who are eager to chat. You have the flexibility to start
-              a video chat with girls whenever you want, making it easy to enjoy a spontaneous encounter or plan ahead for a more extended
-              interaction.
+              <ChatSpecialBannerPointTypography>
+                <FormattedMessage id="InstantAccessBeautiful" />
+              </ChatSpecialBannerPointTypography>
+              <FormattedMessage id="WhenYouJoinFlirtBateYouInstantlyConnect" />
             </ChatSpecialBannerTypographySubtitleBox>
             <ChatSpecialBannerTypographySubtitleBox>
-              <ChatSpecialBannerPointTypography> Customizable Chats : </ChatSpecialBannerPointTypography>
-              Every model on FlirtBate offers a unique experience. You can customize your chats, focusing on the kind of interaction you’re
-              looking for—whether that’s playful banter, flirty teasing, or a more personal video chat with babes.
+              <ChatSpecialBannerPointTypography>
+                <FormattedMessage id="CustomizableChats" />
+              </ChatSpecialBannerPointTypography>
+              <FormattedMessage id="ModelOnFlirtBateOffersUnique" />
             </ChatSpecialBannerTypographySubtitleBox>
             <ChatSpecialBannerTypographySubtitleBox>
-              <ChatSpecialBannerPointTypography>Safe and Confidential :</ChatSpecialBannerPointTypography>
-              All your video chats with girls on FlirtBate are private and secure. We use top-tier encryption to ensure that your
-              interactions remain confidential, so you can relax and enjoy your time chatting with our beautiful models.
+              <ChatSpecialBannerPointTypography>
+                <FormattedMessage id="SafeAndConfidential" />
+              </ChatSpecialBannerPointTypography>
+              <FormattedMessage id="AllYourVideoChatsWithGirls" />
             </ChatSpecialBannerTypographySubtitleBox>
           </ChatSpecialSecBoxBeyondContainer>
         </ChatSpecialFirstBeyondBoxContainer>

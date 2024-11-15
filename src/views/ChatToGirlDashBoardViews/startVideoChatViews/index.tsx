@@ -15,22 +15,22 @@ import {
 import { ChatToGirlsChooseModalInnerContainer, ChatToGirlsChooseModalSubTextStyledBox } from '../chatChooseModalViews/chooseModal.styled';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import { FormattedMessage } from 'react-intl';
 
 const StartYourVideoChatLevel = () => (
   <ChatWhyChooseMainContainer>
     <ChatWhyChooseContainer>
       <ChatToGirlsChooseModalInnerContainer>
-        <ChatWhyChooseTitleTypography>Start Your Video Chat with a Girl Today!</ChatWhyChooseTitleTypography>
+        <ChatWhyChooseTitleTypography>
+          <FormattedMessage id="StartYourVideoChat" />
+        </ChatWhyChooseTitleTypography>
       </ChatToGirlsChooseModalInnerContainer>
       <ChatToGirlsChooseModalSubTextStyledBox>
         <ChatWhyChooseSubTitleTypography>
-          FlirtBate is the ultimate destination for real-time video chat with babes. Our models are not only beautiful but also friendly,
-          engaging, and ready to offer you a personalized experience that will leave you coming back for more. With just a few clicks, you
-          can be chatting with a stunning woman who is eager to get to know you.
+          <FormattedMessage id="FlirtBateIstheUltimate" />
         </ChatWhyChooseSubTitleTypography>
         <ChatWhyChooseSubTitleTypography>
-          Create your free account today and dive into a world of video chats with beautiful girls who are ready to make your experience
-          unforgettable!
+          <FormattedMessage id="CreateYourFreeAccountVideoChats" />
         </ChatWhyChooseSubTitleTypography>
       </ChatToGirlsChooseModalSubTextStyledBox>
     </ChatWhyChooseContainer>
@@ -52,9 +52,11 @@ const StartYourVideoChatLevel = () => (
             <ChatWhyChooseInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/Video.png" width="32px" height="100%" />
               <ChatWhyChooseInfoContainer>
-                <ChatWhyChooseDescriptionTitleTypography>No Strings Attached </ChatWhyChooseDescriptionTitleTypography>
+                <ChatWhyChooseDescriptionTitleTypography>
+                  <FormattedMessage id="NoStringsAttached" />
+                </ChatWhyChooseDescriptionTitleTypography>
                 <ChatWhyChooseDescriptionSubTitleTypography>
-                  Enjoy fun and flirty conversations, or take things to the next level with a private horny girl video chat.{' '}
+                  <FormattedMessage id="EnjoyFunandFlirty" />
                 </ChatWhyChooseDescriptionSubTitleTypography>
               </ChatWhyChooseInfoContainer>
             </ChatWhyChooseInfoMainContainer>
@@ -63,9 +65,11 @@ const StartYourVideoChatLevel = () => (
             <ChatWhyChooseInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/Private.png" width="26px" height="26px" />
               <ChatWhyChooseInfoContainer>
-                <ChatWhyChooseDescriptionTitleTypography>Available 24/7 </ChatWhyChooseDescriptionTitleTypography>
+                <ChatWhyChooseDescriptionTitleTypography>
+                  <FormattedMessage id="Available24/7" />
+                </ChatWhyChooseDescriptionTitleTypography>
                 <ChatWhyChooseDescriptionSubTitleTypography>
-                  Our models are online around the clock, so you can enjoy a video chat with girls whenever it suits you.{' '}
+                  <FormattedMessage id="ModelsareOnlineAround" />
                 </ChatWhyChooseDescriptionSubTitleTypography>
               </ChatWhyChooseInfoContainer>
             </ChatWhyChooseInfoMainContainer>
@@ -74,9 +78,11 @@ const StartYourVideoChatLevel = () => (
             <ChatWhyChooseInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/People.png" width="32px" height="100%" />
               <ChatWhyChooseInfoContainer>
-                <ChatWhyChooseDescriptionTitleTypography>HD Quality Video Chats </ChatWhyChooseDescriptionTitleTypography>
+                <ChatWhyChooseDescriptionTitleTypography>
+                  <FormattedMessage id="HDQualityVideoChats" />
+                </ChatWhyChooseDescriptionTitleTypography>
                 <ChatWhyChooseDescriptionSubTitleTypography>
-                  Experience video chat with babes in clear HD, for a seamless and thrilling interaction.{' '}
+                  <FormattedMessage id="ExperienceVideoChat" />
                 </ChatWhyChooseDescriptionSubTitleTypography>
               </ChatWhyChooseInfoContainer>
             </ChatWhyChooseInfoMainContainer>

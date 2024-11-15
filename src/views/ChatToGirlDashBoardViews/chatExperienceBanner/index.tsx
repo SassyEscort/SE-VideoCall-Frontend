@@ -93,10 +93,11 @@ const VideoChatExperienceBanner = ({ token }: { token: string }) => {
           <HomeMainContainer>
             <VideoChatInnerContainer>
               <VideoChatBannerInnerBox>
-                <HeadingTypography>Start Your FlirtBate Video Sex Chat Experience Now!</HeadingTypography>
+                <HeadingTypography>
+                  <FormattedMessage id="StartYourFlirtBateVideoSexChat" />
+                </HeadingTypography>
                 <SubtitleTypography>
-                  Thousands of models are ready for live Video Sex Chat sessions—start browsing and select the one that excites you. Whether
-                  you’re new to Video Sex Chat or a seasoned expert, FlirtBate is the place for real connections and unforgettable moments.
+                  <FormattedMessage id="ThousandsModelareReady" />
                 </SubtitleTypography>
               </VideoChatBannerInnerBox>
               {token ? (

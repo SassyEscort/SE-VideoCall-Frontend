@@ -10,23 +10,26 @@ import {
   ChatWhyChooseTitleTypography,
   ChatSubTitlePointTypography
 } from '../startVideoChatViews/startVideoChat.styled';
+import { FormattedMessage } from 'react-intl';
 
 const WhyChatChooseModal = () => (
   <ChatToGirlsChooseModalMainContainer>
     <ChatToGirlsChooseModalContainer>
-      <ChatWhyChooseTitleTypography>Why Choose FlirtBate to Video Chat with Girls?</ChatWhyChooseTitleTypography>
+      <ChatWhyChooseTitleTypography>
+        <FormattedMessage id="WhyChooseFlirtBate" />
+      </ChatWhyChooseTitleTypography>
       <ChatToGirlsChooseModalSubTextStyledBox>
-        <ChatSubTitlePointTypography>Choose From Hundreds of Girls</ChatSubTitlePointTypography>
+        <ChatSubTitlePointTypography>
+          <FormattedMessage id="ChooseFromHundreds" />
+        </ChatSubTitlePointTypography>
         <ChatWhyChooseSubTitleTypography>
-          At FlirtBate, we give you the freedom to pick your chat partner. Browse through a wide range of profiles, each featuring stunning
-          models ready for video chat with girls. Whether you prefer a casual chat with a girl or something more spicy, you{`'`}ll find the
-          perfect match here.
+          <FormattedMessage id="AtFlirtBateWeGiveYouFreedom" />
         </ChatWhyChooseSubTitleTypography>
-        <ChatSubTitlePointTypography>High-Quality Video Calls</ChatSubTitlePointTypography>
+        <ChatSubTitlePointTypography>
+          <FormattedMessage id="HighQualityVideoCalls" />
+        </ChatSubTitlePointTypography>
         <ChatWhyChooseSubTitleTypography>
-          Our platform ensures that all video chat with girls sessions are streamed in HD quality, allowing you to enjoy crystal-clear
-          interactions. Whether it’s a fun conversation or a steamy horny girl video chat, you’ll feel like you’re in the same room as your
-          chosen model.
+          <FormattedMessage id="OurPlatformEnsures" />
         </ChatWhyChooseSubTitleTypography>
       </ChatToGirlsChooseModalSubTextStyledBox>
     </ChatToGirlsChooseModalContainer>

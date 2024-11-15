@@ -12,7 +12,7 @@ export const ChatToGirlsChooseModalMainContainer = styled(Box)(({ theme }) => ({
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
   [theme.breakpoints.down('md')]: {
-    height: 500
+    height: 700
   },
   [theme.breakpoints.down('sm')]: {
     marginBlock: theme.spacing(3),
