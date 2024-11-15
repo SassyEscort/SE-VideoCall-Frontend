@@ -10,11 +10,11 @@ import { useCallFeatureContext } from '../../../../contexts/CallFeatureContext';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
-const RingingModel = ({ onClose }: { onClose: () => void }) => {
+const RingingModel = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const { isModelAvailable } = useCallFeatureContext();
 
   return (
-    <DialogContentMain open={true} onClose={onClose} fullWidth>
+    <DialogContentMain open={open} onClose={onClose} fullWidth>
       <DialogTitleBox id="responsive-modal-title">
         <UINewTypography variant="h6">
           <FormattedMessage id="VideoCalling" />
