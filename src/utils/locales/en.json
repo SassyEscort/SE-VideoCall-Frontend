@@ -159,7 +159,7 @@
   "Documents": "Documents",
   "IdFront": "ID",
   "UploadPhotos": "Please upload your recent photos or videos",
-  "UploadPics": "Upload your photos (minimum 1 and maximum 30)",
+  "UploadPics": "Upload your photos (minimum 4 and maximum 30)",
   "UploadPicDesc": "When uploading photos, adhere to a 3:4 ratio like 600px by 800px for the thumbnail view. Ensure a minimum resolution of 600 X 600 pixels for clarity. Remember that clicked images will display in their original ratios. You can always add more photos later through your profile.",
   "FeaturePhotos": "Feature Photos",
   "Gallery": "Gallery (maximum 30 photos)",
@@ -928,5 +928,6 @@
   "PrivacyFirstEnsures": "Privacy First: FlirtBate ensures your anonymity and safety throughout every strangercam encounter.",
   "ChatRoom": "Chat Room",
   "SexChat": "Sex Chat",
-  "CamToCam": "Cam to Cam"
+  "CamToCam": "Cam to Cam",
+  "UploadNewPhotoBeforeDeleting": "A model must have at least 4 photos. Please upload a new photo before deleting more."
 }

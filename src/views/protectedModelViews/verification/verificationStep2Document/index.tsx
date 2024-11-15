@@ -133,23 +133,24 @@ const VerificationStepPromise = ({
           let payload: ImagePayload;
           setLoading(true);
           if (values.photoWithoutFilter) {
-            const mutationImageUpload = await VerificationStepService.imageKitUplaodApi(values.photoWithoutFilter as File);
+            const mutationImageUpload = await VerificationStepService.modelImageUploadApi(values.photoWithoutFilter as File, token.token);
 
             const selectedDocument = DocumentList.find((item) => item.key === docValues.idType)?.value;
+
             payload = {
               is_document: true,
               photos: [
                 {
                   id: modelDetails?.documents[0].id ? Number(modelDetails?.documents[0].id) : 0,
-                  link: typeof mutationImageUpload !== 'string' ? String(mutationImageUpload.photosURL) : '',
-                  type: mutationImageUpload.file_type,
+                  link: typeof mutationImageUpload !== 'string' ? String(mutationImageUpload.data.url) : '',
+                  type: mutationImageUpload?.data?.url ? String(mutationImageUpload?.data?.url.split('.').pop()) : '',
                   cords: '',
                   is_favourite: 0,
                   is_document: 1,
                   document_type: String(selectedDocument) ?? modelDetails?.documents[0].document_type,
                   document_number: docValues.idNumber ? docValues.idNumber : modelDetails?.documents[0].document_number ?? '',
-                  file_id: mutationImageUpload.file_id,
-                  file_type: mutationImageUpload.file_type === 'non-image' ? 'Non_Image' : 'Image',
+                  file_id: mutationImageUpload.data.fileId,
+                  file_type: mutationImageUpload?.data?.url.split('.').pop() === 'pdf' ? 'Non_Image' : 'Image',
                   document_front_side: 0
                 }
               ],
@@ -193,7 +194,7 @@ const VerificationStepPromise = ({
               }
             ];
 
-            const mutationMultipleImageUpload = await VerificationStepService.multipleImageKitUplaodApi(fileBody);
+            const mutationMultipleImageUpload = await VerificationStepService.modelMultipleImageUplaodApi(fileBody, token.token);
             const selectedDocument = DocumentList.find((item) => item.key === docValues.idType)?.value;
 
             const uploadPhotos: ImageUploadPayload[] = [];
@@ -209,7 +210,7 @@ const VerificationStepPromise = ({
                   document_type: String(selectedDocument) ?? modelDetails?.documents[0].document_type,
                   document_number: docValues.idNumber ? docValues.idNumber : modelDetails?.documents[0].document_number ?? '',
                   file_id: x.file_id,
-                  file_type: x.file_type === 'non-image' ? 'Non_Image' : 'Image',
+                  file_type: x.file_type,
                   document_front_side: i === 0 ? 1 : 0
                 });
             });
