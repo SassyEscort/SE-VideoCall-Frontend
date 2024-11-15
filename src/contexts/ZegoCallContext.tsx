@@ -66,6 +66,8 @@ type CallFeatureContextProps = {
   callLogId: number;
   isModelEndedCall: boolean;
   token: TokenIdType;
+  isCallInitiated: boolean;
+  handleOutGoingCallCancel: () => void;
   // Add more properties and methods as required
 };
 
@@ -98,7 +100,9 @@ const CallFeatureContext = createContext<CallFeatureContextProps>({
   outgoingCallDialogOpen: false,
   callLogId: 0,
   isModelEndedCall: false,
-  token: { id: 0, token: '' }
+  token: { id: 0, token: '' },
+  isCallInitiated: false,
+  handleOutGoingCallCancel: () => {}
 });
 
 const gaEventTrigger = async (action: string, data: any, credits?: number) => {
@@ -185,9 +189,9 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const [isFavouriteModel, setIsFavouriteModel] = useState(0);
   const [isModelJoin, setIsModelJoin] = useState(false);
   const [, setIsAutodisconnected] = useState(false);
+  const [isCallInitiated, SetIsCallInitiated] = useState(false);
 
-  // const [cancelCallInvitationFn, setCancelCallInvitationFn] = useState<CancelCallInvitationFunc | null>(null);
-  const [cancelCallInvitationFn] = useState<CancelCallInvitationFunc | null>(null);
+  const [cancelCallInvitationFn, setCancelCallInvitationFn] = useState<CancelCallInvitationFunc | null>(null);
   const [outgoingCallDialogOpen, setOutgoingCallDialogOpen] = useState(false);
   // const [outgoingCallInfo, setOutgoingCallInfo] = useState<{ caller: ZegoUser } | null>(null);
   const [, setOutgoingCallInfo] = useState<{ caller: ZegoUser } | null>(null);
@@ -289,11 +293,11 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     }
   };
 
-  // const handleOutGoingCallCancel = () => {
-  //   setOutgoingCallDialogOpen(false);
-  //   setOutgoingCallInfo(null);
-  //   cancelCallInvitationFn && cancelCallInvitationFn();
-  // };
+  const handleOutGoingCallCancel = () => {
+    setOutgoingCallDialogOpen(false);
+    setOutgoingCallInfo(null);
+    cancelCallInvitationFn && cancelCallInvitationFn();
+  };
 
   const handleSetUserRef = (
     userID: string,
@@ -345,22 +349,23 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       if (call) {
         call.setCallInvitationConfig({
           enableCustomCallInvitationDialog: true,
-          // enableCustomCallInvitationWaitingPage: true,
+          enableCustomCallInvitationWaitingPage: true,
           enableNotifyWhenAppRunningInBackgroundOrQuit: true,
           endCallWhenInitiatorLeave: true,
           // ringtoneConfig: {
           //   outgoingCallUrl: 'https://dl.prokerala.com/downloads/ringtones/files/mp3/iphone-ringtone-47958.mp3'
           // },
 
-          // onWaitingPageWhenSending: (callType, callees, cancel) => {
-          //   setCancelCallInvitationFn(() => cancel);
-          //   setOutgoingCallInfo({
-          //     caller: {
-          //       userID: callees[0]?.userID,
-          //       userName: callees[0]?.userName
-          //     }
-          //   });
-          // },
+          onWaitingPageWhenSending: (callType, callees, cancel) => {
+            setOutgoingCallDialogOpen(true);
+            setCancelCallInvitationFn(() => cancel);
+            setOutgoingCallInfo({
+              caller: {
+                userID: callees[0]?.userID,
+                userName: callees[0]?.userName
+              }
+            });
+          },
 
           onConfirmDialogWhenReceiving: (callType, caller) => {
             console.log('Incoming call invitation:', { callType, caller });
@@ -388,7 +393,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
             //removed after api integration
 
             await getChatInformation();
-            setReviewOpen(true);
+            if (reason === CALL_INVITATION_END_REASON.LEAVEROOM) setReviewOpen(true);
           },
 
           onSetRoomConfigBeforeJoining: (): ZegoCloudRoomConfig => {
@@ -462,7 +467,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
             handleSetUserRef(userRef.current?.userID || '', userRef.current?.userName || '', '', false, true, callID);
 
             callDurationRef.current = { startTime: String(new Date()), endTime: '' };
-            console.log('Outgoing call accepted:', { callID, callee });
+            console.log('Outgoing call accepted:', { callID, callee, modelId, modelRef });
 
             setIsCallAccepted(true);
             setOutgoingCallDialogOpen(false);
@@ -486,6 +491,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
             setIsUnanswered(true);
             setOutgoingCallInfo(null);
             setOutgoingCallDialogOpen(false);
+            setIsBusy(true);
             await creditPutCallLog(modelRef?.current?.id || modelId, callID, CALLING_STATUS.REJECTED, ROLE.MODEL);
           },
 
@@ -500,6 +506,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
             // call?.destroy();
             setCall(null);
             setIsUnanswered(true);
+            setIsBusy(true);
             setOutgoingCallInfo(null);
             setOutgoingCallDialogOpen(false);
             await creditPutCallLog(modelRef?.current?.id || modelId, callID, CALLING_STATUS.UNASWERED);
@@ -777,7 +784,9 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         outgoingCallDialogOpen,
         callLogId,
         isModelEndedCall,
-        token
+        token,
+        isCallInitiated,
+        handleOutGoingCallCancel
       }}
     >
       {children}
