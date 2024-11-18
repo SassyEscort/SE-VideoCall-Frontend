@@ -33,6 +33,7 @@ import * as yup from 'yup';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import { LoadingButton } from '@mui/lab';
+import { UserLoaderBox } from './UpsertPage.styled';
 
 const UpsertUser = () => {
   const router = useRouter();
@@ -144,16 +145,9 @@ const UpsertUser = () => {
   return (
     <MainLayout>
       {isLoading ? (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            p: 2
-          }}
-        >
+        <UserLoaderBox>
           <CircularProgress />
-        </Box>
+        </UserLoaderBox>
       ) : (
         <Formik
           initialValues={{

@@ -128,7 +128,7 @@ export class VerificationStepService {
           });
 
           payload.push({
-            link: res?.data?.data.url,
+            link: res?.data?.data.url ?? '',
             cords: data.cords ? String(data.cords) : '',
             is_favourite: 0,
             is_document: 0,
@@ -138,7 +138,7 @@ export class VerificationStepService {
             type: data?.type,
             file_id: res?.data?.data.fileId,
             file_type:
-              res?.data?.data.url.split('.').pop() === 'pdf' ? DOCUMENT_UPLOAD_FILE_TYPE.NON_IMAGE : DOCUMENT_UPLOAD_FILE_TYPE.IMAGE,
+              res?.data?.data?.url?.split('.').pop() === 'pdf' ? DOCUMENT_UPLOAD_FILE_TYPE.NON_IMAGE : DOCUMENT_UPLOAD_FILE_TYPE.IMAGE,
             document_front_side: 0
           });
         }
