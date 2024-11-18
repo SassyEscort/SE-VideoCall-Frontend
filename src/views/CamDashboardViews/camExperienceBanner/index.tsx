@@ -36,7 +36,7 @@ const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup')
   ssr: false
 });
 
-const CamExperienceBanner = ({ token }: { token: string }) => {
+const CamExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
   const { isFreeCreditAvailable } = useAuthContext();
 
   const [open, setIsOpen] = useState(false);
@@ -100,7 +100,7 @@ const CamExperienceBanner = ({ token }: { token: string }) => {
                   <FormattedMessage id="ThousandsOfModelsAreReady" />
                 </SubtitleTypography>
               </CamExperienceBannerInnerBox>
-              {token ? (
+              {isCustomer ? (
                 <></>
               ) : (
                 <ButtonBox>

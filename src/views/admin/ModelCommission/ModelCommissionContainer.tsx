@@ -23,8 +23,16 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import WithdrawConfigurationContainer from '../WithdrawConfiguration/WithdrawConfigurationContainer';
 import ModelVideoCallContainer from '../ModelVideoCallPrice/ModelVideoCallContainer';
 import ModelVideoMaxCallContainer from '../ModelVideoCallMaxPrice/ModelVideoMaxCallContainer';
+import { useAuthContext } from '../../../../context/AuthContext';
+import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
+import { CallPricePage } from 'constants/adminUserAccessConstants';
+import { useRouter } from 'next/navigation';
 
 export default function ModelCommissionContainer() {
+  const router = useRouter();
+  const { adminUserPermissions, isAdmin } = useAuthContext();
+  const UpdatePermission = adminUserPermissions ? haveUpdatePermission(CallPricePage, adminUserPermissions) : false;
+
   const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [commissionAmount, setCommissionAmount] = useState<AdminCommissionResponse>({} as AdminCommissionResponse);
@@ -69,6 +77,14 @@ export default function ModelCommissionContainer() {
     }
   }, [token.token]);
 
+  useEffect(() => {
+    if (adminUserPermissions) {
+      const isAccessiable = isPageAccessiable(CallPricePage, adminUserPermissions) || isAdmin;
+      isAccessiable ? '' : router.push('/admin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adminUserPermissions, isAdmin]);
+
   return (
     <>
       <MainLayout>
@@ -101,6 +117,7 @@ export default function ModelCommissionContainer() {
                 name="percentage"
                 label="Model Commission"
                 type="number"
+                disabled={UpdatePermission || isAdmin ? false : true}
                 value={values.percentage}
                 error={Boolean(touched.percentage && errors.percentage)}
                 helperText={touched.percentage && errors.percentage ? errors.percentage : ''}
@@ -111,22 +128,24 @@ export default function ModelCommissionContainer() {
                 }}
                 sx={{ width: '100%', maxWidth: '500px' }}
               />
-              <DialogActions>
-                <LoadingButton loading={isLoading} size="large" type="submit" variant="contained" color="primary">
-                  Save
-                </LoadingButton>
-              </DialogActions>
+              {(UpdatePermission || isAdmin) && (
+                <DialogActions>
+                  <LoadingButton loading={isLoading} size="large" type="submit" variant="contained" color="primary">
+                    Save
+                  </LoadingButton>
+                </DialogActions>
+              )}
             </Box>
           )}
         </Formik>
         <Box mt={5}>
-          <WithdrawConfigurationContainer />
+          <WithdrawConfigurationContainer isAdmin={isAdmin} UpdatePermission={UpdatePermission} />
         </Box>
         <Box mt={5}>
-          <ModelVideoCallContainer />
+          <ModelVideoCallContainer isAdmin={isAdmin} UpdatePermission={UpdatePermission} />
         </Box>
         <Box mt={5}>
-          <ModelVideoMaxCallContainer />
+          <ModelVideoMaxCallContainer isAdmin={isAdmin} UpdatePermission={UpdatePermission} />
         </Box>
       </MainLayout>
     </>

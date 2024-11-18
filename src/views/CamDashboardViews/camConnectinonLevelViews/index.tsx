@@ -19,7 +19,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { FormattedMessage } from 'react-intl';
 
-const CamConnectinonLevel = () => (
+const CamConnectionLevel = () => (
   <CamConnectinonLevelMainContainer>
     <CamConnectionContainer>
       <CamChooseModalInnerContainer>
@@ -105,4 +105,4 @@ const CamConnectinonLevel = () => (
   </CamConnectinonLevelMainContainer>
 );
 
-export default CamConnectinonLevel;
+export default CamConnectionLevel;

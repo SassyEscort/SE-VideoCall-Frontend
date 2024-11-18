@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import DashboardLayout from '../../layouts/AdminLayout/DashboardLayout';
 import Container from '@mui/material/Container';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { adminModelServices } from 'services/adminModel/adminModel.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -22,6 +22,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import AddEditSEOModalData from './UserInformationAccordion/SEOData/AddEditSEOModalData';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import { useAuthContext } from '../../../../../context/AuthContext';
+import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
+import { ModalPage } from 'constants/adminUserAccessConstants';
 
 export type PaginationTypeModel = {
   page: number;
@@ -35,9 +38,14 @@ export type PaginationTypeModel = {
 
 const ModelDetailsPage = () => {
   const { id: modelId } = useParams();
+  const router = useRouter();
+
   const [modelData, setModelData] = useState<ModelDetailsRes>();
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [openAddEditModal, setOpenAddEditModal] = useState(false);
+
+  const { adminUserPermissions, isAdmin } = useAuthContext();
+  const UpdatePermission = adminUserPermissions ? haveUpdatePermission(ModalPage, adminUserPermissions) : false;
 
   const handleModelBoostById = async () => {
     try {
@@ -91,6 +99,14 @@ const ModelDetailsPage = () => {
 
   const isModelPending = modelData?.data?.profile_status === PAYOUT_ACTION.PENDING;
 
+  useEffect(() => {
+    if (adminUserPermissions) {
+      const isAccessiable = isPageAccessiable(ModalPage, adminUserPermissions) || isAdmin;
+      isAccessiable ? '' : router.push('/admin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adminUserPermissions, isAdmin]);
+
   return (
     <DashboardLayout>
       <Container>
@@ -98,50 +114,52 @@ const ModelDetailsPage = () => {
           <Grid item xs={12}>
             <Box display="flex" flexDirection="column" gap={3} width="100%">
               <ProfileCrad modelData={modelData as ModelDetailsRes} />
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: isModelPending ? 'space-between' : 'end',
-                  alignItems: 'center',
-                  gap: 2
-                }}
-              >
-                {isModelPending && <DetailsApproveReject workerId={Number(modelId)} fetchModelData={fetchModelData} />}
-                <StyleBoostAdminButton onClick={handleModelBoostById}>
-                  <UINewTypography variant="buttonLargeMenu">Boost {modelData?.data?.name} profile</UINewTypography>
-                </StyleBoostAdminButton>
-                <Box>
-                  <Button
-                    size="large"
-                    variant="contained"
-                    startIcon={
-                      modelData?.data?.model_seo[0]?.title &&
-                      modelData?.data?.model_seo[0]?.keywords &&
-                      modelData?.data?.model_seo[0]?.description ? (
-                        <EditIcon />
-                      ) : (
-                        <Add />
-                      )
-                    }
-                    sx={{ width: '100%' }}
-                    onClick={handleOpenAddEditModal}
-                  >
-                    <UINewTypography variant="buttonLargeMenu">
-                      {modelData?.data?.model_seo[0]?.title &&
-                      modelData?.data?.model_seo[0]?.keywords &&
-                      modelData?.data?.model_seo[0]?.description
-                        ? 'Edit'
-                        : 'Add'}{' '}
-                      {modelData?.data?.name} SEO
-                    </UINewTypography>
-                  </Button>
+              {(UpdatePermission || isAdmin) && (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: isModelPending ? 'space-between' : 'end',
+                    alignItems: 'center',
+                    gap: 2
+                  }}
+                >
+                  {isModelPending && <DetailsApproveReject workerId={Number(modelId)} fetchModelData={fetchModelData} />}
+                  <StyleBoostAdminButton onClick={handleModelBoostById}>
+                    <UINewTypography variant="buttonLargeMenu">Boost {modelData?.data?.name} profile</UINewTypography>
+                  </StyleBoostAdminButton>
+
+                  <Box>
+                    <Button
+                      size="large"
+                      variant="contained"
+                      startIcon={
+                        modelData?.data?.model_seo[0]?.title &&
+                        modelData?.data?.model_seo[0]?.keywords &&
+                        modelData?.data?.model_seo[0]?.description ? (
+                          <EditIcon />
+                        ) : (
+                          <Add />
+                        )
+                      }
+                      sx={{ width: '100%' }}
+                      onClick={handleOpenAddEditModal}
+                    >
+                      <UINewTypography variant="buttonLargeMenu">
+                        {modelData?.data?.model_seo[0]?.title &&
+                        modelData?.data?.model_seo[0]?.keywords &&
+                        modelData?.data?.model_seo[0]?.description
+                          ? 'Edit'
+                          : 'Add'}{' '}
+                        {modelData?.data?.name} SEO
+                      </UINewTypography>
+                    </Button>
+                  </Box>
                 </Box>
-              </Box>
+              )}
             </Box>
           </Grid>
-
           <Grid item xs={12}>
-            <UserInformationAccordion modelData={modelData as ModelDetailsRes} />
+            <UserInformationAccordion modelData={modelData as ModelDetailsRes} isAdmin={isAdmin} UpdatePermission={UpdatePermission} />
           </Grid>
         </Grid>
       </Container>

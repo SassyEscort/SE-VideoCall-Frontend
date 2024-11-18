@@ -81,6 +81,7 @@ const HomeContainer = () => {
 
     const isDetailsPage = pathname.startsWith('/details/');
     const isCamtoCamPage = pathname.startsWith('/cam-to-cam');
+    const isChatToGirlsPage = pathname.startsWith('/chat-with-girls');
 
     const isMultiple = [
       'language',
@@ -95,7 +96,7 @@ const HomeContainer = () => {
       'gender'
     ].filter((x) => Object.keys(objParams).includes(x));
     if (filterCount === 0) {
-      if (isDetailsPage || isCamtoCamPage) {
+      if (isDetailsPage || isCamtoCamPage || isChatToGirlsPage) {
         const credit = searchParams.get('credit');
         if (!credit) router.push(pathname);
       } else {
@@ -104,13 +105,13 @@ const HomeContainer = () => {
       }
     } else {
       if (isMultiple.length) {
-        if (isDetailsPage || isCamtoCamPage) {
+        if (isDetailsPage || isCamtoCamPage || isChatToGirlsPage) {
           router.push(`${pathname}?${queryString}`);
         } else {
           router.push(`/?${queryString}`);
         }
       } else {
-        if (isDetailsPage || isCamtoCamPage) {
+        if (isDetailsPage || isCamtoCamPage || isChatToGirlsPage) {
           router.push(`${pathname}?${queryString}`);
         } else if (objParams.email) {
           return;
@@ -151,15 +152,16 @@ const HomeContainer = () => {
         const offset = (value - 1) * filters.pageSize;
         const newFilters = { ...filters, page: value, offset: offset };
         setFilters(newFilters);
-        handelFilterChange(newFilters);
+        // handelFilterChange(newFilters);
       }
       if (filters) {
         const isCamtoCamPage = pathname.startsWith('/cam-to-cam');
+        const isChatToGirlsPage = pathname.startsWith('/chat-with-girls');
         const offset = (value - 1) * filters.pageSize;
         const newFilters = { ...filters, page: value, offset: offset };
         setFilters(newFilters);
-        handelFilterChange(newFilters);
-        if (!isCamtoCamPage) {
+        // handelFilterChange(newFilters);
+        if (!isCamtoCamPage && !isChatToGirlsPage) {
           const queryParams = new URLSearchParams(window.location.search);
           queryParams.set('page', value.toString());
           router.push(`/?${queryParams.toString()}`);
@@ -180,9 +182,9 @@ const HomeContainer = () => {
     if (initialRender.current) {
       initialRender.current = false;
     }
-    setTimeout(() => {
-      handleChangeSearchFilter();
-    }, 1000);
+    // setTimeout(() => {
+    handleChangeSearchFilter();
+    // }, 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, searchParams]);
 

@@ -12,6 +12,12 @@ import { CustomerFreeCreditsService } from 'services/customerFreeCredits/custome
 import { gaEventTrigger } from 'utils/analytics';
 import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
 
+export type AdminUserPermissions = {
+  module_id: number;
+  module_name: string;
+  permission: string;
+};
+
 export type AuthContextProps = {
   session: Session | null;
   isCustomer: boolean;
@@ -21,11 +27,13 @@ export type AuthContextProps = {
   handleFreeCreditClaim: () => void;
   isFreeCreditsClaimed: boolean;
   isModel: boolean;
+  isAdmin: boolean;
   isNameChange: boolean;
   handelNameChange: () => void;
   handleOpen: () => void;
   handleCreditDrawerClose: () => void;
   openCreditDrawer: boolean;
+  adminUserPermissions: AdminUserPermissions[] | undefined;
 };
 
 const AuthContext = createContext<AuthContextProps>({
@@ -41,7 +49,9 @@ const AuthContext = createContext<AuthContextProps>({
   handleOpen: () => {},
   handelNameChange: () => {},
   handleCreditDrawerClose: () => {},
-  openCreditDrawer: false
+  openCreditDrawer: false,
+  isAdmin: false,
+  adminUserPermissions: [{} as AdminUserPermissions]
 });
 
 export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
@@ -57,8 +67,12 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
 
   const user = (session?.user as User)?.picture;
   const providerData = JSON.parse(user || '{}');
+
   const isCustomer = providerData?.role === ROLE.CUSTOMER;
   const isModel = providerData?.role === ROLE.MODEL;
+  const isAdmin = providerData?.role === ROLE.ADMIN;
+
+  const adminUserPermissions = providerData?.module_permissions;
 
   const path = usePathname();
   const userName = path.split('/')[2];
@@ -158,7 +172,9 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         isModel,
         handleOpen,
         openCreditDrawer,
-        handleCreditDrawerClose
+        handleCreditDrawerClose,
+        isAdmin,
+        adminUserPermissions
       }}
     >
       {children}

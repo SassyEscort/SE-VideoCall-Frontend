@@ -21,7 +21,7 @@ import {
 } from 'services/adminServices/videoCallConfiguration/videoCallConfiguration.services';
 import { DetailsBox } from '../ModelVideoCallPrice/ModelVideo.styled';
 
-export default function ModelVideoMaxCallContainer() {
+export default function ModelVideoMaxCallContainer({ isAdmin, UpdatePermission }: { isAdmin: boolean; UpdatePermission: boolean }) {
   const [isLoading, setIsLoading] = useState(false);
   const [videoCallAmount, setVideoCallAmount] = useState<AdminVideoCallResponse>({} as AdminVideoCallResponse);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -93,6 +93,7 @@ export default function ModelVideoMaxCallContainer() {
                 name="max_price"
                 label="Video call Amount"
                 type="number"
+                disabled={UpdatePermission || isAdmin ? false : true}
                 value={values.max_price}
                 error={Boolean(touched.max_price && errors.max_price)}
                 helperText={touched.max_price && errors.max_price ? errors.max_price : ''}
@@ -103,11 +104,13 @@ export default function ModelVideoMaxCallContainer() {
                 }}
                 sx={{ width: '100%', maxWidth: '500px' }}
               />
-              <DialogActions>
-                <LoadingButton loading={isLoading} size="large" type="submit" variant="contained" color="primary">
-                  Save
-                </LoadingButton>
-              </DialogActions>
+              {(UpdatePermission || isAdmin) && (
+                <DialogActions>
+                  <LoadingButton loading={isLoading} size="large" type="submit" variant="contained" color="primary">
+                    Save
+                  </LoadingButton>
+                </DialogActions>
+              )}
             </DetailsBox>
           </Box>
         )}
