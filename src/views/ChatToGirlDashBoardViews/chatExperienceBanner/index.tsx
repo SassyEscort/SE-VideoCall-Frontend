@@ -36,7 +36,7 @@ const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup')
   ssr: false
 });
 
-const VideoChatExperienceBanner = ({ token }: { token: string }) => {
+const VideoChatExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
   const { isFreeCreditAvailable } = useAuthContext();
 
   const [open, setIsOpen] = useState(false);
@@ -100,7 +100,7 @@ const VideoChatExperienceBanner = ({ token }: { token: string }) => {
                   <FormattedMessage id="ThousandsModelareReady" />
                 </SubtitleTypography>
               </VideoChatBannerInnerBox>
-              {token ? (
+              {isCustomer ? (
                 <></>
               ) : (
                 <ButtonBox>

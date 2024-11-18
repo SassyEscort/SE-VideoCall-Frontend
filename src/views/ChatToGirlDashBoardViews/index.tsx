@@ -9,33 +9,21 @@ import WhySpecialDashboardBeyond from './whatMakesChatSpecial';
 import VideoChatExperienceBanner from './chatExperienceBanner';
 import HowChatWorks from './howVideoChatWorkViews';
 import HomeContainer from 'views/guestViews/homePage';
-import { getUserDataClient } from 'utils/getSessionData';
-import { TokenIdType } from 'views/protectedModelViews/verification';
-import { useEffect, useState } from 'react';
+import { useAuthContext } from '../../../context/AuthContext';
 
 export const ChatToGirlDashBoard = () => {
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      if (data) {
-        setToken({ id: data.id ?? data.customer_id, token: data.token });
-      }
-    };
-    userToken();
-  }, []);
+  const { isCustomer } = useAuthContext();
 
   return (
     <>
-      {token.token ? <HomeContainer /> : <VideoChatDashboardBanner />}
+      {isCustomer ? <HomeContainer /> : <VideoChatDashboardBanner />}
       <WhyChooseDashboard />
       <WhyChatChooseModal />
       <WhySpecialDashboardBeyond />
       <StartYourVideoChatLevel />
       <VideoChatExperience />
       <HowChatWorks />
-      <VideoChatExperienceBanner token={token.token} />
+      <VideoChatExperienceBanner isCustomer={isCustomer} />
     </>
   );
 };
