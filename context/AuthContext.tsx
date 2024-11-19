@@ -140,26 +140,14 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     setBalance(Number(totalBal));
     setAddedCredits(Number(credit));
     if (credit) {
-      // gaEventTrigger(
-      //   'purchase',
-      //   {
-      //     action: 'purchase',
-      //     category: 'Page change',
-      //     label: 'purchase',
-      //     value: JSON.stringify(customerInfo)
-      //   },
-      //   Number(totalBalValue)
-      // );
       setOpenSuccess(true);
-      // if (typeof window !== 'undefined' && window?.flux)
-      //   window.flux.track('conversion', { rev: Number(credit), tx: transaction_id?.toString() });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   useEffect(() => {
-    const checkWindowLoaded = async () => {
-      if (typeof window !== 'undefined' && window.document && credit && transaction_id) {
+    const checkFluxLoaded = async () => {
+      if (window?.flux && window.document && credit && transaction_id) {
         gaEventTrigger(
           'purchase',
           {
@@ -170,12 +158,21 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
           },
           Number(totalBalValue)
         );
+        const eventArgs = {
+          rev: String(credit),
+          tx: transaction_id.toString(),
+          url_args: JSON.stringify({ rev: String(credit), tx: transaction_id.toString() }),
+          url: window.location.origin
+        };
+        window.flux.track('conversion', eventArgs);
+
         clearInterval(intervalId);
       }
     };
-    const intervalId = setInterval(checkWindowLoaded, 100);
+    const intervalId = setInterval(checkFluxLoaded, 100);
     return () => clearInterval(intervalId);
-  }, [credit && transaction_id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [credit, transaction_id]);
 
   return (
     <AuthContext.Provider
