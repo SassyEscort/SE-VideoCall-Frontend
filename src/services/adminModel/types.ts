@@ -95,6 +95,7 @@ export type ModelFilterParams = {
   verification_step?: string;
   profile_status?: string;
   is_active?: string;
+  gender?: string;
 };
 
 export type CustomerFilterParams = {

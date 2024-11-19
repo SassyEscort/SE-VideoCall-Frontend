@@ -25,7 +25,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import { toast } from 'react-toastify';
 import { useAuthContext } from '../../../../context/AuthContext';
 import DeleteModal from 'components/UIComponents/DeleteModal';
-import { UserLoaderBox } from './UpsertPage.styled';
+import { UserHeaderBox, UserLoaderBox, UserMainContainer } from './UpsertPage.styled';
 
 const UserPageContainer = () => {
   const router = useRouter();
@@ -119,12 +119,13 @@ const UserPageContainer = () => {
 
   return (
     <MainLayout>
-      <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', gap: 2 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <UserMainContainer>
+        <UserHeaderBox>
+          <UINewTypography variant="h4">Admin Users</UINewTypography>
           <Button size="large" variant="contained" startIcon={<AddIcon />} onClick={() => router.push('/admin/users/create-user')}>
             <UINewTypography variant="buttonLargeMenu">Create User</UINewTypography>
           </Button>
-        </Box>
+        </UserHeaderBox>
         <Box>
           <Card>
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -202,7 +203,7 @@ const UserPageContainer = () => {
             </Paper>
           </Card>
         </Box>
-      </Box>
+      </UserMainContainer>
       <DeleteModal
         open={openDeleteModal}
         handleClose={() => {
