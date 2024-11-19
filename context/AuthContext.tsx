@@ -147,7 +147,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const checkFluxLoaded = async () => {
-      if (window?.flux && window.document && credit && transaction_id) {
+      if (window?.flux && window.document && totalBalValue && transaction_id) {
         gaEventTrigger(
           'purchase',
           {
@@ -159,9 +159,9 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
           Number(totalBalValue)
         );
         const eventArgs = {
-          rev: String(credit),
+          rev: String(totalBalValue),
           tx: transaction_id.toString(),
-          url_args: JSON.stringify({ rev: String(credit), tx: transaction_id.toString() }),
+          url_args: JSON.stringify({ rev: String(totalBalValue), tx: transaction_id.toString() }),
           url: window.location.origin
         };
         window.flux.track('conversion', eventArgs);
@@ -172,7 +172,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     const intervalId = setInterval(checkFluxLoaded, 100);
     return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [credit, transaction_id]);
+  }, [totalBalValue, transaction_id]);
 
   return (
     <AuthContext.Provider
