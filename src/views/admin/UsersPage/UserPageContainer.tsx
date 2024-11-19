@@ -10,7 +10,7 @@ import UserListHead from './UserListHead';
 import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
-import { Button, CircularProgress, IconButton } from '@mui/material';
+import { Button, CircularProgress, IconButton, Typography } from '@mui/material';
 import TablePager from 'components/common/CustomPaginations/TablePager';
 import { PAGE_SIZE } from 'constants/pageConstants';
 import EditIcon from '@mui/icons-material/Edit';
@@ -25,6 +25,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import { toast } from 'react-toastify';
 import { useAuthContext } from '../../../../context/AuthContext';
 import DeleteModal from 'components/UIComponents/DeleteModal';
+import { UserLoaderBox } from './UpsertPage.styled';
 
 const UserPageContainer = () => {
   const router = useRouter();
@@ -134,21 +135,12 @@ const UserPageContainer = () => {
                     {isLoading ? (
                       <TableRow>
                         <TableCell colSpan={10}>
-                          <Box
-                            sx={{
-                              display: 'flex',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              p: 2
-                            }}
-                          >
+                          <UserLoaderBox>
                             <CircularProgress />
-                          </Box>
+                          </UserLoaderBox>
                         </TableCell>
                       </TableRow>
-                    ) : (
-                      UserList &&
-                      UserList.length > 0 &&
+                    ) : UserList && UserList.length ? (
                       UserList.map((item, index) => (
                         <TableRow
                           sx={{
@@ -183,20 +175,30 @@ const UserPageContainer = () => {
                           </TableCell>
                         </TableRow>
                       ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={10}>
+                          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2 }}>
+                            <Typography variant="body1"> User Not Found</Typography>
+                          </Box>
+                        </TableCell>
+                      </TableRow>
                     )}
                   </TableBody>
                 </Table>
               </TableContainer>
 
-              <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
-                <TablePager
-                  page={filters.page}
-                  rowsPerPage={filters.pageSize}
-                  handleChangePage={handleChangePage}
-                  handleChangePageSize={handleChangePageSize}
-                  totalRecords={totalRecords}
-                />
-              </Box>
+              {UserList?.length > 0 && (
+                <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
+                  <TablePager
+                    page={filters.page}
+                    rowsPerPage={filters.pageSize}
+                    handleChangePage={handleChangePage}
+                    handleChangePageSize={handleChangePageSize}
+                    totalRecords={totalRecords}
+                  />
+                </Box>
+              )}
             </Paper>
           </Card>
         </Box>
