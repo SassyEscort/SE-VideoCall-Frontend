@@ -25,6 +25,7 @@ export type ModelListing = {
   verification_step: string;
   is_visible: number;
   is_online: number;
+  gender: string;
 };
 
 export type PaginationAggregation = {

@@ -480,6 +480,9 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                           <TableCell component="th" scope="row">
                             <Link href={`/admin/model/details/${item?.id}`}>{item?.email || '-'}</Link>
                           </TableCell>
+                          <TableCell component="th" scope="row">
+                            {item?.gender || '-'}
+                          </TableCell>
                           <TableCell>{item?.country_name || '-'}</TableCell>
                           <TableCell sx={{ textAlign: 'center' }}>
                             {item?.profile_status === MODEL_ACTION.PENDING ? (
