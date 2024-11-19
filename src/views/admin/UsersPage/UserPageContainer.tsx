@@ -120,7 +120,8 @@ const UserPageContainer = () => {
   return (
     <MainLayout>
       <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', gap: 2 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+          <UINewTypography variant="h4">Admin Users</UINewTypography>
           <Button size="large" variant="contained" startIcon={<AddIcon />} onClick={() => router.push('/admin/users/create-user')}>
             <UINewTypography variant="buttonLargeMenu">Create User</UINewTypography>
           </Button>

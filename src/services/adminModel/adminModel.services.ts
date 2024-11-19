@@ -65,6 +65,9 @@ export class adminModelServices {
     if (params.is_active) {
       query += `&is_active=${params.is_active}`;
     }
+    if (params.gender) {
+      query += `&gender=${params.gender}`;
+    }
 
     try {
       const res = await axios.get(
