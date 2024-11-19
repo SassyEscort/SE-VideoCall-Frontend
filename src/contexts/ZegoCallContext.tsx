@@ -647,6 +647,8 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   ): Promise<CreditZegoCallRes | undefined> => {
     const moment = (await import('moment')).default;
     const start_time = (callDurationRef.current.startTime && moment.utc(callDurationRef.current.startTime).format(dateFormate)) || '';
+    setSessionId(comet_chat_session_id);
+    setModelId(model_id);
 
     let creditLog = {
       model_id: model_id,
@@ -677,7 +679,6 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
           label: 'Video_call_ended',
           value: JSON.stringify(customerInfo)
         });
-
         setCall(null);
         setCallLogId(creditLogData.id);
         setIsCallAccepted(false);
@@ -710,6 +711,8 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   useEffect(() => {
     const intervalId = setInterval(async () => {
+      console.log('isCallAccepted :::::::::::', isCallAccepted);
+      console.log('isCustomer :::::::::::', isCustomer);
       if (isCallAccepted && isCustomer) {
         try {
           const endCall = await creditPutCallLog(modelId, sessionId, '');

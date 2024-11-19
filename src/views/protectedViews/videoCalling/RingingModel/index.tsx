@@ -6,12 +6,12 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { DialogContentFristBox, DialogContentMain, DialogContentSecondBox, DialogTitleBox, SecondBoxContent } from './RingingModel.styled';
 import VideoCalling from '../commonComponent';
 import { FormattedMessage } from 'react-intl';
-import { useCallFeatureContext } from '../../../../contexts/CallFeatureContext';
+import { useZegoCallFeatureContext } from 'contexts/ZegoCallContext';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
 const RingingModel = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
-  const { isModelAvailable } = useCallFeatureContext();
+  const { isModelAvailable } = useZegoCallFeatureContext();
 
   return (
     <DialogContentMain open={open} onClose={onClose} fullWidth>
