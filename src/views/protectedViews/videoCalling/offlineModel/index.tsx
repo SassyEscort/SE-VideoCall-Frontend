@@ -6,8 +6,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import VideoCalling from '../commonComponent';
 import { FormattedMessage } from 'react-intl';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-// import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
-import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
+import { useVideoCallContext } from 'contexts/videoCallContext';
 import { useRouter } from 'next/navigation';
 import { ThirdBoxContent, FourBoxContent } from '../AnotherCallModel/Another.styled';
 import { DialogContentMain, DialogTitleBox, DialogContentFristBox, SecondBoxContent } from '../RingingModel/RingingModel.styled';
@@ -17,8 +16,7 @@ import Divider from '@mui/material/Divider';
 const OfflineModel = ({ open, onClose, isModelAvailable }: { open: boolean; onClose: () => void; isModelAvailable: number }) => {
   const router = useRouter();
 
-  // const { modelName } = useCallFeatureContext();
-  const { modelName } = useZegoCallFeatureContext();
+  const { modelName } = useVideoCallContext();
 
   const handleExploreModel = () => {
     onClose();

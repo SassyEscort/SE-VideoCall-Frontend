@@ -52,8 +52,7 @@ import {
   UINewTypographyWithDrawRecentWithdrawls
 } from 'views/protectedViews/logout/Logout.styled';
 import { NotFoundBox } from '../payoutsAndInvoicesTable/billingTable/BillingTable.styled';
-// import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
-import { useZegoCallFeatureContext } from '../../../contexts/ZegoCallContext';
+import { useVideoCallContext } from '../../../contexts/videoCallContext';
 import { WithdrawalAmountDetailsRes } from 'services/withdrawalAmount/type';
 import { ModelWithdrawalAmountService } from 'services/withdrawalAmount/withdrawalAmount.services';
 import { getErrorMessage } from 'utils/errorUtils';
@@ -84,8 +83,7 @@ const PayoutContainer = ({
   const intl = useIntl();
 
   const [isLoadingContainer, setIsLoadingContainer] = useState(false);
-  // const { isCallEnded } = useCallFeatureContext();
-  const { isCallEnded } = useZegoCallFeatureContext();
+  const { isCallEnded } = useVideoCallContext();
   const [open, setIsOpen] = useState(false);
   const [payoutStep, setPayoutStep] = useState(0);
   const [modelPayoutList, setModelPayoutList] = useState<ModelPastPayoutDetailRes>();

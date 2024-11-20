@@ -16,7 +16,6 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
-import moment from 'moment';
 
 type CallFeatureContextProps = {
   call: ZegoUIKitPrebuilt | null;
@@ -247,16 +246,11 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
           //   outgoingCallUrl: 'https://dl.prokerala.com/downloads/ringtones/files/mp3/iphone-ringtone-47958.mp3'
           // },
 
-          onConfirmDialogWhenReceiving: (callType, caller) => {
-            console.log('Incoming call invitation:', { callType, caller });
-          },
-
           onCallInvitationEnded: async (reason, data) => {
-            console.log('on call invitation ended:', { reason, data });
             if (reason === CALL_INVITATION_END_REASON.CANCELED) {
-              console.log('userRef?.current:', userRef?.current);
+              // console.log('userRef?.current:', userRef?.current);
             } else if (reason == CALL_INVITATION_END_REASON.DECLINED) {
-              console.log('userRef?.current:', userRef?.current);
+              // console.log('userRef?.current:', userRef?.current);
             }
             setIsCallAccepted(false);
             setIsModelJoin(false);
@@ -292,19 +286,11 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
                 }
               },
               onUserLeave: (users) => {
-                console.log('on User Leave:', { users });
                 if (users?.[0]) handleSetUserRef(users?.[0]?.userID || '', users?.[0]?.userName || '', CALL_ENDED_BY.MODEL, true, false);
-              },
-              onJoinRoom() {
-                console.log('JOIN ROOM:::::::::::::::::::', new Date());
               },
 
               onLeaveRoom() {
                 callDurationRef.current = { startTime: callDurationRef?.current?.startTime || '', endTime: String(new Date()) };
-                const start_time = (callDurationRef.current.startTime && moment.utc(callDurationRef.current.startTime).format()) || '';
-                const end_time = (callDurationRef.current.endTime && moment.utc(callDurationRef.current.endTime).format()) || '';
-                const duration = (Boolean(start_time && end_time) && moment(end_time).diff(start_time, 'second')) || null;
-                console.log('on Leave Room', userRef.current, modelId, start_time, end_time, duration);
                 if (!userRef.current.isUserLeave) {
                   handleSetUserRef(userRef.current?.userID || '', userRef.current?.userName || '', CALL_ENDED_BY.CUSTOMER, false, true);
                 }
@@ -315,18 +301,15 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
           onIncomingCallReceived: (callID: string, caller: ZegoUser, callType: ZegoInvitationType, callees: ZegoUser[]) => {
             setSessionId(callID);
             setIsCallIncoming(true);
-            console.log('Incoming call received:', { callID, caller, callType, callees });
           },
 
           onIncomingCallCanceled: async (callID: string, caller: ZegoUser) => {
-            console.log('Incoming call canceled:', { callID, caller });
             setCall(null);
             // await creditPutCallLog(modelId, callID, CALLING_STATUS.CANCELED);
             setEndCallTime(180000);
           },
 
           onOutgoingCallAccepted: (callID: string, callee: ZegoUser) => {
-            console.log('Outgoing call accepted:', { callID, callee }, '\n', 'DATE-----> ' + new Date());
             handleSetUserRef(userRef.current?.userID || '', userRef.current?.userName || '', '', false, true);
             callDurationRef.current = { startTime: String(new Date()), endTime: '' };
             setIsCallAccepted(true);
@@ -334,7 +317,6 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
           },
 
           onOutgoingCallRejected: async (callID: string, callee: ZegoUser) => {
-            console.log('Outgoing call rejected:', { callID, callee });
             setOutgoingCallInfo(null);
             setOutgoingCallDialogOpen(false);
             setIsModelEndedCall(true);
@@ -344,7 +326,6 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
           },
 
           onOutgoingCallDeclined: (callID: string, callee: ZegoUser) => {
-            console.log('Outgoing call declined:', { callID, callee });
             call?.destroy();
             setCall(null);
             setIsUnanswered(true);
@@ -352,12 +333,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
             setOutgoingCallDialogOpen(false);
           },
 
-          onIncomingCallTimeout: (callID: string, caller: ZegoUser) => {
-            console.log('Incoming call timeout:', { callID, caller });
-          },
-
           onOutgoingCallTimeout: (callID: string, callees: ZegoUser[]) => {
-            console.log('Outgoing call timeout:', { callID, callees });
             setOutgoingCallInfo(null);
             setOutgoingCallDialogOpen(false);
             call?.destroy();
@@ -380,8 +356,8 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
           alert('The model does not exist or is offline.');
         }
       }
-    } catch (error) {
-      console.error('Error sending call invitation:', error);
+    } catch {
+      /* nothing */
     }
   }, [call]);
 

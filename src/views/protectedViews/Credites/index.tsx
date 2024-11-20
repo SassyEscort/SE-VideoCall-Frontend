@@ -34,7 +34,6 @@ import CreditsAdded from '../CreditsAdded/CreditsAdded';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import Loader from 'components/Loader';
 import { gaEventTrigger } from 'utils/analytics';
-// import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import { useZegoCallFeatureContext } from '../../../contexts/ZegoCallContext';
 import { ClaimFreeNewButton } from './ModelCredits/Credits.styled';
 import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
@@ -61,7 +60,6 @@ const Credits = () => {
 
   const router = useRouter();
   const searchParams = useSearchParams();
-  // const { user } = useCallFeatureContext();
   const { user } = useZegoCallFeatureContext();
   const customerData = JSON.parse(user || '{}');
 

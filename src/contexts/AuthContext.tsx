@@ -33,6 +33,7 @@ export type AuthContextProps = {
   isAdmin: boolean;
   isNameChange: boolean;
   handelNameChange: () => void;
+  handleCreateNewRoomID: () => void;
   handleOpen: () => void;
   handleCreditDrawerClose: () => void;
   openCreditDrawer: boolean;
@@ -54,6 +55,7 @@ const AuthContext = createContext<AuthContextProps>({
   handleOpen: () => {},
   handelNameChange: () => {},
   handleCreditDrawerClose: () => {},
+  handleCreateNewRoomID: () => {},
   openCreditDrawer: false,
   token: { id: 0, token: '' },
   isAdmin: false,
@@ -67,6 +69,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const [isFreeCreditsClaimed, setIsFreeCreditsClaimed] = useState(false);
   const [isNameChange, setIsNameChange] = useState(false);
   const [addedCredits, setAddedCredits] = useState(0);
+  const [roomID, setRoomID] = useState('');
   const [balance, setBalance] = useState(0);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openCreditDrawer, setOpenCreditDrawer] = useState(false);
@@ -97,7 +100,6 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
 
   const pathname = usePathname();
   const router = useRouter();
-  const roomID = randomID();
 
   const searchParams = useSearchParams();
   const credit = searchParams.get('credit');
@@ -118,10 +120,13 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     router.push(pathname);
   };
 
+  const handleCreateNewRoomID = () => {
+    const id = randomID();
+    setRoomID(id);
+  };
+
   const handleCreditDrawerClose = () => {
     setOpenCreditDrawer(false);
-    // setOpenSuccess(false);
-    // router.push(pathname);
   };
 
   const handleCustomerFreeCredits = useCallback(async () => {
@@ -141,6 +146,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     handleCustomerFreeCredits();
+    handleCreateNewRoomID();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -187,6 +193,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         handleOpen,
         openCreditDrawer,
         handleCreditDrawerClose,
+        handleCreateNewRoomID,
         token: tokenDetails,
         isAdmin,
         adminUserPermissions,

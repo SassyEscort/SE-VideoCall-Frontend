@@ -12,8 +12,8 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { usePathname } from 'next/navigation';
 import Box from '@mui/system/Box';
-// import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
+import { useVideoCallContext } from '../../../../contexts/videoCallContext';
 import { CallingService } from 'services/calling/calling.services';
 import moment from 'moment';
 import { ModelDetailsParams, ModelDetailsService } from 'services/modelDetails/modelDetails.services';
@@ -40,9 +40,9 @@ import { useAuthContext } from '../../../../contexts/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 const EscortDetailPage = () => {
-  const { isFreeCreditAvailable, isCustomer } = useAuthContext();
-  // const { handleCallInitiate, call, isLoading, isCallEnded, handleCallEnd, isUnanswered } = useCallFeatureContext();
-  const { handleCallInitiate, isLoading, isCallEnded, handleCallEnd, isUnanswered, token } = useZegoCallFeatureContext();
+  const { isFreeCreditAvailable, isCustomer, token } = useAuthContext();
+  const { isLoading, isCallEnded, handleSetCallEnd, isUnanswered } = useVideoCallContext();
+  const { handleCallInitiate } = useZegoCallFeatureContext();
 
   const path = usePathname();
   const userName = path.split('/')[2];
@@ -132,7 +132,7 @@ const EscortDetailPage = () => {
 
   useEffect(() => {
     if (isCallEnded) {
-      handleCallEnd();
+      handleSetCallEnd();
     } else {
       getCometChatInfo();
     }

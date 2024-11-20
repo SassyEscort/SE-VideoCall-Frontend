@@ -15,7 +15,7 @@ import {
   VideoChatBannerInnerBoxContainer,
   VideoChatBannerUIThemeShadowButton
 } from './videoChatDashboard.styled';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from 'contexts/AuthContext';
 import dynamic from 'next/dynamic';
 import { gaEventTrigger } from 'utils/analytics';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
