@@ -1,12 +1,8 @@
 import React from 'react';
 import UpsertUser from 'views/admin/UsersPage/UpsertUser';
 
-function AdminMain() {
-  return (
-    <>
-      <UpsertUser />
-    </>
-  );
+function AdminUpdatePermission() {
+  return <UpsertUser />;
 }
 
-export default AdminMain;
+export default AdminUpdatePermission;

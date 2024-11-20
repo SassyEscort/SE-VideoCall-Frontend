@@ -1,12 +1,8 @@
 import React from 'react';
 import UserPageContainer from 'views/admin/UsersPage/UserPageContainer';
 
-function AdminMain() {
-  return (
-    <>
-      <UserPageContainer />
-    </>
-  );
+function AdminUserContainer() {
+  return <UserPageContainer />;
 }
 
-export default AdminMain;
+export default AdminUserContainer;

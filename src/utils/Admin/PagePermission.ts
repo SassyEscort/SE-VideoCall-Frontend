@@ -11,7 +11,8 @@ export const isPageAccessiable = (pageName: string, adminUserPermissions: AdminU
 
 export const haveUpdatePermission = (pageName: string, adminUserPermissions: AdminUserPermissions[]) => {
   const filterParams = adminUserPermissions?.filter(
-    (item) => item.module_name === pageName && (item.permission === 'Read' || item.permission === 'Update')
+    (item) =>
+      item.module_name === pageName && (item.permission === PermissionConstants.Read || item.permission === PermissionConstants.Update)
   );
   filterParams.length > 0 ? filterParams[0]?.permission === PermissionConstants.Update : false;
 

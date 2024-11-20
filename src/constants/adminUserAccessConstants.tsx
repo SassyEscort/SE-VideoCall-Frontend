@@ -5,6 +5,7 @@ export const CallLogsPage = 'call logs';
 export const CallPricePage = 'call price';
 export const BoostPage = 'boost';
 export const SEOPage = 'SEO';
+export const SettingsPage = 'setting';
 
 export const PermissionConstants = {
   Update: 'Update',

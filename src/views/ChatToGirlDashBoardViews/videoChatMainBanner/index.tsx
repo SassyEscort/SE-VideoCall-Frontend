@@ -1,22 +1,23 @@
 'use client';
 
-import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-import React, { useState } from 'react';
-import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
-import UINewTypography from 'components/UIComponents/UINewTypography';
-import {
-  Cam2CamMainContainer,
-  BackGroundContainer,
-  Cam2CamInnerContainer,
-  HeadingTypography,
-  SubtitleTypography,
-  ButtonBox,
-  CamExperienceBannerInnerBox
-} from './camExperienceBanner.styled';
+import { useState } from 'react';
+import Box from '@mui/material/Box';
 import { FormattedMessage } from 'react-intl';
+import { FooterButton } from 'views/guestViews/guestLayout/footer/MainFooter.styled';
+import {
+  VideoChatBanner,
+  VideoChatTextContainerMain,
+  VideoChatTextContainer,
+  VideoChatSubTitleText,
+  VideoChatTitleText,
+  VideoChatBannerImg,
+  VideoChatBannerInnerBox,
+  VideoChatBannerInnerBoxContainer,
+  VideoChatBannerUIThemeShadowButton
+} from './videoChatDashboard.styled';
+import { useAuthContext } from '../../../../context/AuthContext';
 import dynamic from 'next/dynamic';
 import { gaEventTrigger } from 'utils/analytics';
-import { useAuthContext } from 'contexts/AuthContext';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
   ssr: false
 });
@@ -36,7 +37,7 @@ const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup')
   ssr: false
 });
 
-const CamExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
+const VideoChatDashboardBanner = () => {
   const { isFreeCreditAvailable } = useAuthContext();
 
   const [open, setIsOpen] = useState(false);
@@ -71,7 +72,7 @@ const CamExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
   const handleFreeCreditSignupOpen = () => {
     setFreeSignupOpen(true);
     setIsOpenLogin(false);
-    gaEventTrigger('CamToCam_Signup_Button_clicked', { source: 'banner', category: 'Button' });
+    gaEventTrigger('CamToCam_Signup_Button_clicked', { source: 'bottom_banner', category: 'Button' });
   };
 
   const handleFreeCreditSignupClose = () => {
@@ -86,39 +87,41 @@ const CamExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
     setOpenForgetPassLink(false);
     setIsOpenLogin(true);
   };
+
   return (
     <>
-      <Cam2CamMainContainer>
-        <BackGroundContainer>
-          <HomeMainContainer>
-            <Cam2CamInnerContainer>
-              <CamExperienceBannerInnerBox>
-                <HeadingTypography>
-                  <FormattedMessage id="StartYourFlirtBateCam2CamExperienceNow" />
-                </HeadingTypography>
-                <SubtitleTypography>
-                  <FormattedMessage id="ThousandsOfModelsAreReady" />
-                </SubtitleTypography>
-              </CamExperienceBannerInnerBox>
-              {isCustomer ? (
-                <></>
-              ) : (
-                <ButtonBox>
-                  <UIThemeShadowButton
-                    variant="contained"
-                    sx={{ width: '236px' }}
-                    onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
-                  >
-                    <UINewTypography variant="body" color="common.white">
+      <VideoChatBanner>
+        <VideoChatTextContainerMain>
+          <VideoChatTextContainer>
+            <VideoChatBannerInnerBoxContainer sx={{ gap: 6 }}>
+              <VideoChatBannerInnerBoxContainer sx={{ gap: 2 }}>
+                <VideoChatSubTitleText>
+                  <FormattedMessage id="WELCOMETOFLIRTBATE" />
+                </VideoChatSubTitleText>
+                <VideoChatTitleText>
+                  <FormattedMessage id="FreeSexVideoChatCalls" />
+                </VideoChatTitleText>
+                <VideoChatSubTitleText>
+                  <FormattedMessage id="JoinThousandsOfUsers" />
+                </VideoChatSubTitleText>
+              </VideoChatBannerInnerBoxContainer>
+              <VideoChatBannerInnerBox>
+                <Box
+                  sx={{ width: '100%', maxWidth: '236px' }}
+                  onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
+                >
+                  <VideoChatBannerUIThemeShadowButton fullWidth variant="contained">
+                    <FooterButton variant="buttonLargeBold" color="common.white">
                       <FormattedMessage id="StartFreeVideoChat" />
-                    </UINewTypography>
-                  </UIThemeShadowButton>
-                </ButtonBox>
-              )}
-            </Cam2CamInnerContainer>
-          </HomeMainContainer>
-        </BackGroundContainer>
-      </Cam2CamMainContainer>
+                    </FooterButton>
+                  </VideoChatBannerUIThemeShadowButton>
+                </Box>
+              </VideoChatBannerInnerBox>
+            </VideoChatBannerInnerBoxContainer>
+          </VideoChatTextContainer>
+        </VideoChatTextContainerMain>
+        <VideoChatBannerImg />
+      </VideoChatBanner>
 
       {/* Singin Login Popup */}
       <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
@@ -148,4 +151,4 @@ const CamExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
   );
 };
 
-export default CamExperienceBanner;
+export default VideoChatDashboardBanner;

@@ -108,11 +108,11 @@ const UpdateUserPassword = ({ open, onClose, userId }: { userId: number; open: b
                   }}
                 >
                   <Typography variant="h6" gutterBottom>
-                    Password
+                    New Password
                   </Typography>
                   <TextField
                     name="password"
-                    label="Password"
+                    label="New Password"
                     type={showNewPassword ? 'text' : 'password'}
                     value={values.password}
                     error={Boolean(touched.password && errors.password)}

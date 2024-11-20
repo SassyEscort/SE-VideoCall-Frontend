@@ -5,18 +5,18 @@ import React, { useState } from 'react';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
-  Cam2CamMainContainer,
+  VideoChatMainContainer,
   BackGroundContainer,
-  Cam2CamInnerContainer,
+  VideoChatInnerContainer,
   HeadingTypography,
   SubtitleTypography,
   ButtonBox,
-  CamExperienceBannerInnerBox
-} from './camExperienceBanner.styled';
+  VideoChatBannerInnerBox
+} from './chatExperienceBanner.styled';
 import { FormattedMessage } from 'react-intl';
+import { useAuthContext } from '../../../../context/AuthContext';
 import dynamic from 'next/dynamic';
 import { gaEventTrigger } from 'utils/analytics';
-import { useAuthContext } from 'contexts/AuthContext';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
   ssr: false
 });
@@ -36,7 +36,7 @@ const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup')
   ssr: false
 });
 
-const CamExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
+const VideoChatExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
   const { isFreeCreditAvailable } = useAuthContext();
 
   const [open, setIsOpen] = useState(false);
@@ -88,18 +88,18 @@ const CamExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
   };
   return (
     <>
-      <Cam2CamMainContainer>
+      <VideoChatMainContainer>
         <BackGroundContainer>
           <HomeMainContainer>
-            <Cam2CamInnerContainer>
-              <CamExperienceBannerInnerBox>
+            <VideoChatInnerContainer>
+              <VideoChatBannerInnerBox>
                 <HeadingTypography>
-                  <FormattedMessage id="StartYourFlirtBateCam2CamExperienceNow" />
+                  <FormattedMessage id="StartYourFlirtBateVideoSexChat" />
                 </HeadingTypography>
                 <SubtitleTypography>
-                  <FormattedMessage id="ThousandsOfModelsAreReady" />
+                  <FormattedMessage id="ThousandsModelareReady" />
                 </SubtitleTypography>
-              </CamExperienceBannerInnerBox>
+              </VideoChatBannerInnerBox>
               {isCustomer ? (
                 <></>
               ) : (
@@ -115,10 +115,10 @@ const CamExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
                   </UIThemeShadowButton>
                 </ButtonBox>
               )}
-            </Cam2CamInnerContainer>
+            </VideoChatInnerContainer>
           </HomeMainContainer>
         </BackGroundContainer>
-      </Cam2CamMainContainer>
+      </VideoChatMainContainer>
 
       {/* Singin Login Popup */}
       <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
@@ -148,4 +148,4 @@ const CamExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
   );
 };
 
-export default CamExperienceBanner;
+export default VideoChatExperienceBanner;

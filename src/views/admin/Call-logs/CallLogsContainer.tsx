@@ -37,6 +37,7 @@ import { useAuthContext } from 'contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
 import { CallLogsPage } from 'constants/adminUserAccessConstants';
+import { UserLoaderBox } from '../UsersPage/UpsertPage.styled';
 
 export type PaginationType = {
   page: number;
@@ -227,12 +228,12 @@ export default function CallLogsContainer() {
                   {isLoading ? (
                     <TableRow>
                       <TableCell colSpan={13}>
-                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2 }}>
+                        <UserLoaderBox>
                           <CircularProgress />
-                        </Box>
+                        </UserLoaderBox>
                       </TableCell>
                     </TableRow>
-                  ) : data?.length ? (
+                  ) : data && data?.length ? (
                     data?.map((item, index) => (
                       <TableRow
                         key={index}
@@ -332,7 +333,7 @@ export default function CallLogsContainer() {
                     ))
                   ) : (
                     <TableRow>
-                      <TableCell colSpan={10}>
+                      <TableCell colSpan={17}>
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2 }}>
                           <Typography variant="body1">Call logs history not found</Typography>
                         </Box>

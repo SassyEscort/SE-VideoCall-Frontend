@@ -11,6 +11,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { useAuthContext } from 'contexts/AuthContext';
+import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
+import { SettingsPage } from 'constants/adminUserAccessConstants';
 
 export type AdminSettingData = {
   id: string;
@@ -21,7 +23,8 @@ export type AdminSettingData = {
 
 function SupportSettingPageContainer() {
   const router = useRouter();
-  const { isAdmin } = useAuthContext();
+  const { adminUserPermissions, isAdmin } = useAuthContext();
+  const UpdatePermission = (adminUserPermissions ? haveUpdatePermission(SettingsPage, adminUserPermissions) : false) || isAdmin;
 
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [data, setData] = useState<AdminSettingData[]>([]);
@@ -72,11 +75,12 @@ function SupportSettingPageContainer() {
   }, [token.token]);
 
   useEffect(() => {
-    if (isAdmin) {
-      isAdmin ? '' : router.push('/admin');
+    if (adminUserPermissions) {
+      const isAccessiable = isPageAccessiable(SettingsPage, adminUserPermissions) || isAdmin;
+      isAccessiable ? '' : router.push('/admin');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAdmin]);
+  }, [adminUserPermissions, isAdmin]);
 
   return (
     <MainLayout>
@@ -85,7 +89,12 @@ function SupportSettingPageContainer() {
           <CircularProgress />
         </Box>
       ) : (
-        <SupportSettingComponet supportSettingData={data} handleUpdate={handleUpdateAdminSettings} loadingButtons={loadingButtons} />
+        <SupportSettingComponet
+          UpdatePermission={UpdatePermission}
+          supportSettingData={data}
+          handleUpdate={handleUpdateAdminSettings}
+          loadingButtons={loadingButtons}
+        />
       )}
     </MainLayout>
   );

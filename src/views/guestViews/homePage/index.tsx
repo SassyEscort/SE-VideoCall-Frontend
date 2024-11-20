@@ -26,7 +26,6 @@ const HomeContainer = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-
   const searchFiltersRef = useRef<HTMLDivElement>(null);
   const initialRender = useRef(true);
 
@@ -79,9 +78,6 @@ const HomeContainer = () => {
     }
     if (pathname === '/' && filterCount === 1 && objParams.page) return;
 
-    const isDetailsPage = pathname.startsWith('/details/');
-    const isCamtoCamPage = pathname.startsWith('/cam-to-cam');
-
     const isMultiple = [
       'language',
       'isOnline',
@@ -94,25 +90,15 @@ const HomeContainer = () => {
       'sortField',
       'gender'
     ].filter((x) => Object.keys(objParams).includes(x));
+
     if (filterCount === 0) {
-      if (isDetailsPage || isCamtoCamPage) {
-        const credit = searchParams.get('credit');
-        if (!credit) router.push(pathname);
-      } else {
-        const credit = searchParams.get('credit');
-        if (!credit) router.push('/');
-      }
+      const credit = searchParams.get('credit');
+      if (!credit) router.push(pathname);
     } else {
       if (isMultiple.length) {
-        if (isDetailsPage || isCamtoCamPage) {
-          router.push(`${pathname}?${queryString}`);
-        } else {
-          router.push(`/?${queryString}`);
-        }
+        router.push(`${pathname}?${queryString}`);
       } else {
-        if (isDetailsPage || isCamtoCamPage) {
-          router.push(`${pathname}?${queryString}`);
-        } else if (objParams.email) {
+        if (objParams.email) {
           return;
         } else {
           router.push(`/${pathname}?${queryString}`);
@@ -151,15 +137,13 @@ const HomeContainer = () => {
         const offset = (value - 1) * filters.pageSize;
         const newFilters = { ...filters, page: value, offset: offset };
         setFilters(newFilters);
-        handelFilterChange(newFilters);
-      }
-      if (filters) {
-        const isCamtoCamPage = pathname.startsWith('/cam-to-cam');
+        // handelFilterChange(newFilters);
+      } else if (filters) {
         const offset = (value - 1) * filters.pageSize;
         const newFilters = { ...filters, page: value, offset: offset };
         setFilters(newFilters);
-        handelFilterChange(newFilters);
-        if (!isCamtoCamPage) {
+        // handelFilterChange(newFilters);
+        if (pathname === '/') {
           const queryParams = new URLSearchParams(window.location.search);
           queryParams.set('page', value.toString());
           router.push(`/?${queryParams.toString()}`);
@@ -180,9 +164,9 @@ const HomeContainer = () => {
     if (initialRender.current) {
       initialRender.current = false;
     }
-    setTimeout(() => {
-      handleChangeSearchFilter();
-    }, 1000);
+    // setTimeout(() => {
+    handleChangeSearchFilter();
+    // }, 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, searchParams]);
 
