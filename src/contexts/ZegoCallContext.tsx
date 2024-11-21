@@ -137,7 +137,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const serverSecret = process.env.NEXT_PUBLIC_SECRET_KEY!;
 
   const modelObj = {
-    modelId: 0,
+    modelId: modelId,
     modelName: modelName,
     modelPhoto: modelPhoto,
     modelUsername: modelUsername,
@@ -195,9 +195,9 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         handleSetIsCallAccepted(false);
         handleSetIsModelJoin(false);
         handleSetCallEnd(true);
+        handleRemovedRoomId();
         if (reason === CALL_INVITATION_END_REASON.CANCELED) handleCreateNewRoomID();
         handleSetIsLoading(false);
-        handleRemovedRoomId();
         if (reason === CALL_INVITATION_END_REASON.LEAVEROOM) handleSetReviewOpen(true);
       },
 
@@ -329,7 +329,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     const calleeDetails = {
       userID: modelUsername?.trim(),
       userName: modelUsername,
-      avatar: modelRef.current.modelPhoto
+      avatar: modelPhoto || modelRef.current.modelPhoto
     };
 
     try {
@@ -548,7 +548,8 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   useEffect(() => {
     const timerId = setTimeout(async () => {
       if (isCallAccepted || isCallEnded) {
-        handleSetCallInstance(null);
+        callInstance?.hangUp();
+        handleCreateNewRoomID();
         handleSetIsCallAccepted(false);
         handleSetIsModelJoin(false);
         handleSetCallEnd(true);
