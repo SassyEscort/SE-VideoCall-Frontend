@@ -30,7 +30,7 @@ import { EMAIL_REGEX } from 'constants/regexConstants';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { ROLE } from 'constants/workerVerification';
 import { MODEL_ACTION } from 'constants/profileConstants';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
 const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {

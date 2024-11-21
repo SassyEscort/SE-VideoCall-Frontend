@@ -22,7 +22,6 @@ import Divider from '@mui/material/Divider';
 
 const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const asPath = usePathname();
-  // const { isCustomer } = useCallFeatureContext();
 
   const [loading, setLoading] = useState(false);
 

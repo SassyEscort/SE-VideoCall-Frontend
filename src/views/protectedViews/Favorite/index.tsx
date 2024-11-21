@@ -14,7 +14,7 @@ import { CallHistoryPaginationContainer } from '../CallHistory/CallHistory.style
 import { BillingPaginationBox } from '../BillingHistory/BillingHistory.styled';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
 export type FavoritesPaginationType = {
   page: number;

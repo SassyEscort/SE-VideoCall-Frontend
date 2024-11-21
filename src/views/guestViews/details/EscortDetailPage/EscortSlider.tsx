@@ -1,7 +1,7 @@
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
 import { FreeMode, Navigation, Thumbs, Mousewheel } from 'swiper/modules';
-import { useRef, useState } from 'react';
+import { memo, useRef, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
@@ -39,7 +39,7 @@ import { ModelDetailsResponse } from 'views/protectedModelViews/verification/ver
 import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
 import { usePathname } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
-import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
 import dynamic from 'next/dynamic';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
   ssr: false
@@ -60,7 +60,7 @@ const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents
   ssr: false
 });
 
-export const EscortSlider = ({
+const EscortSlider = ({
   workerPhotos,
   modelId,
   token,
@@ -79,7 +79,7 @@ export const EscortSlider = ({
   guestData: ModelDetailsResponse;
   isFreeCreditAvailable: number;
 }) => {
-  const { user } = useCallFeatureContext();
+  const { user } = useZegoCallFeatureContext();
   const path = usePathname();
   const userName = path.split('/')[2];
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
@@ -341,3 +341,4 @@ export const EscortSlider = ({
     </>
   );
 };
+export default memo(EscortSlider);

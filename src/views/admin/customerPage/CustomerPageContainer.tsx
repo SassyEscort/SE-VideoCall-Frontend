@@ -31,7 +31,7 @@ import { ModelActionPopover, NotFoundBox, SortBox, StackBoxContainer, StackFirst
 import PaginationSearch from 'components/common/CustomPaginations/PaginationSearch';
 import { CustomerDetailsPage } from 'services/adminModel/types';
 import CustorModel from './CustomerModel';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from 'contexts/AuthContext';
 import { isPageAccessiable } from 'utils/Admin/PagePermission';
 import { CustomerPage } from 'constants/adminUserAccessConstants';
 import { useRouter } from 'next/navigation';

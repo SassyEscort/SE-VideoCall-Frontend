@@ -25,7 +25,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import Availability from './Availability';
 import { useIntl } from 'react-intl';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
 ModelNav.propTypes = {
   openNav: PropTypes.bool,

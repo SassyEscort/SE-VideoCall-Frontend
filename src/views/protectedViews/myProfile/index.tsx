@@ -17,7 +17,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import { getErrorMessage } from 'utils/errorUtils';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
 export type MyProfile = {
   username: string;

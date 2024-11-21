@@ -35,7 +35,7 @@ import Chip from '@mui/material/Chip';
 import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import { useRouter } from 'next/navigation';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from 'contexts/AuthContext';
 import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
 import { PayoutPage } from 'constants/adminUserAccessConstants';
 

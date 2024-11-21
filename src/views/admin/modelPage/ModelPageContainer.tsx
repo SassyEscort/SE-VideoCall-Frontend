@@ -42,7 +42,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import Link from 'next/link';
 import HideSourceOutlinedIcon from '@mui/icons-material/HideSourceOutlined';
 import { StyledSelectInputLabel } from 'components/UIComponents/UIStyledSelect';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from 'contexts/AuthContext';
 import { ModalPage } from 'constants/adminUserAccessConstants';
 import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
 

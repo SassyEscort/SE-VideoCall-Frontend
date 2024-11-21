@@ -7,7 +7,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import Box from '@mui/material/Box';
 import EscortSwiperPhotoContainer from './EscortSwiperPhotoContainer';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import Image from 'next/image';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIStyledShadowButtonLike from 'components/UIComponents/UIStyledShadowButtonLike';
@@ -27,10 +27,10 @@ import { ModelDetailsResponse } from 'views/protectedModelViews/verification/ver
 import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
 import { gaEventTrigger } from 'utils/analytics';
 import { usePathname } from 'next/navigation';
-import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import GuestFreeCreditsSignup from 'views/auth/guestFreeCreditsSignup';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
+import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
   ssr: false
 });
@@ -66,7 +66,7 @@ const EscortSliderMobile = ({
   guestData: ModelDetailsResponse;
   isFreeCreditAvailable: number;
 }) => {
-  const { user } = useCallFeatureContext();
+  const { user } = useZegoCallFeatureContext();
   const isLg = useMediaQuery(theme.breakpoints.up('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const [liked, setLiked] = useState(false);
@@ -294,4 +294,4 @@ const EscortSliderMobile = ({
   );
 };
 
-export default EscortSliderMobile;
+export default memo(EscortSliderMobile);

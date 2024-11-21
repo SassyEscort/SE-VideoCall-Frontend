@@ -20,7 +20,6 @@ import {
 } from './BillingDetails';
 import WorkerCardMobile from 'views/guestViews/commonComponents/mobileWorkerCard';
 import { FormattedMessage } from 'react-intl';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import moment from 'moment';
 import { useRouter } from 'next/navigation';
 import { ViewDetailsRes } from 'services/guestBilling/types';
@@ -29,6 +28,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
+import { useVideoCallContext } from 'contexts/videoCallContext';
 
 const BillingDetails = ({
   open,
@@ -43,7 +43,7 @@ const BillingDetails = ({
 }) => {
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
   const router = useRouter();
-  const { isLoading } = useCallFeatureContext();
+  const { isLoading } = useVideoCallContext();
   const callDurationString = selectDetails.call_duration;
   const callDuration = moment.duration(callDurationString);
   const hours = Math.floor(callDuration.asHours());

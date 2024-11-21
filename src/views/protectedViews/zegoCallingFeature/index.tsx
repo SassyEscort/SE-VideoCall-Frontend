@@ -1,34 +1,29 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 'use client';
-import { useCallFeatureContext } from '../../../contexts/CallFeatureContext';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import RingingModel from '../videoCalling/RingingModel';
 import AnotherCallModel from '../videoCalling/AnotherCallModel';
 import OfflineModel from '../videoCalling/offlineModel';
-import { TokenIdType } from 'views/protectedModelViews/verification';
-import dynamic from 'next/dynamic';
+import RingingModel from '../videoCalling/RingingModel';
+import { useVideoCallContext } from 'contexts/videoCallContext';
+import { useAuthContext } from 'contexts/AuthContext';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ScreenshotService } from 'services/screenshot/screenshot.service';
 
-const CometChatIncomingCall = dynamic(() => import('@cometchat/chat-uikit-react').then((mod) => mod.CometChatIncomingCall), { ssr: false });
-const CometChatOngoingCall = dynamic(() => import('@cometchat/chat-uikit-react').then((mod) => mod.CometChatOngoingCall), { ssr: false });
-const CometChatOutgoingCall = dynamic(() => import('@cometchat/chat-uikit-react').then((mod) => mod.CometChatOutgoingCall), { ssr: false });
-
-const CallFeature = () => {
+const zegoCallingFeature = () => {
   const {
-    call,
-    handleCancelCall,
-    isCallAccepted,
-    isCustomer,
     isBusy,
+    callInstance,
+    outgoingCallDialogOpen,
     handleBusyClose,
-    isLoading,
     isModelAvailable,
+    handleOutGoingCallCancel,
     handleModelOfflineClose,
     isModelJoin,
-    getToken,
-    callLogId
-  } = useCallFeatureContext();
+    callLogId,
+    isLoading,
+    isCallAccepted
+  } = useVideoCallContext();
+  const { token } = useAuthContext();
 
-  const token: TokenIdType = getToken();
   const [intervalDuration, setIntervalDuration] = useState<number | null>(null);
   const [startDuration, setStartDuration] = useState<number | null>(null);
   const [configFetched, setConfigFetched] = useState(false);
@@ -58,16 +53,16 @@ const CallFeature = () => {
 
   const captureScreenshot = useCallback(async () => {
     if (isModelJoin && callLogId) {
-      const captureElement = document.querySelector('#cc-callscreen_ref') as HTMLElement;
+      const captureElement = document.querySelector('#zego-container') as HTMLElement;
       if (captureElement) {
         const html2canvas = (await import('html2canvas')).default;
         const canvas = await html2canvas(captureElement);
 
         canvas.toBlob(async (blob) => {
           if (blob) {
-            const fileName = `${callLogId.toString()}_${Date.now()}`;
+            const fileName = `${callLogId?.toString()}_${Date.now()}`;
             const formData = new FormData();
-            formData.append('call_log_id', callLogId.toString());
+            formData.append('call_log_id', callLogId?.toString());
             formData.append('screenshot', blob, fileName);
 
             await ScreenshotService.uploadScreenShotImage(formData, token.token);
@@ -97,15 +92,13 @@ const CallFeature = () => {
 
   return (
     <>
-      {!isCustomer && <CometChatIncomingCall call={call} />}
-      {call && !isCallAccepted && !isLoading && !isBusy && (
-        <CometChatOutgoingCall call={call} customView={<RingingModel open={true} onClose={handleCancelCall} />} />
+      {callInstance && outgoingCallDialogOpen && !isCallAccepted && !isLoading && !isBusy && (
+        <RingingModel open={true} onClose={handleOutGoingCallCancel} />
       )}
-      {call && isCallAccepted && <CometChatOngoingCall sessionID={call?.getSessionId()} />}
       {isBusy && <AnotherCallModel onClose={handleBusyClose} open={isBusy} />}
       <OfflineModel open={!isModelAvailable} isModelAvailable={isModelAvailable} onClose={handleModelOfflineClose} />
     </>
   );
 };
 
-export default CallFeature;
+export default zegoCallingFeature;
