@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 
-export const VideoChatBanner = styled(Box)(({ theme }) => ({
+export const SexChatBanner = styled(Box)(({ theme }) => ({
   backgroundColor: 'rgba(30, 8, 21, 1)',
   overflow: 'hidden',
   width: '100%',
@@ -15,13 +15,13 @@ export const VideoChatBanner = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const VideoChatTextContainerMain = styled(Box)(() => ({
+export const SexChatTextContainerMain = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'center',
   width: '100%'
 }));
 
-export const VideoChatTextContainer = styled(Box)(({ theme }) => ({
+export const SexChatTextContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -35,7 +35,7 @@ export const VideoChatTextContainer = styled(Box)(({ theme }) => ({
   width: '100%'
 }));
 
-export const VideoChatSubTitleText = styled(Typography)(({ theme }) => ({
+export const SexChatSubTitleText = styled(Typography)(({ theme }) => ({
   color: theme.palette.secondary[100],
   width: '100%',
   [theme.breakpoints.down('sm')]: {
@@ -52,7 +52,7 @@ export const VideoChatSubTitleText = styled(Typography)(({ theme }) => ({
   }
 }));
 
-export const VideoChatTitleText = styled(Typography)(({ theme }) => ({
+export const SexChatTitleText = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
   width: '100%',
   maxWidth: '846px',
@@ -68,7 +68,7 @@ export const VideoChatTitleText = styled(Typography)(({ theme }) => ({
   }
 }));
 
-export const VideoChatBannerImg = styled(Box)(({ theme }) => ({
+export const SexChatBannerImg = styled(Box)(({ theme }) => ({
   width: '100%',
   height: '100%',
   backgroundImage: 'url(/images/camtocamDashboard/cam-main-new-min.avif)',
@@ -81,7 +81,7 @@ export const VideoChatBannerImg = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const VideoChatBannerInnerBox = styled(Box)(({ theme }) => ({
+export const SexChatBannerInnerBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   width: '100%',
@@ -93,14 +93,14 @@ export const VideoChatBannerInnerBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const VideoChatBannerInnerBoxContainer = styled(Box)(({ theme }) => ({
+export const SexChatBannerInnerBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
   alignItems: 'center'
 }));
 
-export const VideoChatBannerUIThemeShadowButton = styled(UIThemeShadowButton)(({ theme }) => ({
+export const SexChatBannerUIThemeShadowButton = styled(UIThemeShadowButton)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
     padding: 0
   }

@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import styled from '@mui/system/styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
-export const HowVideoChatWorksTypography = styled(UINewTypography)(({ theme }) => ({
+export const SexChatTypography = styled(UINewTypography)(({ theme }) => ({
   fontSize: '26px',
   fontWeight: 400,
   lineHeight: '44.72px',

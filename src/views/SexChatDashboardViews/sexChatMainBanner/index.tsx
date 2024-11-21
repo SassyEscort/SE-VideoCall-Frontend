@@ -1,19 +1,20 @@
 'use client';
 
-import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-import React, { useState } from 'react';
-import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
-import UINewTypography from 'components/UIComponents/UINewTypography';
-import {
-  VideoChatMainContainer,
-  BackGroundContainer,
-  VideoChatInnerContainer,
-  HeadingTypography,
-  SubtitleTypography,
-  ButtonBox,
-  VideoChatBannerInnerBox
-} from './chatExperienceBanner.styled';
+import { useState } from 'react';
+import Box from '@mui/material/Box';
 import { FormattedMessage } from 'react-intl';
+import { FooterButton } from 'views/guestViews/guestLayout/footer/MainFooter.styled';
+import {
+  SexChatBanner,
+  SexChatTextContainerMain,
+  SexChatTextContainer,
+  SexChatSubTitleText,
+  SexChatTitleText,
+  SexChatBannerImg,
+  SexChatBannerInnerBox,
+  SexChatBannerInnerBoxContainer,
+  SexChatBannerUIThemeShadowButton
+} from './sexChatDashboard.styled';
 import { useAuthContext } from '../../../../context/AuthContext';
 import dynamic from 'next/dynamic';
 import { gaEventTrigger } from 'utils/analytics';
@@ -36,7 +37,7 @@ const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup')
   ssr: false
 });
 
-const VideoChatExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
+const SexChatDashboardBanner = () => {
   const { isFreeCreditAvailable } = useAuthContext();
 
   const [open, setIsOpen] = useState(false);
@@ -71,7 +72,7 @@ const VideoChatExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
   const handleFreeCreditSignupOpen = () => {
     setFreeSignupOpen(true);
     setIsOpenLogin(false);
-    gaEventTrigger('CamToCam_Signup_Button_clicked', { source: 'banner', category: 'Button' });
+    gaEventTrigger('CamToCam_Signup_Button_clicked', { source: 'bottom_banner', category: 'Button' });
   };
 
   const handleFreeCreditSignupClose = () => {
@@ -86,39 +87,41 @@ const VideoChatExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
     setOpenForgetPassLink(false);
     setIsOpenLogin(true);
   };
+
   return (
     <>
-      <VideoChatMainContainer>
-        <BackGroundContainer>
-          <HomeMainContainer>
-            <VideoChatInnerContainer>
-              <VideoChatBannerInnerBox>
-                <HeadingTypography>
-                  <FormattedMessage id="StartYourFlirtBateVideoSexChat" />
-                </HeadingTypography>
-                <SubtitleTypography>
-                  <FormattedMessage id="ThousandsModelareReady" />
-                </SubtitleTypography>
-              </VideoChatBannerInnerBox>
-              {isCustomer ? (
-                <></>
-              ) : (
-                <ButtonBox>
-                  <UIThemeShadowButton
-                    variant="contained"
-                    sx={{ width: '236px' }}
-                    onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
-                  >
-                    <UINewTypography variant="body" color="common.white">
-                      <FormattedMessage id="StartFreeVideoChat" />
-                    </UINewTypography>
-                  </UIThemeShadowButton>
-                </ButtonBox>
-              )}
-            </VideoChatInnerContainer>
-          </HomeMainContainer>
-        </BackGroundContainer>
-      </VideoChatMainContainer>
+      <SexChatBanner>
+        <SexChatTextContainerMain>
+          <SexChatTextContainer>
+            <SexChatBannerInnerBoxContainer sx={{ gap: 6 }}>
+              <SexChatBannerInnerBoxContainer sx={{ gap: 2 }}>
+                <SexChatSubTitleText>
+                  <FormattedMessage id="WELCOMETOFLIRTBATE" />
+                </SexChatSubTitleText>
+                <SexChatTitleText>
+                  <FormattedMessage id="FreeSexSexChatCalls" />
+                </SexChatTitleText>
+                <SexChatSubTitleText>
+                  <FormattedMessage id="JoinThousandsOfUsers" />
+                </SexChatSubTitleText>
+              </SexChatBannerInnerBoxContainer>
+              <SexChatBannerInnerBox>
+                <Box
+                  sx={{ width: '100%', maxWidth: '236px' }}
+                  onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
+                >
+                  <SexChatBannerUIThemeShadowButton fullWidth variant="contained">
+                    <FooterButton variant="buttonLargeBold" color="common.white">
+                      <FormattedMessage id="StartFreeSexChat" />
+                    </FooterButton>
+                  </SexChatBannerUIThemeShadowButton>
+                </Box>
+              </SexChatBannerInnerBox>
+            </SexChatBannerInnerBoxContainer>
+          </SexChatTextContainer>
+        </SexChatTextContainerMain>
+        <SexChatBannerImg />
+      </SexChatBanner>
 
       {/* Singin Login Popup */}
       <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
@@ -148,4 +151,4 @@ const VideoChatExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
   );
 };
 
-export default VideoChatExperienceBanner;
+export default SexChatDashboardBanner;

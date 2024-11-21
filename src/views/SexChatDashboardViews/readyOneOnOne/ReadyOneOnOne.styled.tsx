@@ -3,26 +3,26 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import styled from '@mui/system/styled';
 
-export const VideoChatExperienceMainContainer = styled(Box)(() => ({
+export const ReadyOneOnOneMainContainer = styled(Box)(() => ({
   backgroundImage: 'url(/images/camtocamDashboard/camTocamBackground.webp)',
   width: '100%'
 }));
 
-export const VideoChatExperienceGridContainer = styled(Grid)(({ theme }) => ({
+export const ReadyOneOnOneGridContainer = styled(Grid)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   gap: theme.spacing(8)
 }));
 
-export const VideoChatExperienceInnerContainer = styled(Grid)(({ theme }) => ({
+export const ReadyOneOnOneInnerContainer = styled(Grid)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   gap: theme.spacing(3)
 }));
 
-export const VideoChatExperienceBackgroundImageBox = styled(Box)(({ theme }) => ({
+export const ReadyOneOnOneBackgroundImageBox = styled(Box)(({ theme }) => ({
   backgroundImage: 'url(/images/camtocamDashboard/camToCamSexExperience.webp)',
   width: '100%',
   backgroundPosition: 'center',

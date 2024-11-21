@@ -1,20 +1,19 @@
 'use client';
 
-import { useState } from 'react';
-import Box from '@mui/material/Box';
-import { FormattedMessage } from 'react-intl';
-import { FooterButton } from 'views/guestViews/guestLayout/footer/MainFooter.styled';
+import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
+import React, { useState } from 'react';
+import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
+import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
-  VideoChatBanner,
-  VideoChatTextContainerMain,
-  VideoChatTextContainer,
-  VideoChatSubTitleText,
-  VideoChatTitleText,
-  VideoChatBannerImg,
-  VideoChatBannerInnerBox,
-  VideoChatBannerInnerBoxContainer,
-  VideoChatBannerUIThemeShadowButton
-} from './videoChatDashboard.styled';
+  MeetRealPeopleMainContainer,
+  BackGroundContainer,
+  MeetRealPeopleInnerContainer,
+  HeadingTypography,
+  SubtitleTypography,
+  ButtonBox,
+  MeetRealPeopleBannerInnerBox
+} from './MeetRealPeople.styled';
+import { FormattedMessage } from 'react-intl';
 import { useAuthContext } from '../../../../context/AuthContext';
 import dynamic from 'next/dynamic';
 import { gaEventTrigger } from 'utils/analytics';
@@ -37,7 +36,7 @@ const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup')
   ssr: false
 });
 
-const VideoChatDashboardBanner = () => {
+const MeetRealPeople = ({ isCustomer }: { isCustomer: boolean }) => {
   const { isFreeCreditAvailable } = useAuthContext();
 
   const [open, setIsOpen] = useState(false);
@@ -72,7 +71,7 @@ const VideoChatDashboardBanner = () => {
   const handleFreeCreditSignupOpen = () => {
     setFreeSignupOpen(true);
     setIsOpenLogin(false);
-    gaEventTrigger('CamToCam_Signup_Button_clicked', { source: 'bottom_banner', category: 'Button' });
+    gaEventTrigger('CamToCam_Signup_Button_clicked', { source: 'banner', category: 'Button' });
   };
 
   const handleFreeCreditSignupClose = () => {
@@ -87,41 +86,45 @@ const VideoChatDashboardBanner = () => {
     setOpenForgetPassLink(false);
     setIsOpenLogin(true);
   };
-
   return (
     <>
-      <VideoChatBanner>
-        <VideoChatTextContainerMain>
-          <VideoChatTextContainer>
-            <VideoChatBannerInnerBoxContainer sx={{ gap: 6 }}>
-              <VideoChatBannerInnerBoxContainer sx={{ gap: 2 }}>
-                <VideoChatSubTitleText>
-                  <FormattedMessage id="WELCOMETOFLIRTBATE" />
-                </VideoChatSubTitleText>
-                <VideoChatTitleText>
-                  <FormattedMessage id="FreeSexVideoChatCalls" />
-                </VideoChatTitleText>
-                <VideoChatSubTitleText>
-                  <FormattedMessage id="JoinThousandsOfUsers" />
-                </VideoChatSubTitleText>
-              </VideoChatBannerInnerBoxContainer>
-              <VideoChatBannerInnerBox>
-                <Box
-                  sx={{ width: '100%', maxWidth: '236px' }}
-                  onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
-                >
-                  <VideoChatBannerUIThemeShadowButton fullWidth variant="contained">
-                    <FooterButton variant="buttonLargeBold" color="common.white">
-                      <FormattedMessage id="StartFreeVideoChat" />
-                    </FooterButton>
-                  </VideoChatBannerUIThemeShadowButton>
-                </Box>
-              </VideoChatBannerInnerBox>
-            </VideoChatBannerInnerBoxContainer>
-          </VideoChatTextContainer>
-        </VideoChatTextContainerMain>
-        <VideoChatBannerImg />
-      </VideoChatBanner>
+      <MeetRealPeopleMainContainer>
+        <BackGroundContainer>
+          <HomeMainContainer>
+            <MeetRealPeopleInnerContainer>
+              <MeetRealPeopleBannerInnerBox>
+                <HeadingTypography>Meet Real People in Real Time</HeadingTypography>
+                <SubtitleTypography>
+                  FlirtBate is all about real connections. Every model is live and ready for a sexy chat, bringing an authentic and engaging
+                  experience to the table. Forget automated messages or fake profiles—FlirtBate offers genuine one on one sex chat with
+                  people looking to connect.
+                </SubtitleTypography>
+                <SubtitleTypography>
+                  Live Models: Every interaction is live, with real models ready to engage in meaningful or steamy conversations.
+                </SubtitleTypography>
+                <SubtitleTypography>
+                  Tailored Chats: Unlike typical adult chat rooms, you can customize your video chat experience based on your preferences.
+                </SubtitleTypography>
+              </MeetRealPeopleBannerInnerBox>
+              {isCustomer ? (
+                <></>
+              ) : (
+                <ButtonBox>
+                  <UIThemeShadowButton
+                    variant="contained"
+                    sx={{ width: '236px' }}
+                    onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
+                  >
+                    <UINewTypography variant="body" color="common.white">
+                      <FormattedMessage id="StartFree MeetRealPeople" />
+                    </UINewTypography>
+                  </UIThemeShadowButton>
+                </ButtonBox>
+              )}
+            </MeetRealPeopleInnerContainer>
+          </HomeMainContainer>
+        </BackGroundContainer>
+      </MeetRealPeopleMainContainer>
 
       {/* Singin Login Popup */}
       <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
@@ -151,4 +154,4 @@ const VideoChatDashboardBanner = () => {
   );
 };
 
-export default VideoChatDashboardBanner;
+export default MeetRealPeople;

@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
-export const WhyDashboardContainer = styled(Box)(({ theme }) => ({
+export const ExclusiveSexChatContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: '85px',
   width: '100%',
@@ -36,7 +36,7 @@ export const WhyDashboardContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const WhyDashboardFirstBoxContainer = styled(Box)(({ theme }) => ({
+export const ExclusiveSexChatFirstBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
@@ -48,7 +48,7 @@ export const WhyDashboardFirstBoxContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const WhyDashboardSecBoxContainer = styled(Box)(({ theme }) => ({
+export const ExclusiveSexChatSecBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
@@ -61,7 +61,7 @@ export const WhyDashboardSecBoxContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const WhyDashboardInlineBox = styled(Box)(({ theme }) => ({
+export const ExclusiveSexChatInlineBox = styled(Box)(({ theme }) => ({
   color: theme.palette.common.white,
   flexFlow: 'column-wrap',
   wordBreak: 'break-word',
@@ -85,7 +85,7 @@ export const WhyDashboardInlineBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const WhyDashboardInlineBoxRelative = styled(Box)(({ theme }) => ({
+export const ExclusiveSexChatInlineBoxRelative = styled(Box)(({ theme }) => ({
   display: 'flex',
   position: 'relative',
   color: theme.palette.primary[600],
@@ -94,7 +94,7 @@ export const WhyDashboardInlineBoxRelative = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const WhyDashboardBannerImageCard = styled(Box)(({ theme }) => ({
+export const ExclusiveSexChatBannerImageCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
@@ -113,7 +113,7 @@ export const WhyDashboardBannerImageCard = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const WhyDashboardCamSubtitleTypographyBox = styled(Typography)(({ theme }) => ({
+export const ExclusiveSexChatCamSubtitleTypographyBox = styled(Typography)(({ theme }) => ({
   fontWeight: 400,
   width: '100%',
   color: theme.palette.secondary[100],
@@ -129,7 +129,7 @@ export const WhyDashboardCamSubtitleTypographyBox = styled(Typography)(({ theme 
   }
 }));
 
-export const WhyDashboardSubtitlePointsTypography = styled(Typography)(({ theme }) => ({
+export const ExclusiveSexChatSubtitlePointsTypography = styled(Typography)(({ theme }) => ({
   fontWeight: 700,
   width: '100%',
   color: theme.palette.secondary[100],

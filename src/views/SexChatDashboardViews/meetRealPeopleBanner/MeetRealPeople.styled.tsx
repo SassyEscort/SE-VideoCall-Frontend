@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import styled from '@mui/system/styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
-export const VideoChatMainContainer = styled(Box)(({ theme }) => ({
+export const MeetRealPeopleMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   height: '853px',
   backgroundImage: 'url(/images/camtocamDashboard/camTocamBackground.webp)',
@@ -30,10 +30,10 @@ export const BackGroundContainer = styled(Box)(() => ({
   backgroundPosition: 'bottom'
 }));
 
-export const VideoChatInnerContainer = styled(Box)(({ theme }) => ({
+export const MeetRealPeopleInnerContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(6),
+  gap: theme.spacing(4),
   width: '100%',
   maxWidth: '933px',
   height: '100%',
@@ -71,7 +71,7 @@ export const ButtonBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const VideoChatBannerInnerBox = styled(Box)(({ theme }) => ({
+export const MeetRealPeopleBannerInnerBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(3)

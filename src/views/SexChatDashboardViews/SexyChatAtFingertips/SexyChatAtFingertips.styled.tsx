@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import styled from '@mui/system/styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
-export const ChatWhyChooseMainContainer = styled(Box)(({ theme }) => ({
+export const SexyChatAtFingertipsMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -47,7 +47,7 @@ export const PinkLightCirclesBox = styled(Box)(() => ({
   right: '-15px'
 }));
 
-export const ChatWhyChooseRotateChipContainer = styled(Box)(({ theme }) => ({
+export const SexyChatAtFingertipsRotateChipContainer = styled(Box)(({ theme }) => ({
   background: theme.palette.primary[400],
   borderRadius: theme.spacing(1.5),
   rotate: '356deg',
@@ -56,7 +56,7 @@ export const ChatWhyChooseRotateChipContainer = styled(Box)(({ theme }) => ({
   paddingInline: theme.spacing(1.25)
 }));
 
-export const ChatWhyChooseInfoContainer = styled(Box)(({ theme }) => ({
+export const SexyChatAtFingertipsInfoContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '361px',
   textAlign: 'center',
@@ -65,14 +65,14 @@ export const ChatWhyChooseInfoContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1)
 }));
 
-export const ChatWhyChooseInfoMainContainer = styled(Box)(({ theme }) => ({
+export const SexyChatAtFingertipsInfoMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(6.875),
   alignItems: 'center'
 }));
 
-export const ChatWhyChooseTitleStyledBox = styled(Box)(({ theme }) => ({
+export const SexyChatAtFingertipsTitleStyledBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(1.25),
   flexDirection: 'row',
@@ -88,7 +88,7 @@ export const ChatWhyChooseTitleStyledBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const ChatWhyChooseContainer = styled(Box)(({ theme }) => ({
+export const SexyChatAtFingertipsContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(5.6),
@@ -101,7 +101,7 @@ export const ChatWhyChooseContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const ChatWhyChooseTitleTypography = styled(UINewTypography)(({ theme }) => ({
+export const SexyChatAtFingertipsTitleTypography = styled(UINewTypography)(({ theme }) => ({
   fontSize: '48px',
   fontWeight: 800,
   lineHeight: '72px',
@@ -116,7 +116,7 @@ export const ChatWhyChooseTitleTypography = styled(UINewTypography)(({ theme }) 
   }
 }));
 
-export const ChatWhyChooseSubTitleTypography = styled(UINewTypography)(({ theme }) => ({
+export const SexyChatAtFingertipsSubTitleTypography = styled(UINewTypography)(({ theme }) => ({
   fontSize: '20px',
   fontWeight: 400,
   lineHeight: '34.4px',
@@ -131,7 +131,7 @@ export const ChatWhyChooseSubTitleTypography = styled(UINewTypography)(({ theme 
   }
 }));
 
-export const ChatSubTitlePointTypography = styled(UINewTypography)(({ theme }) => ({
+export const ChatSubTitlePointTypographySubTitlePointTypography = styled(UINewTypography)(({ theme }) => ({
   fontSize: '22px',
   fontWeight: 700,
   lineHeight: '34.4px',
@@ -146,7 +146,7 @@ export const ChatSubTitlePointTypography = styled(UINewTypography)(({ theme }) =
   }
 }));
 
-export const ChatWhyChooseDescriptionTitleTypography = styled(UINewTypography)(({ theme }) => ({
+export const SexyChatAtFingertipsDescriptionTitleTypography = styled(UINewTypography)(({ theme }) => ({
   fontSize: '20px',
   fontWeight: 600,
   lineHeight: '27.32px',
@@ -161,7 +161,7 @@ export const ChatWhyChooseDescriptionTitleTypography = styled(UINewTypography)((
   }
 }));
 
-export const ChatWhyChooseDescriptionSubTitleTypography = styled(UINewTypography)(({ theme }) => ({
+export const SexyChatAtFingertipsDescriptionSubTitleTypography = styled(UINewTypography)(({ theme }) => ({
   fontSize: '16px',
   fontWeight: 300,
   lineHeight: '21.86px',
