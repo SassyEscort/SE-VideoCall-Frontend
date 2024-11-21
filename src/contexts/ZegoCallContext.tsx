@@ -195,9 +195,9 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         handleSetIsCallAccepted(false);
         handleSetIsModelJoin(false);
         handleSetCallEnd(true);
-        handleRemovedRoomId();
         if (reason === CALL_INVITATION_END_REASON.CANCELED) handleCreateNewRoomID();
         handleSetIsLoading(false);
+        handleRemovedRoomId();
         if (reason === CALL_INVITATION_END_REASON.LEAVEROOM) handleSetReviewOpen(true);
       },
 
