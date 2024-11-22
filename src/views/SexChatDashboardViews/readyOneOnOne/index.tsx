@@ -20,10 +20,11 @@ const ReadyOneOnOneComponent = () => (
       <Grid container direction={{ xs: 'column-reverse', sm: 'column-reverse', md: 'row' }} sx={{ padding: '15px' }}>
         <ReadyOneOnOneGridContainer item xs={12} md={6}>
           <ReadyOneOnOneInnerContainer>
-            <TypographyTitleBox>Ready to Start Your 1 on 1 Sex Chat?</TypographyTitleBox>
+            <TypographyTitleBox>
+              <FormattedMessage id="ReadyStartYour1On1SexChat" />
+            </TypographyTitleBox>
             <TypographySubtitleBox>
-              It’s time to upgrade your experience. Dive into dirty video chats with models who are ready to connect. With FlirtBate’s
-              real-time video chat, every interaction is personal, exciting, and unforgettable.
+              <FormattedMessage id="TimeToUpgradeYourExperience" />
             </TypographySubtitleBox>
           </ReadyOneOnOneInnerContainer>
           <TypographyGradiantSubtitleBox>

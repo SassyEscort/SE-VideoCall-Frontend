@@ -12,6 +12,7 @@ import {
 } from './ExclusiveSexChatDashboard.styled';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import Box from '@mui/system/Box';
+import { FormattedMessage } from 'react-intl';
 
 const ExclusiveSexChatDashboard = () => {
   const isXsDown = useMediaQuery(theme.breakpoints.down(321));
@@ -42,11 +43,11 @@ const ExclusiveSexChatDashboard = () => {
       <ExclusiveSexChatContainer>
         <ExclusiveSexChatFirstBoxContainer>
           <ExclusiveSexChatSecBoxContainer>
-            <ExclusiveSexChatInlineBox>FlirtBate - Exclusive 1 on 1 Sex Chat and Dirty Video Chat Experience</ExclusiveSexChatInlineBox>
+            <ExclusiveSexChatInlineBox>
+              <FormattedMessage id="ExclusiveSexChat" />
+            </ExclusiveSexChatInlineBox>
             <ExclusiveSexChatCamSubtitleTypographyBox>
-              Welcome to FlirtBate Sex Chat, where you can engage in sexy 1 on 1 video chats with real models. We’ve created an adult
-              platform designed to bring your fantasies to life through intimate, live video sessions. If you`re looking for more than just
-              sexting chat rooms, FlirtBate offers real-time, sexy cam experiences that will make your heart race.
+              <FormattedMessage id="WelcomeFlirtBateSexChat" />
             </ExclusiveSexChatCamSubtitleTypographyBox>
           </ExclusiveSexChatSecBoxContainer>
         </ExclusiveSexChatFirstBoxContainer>

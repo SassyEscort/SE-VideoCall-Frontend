@@ -99,7 +99,7 @@ const SexChatDashboardBanner = () => {
                   <FormattedMessage id="WELCOMETOFLIRTBATE" />
                 </SexChatSubTitleText>
                 <SexChatTitleText>
-                  <FormattedMessage id="FreeSexSexChatCalls" />
+                  <FormattedMessage id="FreeSexVideoChatCalls" />
                 </SexChatTitleText>
                 <SexChatSubTitleText>
                   <FormattedMessage id="JoinThousandsOfUsers" />
@@ -112,7 +112,7 @@ const SexChatDashboardBanner = () => {
                 >
                   <SexChatBannerUIThemeShadowButton fullWidth variant="contained">
                     <FooterButton variant="buttonLargeBold" color="common.white">
-                      <FormattedMessage id="StartFreeSexChat" />
+                      <FormattedMessage id="StartFreeVideoChat" />
                     </FooterButton>
                   </SexChatBannerUIThemeShadowButton>
                 </Box>

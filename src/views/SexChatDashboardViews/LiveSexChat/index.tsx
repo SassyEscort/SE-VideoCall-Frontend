@@ -13,6 +13,7 @@ import {
 } from './LiveSexChat.styled';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import Box from '@mui/system/Box';
+import { FormattedMessage } from 'react-intl';
 
 const LiveSexChatDashboard = () => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -35,23 +36,29 @@ const LiveSexChatDashboard = () => {
         </LiveSexChatBannerBeyondImageCard>
         <LiveSexChatFirstBeyondBoxContainer>
           <LiveSexChatSecBoxBeyondContainer>
-            <LiveSexChatInlineBeyondBox>Live 1 on 1 Sex Chat with Real Models</LiveSexChatInlineBeyondBox>
+            <LiveSexChatInlineBeyondBox>
+              <FormattedMessage id="Live1SexChat" />
+            </LiveSexChatInlineBeyondBox>
             <LiveSexChatBannerTypographySubtitleBox>
-              At FlirtBate, we go beyond the usual sex chat and adult chat rooms—here, you can experience live video calls with beautiful
-              models ready to connect with you. Whether you`re seeking a casual conversation or something a bit more intimate, our models
-              are available for dirty video chat sessions that are personalized to your tastes.
+              <FormattedMessage id="FlirtbateWeGoBeyondTheUsualSexChat" />
             </LiveSexChatBannerTypographySubtitleBox>
             <LiveSexChatBannerTypographySubtitleBox>
-              <LiveSexChatBannerPointTypography>1 on 1 Sex Chat: </LiveSexChatBannerPointTypography>
-              Enjoy private, one on one sex chat with the model of your choice, no interruptions.
+              <LiveSexChatBannerPointTypography>
+                <FormattedMessage id="1on1SexChat" />
+              </LiveSexChatBannerPointTypography>
+              <FormattedMessage id="EnjoyPrivateOneOnOne" />
             </LiveSexChatBannerTypographySubtitleBox>
             <LiveSexChatBannerTypographySubtitleBox>
-              <LiveSexChatBannerPointTypography>Sexy Cam:</LiveSexChatBannerPointTypography>
-              Connect with real models in live video chat, making every interaction more intense and personal.
+              <LiveSexChatBannerPointTypography>
+                <FormattedMessage id="SexyCam" />
+              </LiveSexChatBannerPointTypography>
+              <FormattedMessage id="ConnectWithRealModels" />
             </LiveSexChatBannerTypographySubtitleBox>
             <LiveSexChatBannerTypographySubtitleBox>
-              <LiveSexChatBannerPointTypography>Real-Time Conversations:</LiveSexChatBannerPointTypography>
-              FlirtBate takes the experience beyond simple sexting—have real, engaging conversations through live video.{' '}
+              <LiveSexChatBannerPointTypography>
+                <FormattedMessage id="RealTimeConversations" />
+              </LiveSexChatBannerPointTypography>
+              <FormattedMessage id="FlirtbateTakesTheExperience" />
             </LiveSexChatBannerTypographySubtitleBox>
           </LiveSexChatSecBoxBeyondContainer>
         </LiveSexChatFirstBeyondBoxContainer>

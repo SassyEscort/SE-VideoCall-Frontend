@@ -93,17 +93,17 @@ const MeetRealPeople = ({ isCustomer }: { isCustomer: boolean }) => {
           <HomeMainContainer>
             <MeetRealPeopleInnerContainer>
               <MeetRealPeopleBannerInnerBox>
-                <HeadingTypography>Meet Real People in Real Time</HeadingTypography>
+                <HeadingTypography>
+                  <FormattedMessage id="MeetRealPeople" />
+                </HeadingTypography>
                 <SubtitleTypography>
-                  FlirtBate is all about real connections. Every model is live and ready for a sexy chat, bringing an authentic and engaging
-                  experience to the table. Forget automated messages or fake profiles—FlirtBate offers genuine one on one sex chat with
-                  people looking to connect.
+                  <FormattedMessage id="FlirtbateIsAllAboutRealConnections" />
                 </SubtitleTypography>
                 <SubtitleTypography>
-                  Live Models: Every interaction is live, with real models ready to engage in meaningful or steamy conversations.
+                  <FormattedMessage id="LiveModal" />
                 </SubtitleTypography>
                 <SubtitleTypography>
-                  Tailored Chats: Unlike typical adult chat rooms, you can customize your video chat experience based on your preferences.
+                  <FormattedMessage id="TailoredChats" />
                 </SubtitleTypography>
               </MeetRealPeopleBannerInnerBox>
               {isCustomer ? (
@@ -116,7 +116,7 @@ const MeetRealPeople = ({ isCustomer }: { isCustomer: boolean }) => {
                     onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
                   >
                     <UINewTypography variant="body" color="common.white">
-                      <FormattedMessage id="StartFree MeetRealPeople" />
+                      <FormattedMessage id="StartFreeVideoChat" />
                     </UINewTypography>
                   </UIThemeShadowButton>
                 </ButtonBox>

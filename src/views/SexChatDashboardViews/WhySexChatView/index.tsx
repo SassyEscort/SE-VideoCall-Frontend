@@ -1,5 +1,6 @@
 'use client';
 
+import { FormattedMessage } from 'react-intl';
 import {
   WhySexChatContainer,
   WhySexChatMainContainer,
@@ -12,21 +13,27 @@ import {
 const WhySexChatComponent = () => (
   <WhySexChatMainContainer>
     <WhySexChatContainer>
-      <WhySexChatWhyChooseTitleTypography>Why Choose FlirtBate for Sex Chat?</WhySexChatWhyChooseTitleTypography>
+      <WhySexChatWhyChooseTitleTypography>
+        <FormattedMessage id="WhyChooseSexChat" />
+      </WhySexChatWhyChooseTitleTypography>
       <WhySexChatSubTextStyledBox>
-        <WhySexChatSubTitlePointTypography>Personalized Experiences </WhySexChatSubTitlePointTypography>
+        <WhySexChatSubTitlePointTypography>
+          <FormattedMessage id="PersonalizedExperiences" />
+        </WhySexChatSubTitlePointTypography>
         <WhySexChatWhyChooseSubTitleTypography>
-          Every chat is tailored to your preferences. Unlike traditional adult chat rooms, our platform allows you to directly interact with
-          models in real-time, making your experience more personal and engaging.
+          <FormattedMessage id="EveryChatIsTailoredPreferences" />
         </WhySexChatWhyChooseSubTitleTypography>
-        <WhySexChatSubTitlePointTypography>No Text-Only Chats </WhySexChatSubTitlePointTypography>
+        <WhySexChatSubTitlePointTypography>
+          <FormattedMessage id="NoTextOnlyChats" />
+        </WhySexChatSubTitlePointTypography>
         <WhySexChatWhyChooseSubTitleTypography>
-          Unlike other free sexting online sites, FlirtBate offers only sexy cam and live video chat options, giving you the chance to truly
-          connect with the model.
+          <FormattedMessage id="UnlikeOtherFreeSexting" />
         </WhySexChatWhyChooseSubTitleTypography>
-        <WhySexChatSubTitlePointTypography>High-Quality Streaming </WhySexChatSubTitlePointTypography>
+        <WhySexChatSubTitlePointTypography>
+          <FormattedMessage id="HighQualityStreamingSexChat" />
+        </WhySexChatSubTitlePointTypography>
         <WhySexChatWhyChooseSubTitleTypography>
-          Our HD video ensures that your dirty video chat is clear, uninterrupted, and fully immersive.
+          <FormattedMessage id="OurHDVideoEnsures" />
         </WhySexChatWhyChooseSubTitleTypography>
       </WhySexChatSubTextStyledBox>
     </WhySexChatContainer>
