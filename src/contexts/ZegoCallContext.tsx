@@ -175,7 +175,6 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   if (callInstance) {
     callInstance.setCallInvitationConfig({
-      enableCustomCallInvitationDialog: true,
       enableNotifyWhenAppRunningInBackgroundOrQuit: true,
       endCallWhenInitiatorLeave: true,
       ringtoneConfig: { outgoingCallUrl: RINGING_TUNE },
@@ -213,6 +212,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
           showTextChat: false,
           showUserList: false,
           showWaitingCallAcceptAudioVideoView: true,
+          showLeaveRoomConfirmDialog: false,
           maxUsers: 2,
           layout: 'Auto',
           showRoomTimer: true,
