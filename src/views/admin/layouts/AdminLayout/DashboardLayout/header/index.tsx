@@ -17,7 +17,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { NotificationFiltersDashboard } from 'views/protectedDashboardViews/dashboardNavItem/HeaderAuthComponent';
 import { NotificationBadge } from './AccountPopover.styled';
 import NotificationModal from './NotificationModal';
-import { useAuthContext } from '../../../../../../../context/AuthContext';
+import { useAuthContext } from 'contexts/AuthContext';
 import { isPageAccessiable } from 'utils/Admin/PagePermission';
 import { ModalPage } from 'constants/adminUserAccessConstants';
 

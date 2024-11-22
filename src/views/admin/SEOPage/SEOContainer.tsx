@@ -38,7 +38,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from 'contexts/AuthContext';
 import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
 import { useRouter } from 'next/navigation';
 import { SEOPage } from 'constants/adminUserAccessConstants';

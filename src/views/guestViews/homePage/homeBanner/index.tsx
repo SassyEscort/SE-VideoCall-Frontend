@@ -13,7 +13,7 @@ import ButtonFreeCredits from '../buttonFreeCredits';
 import React from 'react';
 import { gaEventTrigger } from 'utils/analytics';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
-import { useAuthContext } from '../../../../../context/AuthContext';
+import { useAuthContext } from '../../../../contexts/AuthContext';
 // import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import dynamic from 'next/dynamic';
 import {

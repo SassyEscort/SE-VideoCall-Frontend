@@ -9,7 +9,7 @@ import WebcamDashboardBeyond from './webCamBeyondDashboard';
 import CamExperienceBanner from './camExperienceBanner';
 import CamPerks from './camPerksViews';
 import HomeContainer from 'views/guestViews/homePage';
-import { useAuthContext } from '../../../context/AuthContext';
+import { useAuthContext } from 'contexts/AuthContext';
 
 export const CamToCamDashboard = () => {
   const { isCustomer } = useAuthContext();

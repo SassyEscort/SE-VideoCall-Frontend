@@ -719,7 +719,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
       {/* <UIStyledDialog open={openSuccess} maxWidth="md" fullWidth scroll="body">
         <CreditsAdded addedCredits={addedCredits} newBalance={balance} onClose={handleClose} isOutOfCredits={isOutOfCredits} />
       </UIStyledDialog> */}
-      <VideoCallEnded open={reviewOpen} onClose={handleReviewClose} callLogId={callLogId} modelObj={modelObj} />
+      <VideoCallEnded open={reviewOpen} onClose={handleReviewClose} callLogId={callLogId} modelObj={modelObj} token={token} />
     </CallContext.Provider>
   );
 };

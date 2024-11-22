@@ -15,7 +15,7 @@ import BackdropProgress from 'components/UIComponents/BackDropProgress';
 import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useAuthContext } from '../../../../../context/AuthContext';
+import { useAuthContext } from '../../../../contexts/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 const EscortExplore = () => {
@@ -129,8 +129,8 @@ const EscortExplore = () => {
     setIsLoading(true);
     if (values) {
       const getModel = await ModelListingService.getModelListing(values, token.token);
-      setModelListing(getModel.model_details);
-      setTotalRows(getModel.aggregate.total_rows);
+      setModelListing(getModel?.model_details);
+      setTotalRows(getModel?.aggregate?.total_rows);
       if (scrollRender.current === false) {
         scrollToTable();
       } else {

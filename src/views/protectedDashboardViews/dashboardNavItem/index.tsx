@@ -11,7 +11,7 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import ProfileApproval from '../profileApproval';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 import React from 'react';
 
 const DashboardNavItem = () => {

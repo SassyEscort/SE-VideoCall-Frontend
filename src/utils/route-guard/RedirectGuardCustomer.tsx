@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { GuardProps } from 'types/auth';
 import { useRouter } from 'next/navigation';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
-import { useAuthContext } from '../../../context/AuthContext';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 const RedirectGuardCustomer = ({ children }: GuardProps) => {
   const { session } = useAuthContext();

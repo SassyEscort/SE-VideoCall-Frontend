@@ -15,15 +15,15 @@ import {
   SecondBoxContent,
   ThirdBoxContent
 } from './Another.styled';
-import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
+import { useVideoCallContext } from 'contexts/videoCallContext';
 
 const AnotherCallModel = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const router = useRouter();
 
-  const { modelName, isModelAvailable, isModelEndedCall } = useCallFeatureContext();
+  const { modelName, isModelAvailable, isModelEndedCall } = useVideoCallContext();
 
   const handleExploreModel = () => {
     onClose();

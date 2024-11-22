@@ -15,7 +15,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import { gaEventTrigger } from 'utils/analytics';
 import StyleBoostUserButton from 'components/UIComponents/StyleBoostUserButton';
 import Image from 'next/image';
-import { useAuthContext } from '../../../../../context/AuthContext';
+import { useAuthContext } from '../../../../contexts/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { VideoAcceptType } from 'constants/workerVerification';
 import {

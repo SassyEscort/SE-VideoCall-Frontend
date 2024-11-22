@@ -7,8 +7,8 @@ import Script from 'next/script';
 import dynamic from 'next/dynamic';
 // import '../app/globals.scss';
 const ProviderWrapper = dynamic(() => import('./ProviderWrapper'));
-const AuthFeaturProvider = React.lazy(() => import('../../context/AuthContext').then((module) => ({ default: module.AuthFeaturProvider })));
-const TawkProvider = React.lazy(() => import('../../context/TawkContext').then((module) => ({ default: module.TawkProvider })));
+const AuthFeaturProvider = React.lazy(() => import('../contexts/AuthContext').then((module) => ({ default: module.AuthFeaturProvider })));
+const TawkProvider = React.lazy(() => import('../contexts/TawkContext').then((module) => ({ default: module.TawkProvider })));
 
 export const metadata: Metadata = {
   title: SEO_DATA.TITLE,

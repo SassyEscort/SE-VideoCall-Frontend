@@ -12,7 +12,7 @@ import Loader from 'components/Loader';
 import { GuardProps } from 'types/auth';
 import { signOut } from 'next-auth/react';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
-import { useAuthContext } from '../../../context/AuthContext';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 // ==============================|| AUTH GUARD ||============================== //
 

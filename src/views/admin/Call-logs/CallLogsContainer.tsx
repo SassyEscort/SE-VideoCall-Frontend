@@ -33,7 +33,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Chip from '@mui/material/Chip';
 import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from 'contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
 import { CallLogsPage } from 'constants/adminUserAccessConstants';

@@ -9,7 +9,7 @@ import WhySpecialDashboardBeyond from './whatMakesChatSpecial';
 import VideoChatExperienceBanner from './chatExperienceBanner';
 import HowChatWorks from './howVideoChatWorkViews';
 import HomeContainer from 'views/guestViews/homePage';
-import { useAuthContext } from '../../../context/AuthContext';
+import { useAuthContext } from 'contexts/AuthContext';
 
 export const ChatToGirlDashBoard = () => {
   const { isCustomer } = useAuthContext();

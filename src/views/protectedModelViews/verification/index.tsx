@@ -19,7 +19,7 @@ import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 import { useRouter } from 'next/navigation';
 import DashboardPriceView from 'views/protectedDashboardViews/dashboardPriceView';
 import { MODEL_ACTION } from 'constants/profileConstants';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 const VERIFICATION_STEPS = ['Basic Details', 'Documents', 'Photos', 'Price', 'Review'];

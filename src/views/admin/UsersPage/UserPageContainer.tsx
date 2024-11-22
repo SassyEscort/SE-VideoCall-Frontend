@@ -23,7 +23,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { adminUserServices, UserData } from 'services/adminUserService/adminUserServices';
 import { ErrorMessage } from 'constants/common.constants';
 import { toast } from 'react-toastify';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from 'contexts/AuthContext';
 import DeleteModal from 'components/UIComponents/DeleteModal';
 import { UserHeaderBox, UserLoaderBox, UserMainContainer } from './UpsertPage.styled';
 

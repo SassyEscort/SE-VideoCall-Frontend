@@ -12,7 +12,7 @@ import NavSection from 'components/Admin/nav-section';
 import { navRoleConfigIdType, navRoleConfigSubmenuIdType } from 'components/Admin/nav-section/type';
 import useResponsive from 'hooks/useResponsive';
 import { useSession } from 'next-auth/react';
-import { useAuthContext } from '../../../../../../../context/AuthContext';
+import { useAuthContext } from 'contexts/AuthContext';
 import { TypographyStyled, TypographyStyledMain } from '../../AdminLoginLayout/AdminLoginLayout.styled';
 
 const NAV_WIDTH = 280;

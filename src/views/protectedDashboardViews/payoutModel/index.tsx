@@ -9,7 +9,7 @@ import PayoutModelProfileConatiner from './PayoutModelProfileConatiner';
 import PayoutMobileSidebar from '../payoutSidebarDropDown';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 const PayoutModel = () => {
