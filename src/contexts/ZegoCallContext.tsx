@@ -75,6 +75,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const {
     sessionId,
     callInstance,
+    isCallInitiated,
     customerInfo,
     userId,
     modelId,
@@ -124,7 +125,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     handleOutgoingCallCancel,
     handleSetIsModelAvailable,
     handleSetIsAutodisconnected,
-    handleRemovedRoomId
+    handleSetIsCallInitiated
   } = useVideoCallContext();
   const userNameData = user && JSON.parse(user);
   const [rId, setRID] = useState('');
@@ -171,7 +172,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   useEffect(() => {
     initCall();
-  }, [userNameData, roomID, initCall]);
+  }, [userNameData]);
 
   if (callInstance) {
     callInstance.setCallInvitationConfig({
@@ -181,7 +182,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
       onCallInvitationEnded: async (reason, data) => {
         if (reason === CALL_INVITATION_END_REASON.LEAVEROOM || reason === CALL_INVITATION_END_REASON.CANCELED) {
-          if (isCustomer) {
+          if (isCustomer && isCallInitiated) {
             const status = reason === CALL_INVITATION_END_REASON.LEAVEROOM ? CALL_INVITATION_END_REASON.ENDED : 'Cancelled';
             const role = userRef.current.isUserLeave ? ROLE.MODEL : ROLE.CUSTOMER;
             const endCallData = await creditPutCallLog(modelId || modelRef?.current?.id, roomID, status, role);
@@ -191,12 +192,12 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
           }
         }
 
+        handleSetIsCallInitiated(false);
         handleSetIsCallAccepted(false);
         handleSetIsModelJoin(false);
         handleSetCallEnd(true);
         if (reason === CALL_INVITATION_END_REASON.CANCELED) handleCreateNewRoomID();
         handleSetIsLoading(false);
-        handleRemovedRoomId();
         if (reason === CALL_INVITATION_END_REASON.LEAVEROOM) handleSetReviewOpen(true);
       },
 
@@ -275,7 +276,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   useEffect(() => {
     const handleBeforeUnload = async () => {
       if (isCallAccepted && token.token) {
-        await creditPutCallLog(modelId, sessionId, CALLING_STATUS.ENDED);
+        await creditPutCallLog(modelId || modelRef?.current?.id, sessionId || roomID, CALLING_STATUS.ENDED);
         // const moment = (await import('moment')).default;
         // const start_time = (callDurationRef.current.startTime && moment.utc(callDurationRef.current.startTime).format(DATE_FORMAT)) || '';
         // const end_time = (callDurationRef.current.endTime && moment.utc(callDurationRef.current.endTime).format(DATE_FORMAT)) || '';
@@ -346,6 +347,8 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         if (response?.errorInvitees.length) {
           const message = `${modelName} ${intl.formatMessage({ id: 'CurrentlyOffline' })}`;
           toast.error(message);
+        } else {
+          handleSetIsCallInitiated(true);
         }
       }
     } catch (error) {
