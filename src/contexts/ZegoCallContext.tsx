@@ -471,7 +471,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
     let creditLog = {
       model_id: model_id,
-      comet_chat_session_id: comet_chat_session_id,
+      comet_chat_session_id: '',
       zego_call_session_id: comet_chat_session_id,
       status: status,
       ended_by: ended_by || '',
