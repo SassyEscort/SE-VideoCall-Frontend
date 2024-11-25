@@ -234,7 +234,6 @@ export const TextMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  height: '100%',
   gap: theme.spacing(1),
   [theme.breakpoints.down('sm')]: {
     paddingRight: theme.spacing(1.875),
@@ -242,6 +241,7 @@ export const TextMainBoxContainer = styled(Box)(({ theme }) => ({
     paddingBottom: theme.spacing(1.5)
   },
   [theme.breakpoints.up('sm')]: {
+    height: '100%',
     paddingRight: theme.spacing(4)
   }
 }));

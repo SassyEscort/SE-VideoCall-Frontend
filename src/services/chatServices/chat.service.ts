@@ -38,6 +38,11 @@ export interface IMessageResponse {
   data: IHistoryOfChats[];
 }
 
+export interface IHistoryOfChatParams {
+  user_name: string;
+  search: string;
+}
+
 export class ChatService {
   // static sendChatMessage = async (params: IChatMessageParams, token: string): Promise<IMessageResponse> => {
   //   try {
@@ -71,18 +76,14 @@ export class ChatService {
     }
   };
 
-  static chatHistoryMessage = async (params: string, token: string): Promise<IMessageResponse> => {
+  static chatHistoryMessage = async (params: IHistoryOfChatParams, token: string): Promise<IMessageResponse> => {
     try {
-      const res = await axios.post(
-        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/chat/history-list`,
-        { user_name: params },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: token
-          }
+      const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/chat/history-list`, params, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
         }
-      );
+      });
 
       return res.data;
     } catch (err: any) {

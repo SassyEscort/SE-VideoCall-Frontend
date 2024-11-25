@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Divider, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
@@ -26,9 +26,8 @@ import moment from 'moment';
 import { useChatFeatureContext } from 'contexts/chatFeatureContext';
 
 const ChatSidbar = ({ onSelectModel }: { onSelectModel: (model: any) => void }) => {
-  const { historyOfModels, handleSelectedModelDetails } = useChatFeatureContext();
+  const { modelHistoryListSearch, historyOfModels, handleSelectedModelDetails, handleHistoryModleListSearch } = useChatFeatureContext();
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-  const [searchQuery, setSearchQuery] = useState('');
 
   return (
     <ModelDetailsMainBoxContainer>
@@ -60,8 +59,8 @@ const ChatSidbar = ({ onSelectModel }: { onSelectModel: (model: any) => void }) 
                 </InputAdornment>
               )
             }}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            value={modelHistoryListSearch}
+            onChange={(e) => handleHistoryModleListSearch(e.target.value)}
           />
         </>
       )}
@@ -78,8 +77,8 @@ const ChatSidbar = ({ onSelectModel }: { onSelectModel: (model: any) => void }) 
               </InputAdornment>
             )
           }}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          value={modelHistoryListSearch}
+          onChange={(e) => handleHistoryModleListSearch(e.target.value)}
         />
       )}
 

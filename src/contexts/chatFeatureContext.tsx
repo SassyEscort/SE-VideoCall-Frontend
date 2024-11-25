@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, MutableRefObject, useContext, useEffect, useRef, useState } from 'react';
 import { useAuthContext } from './AuthContext';
 import { useParams } from 'next/navigation';
 import { io, Socket } from 'socket.io-client';
@@ -9,6 +9,7 @@ import { IHistoryOfChats, ModelDetailsResponse } from 'views/protectedModelViews
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
+import { debounce } from 'lodash';
 
 interface ChatFeatureContextProps {
   selectedModel: boolean;
@@ -17,13 +18,17 @@ interface ChatFeatureContextProps {
   historyOfModels: IHistoryOfChats[];
   selectedModelDetails: IHistoryOfChats;
   messages: ISocketMessage[];
+  modelHistoryListSearch: string;
   handleModelSelect: (model: boolean) => void;
   handleSelectedModelDetails: (model: IHistoryOfChats) => void;
   handleMessageInputChange: (input: string) => void;
+  handleHistoryModleListSearch: (searchQuery: string) => void;
+  chatRef: MutableRefObject<null> | null;
 }
 
 const initialState: ChatFeatureContextProps = {
   userId: '',
+  modelHistoryListSearch: '',
   selectedModel: true,
   modelDetails: {
     id: 0,
@@ -79,15 +84,18 @@ const initialState: ChatFeatureContextProps = {
     profile_pic: '',
     unread_count: 0
   },
+  chatRef: null,
   handleModelSelect: () => {},
   handleSelectedModelDetails: () => {},
-  handleMessageInputChange: () => {}
+  handleMessageInputChange: () => {},
+  handleHistoryModleListSearch: () => {}
 };
 
 const ChatFeatureContext = createContext(initialState);
 
 export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isCustomer, token, user } = useAuthContext();
+  const chatRef = useRef(null);
   const userDetails = user && JSON.parse(user);
   const { id: userId } = useParams();
 
@@ -97,6 +105,7 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse | undefined>();
   const [historyOfModels, setHistoryOfModels] = useState<IHistoryOfChats[]>([]);
   const [selectedModelDetails, setSelectedModelDetails] = useState<IHistoryOfChats>({} as IHistoryOfChats);
+  const [modelHistoryListSearch, setModelHistoryListSearch] = useState('');
 
   const handleModelSelect = (model: boolean) => {
     setMessages([]);
@@ -119,7 +128,7 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       };
 
       socket.emit('chat-message', newMessage);
-      handleChatedModleList();
+      handleChatedModleHistoryList();
     }
   };
 
@@ -127,10 +136,24 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     sendMessage(input);
   };
 
-  const handleChatedModleList = async () => {
+  const handleHistoryModleListSearch = (input: string) => {
+    console.log(input, 'input');
+
+    setModelHistoryListSearch(input);
+  };
+
+  const debouncedChangeSearch = debounce((val: string) => {
+    handleChatedModleHistoryList(val);
+  }, 500);
+
+  const handleChatedModleHistoryList = async (searchQuery?: string) => {
     try {
       if (token.token) {
-        const data = await ChatService.chatHistoryMessage(userDetails.customer_user_name, token.token);
+        const params = {
+          user_name: userDetails?.customer_user_name,
+          search: searchQuery || ''
+        };
+        const data = await ChatService.chatHistoryMessage(params, token.token);
         setHistoryOfModels(data.data);
       }
     } catch (error) {
@@ -147,7 +170,7 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     };
     if (token.token && userId[0]) {
       modelDetails();
-      handleChatedModleList();
+      handleChatedModleHistoryList();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCustomer, token.id, token.token, userId[0]]);
@@ -209,18 +232,26 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId[0], selectedModelDetails]);
 
+  useEffect(() => {
+    debouncedChangeSearch(modelHistoryListSearch);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modelHistoryListSearch]);
+
   return (
     <ChatFeatureContext.Provider
       value={{
+        chatRef,
         userId: userId?.[0] || '',
         messages,
         modelDetails,
         historyOfModels,
         selectedModel,
         selectedModelDetails,
+        modelHistoryListSearch,
         handleMessageInputChange,
         handleModelSelect,
-        handleSelectedModelDetails
+        handleSelectedModelDetails,
+        handleHistoryModleListSearch
       }}
     >
       {children}

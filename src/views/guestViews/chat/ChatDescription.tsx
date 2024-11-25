@@ -1,6 +1,6 @@
 import { Divider, Box, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ChatBoxMainContainer,
   ChatBoxInnerContainer,
@@ -26,6 +26,7 @@ import moment from 'moment';
 import { useChatFeatureContext } from 'contexts/chatFeatureContext';
 
 const ChatDescription = () => {
+  const chatRef = useRef<HTMLDivElement | null>(null);
   const { handleMessageInputChange, modelDetails, messages, selectedModelDetails } = useChatFeatureContext();
   const [showSidebar, setShowSidebar] = useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
@@ -35,6 +36,10 @@ const ChatDescription = () => {
   };
 
   const favPhoto = modelDetails?.photos?.filter((x) => x.favourite).map((item) => item.link)[0];
+
+  useEffect(() => {
+    if (chatRef?.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
+  }, [messages]);
 
   return (
     <>
@@ -72,8 +77,9 @@ const ChatDescription = () => {
                       <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29', mt: '16px' }} />
                     </Box>
                     <Box
+                      ref={chatRef}
                       sx={{
-                        maxHeight: '60vh',
+                        maxHeight: '65vh',
                         overflowY: 'auto'
                       }}
                     >
@@ -150,40 +156,48 @@ const ChatDescription = () => {
                       </ChatBoxHeaderContainer>
                       <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29', mt: '16px' }} />
                     </Box>
-                    {Array.isArray(messages) &&
-                      messages?.map((message, index) => (
-                        <TextMainBoxContainer key={index}>
-                          {message.sender_type === 'customers' ? (
-                            <ClientChatMainBoxContainer>
-                              <ClientChatTextBoxContainer>
-                                <UINewTypography variant="body1" color="text.secondary">
-                                  {message.sender_type === 'customers' ? message?.message_content : ''}
-                                </UINewTypography>
-                              </ClientChatTextBoxContainer>
+                    <Box
+                      ref={chatRef}
+                      sx={{
+                        maxHeight: '70vh',
+                        overflowY: 'auto'
+                      }}
+                    >
+                      {Array.isArray(messages) &&
+                        messages?.map((message, index) => (
+                          <TextMainBoxContainer key={index}>
+                            {message.sender_type === 'customers' ? (
+                              <ClientChatMainBoxContainer>
+                                <ClientChatTextBoxContainer>
+                                  <UINewTypography variant="body1" color="text.secondary">
+                                    {message.sender_type === 'customers' ? message?.message_content : ''}
+                                  </UINewTypography>
+                                </ClientChatTextBoxContainer>
 
-                              <UINewTypography
-                                variant="SubtitleSmallRegular"
-                                color="secondary.700"
-                                sx={{ display: 'flex', justifyContent: 'end' }}
-                              >
-                                {message?.time_stamp ? moment(message.time_stamp).format('LT') : moment().format('LT')}
-                              </UINewTypography>
-                            </ClientChatMainBoxContainer>
-                          ) : (
-                            <ModelChatMainBoxContainer>
-                              <ModelChatTextBoxContainer>
-                                <UINewTypography variant="body1" color="text.secondary">
-                                  {message.sender_type !== 'customers' ? message?.message_content : ''}
+                                <UINewTypography
+                                  variant="SubtitleSmallRegular"
+                                  color="secondary.700"
+                                  sx={{ display: 'flex', justifyContent: 'end' }}
+                                >
+                                  {message?.time_stamp ? moment(message.time_stamp).format('LT') : moment().format('LT')}
                                 </UINewTypography>
-                              </ModelChatTextBoxContainer>
+                              </ClientChatMainBoxContainer>
+                            ) : (
+                              <ModelChatMainBoxContainer>
+                                <ModelChatTextBoxContainer>
+                                  <UINewTypography variant="body1" color="text.secondary">
+                                    {message.sender_type !== 'customers' ? message?.message_content : ''}
+                                  </UINewTypography>
+                                </ModelChatTextBoxContainer>
 
-                              <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
-                                {message?.time_stamp ? moment(message.time_stamp).format('LT') : moment().format('LT')}
-                              </UINewTypography>
-                            </ModelChatMainBoxContainer>
-                          )}
-                        </TextMainBoxContainer>
-                      ))}
+                                <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
+                                  {message?.time_stamp ? moment(message.time_stamp).format('LT') : moment().format('LT')}
+                                </UINewTypography>
+                              </ModelChatMainBoxContainer>
+                            )}
+                          </TextMainBoxContainer>
+                        ))}
+                    </Box>
                   </ModelDetailsInnerBoxContainer>
 
                   <CustomComposerView onSendMessage={handleMessageInputChange} />
