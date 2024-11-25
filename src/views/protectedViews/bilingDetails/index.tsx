@@ -2,7 +2,6 @@
 
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Divider, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import theme from 'themes/theme';
 import { SecondSubContainerImgWorkerCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
@@ -21,12 +20,15 @@ import {
 } from './BillingDetails';
 import WorkerCardMobile from 'views/guestViews/commonComponents/mobileWorkerCard';
 import { FormattedMessage } from 'react-intl';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import moment from 'moment';
 import { useRouter } from 'next/navigation';
 import { ViewDetailsRes } from 'services/guestBilling/types';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { TokenIdType } from 'views/protectedModelViews/verification';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import { useVideoCallContext } from 'contexts/videoCallContext';
 
 const BillingDetails = ({
   open,
@@ -41,7 +43,7 @@ const BillingDetails = ({
 }) => {
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
   const router = useRouter();
-  const { isLoading } = useCallFeatureContext();
+  const { isLoading } = useVideoCallContext();
   const callDurationString = selectDetails.call_duration;
   const callDuration = moment.duration(callDurationString);
   const hours = Math.floor(callDuration.asHours());
@@ -117,7 +119,7 @@ const BillingDetails = ({
                     <FormattedMessage id="CreditsUsed" />
                   </UINewTypography>
                   <CreditsPriceBox>
-                    <SecondSubContainerImgWorkerCard src="/images/workercards/coin-details.png" />
+                    <SecondSubContainerImgWorkerCard src="/images/workercards/coin-details.png" alt="coin-img" />
                     <UINewTypography variant="buttonLargeMenu" color="text.secondary">
                       {selectDetails?.credits?.toFixed(2) || 0}
                     </UINewTypography>

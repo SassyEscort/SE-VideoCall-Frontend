@@ -1,42 +1,61 @@
 'use client';
-import {
-  BoxImageBackground,
-  BoxImageBackgroundChild,
-  BoxMain,
-  DullCircles,
-  DullCircles2,
-  DullCircles3,
-  DullCircles4,
-  DullCircles5,
-  FirstTextTyporaphy,
-  HomeMainBox,
-  ImgBoxContainer,
-  MainChildContainer,
-  SeconBoxContainer,
-  TextMainTitleTyporaphy,
-  TextTitleTyporaphy,
-  ThirdBoxContainer,
-  VectorLines,
-  VectorLinesMobile
-} from './HomeConnections.styled';
+import { useAuthContext } from '../../../../contexts/AuthContext';
+import { gaEventTrigger } from 'utils/analytics';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Image from 'next/image';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
-import { useState } from 'react';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
-import GuestSignup from 'views/auth/guestSignup';
-import GuestLogin from 'views/auth/guestLogin';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestNewPassword from 'views/auth/guestNewPassword';
+import { lazy, memo, Suspense, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
-import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
-import { gaEventTrigger } from 'utils/analytics';
+import dynamic from 'next/dynamic';
+const BoxImageBackground = lazy(() => import('./HomeConnections.styled').then((module) => ({ default: module.BoxImageBackground })));
+const BoxImageBackgroundChild = lazy(() =>
+  import('./HomeConnections.styled').then((module) => ({ default: module.BoxImageBackgroundChild }))
+);
+const BoxMain = lazy(() => import('./HomeConnections.styled').then((module) => ({ default: module.BoxMain })));
+const DullCircles = lazy(() => import('./HomeConnections.styled').then((module) => ({ default: module.DullCircles })));
+const DullCircles2 = lazy(() => import('./HomeConnections.styled').then((module) => ({ default: module.DullCircles2 })));
+const DullCircles3 = lazy(() => import('./HomeConnections.styled').then((module) => ({ default: module.DullCircles3 })));
+const DullCircles4 = lazy(() => import('./HomeConnections.styled').then((module) => ({ default: module.DullCircles4 })));
+const DullCircles5 = lazy(() => import('./HomeConnections.styled').then((module) => ({ default: module.DullCircles5 })));
+const FirstTextTyporaphy = lazy(() => import('./HomeConnections.styled').then((module) => ({ default: module.FirstTextTyporaphy })));
+const HomeMainBox = lazy(() => import('./HomeConnections.styled').then((module) => ({ default: module.HomeMainBox })));
+const ImgBoxContainer = lazy(() => import('./HomeConnections.styled').then((module) => ({ default: module.ImgBoxContainer })));
+const MainChildContainer = lazy(() => import('./HomeConnections.styled').then((module) => ({ default: module.MainChildContainer })));
+const SeconBoxContainer = lazy(() => import('./HomeConnections.styled').then((module) => ({ default: module.SeconBoxContainer })));
+const TextMainTitleTyporaphy = lazy(() =>
+  import('./HomeConnections.styled').then((module) => ({ default: module.TextMainTitleTyporaphy }))
+);
+const TextTitleTyporaphy = lazy(() => import('./HomeConnections.styled').then((module) => ({ default: module.TextTitleTyporaphy })));
+const ThirdBoxContainer = lazy(() => import('./HomeConnections.styled').then((module) => ({ default: module.ThirdBoxContainer })));
+const VectorLines = lazy(() => import('./HomeConnections.styled').then((module) => ({ default: module.VectorLines })));
+const VectorLinesMobile = lazy(() => import('./HomeConnections.styled').then((module) => ({ default: module.VectorLinesMobile })));
+
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
+  ssr: false
+});
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
+  ssr: false
+});
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
+  ssr: false
+});
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false
+});
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
+  ssr: false
+});
+const GuestNewPassword = dynamic(() => import('views/auth/guestNewPassword'), {
+  ssr: false
+});
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
+  ssr: false
+});
 
 const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const { push } = useRouter();
@@ -52,7 +71,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
   const [openChangePassword, setIsOpenChangePassword] = useState(email && !id && url.pathname !== '/profile' ? true : false);
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
 
-  const { isCustomer } = useCallFeatureContext();
+  const { isCustomer } = useAuthContext();
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -108,7 +127,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
   };
 
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <HomeMainContainer>
         {!isCustomer ? (
           <Box
@@ -143,6 +162,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
                 <BoxImageBackground>
                   <BoxImageBackgroundChild>
                     <Image
+                      loading="lazy"
                       alt="home_search_img"
                       width={24}
                       height={24}
@@ -170,6 +190,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
                 <BoxImageBackground>
                   <BoxImageBackgroundChild>
                     <Image
+                      loading="lazy"
                       alt="choose_your_model"
                       width={24}
                       height={24}
@@ -204,6 +225,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
                 <BoxImageBackground>
                   <BoxImageBackgroundChild>
                     <Image
+                      loading="lazy"
                       alt="home_connect_instantly"
                       width={24}
                       height={24}
@@ -246,9 +268,9 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
           ' '
         )}
 
-        <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+        <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
           <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-        </UIStyledDialog>
+        </NewSignupStyledModalDialog>
         <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
           <GuestLogin
             isFreeCreditAvailable={isFreeCreditAvailable}
@@ -268,12 +290,12 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
         <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
           <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
         </UIStyledDialog>
-        <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+        <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
           <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-        </UIStyledDialog>
+        </NewSignupStyledModalDialog>
       </HomeMainContainer>
-    </>
+    </Suspense>
   );
 };
 
-export default HomeConnections;
+export default memo(HomeConnections);

@@ -7,7 +7,7 @@ export const gaEventTrigger = (action: string, data: any, credits?: number) => {
         // Check if the value is a string but not a JSON object
         const isPlainString = typeof data.value === 'string' && !isJSON(data.value);
 
-        if (!isPlainString) {
+        if (!isPlainString && data?.value) {
           const parsedValue = tryParseJSON(data.value);
           if (parsedValue) {
             const flattenedValue = flattenObject(parsedValue, 'custom_');
@@ -26,7 +26,7 @@ export const gaEventTrigger = (action: string, data: any, credits?: number) => {
           };
         }
       } catch (e) {
-        console.error('Error processing value field:', e);
+        /* empty */
       }
       window.gtag('event', action, data);
     }
@@ -41,7 +41,7 @@ const tryParseJSON = (jsonString: string): any => {
       return obj;
     }
   } catch (e) {
-    console.error('Invalid JSON string:', jsonString);
+    /* empty */
   }
   return null;
 };

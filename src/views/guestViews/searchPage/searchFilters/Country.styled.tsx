@@ -1,4 +1,5 @@
-import { FormControl, styled } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
+import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const FormControlBox = styled(FormControl)(({ theme }) => ({
@@ -12,7 +13,7 @@ export const FormControlBox = styled(FormControl)(({ theme }) => ({
   }
 }));
 
-export const CurrentlyOnlineTyporagphyBox = styled(UINewTypography)(({ theme }) => ({
+export const CurrentlyOnlineTyporagphyBox = styled(UINewTypography)(() => ({
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis'

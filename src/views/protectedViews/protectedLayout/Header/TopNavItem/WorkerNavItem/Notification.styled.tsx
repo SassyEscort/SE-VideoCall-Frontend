@@ -1,21 +1,12 @@
-import { Avatar, Drawer, IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export interface ButtonBaseContainerProps {
   notificationIsRead: boolean;
 }
-
-export const NotificationContainer = styled(Box)(({ theme }) => ({
-  width: '100%',
-  display: 'flex',
-  justifyContent: 'flex-end',
-  alignItems: 'center',
-  gap: theme.spacing(1),
-  borderTop: '1px solid',
-  borderColor: theme.palette.primary[700]
-}));
 
 export const ButtonBaseContainer = styled(Box)<ButtonBaseContainerProps>(({ theme, notificationIsRead }) => ({
   display: 'flex',
@@ -34,11 +25,6 @@ export const BaseContainer = styled(Box)(({ theme }) => ({
   alignItems: 'flex-start',
   justifyContent: 'flex-start',
   gap: theme.spacing(2)
-}));
-
-export const AvatarContainer = styled(Avatar)(() => ({
-  alignItems: 'flex-start',
-  backgroundColor: 'transparent !important'
 }));
 
 export const MainBox = styled(Box)(({ theme }) => ({
@@ -121,7 +107,7 @@ export const NotificationsNoneBox = styled(IconButton)(({ theme }) => ({
   color: theme.palette.text.secondary
 }));
 
-export const DrawerBox = styled(Drawer)(({ theme }) => ({
+export const DrawerBox = styled(Drawer)(() => ({
   '& .MuiPaper-root': {
     width: '100%',
     maxWidth: 596,

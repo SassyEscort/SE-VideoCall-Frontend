@@ -2,7 +2,6 @@
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Divider } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import {
@@ -26,10 +25,11 @@ import { useEffect, useState } from 'react';
 import { RatingAndReviewService } from 'services/ratingAndReview/ratingAndReview.service';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
-import { TokenIdType } from 'views/protectedModelViews/verification';
-import { getUserDataClient } from 'utils/getSessionData';
 import StartRating from 'components/UIComponents/StartRating';
 import { useRouter } from 'next/navigation';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import { TokenIdType } from 'views/protectedModelViews/verification';
 
 export type ModelObj = {
   modelId: number;
@@ -46,16 +46,17 @@ const VideoCallEnded = ({
   open,
   onClose,
   callLogId,
-  modelObj
+  modelObj,
+  token
 }: {
   open: boolean;
   onClose: (isPrevent?: boolean) => void;
   callLogId: number;
   modelObj: ModelObj;
+  token: TokenIdType;
 }) => {
   const [rating, setRating] = useState<number>(0);
   const [review, setReview] = useState<string>('');
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isRatingSubmitted, setIsRatingSubmitted] = useState(false);
   const router = useRouter();
   // const handleCallAgainClick = () => {
@@ -72,30 +73,6 @@ const VideoCallEnded = ({
   //     modelObj.isFavouriteModel
   //   );
   // };
-
-  // const handleCallAgainClick = () => {
-  //   onClose(true);
-  //   handleResetReviewRating();
-  //   handleCallInitiate(
-  //     modelObj.modelId,
-  //     modelObj.isCreditAvailable,
-  //     modelObj.callTime,
-  //     modelObj.modelName,
-  //     modelObj.modelPhoto,
-  //     modelObj.modelUsername,
-  //     modelObj.modelCreditPrice,
-  //     modelObj.isFavouriteModel
-  //   );
-  // };
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      setToken({ id: data?.id, token: data?.token });
-    };
-
-    userToken();
-  }, []);
 
   useEffect(() => {
     if (isRatingSubmitted) {
@@ -200,7 +177,7 @@ const VideoCallEnded = ({
                         <FormattedMessage id="RateYourVideoCall" />
                       </UINewTypography>
                       <Box>
-                        <StartRating value={rating || 0} handleStarClick={handleStarClick} isFromPopup={true} />
+                        <StartRating value={rating || 0} handleStarClick={(val) => handleStarClick(val)} isFromPopup={true} />
                       </Box>
                     </FiveBoxContent>
 
@@ -237,7 +214,7 @@ const VideoCallEnded = ({
                       </UINewTypography>
                     </ReviewSubmitBoxContent>
 
-                    <UINewTypography variant="body" color="primary.400" sx={{ cursor: 'pointer' }} onClick={handleExploreModel}>
+                    <UINewTypography variant="body" color="primary.400" sx={{ cursor: 'pointer' }} onClick={() => handleExploreModel()}>
                       <FormattedMessage id="ExploreOtherModels" />
                     </UINewTypography>
                   </Box>
@@ -253,7 +230,7 @@ const VideoCallEnded = ({
                 )}
               </RatingReviewBoxContainer>
               {rating === 0 && (
-                <UINewTypography variant="body" color="primary.400" sx={{ cursor: 'pointer' }} onClick={handleExploreModel}>
+                <UINewTypography variant="body" color="primary.400" sx={{ cursor: 'pointer' }} onClick={() => handleExploreModel()}>
                   <FormattedMessage id="ExploreOtherModels" />
                 </UINewTypography>
               )}

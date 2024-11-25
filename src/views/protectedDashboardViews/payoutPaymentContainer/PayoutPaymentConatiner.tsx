@@ -1,4 +1,5 @@
-import { Box, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const MainConatinerBox = styled(Box)(({ theme }) => ({
@@ -102,11 +103,6 @@ export const IamgeBigScreenNone = styled(Box)(({ theme }) => ({
 export const SmallScreenImg = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(3)
-}));
-
-export const ImgHome = styled(Box)(({ theme }) => ({
-  width: 48,
-  height: 48
 }));
 
 export const MapBox = styled(Box)(({ theme }) => ({

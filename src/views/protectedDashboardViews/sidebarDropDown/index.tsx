@@ -11,8 +11,10 @@ import UploadImage from 'views/protectedModelViews/verification/stepThree/upload
 import VerificationStepOne from 'views/protectedModelViews/verification/stepOne';
 import DashboardPriceView from '../dashboardPriceView';
 import { LoadingBoxAdd, SelectDropdown } from './SidebarDropDown.styled';
-import { Box, SelectChangeEvent, CircularProgress } from '@mui/material';
+import { SelectChangeEvent } from '@mui/material';
 import DocumentMainContainer from 'views/protectedModelViews/verification/documentContainer';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const profileMenuList = [
   { menuName: <FormattedMessage id="Photos" />, id: 0 },

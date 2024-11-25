@@ -1,50 +1,47 @@
 import React, { useRef } from 'react';
-import {
-  CreditContainer,
-  FavoriteBorderIconContainer,
-  FavoriteIconContainer,
-  FirstSubContainerImgWorkerCard,
-  FirstSubContainerWithoutImg,
-  FlagAndLiveIconBoxContainer,
-  HeartIconWorkerCard,
-  HighlyAvailableBox,
-  HighlyAvailableButtonBox,
-  ImgWorkerCard,
-  LiveIconSecBoxWorkerCard,
-  LiveIconWorkerCard,
-  MainWorkerCard,
-  NameCardContainer,
-  OfflineIconSecBoxWorkerCard,
-  OfflineIconWorkerCard,
-  ProfileCardContainer,
-  SecondMainContainerWorkerCard,
-  SecondSubContainerImgWorkerCard,
-  SecondSubContainerWorkerCard,
-  SeconderContainerWorkerCard,
-  SubContainertWorkerCard,
-  TextBoxContainer,
-  UITypographyBox,
-  UITypographyBoxContainer,
-  WorkerCardContainer
-} from './WorkerCard.styled';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { ModelHomeListing } from 'services/modelListing/modelListing.services';
 import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
 import useImageOptimize from 'hooks/useImageOptimize';
-import { countryWithFlag } from 'constants/country';
+import countryWithFlagList from 'constants/countryList.json';
 import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { toast } from 'react-toastify';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { ErrorMessage } from 'constants/common.constants';
-import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import { gaEventTrigger } from 'utils/analytics';
 import StyleBoostUserButton from 'components/UIComponents/StyleBoostUserButton';
 import Image from 'next/image';
+import { useAuthContext } from '../../../../contexts/AuthContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { VideoAcceptType } from 'constants/workerVerification';
+import {
+  MainWorkerCard,
+  ImgWorkerCard,
+  HeartIconWorkerCard,
+  HighlyAvailableButtonBox,
+  HighlyAvailableBox,
+  FavoriteIconContainer,
+  FavoriteBorderIconContainer,
+  WorkerCardContainer,
+  SeconderContainerWorkerCard,
+  SubContainertWorkerCard,
+  ProfileCardContainer,
+  NameCardContainer,
+  TextBoxContainer,
+  LiveIconWorkerCard,
+  LiveIconSecBoxWorkerCard,
+  FirstSubContainerImgWorkerCard,
+  CreditContainer,
+  SecondSubContainerImgWorkerCard,
+  SecondMainContainerWorkerCard,
+  SecondSubContainerWorkerCard,
+  UITypographyBox,
+  UITypographyBoxContainer
+} from './WorkerCard.styled';
 
 const WorkerCard = ({
   modelDetails,
@@ -68,16 +65,28 @@ const WorkerCard = ({
   const isTablet = useMediaQuery(theme.breakpoints.only('sm'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
 
-  const { isCustomer, user } = useCallFeatureContext();
+  const { isCustomer, user } = useAuthContext();
 
   const languages = modelDetails?.languages
     ?.map((language) => language?.language_name)
     .sort()
     .join(', ');
-  const modelFlag = countryWithFlag.filter((country) => country.name === modelDetails?.country).map((data) => data.flag)[0];
-  const imageUrlRef = useRef<HTMLElement>();
+  const modelFlag = countryWithFlagList.filter((country) => country.name === modelDetails?.country).map((data) => data.flag)[0];
+  const modelAltName = countryWithFlagList.filter((country) => country.name === modelDetails?.country).map((data) => data.name)[0];
 
-  useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails?.cords);
+  const imageUrlRef = useRef<HTMLElement>();
+  const videoTypeCondition = VideoAcceptType?.includes(modelDetails?.link?.substring(modelDetails?.link?.lastIndexOf('.') + 1));
+
+  useImageOptimize(
+    imageUrlRef,
+    modelDetails?.link ?? '',
+    videoTypeCondition ? 'IMG' : 'BG',
+    videoTypeCondition ? true : false,
+    false,
+    modelDetails?.cords
+  );
+
+  // useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails?.cords);
 
   const customerData = JSON.parse(user || '{}');
 
@@ -127,6 +136,7 @@ const WorkerCard = ({
           <HighlyAvailableButtonBox>
             <HighlyAvailableBox>
               <Image
+                loading="lazy"
                 src="/images/boostProfile/fire-ani.gif"
                 alt="fire-gif"
                 height={57}
@@ -158,26 +168,18 @@ const WorkerCard = ({
                     {modelDetails?.name?.charAt(0)?.toUpperCase() + modelDetails?.name?.slice(1)}
                   </UINewTypography>
                 </TextBoxContainer>
-                <FlagAndLiveIconBoxContainer>
-                  {modelDetails?.is_online === 1 ? (
-                    <>
-                      <LiveIconWorkerCard>
-                        <LiveIconSecBoxWorkerCard sx={{ backgroundColor: 'success.100' }} />
-                      </LiveIconWorkerCard>
-                    </>
-                  ) : (
-                    <>
-                      <OfflineIconWorkerCard>
-                        <OfflineIconSecBoxWorkerCard />
-                      </OfflineIconWorkerCard>
-                    </>
-                  )}
-                  {modelFlag ? <FirstSubContainerImgWorkerCard src={modelFlag} /> : <FirstSubContainerWithoutImg />}
-                </FlagAndLiveIconBoxContainer>
+                {modelDetails?.is_online === 1 && (
+                  <>
+                    <LiveIconWorkerCard>
+                      <LiveIconSecBoxWorkerCard />
+                    </LiveIconWorkerCard>
+                    {modelFlag && <FirstSubContainerImgWorkerCard src={modelFlag} alt={modelAltName} width={16} height={8} />}
+                  </>
+                )}
               </NameCardContainer>
               {!isMobile && (
                 <CreditContainer>
-                  <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" />
+                  <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" alt="dollar-img" width={22} height={22} />
                   <UINewTypography variant="captionLargeBold" color="text.secondary">
                     {!modelDetails?.credits_per_minute ? (
                       <FormattedMessage id="NoPrice" />
@@ -201,7 +203,7 @@ const WorkerCard = ({
             </SecondMainContainerWorkerCard>
             {isMobile && (
               <CreditContainer sx={{ marginTop: isSmallScreen ? 1.5 : 1 }}>
-                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" />
+                <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" alt="dollar-img" width={22} height={22} />
                 <UINewTypography variant="captionLargeBold" color="text.secondary">
                   {!modelDetails?.price_per_minute ? (
                     <FormattedMessage id="NoPrice" />

@@ -2,9 +2,7 @@
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { Divider } from '@mui/material';
-import { BoxProps } from '@mui/system';
-import { LANGUAGES_TYPES } from 'constants/languageConstants';
+import Divider from '@mui/material/Divider';
 
 export const TimeMainBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -48,7 +46,7 @@ export const RemianingTime = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const TimeTypo = styled(UINewTypography)(({ theme }) => ({
+export const TimeTypo = styled(UINewTypography)(() => ({
   fontSize: '29.09px',
   fontWeight: 800,
   lineHeight: '39.73px',
@@ -74,74 +72,4 @@ export const TimeTitle = styled(UINewTypography)(({ theme }) => ({
   lineHeight: '16.39px',
   color: theme.palette.common.white,
   textTransform: 'uppercase'
-}));
-interface UIStyledDotsProps extends BoxProps {
-  language: string;
-}
-
-export const Dotes = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'language'
-})<UIStyledDotsProps>(({ theme, language }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '8px',
-  height: '8px',
-  borderRadius: '50%',
-  border: '1px solid',
-  backgroundColor: theme.palette.common.white,
-  color: theme.palette.common.white,
-  position: 'absolute',
-  left: '50.5%',
-  top: '30%',
-  transform: 'translate(-80%, -80%)',
-  '@media (max-width: 2560px)': {
-    left: '54%',
-    top: '90%',
-    transform: 'translate(-50%, -93%)'
-  },
-  '@media (max-width: 1440px)': {
-    left: '54%',
-    top: '90%',
-    transform: 'translate(-50%, -93%)'
-  },
-  '@media (max-width: 1024px)': {
-    left: '54%',
-    top: '90%',
-    transform: 'translate(-50%, -93%)'
-  },
-  '@media (max-width: 768px)': {
-    left: '50%',
-    top: '90%',
-    transform: 'translate(-50%, -93%)'
-  },
-  '@media (max-width: 767px)': {
-    left: '50%',
-    top: language === LANGUAGES_TYPES.EN ? '32.5%' : '33.5%',
-    transform: 'translate(-50%, -93%)'
-  },
-  '@media (max-width: 425px)': {
-    left: '50%',
-    top: language === LANGUAGES_TYPES.EN ? '32.5%' : '32.5%',
-    transform: 'translate(-50%, -93%)'
-  },
-  '@media (max-width: 375px)': {
-    left: '50%',
-    top: language === LANGUAGES_TYPES.EN ? '33.5%' : '36.5%',
-    transform: 'translate(-50%, -92%)'
-  },
-  '@media (max-width: 320px)': {
-    left: '50%',
-    top: language === LANGUAGES_TYPES.EN ? '33.5%' : '36.5%',
-    transform: 'translate(-50%, -90%)'
-  }
-}));
-
-export const DotesSecond = styled(Box)(({ theme }) => ({
-  width: '8px',
-  height: '8px',
-  color: theme.palette.common.white,
-  borderRadius: '50px',
-  border: '1px solid',
-  backgroundColor: theme.palette.common.white
 }));

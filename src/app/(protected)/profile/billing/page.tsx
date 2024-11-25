@@ -1,11 +1,7 @@
 import BillingHistory from 'views/protectedViews/BillingHistory';
 
 const BillingPage = () => {
-  return (
-    <>
-      <BillingHistory />
-    </>
-  );
+  return <BillingHistory />;
 };
 
 export default BillingPage;

@@ -1,5 +1,5 @@
-import { styled } from '@mui/material';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import theme from 'themes/theme';
 
@@ -18,11 +18,6 @@ export const ChildContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(7)
-}));
-
-export const ImageContainer = styled(Box)(() => ({
-  display: 'flex',
-  justifyContent: 'center'
 }));
 
 export const TypographyContainer = styled(Box)(({ theme }) => ({

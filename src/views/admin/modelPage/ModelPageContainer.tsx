@@ -8,7 +8,6 @@ import Stack from '@mui/material/Stack';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import TableContainer from '@mui/material/TableContainer';
@@ -33,7 +32,6 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { useRouter } from 'next/navigation';
 import MainLayout from '../../../views/admin/layouts/AdminLayout/DashboardLayout';
 import FormControl from '@mui/material/FormControl';
-import { StyledSelectInputLabel } from 'components/UIComponents/StyleSelect';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import { FilterBox, ModelActionPopover, NotFoundBox, SortBox } from './ModelPageContainer.styled';
@@ -43,8 +41,12 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import Link from 'next/link';
 import HideSourceOutlinedIcon from '@mui/icons-material/HideSourceOutlined';
+import { StyledSelectInputLabel } from 'components/UIComponents/UIStyledSelect';
+import { useAuthContext } from 'contexts/AuthContext';
+import { ModalPage } from 'constants/adminUserAccessConstants';
+import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
 
-export type WorkersPaginationType = {
+export type AdminWorkersPaginationType = {
   page: number;
   offset: number;
   pageSize: number;
@@ -57,6 +59,7 @@ export type WorkersPaginationType = {
   status: string;
   verificationStep: string;
   is_active: string;
+  gender: string;
 };
 
 const SORT_BY_OPTIONS: PaginationSortByOption[] = [
@@ -78,6 +81,12 @@ const IS_ACTIVE = [
   { value: '', label: 'All' },
   { value: 'true', label: 'True' },
   { value: 'false', label: 'False' }
+];
+
+const GENDER = [
+  { value: 'Male', label: 'Male' },
+  { value: 'Female', label: 'Female' },
+  { value: 'Trans', label: 'Trans' }
 ];
 
 const verification_step = [
@@ -108,7 +117,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
   const oneMonthAgoMoment = moment().subtract(1, 'day');
   const fromDate = oneMonthAgoMoment.format('YYYY/MM/DD');
   const toDate = currentMoment.format('YYYY/MM/DD');
-  const [filters, setFilters] = useState<WorkersPaginationType>({
+  const [filters, setFilters] = useState<AdminWorkersPaginationType>({
     page: 1,
     pageSize: PAGE_SIZE,
     offset: 0,
@@ -120,8 +129,12 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     toDate: toDate,
     status: '',
     verificationStep: '',
-    is_active: ''
+    is_active: '',
+    gender: 'Female'
   });
+
+  const { adminUserPermissions, isAdmin } = useAuthContext();
+  const UpdatePermission = adminUserPermissions ? haveUpdatePermission(ModalPage, adminUserPermissions) : false;
 
   const handleModelDetailsRefetch = useCallback(() => {
     fetchModelData();
@@ -149,7 +162,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     }
   };
 
-  const handleChangeFilter = useCallback((value: WorkersPaginationType) => {
+  const handleChangeFilter = useCallback((value: AdminWorkersPaginationType) => {
     setFilters(value);
   }, []);
 
@@ -178,9 +191,9 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
         sort_field: filters.orderField,
         verification_step: filters.verificationStep,
         profile_status: filters.status,
-        is_active: filters.is_active
+        is_active: filters.is_active,
+        gender: filters.gender
       };
-
       const data = await adminModelServices.getModelList(filterparams);
       setTotalRecords(data?.aggregate?.total_rows);
       setModelData(data?.model_details);
@@ -243,15 +256,24 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     },
     [filters, handleChangeFilter]
   );
+
   const handleChangeVerificationStep = useCallback(
     (val: string) => {
       handleChangeFilter({ ...filters, verificationStep: val, page: 1 });
     },
     [filters, handleChangeFilter]
   );
+
   const handleChangeIsActive = useCallback(
     (val: string) => {
       handleChangeFilter({ ...filters, is_active: val, page: 1 });
+    },
+    [filters, handleChangeFilter]
+  );
+
+  const handleChangeGender = useCallback(
+    (val: string) => {
+      handleChangeFilter({ ...filters, gender: val, page: 1 });
     },
     [filters, handleChangeFilter]
   );
@@ -302,10 +324,18 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     }
   };
 
+  useEffect(() => {
+    if (adminUserPermissions) {
+      const isAccessiable = isPageAccessiable(ModalPage, adminUserPermissions) || isAdmin;
+      isAccessiable ? '' : router.push('/admin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adminUserPermissions, isAdmin]);
+
   return (
     <>
       <MainLayout>
-        <Container>
+        <>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
             <Typography variant="h4" gutterBottom>
               Models
@@ -335,6 +365,28 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                   }}
                 >
                   {IS_ACTIVE.map((stat) => (
+                    <MenuItem key={stat.value} value={stat.value}>
+                      {stat.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
+              <FormControl fullWidth>
+                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Is deleted</StyledSelectInputLabel>
+                <Select
+                  name="gender"
+                  labelId="gender"
+                  label="Gender"
+                  value={filters.gender}
+                  onChange={(e) => handleChangeGender(e.target.value as string)}
+                  sx={{
+                    width: '100%'
+                  }}
+                >
+                  {GENDER.map((stat) => (
                     <MenuItem key={stat.value} value={stat.value}>
                       {stat.label}
                     </MenuItem>
@@ -428,6 +480,9 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                           <TableCell component="th" scope="row">
                             <Link href={`/admin/model/details/${item?.id}`}>{item?.email || '-'}</Link>
                           </TableCell>
+                          <TableCell component="th" scope="row">
+                            {item?.gender || '-'}
+                          </TableCell>
                           <TableCell>{item?.country_name || '-'}</TableCell>
                           <TableCell sx={{ textAlign: 'center' }}>
                             {item?.profile_status === MODEL_ACTION.PENDING ? (
@@ -467,7 +522,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                       ))
                     ) : (
                       <TableRow>
-                        <TableCell colSpan={7}>
+                        <TableCell colSpan={15}>
                           <NotFoundBox>
                             <Typography variant="body1">Model is not found.</Typography>
                           </NotFoundBox>
@@ -490,7 +545,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
               )}
             </Paper>
           </Card>
-        </Container>
+        </>
         <ModelActionPopover
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
@@ -503,34 +558,37 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
             View Details
           </MenuItem>
 
-          {selected?.is_visible && selected?.profile_status === MODEL_ACTION.APPROVE ? (
+          {(UpdatePermission || isAdmin) && (
             <>
-              <MenuItem onClick={handleHideModel}>
-                <RiEyeOffLine style={{ marginRight: '4px' }} />
-                Hide from listing
+              {selected?.is_visible && selected?.profile_status === MODEL_ACTION.APPROVE ? (
+                <>
+                  <MenuItem onClick={handleHideModel}>
+                    <RiEyeOffLine style={{ marginRight: '4px' }} />
+                    Hide from listing
+                  </MenuItem>
+                </>
+              ) : (
+                selected?.profile_status === MODEL_ACTION.APPROVE && (
+                  <>
+                    <MenuItem onClick={handleShowModel}>
+                      <RiEyeLine />
+                      Show in listing
+                    </MenuItem>
+                  </>
+                )
+              )}
+              {selected?.is_online === 1 && (
+                <MenuItem onClick={() => handleModelDetailsIsOffline(selected?.id as number)}>
+                  <HideSourceOutlinedIcon sx={{ '&.MuiSvgIcon-root': { width: '15px', height: '15px', marginRight: '4px' } }} />
+                  Mark offline
+                </MenuItem>
+              )}
+              <MenuItem onClick={() => handleModelDetailsDelete(selected?.id as number)}>
+                <DeleteOutlineIcon sx={{ mr: 0.5, color: 'error.main' }} />
+                Delete
               </MenuItem>
             </>
-          ) : (
-            selected?.profile_status === MODEL_ACTION.APPROVE && (
-              <>
-                <MenuItem onClick={handleShowModel}>
-                  <RiEyeLine />
-                  Show in listing
-                </MenuItem>
-              </>
-            )
           )}
-          {selected?.is_online === 1 && (
-            <MenuItem onClick={() => handleModelDetailsIsOffline(selected?.id as number)}>
-              <HideSourceOutlinedIcon sx={{ '&.MuiSvgIcon-root': { width: '15px', height: '15px', marginRight: '4px' } }} />
-              Mark offline
-            </MenuItem>
-          )}
-
-          <MenuItem onClick={() => handleModelDetailsDelete(selected?.id as number)}>
-            <DeleteOutlineIcon sx={{ mr: 0.5, color: 'error.main' }} />
-            Delete
-          </MenuItem>
         </ModelActionPopover>
       </MainLayout>
     </>

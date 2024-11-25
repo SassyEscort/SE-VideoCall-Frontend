@@ -1,6 +1,6 @@
-import { Divider, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const BillingHistoryMainContainer = styled(Box)(({ theme }) => ({
@@ -13,21 +13,6 @@ export const BillingHistoryMainContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     paddingTop: theme.spacing(1.5)
   }
-}));
-
-export const TextMainContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  height: '100%',
-  maxHeight: '75px',
-  flexDirection: 'column',
-  gap: theme.spacing(3)
-}));
-
-export const FirstTextContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  height: '100%',
-  maxHeight: '50px',
-  justifyContent: 'space-between'
 }));
 
 export const BillingHistoryTextContainer = styled(Box)(() => ({
@@ -47,14 +32,7 @@ export const TextAndBoxContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const DividerContainer = styled(Divider)(({ theme }) => ({
-  border: '1px solid',
-  borderColor: theme.palette.primary[700],
-  width: '100%',
-  maxWidth: '929px'
-}));
-
-export const BillingUIContainer = styled(Box)(({ theme }) => ({
+export const BillingUIContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column'
 }));
@@ -62,12 +40,6 @@ export const BillingUIContainer = styled(Box)(({ theme }) => ({
 export const DollarBillingValue = styled(UINewTypography)(() => ({
   fontSize: '20px !important',
   fontWeight: 700,
-  lineHeight: '125% !important'
-}));
-
-export const ViewDetailsBilling = styled(UINewTypography)(() => ({
-  fontSize: '16px !important',
-  fontWeight: 600,
   lineHeight: '125% !important'
 }));
 
@@ -96,10 +68,4 @@ export const TextBoxContainer = styled(Typography)(({ theme }) => ({
   fontWeight: 600,
   fontSize: '16px',
   lineHeight: '20px'
-}));
-
-export const FirstBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center'
 }));

@@ -1,6 +1,6 @@
-import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import { ROLE } from 'constants/workerVerification';
 
 interface BackgroundImageBoxProps {
@@ -9,7 +9,7 @@ interface BackgroundImageBoxProps {
 
 export const AuthCommonBox = styled(Box)(({ theme }) => ({
   width: '100%',
-  maxWidth: '920px',
+  maxWidth: '1080px',
   overflowY: 'scroll',
   scrollbarWidth: 'none',
   paddingTop: 0,
@@ -17,24 +17,6 @@ export const AuthCommonBox = styled(Box)(({ theme }) => ({
     border: 'none'
   },
   position: 'relative'
-}));
-
-export const AuthImageMobileBox = styled(Box)(({ theme }) => ({
-  width: '100%',
-  height: '100%',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-  position: 'absolute',
-  borderRadius: '12px',
-  backgroundPosition: 'center',
-  display: 'none',
-  maxWidth: 420,
-  [theme.breakpoints.up('sm')]: {
-    maxWidth: '100%'
-  },
-  [theme.breakpoints.only('xs')]: {
-    display: 'block'
-  }
 }));
 
 export const AuthImageBox = styled(Box)<BackgroundImageBoxProps>(({ theme, variant }) => ({
@@ -46,14 +28,15 @@ export const AuthImageBox = styled(Box)<BackgroundImageBoxProps>(({ theme, varia
   borderRadius: '12px',
   backgroundRepeat: 'no-repeat',
   display: 'block',
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     display: 'none'
   },
   height: 'auto'
 }));
 
 export const BackgroundImageBox = styled(Box)<BackgroundImageBoxProps>(({ theme, variant }) => ({
-  backgroundImage: variant === ROLE.CUSTOMER ? 'url(/images/home/free-credit-signup-img.webp)' : 'none',
+  // backgroundImage: variant === ROLE.CUSTOMER ? 'url(/images/home/free-credit-signup-img.webp)' : 'none',
+  backgroundImage: variant === ROLE.CUSTOMER ? 'none' : 'none',
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
   display: 'flex',
@@ -100,12 +83,12 @@ export const TextMainBoxContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(3)
 }));
 
-export const TextInnerBoxContainer = styled(Box)(({ theme }) => ({
+export const TextInnerBoxContainer = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'baseline'
 }));
 
-export const HeaderTextMainBoxContainer = styled(Box)(({ theme }) => ({
+export const HeaderTextMainBoxContainer = styled(Box)(() => ({
   width: '100%',
   maxWidth: '367px',
   display: 'flex',
@@ -115,7 +98,7 @@ export const HeaderTextMainBoxContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const HeaderText = styled(Typography)(({ theme }) => ({
+export const HeaderText = styled(Typography)(() => ({
   fontSize: '32px',
   fontWeight: 800,
   lineHeight: '44.8px',
@@ -128,7 +111,7 @@ export const HeaderText = styled(Typography)(({ theme }) => ({
   textAlign: 'center'
 }));
 
-export const DescriptionTextMainBoxContainer = styled(Box)(({ theme }) => ({
+export const DescriptionTextMainBoxContainer = styled(Box)(() => ({
   width: '100%',
   maxWidth: '332px',
   display: 'flex',

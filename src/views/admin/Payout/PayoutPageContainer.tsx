@@ -1,5 +1,4 @@
 'use client';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import MainLayout from '../layouts/AdminLayout/DashboardLayout';
 import Stack from '@mui/material/Stack';
@@ -12,11 +11,11 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
-import { Chip, CircularProgress, IconButton, MenuItem } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import moment from 'moment';
-import { MoreVert, Visibility } from '@mui/icons-material';
+import Visibility from '@mui/icons-material/Visibility';
+import MoreVert from '@mui/icons-material/MoreVert';
 import { useCallback, useEffect, useState } from 'react';
 import { payoutDataResponse, payoutDetailsService } from 'services/adminServices/payout/payoutDetailsService';
 import PayoutModel from './PayoutModel';
@@ -30,7 +29,15 @@ import TablePager from 'components/common/CustomPaginations/TablePager';
 import { StyledPopover } from './Payout.styled';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 import RejectModal from './RejectModal';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
+import CircularProgress from '@mui/material/CircularProgress';
+import Chip from '@mui/material/Chip';
+import IconButton from '@mui/material/IconButton';
+import MenuItem from '@mui/material/MenuItem';
+import { useRouter } from 'next/navigation';
+import { useAuthContext } from 'contexts/AuthContext';
+import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
+import { PayoutPage } from 'constants/adminUserAccessConstants';
 
 export type PaginationType = {
   page: number;
@@ -42,6 +49,11 @@ export type PaginationType = {
 };
 
 export default function PayoutPageContainer() {
+  const router = useRouter();
+
+  const { adminUserPermissions, isAdmin } = useAuthContext();
+  const UpdatePermission = adminUserPermissions ? haveUpdatePermission(PayoutPage, adminUserPermissions) : false;
+
   const [selectedPayoutData, setSelectedPayoutData] = useState<payoutDataResponse | null>(null);
   const [data, setData] = useState<payoutDataResponse[]>([]);
   const [open, setOpen] = useState<null | HTMLElement>(null);
@@ -174,9 +186,17 @@ export default function PayoutPageContainer() {
     setOpenReject(false);
   };
 
+  useEffect(() => {
+    if (adminUserPermissions) {
+      const isAccessiable = isPageAccessiable(PayoutPage, adminUserPermissions) || isAdmin;
+      isAccessiable ? '' : router.push('/admin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adminUserPermissions, isAdmin]);
+
   return (
     <MainLayout>
-      <Container>
+      <>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
           <Typography variant="h4" gutterBottom>
             Payout History
@@ -281,7 +301,7 @@ export default function PayoutPageContainer() {
             )}
           </Paper>
         </Card>
-      </Container>
+      </>
       <StyledPopover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -299,7 +319,7 @@ export default function PayoutPageContainer() {
           <Visibility sx={{ mr: 2 }} />
           View Details
         </MenuItem>
-        {selectedPayoutData?.state === PAYOUT_ACTION.PENDING && (
+        {(UpdatePermission || isAdmin) && selectedPayoutData?.state === PAYOUT_ACTION.PENDING && (
           <>
             <MenuItem onClick={() => handelChangeStatus(false)}>
               <CheckIcon sx={{ mr: 2, color: 'success.main' }} />

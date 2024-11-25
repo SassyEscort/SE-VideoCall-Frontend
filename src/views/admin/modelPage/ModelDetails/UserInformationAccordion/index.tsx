@@ -1,4 +1,3 @@
-import { AccordionDetails } from '@mui/material';
 import { MuiAccordion, MuiAccordionSummary } from 'components/UIComponents/StyleAccordion';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React, { SyntheticEvent, useState } from 'react';
@@ -8,8 +7,17 @@ import ModelInformation from './ModelInformation';
 import ModelDocument from './ModelDocument';
 import { UserInformationAccordionBox } from './UserInformationAccordion.styled';
 import SEOData from './SEOData';
+import AccordionDetails from '@mui/material/AccordionDetails';
 
-const UserInformationAccordion = ({ modelData }: { modelData: ModelDetailsRes }) => {
+const UserInformationAccordion = ({
+  modelData,
+  UpdatePermission,
+  isAdmin
+}: {
+  modelData: ModelDetailsRes;
+  isAdmin: boolean;
+  UpdatePermission: boolean;
+}) => {
   const [expanded, setExpanded] = useState<string | false>(false);
 
   const handleChange = (panel: string) => (event: SyntheticEvent, newExpanded: boolean) => {
@@ -36,7 +44,7 @@ const UserInformationAccordion = ({ modelData }: { modelData: ModelDetailsRes })
           <UINewTypography variant="h5">Photos</UINewTypography>
         </MuiAccordionSummary>
         <AccordionDetails>
-          <ModelPhotos modelData={modelData} />
+          <ModelPhotos modelData={modelData} isAdmin={isAdmin} UpdatePermission={UpdatePermission} />
         </AccordionDetails>
       </MuiAccordion>
       <MuiAccordion expanded={expanded === 'Documents'} onChange={handleChange('Documents')} disableGutters elevation={0} square>

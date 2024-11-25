@@ -1,5 +1,7 @@
-import { Box, Dialog, DialogTitle, Divider, styled } from '@mui/material';
-import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
+import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 
@@ -68,26 +70,6 @@ export const ForBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const FiveBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(2.5)
-}));
-
-export const SixBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(0.75),
-  alignItems: 'center',
-  [theme.breakpoints.down('sm')]: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-}));
-
-export const SevenBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(1.5)
-}));
-
 export const ChooseYourBankFristBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -145,49 +127,6 @@ export const UINewTypographyConfirm = styled(UINewTypography)(({ theme }) => ({
   color: theme.palette.primary[200]
 }));
 
-export const PayoutDetails = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  background: theme.palette.primary[200],
-  border: '1px solid ',
-  borderColor: theme.palette.primary[400],
-  borderRadius: theme.spacing(1),
-  [theme.breakpoints.down('sm')]: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: ' flex-start',
-    alignItems: 'flex-start',
-    paddingLeft: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
-    gap: theme.spacing(6)
-  }
-}));
-
-export const PayoutFirstBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: theme.spacing(2),
-  paddingTop: theme.spacing(3),
-  paddingBottom: theme.spacing(3),
-  paddingLeft: theme.spacing(3),
-  [theme.breakpoints.down('sm')]: {
-    paddingLeft: theme.spacing(0)
-  }
-}));
-
-export const PayoutSecondBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(1.5)
-}));
-
-export const PayoutThreeBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(3),
-  paddingRight: theme.spacing(3)
-}));
-
 export const PayoutDetailSecondBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   height: '100%',
@@ -238,13 +177,6 @@ export const PayoutDetailSixBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(0.5)
 }));
 
-export const ImageBox = styled('img')(({ theme }) => ({
-  borderRadius: '50%',
-  width: '100%',
-  maxWidth: '20px',
-  height: '20px'
-}));
-
 export const SmallScreenBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -265,14 +197,6 @@ export const UINewTypographyTitleRequestPayout = styled(UINewTypography)(({ them
   fontWeight: 700,
   lineHeight: '28px',
   color: theme.palette.secondary[200]
-}));
-
-export const UINewTypographyGetPaidIn = styled(UINewTypography)(({ theme }) => ({
-  fontSize: '14px',
-  fontWeight: 500,
-  lineHeight: '17.5px',
-  color: theme.palette.secondary[200],
-  textWrap: 'nowrap'
 }));
 
 export const UINewTypographyYourBalance = styled(UINewTypography)(({ theme }) => ({
@@ -299,17 +223,6 @@ export const UIStyledInputTextAmount = styled(UIStyledInputText)(({ theme }) => 
     lineHeight: '38.4px !important',
     color: theme.palette.text.secondary
   }
-}));
-export const ExpandIcon = styled(ExpandMoreOutlinedIcon)(({ theme }) => ({
-  width: '16px',
-  height: '16px'
-}));
-
-export const dividerBox = styled(Divider)(({ theme }) => ({
-  paddingLeft: theme.spacing(1),
-  paddingRight: theme.spacing(1),
-  border: '1px solid',
-  borderColor: theme.palette.primary[700]
 }));
 
 export const UINewTypographyPrice = styled(UINewTypography)(({ theme }) => ({

@@ -1,6 +1,8 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
 export const MyProfileContainerMain = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -21,14 +23,26 @@ export const InputTypeBox = styled(Box)(({ theme }) => ({
 
 export const DisableButtonBox = styled(Box)(({ theme }) => ({
   display: 'flex',
-  justifyContent: 'flex-end',
+  justifyContent: 'end',
   width: '100%',
   maxWidth: '613px',
-  padding: theme.spacing(2)
+  padding: theme.spacing(2),
+  gap: theme.spacing(2)
 }));
 
-export const ProfileTextHeader = styled(UINewTypography)(({ theme }) => ({
+export const ProfileTextHeader = styled(UINewTypography)(() => ({
   fontSize: '16px !important',
   fontWeight: '600 !important',
   lineHeight: '25.6px !important'
+}));
+
+export const SaveButton = styled(StyleButtonV2)(() => ({
+  '&.MuiButton-root': {
+    height: '40px'
+  }
+}));
+export const EditButton = styled(UIThemeButton)(() => ({
+  '&.MuiButton-root': {
+    height: '40px'
+  }
 }));

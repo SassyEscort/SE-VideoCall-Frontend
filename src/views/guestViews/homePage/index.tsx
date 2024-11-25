@@ -1,16 +1,23 @@
 'use client';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import HomeConnections from './HomeConnections';
+
+import { useCallback, useRef, useState, useEffect } from 'react';
 import HomeTopBanner from './homeBanner';
-import HomeImageCard from './homeImageCards';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
 import { HomePageMainContainer } from './Home.styled';
 import SearchFilters, { SearchFiltersTypes } from '../searchPage/searchFilters';
-import BackdropProgress from 'components/UIComponents/BackDropProgress';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { getQueryParam } from 'utils/genericFunction';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
+import dynamic from 'next/dynamic';
+import HomeImageCards from './homeImageCards';
+
+const HomeConnections = dynamic(() => import('./HomeConnections'), {
+  ssr: false
+});
+const BackdropProgress = dynamic(() => import('components/UIComponents/BackDropProgress'), {
+  ssr: false
+});
 
 const HomeContainer = () => {
   const { isFreeCreditAvailable, session } = useAuthContext();
@@ -19,7 +26,6 @@ const HomeContainer = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-
   const searchFiltersRef = useRef<HTMLDivElement>(null);
   const initialRender = useRef(true);
 
@@ -27,6 +33,7 @@ const HomeContainer = () => {
   const [total_rows, setTotalRows] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [scroll, setScroll] = useState(false);
+  const [isUserInteracted, setIsUserInteracted] = useState(false);
 
   const getInitialFilters = () => ({
     fromAge: getQueryParam('fromAge') ? (getQueryParam('fromAge') as string) : '',
@@ -66,11 +73,11 @@ const HomeContainer = () => {
     const queryString = new URLSearchParams(objParams).toString();
 
     if (pathname === '/' && filterCount === 0) {
-      router.push('/');
+      const credit = searchParams.get('credit');
+      if (!credit) router.push('/');
     }
     if (pathname === '/' && filterCount === 1 && objParams.page) return;
 
-    const isDetailsPage = pathname.startsWith('/details/');
     const isMultiple = [
       'language',
       'isOnline',
@@ -83,24 +90,15 @@ const HomeContainer = () => {
       'sortField',
       'gender'
     ].filter((x) => Object.keys(objParams).includes(x));
+
     if (filterCount === 0) {
-      if (isDetailsPage) {
-        const credit = searchParams.get('credit');
-        if (!credit) router.push(pathname);
-      } else {
-        router.push('/');
-      }
+      const credit = searchParams.get('credit');
+      if (!credit) router.push(pathname);
     } else {
       if (isMultiple.length) {
-        if (isDetailsPage) {
-          router.push(`${pathname}?${queryString}`);
-        } else {
-          router.push(`/?${queryString}`);
-        }
+        router.push(`${pathname}?${queryString}`);
       } else {
-        if (isDetailsPage) {
-          router.push(`${pathname}?${queryString}`);
-        } else if (objParams.email) {
+        if (objParams.email) {
           return;
         } else {
           router.push(`/${pathname}?${queryString}`);
@@ -108,7 +106,7 @@ const HomeContainer = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, pathname, router]);
+  }, [filters, router]);
 
   const handelFilterChange = async (values: SearchFiltersTypes) => {
     setIsLoading(true);
@@ -139,16 +137,17 @@ const HomeContainer = () => {
         const offset = (value - 1) * filters.pageSize;
         const newFilters = { ...filters, page: value, offset: offset };
         setFilters(newFilters);
-        handelFilterChange(newFilters);
-      }
-      if (filters) {
+        // handelFilterChange(newFilters);
+      } else if (filters) {
         const offset = (value - 1) * filters.pageSize;
         const newFilters = { ...filters, page: value, offset: offset };
         setFilters(newFilters);
-        handelFilterChange(newFilters);
-        const queryParams = new URLSearchParams(window.location.search);
-        queryParams.set('page', value.toString());
-        router.push(`/?${queryParams.toString()}`);
+        // handelFilterChange(newFilters);
+        if (pathname === '/') {
+          const queryParams = new URLSearchParams(window.location.search);
+          queryParams.set('page', value.toString());
+          router.push(`/?${queryParams.toString()}`);
+        }
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -165,34 +164,50 @@ const HomeContainer = () => {
     if (initialRender.current) {
       initialRender.current = false;
     }
+    // setTimeout(() => {
     handleChangeSearchFilter();
+    // }, 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, searchParams]);
+
   useEffect(() => {
     setFilters(getInitialFilters());
-    handelFilterChange(getInitialFilters());
+    setTimeout(() => {
+      handelFilterChange(getInitialFilters());
+    }, 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsUserInteracted(true);
+      window.removeEventListener('scroll', handleScroll);
+    };
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <>
-      <HomePageMainContainer>
-        <HomeTopBanner isFreeCreditAvailable={isFreeCreditAvailable} />
-        <BackdropProgress open={isLoading} />
-        <SearchFilters handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
-        <HomeImageCard
-          modelListing={modelListing}
-          isFavPage={false}
-          token={token}
-          filters={filters ?? ({} as SearchFiltersTypes)}
-          totalRows={total_rows}
-          handleChangePage={handleChangePage}
-          isFreeCreditAvailable={isFreeCreditAvailable}
-        />
-        <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
-        {/* <HomePageFAQ /> */}
-      </HomePageMainContainer>
-    </>
+    <HomePageMainContainer>
+      <HomeTopBanner isFreeCreditAvailable={isFreeCreditAvailable} />
+      {modelListing?.length > 0 && <BackdropProgress open={isLoading} />}
+      <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
+
+      <HomeImageCards
+        modelListing={modelListing}
+        isFavPage={false}
+        token={token}
+        filters={filters ?? ({} as SearchFiltersTypes)}
+        totalRows={total_rows}
+        handleChangePage={handleChangePage}
+        isFreeCreditAvailable={isFreeCreditAvailable}
+        isLoading={isLoading}
+      />
+      <HomeConnections isFreeCreditAvailable={isFreeCreditAvailable} />
+    </HomePageMainContainer>
   );
 };
 

@@ -1,4 +1,6 @@
-import { Box, Typography, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const MainConatiner = styled(Box)(({ theme }) => ({
@@ -112,10 +114,6 @@ export const RightSecondText = styled(UINewTypography)(({ theme }) => ({
   paddingTop: theme.spacing(1.5),
   paddingBottom: theme.spacing(1.5),
   textAlign: 'center'
-}));
-export const SelectMenucontainer = styled(Box)(({ theme }) => ({
-  maxWidth: '390px',
-  borderRadius: theme.spacing(1.875)
 }));
 
 export const ButtonConatiner = styled(Box)(({ theme }) => ({

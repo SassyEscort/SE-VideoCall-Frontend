@@ -1,6 +1,8 @@
-import { DialogContent, DialogTitle, Stack } from '@mui/material';
 import Box from '@mui/material/Box';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 import Popover from '@mui/material/Popover';
+import Stack from '@mui/material/Stack';
 import { styled } from '@mui/system';
 
 export const ModelActionPopover = styled(Popover)(({ theme }) => ({
@@ -15,16 +17,6 @@ export const ModelActionPopover = styled(Popover)(({ theme }) => ({
   }
 }));
 
-export const FilterBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  width: '100%',
-  gap: theme.spacing(1.875),
-  [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column'
-  }
-}));
 export const SortBox = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'end',
@@ -67,19 +59,7 @@ export const DetailsDialogContent = styled(DialogContent)(() => ({
   }
 }));
 
-export const StyledPopover = styled(Popover)(({ theme }) => ({
-  '& .MuiMenuItem-root': {
-    padding: theme.spacing(1),
-    borderRadius: theme.spacing(0.75),
-    typography: 'body2'
-  },
-  '& .MuiPaper-root': {
-    width: 170,
-    padding: theme.spacing(1)
-  }
-}));
-
-export const DialogContainer = styled(DialogTitle)(({ theme }) => ({
+export const DialogContainer = styled(DialogTitle)(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between'

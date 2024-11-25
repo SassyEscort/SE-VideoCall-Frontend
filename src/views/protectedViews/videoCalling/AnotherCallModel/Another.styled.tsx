@@ -1,4 +1,7 @@
-import { Box, Dialog, DialogTitle, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import { styled } from '@mui/material/styles';
 
 export const DialogTitleBox = styled(DialogTitle)(({ theme }) => ({
   display: 'flex',
@@ -59,14 +62,6 @@ export const SecondBoxContent = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(0.5),
   textAlign: 'center'
-}));
-
-export const FirstBoxContent = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-  justifyContent: 'center',
-  alignItems: 'center'
 }));
 
 export const ThirdBoxContent = styled(Box)(({ theme }) => ({

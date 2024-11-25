@@ -1,5 +1,4 @@
 'use client';
-import { MenuItem, Divider } from '@mui/material';
 import { LoadingBoxFullScreen, SidebarDropDownMainContainer } from '../sidebarDropDown/SidebarDropDown.styled';
 import React, { useMemo, useState } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -11,8 +10,10 @@ import { ModelDetailsResponse } from 'views/protectedModelViews/verification/ver
 import DashboardPriceView from '../dashboardPriceView';
 import { FormattedMessage } from 'react-intl';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import DocumentMainContainer from 'views/protectedModelViews/verification/documentContainer';
+import Divider from '@mui/material/Divider';
+import MenuItem from '@mui/material/MenuItem';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
 const profileMenuList = [
   { menuName: <FormattedMessage id="Photos" />, id: 0 },
@@ -35,7 +36,7 @@ const ModelProfileContainer = ({
   const [isLoading, setIsLoading] = useState(false);
   const [menuId, setMenuId] = useState(verificationCode ? 1 : 0);
 
-  const { handelNameChange } = useCallFeatureContext();
+  const { handelNameChange } = useAuthContext();
   const handleMenu = (id: number) => {
     setIsLoading(true);
     setMenuId(id);

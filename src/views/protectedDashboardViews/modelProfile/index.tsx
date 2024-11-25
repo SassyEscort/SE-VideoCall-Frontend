@@ -6,13 +6,13 @@ import ModelProfileContainer from './ModelProfileContainer';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { getUserDataClient } from 'utils/getSessionData';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import MobileSidebar from '../sidebarDropDown';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const ModelProfile = () => {
-  const { isCustomer } = useCallFeatureContext();
+  const { isCustomer } = useAuthContext();
 
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();

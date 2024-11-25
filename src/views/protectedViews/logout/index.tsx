@@ -1,7 +1,6 @@
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Divider } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
   DialogContentBoxButton,
@@ -18,10 +17,11 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { FormattedMessage } from 'react-intl';
 import { usePathname } from 'next/navigation';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 
 const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const asPath = usePathname();
-  // const { isCustomer } = useCallFeatureContext();
 
   const [loading, setLoading] = useState(false);
 

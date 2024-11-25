@@ -1,7 +1,6 @@
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Box from '@mui/material/Box';
 import HomeImageCard from 'views/guestViews/homePage/homeImageCards';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { HomeExploreBox, SubTitle } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
@@ -16,7 +15,8 @@ import BackdropProgress from 'components/UIComponents/BackDropProgress';
 import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useAuthContext } from '../../../../../context/AuthContext';
+import { useAuthContext } from '../../../../contexts/AuthContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const EscortExplore = () => {
   const { isFreeCreditAvailable } = useAuthContext();
@@ -29,6 +29,7 @@ const EscortExplore = () => {
   // const [filters, setFilters] = useState<SearchFiltersTypes>();
   const [total_rows, setTotalRows] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [isUserInteracted, setIsUserInteracted] = useState(false);
 
   const initialRender = useRef(true);
   const scrollRender = useRef(true);
@@ -128,8 +129,8 @@ const EscortExplore = () => {
     setIsLoading(true);
     if (values) {
       const getModel = await ModelListingService.getModelListing(values, token.token);
-      setModelListing(getModel.model_details);
-      setTotalRows(getModel.aggregate.total_rows);
+      setModelListing(getModel?.model_details);
+      setTotalRows(getModel?.aggregate?.total_rows);
       if (scrollRender.current === false) {
         scrollToTable();
       } else {
@@ -177,6 +178,18 @@ const EscortExplore = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsUserInteracted(true);
+      window.removeEventListener('scroll', handleScroll);
+    };
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <>
       <BackdropProgress open={isLoading} />
@@ -198,7 +211,7 @@ const EscortExplore = () => {
             </HomeExploreBox>
           </ExploreEscortText>
           <HomeMainContainer>
-            <SearchFilters handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
+            <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
           </HomeMainContainer>
         </DetailsChildTypographyBox>
         <Box>
@@ -210,6 +223,7 @@ const EscortExplore = () => {
             totalRows={total_rows}
             handleChangePage={handleChangePage}
             isFreeCreditAvailable={isFreeCreditAvailable}
+            isLoading={false}
           />
         </Box>
       </DetailsChildTypographyBox>

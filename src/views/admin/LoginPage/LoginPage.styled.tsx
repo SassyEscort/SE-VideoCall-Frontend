@@ -1,7 +1,7 @@
-import { TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
 
-export const LoginPageFirstTextBox = styled(TextField)(({ theme }) => ({
+export const LoginPageFirstTextBox = styled(TextField)(() => ({
   '& .MuiInputLabel-root': {
     color: 'inherit'
   },

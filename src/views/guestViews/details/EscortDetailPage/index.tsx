@@ -1,21 +1,19 @@
 'use client';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
-import { EscortSlider } from './EscortSlider';
-import { useMediaQuery } from '@mui/material';
+import EscortSlider from './EscortSlider';
 import theme from 'themes/theme';
 import EscortSliderMobile from './EscortSliderMobile';
 import EscortPersonalDetail from './EscortPersonalDetail';
 import EscortExplore from './EscortExplore';
-import { useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
-import { TokenIdType } from 'views/protectedModelViews/verification';
-import { getUserDataClient } from 'utils/getSessionData';
 import { usePathname } from 'next/navigation';
 import Box from '@mui/system/Box';
-import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
+import { useVideoCallContext } from '../../../../contexts/videoCallContext';
 import { CallingService } from 'services/calling/calling.services';
 import moment from 'moment';
 import { ModelDetailsParams, ModelDetailsService } from 'services/modelDetails/modelDetails.services';
@@ -38,18 +36,19 @@ import {
   RatingAndReviewDetailsRes,
   ratingAndReviewParams
 } from 'services/ratingAndReview/ratingAndReview.service';
-import { useAuthContext } from '../../../../../context/AuthContext';
+import { useAuthContext } from '../../../../contexts/AuthContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const EscortDetailPage = () => {
-  const { isFreeCreditAvailable, isCustomer } = useAuthContext();
-  const { handleCallInitiate, call, isLoading, isCallEnded, handleCallEnd, isUnanswered } = useCallFeatureContext();
+  const { isFreeCreditAvailable, isCustomer, token } = useAuthContext();
+  const { isLoading, isCallEnded, handleSetCallEnd, isUnanswered } = useVideoCallContext();
+  const { handleCallInitiate } = useZegoCallFeatureContext();
+
   const path = usePathname();
   const userName = path.split('/')[2];
-
   const isLgDown = useMediaQuery(theme.breakpoints.down('lg'));
 
   const [guestData, setGuestData] = useState<ModelDetailsResponse>();
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isCreditAvailable, setIsCreditAvailable] = useState(false);
   const [callTime, setCallTime] = useState(0);
 
@@ -81,17 +80,6 @@ const EscortDetailPage = () => {
     },
     [filters, handleChangeFilter]
   );
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      if (data) {
-        setToken({ id: data.id, token: data.token });
-      }
-    };
-
-    userToken();
-  }, [userName, isCustomer]);
 
   useEffect(() => {
     gaEventTrigger('model_page_view', {
@@ -144,12 +132,12 @@ const EscortDetailPage = () => {
 
   useEffect(() => {
     if (isCallEnded) {
-      handleCallEnd();
+      handleSetCallEnd();
     } else {
       getCometChatInfo();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [guestData, token, userName, call, isCallEnded]);
+  }, [guestData, token.token, isCallEnded]);
 
   useEffect(() => {
     if (isUnanswered) {
@@ -256,4 +244,4 @@ const EscortDetailPage = () => {
   );
 };
 
-export default EscortDetailPage;
+export default memo(EscortDetailPage);

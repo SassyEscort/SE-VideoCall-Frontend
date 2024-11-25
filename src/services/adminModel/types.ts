@@ -23,6 +23,7 @@ export type Document = {
 
 export type Photo = {
   id: number;
+  file_id?: string;
   is_document: number;
   document_type: string;
   link: string;
@@ -94,6 +95,7 @@ export type ModelFilterParams = {
   verification_step?: string;
   profile_status?: string;
   is_active?: string;
+  gender?: string;
 };
 
 export type CustomerFilterParams = {

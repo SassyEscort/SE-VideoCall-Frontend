@@ -1,15 +1,8 @@
-import { FormControl } from '@mui/material';
 import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
 import { styled } from '@mui/material/styles';
 import { DatePicker } from '@mui/x-date-pickers';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-
-export const GoldPackageMobileCom = styled(Box)(({ theme }) => ({
-  marginBottom: theme.spacing(9),
-  backgroundColor: '#100B19',
-  width: '100%',
-  padding: theme.spacing(3)
-}));
 
 export const ProfileStatiscsMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -151,37 +144,6 @@ export const StyledDatePicker = styled(DatePicker)(({ theme }) => ({
     borderRadius: theme.shape.borderRadius,
     width: '100%',
     maxHeight: 50,
-    [theme.breakpoints.up('md')]: {
-      width: '160px'
-    }
-  },
-  '& .mui-style-i4bv87-MuiSvgIcon-root': {
-    color: '#86838A'
-  },
-  '& .MuiSvgIcon-root': {
-    color: '#B7B5B9 !important'
-  },
-  '@media (min-width: 600px)': {
-    width: 'auto'
-  },
-  '& .MuiPickersCalendarHeader-switchViewIcon, & .MuiPickersArrowSwitcher-button': {
-    color: theme.palette.common.white
-  }
-}));
-
-export const StyledDatePickerPayout = styled(DatePicker)(({ theme }) => ({
-  width: '100%',
-  '&:hover .MuiOutlinedInput-notchedOutline': {
-    borderColor: theme.palette.primary.main
-  },
-  '& .MuiOutlinedInput-notchedOutline': {
-    border: '2px solid',
-    borderColor: theme.palette.secondary.light
-  },
-  '& .MuiOutlinedInput-root': {
-    borderRadius: theme.shape.borderRadius,
-    width: '100%',
-    maxHeight: 40,
     [theme.breakpoints.up('md')]: {
       width: '160px'
     }

@@ -3,8 +3,10 @@
 import { ReactNode } from 'react';
 import { StyledContent, StyledRoot, StyledSection } from './AdminLoginLayout.styled';
 import Container from '@mui/material/Container';
-import { Box, Typography, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 interface AdminLoginLayoutProps {
   children: ReactNode;
@@ -21,7 +23,7 @@ export default function AdminLoginLayout({ children }: AdminLoginLayoutProps) {
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
               Hi, Welcome Back
             </Typography>
-            <img src="/images/admin/illustration_login.png" alt="login" />
+            <Box component="img" src="/images/admin/illustration_login.png" alt="login" />
           </StyledSection>
         )}
 

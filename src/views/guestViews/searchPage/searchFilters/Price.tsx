@@ -44,7 +44,7 @@ const Price: React.FC<PriceFilterProps> = ({ fromValue, toValue, onChange }) => 
   return (
     <FormControl id="Credits" fullWidth sx={{ display: 'flex', width: '100%', maxWidth: { lg: '203px', sm: '235px' } }}>
       <StyledSelectInputLabel sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-        <DollarImageContainer src="/images/workercards/coin-1.png" />
+        <DollarImageContainer src="/images/workercards/coin-1.webp" alt="coin_icon" />
         <FormattedMessage id="Credits" />
       </StyledSelectInputLabel>
       <UIStyledSelectAgeFilter

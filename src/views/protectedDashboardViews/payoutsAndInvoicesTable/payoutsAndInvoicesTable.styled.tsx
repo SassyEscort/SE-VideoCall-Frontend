@@ -1,6 +1,7 @@
-import { Divider, Stack, TableRow } from '@mui/material';
 import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 import { styled } from '@mui/material/styles';
+import TableRow from '@mui/material/TableRow';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const FilterDropdownBox = styled(Box)(({ theme }) => ({
@@ -15,17 +16,6 @@ export const FilterDropdownBox = styled(Box)(({ theme }) => ({
     marginTop: theme.spacing(6),
     gap: theme.spacing(2)
   }
-}));
-
-export const StatusBox = styled(Box)(() => ({
-  padding: '4px 12px 4px 20px',
-  borderRadius: '48px',
-  display: 'flex',
-  alignItems: 'center',
-  width: '100%',
-  textAlign: 'center',
-  height: '100%',
-  minHeight: '25px'
 }));
 
 export const MainBox = styled(Box)(({ theme }) => ({
@@ -57,18 +47,6 @@ export const TypographyBox = styled(Box)(({ theme }) => ({
 
 export const TableBox = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(4)
-}));
-
-export const StackBox = styled(Stack)(({ theme }) => ({
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  color: theme.palette.text.primary,
-  width: '100%',
-  maxWidth: '312px',
-  [theme.breakpoints.down('sm')]: {
-    width: '100%',
-    maxWidth: '312px'
-  }
 }));
 
 export const UINewTypographyBox = styled(UINewTypography)(({ theme }) => ({

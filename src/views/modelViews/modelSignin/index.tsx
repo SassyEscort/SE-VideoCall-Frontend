@@ -8,13 +8,12 @@ import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RiEyeLine, RiEyeOffLine, RiUserFillLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as yup from 'yup';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import getCustomErrorMessage from 'utils/error.utils';
 import { useRouter } from 'next/navigation';
 import InfoIcon from '@mui/icons-material/Info';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import AuthModelCommon from '../modelSignup/AuthModelCommon';
@@ -23,6 +22,9 @@ import { LoginModelParams } from 'services/modelAuth/types';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { EMAIL_REGEX } from 'constants/regexConstants';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
+import { ROLE } from 'constants/workerVerification';
+import { MODEL_ACTION } from 'constants/profileConstants';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export type LoginParams = {
   email: string;
@@ -40,12 +42,17 @@ const ModelSignin = ({
 }) => {
   const intl = useIntl();
   const route = useRouter();
-  const { push } = route;
+  const { push, refresh } = route;
+  const { data: session } = useSession();
+
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState('');
+  const [authRole, setAuthRole] = useState('');
+  const [modelStatus, setModelStatus] = useState('');
+
   const validationSchema = yup.object({
     email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
     password: yup.string().required('Passwordisrequired')
@@ -56,7 +63,6 @@ const ModelSignin = ({
       setLoading(true);
       const res = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, { redirect: false, email: values.email, password: values.password });
       if (res?.status === 200) {
-        push('/model/profile');
         onClose();
       } else if (res?.error) {
         const errorMessage = res?.error === 'CredentialsSignin' ? 'InvalidEmail' : res?.error.replace('Error: ', '') || 'SomethingWent';
@@ -68,6 +74,29 @@ const ModelSignin = ({
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (session && session.user) {
+      const parsedPicture = JSON.parse((session?.user as any)?.picture);
+      setAuthRole(parsedPicture.role);
+      setModelStatus(parsedPicture.profile_status);
+    }
+  }, [session, session?.user]);
+
+  useEffect(() => {
+    if (authRole === ROLE.CUSTOMER) {
+      refresh();
+    } else if (authRole === ROLE.MODEL) {
+      if (modelStatus === MODEL_ACTION.REJECT) {
+        push('/model/profile-reject');
+      } else if (modelStatus === MODEL_ACTION.APPROVE) {
+        push('/model/dashboard');
+      } else if (modelStatus === MODEL_ACTION.PENDING) {
+        push('/model/profile');
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authRole, modelStatus]);
 
   return (
     <Formik

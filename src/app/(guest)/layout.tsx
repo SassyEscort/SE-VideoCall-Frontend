@@ -1,10 +1,19 @@
 import Box from '@mui/material/Box';
+// import Skeleton from '@mui/material/Skeleton';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
+import dynamic from 'next/dynamic';
 import { getLoggedInUser } from 'utils/getSessionData';
-import RedirectGuard from 'utils/route-guard/RedirectGuard';
-import Footer from 'views/guestViews/guestLayout/footer';
-import HeaderGuestComponent from 'views/guestViews/guestLayout/Header';
+// import RedirectGuard from 'utils/route-guard/RedirectGuard';
 import Header from 'views/protectedViews/protectedLayout/Header';
+const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/Header'), {
+  ssr: false
+});
+const RedirectGuard = dynamic(() => import('utils/route-guard/RedirectGuard'), {
+  ssr: false
+});
+const Footer = dynamic(() => import('views/guestViews/guestLayout/footer'), {
+  ssr: false
+});
 
 export interface User {
   name?: string | null;
@@ -13,6 +22,11 @@ export interface User {
   id?: string | null;
   provider?: string;
   picture?: string;
+  module_permissions?: {
+    module_id: number | null;
+    permission: string | null;
+    module_name: string | null;
+  }[];
 }
 
 export interface AuthUser {
@@ -24,22 +38,33 @@ export default async function Layout({ children }: { children: React.ReactNode }
 
   let HeaderComponent;
   if (authUser?.user?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM) {
-    HeaderComponent = <Header variant="worker" />;
+    HeaderComponent = (
+      <>
+        <RedirectGuard>
+          <Header variant="worker" />;
+        </RedirectGuard>
+      </>
+    );
   } else if (authUser?.user?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM) {
-    HeaderComponent = <Header variant="dashboard" />;
+    HeaderComponent = (
+      <>
+        <RedirectGuard>
+          <Header variant="dashboard" />;
+        </RedirectGuard>
+      </>
+    );
   } else {
     HeaderComponent = <HeaderGuestComponent />;
   }
 
   return (
-    <RedirectGuard>
-      <Box>
-        {HeaderComponent}
-        <main>
-          <Box sx={{ mt: 10 }}>{children}</Box>
-        </main>
-        <Footer />
-      </Box>
-    </RedirectGuard>
+    <>
+      {HeaderComponent}
+      <main>
+        <Box sx={{ mt: 10 }}>{children}</Box>
+      </main>
+
+      <Footer />
+    </>
   );
 }

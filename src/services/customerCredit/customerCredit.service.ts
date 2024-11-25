@@ -7,6 +7,8 @@ export type ModelCreditRes = {
   discount: number;
   is_active: boolean;
   link: string;
+  tag?: string;
+  label?: string;
 };
 
 export type ModelCreditResponse = {
@@ -49,11 +51,12 @@ export class CustomerCredit {
     customer_plan_id: number,
     isOutOfCredits: number,
     isModel: boolean,
+    page?: string,
     userName?: string
   ): Promise<ModelCreditURLResponse> => {
     try {
       const query = isModel ? '' : `is_out_of_credits=${isOutOfCredits}&user_name=${userName}`;
-      const body = isModel ? { profile_plan_id: customer_plan_id } : { customer_plan_id: customer_plan_id };
+      const body = isModel ? { profile_plan_id: customer_plan_id } : { customer_plan_id: customer_plan_id, page: page };
       const res = await axios.post<ModelCreditURLResponse>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/payment/stripe?${query}`, body, {
         headers: {
           'Content-Type': 'application/json',

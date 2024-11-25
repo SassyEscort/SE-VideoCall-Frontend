@@ -1,5 +1,4 @@
 'use client';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import MainLayout from '../layouts/AdminLayout/DashboardLayout';
 import Stack from '@mui/material/Stack';
@@ -11,9 +10,9 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
-import { Chip, CircularProgress, IconButton, MenuItem } from '@mui/material';
 import moment from 'moment';
-import { MoreVert, Visibility } from '@mui/icons-material';
+import Visibility from '@mui/icons-material/Visibility';
+import MoreVert from '@mui/icons-material/MoreVert';
 import { useCallback, useEffect, useState } from 'react';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -24,12 +23,21 @@ import TablePager from 'components/common/CustomPaginations/TablePager';
 import { StyledPopover } from './CallLogs.styled';
 import CallLogsListHead from './CallLogsListHead';
 import CallLogsModel from './CallLogsModel';
-import { callLogDataResponse, callLogsDetailsService } from 'services/adminServices/call-list/callListDetailsService';
-import { debounce } from 'lodash';
+import { CallLogDataResponse, CallLogsDetailsService } from 'services/adminServices/call-list/callListDetailsService';
+import debounce from 'lodash/debounce';
 import { CALL_LOG_ACTION } from 'constants/payoutsConstants';
 import Link from 'next/link';
 import { formatDuration, formatFullDate } from 'utils/dateAndTime';
 import ReportFilters from 'components/Admin/ReportFilters/ReportFilters';
+import CircularProgress from '@mui/material/CircularProgress';
+import Chip from '@mui/material/Chip';
+import IconButton from '@mui/material/IconButton';
+import MenuItem from '@mui/material/MenuItem';
+import { useAuthContext } from 'contexts/AuthContext';
+import { useRouter } from 'next/navigation';
+import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
+import { CallLogsPage } from 'constants/adminUserAccessConstants';
+import { UserLoaderBox } from '../UsersPage/UpsertPage.styled';
 
 export type PaginationType = {
   page: number;
@@ -44,8 +52,12 @@ export type PaginationType = {
 };
 
 export default function CallLogsContainer() {
-  const [selectedPayoutData, setSelectedPayoutData] = useState<callLogDataResponse | null>(null);
-  const [data, setData] = useState<callLogDataResponse[]>([]);
+  const router = useRouter();
+  const { adminUserPermissions, isAdmin } = useAuthContext();
+  const UpdatePermission = adminUserPermissions ? haveUpdatePermission(CallLogsPage, adminUserPermissions) : false;
+
+  const [selectedPayoutData, setSelectedPayoutData] = useState<CallLogDataResponse | null>(null);
+  const [data, setData] = useState<CallLogDataResponse[]>([]);
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -87,7 +99,7 @@ export default function CallLogsContainer() {
 
   const handelFetch = async () => {
     setIsLoading(true);
-    const res = await callLogsDetailsService.getCallLogsDetails(
+    const res = await CallLogsDetailsService.getCallLogsDetails(
       token.token,
       filters.pageSize,
       filters.offset,
@@ -119,7 +131,7 @@ export default function CallLogsContainer() {
     setOpen(null);
     setAnchorEl(null);
   };
-  const handleOpenCredit = (value: callLogDataResponse) => {
+  const handleOpenCredit = (value: CallLogDataResponse) => {
     setSelectedPayoutData(value);
     setCreditModalOpen(true);
   };
@@ -174,9 +186,17 @@ export default function CallLogsContainer() {
     handleChangeFilter({ ...filters, duration, fromDate, toDate, page: 1 });
   };
 
+  useEffect(() => {
+    if (adminUserPermissions) {
+      const isAccessiable = isPageAccessiable(CallLogsPage, adminUserPermissions) || isAdmin;
+      isAccessiable ? '' : router.push('/admin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adminUserPermissions, isAdmin]);
+
   return (
     <MainLayout>
-      <Container>
+      <>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
           <Typography variant="h4" gutterBottom>
             Call Logs History
@@ -203,17 +223,17 @@ export default function CallLogsContainer() {
           <Paper sx={{ overflow: 'hidden' }}>
             <TableContainer sx={{ width: '100%' }}>
               <Table>
-                <CallLogsListHead />
+                <CallLogsListHead isAdmin={isAdmin} UpdatePermission={UpdatePermission} />
                 <TableBody>
                   {isLoading ? (
                     <TableRow>
                       <TableCell colSpan={13}>
-                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2 }}>
+                        <UserLoaderBox>
                           <CircularProgress />
-                        </Box>
+                        </UserLoaderBox>
                       </TableCell>
                     </TableRow>
-                  ) : data?.length ? (
+                  ) : data && data?.length ? (
                     data?.map((item, index) => (
                       <TableRow
                         key={index}
@@ -281,28 +301,39 @@ export default function CallLogsContainer() {
                           {item.amount_earned ? `€${item.amount_earned?.toFixed(2)}` : '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {formatDuration(item?.duration || '-')}
+                          {formatDuration(item?.duration ?? 0)}
                         </TableCell>
-                        <TableCell>
-                          <IconButton
-                            aria-label="more"
-                            id="long-button"
-                            aria-controls={open ? 'long-menu' : undefined}
-                            aria-expanded={open ? 'true' : undefined}
-                            aria-haspopup="true"
-                            onClick={(e) => {
-                              setSelectedPayoutData(item);
-                              handleOpenMenu(e);
-                            }}
-                          >
-                            <MoreVert />
-                          </IconButton>
+                        <TableCell component="th" scope="row">
+                          {item?.screenshot_interval || '-'}
                         </TableCell>
+                        <TableCell component="th" scope="row">
+                          {item?.screenshot_count ?? 0}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {item?.ended_by || '-'}
+                        </TableCell>
+                        {(isAdmin || UpdatePermission) && (
+                          <TableCell>
+                            <IconButton
+                              aria-label="more"
+                              id="long-button"
+                              aria-controls={open ? 'long-menu' : undefined}
+                              aria-expanded={open ? 'true' : undefined}
+                              aria-haspopup="true"
+                              onClick={(e) => {
+                                setSelectedPayoutData(item);
+                                handleOpenMenu(e);
+                              }}
+                            >
+                              <MoreVert />
+                            </IconButton>
+                          </TableCell>
+                        )}
                       </TableRow>
                     ))
                   ) : (
                     <TableRow>
-                      <TableCell colSpan={10}>
+                      <TableCell colSpan={17}>
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2 }}>
                           <Typography variant="body1">Call logs history not found</Typography>
                         </Box>
@@ -325,7 +356,7 @@ export default function CallLogsContainer() {
             )}
           </Paper>
         </Card>
-      </Container>
+      </>
       <StyledPopover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}

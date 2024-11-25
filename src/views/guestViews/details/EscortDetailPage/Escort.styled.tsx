@@ -1,15 +1,21 @@
-import { styled } from '@mui/material';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { SwiperSlide } from 'swiper/react';
 
-export const DetailsMainBox = styled(Box)(() => ({
+export const DetailsMainBox = styled(Box)(({ theme }) => ({
   width: '100%',
-  maxWidth: '517px',
   backgroundColor: '#1E0815',
   padding: '16px 32px 16px 32px',
-  borderRadius: '12px'
+  borderRadius: '12px',
+  height: '100%',
+  [theme.breakpoints.down('md')]: {
+    minWidth: '290px'
+  },
+  [theme.breakpoints.up('md')]: {
+    minWidth: '517px'
+  }
 }));
 
 export const DetailsChildBox = styled(Box)(({ theme }) => ({
@@ -18,7 +24,7 @@ export const DetailsChildBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1)
 }));
 
-export const DetailsTypographyBox = styled(Box)(({ theme }) => ({
+export const DetailsTypographyBox = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column'
 }));
@@ -65,18 +71,6 @@ export const DullCirclesEscort2 = styled(Box)(() => ({
   left: -450
 }));
 
-export const ExploreEscort = styled(Box)(({ theme }) => ({
-  width: '100%',
-  paddingTop: '120px',
-  [theme.breakpoints.down('sm')]: {
-    paddingTop: '96px'
-  },
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center'
-}));
-
 export const ExploreEscortText = styled(Box)(() => ({
   width: '100%',
   display: 'flex',
@@ -109,50 +103,6 @@ export const DetailsChildTypographyBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1.5)
 }));
 
-export const SearchMainContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  width: '100%',
-  maxWidth: '1244px',
-  [theme.breakpoints.up('sm')]: {
-    paddingTop: theme.spacing(2)
-  }
-}));
-
-export const SearchSubContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    flexDirection: 'row',
-    gap: theme.spacing(1.5),
-    flexWrap: 'wrap'
-  },
-  [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column',
-    gap: theme.spacing(1.5)
-  },
-  [theme.breakpoints.up('md')]: {
-    flexWrap: 'noWrap'
-  }
-}));
-
-export const FirstBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(1.5)
-}));
-
-export const SecondBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(1.5),
-  width: '100%',
-  maxWidth: '442px'
-}));
-
-export const ThirdBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(1.5),
-  width: '100%'
-}));
-
 export const SwiperContainer = styled(Box)(() => ({
   maxWidth: '148px',
   maxHeight: 'calc(728px - 10px)',
@@ -179,14 +129,14 @@ export const FirstSwiperMainContainer = styled(Box)(({ theme }) => ({
   maxHeight: '728px'
 }));
 
-export const FirstSwiperInnerContainer = styled(Box)(({ theme }) => ({
+export const FirstSwiperInnerContainer = styled(Box)(() => ({
   maxWidth: '1084px',
   width: '100%',
   cursor: 'pointer',
   height: '100%'
 }));
 
-export const FirstSwiperBlurContainer = styled(Box)(({ theme }) => ({
+export const FirstSwiperBlurContainer = styled(Box)(() => ({
   zIndex: 1,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
@@ -195,7 +145,7 @@ export const FirstSwiperBlurContainer = styled(Box)(({ theme }) => ({
   width: '100%'
 }));
 
-export const SecondSwiperBlurContainer = styled(Box)(({ theme }) => ({
+export const SecondSwiperBlurContainer = styled(Box)(() => ({
   filter: 'blur(10px)',
   zIndex: 1,
   backgroundSize: 'cover',
@@ -228,7 +178,7 @@ export const SwiperSlidBoxContainer = styled(SwiperSlide)(({ theme }) => ({
   backgroundSize: 'cover'
 }));
 
-export const SecSwiperSlidBoxContainer = styled(SwiperSlide)(({ theme }) => ({
+export const SecSwiperSlidBoxContainer = styled(SwiperSlide)(() => ({
   width: '100%',
   maxWidth: '148px'
 }));

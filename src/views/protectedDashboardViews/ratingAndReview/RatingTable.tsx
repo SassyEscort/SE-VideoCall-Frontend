@@ -13,7 +13,6 @@ import { StyledSelectInputLabelRating } from 'components/UIComponents/UIStyledSe
 import { FormattedMessage, useIntl } from 'react-intl';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Box from '@mui/material/Box';
-import { MenuItem } from '@mui/material';
 import { RATING } from 'constants/searchConstants';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { RatingAndReviewDetailsRes } from 'services/ratingAndReview/ratingAndReview.service';
@@ -24,6 +23,7 @@ import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Paginat
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { StyledClearIcon } from 'views/guestViews/searchPage/Search.styled';
 import StartRating from 'components/UIComponents/StartRating';
+import MenuItem from '@mui/material/MenuItem';
 
 const RatingTable = ({
   ratingAndReview,
@@ -72,8 +72,8 @@ const RatingTable = ({
       </FormControl>
       {ratingAndReview?.data?.model_rating_list?.[0]?.rating ? (
         <>
-          {ratingAndReview?.data?.model_rating_list?.map((list) => (
-            <RatingDescriptionInnerBoxContainer key={list.customer_name}>
+          {ratingAndReview?.data?.model_rating_list?.map((list, index) => (
+            <RatingDescriptionInnerBoxContainer key={list.customer_name + index}>
               <RatingDescriptionDetailsBoxContainer>
                 <RatingDescriptionStarBoxContainer>
                   <UINewTypography variant="captionLargeBold">{list.customer_name}</UINewTypography>

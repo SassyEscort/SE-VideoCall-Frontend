@@ -1,5 +1,4 @@
 'use client';
-import { Box, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { useCallback, useState } from 'react';
@@ -24,6 +23,8 @@ import { toast } from 'react-toastify';
 import { PayoutService } from 'services/payout/payout.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Box from '@mui/material/Box';
 
 export type BankDetailsParams = {
   bank_name: string;

@@ -4,9 +4,29 @@ import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
-import { DetailsDialogContent } from './CallLogs.styled';
-import { callLogDataResponse } from 'services/adminServices/call-list/callListDetailsService';
+import { CallLogDataResponse } from 'services/adminServices/call-list/callListDetailsService';
 import { formatDuration } from 'utils/dateAndTime';
+import { Box } from '@mui/material';
+import { useState } from 'react';
+import {
+  DetailRowBox,
+  MainScreenshot,
+  MainScreenshotBox,
+  MainScreenshotBoxChild,
+  MainScreenshotBoxImage,
+  SelectedImageBox
+} from './CallLogs.styled';
+
+export const DetailRow = ({ label, value }: { label: string; value: string | number }) => (
+  <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0' }}>
+    <Typography variant="body2" color="textSecondary" sx={{ fontWeight: 600 }}>
+      {label}
+    </Typography>
+    <Typography variant="body2" color="textPrimary">
+      {value || '-'}
+    </Typography>
+  </Box>
+);
 
 const CallLogsModel = ({
   open,
@@ -15,92 +35,111 @@ const CallLogsModel = ({
 }: {
   open: boolean;
   onClose: () => void;
-  selectedPayoutData: callLogDataResponse | null;
-}) => (
-  <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-    <DialogTitle id="responsive-modal-title" display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
-      <Typography variant="subtitle">Call Logs History</Typography>
-      <IconButton onClick={onClose}>
-        <CloseIcon />
-      </IconButton>
-    </DialogTitle>
-    <DetailsDialogContent dividers>
-      {selectedPayoutData && (
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <tbody>
-            <tr>
-              <td>
-                <strong>Model Name</strong>
-              </td>
-              <td>{selectedPayoutData?.model_name || '-'}</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Model Email</strong>
-              </td>
-              <td>{selectedPayoutData?.model_email || '-'}</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Customer Name</strong>
-              </td>
-              <td>{selectedPayoutData?.customer_name || '-'}</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Customer Email</strong>
-              </td>
-              <td>{selectedPayoutData?.customer_email || '-'}</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Status</strong>
-              </td>
-              <td>{selectedPayoutData?.status || '-'}</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Credits Used</strong>
-              </td>
-              <td>{selectedPayoutData?.credits_used || '-'}</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Call Type</strong>
-              </td>
-              <td>{selectedPayoutData?.call_type || '-'}</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Credits Per Minute</strong>
-              </td>
-              <td>{selectedPayoutData?.credits_per_minute || '-'}</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Rate Per Minute</strong>
-              </td>
-              <td>{selectedPayoutData?.rate_per_minute || '-'}</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Amount Earned</strong>
-              </td>
-              <td>{selectedPayoutData?.amount_earned || '-'}</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Time Duration</strong>
-              </td>
-              <td>
-                <td>{formatDuration(selectedPayoutData?.duration || '-')}</td>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      )}
-    </DetailsDialogContent>
-  </Dialog>
-);
+  selectedPayoutData: CallLogDataResponse | null;
+}) => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const handleClick = (link: string) => {
+    setSelectedImage(link);
+  };
+
+  const handleCloseImageDialog = () => {
+    setSelectedImage(null);
+  };
+
+  return (
+    <>
+      <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+        <DialogTitle
+          id="responsive-modal-title"
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          sx={{
+            padding: '16px 24px',
+            backgroundColor: '#f5f5f5'
+          }}
+        >
+          <Typography variant="h6" component="div">
+            Call Logs History
+          </Typography>
+          <IconButton onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+
+        <MainScreenshotBox
+          sx={{
+            flexDirection: { xs: 'column', md: 'row' }
+          }}
+        >
+          <MainScreenshotBoxChild>
+            {selectedPayoutData && (
+              <DetailRowBox>
+                <DetailRow label="Model Name" value={selectedPayoutData?.model_name} />
+                <DetailRow label="Model Email" value={selectedPayoutData?.model_email} />
+                <DetailRow label="Customer Name" value={selectedPayoutData?.customer_name} />
+                <DetailRow label="Customer Email" value={selectedPayoutData?.customer_email} />
+                <DetailRow label="Status" value={selectedPayoutData?.status} />
+                <DetailRow label="Credits Used" value={selectedPayoutData?.credits_used} />
+                <DetailRow label="Call Type" value={selectedPayoutData?.call_type} />
+                <DetailRow label="Credits Per Minute" value={selectedPayoutData?.credits_per_minute} />
+                <DetailRow label="Rate Per Minute" value={selectedPayoutData?.rate_per_minute} />
+                <DetailRow label="Amount Earned" value={selectedPayoutData?.amount_earned} />
+                <DetailRow label="Time Duration" value={formatDuration(selectedPayoutData?.duration ?? 0)} />
+                <DetailRow label="Screenshot interval" value={selectedPayoutData?.screenshot_interval} />
+                <DetailRow label="Screenshot count" value={selectedPayoutData?.screenshot_count} />
+                <DetailRow label="Ended by" value={selectedPayoutData?.ended_by} />
+              </DetailRowBox>
+            )}
+          </MainScreenshotBoxChild>
+          <MainScreenshot>
+            <MainScreenshotBoxImage>
+              {selectedPayoutData?.screenshots && selectedPayoutData?.screenshots.length > 0 ? (
+                selectedPayoutData.screenshots.map((e) => (
+                  <Box
+                    component="img"
+                    key={e.id}
+                    src={e.link}
+                    alt="Screenshot"
+                    width={200}
+                    height={200}
+                    style={{ objectFit: 'cover', borderRadius: '4px' }}
+                    onClick={() => handleClick(e.link)}
+                  />
+                ))
+              ) : (
+                <Typography variant="body1" color="textSecondary">
+                  No screenshot available
+                </Typography>
+              )}
+            </MainScreenshotBoxImage>
+          </MainScreenshot>
+        </MainScreenshotBox>
+      </Dialog>
+
+      <Dialog open={!!selectedImage} onClose={handleCloseImageDialog} maxWidth="md" fullWidth>
+        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography variant="h6">Screenshot</Typography>
+          <IconButton onClick={handleCloseImageDialog}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <SelectedImageBox>
+          {selectedImage && (
+            <Box
+              component="img"
+              src={selectedImage}
+              alt="Selected Screenshot"
+              width={900}
+              height={450}
+              style={{ maxWidth: '100%', maxHeight: '80vh', objectFit: 'scale-down' }}
+            />
+          )}
+        </SelectedImageBox>
+      </Dialog>
+    </>
+  );
+};
 
 export default CallLogsModel;

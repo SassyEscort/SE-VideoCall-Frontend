@@ -27,52 +27,52 @@ const VerificationStep2Instruction = () => {
       <InstructionSubContainer>
         <FirstBoxMainContainer>
           <FirstBoxFirstContainer>
-            <FirstImageBlur src="/images/model/instruction-img.png" />
+            <FirstImageBlur src="/images/model/instruction-img.png" alt="instruction-img" />
             <FirstBoxSecondContainer>
               <TypographyBox>
                 <UINewTypography variant="buttonLargeMenu" color="text.primary">
                   <FormattedMessage id="BlurredFuzzyOrGrainyPhotos" />
                 </UINewTypography>
               </TypographyBox>
-              <SecondImage src="/images/model/alert-img.png" />
+              <SecondImage src="/images/model/alert-img.png" alt="alert-img" />
             </FirstBoxSecondContainer>
           </FirstBoxFirstContainer>
 
           <FirstBoxFirstContainer>
-            <FirstImageWithoutBlur src="/images/model/instruction-img.png" />
+            <FirstImageWithoutBlur src="/images/model/instruction-img.png" alt="instruction-img" />
             <FirstBoxSecondContainer>
               <TypographyBox>
                 <UINewTypography variant="buttonLargeMenu" color="text.primary">
                   <FormattedMessage id="MakeSureToUpload" />
                 </UINewTypography>
               </TypographyBox>
-              <SecondImage src="/images/model/success-img.png" />
+              <SecondImage src="/images/model/success-img.png" alt="success-img" />
             </FirstBoxSecondContainer>
           </FirstBoxFirstContainer>
         </FirstBoxMainContainer>
 
         <FirstBoxMainContainer>
           <FirstBoxFirstContainer>
-            <FirstImageWithoutBlur src="/images/model/instruction-img2.png" />
+            <FirstImageWithoutBlur src="/images/model/instruction-img2.png" alt="instruction-img" />
             <FirstBoxSecondContainer>
               <TypographyBox>
                 <UINewTypography variant="buttonLargeMenu" color="text.primary">
                   <FormattedMessage id="AvoidPatches" />
                 </UINewTypography>
               </TypographyBox>
-              <SecondImage src="/images/model/alert-img.png" />
+              <SecondImage src="/images/model/alert-img.png" alt="alert-img" />
             </FirstBoxSecondContainer>
           </FirstBoxFirstContainer>
 
           <FirstBoxFirstContainer>
-            <FirstImageWithoutBlur src="/images/model/instruction-img3.png" />
+            <FirstImageWithoutBlur src="/images/model/instruction-img3.png" alt="instruction-img" />
             <FirstBoxSecondContainer>
               <TypographyBox>
                 <UINewTypography variant="buttonLargeMenu" color="text.primary">
                   <FormattedMessage id="MakeSureYourFace" />
                 </UINewTypography>
               </TypographyBox>
-              <SecondImage src="/images/model/success-img.png" />
+              <SecondImage src="/images/model/success-img.png" alt="success-img" />
             </FirstBoxSecondContainer>
           </FirstBoxFirstContainer>
         </FirstBoxMainContainer>

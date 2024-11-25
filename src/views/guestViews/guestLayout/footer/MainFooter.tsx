@@ -1,4 +1,5 @@
 'use client';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Link from 'next/link';
@@ -11,14 +12,26 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import { ModelUITextConatiner } from 'views/auth/AuthCommon.styled';
 import HomeMainContainer from '../homeContainer';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
-import GuestSignup from 'views/auth/guestSignup';
-import GuestLogin from 'views/auth/guestLogin';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import { gaEventTrigger } from 'utils/analytics';
-import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import { useState } from 'react';
+import { useAuthContext } from '../../../../contexts/AuthContext';
+import dynamic from 'next/dynamic';
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
+  ssr: false
+});
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
+  ssr: false
+});
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
+  ssr: false
+});
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false
+});
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
+  ssr: false
+});
 
 const MainFooter = ({
   isFreeCreditAvailable,
@@ -37,7 +50,7 @@ const MainFooter = ({
   handleLoginClose: () => void;
   openLogin: boolean;
 }) => {
-  const { isCustomer } = useCallFeatureContext();
+  const { isCustomer, isModel } = useAuthContext();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [open, setIsOpen] = useState(false);
@@ -96,7 +109,7 @@ const MainFooter = ({
                 }}
               >
                 <Link prefetch={false} href="/">
-                  <Image src="/images/logo-footer.png" width={219.87} height={43.68} alt="footer_logo" loading="lazy" />
+                  <Image src="/images/logo-footer.webp" width={219.87} height={43.68} alt="footer_logo" loading="lazy" />
                 </Link>
                 <Box>
                   <UINewTypography
@@ -137,7 +150,7 @@ const MainFooter = ({
                         <FormattedMessage id="FAQs" />
                       </Link>
                     </UINewTypography>
-                    {isCustomer ? (
+                    {isCustomer || isModel ? (
                       <Link prefetch={false} href="/">
                         <UINewTypography variant="SubtitleSmallRegular" sx={{ cursor: 'pointer' }}>
                           <FormattedMessage id="ExploreModels" />
@@ -167,12 +180,13 @@ const MainFooter = ({
                         </UINewTypography>
                       </>
                     )}
-
-                    <UINewTypography variant="SubtitleSmallRegular">
-                      <Link prefetch={false} href="/model">
-                        <FormattedMessage id="RegisterAsModel" />
-                      </Link>
-                    </UINewTypography>
+                    {isCustomer && (
+                      <UINewTypography variant="SubtitleSmallRegular">
+                        <Link prefetch={false} href="/model">
+                          <FormattedMessage id="RegisterAsModel" />
+                        </Link>
+                      </UINewTypography>
+                    )}
                   </ModelUITextConatiner>
                 </FooterSubICon>
 
@@ -203,9 +217,9 @@ const MainFooter = ({
             </UINewTypography>
           </Box>
         </Box>
-        <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+        <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
           <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-        </UIStyledDialog>
+        </NewSignupStyledModalDialog>
         <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
           <GuestLogin
             isFreeCreditAvailable={isFreeCreditAvailable}
@@ -222,9 +236,9 @@ const MainFooter = ({
         <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
           <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
         </UIStyledDialog>
-        <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+        <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
           <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-        </UIStyledDialog>
+        </NewSignupStyledModalDialog>
       </HomeMainContainer>
     </>
   );

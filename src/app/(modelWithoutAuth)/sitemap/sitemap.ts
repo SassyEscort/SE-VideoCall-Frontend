@@ -1,5 +1,4 @@
 import type { MetadataRoute } from 'next';
-
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
@@ -24,6 +23,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: 'https://flirtbate.com/terms-and-condition',
+      lastModified: new Date(),
+      priority: 0.8
+    },
+    {
+      url: 'https://flirtbate.com/cam-to-cam',
       lastModified: new Date(),
       priority: 0.8
     }

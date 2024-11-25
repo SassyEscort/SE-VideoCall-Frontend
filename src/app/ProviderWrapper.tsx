@@ -1,19 +1,25 @@
 'use client';
 
-import ThemeCustomization from 'themes';
-import Locales from 'components/Locales';
-import { ConfigProvider } from 'contexts/configContext';
+// import ThemeCustomization from 'themes';
+// import Locales from 'components/Locales';
+// import { ConfigProvider } from 'contexts/configContext';
 import { Manrope } from 'next/font/google';
-import { ToastContainer } from 'react-toastify';
-import { SessionProvider } from 'next-auth/react';
 import '../app/globals.scss';
 import 'react-toastify/dist/ReactToastify.css';
-import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import ModelLastActive from 'views/protectedModelViews/ModelLastAvtive';
-import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
+import dynamic from 'next/dynamic';
+// import { SessionProvider } from 'next-auth/react';
+import { memo } from 'react';
+const GoogleTagManager = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleTagManager));
+const GoogleAnalytics = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleAnalytics));
+const ToastContainer = dynamic(() => import('react-toastify').then((module) => module.ToastContainer), { ssr: false });
+const ThemeCustomization = dynamic(() => import('themes').then((module) => module.default));
+const Locales = dynamic(() => import('components/Locales').then((module) => module.default));
+const SessionProvider = dynamic(() => import('next-auth/react').then((module) => module.SessionProvider));
+const LocalizationProvider = dynamic(() => import('@mui/x-date-pickers').then((module) => module.LocalizationProvider));
+const ConfigProvider = dynamic(() => import('contexts/configContext').then((module) => module.ConfigProvider));
 
-const manropeFont = Manrope({ subsets: ['latin'] });
+const manropeFont = Manrope({ subsets: ['latin'], display: 'swap' });
 
 const ProviderWrapper = ({ children }: { children: JSX.Element }) => {
   return (
@@ -24,13 +30,12 @@ const ProviderWrapper = ({ children }: { children: JSX.Element }) => {
             <>
               <SessionProvider refetchInterval={0}>
                 {children}
-                {/* {process.env.NEXT_PUBLIC_ENV === 'production' && ( */}
-                <>
-                  <GoogleTagManager gtmId={'GTM-P6BCQRQV'} />
-                  <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID as string} />
-                </>
-                {/* )} */}
-                <ModelLastActive />
+                {process.env.NEXT_PUBLIC_ENV === 'production' && (
+                  <>
+                    <GoogleTagManager gtmId={'GTM-P6BCQRQV'} />
+                    <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID as string} />
+                  </>
+                )}
               </SessionProvider>
               <ToastContainer
                 position="bottom-center"
@@ -55,4 +60,4 @@ const ProviderWrapper = ({ children }: { children: JSX.Element }) => {
   );
 };
 
-export default ProviderWrapper;
+export default memo(ProviderWrapper);

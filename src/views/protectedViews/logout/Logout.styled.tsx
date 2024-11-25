@@ -1,4 +1,7 @@
-import { Box, Dialog, DialogTitle, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
@@ -27,7 +30,7 @@ export const DialogContentFristBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const DialogContentSecondBox = styled(Box)(({ theme }) => ({
+export const DialogContentSecondBox = styled(Box)(() => ({
   width: '100%',
   maxWidth: '486px',
   gap: '48px',
@@ -37,7 +40,7 @@ export const DialogContentSecondBox = styled(Box)(({ theme }) => ({
   flexDirection: 'column'
 }));
 
-export const DialogContentBoxQuestion = styled(Box)(({ theme }) => ({
+export const DialogContentBoxQuestion = styled(Box)(() => ({
   width: '100%',
   maxWidth: '486px',
   textAlign: 'center'

@@ -1,4 +1,7 @@
-import { Box, IconButton, styled, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 export const ModelNewPasswordBox = styled(Box)(({ theme }) => ({
   position: 'relative',
@@ -32,7 +35,7 @@ export const IconeButtonBox = styled(IconButton)(({ theme }) => ({
   }
 }));
 
-export const SetupNewPasswordBox = styled(IconButton)(({ theme }) => ({
+export const SetupNewPasswordBox = styled(IconButton)(() => ({
   display: 'flex',
   flexDirection: 'column',
   gap: '12px',

@@ -1,5 +1,5 @@
-import { Divider } from '@mui/material';
 import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
@@ -8,7 +8,7 @@ export const FooterSubICon = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1)
 }));
 
-export const TextContainerMain = styled(Box)(({ theme }) => ({
+export const TextContainerMain = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'center',
   width: '100%'
@@ -85,10 +85,4 @@ export const FirstBoxContainerMain = styled(Box)(({ theme }) => ({
 export const FooterStoreBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(3.5)
-}));
-
-export const GradientTypography = styled(UINewTypography)(({ theme }) => ({
-  background: 'linear-gradient(90deg, #FD28A6, #FFFFFF)',
-  '-webkit-background-clip': 'text',
-  '-webkit-text-fill-color': 'transparent'
 }));

@@ -2,7 +2,6 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 
 export const FAQTitle = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
@@ -64,15 +63,6 @@ export const TextSecondBoxContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(0.5)
 }));
 
-export const ButtonContainer = styled(UIThemeButton)(({ theme }) => ({
-  width: '100%',
-  maxWidth: '153px',
-  height: '100%',
-  maxHeight: '48px',
-  borderRadius: theme.spacing(1),
-  padding: '12px 32px'
-}));
-
 export const MobileBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(2),
@@ -97,7 +87,7 @@ export const SecBoxContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(6.75)
 }));
 
-export const FirstTextContainer = styled(Typography)(({ theme }) => ({
+export const FirstTextContainer = styled(Typography)(() => ({
   fontSize: '16px',
   fontWeight: 600,
   lineHeight: '25.6px'

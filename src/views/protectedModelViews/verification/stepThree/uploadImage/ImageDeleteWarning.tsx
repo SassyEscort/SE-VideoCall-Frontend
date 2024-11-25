@@ -1,7 +1,6 @@
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Divider } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { useState } from 'react';
@@ -18,6 +17,8 @@ import {
 } from 'views/protectedViews/logout/Logout.styled';
 import { ErrorMessage } from 'constants/common.constants';
 import { VerificationFormStep5TypeV2 } from '.';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 
 const ImageDeleteWarning = ({
   open,

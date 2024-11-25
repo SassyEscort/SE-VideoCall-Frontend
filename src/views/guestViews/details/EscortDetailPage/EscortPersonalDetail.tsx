@@ -1,4 +1,3 @@
-import { Box, useMediaQuery } from '@mui/material';
 import {
   DetailSubTypographyBox,
   DetailsChildBox,
@@ -9,6 +8,7 @@ import {
   NameMainBox,
   NewTypography
 } from './Escort.styled';
+import { memo } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UINewChip from 'components/UIComponents/UINewChip';
 import theme from 'themes/theme';
@@ -19,6 +19,8 @@ import moment from 'moment';
 import { getLastActive } from 'utils/dateAndTime';
 import UINewChipLanguage from 'components/UIComponents/UINewChipLanguage';
 import { RateCountryBoxContainet } from './EscortDetailPage.styled';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Box from '@mui/material/Box';
 
 const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }) => {
   const intl = useIntl();
@@ -132,4 +134,4 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
   );
 };
 
-export default EscortPersonalDetail;
+export default memo(EscortPersonalDetail);

@@ -10,7 +10,6 @@ import {
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import HomeMainModelContainer from 'views/modelViews/modelLayout/homeModelContainer';
-import { Box, useMediaQuery } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 import theme from 'themes/theme';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
@@ -18,6 +17,11 @@ import ModelSignup from 'views/modelViews/modelSignup';
 import { useState } from 'react';
 import ModelSignin from 'views/modelViews/modelSignin';
 import ModelForgetPasswordLink from 'views/modelViews/modelForgetPasswordLink';
+import { useAuthContext } from '../../../../contexts/AuthContext';
+import { User } from 'app/(guest)/layout';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Box from '@mui/material/Box';
+
 // import ModelNewPassword from 'views/modelViews/ModelNewPassword';
 
 const UnlimitedModel = () => {
@@ -29,6 +33,10 @@ const UnlimitedModel = () => {
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  const { session } = useAuthContext();
+  const user = (session?.user as User)?.picture;
+  const providerData = user && JSON.parse(user || '{}');
+
   // const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && !emailId ? true : false);
 
   const handleSignupOpen = () => {
@@ -93,11 +101,15 @@ const UnlimitedModel = () => {
                   </UINewTypography>
                 </PhotoshootExpTitle>
 
-                <PhotoshootExpButton>
-                  <UIThemeButton variant="contained" onClick={handleSignupOpen}>
-                    <FormattedMessage id="JoinForFREE" />
-                  </UIThemeButton>
-                </PhotoshootExpButton>
+                {providerData?.role === 'model' ? (
+                  ''
+                ) : (
+                  <PhotoshootExpButton>
+                    <UIThemeButton variant="contained" onClick={handleSignupOpen}>
+                      <FormattedMessage id="JoinForFREE" />
+                    </UIThemeButton>
+                  </PhotoshootExpButton>
+                )}
               </PhotoshootExpContainer>
             </PhotoshootExpWrap>
           </Banner>

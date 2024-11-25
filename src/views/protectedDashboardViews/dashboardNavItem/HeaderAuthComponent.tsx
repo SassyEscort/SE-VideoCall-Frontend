@@ -1,7 +1,6 @@
 'use client';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import { Divider, ListItemIcon, ListItemText, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import ProfileMenu from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/ProfileMenu';
@@ -18,9 +17,16 @@ import { NotificationDetailsService } from 'services/notification/notification.s
 import { Root } from 'services/notification/type';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import MyProfileChangePassword from 'views/protectedViews/changePassword';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
+import { PAYOUT_ACTION } from 'constants/payoutsConstants';
+import React from 'react';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
 
 export type NotificationFilters = {
   page: number;
@@ -34,7 +40,7 @@ export type NotificationFiltersDashboard = {
 };
 
 const DashboadrHeaderAuthComponent = () => {
-  const { session } = useAuthContext();
+  const { session, isNameChange, isCustomer } = useAuthContext();
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -54,8 +60,6 @@ const DashboadrHeaderAuthComponent = () => {
   });
   const [notificationDetails, setNotificationDetails] = useState<Root>();
   const notificationCount = useRef(0);
-
-  const { isNameChange, isCustomer } = useCallFeatureContext();
 
   const handleOpenChangePassword = () => {
     setOpenChangePassword(true);
@@ -200,7 +204,8 @@ const DashboadrHeaderAuthComponent = () => {
             open={open}
             onClose={handleCloseLogout}
             MenuListProps={{
-              'aria-labelledby': 'basic-button'
+              'aria-labelledby': 'basic-button',
+              'aria-label': 'basic-button'
             }}
             sx={{ '& .MuiMenu-paper > ul': { backgroundColor: '#1E0815 !important' } }}
           >
@@ -269,20 +274,23 @@ const DashboadrHeaderAuthComponent = () => {
 
           <ProfileMenu profilePic={firstChar} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
         </IconButtonBox>
-        {isSmUP &&
+        {((isSmUP &&
           !(
             modelDetails?.verification_step === MODEL_ACTIVE_STEP.IN_REVIEW ||
             modelDetails?.verification_step === MODEL_ACTIVE_STEP.ONBOARDED ||
             modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED
-          ) && (
-            <Link href="/model/profile">
-              <CompleteProfileBox variant="contained">
-                <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
-                  <FormattedMessage id="CompleteYourProfile" />
-                </UINewTypography>
-              </CompleteProfileBox>
-            </Link>
-          )}
+          )) ||
+          (modelDetails?.profile_status === PAYOUT_ACTION.PENDING &&
+            modelDetails?.verification_step !== MODEL_ACTIVE_STEP.IN_REVIEW &&
+            isSmUP)) && (
+          <Link href="/model/profile">
+            <CompleteProfileBox variant="contained">
+              <UINewTypography variant="body" color="primary.200" whiteSpace="nowrap">
+                <FormattedMessage id="CompleteYourProfile" />
+              </UINewTypography>
+            </CompleteProfileBox>
+          </Link>
+        )}
       </Box>
       {notificationDetails && (
         <NotificationModalV2

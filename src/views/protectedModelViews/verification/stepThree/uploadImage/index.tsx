@@ -180,13 +180,13 @@ const UploadImage = ({
           if (invalidSizeFiles.length > 0) {
             return this.createError({ message: intl.formatMessage({ id: 'PhotoVideoShouldBeLessThan5MB' }), path: 'file5' });
           }
-          if (combinedLength < 1 && !toNotValidate) {
-            return this.createError({ message: intl.formatMessage({ id: 'PleaseUploadAtLeast1Photo' }), path: 'file5' });
+          if (combinedLength < 4 && !toNotValidate) {
+            return this.createError({ message: intl.formatMessage({ id: 'PleaseUploadAtLeast4Photo' }), path: 'file5' });
           }
           if (combinedLength > 30) {
             return this.createError({ message: intl.formatMessage({ id: 'SorryYoucanUpload30PicturesOnly' }), path: 'file5' });
           }
-          if (combinedLength < 1 && combinedLength > 30 && modelProfileStatus === PAYOUT_ACTION.APPROVE) {
+          if (combinedLength < 4 && combinedLength > 30 && modelProfileStatus === PAYOUT_ACTION.APPROVE) {
             return true;
           }
 
@@ -235,7 +235,7 @@ const UploadImage = ({
     });
     try {
       if (values.file5 || workerPhotos.length > 0) {
-        const mutationImageUpload = await VerificationStepService.multipleImageKitUplaodApi(allFilesToUpload);
+        const mutationImageUpload = await VerificationStepService.modelMultipleImageUplaodApi(allFilesToUpload, token.token);
         const uploadFile5: ImageUploadPayload[] = [...mutationImageUpload.uploadPhotos?.filter((x) => !x.is_document)];
 
         const uploadFile5Existing = [...values.file5Existing]
@@ -306,14 +306,25 @@ const UploadImage = ({
         };
 
         if (deletedFileIds.length) {
-          const data = await VerificationStepService.deleteMultipleImage(token.token, { file_ids: deletedFileIds });
+          const data = await VerificationStepService.modelMultipleImageDelete(token.token, { file_ids: deletedFileIds });
           if (data.code === 200) {
             handleModelApiChange();
+            // Register Case For Next Step
+            setUpdated(true);
+            if (isReviewEdit && handleEdit) {
+              handleEdit(4);
+            } else {
+              handleNext();
+            }
+          } else if (data.code === 400) {
+            toast.error(intl.formatMessage({ id: 'UploadNewPhotoBeforeDeleting' }));
+            handleModelApiChange();
+          } else {
+            toast.error(intl.formatMessage({ id: 'SomethingWent' }));
+            handleModelApiChange();
           }
-        }
-        if (payload.photos.length > 0) {
+        } else if (payload.photos.length > 0) {
           const response = await VerificationStepService.uploadModelPhotos(payload, token);
-
           if (response.code === 200) {
             handleModelApiChange();
             setUpdated(true);

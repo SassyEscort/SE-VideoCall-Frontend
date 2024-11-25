@@ -1,11 +1,6 @@
-import { Box, TableContainer, styled } from '@mui/material';
-
-export const BillingLoadingBox = styled(Box)(() => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  p: 2
-}));
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
+import TableContainer from '@mui/material/TableContainer';
 
 export const PaginationBox = styled(Box)(({ theme }) => ({
   display: 'flex',

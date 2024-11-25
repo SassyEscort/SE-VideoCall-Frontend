@@ -2,7 +2,6 @@
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Divider } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import { useEffect, useState } from 'react';
@@ -25,6 +24,8 @@ import {
   TextBoxContent
 } from '../videoCalling/VideoCallEnded/VideoCallEnded.styled';
 import StartRating from 'components/UIComponents/StartRating';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 
 const CallHistoryRatingModel = ({ open, onClose, callLogId }: { open: boolean; onClose: () => void; callLogId: number }) => {
   const [rating, setRating] = useState<number>(0);
@@ -84,6 +85,7 @@ const CallHistoryRatingModel = ({ open, onClose, callLogId }: { open: boolean; o
 
       return () => clearTimeout(timer);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRatingSubmitted]);
 
   return (

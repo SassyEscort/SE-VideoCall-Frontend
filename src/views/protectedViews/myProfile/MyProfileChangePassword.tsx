@@ -2,7 +2,6 @@
 import Box from '@mui/material/Box';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -32,23 +31,25 @@ const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; 
   const [repeatPassword, setRepeatPassword] = useState(false);
 
   const validationSchema = yup.object({
-    currentPassword: yup.string().required('CurrentPasswordIsRequired').min(8, 'EnterValidCurrentPassword').matches(PASSWORD_PATTERN, {
-      message: 'EnterValidCurrentPassword',
-      excludeEmptyString: true
-    }),
-    newPassword: yup.string().required('NewPasswordIsRequired').min(8, 'PasswordMustBe').matches(PASSWORD_PATTERN, {
-      message: 'PasswordMustContainAt',
-      excludeEmptyString: true
-    }),
+    currentPassword: yup.string().required('CurrentPasswordIsRequired').min(8, 'EnterValidCurrentPassword'),
+    // .matches(PASSWORD_PATTERN, {
+    //   message: 'EnterValidCurrentPassword',
+    //   excludeEmptyString: true
+    // })
+    newPassword: yup.string().required('NewPasswordIsRequired').min(8, 'PasswordMustBe'),
+    // .matches(PASSWORD_PATTERN, {
+    //   message: 'PasswordMustContainAt',
+    //   excludeEmptyString: true
+    // }),
     repeatPassword: yup
       .string()
       .required('RepeatPasswordIsRequired')
       .min(8, 'PasswordMustBe')
       .oneOf([yup.ref('newPassword')], 'PasswordsMustMatch')
-      .matches(PASSWORD_PATTERN, {
-        message: 'PasswordMustContainAt',
-        excludeEmptyString: true
-      })
+    // .matches(PASSWORD_PATTERN, {
+    //   message: 'PasswordMustContainAt',
+    //   excludeEmptyString: true
+    // })
   });
   return (
     <Formik

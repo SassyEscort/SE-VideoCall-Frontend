@@ -1,4 +1,5 @@
 'use client';
+import React from 'react';
 import UnlimitedModel from './UnlimitedModel';
 import HomeModelConnections from './HomeModelConnections';
 import HomeModelTopBanner from './HomeModelTopBanner';
@@ -10,7 +11,6 @@ const HomeContainerModel = () => {
       <HomeModelConnections />
       <UnlimitedModel />
       <HomeModelFAQ />
-      {/* <HomeModelBottomBanner /> */}
     </>
   );
 };

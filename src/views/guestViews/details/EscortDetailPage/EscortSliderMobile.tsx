@@ -7,23 +7,18 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import Box from '@mui/material/Box';
 import EscortSwiperPhotoContainer from './EscortSwiperPhotoContainer';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import Image from 'next/image';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIStyledShadowButtonLike from 'components/UIComponents/UIStyledShadowButtonLike';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
 import { FirstSwiperBlurContainer, SecondSwiperBlurContainer, SwiperSlidBoxContainer } from './Escort.styled';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
 import { toast } from 'react-toastify';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
-import GuestLogin from 'views/auth/guestLogin';
-import GuestSignup from 'views/auth/guestSignup';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ErrorMessage } from 'constants/common.constants';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
@@ -32,8 +27,25 @@ import { ModelDetailsResponse } from 'views/protectedModelViews/verification/ver
 import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
 import { gaEventTrigger } from 'utils/analytics';
 import { usePathname, useRouter } from 'next/navigation';
-import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
 import GuestFreeCreditsSignup from 'views/auth/guestFreeCreditsSignup';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import dynamic from 'next/dynamic';
+import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
+  ssr: false
+});
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
+  ssr: false
+});
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
+  ssr: false
+});
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false
+});
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
+  ssr: false
+});
 
 const EscortSliderMobile = ({
   workerPhotos,
@@ -54,12 +66,10 @@ const EscortSliderMobile = ({
   guestData: ModelDetailsResponse;
   isFreeCreditAvailable: number;
 }) => {
-  const { user } = useCallFeatureContext();
-
-  const isLg = useMediaQuery(theme.breakpoints.up('md'));
+  const { user } = useZegoCallFeatureContext();
+  const isLg = useMediaQuery(theme.breakpoints.up('sm'));
+  const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isMd = useMediaQuery(theme.breakpoints.up('sm'));
-  const isSm = useMediaQuery(theme.breakpoints.down('sm'));
-
   const [liked, setLiked] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
@@ -290,7 +300,7 @@ const EscortSliderMobile = ({
             variant="contained"
           >
             <Box display="flex" alignItems="center" gap="10px">
-              <Image src="/images/workercards/video-call.svg" alt="video-call" height={20} width={20} />
+              <Image loading="lazy" src="/images/workercards/video-call.svg" alt="video-call" height={20} width={20} />
               <UINewTypography color="common.white" variant="bodySemiBold" sx={{ textWrap: 'no-wrap' }}>
                 <FormattedMessage id="StartVideoCall" />
               </UINewTypography>
@@ -338,9 +348,10 @@ const EscortSliderMobile = ({
           </Box>
         </Box>
       )}
-      <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth scroll="body">
+      {/* <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth scroll="body"> */}
+      <NewSignupStyledModalDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth scroll="body">
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </UIStyledDialog>
+      </NewSignupStyledModalDialog>
       <UIStyledDialog open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth scroll="body">
         <GuestLogin
           isFreeCreditAvailable={isFreeCreditAvailable}
@@ -369,4 +380,4 @@ const EscortSliderMobile = ({
   );
 };
 
-export default EscortSliderMobile;
+export default memo(EscortSliderMobile);

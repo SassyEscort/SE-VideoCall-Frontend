@@ -2,7 +2,6 @@
 import Box from '@mui/material/Box';
 import Image from 'next/image';
 import CloseIcon from '@mui/icons-material/Close';
-import { DialogContent, IconButton, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import {
   AVerificationLink,
@@ -14,6 +13,9 @@ import {
   TextContainer
 } from './CheckInBox.styled';
 import { FormattedMessage } from 'react-intl';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import IconButton from '@mui/material/IconButton';
+import DialogContent from '@mui/material/DialogContent';
 
 const CheckInboxVerify = ({ onOpen, onClose, email }: { onOpen: boolean; onClose: () => void; email: string }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -46,7 +48,7 @@ const CheckInboxVerify = ({ onOpen, onClose, email }: { onOpen: boolean; onClose
       <TextContainer>
         <DialogContent sx={{ p: 0 }}>
           <DialogContentSecondBox>
-            <Image src="/images/auth/check-email.png" width={175} height={123} alt="check-email.png" />
+            <Image loading="lazy" src="/images/auth/check-email.png" width={175} height={123} alt="check-email.png" />
             <CheckYourInbox variant="h2" color="text.secondary">
               <FormattedMessage id="CheckYourInbox" />
             </CheckYourInbox>

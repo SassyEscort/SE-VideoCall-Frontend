@@ -11,10 +11,11 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import ProfileApproval from '../profileApproval';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
+import React from 'react';
 
 const DashboardNavItem = () => {
-  const { isCustomer } = useCallFeatureContext();
+  const { isCustomer } = useAuthContext();
 
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
@@ -67,7 +68,7 @@ const DashboardNavItem = () => {
               component={Link}
               prefetch={true}
               shallow={true}
-              href="/"
+              href="/model"
               height={{ xs: '26px', md: '36px', sm: '36px' }}
               width={{ xs: '120px', md: '182px', sm: '182px' }}
               display={'flex'}

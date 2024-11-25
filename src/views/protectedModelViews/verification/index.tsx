@@ -11,7 +11,6 @@ import UploadImage from './stepThree/uploadImage';
 import DocumentMainContainer from './documentContainer';
 import CircularProgressWithLabel from './header/CircularProgressWithLabel';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import ModelReviewDetails from '../modelReviewDetails';
@@ -19,8 +18,9 @@ import ProfileCreated from './profileCreated';
 import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 import { useRouter } from 'next/navigation';
 import DashboardPriceView from 'views/protectedDashboardViews/dashboardPriceView';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import { MODEL_ACTION } from 'constants/profileConstants';
+import { useAuthContext } from '../../../contexts/AuthContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const VERIFICATION_STEPS = ['Basic Details', 'Documents', 'Photos', 'Price', 'Review'];
 
@@ -32,7 +32,7 @@ export type TokenIdType = {
 };
 
 const VerificationContainer = () => {
-  const { isCustomer } = useCallFeatureContext();
+  const { isCustomer } = useAuthContext();
 
   const router = useRouter();
 
@@ -71,7 +71,7 @@ const VerificationContainer = () => {
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
+      setToken({ id: data?.id, token: data?.token });
     };
 
     userToken();

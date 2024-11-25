@@ -1,32 +1,45 @@
 'use client';
-import { Grid, Box } from '@mui/material';
-import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
+// import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
 import { ButtonMainBox, WorkerCardMainBox } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { ModelHomeListing } from 'services/modelListing/modelListing.services';
 import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { memo, useMemo, useState } from 'react';
+import { Suspense, memo, useMemo, useState } from 'react';
 import Link from 'next/link';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestLogin from 'views/auth/guestLogin';
-import GuestSignup from 'views/auth/guestSignup';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
-import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
 import { PaginationMainBox } from 'views/protectedDashboardViews/payoutRequest/PayoutRequest.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { NotFoundModelBox } from './HomeImageCard.styled';
 import { FormattedMessage } from 'react-intl';
 import { gaEventTrigger } from 'utils/analytics';
-import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
-
-export const pageview = (url: string) => {
-  window.gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, {
-    page_path: url
-  });
-};
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import dynamic from 'next/dynamic';
+// import Skeleton from '@mui/material/Skeleton';
+import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
+import { NotFoundModelBox } from './HomeImageCard.styled';
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false
+});
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
+  ssr: false
+});
+const PaginationInWords = dynamic(() => import('components/UIComponents/PaginationINWords'), {
+  ssr: false
+});
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
+  ssr: false
+});
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
+  ssr: false
+});
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
+  ssr: false
+});
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
+  ssr: false
+});
 
 const HomeImageCard = ({
   modelListing,
@@ -35,7 +48,8 @@ const HomeImageCard = ({
   totalRows,
   handleChangePage,
   filters,
-  isFreeCreditAvailable
+  isFreeCreditAvailable,
+  isLoading
 }: {
   modelListing: ModelHomeListing[] | ModelFavRes[];
   isFavPage: boolean;
@@ -44,6 +58,7 @@ const HomeImageCard = ({
   handleChangePage?: (page: number) => void;
   filters?: SearchFiltersTypes;
   isFreeCreditAvailable: number;
+  isLoading: boolean;
 }) => {
   const [favModelId, setFavModelId] = useState(0);
   const [open, setIsOpen] = useState(false);
@@ -126,62 +141,85 @@ const HomeImageCard = ({
     <HomeMainContainer>
       <WorkerCardMainBox id="tableSection">
         <Grid container spacing={{ xs: '13px', md: '15px' }} rowGap={{ xs: 0.875, lg: 2.125 }}>
-          {modelListing?.map((item, index) => {
-            return (
-              <Grid item key={index} xs={6} sm={4} md={isFavPage ? 4 : 3} lg={isFavPage ? 4 : 3}>
-                <Box display="flex" gap={2} flexDirection="column">
-                  {favModelId === item.id ? (
-                    <Box
-                      component={Link}
-                      prefetch={true}
-                      shallow={true}
-                      href={`/details/${item.user_name}`}
-                      onClick={() => handleModelRedirect(item.user_name)}
+          {isLoading
+            ? Array.from({ length: 24 }, (_, index) => (
+                <Grid key={index} item xs={6} sm={4} md={3}>
+                  <Box sx={{ width: '100%', maxWidth: '299px', height: '400px', margin: 'auto' }}>
+                    {/* <Skeleton
+                      variant="rectangular"
+                      width="100%"
+                      height="100%"
                       sx={{
-                        textDecoration: 'none',
-                        height: '100%'
+                        '&.MuiSkeleton-root': {
+                          maxWidth: '299px',
+                          height: '400px'
+                        }
                       }}
-                    >
-                      <WorkerCard
-                        modelDetails={item}
-                        isFavPage={isFavPage}
-                        token={token ?? ({} as TokenIdType)}
-                        handleLoginLiked={handleLoginLiked}
-                        handleLoginOpen={handleLoginOpen}
-                        handleLike={handleLike}
-                        liked={likedModels.includes(item.id)}
-                      />
+                    /> */}
+                    {/* <Box sx={{ pt: 0.5 }}>
+                      <Skeleton width="100%" />
+                      <Skeleton width="60%" />
+                      <Skeleton width="60%" />
+                    </Box> */}
+                  </Box>
+                </Grid>
+              ))
+            : modelListing?.map((item, index) => {
+                return (
+                  <Grid item key={index} xs={6} sm={4} md={isFavPage ? 4 : 3} lg={isFavPage ? 4 : 3}>
+                    <Box display="flex" gap={2} flexDirection="column">
+                      {favModelId === item.id ? (
+                        <Box
+                          component={Link}
+                          prefetch={true}
+                          shallow={true}
+                          href={`/details/${item.user_name}`}
+                          onClick={() => handleModelRedirect(item.user_name)}
+                          sx={{
+                            textDecoration: 'none',
+                            height: '100%'
+                          }}
+                        >
+                          <WorkerCard
+                            modelDetails={item}
+                            isFavPage={isFavPage}
+                            token={token ?? ({} as TokenIdType)}
+                            handleLoginLiked={handleLoginLiked}
+                            handleLoginOpen={handleLoginOpen}
+                            handleLike={handleLike}
+                            liked={likedModels.includes(item.id)}
+                          />
+                        </Box>
+                      ) : (
+                        <Box
+                          component={Link}
+                          prefetch={true}
+                          shallow={true}
+                          href={`/details/${item.user_name}`}
+                          sx={{
+                            textDecoration: 'none',
+                            height: '100%'
+                          }}
+                          onClick={() => handleModelRedirect(item.user_name)}
+                        >
+                          <WorkerCard
+                            modelDetails={item}
+                            isFavPage={isFavPage}
+                            token={token ?? ({} as TokenIdType)}
+                            handleLoginLiked={handleLoginLiked}
+                            handleLoginOpen={handleLoginOpen}
+                            handleLike={handleLike}
+                            liked={likedModels.includes(item.id)}
+                          />
+                        </Box>
+                      )}
                     </Box>
-                  ) : (
-                    <Box
-                      component={Link}
-                      prefetch={true}
-                      shallow={true}
-                      href={`/details/${item.user_name}`}
-                      sx={{
-                        textDecoration: 'none',
-                        height: '100%'
-                      }}
-                      onClick={() => handleModelRedirect(item.user_name)}
-                    >
-                      <WorkerCard
-                        modelDetails={item}
-                        isFavPage={isFavPage}
-                        token={token ?? ({} as TokenIdType)}
-                        handleLoginLiked={handleLoginLiked}
-                        handleLoginOpen={handleLoginOpen}
-                        handleLike={handleLike}
-                        liked={likedModels.includes(item.id)}
-                      />
-                    </Box>
-                  )}
-                </Box>
-              </Grid>
-            );
-          })}
+                  </Grid>
+                );
+              })}
         </Grid>
 
-        {totalRows && filters && totalRows > 0 ? (
+        {typeof totalRows !== 'undefined' && filters && Number(totalRows) > 0 && (
           <ButtonMainBox>
             <PaginationMainBox>
               <UITheme2Pagination
@@ -199,22 +237,22 @@ const HomeImageCard = ({
               />
             </PaginationMainBox>
           </ButtonMainBox>
-        ) : (
-          ''
         )}
         {modelListing?.length > 0
           ? ''
           : !isFavPage && (
-              <NotFoundModelBox>
-                <UINewTypography variant="h1">
-                  <FormattedMessage id="NoModelsFound" />
-                </UINewTypography>
-              </NotFoundModelBox>
+              <Suspense fallback={<div>Loading...</div>}>
+                <NotFoundModelBox>
+                  <UINewTypography variant="h1">
+                    <FormattedMessage id="NoModelsFound" />
+                  </UINewTypography>
+                </NotFoundModelBox>
+              </Suspense>
             )}
       </WorkerCardMainBox>
-      <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+      <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </UIStyledDialog>
+      </NewSignupStyledModalDialog>
       <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
         <GuestLogin
           isFreeCreditAvailable={isFreeCreditAvailable}
@@ -231,9 +269,9 @@ const HomeImageCard = ({
       <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
-      <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+      <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
         <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-      </UIStyledDialog>
+      </NewSignupStyledModalDialog>
     </HomeMainContainer>
   );
 };

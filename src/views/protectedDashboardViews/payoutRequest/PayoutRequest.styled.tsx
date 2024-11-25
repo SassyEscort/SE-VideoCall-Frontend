@@ -20,7 +20,7 @@ export const MainContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const BoxMessage = styled(Box)(({ theme }) => ({
+export const BoxMessage = styled(Box)(() => ({
   display: 'flex'
 }));
 
@@ -69,18 +69,12 @@ export const SecondUsdBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const UsdBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(1.5),
-  alignItems: 'start'
-}));
-
 export const DollerBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(1.5)
 }));
 
-export const RecentWithdrawlsMainContainer = styled(Box)(({ theme }) => ({
+export const RecentWithdrawlsMainContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%'
@@ -100,7 +94,7 @@ export const SecondRecentWithdrawlsMainContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(3)
 }));
 
-export const Withdrawls = styled(Box)(({ theme }) => ({
+export const Withdrawls = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column'
 }));
@@ -111,7 +105,7 @@ export const ToSiliconValleyBankMainConatiner = styled(Box)(({ theme }) => ({
   gap: theme.spacing(3)
 }));
 
-export const FirstToSiliconValleyBankMainConatiner = styled(Box)(({ theme }) => ({
+export const FirstToSiliconValleyBankMainConatiner = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'space-between'
 }));
@@ -121,7 +115,7 @@ export const FirstToSiliconValleyBank = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2)
 }));
 
-export const ImageBox = styled(Box)(({ theme }) => ({
+export const ImageBox = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -147,24 +141,6 @@ export const Pendingconatiner = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1.25),
   alignItems: 'flex-end',
   position: 'relative'
-}));
-
-export const Pending = styled(UINewTypography)(({ theme }) => ({
-  color: theme.palette.primary['600'],
-  borderRadius: '48px',
-  border: '1px solid',
-  textAlign: 'center',
-  padding: '4px 12px',
-  borderColor: theme.palette.primary['600']
-}));
-
-export const PendingSecond = styled(UINewTypography)(({ theme }) => ({
-  color: theme.palette.success['100'],
-  borderRadius: '48px',
-  border: '1px solid',
-  textAlign: 'center',
-  padding: '4px 12px',
-  borderColor: theme.palette.success['100']
 }));
 
 export const ButtonBox = styled(UIThemeButton)(({ theme }) => ({

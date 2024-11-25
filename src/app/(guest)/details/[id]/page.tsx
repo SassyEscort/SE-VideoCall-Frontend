@@ -1,8 +1,15 @@
 import { Metadata } from 'next';
 import { ModelSeoService } from 'services/modelSeo/modelSeo.services';
-import EscortDetailPage from 'views/guestViews/details/EscortDetailPage';
-import CallFeature from 'views/protectedViews/callingFeature';
-import { CallFeatureProvider } from '../../../../../context/CallFeatureContext';
+import { VideoCallProvider } from 'contexts/videoCallContext';
+import { CallFeatureProvider } from '../../../../contexts/ZegoCallContext';
+import dynamic from 'next/dynamic';
+const EscortDetailPage = dynamic(() => import('views/guestViews/details/EscortDetailPage'), {
+  ssr: false
+});
+
+const CallFeature = dynamic(() => import('views/protectedViews/zegoCallingFeature'), {
+  ssr: false
+});
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const model = params.id;
@@ -32,12 +39,12 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 
 const WorkerDetailPage = () => {
   return (
-    <>
+    <VideoCallProvider>
       <CallFeatureProvider>
         <CallFeature />
         <EscortDetailPage />
       </CallFeatureProvider>
-    </>
+    </VideoCallProvider>
   );
 };
 

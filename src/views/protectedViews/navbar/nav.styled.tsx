@@ -1,4 +1,3 @@
-import { Tab } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 
@@ -27,23 +26,6 @@ export const CommonMenuBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const MainMenuBox = styled(Box)(() => ({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: 2,
-  alignSelf: 'stretch'
-}));
-
-export const MainMenuBoxChlid = styled(Box)(() => ({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: 1
-}));
-
 export const SelectedTab = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -59,33 +41,4 @@ export const NavBarBoxContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'flex-start',
   gap: theme.spacing(4)
-}));
-
-export const MobileComponentBoxContainer = styled(Box)(({ theme }) => ({
-  '& .MuiTabs-indicator': {
-    display: 'none'
-  },
-  '& .MuiButtonBase-root': {
-    paddingLeft: '12px',
-    paddingRight: '32px'
-  },
-  [theme.breakpoints.down('sm')]: {
-    maxWidth: 420
-  },
-  [theme.breakpoints.down('sm')]: {
-    maxWidth: 768
-  }
-}));
-
-export const MobileTextStyleContainer = styled(Tab)(({ theme }) => ({
-  whiteSpace: 'nowrap',
-  fontSize: '16px',
-  fontWeight: 500,
-  lineHeight: '19.2px'
-}));
-
-export const MobileComponentSecBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  textDecoration: 'none'
 }));

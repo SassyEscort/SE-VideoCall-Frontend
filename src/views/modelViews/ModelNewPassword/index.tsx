@@ -14,7 +14,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import { toast } from 'react-toastify';
 import InputAdornment from '@mui/material/InputAdornment';
-import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import AuthModelCommon from '../modelSignup/AuthModelCommon';
 import CustomPasswordRegex from 'views/auth/customPasswordRegex';
@@ -46,10 +45,11 @@ const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
   const isSm = useMediaQuery(theme.breakpoints.down(330));
 
   const validationSchema = yup.object({
-    password: yup.string().required('NewPasswordIsRequired').min(8, 'PasswordMustBe').matches(PASSWORD_PATTERN, {
-      message: 'PasswordMustContainAt',
-      excludeEmptyString: true
-    }),
+    password: yup.string().required('NewPasswordIsRequired').min(8, 'PasswordMustBe'),
+    // .matches(PASSWORD_PATTERN, {
+    //   message: 'PasswordMustContainAt',
+    //   excludeEmptyString: true
+    // })
     confirmPassword: yup
       .string()
       .required('ConfirmPasswordIsRequired')

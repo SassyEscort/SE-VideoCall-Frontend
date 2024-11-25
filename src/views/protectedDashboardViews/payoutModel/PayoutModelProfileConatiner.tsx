@@ -1,5 +1,4 @@
 'use client';
-import { MenuItem, useMediaQuery } from '@mui/material';
 import { SidebarDropDownMainContainer } from '../sidebarDropDown/SidebarDropDown.styled';
 import React, { useEffect, useState } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
@@ -25,6 +24,8 @@ import { PayoutService } from 'services/payout/payout.service';
 import { ErrorMessage } from 'constants/common.constants';
 import { BankDetailsListRes } from 'services/payout/types';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import MenuItem from '@mui/material/MenuItem';
 
 const payoutMenuList = [
   { menuName: <FormattedMessage id="RequestPayout" />, id: 0 },
@@ -63,6 +64,7 @@ const PayoutModelProfileConatiner = ({ token, modelDetails }: { token: TokenIdTy
 
   useEffect(() => {
     fetchBankDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.token]);
 
   useEffect(() => {

@@ -1,60 +1,7 @@
-import { DialogContent, DialogTitle, Stack } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
+import DialogContent from '@mui/material/DialogContent';
 import Popover from '@mui/material/Popover';
 import { styled } from '@mui/system';
-
-export const ModelActionPopover = styled(Popover)(({ theme }) => ({
-  '& .MuiMenuItem-root': {
-    padding: theme.spacing(1),
-    borderRadius: theme.spacing(0.75),
-    typography: 'body2'
-  },
-  '& .MuiPaper-root': {
-    width: 170,
-    padding: theme.spacing(1)
-  }
-}));
-
-export const FilterBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  width: '100%',
-  gap: theme.spacing(1.875),
-  [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column'
-  }
-}));
-export const SortBox = styled(Box)(() => ({
-  display: 'flex',
-  justifyContent: 'end',
-  width: '100%'
-}));
-export const NotFoundBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: theme.spacing(2)
-}));
-
-export const StackBoxContainer = styled(Stack)(({ theme }) => ({
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  marginBottom: theme.spacing(1)
-}));
-
-export const StackFirstBoxContainer = styled(Stack)(({ theme }) => ({
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  marginBottom: theme.spacing(1),
-  [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column'
-  },
-  [theme.breakpoints.up('sm')]: {
-    flexDirection: 'row'
-  }
-}));
 
 export const DetailsDialogContent = styled(DialogContent)(() => ({
   '& td': {
@@ -79,8 +26,52 @@ export const StyledPopover = styled(Popover)(({ theme }) => ({
   }
 }));
 
-export const DialogContainer = styled(DialogTitle)(({ theme }) => ({
+export const MainScreenshotBox = styled(Box)(() => ({
   display: 'flex',
+  padding: '24px',
+  gap: '24px',
+  backgroundColor: '#fff'
+}));
+
+export const MainScreenshotBoxChild = styled(Box)(() => ({
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '12px',
+  padding: '16px',
+  borderRadius: '8px',
+  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+  backgroundColor: '#fafafa',
+  overflowY: 'auto'
+}));
+
+export const MainScreenshotBoxImage = styled(Box)(() => ({
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '16px',
+  gap: '16px',
+  borderRadius: '8px',
+  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+  backgroundColor: '#fafafa',
+  justifyContent: 'center',
   alignItems: 'center',
-  justifyContent: 'space-between'
+  cursor: 'pointer'
+}));
+
+export const SelectedImageBox = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: '24px'
+}));
+
+export const MainScreenshot = styled(Box)(() => ({
+  maxHeight: '400px',
+  overflowY: 'auto',
+  height: '100%'
+}));
+
+export const DetailRowBox = styled(Box)(() => ({
+  maxHeight: '400px'
 }));

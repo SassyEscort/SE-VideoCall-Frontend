@@ -8,6 +8,7 @@ export default function ModelListHead() {
       <TableRow>
         <TableCell>Name</TableCell>
         <TableCell>Email</TableCell>
+        <TableCell>Gender</TableCell>
         <TableCell>Country</TableCell>
         <TableCell sx={{ textAlign: 'center' }}>Status</TableCell>
         <TableCell sx={{ textAlign: 'left' }}>Created Date</TableCell>

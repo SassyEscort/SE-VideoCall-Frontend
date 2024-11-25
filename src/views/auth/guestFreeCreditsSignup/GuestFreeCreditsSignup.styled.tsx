@@ -1,14 +1,6 @@
-import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
-
-export const MobileImageBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  position: 'relative'
-}));
+import Typography from '@mui/material/Typography';
 
 export const MobileImageInnerBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -25,7 +17,7 @@ export const ImageAndTextBoxContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center'
 }));
 
-export const TitleTextBoxContainer = styled(Box)(({ theme }) => ({
+export const TitleTextBoxContainer = styled(Box)(() => ({
   width: '100%',
   maxWidth: '275px',
   display: 'flex',
@@ -35,7 +27,7 @@ export const TitleTextBoxContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const TitleText = styled(Typography)(({ theme }) => ({
+export const TitleText = styled(Typography)(() => ({
   fontSize: '24px',
   fontWeight: 700,
   lineHeight: '33.6px',
@@ -46,7 +38,7 @@ export const TitleText = styled(Typography)(({ theme }) => ({
   zIndex: 2
 }));
 
-export const DescriptionTextBoxContainer = styled(Box)(({ theme }) => ({
+export const DescriptionTextBoxContainer = styled(Box)(() => ({
   width: '100%',
   maxWidth: '228px',
   display: 'flex',

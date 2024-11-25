@@ -1,21 +1,14 @@
-import { FormattedMessage, useIntl } from 'react-intl';
-import { Box } from '@mui/material';
+import { FormattedMessage } from 'react-intl';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { InputTypeBox, ProfileTextHeader } from './MyProfile.styled';
 import { FormikErrors, FormikTouched } from 'formik';
 import { MyProfile } from '.';
-import { toast } from 'react-toastify';
-import { authServices } from 'services/guestAuth/authuser.services';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { GuestStyleComponent } from 'views/guestViews/guestLayout/GuestLayout.styled';
-import CheckInboxVerify from 'views/modelViews/checkInBox';
-import { useCallback, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { ErrorMessage } from 'constants/common.constants';
+import { useState } from 'react';
 import MyProfileChangePassword from './MyProfileChangePassword';
-import { InnerBox, MainContainer, MyProfileTitle, VerifiedColumn } from './MyProfileContainer.styled';
-import { getErrorMessage } from 'utils/errorUtils';
+import { InnerBox, MainContainer, MyProfileTitle } from './MyProfileContainer.styled';
+import Box from '@mui/material/Box';
 
 const MyProfileContainer = ({
   values,
@@ -24,7 +17,11 @@ const MyProfileContainer = ({
   touched,
   errors,
   token,
-  isEmailVerified
+  isEditable
+  //TODO for verify email and phone and claim free credits
+  // isEmailVerified
+  // isPhoneNumberVerified
+  // FetchCustomerDetails
 }: {
   values: MyProfile;
   handleChange: (e: any) => void;
@@ -32,82 +29,135 @@ const MyProfileContainer = ({
   errors: FormikErrors<MyProfile>;
   touched: FormikTouched<MyProfile>;
   token: TokenIdType;
-  isEmailVerified: number;
+  isEditable: boolean;
+  //TODO for verify email and phone and claim free credits
+  // isEmailVerified: number;
+  // isPhoneNumberVerified: number;
+  // FetchCustomerDetails: () => void;
 }) => {
-  const router = useRouter();
-  const intl = useIntl();
-
-  const url = new URL(window.location.href);
-  const email = url.searchParams.get('email');
-
-  const [open, setOpen] = useState(false);
-  const [activeStep, setActiveStep] = useState(0);
-  const [isVerified, setIsVerified] = useState(false);
   const [openModel, setOpenModel] = useState(false);
-  const [isEditable, setIsEditable] = useState(false);
 
-  const sendLinkVerify = async () => {
-    touched.email = true;
-    try {
-      if (!errors.email && token.token) {
-        const data = await authServices.emailVerifyLink({ email: values.email }, token.token);
+  //TODO for verify email and phone and claim free credits
+  // const [isEditable, setIsEditable] = useState(false);
+  // const [isNumberEditable, setIsNumberEditable] = useState(false);
+  // const [isEmailOptSent, setIsEmailOptSent] = useState(false);
+  // const [isPhoneOptSent, setIsPhoneOptSent] = useState(false);
+  // const [countryCode, setCountryCode] = useState<any>(null);
+  // const intl = useIntl();
 
-        if (data.code === 200) {
-          setOpen(true);
-          setActiveStep(1);
-          toast.success('Success');
-        } else {
-          const errorMessage = getErrorMessage(data?.custom_code);
-          toast.error(intl.formatMessage({ id: errorMessage }));
-        }
-      }
-    } catch (error) {
-      toast.error(ErrorMessage);
-    }
-  };
+  //TODO for verify email and phone and claim free credits
+  // const sendLinkVerify = async () => {
+  //   touched.email = true;
+  //   setIsEmailOptSent(true);
+  //   setIsEditable(false);
+  //   try {
+  //     if (!errors.email && token.token) {
+  //       try {
+  //         const res = await customerVerificationService.sendEmailOtp({ email: values.email }, token.token);
+  //         if (res.code === 200) {
+  //           toast.success(intl.formatMessage({ id: 'OTPSendOnYourEmail' }));
+  //         } else {
+  //           toast.error(res?.response?.data?.error || 'Something went wrong');
+  //         }
+  //       } catch (error) {
+  //         toast.error(ErrorMessage);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     toast.error(ErrorMessage);
+  //   }
+  // };
 
-  const handleClose = () => {
-    setActiveStep(0);
-  };
+  //TODO for verify email and phone and claim free credits
+  // const sendPhoneOtp = async () => {
+  //   touched.phone = true;
+  //   setIsNumberEditable(false);
+  //   try {
+  //     if (!errors.phone && token.token) {
+  //       try {
+  //         if (countryCode) {
+  //           const res = await customerVerificationService.sendPhoneOtp({ phone_number: countryCode.phone + values.phone }, token.token);
+  //           if (res.code === 200) {
+  //             toast.success('OTP sent successfully');
+  //             setIsPhoneOptSent(true);
+  //           } else {
+  //             if (res?.response?.data?.custom_code == 3015) toast.error('Phone number already exist');
+  //             else toast.error('Something went wrong');
+  //           }
+  //         } else {
+  //           toast.error('Country code is required');
+  //         }
+  //       } catch (error) {
+  //         toast.error(ErrorMessage);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     toast.error(ErrorMessage);
+  //   }
+  // };
 
   const handleClsoeModel = () => {
     setOpenModel(false);
   };
-  const handleEditClick = () => {
-    setIsEditable(true);
-  };
 
-  const verifyEmail = useCallback(async () => {
-    const verificationCode = url.searchParams.get('code');
+  //TODO for verify email and phone and claim free credits
+  // const handleEditClick = () => {
+  //   setIsEditable(true);
+  // };
+  // const handleNumberEditClick = () => {
+  //   setIsNumberEditable(true);
+  // };
 
-    const payload = {
-      email: String(email),
-      verification_code: String(verificationCode)
-    };
+  // const handelVerfifyEmailOtp = async () => {
+  //   const payload = {
+  //     email: String(values.email),
+  //     otp: String(values.emailOtp)
+  //   };
 
-    try {
-      if (Boolean(token.token && payload)) {
-        const res = await authServices.emailVerify(payload, token.token);
-        if (res.code === 200) {
-          toast.success('Success');
-        } else {
-          toast.error(res.message);
-        }
-        router.push('/profile');
-      }
-    } catch (error) {
-      toast.error(ErrorMessage);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email, token.token, url.pathname]);
+  //   try {
+  //     if (Boolean(token.token && payload)) {
+  //       const res = await customerVerificationService.emailVerify(payload, token.token);
 
-  useEffect(() => {
-    if (email && token.token && !isVerified) {
-      verifyEmail();
-      setIsVerified(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //       if (res.code === 200) {
+  //         toast.success('Email verified successfully');
+  //         setIsEmailOptSent(false);
+  //         setIsEditable(false);
+  //         FetchCustomerDetails();
+  //       } else {
+  //         toast.error('Invalid OTP');
+  //       }
+  //     }
+  //   } catch (error) {
+  //     toast.error(ErrorMessage);
+  //   }
+  // };
+  // const handelVerfifyPhoneOtp = async () => {
+  //   const payload = {
+  //     phone_number: String(countryCode.phone + values.phone),
+  //     otp: String(values.phoneOtp)
+  //   };
+  //   try {
+  //     if (Boolean(token.token && payload)) {
+  //       const res = await customerVerificationService.phoneVerify(payload, token.token);
+
+  //       if (res.code === 200) {
+  //         toast.success('Phone number verified successfully');
+  //         setIsPhoneOptSent(false);
+  //         setIsEditable(false);
+  //         setIsNumberEditable(false);
+  //         FetchCustomerDetails();
+  //       } else {
+  //         toast.error('Invalid OTP');
+  //       }
+  //     }
+  //   } catch (error) {
+  //     toast.error(ErrorMessage);
+  //   }
+  // };
+
+  // const handleChangeCountryTel1 = (value: any) => {
+  //   setCountryCode(value);
+  // };
 
   // const changePasswordOpenModel = () => {
   //   setOpenModel(true);
@@ -131,6 +181,7 @@ const MyProfileContainer = ({
             <Box>
               <UIStyledInputText
                 fullWidth
+                disabled={!isEditable}
                 id="username"
                 name="username"
                 value={values.username}
@@ -161,36 +212,154 @@ const MyProfileContainer = ({
                 onBlur={handleBlur}
                 error={touched.email && Boolean(errors.email)}
                 helperText={touched.email && errors.email}
+
+                //TODO for verify email and phone and claim free credits
+                // InputProps={{
+                //   endAdornment: (
+                //     <VerifiedColumn>
+                //       {/* {isEmailVerified !== 1 && ( */}
+                //       <UINewTypography color={'text.secondary'} variant="buttonSmallBold" onClick={handleEditClick}>
+                //         <FormattedMessage id="Edit" />
+                //       </UINewTypography>
+                //       {/* )} */}
+
+                //       {isEditable && (
+                //         <UINewTypography
+                //           color={!isEditable ? 'green' : 'primary.400'}
+                //           variant="buttonSmallBold"
+                //           onClick={() => {
+                //             // if (isEmailVerified !== 1 || isEditable) sendLinkVerify();
+                //           }}
+                //         >
+                //           {!isEditable ? <DoneIcon /> : <FormattedMessage id="Verify" />}
+                //         </UINewTypography>
+                //       )}
+                //     </VerifiedColumn>
+                //   )
+                // }}
+              />
+            </Box>
+            {/* //TODO for verify email and phone and claim free credits
+             {isEmailOptSent && (
+              <>
+                <Box>
+                  <UIStyledInputText
+                    fullWidth
+                    id="emailOtp"
+                    name="emailOtp"
+                    value={values.emailOtp}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder="Enter OTP"
+                    InputProps={{
+                      endAdornment: (
+                        <VerifiedColumn>
+                          <UINewTypography
+                            color={isEmailVerified === 1 && !isEditable ? 'green' : 'primary.400'}
+                            variant="buttonSmallBold"
+                            onClick={() => {
+                              if (isEmailVerified !== 1 || isEditable) handelVerfifyEmailOtp();
+                            }}
+                          >
+                            Confirm
+                          </UINewTypography>
+                        </VerifiedColumn>
+                      )
+                    }}
+                  />
+                </Box>
+               
+              </>
+            )} */}
+          </InnerBox>
+        </InputTypeBox>
+
+        {/*//TODO for verify email and phone and claim free credits
+         <InputTypeBox>
+          <InnerBox>
+            <Box>
+              <ProfileTextHeader variant="bodySemiBold" color="text.primary">
+                <FormattedMessage id="phoneNumber" />
+              </ProfileTextHeader>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', gap: 1 }}>
+              {isPhoneNumberVerified !== 1 && (
+                <CountryCodeSelect
+                  disabled={!isNumberEditable}
+                  values={countryCode}
+                  handleChange={handleChangeCountryTel1}
+                ></CountryCodeSelect>
+              )}
+              <UIStyledInputText
+                fullWidth
+                disabled={!isNumberEditable}
+                id="phone"
+                name="phone"
+                value={values.phone}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Add Phone number"
+                error={touched.phone && Boolean(errors.phone)}
+                helperText={touched.phone && errors.phone}
                 InputProps={{
                   endAdornment: (
                     <VerifiedColumn>
-                      <UINewTypography color={'text.secondary'} variant="buttonSmallBold" onClick={handleEditClick}>
-                        <FormattedMessage id="Edit" />
-                      </UINewTypography>
+                      {isPhoneNumberVerified !== 1 && (
+                        <UINewTypography color={'text.secondary'} variant="buttonSmallBold" onClick={handleNumberEditClick}>
+                          <FormattedMessage id="Edit" />
+                        </UINewTypography>
+                      )}
 
-                      <UINewTypography
-                        color={isEmailVerified === 1 ? 'green' : 'primary.600'}
-                        variant="buttonSmallBold"
-                        onClick={() => {
-                          if (isEmailVerified !== 1) sendLinkVerify();
-                        }}
-                      >
-                        {isEmailVerified === 1 ? <FormattedMessage id="Verified" /> : <FormattedMessage id="Verify" />}
-                      </UINewTypography>
+                      {(!isPhoneOptSent || isNumberEditable) && !isEmailOptSent && (
+                        <UINewTypography
+                          color={isPhoneNumberVerified === 1 && !isEditable ? 'green' : 'primary.400'}
+                          variant="buttonSmallBold"
+                          onClick={() => {
+                            if (isPhoneNumberVerified !== 1 || isEditable) sendPhoneOtp();
+                          }}
+                        >
+                          {isPhoneNumberVerified === 1 && !isEditable ? <DoneIcon /> : <FormattedMessage id="Verify" />}
+                        </UINewTypography>
+                      )}
                     </VerifiedColumn>
                   )
                 }}
               />
-
-              {activeStep === 1 && (
-                <GuestStyleComponent scroll="body" open={open} onClose={handleClose} maxWidth="md" fullWidth>
-                  <CheckInboxVerify onOpen={open} onClose={handleClose} email={values.email} />
-                </GuestStyleComponent>
-              )}
             </Box>
+            {isPhoneOptSent && (
+              <>
+                <Box>
+                  <UIStyledInputText
+                    fullWidth
+                    id="phoneOtp"
+                    name="phoneOtp"
+                    value={values.phoneOtp}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder="Enter OTP"
+                    InputProps={{
+                      endAdornment: (
+                        <VerifiedColumn>
+                          <UINewTypography
+                            color={isPhoneNumberVerified === 1 && !isEditable ? 'green' : 'primary.400'}
+                            variant="buttonSmallBold"
+                            onClick={() => {
+                              if (isPhoneNumberVerified !== 1 || isEditable) handelVerfifyPhoneOtp();
+                            }}
+                          >
+                            Confirm
+                          </UINewTypography>
+                        </VerifiedColumn>
+                      )
+                    }}
+                  />
+                </Box>
+              </>
+            )}
           </InnerBox>
-        </InputTypeBox>
-        {/* 
+        </InputTypeBox> */}
+
+        {/* //TODO for verify email and phone and claim free credits
         <InputTypeBox>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
             <Box>

@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import Accordion, { AccordionProps } from '@mui/material/Accordion';
 import AccordionDetails, { AccordionDetailsProps } from '@mui/material/AccordionDetails';
 import AccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 export const FAQMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -29,20 +29,6 @@ export const FAQConatainer = styled(Box)(({ theme }) => ({
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
     gap: theme.spacing(2)
-  }
-}));
-
-export const FAQTitle = styled(Typography)(({ theme }) => ({
-  color: theme.palette.text.secondary,
-  textAlign: 'center',
-  fontWeight: 700,
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '24px',
-    lineHeight: '32px'
-  },
-  [theme.breakpoints.up('sm')]: {
-    fontSize: '40px',
-    lineHeight: '52px'
   }
 }));
 
@@ -110,7 +96,7 @@ export const StyledAccordionDetails = styled((props: AccordionDetailsProps) => <
   marginBottom: 24
 }));
 
-export const FirstTextContainer = styled(Typography)(({ theme }) => ({
+export const FirstTextContainer = styled(Typography)(() => ({
   fontSize: '16px',
   fontWeight: 600,
   lineHeight: '25.6px'

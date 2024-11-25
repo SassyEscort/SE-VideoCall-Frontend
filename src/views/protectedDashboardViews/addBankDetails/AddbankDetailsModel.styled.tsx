@@ -1,4 +1,8 @@
-import { Box, Dialog, DialogTitle, Divider, styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import Divider from '@mui/material/Divider';
+import { styled } from '@mui/material/styles';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const AddBankDetailsContainer = styled(Box)(({ theme }) => ({
@@ -53,12 +57,6 @@ export const ButtonBox = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   gap: theme.spacing(6),
   paddingBottom: theme.spacing(2)
-}));
-
-export const PayoutText = styled(UINewTypography)(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
-    paddingLeft: '14px'
-  }
 }));
 
 export const AddBankDetail = styled(UINewTypography)(({ theme }) => ({

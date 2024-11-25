@@ -4,8 +4,8 @@ import { styled } from '@mui/material/styles';
 import Accordion, { AccordionProps } from '@mui/material/Accordion';
 import AccordionDetails, { AccordionDetailsProps } from '@mui/material/AccordionDetails';
 import AccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
-import { Typography } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import Typography from '@mui/material/Typography';
 
 export const FAQMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -64,20 +64,6 @@ export const PayoutFAQTitle = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     fontSize: '38px',
     lineHeight: '47.5px'
-  }
-}));
-
-export const FAQSubTitle = styled(Typography)(({ theme }) => ({
-  color: theme.palette.secondary[100],
-  textAlign: 'center',
-  fontWeight: 400,
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '14px',
-    lineHeight: '21px'
-  },
-  [theme.breakpoints.up('sm')]: {
-    fontSize: '20px',
-    lineHeight: '32px'
   }
 }));
 

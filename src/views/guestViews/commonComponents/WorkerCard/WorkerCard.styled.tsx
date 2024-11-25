@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import Image from 'next/image';
 
 export const MainWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -77,18 +78,18 @@ export const LiveIconFirstBoxWorkerCard = styled(Box)(({ theme }) => ({
 }));
 
 export const LiveIconSecBoxWorkerCard = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  width: '100%',
-  maxWidth: '8px',
-  height: '100%',
-  maxHeight: '8px',
+  width: '8px',
+  height: '8px',
   border: '1px solid',
+  position: 'relative',
+  right: '-2px',
+  top: '2px',
   borderColor: theme.palette.success[100],
   borderRadius: '50%',
   backgroundColor: theme.palette.success[100]
 }));
 
-export const LiveIconSecBoxWorkerCardSec = styled(Box)(({ theme }) => ({
+export const LiveIconSecBoxWorkerCardSec = styled(Box)(() => ({
   display: 'flex',
   width: '100%',
   maxWidth: '8px',
@@ -129,16 +130,7 @@ export const SubContainertWorkerCard = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const FirstSubContainerImgWorkerCard = styled('img')(() => ({
-  display: 'flex',
-  width: '100%',
-  maxWidth: '16px',
-  height: '100%',
-  maxHeight: '8px',
-  marginTop: '3px'
-}));
-
-export const FirstSubContainerWithoutImg = styled(Box)(() => ({
+export const FirstSubContainerImgWorkerCard = styled(Image)(() => ({
   display: 'flex',
   width: '100%',
   maxWidth: '16px',
@@ -168,7 +160,7 @@ export const SecondSubContainerWorkerCard = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const SecondSubContainerImgWorkerCard = styled('img')(() => ({
+export const SecondSubContainerImgWorkerCard = styled(Image)(() => ({
   display: 'flex',
   width: '100%',
   height: '100%',
@@ -200,7 +192,7 @@ export const WorkerCardContainer = styled(Box)(() => ({
   flexDirection: 'column'
 }));
 
-export const ProfileCardContainer = styled(Box)(({ theme }) => ({
+export const ProfileCardContainer = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between'
@@ -252,19 +244,17 @@ export const FavoriteIconContainer = styled(FavoriteIcon)(({ theme }) => ({
   }
 }));
 
-export const LiveIconWorkerCard = styled(LiveIconFirstBoxWorkerCard)(({ theme }) => ({
+export const LiveIconWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
-  width: '100%',
-  minWidth: '12px',
-  height: '0',
-  minHeight: '12px',
+  width: '12px',
+  height: '12px',
   border: '1px',
   borderColor: theme.palette.secondary[400],
   borderRadius: '50%',
   backgroundColor: theme.palette.secondary[400]
 }));
 
-export const LiveIconWorkerCardSec = styled(LiveIconFirstBoxWorkerCard)(({ theme }) => ({
+export const LiveIconWorkerCardSec = styled(LiveIconFirstBoxWorkerCard)(() => ({
   display: 'flex',
   width: '100%',
   minWidth: '12px',
@@ -286,25 +276,6 @@ export const UITypographyBox = styled(UINewTypography)(({ theme }) => ({
   }
 }));
 
-export const OfflineIconSecBoxWorkerCard = styled(Box)(() => ({
-  display: 'flex',
-  width: '100%',
-  maxWidth: '8px',
-  height: '100%',
-  maxHeight: '8px',
-  borderRadius: '50%'
-}));
-
-export const OfflineIconWorkerCard = styled(Box)(() => ({
-  display: 'flex',
-  width: '100%',
-  minWidth: '12px',
-  height: '0',
-  minHeight: '12px',
-  border: '1px',
-  borderRadius: '50%'
-}));
-
 export const UITypographyBoxContainer = styled(UINewTypography)(({ theme }) => ({
   whiteSpace: 'nowrap',
   overflow: 'hidden',
@@ -323,12 +294,6 @@ export const TextBoxContainer = styled(Box)(() => ({
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   maxWidth: '150px'
-}));
-
-export const FlagAndLiveIconBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(1),
-  alignItems: 'center'
 }));
 
 export const HighlyAvailableButtonBox = styled(Box)(({ theme }) => ({
@@ -353,4 +318,24 @@ export const HighlyAvailableBox = styled(Box)(({ theme }) => ({
   width: '100%',
   position: 'relative',
   marginLeft: '30px'
+}));
+
+export const BannerImageCard = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'flex-end',
+  paddingRight: 0,
+  paddingLeft: 0,
+  justifyContent: 'flex-end',
+  paddingTop: 83,
+  '@media (max-width: 768px)': {
+    justifyContent: 'flex-start'
+  },
+  [theme.breakpoints.down('sm')]: {
+    justifyContent: 'center',
+    paddingTop: 0
+  },
+  [theme.breakpoints.down('xs')]: {
+    justifyContent: 'center',
+    paddingRight: theme.spacing(3)
+  }
 }));

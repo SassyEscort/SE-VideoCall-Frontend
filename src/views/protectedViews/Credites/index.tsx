@@ -3,6 +3,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { useCallback, useEffect, useState } from 'react';
 import { SecondSubContainerImgWorkerCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import {
+  BalanceBoxContainer,
   BoxFirstTextContainer,
   BoxSecondTextContainer,
   CreditBuyText,
@@ -32,9 +33,13 @@ import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import CreditsAdded from '../CreditsAdded/CreditsAdded';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import Loader from 'components/Loader';
-import { CircularProgress } from '@mui/material';
 import { gaEventTrigger } from 'utils/analytics';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../contexts/ZegoCallContext';
+import { ClaimFreeNewButton } from './ModelCredits/Credits.styled';
+import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
 export type CustomerInfo = {
   email: string;
@@ -43,15 +48,19 @@ export type CustomerInfo = {
 };
 
 const Credits = () => {
+  const { isFreeCreditAvailable } = useAuthContext();
+
   const [open, setOpen] = useState(false);
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [balance, setBalance] = useState(0);
   const [addedCredits, setAddedCredits] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
+
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { user } = useCallFeatureContext();
+  const { user } = useZegoCallFeatureContext();
   const customerData = JSON.parse(user || '{}');
 
   const credit = searchParams.get('credit');
@@ -135,9 +144,17 @@ const Credits = () => {
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
 
+  const getCustomerDetails = async () => {
+    if (token.token) {
+      const customerData = await CustomerDetailsService.customerModelDetails(token.token);
+      if (customerData) setCustomerDetails(customerData.data);
+    }
+  };
+
   useEffect(() => {
     getCreditsListing();
     getCustomerCredit();
+    getCustomerDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
@@ -156,15 +173,26 @@ const Credits = () => {
                   <FormattedMessage id="Balance" />
                 </UINewTypography>
                 <SecondBoxContainer>
-                  <SecondSubContainerImgWorkerCard src="/images/workercards/coin-1.png" />
-                  <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                    {balance.toFixed(2)}
-                  </UINewTypography>
+                  <BalanceBoxContainer>
+                    <SecondSubContainerImgWorkerCard src="/images/workercards/coin-1.png" alt="coin_icon" width={22} height={22} />
+                    <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+                      {balance?.toFixed(2) || 0}
+                    </UINewTypography>
+                  </BalanceBoxContainer>
                 </SecondBoxContainer>
               </FirsTextSubContainer>
             </FirsTextMainContainer>
           </TextMainContainer>
-
+          <Box>
+            {customerDetails?.free_credits_claimed === 0 && Boolean(isFreeCreditAvailable) && (
+              <ClaimFreeNewButton onClick={() => router.push('/profile')}>
+                <Box component="img" src="/images/icons/free-credit-icon.png" width="24px" height="30px" alt="free_credit" />
+                <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
+                  <FormattedMessage id="ClaimFreeCredits" />
+                </UINewTypography>
+              </ClaimFreeNewButton>
+            )}
+          </Box>
           {isLoading ? (
             <LoaderBox>
               <CircularProgress />
@@ -177,7 +205,7 @@ const Credits = () => {
                     <ImagSubContainer key={index} onClick={() => handleCreditClick(listCredit)} sx={{ cursor: 'pointer' }}>
                       <MainImagContainer src={listCredit?.link} />
                       <BoxFirstTextContainer>
-                        <CreditCardImage src="/images/workercards/coin-1.png" />
+                        <CreditCardImage src="/images/workercards/coin-1.png" alt="coin_icon" />
                         <CreditCardText variant="subtitle" color="text.secondary">
                           {listCredit?.credits}
                           <FormattedMessage id="Credits" />
@@ -187,7 +215,7 @@ const Credits = () => {
                         <CreditBuyText variant="bodySmall" color="secondary.700">
                           <FormattedMessage id="BuyNowAt" />
                         </CreditBuyText>
-                        <DollarCreditText color="text.secondary">${listCredit?.amount.toFixed(2)}</DollarCreditText>
+                        <DollarCreditText color="text.secondary">${listCredit?.amount?.toFixed(2)}</DollarCreditText>
                       </BoxSecondTextContainer>
                     </ImagSubContainer>
                   ))}

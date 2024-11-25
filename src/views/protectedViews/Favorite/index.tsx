@@ -14,7 +14,7 @@ import { CallHistoryPaginationContainer } from '../CallHistory/CallHistory.style
 import { BillingPaginationBox } from '../BillingHistory/BillingHistory.styled';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
 export type FavoritesPaginationType = {
   page: number;
@@ -59,6 +59,7 @@ const Favorites = () => {
       setIsLoading(false);
       setTotalRows(getModel.aggregate.total_rows);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token.token]);
 
   useEffect(() => {
@@ -106,7 +107,13 @@ const Favorites = () => {
             <CircularProgress />
           </LoadingBox>
         ) : (
-          <HomeImageCard modelListing={favListing} isFavPage={true} token={token} isFreeCreditAvailable={isFreeCreditAvailable} />
+          <HomeImageCard
+            modelListing={favListing}
+            isFavPage={true}
+            token={token}
+            isFreeCreditAvailable={isFreeCreditAvailable}
+            isLoading={false}
+          />
         )}
       </FavoriteBox>
       {total_rows > 0 && (

@@ -3,7 +3,6 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { ReactNode } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import {
   AuthCommonBox,
@@ -20,6 +19,7 @@ import {
 import Timer from './timer';
 import { FormattedMessage } from 'react-intl';
 import { ROLE } from 'constants/workerVerification';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const AuthHomePageFreeSignupCommon = ({
   onClose,
@@ -32,7 +32,7 @@ const AuthHomePageFreeSignupCommon = ({
   children: ReactNode;
   role: string;
 }) => {
-  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  const isSmUp = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
     <AuthCommonBox>
@@ -52,7 +52,17 @@ const AuthHomePageFreeSignupCommon = ({
       </AuthFreeCreditsMainBoxContainer>
 
       <BackgroundImageBox variant={role}>
-        <AuthImageBox variant={role} />
+        <AuthImageBox
+          variant={role}
+          sx={{
+            backgroundImage: `${
+              isSmUp && role === ROLE.CUSTOMER
+                ? ' linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.72) 100%),url(/images/auth/auth-model1.webp)'
+                : ''
+            }`,
+            backgroundSize: 'cover'
+          }}
+        />
         {isSmUp && role === ROLE.CUSTOMER && (
           <AuthFreeCreditsInnerBoxContainer>
             <Box component="img" src="/images/home/gitftsecond.png" alt="gift_icon" width={170} height={210} />

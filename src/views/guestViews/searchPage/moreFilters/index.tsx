@@ -22,7 +22,7 @@ import LanguageFilter from './languageFilter';
 import { usePathname } from 'next/navigation';
 import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { useRouter } from 'next/navigation';
 import AgeFilter from './ageFilter';
 import GenderFilter from './gender';
@@ -124,7 +124,6 @@ const MoreFilters = ({ open, languages, handleClose }: { open: boolean; language
     if (pathname === '/' && filterCount === 0) router.push('/');
     if (pathname === '/' && filterCount === 1 && objParams.page) return;
 
-    const isDetailsPage = pathname.startsWith('/details/');
     const isMultiple = [
       'language',
       'isOnline',
@@ -139,21 +138,13 @@ const MoreFilters = ({ open, languages, handleClose }: { open: boolean; language
     ].filter((x) => Object.keys(objParams).includes(x));
 
     if (filterCount === 0) {
-      if (isDetailsPage) {
-        router.push(pathname);
-      } else {
-        router.push('/');
-      }
+      router.push(pathname);
     } else {
       if (isMultiple.length) {
-        if (isDetailsPage) {
-          router.push(`${pathname}?${queryString}`);
-        } else {
-          router.push(`/?${queryString}`);
-        }
+        router.push(`${pathname}?${queryString}`);
       } else {
-        if (isDetailsPage) {
-          router.push(`${pathname}?${queryString}`);
+        if (objParams.email) {
+          return;
         } else {
           router.push(`/${pathname}?${queryString}`);
         }

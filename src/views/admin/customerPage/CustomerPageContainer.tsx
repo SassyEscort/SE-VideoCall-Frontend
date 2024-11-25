@@ -7,7 +7,6 @@ import Table from '@mui/material/Table';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import TableContainer from '@mui/material/TableContainer';
@@ -32,6 +31,10 @@ import { ModelActionPopover, NotFoundBox, SortBox, StackBoxContainer, StackFirst
 import PaginationSearch from 'components/common/CustomPaginations/PaginationSearch';
 import { CustomerDetailsPage } from 'services/adminModel/types';
 import CustorModel from './CustomerModel';
+import { useAuthContext } from 'contexts/AuthContext';
+import { isPageAccessiable } from 'utils/Admin/PagePermission';
+import { CustomerPage } from 'constants/adminUserAccessConstants';
+import { useRouter } from 'next/navigation';
 
 export type WorkersPaginationType = {
   page: number;
@@ -59,6 +62,8 @@ export type TokenIdTypeAdmin = {
 };
 
 export default function CustomerPageContainer() {
+  const router = useRouter();
+
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selected, setSelected] = useState<CustomerDetailsPage>();
@@ -68,6 +73,8 @@ export default function CustomerPageContainer() {
   const [totalRecords, setTotalRecords] = useState(0);
   const [creditModalOpen, setCreditModalOpen] = useState(false);
   const [selectedPayoutData, setSelectedPayoutData] = useState<CustomerDetailsPage | null>(null);
+
+  const { adminUserPermissions, isAdmin } = useAuthContext();
 
   const currentMoment = moment();
   const oneMonthAgoMoment = moment().subtract(1, 'month');
@@ -183,10 +190,18 @@ export default function CustomerPageContainer() {
     setCreditModalOpen(false);
   };
 
+  useEffect(() => {
+    if (adminUserPermissions) {
+      const isAccessiable = isPageAccessiable(CustomerPage, adminUserPermissions) || isAdmin;
+      isAccessiable ? '' : router.push('/admin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adminUserPermissions, isAdmin]);
+
   return (
     <>
       <MainLayout>
-        <Container>
+        <>
           <StackBoxContainer>
             <Typography variant="h4" gutterBottom>
               Customer
@@ -278,7 +293,7 @@ export default function CustomerPageContainer() {
               )}
             </Paper>
           </Card>
-        </Container>
+        </>
         <ModelActionPopover
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}

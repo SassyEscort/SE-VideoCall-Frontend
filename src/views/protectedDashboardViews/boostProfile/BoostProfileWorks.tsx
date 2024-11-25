@@ -1,4 +1,3 @@
-import { Box, useMediaQuery } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 import theme from 'themes/theme';
 import {
@@ -23,6 +22,8 @@ import Image from 'next/image';
 import { BoostProfileWorksBox } from './BoostMultiplePackage.styled';
 import StyleBoostButton from 'components/UIComponents/StyleBoostButton';
 import { ProfilePlanResData } from 'services/commonApi/commonApi.services';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Box from '@mui/material/Box';
 
 const BoostProfileWorks = ({
   handleBoostOpen,
@@ -51,6 +52,7 @@ const BoostProfileWorks = ({
                 <BoxImageBackgroundBoost>
                   <BoxImageBackgroundChildBoost>
                     <Image
+                      loading="lazy"
                       alt="instant_boost"
                       width={24}
                       height={24}
@@ -76,6 +78,7 @@ const BoostProfileWorks = ({
                 <BoxImageBackgroundBoost>
                   <BoxImageBackgroundChildBoost>
                     <Image
+                      loading="lazy"
                       alt="duration_logo"
                       width={24}
                       height={24}
@@ -100,6 +103,7 @@ const BoostProfileWorks = ({
                 <BoxImageBackgroundBoost>
                   <BoxImageBackgroundChildBoost>
                     <Image
+                      loading="lazy"
                       alt="cost_icon"
                       width={24}
                       height={24}
@@ -133,6 +137,7 @@ const BoostProfileWorks = ({
                   <BoxImageBackgroundBoost>
                     <BoxImageBackgroundChildBoost>
                       <Image
+                        loading="lazy"
                         alt="instant_boost"
                         width={24}
                         height={24}
@@ -157,6 +162,7 @@ const BoostProfileWorks = ({
                   <BoxImageBackgroundBoost>
                     <BoxImageBackgroundChildBoost>
                       <Image
+                        loading="lazy"
                         alt="more_icon"
                         width={24}
                         height={24}
@@ -181,6 +187,7 @@ const BoostProfileWorks = ({
                   <BoxImageBackgroundBoost>
                     <BoxImageBackgroundChildBoost>
                       <Image
+                        loading="lazy"
                         alt="flex.png"
                         width={24}
                         height={24}
@@ -209,6 +216,7 @@ const BoostProfileWorks = ({
               <MainBoostButtonBoxContainer>
                 <SecondBoostButtonBox>
                   <Image
+                    loading="lazy"
                     src="/images/boostProfile/fire.png"
                     height={110}
                     width={100}
@@ -233,6 +241,7 @@ const BoostProfileWorks = ({
             <MainBoostButtonBoxContainer>
               <SecondBoostButtonBox>
                 <Image
+                  loading="lazy"
                   src="/images/boostProfile/fire.png"
                   height={110}
                   width={100}

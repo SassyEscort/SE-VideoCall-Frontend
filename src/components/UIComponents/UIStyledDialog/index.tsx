@@ -1,5 +1,7 @@
 'use client';
-import { Dialog, styled } from '@mui/material';
+
+import Dialog from '@mui/material/Dialog';
+import { styled } from '@mui/material/styles';
 
 const UIStyledDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
@@ -11,7 +13,7 @@ const UIStyledDialog = styled(Dialog)(({ theme }) => ({
     backdropFilter: 'blur(12px)'
   },
   '& .MuiPaper-root': {
-    maxWidth: 920,
+    maxWidth: '920px',
     borderRadius: theme.spacing(1.5)
   }
 }));

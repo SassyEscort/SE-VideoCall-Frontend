@@ -1,5 +1,7 @@
-import { Box, styled, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const MainConatiner = styled(Box)(({ theme }) => ({

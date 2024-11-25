@@ -1,19 +1,8 @@
 'use client';
-import { Toolbar } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
-
-export const ProfileMenuMainContainer = styled(Box)(({ theme }) => ({
-  width: '100%',
-  minWidth: '130px',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  '& .MuiMenuItem-root ': { width: '100%' },
-  paddingTop: theme.spacing(0.875),
-  paddingBottom: theme.spacing(0.875)
-}));
 
 export const WorkerNavItemContainer = styled(Toolbar)(({ theme }) => ({
   justifyContent: 'space-between',
@@ -31,13 +20,6 @@ export const WorkerNavItemContainer = styled(Toolbar)(({ theme }) => ({
     paddingRight: theme.spacing(16.75),
     paddingLeft: theme.spacing(16.75)
   }
-}));
-
-export const HeaderBoxContainer = styled(Box)(() => ({
-  display: 'flex',
-  textAlign: 'center',
-  alignItems: 'center',
-  cursor: 'pointer'
 }));
 
 export const UnReadCountMain = styled(Box)(() => ({

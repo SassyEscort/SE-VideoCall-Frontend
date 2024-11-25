@@ -1,7 +1,7 @@
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
 import { FreeMode, Navigation, Thumbs, Mousewheel } from 'swiper/modules';
-import { useRef, useState } from 'react';
+import { memo, useRef, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
@@ -33,20 +33,34 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import GuestLogin from 'views/auth/guestLogin';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestSignup from 'views/auth/guestSignup';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import { sortExistingPhotos } from 'utils/photoUtils';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
 import { usePathname, useRouter } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
-import { useCallFeatureContext } from '../../../../../context/CallFeatureContext';
-import GuestFreeCreditsSignup from 'views/auth/guestFreeCreditsSignup';
+import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
+import dynamic from 'next/dynamic';
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
+  ssr: false
+});
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
+  ssr: false
+});
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
+  ssr: false
+});
+const GuestFreeCreditsSignup = dynamic(() => import('views/auth/guestFreeCreditsSignup'), {
+  ssr: false
+});
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
+  ssr: false
+});
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
+  ssr: false
+});
 
-export const EscortSlider = ({
+const EscortSlider = ({
   workerPhotos,
   modelId,
   token,
@@ -65,7 +79,7 @@ export const EscortSlider = ({
   guestData: ModelDetailsResponse;
   isFreeCreditAvailable: number;
 }) => {
-  const { user } = useCallFeatureContext();
+  const { user } = useZegoCallFeatureContext();
   const path = usePathname();
   const router = useRouter();
   const userName = path.split('/')[2];
@@ -317,7 +331,7 @@ export const EscortSlider = ({
             variant="contained"
           >
             <Box display="flex" alignItems="center" gap="10px">
-              <Image src="/images/workercards/video-call.svg" alt="video-call" height={24} width={24} />
+              <Image loading="lazy" src="/images/workercards/video-call.svg" alt="video-call" height={24} width={24} />
               <UINewTypography color="common.white" variant="bodySemiBold" sx={{ textWrap: 'no-wrap', lineHeight: '120%' }}>
                 <FormattedMessage id="StartVideoCall" />
               </UINewTypography>
@@ -338,9 +352,9 @@ export const EscortSlider = ({
           </UIStyledShadowButtonLike>
         </Box>
 
-        <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth scroll="body">
+        <NewSignupStyledModalDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth scroll="body">
           <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-        </UIStyledDialog>
+        </NewSignupStyledModalDialog>
         <UIStyledDialog open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth scroll="body">
           <GuestLogin
             isFreeCreditAvailable={isFreeCreditAvailable}
@@ -369,3 +383,4 @@ export const EscortSlider = ({
     </>
   );
 };
+export default memo(EscortSlider);

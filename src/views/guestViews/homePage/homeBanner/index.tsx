@@ -3,44 +3,57 @@ import theme from 'themes/theme';
 import Image from 'next/image';
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import {
-  BannerContainer,
-  InlineBox,
-  InlineBoxRelative,
-  TypographyBox,
-  HomeExploreBox,
-  SubTitle,
-  TextBoxContainer,
-  ModelsHeadingBox,
-  FristBoxContainer,
-  SecondBoxContainer,
-  TopBoxContainer,
-  ThirdBoxContainer,
-  TextContainer,
-  SignupTextContainer,
-  ExploreTextContainer,
-  FirstBoxContainer,
-  SecBoxContainer,
-  GiftBoxFirst,
-  GiftBoxSecond
-} from './HomeBanner.styled';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import GuestSignup from 'views/auth/guestSignup';
-import GuestForgetPasswordLink from 'views/auth/guestForgetPasswordLink';
-import GuestLogin from 'views/auth/guestLogin';
 import { User } from 'app/(guest)/layout';
-// import ProfileMenu from 'components/UIComponents/UIStyleHeader';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import ButtonFreeCredits from '../buttonFreeCredits';
 import React from 'react';
-import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
-import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import { gaEventTrigger } from 'utils/analytics';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
-import { useAuthContext } from '../../../../../context/AuthContext';
+import { useAuthContext } from '../../../../contexts/AuthContext';
+// import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
+import dynamic from 'next/dynamic';
+import {
+  TopBoxContainer,
+  FristBoxContainer,
+  TextBoxContainer,
+  BannerContainer,
+  FirstBoxContainer,
+  SecBoxContainer,
+  InlineBox,
+  InlineBoxRelative,
+  TypographyBox,
+  ThirdBoxContainer,
+  SecondBoxContainer,
+  SignupTextContainer,
+  ExploreTextContainer,
+  TextContainer,
+  GiftBoxFirst,
+  GiftBoxSecond,
+  ModelsHeadingBox,
+  HomeExploreBox,
+  SubTitle
+} from './HomeBanner.styled';
+import { BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
+// import HomeHeroBanner from './HomeHeroBanner';
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
+  ssr: false
+});
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
+  ssr: false
+});
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
+  ssr: false
+});
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
+  ssr: false
+});
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
+  ssr: false
+});
 
 const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const { session } = useAuthContext();
@@ -129,7 +142,6 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
   const handleCloseModal = () => {
     setIsModalOpenFreeCredits(false);
   };
-
   return (
     <>
       {(session?.user as User)?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM ? (
@@ -206,32 +218,29 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 )}
               </ThirdBoxContainer>
             </FirstBoxContainer>
-
-            <Box
-              pr={{ xs: 3, sm: 0 }}
-              pl={{ xs: 3, sm: 0 }}
-              display="flex"
-              alignItems="flex-end"
-              justifyContent={{ xs: 'center', sm: 'flex-start', lg: 'flex-end' }}
-              pt={{ xs: 0, lg: '83px' }}
-            >
+            {/* <HomeHeroBanner isSm={isSm} isSmDown={isSmDown} /> */}
+            <BannerImageCard>
               <Image
                 alt="home_model"
+                decoding="async"
                 width={isSm && isSmDown ? 300 : isSmDown ? 347 : 462}
                 height={isSmDown ? 339 : 452}
-                src="/images/home/home-banner-model.webp"
+                src="/images/home/home-banner-model1.webp"
                 style={{ borderRadius: '12px', right: 0 }}
-                priority
+                priority={true}
+                loading="eager"
+                fetchPriority="high"
+                sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, 462px"
               />
-            </Box>
+            </BannerImageCard>
           </BannerContainer>
           {isSmDown && (
             <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} onSignupOpen={handleFreeCreditSignupOpen} />
           )}{' '}
           {isSmDown && isFreeCreditAvailable && !isModalOpenFreeCredits && !freeSignupOpen && !openLogin && (
             <Box sx={{ position: 'relative', cursor: 'pointer' }} onClick={handleBoxClick}>
-              <GiftBoxFirst></GiftBoxFirst>
-              <GiftBoxSecond></GiftBoxSecond>
+              <GiftBoxFirst />
+              <GiftBoxSecond />
               {/* <GiftBoxThird></GiftBoxThird> */}
             </Box>
           )}
@@ -265,7 +274,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
         }}
         PaperProps={{
           sx: {
-            maxWidth: 920,
+            maxWidth: 1080,
             borderRadius: '12px'
           }
         }}
@@ -334,12 +343,12 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
       >
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </Dialog>
-      <UIStyledDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
+      <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
         <HomePageFreeSignup onLoginOpen={handleLoginOpen} onClose={handleFreeCreditSignupClose} />
-      </UIStyledDialog>
+      </NewSignupStyledModalDialog>
       {/* <ProfileMenu open={openDropDown} handleClose={handleDropDownClose} anchorEl={anchorEl} onSignupOpen={handleSignupOpen} /> */}
     </>
   );
 };
 
-export default HomeTopBanner;
+export default memo(HomeTopBanner);

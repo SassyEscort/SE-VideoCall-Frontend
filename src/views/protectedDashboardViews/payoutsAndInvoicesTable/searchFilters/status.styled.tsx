@@ -1,8 +1,9 @@
-import { FormControl, Typography } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
 import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import Box from '@mui/system/Box';
 
-export const StatusBoxContainer = styled(Typography)(({ theme }) => ({
+export const StatusBoxContainer = styled(Typography)(() => ({
   display: 'block',
   whiteSpace: 'nowrap',
   overflow: 'hidden',
