@@ -1,6 +1,6 @@
 import { Divider, Box, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   ChatBoxMainContainer,
   ChatBoxInnerContainer,
@@ -22,27 +22,24 @@ import CustomComposerView from './CustomComposerView';
 import theme from 'themes/theme';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ChatSidbar from './ChatSidbar';
-import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
-import { IMessage } from 'services/chatServices/chat.service';
 import moment from 'moment';
-interface IChatDescriptionProps {
-  handleMessageInputChange: (val: string) => void;
-  modelDetails?: ModelDetailsResponse;
-  messages: IMessage[];
-}
-const ChatDescription = ({ handleMessageInputChange, modelDetails, messages }: IChatDescriptionProps) => {
+import { useChatFeatureContext } from 'contexts/chatFeatureContext';
+
+const ChatDescription = () => {
+  const { handleMessageInputChange, modelDetails, messages, selectedModelDetails } = useChatFeatureContext();
   const [showSidebar, setShowSidebar] = useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   const handleBackClick = () => {
     setShowSidebar(true);
   };
+
   const favPhoto = modelDetails?.photos?.filter((x) => x.favourite).map((item) => item.link)[0];
 
   return (
     <>
       {showSidebar ? (
-        <ChatSidbar onSelectModel={() => setShowSidebar(false)} modelDetails={modelDetails} />
+        <ChatSidbar onSelectModel={() => setShowSidebar(false)} />
       ) : (
         <>
           {isSmUp && (
@@ -58,11 +55,11 @@ const ChatDescription = ({ handleMessageInputChange, modelDetails, messages }: I
                           <ModelNameContainer>
                             <ProfileImageContainer
                               sx={{
-                                backgroundImage: `url(${favPhoto})`
+                                backgroundImage: `url(${selectedModelDetails?.profile_pic || favPhoto})`
                               }}
                             />
                             <UINewTypography variant="subtitle" color="text.secondary">
-                              {modelDetails?.name}
+                              {selectedModelDetails?.name || modelDetails?.name}
                             </UINewTypography>
                           </ModelNameContainer>
 
@@ -80,37 +77,40 @@ const ChatDescription = ({ handleMessageInputChange, modelDetails, messages }: I
                         overflowY: 'auto'
                       }}
                     >
-                      {messages.map((messages, index) => (
-                        <TextMainBoxContainer key={index}>
-                          <ClientChatMainBoxContainer>
-                            <ClientChatTextBoxContainer>
-                              <UINewTypography variant="body1" color="text.secondary">
-                                {messages?.message}
-                              </UINewTypography>
-                            </ClientChatTextBoxContainer>
+                      {Array.isArray(messages) &&
+                        messages?.map((message, index) => (
+                          <TextMainBoxContainer key={index}>
+                            {message.sender_type === 'customers' ? (
+                              <ClientChatMainBoxContainer>
+                                <ClientChatTextBoxContainer>
+                                  <UINewTypography variant="body1" color="text.secondary">
+                                    {message.sender_type === 'customers' ? message?.message_content : ''}
+                                  </UINewTypography>
+                                </ClientChatTextBoxContainer>
 
-                            <UINewTypography
-                              variant="SubtitleSmallRegular"
-                              color="secondary.700"
-                              sx={{ display: 'flex', justifyContent: 'end' }}
-                            >
-                              {messages?.createdAt ? moment(messages.createdAt).format('LT') : moment().format('LT')}
-                            </UINewTypography>
-                          </ClientChatMainBoxContainer>
+                                <UINewTypography
+                                  variant="SubtitleSmallRegular"
+                                  color="secondary.700"
+                                  sx={{ display: 'flex', justifyContent: 'end' }}
+                                >
+                                  {message?.time_stamp ? moment(message.time_stamp).format('LT') : moment().format('LT')}
+                                </UINewTypography>
+                              </ClientChatMainBoxContainer>
+                            ) : (
+                              <ModelChatMainBoxContainer>
+                                <ModelChatTextBoxContainer>
+                                  <UINewTypography variant="body1" color="text.secondary">
+                                    {message.sender_type !== 'customers' ? message?.message_content : ''}
+                                  </UINewTypography>
+                                </ModelChatTextBoxContainer>
 
-                          <ModelChatMainBoxContainer>
-                            <ModelChatTextBoxContainer>
-                              <UINewTypography variant="body1" color="text.secondary">
-                                Hey {modelDetails?.name}, are you available at 8 in the evening?
-                              </UINewTypography>
-                            </ModelChatTextBoxContainer>
-
-                            <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
-                              6:38 PM
-                            </UINewTypography>
-                          </ModelChatMainBoxContainer>
-                        </TextMainBoxContainer>
-                      ))}
+                                <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
+                                  {message?.time_stamp ? moment(message.time_stamp).format('LT') : moment().format('LT')}
+                                </UINewTypography>
+                              </ModelChatMainBoxContainer>
+                            )}
+                          </TextMainBoxContainer>
+                        ))}
                     </Box>
                   </ModelDetailsInnerBoxContainer>
 
@@ -134,11 +134,11 @@ const ChatDescription = ({ handleMessageInputChange, modelDetails, messages }: I
                           <ModelNameContainer>
                             <ProfileImageContainer
                               sx={{
-                                backgroundImage: `url(${favPhoto})`
+                                backgroundImage: `url(${selectedModelDetails?.profile_pic || favPhoto})`
                               }}
                             />
                             <UINewTypography variant="subtitle" color="text.secondary">
-                              {modelDetails?.name}
+                              {selectedModelDetails?.name || modelDetails?.name}
                             </UINewTypography>
                           </ModelNameContainer>
 
@@ -150,37 +150,40 @@ const ChatDescription = ({ handleMessageInputChange, modelDetails, messages }: I
                       </ChatBoxHeaderContainer>
                       <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29', mt: '16px' }} />
                     </Box>
-                    {messages.map((messages, index) => (
-                      <TextMainBoxContainer key={index}>
-                        <ClientChatMainBoxContainer>
-                          <ClientChatTextBoxContainer>
-                            <UINewTypography variant="body1" color="text.secondary">
-                              {messages.message}
-                            </UINewTypography>
-                          </ClientChatTextBoxContainer>
+                    {Array.isArray(messages) &&
+                      messages?.map((message, index) => (
+                        <TextMainBoxContainer key={index}>
+                          {message.sender_type === 'customers' ? (
+                            <ClientChatMainBoxContainer>
+                              <ClientChatTextBoxContainer>
+                                <UINewTypography variant="body1" color="text.secondary">
+                                  {message.sender_type === 'customers' ? message?.message_content : ''}
+                                </UINewTypography>
+                              </ClientChatTextBoxContainer>
 
-                          <UINewTypography
-                            variant="SubtitleSmallRegular"
-                            color="secondary.700"
-                            sx={{ display: 'flex', justifyContent: 'end' }}
-                          >
-                            {messages?.createdAt ? moment(messages.createdAt).format('LT') : moment().format('LT')}
-                          </UINewTypography>
-                        </ClientChatMainBoxContainer>
+                              <UINewTypography
+                                variant="SubtitleSmallRegular"
+                                color="secondary.700"
+                                sx={{ display: 'flex', justifyContent: 'end' }}
+                              >
+                                {message?.time_stamp ? moment(message.time_stamp).format('LT') : moment().format('LT')}
+                              </UINewTypography>
+                            </ClientChatMainBoxContainer>
+                          ) : (
+                            <ModelChatMainBoxContainer>
+                              <ModelChatTextBoxContainer>
+                                <UINewTypography variant="body1" color="text.secondary">
+                                  {message.sender_type !== 'customers' ? message?.message_content : ''}
+                                </UINewTypography>
+                              </ModelChatTextBoxContainer>
 
-                        <ModelChatMainBoxContainer>
-                          <ModelChatTextBoxContainer>
-                            <UINewTypography variant="body1" color="text.secondary">
-                              Hey Aesha, are you available at 8 in the evening?
-                            </UINewTypography>
-                          </ModelChatTextBoxContainer>
-
-                          <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
-                            6:38 PM
-                          </UINewTypography>
-                        </ModelChatMainBoxContainer>
-                      </TextMainBoxContainer>
-                    ))}
+                              <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
+                                {message?.time_stamp ? moment(message.time_stamp).format('LT') : moment().format('LT')}
+                              </UINewTypography>
+                            </ModelChatMainBoxContainer>
+                          )}
+                        </TextMainBoxContainer>
+                      ))}
                   </ModelDetailsInnerBoxContainer>
 
                   <CustomComposerView onSendMessage={handleMessageInputChange} />

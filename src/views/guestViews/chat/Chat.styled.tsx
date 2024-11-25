@@ -19,10 +19,10 @@ export const ImageContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const ProfileImageContainer = styled(Box)(({ theme }) => ({
-  width: '100%',
-  minWidth: '24px',
-  height: '100%',
-  minHeight: '24px',
+  width: '32px',
+  // minWidth: '24px',
+  height: '32px',
+  // minHeight: '24px',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
@@ -83,13 +83,13 @@ export const OnlineFirstBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  width: '100%',
-  minWidth: '12px',
-  height: '100%',
-  maxHeight: '12px',
+  width: '12px',
+  // minWidth: '12px',
+  height: '12px',
+  // maxHeight: '12px',
   border: '1px  #79E02852',
-  borderRadius: '50%',
-  backgroundColor: '#79E02852'
+  borderRadius: '50%'
+  // backgroundColor: '#79E02852'
 }));
 
 export const OnlineSecBoxContainer = styled(Box)(({ theme }) => ({
@@ -226,7 +226,8 @@ export const ChatBoxHeaderInnerContainer = styled(Box)(({ theme }) => ({
 
 export const ModelNameContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(1)
+  gap: theme.spacing(1),
+  alignItems: 'center'
 }));
 
 export const TextMainBoxContainer = styled(Box)(({ theme }) => ({

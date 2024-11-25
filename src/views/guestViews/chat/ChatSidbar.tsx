@@ -22,17 +22,13 @@ import {
 import theme from 'themes/theme';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
-import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
+import moment from 'moment';
+import { useChatFeatureContext } from 'contexts/chatFeatureContext';
 
-const ChatSidbar = ({ onSelectModel, modelDetails }: { onSelectModel: (model: any) => void; modelDetails?: ModelDetailsResponse }) => {
+const ChatSidbar = ({ onSelectModel }: { onSelectModel: (model: any) => void }) => {
+  const { historyOfModels, handleSelectedModelDetails } = useChatFeatureContext();
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const [searchQuery, setSearchQuery] = useState('');
-
-  const favPhoto = modelDetails?.photos?.filter((x) => x.favourite).map((item) => item.link)[0];
-
-  const searchLower = searchQuery.toLowerCase();
-
-  const isMatchingModel = modelDetails?.name?.toLowerCase().includes(searchLower);
 
   return (
     <ModelDetailsMainBoxContainer>
@@ -48,7 +44,7 @@ const ChatSidbar = ({ onSelectModel, modelDetails }: { onSelectModel: (model: an
               </OnlineFirstBoxContainer>
 
               <UINewTypography variant="SubtitleSmallMedium" color="text.primary">
-                (2)
+                {historyOfModels.length}
               </UINewTypography>
             </ModelReplyBoxContainer>
           </ModelHeaderBoxContainer>
@@ -88,37 +84,48 @@ const ChatSidbar = ({ onSelectModel, modelDetails }: { onSelectModel: (model: an
       )}
 
       <ModelDetailsInnerBoxContainer>
-        {isMatchingModel && (
-          <React.Fragment>
-            <ModelInformationMainBoxContainer onClick={() => onSelectModel(true)}>
-              <ModelInformationInnerBoxContainer>
-                <ImageContainer
-                  sx={{
-                    backgroundImage: `url(${favPhoto})`
-                  }}
-                />
-                <ModelNameBoxContainer>
-                  <ModelNameText color="text.secondary">{modelDetails?.name}</ModelNameText>
-                  <ModelDescriptionText color="text.primary">description</ModelDescriptionText>
-                </ModelNameBoxContainer>
-              </ModelInformationInnerBoxContainer>
+        {historyOfModels?.length ? (
+          historyOfModels.map((history, index) => (
+            <React.Fragment key={index}>
+              <ModelInformationMainBoxContainer
+                onClick={() => {
+                  onSelectModel(true);
+                  handleSelectedModelDetails && handleSelectedModelDetails(history);
+                }}
+              >
+                <ModelInformationInnerBoxContainer>
+                  <ImageContainer
+                    sx={{
+                      backgroundImage: `url(${history.profile_pic})`
+                    }}
+                  />
+                  <ModelNameBoxContainer>
+                    <ModelNameText color="text.secondary">{history?.name}</ModelNameText>
+                    <ModelDescriptionText color="text.primary">{history.message_content}</ModelDescriptionText>
+                  </ModelNameBoxContainer>
+                </ModelInformationInnerBoxContainer>
 
-              <PendingMainBoxContainer>
-                {isSmUp && (
-                  <UINewTypography variant="bodySmall" color="text.primary" sx={{ whiteSpace: 'nowrap' }}>
-                    time
-                  </UINewTypography>
-                )}
-                <PendingInnerBoxContainer>
-                  <UINewTypography variant="SubtitleSmallMedium" color="text.secondary">
-                    2
-                  </UINewTypography>
-                </PendingInnerBoxContainer>
-              </PendingMainBoxContainer>
-            </ModelInformationMainBoxContainer>
+                <PendingMainBoxContainer>
+                  {isSmUp && (
+                    <UINewTypography variant="bodySmall" color="text.primary" sx={{ whiteSpace: 'nowrap' }}>
+                      {history?.time_stamp ? moment(history.time_stamp).format('LT') : moment().format('LT')}
+                    </UINewTypography>
+                  )}
+                  {history?.unread_count > 0 && (
+                    <PendingInnerBoxContainer>
+                      <UINewTypography variant="SubtitleSmallMedium" color="text.secondary">
+                        {history?.unread_count}
+                      </UINewTypography>
+                    </PendingInnerBoxContainer>
+                  )}
+                </PendingMainBoxContainer>
+              </ModelInformationMainBoxContainer>
 
-            <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29' }} />
-          </React.Fragment>
+              <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29' }} />
+            </React.Fragment>
+          ))
+        ) : (
+          <></>
         )}
       </ModelDetailsInnerBoxContainer>
     </ModelDetailsMainBoxContainer>

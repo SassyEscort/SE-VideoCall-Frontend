@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { IHistoryOfChats } from 'views/protectedModelViews/verification/verificationTypes';
 
 export interface IFechChatMessageParams {
   senderUID: string;
@@ -19,32 +20,40 @@ export interface IMessage {
   createdAt: string;
 }
 
+export interface ISocketMessage {
+  id: string;
+  message_content: string;
+  message_type: string;
+  receiver_id: string;
+  receiver_type: string;
+  seen: boolean;
+  sender_id: string;
+  sender_type: string;
+  time_stamp: string;
+  __v: number;
+  _id: string;
+}
+
 export interface IMessageResponse {
-  data: {
-    id: string;
-    senderUID: string;
-    message: string;
-    receiverUID: string;
-    createdAt: string;
-  };
+  data: IHistoryOfChats[];
 }
 
 export class ChatService {
-  static sendChatMessage = async (params: IChatMessageParams, token: string): Promise<IMessageResponse> => {
-    try {
-      const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/chat/send-message`, params, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token
-        }
-      });
+  // static sendChatMessage = async (params: IChatMessageParams, token: string): Promise<IMessageResponse> => {
+  //   try {
+  //     const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/chat/send-message`, params, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: token
+  //       }
+  //     });
 
-      return res.data;
-    } catch (err: any) {
-      const error: AxiosError = err;
-      return error.response?.data as IMessageResponse;
-    }
-  };
+  //     return res.data;
+  //   } catch (err: any) {
+  //     const error: AxiosError = err;
+  //     return error.response?.data as IMessageResponse;
+  //   }
+  // };
 
   static fetchChatMessage = async (params: IFechChatMessageParams, token: string): Promise<IMessage[]> => {
     try {
@@ -59,6 +68,26 @@ export class ChatService {
     } catch (err: any) {
       const error: AxiosError = err;
       return error.response?.data as IMessage[];
+    }
+  };
+
+  static chatHistoryMessage = async (params: string, token: string): Promise<IMessageResponse> => {
+    try {
+      const res = await axios.post(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/chat/history-list`,
+        { user_name: params },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+          }
+        }
+      );
+
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as IMessageResponse;
     }
   };
 }

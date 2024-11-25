@@ -14,7 +14,6 @@ const CustomComposerView = ({ onSendMessage, modelName }: CustomComposerViewProp
 
   const handleSend = () => {
     if (message.trim()) {
-      console.log(message);
       onSendMessage(message);
       setMessage('');
     }
