@@ -54,7 +54,7 @@ const CreditSideDrawer = ({
 
   const router = useRouter();
   const pathname = usePathname();
-  const isDetailsPage = pathname.startsWith('/details');
+  const isDetailsPage = pathname.startsWith('/models');
   const userName = pathname?.split('/')?.[2] || '';
 
   useEffect(() => {
