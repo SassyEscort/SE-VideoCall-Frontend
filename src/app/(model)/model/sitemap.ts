@@ -22,7 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const models = await getModels();
   return [
     ...models.map((x: any) => ({
-      url: `https://flirtbate.com/details/${x.user_name}`,
+      url: `https://flirtbate.com/models/${x.user_name}`,
       lastModified: new Date(),
       priority: 0.8
     }))

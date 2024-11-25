@@ -34,7 +34,7 @@ const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
       //     await CometChatUIKit.logout();
       //   }
       // }
-      await signOut({ callbackUrl: asPath.startsWith('/model') ? '/model' : '/' });
+      await signOut({ callbackUrl: asPath.startsWith('/model') && !asPath.startsWith('/model') ? '/model' : '/' });
     } catch (error) {
       toast.error('Error during sign-out:');
     } finally {

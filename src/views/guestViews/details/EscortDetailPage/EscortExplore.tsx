@@ -85,7 +85,7 @@ const EscortExplore = () => {
     }
     if (pathname === '/' && filterCount === 1 && objParams.page) return;
 
-    const isDetailsPage = pathname.startsWith('/details/');
+    const isDetailsPage = pathname.startsWith('/models/');
     const isMultiple = [
       'language',
       'isOnline',
