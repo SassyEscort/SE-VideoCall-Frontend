@@ -15,6 +15,10 @@ const Footer = dynamic(() => import('views/guestViews/guestLayout/footer'), {
   ssr: false
 });
 
+const GuestGuard = dynamic(() => import('utils/route-guard/GuestGuard'), {
+  ssr: false
+});
+
 export interface User {
   name?: string | null;
   email?: string | null;
@@ -58,12 +62,12 @@ export default async function Layout({ children }: { children: React.ReactNode }
   }
 
   return (
-    <>
+    <GuestGuard>
       {HeaderComponent}
       <main>
         <Box>{children}</Box>
       </main>
       <Footer />
-    </>
+    </GuestGuard>
   );
 }
