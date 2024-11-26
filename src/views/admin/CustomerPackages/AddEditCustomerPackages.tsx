@@ -49,7 +49,7 @@ const AddEditCustomerPackages = ({
         const res = await adminCustomerPackagesServices.addNewPackage(values, token.token);
         if (res) {
           if (res.code === 200) {
-            toast.success('Success');
+            toast.success('New Package Added Successfully');
             handelFetchPackages();
           } else if (res.code === 400) {
             toast.error('Credits & Amount Should Be greater than 0');
@@ -72,7 +72,7 @@ const AddEditCustomerPackages = ({
         const res = await adminCustomerPackagesServices.updatePackage(selectedPackages?.id, values, token.token);
         if (res) {
           if (res.code === 200) {
-            toast.success('Success');
+            toast.success('Package Updated Successfully');
             handelFetchPackages();
           }
         }

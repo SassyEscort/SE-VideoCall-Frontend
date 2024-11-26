@@ -51,7 +51,7 @@ function CustomerPackagesContainer() {
         const res = await adminCustomerPackagesServices.deletePackageById(id, token.token);
         if (res) {
           if (res.code === 200) {
-            toast.success('Success');
+            toast.success('Package Deleted Successfully');
             handelFetchPackages();
           }
         }
