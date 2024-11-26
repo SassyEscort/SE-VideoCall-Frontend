@@ -68,9 +68,11 @@ const ChatDescription = () => {
                             </UINewTypography>
                           </ModelNameContainer>
 
-                          <OnlineFirstBoxContainer>
-                            <OnlineSecBoxContainer />
-                          </OnlineFirstBoxContainer>
+                          {(selectedModelDetails?.is_online === 1 || modelDetails?.is_online === 1) && (
+                            <OnlineFirstBoxContainer>
+                              <OnlineSecBoxContainer />
+                            </OnlineFirstBoxContainer>
+                          )}
                         </ChatBoxHeaderInnerContainer>
                         <Box component="img" src="/images/icons/video-call-icon.svg" width={40} height={40} sx={{ cursor: 'pointer' }} />
                       </ChatBoxHeaderContainer>
@@ -148,9 +150,11 @@ const ChatDescription = () => {
                             </UINewTypography>
                           </ModelNameContainer>
 
-                          <OnlineFirstBoxContainer>
-                            <OnlineSecBoxContainer />
-                          </OnlineFirstBoxContainer>
+                          {(selectedModelDetails?.is_online === 1 || modelDetails?.is_online === 1) && (
+                            <OnlineFirstBoxContainer>
+                              <OnlineSecBoxContainer />
+                            </OnlineFirstBoxContainer>
+                          )}
                         </ChatBoxHeaderInnerContainer>
                         <Box component="img" src="/images/icons/video-call-icon.svg" width={40} height={40} sx={{ cursor: 'pointer' }} />
                       </ChatBoxHeaderContainer>

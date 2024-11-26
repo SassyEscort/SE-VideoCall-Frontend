@@ -1,5 +1,4 @@
 import axios, { AxiosError } from 'axios';
-import { IHistoryOfChats } from 'views/protectedModelViews/verification/verificationTypes';
 
 export interface IFechChatMessageParams {
   senderUID: string;
@@ -34,8 +33,26 @@ export interface ISocketMessage {
   _id: string;
 }
 
+export interface IModelHistoryList {
+  id: string;
+  sender_id: string;
+  receiver_id: string;
+  message_content: string;
+  seen: boolean;
+  message_type: string;
+  time_stamp: string;
+  name: string;
+  is_online: number;
+  profile_pic: string;
+  unread_count: number;
+}
+
 export interface IMessageResponse {
-  data: IHistoryOfChats[];
+  data: IMainMessageResponse;
+}
+export interface IMainMessageResponse {
+  history_list: IModelHistoryList[];
+  online_count: number;
 }
 
 export interface IHistoryOfChatParams {

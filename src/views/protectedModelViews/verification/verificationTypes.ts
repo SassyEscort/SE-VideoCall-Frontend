@@ -110,4 +110,5 @@ export interface IHistoryOfChats {
   name: string;
   profile_pic: string;
   unread_count: number;
+  is_online: number;
 }

@@ -139,7 +139,10 @@ export const MobileSearchBoxContainer = styled(TextField)(({ theme }) => ({
 export const ModelDetailsInnerBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(3)
+  gap: theme.spacing(3),
+  overflowY: 'auto',
+  maxHeight: '70vh',
+  scrollbarWidth: 'none'
 }));
 
 export const ModelInformationMainBoxContainer = styled(Box)(({ theme }) => ({
@@ -318,6 +321,9 @@ export const PendingInnerBoxContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const ModelNameText = styled(Typography)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(0.5),
   [theme.breakpoints.down('sm')]: {
     fontSize: '14px',
     fontWeight: 500,

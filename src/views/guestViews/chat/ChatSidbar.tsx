@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
-import { Divider, useMediaQuery } from '@mui/material';
+import React, { memo, useEffect, useRef } from 'react';
+import { Box, Divider, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
   ModelDetailsMainBoxContainer,
@@ -26,8 +26,22 @@ import moment from 'moment';
 import { useChatFeatureContext } from 'contexts/chatFeatureContext';
 
 const ChatSidbar = ({ onSelectModel }: { onSelectModel: (model: any) => void }) => {
-  const { modelHistoryListSearch, historyOfModels, handleSelectedModelDetails, handleHistoryModleListSearch } = useChatFeatureContext();
+  const { modelHistoryListSearch, historyOfModels, onlineModelsCount, handleSelectedModelDetails, handleHistoryModleListSearch } =
+    useChatFeatureContext();
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+
+  useEffect(() => {
+    const outerBox = document.getElementById('mainHistoryBox');
+    const innerBox = document.getElementById('innerHistoryBox');
+    if (innerBox && outerBox) {
+      const scrollTopValue = innerBox?.offsetTop - outerBox?.offsetTop;
+
+      outerBox?.scrollTo({
+        top: scrollTopValue,
+        behavior: 'smooth'
+      });
+    }
+  }, [historyOfModels]);
 
   return (
     <ModelDetailsMainBoxContainer>
@@ -38,13 +52,17 @@ const ChatSidbar = ({ onSelectModel }: { onSelectModel: (model: any) => void }) 
               Chat
             </UINewTypography>
             <ModelReplyBoxContainer>
-              <OnlineFirstBoxContainer>
-                <OnlineSecBoxContainer />
-              </OnlineFirstBoxContainer>
+              {onlineModelsCount > 0 && (
+                <>
+                  <OnlineFirstBoxContainer>
+                    <OnlineSecBoxContainer />
+                  </OnlineFirstBoxContainer>
 
-              <UINewTypography variant="SubtitleSmallMedium" color="text.primary">
-                {historyOfModels.length}
-              </UINewTypography>
+                  <UINewTypography variant="SubtitleSmallMedium" color="text.primary">
+                    {onlineModelsCount}
+                  </UINewTypography>
+                </>
+              )}
             </ModelReplyBoxContainer>
           </ModelHeaderBoxContainer>
 
@@ -82,7 +100,8 @@ const ChatSidbar = ({ onSelectModel }: { onSelectModel: (model: any) => void }) 
         />
       )}
 
-      <ModelDetailsInnerBoxContainer>
+      <ModelDetailsInnerBoxContainer id="mainHistoryBox">
+        <Box id="innerHistoryBox" />
         {historyOfModels?.length ? (
           historyOfModels.map((history, index) => (
             <React.Fragment key={index}>
@@ -99,7 +118,14 @@ const ChatSidbar = ({ onSelectModel }: { onSelectModel: (model: any) => void }) 
                     }}
                   />
                   <ModelNameBoxContainer>
-                    <ModelNameText color="text.secondary">{history?.name}</ModelNameText>
+                    <ModelNameText color="text.secondary">
+                      {history?.name}
+                      {history?.is_online === 1 && (
+                        <OnlineFirstBoxContainer>
+                          <OnlineSecBoxContainer />
+                        </OnlineFirstBoxContainer>
+                      )}
+                    </ModelNameText>
                     <ModelDescriptionText color="text.primary">{history.message_content}</ModelDescriptionText>
                   </ModelNameBoxContainer>
                 </ModelInformationInnerBoxContainer>
