@@ -1,6 +1,6 @@
 import { Divider, Box, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import {
   ChatBoxMainContainer,
   ChatBoxInnerContainer,
@@ -211,4 +211,4 @@ const ChatDescription = () => {
   );
 };
 
-export default ChatDescription;
+export default memo(ChatDescription);

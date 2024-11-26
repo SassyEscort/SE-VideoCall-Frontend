@@ -120,7 +120,10 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     if (socket && input.trim() !== '') {
       const newMessage = {
         sender_id: userDetails.customer_user_name,
-        receiver_id: selectedModelDetails?.receiver_id || userId[0],
+        receiver_id:
+          selectedModelDetails.receiver_id === userDetails.customer_user_name
+            ? selectedModelDetails.sender_id
+            : selectedModelDetails.receiver_id || userId[0],
         message: input,
         message_type: 'text',
         receiver_type: isCustomer ? 'model' : 'customers',
@@ -137,8 +140,6 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   };
 
   const handleHistoryModleListSearch = (input: string) => {
-    console.log(input, 'input');
-
     setModelHistoryListSearch(input);
   };
 
@@ -183,23 +184,31 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       newSocket.emit('join', userDetails.customer_user_name);
     });
 
+    // // Emit message-seen events for all unseen messages in the current chat
+    const unseenMessages = messages.filter((msg) => msg.sender_id !== userId && !msg.seen);
+
+    unseenMessages.forEach((msg) => {
+      newSocket.emit('mark-message-seen', { id: msg.id, sender_id: msg.sender_id, receiver_id: msg.receiver_id });
+    });
+
+    newSocket.on('message-seen', ({ id }) => {
+      setMessages((prev) => {
+        const updatedMessages = prev.map((message) => {
+          if (!message.seen) {
+            return {
+              ...message,
+              seen: true
+            };
+          }
+          return message;
+        });
+        return updatedMessages;
+      });
+    });
+
     newSocket.on('disconnect', () => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages, userId]);
-
-  useEffect(() => {
-    if (socket) {
-      const unseenMessages = messages.filter((msg) => msg.sender_id === userDetails.customer_user_name && !msg.seen).map((msg) => msg._id); // Get array of message IDs
-
-      if (unseenMessages.length > 0) {
-        socket.emit('mark-messages-seen', {
-          messageIds: unseenMessages,
-          sender_id: userDetails.customer_user_name
-        });
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messages, socket]);
 
   useEffect(() => {
     const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_BASE_URL!);
@@ -211,19 +220,32 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       // Emit the getChatHistory event when connected
       newSocket.emit('getChatHistory', {
         userId: userDetails.customer_user_name,
-        otherUserId: selectedModelDetails?.receiver_id || userId[0]
+        otherUserId:
+          selectedModelDetails.receiver_id === userDetails.customer_user_name
+            ? selectedModelDetails.sender_id
+            : selectedModelDetails.receiver_id || userId[0]
       });
     });
 
     newSocket.on('disconnect', () => {});
 
-    newSocket.on('chat-message', (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
+    newSocket.on('chat-message', (message: ISocketMessage) => {
+      if (
+        message.sender_id ===
+        (selectedModelDetails.receiver_id === userDetails.customer_user_name
+          ? selectedModelDetails.sender_id
+          : selectedModelDetails.receiver_id || userId[0])
+      ) {
+        setMessages((prevMessages) => [...prevMessages, message]);
+      } else if (message.sender_id === userDetails.customer_user_name) {
+        setMessages((prevMessages) => [...prevMessages, message]);
+      }
+      handleChatedModleHistoryList();
     });
 
     // Handle the received chat history
-    newSocket.on('chatHistory', (chatHistory) => {
-      setMessages(chatHistory);
+    newSocket.on('chatHistory', (chatHistory: ISocketMessage[]) => {
+      setMessages(chatHistory.sort((a, b) => Number(new Date(a.time_stamp)) - Number(new Date(b.time_stamp))));
     });
 
     return () => {
@@ -236,6 +258,29 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     debouncedChangeSearch(modelHistoryListSearch);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modelHistoryListSearch]);
+
+  useEffect(() => {
+    if (socket) {
+      const unseenMessages = messages
+        .filter(
+          (msg) =>
+            msg.sender_id ===
+              (selectedModelDetails.receiver_id === userDetails.customer_user_name
+                ? selectedModelDetails.sender_id
+                : selectedModelDetails.receiver_id || userId[0]) && !msg.seen
+        )
+        .map((msg) => msg._id);
+
+      if (unseenMessages.length > 0) {
+        socket.emit('mark-messages-seen', {
+          messageIds: unseenMessages,
+          sender_id: userDetails.customer_user_name
+        });
+        handleChatedModleHistoryList();
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userDetails.customer_user_name, messages, socket]);
 
   return (
     <ChatFeatureContext.Provider

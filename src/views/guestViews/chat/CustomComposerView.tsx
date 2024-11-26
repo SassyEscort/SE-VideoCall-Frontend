@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { Box, Button } from '@mui/material';
-import Image from 'next/image';
 import { ChatMessageInput, ComposeMessageControlWrapper } from './ChatFeature.styled';
 
 interface CustomComposerViewProps {
@@ -35,9 +34,6 @@ const CustomComposerView = ({ onSendMessage, modelName }: CustomComposerViewProp
         onKeyDown={handleKeyDown}
         endAdornment={
           <Box className="end-adornment-main-box">
-            <Box className="heart-box" sx={{ cursor: 'pointer' }}>
-              <Image alt="sticker" src={'/images/icons/heart-icon.png'} height={24} width={24} />
-            </Box>
             <Button className="send-button" variant="contained" onClick={handleSend}>
               Send
             </Button>

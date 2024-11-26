@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Divider, useMediaQuery } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
@@ -131,4 +131,4 @@ const ChatSidbar = ({ onSelectModel }: { onSelectModel: (model: any) => void }) 
   );
 };
 
-export default ChatSidbar;
+export default memo(ChatSidbar);

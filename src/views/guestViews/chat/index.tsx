@@ -4,6 +4,7 @@ import { ChatMainBoxContainer } from './Chat.styled';
 import ChatDescription from './ChatDescription';
 import { useMediaQuery, useTheme } from '@mui/material';
 import { useChatFeatureContext } from 'contexts/chatFeatureContext';
+import { memo } from 'react';
 
 const ChatFeature = () => {
   const { selectedModel, handleModelSelect } = useChatFeatureContext();
@@ -18,4 +19,4 @@ const ChatFeature = () => {
   );
 };
 
-export default ChatFeature;
+export default memo(ChatFeature);
