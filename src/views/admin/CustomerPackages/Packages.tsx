@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Image from 'next/image';
 import { CreditDetailBox, NoPackageBox, PackageBox, PackageCreditDetailBox, TagLable } from './CustomerPackage.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { AdminPackagesRes } from 'services/adminCustomerPackages/adminCustomerPackages.services';
@@ -66,7 +65,7 @@ function Packages({
                             handelDeletePackages(item);
                           }}
                         >
-                          <Image src="/images/Icons/DeleteRed.svg" width={20} height={20} alt="Delete" />
+                          <Box component="img" src="/images/Icons/DeleteRed.svg" width={20} height={20} alt="Delete" />
                         </IconButton>
                       </Box>
                     )}

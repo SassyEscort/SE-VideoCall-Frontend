@@ -1,9 +1,9 @@
 import CustomerPackagesContainer from 'views/admin/CustomerPackages/CustomerPackagesContainer';
 
-const AdminMain = () => (
+const AdminPackages = () => (
   <>
     <CustomerPackagesContainer />
   </>
 );
 
-export default AdminMain;
+export default AdminPackages;
