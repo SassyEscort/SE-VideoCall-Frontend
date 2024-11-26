@@ -24,8 +24,8 @@ function Packages({
   return (
     <>
       <Grid container rowSpacing={3} columnSpacing={{ xs: 1 }}>
-        {packages && packages.length > 0 ? (
-          packages.map((item, index) => (
+        {packages && packages?.length > 0 ? (
+          packages?.map((item, index) => (
             <Grid item xs={6} sm={4} md={3} lg={2} key={index}>
               <Card sx={{ maxWidth: '180px' }}>
                 <Paper sx={{ overflow: 'hidden' }}>
