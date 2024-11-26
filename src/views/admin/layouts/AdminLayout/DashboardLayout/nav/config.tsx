@@ -8,6 +8,7 @@ import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import SettingsIcon from '@mui/icons-material/Settings';
 import GroupIcon from '@mui/icons-material/Group';
+import EuroIcon from '@mui/icons-material/Euro';
 import { AdminUserPermissions } from 'contexts/AuthContext';
 
 export const getNavConfig = (adminUserPermissions: AdminUserPermissions[] | undefined, isAdmin: boolean, id?: number) => {
@@ -26,6 +27,11 @@ export const getNavConfig = (adminUserPermissions: AdminUserPermissions[] | unde
       title: 'Customer',
       path: '/admin/customer',
       icon: <PersonIcon />
+    },
+    {
+      title: 'Packages',
+      path: '/admin/packages',
+      icon: <EuroIcon />
     },
     {
       title: 'Payout',

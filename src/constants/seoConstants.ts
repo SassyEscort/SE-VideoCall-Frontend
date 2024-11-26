@@ -7,3 +7,8 @@ export enum SEO_DATA_CAM_TO_CAM {
   TITLE = 'Private Cam to Cam Sex Chat with Girls | Interactive Adult Video & Chat',
   DESCRIPTION = 'Connect in real-time with girls through private cam-to-cam sex chat and adult video services. Enjoy secure, engaging adult chat rooms tailored to your desires.'
 }
+
+export enum SEO_DATA_CHAT_WITH_GIRLS {
+  TITLE = 'Chat with Girl - Live Video Chat with Girls & Horny Babes Online',
+  DESCRIPTION = 'Join Flirtbate for live video chats with girls, flirty babes, and horny girls. Experience private and exciting conversations online today!'
+}
