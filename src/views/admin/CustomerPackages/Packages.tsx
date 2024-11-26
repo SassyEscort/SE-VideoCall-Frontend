@@ -27,7 +27,7 @@ function Packages({
         {packages && packages.length > 0 ? (
           packages.map((item, index) => (
             <Grid item xs={6} sm={4} md={3} lg={2} key={index}>
-              <Card sx={{ maxWidth: '169px' }}>
+              <Card sx={{ maxWidth: '180px' }}>
                 <Paper sx={{ overflow: 'hidden' }}>
                   <PackageBox>
                     <Box>Package {index + 1}</Box>

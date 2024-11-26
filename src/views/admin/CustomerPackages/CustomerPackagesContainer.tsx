@@ -84,7 +84,7 @@ function CustomerPackagesContainer() {
     <MainLayout>
       <MainTitleBox>
         <Typography variant="h4" gutterBottom>
-          Create and edit packages
+          Packages
         </Typography>
         <Box>
           {UpdatePermission && (
