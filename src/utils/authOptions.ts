@@ -28,7 +28,7 @@ export const authOptions: NextAuthOptions = {
           });
 
           if (user && typeof user !== 'string' && user.data) {
-            if (user.data?.role === 'customer' && currentPage.includes('/model') && !currentPage.includes('/models')) {
+            if (user.data?.role === 'customer' && !currentPage.includes('/models') && currentPage.includes('/model')) {
               throw new Error('CustomersCannotAccess');
             } else {
               user.data.accessToken = user.data.token;
