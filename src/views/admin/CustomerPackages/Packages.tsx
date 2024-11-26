@@ -13,11 +13,13 @@ import { AdminPackagesRes } from 'services/adminCustomerPackages/adminCustomerPa
 function Packages({
   packages,
   handelEditPackages,
-  handelDeletePackages
+  handelDeletePackages,
+  UpdatePermission
 }: {
   packages: AdminPackagesRes[];
   handelEditPackages: (item: AdminPackagesRes) => void;
   handelDeletePackages: (item: AdminPackagesRes) => void;
+  UpdatePermission: boolean;
 }) {
   return (
     <>
@@ -46,26 +48,28 @@ function Packages({
                         <UINewTypography variant="bodySmall">Price</UINewTypography>
                       </CreditDetailBox>
                     </PackageCreditDetailBox>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <Button
-                        variant="text"
-                        size="small"
-                        sx={{ justifyContent: 'start', padding: 0 }}
-                        onClick={() => {
-                          handelEditPackages(item);
-                        }}
-                      >
-                        Edit
-                      </Button>
-                      <IconButton
-                        size="small"
-                        onClick={() => {
-                          handelDeletePackages(item);
-                        }}
-                      >
-                        <Image src="/images/Icons/DeleteRed.svg" width={20} height={20} alt="Delete" />
-                      </IconButton>
-                    </Box>
+                    {UpdatePermission && (
+                      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Button
+                          variant="text"
+                          size="small"
+                          sx={{ justifyContent: 'start', padding: 0 }}
+                          onClick={() => {
+                            handelEditPackages(item);
+                          }}
+                        >
+                          Edit
+                        </Button>
+                        <IconButton
+                          size="small"
+                          onClick={() => {
+                            handelDeletePackages(item);
+                          }}
+                        >
+                          <Image src="/images/Icons/DeleteRed.svg" width={20} height={20} alt="Delete" />
+                        </IconButton>
+                      </Box>
+                    )}
                   </PackageBox>
                 </Paper>
               </Card>

@@ -13,13 +13,20 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import DeleteModal from 'components/UIComponents/DeleteModal';
 import { MainTitleBox } from './CustomerPackage.styled';
+import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
+import { PackagePage } from 'constants/adminUserAccessConstants';
+import { useRouter } from 'next/navigation';
 
 function CustomerPackagesContainer() {
+  const router = useRouter();
+
   const [open, setOpen] = useState(false);
-  const { token } = useAuthContext();
+  const { token, isAdmin, adminUserPermissions } = useAuthContext();
   const [packages, setPackages] = useState<AdminPackagesRes[]>([]);
   const [selectedPackage, setSelectedPackage] = useState<AdminPackagesRes | null>(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+  const UpdatePermission = (adminUserPermissions ? haveUpdatePermission(PackagePage, adminUserPermissions) : false) || isAdmin;
 
   const handelFetchPackages = async () => {
     if (token.token) {
@@ -65,6 +72,14 @@ function CustomerPackagesContainer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
+  useEffect(() => {
+    if (adminUserPermissions) {
+      const isAccessiable = isPageAccessiable(PackagePage, adminUserPermissions) || isAdmin;
+      isAccessiable ? '' : router.push('/admin');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adminUserPermissions, isAdmin]);
+
   return (
     <MainLayout>
       <MainTitleBox>
@@ -72,19 +87,26 @@ function CustomerPackagesContainer() {
           Create and edit packages
         </Typography>
         <Box>
-          <Button
-            size="large"
-            variant="text"
-            startIcon={<AddBoxIcon />}
-            onClick={() => setOpen(true)}
-            sx={{ width: '100%', color: 'primary.400' }}
-          >
-            Add package
-          </Button>
+          {UpdatePermission && (
+            <Button
+              size="large"
+              variant="text"
+              startIcon={<AddBoxIcon />}
+              onClick={() => setOpen(true)}
+              sx={{ width: '100%', color: 'primary.400' }}
+            >
+              Add package
+            </Button>
+          )}
         </Box>
       </MainTitleBox>
 
-      <Packages packages={packages} handelEditPackages={handelEditPackages} handelDeletePackages={handelDeletePackages} />
+      <Packages
+        UpdatePermission={UpdatePermission}
+        packages={packages}
+        handelEditPackages={handelEditPackages}
+        handelDeletePackages={handelDeletePackages}
+      />
 
       <AddEditCustomerPackages
         open={open}

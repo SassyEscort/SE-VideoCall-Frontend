@@ -6,6 +6,7 @@ export const CallPricePage = 'call price';
 export const BoostPage = 'boost';
 export const SEOPage = 'SEO';
 export const SettingsPage = 'setting';
+export const PackagePage = 'packages';
 
 export const PermissionConstants = {
   Update: 'Update',
