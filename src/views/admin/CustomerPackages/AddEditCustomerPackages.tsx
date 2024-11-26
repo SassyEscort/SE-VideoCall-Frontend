@@ -1,4 +1,6 @@
-import { LoadingButton } from '@mui/lab';
+'use client';
+
+import LoadingButton from '@mui/lab/LoadingButton';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -36,8 +38,11 @@ const AddEditCustomerPackages = ({
   const { token } = useAuthContext();
 
   const validationSchema = yup.object({
-    amount: yup.string().required('Price is required'),
-    credits: yup.number().required('Credits is required')
+    amount: yup
+      .string()
+      .required('Price is required')
+      .test('is-greater-than-zero', 'Price must be greater than 0', (value) => parseFloat(value) > 0.0),
+    credits: yup.number().required('Credits is required').min(1, 'Credits must be greater than 0')
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -102,10 +107,10 @@ const AddEditCustomerPackages = ({
       </DialogTitle>
       <Formik
         initialValues={{
-          tag: selectedPackages?.tag ? selectedPackages?.tag : '',
-          amount: selectedPackages?.amount ? selectedPackages?.amount.toString() : '0.0',
-          credits: selectedPackages?.credits ? selectedPackages?.credits : 0.0,
-          discount: selectedPackages?.discount ? selectedPackages?.discount.toString() : '0.0'
+          tag: selectedPackages?.tag || '',
+          amount: selectedPackages?.amount?.toString() || '0.0',
+          credits: selectedPackages?.credits || 0.0,
+          discount: selectedPackages?.discount?.toString() || '0.0'
         }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {

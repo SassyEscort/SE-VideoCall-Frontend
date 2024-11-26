@@ -26,7 +26,7 @@ export type AdminPackagesResponse = GenericResponse & {
 export class adminCustomerPackagesServices {
   static getCustomerPackages = async (token: string): Promise<AdminPackagesResponse> => {
     try {
-      const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/credits/credit-package?limit=20&offset=0`;
+      const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/admin/credits/credit-package?limit=1000&offset=0`;
 
       const res = await axios.get<AdminPackagesResponse>(url, {
         headers: { 'Content-Type': 'application/json', Authorization: token }
