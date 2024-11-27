@@ -22,7 +22,11 @@ const RedirectGuard = ({ children }: GuardProps) => {
         } catch (error) {}
       }
       const role = picture?.role;
-      if (json?.user?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM && role === 'model' && window?.location?.pathname === '/') {
+      if (
+        json?.user?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM &&
+        role === 'model' &&
+        (window?.location?.pathname === '/' || window?.location?.pathname?.includes('/models'))
+      ) {
         if (session && session.user) {
           const parsedPicture = JSON.parse((session?.user as any)?.picture);
           if (parsedPicture.profile_status === MODEL_ACTION.REJECT) {

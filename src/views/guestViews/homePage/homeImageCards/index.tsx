@@ -173,7 +173,7 @@ const HomeImageCard = ({
                           component={Link}
                           prefetch={true}
                           shallow={true}
-                          href={`/details/${item.user_name}`}
+                          href={`/models/${item.user_name}`}
                           onClick={() => handleModelRedirect(item.user_name)}
                           sx={{
                             textDecoration: 'none',
@@ -195,7 +195,7 @@ const HomeImageCard = ({
                           component={Link}
                           prefetch={true}
                           shallow={true}
-                          href={`/details/${item.user_name}`}
+                          href={`/models/${item.user_name}`}
                           sx={{
                             textDecoration: 'none',
                             height: '100%'

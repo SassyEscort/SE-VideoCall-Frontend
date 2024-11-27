@@ -80,7 +80,7 @@ const BillingDetails = ({
 
   const handleVideoCall = (selectDetails: ViewDetailsRes) => {
     if (selectDetails.user_name) {
-      router.push(`/details/${selectDetails.user_name}`);
+      router.push(`/models/${selectDetails.user_name}`);
     }
   };
   return (

@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     const title = res?.title ? res?.title : genericTitle;
     const keywords = res?.keywords ? res?.keywords : genericKeywords;
     const description = res?.description ? res?.description : genericDescription;
-    const canonicalUrl = `https://flirtbate.com/details/${model}`;
+    const canonicalUrl = `https://flirtbate.com/models/${model}`;
 
     return {
       title,
@@ -30,6 +30,12 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
       description,
       alternates: {
         canonical: canonicalUrl
+      }
+    };
+  } else {
+    return {
+      alternates: {
+        canonical: `https://flirtbate.com/models`
       }
     };
   }

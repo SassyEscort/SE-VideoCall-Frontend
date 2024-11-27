@@ -161,7 +161,7 @@ const MoreFilters = ({ open, languages, handleClose }: { open: boolean; language
 
     if (pathname === '/' && !queryString) {
       router.push('/');
-    } else if (pathname.startsWith('/details/')) {
+    } else if (pathname.startsWith('/models/')) {
       router.push(`${pathname}`);
     } else {
       router.push(`/${pathname}?${queryString}`);

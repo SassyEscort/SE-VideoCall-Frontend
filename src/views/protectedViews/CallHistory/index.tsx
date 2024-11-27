@@ -167,7 +167,7 @@ const CallHistory = () => {
   const handleVideoCall = (list: CallHistoryDetails) => {
     if (list.user_name) {
       setIsLoadingDetails(true);
-      router.push(`/details/${list.user_name}`);
+      router.push(`/models/${list.user_name}`);
       setIsLoadingDetails(false);
     }
   };
