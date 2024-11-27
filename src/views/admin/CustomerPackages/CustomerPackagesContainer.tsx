@@ -25,14 +25,17 @@ function CustomerPackagesContainer() {
   const [packages, setPackages] = useState<AdminPackagesRes[]>([]);
   const [selectedPackage, setSelectedPackage] = useState<AdminPackagesRes | null>(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const UpdatePermission = (adminUserPermissions ? haveUpdatePermission(PackagePage, adminUserPermissions) : false) || isAdmin;
 
   const handelFetchPackages = async () => {
+    setIsLoading(true);
     if (token.token) {
       const res = await adminCustomerPackagesServices.getCustomerPackages(token.token);
       setPackages(res?.data?.plans);
     }
+    setIsLoading(false);
   };
 
   const handelEditPackages = (item: AdminPackagesRes) => {
@@ -106,6 +109,7 @@ function CustomerPackagesContainer() {
         packages={packages}
         handelEditPackages={handelEditPackages}
         handelDeletePackages={handelDeletePackages}
+        isLoading={isLoading}
       />
 
       <AddEditCustomerPackages
