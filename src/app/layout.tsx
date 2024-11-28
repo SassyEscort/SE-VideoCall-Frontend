@@ -6,11 +6,6 @@ import AuthFeaturProvider from 'contexts/AuthContext';
 import TawkProvider from 'contexts/TawkContext';
 import { SEO_DATA } from 'constants/seoConstants';
 import Script from 'next/script';
-// import dynamic from 'next/dynamic';
-// import '../app/globals.scss';
-// const ProviderWrapper = dynamic(() => import('./ProviderWrapper'));
-// // const TawkProvider = dynamic(() => import('contexts/TawkContext'));
-// // const AuthFeaturProvider = dynamic(() => import('contexts/AuthContext'));
 
 export const metadata: Metadata = {
   title: SEO_DATA.TITLE,

@@ -6,18 +6,10 @@ import { getLoggedInUser } from 'utils/getSessionData';
 // import GuestGuard from 'utils/route-guard/GuestGuard';
 // import Footer from 'views/guestViews/guestLayout/footer';
 // import Header from 'views/protectedViews/protectedLayout/Header';
-const Header = dynamic(() => import('views/protectedViews/protectedLayout/Header'), {
-  ssr: false
-});
-const Footer = dynamic(() => import('views/guestViews/guestLayout/footer'), {
-  ssr: false
-});
-const GuestGuard = dynamic(() => import('utils/route-guard/GuestGuard'), {
-  ssr: false
-});
-const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/Header'), {
-  ssr: false
-});
+const Header = dynamic(() => import('views/protectedViews/protectedLayout/Header'));
+const Footer = dynamic(() => import('views/guestViews/guestLayout/footer'));
+const GuestGuard = dynamic(() => import('utils/route-guard/GuestGuard'));
+const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/Header'));
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const authUser: AuthUser | null = await getLoggedInUser();

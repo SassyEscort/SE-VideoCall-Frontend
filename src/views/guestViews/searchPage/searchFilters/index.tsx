@@ -10,29 +10,12 @@ import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 // import GenderFilter from './GenderFilter';
-const AgeFilter = dynamic(() => import('./AgeFilter'), {
-  ssr: false
-});
-const GenderFilter = dynamic(() => import('./GenderFilter'), {
-  ssr: false
-});
-const CountryFilter = dynamic(() => import('./CountryFilter'), {
-  ssr: false
-});
-const CurrentlyOnline = dynamic(() => import('./CurrentlyOnline'), {
-  ssr: false
-});
-const Price = dynamic(() => import('./Price'), {
-  ssr: false
-});
-const HomeMainContainer = dynamic(() => import('views/guestViews/guestLayout/homeContainer'), {
-  ssr: false
-});
-// const AgeFilter = lazy(() => import('./AgeFilter'));
-// const GenderFilter = lazy(() => import('./GenderFilter'));
-// const CountryFilter = lazy(() => import('./CountryFilter'));
-// const CurrentlyOnline = lazy(() => import('./CurrentlyOnline'));
-// const Price = lazy(() => import('./Price'));
+const AgeFilter = dynamic(() => import('./AgeFilter'));
+const GenderFilter = dynamic(() => import('./GenderFilter'));
+const CountryFilter = dynamic(() => import('./CountryFilter'));
+const CurrentlyOnline = dynamic(() => import('./CurrentlyOnline'));
+const Price = dynamic(() => import('./Price'));
+const HomeMainContainer = dynamic(() => import('views/guestViews/guestLayout/homeContainer'));
 
 export type SearchFiltersTypes = {
   fromAge: string;

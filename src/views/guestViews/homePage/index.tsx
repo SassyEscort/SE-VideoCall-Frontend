@@ -16,7 +16,7 @@ const HomeConnections = dynamic(() => import('./HomeConnections'));
 
 const BackdropProgress = dynamic(() => import('components/UIComponents/BackDropProgress'));
 
-const HomeContainer = async () => {
+const HomeContainer = () => {
   const authContext = useAuthContext();
   const isFreeCreditAvailable = authContext?.isFreeCreditAvailable || 1;
   const { data } = useSession();

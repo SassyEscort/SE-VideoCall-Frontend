@@ -14,11 +14,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { ToastContainer } from 'react-toastify';
 import ThemeCustomization from 'themes';
 import { SessionProvider } from 'next-auth/react';
+import Locales from 'components/Locales';
+import { ConfigProvider } from 'contexts/configContext';
+
 const GoogleTagManager = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleTagManager));
 const GoogleAnalytics = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleAnalytics));
-const Locales = dynamic(() => import('components/Locales').then((module) => module.default));
-const ConfigProvider = dynamic(() => import('contexts/configContext').then((module) => module.ConfigProvider));
-
 const manropeFont = Manrope({ subsets: ['latin'], display: 'swap' });
 
 const ProviderWrapper = ({ children }: { children: JSX.Element }) => {

@@ -24,28 +24,13 @@ import Divider from '@mui/material/Divider';
 import FreeCreditsSignUp from '../homePage/freeCreditsSignUp';
 import { SearchTitalBoxSm } from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/HeaderAuthComponent.styled';
 import dynamic from 'next/dynamic';
-const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
-  ssr: false
-});
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
-  ssr: false
-});
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
-  ssr: false
-});
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
-  ssr: false
-});
-const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
-  ssr: false
-});
-const ChatRoomDropdown = dynamic(() => import('components/common/stepper/ChatDropDown'), {
-  ssr: false
-});
-
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
-  ssr: false
-});
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'));
+const ChatRoomDropdown = dynamic(() => import('components/common/stepper/ChatDropDown'));
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
 
 const HeaderGuestComponent = () => {
   const { isFreeCreditAvailable } = useAuthContext();

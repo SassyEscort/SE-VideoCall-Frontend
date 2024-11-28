@@ -55,7 +55,7 @@ const MoreFilters = ({ open, languages, handleClose }: { open: boolean; language
     if (open) {
       setFilters(cloneDeep(initialFilters()));
     }
-  }, [open]);
+  }, [open, initialFilters]);
 
   const handleChangePrice = (value: string) => {
     const priceRange = value.split('-');

@@ -269,8 +269,8 @@ const VerificationBasicDetails = ({
 
   const sendLinkVerify = async () => {
     touched.email = true;
-    let source;
-    source = pathName=== '/model/dashboard' ? EMAIL_SOURCE.ONBOARDED : EMAIL_SOURCE.DETAILS;
+    let source = EMAIL_SOURCE.DETAILS;
+    if (pathName === '/model/dashboard') source = EMAIL_SOURCE.ONBOARDED;
     try {
       if (!errors.email && token.token) {
         const data = await ModelAuthService.modelForgetPasswordLinkStep(values.email, token.token, source);

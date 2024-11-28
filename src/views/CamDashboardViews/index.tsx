@@ -1,3 +1,4 @@
+'use client';
 import CamToCamDashboardBanner from './camMainBanner';
 import CamToCamChooseModal from './camChooseModalViews';
 import CamConnectionLevel from './camConnectinonLevelViews';
@@ -7,12 +8,10 @@ import WebcamDashboardBeyond from './webCamBeyondDashboard';
 import CamExperienceBanner from './camExperienceBanner';
 import CamPerks from './camPerksViews';
 import HomeContainer from 'views/guestViews/homePage';
-import { ROLE } from 'constants/workerVerification';
-import { getUserDataServerSide } from 'utils/getSessionData';
+import { useAuthContext } from 'contexts/AuthContext';
 
-export const CamToCamDashboard = async () => {
-  const session = await getUserDataServerSide();
-  const isCustomer = session?.role === ROLE.CUSTOMER;
+export const CamToCamDashboard = () => {
+  const { isCustomer } = useAuthContext();
 
   return (
     <>
