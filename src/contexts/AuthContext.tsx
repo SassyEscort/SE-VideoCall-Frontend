@@ -74,7 +74,7 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openCreditDrawer, setOpenCreditDrawer] = useState(false);
 
-  const user = (session?.user as User)?.picture;
+  const user = (data?.user as User)?.picture;
   const providerData = JSON.parse(user || '{}');
 
   const isCustomer = providerData?.role === ROLE.CUSTOMER;

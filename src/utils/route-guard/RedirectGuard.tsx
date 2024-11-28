@@ -5,10 +5,10 @@ import { GuardProps } from 'types/auth';
 import { useRouter, usePathname } from 'next/navigation';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
-import { useAuthContext } from '../../contexts/AuthContext';
+import { useSession } from 'next-auth/react';
 
 const RedirectGuard = ({ children }: GuardProps) => {
-  const { session } = useAuthContext();
+  const { data: session } = useSession();
   const router = useRouter();
   const pathName = usePathname();
 

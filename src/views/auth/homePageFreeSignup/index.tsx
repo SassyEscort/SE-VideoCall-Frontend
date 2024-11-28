@@ -7,7 +7,7 @@ import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RiEyeLine, RiEyeOffLine, RiMailLine, RiUserFillLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { ROLE } from 'constants/workerVerification';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
@@ -21,33 +21,25 @@ import { ErrorMessage } from 'constants/common.constants';
 import { useRouter } from 'next/navigation';
 import { getErrorMessage } from 'utils/errorUtils';
 import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
-const GuestSignupSuccess = lazy(() => import('../GuestSignupSuccess'));
-const StyleButtonV2 = lazy(() => import('components/UIComponents/StyleLoadingButton'));
-const AuthHomePageFreeSignupCommon = lazy(() => import('./AuthHomePageFreeSignupCommon'));
-const HomePageFreeSignupMobile = lazy(() => import('./HomePageFreeSignupMobile'));
-const ErrorBox = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })));
-const ModelUICustomUIBox = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUICustomUIBox })));
-const ModelUITextConatiner = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })));
-const UIButtonText = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })));
-const UITypographyText = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })));
-const HeaderTextInnerBoxContainer = lazy(() =>
-  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HeaderTextInnerBoxContainer }))
-);
-const HeaderTextMainBoxContainer = lazy(() =>
-  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HeaderTextMainBoxContainer }))
-);
-const HomeFreeSignupMainBoxContainer = lazy(() =>
-  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HomeFreeSignupMainBoxContainer }))
-);
-const IconeButtonContainer = lazy(() => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.IconeButtonContainer })));
-const JoinForFreeText = lazy(() => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.JoinForFreeText })));
-const RemindMeBoxContainer = lazy(() => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.RemindMeBoxContainer })));
 import FormControl from '@mui/material/FormControl';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { signIn } from 'next-auth/react';
 import { gaEventTrigger } from 'utils/analytics';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
+import { ErrorBox, ModelUITextConatiner, ModelUICustomUIBox, UITypographyText, UIButtonText } from '../AuthCommon.styled';
+import GuestSignupSuccess from '../GuestSignupSuccess';
+import AuthHomePageFreeSignupCommon from './AuthHomePageFreeSignupCommon';
+import { HeaderTextMainBoxContainer } from './AuthHomePageFreeSignupCommon.styled';
+import {
+  HomeFreeSignupMainBoxContainer,
+  JoinForFreeText,
+  HeaderTextInnerBoxContainer,
+  IconeButtonContainer,
+  RemindMeBoxContainer
+} from './HomePageFreeSignup.styled';
+import HomePageFreeSignupMobile from './HomePageFreeSignupMobile';
 
 export type SignupParams = {
   name: string;

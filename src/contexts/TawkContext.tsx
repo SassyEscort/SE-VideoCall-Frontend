@@ -1,7 +1,7 @@
 'use client';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { useAuthContext } from './AuthContext';
+import { useSession } from 'next-auth/react';
 
 interface TawkContextType {
   isLoaded: boolean;
@@ -20,7 +20,7 @@ const TawkContext = createContext<TawkContextType | undefined>(undefined);
 
 const TawkProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const { session } = useAuthContext();
+  const { data: session } = useSession();
   const pathname = usePathname();
 
   const initializeChat = () => {

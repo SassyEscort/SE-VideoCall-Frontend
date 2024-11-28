@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import ProviderWrapper from './ProviderWrapper';
 import AuthFeaturProvider from 'contexts/AuthContext';
@@ -174,11 +174,13 @@ export default function RootLayout({
             />
           </>
         )} */}
-        <ProviderWrapper>
-          <AuthFeaturProvider>
-            <TawkProvider>{children}</TawkProvider>
-          </AuthFeaturProvider>
-        </ProviderWrapper>
+        <Suspense fallback={<div>Loading...</div>}>
+          <ProviderWrapper>
+            <AuthFeaturProvider>
+              <TawkProvider>{children}</TawkProvider>
+            </AuthFeaturProvider>
+          </ProviderWrapper>
+        </Suspense>
       </body>
     </html>
   );

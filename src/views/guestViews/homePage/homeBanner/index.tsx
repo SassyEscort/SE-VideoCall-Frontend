@@ -13,7 +13,6 @@ import ButtonFreeCredits from '../buttonFreeCredits';
 import React from 'react';
 import { gaEventTrigger } from 'utils/analytics';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
-import { useAuthContext } from '../../../../contexts/AuthContext';
 // import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import dynamic from 'next/dynamic';
 import {
@@ -38,6 +37,7 @@ import {
   SubTitle
 } from './HomeBanner.styled';
 import { BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
+import { useSession } from 'next-auth/react';
 // import HomeHeroBanner from './HomeHeroBanner';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
   ssr: false
@@ -56,7 +56,7 @@ const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents
 });
 
 const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
-  const { session } = useAuthContext();
+  const { data: session } = useSession();
 
   const [isModalOpenFreeCredits, setIsModalOpenFreeCredits] = useState(false);
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));

@@ -10,13 +10,13 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import dynamic from 'next/dynamic';
 // import { SessionProvider } from 'next-auth/react';
 import { memo } from 'react';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { ToastContainer } from 'react-toastify';
+import ThemeCustomization from 'themes';
+import { SessionProvider } from 'next-auth/react';
 const GoogleTagManager = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleTagManager));
 const GoogleAnalytics = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleAnalytics));
-const ToastContainer = dynamic(() => import('react-toastify').then((module) => module.ToastContainer), { ssr: false });
-const ThemeCustomization = dynamic(() => import('themes').then((module) => module.default));
 const Locales = dynamic(() => import('components/Locales').then((module) => module.default));
-const SessionProvider = dynamic(() => import('next-auth/react').then((module) => module.SessionProvider));
-const LocalizationProvider = dynamic(() => import('@mui/x-date-pickers').then((module) => module.LocalizationProvider));
 const ConfigProvider = dynamic(() => import('contexts/configContext').then((module) => module.ConfigProvider));
 
 const manropeFont = Manrope({ subsets: ['latin'], display: 'swap' });

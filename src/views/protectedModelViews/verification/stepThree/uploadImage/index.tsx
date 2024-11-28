@@ -108,7 +108,7 @@ const UploadImage = ({
   handleEdit,
   modelProfileStatus
 }: VerificationStepUploadType) => {
-  const  pathName  = usePathname();
+  const pathName = usePathname();
   const intl = useIntl();
 
   const [loading, setLoading] = useState(false);
