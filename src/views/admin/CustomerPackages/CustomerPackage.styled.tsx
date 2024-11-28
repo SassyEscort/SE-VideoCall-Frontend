@@ -1,4 +1,4 @@
-import { styled, Box } from '@mui/material';
+import { styled, Box, Card, Paper } from '@mui/material';
 
 export const TagLable = styled(Box)(({ theme }) => ({
   fontSize: '16px',
@@ -49,4 +49,52 @@ export const NoPackageBox = styled(Box)(() => ({
   height: '80vh',
   alignItems: 'center',
   width: '100'
+}));
+
+export const PackageMainBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2.5)
+}));
+
+export const PackageReportMainBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: '100%',
+  gap: theme.spacing(3),
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column'
+  }
+}));
+
+export const PackageReportChartBox = styled(Box)(({ theme }) => ({
+  width: '60%',
+  [theme.breakpoints.down('sm')]: {
+    width: '100%'
+  }
+}));
+
+export const PackageReportListingBox = styled(Box)(({ theme }) => ({
+  width: '40%',
+  [theme.breakpoints.down('sm')]: {
+    width: '100%'
+  }
+}));
+
+export const PackageReportCardBox = styled(Card)(({ theme }) => ({
+  borderRadius: '12px',
+  height: '100%'
+}));
+
+export const PackageReportCardPaper = styled(Paper)(({ theme }) => ({
+  overflow: 'hidden',
+  padding: '20px 0px ',
+  height: '100%',
+  paddingTop: theme.spacing(2.5),
+  paddingBottom: theme.spacing(2.5)
+}));
+
+export const PackageReportDetailCell = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1)
 }));
