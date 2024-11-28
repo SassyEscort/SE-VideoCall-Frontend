@@ -37,7 +37,7 @@ function Packages({
                 <Card sx={{ maxWidth: '180px' }}>
                   <Paper sx={{ overflow: 'hidden' }}>
                     <PackageBox>
-                      <Box>Package {index + 1}</Box>
+                      <Box>Package {item?.id + 1}</Box>
                       <PackageCreditDetailBox>
                         <TagLable sx={{ backgroundColor: item?.tag ? '#D12288' : '#AAAAAA' }}>
                           {item?.tag ? item?.tag : 'No tag added'}
