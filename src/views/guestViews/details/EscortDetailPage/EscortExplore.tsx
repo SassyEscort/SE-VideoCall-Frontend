@@ -12,7 +12,6 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import BackdropProgress from 'components/UIComponents/BackDropProgress';
-import { getQueryParam } from 'utils/genericFunction';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useAuthContext } from '../../../../contexts/AuthContext';
@@ -36,20 +35,20 @@ const EscortExplore = () => {
   const searchFiltersRef = useRef<HTMLDivElement>(null);
 
   const getInitialFilters = () => ({
-    fromAge: getQueryParam('fromAge') ? (getQueryParam('fromAge') as string) : '',
-    toAge: getQueryParam('toAge') ? (getQueryParam('toAge') as string) : '',
-    fromPrice: getQueryParam('fromPrice') ? (getQueryParam('fromPrice') as string) : '',
-    toPrice: getQueryParam('toPrice') ? (getQueryParam('toPrice') as string) : '',
-    language: getQueryParam('language') ? (getQueryParam('language') as string) : '',
-    isOnline: getQueryParam('isOnline') ? (getQueryParam('isOnline') as string) : '',
-    country: getQueryParam('country') ? (getQueryParam('country') as string) : '',
-    sortOrder: getQueryParam('sortOrder') ? (getQueryParam('sortOrder') as string) : '',
-    sortField: getQueryParam('sortField') ? (getQueryParam('sortField') as string) : '',
-    gender: getQueryParam('gender') ? (getQueryParam('gender') as string) : '',
-    page: Number(getQueryParam('page', 1)),
+    fromAge: searchParams.get('fromAge') ? (searchParams.get('fromAge') as string) : '',
+    toAge: searchParams.get('toAge') ? (searchParams.get('toAge') as string) : '',
+    fromPrice: searchParams.get('fromPrice') ? (searchParams.get('fromPrice') as string) : '',
+    toPrice: searchParams.get('toPrice') ? (searchParams.get('toPrice') as string) : '',
+    language: searchParams.get('language') ? (searchParams.get('language') as string) : '',
+    isOnline: searchParams.get('isOnline') ? (searchParams.get('isOnline') as string) : '',
+    country: searchParams.get('country') ? (searchParams.get('country') as string) : '',
+    sortOrder: searchParams.get('sortOrder') ? (searchParams.get('sortOrder') as string) : '',
+    sortField: searchParams.get('sortField') ? (searchParams.get('sortField') as string) : '',
+    gender: searchParams.get('gender') ? (searchParams.get('gender') as string) : '',
+    page: Number(searchParams?.get('page') || 1),
     pageSize: HOME_PAGE_SIZE,
     offset: (Number(searchParams.get('page') ?? 1) - 1) * HOME_PAGE_SIZE || 0,
-    email: getQueryParam('email') ? getQueryParam('email') : ''
+    email: searchParams.get('email') ? searchParams?.get('email')?.toString() : ''
   });
 
   const [filters, setFilters] = useState(getInitialFilters());

@@ -18,6 +18,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { ErrorMessage } from 'constants/common.constants';
 import { FormattedMessage } from 'react-intl';
+import { useSearchParams } from 'next/navigation';
+
 const FirstBoxContainer = lazy(() => import('./GuestNewPassword.styled').then((module) => ({ default: module.FirstBoxContainer })));
 const FiveBoxContainer = lazy(() => import('./GuestNewPassword.styled').then((module) => ({ default: module.FiveBoxContainer })));
 const FourBoxContainer = lazy(() => import('./GuestNewPassword.styled').then((module) => ({ default: module.FourBoxContainer })));
@@ -42,6 +44,7 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
 
   const isSm = useMediaQuery(theme.breakpoints.down(330));
 
@@ -68,8 +71,7 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
         onSubmit={async (values, { setSubmitting }) => {
           try {
             setLoading(true);
-            const url = new URL(window.location.href);
-            const verificationCode = url.searchParams.get('code');
+            const verificationCode = searchParams.get('code');
 
             if (verificationCode !== null && email !== null) {
               const resetPasswordObject = {

@@ -19,6 +19,7 @@ import { UploadButBoxContainer } from './RepositionPhoto.styled';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 import { getErrorMessage } from 'utils/errorUtils';
 import { scrollToError } from 'utils/scrollUtils';
+import { usePathname } from 'next/navigation';
 
 export type WorkerPhotos = {
   id: number;
@@ -107,14 +108,14 @@ const UploadImage = ({
   handleEdit,
   modelProfileStatus
 }: VerificationStepUploadType) => {
-  const { pathname } = window.location;
+  const  pathName  = usePathname();
   const intl = useIntl();
 
   const [loading, setLoading] = useState(false);
   const [updated, setUpdated] = useState(false);
   const [imageWarningOpen, setImageWarningOpen] = useState(false);
 
-  const toNotValidate = pathname !== '/model/profile' && modelProfileStatus === PAYOUT_ACTION.APPROVE;
+  const toNotValidate = pathName !== '/model/profile' && modelProfileStatus === PAYOUT_ACTION.APPROVE;
 
   const initialValuesPerStep: VerificationFormStep5TypeV2 = {
     file5: null as null | File[],
@@ -360,7 +361,7 @@ const UploadImage = ({
       enableReinitialize
       initialValues={initialValuesPerStep}
       onSubmit={(values) => {
-        if (!values.file5?.length && !values.file5Existing.length && pathname !== '/model/profile') {
+        if (!values.file5?.length && !values.file5Existing.length && pathName !== '/model/profile') {
           setImageWarningOpen(true);
         } else {
           handlePhotoSubmit(values);

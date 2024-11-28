@@ -7,23 +7,23 @@ import { HomePageMainContainer } from './Home.styled';
 import SearchFilters, { SearchFiltersTypes } from '../searchPage/searchFilters';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
-import { getQueryParam } from 'utils/genericFunction';
-import { useAuthContext } from '../../../contexts/AuthContext';
 import dynamic from 'next/dynamic';
 import HomeImageCards from './homeImageCards';
+import { useSession } from 'next-auth/react';
+import { useAuthContext } from 'contexts/AuthContext';
 
-const HomeConnections = dynamic(() => import('./HomeConnections'), {
-  ssr: false
-});
-const BackdropProgress = dynamic(() => import('components/UIComponents/BackDropProgress'), {
-  ssr: false
-});
+const HomeConnections = dynamic(() => import('./HomeConnections'));
 
-const HomeContainer = () => {
-  const { isFreeCreditAvailable, session } = useAuthContext();
-  const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
+const BackdropProgress = dynamic(() => import('components/UIComponents/BackDropProgress'));
+
+const HomeContainer = async () => {
+  const authContext = useAuthContext();
+  const isFreeCreditAvailable = authContext?.isFreeCreditAvailable || 1;
+  const { data } = useSession();
+  const token = data?.user ? JSON.parse((data.user as any)?.picture) : '';
 
   const searchParams = useSearchParams();
+
   const router = useRouter();
   const pathname = usePathname();
   const searchFiltersRef = useRef<HTMLDivElement>(null);
@@ -36,20 +36,20 @@ const HomeContainer = () => {
   const [isUserInteracted, setIsUserInteracted] = useState(false);
 
   const getInitialFilters = () => ({
-    fromAge: getQueryParam('fromAge') ? (getQueryParam('fromAge') as string) : '',
-    toAge: getQueryParam('toAge') ? (getQueryParam('toAge') as string) : '',
-    fromPrice: getQueryParam('fromPrice') ? (getQueryParam('fromPrice') as string) : '',
-    toPrice: getQueryParam('toPrice') ? (getQueryParam('toPrice') as string) : '',
-    language: getQueryParam('language') ? (getQueryParam('language') as string) : '',
-    isOnline: getQueryParam('isOnline') ? (getQueryParam('isOnline') as string) : '',
-    country: getQueryParam('country') ? (getQueryParam('country') as string) : '',
-    sortOrder: getQueryParam('sortOrder') ? (getQueryParam('sortOrder') as string) : '',
-    sortField: getQueryParam('sortField') ? (getQueryParam('sortField') as string) : '',
-    gender: getQueryParam('gender') ? (getQueryParam('gender') as string) : '',
-    page: Number(getQueryParam('page', 1)),
+    fromAge: searchParams?.get('fromAge') ? (searchParams?.get('fromAge') as string) : '',
+    toAge: searchParams?.get('toAge') ? (searchParams?.get('toAge') as string) : '',
+    fromPrice: searchParams?.get('fromPrice') ? (searchParams?.get('fromPrice') as string) : '',
+    toPrice: searchParams?.get('toPrice') ? (searchParams?.get('toPrice') as string) : '',
+    language: searchParams?.get('language') ? (searchParams?.get('language') as string) : '',
+    isOnline: searchParams?.get('isOnline') ? (searchParams?.get('isOnline') as string) : '',
+    country: searchParams?.get('country') ? (searchParams?.get('country') as string) : '',
+    sortOrder: searchParams?.get('sortOrder') ? (searchParams?.get('sortOrder') as string) : '',
+    sortField: searchParams?.get('sortField') ? (searchParams?.get('sortField') as string) : '',
+    gender: searchParams?.get('gender') ? (searchParams?.get('gender') as string) : '',
+    page: Number(searchParams?.get('page') || 1),
     pageSize: HOME_PAGE_SIZE,
     offset: (Number(searchParams.get('page') ?? 1) - 1) * HOME_PAGE_SIZE || 0,
-    email: getQueryParam('email') ? getQueryParam('email') : ''
+    email: searchParams?.get('email') ? (searchParams?.get('email') as string) : ''
   });
 
   const [filters, setFilters] = useState(getInitialFilters());

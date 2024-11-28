@@ -34,6 +34,7 @@ import { GuestStyleComponent } from 'views/guestViews/guestLayout/GuestLayout.st
 import { ModelVerificationService } from 'services/modelVerification/modelVerification.services';
 import { ErrorMessage } from 'constants/common.constants';
 import { getErrorMessage } from 'utils/errorUtils';
+import { usePathname } from 'next/navigation';
 
 export type VerificationBasicDetailsType = {
   values: VerificationStep1Type;
@@ -81,6 +82,7 @@ const VerificationBasicDetails = ({
   isModelVerified
 }: VerificationBasicDetailsType) => {
   const intl = useIntl();
+  const pathName = usePathname();
 
   const maxCharCount = 1000;
   const filter = createFilterOptions<MultipleOptionString>();
@@ -267,9 +269,8 @@ const VerificationBasicDetails = ({
 
   const sendLinkVerify = async () => {
     touched.email = true;
-    const url = new URL(window.location.href);
     let source;
-    source = url.pathname === '/model/dashboard' ? EMAIL_SOURCE.ONBOARDED : EMAIL_SOURCE.DETAILS;
+    source = pathName=== '/model/dashboard' ? EMAIL_SOURCE.ONBOARDED : EMAIL_SOURCE.DETAILS;
     try {
       if (!errors.email && token.token) {
         const data = await ModelAuthService.modelForgetPasswordLinkStep(values.email, token.token, source);

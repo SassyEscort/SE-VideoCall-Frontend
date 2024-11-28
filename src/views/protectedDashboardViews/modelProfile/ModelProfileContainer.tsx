@@ -14,6 +14,7 @@ import DocumentMainContainer from 'views/protectedModelViews/verification/docume
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import { useAuthContext } from '../../../contexts/AuthContext';
+import { useSearchParams } from 'next/navigation';
 
 const profileMenuList = [
   { menuName: <FormattedMessage id="Photos" />, id: 0 },
@@ -31,8 +32,8 @@ const ModelProfileContainer = ({
   token: TokenIdType;
   handleModelApiChange: () => void;
 }) => {
-  const url = new URL(window.location.href);
-  const verificationCode = url.searchParams.get('code');
+  const searchParams = useSearchParams();
+  const verificationCode = searchParams.get('code');
   const [isLoading, setIsLoading] = useState(false);
   const [menuId, setMenuId] = useState(verificationCode ? 1 : 0);
 

@@ -1,14 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { Suspense } from 'react';
+import React from 'react';
 import type { Metadata } from 'next';
-// import ProviderWrapper from './ProviderWrapper';
+import ProviderWrapper from './ProviderWrapper';
+import AuthFeaturProvider from 'contexts/AuthContext';
+import TawkProvider from 'contexts/TawkContext';
 import { SEO_DATA } from 'constants/seoConstants';
 import Script from 'next/script';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 // import '../app/globals.scss';
-const ProviderWrapper = dynamic(() => import('./ProviderWrapper'));
-const AuthFeaturProvider = React.lazy(() => import('../contexts/AuthContext').then((module) => ({ default: module.AuthFeaturProvider })));
-const TawkProvider = React.lazy(() => import('../contexts/TawkContext').then((module) => ({ default: module.TawkProvider })));
+// const ProviderWrapper = dynamic(() => import('./ProviderWrapper'));
+// // const TawkProvider = dynamic(() => import('contexts/TawkContext'));
+// // const AuthFeaturProvider = dynamic(() => import('contexts/AuthContext'));
 
 export const metadata: Metadata = {
   title: SEO_DATA.TITLE,
@@ -173,13 +175,9 @@ export default function RootLayout({
           </>
         )} */}
         <ProviderWrapper>
-          <Suspense fallback={<div>Loading...</div>}>
-            <AuthFeaturProvider>
-              <Suspense fallback={<div>Loading...</div>}>
-                <TawkProvider>{children}</TawkProvider>
-              </Suspense>
-            </AuthFeaturProvider>
-          </Suspense>
+          <AuthFeaturProvider>
+            <TawkProvider>{children}</TawkProvider>
+          </AuthFeaturProvider>
         </ProviderWrapper>
       </body>
     </html>

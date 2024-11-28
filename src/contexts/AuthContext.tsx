@@ -62,7 +62,7 @@ const AuthContext = createContext<AuthContextProps>({
   adminUserPermissions: [{} as AdminUserPermissions]
 });
 
-export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
+const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const { data, status } = useSession();
   const [session, setSession] = useState<Session | null>(null);
   const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(1);
@@ -212,3 +212,4 @@ export const useAuthContext = (): AuthContextProps => {
   const context = useContext(AuthContext);
   return context;
 };
+export default AuthFeaturProvider;

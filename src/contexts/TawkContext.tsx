@@ -1,5 +1,6 @@
 'use client';
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { useAuthContext } from './AuthContext';
 
 interface TawkContextType {
@@ -17,12 +18,13 @@ interface TawkContextType {
 
 const TawkContext = createContext<TawkContextType | undefined>(undefined);
 
-export const TawkProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const TawkProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const { session } = useAuthContext();
+  const pathname = usePathname();
 
   const initializeChat = () => {
-    if (!isLoaded && typeof window !== 'undefined' && !window.location.pathname.includes('/admin')) {
+    if (!isLoaded && typeof window !== 'undefined' && !pathname.includes('/admin')) {
       const tawkScript = document.createElement('script');
       tawkScript.src = 'https://embed.tawk.to/66fbef6be5982d6c7bb726ab/1i941ug0n';
       tawkScript.async = true;
@@ -117,3 +119,5 @@ export const useTawk = () => {
   }
   return context;
 };
+
+export default TawkProvider;
