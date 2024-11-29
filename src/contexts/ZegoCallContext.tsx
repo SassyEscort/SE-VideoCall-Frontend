@@ -154,7 +154,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       handleSetUserId(userNameData.customer_id);
       setRID(roomID);
       const id = String(userNameData?.customer_user_name || '');
-      const name = userNameData?.customer_user_name;
+      const name = userNameData?.customer_name;
 
       const token = ZegoUIKitPrebuilt.generateKitTokenForTest(
         Number(appID),
