@@ -1,13 +1,7 @@
 'use client';
-import { lazy, useState } from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Link from 'next/link';
-const Banner = lazy(() => import('./footer.styled').then((module) => ({ default: module.Banner })));
-const BannerImg = lazy(() => import('./footer.styled').then((module) => ({ default: module.BannerImg })));
-const SubTitleText = lazy(() => import('./footer.styled').then((module) => ({ default: module.SubTitleText })));
-const TextContainer = lazy(() => import('./footer.styled').then((module) => ({ default: module.TextContainer })));
-const TextContainerMain = lazy(() => import('./footer.styled').then((module) => ({ default: module.TextContainerMain })));
-const TitleText = lazy(() => import('./footer.styled').then((module) => ({ default: module.TitleText })));
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import MainFooter from './MainFooter';
 import { FormattedMessage } from 'react-intl';
@@ -15,11 +9,14 @@ import { FooterButton } from './MainFooter.styled';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import { gaEventTrigger } from 'utils/analytics';
 import { useAuthContext } from '../../../../contexts/AuthContext';
-const NewSignupStyledModalDialog = lazy(() => import('components/UIComponents/NewSignupStyledModalDialog'));
-const UIStyledDialog = lazy(() => import('components/UIComponents/UIStyledDialog'));
-const GuestForgetPasswordLink = lazy(() => import('views/auth/guestForgetPasswordLink'));
-const GuestLogin = lazy(() => import('views/auth/guestLogin'));
-const GuestSignup = lazy(() => import('views/auth/guestSignup'));
+import { Banner, TextContainerMain, TextContainer, TitleText, SubTitleText, BannerImg } from './footer.styled';
+import dynamic from 'next/dynamic';
+
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
 
 const Footer = () => {
   const { isFreeCreditAvailable } = useAuthContext();

@@ -5,7 +5,7 @@ import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { ModelHomeListing } from 'services/modelListing/modelListing.services';
 import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { Suspense, memo, useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
@@ -19,9 +19,9 @@ import dynamic from 'next/dynamic';
 // import Skeleton from '@mui/material/Skeleton';
 import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
 import { NotFoundModelBox } from './HomeImageCard.styled';
-const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
-const PaginationInWords = dynamic(() => import('components/UIComponents/PaginationINWords'));
+import NewSignupStyledModalDialog from 'components/UIComponents/NewSignupStyledModalDialog';
+import PaginationInWords from 'components/UIComponents/PaginationINWords';
+import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
@@ -227,13 +227,11 @@ const HomeImageCard = ({
         {modelListing?.length > 0
           ? ''
           : !isFavPage && (
-              <Suspense fallback={<div>Loading...</div>}>
-                <NotFoundModelBox>
-                  <UINewTypography variant="h1">
-                    <FormattedMessage id="NoModelsFound" />
-                  </UINewTypography>
-                </NotFoundModelBox>
-              </Suspense>
+              <NotFoundModelBox>
+                <UINewTypography variant="h1">
+                  <FormattedMessage id="NoModelsFound" />
+                </UINewTypography>
+              </NotFoundModelBox>
             )}
       </WorkerCardMainBox>
       <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>

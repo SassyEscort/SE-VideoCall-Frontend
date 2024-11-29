@@ -2,21 +2,21 @@
 
 import { useCallback, useRef, useState, useEffect } from 'react';
 import HomeTopBanner from './homeBanner';
-import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
+import { ModelHomeListing, ModelListingRes, ModelListingService } from 'services/modelListing/modelListing.services';
 import { HomePageMainContainer } from './Home.styled';
 import SearchFilters, { SearchFiltersTypes } from '../searchPage/searchFilters';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import dynamic from 'next/dynamic';
-import HomeImageCards from './homeImageCards';
 import { useSession } from 'next-auth/react';
 import { useAuthContext } from 'contexts/AuthContext';
 
+const HomeImageCards = dynamic(() => import('./homeImageCards'));
 const HomeConnections = dynamic(() => import('./HomeConnections'));
 
 const BackdropProgress = dynamic(() => import('components/UIComponents/BackDropProgress'));
 
-const HomeContainer = () => {
+const HomeContainer = ({ modelData }: { modelData: ModelListingRes }) => {
   const authContext = useAuthContext();
   const isFreeCreditAvailable = authContext?.isFreeCreditAvailable || 1;
   const { data } = useSession();
@@ -29,8 +29,8 @@ const HomeContainer = () => {
   const searchFiltersRef = useRef<HTMLDivElement>(null);
   const initialRender = useRef(true);
 
-  const [modelListing, setModelListing] = useState<ModelHomeListing[]>([]);
-  const [total_rows, setTotalRows] = useState(0);
+  const [modelListing, setModelListing] = useState<ModelHomeListing[]>(modelData?.model_details || []);
+  const [total_rows, setTotalRows] = useState(modelData?.aggregate?.total_rows || 0);
   const [isLoading, setIsLoading] = useState(false);
   const [scroll, setScroll] = useState(false);
   const [isUserInteracted, setIsUserInteracted] = useState(false);
