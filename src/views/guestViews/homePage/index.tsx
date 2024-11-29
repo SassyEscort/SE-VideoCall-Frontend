@@ -10,13 +10,14 @@ import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import dynamic from 'next/dynamic';
 import { useSession } from 'next-auth/react';
 import { useAuthContext } from 'contexts/AuthContext';
+import { areObjectsEqual } from 'utils/genericFunction';
 
 const HomeImageCards = dynamic(() => import('./homeImageCards'));
 const HomeConnections = dynamic(() => import('./HomeConnections'));
 
 const BackdropProgress = dynamic(() => import('components/UIComponents/BackDropProgress'));
 
-const HomeContainer = ({ modelData }: { modelData: ModelListingRes }) => {
+const HomeContainer = ({ modelData, params }: { modelData: ModelListingRes; params: SearchFiltersTypes }) => {
   const authContext = useAuthContext();
   const isFreeCreditAvailable = authContext?.isFreeCreditAvailable || 1;
   const { data } = useSession();
@@ -52,7 +53,7 @@ const HomeContainer = ({ modelData }: { modelData: ModelListingRes }) => {
     email: searchParams?.get('email') ? (searchParams?.get('email') as string) : ''
   });
 
-  const [filters, setFilters] = useState(getInitialFilters());
+  const [filters, setFilters] = useState(params || getInitialFilters());
 
   const handleChangeSearchFilter = useCallback(() => {
     const objParams: { [key: string]: string } = {};
@@ -171,10 +172,13 @@ const HomeContainer = ({ modelData }: { modelData: ModelListingRes }) => {
   }, [filters, searchParams]);
 
   useEffect(() => {
-    setFilters(getInitialFilters());
-    setTimeout(() => {
-      handelFilterChange(getInitialFilters());
-    }, 1000);
+    const filters = getInitialFilters();
+    if (filters && params && areObjectsEqual(filters, params)) {
+      setFilters(getInitialFilters());
+      setTimeout(() => {
+        handelFilterChange(getInitialFilters());
+      }, 1000);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 

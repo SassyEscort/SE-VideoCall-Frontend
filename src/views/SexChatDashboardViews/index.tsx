@@ -11,31 +11,37 @@ import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { ROLE } from 'constants/workerVerification';
 import { ModelListingService } from 'services/modelListing/modelListing.services';
 import { getUserDataServerSide } from 'utils/getSessionData';
+import { headers } from 'next/headers';
+import { parseQueryString } from 'utils/genericFunction';
 
 export const SexChatDashBoard = async () => {
   const session = await getUserDataServerSide();
+  const headerList = headers();
+  const xUrl = headerList.get('referer') as string;
+  const url = (xUrl && new URL(xUrl)) || '';
+  const searchParams = (url && parseQueryString(url.searchParams?.toString())) || {};
   const initVal = {
-    fromAge: '',
-    toAge: '',
-    fromPrice: '',
-    toPrice: '',
-    language: '',
-    isOnline: '',
-    country: '',
-    sortOrder: '',
-    sortField: '',
-    gender: '',
-    page: 1,
+    fromAge: searchParams?.fromAge || '',
+    toAge: searchParams?.toAge || '',
+    fromPrice: searchParams?.fromPrice || '',
+    toPrice: searchParams?.toPrice || '',
+    language: searchParams?.language || '',
+    isOnline: searchParams?.isOnline || '',
+    country: searchParams?.country || '',
+    sortOrder: searchParams?.sortOrder || '',
+    sortField: searchParams?.sortField || '',
+    gender: searchParams?.gender || '',
+    page: (searchParams?.page && Number(searchParams?.page)) || 1,
     pageSize: HOME_PAGE_SIZE,
-    offset: 0,
-    email: ''
+    offset: (Number(searchParams?.page ?? 1) - 1) * HOME_PAGE_SIZE || 0,
+    email: searchParams?.email || ''
   };
   const modelData = await ModelListingService.getModelListing(initVal, session.token);
   const isCustomer = session?.role === ROLE.CUSTOMER;
 
   return (
     <>
-      {isCustomer ? <HomeContainer modelData={modelData} /> : <SexChatDashboardBanner />}
+      {isCustomer ? <HomeContainer modelData={modelData} params={initVal}/> : <SexChatDashboardBanner />}
       <ExclusiveSexChatDashboard />
       <WhySexChatComponent />
       <LiveSexChatDashboard />

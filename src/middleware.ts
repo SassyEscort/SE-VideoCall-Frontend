@@ -13,5 +13,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/robots.txt']
+  matcher: ['/((?!api/|_next/static|_next/image|favicon.ico|assets/|images/|icon.png|.*\\.(?:png|jpe?g|gif|svg|ico|js|css|scss)).*)']
 };
