@@ -75,7 +75,7 @@ export default function RootLayout({
             }}
           />
 
-          {/* <Script
+          <Script
             async
             defer
             id="lumetric-script"
@@ -116,7 +116,7 @@ export default function RootLayout({
             dangerouslySetInnerHTML={{
               __html: `flux.track("view");`
             }}
-          /> */}
+          />
         </>
       )}
       <body>
