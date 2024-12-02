@@ -3,6 +3,7 @@ import { ModelSeoService } from 'services/modelSeo/modelSeo.services';
 import { VideoCallProvider } from 'contexts/videoCallContext';
 import { CallFeatureProvider } from '../../../../contexts/ZegoCallContext';
 import dynamic from 'next/dynamic';
+import { KeyPairAndUndefined } from 'types/KeyPair';
 const EscortDetailPage = dynamic(() => import('views/guestViews/details/EscortDetailPage'));
 
 const CallFeature = dynamic(() => import('views/protectedViews/zegoCallingFeature'));
@@ -39,7 +40,9 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   return {};
 }
 
-const WorkerDetailPage = () => {
+const WorkerDetailPage = ({ searchParams }: { searchParams: KeyPairAndUndefined }) => {
+  console.log('searchParams', ':::::::::::::::::: searchParam');
+
   return (
     <VideoCallProvider>
       <CallFeatureProvider>

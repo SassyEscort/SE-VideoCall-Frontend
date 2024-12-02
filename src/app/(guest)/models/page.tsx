@@ -1,8 +1,7 @@
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { Metadata } from 'next';
-import { headers } from 'next/headers';
 import { ModelListingService } from 'services/modelListing/modelListing.services';
-import { parseQueryString } from 'utils/genericFunction';
+import { KeyPairAndUndefined } from 'types/KeyPair';
 import { getUserDataServerSide } from 'utils/getSessionData';
 import HomeContainer from 'views/guestViews/homePage';
 
@@ -13,12 +12,8 @@ export async function generateMetadata(): Promise<Metadata> {
     }
   };
 }
-const Home = async () => {
+const Home = async ({ searchParams }: { searchParams: KeyPairAndUndefined }) => {
   const session = await getUserDataServerSide();
-  const headerList = headers();
-  const xUrl = headerList.get('referer') as string;
-  const url = (xUrl && new URL(xUrl)) || '';
-  const searchParams = (url && parseQueryString(url.searchParams?.toString())) || {};
   const initVal = {
     fromAge: searchParams?.fromAge || '',
     toAge: searchParams?.toAge || '',

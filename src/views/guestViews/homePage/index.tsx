@@ -2,7 +2,7 @@
 
 import { useCallback, useRef, useState, useEffect } from 'react';
 import HomeTopBanner from './homeBanner';
-import { ModelHomeListing, ModelListingRes, ModelListingService } from 'services/modelListing/modelListing.services';
+import { ModelHomeListing, ModelListingRes } from 'services/modelListing/modelListing.services';
 import { HomePageMainContainer } from './Home.styled';
 import SearchFilters, { SearchFiltersTypes } from '../searchPage/searchFilters';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -10,7 +10,6 @@ import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import dynamic from 'next/dynamic';
 import { useSession } from 'next-auth/react';
 import { useAuthContext } from 'contexts/AuthContext';
-import { areObjectsEqual } from 'utils/genericFunction';
 
 const HomeImageCards = dynamic(() => import('./homeImageCards'));
 const HomeConnections = dynamic(() => import('./HomeConnections'));
@@ -111,9 +110,8 @@ const HomeContainer = ({ modelData, params }: { modelData: ModelListingRes; para
 
   const handelFilterChange = async (values: SearchFiltersTypes) => {
     setIsLoading(true);
-    const getModel = await ModelListingService.getModelListing(values, token.token);
-    setModelListing(getModel?.model_details);
-    setTotalRows(getModel?.aggregate?.total_rows);
+    setModelListing(modelData?.model_details);
+    setTotalRows(modelData?.aggregate?.total_rows);
     setIsLoading(false);
     if (initialRender.current === false) {
       if (searchFiltersRef.current) {
@@ -138,12 +136,12 @@ const HomeContainer = ({ modelData, params }: { modelData: ModelListingRes; para
         const offset = (value - 1) * filters.pageSize;
         const newFilters = { ...filters, page: value, offset: offset };
         setFilters(newFilters);
-        // handelFilterChange(newFilters);
+        handelFilterChange(newFilters);
       } else if (filters) {
         const offset = (value - 1) * filters.pageSize;
         const newFilters = { ...filters, page: value, offset: offset };
         setFilters(newFilters);
-        // handelFilterChange(newFilters);
+        handelFilterChange(newFilters);
         if (pathname === '/') {
           const queryParams = new URLSearchParams(window.location.search);
           queryParams.set('page', value.toString());
@@ -172,13 +170,11 @@ const HomeContainer = ({ modelData, params }: { modelData: ModelListingRes; para
   }, [filters, searchParams]);
 
   useEffect(() => {
-    const filters = getInitialFilters();
-    if (filters && params && areObjectsEqual(filters, params)) {
-      setFilters(getInitialFilters());
-      setTimeout(() => {
-        handelFilterChange(getInitialFilters());
-      }, 1000);
-    }
+    setFilters(getInitialFilters());
+    setTimeout(() => {
+      handelFilterChange(getInitialFilters());
+    }, 1000);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 

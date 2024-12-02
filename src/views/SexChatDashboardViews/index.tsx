@@ -11,15 +11,10 @@ import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { ROLE } from 'constants/workerVerification';
 import { ModelListingService } from 'services/modelListing/modelListing.services';
 import { getUserDataServerSide } from 'utils/getSessionData';
-import { headers } from 'next/headers';
-import { parseQueryString } from 'utils/genericFunction';
+import { KeyPairAndUndefined } from 'types/KeyPair';
 
-export const SexChatDashBoard = async () => {
+export const SexChatDashBoard = async ({ searchParams }: { searchParams: KeyPairAndUndefined }) => {
   const session = await getUserDataServerSide();
-  const headerList = headers();
-  const xUrl = headerList.get('referer') as string;
-  const url = (xUrl && new URL(xUrl)) || '';
-  const searchParams = (url && parseQueryString(url.searchParams?.toString())) || {};
   const initVal = {
     fromAge: searchParams?.fromAge || '',
     toAge: searchParams?.toAge || '',
@@ -41,7 +36,7 @@ export const SexChatDashBoard = async () => {
 
   return (
     <>
-      {isCustomer ? <HomeContainer modelData={modelData} params={initVal}/> : <SexChatDashboardBanner />}
+      {isCustomer ? <HomeContainer modelData={modelData} params={initVal} /> : <SexChatDashboardBanner />}
       <ExclusiveSexChatDashboard />
       <WhySexChatComponent />
       <LiveSexChatDashboard />

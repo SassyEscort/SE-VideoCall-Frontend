@@ -11,15 +11,10 @@ import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { ModelListingService } from 'services/modelListing/modelListing.services';
 import { getUserDataServerSide } from 'utils/getSessionData';
 import { ROLE } from 'constants/workerVerification';
-import { parseQueryString } from 'utils/genericFunction';
-import { headers } from 'next/headers';
+import { KeyPairAndUndefined } from 'types/KeyPair';
 
-export const CamToCamDashboard = async () => {
+export const CamToCamDashboard = async ({ searchParams }: { searchParams: KeyPairAndUndefined }) => {
   const session = await getUserDataServerSide();
-  const headerList = headers();
-  const xUrl = headerList.get('referer') as string;
-  const url = (xUrl && new URL(xUrl)) || '';
-  const searchParams = (url && parseQueryString(url.searchParams?.toString())) || {};
   const initVal = {
     fromAge: searchParams?.fromAge || '',
     toAge: searchParams?.toAge || '',
