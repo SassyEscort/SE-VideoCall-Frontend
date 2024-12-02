@@ -14,7 +14,7 @@ import { FormattedMessage } from 'react-intl';
 import { FooterButton } from './MainFooter.styled';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import { gaEventTrigger } from 'utils/analytics';
-import { useAuthContext } from '../../../../../context/AuthContext';
+import { useAuthContext } from '../../../../contexts/AuthContext';
 const NewSignupStyledModalDialog = lazy(() => import('components/UIComponents/NewSignupStyledModalDialog'));
 const UIStyledDialog = lazy(() => import('components/UIComponents/UIStyledDialog'));
 const GuestForgetPasswordLink = lazy(() => import('views/auth/guestForgetPasswordLink'));

@@ -16,7 +16,7 @@ import { ModelDetailsService } from 'services/modelDetails/modelDetails.services
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
 const ProfileReject = () => {
   const { isCustomer } = useAuthContext();

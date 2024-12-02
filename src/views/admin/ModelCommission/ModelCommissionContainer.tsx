@@ -23,7 +23,7 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import WithdrawConfigurationContainer from '../WithdrawConfiguration/WithdrawConfigurationContainer';
 import ModelVideoCallContainer from '../ModelVideoCallPrice/ModelVideoCallContainer';
 import ModelVideoMaxCallContainer from '../ModelVideoCallMaxPrice/ModelVideoMaxCallContainer';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from 'contexts/AuthContext';
 import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
 import { CallPricePage } from 'constants/adminUserAccessConstants';
 import { useRouter } from 'next/navigation';

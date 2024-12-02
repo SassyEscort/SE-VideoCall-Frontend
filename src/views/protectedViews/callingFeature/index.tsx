@@ -1,5 +1,5 @@
 'use client';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { useCallFeatureContext } from '../../../contexts/CallFeatureContext';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import RingingModel from '../videoCalling/RingingModel';
 import AnotherCallModel from '../videoCalling/AnotherCallModel';
@@ -75,7 +75,7 @@ const CallFeature = () => {
         });
       }
     }
-  }, [isModelJoin, callLogId]);
+  }, [isModelJoin, callLogId, token.token]);
 
   useEffect(() => {
     let initialTimeout: ReturnType<typeof setTimeout> | undefined;
@@ -99,7 +99,7 @@ const CallFeature = () => {
     <>
       {!isCustomer && <CometChatIncomingCall call={call} />}
       {call && !isCallAccepted && !isLoading && !isBusy && (
-        <CometChatOutgoingCall call={call} customView={<RingingModel onClose={handleCancelCall} />} />
+        <CometChatOutgoingCall call={call} customView={<RingingModel open={true} onClose={handleCancelCall} />} />
       )}
       {call && isCallAccepted && <CometChatOngoingCall sessionID={call?.getSessionId()} />}
       {isBusy && <AnotherCallModel onClose={handleBusyClose} open={isBusy} />}

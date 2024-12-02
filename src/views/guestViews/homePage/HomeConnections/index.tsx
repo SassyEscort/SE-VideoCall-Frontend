@@ -1,5 +1,5 @@
 'use client';
-import { useAuthContext } from '../../../../../context/AuthContext';
+import { useAuthContext } from '../../../../contexts/AuthContext';
 import { gaEventTrigger } from 'utils/analytics';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';

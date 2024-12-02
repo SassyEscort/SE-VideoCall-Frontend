@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from 'contexts/AuthContext';
 import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
 import { SettingsPage } from 'constants/adminUserAccessConstants';
 

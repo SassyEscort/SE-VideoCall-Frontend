@@ -15,7 +15,7 @@ import HomeMainContainer from '../homeContainer';
 import { gaEventTrigger } from 'utils/analytics';
 import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import { useState } from 'react';
-import { useAuthContext } from '../../../../../context/AuthContext';
+import { useAuthContext } from '../../../../contexts/AuthContext';
 import dynamic from 'next/dynamic';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
   ssr: false

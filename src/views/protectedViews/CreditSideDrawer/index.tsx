@@ -26,7 +26,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customerCredit.service';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../contexts/ZegoCallContext';
 import { usePathname, useRouter } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
 import { CustomerDetails } from 'services/customerDetails/customerDetails.services';
@@ -49,15 +49,12 @@ const CreditSideDrawer = ({
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isLoading, setIsLoading] = useState(false);
-
-  // const { isFreeCreditAvailable } = useAuthContext();
-
-  const { user } = useCallFeatureContext();
+  const { user } = useZegoCallFeatureContext();
   const customerData = JSON.parse(user || '{}');
 
   const router = useRouter();
   const pathname = usePathname();
-  const isDetailsPage = pathname.startsWith('/details');
+  const isDetailsPage = pathname.startsWith('/models');
   const userName = pathname?.split('/')?.[2] || '';
 
   useEffect(() => {

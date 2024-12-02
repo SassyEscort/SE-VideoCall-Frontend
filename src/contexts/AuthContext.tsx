@@ -10,6 +10,8 @@ import { createContext, ReactNode, useContext, useEffect, useState, useCallback 
 import { toast } from 'react-toastify';
 import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
 import { gaEventTrigger } from 'utils/analytics';
+import { randomID } from 'utils/videoCall';
+import { TokenIdType } from 'views/protectedModelViews/verification';
 import CreditsAdded from 'views/protectedViews/CreditsAdded/CreditsAdded';
 
 export type AdminUserPermissions = {
@@ -24,15 +26,18 @@ export type AuthContextProps = {
   user: string | undefined;
   isFreeCreditAvailable: number;
   status: string;
+  roomID: string;
   handleFreeCreditClaim: () => void;
   isFreeCreditsClaimed: boolean;
   isModel: boolean;
   isAdmin: boolean;
   isNameChange: boolean;
   handelNameChange: () => void;
+  handleCreateNewRoomID: () => void;
   handleOpen: () => void;
   handleCreditDrawerClose: () => void;
   openCreditDrawer: boolean;
+  token: TokenIdType;
   adminUserPermissions: AdminUserPermissions[] | undefined;
 };
 
@@ -42,6 +47,7 @@ const AuthContext = createContext<AuthContextProps>({
   user: '',
   isFreeCreditAvailable: 1,
   status: '',
+  roomID: '',
   handleFreeCreditClaim: () => {},
   isFreeCreditsClaimed: false,
   isModel: false,
@@ -49,7 +55,9 @@ const AuthContext = createContext<AuthContextProps>({
   handleOpen: () => {},
   handelNameChange: () => {},
   handleCreditDrawerClose: () => {},
+  handleCreateNewRoomID: () => {},
   openCreditDrawer: false,
+  token: { id: 0, token: '' },
   isAdmin: false,
   adminUserPermissions: [{} as AdminUserPermissions]
 });
@@ -61,6 +69,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const [isFreeCreditsClaimed, setIsFreeCreditsClaimed] = useState(false);
   const [isNameChange, setIsNameChange] = useState(false);
   const [addedCredits, setAddedCredits] = useState(0);
+  const [roomID, setRoomID] = useState('');
   const [balance, setBalance] = useState(0);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openCreditDrawer, setOpenCreditDrawer] = useState(false);
@@ -70,6 +79,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
 
   const isCustomer = providerData?.role === ROLE.CUSTOMER;
   const isModel = providerData?.role === ROLE.MODEL;
+  const tokenDetails = { id: providerData?.customer_id || 0, token: providerData?.token || '' };
   const isAdmin = providerData?.role === ROLE.ADMIN;
 
   const adminUserPermissions = providerData?.module_permissions;
@@ -110,10 +120,13 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     router.push(pathname);
   };
 
+  const handleCreateNewRoomID = () => {
+    const id = randomID();
+    setRoomID(id);
+  };
+
   const handleCreditDrawerClose = () => {
     setOpenCreditDrawer(false);
-    // setOpenSuccess(false);
-    // router.push(pathname);
   };
 
   const handleCustomerFreeCredits = useCallback(async () => {
@@ -133,6 +146,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     handleCustomerFreeCredits();
+    handleCreateNewRoomID();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -190,8 +204,11 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         handleOpen,
         openCreditDrawer,
         handleCreditDrawerClose,
+        handleCreateNewRoomID,
+        token: tokenDetails,
         isAdmin,
-        adminUserPermissions
+        adminUserPermissions,
+        roomID
       }}
     >
       {children}

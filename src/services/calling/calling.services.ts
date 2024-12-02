@@ -33,6 +33,35 @@ export type CreditCallRes = {
   available_credits: number;
 };
 
+export type CreditZegoCallParams = {
+  model_id: number;
+  comet_chat_session_id: string;
+  zego_call_session_id: string;
+  start_time: string;
+  end_time: string;
+  duration: null | number;
+  status: string;
+  ended_by: string;
+};
+
+export type CreditZegoCallRes = {
+  id: number;
+  model_id: number;
+  customer_id: number;
+  comet_chat_session_id: string;
+  zego_call_session_id: string;
+  status: string;
+  start_time: string;
+  end_time: string;
+  end_call: boolean;
+  duration: null | number;
+  screenshot_interval_duration: number;
+  screenshot_start_duration: number;
+  time_difference: number;
+  out_of_credits: number;
+  available_credits: number;
+};
+
 export type CallStatus = {
   ongoing_calls: number;
 };
@@ -108,6 +137,22 @@ export class CallingService {
     } catch (err: any) {
       const error: AxiosError = err;
       return error.response?.data as CreditCallRes;
+    }
+  };
+
+  static creditPutZegoCallLog = async (params: CreditZegoCallParams, token: string): Promise<CreditZegoCallRes> => {
+    try {
+      const res = await axios.put(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/call/logs`, params, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        }
+      });
+
+      return res.data.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as CreditZegoCallRes;
     }
   };
 

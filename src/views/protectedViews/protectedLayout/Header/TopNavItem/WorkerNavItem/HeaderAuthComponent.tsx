@@ -18,9 +18,8 @@ import { IconButtonBoxInner, UnReadCountMain } from 'views/protectedDashboardVie
 import { IconButtonBoxNew } from './Notification.styled';
 import { BalanceBox, BorderBox, HeaderMainBox } from './HeaderAuthComponent.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { useCallFeatureContext } from '../../../../../../../context/CallFeatureContext';
 import NotificationModalCustomerV2 from './NotificationModalCustomerV2';
-import { useAuthContext } from '../../../../../../../context/AuthContext';
+import { useAuthContext } from '../../../../../../contexts/AuthContext';
 import CreditSideDrawer from 'views/protectedViews/CreditSideDrawer';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Menu from '@mui/material/Menu';
@@ -29,8 +28,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import Divider from '@mui/material/Divider';
-import { useTawk } from '../../../../../../../context/TawkContext';
 import ChatRoomDropdown from 'components/common/stepper/ChatDropDown';
+import { useTawk } from 'contexts/TawkContext';
+import { useVideoCallContext } from 'contexts/videoCallContext';
 
 export type NotificationFilters = {
   page: number;
@@ -46,7 +46,7 @@ export type NotificationFilters = {
 const HeaderAuthComponent = () => {
   const { maximizeChat, initializeChat } = useTawk();
   const { session, isFreeCreditsClaimed, isNameChange, openCreditDrawer, handleCreditDrawerClose } = useAuthContext();
-  const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
+  const { isCallEnded, avaialbleCredits } = useVideoCallContext();
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));

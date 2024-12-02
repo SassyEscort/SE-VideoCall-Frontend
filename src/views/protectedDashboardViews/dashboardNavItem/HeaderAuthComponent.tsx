@@ -17,9 +17,8 @@ import { NotificationDetailsService } from 'services/notification/notification.s
 import { Root } from 'services/notification/type';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
-import { useCallFeatureContext } from '../../../../context/CallFeatureContext';
 import MyProfileChangePassword from 'views/protectedViews/changePassword';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 import React from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -41,7 +40,7 @@ export type NotificationFiltersDashboard = {
 };
 
 const DashboadrHeaderAuthComponent = () => {
-  const { session, isNameChange } = useAuthContext();
+  const { session, isNameChange, isCustomer } = useAuthContext();
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -61,8 +60,6 @@ const DashboadrHeaderAuthComponent = () => {
   });
   const [notificationDetails, setNotificationDetails] = useState<Root>();
   const notificationCount = useRef(0);
-
-  const { isCustomer } = useCallFeatureContext();
 
   const handleOpenChangePassword = () => {
     setOpenChangePassword(true);

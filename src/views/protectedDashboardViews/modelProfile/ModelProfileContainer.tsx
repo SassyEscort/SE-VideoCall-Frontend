@@ -13,7 +13,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import DocumentMainContainer from 'views/protectedModelViews/verification/documentContainer';
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
-import { useAuthContext } from '../../../../context/AuthContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
 const profileMenuList = [
   { menuName: <FormattedMessage id="Photos" />, id: 0 },

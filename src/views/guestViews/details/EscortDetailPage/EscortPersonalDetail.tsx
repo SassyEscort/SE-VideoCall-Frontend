@@ -8,6 +8,7 @@ import {
   NameMainBox,
   NewTypography
 } from './Escort.styled';
+import { memo } from 'react';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UINewChip from 'components/UIComponents/UINewChip';
 import theme from 'themes/theme';
@@ -133,4 +134,4 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
   );
 };
 
-export default EscortPersonalDetail;
+export default memo(EscortPersonalDetail);

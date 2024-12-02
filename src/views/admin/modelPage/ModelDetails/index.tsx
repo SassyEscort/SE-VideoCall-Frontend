@@ -22,7 +22,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import AddEditSEOModalData from './UserInformationAccordion/SEOData/AddEditSEOModalData';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import { useAuthContext } from '../../../../../context/AuthContext';
+import { useAuthContext } from 'contexts/AuthContext';
 import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
 import { ModalPage } from 'constants/adminUserAccessConstants';
 

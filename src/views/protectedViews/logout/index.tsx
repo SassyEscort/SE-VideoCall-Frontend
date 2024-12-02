@@ -22,7 +22,6 @@ import Divider from '@mui/material/Divider';
 
 const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const asPath = usePathname();
-  // const { isCustomer } = useCallFeatureContext();
 
   const [loading, setLoading] = useState(false);
 
@@ -35,7 +34,7 @@ const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
       //     await CometChatUIKit.logout();
       //   }
       // }
-      await signOut({ callbackUrl: asPath.startsWith('/model') ? '/model' : '/' });
+      await signOut({ callbackUrl: asPath.startsWith('/model') && !asPath.startsWith('/models') ? '/model' : '/' });
     } catch (error) {
       toast.error('Error during sign-out:');
     } finally {

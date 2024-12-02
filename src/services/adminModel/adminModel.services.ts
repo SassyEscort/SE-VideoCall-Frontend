@@ -25,6 +25,7 @@ export type ModelListing = {
   verification_step: string;
   is_visible: number;
   is_online: number;
+  gender: string;
 };
 
 export type PaginationAggregation = {
@@ -64,6 +65,9 @@ export class adminModelServices {
     }
     if (params.is_active) {
       query += `&is_active=${params.is_active}`;
+    }
+    if (params.gender) {
+      query += `&gender=${params.gender}`;
     }
 
     try {

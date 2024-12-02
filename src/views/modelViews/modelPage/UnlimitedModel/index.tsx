@@ -17,7 +17,7 @@ import ModelSignup from 'views/modelViews/modelSignup';
 import { useState } from 'react';
 import ModelSignin from 'views/modelViews/modelSignin';
 import ModelForgetPasswordLink from 'views/modelViews/modelForgetPasswordLink';
-import { useAuthContext } from '../../../../../context/AuthContext';
+import { useAuthContext } from '../../../../contexts/AuthContext';
 import { User } from 'app/(guest)/layout';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
