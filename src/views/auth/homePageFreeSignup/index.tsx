@@ -25,6 +25,10 @@ import FormControl from '@mui/material/FormControl';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+// import FormControl from '@mui/material/FormControl';
+// import Radio from '@mui/material/Radio';
+// import RadioGroup from '@mui/material/RadioGroup';
+// import FormControlLabel from '@mui/material/FormControlLabel';
 import { signIn } from 'next-auth/react';
 import { gaEventTrigger } from 'utils/analytics';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
@@ -161,7 +165,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
         }
       }}
     >
-      {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
+      {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue, resetForm }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
             <AuthHomePageFreeSignupCommon onClose={onClose} role={values.role}>

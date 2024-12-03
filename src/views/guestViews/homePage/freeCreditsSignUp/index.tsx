@@ -42,7 +42,7 @@ const FreeCreditsSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onC
           </HeaderCloseButtonBoxContainer>
         </FreeCreditSignupMainContainer>
       </DialogTitleBox>
-      <DialogContent sx={{ p: 0 }}>
+      <DialogContent sx={{ padding: '30px 24px' }}>
         <TextMainBoxContainer>
           <TextInnerBoxContainer>
             <TitleTextBoxContainer>
@@ -62,7 +62,6 @@ const FreeCreditsSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onC
                 </UINewTypography>
               </DescriptionTextBoxContainer>
             </TitleTextBoxContainer>
-
             <ButtonContainer variant="contained" onClick={onSignupOpen}>
               <UINewTypography variant="bodySemiBold" lineHeight={'150%'} color="white.main">
                 <FormattedMessage id="SignUpAndClaimNow" />

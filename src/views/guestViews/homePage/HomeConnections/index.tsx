@@ -57,7 +57,6 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
 
   const { isCustomer } = useAuthContext();
-  // const isCustomer = authContext.isCustomer;
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -263,9 +262,9 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
           onSignupOpen={handleSignupOpen}
           onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
           handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
-          handleLoginOpen={handleLoginOpen}
-          freeSignupOpen={freeSignupOpen}
-          handleFreeCreditSignupClose={handleFreeCreditSignupClose}
+          // handleLoginOpen={handleLoginOpen}
+          // freeSignupOpen={freeSignupOpen}
+          // handleFreeCreditSignupClose={handleFreeCreditSignupClose}
           image="/images/auth/auth-model1.webp"
         />
       </UIStyledDialog>

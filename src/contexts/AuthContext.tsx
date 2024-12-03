@@ -102,10 +102,10 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   const searchParams = useSearchParams();
-  const credit = searchParams.get('credit');
-  const totalBal = searchParams.get('total_credits_after_txn');
-  const totalBalValue = searchParams.get('total_amount_after_txn');
-  // const transaction_id = searchParams.get('transaction_id');
+  const credit = searchParams?.get('credit') || '';
+  const totalBal = searchParams?.get('total_credits_after_txn') || '';
+  const totalBalValue = searchParams?.get('total_amount_after_txn') || '';
+  const transaction_id = searchParams?.get('transaction_id') || '';
 
   const handleFreeCreditClaim = () => {
     setIsFreeCreditsClaimed(!isFreeCreditsClaimed);
@@ -155,27 +155,38 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     setAddedCredits(Number(credit));
     if (credit) {
       setOpenSuccess(true);
-      // if (typeof window !== 'undefined' && window?.flux)
-      //   window.flux.track('conversion', { rev: Number(credit), tx: transaction_id?.toString() });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   useEffect(() => {
-    if (credit) {
-      gaEventTrigger(
-        'purchase',
-        {
-          action: 'purchase',
-          category: 'Page change',
-          label: 'purchase',
-          value: JSON.stringify(customerInfo)
-        },
-        Number(totalBalValue)
-      );
-    }
+    const checkFluxLoaded = async () => {
+      if (window?.flux && window.document && totalBalValue && transaction_id) {
+        gaEventTrigger(
+          'purchase',
+          {
+            action: 'purchase',
+            category: 'Page change',
+            label: 'purchase',
+            value: JSON.stringify(customerInfo)
+          },
+          Number(totalBalValue)
+        );
+        const eventArgs = {
+          rev: String(totalBalValue),
+          tx: transaction_id.toString(),
+          url_args: JSON.stringify({ rev: String(totalBalValue), tx: transaction_id.toString() }),
+          url: window.location.origin
+        };
+        window.flux.track('conversion', eventArgs);
+
+        clearInterval(intervalId);
+      }
+    };
+    const intervalId = setInterval(checkFluxLoaded, 100);
+    return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [credit]);
+  }, [totalBalValue, transaction_id]);
 
   return (
     <AuthContext.Provider

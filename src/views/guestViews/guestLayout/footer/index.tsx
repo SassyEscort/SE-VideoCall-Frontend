@@ -126,12 +126,14 @@ const Footer = () => {
           </Box>
           <MainFooter
             isFreeCreditAvailable={isFreeCreditAvailable}
-            freeSignupOpen={freeSignupOpen}
+            onClose={handleLoginClose}
+            onSignupOpen={handleSignupOpen}
+            onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
             handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
-            handleFreeCreditSignupClose={handleFreeCreditSignupClose}
-            handleLoginOpen={handleLoginOpen}
-            handleLoginClose={handleLoginClose}
-            openLogin={openLogin}
+            // handleLoginOpen={handleLoginOpen}
+            // freeSignupOpen={freeSignupOpen}
+            // handleFreeCreditSignupClose={handleFreeCreditSignupClose}
+            image="/images/auth/auth-model1.webp"
           />
         </TextContainer>
       </TextContainerMain>

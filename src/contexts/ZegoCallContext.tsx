@@ -161,7 +161,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         Number(appID),
         serverSecret,
         '',
-        String(userNameData?.customer_id || id),
+        String(id),
         name
       );
 
