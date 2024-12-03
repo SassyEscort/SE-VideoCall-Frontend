@@ -6,7 +6,6 @@ import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
 import useImageOptimize from 'hooks/useImageOptimize';
 import countryWithFlagList from 'constants/countryList.json';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import { toast } from 'react-toastify';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { ErrorMessage } from 'constants/common.constants';
@@ -95,7 +94,7 @@ const UITypographyBoxContainer = dynamic(
   { ssr: false }
 );
 
-const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRes; token?: TokenIdType }) => {
+const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRes; token?: string }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
   const [liked, setLiked] = useState(false);
@@ -112,8 +111,8 @@ const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRe
 
   const handleLikeClick = async (modelId: number) => {
     try {
-      if (token && token.token) {
-        const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
+      if (token) {
+        const data = await CustomerDetailsService.favouritePutId(modelId, token);
         if (data?.code === 200) {
           if (data.data.is_active === 1) {
             setLiked(true);

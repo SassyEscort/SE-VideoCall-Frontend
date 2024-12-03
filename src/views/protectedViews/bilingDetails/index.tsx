@@ -24,7 +24,6 @@ import moment from 'moment';
 import { useRouter } from 'next/navigation';
 import { ViewDetailsRes } from 'services/guestBilling/types';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -39,7 +38,7 @@ const BillingDetails = ({
   open: boolean;
   handleClose: () => void;
   selectDetails: ViewDetailsRes;
-  token: TokenIdType;
+  token: string;
 }) => {
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
   const router = useRouter();

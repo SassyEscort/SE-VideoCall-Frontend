@@ -40,7 +40,6 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 }
 
 const WorkerDetailPage = () => {
-
   return (
     <VideoCallProvider>
       <CallFeatureProvider>

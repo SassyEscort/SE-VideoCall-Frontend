@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { createContext, useContext, useEffect, useCallback, lazy, useState } from 'react';
+import React, { createContext, useContext, useEffect, useCallback, useState } from 'react';
 import { ZegoUIKitPrebuilt, ZegoCloudRoomConfig, ZegoUser } from '@zegocloud/zego-uikit-prebuilt';
 import { ZIM } from 'zego-zim-web';
 import { usePathname } from 'next/navigation';
@@ -16,6 +16,7 @@ import { ModelDetailsService } from 'services/modelDetails/modelDetails.services
 import { ROLE } from 'constants/workerVerification';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { useIntl } from 'react-intl';
+import dynamic from 'next/dynamic';
 
 type CallFeatureContextProps = {
   handleCancelCall: () => void;
@@ -67,7 +68,7 @@ const gaEventTrigger = async (action: string, data: any, credits?: number) => {
   gaEventTrigger(action, data);
 };
 
-const VideoCallEnded = lazy(() => import('views/protectedViews/videoCalling/VideoCallEnded'));
+const VideoCallEnded = dynamic(() => import('views/protectedViews/videoCalling/VideoCallEnded'));
 
 export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const intl = useIntl();
@@ -203,9 +204,9 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
       onSetRoomConfigBeforeJoining: (): ZegoCloudRoomConfig => {
         return {
-          turnOnMicrophoneWhenJoining: true,
           container: document.querySelector('#zego-room') as unknown as HTMLElement,
-          turnOnCameraWhenJoining: false,
+          turnOnMicrophoneWhenJoining: true,
+          turnOnCameraWhenJoining: true,
           showMyCameraToggleButton: true,
           showMyMicrophoneToggleButton: true,
           showAudioVideoSettingsButton: true,
@@ -367,7 +368,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     isFavourite: number
   ) => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      const stream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true });
       if (stream) {
         handleSetModelCreditPrice(modelPrice);
         handleSetModelDetails(guestId, modelName, modelPhoto);
@@ -482,7 +483,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     if (status === CALLING_STATUS.ENDED) {
       const end_time =
         (callDurationRef.current.endTime && moment.utc(callDurationRef.current.endTime).format(DATE_FORMAT)) ||
-        moment.utc().format(DATE_FORMAT);
+        moment.utc(String(new Date())).format(DATE_FORMAT);
       const duration = (Boolean(start_time && end_time) && moment(end_time).diff(start_time, 'second')) || null;
       creditLog.end_time = String(end_time);
       creditLog.duration = duration as unknown as null;

@@ -20,7 +20,6 @@ import {
   ButtonContainer
 } from './FreeCreditsSignUp.styled';
 
-
 const FreeCreditsSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onClose: () => void; onSignupOpen: () => void }) => {
   return (
     <DialogContentMain open={open} fullWidth onClose={onClose} scroll="body">
