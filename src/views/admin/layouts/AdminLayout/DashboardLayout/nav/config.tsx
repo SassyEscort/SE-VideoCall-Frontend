@@ -29,6 +29,11 @@ export const getNavConfig = (adminUserPermissions: AdminUserPermissions[] | unde
       icon: <PersonIcon />
     },
     {
+      title: 'Banned Customer',
+      path: '/admin/ban-customer',
+      icon: <PersonIcon />
+    },
+    {
       title: 'Packages',
       path: '/admin/packages',
       icon: <EuroIcon />

@@ -1,159 +1,100 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import MainLayout from '../layouts/AdminLayout/DashboardLayout';
+import {
+  ModelActionPopoverBanModel,
+  NotFoundBox,
+  SortBox,
+  StackBoxContainer,
+  StackFirstBoxContainer
+} from '../customerPage/CustomerContainer.styled';
+import Typography from '@mui/material/Typography';
+import PaginationSearch from 'components/common/CustomPaginations/PaginationSearch';
 import debounce from 'lodash/debounce';
+import { PAGE_SIZE } from 'constants/pageConstants';
+import moment from 'moment';
+import PaginationSortBy from 'components/common/CustomPaginations/PaginationSortBy';
+import { PaginationSortByOption } from 'components/common/CustomPaginations/type';
 import Card from '@mui/material/Card';
+import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import TableContainer from '@mui/material/TableContainer';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import moment from 'moment';
-import { formatFullDate } from 'utils/dateAndTime';
-import { PaginationSortByOption } from 'components/common/CustomPaginations/type';
-import PaginationSortBy from 'components/common/CustomPaginations/PaginationSortBy';
-import { PAGE_SIZE } from 'constants/pageConstants';
+import { IconButton, MenuItem, Paper, TableCell } from '@mui/material';
+import Box from '@mui/system/Box';
 import TablePager from 'components/common/CustomPaginations/TablePager';
-import MenuItem from '@mui/material/MenuItem';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import { adminModelServices } from 'services/adminModel/adminModel.services';
+// import VisibilityIcon from '@mui/icons-material/Visibility';
+import NotInterestedIcon from '@mui/icons-material/NotInterested';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import CircularProgress from '@mui/material/CircularProgress';
+import { formatFullDate } from 'utils/dateAndTime';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import MainLayout from '../../../views/admin/layouts/AdminLayout/DashboardLayout';
-import CustomerListHead from './CustomerListHead';
-import { ModelActionPopover, NotFoundBox, SortBox, StackBoxContainer, StackFirstBoxContainer } from './CustomerContainer.styled';
-import PaginationSearch from 'components/common/CustomPaginations/PaginationSearch';
-import { CustomerDetailsPage } from 'services/adminModel/types';
-import CustorModel from './CustomerModel';
-import { useAuthContext } from 'contexts/AuthContext';
-import { isPageAccessiable } from 'utils/Admin/PagePermission';
-import { CustomerPage } from 'constants/adminUserAccessConstants';
-import { useRouter } from 'next/navigation';
-import NotInterestedIcon from '@mui/icons-material/NotInterested';
-import DeleteModal from 'components/UIComponents/DeleteModal';
+import { BanCustomerDetails, BanCustomerDetailsRes, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
+import BanCustomerList from './BanCustomerListHead';
+// import CustorModel from '../customerPage/CustomerModel';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
-import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
-
-export type WorkersPaginationType = {
-  page: number;
-  offset: number;
-  pageSize: number;
-  orderField: string;
-  orderType: string;
-  search_field: string;
-  duration: string;
-  fromDate: string;
-  toDate: string;
-  status: string;
-  verificationStep: string;
-  is_active: string;
-};
+import DeleteModal from 'components/UIComponents/DeleteModal';
 
 const SORT_BY_OPTIONS: PaginationSortByOption[] = [
   { value: 'createdDate', label: 'Newest' },
   { value: 'name', label: 'Name' },
   { value: 'email', label: 'Email' }
 ];
-
-export type TokenIdTypeAdmin = {
-  token: string;
+export type BanCustomerFilters = {
+  sort_order: string;
+  sort_field: string;
+  customer_id: number;
+  email: string;
+  is_active: number;
+  limit: number;
+  offset: number;
+  page: number;
+  pageSize: number;
+  orderField: string;
+  orderType: string;
+  search_field: string;
+  fromDate: string;
+  toDate: string;
 };
-
-export default function CustomerPageContainer() {
-  const router = useRouter();
-
+const BanCustomer = () => {
   const [open, setOpen] = useState<null | HTMLElement>(null);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [selected, setSelected] = useState<CustomerDetailsPage>();
-  const [modelData, setModelData] = useState<CustomerDetailsPage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [totalRecords, setTotalRecords] = useState(0);
-  const [creditModalOpen, setCreditModalOpen] = useState(false);
-  const [selectedPayoutData, setSelectedPayoutData] = useState<CustomerDetailsPage | null>(null);
-
-  const [banCustomerOpen, setBanModelOpen] = useState(false);
-
-  const { adminUserPermissions, isAdmin } = useAuthContext();
-
-  const handelCustomerBan = async () => {
-    try {
-      if (token.token && selected) {
-        const res = await CustomerDetailsService.banCustomer(token.token, { email: selected?.email });
-        if (res && res.code === 200) {
-          toast.success('customer ban successfullly');
-          handleCloseBanCustomer();
-        }
-      }
-    } catch (error) {
-      toast.error(ErrorMessage);
-    }
-  };
+  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [banCustomerDetails, setBanCustomerDetails] = useState<BanCustomerDetailsRes>();
+  // const [creditModalOpen, setCreditModalOpen] = useState(false);
+  // const [selectedPayoutData, setSelectedPayoutData] = useState<BanCustomerDetails | null>(null);
+  const [selected, setSelected] = useState<BanCustomerDetails>();
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   const currentMoment = moment();
   const oneMonthAgoMoment = moment().subtract(1, 'month');
   const fromDate = oneMonthAgoMoment.format('YYYY/MM/DD');
   const toDate = currentMoment.format('YYYY/MM/DD');
-  const [filters, setFilters] = useState<WorkersPaginationType>({
+  const [filters, setFilters] = useState<BanCustomerFilters>({
     page: 0,
     pageSize: PAGE_SIZE,
     offset: 0,
     orderField: 'createdDate',
     orderType: 'desc',
     search_field: '',
-    duration: 'month',
     fromDate: fromDate,
     toDate: toDate,
-    status: '',
-    verificationStep: '',
-    is_active: ''
+    is_active: 0,
+    sort_order: '',
+    sort_field: '',
+    customer_id: 0,
+    email: '',
+    limit: 0
   });
 
-  const handleChangeFilter = useCallback((value: WorkersPaginationType) => {
+  const handleChangeFilter = useCallback((value: BanCustomerFilters) => {
     setFilters(value);
   }, []);
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      if (data) {
-        setToken({ id: data.id, token: data.token });
-      }
-    };
-
-    userToken();
-  }, []);
-
-  const fetchModelData = async () => {
-    setIsLoading(true);
-    if (token.token) {
-      const filterparams = {
-        limit: filters.pageSize,
-        offset: filters.offset,
-        search_field: filters.search_field,
-        sort_order: filters.orderType,
-        sort_field: filters.orderField
-      };
-
-      const data = await adminModelServices.getCustomerDetails(filterparams, token.token);
-
-      setTotalRecords(data?.data?.aggregate?.total_rows);
-      setModelData(data?.data?.customer_info);
-    }
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    fetchModelData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.token, filters]);
 
   const handleChangePage = useCallback(
     (value: number) => {
@@ -182,14 +123,12 @@ export default function CustomerPageContainer() {
     [filters, handleChangeFilter]
   );
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedChangeSearch = useCallback(
     debounce((val: string) => {
       handleChangeFilter({ ...filters, search_field: val, page: 1 });
     }, 500),
     [filters, handleChangeFilter]
   );
-
   const handleChangeSearch = (val: string) => {
     debouncedChangeSearch(val);
   };
@@ -203,37 +142,75 @@ export default function CustomerPageContainer() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleOpenCredit = (value: CustomerDetailsPage) => {
-    setSelectedPayoutData(value);
-    setCreditModalOpen(true);
-  };
-  const handleCloseCredit = () => {
-    setCreditModalOpen(false);
-  };
+  useEffect(() => {
+    const userToken = async () => {
+      const data = await getUserDataClient();
+      if (data) {
+        setToken({ id: data.id, token: data.token });
+      }
+    };
 
-  const handleOpenBanCustomer = () => {
-    setBanModelOpen(true);
-  };
+    userToken();
+  }, []);
 
-  const handleCloseBanCustomer = () => {
-    setBanModelOpen(false);
+  const banCustomerData = async () => {
+    setIsLoading(true);
+    if (token.token) {
+      const params = {
+        sort_order: filters.sort_order,
+        sort_field: filters.sort_field,
+        is_active: filters.is_active,
+        customer_id: filters.customer_id,
+        email: filters.email,
+        limit: filters.pageSize,
+        offset: filters.offset
+      };
+      const data = await CustomerDetailsService.banCustomerDetails(params, token.token);
+      setBanCustomerDetails(data);
+      if (data?.data?.aggregate?.total_rows) {
+        setTotalRecords(data.data.aggregate.total_rows);
+      }
+    }
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    if (adminUserPermissions) {
-      const isAccessiable = isPageAccessiable(CustomerPage, adminUserPermissions) || isAdmin;
-      isAccessiable ? '' : router.push('/admin');
-    }
+    banCustomerData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [adminUserPermissions, isAdmin]);
+  }, [token.token, filters]);
 
+  const handelDeleteBanCustomer = async (id: number) => {
+    try {
+      if (token.token && id) {
+        const res = await CustomerDetailsService.deleteBanCustomer(id, token.token);
+        if (res) {
+          if (res.code === 200) {
+            toast.success('Banned Customer UnBanned Successfully');
+            banCustomerData();
+            setOpenDeleteModal(false);
+          }
+        }
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
+
+  // const handleCloseCredit = () => {
+  //   setCreditModalOpen(false);
+  // };
+
+  // const handleOpenCredit = (value: BanCustomerDetails) => {
+  //   setSelectedPayoutData(value);
+  //   setCreditModalOpen(true);
+  // };
   return (
     <>
       <MainLayout>
         <>
           <StackBoxContainer>
             <Typography variant="h4" gutterBottom>
-              Customer
+              Banned Customer
             </Typography>
           </StackBoxContainer>
           <StackFirstBoxContainer>
@@ -248,11 +225,12 @@ export default function CustomerPageContainer() {
               handleChangeOrderBy={handleChangeOrderBy}
             />
           </SortBox>
+
           <Card>
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
               <TableContainer sx={{ width: '100%' }}>
                 <Table>
-                  <CustomerListHead />
+                  <BanCustomerList />
 
                   <TableBody>
                     {isLoading ? (
@@ -263,8 +241,8 @@ export default function CustomerPageContainer() {
                           </NotFoundBox>
                         </TableCell>
                       </TableRow>
-                    ) : modelData?.length ? (
-                      modelData?.map((item, index) => (
+                    ) : banCustomerDetails?.data?.ban_customers.length ? (
+                      banCustomerDetails?.data?.ban_customers?.map((item, index) => (
                         <TableRow
                           key={index}
                           sx={{
@@ -272,14 +250,18 @@ export default function CustomerPageContainer() {
                           }}
                         >
                           <TableCell component="th" scope="row">
-                            {item?.name || '-'}
+                            {item?.id || '-'}
                           </TableCell>
                           <TableCell component="th" scope="row">
-                            {item?.email || '-'}
+                            {item?.customer_id || '-'}
                           </TableCell>
+                          <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.email, '-')}</TableCell>
+                          <TableCell sx={{ textAlign: 'left' }}>{item?.ip_address}</TableCell>
+                          <TableCell sx={{ textAlign: 'left' }}>{item?.device_signature}</TableCell>
+                          <TableCell sx={{ textAlign: 'left' }}>{item?.is_active ? 'No' : 'Yes'}</TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.createdDate, '-')}</TableCell>
-                          <TableCell sx={{ textAlign: 'left' }}>{item?.userName}</TableCell>
-                          <TableCell sx={{ textAlign: 'left' }}>{item?.email_verified === 0 ? 'No' : 'Yes'}</TableCell>
+                          <TableCell sx={{ textAlign: 'left' }}>{item?.modifiedDate ? ' ' : '-'}</TableCell>
+
                           <TableCell>
                             <IconButton
                               aria-label="more"
@@ -301,7 +283,7 @@ export default function CustomerPageContainer() {
                       <TableRow>
                         <TableCell colSpan={7}>
                           <NotFoundBox>
-                            <Typography variant="body1">Customer is not found</Typography>
+                            <Typography variant="body1">Banned Customer is not found</Typography>
                           </NotFoundBox>
                         </TableCell>
                       </TableRow>
@@ -309,7 +291,7 @@ export default function CustomerPageContainer() {
                   </TableBody>
                 </Table>
               </TableContainer>
-              {modelData && modelData?.length > 0 && (
+              {banCustomerDetails?.data?.ban_customers.length && banCustomerDetails?.data?.ban_customers.length ? (
                 <Box sx={{ width: '100%', p: { xs: 1, md: 2 } }}>
                   <TablePager
                     page={filters.page}
@@ -319,46 +301,53 @@ export default function CustomerPageContainer() {
                     totalRecords={totalRecords}
                   />
                 </Box>
+              ) : (
+                ''
               )}
             </Paper>
           </Card>
         </>
-        <ModelActionPopover
+
+        <ModelActionPopoverBanModel
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={handleCloseMenu}
           anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
-          <MenuItem
+          {/* <MenuItem
             onClick={() => {
-              handleOpenCredit(selected as CustomerDetailsPage);
+              // handleOpenCredit(selected as BanCustomerDetails);
               handleCloseMenu();
             }}
           >
             <VisibilityIcon sx={{ mr: 2 }} />
             View Details
-          </MenuItem>
+          </MenuItem> */}
 
           <MenuItem
             onClick={() => {
-              handleOpenBanCustomer();
               handleCloseMenu();
+              setOpenDeleteModal(true);
             }}
           >
             <NotInterestedIcon sx={{ mr: 2 }} />
-            Ban Customer
+            Unban Customer
           </MenuItem>
-        </ModelActionPopover>
-        <CustorModel open={creditModalOpen} onClose={handleCloseCredit} selectedPayoutData={selectedPayoutData} />
+        </ModelActionPopoverBanModel>
+        {/* <CustorModel open={creditModalOpen} onClose={handleCloseCredit} selectedPayoutData={selectedPayoutData} /> */}
         <DeleteModal
-          open={banCustomerOpen}
-          handleClose={handleCloseBanCustomer}
-          handleDeleteClick={handelCustomerBan}
-          ban={true}
-          unban={false}
+          open={openDeleteModal}
+          handleClose={() => {
+            setOpenDeleteModal(false);
+          }}
+          handleDeleteClick={() => selected && handelDeleteBanCustomer(selected?.customer_id)}
+          ban={false}
+          unban={true}
         />
       </MainLayout>
     </>
   );
-}
+};
+
+export default BanCustomer;
