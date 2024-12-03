@@ -26,7 +26,7 @@ const StyleButtonV2 = lazy(() => import('components/UIComponents/StyleLoadingBut
 const AuthHomePageFreeSignupCommon = lazy(() => import('./AuthHomePageFreeSignupCommon'));
 const HomePageFreeSignupMobile = lazy(() => import('./HomePageFreeSignupMobile'));
 const ErrorBox = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })));
-const ModelUICustomUIBox = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUICustomUIBox })));
+// const ModelUICustomUIBox = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUICustomUIBox })));
 const ModelUITextConatiner = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })));
 const UIButtonText = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })));
 const UITypographyText = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })));
@@ -42,10 +42,10 @@ const HomeFreeSignupMainBoxContainer = lazy(() =>
 const IconeButtonContainer = lazy(() => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.IconeButtonContainer })));
 const JoinForFreeText = lazy(() => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.JoinForFreeText })));
 const RemindMeBoxContainer = lazy(() => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.RemindMeBoxContainer })));
-import FormControl from '@mui/material/FormControl';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
+// import FormControl from '@mui/material/FormControl';
+// import Radio from '@mui/material/Radio';
+// import RadioGroup from '@mui/material/RadioGroup';
+// import FormControlLabel from '@mui/material/FormControlLabel';
 import { signIn } from 'next-auth/react';
 import { gaEventTrigger } from 'utils/analytics';
 
@@ -170,7 +170,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
           }
         }}
       >
-        {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
+        {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue, resetForm }) => {
           return (
             <Box component="form" onSubmit={handleSubmit}>
               <AuthHomePageFreeSignupCommon onClose={onClose} role={values.role}>
@@ -201,7 +201,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                       )}
 
                       <ModelUITextConatiner gap={3} sx={{ width: 'auto' }}>
-                        <ModelUITextConatiner gap={0.5}>
+                        {/* <ModelUITextConatiner gap={0.5}>
                           <ModelUITextConatiner sx={{ gap: 0.5 }}>
                             <ModelUICustomUIBox>
                               <UITypographyText>
@@ -230,7 +230,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                               </FormControl>
                             </ModelUICustomUIBox>
                           </ModelUITextConatiner>
-                        </ModelUITextConatiner>
+                        </ModelUITextConatiner> */}
                         <ModelUITextConatiner sx={{ gap: 0.5 }}>
                           <UITypographyText>
                             <FormattedMessage id="ClientName" />
@@ -371,8 +371,25 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                             <FormattedMessage id="SignUp" />
                           </UIButtonText>
                         </StyleButtonV2>
-                        <ModelUITextConatiner gap={3}>
+                        <ModelUITextConatiner gap={3} sx={{ alignItems: 'center' }}>
                           <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                          <Box>
+                            <UINewTypography variant="buttonLargeMenu" color="text.secondary" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
+                              <FormattedMessage id="SignUpAsWhat" />{' '}
+                              {values.role === ROLE.MODEL ? <FormattedMessage id="CustomerText" /> : <FormattedMessage id="Model" />}{' '}
+                            </UINewTypography>
+                            <UINewTypography
+                              whiteSpace="nowrap"
+                              variant="body"
+                              sx={{ color: 'primary.400', cursor: 'pointer', textDecoration: 'underline' }}
+                              onClick={() => {
+                                resetForm();
+                                values.role === ROLE.CUSTOMER ? setFieldValue('role', ROLE.MODEL) : setFieldValue('role', ROLE.CUSTOMER);
+                              }}
+                            >
+                              <FormattedMessage id="here" />
+                            </UINewTypography>
+                          </Box>
                           <Box
                             display="flex"
                             gap={1}
@@ -387,7 +404,7 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                             <UINewTypography
                               whiteSpace="nowrap"
                               variant="body"
-                              sx={{ color: 'text.secondary', cursor: 'pointer' }}
+                              sx={{ color: 'text.secondary', cursor: 'pointer', textDecoration: 'underline' }}
                               onClick={() => {
                                 onLoginOpen();
                                 gaEventTrigger('signup_form_login_instead_click', {
