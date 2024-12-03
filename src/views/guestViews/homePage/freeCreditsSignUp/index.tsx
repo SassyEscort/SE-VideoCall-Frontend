@@ -55,7 +55,7 @@ const FreeCreditsSignUp = ({ open, onClose, onSignupOpen }: { open: boolean; onC
             </HeaderCloseButtonBoxContainer>
           </FreeCreditSignupMainContainer>
         </DialogTitleBox>
-        <DialogContent sx={{ p: 0 }}>
+        <DialogContent sx={{ padding: '30px 24px' }}>
           <TextMainBoxContainer>
             <TextInnerBoxContainer>
               <TitleTextBoxContainer>

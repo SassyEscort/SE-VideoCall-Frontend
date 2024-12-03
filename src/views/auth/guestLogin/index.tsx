@@ -32,13 +32,13 @@ import { ROLE } from 'constants/workerVerification';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import dynamic from 'next/dynamic';
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
-  ssr: false
-});
-const HomePageFreeSignup = dynamic(() => import('../homePageFreeSignup'), {
-  ssr: false
-});
+// import dynamic from 'next/dynamic';
+// const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
+//   ssr: false
+// });
+// const HomePageFreeSignup = dynamic(() => import('../homePageFreeSignup'), {
+//   ssr: false
+// });
 
 export type LoginParams = {
   email: string;
@@ -51,10 +51,10 @@ const GuestLogin = ({
   onFogotPasswordLinkOpen,
   image,
   isFreeCreditAvailable,
-  handleFreeCreditSignupOpen,
-  handleLoginOpen,
-  freeSignupOpen,
-  handleFreeCreditSignupClose
+  handleFreeCreditSignupOpen
+  // handleLoginOpen,
+  // freeSignupOpen,
+  // handleFreeCreditSignupClose
 }: {
   onClose: () => void;
   onSignupOpen: () => void;
@@ -62,9 +62,9 @@ const GuestLogin = ({
   image: string;
   isFreeCreditAvailable: number;
   handleFreeCreditSignupOpen: () => void;
-  handleLoginOpen: () => void;
-  freeSignupOpen: boolean;
-  handleFreeCreditSignupClose: () => void;
+  // handleLoginOpen: () => void;
+  // freeSignupOpen: boolean;
+  // handleFreeCreditSignupClose: () => void;
 }) => {
   const intl = useIntl();
 
@@ -304,9 +304,9 @@ const GuestLogin = ({
           );
         }}
       </Formik>
-      <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
-        <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-      </NewSignupStyledModalDialog>
+      {/* <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
+        <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} openModelSignup={() => {}} />
+      </NewSignupStyledModalDialog> */}
     </>
   );
 };

@@ -334,7 +334,7 @@ function CustomerPackagesContainer() {
                               <PackageReportDetailCell>
                                 Package {item?.id} |
                                 <Typography variant="body2" fontWeight={500}>
-                                  ${item?.credits}
+                                  {item?.credits}
                                 </Typography>
                               </PackageReportDetailCell>
                             </TableCell>
