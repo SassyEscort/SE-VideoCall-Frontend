@@ -21,21 +21,33 @@ import { ErrorMessage } from 'constants/common.constants';
 import { useRouter } from 'next/navigation';
 import { getErrorMessage } from 'utils/errorUtils';
 import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
+const GuestSignupSuccess = dynamic(() => import('../GuestSignupSuccess'));
+const StyleButtonV2 = dynamic(() => import('components/UIComponents/StyleLoadingButton'));
+const AuthHomePageFreeSignupCommon = dynamic(() => import('./AuthHomePageFreeSignupCommon'));
+const HomePageFreeSignupMobile = dynamic(() => import('./HomePageFreeSignupMobile'));
+const ErrorBox = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })));
+const ModelUITextConatiner = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })));
+const UIButtonText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })));
+const UITypographyText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })));
+const HeaderTextInnerBoxContainer = dynamic(() =>
+  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HeaderTextInnerBoxContainer }))
+);
+const HeaderTextMainBoxContainer = dynamic(() =>
+  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HeaderTextMainBoxContainer }))
+);
+const HomeFreeSignupMainBoxContainer = dynamic(() =>
+  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HomeFreeSignupMainBoxContainer }))
+);
+const IconeButtonContainer = dynamic(() =>
+  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.IconeButtonContainer }))
+);
+const JoinForFreeText = dynamic(() => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.JoinForFreeText })));
+const RemindMeBoxContainer = dynamic(() =>
+  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.RemindMeBoxContainer }))
+);
 import { signIn } from 'next-auth/react';
 import { gaEventTrigger } from 'utils/analytics';
-import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
-import { ErrorBox, ModelUITextConatiner, UITypographyText, UIButtonText } from '../AuthCommon.styled';
-import GuestSignupSuccess from '../GuestSignupSuccess';
-import AuthHomePageFreeSignupCommon from './AuthHomePageFreeSignupCommon';
-import { HeaderTextMainBoxContainer } from './AuthHomePageFreeSignupCommon.styled';
-import {
-  HomeFreeSignupMainBoxContainer,
-  JoinForFreeText,
-  HeaderTextInnerBoxContainer,
-  IconeButtonContainer,
-  RemindMeBoxContainer
-} from './HomePageFreeSignup.styled';
-import HomePageFreeSignupMobile from './HomePageFreeSignupMobile';
+import dynamic from 'next/dynamic';
 
 export type SignupParams = {
   name: string;

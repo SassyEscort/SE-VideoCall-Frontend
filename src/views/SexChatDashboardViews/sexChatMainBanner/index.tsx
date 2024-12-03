@@ -81,12 +81,12 @@ const SexChatDashboardBanner = () => {
       <SexChatBanner>
         <SexChatTextContainerMain>
           <SexChatTextContainer>
-            <SexChatBannerInnerBoxContainer sx={{ gap: 6 }}>
-              <SexChatBannerInnerBoxContainer sx={{ gap: 2 }}>
-                <SexChatSubTitleText>
+            <SexChatBannerInnerBoxContainer sx={{ gap: 6 }} component="div">
+              <SexChatBannerInnerBoxContainer sx={{ gap: 2 }} component="div">
+                <SexChatSubTitleText variant="h4">
                   <FormattedMessage id="WELCOMETOFLIRTBATE" />
                 </SexChatSubTitleText>
-                <SexChatTitleText>
+                <SexChatTitleText variant="h1">
                   <FormattedMessage id="FreeSexVideoChatCalls" />
                 </SexChatTitleText>
                 <SexChatSubTitleText>
