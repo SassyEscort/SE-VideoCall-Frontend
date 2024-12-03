@@ -52,7 +52,7 @@ const DashboardNavItem = () => {
     if (typeof window !== 'undefined') {
       setIsDashboard(pathName.startsWith('/model/'));
     }
-  }, []);
+  }, [pathName]);
 
   return (
     <>

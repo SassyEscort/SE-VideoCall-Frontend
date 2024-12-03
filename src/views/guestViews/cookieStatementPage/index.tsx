@@ -1,17 +1,24 @@
 'use client';
 import React from 'react';
 import dynamic from 'next/dynamic';
-const CookieStatementMainContainer = dynamic(() =>
-  import('./CookieStatement.styled').then((module) => ({ default: module.CookieStatementMainContainer }))
+const CookieStatementMainContainer = dynamic(
+  () => import('./CookieStatement.styled').then((module) => ({ default: module.CookieStatementMainContainer })),
+  { ssr: false }
 );
-const FirstBoxMainContainer = dynamic(() =>
-  import('./CookieStatement.styled').then((module) => ({ default: module.FirstBoxMainContainer }))
+const FirstBoxMainContainer = dynamic(
+  () => import('./CookieStatement.styled').then((module) => ({ default: module.FirstBoxMainContainer })),
+  { ssr: false }
 );
-const FirstTextContainer = dynamic(() => import('./CookieStatement.styled').then((module) => ({ default: module.FirstTextContainer })));
-const ContactContainer = dynamic(() => import('../faqPage/faqPage.style').then((module) => ({ default: module.ContactContainer })));
-const ContactUs = dynamic(() => import('../faqPage/faqPage.style').then((module) => ({ default: module.ContactUs })));
-const UINewTypographyMainText = dynamic(() =>
-  import('../faqPage/faqPage.style').then((module) => ({ default: module.UINewTypographyMainText }))
+const FirstTextContainer = dynamic(() => import('./CookieStatement.styled').then((module) => ({ default: module.FirstTextContainer })), {
+  ssr: false
+});
+const ContactContainer = dynamic(() => import('../faqPage/faqPage.style').then((module) => ({ default: module.ContactContainer })), {
+  ssr: false
+});
+const ContactUs = dynamic(() => import('../faqPage/faqPage.style').then((module) => ({ default: module.ContactUs })), { ssr: false });
+const UINewTypographyMainText = dynamic(
+  () => import('../faqPage/faqPage.style').then((module) => ({ default: module.UINewTypographyMainText })),
+  { ssr: false }
 );
 import { FormattedMessage } from 'react-intl';
 import HomeMainContainer from '../guestLayout/homeContainer';

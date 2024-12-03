@@ -16,55 +16,83 @@ import { ViewDetailsRes } from 'services/guestBilling/types';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
 
-const CreditContainer = dynamic(() => import('./mobileWorkerCard.styled').then((module) => ({ default: module.CreditContainer })));
-const HeartIconWorkerCard = dynamic(() => import('./mobileWorkerCard.styled').then((module) => ({ default: module.HeartIconWorkerCard })));
-const ImgWorkerCard = dynamic(() => import('./mobileWorkerCard.styled').then((module) => ({ default: module.ImgWorkerCard })));
-const LiveIconSecBoxWorkerCard = dynamic(() =>
-  import('./mobileWorkerCard.styled').then((module) => ({ default: module.LiveIconSecBoxWorkerCard }))
+const CreditContainer = dynamic(() => import('./mobileWorkerCard.styled').then((module) => ({ default: module.CreditContainer })), {
+  ssr: false
+});
+const HeartIconWorkerCard = dynamic(() => import('./mobileWorkerCard.styled').then((module) => ({ default: module.HeartIconWorkerCard })), {
+  ssr: false
+});
+const ImgWorkerCard = dynamic(() => import('./mobileWorkerCard.styled').then((module) => ({ default: module.ImgWorkerCard })), {
+  ssr: false
+});
+const LiveIconSecBoxWorkerCard = dynamic(
+  () => import('./mobileWorkerCard.styled').then((module) => ({ default: module.LiveIconSecBoxWorkerCard })),
+  { ssr: false }
 );
-const LiveIconWorkerCard = dynamic(() => import('./mobileWorkerCard.styled').then((module) => ({ default: module.LiveIconWorkerCard })));
-const NameCardContainer = dynamic(() => import('./mobileWorkerCard.styled').then((module) => ({ default: module.NameCardContainer })));
-const OfflineIconSecBoxWorkerCard = dynamic(() =>
-  import('./mobileWorkerCard.styled').then((module) => ({ default: module.OfflineIconSecBoxWorkerCard }))
+const LiveIconWorkerCard = dynamic(() => import('./mobileWorkerCard.styled').then((module) => ({ default: module.LiveIconWorkerCard })), {
+  ssr: false
+});
+const NameCardContainer = dynamic(() => import('./mobileWorkerCard.styled').then((module) => ({ default: module.NameCardContainer })), {
+  ssr: false
+});
+const OfflineIconSecBoxWorkerCard = dynamic(
+  () => import('./mobileWorkerCard.styled').then((module) => ({ default: module.OfflineIconSecBoxWorkerCard })),
+  { ssr: false }
 );
-const OfflineIconWorkerCard = dynamic(() =>
-  import('./mobileWorkerCard.styled').then((module) => ({ default: module.OfflineIconWorkerCard }))
+const OfflineIconWorkerCard = dynamic(
+  () => import('./mobileWorkerCard.styled').then((module) => ({ default: module.OfflineIconWorkerCard })),
+  { ssr: false }
 );
-const SecondSubContainerImgWorkerCard = dynamic(() =>
-  import('./mobileWorkerCard.styled').then((module) => ({ default: module.SecondSubContainerImgWorkerCard }))
+const SecondSubContainerImgWorkerCard = dynamic(
+  () => import('./mobileWorkerCard.styled').then((module) => ({ default: module.SecondSubContainerImgWorkerCard })),
+  { ssr: false }
 );
-const SecondSubContainerWorkerCard = dynamic(() =>
-  import('./mobileWorkerCard.styled').then((module) => ({ default: module.SecondSubContainerWorkerCard }))
+const SecondSubContainerWorkerCard = dynamic(
+  () => import('./mobileWorkerCard.styled').then((module) => ({ default: module.SecondSubContainerWorkerCard })),
+  { ssr: false }
 );
-const FirstSubContainerWithoutImg = dynamic(() =>
-  import('./mobileWorkerCard.styled').then((module) => ({ default: module.FirstSubContainerWithoutImg }))
+const FirstSubContainerWithoutImg = dynamic(
+  () => import('./mobileWorkerCard.styled').then((module) => ({ default: module.FirstSubContainerWithoutImg })),
+  { ssr: false }
 );
 
-const MainWorkerCard = dynamic(() => import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.MainWorkerCard })));
-const FavoriteIconContainer = dynamic(() =>
-  import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.FavoriteIconContainer }))
+const MainWorkerCard = dynamic(() => import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.MainWorkerCard })), {
+  ssr: false
+});
+const FavoriteIconContainer = dynamic(
+  () => import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.FavoriteIconContainer })),
+  { ssr: false }
 );
-const WorkerCardContainer = dynamic(() =>
-  import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.WorkerCardContainer }))
+const WorkerCardContainer = dynamic(
+  () => import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.WorkerCardContainer })),
+  { ssr: false }
 );
-const SeconderContainerWorkerCard = dynamic(() =>
-  import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.SeconderContainerWorkerCard }))
+const SeconderContainerWorkerCard = dynamic(
+  () => import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.SeconderContainerWorkerCard })),
+  { ssr: false }
 );
-const SubContainertWorkerCard = dynamic(() =>
-  import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.SubContainertWorkerCard }))
+const SubContainertWorkerCard = dynamic(
+  () => import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.SubContainertWorkerCard })),
+  { ssr: false }
 );
-const ProfileCardContainer = dynamic(() =>
-  import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.ProfileCardContainer }))
+const ProfileCardContainer = dynamic(
+  () => import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.ProfileCardContainer })),
+  { ssr: false }
 );
-const FirstSubContainerImgWorkerCard = dynamic(() =>
-  import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.FirstSubContainerImgWorkerCard }))
+const FirstSubContainerImgWorkerCard = dynamic(
+  () => import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.FirstSubContainerImgWorkerCard })),
+  { ssr: false }
 );
-const SecondMainContainerWorkerCard = dynamic(() =>
-  import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.SecondMainContainerWorkerCard }))
+const SecondMainContainerWorkerCard = dynamic(
+  () => import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.SecondMainContainerWorkerCard })),
+  { ssr: false }
 );
-const UITypographyBox = dynamic(() => import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.UITypographyBox })));
-const UITypographyBoxContainer = dynamic(() =>
-  import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.UITypographyBoxContainer }))
+const UITypographyBox = dynamic(() => import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.UITypographyBox })), {
+  ssr: false
+});
+const UITypographyBoxContainer = dynamic(
+  () => import('../WorkerCard/WorkerCard.styled').then((module) => ({ default: module.UITypographyBoxContainer })),
+  { ssr: false }
 );
 
 const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRes; token?: TokenIdType }) => {

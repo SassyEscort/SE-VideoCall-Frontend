@@ -13,7 +13,6 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 const Home = async ({ searchParams }: { searchParams: KeyPairAndUndefined }) => {
-
   const session = await getUserDataServerSide();
   const initVal = {
     fromAge: searchParams?.fromAge || '',

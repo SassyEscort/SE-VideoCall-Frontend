@@ -8,8 +8,6 @@ export const metadata: Metadata = {
   description: SEO_DATA_SEX_CHAT.DESCRIPTION
 };
 
-const Home = ({ searchParams }: { searchParams: KeyPairAndUndefined }) => (
-  <SexChatDashBoard searchParams={searchParams} />
-);
+const Home = ({ searchParams }: { searchParams: KeyPairAndUndefined }) => <SexChatDashBoard searchParams={searchParams} />;
 
 export default Home;

@@ -8,8 +8,6 @@ export const metadata: Metadata = {
   description: SEO_DATA_CHAT_WITH_GIRLS.DESCRIPTION
 };
 
-const Home = ({ searchParams }: { searchParams: KeyPairAndUndefined }) => (
-  <ChatToGirlDashBoard searchParams={searchParams} />
-);
+const Home = ({ searchParams }: { searchParams: KeyPairAndUndefined }) => <ChatToGirlDashBoard searchParams={searchParams} />;
 
 export default Home;

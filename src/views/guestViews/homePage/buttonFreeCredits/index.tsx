@@ -6,34 +6,51 @@ import DialogContent from '@mui/material/DialogContent';
 import Box from '@mui/material/Box';
 import dynamic from 'next/dynamic';
 
-const DialogContentMain = dynamic(() => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.DialogContentMain })));
-const DialogTitleBox = dynamic(() => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.DialogTitleBox })));
-const DialogContentSecondBox = dynamic(() =>
-  import('./ButtonfreeCredits.styled').then((module) => ({ default: module.DialogContentSecondBox }))
+const DialogContentMain = dynamic(() => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.DialogContentMain })), {
+  ssr: false
+});
+const DialogTitleBox = dynamic(() => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.DialogTitleBox })), {
+  ssr: false
+});
+const DialogContentSecondBox = dynamic(
+  () => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.DialogContentSecondBox })),
+  { ssr: false }
 );
-const DialogContentBoxQuestion = dynamic(() =>
-  import('./ButtonfreeCredits.styled').then((module) => ({ default: module.DialogContentBoxQuestion }))
+const DialogContentBoxQuestion = dynamic(
+  () => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.DialogContentBoxQuestion })),
+  { ssr: false }
 );
-const DialogContentBoxButton = dynamic(() =>
-  import('./ButtonfreeCredits.styled').then((module) => ({ default: module.DialogContentBoxButton }))
+const DialogContentBoxButton = dynamic(
+  () => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.DialogContentBoxButton })),
+  { ssr: false }
 );
-const UINewTypographyFREECredits = dynamic(() =>
-  import('./ButtonfreeCredits.styled').then((module) => ({ default: module.UINewTypographyFREECredits }))
+const UINewTypographyFREECredits = dynamic(
+  () => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.UINewTypographyFREECredits })),
+  { ssr: false }
 );
-const UINewTypographyJoin = dynamic(() => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.UINewTypographyJoin })));
-const UINewTypographySign = dynamic(() => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.UINewTypographySign })));
-const UINewTypographyOffer = dynamic(() =>
-  import('./ButtonfreeCredits.styled').then((module) => ({ default: module.UINewTypographyOffer }))
+const UINewTypographyJoin = dynamic(
+  () => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.UINewTypographyJoin })),
+  { ssr: false }
 );
-const UINewTypographyOfferBox = dynamic(() =>
-  import('./ButtonfreeCredits.styled').then((module) => ({ default: module.UINewTypographyOfferBox }))
+const UINewTypographySign = dynamic(
+  () => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.UINewTypographySign })),
+  { ssr: false }
 );
-const ButtonBox = dynamic(() => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.ButtonBox })));
-const JoinNowAndEnjoyAEREEVideoCallMainBox = dynamic(() =>
-  import('./ButtonfreeCredits.styled').then((module) => ({ default: module.JoinNowAndEnjoyAEREEVideoCallMainBox }))
+const UINewTypographyOffer = dynamic(
+  () => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.UINewTypographyOffer })),
+  { ssr: false }
 );
-const ImageFirst = dynamic(() => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.ImageFirst })));
-const ImageSecond = dynamic(() => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.ImageSecond })));
+const UINewTypographyOfferBox = dynamic(
+  () => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.UINewTypographyOfferBox })),
+  { ssr: false }
+);
+const ButtonBox = dynamic(() => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.ButtonBox })), { ssr: false });
+const JoinNowAndEnjoyAEREEVideoCallMainBox = dynamic(
+  () => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.JoinNowAndEnjoyAEREEVideoCallMainBox })),
+  { ssr: false }
+);
+const ImageFirst = dynamic(() => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.ImageFirst })), { ssr: false });
+const ImageSecond = dynamic(() => import('./ButtonfreeCredits.styled').then((module) => ({ default: module.ImageSecond })), { ssr: false });
 
 const ButtonFreeCredits = ({ open, onClose, onSignupOpen }: { open: boolean; onClose: () => void; onSignupOpen: () => void }) => {
   return (

@@ -171,10 +171,10 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   }, [userNameData, roomID]);
 
   useEffect(() => {
-    initCall();
+    if (typeof window !== 'undefined') initCall();
   }, [userNameData]);
 
-  if (callInstance) {
+  if (typeof window !== 'undefined' && callInstance) {
     callInstance.setCallInvitationConfig({
       enableNotifyWhenAppRunningInBackgroundOrQuit: true,
       endCallWhenInitiatorLeave: true,
@@ -203,9 +203,9 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
       onSetRoomConfigBeforeJoining: (): ZegoCloudRoomConfig => {
         return {
-          container: document.querySelector('#zego-room') as unknown as HTMLElement,
           turnOnMicrophoneWhenJoining: true,
-          turnOnCameraWhenJoining: true,
+          container: document.querySelector('#zego-room') as unknown as HTMLElement,
+          turnOnCameraWhenJoining: false,
           showMyCameraToggleButton: true,
           showMyMicrophoneToggleButton: true,
           showAudioVideoSettingsButton: true,
@@ -367,7 +367,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     isFavourite: number
   ) => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true });
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
       if (stream) {
         handleSetModelCreditPrice(modelPrice);
         handleSetModelDetails(guestId, modelName, modelPhoto);
@@ -480,7 +480,9 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       duration: null
     };
     if (status === CALLING_STATUS.ENDED) {
-      const end_time = (callDurationRef.current.endTime && moment.utc(callDurationRef.current.endTime).format(DATE_FORMAT)) || '';
+      const end_time =
+        (callDurationRef.current.endTime && moment.utc(callDurationRef.current.endTime).format(DATE_FORMAT)) ||
+        moment.utc().format(DATE_FORMAT);
       const duration = (Boolean(start_time && end_time) && moment(end_time).diff(start_time, 'second')) || null;
       creditLog.end_time = String(end_time);
       creditLog.duration = duration as unknown as null;
