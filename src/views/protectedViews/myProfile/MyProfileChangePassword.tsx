@@ -12,7 +12,6 @@ import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { DialogTitleBox, DividerBox, FirstBox, InputBox, InputBoxMain, MainDialogBox } from './ChangePassword.styled';
 import { authServices } from 'services/guestAuth/authuser.services';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { getErrorMessage } from 'utils/errorUtils';
@@ -23,7 +22,7 @@ export type ChangePasswordParams = {
   repeatPassword: string;
 };
 
-const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; onClose: () => void; token: TokenIdType }) => {
+const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; onClose: () => void; token: string }) => {
   const intl = useIntl();
 
   const [currentPassword, setShowPassword] = useState(false);
@@ -62,10 +61,7 @@ const MyProfileChangePassword = ({ onOpen, onClose, token }: { onOpen: boolean; 
       validationSchema={validationSchema}
       onSubmit={async (values) => {
         try {
-          const data = await authServices.changePassword(
-            { old_password: values.currentPassword, new_password: values.newPassword },
-            token.token
-          );
+          const data = await authServices.changePassword({ old_password: values.currentPassword, new_password: values.newPassword }, token);
           if (data.code === 200) {
             toast.success('Success');
             onClose();

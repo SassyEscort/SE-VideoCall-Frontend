@@ -1,13 +1,11 @@
 'use client';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { DisableButtonBox, EditButton, MyProfileContainerMain, SaveButton } from './MyProfile.styled';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { FormattedMessage, useIntl } from 'react-intl';
 import MyProfileContainer from './MyProfileContainer';
-import { getUserDataClient } from 'utils/getSessionData';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { EMAIL_REGEX } from 'constants/regexConstants';
 import { LoaderBox } from '../Credites/Credits.styled';
@@ -28,14 +26,14 @@ export type MyProfile = {
   phoneOtp: string;
 };
 
-const MyProfile = () => {
+const MyProfile = ({ customerData, token }: { customerData: CustomerDetails | null; token: string }) => {
   const { handelNameChange } = useAuthContext();
+
   //TODO for verify email and phone and claim free credits
   // const { handleFreeCreditClaim, isFreeCreditAvailable } = useAuthContext();
   const intl = useIntl();
 
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
-  const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
+  const [customerDetails, setCustomerDetails] = useState<CustomerDetails>(customerData!);
   const [isLoading, setIsLoading] = useState(false);
   const [loadingButton, setLoadingButton] = useState(false);
   const validationSchema = yup.object({
@@ -52,7 +50,7 @@ const MyProfile = () => {
   const handleSubmit = async (name: string, email: string) => {
     try {
       setLoadingButton(true);
-      const res = await CommonServices.updateUserName(token.token, name, email);
+      const res = await CommonServices.updateUserName(token, name, email);
 
       if (res) {
         if (res.code === 200 && res.custom_code === null) {
@@ -97,7 +95,7 @@ const MyProfile = () => {
     setIsLoading(true);
 
     try {
-      const customerData = await CustomerDetailsService.customerModelDetails(token.token);
+      const customerData = await CustomerDetailsService.customerModelDetails(token);
       setCustomerDetails(customerData?.data);
 
       //TODO for verify email and phone and claim free credits
@@ -106,22 +104,6 @@ const MyProfile = () => {
     } catch (error) {}
     setIsLoading(false);
   };
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
-    };
-
-    userToken();
-  }, []);
-
-  useEffect(() => {
-    if (token.token) {
-      FetchCustomerDetails();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.id, token.token]);
 
   return (
     <Formik

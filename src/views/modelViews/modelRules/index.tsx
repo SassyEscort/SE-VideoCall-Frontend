@@ -1,20 +1,20 @@
 'use client';
-
-const ContactContainer = lazy(() => import('./modelRules.styled').then((module) => ({ default: module.ContactContainer })));
-const ContactUs = lazy(() => import('./modelRules.styled').then((module) => ({ default: module.ContactUs })));
-const ListContainer = lazy(() => import('./modelRules.styled').then((module) => ({ default: module.ListContainer })));
-const MainBoxChildContainer = lazy(() => import('./modelRules.styled').then((module) => ({ default: module.MainBoxChildContainer })));
-const MainBoxContainer = lazy(() => import('./modelRules.styled').then((module) => ({ default: module.MainBoxContainer })));
-const TypographyContainer = lazy(() => import('./modelRules.styled').then((module) => ({ default: module.TypographyContainer })));
-const TypoListContainer = lazy(() => import('./modelRules.styled').then((module) => ({ default: module.TypoListContainer })));
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { lazy, Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
+import {
+  ContactContainer,
+  ContactUs,
+  MainBoxContainer,
+  MainBoxChildContainer,
+  TypographyContainer,
+  ListContainer,
+  TypoListContainer
+} from './modelRules.styled';
 
 const ModelRules = () => {
   return (
-    <Suspense fallback={<div>Loading components...</div>}>
+    <>
       <ContactContainer>
         <ContactUs>
           <UINewTypography variant="h1" sx={{ color: 'text.secondary' }}>
@@ -108,7 +108,7 @@ const ModelRules = () => {
           </MainBoxChildContainer>
         </MainBoxContainer>
       </HomeMainContainer>
-    </Suspense>
+    </>
   );
 };
 

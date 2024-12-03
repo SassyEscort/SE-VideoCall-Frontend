@@ -13,6 +13,7 @@ import { navRoleConfigIdType, navRoleConfigSubmenuIdType } from 'components/Admi
 import useResponsive from 'hooks/useResponsive';
 import { useSession } from 'next-auth/react';
 import { useAuthContext } from 'contexts/AuthContext';
+import { usePathname } from 'next/navigation';
 import { TypographyStyled, TypographyStyledMain } from '../../AdminLoginLayout/AdminLoginLayout.styled';
 
 const NAV_WIDTH = 280;
@@ -36,7 +37,7 @@ interface NavProps {
 }
 
 export default function Nav({ openNav, onCloseNav }: NavProps) {
-  const { pathname } = window.location;
+  const pathname = usePathname();
   const isDesktop = useResponsive('up', 'lg', 'xs');
 
   const { adminUserPermissions, isAdmin } = useAuthContext();

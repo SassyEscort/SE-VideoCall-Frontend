@@ -6,15 +6,16 @@ import StyledEngineProvider from '@mui/material/StyledEngineProvider';
 import { NextAppDirEmotionCacheProvider } from './emotionCache';
 import theme from './theme';
 import theme2 from './theme/theme2';
+import { usePathname } from 'next/navigation';
 
 type ThemeCustomizationProps = {
   children: ReactNode;
 };
 
 export default function ThemeCustomization({ children }: ThemeCustomizationProps) {
-  const url = global.window && new URL(window.location.href);
+  const pathName = usePathname();
 
-  const adminPath = url?.pathname?.startsWith('/admin');
+  const adminPath = pathName?.startsWith('/admin');
 
   return (
     <StyledEngineProvider injectFirst>

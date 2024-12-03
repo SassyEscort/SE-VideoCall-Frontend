@@ -33,14 +33,15 @@ import ModelNewPassword from 'views/modelViews/ModelNewPassword';
 import { useAuthContext } from '../../../../contexts/AuthContext';
 import React from 'react';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
+import { useSearchParams } from 'next/navigation';
 
 const HomeModelTopBanner = () => {
   const { isCustomer } = useAuthContext();
+  const searchParams = useSearchParams();
 
-  const url = new URL(window.location.href);
-  const email = url.searchParams.get('email');
-  const emailCode = url.searchParams.get('code');
-  const emailId = url.searchParams.get('id');
+  const email = String(searchParams.get('email'));
+  const emailCode = String(searchParams.get('code'));
+  const emailId = String(searchParams.get('id'));
 
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
