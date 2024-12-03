@@ -24,7 +24,7 @@ import TableBody from '@mui/material/TableBody';
 import { IconButton, MenuItem, Paper, TableCell } from '@mui/material';
 import Box from '@mui/system/Box';
 import TablePager from 'components/common/CustomPaginations/TablePager';
-// import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import NotInterestedIcon from '@mui/icons-material/NotInterested';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -33,10 +33,10 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { BanCustomerDetails, BanCustomerDetailsRes, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import BanCustomerList from './BanCustomerListHead';
-// import CustorModel from '../customerPage/CustomerModel';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import DeleteModal from 'components/UIComponents/DeleteModal';
+import BanCustomerModel from './BanCustomerModel';
 
 const SORT_BY_OPTIONS: PaginationSortByOption[] = [
   { value: 'createdDate', label: 'Newest' },
@@ -66,8 +66,8 @@ const BanCustomer = () => {
   const [totalRecords, setTotalRecords] = useState(0);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [banCustomerDetails, setBanCustomerDetails] = useState<BanCustomerDetailsRes>();
-  // const [creditModalOpen, setCreditModalOpen] = useState(false);
-  // const [selectedPayoutData, setSelectedPayoutData] = useState<BanCustomerDetails | null>(null);
+  const [creditModalOpen, setCreditModalOpen] = useState(false);
+  const [selectedPayoutData, setSelectedPayoutData] = useState<BanCustomerDetails | null>(null);
   const [selected, setSelected] = useState<BanCustomerDetails>();
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
@@ -123,6 +123,7 @@ const BanCustomer = () => {
     [filters, handleChangeFilter]
   );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedChangeSearch = useCallback(
     debounce((val: string) => {
       handleChangeFilter({ ...filters, search_field: val, page: 1 });
@@ -185,7 +186,7 @@ const BanCustomer = () => {
         const res = await CustomerDetailsService.deleteBanCustomer(id, token.token);
         if (res) {
           if (res.code === 200) {
-            toast.success('Banned Customer UnBanned Successfully');
+            toast.success('Unbanned Successfully');
             banCustomerData();
             setOpenDeleteModal(false);
           }
@@ -196,14 +197,14 @@ const BanCustomer = () => {
     }
   };
 
-  // const handleCloseCredit = () => {
-  //   setCreditModalOpen(false);
-  // };
+  const handleCloseCredit = () => {
+    setCreditModalOpen(false);
+  };
 
-  // const handleOpenCredit = (value: BanCustomerDetails) => {
-  //   setSelectedPayoutData(value);
-  //   setCreditModalOpen(true);
-  // };
+  const handleOpenCredit = (value: BanCustomerDetails) => {
+    setSelectedPayoutData(value);
+    setCreditModalOpen(true);
+  };
   return (
     <>
       <MainLayout>
@@ -250,17 +251,13 @@ const BanCustomer = () => {
                           }}
                         >
                           <TableCell component="th" scope="row">
-                            {item?.id || '-'}
+                            {item?.name || '-'}
                           </TableCell>
-                          <TableCell component="th" scope="row">
-                            {item?.customer_id || '-'}
-                          </TableCell>
+
                           <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.email, '-')}</TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{item?.ip_address}</TableCell>
-                          <TableCell sx={{ textAlign: 'left' }}>{item?.device_signature}</TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{item?.is_active ? 'No' : 'Yes'}</TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.createdDate, '-')}</TableCell>
-                          <TableCell sx={{ textAlign: 'left' }}>{item?.modifiedDate ? ' ' : '-'}</TableCell>
 
                           <TableCell>
                             <IconButton
@@ -315,15 +312,15 @@ const BanCustomer = () => {
           anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
-          {/* <MenuItem
+          <MenuItem
             onClick={() => {
-              // handleOpenCredit(selected as BanCustomerDetails);
+              handleOpenCredit(selected as BanCustomerDetails);
               handleCloseMenu();
             }}
           >
             <VisibilityIcon sx={{ mr: 2 }} />
             View Details
-          </MenuItem> */}
+          </MenuItem>
 
           <MenuItem
             onClick={() => {
@@ -335,7 +332,7 @@ const BanCustomer = () => {
             Unban Customer
           </MenuItem>
         </ModelActionPopoverBanModel>
-        {/* <CustorModel open={creditModalOpen} onClose={handleCloseCredit} selectedPayoutData={selectedPayoutData} /> */}
+        <BanCustomerModel open={creditModalOpen} onClose={handleCloseCredit} selectedPayoutData={selectedPayoutData} />
         <DeleteModal
           open={openDeleteModal}
           handleClose={() => {

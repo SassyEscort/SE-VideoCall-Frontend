@@ -34,6 +34,7 @@ export type banCustomerParams = {
 export type BanCustomerDetails = {
   id: number;
   customer_id: number;
+  name: string;
   email: string;
   ip_address: string;
   device_signature: string;

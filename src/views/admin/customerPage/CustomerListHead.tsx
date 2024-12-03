@@ -10,8 +10,8 @@ export default function CustomerListHead() {
         <TableCell>Email</TableCell>
         <TableCell sx={{ textAlign: 'left' }}>Created Date</TableCell>
         <TableCell sx={{ textAlign: 'left' }}>User Name</TableCell>
-        <TableCell sx={{ width: '1%' }}>Email Verified</TableCell>
-        <TableCell sx={{ width: '1%' }}>Action</TableCell>
+        <TableCell>Email Verified</TableCell>
+        <TableCell>Action</TableCell>
       </TableRow>
     </TableHead>
   );

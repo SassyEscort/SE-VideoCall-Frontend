@@ -6,15 +6,12 @@ export default function BanCustomerList() {
   return (
     <TableHead>
       <TableRow>
-        <TableCell>Id</TableCell>
-        <TableCell>Customer</TableCell>
-        <TableCell sx={{ textAlign: 'left' }}>Email</TableCell>
-        <TableCell sx={{ textAlign: 'left' }}>Ip Address</TableCell>
-        <TableCell sx={{ width: '1%' }}>Device Signature</TableCell>
-        <TableCell sx={{ width: '1%' }}>Is Active</TableCell>
-        <TableCell sx={{ width: '1%' }}>CreatedDate</TableCell>
-        <TableCell sx={{ width: '1%' }}>ModifiedDate</TableCell>
-        <TableCell sx={{ width: '1%' }}>Action</TableCell>
+        <TableCell sx={{ width: '1%' }}>Name</TableCell>
+        <TableCell>Email</TableCell>
+        <TableCell>Ip Address</TableCell>
+        <TableCell>Is Active</TableCell>
+        <TableCell>CreatedDate</TableCell>
+        <TableCell>Action</TableCell>
       </TableRow>
     </TableHead>
   );
