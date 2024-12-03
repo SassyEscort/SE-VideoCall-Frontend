@@ -15,6 +15,8 @@ import { FooterButton } from './MainFooter.styled';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import { gaEventTrigger } from 'utils/analytics';
 import { useAuthContext } from '../../../../contexts/AuthContext';
+import { usePathname } from 'next/navigation';
+import { SEOCHATPATH } from 'constants/languageConstants';
 const NewSignupStyledModalDialog = lazy(() => import('components/UIComponents/NewSignupStyledModalDialog'));
 const UIStyledDialog = lazy(() => import('components/UIComponents/UIStyledDialog'));
 const GuestForgetPasswordLink = lazy(() => import('views/auth/guestForgetPasswordLink'));
@@ -23,6 +25,9 @@ const GuestSignup = lazy(() => import('views/auth/guestSignup'));
 
 const Footer = () => {
   const { isFreeCreditAvailable } = useAuthContext();
+  const pathName = usePathname();
+
+  const isSEOPage = SEOCHATPATH.includes(pathName);
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
@@ -84,7 +89,7 @@ const Footer = () => {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Banner>
+      <Banner sx={{ ...(isSEOPage && { marginTop: '0px !important' }) }}>
         <TextContainerMain>
           <TextContainer>
             <Box>

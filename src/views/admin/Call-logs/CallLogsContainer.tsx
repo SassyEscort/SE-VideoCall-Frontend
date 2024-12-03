@@ -278,6 +278,8 @@ export default function CallLogsContainer() {
                             <Chip label="Ended" color="success" />
                           ) : item?.status === CALL_LOG_ACTION.CANCELLED ? (
                             <Chip label="Cancelled" color="error" />
+                          ) : item?.status === CALL_LOG_ACTION.REJECTED ? (
+                            <Chip label="Rejected" color="secondary" sx={{ color: '#000' }} />
                           ) : (
                             '-'
                           )}
