@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import { SEO_DATA } from 'constants/seoConstants';
 import Script from 'next/script';
 import dynamic from 'next/dynamic';
+import ZegoTopBar from 'views/guestViews/commonComponents/zegoTopBar';
 // import '../app/globals.scss';
 const ProviderWrapper = dynamic(() => import('./ProviderWrapper'));
 const AuthFeaturProvider = React.lazy(() => import('../contexts/AuthContext').then((module) => ({ default: module.AuthFeaturProvider })));
@@ -176,7 +177,10 @@ export default function RootLayout({
           <Suspense fallback={<div>Loading...</div>}>
             <AuthFeaturProvider>
               <Suspense fallback={<div>Loading...</div>}>
-                <TawkProvider>{children}</TawkProvider>
+                <TawkProvider>
+                  <ZegoTopBar />
+                  {children}
+                </TawkProvider>
               </Suspense>
             </AuthFeaturProvider>
           </Suspense>
