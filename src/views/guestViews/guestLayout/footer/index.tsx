@@ -126,14 +126,15 @@ const Footer = () => {
           </Box>
           <MainFooter
             isFreeCreditAvailable={isFreeCreditAvailable}
-            onClose={handleLoginClose}
-            onSignupOpen={handleSignupOpen}
-            onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+            freeSignupOpen={freeSignupOpen}
             handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
+            handleFreeCreditSignupClose={handleFreeCreditSignupClose}
+            handleLoginOpen={handleLoginOpen}
+            handleLoginClose={handleLoginClose}
+            openLogin={openLogin}
             // handleLoginOpen={handleLoginOpen}
             // freeSignupOpen={freeSignupOpen}
             // handleFreeCreditSignupClose={handleFreeCreditSignupClose}
-            image="/images/auth/auth-model1.webp"
           />
         </TextContainer>
       </TextContainerMain>
@@ -152,9 +153,6 @@ const Footer = () => {
           onSignupOpen={handleSignupOpen}
           onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
           handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
-          handleLoginOpen={handleLoginOpen}
-          freeSignupOpen={freeSignupOpen}
-          handleFreeCreditSignupClose={handleFreeCreditSignupClose}
           image="/images/auth/auth-model1.webp"
         />
       </UIStyledDialog>

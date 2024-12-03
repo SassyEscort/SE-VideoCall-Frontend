@@ -22,11 +22,11 @@ import { useRouter } from 'next/navigation';
 import { getErrorMessage } from 'utils/errorUtils';
 import { ROLE } from 'constants/workerVerification';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
+import NewAuthCommon from './NewAuthCommon';
 import { gaEventTrigger } from 'utils/analytics';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { ErrorBox, ModelUITextConatiner, UITypographyText, UIButtonText } from '../AuthCommon.styled';
 import GuestSignupSuccess from '../GuestSignupSuccess';
-import NewAuthCommon from './NewAuthCommon';
 
 export type SignupParams = {
   name: string;
