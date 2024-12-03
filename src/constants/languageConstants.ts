@@ -19,3 +19,5 @@ export const CHATROOM = [
   { title: 'SexChat', id: 1, url: '/sex-chat' },
   { title: 'ChatWithGirls', id: 2, url: '/chat-with-girls' }
 ];
+
+export const SEOCHATPATH = ['/cam-to-cam', '/sex-chat', '/chat-with-girls'];

@@ -7,7 +7,7 @@ import React from 'react';
 const ZegoTopBar = () => {
   return (
     <>
-      {typeof window !== 'undefined' && (
+      {typeof window !== 'undefined' && !window.location.pathname.includes('/admin') && (
         <Box
           sx={{
             background: 'linear-gradient(90deg, #FECD3D, #FFF1C6, #FF68C0)',
