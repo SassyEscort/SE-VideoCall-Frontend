@@ -24,7 +24,7 @@ const OfflineModel = ({ open, onClose, isModelAvailable }: { open: boolean; onCl
   };
 
   return (
-    <DialogContentMain open={false} onClose={onClose} fullWidth>
+    <DialogContentMain open={open} onClose={onClose} fullWidth>
       <DialogTitleBox id="responsive-modal-title">
         <UINewTypography variant="h6">
           <FormattedMessage id="VideoCalling" />
