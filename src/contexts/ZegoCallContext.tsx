@@ -157,13 +157,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       const id = String(userNameData?.customer_user_name || '');
       const name = userNameData?.customer_name;
 
-      const token = ZegoUIKitPrebuilt.generateKitTokenForTest(
-        Number(appID),
-        serverSecret,
-        '',
-        String(id),
-        name
-      );
+      const token = ZegoUIKitPrebuilt.generateKitTokenForTest(Number(appID), serverSecret, '', String(id), name);
 
       const callInstance = ZegoUIKitPrebuilt.create(token);
       callInstance.addPlugins({ ZIM });
@@ -190,6 +184,14 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
             if (endCallData) {
               handleSetAvailableCredits(endCallData.available_credits);
             }
+          }
+          if (reason === CALL_INVITATION_END_REASON.CANCELED) {
+            gaEventTrigger('Video_call_canceled', {
+              action: 'Video_call_canceled',
+              category: 'Button',
+              label: 'Video_call_canceled',
+              value: JSON.stringify(customerInfo)
+            });
           }
         }
 
@@ -244,6 +246,12 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         handleCallDurationRef(String(new Date()), '');
         handleSetIsCallAccepted(true);
         handleSetIsModelJoin(true);
+        gaEventTrigger('Video_call_started', {
+          action: 'Video_call_started',
+          category: 'Button',
+          label: 'Video_call_started',
+          value: JSON.stringify(customerInfo)
+        });
       },
 
       onOutgoingCallRejected: async (callID: string, callee: ZegoUser) => {
@@ -253,6 +261,12 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         handleSetIsModelEndedCall(true);
         handleSetBusy(true);
         await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.REJECTED, ROLE.MODEL);
+        gaEventTrigger('Video_call_unanswered', {
+          action: 'Video_call_unanswered',
+          category: 'Button',
+          label: 'Video_call_unanswered',
+          value: JSON.stringify(customerInfo)
+        });
       },
 
       onOutgoingCallDeclined: async (callID: string, callee: ZegoUser) => {
@@ -262,6 +276,12 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         handleSetIsModelEndedCall(true);
         handleSetBusy(true);
         await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.REJECTED, ROLE.MODEL);
+        gaEventTrigger('Video_call_unanswered', {
+          action: 'Video_call_unanswered',
+          category: 'Button',
+          label: 'Video_call_unanswered',
+          value: JSON.stringify(customerInfo)
+        });
       },
 
       onOutgoingCallTimeout: async (callID: string, callees: ZegoUser[]) => {
@@ -270,6 +290,12 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         handleSetIsUnanswered(true);
         handleSetBusy(true);
         await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.UNASWERED, ROLE.MODEL);
+        gaEventTrigger('Video_call_unanswered', {
+          action: 'Video_call_unanswered',
+          category: 'Button',
+          label: 'Video_call_unanswered',
+          value: JSON.stringify(customerInfo)
+        });
       }
     });
   }
