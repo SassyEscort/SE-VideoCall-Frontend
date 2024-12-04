@@ -81,10 +81,10 @@ const CamExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
           <HomeMainContainer>
             <Cam2CamInnerContainer>
               <CamExperienceBannerInnerBox>
-                <HeadingTypography>
+                <HeadingTypography variant="h2">
                   <FormattedMessage id="StartYourFlirtBateCam2CamExperienceNow" />
                 </HeadingTypography>
-                <SubtitleTypography>
+                <SubtitleTypography variant="h6">
                   <FormattedMessage id="ThousandsOfModelsAreReady" />
                 </SubtitleTypography>
               </CamExperienceBannerInnerBox>

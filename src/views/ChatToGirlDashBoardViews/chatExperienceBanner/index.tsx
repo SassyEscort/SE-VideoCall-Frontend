@@ -81,10 +81,10 @@ const VideoChatExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
           <HomeMainContainer>
             <VideoChatInnerContainer>
               <VideoChatBannerInnerBox>
-                <HeadingTypography>
+                <HeadingTypography variant="h2">
                   <FormattedMessage id="StartYourFlirtBateVideoSexChat" />
                 </HeadingTypography>
-                <SubtitleTypography>
+                <SubtitleTypography variant="h6">
                   <FormattedMessage id="ThousandsModelareReady" />
                 </SubtitleTypography>
               </VideoChatBannerInnerBox>

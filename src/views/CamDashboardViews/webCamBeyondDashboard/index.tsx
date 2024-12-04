@@ -35,16 +35,16 @@ const WebcamDashboardBeyond = () => {
         </WebBannerBeyondImageCard>
         <WebFirstBeyondBoxContainer>
           <WebSecBoxBeyondContainer>
-            <WebInlineBeyondBox>
+            <WebInlineBeyondBox component="h3">
               <FormattedMessage id="WhatIsCamToCam" />
             </WebInlineBeyondBox>
-            <WebBannerTypographySubtitleBox>
+            <WebBannerTypographySubtitleBox variant="h6">
               <FormattedMessage id="OnFlirtBateCamToCam" />
             </WebBannerTypographySubtitleBox>
-            <WebBannerTypographySubtitleBox>
+            <WebBannerTypographySubtitleBox variant="h6">
               <FormattedMessage id="WithHighQuality" />
             </WebBannerTypographySubtitleBox>
-            <WebBannerTypographySubtitleBox>
+            <WebBannerTypographySubtitleBox variant="h6">
               <FormattedMessage id="WhetherYouWantASimple" />
             </WebBannerTypographySubtitleBox>
           </WebSecBoxBeyondContainer>

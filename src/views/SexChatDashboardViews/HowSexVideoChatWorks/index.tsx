@@ -10,32 +10,32 @@ const HowSexVideoChatWorks = () => (
   <HomeMainContainer>
     <HowChatWorksMainContainer>
       <Box>
-        <SexyChatAtFingertipsTitleTypography>
+        <SexyChatAtFingertipsTitleTypography variant="h2">
           <FormattedMessage id="HowSexyVideoChatWorks" />
         </SexyChatAtFingertipsTitleTypography>
       </Box>
       <HowChatWorksInnerBox>
         <HowChatWorksTableBox>
           <SexChatTypography variant="bodyLight">🍑</SexChatTypography>
-          <SexChatTypography variant="bodyLight">
+          <SexChatTypography>
             <FormattedMessage id="GettingStartedWithFlirtbateIsEasy" />
           </SexChatTypography>
         </HowChatWorksTableBox>
         <HowChatWorksTableBox>
           <SexChatTypography variant="bodyLight">🍑</SexChatTypography>
-          <SexChatTypography variant="bodyLight">
+          <SexChatTypography>
             <FormattedMessage id="BrowseModelsForSexyVideoChat" />
           </SexChatTypography>
         </HowChatWorksTableBox>
         <HowChatWorksTableBox>
           <SexChatTypography variant="bodyLight">🍑</SexChatTypography>
-          <SexChatTypography variant="bodyLight">
+          <SexChatTypography>
             <FormattedMessage id="StartPrivateChat" />
           </SexChatTypography>
         </HowChatWorksTableBox>
         <HowChatWorksTableBox>
           <SexChatTypography variant="bodyLight">🍑</SexChatTypography>
-          <SexChatTypography variant="bodyLight">
+          <SexChatTypography>
             <FormattedMessage id="Enjoy1on1Conversations" />
           </SexChatTypography>
         </HowChatWorksTableBox>

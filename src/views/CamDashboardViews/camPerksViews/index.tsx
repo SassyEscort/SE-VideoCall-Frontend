@@ -10,11 +10,11 @@ const CamPerks = () => (
   <HomeMainContainer>
     <CamPerkMainContainer>
       <Box>
-        <CamConnectionTitleTypography>
+        <CamConnectionTitleTypography variant="h2">
           <FormattedMessage id="ThePerksOfFlirtBate" />
         </CamConnectionTitleTypography>
         <CamPerkRotateChipContainer>
-          <CamConnectionTitleTypography>
+          <CamConnectionTitleTypography variant="h2">
             <FormattedMessage id="AdultCamChat" />
           </CamConnectionTitleTypography>
         </CamPerkRotateChipContainer>
@@ -22,31 +22,31 @@ const CamPerks = () => (
       <CamPerkInnerBox>
         <CamPerkTableBox>
           <PerksTypography variant="bodyLight">🍑</PerksTypography>
-          <PerksTypography variant="bodyLight">
+          <PerksTypography>
             <FormattedMessage id="TailoredConnections" />
           </PerksTypography>
         </CamPerkTableBox>
         <CamPerkTableBox>
           <PerksTypography variant="bodyLight">🍑</PerksTypography>
-          <PerksTypography variant="bodyLight">
+          <PerksTypography>
             <FormattedMessage id="InstantAccessToModels" />
           </PerksTypography>
         </CamPerkTableBox>
         <CamPerkTableBox>
           <PerksTypography variant="bodyLight">🍑</PerksTypography>
-          <PerksTypography variant="bodyLight">
+          <PerksTypography>
             <FormattedMessage id="NoPressure" />
           </PerksTypography>
         </CamPerkTableBox>
         <CamPerkTableBox>
           <PerksTypography variant="bodyLight">🍑</PerksTypography>
-          <PerksTypography variant="bodyLight">
+          <PerksTypography>
             <FormattedMessage id="HighQualityStreaming" />
           </PerksTypography>
         </CamPerkTableBox>
         <CamPerkTableBox>
           <PerksTypography variant="bodyLight">🍑</PerksTypography>
-          <PerksTypography variant="bodyLight">
+          <PerksTypography>
             <FormattedMessage id="PrivacyFirstEnsures" />
           </PerksTypography>
         </CamPerkTableBox>
