@@ -95,13 +95,13 @@ const DirtyTalksMainBanner = () => {
           <DirtyTalksTextContainer>
             <DirtyTalksBannerInnerBoxContainer sx={{ gap: 6 }}>
               <DirtyTalksBannerInnerBoxContainer sx={{ gap: 2 }}>
-                <DirtyTalksSubTitleText>
+                <DirtyTalksSubTitleText variant="h4">
                   <FormattedMessage id="WELCOMETOFLIRTBATE" />
                 </DirtyTalksSubTitleText>
-                <DirtyTalksTitleText>
+                <DirtyTalksTitleText variant="h1">
                   <FormattedMessage id="FreeSexVideoChatCalls" />
                 </DirtyTalksTitleText>
-                <DirtyTalksSubTitleText>
+                <DirtyTalksSubTitleText variant="h6">
                   <FormattedMessage id="JoinThousandsOfUsers" />
                 </DirtyTalksSubTitleText>
               </DirtyTalksBannerInnerBoxContainer>

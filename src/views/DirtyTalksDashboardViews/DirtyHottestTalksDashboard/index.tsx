@@ -43,10 +43,10 @@ const DirtyHottestTalksDashboard = () => {
       <DirtyHottestTalksContainer>
         <DirtyHottestTalksFirstBoxContainer>
           <DirtyHottestTalksSecBoxContainer>
-            <DirtyHottestTalksInlineBox>
+            <DirtyHottestTalksInlineBox component="h2">
               <FormattedMessage id="FlirtBateDirtyCamChatsHottest" />
             </DirtyHottestTalksInlineBox>
-            <DirtyHottestTalksSubtitleTypographyBox>
+            <DirtyHottestTalksSubtitleTypographyBox variant="h4">
               <FormattedMessage id="FlirtBateBringsYouTheUltimate" />
             </DirtyHottestTalksSubtitleTypographyBox>
             {/* <DirtyHottestTalksSubtitleTypographyBox>

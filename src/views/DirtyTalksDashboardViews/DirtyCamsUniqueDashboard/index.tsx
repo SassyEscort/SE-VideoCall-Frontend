@@ -14,32 +14,32 @@ const DirtyCamsUniqueDashboard = () => (
   <HomeMainContainer>
     <DirtyCamsUniqueMainContainer>
       <Box>
-        <SexyChatAtFingertipsTitleTypography>
+        <SexyChatAtFingertipsTitleTypography variant="h2">
           <FormattedMessage id="FeaturesThatMakeFlirtBate’s" />
         </SexyChatAtFingertipsTitleTypography>
       </Box>
       <DirtyCamsUniqueInnerBox>
         <DirtyCamsUniqueTableBox>
           <DirtyCamsUniqueChatTypography variant="bodyLight">🍑</DirtyCamsUniqueChatTypography>
-          <DirtyCamsUniqueChatTypography variant="bodyLight">
+          <DirtyCamsUniqueChatTypography>
             <FormattedMessage id="DirtyChatForum" />
           </DirtyCamsUniqueChatTypography>
         </DirtyCamsUniqueTableBox>
         <DirtyCamsUniqueTableBox>
           <DirtyCamsUniqueChatTypography variant="bodyLight">🍑</DirtyCamsUniqueChatTypography>
-          <DirtyCamsUniqueChatTypography variant="bodyLight">
+          <DirtyCamsUniqueChatTypography>
             <FormattedMessage id="ModelVariety" />
           </DirtyCamsUniqueChatTypography>
         </DirtyCamsUniqueTableBox>
         <DirtyCamsUniqueTableBox>
           <DirtyCamsUniqueChatTypography variant="bodyLight">🍑</DirtyCamsUniqueChatTypography>
-          <DirtyCamsUniqueChatTypography variant="bodyLight">
+          <DirtyCamsUniqueChatTypography>
             <FormattedMessage id="High-QualityStreaming" />
           </DirtyCamsUniqueChatTypography>
         </DirtyCamsUniqueTableBox>
         <DirtyCamsUniqueTableBox>
           <DirtyCamsUniqueChatTypography variant="bodyLight">🍑</DirtyCamsUniqueChatTypography>
-          <DirtyCamsUniqueChatTypography variant="bodyLight">
+          <DirtyCamsUniqueChatTypography>
             <FormattedMessage id="Private&Secure" />
           </DirtyCamsUniqueChatTypography>
         </DirtyCamsUniqueTableBox>

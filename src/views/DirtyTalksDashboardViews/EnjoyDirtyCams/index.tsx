@@ -93,10 +93,10 @@ const EnjoyDirtyCams = ({ isCustomer }: { isCustomer: boolean }) => {
           <HomeMainContainer>
             <EnjoyDirtyCamsInnerContainer>
               <EnjoyDirtyCamsBannerInnerBox>
-                <HeadingTypography>
+                <HeadingTypography variant="h2">
                   <FormattedMessage id="JoinFlirtBateNowAndEnjoy" />
                 </HeadingTypography>
-                <SubtitleTypography>
+                <SubtitleTypography variant="h6">
                   <FormattedMessage id="Over1MillionMembersAreAlready" />
                 </SubtitleTypography>
               </EnjoyDirtyCamsBannerInnerBox>

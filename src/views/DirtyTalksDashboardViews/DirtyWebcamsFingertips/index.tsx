@@ -20,14 +20,14 @@ const DirtyWebcamsFingertips = () => (
       <Grid container direction={{ xs: 'column-reverse', sm: 'column-reverse', md: 'row' }} sx={{ padding: '15px' }}>
         <DirtyWebcamsFingertipsGridContainer item xs={12} md={6}>
           <DirtyWebcamsFingertipsInnerContainer>
-            <TypographyTitleBox>
+            <TypographyTitleBox variant="h2">
               <FormattedMessage id="AWorldOfDirtyWebcams" />
             </TypographyTitleBox>
-            <TypographySubtitleBox>
+            <TypographySubtitleBox variant="h4">
               <FormattedMessage id="ReadyToExploreTheDirtiest" />
             </TypographySubtitleBox>
           </DirtyWebcamsFingertipsInnerContainer>
-          <TypographyGradiantSubtitleBox>
+          <TypographyGradiantSubtitleBox variant="h2">
             <FormattedMessage id="NoRandomnessJustPure" />
           </TypographyGradiantSubtitleBox>
         </DirtyWebcamsFingertipsGridContainer>

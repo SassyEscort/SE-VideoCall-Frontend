@@ -22,15 +22,15 @@ const DirtyCamChatsDashboard = () => (
   <DirtyCamChartsMainContainer>
     <DirtyCamChatsContainer>
       <WhySexChatInnerContainer>
-        <DirtyCamChatsTitleTypography>
+        <DirtyCamChatsTitleTypography variant="h2">
           <FormattedMessage id="GetStartedWithFlirtBate’s" />
         </DirtyCamChatsTitleTypography>
       </WhySexChatInnerContainer>
       <WhySexChatSubTextStyledBox>
-        <DirtyCamChatsSubTitleTypography>
+        <DirtyCamChatsSubTitleTypography variant="h4">
           <FormattedMessage id="CreateYourAccount" />
         </DirtyCamChatsSubTitleTypography>
-        <DirtyCamChatsSubTitleTypographyContainer>
+        <DirtyCamChatsSubTitleTypographyContainer variant="h4">
           <FormattedMessage id="SignUpForFreeAndStart" />
         </DirtyCamChatsSubTitleTypographyContainer>
       </WhySexChatSubTextStyledBox>
@@ -53,10 +53,10 @@ const DirtyCamChatsDashboard = () => (
             <DirtyCamChatsInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/Video.png" width="32px" height="100%" />
               <DirtyCamChatsInfoContainer>
-                <DirtyCamChatsDescriptionTitleTypography>
+                <DirtyCamChatsDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="ChooseYourModell" />
                 </DirtyCamChatsDescriptionTitleTypography>
-                <DirtyCamChatsDescriptionSubTitleTypography>
+                <DirtyCamChatsDescriptionSubTitleTypography variant="h6">
                   <FormattedMessage id="ExploreProfilesAndPick" />
                 </DirtyCamChatsDescriptionSubTitleTypography>
               </DirtyCamChatsInfoContainer>
@@ -66,10 +66,10 @@ const DirtyCamChatsDashboard = () => (
             <DirtyCamChatsInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/Private.png" width="26px" height="26px" />
               <DirtyCamChatsInfoContainer>
-                <DirtyCamChatsDescriptionTitleTypography>
+                <DirtyCamChatsDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="StartTheCall" />
                 </DirtyCamChatsDescriptionTitleTypography>
-                <DirtyCamChatsDescriptionSubTitleTypography>
+                <DirtyCamChatsDescriptionSubTitleTypography variant="h6">
                   <FormattedMessage id="UseYourCreditsToInstantly" />
                 </DirtyCamChatsDescriptionSubTitleTypography>
               </DirtyCamChatsInfoContainer>
@@ -79,10 +79,10 @@ const DirtyCamChatsDashboard = () => (
             <DirtyCamChatsInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/People.png" width="32px" height="100%" />
               <DirtyCamChatsInfoContainer>
-                <DirtyCamChatsDescriptionTitleTypography>
+                <DirtyCamChatsDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="StayInControl" />
                 </DirtyCamChatsDescriptionTitleTypography>
-                <DirtyCamChatsDescriptionSubTitleTypography>
+                <DirtyCamChatsDescriptionSubTitleTypography variant="h6">
                   <FormattedMessage id="EnjoyFilthySexTalkAndSexy" />
                 </DirtyCamChatsDescriptionSubTitleTypography>
               </DirtyCamChatsInfoContainer>

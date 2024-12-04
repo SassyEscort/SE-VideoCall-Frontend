@@ -37,33 +37,30 @@ const DirtyCamToCamChatsDashboard = () => {
         </DirtyCamToCamChatBannerBeyondImageCard>
         <DirtyCamToCamChatFirstBeyondBoxContainer>
           <DirtyCamToCamChatSecBoxBeyondContainer>
-            <DirtyCamToCamChatInlineBeyondBox>
+            <DirtyCamToCamChatInlineBeyondBox component="h2">
               <FormattedMessage id="WhyChooseFlirtBateForYourDirty" />
             </DirtyCamToCamChatInlineBeyondBox>
-            {/* <DirtyCamToCamChatBannerTypographySubtitleBox>
-              <FormattedMessage id="FlirtbateWeGoBeyondTheUsualSexChat" />
-            </DirtyCamToCamChatBannerTypographySubtitleBox> */}
             <DirtyCamToCamChatBannerTypographySubtitleBox>
-              <DirtyCamToCamChatBannerPointTypography>
+              <DirtyCamToCamChatBannerPointTypography variant="h4">
                 <FormattedMessage id="ExclusiveModelSelection" />
               </DirtyCamToCamChatBannerPointTypography>
-              <DirtyCamToCamChatBannerPointInnerTypography>
+              <DirtyCamToCamChatBannerPointInnerTypography variant="h4">
                 <FormattedMessage id="AtFlirtBateWePutThePower" />
               </DirtyCamToCamChatBannerPointInnerTypography>
             </DirtyCamToCamChatBannerTypographySubtitleBox>
             <DirtyCamToCamChatBannerTypographySubtitleBox>
-              <DirtyCamToCamChatBannerPointTypography>
+              <DirtyCamToCamChatBannerPointTypography variant="h4">
                 <FormattedMessage id="TotalPrivacyAndSecurity" />
               </DirtyCamToCamChatBannerPointTypography>
-              <DirtyCamToCamChatBannerPointInnerTypography>
+              <DirtyCamToCamChatBannerPointInnerTypography variant="h4">
                 <FormattedMessage id="YourPrivacyIsAlwaysAPriority" />
               </DirtyCamToCamChatBannerPointInnerTypography>
             </DirtyCamToCamChatBannerTypographySubtitleBox>
             <DirtyCamToCamChatBannerTypographySubtitleBox>
-              <DirtyCamToCamChatBannerPointTypography>
+              <DirtyCamToCamChatBannerPointTypography variant="h4">
                 <FormattedMessage id="SeamlessVideoCalls" />
               </DirtyCamToCamChatBannerPointTypography>
-              <DirtyCamToCamChatBannerPointInnerTypography>
+              <DirtyCamToCamChatBannerPointInnerTypography variant="h4">
                 <FormattedMessage id="WeFocusExclusivelyOnDirty" />
               </DirtyCamToCamChatBannerPointInnerTypography>
             </DirtyCamToCamChatBannerTypographySubtitleBox>

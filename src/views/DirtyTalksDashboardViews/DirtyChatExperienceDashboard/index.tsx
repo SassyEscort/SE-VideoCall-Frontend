@@ -13,29 +13,29 @@ import {
 const DirtyChatExperienceDashboard = () => (
   <DirtyChatExperienceMainContainer>
     <DirtyChatExperienceContainer>
-      <DirtyChatExperienceTitleTypography>
+      <DirtyChatExperienceTitleTypography variant="h2">
         <FormattedMessage id="PersonalizeYourDirtyChatExperience" />
       </DirtyChatExperienceTitleTypography>
-      <DirtyChatExperienceSubTitleTypography sx={{ textAlign: 'center', width: '100%', maxWidth: '850px' }}>
+      <DirtyChatExperienceSubTitleTypography variant="h4" sx={{ textAlign: 'center', width: '100%', maxWidth: '850px' }}>
         <FormattedMessage id="ForgetTheOldDaysOf" />
       </DirtyChatExperienceSubTitleTypography>
       <DirtyChatExperienceSubTextStyledBox>
-        <DirtyChatExperienceSubTitlePointTypography>
+        <DirtyChatExperienceSubTitlePointTypography variant="h4">
           <FormattedMessage id="CustomDirtyChats" />
         </DirtyChatExperienceSubTitlePointTypography>
-        <DirtyChatExperienceSubTitleTypography>
+        <DirtyChatExperienceSubTitleTypography variant="h4">
           <FormattedMessage id="PickYourModelAndEnjoy" />
         </DirtyChatExperienceSubTitleTypography>
-        <DirtyChatExperienceSubTitlePointTypography>
+        <DirtyChatExperienceSubTitlePointTypography variant="h4">
           <FormattedMessage id="DirtyCamInteractions" />
         </DirtyChatExperienceSubTitlePointTypography>
-        <DirtyChatExperienceSubTitleTypography>
+        <DirtyChatExperienceSubTitleTypography variant="h4">
           <FormattedMessage id="MakeYourChatMoreIntimate" />
         </DirtyChatExperienceSubTitleTypography>
-        <DirtyChatExperienceSubTitlePointTypography>
+        <DirtyChatExperienceSubTitlePointTypography variant="h4">
           <FormattedMessage id="NoBoundaries" />
         </DirtyChatExperienceSubTitlePointTypography>
-        <DirtyChatExperienceSubTitleTypography>
+        <DirtyChatExperienceSubTitleTypography variant="h4">
           <FormattedMessage id="ConnectWithModelsForTheDirtiest" />
         </DirtyChatExperienceSubTitleTypography>
       </DirtyChatExperienceSubTextStyledBox>
