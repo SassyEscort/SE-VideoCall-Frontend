@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { createContext, useContext, useEffect, useCallback, lazy, useState } from 'react';
+import React, { createContext, useContext, useEffect, useCallback, useState } from 'react';
 import { ZegoUIKitPrebuilt, ZegoCloudRoomConfig, ZegoUser } from '@zegocloud/zego-uikit-prebuilt';
 import { ZIM } from 'zego-zim-web';
 import { usePathname } from 'next/navigation';
@@ -16,6 +16,7 @@ import { ModelDetailsService } from 'services/modelDetails/modelDetails.services
 import { ROLE } from 'constants/workerVerification';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { useIntl } from 'react-intl';
+import dynamic from 'next/dynamic';
 
 type CallFeatureContextProps = {
   handleCancelCall: () => void;
@@ -67,7 +68,7 @@ const gaEventTrigger = async (action: string, data: any, credits?: number) => {
   gaEventTrigger(action, data);
 };
 
-const VideoCallEnded = lazy(() => import('views/protectedViews/videoCalling/VideoCallEnded'));
+const VideoCallEnded = dynamic(() => import('views/protectedViews/videoCalling/VideoCallEnded'));
 
 export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const intl = useIntl();
@@ -171,10 +172,10 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   }, [userNameData, roomID]);
 
   useEffect(() => {
-    initCall();
+    if (typeof window !== 'undefined') initCall();
   }, [userNameData]);
 
-  if (callInstance) {
+  if (typeof window !== 'undefined' && callInstance) {
     callInstance.setCallInvitationConfig({
       enableNotifyWhenAppRunningInBackgroundOrQuit: true,
       endCallWhenInitiatorLeave: true,
@@ -189,6 +190,14 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
             if (endCallData) {
               handleSetAvailableCredits(endCallData.available_credits);
             }
+          }
+          if (reason === CALL_INVITATION_END_REASON.CANCELED) {
+            gaEventTrigger('Video_call_canceled', {
+              action: 'Video_call_canceled',
+              category: 'Button',
+              label: 'Video_call_canceled',
+              value: JSON.stringify(customerInfo)
+            });
           }
         }
 
@@ -243,6 +252,12 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         handleCallDurationRef(String(new Date()), '');
         handleSetIsCallAccepted(true);
         handleSetIsModelJoin(true);
+        gaEventTrigger('Video_call_started', {
+          action: 'Video_call_started',
+          category: 'Button',
+          label: 'Video_call_started',
+          value: JSON.stringify(customerInfo)
+        });
       },
 
       onOutgoingCallRejected: async (callID: string, callee: ZegoUser) => {
@@ -252,6 +267,12 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         handleSetIsModelEndedCall(true);
         handleSetBusy(true);
         await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.REJECTED, ROLE.MODEL);
+        gaEventTrigger('Video_call_unanswered', {
+          action: 'Video_call_unanswered',
+          category: 'Button',
+          label: 'Video_call_unanswered',
+          value: JSON.stringify(customerInfo)
+        });
       },
 
       onOutgoingCallDeclined: async (callID: string, callee: ZegoUser) => {
@@ -261,6 +282,12 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         handleSetIsModelEndedCall(true);
         handleSetBusy(true);
         await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.REJECTED, ROLE.MODEL);
+        gaEventTrigger('Video_call_unanswered', {
+          action: 'Video_call_unanswered',
+          category: 'Button',
+          label: 'Video_call_unanswered',
+          value: JSON.stringify(customerInfo)
+        });
       },
 
       onOutgoingCallTimeout: async (callID: string, callees: ZegoUser[]) => {
@@ -480,7 +507,9 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       duration: null
     };
     if (status === CALLING_STATUS.ENDED) {
-      const end_time = (callDurationRef.current.endTime && moment.utc(callDurationRef.current.endTime).format(DATE_FORMAT)) || '';
+      const end_time =
+        (callDurationRef.current.endTime && moment.utc(callDurationRef.current.endTime).format(DATE_FORMAT)) ||
+        moment.utc(String(new Date())).format(DATE_FORMAT);
       const duration = (Boolean(start_time && end_time) && moment(end_time).diff(start_time, 'second')) || null;
       creditLog.end_time = String(end_time);
       creditLog.duration = duration as unknown as null;
