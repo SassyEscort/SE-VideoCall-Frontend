@@ -1,16 +1,20 @@
-import { memo, useEffect, useState } from 'react';
-import { IntlProvider, MessageFormatElement } from 'react-intl';
-import useConfig from 'hooks/useConfig';
-import { I18n } from 'types/config';
+'use client';
 
-const loadLocaleData = (locale: I18n) => {
-  switch (locale) {
-    case 'sp':
-      return import('utils/locales/sp.json');
-    default:
-      return import('utils/locales/en.json');
-  }
-};
+import { memo, useEffect, useState } from 'react';
+import { IntlProvider } from 'react-intl';
+import useConfig from 'hooks/useConfig';
+import * as enLocale from 'utils/locales/en.json';
+import * as spLocale from 'utils/locales/sp.json';
+// import { I18n } from 'types/config';
+
+// const loadLocaleData = (locale: I18n) => {
+//   switch (locale) {
+//     case 'sp':
+//       return import('utils/locales/sp.json');
+//     default:
+//       return import('utils/locales/en.json');
+//   }
+// };
 
 interface Props {
   children: JSX.Element;
@@ -18,13 +22,10 @@ interface Props {
 
 const Locales = ({ children }: Props) => {
   const { i18n } = useConfig();
-
-  const [messages, setMessages] = useState<Record<string, string> | Record<string, MessageFormatElement[]> | undefined>();
+  const [messages, setMessages] = useState<Record<string, string>>(enLocale);
 
   useEffect(() => {
-    loadLocaleData(i18n).then((d: { default: Record<string, string> | Record<string, MessageFormatElement[]> | undefined }) => {
-      setMessages(d.default);
-    });
+    setMessages(i18n === 'en' ? enLocale : spLocale);
   }, [i18n]);
 
   return (

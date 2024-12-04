@@ -5,9 +5,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FavoriteBox, FavoriteTextMainBox, FavoritesText, LoadingBox } from './Favorites.styled';
 import MainLayoutNav from '../protectedLayout';
 import { FormattedMessage } from 'react-intl';
-import { ModelFavRes, CustomerFavorite } from 'services/customerFavorite/customerFavorite.service';
-import { getUserDataClient } from 'utils/getSessionData';
-import { TokenIdType } from 'views/protectedModelViews/verification';
+import { ModelFavRes, CustomerFavorite, ModelFavResponse } from 'services/customerFavorite/customerFavorite.service';
 import HomeImageCard from 'views/guestViews/homePage/homeImageCards';
 import CircularProgress from '@mui/material/CircularProgress';
 import { CallHistoryPaginationContainer } from '../CallHistory/CallHistory.styled';
@@ -15,6 +13,7 @@ import { BillingPaginationBox } from '../BillingHistory/BillingHistory.styled';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { useAuthContext } from '../../../contexts/AuthContext';
+import { areObjectsEqual } from 'utils/genericFunction';
 
 export type FavoritesPaginationType = {
   page: number;
@@ -22,29 +21,17 @@ export type FavoritesPaginationType = {
   limit: number;
 };
 
-const Favorites = () => {
-  const { isFreeCreditAvailable } = useAuthContext();
+const Favorites = ({ favModel, filterPayload }: { favModel: ModelFavResponse; filterPayload: FavoritesPaginationType }) => {
+  const authContext = useAuthContext();
+  const isFreeCreditAvailable = authContext.isFreeCreditAvailable || 1;
+  const token = authContext.token;
 
-  const [favListing, setFavListing] = useState<ModelFavRes[]>([]);
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
+  const [favListing, setFavListing] = useState<ModelFavRes[]>(favModel?.model_details || []);
   const [isLoading, setIsLoading] = useState(false);
-  const [total_rows, setTotalRows] = useState(0);
+  const [total_rows, setTotalRows] = useState(favModel.aggregate.total_rows || 0);
+  const [initialLoad, setInitialLoad] = useState(false);
 
-  const [filters, setFilters] = useState<FavoritesPaginationType>({
-    page: 1,
-    limit: 18,
-    offset: 0
-  });
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      if (data) {
-        setToken({ id: data.id, token: data.token });
-      }
-    };
-    userToken();
-  }, []);
+  const [filters, setFilters] = useState<FavoritesPaginationType>(filterPayload);
 
   const getFavListing = useCallback(async () => {
     if (token.token) {
@@ -60,10 +47,14 @@ const Favorites = () => {
       setTotalRows(getModel.aggregate.total_rows);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.token]);
+  }, [token.token, filters]);
 
   useEffect(() => {
-    getFavListing();
+    if (!areObjectsEqual(filterPayload, filters) && initialLoad) {
+      getFavListing();
+    } else {
+      setInitialLoad(true);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters.limit, filters.offset, token]);
 

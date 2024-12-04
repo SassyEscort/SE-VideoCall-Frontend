@@ -2,7 +2,7 @@ import { MutableRefObject, useEffect, useState } from 'react';
 import { Area } from 'react-easy-crop';
 
 function useImageOptimize(
-  imageUrlRef: MutableRefObject<HTMLElement | undefined>,
+  imageUrlRef: MutableRefObject<HTMLElement | undefined | null>,
   photo: string,
   type?: 'BG' | 'IMG',
   noResize?: boolean,
@@ -15,7 +15,7 @@ function useImageOptimize(
   const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
-    if (imageUrlRef.current && photo) {
+    if (imageUrlRef?.current && photo) {
       // const height = imageUrlRef.current.clientHeight;
 
       // setImageUrl(

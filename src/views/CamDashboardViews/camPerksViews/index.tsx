@@ -1,3 +1,4 @@
+'use client';
 import Box from '@mui/material/Box';
 import React from 'react';
 import { CamPerkInnerBox, CamPerkMainContainer, CamPerkRotateChipContainer, CamPerkTableBox, PerksTypography } from './camPerks.styled';

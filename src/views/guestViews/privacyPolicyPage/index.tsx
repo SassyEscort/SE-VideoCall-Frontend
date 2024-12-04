@@ -1,13 +1,14 @@
 'use client';
-import React, { lazy, Suspense } from 'react';
-const ContactContainer = lazy(() => import('../faqPage/faqPage.style').then((module) => ({ default: module.ContactContainer })));
-const ContactUs = lazy(() => import('../faqPage/faqPage.style').then((module) => ({ default: module.ContactUs })));
-const UINewTypographyMainText = lazy(() =>
+import React from 'react';
+import dynamic from 'next/dynamic';
+const ContactContainer = dynamic(() => import('../faqPage/faqPage.style').then((module) => ({ default: module.ContactContainer })));
+const ContactUs = dynamic(() => import('../faqPage/faqPage.style').then((module) => ({ default: module.ContactUs })));
+const UINewTypographyMainText = dynamic(() =>
   import('../faqPage/faqPage.style').then((module) => ({ default: module.UINewTypographyMainText }))
 );
-const FirstBoxMainContainer = lazy(() => import('./privacyPolicy.styled').then((module) => ({ default: module.FirstBoxMainContainer })));
-const FirstTextContainer = lazy(() => import('./privacyPolicy.styled').then((module) => ({ default: module.FirstTextContainer })));
-const PrivacyPolicyMainContainer = lazy(() =>
+const FirstBoxMainContainer = dynamic(() => import('./privacyPolicy.styled').then((module) => ({ default: module.FirstBoxMainContainer })));
+const FirstTextContainer = dynamic(() => import('./privacyPolicy.styled').then((module) => ({ default: module.FirstTextContainer })));
+const PrivacyPolicyMainContainer = dynamic(() =>
   import('./privacyPolicy.styled').then((module) => ({ default: module.PrivacyPolicyMainContainer }))
 );
 import { FormattedMessage } from 'react-intl';
@@ -19,231 +20,229 @@ import Link from 'next/link';
 
 const PrivacyPolicy = () => {
   return (
-    <Suspense>
-      <PrivacyPolicyMainContainer>
-        <ContactContainer>
-          <ContactUs>
-            <UINewTypographyMainText>
-              <FormattedMessage id="PrivacyPoli" />
-            </UINewTypographyMainText>
-          </ContactUs>
-        </ContactContainer>
-        <HomeMainContainer>
-          <FirstBoxMainContainer>
-            <Box>
-              <FirstTextContainer color="secondary.100">
-                1. <FormattedMessage id="Introduction" />
-              </FirstTextContainer>
-              <UINewTypography sx={{ marginTop: 3 }}>
-                <FormattedMessage id="WelcomeToFlirtbate" />
-              </UINewTypography>
+    <PrivacyPolicyMainContainer>
+      <ContactContainer>
+        <ContactUs>
+          <UINewTypographyMainText>
+            <FormattedMessage id="PrivacyPoli" />
+          </UINewTypographyMainText>
+        </ContactUs>
+      </ContactContainer>
+      <HomeMainContainer>
+        <FirstBoxMainContainer>
+          <Box>
+            <FirstTextContainer color="secondary.100">
+              1. <FormattedMessage id="Introduction" />
+            </FirstTextContainer>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <FormattedMessage id="WelcomeToFlirtbate" />
+            </UINewTypography>
+          </Box>
+          <Box>
+            <FirstTextContainer color="secondary.100">
+              2. <FormattedMessage id="InformationWeCollect" />
+            </FirstTextContainer>
+            <Box mt={3}>
+              <li>
+                <FirstTextContainer variant="bodyLight" color="secondary.100" gutterBottom>
+                  <FormattedMessage id="PersonalInformation" />{' '}
+                  <span style={{ color: theme.palette.secondary[200] }}>
+                    <FormattedMessage id="WhenYouRegisterForAnAccount" />
+                  </span>
+                </FirstTextContainer>
+              </li>
+              <li>
+                <FirstTextContainer variant="bodyLight" color="secondary.100" gutterBottom>
+                  <FormattedMessage id="UsageData" />{' '}
+                  <span style={{ color: theme.palette.secondary[200] }}>
+                    <FormattedMessage id="WeCollectDataOnHow" />
+                  </span>
+                </FirstTextContainer>
+              </li>
+              <li>
+                <FirstTextContainer variant="bodyLight" color="secondary.100" gutterBottom>
+                  <FormattedMessage id="DeviceInformation" />{' '}
+                  <span style={{ color: theme.palette.secondary[200] }}>
+                    <FormattedMessage id="WeMayCollectInformationAbout" />
+                  </span>
+                </FirstTextContainer>
+              </li>
+              <li>
+                <FirstTextContainer variant="bodyLight" color="secondary.100" gutterBottom>
+                  <FormattedMessage id="CookiesAndTrackingTechnologies" />{' '}
+                  <span style={{ color: theme.palette.secondary[200] }}>
+                    <FormattedMessage id="WeUseCookiesAndSimilarTracking" />
+                  </span>
+                </FirstTextContainer>
+              </li>
             </Box>
-            <Box>
-              <FirstTextContainer color="secondary.100">
-                2. <FormattedMessage id="InformationWeCollect" />
-              </FirstTextContainer>
-              <Box mt={3}>
-                <li>
-                  <FirstTextContainer variant="bodyLight" color="secondary.100" gutterBottom>
-                    <FormattedMessage id="PersonalInformation" />{' '}
-                    <span style={{ color: theme.palette.secondary[200] }}>
-                      <FormattedMessage id="WhenYouRegisterForAnAccount" />
-                    </span>
-                  </FirstTextContainer>
-                </li>
-                <li>
-                  <FirstTextContainer variant="bodyLight" color="secondary.100" gutterBottom>
-                    <FormattedMessage id="UsageData" />{' '}
-                    <span style={{ color: theme.palette.secondary[200] }}>
-                      <FormattedMessage id="WeCollectDataOnHow" />
-                    </span>
-                  </FirstTextContainer>
-                </li>
-                <li>
-                  <FirstTextContainer variant="bodyLight" color="secondary.100" gutterBottom>
-                    <FormattedMessage id="DeviceInformation" />{' '}
-                    <span style={{ color: theme.palette.secondary[200] }}>
-                      <FormattedMessage id="WeMayCollectInformationAbout" />
-                    </span>
-                  </FirstTextContainer>
-                </li>
-                <li>
-                  <FirstTextContainer variant="bodyLight" color="secondary.100" gutterBottom>
-                    <FormattedMessage id="CookiesAndTrackingTechnologies" />{' '}
-                    <span style={{ color: theme.palette.secondary[200] }}>
-                      <FormattedMessage id="WeUseCookiesAndSimilarTracking" />
-                    </span>
-                  </FirstTextContainer>
-                </li>
-              </Box>
+          </Box>
+          <Box>
+            <FirstTextContainer color="secondary.100">
+              3. <FormattedMessage id="UseOfInformation" />
+            </FirstTextContainer>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <FormattedMessage id="WeUseTheCollectedInformation" />
+            </UINewTypography>
+            <Box mt={3}>
+              <li>
+                <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
+                  <FormattedMessage id="ToProvideAndMaintain" />{' '}
+                </UINewTypography>
+              </li>
+              <li>
+                <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
+                  <FormattedMessage id="ToImproveAndPersonalize" />{' '}
+                </UINewTypography>
+              </li>
+              <li>
+                <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
+                  <FormattedMessage id="ToCommunicateWithYou" />{' '}
+                </UINewTypography>
+              </li>
+              <li>
+                <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
+                  <FormattedMessage id="ToMonitorAndAnalyze" />{' '}
+                </UINewTypography>
+              </li>
+              <li>
+                <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
+                  <FormattedMessage id="ToProtectTheSecurityAndIntegrity" />{' '}
+                </UINewTypography>
+              </li>
             </Box>
-            <Box>
-              <FirstTextContainer color="secondary.100">
-                3. <FormattedMessage id="UseOfInformation" />
-              </FirstTextContainer>
-              <UINewTypography sx={{ marginTop: 3 }}>
-                <FormattedMessage id="WeUseTheCollectedInformation" />
-              </UINewTypography>
-              <Box mt={3}>
-                <li>
-                  <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
-                    <FormattedMessage id="ToProvideAndMaintain" />{' '}
-                  </UINewTypography>
-                </li>
-                <li>
-                  <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
-                    <FormattedMessage id="ToImproveAndPersonalize" />{' '}
-                  </UINewTypography>
-                </li>
-                <li>
-                  <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
-                    <FormattedMessage id="ToCommunicateWithYou" />{' '}
-                  </UINewTypography>
-                </li>
-                <li>
-                  <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
-                    <FormattedMessage id="ToMonitorAndAnalyze" />{' '}
-                  </UINewTypography>
-                </li>
-                <li>
-                  <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
-                    <FormattedMessage id="ToProtectTheSecurityAndIntegrity" />{' '}
-                  </UINewTypography>
-                </li>
-              </Box>
-            </Box>
-            <Box>
-              <FirstTextContainer color="secondary.100">
-                4. <FormattedMessage id="SharingOfInformation" />
-              </FirstTextContainer>
-              <UINewTypography sx={{ marginTop: 3 }}>
-                <FormattedMessage id="WeDoNotShareYourPersonal" />
-              </UINewTypography>
-              <Box mt={3}>
-                <li>
-                  <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
-                    <FormattedMessage id="WithYourConsent" />{' '}
-                  </UINewTypography>
-                </li>
+          </Box>
+          <Box>
+            <FirstTextContainer color="secondary.100">
+              4. <FormattedMessage id="SharingOfInformation" />
+            </FirstTextContainer>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <FormattedMessage id="WeDoNotShareYourPersonal" />
+            </UINewTypography>
+            <Box mt={3}>
+              <li>
+                <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
+                  <FormattedMessage id="WithYourConsent" />{' '}
+                </UINewTypography>
+              </li>
 
-                <li>
-                  <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
-                    <FormattedMessage id="ToComplyWithLegal" />{' '}
-                  </UINewTypography>
-                </li>
+              <li>
+                <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
+                  <FormattedMessage id="ToComplyWithLegal" />{' '}
+                </UINewTypography>
+              </li>
 
-                <li>
-                  <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
-                    <FormattedMessage id="WithServiceProviders" />{' '}
-                  </UINewTypography>
-                </li>
+              <li>
+                <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
+                  <FormattedMessage id="WithServiceProviders" />{' '}
+                </UINewTypography>
+              </li>
 
-                <li>
-                  <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
-                    <FormattedMessage id="InConnectionWithAnyMerger" />{' '}
-                  </UINewTypography>
-                </li>
-              </Box>
+              <li>
+                <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
+                  <FormattedMessage id="InConnectionWithAnyMerger" />{' '}
+                </UINewTypography>
+              </li>
             </Box>
-            <Box>
-              <FirstTextContainer color="secondary.100">
-                5. <FormattedMessage id="DataSecurity" />
-              </FirstTextContainer>
-              <UINewTypography sx={{ marginTop: 3 }}>
-                <FormattedMessage id="WeImplementAVarietyOfSecurity" />
-              </UINewTypography>
-            </Box>
-            <Box>
-              <FirstTextContainer color="secondary.100">
-                6. <FormattedMessage id="DataRetention" />
-              </FirstTextContainer>
-              <UINewTypography sx={{ marginTop: 3 }}>
-                <FormattedMessage id="WeRetainYourPersonal" />
-              </UINewTypography>
-            </Box>
-            <Box>
-              <FirstTextContainer color="secondary.100">
-                7. <FormattedMessage id="YourRights" />
-              </FirstTextContainer>
-              <UINewTypography sx={{ marginTop: 3 }}>
-                <FormattedMessage id="YouHaveTheRight" />
-              </UINewTypography>
-              <Box mt={3}>
-                <li>
-                  <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
-                    <FormattedMessage id="AccessThePersonal" />{' '}
-                  </UINewTypography>
-                </li>
+          </Box>
+          <Box>
+            <FirstTextContainer color="secondary.100">
+              5. <FormattedMessage id="DataSecurity" />
+            </FirstTextContainer>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <FormattedMessage id="WeImplementAVarietyOfSecurity" />
+            </UINewTypography>
+          </Box>
+          <Box>
+            <FirstTextContainer color="secondary.100">
+              6. <FormattedMessage id="DataRetention" />
+            </FirstTextContainer>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <FormattedMessage id="WeRetainYourPersonal" />
+            </UINewTypography>
+          </Box>
+          <Box>
+            <FirstTextContainer color="secondary.100">
+              7. <FormattedMessage id="YourRights" />
+            </FirstTextContainer>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <FormattedMessage id="YouHaveTheRight" />
+            </UINewTypography>
+            <Box mt={3}>
+              <li>
+                <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
+                  <FormattedMessage id="AccessThePersonal" />{' '}
+                </UINewTypography>
+              </li>
 
-                <li>
-                  <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
-                    <FormattedMessage id="RequestCorrection" />{' '}
-                  </UINewTypography>
-                </li>
+              <li>
+                <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
+                  <FormattedMessage id="RequestCorrection" />{' '}
+                </UINewTypography>
+              </li>
 
-                <li>
-                  <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
-                    <FormattedMessage id="RequestDeletion" />{' '}
-                  </UINewTypography>
-                </li>
+              <li>
+                <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
+                  <FormattedMessage id="RequestDeletion" />{' '}
+                </UINewTypography>
+              </li>
 
-                <li>
-                  <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
-                    <FormattedMessage id="ObjectToThe" />{' '}
-                  </UINewTypography>
-                </li>
+              <li>
+                <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
+                  <FormattedMessage id="ObjectToThe" />{' '}
+                </UINewTypography>
+              </li>
 
-                <li>
-                  <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
-                    <FormattedMessage id="WithdrawYourConsent" />{' '}
-                  </UINewTypography>
-                </li>
-              </Box>
+              <li>
+                <UINewTypography variant="bodyLight" color="secondary.200" gutterBottom>
+                  <FormattedMessage id="WithdrawYourConsent" />{' '}
+                </UINewTypography>
+              </li>
             </Box>
-            <Box>
-              <FirstTextContainer color="secondary.100">
-                8. <FormattedMessage id="ThirdPartyServices" />
-              </FirstTextContainer>
-              <UINewTypography sx={{ marginTop: 3 }}>
-                <FormattedMessage id="OurServicesMayInclude" />
-              </UINewTypography>
-            </Box>
-            <Box>
-              <FirstTextContainer color="secondary.100">
-                9. <FormattedMessage id="ChangesToThisPrivacy" />
-              </FirstTextContainer>
-              <UINewTypography sx={{ marginTop: 3 }}>
-                <FormattedMessage id="WeMayUpdateThisPrivacy" />
-              </UINewTypography>
-            </Box>
-            <Box>
-              <FirstTextContainer color="secondary.100">
-                10. <FormattedMessage id="ContactUs" />
-              </FirstTextContainer>
-              <UINewTypography sx={{ marginTop: 3 }}>
-                <FormattedMessage id="IfYouHaveAnyQuestions" />
-              </UINewTypography>
-              <UINewTypography sx={{ marginTop: 3 }}>
-                <span style={{ color: theme.palette.secondary[100] }}>
-                  <FormattedMessage id="TutubiBV" />
-                </span>
-                {'  '} <FormattedMessage id="Amstel" />
-              </UINewTypography>
-              <UINewTypography sx={{ marginTop: 3 }}>
-                <span style={{ color: theme.palette.secondary[100] }}>
-                  <FormattedMessage id="Emailp" />
-                </span>
-                {'  '}
-                <Link prefetch={false} href="mailto:support@flirtbate.com">
-                  {' '}
-                  support@flirtbate.com
-                </Link>
-              </UINewTypography>
-            </Box>
-          </FirstBoxMainContainer>
-        </HomeMainContainer>
-      </PrivacyPolicyMainContainer>
-    </Suspense>
+          </Box>
+          <Box>
+            <FirstTextContainer color="secondary.100">
+              8. <FormattedMessage id="ThirdPartyServices" />
+            </FirstTextContainer>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <FormattedMessage id="OurServicesMayInclude" />
+            </UINewTypography>
+          </Box>
+          <Box>
+            <FirstTextContainer color="secondary.100">
+              9. <FormattedMessage id="ChangesToThisPrivacy" />
+            </FirstTextContainer>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <FormattedMessage id="WeMayUpdateThisPrivacy" />
+            </UINewTypography>
+          </Box>
+          <Box>
+            <FirstTextContainer color="secondary.100">
+              10. <FormattedMessage id="ContactUs" />
+            </FirstTextContainer>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <FormattedMessage id="IfYouHaveAnyQuestions" />
+            </UINewTypography>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <span style={{ color: theme.palette.secondary[100] }}>
+                <FormattedMessage id="TutubiBV" />
+              </span>
+              {'  '} <FormattedMessage id="Amstel" />
+            </UINewTypography>
+            <UINewTypography sx={{ marginTop: 3 }}>
+              <span style={{ color: theme.palette.secondary[100] }}>
+                <FormattedMessage id="Emailp" />
+              </span>
+              {'  '}
+              <Link prefetch={false} href="mailto:support@flirtbate.com">
+                {' '}
+                support@flirtbate.com
+              </Link>
+            </UINewTypography>
+          </Box>
+        </FirstBoxMainContainer>
+      </HomeMainContainer>
+    </PrivacyPolicyMainContainer>
   );
 };
 

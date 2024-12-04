@@ -30,6 +30,7 @@ import {
 import { ErrorMessage } from 'constants/common.constants';
 import { FormattedMessage } from 'react-intl';
 import { FourBoxContainer, SixBoxContainer } from 'views/auth/guestNewPassword/GuestNewPassword.styled';
+import { useSearchParams } from 'next/navigation';
 
 export type ResetPasswordParams = {
   email: string;
@@ -38,6 +39,7 @@ export type ResetPasswordParams = {
 };
 
 const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void; email: string; onLoginOpen: () => void }) => {
+  const searchParams = useSearchParams();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -66,8 +68,7 @@ const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
       onSubmit={async (values, { setSubmitting }) => {
         try {
           setLoading(true);
-          const url = new URL(window.location.href);
-          const verificationCode = url.searchParams.get('code');
+          const verificationCode = searchParams.get('code');
 
           if (verificationCode !== null && email !== null) {
             const resetPasswordObject = {

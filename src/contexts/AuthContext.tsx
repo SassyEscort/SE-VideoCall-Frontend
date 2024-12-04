@@ -62,7 +62,7 @@ const AuthContext = createContext<AuthContextProps>({
   adminUserPermissions: [{} as AdminUserPermissions]
 });
 
-export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
+const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const { data, status } = useSession();
   const [session, setSession] = useState<Session | null>(null);
   const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(1);
@@ -74,7 +74,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openCreditDrawer, setOpenCreditDrawer] = useState(false);
 
-  const user = (session?.user as User)?.picture;
+  const user = (data?.user as User)?.picture;
   const providerData = JSON.parse(user || '{}');
 
   const isCustomer = providerData?.role === ROLE.CUSTOMER;
@@ -223,3 +223,4 @@ export const useAuthContext = (): AuthContextProps => {
   const context = useContext(AuthContext);
   return context;
 };
+export default AuthFeaturProvider;

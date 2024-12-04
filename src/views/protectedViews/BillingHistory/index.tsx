@@ -17,17 +17,16 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import { CallHistoryPaginationContainer, DividerContainer, FirstBoxContainer, FirstTextContainer } from '../CallHistory/CallHistory.styled';
-import { BillingHistoryDetails, ViewDetailsRes } from 'services/guestBilling/types';
+import { BillingHistoryDetails, ModelBillingHistoryPageDetailsRes, ViewDetailsRes } from 'services/guestBilling/types';
 import { toast } from 'react-toastify';
 import { ModelBillingHistoryService } from 'services/guestBilling/guestBillingHistory.services';
 import { ErrorMessage } from 'constants/common.constants';
-import { getUserDataClient } from 'utils/getSessionData';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import moment from 'moment';
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { LoaderBox, TextMainContainer } from '../Credites/Credits.styled';
 import BillingDetails from '../bilingDetails';
 import CircularProgress from '@mui/material/CircularProgress';
+import { areObjectsEqual } from 'utils/genericFunction';
 
 export type billingHistoryParams = {
   category: string;
@@ -41,27 +40,27 @@ export type BillPaginationType = {
   limit: number;
 };
 
-const BillingHistory = () => {
-  const [guestBillingHistory, setGuestBillingHistory] = useState<BillingHistoryDetails[]>();
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
-  const [total_rows, setTotalRows] = useState(0);
+const BillingHistory = ({
+  billingData,
+  billingFilter,
+  token
+}: {
+  billingData: ModelBillingHistoryPageDetailsRes;
+  billingFilter: BillPaginationType;
+  token: string;
+}) => {
+  const [guestBillingHistory, setGuestBillingHistory] = useState<BillingHistoryDetails[]>(billingData?.data?.ledger_details);
+  const [total_rows, setTotalRows] = useState(billingData?.data?.aggregate?.total_rows || 0);
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectDetails, setSelectDetails] = useState<ViewDetailsRes>();
+  const [initialLoad, setInitialLoad] = useState(false);
 
   const [filters, setFilters] = useState<BillPaginationType>({
     page: 1,
     limit: 20,
     offset: 0
   });
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
-    };
-
-    userToken();
-  }, []);
 
   useEffect(() => {
     const fetchEarningHistoryDetails = async () => {
@@ -72,9 +71,9 @@ const BillingHistory = () => {
           limit: filters.limit,
           offset: filters.offset
         };
-        if (token.token) {
+        if (token) {
           setIsLoading(true);
-          const data = await ModelBillingHistoryService.getBillingHistoryDetails(params, token.token);
+          const data = await ModelBillingHistoryService.getBillingHistoryDetails(params, token);
           if (data) {
             setGuestBillingHistory(data?.data?.ledger_details);
             setTotalRows(data?.data?.aggregate?.total_rows);
@@ -85,9 +84,12 @@ const BillingHistory = () => {
         toast.error(ErrorMessage);
       }
     };
-
-    fetchEarningHistoryDetails();
-  }, [filters.limit, filters.offset, token.token]);
+    if (!areObjectsEqual(billingFilter, filters) && initialLoad) {
+      fetchEarningHistoryDetails();
+    } else {
+      setInitialLoad(true);
+    }
+  }, [filters.limit, filters.offset, billingFilter, token]);
 
   const scrollToTable = () => {
     const tableElement = document.getElementById('tableSection');

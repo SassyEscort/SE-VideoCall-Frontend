@@ -8,19 +8,13 @@ import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RiEyeLine, RiEyeOffLine, RiMailLine, RiUserFillLine } from 'components/common/customRemixIcons';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
-import { lazy, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { EMAIL_REGEX, NAME_REGEX } from 'constants/regexConstants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import { toast } from 'react-toastify';
 import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
-const GuestSignupSuccess = lazy(() => import('../GuestSignupSuccess'));
-const StyleButtonV2 = lazy(() => import('components/UIComponents/StyleLoadingButton'));
-const ErrorBox = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })));
-const ModelUITextConatiner = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })));
-const UIButtonText = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })));
-const UITypographyText = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })));
 import InfoIcon from '@mui/icons-material/Info';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { ErrorMessage } from 'constants/common.constants';
@@ -28,9 +22,11 @@ import { useRouter } from 'next/navigation';
 import { getErrorMessage } from 'utils/errorUtils';
 import { ROLE } from 'constants/workerVerification';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
-
-const NewAuthCommon = lazy(() => import('./NewAuthCommon').then((module) => ({ default: module.default })));
+import NewAuthCommon from './NewAuthCommon';
 import { gaEventTrigger } from 'utils/analytics';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
+import { ErrorBox, ModelUITextConatiner, UITypographyText, UIButtonText } from '../AuthCommon.styled';
+import GuestSignupSuccess from '../GuestSignupSuccess';
 
 export type SignupParams = {
   name: string;

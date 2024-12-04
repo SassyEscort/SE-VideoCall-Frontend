@@ -1,5 +1,7 @@
 import { getSession } from 'next-auth/react';
-import { getAuthUser } from './authOptions';
+import { getServerSession } from 'next-auth/next';
+import { getAuthUser, authOptions } from './authOptions';
+import { User } from 'app/(guest)/layout';
 
 export type SessionAuth = {
   name?: string | null | undefined;
@@ -20,7 +22,14 @@ export const getUserTokenServer = async () => {
 export const getUserDataServer = async () => {
   const session = await getAuthUser();
   const details = session?.user?.image;
-  const data = JSON.parse(details!);
+  const data = (details && JSON.parse(details!)) || {};
+  return data;
+};
+
+export const getUserDataServerSide = async () => {
+  const session = await getServerSession(authOptions);
+  const user = (session?.user as User)?.picture;
+  const data = JSON.parse(user || '{}');
   return data;
 };
 
