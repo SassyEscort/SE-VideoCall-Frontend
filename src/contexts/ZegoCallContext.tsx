@@ -157,13 +157,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       const id = String(userNameData?.customer_user_name || '');
       const name = userNameData?.customer_name;
 
-      const token = ZegoUIKitPrebuilt.generateKitTokenForTest(
-        Number(appID),
-        serverSecret,
-        '',
-        String(id),
-        name
-      );
+      const token = ZegoUIKitPrebuilt.generateKitTokenForTest(Number(appID), serverSecret, '', String(id), name);
 
       const callInstance = ZegoUIKitPrebuilt.create(token);
       callInstance.addPlugins({ ZIM });
@@ -296,6 +290,12 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         handleSetIsUnanswered(true);
         handleSetBusy(true);
         await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.UNASWERED, ROLE.MODEL);
+        gaEventTrigger('Video_call_unanswered', {
+          action: 'Video_call_unanswered',
+          category: 'Button',
+          label: 'Video_call_unanswered',
+          value: JSON.stringify(customerInfo)
+        });
       }
     });
   }
