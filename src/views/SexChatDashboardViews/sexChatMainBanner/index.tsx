@@ -89,7 +89,7 @@ const SexChatDashboardBanner = () => {
                 <SexChatTitleText variant="h1">
                   <FormattedMessage id="FreeSexVideoChatCalls" />
                 </SexChatTitleText>
-                <SexChatSubTitleText>
+                <SexChatSubTitleText variant="h4">
                   <FormattedMessage id="JoinThousandsOfUsers" />
                 </SexChatSubTitleText>
               </SexChatBannerInnerBoxContainer>

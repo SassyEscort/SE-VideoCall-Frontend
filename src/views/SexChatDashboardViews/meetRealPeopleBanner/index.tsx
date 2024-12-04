@@ -81,16 +81,16 @@ const MeetRealPeople = ({ isCustomer }: { isCustomer: boolean }) => {
           <HomeMainContainer>
             <MeetRealPeopleInnerContainer>
               <MeetRealPeopleBannerInnerBox>
-                <HeadingTypography>
+                <HeadingTypography variant="h2">
                   <FormattedMessage id="MeetRealPeople" />
                 </HeadingTypography>
-                <SubtitleTypography>
+                <SubtitleTypography variant="h6">
                   <FormattedMessage id="FlirtbateIsAllAboutRealConnections" />
                 </SubtitleTypography>
-                <SubtitleTypography>
+                <SubtitleTypography variant="h6">
                   <FormattedMessage id="LiveModal" />
                 </SubtitleTypography>
-                <SubtitleTypography>
+                <SubtitleTypography variant="h6">
                   <FormattedMessage id="TailoredChats" />
                 </SubtitleTypography>
               </MeetRealPeopleBannerInnerBox>

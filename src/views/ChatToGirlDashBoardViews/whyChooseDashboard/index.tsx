@@ -44,13 +44,13 @@ const WhyChooseDashboard = () => {
       <WhyDashboardContainer>
         <WhyDashboardFirstBoxContainer>
           <WhyDashboardSecBoxContainer>
-            <WhyDashboardInlineBox>
+            <WhyDashboardInlineBox component="h2">
               <FormattedMessage id="WhyChooseFlirtBate" />
             </WhyDashboardInlineBox>
-            <WhyDashboardSubtitlePointsTypography>
+            <WhyDashboardSubtitlePointsTypography variant="h5">
               <FormattedMessage id="ExclusiveOneonOne" />
             </WhyDashboardSubtitlePointsTypography>
-            <WhyDashboardCamSubtitleTypographyBox>
+            <WhyDashboardCamSubtitleTypographyBox variant="h6">
               <FormattedMessage id="WhenYouWantToVideo" />
             </WhyDashboardCamSubtitleTypographyBox>
           </WhyDashboardSecBoxContainer>
