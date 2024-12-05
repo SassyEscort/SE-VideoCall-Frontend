@@ -17,3 +17,8 @@ export enum SEO_DATA_SEX_CHAT {
   TITLE = 'Sex Chat - Free Sexting, Sexy Cam, and 1-on-1 Adult Chat Rooms',
   DESCRIPTION = 'Join Flirtbate adult chat rooms for free sexting, sexy cams, dirty video chats, and one-on-one intimate conversations. Discover the ultimate online sex chat experience today!'
 }
+
+export enum SEO_DATA_DIRTY_TALKS {
+  TITLE = 'Dirty Chat -  Dirty Cam, Chat Roulette & Live Dirty Cams Online',
+  DESCRIPTION = "Join Flirtbate for spice things up with Flirtbate's dirty chat! Explore dirty chat roulette, live dirty cams, and connect with flirty people for an exciting online experience."
+}
