@@ -20,14 +20,14 @@ const VideoChatExperience = () => (
       <Grid container direction={{ xs: 'column-reverse', sm: 'column-reverse', md: 'row' }} sx={{ padding: '15px' }}>
         <VideoChatExperienceGridContainer item xs={12} md={6}>
           <VideoChatExperienceInnerContainer>
-            <TypographyTitleBox>
+            <TypographyTitleBox variant="h2">
               <FormattedMessage id="ReadyExperienceSexChat" />
             </TypographyTitleBox>
-            <TypographySubtitleBox>
+            <TypographySubtitleBox variant="h6">
               <FormattedMessage id="ExploreTheWorldOfSexChat" />
             </TypographySubtitleBox>
           </VideoChatExperienceInnerContainer>
-          <TypographyGradiantSubtitleBox>
+          <TypographyGradiantSubtitleBox variant="h2">
             <FormattedMessage id="NoRandomnessJustPure" />
           </TypographyGradiantSubtitleBox>
         </VideoChatExperienceGridContainer>

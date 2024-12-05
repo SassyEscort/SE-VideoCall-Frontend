@@ -17,7 +17,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { ErrorMessage } from 'constants/common.constants';
 import { VerificationStepService } from 'services/modelAuth/verificationStep.service';
 import { scrollToError } from 'utils/scrollUtils';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { EMAIL_REGEX } from 'constants/regexConstants';
 import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 import { getErrorMessage } from 'utils/errorUtils';
@@ -41,10 +41,12 @@ const VerificationStepOne = ({
 }) => {
   const intl = useIntl();
   const router = useRouter();
+  const pathName = usePathname();
+
+  const searchParams = useSearchParams();
   const [buttonClicked, setButtonClicked] = useState(false);
 
-  const url = new URL(window.location.href);
-  const email = url.searchParams.get('email');
+  const email = searchParams.get('email');
   const nationalityId = modelDetails?.nationality?.id != '-1' ? modelDetails?.nationality?.id : '';
   const countryId = modelDetails?.country?.id != '-1' ? modelDetails?.country?.id : '';
   const isModelVerified = modelDetails?.verification_step === MODEL_ACTIVE_STEP.VERIFIED;
@@ -95,7 +97,7 @@ const VerificationStepOne = ({
   });
 
   const verifyEmail = useCallback(async () => {
-    const verificationCode = url.searchParams.get('code');
+    const verificationCode = searchParams.get('code');
 
     const payload = {
       email: String(email),
@@ -105,7 +107,7 @@ const VerificationStepOne = ({
       if (token && payload) {
         const res = await VerificationStepService.modelVerifyEmail(payload, token.token);
         if (res.data) {
-          if (url.pathname === '/model/profile') {
+          if (pathName === '/model/profile') {
             router.push('/model/profile');
           } else {
             router.push('/model/dashboard');
@@ -120,7 +122,7 @@ const VerificationStepOne = ({
       toast.error(ErrorMessage);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email, token.token, url.pathname]);
+  }, [email, token.token, pathName]);
 
   useEffect(() => {
     if (email && token.token) {

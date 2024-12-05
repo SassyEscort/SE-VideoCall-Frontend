@@ -41,24 +41,12 @@ import { usePathname } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
 import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
 import dynamic from 'next/dynamic';
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
-  ssr: false
-});
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
-  ssr: false
-});
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
-  ssr: false
-});
-const GuestFreeCreditsSignup = dynamic(() => import('views/auth/guestFreeCreditsSignup'), {
-  ssr: false
-});
-const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
-  ssr: false
-});
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
-  ssr: false
-});
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
+const GuestFreeCreditsSignup = dynamic(() => import('views/auth/guestFreeCreditsSignup'));
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
 
 const EscortSlider = ({
   workerPhotos,

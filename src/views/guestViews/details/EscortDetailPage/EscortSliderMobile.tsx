@@ -31,21 +31,11 @@ import GuestFreeCreditsSignup from 'views/auth/guestFreeCreditsSignup';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
 import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
-  ssr: false
-});
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
-  ssr: false
-});
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
-  ssr: false
-});
-const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
-  ssr: false
-});
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
-  ssr: false
-});
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
 
 const EscortSliderMobile = ({
   workerPhotos,

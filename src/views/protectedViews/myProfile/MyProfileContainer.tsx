@@ -4,7 +4,6 @@ import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { InputTypeBox, ProfileTextHeader } from './MyProfile.styled';
 import { FormikErrors, FormikTouched } from 'formik';
 import { MyProfile } from '.';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import { useState } from 'react';
 import MyProfileChangePassword from './MyProfileChangePassword';
 import { InnerBox, MainContainer, MyProfileTitle } from './MyProfileContainer.styled';
@@ -28,7 +27,7 @@ const MyProfileContainer = ({
   handleBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
   errors: FormikErrors<MyProfile>;
   touched: FormikTouched<MyProfile>;
-  token: TokenIdType;
+  token: string;
   isEditable: boolean;
   //TODO for verify email and phone and claim free credits
   // isEmailVerified: number;

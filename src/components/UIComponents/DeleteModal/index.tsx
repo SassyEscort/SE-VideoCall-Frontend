@@ -8,11 +8,15 @@ import Button from '@mui/material/Button';
 const DeleteModal = ({
   open,
   handleClose,
-  handleDeleteClick
+  handleDeleteClick,
+  unban,
+  ban
 }: {
   open: boolean;
   handleClose: () => void;
   handleDeleteClick: () => void;
+  unban?: boolean;
+  ban?: boolean;
 }) => (
   <Dialog
     open={open}
@@ -23,7 +27,13 @@ const DeleteModal = ({
   >
     <DialogTitle id="alert-dialog-title">Are you sure?</DialogTitle>
     <DialogContent>
-      <DialogContentText id="alert-dialog-description">Are you sure, you want to delete?</DialogContentText>
+      {ban ? (
+        <DialogContentText id="alert-dialog-description">Are you sure, you want to Ban?</DialogContentText>
+      ) : unban ? (
+        <DialogContentText id="alert-dialog-description">Are you sure, you want to Unban?</DialogContentText>
+      ) : (
+        <DialogContentText id="alert-dialog-description">Are you sure, you want to delete?</DialogContentText>
+      )}
     </DialogContent>
     <DialogActions>
       <Button onClick={handleClose} size="large">

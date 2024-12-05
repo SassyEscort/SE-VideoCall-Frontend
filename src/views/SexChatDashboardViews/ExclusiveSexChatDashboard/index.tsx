@@ -43,10 +43,10 @@ const ExclusiveSexChatDashboard = () => {
       <ExclusiveSexChatContainer>
         <ExclusiveSexChatFirstBoxContainer>
           <ExclusiveSexChatSecBoxContainer>
-            <ExclusiveSexChatInlineBox>
+            <ExclusiveSexChatInlineBox component="h2">
               <FormattedMessage id="ExclusiveSexChat" />
             </ExclusiveSexChatInlineBox>
-            <ExclusiveSexChatCamSubtitleTypographyBox>
+            <ExclusiveSexChatCamSubtitleTypographyBox variant="h5">
               <FormattedMessage id="WelcomeFlirtBateSexChat" />
             </ExclusiveSexChatCamSubtitleTypographyBox>
           </ExclusiveSexChatSecBoxContainer>

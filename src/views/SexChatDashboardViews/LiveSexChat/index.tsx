@@ -36,10 +36,10 @@ const LiveSexChatDashboard = () => {
         </LiveSexChatBannerBeyondImageCard>
         <LiveSexChatFirstBeyondBoxContainer>
           <LiveSexChatSecBoxBeyondContainer>
-            <LiveSexChatInlineBeyondBox>
+            <LiveSexChatInlineBeyondBox component="h3">
               <FormattedMessage id="Live1SexChat" />
             </LiveSexChatInlineBeyondBox>
-            <LiveSexChatBannerTypographySubtitleBox>
+            <LiveSexChatBannerTypographySubtitleBox variant="h5">
               <FormattedMessage id="FlirtbateWeGoBeyondTheUsualSexChat" />
             </LiveSexChatBannerTypographySubtitleBox>
             <LiveSexChatBannerTypographySubtitleBox>

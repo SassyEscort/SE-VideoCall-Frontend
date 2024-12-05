@@ -43,10 +43,10 @@ const WebcamDashboard = () => {
       <WebBannerContainer>
         <WebFirstBoxContainer>
           <WebSecBoxContainer>
-            <WebInlineBox>
+            <WebInlineBox component="h2">
               <FormattedMessage id="FlirtBateCamToCam" />
             </WebInlineBox>
-            <WebCamSubtitleTypographyBox>
+            <WebCamSubtitleTypographyBox variant="h4">
               <FormattedMessage id="DiveText" />
             </WebCamSubtitleTypographyBox>
           </WebSecBoxContainer>
