@@ -11,6 +11,8 @@ import { gaEventTrigger } from 'utils/analytics';
 import { useAuthContext } from '../../../../contexts/AuthContext';
 import { Banner, TextContainerMain, TextContainer, TitleText, SubTitleText, BannerImg } from './footer.styled';
 import dynamic from 'next/dynamic';
+import { usePathname } from 'next/navigation';
+import { SEOCHATPATH } from 'constants/languageConstants';
 
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
@@ -19,6 +21,8 @@ const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDia
 const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
 
 const Footer = () => {
+  const pathName = usePathname();
+  const isSEOPage = SEOCHATPATH.includes(pathName);
   const { isFreeCreditAvailable } = useAuthContext();
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
@@ -80,7 +84,7 @@ const Footer = () => {
   };
 
   return (
-    <Banner>
+    <Banner sx={{ ...(isSEOPage && { marginTop: '0px !important' }) }}>
       <TextContainerMain>
         <TextContainer>
           <Box>
