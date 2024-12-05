@@ -1,7 +1,7 @@
 'use client';
 
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
@@ -9,7 +9,6 @@ import dynamic from 'next/dynamic';
 import { gaEventTrigger } from 'utils/analytics';
 import { useAuthContext } from 'contexts/AuthContext';
 import {
-  BackGroundContainer,
   ButtonBox,
   EnjoyDirtyCamsBannerInnerBox,
   EnjoyDirtyCamsInnerContainer,
@@ -89,35 +88,33 @@ const EnjoyDirtyCams = ({ isCustomer }: { isCustomer: boolean }) => {
   return (
     <>
       <EnjoyDirtyCamsMainContainer>
-        <BackGroundContainer>
-          <HomeMainContainer>
-            <EnjoyDirtyCamsInnerContainer>
-              <EnjoyDirtyCamsBannerInnerBox>
-                <HeadingTypography variant="h2">
-                  <FormattedMessage id="JoinFlirtBateNowAndEnjoy" />
-                </HeadingTypography>
-                <SubtitleTypography variant="h6">
-                  <FormattedMessage id="Over1MillionMembersAreAlready" />
-                </SubtitleTypography>
-              </EnjoyDirtyCamsBannerInnerBox>
-              {isCustomer ? (
-                <></>
-              ) : (
-                <ButtonBox>
-                  <UIThemeShadowButton
-                    variant="contained"
-                    sx={{ width: '236px' }}
-                    onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
-                  >
-                    <UINewTypography variant="body" color="common.white">
-                      <FormattedMessage id="StartFreeVideoChat" />
-                    </UINewTypography>
-                  </UIThemeShadowButton>
-                </ButtonBox>
-              )}
-            </EnjoyDirtyCamsInnerContainer>
-          </HomeMainContainer>
-        </BackGroundContainer>
+        <HomeMainContainer>
+          <EnjoyDirtyCamsInnerContainer>
+            <EnjoyDirtyCamsBannerInnerBox>
+              <HeadingTypography variant="h2">
+                <FormattedMessage id="JoinFlirtBateNowAndEnjoy" />
+              </HeadingTypography>
+              <SubtitleTypography variant="h6">
+                <FormattedMessage id="Over1MillionMembersAreAlready" />
+              </SubtitleTypography>
+            </EnjoyDirtyCamsBannerInnerBox>
+            {isCustomer ? (
+              <></>
+            ) : (
+              <ButtonBox>
+                <UIThemeShadowButton
+                  variant="contained"
+                  sx={{ width: '236px' }}
+                  onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
+                >
+                  <UINewTypography variant="body" color="common.white">
+                    <FormattedMessage id="StartFreeVideoChat" />
+                  </UINewTypography>
+                </UIThemeShadowButton>
+              </ButtonBox>
+            )}
+          </EnjoyDirtyCamsInnerContainer>
+        </HomeMainContainer>
       </EnjoyDirtyCamsMainContainer>
 
       {/* Singin Login Popup */}

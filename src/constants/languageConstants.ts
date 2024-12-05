@@ -21,4 +21,4 @@ export const CHATROOM = [
   { title: 'DirtyTalks', id: 3, url: '/dirty-talks' }
 ];
 
-export const SEOCHATPATH = ['/cam-to-cam', '/sex-chat', '/chat-with-girls'];
+export const SEOCHATPATH = ['/cam-to-cam', '/sex-chat', '/chat-with-girls', '/dirty-talks'];

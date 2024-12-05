@@ -21,10 +21,10 @@ const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDia
 const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
 
 const Footer = () => {
-  const { isFreeCreditAvailable, isCustomer, isModel } = useAuthContext();
   const pathName = usePathname();
-
   const isSEOPage = SEOCHATPATH.includes(pathName);
+  const { isFreeCreditAvailable, isCustomer, isModel } = useAuthContext();
+
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
