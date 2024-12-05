@@ -30,7 +30,8 @@ import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import Divider from '@mui/material/Divider';
 import ChatRoomDropdown from 'components/common/stepper/ChatDropDown';
 import { useTawk } from 'contexts/TawkContext';
-import { useVideoCallContext } from 'contexts/videoCallContext';
+// import { useVideoCallContext } from 'contexts/videoCallContext';
+import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 
 export type NotificationFilters = {
   page: number;
@@ -46,7 +47,8 @@ export type NotificationFilters = {
 const HeaderAuthComponent = () => {
   const { maximizeChat, initializeChat } = useTawk();
   const { session, isFreeCreditsClaimed, isNameChange, openCreditDrawer, handleCreditDrawerClose } = useAuthContext();
-  const { isCallEnded, avaialbleCredits } = useVideoCallContext();
+  // const { isCallEnded, avaialbleCredits } = useVideoCallContext();
+  const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
 
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));

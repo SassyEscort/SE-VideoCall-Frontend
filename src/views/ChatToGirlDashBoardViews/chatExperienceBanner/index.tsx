@@ -1,12 +1,11 @@
 'use client';
 
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
   VideoChatMainContainer,
-  BackGroundContainer,
   VideoChatInnerContainer,
   HeadingTypography,
   SubtitleTypography,
@@ -77,35 +76,33 @@ const VideoChatExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
   return (
     <>
       <VideoChatMainContainer>
-        <BackGroundContainer>
-          <HomeMainContainer>
-            <VideoChatInnerContainer>
-              <VideoChatBannerInnerBox>
-                <HeadingTypography variant="h2">
-                  <FormattedMessage id="StartYourFlirtBateVideoSexChat" />
-                </HeadingTypography>
-                <SubtitleTypography variant="h6">
-                  <FormattedMessage id="ThousandsModelareReady" />
-                </SubtitleTypography>
-              </VideoChatBannerInnerBox>
-              {isCustomer ? (
-                <></>
-              ) : (
-                <ButtonBox>
-                  <UIThemeShadowButton
-                    variant="contained"
-                    sx={{ width: '236px' }}
-                    onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
-                  >
-                    <UINewTypography variant="body" color="common.white">
-                      <FormattedMessage id="StartFreeVideoChat" />
-                    </UINewTypography>
-                  </UIThemeShadowButton>
-                </ButtonBox>
-              )}
-            </VideoChatInnerContainer>
-          </HomeMainContainer>
-        </BackGroundContainer>
+        <HomeMainContainer>
+          <VideoChatInnerContainer>
+            <VideoChatBannerInnerBox>
+              <HeadingTypography>
+                <FormattedMessage id="StartYourFlirtBateVideoSexChat" />
+              </HeadingTypography>
+              <SubtitleTypography>
+                <FormattedMessage id="ThousandsModelareReady" />
+              </SubtitleTypography>
+            </VideoChatBannerInnerBox>
+            {isCustomer ? (
+              <></>
+            ) : (
+              <ButtonBox>
+                <UIThemeShadowButton
+                  variant="contained"
+                  sx={{ width: '236px' }}
+                  onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
+                >
+                  <UINewTypography variant="body" color="common.white">
+                    <FormattedMessage id="StartFreeVideoChat" />
+                  </UINewTypography>
+                </UIThemeShadowButton>
+              </ButtonBox>
+            )}
+          </VideoChatInnerContainer>
+        </HomeMainContainer>
       </VideoChatMainContainer>
 
       {/* Singin Login Popup */}

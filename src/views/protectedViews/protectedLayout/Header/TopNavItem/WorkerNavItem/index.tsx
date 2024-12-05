@@ -95,7 +95,8 @@ const WorkerNavItem = () => {
           backgroundColor: 'secondary.dark',
           pr: '0 !important',
           boxShadow: 'none',
-          zIndex: 98
+          zIndex: 98,
+          top: 36
         }}
       >
         <Box
