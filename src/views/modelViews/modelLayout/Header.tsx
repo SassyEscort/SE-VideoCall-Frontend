@@ -84,7 +84,8 @@ const HeaderModelComponent = () => {
         sx={{
           backgroundColor: 'secondary.dark',
           pr: '0 !important',
-          boxShadow: 'none'
+          boxShadow: 'none',
+          top: 36
         }}
       >
         <Toolbar

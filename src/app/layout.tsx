@@ -6,6 +6,8 @@ import AuthFeaturProvider from 'contexts/AuthContext';
 import TawkProvider from 'contexts/TawkContext';
 import { SEO_DATA } from 'constants/seoConstants';
 import Script from 'next/script';
+import ZegoTopBar from 'views/guestViews/commonComponents/zegoTopBar';
+// import '../app/globals.scss';
 
 export const metadata: Metadata = {
   title: SEO_DATA.TITLE,
@@ -192,7 +194,10 @@ export default function RootLayout({
         )} */}
         <ProviderWrapper>
           <AuthFeaturProvider>
-            <TawkProvider>{children}</TawkProvider>
+            <TawkProvider>
+              <ZegoTopBar />
+              {children}
+            </TawkProvider>
           </AuthFeaturProvider>
         </ProviderWrapper>
       </body>
