@@ -172,11 +172,13 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
           },
           Number(totalBalValue)
         );
+        var currentUrl = new URL(window.location.href);
+        var sanitizedUrl = currentUrl.origin + currentUrl.pathname;
         const eventArgs = {
           rev: String(totalBalValue),
           tx: transaction_id.toString(),
           url_args: JSON.stringify({ rev: String(totalBalValue), tx: transaction_id.toString() }),
-          url: window.location.origin
+          url: sanitizedUrl
         };
         window.flux.track('conversion', eventArgs);
 
