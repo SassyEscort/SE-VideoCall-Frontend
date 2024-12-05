@@ -8,8 +8,10 @@ import { FormattedMessage } from 'react-intl';
 import { FooterButton } from './MainFooter.styled';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
 import { gaEventTrigger } from 'utils/analytics';
-import { useAuthContext } from '../../../../contexts/AuthContext';
+import { useAuthContext } from 'contexts/AuthContext';
 import { Banner, TextContainerMain, TextContainer, TitleText, SubTitleText, BannerImg } from './footer.styled';
+import { usePathname } from 'next/navigation';
+import { SEOCHATPATH } from 'constants/languageConstants';
 import dynamic from 'next/dynamic';
 
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
@@ -19,14 +21,15 @@ const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDia
 const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
 
 const Footer = () => {
-  const { isFreeCreditAvailable } = useAuthContext();
+  const { isFreeCreditAvailable, isCustomer, isModel } = useAuthContext();
+  const pathName = usePathname();
+
+  const isSEOPage = SEOCHATPATH.includes(pathName);
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const [loading, setLoading] = useState(false);
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
-
-  const { isCustomer, isModel } = useAuthContext();
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -80,7 +83,7 @@ const Footer = () => {
   };
 
   return (
-    <Banner>
+    <Banner sx={{ ...(isSEOPage && { marginTop: '0px !important' }) }}>
       <TextContainerMain>
         <TextContainer>
           <Box>
