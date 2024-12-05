@@ -24,9 +24,7 @@ import {
 } from './CreditSideDrawer.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customerCredit.service';
-import { getUserDataClient } from 'utils/getSessionData';
-import { TokenIdType } from 'views/protectedModelViews/verification';
-import { useZegoCallFeatureContext } from '../../../contexts/ZegoCallContext';
+// import { useZegoCallFeatureContext } from '../../../contexts/ZegoCallContext';
 import { usePathname, useRouter } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
 import { CustomerDetails } from 'services/customerDetails/customerDetails.services';
@@ -34,6 +32,8 @@ import { FormattedMessage } from 'react-intl';
 import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
+import { useCallFeatureContext } from 'contexts/CallFeatureContext';
+import { useAuthContext } from 'contexts/AuthContext';
 
 const CreditSideDrawer = ({
   open,
@@ -46,26 +46,17 @@ const CreditSideDrawer = ({
   balance: number;
   customerDetails: CustomerDetails | undefined;
 }) => {
+  const { token } = useAuthContext();
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [isLoading, setIsLoading] = useState(false);
-  const { user } = useZegoCallFeatureContext();
+  // const { user } = useZegoCallFeatureContext();
+  const { user } = useCallFeatureContext();
   const customerData = JSON.parse(user || '{}');
 
   const router = useRouter();
   const pathname = usePathname();
   const isDetailsPage = pathname.startsWith('/models');
   const userName = pathname?.split('/')?.[2] || '';
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      if (data) {
-        setToken({ id: data.id, token: data.token });
-      }
-    };
-    userToken();
-  }, []);
 
   const getCreditsListing = useCallback(async () => {
     setIsLoading(true);

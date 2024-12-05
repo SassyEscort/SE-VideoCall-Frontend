@@ -52,7 +52,7 @@ import {
   UINewTypographyWithDrawRecentWithdrawls
 } from 'views/protectedViews/logout/Logout.styled';
 import { NotFoundBox } from '../payoutsAndInvoicesTable/billingTable/BillingTable.styled';
-import { useVideoCallContext } from '../../../contexts/videoCallContext';
+// import { useVideoCallContext } from '../../../contexts/videoCallContext';
 import { WithdrawalAmountDetailsRes } from 'services/withdrawalAmount/type';
 import { ModelWithdrawalAmountService } from 'services/withdrawalAmount/withdrawalAmount.services';
 import { getErrorMessage } from 'utils/errorUtils';
@@ -60,6 +60,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Divider from '@mui/material/Divider';
+import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 
 export type PayoutPaginationType = {
   page: number;
@@ -83,7 +84,8 @@ const PayoutContainer = ({
   const intl = useIntl();
 
   const [isLoadingContainer, setIsLoadingContainer] = useState(false);
-  const { isCallEnded } = useVideoCallContext();
+  // const { isCallEnded } = useVideoCallContext();
+  const { isCallEnded } = useCallFeatureContext();
   const [open, setIsOpen] = useState(false);
   const [payoutStep, setPayoutStep] = useState(0);
   const [modelPayoutList, setModelPayoutList] = useState<ModelPastPayoutDetailRes>();
