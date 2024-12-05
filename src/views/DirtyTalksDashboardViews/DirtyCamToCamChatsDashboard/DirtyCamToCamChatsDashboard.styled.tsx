@@ -115,7 +115,7 @@ export const DirtyCamToCamChatBannerBeyondImageCard = styled(Box)(({ theme }) =>
   }
 }));
 
-export const DirtyCamToCamChatBannerTypographySubtitleBox = styled(Typography)(({ theme }) => ({
+export const DirtyCamToCamChatBannerTypographySubtitleBox = styled(Box)(({ theme }) => ({
   fontWeight: 400,
   width: '100%',
   color: theme.palette.secondary[100],

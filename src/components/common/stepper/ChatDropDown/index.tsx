@@ -17,7 +17,7 @@ const ChatRoomDropdown = () => {
   return (
     <DropdownStyledFormControl>
       <Select
-        value="Chat Room"
+        value="Category"
         autoWidth
         size="small"
         open={open}
@@ -33,7 +33,7 @@ const ChatRoomDropdown = () => {
         renderValue={() => (
           <DropdownStyledBox>
             <Typography marginRight={0.5} variant="buttonLargeMenu" color="text.secondary">
-              <FormattedMessage id="ChatRoom" />
+              <FormattedMessage id="Category" />
             </Typography>
           </DropdownStyledBox>
         )}

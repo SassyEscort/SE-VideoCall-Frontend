@@ -30,6 +30,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: 'https://flirtbate.com/dirty-talks',
       lastModified: new Date(),
       priority: 0.8
+    },
+    {
+      url: 'https://flirtbate.com/stranger-chat',
+      lastModified: new Date(),
+      priority: 0.8
     }
   ];
 }

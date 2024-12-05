@@ -115,7 +115,7 @@ export const VideoChatWithStrangerBannerBeyondImageCard = styled(Box)(({ theme }
   }
 }));
 
-export const VideoChatWithStrangerBannerTypographySubtitleBox = styled(Typography)(({ theme }) => ({
+export const VideoChatWithStrangerBannerTypographySubtitleBox = styled(Box)(({ theme }) => ({
   fontWeight: 400,
   width: '100%',
   color: theme.palette.secondary[100],

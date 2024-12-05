@@ -39,7 +39,7 @@ const VideoChatWithStrangers = () => {
             <VideoChatWithStrangerInlineBeyondBox component="h3">
               <FormattedMessage id="HowToStartYourVideoChatWithStrangers" />
             </VideoChatWithStrangerInlineBeyondBox>
-            <VideoChatWithStrangerBannerTypographySubtitleBox variant="h5">
+            <VideoChatWithStrangerBannerTypographySubtitleBox component="h5">
               <FormattedMessage id="GettingStartedWithFlirtBate’s" />
             </VideoChatWithStrangerBannerTypographySubtitleBox>
             <VideoChatWithStrangerBannerTypographySubtitleBox>
@@ -60,7 +60,7 @@ const VideoChatWithStrangers = () => {
               </VideoChatEithStrangerBannerPointTypography>
               <FormattedMessage id="ClickToStartYourVideoChat" />
             </VideoChatWithStrangerBannerTypographySubtitleBox>
-            <VideoChatWithStrangerBannerTypographySubtitleBox variant="h5">
+            <VideoChatWithStrangerBannerTypographySubtitleBox component="h5">
               <FormattedMessage id="WhetherYou'reSeekingFunConversations" />
             </VideoChatWithStrangerBannerTypographySubtitleBox>
           </VideoChatWithStrangerSecBoxBeyondContainer>
