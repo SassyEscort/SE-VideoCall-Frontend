@@ -22,3 +22,8 @@ export enum SEO_DATA_DIRTY_TALKS {
   TITLE = 'Dirty Chat -  Dirty Cam, Chat Roulette & Live Dirty Cams Online',
   DESCRIPTION = "Join Flirtbate for spice things up with Flirtbate's dirty chat! Explore dirty chat roulette, live dirty cams, and connect with flirty people for an exciting online experience."
 }
+
+export enum SEO_DATA_STRANGER_VIDEO_CHAT {
+  TITLE = 'Stranger Video Chat - Random Video Chat & Cam with Strangers Online',
+  DESCRIPTION = "Join Flirtbate for meet new people on Flirtbate's stranger chat! Enjoy random video chats, connect via stranger cams, and experience thrilling random cam chats with strangers online."
+}

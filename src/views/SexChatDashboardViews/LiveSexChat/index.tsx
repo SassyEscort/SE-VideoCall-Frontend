@@ -39,7 +39,7 @@ const LiveSexChatDashboard = () => {
             <LiveSexChatInlineBeyondBox component="h3">
               <FormattedMessage id="Live1SexChat" />
             </LiveSexChatInlineBeyondBox>
-            <LiveSexChatBannerTypographySubtitleBox variant="h5">
+            <LiveSexChatBannerTypographySubtitleBox component="h5">
               <FormattedMessage id="FlirtbateWeGoBeyondTheUsualSexChat" />
             </LiveSexChatBannerTypographySubtitleBox>
             <LiveSexChatBannerTypographySubtitleBox>

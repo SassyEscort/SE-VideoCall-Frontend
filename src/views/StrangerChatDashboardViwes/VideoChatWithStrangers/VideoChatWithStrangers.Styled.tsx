@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
-export const ChatSpecialContainer = styled(Box)(({ theme }) => ({
+export const VideoChatWithStrangerContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: '85px',
   width: '100%',
@@ -34,7 +34,7 @@ export const ChatSpecialContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const ChatSpecialFirstBeyondBoxContainer = styled(Box)(({ theme }) => ({
+export const VideoChatWithStrangerFirstBeyondBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
@@ -50,7 +50,7 @@ export const ChatSpecialFirstBeyondBoxContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const ChatSpecialSecBoxBeyondContainer = styled(Box)(({ theme }) => ({
+export const VideoChatWithStrangerSecBoxBeyondContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
@@ -66,7 +66,7 @@ export const ChatSpecialSecBoxBeyondContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const ChatSpecialInlineBeyondBox = styled(Box)(({ theme }) => ({
+export const VideoChatWithStrangerInlineBeyondBox = styled(Box)(({ theme }) => ({
   color: theme.palette.common.white,
   flexFlow: 'column-wrap',
   wordBreak: 'break-word',
@@ -90,7 +90,7 @@ export const ChatSpecialInlineBeyondBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const ChatSpecialInlineBoxRelative = styled(Box)(({ theme }) => ({
+export const LiveSexChatInlineBoxRelative = styled(Box)(({ theme }) => ({
   display: 'flex',
   position: 'relative',
   color: theme.palette.primary[600],
@@ -99,7 +99,7 @@ export const ChatSpecialInlineBoxRelative = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const ChatSpecialBannerBeyondImageCard = styled(Box)(({ theme }) => ({
+export const VideoChatWithStrangerBannerBeyondImageCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'flex-end',
   justifyContent: 'flex-end',
@@ -115,7 +115,7 @@ export const ChatSpecialBannerBeyondImageCard = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const ChatSpecialBannerTypographySubtitleBox = styled(Box)(({ theme }) => ({
+export const VideoChatWithStrangerBannerTypographySubtitleBox = styled(Box)(({ theme }) => ({
   fontWeight: 400,
   width: '100%',
   color: theme.palette.secondary[100],
@@ -131,7 +131,7 @@ export const ChatSpecialBannerTypographySubtitleBox = styled(Box)(({ theme }) =>
   }
 }));
 
-export const ChatSpecialBannerPointTypography = styled(Typography)(({ theme }) => ({
+export const VideoChatEithStrangerBannerPointTypography = styled(Typography)(({ theme }) => ({
   fontWeight: 700,
   width: '100%',
   color: theme.palette.secondary[100],

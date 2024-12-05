@@ -2,13 +2,13 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
-export const ChatSpecialContainer = styled(Box)(({ theme }) => ({
+export const StrangerChatVideoContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: '85px',
   width: '100%',
   height: '100%',
   position: 'relative',
-  alignItems: 'center',
+  marginTop: theme.spacing(8),
   [theme.breakpoints.down('sm')]: {
     gap: '48px',
     flexDirection: 'column'
@@ -21,8 +21,10 @@ export const ChatSpecialContainer = styled(Box)(({ theme }) => ({
     paddingInline: theme.spacing(1.87)
   },
   [theme.breakpoints.down('md')]: {
-    flexDirection: 'column'
+    flexDirection: 'column',
+    marginTop: theme.spacing(5)
   },
+
   [theme.breakpoints.up('lg')]: {
     alignItems: 'center',
     justifyContent: 'center'
@@ -34,23 +36,19 @@ export const ChatSpecialContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const ChatSpecialFirstBeyondBoxContainer = styled(Box)(({ theme }) => ({
+export const StrangerChatVideoFirstBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  // maxWidth: 449,
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(4.5)
   },
   [theme.breakpoints.up('sm')]: {
     gap: theme.spacing(6)
-  },
-  [theme.breakpoints.down('md')]: {
-    maxWidth: '100%'
   }
 }));
 
-export const ChatSpecialSecBoxBeyondContainer = styled(Box)(({ theme }) => ({
+export const StrangerChatVideoSecBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
@@ -60,13 +58,10 @@ export const ChatSpecialSecBoxBeyondContainer = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.up('sm')]: {
     alignItems: 'flex-start'
-  },
-  [theme.breakpoints.only('md')]: {
-    alignItems: 'center'
   }
 }));
 
-export const ChatSpecialInlineBeyondBox = styled(Box)(({ theme }) => ({
+export const StrangerChatVideoInlineBox = styled(Box)(({ theme }) => ({
   color: theme.palette.common.white,
   flexFlow: 'column-wrap',
   wordBreak: 'break-word',
@@ -90,7 +85,7 @@ export const ChatSpecialInlineBeyondBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const ChatSpecialInlineBoxRelative = styled(Box)(({ theme }) => ({
+export const ExclusiveSexChatInlineBoxRelative = styled(Box)(({ theme }) => ({
   display: 'flex',
   position: 'relative',
   color: theme.palette.primary[600],
@@ -99,9 +94,9 @@ export const ChatSpecialInlineBoxRelative = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const ChatSpecialBannerBeyondImageCard = styled(Box)(({ theme }) => ({
+export const StrangerChatVideoBannerImageCard = styled(Box)(({ theme }) => ({
   display: 'flex',
-  alignItems: 'flex-end',
+  alignItems: 'center',
   justifyContent: 'flex-end',
   '@media (max-width: 768px)': {
     justifyContent: 'flex-start'
@@ -112,10 +107,13 @@ export const ChatSpecialBannerBeyondImageCard = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('xs')]: {
     justifyContent: 'center',
     paddingRight: theme.spacing(3)
+  },
+  [theme.breakpoints.down('md')]: {
+    justifyContent: 'center'
   }
 }));
 
-export const ChatSpecialBannerTypographySubtitleBox = styled(Box)(({ theme }) => ({
+export const StrangerChatVideoSubtitleTypographyBox = styled(Typography)(({ theme }) => ({
   fontWeight: 400,
   width: '100%',
   color: theme.palette.secondary[100],
@@ -131,17 +129,18 @@ export const ChatSpecialBannerTypographySubtitleBox = styled(Box)(({ theme }) =>
   }
 }));
 
-export const ChatSpecialBannerPointTypography = styled(Typography)(({ theme }) => ({
+export const ExclusiveSexChatSubtitlePointsTypography = styled(Typography)(({ theme }) => ({
   fontWeight: 700,
   width: '100%',
   color: theme.palette.secondary[100],
+  fontSize: 18,
   [theme.breakpoints.down('sm')]: {
-    fontSize: 16,
+    fontSize: 14,
     lineHeight: '24px',
     textAlign: '-webkit-center'
   },
   [theme.breakpoints.up('sm')]: {
-    fontSize: 22,
+    fontSize: 20,
     lineHeight: '32px'
   }
 }));
