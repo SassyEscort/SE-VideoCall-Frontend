@@ -1,12 +1,12 @@
-// import { SEO_DATA_DIRTY_TALKS } from 'constants/seoConstants';
-// import { Metadata } from 'next';
+import { SEO_DATA_STRANGER_VIDEO_CHAT } from 'constants/seoConstants';
 import { KeyPairAndUndefined } from 'types/KeyPair';
+import { Metadata } from 'next';
 import { StrangerChatDashboard } from 'views/StrangerChatDashboardViwes';
 
-// export const metadata: Metadata = {
-//   title: SEO_DATA_DIRTY_TALKS.TITLE,
-//   description: SEO_DATA_DIRTY_TALKS.DESCRIPTION
-// };
+export const metadata: Metadata = {
+  title: SEO_DATA_STRANGER_VIDEO_CHAT.TITLE,
+  description: SEO_DATA_STRANGER_VIDEO_CHAT.DESCRIPTION
+};
 
 const Home = ({ searchParams }: { searchParams: KeyPairAndUndefined }) => <StrangerChatDashboard searchParams={searchParams} />;
 

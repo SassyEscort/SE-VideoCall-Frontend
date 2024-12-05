@@ -9,7 +9,6 @@ import {
   TalkToStrangerVideoCallGridContainer,
   TalkToStrangerVideoCallInnerContainer,
   TalkToStrangerVideoCallMainContainer,
-  TypographyGradiantSubtitleBox,
   TypographySubtitleBox,
   TypographyTitleBox
 } from './TalkToStrangersVideoCall.styled';
@@ -40,9 +39,6 @@ const TalkToStrangersVideoCall = () => (
               <FormattedMessage id="FilterAndSelectModelsFindThePerfect" />
             </TypographySubtitleBox>
           </TalkToStrangerVideoCallInnerContainer>
-          {/* <TypographyGradiantSubtitleBox variant="h2">
-            <FormattedMessage id="NoRandomnessJustPure" />
-          </TypographyGradiantSubtitleBox> */}
         </TalkToStrangerVideoCallGridContainer>
         <Grid item xs={12} md={6}>
           <TalkToStrangersVideoCallBackgroundImageBox />
