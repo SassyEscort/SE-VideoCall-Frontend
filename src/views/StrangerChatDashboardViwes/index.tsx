@@ -1,11 +1,17 @@
-'use client';
-
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { ROLE } from 'constants/workerVerification';
 import { ModelListingService } from 'services/modelListing/modelListing.services';
 import { KeyPairAndUndefined } from 'types/KeyPair';
 import { getUserDataServerSide } from 'utils/getSessionData';
 import HomeContainer from 'views/guestViews/homePage';
+import StrangerChatMainDashboard from './StrangerChatMainDashboard';
+import StrangerChatVideoCalls from './StrangerChatVideoCalls';
+import StrangerCamChat from './StrangerCamChat';
+import VideoChatWithStrangers from './VideoChatWithStrangers';
+import ChatForFunAndConnection from './ChatForFunAndConnection';
+import UltimateVideoChatPlatform from './UltimateVideoChatPlatform';
+import TalkToStrangersVideoCall from './TalkToStrangersVideoCall';
+import VideoChatDashboard from './VideoChatDashboard';
 
 export const StrangerChatDashboard = async ({ searchParams }: { searchParams: KeyPairAndUndefined }) => {
   const session = await getUserDataServerSide();
@@ -30,9 +36,14 @@ export const StrangerChatDashboard = async ({ searchParams }: { searchParams: Ke
 
   return (
     <>
-      {isCustomer ? <HomeContainer modelData={modelData} params={initVal} /> : ''}
-
-      {/* <EnjoyDirtyCams isCustomer={isCustomer} /> */}
+      {isCustomer ? <HomeContainer modelData={modelData} params={initVal} /> : <StrangerChatMainDashboard />}
+      <StrangerChatVideoCalls />
+      <StrangerCamChat />
+      <VideoChatWithStrangers />
+      <ChatForFunAndConnection />
+      <TalkToStrangersVideoCall />
+      <VideoChatDashboard />
+      <UltimateVideoChatPlatform isCustomer={isCustomer} />
     </>
   );
 };
