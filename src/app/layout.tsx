@@ -71,6 +71,21 @@ export default function RootLayout({
             }`
             }}
           />
+          <Script
+            async
+            defer
+            id="gtag-script"
+            type="text/javascript"
+            strategy="lazyOnload"
+            dangerouslySetInnerHTML={{
+              __html: `
+              var fluxDefaults = {
+                p: "2v8zYdcybFvP",
+                f: "2wzb8atlx047"
+              }
+              `
+            }}
+          />
 
           <Script
             async
@@ -111,7 +126,13 @@ export default function RootLayout({
             id="ff-pro-view-event"
             strategy="lazyOnload"
             dangerouslySetInnerHTML={{
-              __html: `flux.track("view");`
+              __html: `
+                  (function() {
+                    var currentUrl = new URL(window.location.href);
+                    var sanitizedUrl = currentUrl.origin + currentUrl.pathname;
+                    flux.track("view", { url: sanitizedUrl });
+                  })();
+                `
             }}
           />
         </>
