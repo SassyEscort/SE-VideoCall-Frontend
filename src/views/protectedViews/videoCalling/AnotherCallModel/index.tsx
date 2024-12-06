@@ -18,13 +18,13 @@ import {
 import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-// import { useVideoCallContext } from 'contexts/videoCallContext';
-import { useCallFeatureContext } from 'contexts/CallFeatureContext';
+import { useVideoCallContext } from 'contexts/videoCallContext';
+// import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 
 const AnotherCallModel = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const router = useRouter();
 
-  const { modelName, isModelAvailable, isModelEndedCall } = useCallFeatureContext();
+  const { modelName, isModelAvailable, isModelEndedCall } = useVideoCallContext();
 
   const handleExploreModel = () => {
     onClose();
