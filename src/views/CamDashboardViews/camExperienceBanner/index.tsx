@@ -1,12 +1,11 @@
 'use client';
 
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
   Cam2CamMainContainer,
-  BackGroundContainer,
   Cam2CamInnerContainer,
   HeadingTypography,
   SubtitleTypography,
@@ -77,35 +76,33 @@ const CamExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
   return (
     <>
       <Cam2CamMainContainer>
-        <BackGroundContainer>
-          <HomeMainContainer>
-            <Cam2CamInnerContainer>
-              <CamExperienceBannerInnerBox>
-                <HeadingTypography>
-                  <FormattedMessage id="StartYourFlirtBateCam2CamExperienceNow" />
-                </HeadingTypography>
-                <SubtitleTypography>
-                  <FormattedMessage id="ThousandsOfModelsAreReady" />
-                </SubtitleTypography>
-              </CamExperienceBannerInnerBox>
-              {isCustomer ? (
-                <></>
-              ) : (
-                <ButtonBox>
-                  <UIThemeShadowButton
-                    variant="contained"
-                    sx={{ width: '236px' }}
-                    onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
-                  >
-                    <UINewTypography variant="body" color="common.white">
-                      <FormattedMessage id="StartFreeVideoChat" />
-                    </UINewTypography>
-                  </UIThemeShadowButton>
-                </ButtonBox>
-              )}
-            </Cam2CamInnerContainer>
-          </HomeMainContainer>
-        </BackGroundContainer>
+        <HomeMainContainer>
+          <Cam2CamInnerContainer>
+            <CamExperienceBannerInnerBox>
+              <HeadingTypography>
+                <FormattedMessage id="StartYourFlirtBateCam2CamExperienceNow" />
+              </HeadingTypography>
+              <SubtitleTypography>
+                <FormattedMessage id="ThousandsOfModelsAreReady" />
+              </SubtitleTypography>
+            </CamExperienceBannerInnerBox>
+            {isCustomer ? (
+              <></>
+            ) : (
+              <ButtonBox>
+                <UIThemeShadowButton
+                  variant="contained"
+                  sx={{ width: '236px' }}
+                  onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
+                >
+                  <UINewTypography variant="body" color="common.white">
+                    <FormattedMessage id="StartFreeVideoChat" />
+                  </UINewTypography>
+                </UIThemeShadowButton>
+              </ButtonBox>
+            )}
+          </Cam2CamInnerContainer>
+        </HomeMainContainer>
       </Cam2CamMainContainer>
 
       {/* Singin Login Popup */}

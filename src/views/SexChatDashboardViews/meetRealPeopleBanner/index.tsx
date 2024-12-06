@@ -1,12 +1,11 @@
 'use client';
 
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
   MeetRealPeopleMainContainer,
-  BackGroundContainer,
   MeetRealPeopleInnerContainer,
   HeadingTypography,
   SubtitleTypography,
@@ -77,41 +76,39 @@ const MeetRealPeople = ({ isCustomer }: { isCustomer: boolean }) => {
   return (
     <>
       <MeetRealPeopleMainContainer>
-        <BackGroundContainer>
-          <HomeMainContainer>
-            <MeetRealPeopleInnerContainer>
-              <MeetRealPeopleBannerInnerBox>
-                <HeadingTypography>
-                  <FormattedMessage id="MeetRealPeople" />
-                </HeadingTypography>
-                <SubtitleTypography>
-                  <FormattedMessage id="FlirtbateIsAllAboutRealConnections" />
-                </SubtitleTypography>
-                <SubtitleTypography>
-                  <FormattedMessage id="LiveModal" />
-                </SubtitleTypography>
-                <SubtitleTypography>
-                  <FormattedMessage id="TailoredChats" />
-                </SubtitleTypography>
-              </MeetRealPeopleBannerInnerBox>
-              {isCustomer ? (
-                <></>
-              ) : (
-                <ButtonBox>
-                  <UIThemeShadowButton
-                    variant="contained"
-                    sx={{ width: '236px' }}
-                    onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
-                  >
-                    <UINewTypography variant="body" color="common.white">
-                      <FormattedMessage id="StartFreeVideoChat" />
-                    </UINewTypography>
-                  </UIThemeShadowButton>
-                </ButtonBox>
-              )}
-            </MeetRealPeopleInnerContainer>
-          </HomeMainContainer>
-        </BackGroundContainer>
+        <HomeMainContainer>
+          <MeetRealPeopleInnerContainer>
+            <MeetRealPeopleBannerInnerBox>
+              <HeadingTypography>
+                <FormattedMessage id="MeetRealPeople" />
+              </HeadingTypography>
+              <SubtitleTypography>
+                <FormattedMessage id="FlirtbateIsAllAboutRealConnections" />
+              </SubtitleTypography>
+              <SubtitleTypography>
+                <FormattedMessage id="LiveModal" />
+              </SubtitleTypography>
+              <SubtitleTypography>
+                <FormattedMessage id="TailoredChats" />
+              </SubtitleTypography>
+            </MeetRealPeopleBannerInnerBox>
+            {isCustomer ? (
+              <></>
+            ) : (
+              <ButtonBox>
+                <UIThemeShadowButton
+                  variant="contained"
+                  sx={{ width: '236px' }}
+                  onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
+                >
+                  <UINewTypography variant="body" color="common.white">
+                    <FormattedMessage id="StartFreeVideoChat" />
+                  </UINewTypography>
+                </UIThemeShadowButton>
+              </ButtonBox>
+            )}
+          </MeetRealPeopleInnerContainer>
+        </HomeMainContainer>
       </MeetRealPeopleMainContainer>
 
       {/* Singin Login Popup */}

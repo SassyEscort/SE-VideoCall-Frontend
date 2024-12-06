@@ -83,13 +83,13 @@ const VideoChatDashboardBanner = () => {
           <VideoChatTextContainer>
             <VideoChatBannerInnerBoxContainer sx={{ gap: 6 }}>
               <VideoChatBannerInnerBoxContainer sx={{ gap: 2 }}>
-                <VideoChatSubTitleText>
+                <VideoChatSubTitleText variant="h6">
                   <FormattedMessage id="WELCOMETOFLIRTBATE" />
                 </VideoChatSubTitleText>
-                <VideoChatTitleText>
+                <VideoChatTitleText variant="h1">
                   <FormattedMessage id="FreeSexVideoChatCalls" />
                 </VideoChatTitleText>
-                <VideoChatSubTitleText>
+                <VideoChatSubTitleText variant="h6">
                   <FormattedMessage id="JoinThousandsOfUsers" />
                 </VideoChatSubTitleText>
               </VideoChatBannerInnerBoxContainer>

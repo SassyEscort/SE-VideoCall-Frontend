@@ -84,13 +84,13 @@ const CamToCamDashboardBanner = () => {
           <CamTextContainer>
             <CamBannerInnerBoxContainer sx={{ gap: 6 }}>
               <CamBannerInnerBoxContainer sx={{ gap: 2 }}>
-                <CamSubTitleText>
+                <CamSubTitleText variant="h4">
                   <FormattedMessage id="WELCOMETOFLIRTBATE" />
                 </CamSubTitleText>
-                <CamTitleText>
+                <CamTitleText variant="h1">
                   <FormattedMessage id="FreeSexVideoChatCalls" />
                 </CamTitleText>
-                <CamSubTitleText>
+                <CamSubTitleText variant="h4">
                   <FormattedMessage id="JoinThousandsOfUsers" />
                 </CamSubTitleText>
               </CamBannerInnerBoxContainer>

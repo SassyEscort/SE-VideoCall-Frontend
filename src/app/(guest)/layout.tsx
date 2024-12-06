@@ -48,7 +48,11 @@ export default async function Layout({ children }: { children: React.ReactNode }
       </>
     );
   } else {
-    HeaderComponent = <HeaderGuestComponent />;
+    HeaderComponent = (
+      <>
+        <HeaderGuestComponent />
+      </>
+    );
   }
 
   return (
@@ -57,7 +61,6 @@ export default async function Layout({ children }: { children: React.ReactNode }
       <main>
         <Box sx={{ mt: 10 }}>{children}</Box>
       </main>
-
       <Footer />
     </>
   );

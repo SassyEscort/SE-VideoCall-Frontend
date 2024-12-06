@@ -21,12 +21,12 @@ const SexyChatAtFingertips = () => (
   <SexyChatAtFingertipsMainContainer>
     <SexyChatAtFingertipsContainer>
       <WhySexChatInnerContainer>
-        <SexyChatAtFingertipsTitleTypography>
+        <SexyChatAtFingertipsTitleTypography variant="h2">
           <FormattedMessage id="SexyChatYourFingertips" />
         </SexyChatAtFingertipsTitleTypography>
       </WhySexChatInnerContainer>
       <WhySexChatSubTextStyledBox>
-        <SexyChatAtFingertipsSubTitleTypography>
+        <SexyChatAtFingertipsSubTitleTypography variant="h6">
           <FormattedMessage id="SkipTextBasedSextingChat" />
         </SexyChatAtFingertipsSubTitleTypography>
       </WhySexChatSubTextStyledBox>
@@ -49,10 +49,10 @@ const SexyChatAtFingertips = () => (
             <SexyChatAtFingertipsInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/Video.png" width="32px" height="100%" />
               <SexyChatAtFingertipsInfoContainer>
-                <SexyChatAtFingertipsDescriptionTitleTypography>
+                <SexyChatAtFingertipsDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="PrivateDirtyVideoChat" />
                 </SexyChatAtFingertipsDescriptionTitleTypography>
-                <SexyChatAtFingertipsDescriptionSubTitleTypography>
+                <SexyChatAtFingertipsDescriptionSubTitleTypography variant="h6">
                   <FormattedMessage id="HaveExclusiveVideoCalls" />
                 </SexyChatAtFingertipsDescriptionSubTitleTypography>
               </SexyChatAtFingertipsInfoContainer>
@@ -62,10 +62,10 @@ const SexyChatAtFingertips = () => (
             <SexyChatAtFingertipsInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/Private.png" width="26px" height="26px" />
               <SexyChatAtFingertipsInfoContainer>
-                <SexyChatAtFingertipsDescriptionTitleTypography>
+                <SexyChatAtFingertipsDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="AdultChatRoomswithTwist" />
                 </SexyChatAtFingertipsDescriptionTitleTypography>
-                <SexyChatAtFingertipsDescriptionSubTitleTypography>
+                <SexyChatAtFingertipsDescriptionSubTitleTypography variant="h6">
                   <FormattedMessage id="FlirtbatenotOfferGroupChatRooms" />
                 </SexyChatAtFingertipsDescriptionSubTitleTypography>
               </SexyChatAtFingertipsInfoContainer>
@@ -75,10 +75,10 @@ const SexyChatAtFingertips = () => (
             <SexyChatAtFingertipsInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/People.png" width="32px" height="100%" />
               <SexyChatAtFingertipsInfoContainer>
-                <SexyChatAtFingertipsDescriptionTitleTypography>
-                  <FormattedMessage id="InstantConnection"></FormattedMessage>
+                <SexyChatAtFingertipsDescriptionTitleTypography variant="h4">
+                  <FormattedMessage id="InstantConnection" />
                 </SexyChatAtFingertipsDescriptionTitleTypography>
-                <SexyChatAtFingertipsDescriptionSubTitleTypography>
+                <SexyChatAtFingertipsDescriptionSubTitleTypography variant="h6">
                   <FormattedMessage id="ModelsAreAvailableForSexyChat" />
                 </SexyChatAtFingertipsDescriptionSubTitleTypography>
               </SexyChatAtFingertipsInfoContainer>

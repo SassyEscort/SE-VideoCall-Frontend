@@ -4,7 +4,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const MeetRealPeopleMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  height: '853px',
+  height: '550px',
   backgroundImage: 'url(/images/camtocamDashboard/camTocamBackground.webp)',
   paddingTop: theme.spacing(6),
   backgroundRepeat: 'no-repeat',
