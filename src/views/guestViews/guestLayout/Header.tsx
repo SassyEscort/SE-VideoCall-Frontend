@@ -34,7 +34,6 @@ const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents
 
 const HeaderGuestComponent = () => {
   const { isFreeCreditAvailable } = useAuthContext();
-  const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
@@ -197,7 +196,7 @@ const HeaderGuestComponent = () => {
               <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
             </Box>
           )}
-          {isSMDown ? (
+          {isSmDown ? (
             <Box>
               <LanguageDropdown />
             </Box>
@@ -257,7 +256,7 @@ const HeaderGuestComponent = () => {
                     </UIThemeShadowButton>
                   </ListItemText>
                 </MenuItem>
-                {isSMDown && (
+                {isSmDown && (
                   <>
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                     <MenuItem>
