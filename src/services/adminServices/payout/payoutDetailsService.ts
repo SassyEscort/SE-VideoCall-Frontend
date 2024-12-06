@@ -12,26 +12,47 @@ export type payoutDataResponse = {
   account_name: string;
   iban_number: string;
 };
+
 export type PaginationAggregation = {
   offset: number;
   page_size: number;
   total_rows: number;
 };
+
 export type data = {
   payout_details: payoutDataResponse[];
   aggregate: PaginationAggregation;
 };
+
 export type payoutResponse = {
   data: data;
   code: number;
   error: string | null;
   message: string;
 };
+
 export class payoutDetailsService {
-  static getPayoutDetails = async (token: string, limit: number, offset: number, search_field?: string): Promise<payoutResponse> => {
+  static getPayoutDetails = async (
+    token: string,
+    limit: number,
+    offset: number,
+    search_field?: string,
+    start_date?: string,
+    end_date?: string,
+    state?: string
+  ): Promise<payoutResponse> => {
     try {
-      const res = await axios.get(
-        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/payouts?limit=${limit}&offset=${offset}&search_field=${search_field}`,
+      const res = await axios.post(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/payouts?limit=${limit}&offset=${offset}`,
+        {
+          filter: -1,
+          date_range: {
+            start_date: start_date,
+            end_date: end_date
+          },
+          state: state || null,
+          search_field: search_field
+        },
         {
           headers: {
             'Content-Type': 'application/json',

@@ -26,6 +26,7 @@ interface WorkersFiltersProps {
   toDate: string;
   status?: string;
   action?: string;
+  durationlable?: string;
   // actionsArray?: MultipleOptions[];
   onFilterDurationChange: (duration: string, fromDate: string, toDate: string) => void;
   handleChangeSearch?: (val: string) => void;
@@ -39,6 +40,7 @@ export default function ReportFilters({
   toDate,
   status,
   action,
+  durationlable,
   onFilterDurationChange,
   handleChangeStatus,
   handleChangeAction,
@@ -107,11 +109,11 @@ export default function ReportFilters({
 
             <Grid item xs={12} sm={duration === 'custom' ? 2.4 : 4}>
               <FormControl fullWidth>
-                <InputLabel id="filter-duration-label">Duration</InputLabel>
+                <InputLabel id="filter-duration-label">{durationlable ? durationlable : 'Duration'}</InputLabel>
                 <Select
                   labelId="filter-duration-label"
                   value={duration}
-                  label="Duration"
+                  label={durationlable ? durationlable : 'Duration'}
                   onChange={(e) => handleChangeDuration(e.target.value)}
                   sx={{
                     '@media (min-width: 600px)': {

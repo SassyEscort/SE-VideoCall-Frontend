@@ -1,25 +1,24 @@
 import axios, { AxiosError } from 'axios';
 import {
   CustomerDetailsRes,
-  CustomerFilterParams,
+  CustomerFilterBodyParams,
   ModelDetailsDeleteRes,
+  ModelDetailsParams,
   ModelDetailsRes,
-  ModelDetailStatusOfflineRes,
-  ModelFilterParams
+  ModelDetailStatusOfflineRes
 } from './types';
 import { GenericRes } from 'services/guestAuth/authuser.services';
 
 export type ModelListing = {
   country_id: number;
   country_name: string;
-  created_at: string;
+  created_date: string;
   email: string;
   email_verified: number;
   id: number;
   is_active: number;
-  last_login: string;
   last_active: string;
-  name: string;
+  model_name: string;
   profile_status: string;
   updated_at: string;
   verification_step: string;
@@ -35,48 +34,42 @@ export type PaginationAggregation = {
 };
 
 export type ModelListingRes = {
-  model_details: ModelListing[];
+  model_reports: ModelListing[];
   aggregate: PaginationAggregation;
 };
 
-export class adminModelServices {
-  static getModelList = async (params: ModelFilterParams): Promise<ModelListingRes> => {
-    let query = '';
-    if (params.filter_text) {
-      query += `&search_field=${params.filter_text}`;
-    }
-    if (params.from_date) {
-      query += `&from_date=${params.from_date}`;
-    }
-    if (params.to_date) {
-      query += `&to_date=${params.to_date}`;
-    }
-    if (params.sort_order) {
-      query += `&sort_order=${params.sort_order}`;
-    }
-    if (params.sort_field) {
-      query += `&sort_field=${params.sort_field}`;
-    }
-    if (params.verification_step) {
-      query += `&verification_step=${params.verification_step}`;
-    }
-    if (params.profile_status) {
-      query += `&profile_status=${params.profile_status}`;
-    }
-    if (params.is_active) {
-      query += `&is_active=${params.is_active}`;
-    }
-    if (params.gender) {
-      query += `&gender=${params.gender}`;
-    }
+export type countryListResponse = {
+  id: number;
+  name: string;
+  region: string;
+};
 
+export class adminModelServices {
+  static AdminCountryList = async (token: string): Promise<countryListResponse[]> => {
     try {
-      const res = await axios.get(
-        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model?limit=${params.limit}&offset=${params.offset}${query}`,
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/countries`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        }
+      });
+
+      return res.data.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as countryListResponse[];
+    }
+  };
+
+  static getModelList = async (limit: number, offset: number, params: ModelDetailsParams, token: string): Promise<ModelListingRes> => {
+    try {
+      const res = await axios.post(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/listings?limit=${limit}&offset=${offset}`,
+        params,
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: params.token
+            Authorization: token
           }
         }
       );
@@ -113,6 +106,7 @@ export class adminModelServices {
       return error.response?.data as ModelListingRes;
     }
   };
+
   static getModelDetails = async (token: string, modelId: number): Promise<ModelDetailsRes> => {
     try {
       const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/model/${modelId}`, {
@@ -128,21 +122,17 @@ export class adminModelServices {
       return error.response?.data as ModelDetailsRes;
     }
   };
-  static getCustomerDetails = async (params: CustomerFilterParams, token: string): Promise<CustomerDetailsRes> => {
-    let query = '';
-    if (params.search_field) {
-      query += `&search_field=${params.search_field}`;
-    }
-    if (params.sort_order) {
-      query += `&sort_order=${params.sort_order}`;
-    }
-    if (params.sort_field) {
-      query += `&sort_field=${params.sort_field}`;
-    }
 
+  static getCustomerDetails = async (
+    limit: number,
+    offset: number,
+    params: CustomerFilterBodyParams,
+    token: string
+  ): Promise<CustomerDetailsRes> => {
     try {
-      const res = await axios.get(
-        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/customer?limit=${params.limit}&offset=${params.offset}${query}`,
+      const res = await axios.post(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/customer/listings?limit=${limit}&offset=${offset}`,
+        params,
         {
           headers: {
             'Content-Type': 'application/json',

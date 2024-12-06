@@ -19,12 +19,7 @@ import MoreVert from '@mui/icons-material/MoreVert';
 import { useCallback, useEffect, useState } from 'react';
 import { payoutDataResponse, payoutDetailsService } from 'services/adminServices/payout/payoutDetailsService';
 import PayoutModel from './PayoutModel';
-import { getUserDataClient } from 'utils/getSessionData';
-import { TokenIdType } from 'views/protectedModelViews/verification';
-import { PaginationSortByOption } from 'components/common/CustomPaginations/type';
-import PaginationSortBy from 'components/common/CustomPaginations/PaginationSortBy';
 import { PAGE_SIZE } from 'constants/pageConstants';
-import PaginationSearch from 'components/common/CustomPaginations/PaginationSearch';
 import TablePager from 'components/common/CustomPaginations/TablePager';
 import { StyledPopover } from './Payout.styled';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
@@ -38,6 +33,10 @@ import { useRouter } from 'next/navigation';
 import { useAuthContext } from 'contexts/AuthContext';
 import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
 import { PayoutPage } from 'constants/adminUserAccessConstants';
+import { FormControl, Grid, Select } from '@mui/material';
+import { StyledSelectInputLabel } from 'components/UIComponents/UIStyledSelect';
+import { StatusOfPlan } from '../modelPage/ModelPageContainer';
+import ReportFilters from 'components/Admin/ReportFilters/ReportFilters';
 
 export type PaginationType = {
   page: number;
@@ -46,13 +45,21 @@ export type PaginationType = {
   orderField: string;
   orderType: string;
   search_field: string;
+  duration: string;
+  fromDate: string;
+  toDate: string;
+  status: string;
 };
 
 export default function PayoutPageContainer() {
   const router = useRouter();
-
-  const { adminUserPermissions, isAdmin } = useAuthContext();
+  const { adminUserPermissions, isAdmin, token } = useAuthContext();
   const UpdatePermission = adminUserPermissions ? haveUpdatePermission(PayoutPage, adminUserPermissions) : false;
+
+  const currentMoment = moment();
+  const oneMonthAgoMoment = moment().subtract(1, 'day');
+  const fromDate = oneMonthAgoMoment.format('YYYY/MM/DD');
+  const toDate = currentMoment.format('YYYY/MM/DD');
 
   const [selectedPayoutData, setSelectedPayoutData] = useState<payoutDataResponse | null>(null);
   const [data, setData] = useState<payoutDataResponse[]>([]);
@@ -60,39 +67,32 @@ export default function PayoutPageContainer() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [creditModalOpen, setCreditModalOpen] = useState(false);
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [totalRecords, setTotalRecords] = useState(0);
-
+  const [openReject, setOpenReject] = useState(false);
   const [filters, setFilters] = useState<PaginationType>({
     page: 1,
     offset: 0,
     pageSize: PAGE_SIZE,
     orderField: 'newest',
     orderType: 'desc',
-    search_field: ''
+    search_field: '',
+    duration: 'day',
+    fromDate: fromDate,
+    toDate: toDate,
+    status: ''
   });
-  const [openReject, setOpenReject] = useState(false);
-
-  const SORT_BY_OPTIONS: PaginationSortByOption[] = [
-    { value: 'name', label: 'Name' },
-    { value: 'email', label: 'Email' },
-    { value: 'amount', label: 'Amount' }
-  ];
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-
-      if (data) {
-        setToken({ id: data.id, token: data.token });
-      }
-    };
-
-    userToken();
-  }, [token.token]);
 
   const handelFetch = async () => {
     setIsLoading(true);
-    const res = await payoutDetailsService.getPayoutDetails(token.token, filters.pageSize, filters.offset, filters.search_field);
+    const res = await payoutDetailsService.getPayoutDetails(
+      token.token,
+      filters.pageSize,
+      filters.offset,
+      filters.search_field,
+      filters.fromDate,
+      filters.toDate,
+      filters.status
+    );
 
     if (res) {
       if (res.code == 200) {
@@ -102,6 +102,7 @@ export default function PayoutPageContainer() {
     }
     setIsLoading(false);
   };
+
   const handleRefetch = useCallback(() => {
     if (token.token) handelFetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -110,14 +111,17 @@ export default function PayoutPageContainer() {
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleCloseMenu = () => {
     setOpen(null);
     setAnchorEl(null);
   };
+
   const handleOpenCredit = (value: payoutDataResponse) => {
     setSelectedPayoutData(value);
     setCreditModalOpen(true);
   };
+
   const handleCloseCredit = () => {
     setCreditModalOpen(false);
   };
@@ -141,18 +145,6 @@ export default function PayoutPageContainer() {
     [filters, handleChangeFilter]
   );
 
-  const handleChangeOrderBy = useCallback(
-    (field: string, type: string) => {
-      handleChangeFilter({
-        ...filters,
-        orderType: type,
-        orderField: field,
-        page: 1
-      });
-    },
-    [filters, handleChangeFilter]
-  );
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedChangeSearch = useCallback(
     debounce((val: string) => {
@@ -171,13 +163,6 @@ export default function PayoutPageContainer() {
     handleCloseMenu();
   };
 
-  useEffect(() => {
-    if (token.token) {
-      handelFetch();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.token, filters]);
-
   const handleOpenRejectClick = () => {
     setOpenReject(true);
   };
@@ -185,6 +170,24 @@ export default function PayoutPageContainer() {
   const handleCloseRejectClick = () => {
     setOpenReject(false);
   };
+
+  const handleFilterDurationChange = (duration: string, fromDate: string, toDate: string) => {
+    handleChangeFilter({ ...filters, duration, fromDate, toDate, page: 1 });
+  };
+
+  const handleChangeStatus = useCallback(
+    (val: string) => {
+      handleChangeFilter({ ...filters, status: val, page: 1 });
+    },
+    [filters, handleChangeFilter]
+  );
+
+  useEffect(() => {
+    if (token.token) {
+      handelFetch();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token.token, filters]);
 
   useEffect(() => {
     if (adminUserPermissions) {
@@ -203,17 +206,36 @@ export default function PayoutPageContainer() {
           </Typography>
         </Stack>
         <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent="space-between" mb={1}>
-          <PaginationSearch placeholder="Search..." handleChangeSearch={handleChangeSearch} />
-        </Stack>
-        <Box sx={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
-          <PaginationSortBy
-            sortByOptions={SORT_BY_OPTIONS}
-            orderField={filters.orderField}
-            orderType={filters.orderType}
-            handleChangeOrderBy={handleChangeOrderBy}
+          <ReportFilters
+            duration={filters.duration}
+            fromDate={filters.fromDate}
+            toDate={filters.toDate}
+            onFilterDurationChange={handleFilterDurationChange}
+            handleChangeSearch={handleChangeSearch}
           />
-        </Box>
-        <Card>
+        </Stack>
+        <Grid item xs={12} sm={6} md={4} sx={{ width: '100%', maxWidth: { sm: '33%' } }}>
+          <FormControl fullWidth>
+            <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Profile Status</StyledSelectInputLabel>
+            <Select
+              name="status"
+              labelId="status"
+              label="Profile Status"
+              value={filters.status}
+              onChange={(e) => handleChangeStatus(e.target.value as string)}
+              sx={{
+                width: '100%'
+              }}
+            >
+              {StatusOfPlan?.map((stat) => (
+                <MenuItem key={stat?.value} value={stat?.value}>
+                  {stat?.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Card sx={{ mt: 4 }}>
           <Paper sx={{ overflow: 'hidden' }}>
             <TableContainer sx={{ width: '100%' }}>
               <Table>
