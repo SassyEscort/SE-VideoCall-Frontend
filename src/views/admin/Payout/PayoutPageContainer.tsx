@@ -56,10 +56,8 @@ export default function PayoutPageContainer() {
   const { adminUserPermissions, isAdmin, token } = useAuthContext();
   const UpdatePermission = adminUserPermissions ? haveUpdatePermission(PayoutPage, adminUserPermissions) : false;
 
-  const currentMoment = moment();
-  const oneMonthAgoMoment = moment().subtract(1, 'day');
-  const fromDate = oneMonthAgoMoment.format('YYYY/MM/DD');
-  const toDate = currentMoment.format('YYYY/MM/DD');
+  const currentMoment = moment().format('YYYY/MM/DD');
+  const oneMonthAgoMoment = moment().subtract(1, 'day').format('YYYY/MM/DD');
 
   const [selectedPayoutData, setSelectedPayoutData] = useState<payoutDataResponse | null>(null);
   const [data, setData] = useState<payoutDataResponse[]>([]);
@@ -77,8 +75,8 @@ export default function PayoutPageContainer() {
     orderType: 'desc',
     search_field: '',
     duration: 'day',
-    fromDate: fromDate,
-    toDate: toDate,
+    fromDate: oneMonthAgoMoment,
+    toDate: currentMoment,
     status: ''
   });
 
@@ -223,9 +221,7 @@ export default function PayoutPageContainer() {
               label="Profile Status"
               value={filters.status}
               onChange={(e) => handleChangeStatus(e.target.value as string)}
-              sx={{
-                width: '100%'
-              }}
+              sx={{ width: '100%' }}
             >
               {StatusOfPlan?.map((stat) => (
                 <MenuItem key={stat?.value} value={stat?.value}>
