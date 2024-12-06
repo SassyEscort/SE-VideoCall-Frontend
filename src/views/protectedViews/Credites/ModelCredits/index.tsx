@@ -23,22 +23,21 @@ import {
   OutOfCreditBox
 } from './Credits.styled';
 import { FormattedMessage } from 'react-intl';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customerCredit.service';
-import { getUserDataClient } from 'utils/getSessionData';
 import Grid from '@mui/material/Grid';
 import { useRouter } from 'next/navigation';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import CloseIcon from '@mui/icons-material/Close';
 import theme from 'themes/theme';
-import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
+// import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
+import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 import { gaEventTrigger } from 'utils/analytics';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Divider from '@mui/material/Divider';
 import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import { useAuthContext } from '../../../../contexts/AuthContext';
+import { useAuthContext } from 'contexts/AuthContext';
 
 const ModelCredits = ({
   onClose,
@@ -51,31 +50,20 @@ const ModelCredits = ({
   userName: string;
   modelCreditPrice: number;
 }) => {
-  const { isFreeCreditAvailable } = useAuthContext();
+  const { isFreeCreditAvailable, token } = useAuthContext();
 
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [balance, setBalance] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
 
   const router = useRouter();
-  const { user } = useZegoCallFeatureContext();
+  const { user } = useCallFeatureContext();
 
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const customerData = JSON.parse(user || '{}');
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      if (data) {
-        setToken({ id: data.id, token: data.token });
-      }
-    };
-    userToken();
-  }, []);
 
   const getCreditsListing = useCallback(async () => {
     if (token.token) {

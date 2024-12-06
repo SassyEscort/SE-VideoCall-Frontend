@@ -2,14 +2,15 @@
 
 import React, { useEffect } from 'react';
 import { GuardProps } from 'types/auth';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
-import { useAuthContext } from '../../contexts/AuthContext';
+import { useSession } from 'next-auth/react';
 
 const RedirectGuard = ({ children }: GuardProps) => {
-  const { session } = useAuthContext();
+  const { data: session } = useSession();
   const router = useRouter();
+  const pathName = usePathname();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,7 +26,8 @@ const RedirectGuard = ({ children }: GuardProps) => {
       if (
         json?.user?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM &&
         role === 'model' &&
-        (window?.location?.pathname === '/' || window?.location?.pathname?.includes('/models'))
+        typeof window !== 'undefined' &&
+        (pathName === '/' || pathName?.includes('/models'))
       ) {
         if (session && session.user) {
           const parsedPicture = JSON.parse((session?.user as any)?.picture);

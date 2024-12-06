@@ -375,7 +375,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
 
             <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
               <FormControl fullWidth>
-                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Is deleted</StyledSelectInputLabel>
+                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Gender</StyledSelectInputLabel>
                 <Select
                   name="gender"
                   labelId="gender"

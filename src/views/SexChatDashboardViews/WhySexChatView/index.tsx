@@ -13,26 +13,26 @@ import {
 const WhySexChatComponent = () => (
   <WhySexChatMainContainer>
     <WhySexChatContainer>
-      <WhySexChatWhyChooseTitleTypography>
+      <WhySexChatWhyChooseTitleTypography variant="h2">
         <FormattedMessage id="WhyChooseSexChat" />
       </WhySexChatWhyChooseTitleTypography>
       <WhySexChatSubTextStyledBox>
-        <WhySexChatSubTitlePointTypography>
+        <WhySexChatSubTitlePointTypography variant="h4">
           <FormattedMessage id="PersonalizedExperiences" />
         </WhySexChatSubTitlePointTypography>
-        <WhySexChatWhyChooseSubTitleTypography>
+        <WhySexChatWhyChooseSubTitleTypography variant="h6">
           <FormattedMessage id="EveryChatIsTailoredPreferences" />
         </WhySexChatWhyChooseSubTitleTypography>
-        <WhySexChatSubTitlePointTypography>
+        <WhySexChatSubTitlePointTypography variant="h4">
           <FormattedMessage id="NoTextOnlyChats" />
         </WhySexChatSubTitlePointTypography>
-        <WhySexChatWhyChooseSubTitleTypography>
+        <WhySexChatWhyChooseSubTitleTypography variant="h6">
           <FormattedMessage id="UnlikeOtherFreeSexting" />
         </WhySexChatWhyChooseSubTitleTypography>
-        <WhySexChatSubTitlePointTypography>
+        <WhySexChatSubTitlePointTypography variant="h4">
           <FormattedMessage id="HighQualityStreamingSexChat" />
         </WhySexChatSubTitlePointTypography>
-        <WhySexChatWhyChooseSubTitleTypography>
+        <WhySexChatWhyChooseSubTitleTypography variant="h6">
           <FormattedMessage id="OurHDVideoEnsures" />
         </WhySexChatWhyChooseSubTitleTypography>
       </WhySexChatSubTextStyledBox>

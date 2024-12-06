@@ -1,5 +1,4 @@
 'use client';
-
 import {
   ChatWhyChooseInfoContainer,
   ChatWhyChooseInfoMainContainer,
@@ -21,15 +20,15 @@ const StartYourVideoChatLevel = () => (
   <ChatWhyChooseMainContainer>
     <ChatWhyChooseContainer>
       <ChatToGirlsChooseModalInnerContainer>
-        <ChatWhyChooseTitleTypography>
+        <ChatWhyChooseTitleTypography variant="h2">
           <FormattedMessage id="StartYourVideoChat" />
         </ChatWhyChooseTitleTypography>
       </ChatToGirlsChooseModalInnerContainer>
       <ChatToGirlsChooseModalSubTextStyledBox>
-        <ChatWhyChooseSubTitleTypography>
+        <ChatWhyChooseSubTitleTypography variant="h6">
           <FormattedMessage id="FlirtBateIstheUltimate" />
         </ChatWhyChooseSubTitleTypography>
-        <ChatWhyChooseSubTitleTypography>
+        <ChatWhyChooseSubTitleTypography variant="h6">
           <FormattedMessage id="CreateYourFreeAccountVideoChats" />
         </ChatWhyChooseSubTitleTypography>
       </ChatToGirlsChooseModalSubTextStyledBox>
@@ -52,10 +51,10 @@ const StartYourVideoChatLevel = () => (
             <ChatWhyChooseInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/Video.png" width="32px" height="100%" />
               <ChatWhyChooseInfoContainer>
-                <ChatWhyChooseDescriptionTitleTypography>
+                <ChatWhyChooseDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="NoStringsAttached" />
                 </ChatWhyChooseDescriptionTitleTypography>
-                <ChatWhyChooseDescriptionSubTitleTypography>
+                <ChatWhyChooseDescriptionSubTitleTypography variant="h6">
                   <FormattedMessage id="EnjoyFunandFlirty" />
                 </ChatWhyChooseDescriptionSubTitleTypography>
               </ChatWhyChooseInfoContainer>
@@ -65,10 +64,10 @@ const StartYourVideoChatLevel = () => (
             <ChatWhyChooseInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/Private.png" width="26px" height="26px" />
               <ChatWhyChooseInfoContainer>
-                <ChatWhyChooseDescriptionTitleTypography>
+                <ChatWhyChooseDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="Available24/7" />
                 </ChatWhyChooseDescriptionTitleTypography>
-                <ChatWhyChooseDescriptionSubTitleTypography>
+                <ChatWhyChooseDescriptionSubTitleTypography variant="h6">
                   <FormattedMessage id="ModelsareOnlineAround" />
                 </ChatWhyChooseDescriptionSubTitleTypography>
               </ChatWhyChooseInfoContainer>
@@ -78,10 +77,10 @@ const StartYourVideoChatLevel = () => (
             <ChatWhyChooseInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/People.png" width="32px" height="100%" />
               <ChatWhyChooseInfoContainer>
-                <ChatWhyChooseDescriptionTitleTypography>
+                <ChatWhyChooseDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="HDQualityVideoChats" />
                 </ChatWhyChooseDescriptionTitleTypography>
-                <ChatWhyChooseDescriptionSubTitleTypography>
+                <ChatWhyChooseDescriptionSubTitleTypography variant="h6">
                   <FormattedMessage id="ExperienceVideoChat" />
                 </ChatWhyChooseDescriptionSubTitleTypography>
               </ChatWhyChooseInfoContainer>

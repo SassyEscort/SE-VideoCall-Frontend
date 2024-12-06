@@ -1,4 +1,4 @@
-import React, { lazy } from 'react';
+ import React from 'react';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Divider from '@mui/material/Divider';
@@ -13,15 +13,10 @@ import { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import AuthCommon from '../AuthCommon';
 import { LoginUserParams } from 'services/guestAuth/types';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import getCustomErrorMessage from 'utils/error.utils';
 import { useRouter } from 'next/navigation';
 import InfoIcon from '@mui/icons-material/Info';
-const StyleButtonV2 = lazy(() => import('components/UIComponents/StyleLoadingButton'));
-const ErrorBox = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })));
-const ModelUITextConatiner = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })));
-const UIButtonText = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })));
-const UITypographyText = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })));
 // import { ErrorBox, ModelUITextConatiner, UIButtonText, UITypographyText } from '../AuthCommon.styled';
 // import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import theme from 'themes/theme';
@@ -30,15 +25,14 @@ import { EMAIL_REGEX } from 'constants/regexConstants';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { ROLE } from 'constants/workerVerification';
 import { MODEL_ACTION } from 'constants/profileConstants';
-import { useAuthContext } from '../../../contexts/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
-  ssr: false
-});
-const HomePageFreeSignup = dynamic(() => import('../homePageFreeSignup'), {
-  ssr: false
-});
+
+const StyleButtonV2 = dynamic(() => import('components/UIComponents/StyleLoadingButton'));
+const ErrorBox = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })));
+const ModelUITextConatiner = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })));
+const UIButtonText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })));
+const UITypographyText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })));
 
 export type LoginParams = {
   email: string;
@@ -51,10 +45,10 @@ const GuestLogin = ({
   onFogotPasswordLinkOpen,
   image,
   isFreeCreditAvailable,
-  handleFreeCreditSignupOpen,
-  handleLoginOpen,
-  freeSignupOpen,
-  handleFreeCreditSignupClose
+  handleFreeCreditSignupOpen
+  // handleLoginOpen,
+  // freeSignupOpen,
+  // handleFreeCreditSignupClose
 }: {
   onClose: () => void;
   onSignupOpen: () => void;
@@ -62,14 +56,14 @@ const GuestLogin = ({
   image: string;
   isFreeCreditAvailable: number;
   handleFreeCreditSignupOpen: () => void;
-  handleLoginOpen: () => void;
-  freeSignupOpen: boolean;
-  handleFreeCreditSignupClose: () => void;
+  // handleLoginOpen: () => void;
+  // freeSignupOpen: boolean;
+  // handleFreeCreditSignupClose: () => void;
 }) => {
   const intl = useIntl();
 
   const route = useRouter();
-  const { session } = useAuthContext();
+  const { data: session } = useSession();
   const { refresh, push } = route;
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const [showPassword, setShowPassword] = useState(false);
@@ -304,9 +298,9 @@ const GuestLogin = ({
           );
         }}
       </Formik>
-      <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
-        <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-      </NewSignupStyledModalDialog>
+      {/* <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} maxWidth="md" fullWidth>
+        <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} openModelSignup={() => {}} />
+      </NewSignupStyledModalDialog> */}
     </>
   );
 };

@@ -62,7 +62,7 @@ const AuthContext = createContext<AuthContextProps>({
   adminUserPermissions: [{} as AdminUserPermissions]
 });
 
-export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
+const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const { data, status } = useSession();
   const [session, setSession] = useState<Session | null>(null);
   const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(1);
@@ -74,7 +74,7 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openCreditDrawer, setOpenCreditDrawer] = useState(false);
 
-  const user = (session?.user as User)?.picture;
+  const user = (data?.user as User)?.picture;
   const providerData = JSON.parse(user || '{}');
 
   const isCustomer = providerData?.role === ROLE.CUSTOMER;
@@ -172,11 +172,13 @@ export const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
           },
           Number(totalBalValue)
         );
+        var currentUrl = new URL(window.location.href);
+        var sanitizedUrl = currentUrl.origin + currentUrl.pathname;
         const eventArgs = {
           rev: String(totalBalValue),
           tx: transaction_id.toString(),
           url_args: JSON.stringify({ rev: String(totalBalValue), tx: transaction_id.toString() }),
-          url: window.location.origin
+          url: sanitizedUrl
         };
         window.flux.track('conversion', eventArgs);
 
@@ -223,3 +225,4 @@ export const useAuthContext = (): AuthContextProps => {
   const context = useContext(AuthContext);
   return context;
 };
+export default AuthFeaturProvider;

@@ -18,24 +18,12 @@ import {
 import dynamic from 'next/dynamic';
 import { gaEventTrigger } from 'utils/analytics';
 import { useAuthContext } from 'contexts/AuthContext';
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
-  ssr: false
-});
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
-  ssr: false
-});
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
-  ssr: false
-});
-const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
-  ssr: false
-});
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
-  ssr: false
-});
-const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
-  ssr: false
-});
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'));
 
 const SexChatDashboardBanner = () => {
   const { isFreeCreditAvailable } = useAuthContext();
@@ -93,15 +81,15 @@ const SexChatDashboardBanner = () => {
       <SexChatBanner>
         <SexChatTextContainerMain>
           <SexChatTextContainer>
-            <SexChatBannerInnerBoxContainer sx={{ gap: 6 }}>
-              <SexChatBannerInnerBoxContainer sx={{ gap: 2 }}>
-                <SexChatSubTitleText>
+            <SexChatBannerInnerBoxContainer sx={{ gap: 6 }} component="div">
+              <SexChatBannerInnerBoxContainer sx={{ gap: 2 }} component="div">
+                <SexChatSubTitleText variant="h4">
                   <FormattedMessage id="WELCOMETOFLIRTBATE" />
                 </SexChatSubTitleText>
-                <SexChatTitleText>
+                <SexChatTitleText variant="h1">
                   <FormattedMessage id="FreeSexVideoChatCalls" />
                 </SexChatTitleText>
-                <SexChatSubTitleText>
+                <SexChatSubTitleText variant="h4">
                   <FormattedMessage id="JoinThousandsOfUsers" />
                 </SexChatSubTitleText>
               </SexChatBannerInnerBoxContainer>
@@ -134,9 +122,9 @@ const SexChatDashboardBanner = () => {
           onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
           isFreeCreditAvailable={isFreeCreditAvailable}
           handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
-          handleLoginOpen={handleLoginOpen}
-          freeSignupOpen={freeSignupOpen}
-          handleFreeCreditSignupClose={handleFreeCreditSignupClose}
+          // handleLoginOpen={handleLoginOpen}
+          // freeSignupOpen={freeSignupOpen}
+          // handleFreeCreditSignupClose={handleFreeCreditSignupClose}
           image="/images/auth/auth-model1.webp"
         />
       </UIStyledDialog>

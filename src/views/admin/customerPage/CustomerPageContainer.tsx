@@ -35,6 +35,11 @@ import { useAuthContext } from 'contexts/AuthContext';
 import { isPageAccessiable } from 'utils/Admin/PagePermission';
 import { CustomerPage } from 'constants/adminUserAccessConstants';
 import { useRouter } from 'next/navigation';
+import NotInterestedIcon from '@mui/icons-material/NotInterested';
+import DeleteModal from 'components/UIComponents/DeleteModal';
+import { toast } from 'react-toastify';
+import { ErrorMessage } from 'constants/common.constants';
+import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 
 export type WorkersPaginationType = {
   page: number;
@@ -74,7 +79,23 @@ export default function CustomerPageContainer() {
   const [creditModalOpen, setCreditModalOpen] = useState(false);
   const [selectedPayoutData, setSelectedPayoutData] = useState<CustomerDetailsPage | null>(null);
 
+  const [banCustomerOpen, setBanModelOpen] = useState(false);
+
   const { adminUserPermissions, isAdmin } = useAuthContext();
+
+  const handelCustomerBan = async () => {
+    try {
+      if (token.token && selected) {
+        const res = await CustomerDetailsService.banCustomer(token.token, { email: selected?.email });
+        if (res && res.code === 200) {
+          toast.success('customer ban successfullly');
+          handleCloseBanCustomer();
+        }
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    }
+  };
 
   const currentMoment = moment();
   const oneMonthAgoMoment = moment().subtract(1, 'month');
@@ -188,6 +209,14 @@ export default function CustomerPageContainer() {
   };
   const handleCloseCredit = () => {
     setCreditModalOpen(false);
+  };
+
+  const handleOpenBanCustomer = () => {
+    setBanModelOpen(true);
+  };
+
+  const handleCloseBanCustomer = () => {
+    setBanModelOpen(false);
   };
 
   useEffect(() => {
@@ -310,8 +339,25 @@ export default function CustomerPageContainer() {
             <VisibilityIcon sx={{ mr: 2 }} />
             View Details
           </MenuItem>
+
+          <MenuItem
+            onClick={() => {
+              handleOpenBanCustomer();
+              handleCloseMenu();
+            }}
+          >
+            <NotInterestedIcon sx={{ mr: 2 }} />
+            Ban Customer
+          </MenuItem>
         </ModelActionPopover>
         <CustorModel open={creditModalOpen} onClose={handleCloseCredit} selectedPayoutData={selectedPayoutData} />
+        <DeleteModal
+          open={banCustomerOpen}
+          handleClose={handleCloseBanCustomer}
+          handleDeleteClick={handelCustomerBan}
+          ban={true}
+          unban={false}
+        />
       </MainLayout>
     </>
   );

@@ -13,14 +13,17 @@ import { ModelDetailsResponse } from 'views/protectedModelViews/verification/ver
 import ProfileApproval from '../profileApproval';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import React from 'react';
+import { usePathname } from 'next/navigation';
 
 const DashboardNavItem = () => {
+  const pathName = usePathname();
   const { isCustomer } = useAuthContext();
 
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
   const [isDashboard, setIsDashboard] = useState(false);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const userToken = async () => {
       const data = await getUserDataClient();
@@ -47,9 +50,9 @@ const DashboardNavItem = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setIsDashboard(window.location.pathname.startsWith('/model/'));
+      setIsDashboard(pathName.startsWith('/model/'));
     }
-  }, []);
+  }, [pathName]);
 
   return (
     <>

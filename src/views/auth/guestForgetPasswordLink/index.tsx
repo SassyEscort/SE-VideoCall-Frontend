@@ -12,18 +12,15 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { toast } from 'react-toastify';
-import { lazy, useState } from 'react';
-const AuthCommon = lazy(() => import('../AuthCommon'));
-const CheckInbox = lazy(() => import('./CheckInbox'));
-const StyleButtonV2 = lazy(() => import('components/UIComponents/StyleLoadingButton'));
-const ErrorBox = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })));
-const ModelUITextConatiner = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })));
-const UIButtonText = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })));
-const UITypographyText = lazy(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })));
+import { useState } from 'react';
 import { ErrorMessage } from 'constants/common.constants';
 import { EMAIL_REGEX } from 'constants/regexConstants';
 import { getErrorMessage } from 'utils/errorUtils';
 import InfoIcon from '@mui/icons-material/Info';
+import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
+import AuthCommon from '../AuthCommon';
+import { ErrorBox, ModelUITextConatiner, UITypographyText, UIButtonText } from '../AuthCommon.styled';
+import CheckInbox from './CheckInbox';
 
 export type ForgetPasswordParams = {
   email: string;

@@ -15,20 +15,20 @@ import { FormattedMessage } from 'react-intl';
 const WhyChatChooseModal = () => (
   <ChatToGirlsChooseModalMainContainer>
     <ChatToGirlsChooseModalContainer>
-      <ChatWhyChooseTitleTypography>
+      <ChatWhyChooseTitleTypography variant="h2">
         <FormattedMessage id="WhyChooseFlirtBate" />
       </ChatWhyChooseTitleTypography>
       <ChatToGirlsChooseModalSubTextStyledBox>
-        <ChatSubTitlePointTypography>
+        <ChatSubTitlePointTypography variant="h5">
           <FormattedMessage id="ChooseFromHundreds" />
         </ChatSubTitlePointTypography>
-        <ChatWhyChooseSubTitleTypography>
+        <ChatWhyChooseSubTitleTypography variant="h6">
           <FormattedMessage id="AtFlirtBateWeGiveYouFreedom" />
         </ChatWhyChooseSubTitleTypography>
-        <ChatSubTitlePointTypography>
+        <ChatSubTitlePointTypography variant="h5">
           <FormattedMessage id="HighQualityVideoCalls" />
         </ChatSubTitlePointTypography>
-        <ChatWhyChooseSubTitleTypography>
+        <ChatWhyChooseSubTitleTypography variant="h6">
           <FormattedMessage id="OurPlatformEnsures" />
         </ChatWhyChooseSubTitleTypography>
       </ChatToGirlsChooseModalSubTextStyledBox>

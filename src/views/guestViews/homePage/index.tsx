@@ -2,57 +2,57 @@
 
 import { useCallback, useRef, useState, useEffect } from 'react';
 import HomeTopBanner from './homeBanner';
-import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
+import { ModelHomeListing, ModelListingRes } from 'services/modelListing/modelListing.services';
 import { HomePageMainContainer } from './Home.styled';
 import SearchFilters, { SearchFiltersTypes } from '../searchPage/searchFilters';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
-import { getQueryParam } from 'utils/genericFunction';
-import { useAuthContext } from '../../../contexts/AuthContext';
 import dynamic from 'next/dynamic';
-import HomeImageCards from './homeImageCards';
+import { useSession } from 'next-auth/react';
+import { useAuthContext } from 'contexts/AuthContext';
 
-const HomeConnections = dynamic(() => import('./HomeConnections'), {
-  ssr: false
-});
-const BackdropProgress = dynamic(() => import('components/UIComponents/BackDropProgress'), {
-  ssr: false
-});
+const HomeImageCards = dynamic(() => import('./homeImageCards'));
+const HomeConnections = dynamic(() => import('./HomeConnections'));
 
-const HomeContainer = () => {
-  const { isFreeCreditAvailable, session } = useAuthContext();
-  const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
+const BackdropProgress = dynamic(() => import('components/UIComponents/BackDropProgress'));
+
+const HomeContainer = ({ modelData, params }: { modelData: ModelListingRes; params: SearchFiltersTypes }) => {
+  const authContext = useAuthContext();
+  const isFreeCreditAvailable = authContext?.isFreeCreditAvailable || 1;
+  const { data } = useSession();
+  const token = data?.user ? JSON.parse((data.user as any)?.picture) : '';
 
   const searchParams = useSearchParams();
+
   const router = useRouter();
   const pathname = usePathname();
   const searchFiltersRef = useRef<HTMLDivElement>(null);
   const initialRender = useRef(true);
 
-  const [modelListing, setModelListing] = useState<ModelHomeListing[]>([]);
-  const [total_rows, setTotalRows] = useState(0);
+  const [modelListing, setModelListing] = useState<ModelHomeListing[]>(modelData?.model_details || []);
+  const [total_rows, setTotalRows] = useState(modelData?.aggregate?.total_rows || 0);
   const [isLoading, setIsLoading] = useState(false);
   const [scroll, setScroll] = useState(false);
   const [isUserInteracted, setIsUserInteracted] = useState(false);
 
   const getInitialFilters = () => ({
-    fromAge: getQueryParam('fromAge') ? (getQueryParam('fromAge') as string) : '',
-    toAge: getQueryParam('toAge') ? (getQueryParam('toAge') as string) : '',
-    fromPrice: getQueryParam('fromPrice') ? (getQueryParam('fromPrice') as string) : '',
-    toPrice: getQueryParam('toPrice') ? (getQueryParam('toPrice') as string) : '',
-    language: getQueryParam('language') ? (getQueryParam('language') as string) : '',
-    isOnline: getQueryParam('isOnline') ? (getQueryParam('isOnline') as string) : '',
-    country: getQueryParam('country') ? (getQueryParam('country') as string) : '',
-    sortOrder: getQueryParam('sortOrder') ? (getQueryParam('sortOrder') as string) : '',
-    sortField: getQueryParam('sortField') ? (getQueryParam('sortField') as string) : '',
-    gender: getQueryParam('gender') ? (getQueryParam('gender') as string) : '',
-    page: Number(getQueryParam('page', 1)),
+    fromAge: searchParams?.get('fromAge') ? (searchParams?.get('fromAge') as string) : '',
+    toAge: searchParams?.get('toAge') ? (searchParams?.get('toAge') as string) : '',
+    fromPrice: searchParams?.get('fromPrice') ? (searchParams?.get('fromPrice') as string) : '',
+    toPrice: searchParams?.get('toPrice') ? (searchParams?.get('toPrice') as string) : '',
+    language: searchParams?.get('language') ? (searchParams?.get('language') as string) : '',
+    isOnline: searchParams?.get('isOnline') ? (searchParams?.get('isOnline') as string) : '',
+    country: searchParams?.get('country') ? (searchParams?.get('country') as string) : '',
+    sortOrder: searchParams?.get('sortOrder') ? (searchParams?.get('sortOrder') as string) : '',
+    sortField: searchParams?.get('sortField') ? (searchParams?.get('sortField') as string) : '',
+    gender: searchParams?.get('gender') ? (searchParams?.get('gender') as string) : '',
+    page: Number(searchParams?.get('page') || 1),
     pageSize: HOME_PAGE_SIZE,
     offset: (Number(searchParams.get('page') ?? 1) - 1) * HOME_PAGE_SIZE || 0,
-    email: getQueryParam('email') ? getQueryParam('email') : ''
+    email: searchParams?.get('email') ? (searchParams?.get('email') as string) : ''
   });
 
-  const [filters, setFilters] = useState(getInitialFilters());
+  const [filters, setFilters] = useState(params || getInitialFilters());
 
   const handleChangeSearchFilter = useCallback(() => {
     const objParams: { [key: string]: string } = {};
@@ -110,9 +110,8 @@ const HomeContainer = () => {
 
   const handelFilterChange = async (values: SearchFiltersTypes) => {
     setIsLoading(true);
-    const getModel = await ModelListingService.getModelListing(values, token.token);
-    setModelListing(getModel?.model_details);
-    setTotalRows(getModel?.aggregate?.total_rows);
+    setModelListing(modelData?.model_details);
+    setTotalRows(modelData?.aggregate?.total_rows);
     setIsLoading(false);
     if (initialRender.current === false) {
       if (searchFiltersRef.current) {
@@ -137,12 +136,12 @@ const HomeContainer = () => {
         const offset = (value - 1) * filters.pageSize;
         const newFilters = { ...filters, page: value, offset: offset };
         setFilters(newFilters);
-        // handelFilterChange(newFilters);
+        handelFilterChange(newFilters);
       } else if (filters) {
         const offset = (value - 1) * filters.pageSize;
         const newFilters = { ...filters, page: value, offset: offset };
         setFilters(newFilters);
-        // handelFilterChange(newFilters);
+        handelFilterChange(newFilters);
         if (pathname === '/') {
           const queryParams = new URLSearchParams(window.location.search);
           queryParams.set('page', value.toString());
@@ -175,6 +174,7 @@ const HomeContainer = () => {
     setTimeout(() => {
       handelFilterChange(getInitialFilters());
     }, 1000);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 

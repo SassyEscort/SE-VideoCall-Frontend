@@ -19,8 +19,7 @@ import PriceFilter from './priceFilter';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import StatusFilter from './status';
 import LanguageFilter from './languageFilter';
-import { usePathname } from 'next/navigation';
-import { getQueryParam } from 'utils/genericFunction';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import cloneDeep from 'lodash/cloneDeep';
 import { useRouter } from 'next/navigation';
@@ -30,20 +29,21 @@ import { MultipleOptionString } from 'views/protectedModelViews/verification/ste
 
 const MoreFilters = ({ open, languages, handleClose }: { open: boolean; languages: MultipleOptionString[]; handleClose: () => void }) => {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const router = useRouter();
 
   const initialFilters = () => ({
-    country: getQueryParam('country') ? (getQueryParam('country') as string) : '',
-    fromAge: getQueryParam('fromAge') ? (getQueryParam('fromAge') as string) : '',
-    toAge: getQueryParam('toAge') ? (getQueryParam('toAge') as string) : '',
-    fromPrice: getQueryParam('fromPrice') ? (getQueryParam('fromPrice') as string) : '',
-    toPrice: getQueryParam('toPrice') ? (getQueryParam('toPrice') as string) : '',
-    language: getQueryParam('language') ? (getQueryParam('language') as string) : '',
-    isOnline: getQueryParam('isOnline') ? (getQueryParam('isOnline') as string) : '',
-    sortOrder: getQueryParam('sortOrder') ? (getQueryParam('sortOrder') as string) : '',
-    sortField: getQueryParam('sortField') ? (getQueryParam('sortField') as string) : '',
-    gender: getQueryParam('gender') ? (getQueryParam('gender') as string) : '',
-    page: Number(getQueryParam('page', 1)),
+    country: searchParams.get('country') ? (searchParams.get('country') as string) : '',
+    fromAge: searchParams.get('fromAge') ? (searchParams.get('fromAge') as string) : '',
+    toAge: searchParams.get('toAge') ? (searchParams.get('toAge') as string) : '',
+    fromPrice: searchParams.get('fromPrice') ? (searchParams.get('fromPrice') as string) : '',
+    toPrice: searchParams.get('toPrice') ? (searchParams.get('toPrice') as string) : '',
+    language: searchParams.get('language') ? (searchParams.get('language') as string) : '',
+    isOnline: searchParams.get('isOnline') ? (searchParams.get('isOnline') as string) : '',
+    sortOrder: searchParams.get('sortOrder') ? (searchParams.get('sortOrder') as string) : '',
+    sortField: searchParams.get('sortField') ? (searchParams.get('sortField') as string) : '',
+    gender: searchParams.get('gender') ? (searchParams.get('gender') as string) : '',
+    page: Number(searchParams.get('page') || 1),
     pageSize: HOME_PAGE_SIZE,
     offset: 0
   });
@@ -55,7 +55,7 @@ const MoreFilters = ({ open, languages, handleClose }: { open: boolean; language
     if (open) {
       setFilters(cloneDeep(initialFilters()));
     }
-  }, [open]);
+  }, [open, initialFilters]);
 
   const handleChangePrice = (value: string) => {
     const priceRange = value.split('-');
