@@ -55,7 +55,7 @@ const MoreFilters = ({ open, languages, handleClose }: { open: boolean; language
     if (open) {
       setFilters(cloneDeep(initialFilters()));
     }
-  }, [open, initialFilters]);
+  }, [open]);
 
   const handleChangePrice = (value: string) => {
     const priceRange = value.split('-');
@@ -120,6 +120,7 @@ const MoreFilters = ({ open, languages, handleClose }: { open: boolean; language
 
     let filterCount = Object.keys(objParams).length;
     const queryString = new URLSearchParams(objParams).toString();
+    console.log(objParams, 'objParams');
 
     if (pathname === '/' && filterCount === 0) router.push('/');
     if (pathname === '/' && filterCount === 1 && objParams.page) return;
