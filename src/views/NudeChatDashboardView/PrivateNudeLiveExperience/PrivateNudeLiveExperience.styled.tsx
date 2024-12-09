@@ -4,7 +4,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const PrivateNudeLiveExperienceMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  height: '550px',
+  height: '650px',
   backgroundImage: 'url(/images/camtocamDashboard/camTocamBackground.webp)',
   paddingTop: theme.spacing(6),
   paddingBottom: theme.spacing(6),
