@@ -39,12 +39,14 @@ const GuestFreeCreditsSignup = ({
   onClose,
   onLoginOpen,
   image,
-  modelName
+  modelName,
+  modelCredit
 }: {
   onClose: () => void;
   onLoginOpen: () => void;
   image: string;
   modelName: string;
+  modelCredit: number;
 }) => {
   const intl = useIntl();
   const route = useRouter();
@@ -138,7 +140,13 @@ const GuestFreeCreditsSignup = ({
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
         return (
           <Box component="form" onSubmit={handleSubmit}>
-            <AuthFreeCreditsSignupCommon onClose={onClose} image={image} mobileImage={image} modelName={modelName}>
+            <AuthFreeCreditsSignupCommon
+              onClose={onClose}
+              image={image}
+              mobileImage={image}
+              modelName={modelName}
+              modelCredit={modelCredit}
+            >
               <Box
                 position="relative"
                 width="100%"
@@ -180,7 +188,7 @@ const GuestFreeCreditsSignup = ({
                           </IconButton>
                         </Box>
                       </Box>
-                      {isSmDown && <GuestModelMobileSignup image={image} modelName={modelName} />}
+                      {isSmDown && <GuestModelMobileSignup image={image} modelName={modelName} modelCredit={modelCredit} />}
                     </Box>
 
                     <Box sx={{ color: 'primary.300' }}>
