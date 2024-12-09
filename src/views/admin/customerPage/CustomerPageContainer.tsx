@@ -300,7 +300,7 @@ export default function CustomerPageContainer() {
                       ))
                     ) : (
                       <TableRow>
-                        <TableCell colSpan={7}>
+                        <TableCell colSpan={11}>
                           <NotFoundBox>
                             <Typography variant="body1">Customer is not found</Typography>
                           </NotFoundBox>
