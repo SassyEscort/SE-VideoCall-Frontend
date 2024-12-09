@@ -322,6 +322,7 @@ const EscortSlider = ({
         <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
           <GuestFreeCreditsSignup
             modelName={guestData?.name}
+            modelCredit={Number(guestData?.video_call_prices?.[0]?.credits_per_minute || 0)}
             image={modelFavPhoto ?? ''}
             onClose={handleFreeCreditSignupClose}
             onLoginOpen={handleLoginOpen}
