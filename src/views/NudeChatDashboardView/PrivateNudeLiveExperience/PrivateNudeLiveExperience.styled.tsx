@@ -2,22 +2,23 @@ import Box from '@mui/material/Box';
 import styled from '@mui/system/styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 
-export const VideoChatMainContainer = styled(Box)(({ theme }) => ({
+export const PrivateNudeLiveExperienceMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  height: '550px',
+  height: '650px',
   backgroundImage: 'url(/images/camtocamDashboard/camTocamBackground.webp)',
   paddingTop: theme.spacing(6),
+  paddingBottom: theme.spacing(6),
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   [theme.breakpoints.down('sm')]: {
-    height: '800px'
+    height: '1000px'
   },
   [theme.breakpoints.down('lg')]: {
-    height: '500px'
+    height: '700px'
   },
   [theme.breakpoints.down(425)]: {
-    height: '700px'
+    height: '800px'
   }
 }));
 
@@ -30,10 +31,10 @@ export const BackGroundContainer = styled(Box)(() => ({
   backgroundPosition: 'bottom'
 }));
 
-export const VideoChatInnerContainer = styled(Box)(({ theme }) => ({
+export const PrivateNudeLiveExperienceInnerContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(6),
+  gap: theme.spacing(4),
   width: '100%',
   maxWidth: '933px',
   height: '100%',
@@ -71,7 +72,7 @@ export const ButtonBox = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const VideoChatBannerInnerBox = styled(Box)(({ theme }) => ({
+export const PrivateNudeLiveExperienceBannerInnerBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(3)
