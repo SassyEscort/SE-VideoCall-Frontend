@@ -30,7 +30,7 @@ export const getNavConfig = (adminUserPermissions: AdminUserPermissions[] | unde
       icon: <PersonIcon />
     },
     {
-      title: 'Banned Customer',
+      title: 'Banned Customers',
       path: '/admin/ban-customer',
       icon: <RemoveCircleIcon />
     },

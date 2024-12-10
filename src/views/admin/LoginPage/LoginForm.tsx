@@ -5,7 +5,6 @@ import Stack from '@mui/material/Stack';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import MuiLink from '@mui/material/Link';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { LoadingButton } from '@mui/lab';
@@ -115,16 +114,18 @@ export default function LoginForm() {
         )}
       </Formik>
       <Typography sx={{ color: 'primary.main', textAlign: 'center', fontWeight: 700 }}>
-        <Link prefetch={false} href="/admin/forgot-password" passHref shallow={true}>
-          <MuiLink
-            sx={{
-              cursor: 'pointer',
-              textDecoration: 'none',
-              color: '#2f2e2e'
-            }}
-          >
-            Forgot my password
-          </MuiLink>
+        <Link
+          prefetch={false}
+          href="/admin/forgot-password"
+          passHref
+          shallow={true}
+          style={{
+            cursor: 'pointer',
+            textDecoration: 'none',
+            color: '#2f2e2e'
+          }}
+        >
+          Forgot my password
         </Link>
       </Typography>
     </>

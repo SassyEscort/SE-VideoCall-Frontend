@@ -27,3 +27,8 @@ export enum SEO_DATA_STRANGER_VIDEO_CHAT {
   TITLE = 'Stranger Video Chat - Random Video Chat & Cam with Strangers Online',
   DESCRIPTION = "Join Flirtbate for meet new people on Flirtbate's stranger chat! Enjoy random video chats, connect via stranger cams, and experience thrilling random cam chats with strangers online."
 }
+
+export enum SEO_DATA_NUDE_LIVE_VIDEO_CHAT {
+  TITLE = 'Nude Live Video Chat – Explore Nude Female Chats on Flirtbate',
+  DESCRIPTION = 'Join Flirtbate for the ultimate nude live video chat experience. Enjoy engaging nude female chats and camming sessions with stunning models. Click now to explore!'
+}
