@@ -19,7 +19,6 @@ export const DialogContentFristBox = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   paddingTop: theme.spacing(7),
-  paddingBottom: theme.spacing(7),
   [theme.breakpoints.down('sm')]: {
     display: 'flex',
     justifyContent: 'center',
