@@ -15,26 +15,26 @@ const CamToCamChooseModal = () => (
   <CamChooseModalMainContainer>
     <CamChooseModalContainer>
       <CamChooseModalInnerContainer>
-        <CamConnectionTitleTypography>
+        <CamConnectionTitleTypography variant="h2">
           <FormattedMessage id="ChooseYourModelAnd" />
         </CamConnectionTitleTypography>
 
         <CamChooseModalTitleStyledBox>
-          <CamConnectionTitleTypography>
+          <CamConnectionTitleTypography variant="h2">
             <FormattedMessage id="Start" />
           </CamConnectionTitleTypography>
           <CamRotateChipContainer>
-            <CamConnectionTitleTypography>
+            <CamConnectionTitleTypography variant="h2">
               <FormattedMessage id="Cam2Cam" />
             </CamConnectionTitleTypography>
           </CamRotateChipContainer>
         </CamChooseModalTitleStyledBox>
       </CamChooseModalInnerContainer>
       <CamChooseModalSubTextStyledBox>
-        <CamConnectionSubTitleTypography>
+        <CamConnectionSubTitleTypography variant="h6">
           <FormattedMessage id="SimplySelectYourFavoriteModel" />
         </CamConnectionSubTitleTypography>
-        <CamConnectionSubTitleTypography>
+        <CamConnectionSubTitleTypography variant="h6">
           <FormattedMessage id="UnlikeOtherPlatforms" />
         </CamConnectionSubTitleTypography>
       </CamChooseModalSubTextStyledBox>

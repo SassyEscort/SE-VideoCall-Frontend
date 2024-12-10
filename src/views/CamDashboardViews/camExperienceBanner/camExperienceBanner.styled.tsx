@@ -4,20 +4,20 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const Cam2CamMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  height: '853px',
+  height: '550px',
   backgroundImage: 'url(/images/camtocamDashboard/camTocamBackground.webp)',
   paddingTop: theme.spacing(6),
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   [theme.breakpoints.down('sm')]: {
-    height: '1000px'
+    height: '800px'
   },
   [theme.breakpoints.down('lg')]: {
-    height: '700px'
+    height: '600px'
   },
   [theme.breakpoints.down(425)]: {
-    height: '800px'
+    height: '700px'
   }
 }));
 

@@ -23,25 +23,25 @@ const CamConnectionLevel = () => (
   <CamConnectinonLevelMainContainer>
     <CamConnectionContainer>
       <CamChooseModalInnerContainer>
-        <CamConnectionTitleTypography>
+        <CamConnectionTitleTypography variant="h2">
           <FormattedMessage id="LiveCamtoCamANew" />
         </CamConnectionTitleTypography>
         <CamConnectionTitleStyledBox>
-          <CamConnectionTitleTypography>
+          <CamConnectionTitleTypography variant="h2">
             <FormattedMessage id="LevelOf" />
           </CamConnectionTitleTypography>
           <CamConnectinonLevelRotateChipContainer>
-            <CamConnectionTitleTypography>
+            <CamConnectionTitleTypography variant="h2">
               <FormattedMessage id="Connection" />
             </CamConnectionTitleTypography>
           </CamConnectinonLevelRotateChipContainer>
         </CamConnectionTitleStyledBox>
       </CamChooseModalInnerContainer>
       <CamChooseModalSubTextStyledBox>
-        <CamConnectionSubTitleTypography>
+        <CamConnectionSubTitleTypography variant="h6">
           <FormattedMessage id="ExperienceTheThrill" />
         </CamConnectionSubTitleTypography>
-        <CamConnectionSubTitleTypography>
+        <CamConnectionSubTitleTypography variant="h6">
           <FormattedMessage id="ThisIsnotJustACall" />
         </CamConnectionSubTitleTypography>
       </CamChooseModalSubTextStyledBox>
@@ -64,10 +64,10 @@ const CamConnectionLevel = () => (
             <CamConnectinonInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/Video.png" width="32px" height="100%" />
               <CamConnectinonInfoContainer>
-                <CamConnectionDescriptionTitleTypography>
+                <CamConnectionDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="INTERACTIVEVIDEO" />
                 </CamConnectionDescriptionTitleTypography>
-                <CamConnectionDescriptionSubTitleTypography>
+                <CamConnectionDescriptionSubTitleTypography variant="h6">
                   <FormattedMessage id="EngageInLive" />
                 </CamConnectionDescriptionSubTitleTypography>
               </CamConnectinonInfoContainer>
@@ -77,10 +77,10 @@ const CamConnectionLevel = () => (
             <CamConnectinonInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/Private.png" width="26px" height="26px" />
               <CamConnectinonInfoContainer>
-                <CamConnectionDescriptionTitleTypography>
+                <CamConnectionDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="PrivateAndPersonalized" />
                 </CamConnectionDescriptionTitleTypography>
-                <CamConnectionDescriptionSubTitleTypography>
+                <CamConnectionDescriptionSubTitleTypography variant="h6">
                   <FormattedMessage id="EverySessionIsTailored" />
                 </CamConnectionDescriptionSubTitleTypography>
               </CamConnectinonInfoContainer>
@@ -90,10 +90,10 @@ const CamConnectionLevel = () => (
             <CamConnectinonInfoMainContainer>
               <Box component="img" src="/images/camtocamDashboard/People.png" width="32px" height="100%" />
               <CamConnectinonInfoContainer>
-                <CamConnectionDescriptionTitleTypography>
+                <CamConnectionDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="RealPeopleRealMoments" />
                 </CamConnectionDescriptionTitleTypography>
-                <CamConnectionDescriptionSubTitleTypography>
+                <CamConnectionDescriptionSubTitleTypography variant="h6">
                   <FormattedMessage id="ChooseYourModelRandomMatching" />
                 </CamConnectionDescriptionSubTitleTypography>
               </CamConnectinonInfoContainer>

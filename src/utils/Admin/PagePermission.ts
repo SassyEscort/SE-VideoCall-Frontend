@@ -14,7 +14,6 @@ export const haveUpdatePermission = (pageName: string, adminUserPermissions: Adm
     (item) =>
       item.module_name === pageName && (item.permission === PermissionConstants.Read || item.permission === PermissionConstants.Update)
   );
-  filterParams.length > 0 ? filterParams[0]?.permission === PermissionConstants.Update : false;
 
   return filterParams.length > 0 ? filterParams[0]?.permission === PermissionConstants.Update : false;
 };

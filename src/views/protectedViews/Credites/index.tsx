@@ -24,9 +24,7 @@ import {
 } from './Credits.styled';
 import MainLayoutNav from '../protectedLayout';
 import { FormattedMessage } from 'react-intl';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customerCredit.service';
-import { getUserDataClient } from 'utils/getSessionData';
 import Grid from '@mui/material/Grid';
 import { useRouter, useSearchParams } from 'next/navigation';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
@@ -34,7 +32,8 @@ import CreditsAdded from '../CreditsAdded/CreditsAdded';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import Loader from 'components/Loader';
 import { gaEventTrigger } from 'utils/analytics';
-import { useZegoCallFeatureContext } from '../../../contexts/ZegoCallContext';
+// import { useZegoCallFeatureContext } from '../../../contexts/ZegoCallContext';
+import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 import { ClaimFreeNewButton } from './ModelCredits/Credits.styled';
 import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import Box from '@mui/material/Box';
@@ -48,11 +47,10 @@ export type CustomerInfo = {
 };
 
 const Credits = () => {
-  const { isFreeCreditAvailable } = useAuthContext();
+  const { isFreeCreditAvailable, token } = useAuthContext();
 
   const [open, setOpen] = useState(false);
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [balance, setBalance] = useState(0);
   const [addedCredits, setAddedCredits] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -60,21 +58,11 @@ const Credits = () => {
 
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { user } = useZegoCallFeatureContext();
+  const { user } = useCallFeatureContext();
   const customerData = JSON.parse(user || '{}');
 
   const credit = searchParams.get('credit');
   const totalBal = searchParams.get('total_amount_after_txn');
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      if (data) {
-        setToken({ id: data.id, token: data.token });
-      }
-    };
-    userToken();
-  }, []);
 
   const getCreditsListing = useCallback(async () => {
     if (token.token) {

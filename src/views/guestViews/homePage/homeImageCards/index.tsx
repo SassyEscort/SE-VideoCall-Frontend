@@ -5,7 +5,7 @@ import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { ModelHomeListing } from 'services/modelListing/modelListing.services';
 import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { Suspense, memo, useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
@@ -19,27 +19,13 @@ import dynamic from 'next/dynamic';
 // import Skeleton from '@mui/material/Skeleton';
 import WorkerCard from 'views/guestViews/commonComponents/WorkerCard/WorkerCard';
 import { NotFoundModelBox } from './HomeImageCard.styled';
-const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
-  ssr: false
-});
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
-  ssr: false
-});
-const PaginationInWords = dynamic(() => import('components/UIComponents/PaginationINWords'), {
-  ssr: false
-});
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
-  ssr: false
-});
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
-  ssr: false
-});
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
-  ssr: false
-});
-const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
-  ssr: false
-});
+import NewSignupStyledModalDialog from 'components/UIComponents/NewSignupStyledModalDialog';
+import PaginationInWords from 'components/UIComponents/PaginationINWords';
+import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'));
 
 const HomeImageCard = ({
   modelListing,
@@ -173,7 +159,7 @@ const HomeImageCard = ({
                           component={Link}
                           prefetch={true}
                           shallow={true}
-                          href={`/details/${item.user_name}`}
+                          href={`/models/${item.user_name}`}
                           onClick={() => handleModelRedirect(item.user_name)}
                           sx={{
                             textDecoration: 'none',
@@ -195,7 +181,7 @@ const HomeImageCard = ({
                           component={Link}
                           prefetch={true}
                           shallow={true}
-                          href={`/details/${item.user_name}`}
+                          href={`/models/${item.user_name}`}
                           sx={{
                             textDecoration: 'none',
                             height: '100%'
@@ -241,13 +227,11 @@ const HomeImageCard = ({
         {modelListing?.length > 0
           ? ''
           : !isFavPage && (
-              <Suspense fallback={<div>Loading...</div>}>
-                <NotFoundModelBox>
-                  <UINewTypography variant="h1">
-                    <FormattedMessage id="NoModelsFound" />
-                  </UINewTypography>
-                </NotFoundModelBox>
-              </Suspense>
+              <NotFoundModelBox>
+                <UINewTypography variant="h1">
+                  <FormattedMessage id="NoModelsFound" />
+                </UINewTypography>
+              </NotFoundModelBox>
             )}
       </WorkerCardMainBox>
       <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
@@ -260,9 +244,9 @@ const HomeImageCard = ({
           onSignupOpen={handleSignupOpen}
           onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
           handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
-          handleLoginOpen={handleLoginOpen}
-          freeSignupOpen={freeSignupOpen}
-          handleFreeCreditSignupClose={handleFreeCreditSignupClose}
+          // handleLoginOpen={handleLoginOpen}
+          // freeSignupOpen={freeSignupOpen}
+          // handleFreeCreditSignupClose={handleFreeCreditSignupClose}
           image="/images/auth/auth-model1.webp"
         />
       </UIStyledDialog>

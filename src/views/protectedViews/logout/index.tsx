@@ -19,22 +19,24 @@ import { FormattedMessage } from 'react-intl';
 import { usePathname } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
+import { CometChatUIKit } from '@cometchat/chat-uikit-react';
+import { useAuthContext } from 'contexts/AuthContext';
 
 const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const asPath = usePathname();
-
+  const { isCustomer } = useAuthContext();
   const [loading, setLoading] = useState(false);
 
   const handleConfirmLogout = async () => {
     setLoading(true);
     try {
-      // if (!isCustomer) {
-      //   const user = await CometChatUIKit.getLoggedinUser();
-      //   if (user) {
-      //     await CometChatUIKit.logout();
-      //   }
-      // }
-      await signOut({ callbackUrl: asPath.startsWith('/model') ? '/model' : '/' });
+      if (!isCustomer) {
+        const user = await CometChatUIKit.getLoggedinUser();
+        if (user) {
+          await CometChatUIKit.logout();
+        }
+      }
+      await signOut({ callbackUrl: asPath.startsWith('/model') && !asPath.startsWith('/models') ? '/model' : '/' });
     } catch (error) {
       toast.error('Error during sign-out:');
     } finally {

@@ -1,3 +1,4 @@
+'use client';
 import Box from '@mui/material/Box';
 import React from 'react';
 import { HowChatWorksInnerBox, HowChatWorksMainContainer, HowChatWorksTableBox, HowVideoChatWorksTypography } from './howChatWorks.styled';
@@ -9,32 +10,32 @@ const HowChatWorks = () => (
   <HomeMainContainer>
     <HowChatWorksMainContainer>
       <Box>
-        <ChatWhyChooseTitleTypography>
+        <ChatWhyChooseTitleTypography variant="h2">
           <FormattedMessage id="HowFlirtBateVideoChatWorks" />
         </ChatWhyChooseTitleTypography>
       </Box>
       <HowChatWorksInnerBox>
         <HowChatWorksTableBox>
           <HowVideoChatWorksTypography variant="bodyLight">🍑</HowVideoChatWorksTypography>
-          <HowVideoChatWorksTypography variant="bodyLight">
+          <HowVideoChatWorksTypography>
             <FormattedMessage id="BrowseModels" />
           </HowVideoChatWorksTypography>
         </HowChatWorksTableBox>
         <HowChatWorksTableBox>
           <HowVideoChatWorksTypography variant="bodyLight">🍑</HowVideoChatWorksTypography>
-          <HowVideoChatWorksTypography variant="bodyLight">
+          <HowVideoChatWorksTypography>
             <FormattedMessage id="SelectYourGirl" />
           </HowVideoChatWorksTypography>
         </HowChatWorksTableBox>
         <HowChatWorksTableBox>
           <HowVideoChatWorksTypography variant="bodyLight">🍑</HowVideoChatWorksTypography>
-          <HowVideoChatWorksTypography variant="bodyLight">
+          <HowVideoChatWorksTypography>
             <FormattedMessage id="StarttheChat" />
           </HowVideoChatWorksTypography>
         </HowChatWorksTableBox>
         <HowChatWorksTableBox>
           <HowVideoChatWorksTypography variant="bodyLight">🍑</HowVideoChatWorksTypography>
-          <HowVideoChatWorksTypography variant="bodyLight">
+          <HowVideoChatWorksTypography>
             <FormattedMessage id="ExperiencePrivateConnections" />
           </HowVideoChatWorksTypography>
         </HowChatWorksTableBox>

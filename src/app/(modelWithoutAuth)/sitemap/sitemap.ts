@@ -12,22 +12,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8
     },
     {
-      url: 'https://flirtbate.com/privacy-statement',
-      lastModified: new Date(),
-      priority: 0.8
-    },
-    {
-      url: 'https://flirtbate.com/cookie-statement',
-      lastModified: new Date(),
-      priority: 0.8
-    },
-    {
-      url: 'https://flirtbate.com/terms-and-condition',
-      lastModified: new Date(),
-      priority: 0.8
-    },
-    {
       url: 'https://flirtbate.com/cam-to-cam',
+      lastModified: new Date(),
+      priority: 0.8
+    },
+    {
+      url: 'https://flirtbate.com/sex-chat',
+      lastModified: new Date(),
+      priority: 0.8
+    },
+    {
+      url: 'https://flirtbate.com/chat-with-girls',
+      lastModified: new Date(),
+      priority: 0.8
+    },
+    {
+      url: 'https://flirtbate.com/dirty-talks',
+      lastModified: new Date(),
+      priority: 0.8
+    },
+    {
+      url: 'https://flirtbate.com/stranger-chat',
+      lastModified: new Date(),
+      priority: 0.8
+    },
+    {
+      url: 'https://flirtbate.com/nude-chat',
       lastModified: new Date(),
       priority: 0.8
     }

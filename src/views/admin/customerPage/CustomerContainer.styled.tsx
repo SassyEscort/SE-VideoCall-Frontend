@@ -17,6 +17,18 @@ export const ModelActionPopover = styled(Popover)(({ theme }) => ({
   }
 }));
 
+export const ModelActionPopoverBanModel = styled(Popover)(({ theme }) => ({
+  '& .MuiMenuItem-root': {
+    padding: theme.spacing(1),
+    borderRadius: theme.spacing(0.75),
+    typography: 'body2'
+  },
+  '& .MuiPaper-root': {
+    width: 188,
+    padding: theme.spacing(1)
+  }
+}));
+
 export const SortBox = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'end',

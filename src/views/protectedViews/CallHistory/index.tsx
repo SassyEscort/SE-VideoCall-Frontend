@@ -35,8 +35,6 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import { CallHistoryDetails, CallHistoryPageDetailsRes } from 'services/callHistory/types';
-import { getUserDataClient } from 'utils/getSessionData';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import { CallHistoryService } from 'services/callHistory/callHistory.services';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
@@ -52,6 +50,7 @@ import theme from 'themes/theme';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CircularProgress from '@mui/material/CircularProgress';
 import Divider from '@mui/material/Divider';
+import { areObjectsEqual } from 'utils/genericFunction';
 
 export type CallHistoryPaginationType = {
   page: number;
@@ -59,44 +58,39 @@ export type CallHistoryPaginationType = {
   offset: number;
 };
 
-const CallHistory = () => {
+const CallHistory = ({
+  token,
+  historyData,
+  filterPayload
+}: {
+  token: string;
+  historyData: CallHistoryPageDetailsRes;
+  filterPayload: CallHistoryPaginationType;
+}) => {
   const router = useRouter();
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
-  const [callHistoryData, setCallHistoryData] = useState<CallHistoryPageDetailsRes>();
-  const [total_rows, setTotalRows] = useState(0);
+  const [callHistoryData, setCallHistoryData] = useState<CallHistoryPageDetailsRes>(historyData);
+  const [total_rows, setTotalRows] = useState(historyData?.data?.aggregate?.total_rows || 0);
   const [isLoadingCall, setIsLoading] = useState(false);
   const [isLoadingDetail, setIsLoadingDetails] = useState(false);
   const [isShowRatingModel, setIsShowRatingModel] = useState(false);
   const [logDetails, setCallLogDetails] = useState<CallHistoryDetails>({} as CallHistoryDetails);
+  const [initialLoad, setInitialLoad] = useState(false);
 
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const [filters, setFilters] = useState<CallHistoryPaginationType>({
-    page: 1,
-    limit: 20,
-    offset: 0
-  });
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      setToken({ id: data.id, token: data.token });
-    };
-
-    userToken();
-  }, []);
+  const [filters, setFilters] = useState<CallHistoryPaginationType>(filterPayload);
 
   const fetchCallHistoryDetails = async () => {
     try {
-      if (token.token) {
+      if (token) {
         setIsLoading(true);
         const objectParams = {
           page: filters.page,
           limit: filters.limit,
           offset: filters.offset
         };
-        const data = await CallHistoryService.getCallHistoryDetails(token.token, objectParams);
+        const data = await CallHistoryService.getCallHistoryDetails(token, objectParams);
         if (data) {
           setCallHistoryData(data);
           setTotalRows(data.data.aggregate.total_rows);
@@ -108,9 +102,13 @@ const CallHistory = () => {
     }
   };
   useEffect(() => {
-    fetchCallHistoryDetails();
+    if (!areObjectsEqual(filterPayload, filters) && initialLoad) {
+      fetchCallHistoryDetails();
+    } else {
+      setInitialLoad(true);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters.limit, filters.offset, token.token]);
+  }, [filters.limit, filters.offset, token]);
 
   const scrollToTable = () => {
     const tableElement = document.getElementById('tableSection');
@@ -167,7 +165,7 @@ const CallHistory = () => {
   const handleVideoCall = (list: CallHistoryDetails) => {
     if (list.user_name) {
       setIsLoadingDetails(true);
-      router.push(`/details/${list.user_name}`);
+      router.push(`/models/${list.user_name}`);
       setIsLoadingDetails(false);
     }
   };

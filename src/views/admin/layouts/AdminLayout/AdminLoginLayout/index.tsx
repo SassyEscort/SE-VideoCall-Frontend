@@ -13,12 +13,12 @@ interface AdminLoginLayoutProps {
 }
 
 export default function AdminLoginLayout({ children }: AdminLoginLayoutProps) {
-  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
+  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <>
       <StyledRoot>
-        {isMdUp && (
+        {!isMdDown && (
           <StyledSection>
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
               Hi, Welcome Back

@@ -5,15 +5,9 @@ import dynamic from 'next/dynamic';
 import { getLoggedInUser } from 'utils/getSessionData';
 // import RedirectGuard from 'utils/route-guard/RedirectGuard';
 import Header from 'views/protectedViews/protectedLayout/Header';
-const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/Header'), {
-  ssr: false
-});
-const RedirectGuard = dynamic(() => import('utils/route-guard/RedirectGuard'), {
-  ssr: false
-});
-const Footer = dynamic(() => import('views/guestViews/guestLayout/footer'), {
-  ssr: false
-});
+const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/Header'));
+const RedirectGuard = dynamic(() => import('utils/route-guard/RedirectGuard'));
+const Footer = dynamic(() => import('views/guestViews/guestLayout/footer'));
 
 export interface User {
   name?: string | null;
@@ -54,7 +48,11 @@ export default async function Layout({ children }: { children: React.ReactNode }
       </>
     );
   } else {
-    HeaderComponent = <HeaderGuestComponent />;
+    HeaderComponent = (
+      <>
+        <HeaderGuestComponent />
+      </>
+    );
   }
 
   return (
@@ -63,7 +61,6 @@ export default async function Layout({ children }: { children: React.ReactNode }
       <main>
         <Box sx={{ mt: 10 }}>{children}</Box>
       </main>
-
       <Footer />
     </>
   );

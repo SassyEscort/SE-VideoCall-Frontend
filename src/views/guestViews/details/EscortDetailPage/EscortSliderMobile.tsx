@@ -30,22 +30,13 @@ import { usePathname, useRouter } from 'next/navigation';
 import GuestFreeCreditsSignup from 'views/auth/guestFreeCreditsSignup';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
-import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
-  ssr: false
-});
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
-  ssr: false
-});
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
-  ssr: false
-});
-const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
-  ssr: false
-});
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
-  ssr: false
-});
+// import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
+import { useCallFeatureContext } from 'contexts/CallFeatureContext';
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
 
 const EscortSliderMobile = ({
   workerPhotos,
@@ -66,7 +57,7 @@ const EscortSliderMobile = ({
   guestData: ModelDetailsResponse;
   isFreeCreditAvailable: number;
 }) => {
-  const { user } = useZegoCallFeatureContext();
+  const { user } = useCallFeatureContext();
   const isLg = useMediaQuery(theme.breakpoints.up('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isMd = useMediaQuery(theme.breakpoints.up('sm'));
@@ -359,9 +350,9 @@ const EscortSliderMobile = ({
           onSignupOpen={handleSignupOpen}
           onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
           handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
-          handleLoginOpen={handleLoginOpen}
-          freeSignupOpen={freeSignupOpen}
-          handleFreeCreditSignupClose={handleFreeCreditSignupClose}
+          // handleLoginOpen={handleLoginOpen}
+          // freeSignupOpen={freeSignupOpen}
+          // handleFreeCreditSignupClose={handleFreeCreditSignupClose}
           image="/images/auth/auth-model1.webp"
         />
       </UIStyledDialog>
@@ -371,6 +362,7 @@ const EscortSliderMobile = ({
       <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
         <GuestFreeCreditsSignup
           modelName={guestData?.name}
+          modelCredit={Number(guestData?.video_call_prices?.[0]?.credits_per_minute || 0)}
           image={modelFavPhoto ?? ''}
           onClose={handleFreeCreditSignupClose}
           onLoginOpen={handleLoginOpen}
