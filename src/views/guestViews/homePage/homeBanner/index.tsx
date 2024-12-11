@@ -35,9 +35,11 @@ import {
   GiftBoxSecond,
   ModelsHeadingBox,
   HomeExploreBox,
-  SubTitle
+  SubTitle,
+  SnackBar
 } from './HomeBanner.styled';
 import { BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
+
 // import HomeHeroBanner from './HomeHeroBanner';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
   ssr: false
@@ -64,10 +66,12 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(true);
   // const [openDropDown, setOpenDropDown] = useState(false);
   // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [loading, setLoading] = useState(false);
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
+  // const [isChatMessagePopUpOpen, setIsChatMessagePopUpOpen] = useState(false);
 
   // const handleDropDownOpen = (event: React.MouseEvent<HTMLElement>) => {
   //   setAnchorEl(event.currentTarget);
@@ -142,6 +146,17 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
   const handleCloseModal = () => {
     setIsModalOpenFreeCredits(false);
   };
+
+  // const handleChatBoxClick = () => {
+  //   setIsChatMessagePopUpOpen(true);
+  // };
+
+  // const handleCloseMessagePopUp = () => {
+  //   setIsChatMessagePopUpOpen(false);
+  // };
+
+  const handleSnackbarClose = () => setSnackbarOpen(false);
+
   return (
     <>
       {(session?.user as User)?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM ? (
@@ -244,6 +259,53 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
               {/* <GiftBoxThird></GiftBoxThird> */}
             </Box>
           )}
+          <SnackBar
+            open={snackbarOpen}
+            autoHideDuration={6000}
+            onClose={handleSnackbarClose}
+            message="Chat Message"
+            ContentProps={{
+              sx: { color: 'white' }
+            }}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          />
+          {/* {!isSmDown && <ChatMessageClickPopUp open={isChatMessagePopUpOpen} onClose={handleCloseMessagePopUp} />}
+          {!isSmDown && !isChatMessagePopUpOpen && (
+            <Box sx={{ position: 'relative', cursor: 'pointer' }} onClick={handleChatBoxClick}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  width: '100%',
+                  maxWidth: '400px',
+                  height: '100%',
+                  maxHeight: '64px',
+                  border: '1px solid #611441',
+                  backgroundColor: '#611441',
+                  zIndex: '3000000',
+                  position: 'fixed',
+                  bottom: '0px',
+                  right: '24px',
+                  boxShadow: '0px 4px 12px 0px rgba(209, 34, 136, 0.25)',
+                  borderTopLeftRadius: '12px',
+                  borderTopRightRadius: '12px',
+                  paddingRight: '16px',
+                  paddingLeft: '16px'
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between' }}>
+                  <Box sx={{ display: 'flex', gap: 2 }}>
+                    <UINewTypography variant="buttonLargeMenu" color="white.main">
+                      Kat Winter
+                    </UINewTypography>
+                  </Box>
+                  <Box sx={{ display: 'flex', gap: 2 }}>
+                    <Box component="img" src="/images/icons/chat-minimize-icon.svg" />
+                    <Box component="img" src="/images/icons/chat-close-icon.svg" />
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+          )} */}
           <ModelsHeadingBox id="scroll-to-model" pt={{ xs: '96px', lg: '120px' }}>
             <HomeExploreBox>
               <UINewTypography
