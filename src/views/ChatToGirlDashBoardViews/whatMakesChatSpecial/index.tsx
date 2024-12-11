@@ -36,7 +36,7 @@ const WhySpecialDashboardBeyond = () => {
         </ChatSpecialBannerBeyondImageCard>
         <ChatSpecialFirstBeyondBoxContainer>
           <ChatSpecialSecBoxBeyondContainer>
-            <ChatSpecialInlineBeyondBox>
+            <ChatSpecialInlineBeyondBox component="h2">
               <FormattedMessage id="WhatFlirtBateSpecial" />
             </ChatSpecialInlineBeyondBox>
             <ChatSpecialBannerTypographySubtitleBox>

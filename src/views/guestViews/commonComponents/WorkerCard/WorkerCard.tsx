@@ -15,9 +15,8 @@ import { ErrorMessage } from 'constants/common.constants';
 import { gaEventTrigger } from 'utils/analytics';
 import StyleBoostUserButton from 'components/UIComponents/StyleBoostUserButton';
 import Image from 'next/image';
-import { useAuthContext } from '../../../../contexts/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { VideoAcceptType } from 'constants/workerVerification';
+import { ROLE, VideoAcceptType } from 'constants/workerVerification';
 import {
   MainWorkerCard,
   ImgWorkerCard,
@@ -42,6 +41,8 @@ import {
   UITypographyBox,
   UITypographyBoxContainer
 } from './WorkerCard.styled';
+import { useSession } from 'next-auth/react';
+import { User } from 'app/(guest)/layout';
 
 const WorkerCard = ({
   modelDetails,
@@ -65,7 +66,8 @@ const WorkerCard = ({
   const isTablet = useMediaQuery(theme.breakpoints.only('sm'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
 
-  const { isCustomer, user } = useAuthContext();
+  const { data } = useSession();
+  const user = (data?.user as User)?.picture;
 
   const languages = modelDetails?.languages
     ?.map((language) => language?.language_name)
@@ -74,7 +76,7 @@ const WorkerCard = ({
   const modelFlag = countryWithFlagList.filter((country) => country.name === modelDetails?.country).map((data) => data.flag)[0];
   const modelAltName = countryWithFlagList.filter((country) => country.name === modelDetails?.country).map((data) => data.name)[0];
 
-  const imageUrlRef = useRef<HTMLElement>();
+  const imageUrlRef = useRef<HTMLElement | null>(null);
   const videoTypeCondition = VideoAcceptType?.includes(modelDetails?.link?.substring(modelDetails?.link?.lastIndexOf('.') + 1));
 
   useImageOptimize(
@@ -89,6 +91,7 @@ const WorkerCard = ({
   // useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails?.cords);
 
   const customerData = JSON.parse(user || '{}');
+  const isCustomer = customerData?.role === ROLE.CUSTOMER;
 
   const handleLikeClick = async (modelDetails: ModelHomeListing | ModelFavRes) => {
     try {

@@ -1,3 +1,5 @@
+'use client';
+
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import Image from 'next/image';
@@ -5,7 +7,7 @@ import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import Dialog from '@mui/material/Dialog';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { User } from 'app/(guest)/layout';
 import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshadow';
@@ -13,7 +15,6 @@ import ButtonFreeCredits from '../buttonFreeCredits';
 import React from 'react';
 import { gaEventTrigger } from 'utils/analytics';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
-import { useAuthContext } from '../../../../contexts/AuthContext';
 // import HomePageFreeSignup from 'views/auth/homePageFreeSignup';
 import dynamic from 'next/dynamic';
 import {
@@ -39,26 +40,16 @@ import {
   SnackBar
 } from './HomeBanner.styled';
 import { BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
-
+import { useSession } from 'next-auth/react';
 // import HomeHeroBanner from './HomeHeroBanner';
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
-  ssr: false
-});
-const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
-  ssr: false
-});
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
-  ssr: false
-});
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
-  ssr: false
-});
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
-  ssr: false
-});
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'));
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
 
 const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
-  const { session } = useAuthContext();
+  const { data: session } = useSession();
 
   const [isModalOpenFreeCredits, setIsModalOpenFreeCredits] = useState(false);
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -375,9 +366,9 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
           onSignupOpen={handleSignupOpen}
           onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
           handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
-          handleLoginOpen={handleLoginOpen}
-          freeSignupOpen={freeSignupOpen}
-          handleFreeCreditSignupClose={handleFreeCreditSignupClose}
+          // handleLoginOpen={handleLoginOpen}
+          // freeSignupOpen={freeSignupOpen}
+          // handleFreeCreditSignupClose={handleFreeCreditSignupClose}
           image="/images/auth/auth-model1.webp"
         />
       </Dialog>
@@ -413,4 +404,4 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
   );
 };
 
-export default memo(HomeTopBanner);
+export default HomeTopBanner;

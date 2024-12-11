@@ -6,17 +6,18 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import VideoCalling from '../commonComponent';
 import { FormattedMessage } from 'react-intl';
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-import { useVideoCallContext } from 'contexts/videoCallContext';
+// import { useVideoCallContext } from 'contexts/videoCallContext';
 import { useRouter } from 'next/navigation';
 import { ThirdBoxContent, FourBoxContent } from '../AnotherCallModel/Another.styled';
 import { DialogContentMain, DialogTitleBox, DialogContentFristBox, SecondBoxContent } from '../RingingModel/RingingModel.styled';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
+import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 
 const OfflineModel = ({ open, onClose, isModelAvailable }: { open: boolean; onClose: () => void; isModelAvailable: number }) => {
   const router = useRouter();
 
-  const { modelName } = useVideoCallContext();
+  const { modelName } = useCallFeatureContext();
 
   const handleExploreModel = () => {
     onClose();
@@ -24,7 +25,7 @@ const OfflineModel = ({ open, onClose, isModelAvailable }: { open: boolean; onCl
   };
 
   return (
-    <DialogContentMain open={false} onClose={onClose} fullWidth>
+    <DialogContentMain open={open} onClose={onClose} fullWidth>
       <DialogTitleBox id="responsive-modal-title">
         <UINewTypography variant="h6">
           <FormattedMessage id="VideoCalling" />

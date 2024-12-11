@@ -24,11 +24,11 @@ import moment from 'moment';
 import { useRouter } from 'next/navigation';
 import { ViewDetailsRes } from 'services/guestBilling/types';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import { useVideoCallContext } from 'contexts/videoCallContext';
+// import { useVideoCallContext } from 'contexts/videoCallContext';
+import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 
 const BillingDetails = ({
   open,
@@ -39,11 +39,12 @@ const BillingDetails = ({
   open: boolean;
   handleClose: () => void;
   selectDetails: ViewDetailsRes;
-  token: TokenIdType;
+  token: string;
 }) => {
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
   const router = useRouter();
-  const { isLoading } = useVideoCallContext();
+  // const { isLoading } = useVideoCallContext();
+  const { isLoading } = useCallFeatureContext();
   const callDurationString = selectDetails.call_duration;
   const callDuration = moment.duration(callDurationString);
   const hours = Math.floor(callDuration.asHours());
@@ -80,7 +81,7 @@ const BillingDetails = ({
 
   const handleVideoCall = (selectDetails: ViewDetailsRes) => {
     if (selectDetails.user_name) {
-      router.push(`/details/${selectDetails.user_name}`);
+      router.push(`/models/${selectDetails.user_name}`);
     }
   };
   return (

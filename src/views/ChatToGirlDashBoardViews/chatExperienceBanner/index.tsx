@@ -1,12 +1,11 @@
 'use client';
 
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
   VideoChatMainContainer,
-  BackGroundContainer,
   VideoChatInnerContainer,
   HeadingTypography,
   SubtitleTypography,
@@ -17,24 +16,12 @@ import { FormattedMessage } from 'react-intl';
 import { useAuthContext } from 'contexts/AuthContext';
 import dynamic from 'next/dynamic';
 import { gaEventTrigger } from 'utils/analytics';
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
-  ssr: false
-});
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
-  ssr: false
-});
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
-  ssr: false
-});
-const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
-  ssr: false
-});
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
-  ssr: false
-});
-const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
-  ssr: false
-});
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'));
 
 const VideoChatExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
   const { isFreeCreditAvailable } = useAuthContext();
@@ -89,35 +76,33 @@ const VideoChatExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
   return (
     <>
       <VideoChatMainContainer>
-        <BackGroundContainer>
-          <HomeMainContainer>
-            <VideoChatInnerContainer>
-              <VideoChatBannerInnerBox>
-                <HeadingTypography>
-                  <FormattedMessage id="StartYourFlirtBateVideoSexChat" />
-                </HeadingTypography>
-                <SubtitleTypography>
-                  <FormattedMessage id="ThousandsModelareReady" />
-                </SubtitleTypography>
-              </VideoChatBannerInnerBox>
-              {isCustomer ? (
-                <></>
-              ) : (
-                <ButtonBox>
-                  <UIThemeShadowButton
-                    variant="contained"
-                    sx={{ width: '236px' }}
-                    onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
-                  >
-                    <UINewTypography variant="body" color="common.white">
-                      <FormattedMessage id="StartFreeVideoChat" />
-                    </UINewTypography>
-                  </UIThemeShadowButton>
-                </ButtonBox>
-              )}
-            </VideoChatInnerContainer>
-          </HomeMainContainer>
-        </BackGroundContainer>
+        <HomeMainContainer>
+          <VideoChatInnerContainer>
+            <VideoChatBannerInnerBox>
+              <HeadingTypography>
+                <FormattedMessage id="StartYourFlirtBateVideoSexChat" />
+              </HeadingTypography>
+              <SubtitleTypography>
+                <FormattedMessage id="ThousandsModelareReady" />
+              </SubtitleTypography>
+            </VideoChatBannerInnerBox>
+            {isCustomer ? (
+              <></>
+            ) : (
+              <ButtonBox>
+                <UIThemeShadowButton
+                  variant="contained"
+                  sx={{ width: '236px' }}
+                  onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
+                >
+                  <UINewTypography variant="body" color="common.white">
+                    <FormattedMessage id="StartFreeVideoChat" />
+                  </UINewTypography>
+                </UIThemeShadowButton>
+              </ButtonBox>
+            )}
+          </VideoChatInnerContainer>
+        </HomeMainContainer>
       </VideoChatMainContainer>
 
       {/* Singin Login Popup */}
@@ -131,9 +116,9 @@ const VideoChatExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
           onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
           isFreeCreditAvailable={isFreeCreditAvailable}
           handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
-          handleLoginOpen={handleLoginOpen}
-          freeSignupOpen={freeSignupOpen}
-          handleFreeCreditSignupClose={handleFreeCreditSignupClose}
+          // handleLoginOpen={handleLoginOpen}
+          // freeSignupOpen={freeSignupOpen}
+          // handleFreeCreditSignupClose={handleFreeCreditSignupClose}
           image="/images/auth/auth-model1.webp"
         />
       </UIStyledDialog>

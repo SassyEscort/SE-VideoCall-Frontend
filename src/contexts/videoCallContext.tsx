@@ -3,7 +3,7 @@ import { CancelCallInvitationFunc, ZegoUIKitPrebuilt, ZegoUser } from '@zegoclou
 import { useSession } from 'next-auth/react';
 import { createContext, useContext, useRef, useState } from 'react';
 import { User } from 'app/(guest)/layout';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { randomID } from 'utils/videoCall';
 
 interface ICustomerInfo {
@@ -199,6 +199,7 @@ export const VideoCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const tokenCometChat = useSession();
   const user = (tokenCometChat?.data?.user as User)?.picture;
   const providerData = JSON.parse(user || '{}');
+  const { refresh } = useRouter();
   const path = usePathname();
   const userName = path.split('/')[2];
 
@@ -362,13 +363,12 @@ export const VideoCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const handleSetBusy = (val = false) => setIsBusy(val);
   const handleBusyClose = () => {
     handleSetBusy(false);
-    // window?.location?.reload();
   };
   const handleSetCallEnd = (val = false) => setIsCallEnded(val);
 
   const handleReviewClose = (isPreventReload?: boolean) => {
     handleSetReviewOpen(false);
-    if (!isPreventReload) window.location.reload();
+    if (!isPreventReload) refresh();
   };
 
   const handleSetIsModelAvailable = (val: number) => setIsModelAvailable(val);

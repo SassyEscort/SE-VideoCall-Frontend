@@ -2,13 +2,14 @@
 
 import React, { useEffect } from 'react';
 import { GuardProps } from 'types/auth';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
-import { useAuthContext } from '../../contexts/AuthContext';
+import { useSession } from 'next-auth/react';
 
 const RedirectGuardCustomer = ({ children }: GuardProps) => {
-  const { session } = useAuthContext();
+  const { data: session } = useSession();
   const router = useRouter();
+  const pathName = usePathname();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,7 +22,12 @@ const RedirectGuardCustomer = ({ children }: GuardProps) => {
         } catch (error) {}
       }
       const role = picture?.role;
-      if (json?.user?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM && role === 'customer' && window?.location?.pathname === '/model') {
+      if (
+        json?.user?.provider === PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM &&
+        role === 'customer' &&
+        typeof window !== 'undefined' &&
+        pathName === '/model'
+      ) {
         router.push('/');
       }
     };

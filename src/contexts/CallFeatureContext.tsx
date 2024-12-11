@@ -13,7 +13,7 @@ import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
 import { ErrorMessage } from 'constants/common.constants';
 // import { CometChatCalls } from '@cometchat/calls-sdk-javascript';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 // import { UIKitSettingsBuilder } from '@cometchat/uikit-shared';
 import { gaEventTrigger } from 'utils/analytics';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
@@ -147,6 +147,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   // const totalBal = searchParams.get('total_credits_after_txn');
   // const totalBalValue = searchParams.get('total_amount_after_txn');
 
+  const { refresh } = useRouter();
   const path = usePathname();
   const userName = path.split('/')[2];
 
@@ -388,7 +389,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
 
   const handleReviewClose = (isPreventReload?: boolean) => {
     setReviewOpen(false);
-    if (!isPreventReload) window.location.reload();
+    if (!isPreventReload) refresh();
   };
 
   const handleModelOfflineClose = () => setIsModelAvailable(1);

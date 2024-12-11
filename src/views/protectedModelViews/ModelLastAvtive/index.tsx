@@ -1,16 +1,15 @@
 'use client';
 
-import React from 'react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { getUserDataClient } from 'utils/getSessionData';
 import { ErrorMessage } from 'constants/common.constants';
 import { User } from 'app/(guest)/layout';
-import { useAuthContext } from '../../../contexts/AuthContext';
+import { useSession } from 'next-auth/react';
 
 const ModelLastActive = () => {
-  const { session } = useAuthContext();
+  const { data: session } = useSession();
   const [token, setToken] = useState<string>('');
   const user = (session?.user as User)?.picture;
   const providerData = user && JSON.parse(user || '{}');

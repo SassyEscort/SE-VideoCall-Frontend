@@ -16,5 +16,11 @@ export enum LANGUAGES_TYPES {
 
 export const CHATROOM = [
   { title: 'CamToCam', id: 1, url: '/cam-to-cam' },
-  { title: 'ChatWithGirls', id: 2, url: '/chat-with-girls' }
+  { title: 'SexChat', id: 1, url: '/sex-chat' },
+  { title: 'ChatWithGirls', id: 2, url: '/chat-with-girls' },
+  { title: 'DirtyTalks', id: 3, url: '/dirty-talks' },
+  { title: 'StrangerChat', id: 4, url: '/stranger-chat' },
+  { title: 'NudeChat', id: 4, url: '/nude-chat' }
 ];
+
+export const SEOCHATPATH = ['/cam-to-cam', '/sex-chat', '/chat-with-girls', '/dirty-talks', '/stranger-chat', '/nude-chat'];

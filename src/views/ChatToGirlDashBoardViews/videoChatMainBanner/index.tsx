@@ -18,24 +18,12 @@ import {
 import { useAuthContext } from 'contexts/AuthContext';
 import dynamic from 'next/dynamic';
 import { gaEventTrigger } from 'utils/analytics';
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
-  ssr: false
-});
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
-  ssr: false
-});
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
-  ssr: false
-});
-const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
-  ssr: false
-});
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
-  ssr: false
-});
-const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
-  ssr: false
-});
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'));
 
 const VideoChatDashboardBanner = () => {
   const { isFreeCreditAvailable } = useAuthContext();
@@ -95,13 +83,13 @@ const VideoChatDashboardBanner = () => {
           <VideoChatTextContainer>
             <VideoChatBannerInnerBoxContainer sx={{ gap: 6 }}>
               <VideoChatBannerInnerBoxContainer sx={{ gap: 2 }}>
-                <VideoChatSubTitleText>
+                <VideoChatSubTitleText variant="h6">
                   <FormattedMessage id="WELCOMETOFLIRTBATE" />
                 </VideoChatSubTitleText>
-                <VideoChatTitleText>
+                <VideoChatTitleText variant="h1">
                   <FormattedMessage id="FreeSexVideoChatCalls" />
                 </VideoChatTitleText>
-                <VideoChatSubTitleText>
+                <VideoChatSubTitleText variant="h6">
                   <FormattedMessage id="JoinThousandsOfUsers" />
                 </VideoChatSubTitleText>
               </VideoChatBannerInnerBoxContainer>
@@ -134,9 +122,9 @@ const VideoChatDashboardBanner = () => {
           onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
           isFreeCreditAvailable={isFreeCreditAvailable}
           handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
-          handleLoginOpen={handleLoginOpen}
-          freeSignupOpen={freeSignupOpen}
-          handleFreeCreditSignupClose={handleFreeCreditSignupClose}
+          // handleLoginOpen={handleLoginOpen}
+          // freeSignupOpen={freeSignupOpen}
+          // handleFreeCreditSignupClose={handleFreeCreditSignupClose}
           image="/images/auth/auth-model1.webp"
         />
       </UIStyledDialog>

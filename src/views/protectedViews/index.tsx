@@ -2,12 +2,13 @@
 
 import MainLayoutNav from './protectedLayout';
 import MyProfile from './myProfile';
+import { CustomerDetails } from 'services/customerDetails/customerDetails.services';
 
-const ProfilePage = () => {
+const ProfilePage = ({ customerData, token }: { customerData: CustomerDetails | null; token: string }) => {
   return (
     <>
       <MainLayoutNav variant={'worker'} enlargedFooter={true}>
-        <MyProfile />
+        <MyProfile customerData={customerData} token={token} />
       </MainLayoutNav>
     </>
   );

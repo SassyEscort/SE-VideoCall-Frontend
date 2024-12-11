@@ -24,32 +24,16 @@ import Divider from '@mui/material/Divider';
 import FreeCreditsSignUp from '../homePage/freeCreditsSignUp';
 import { SearchTitalBoxSm } from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/HeaderAuthComponent.styled';
 import dynamic from 'next/dynamic';
-const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
-  ssr: false
-});
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
-  ssr: false
-});
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
-  ssr: false
-});
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
-  ssr: false
-});
-const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
-  ssr: false
-});
-const ChatRoomDropdown = dynamic(() => import('components/common/stepper/ChatDropDown'), {
-  ssr: false
-});
-
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
-  ssr: false
-});
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'));
+const ChatRoomDropdown = dynamic(() => import('components/common/stepper/ChatDropDown'));
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
 
 const HeaderGuestComponent = () => {
   const { isFreeCreditAvailable } = useAuthContext();
-  const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
@@ -173,7 +157,8 @@ const HeaderGuestComponent = () => {
         sx={{
           backgroundColor: 'secondary.dark',
           pr: '0 !important',
-          boxShadow: 'none'
+          boxShadow: 'none',
+          top: 36
         }}
       >
         <AppBarBox>
@@ -211,7 +196,7 @@ const HeaderGuestComponent = () => {
               <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
             </Box>
           )}
-          {isSMDown ? (
+          {isSmDown ? (
             <Box>
               <LanguageDropdown />
             </Box>
@@ -271,7 +256,7 @@ const HeaderGuestComponent = () => {
                     </UIThemeShadowButton>
                   </ListItemText>
                 </MenuItem>
-                {isSMDown && (
+                {isSmDown && (
                   <>
                     <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                     <MenuItem>
@@ -315,9 +300,11 @@ const HeaderGuestComponent = () => {
             ))}
         </AppBarBox>
       </AppBar>
+
       <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
       </NewSignupStyledModalDialog>
+
       <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
         <GuestLogin
           onClose={handleLoginClose}
@@ -325,12 +312,13 @@ const HeaderGuestComponent = () => {
           onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
           isFreeCreditAvailable={isFreeCreditAvailable}
           handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
-          handleLoginOpen={handleLoginOpen}
-          freeSignupOpen={freeSignupOpen}
-          handleFreeCreditSignupClose={handleFreeCreditSignupClose}
+          // handleLoginOpen={handleLoginOpen}
+          // freeSignupOpen={freeSignupOpen}
+          // handleFreeCreditSignupClose={handleFreeCreditSignupClose}
           image="/images/auth/auth-model1.webp"
         />
       </UIStyledDialog>
+
       <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>

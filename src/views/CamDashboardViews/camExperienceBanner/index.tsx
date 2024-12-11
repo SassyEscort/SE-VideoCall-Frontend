@@ -1,12 +1,11 @@
 'use client';
 
 import UIThemeShadowButton from 'components/UIComponents/UIStyledShadowButton';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import {
   Cam2CamMainContainer,
-  BackGroundContainer,
   Cam2CamInnerContainer,
   HeadingTypography,
   SubtitleTypography,
@@ -17,24 +16,12 @@ import { FormattedMessage } from 'react-intl';
 import dynamic from 'next/dynamic';
 import { gaEventTrigger } from 'utils/analytics';
 import { useAuthContext } from 'contexts/AuthContext';
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'), {
-  ssr: false
-});
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'), {
-  ssr: false
-});
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), {
-  ssr: false
-});
-const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), {
-  ssr: false
-});
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), {
-  ssr: false
-});
-const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), {
-  ssr: false
-});
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'));
 
 const CamExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
   const { isFreeCreditAvailable } = useAuthContext();
@@ -89,35 +76,33 @@ const CamExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
   return (
     <>
       <Cam2CamMainContainer>
-        <BackGroundContainer>
-          <HomeMainContainer>
-            <Cam2CamInnerContainer>
-              <CamExperienceBannerInnerBox>
-                <HeadingTypography>
-                  <FormattedMessage id="StartYourFlirtBateCam2CamExperienceNow" />
-                </HeadingTypography>
-                <SubtitleTypography>
-                  <FormattedMessage id="ThousandsOfModelsAreReady" />
-                </SubtitleTypography>
-              </CamExperienceBannerInnerBox>
-              {isCustomer ? (
-                <></>
-              ) : (
-                <ButtonBox>
-                  <UIThemeShadowButton
-                    variant="contained"
-                    sx={{ width: '236px' }}
-                    onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
-                  >
-                    <UINewTypography variant="body" color="common.white">
-                      <FormattedMessage id="StartFreeVideoChat" />
-                    </UINewTypography>
-                  </UIThemeShadowButton>
-                </ButtonBox>
-              )}
-            </Cam2CamInnerContainer>
-          </HomeMainContainer>
-        </BackGroundContainer>
+        <HomeMainContainer>
+          <Cam2CamInnerContainer>
+            <CamExperienceBannerInnerBox>
+              <HeadingTypography>
+                <FormattedMessage id="StartYourFlirtBateCam2CamExperienceNow" />
+              </HeadingTypography>
+              <SubtitleTypography>
+                <FormattedMessage id="ThousandsOfModelsAreReady" />
+              </SubtitleTypography>
+            </CamExperienceBannerInnerBox>
+            {isCustomer ? (
+              <></>
+            ) : (
+              <ButtonBox>
+                <UIThemeShadowButton
+                  variant="contained"
+                  sx={{ width: '236px' }}
+                  onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
+                >
+                  <UINewTypography variant="body" color="common.white">
+                    <FormattedMessage id="StartFreeVideoChat" />
+                  </UINewTypography>
+                </UIThemeShadowButton>
+              </ButtonBox>
+            )}
+          </Cam2CamInnerContainer>
+        </HomeMainContainer>
       </Cam2CamMainContainer>
 
       {/* Singin Login Popup */}
@@ -131,9 +116,9 @@ const CamExperienceBanner = ({ isCustomer }: { isCustomer: boolean }) => {
           onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
           isFreeCreditAvailable={isFreeCreditAvailable}
           handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
-          handleLoginOpen={handleLoginOpen}
-          freeSignupOpen={freeSignupOpen}
-          handleFreeCreditSignupClose={handleFreeCreditSignupClose}
+          // handleLoginOpen={handleLoginOpen}
+          // freeSignupOpen={freeSignupOpen}
+          // handleFreeCreditSignupClose={handleFreeCreditSignupClose}
           image="/images/auth/auth-model1.webp"
         />
       </UIStyledDialog>
