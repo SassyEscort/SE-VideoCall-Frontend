@@ -121,6 +121,10 @@ const CallFeature = () => {
     `;
       newDiv.innerHTML = `Please refrain from: Violence/Bloodiness/Underage<br>involvement/Harassment.<br>Hope you have a great call.`;
       lastDiv?.insertAdjacentElement('afterend', newDiv);
+
+      setTimeout(() => {
+        newDiv.remove();
+      }, 10000);
     }
   };
 
