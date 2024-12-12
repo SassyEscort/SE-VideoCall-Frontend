@@ -270,7 +270,7 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
             msg.sender_id ===
               (selectedModelDetails.receiver_id === userDetails.customer_user_name
                 ? selectedModelDetails.sender_id
-                : selectedModelDetails.receiver_id || userId[0]) && !msg.seen
+                : selectedModelDetails.receiver_id || (userId ? userId[0] : '')) && !msg.seen
         )
         .map((msg) => msg._id);
 
