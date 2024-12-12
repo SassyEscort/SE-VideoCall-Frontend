@@ -20,7 +20,7 @@ import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 
-const ABTestSignUpModel = ({ onClose }: { onClose: () => void }) => {
+const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -67,8 +67,8 @@ const ABTestSignUpModel = ({ onClose }: { onClose: () => void }) => {
                 sx={{
                   pt: { xs: 0, sm: 0 },
                   pl: { xs: 2, md: 0 },
-                  pr: { xs: 2, md: 0 },
-                  maxWidth: { xs: '100%', md: '400px' }
+                  pr: { xs: 2, md: 0 }
+                  //   maxWidth: { xs: '100%', md: '400px' }
                 }}
               >
                 <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
@@ -79,8 +79,9 @@ const ABTestSignUpModel = ({ onClose }: { onClose: () => void }) => {
                         color: 'common.white',
                         position: 'absolute',
                         top: 0,
-                        right: { xs: 0, md: '-818px' },
-                        display: { sm: 'block' }
+                        right: { xs: 0, md: '8px' },
+                        display: { sm: 'block' },
+                        zIndex: 1
                       }}
                       onClick={onClose}
                     >
@@ -99,7 +100,8 @@ const ABTestSignUpModel = ({ onClose }: { onClose: () => void }) => {
                       borderRadius: '24px',
                       backgroundColor: 'rgba(7, 3, 14, 0.5)', // Add transparency for the blur effect
                       backdropFilter: 'blur(24px)',
-                      padding: '40px 64px 40px 64px'
+                      padding: '62px 100px 62px 100px',
+                      gap: 6
                     }}
                   >
                     <Box
@@ -108,63 +110,38 @@ const ABTestSignUpModel = ({ onClose }: { onClose: () => void }) => {
                         flexDirection: 'column',
                         width: '100%',
                         height: '100%',
-                        gap: 4,
+                        gap: 5,
                         alignItems: 'center'
                       }}
                     >
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: 6,
-                          alignItems: 'center'
-                        }}
-                      >
-                        <Box component="img" src="/images/logo-footer.png" width={272} height={54} />
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, textAlign: 'center' }}>
-                          <Box>
-                            <UINewTypography
-                              sx={{
-                                fontSize: '48px',
-                                fontWeight: 500,
-                                lineHeight: '64px',
-                                background: 'linear-gradient(90deg, #FFE38C, #CCA633)',
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent'
-                              }}
-                            >
-                              Get 1 minute of Free Call
-                            </UINewTypography>
-                            <UINewTypography
-                              sx={{
-                                fontSize: '48px',
-                                fontWeight: 600,
-                                lineHeight: '64px',
-                                color: 'primary.100'
-                              }}
-                            >
-                              Join Now for FREE!
-                            </UINewTypography>
-                          </Box>
-                          <UINewTypography
-                            sx={{
-                              fontSize: '24px',
-                              fontWeight: 400,
-                              lineHeight: '32.78px',
-                              color: 'white.main',
-                              whiteSpace: 'normal', // Allows wrapping
-                              overflowWrap: 'break-word'
-                            }}
-                          >
-                            <span style={{ display: 'block', whiteSpace: 'nowrap' }}>Real Models, Real Pleasure, Live Now!</span>
-                            <span style={{ display: 'block' }}>Don’t Just Watch – Connect, Flirt, and Enjoy!</span>
-                          </UINewTypography>
-                        </Box>
+                      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <UINewTypography
+                          sx={{
+                            fontSize: '48px',
+                            fontWeight: 600,
+                            lineHeight: '64px',
+                            color: 'primary.100'
+                          }}
+                        >
+                          Join Now for FREE!
+                        </UINewTypography>
+                        <UINewTypography
+                          sx={{
+                            fontSize: '48px',
+                            fontWeight: 500,
+                            lineHeight: '64px',
+                            background: 'linear-gradient(90deg, #FFE38C, #CCA633)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent'
+                          }}
+                        >
+                          Get 1 minute of Free Call
+                        </UINewTypography>
                       </Box>
 
                       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                             <Box>
                               <ModelUITextConatiner gap={0.5}>
                                 <Box sx={{ display: 'flex', gap: 4, flexDirection: isMdDown ? 'column' : 'row' }}>
@@ -360,48 +337,60 @@ const ABTestSignUpModel = ({ onClose }: { onClose: () => void }) => {
                         </Box>
                       </Box>
                     </Box>
-                  </Box>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: 8, gap: 4, justifyContent: 'center' }}>
-                    <UINewTypography
-                      sx={{ fontSize: '40px', fontWeight: 800, lineHeight: '64px', whiteSpace: 'nowrap', color: '#FFFFFFCC' }}
-                    >
-                      Unlock the Benefits!
-                    </UINewTypography>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-                      <Box sx={{ display: 'flex', gap: 2 }}>
-                        <Box component="img" src="/images/icons/ab-icon-1.svg" />
-                        <UINewTypography
-                          sx={{ fontSize: '24px', fontWeight: 800, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
-                        >
-                          1-Minute Free Call
-                        </UINewTypography>
-                      </Box>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                      <UINewTypography
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          fontSize: '40px',
+                          fontWeight: 800,
+                          lineHeight: '64px',
+                          whiteSpace: 'nowrap',
+                          color: '#FFFFFFCC'
+                        }}
+                      >
+                        Unlock the Benefits!
+                      </UINewTypography>
 
-                      <Box sx={{ display: 'flex', gap: 2 }}>
-                        <Box component="img" src="/images/icons/ab-icon-2.svg" />
-                        <UINewTypography
-                          sx={{ fontSize: '24px', fontWeight: 800, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
-                        >
-                          1,000+ Models
-                        </UINewTypography>
-                      </Box>
+                      <Box sx={{ display: 'flex', gap: 3 }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '304px' }}>
+                          <Box sx={{ display: 'flex', gap: 2 }}>
+                            <Box component="img" src="/images/icons/ab2-icon-1.svg" />
+                            <UINewTypography
+                              sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
+                            >
+                              1-Minute Free Call
+                            </UINewTypography>
+                          </Box>
 
-                      <Box sx={{ display: 'flex', gap: 2 }}>
-                        <Box component="img" src="/images/icons/ab-icon-3.svg" />
-                        <UINewTypography
-                          sx={{ fontSize: '24px', fontWeight: 800, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
-                        >
-                          Private 1-on-1 Chats
-                        </UINewTypography>
-                      </Box>
+                          <Box sx={{ display: 'flex', gap: 2 }}>
+                            <Box component="img" src="/images/icons/ab2-icon-2.svg" />
+                            <UINewTypography
+                              sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
+                            >
+                              1,000+ Models
+                            </UINewTypography>
+                          </Box>
+                        </Box>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '304px' }}>
+                          <Box sx={{ display: 'flex', gap: 2 }}>
+                            <Box component="img" src="/images/icons/ab2-icon-3.svg" />
+                            <UINewTypography
+                              sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
+                            >
+                              Private 1-on-1 Chats
+                            </UINewTypography>
+                          </Box>
 
-                      <Box sx={{ display: 'flex', gap: 2 }}>
-                        <Box component="img" src="/images/icons/ab-icon-4.svg" />
-                        <UINewTypography
-                          sx={{ fontSize: '24px', fontWeight: 800, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
-                        >
-                          Safe & Secure
-                        </UINewTypography>
+                          <Box sx={{ display: 'flex', gap: 2 }}>
+                            <Box component="img" src="/images/icons/ab2-icon-4.svg" />
+                            <UINewTypography
+                              sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
+                            >
+                              Safe & Secure
+                            </UINewTypography>
+                          </Box>
+                        </Box>
                       </Box>
                     </Box>
                   </Box>
@@ -415,4 +404,4 @@ const ABTestSignUpModel = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-export default ABTestSignUpModel;
+export default ABRegister2Model;
