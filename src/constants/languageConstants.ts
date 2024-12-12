@@ -21,7 +21,17 @@ export const CHATROOM = [
   { title: 'DirtyTalks', id: 4, url: '/dirty-talks' },
   { title: 'StrangerChat', id: 5, url: '/stranger-chat' },
   { title: 'NudeChat', id: 6, url: '/nude-chat' },
-  { title: 'Mature Chat', id: 6, url: '/mature-chat' }
+  { title: 'Mature Chat', id: 7, url: '/mature-chat' },
+  { title: 'Lesbian Chat', id: 8, url: '/lesbian-chat' }
 ];
 
-export const SEOCHATPATH = ['/cam-to-cam', '/sex-chat', '/chat-with-girls', '/dirty-talks', '/stranger-chat', '/nude-chat', '/mature-chat'];
+export const SEOCHATPATH = [
+  '/cam-to-cam',
+  '/sex-chat',
+  '/chat-with-girls',
+  '/dirty-talks',
+  '/stranger-chat',
+  '/nude-chat',
+  '/mature-chat',
+  '/lesbian-chat'
+];
