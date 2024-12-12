@@ -36,8 +36,7 @@ import {
   GiftBoxSecond,
   ModelsHeadingBox,
   HomeExploreBox,
-  SubTitle,
-  SnackBar
+  SubTitle
 } from './HomeBanner.styled';
 import { BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import { useSession } from 'next-auth/react';
@@ -57,7 +56,6 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
-  const [snackbarOpen, setSnackbarOpen] = useState(true);
   // const [openDropDown, setOpenDropDown] = useState(false);
   // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [loading, setLoading] = useState(false);
@@ -145,8 +143,6 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
   // const handleCloseMessagePopUp = () => {
   //   setIsChatMessagePopUpOpen(false);
   // };
-
-  const handleSnackbarClose = () => setSnackbarOpen(false);
 
   return (
     <>
@@ -250,16 +246,6 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
               {/* <GiftBoxThird></GiftBoxThird> */}
             </Box>
           )}
-          <SnackBar
-            open={snackbarOpen}
-            autoHideDuration={6000}
-            onClose={handleSnackbarClose}
-            message="Chat Message"
-            ContentProps={{
-              sx: { color: 'white' }
-            }}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          />
           {/* {!isSmDown && <ChatMessageClickPopUp open={isChatMessagePopUpOpen} onClose={handleCloseMessagePopUp} />}
           {!isSmDown && !isChatMessagePopUpOpen && (
             <Box sx={{ position: 'relative', cursor: 'pointer' }} onClick={handleChatBoxClick}>

@@ -7,14 +7,14 @@ import { useChatFeatureContext } from 'contexts/chatFeatureContext';
 import { memo } from 'react';
 
 const ChatFeature = () => {
-  const { selectedModel, handleModelSelect } = useChatFeatureContext();
+  const { handleModelSelect } = useChatFeatureContext();
   const theme = useTheme();
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
     <ChatMainBoxContainer>
-      {isSmUp || !selectedModel ? <ChatSidbar onSelectModel={handleModelSelect} /> : <ChatDescription />}
-      {isSmUp && <ChatDescription />}
+      {isSmUp && <ChatSidbar onSelectModel={handleModelSelect} />}
+      <ChatDescription />
     </ChatMainBoxContainer>
   );
 };

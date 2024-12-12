@@ -101,7 +101,7 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   const [socket, setSocket] = useState<Socket | null>(null);
   const [messages, setMessages] = useState<ISocketMessage[]>([]);
-  const [selectedModel, setSelectedModel] = useState<boolean>(true);
+  const [selectedModel, setSelectedModel] = useState<boolean>(false);
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse | undefined>();
   const [historyOfModels, setHistoryOfModels] = useState<IHistoryOfChats[]>([]);
   const [selectedModelDetails, setSelectedModelDetails] = useState<IHistoryOfChats>({} as IHistoryOfChats);
@@ -117,14 +117,14 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     setSelectedModelDetails(model);
   };
 
-  const sendMessage = (input: string) => {
+  const handleSendMessage = (input: string) => {
     if (socket && input.trim() !== '') {
       const newMessage = {
         sender_id: userDetails.customer_user_name,
         receiver_id:
           selectedModelDetails.receiver_id === userDetails.customer_user_name
             ? selectedModelDetails.sender_id
-            : selectedModelDetails.receiver_id || userId[0],
+            : selectedModelDetails.receiver_id || (userId ? userId[0] : ''),
         message: input,
         message_type: 'text',
         receiver_type: isCustomer ? 'model' : 'customers',
@@ -137,7 +137,7 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   };
 
   const handleMessageInputChange = (input: string) => {
-    sendMessage(input);
+    handleSendMessage(input);
   };
 
   const handleHistoryModleListSearch = (input: string) => {
@@ -156,6 +156,7 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
           search: searchQuery || ''
         };
         const data = await ChatService.chatHistoryMessage(params, token.token);
+
         setHistoryOfModels(data?.data?.history_list);
         setOnlineModelsCount(data?.data?.online_count);
       }
@@ -171,12 +172,12 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         setModelDetails(modelData.data);
       }
     };
-    if (token.token && userId[0]) {
+    if (token.token && userId) {
       modelDetails();
       handleChatedModleHistoryList();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isCustomer, token.id, token.token, userId[0]]);
+  }, [isCustomer, token.id, token.token, userId]);
 
   useEffect(() => {
     const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_BASE_URL!);
@@ -225,7 +226,7 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         otherUserId:
           selectedModelDetails.receiver_id === userDetails.customer_user_name
             ? selectedModelDetails.sender_id
-            : selectedModelDetails.receiver_id || userId[0]
+            : selectedModelDetails.receiver_id || (userId ? userId[0] : '')
       });
     });
 
@@ -236,7 +237,7 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         message.sender_id ===
         (selectedModelDetails.receiver_id === userDetails.customer_user_name
           ? selectedModelDetails.sender_id
-          : selectedModelDetails.receiver_id || userId[0])
+          : selectedModelDetails.receiver_id || (userId ? userId[0] : ''))
       ) {
         setMessages((prevMessages) => [...prevMessages, message]);
       } else if (message.sender_id === userDetails.customer_user_name) {
@@ -254,7 +255,7 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       newSocket.disconnect();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId[0], selectedModelDetails]);
+  }, [userId, selectedModelDetails]);
 
   useEffect(() => {
     debouncedChangeSearch(modelHistoryListSearch);
@@ -284,6 +285,12 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userDetails.customer_user_name, messages, socket]);
 
+  useEffect(() => {
+    if (userId) {
+      handleModelSelect(true);
+    }
+  }, [userId]);
+
   return (
     <ChatFeatureContext.Provider
       value={{
@@ -295,8 +302,8 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         selectedModelDetails,
         modelHistoryListSearch,
         onlineModelsCount,
-        handleMessageInputChange,
         handleModelSelect,
+        handleMessageInputChange,
         handleSelectedModelDetails,
         handleHistoryModleListSearch
       }}

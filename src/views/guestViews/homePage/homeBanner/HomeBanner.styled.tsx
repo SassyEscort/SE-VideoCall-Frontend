@@ -295,15 +295,22 @@ export const GiftBoxThird = styled(Box)(() => ({
   backgroundRepeat: 'no-repeat'
 }));
 
-export const SnackBar = styled(Snackbar)(() => ({
+export const StyledSnackBar = styled(Snackbar)(() => ({
   '&.MuiSnackbar-root': {
     top: '85px'
-  },
-  '& .MuiPaper-root': {
-    backgroundColor: '#ff8da1'
   },
   '& .MuiSnackbarContent-message': {
     fontSize: '16px',
     fontWeight: 800
   }
+}));
+
+export const StyledSnackBarInnerBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(2),
+  backgroundColor: '#290F1E',
+  height: '60px',
+  borderRadius: theme.spacing(2),
+  paddingInline: theme.spacing(4)
 }));
