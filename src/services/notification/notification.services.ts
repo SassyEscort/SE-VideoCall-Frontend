@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { BankListParams } from 'views/protectedDashboardViews/payoutPaymentContainer';
-import { Root } from './type';
+import { ChatNotificationRoot, Root } from './type';
 import { GenericRes } from 'services/guestAuth/authuser.services';
 
 export type NotificationRes = {
@@ -46,7 +46,7 @@ export class NotificationDetailsService {
     }
   };
 
-  static getChatNotificationDetails = async (token: string, params: BankListParams): Promise<Root> => {
+  static getChatNotificationDetails = async (token: string, params: BankListParams): Promise<ChatNotificationRoot> => {
     try {
       const res = await axios.get(
         process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/chat/notification?limit=${params.limit}&offset=${params.offset}`,
@@ -58,7 +58,7 @@ export class NotificationDetailsService {
       return res.data;
     } catch (err: any) {
       const error: AxiosError = err;
-      return error.response?.data as Root;
+      return error.response?.data as ChatNotificationRoot;
     }
   };
 }

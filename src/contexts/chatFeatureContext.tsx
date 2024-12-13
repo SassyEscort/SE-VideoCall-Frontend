@@ -131,6 +131,22 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         sender_type: isCustomer ? 'customers' : 'model'
       };
 
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          _id: '',
+          id: '123',
+          sender_id: newMessage.sender_id,
+          receiver_id: newMessage.receiver_id,
+          sender_type: newMessage.sender_type,
+          receiver_type: newMessage.receiver_type,
+          message_content: newMessage.message,
+          seen: true,
+          message_type: 'text',
+          time_stamp: new Date().toISOString(),
+          __v: 0
+        }
+      ]);
       socket.emit('chat-message', newMessage);
       handleChatedModleHistoryList();
     }
@@ -239,9 +255,13 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
           ? selectedModelDetails.sender_id
           : selectedModelDetails.receiver_id || (userId ? userId[0] : ''))
       ) {
-        setMessages((prevMessages) => [...prevMessages, message]);
+        setMessages((prevMessages) => {
+          return [...prevMessages.filter((item) => item.id !== '123'), message];
+        });
       } else if (message.sender_id === userDetails.customer_user_name) {
-        setMessages((prevMessages) => [...prevMessages, message]);
+        setMessages((prevMessages) => {
+          return [...prevMessages.filter((item) => item.id !== '123'), message];
+        });
       }
       handleChatedModleHistoryList();
     });

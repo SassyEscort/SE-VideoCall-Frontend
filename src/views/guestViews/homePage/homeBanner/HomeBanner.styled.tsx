@@ -297,7 +297,7 @@ export const GiftBoxThird = styled(Box)(() => ({
 
 export const StyledSnackBar = styled(Snackbar)(() => ({
   '&.MuiSnackbar-root': {
-    top: '85px'
+    top: '120px'
   },
   '& .MuiSnackbarContent-message': {
     fontSize: '16px',
@@ -309,8 +309,9 @@ export const StyledSnackBarInnerBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: theme.spacing(2),
-  backgroundColor: '#290F1E',
+  backgroundColor: '#611441',
   height: '60px',
-  borderRadius: theme.spacing(2),
-  paddingInline: theme.spacing(4)
+  borderRadius: theme.spacing(1),
+  paddingInline: theme.spacing(2),
+  cursor: 'pointer'
 }));

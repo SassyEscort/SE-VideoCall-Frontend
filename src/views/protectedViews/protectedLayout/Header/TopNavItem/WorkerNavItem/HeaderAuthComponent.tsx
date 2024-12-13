@@ -13,7 +13,7 @@ import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { NotificationDetailsService } from 'services/notification/notification.services';
-import { NotificationData, Root } from 'services/notification/type';
+import { ChatNotificationData, ChatNotificationRoot, Root } from 'services/notification/type';
 import MyProfileChangePassword from 'views/protectedViews/myProfile/MyProfileChangePassword';
 import { IconButtonBoxInner, UnReadCountMain } from 'views/protectedDashboardViews/dashboardNavItem/DashboardMenu.styled';
 import { IconButtonBoxNew } from './Notification.styled';
@@ -37,7 +37,7 @@ import { io, Socket } from 'socket.io-client';
 import { ISocketMessage } from 'services/chatServices/chat.service';
 import { StyledSnackBar, StyledSnackBarInnerBox } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
 import CloseIcon from '@mui/icons-material/Close';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export type NotificationFilters = {
   page: number;
@@ -55,6 +55,7 @@ const HeaderAuthComponent = () => {
   const { session, isFreeCreditsClaimed, isNameChange, openCreditDrawer, handleCreditDrawerClose } = useAuthContext();
   // const { isCallEnded, avaialbleCredits } = useVideoCallContext();
   const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
+  const router = useRouter();
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -77,9 +78,9 @@ const HeaderAuthComponent = () => {
   const [openChangePassword, setOpenChangePassword] = useState(false);
   const [openCreditSideDrawer, setOpenCreditSideDrawer] = useState(false);
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [snackbarOpen, setSnackbarOpen] = useState({ open: false, message: '' });
+  const [snackbarOptions, setSnackbarOptions] = useState({ open: false, message: '', url: '' });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setChatNotificationDetails] = useState<Root>();
+  const [_, setChatNotificationDetails] = useState<ChatNotificationRoot>();
 
   const open = Boolean(anchorElLogout);
   const uploadedImageURL = '/images/headerv2/profilePic.png';
@@ -146,7 +147,7 @@ const HeaderAuthComponent = () => {
     }
   }, [filters, token.token]);
 
-  const handleSnackbarClose = () => setSnackbarOpen({ open: false, message: '' });
+  const handleSnackbarClose = () => setSnackbarOptions({ open: false, message: '', url: '' });
 
   const handleOpenLogout = () => {
     setIsLogoutOpen(true);
@@ -161,7 +162,7 @@ const HeaderAuthComponent = () => {
     initializeChat();
   };
 
-  const handleChatNotification = async (): Promise<NotificationData> => {
+  const handleChatNotification = async (): Promise<ChatNotificationData> => {
     const ModelPayoutListObject = {
       limit: filters.pageSize,
       offset: filters.offset
@@ -235,9 +236,13 @@ const HeaderAuthComponent = () => {
           socket.emit('join', token.customer_user_name);
           // Listener for chat messages
           socket.on('chat-message', async (message: ISocketMessage) => {
-            if (parthname !== '/chat') {
+            if (!parthname.includes('/chat/')) {
               const chatNotificationData = await handleChatNotification();
-              setSnackbarOpen({ open: true, message: chatNotificationData.notifications[0].message || '' });
+              setSnackbarOptions({
+                open: true,
+                message: chatNotificationData?.notifications[0].message || '',
+                url: `/chat/${chatNotificationData?.notifications[0].user_name}` || ''
+              });
             }
           });
         });
@@ -311,7 +316,7 @@ const HeaderAuthComponent = () => {
                     position: 'relative'
                   }}
                 >
-                  <Box component="img" src="/images/chat/chatNotification.svg" alt="chat_logo" />
+                  <Box component="img" src="/images/chat/chatNotification.svg" alt="chat_logo" sx={{ width: 24, height: 24 }} />
                 </Box>
               </IconButton>
             </Link>
@@ -546,17 +551,24 @@ const HeaderAuthComponent = () => {
       />
 
       <StyledSnackBar
-        open={snackbarOpen.open}
-        autoHideDuration={6000}
+        open={snackbarOptions.open}
+        autoHideDuration={3000}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         onClose={handleSnackbarClose}
       >
-        <StyledSnackBarInnerBox>
-          {snackbarOpen.message && (
+        <StyledSnackBarInnerBox onClick={() => router.push(snackbarOptions?.url)}>
+          {snackbarOptions.message && (
             <>
-              <Box component="img" src="/images/chat/chatNotification.svg" alt="chat_img" sx={{ width: '20px', height: '20px' }} />
-              <Box>{snackbarOpen.message}</Box>
-              <CloseIcon onClick={handleSnackbarClose} sx={{ cursor: 'pointer', color: 'black' }} />
+              <Box component="img" src="/images/chat/chatNotification.svg" alt="chat_img" sx={{ width: 32, height: 32 }} />
+              <Box sx={{ fontWeight: 800, fontSize: 16 }}>{snackbarOptions.message}</Box>
+              <CloseIcon
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleSnackbarClose();
+                }}
+                sx={{ cursor: 'pointer', color: 'black', width: 16, height: 16 }}
+              />
             </>
           )}
         </StyledSnackBarInnerBox>
