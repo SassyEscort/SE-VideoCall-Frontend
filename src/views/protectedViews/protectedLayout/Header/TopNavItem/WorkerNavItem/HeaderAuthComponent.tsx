@@ -545,11 +545,20 @@ const HeaderAuthComponent = () => {
         customerDetails={customerDetails}
       />
 
-      <StyledSnackBar open={snackbarOpen.open} autoHideDuration={6000} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+      <StyledSnackBar
+        open={snackbarOpen.open}
+        autoHideDuration={6000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        onClose={handleSnackbarClose}
+      >
         <StyledSnackBarInnerBox>
-          <Box component="img" src="/images/chat/chatNotification.svg" alt="chat_img" sx={{ width: '20px', height: '20px' }} />
-          <Box>{snackbarOpen.message}</Box>
-          <CloseIcon onClick={handleSnackbarClose} sx={{ cursor: 'pointer', color: 'black' }} />
+          {snackbarOpen.message && (
+            <>
+              <Box component="img" src="/images/chat/chatNotification.svg" alt="chat_img" sx={{ width: '20px', height: '20px' }} />
+              <Box>{snackbarOpen.message}</Box>
+              <CloseIcon onClick={handleSnackbarClose} sx={{ cursor: 'pointer', color: 'black' }} />
+            </>
+          )}
         </StyledSnackBarInnerBox>
       </StyledSnackBar>
     </>

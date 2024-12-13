@@ -32,7 +32,8 @@ export const ProfileImageContainer = styled(Box)(({ theme }) => ({
 export const ChatMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
-  height: '100%',
+  height: 'calc(100vh - 120px)',
+  maxHeight: '100%',
   backgroundColor: '#100B19',
   border: '1px solid #100B19',
   [theme.breakpoints.down('sm')]: {
@@ -244,7 +245,6 @@ export const TextMainBoxContainer = styled(Box)(({ theme }) => ({
     paddingBottom: theme.spacing(1.5)
   },
   [theme.breakpoints.up('sm')]: {
-    height: '100%',
     paddingRight: theme.spacing(4)
   }
 }));
