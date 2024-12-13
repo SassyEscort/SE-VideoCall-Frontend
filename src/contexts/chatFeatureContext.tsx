@@ -187,7 +187,7 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       newSocket.emit('join', userDetails.customer_user_name);
     });
 
-    // // Emit message-seen events for all unseen messages in the current chat
+    // // Emit message-seen events for all unseen messages in the current chats
     const unseenMessages = messages.filter((msg) => msg.sender_id !== userId && !msg.seen);
 
     unseenMessages.forEach((msg) => {
