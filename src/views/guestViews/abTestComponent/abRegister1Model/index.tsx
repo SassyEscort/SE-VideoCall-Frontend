@@ -19,7 +19,7 @@ import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 
-const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
+const ABRegister1Model = ({ onClose }: { onClose: () => void }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -66,8 +66,8 @@ const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
                 sx={{
                   pt: { xs: 0, sm: 0 },
                   pl: { xs: 2, md: 0 },
-                  pr: { xs: 2, md: 0 }
-                  //   maxWidth: { xs: '100%', md: '400px' }
+                  pr: { xs: 2, md: 0 },
+                  maxWidth: { xs: '100%', md: '400px' }
                 }}
               >
                 <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
@@ -78,9 +78,8 @@ const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
                         color: 'common.white',
                         position: 'absolute',
                         top: 0,
-                        right: { xs: 0, md: '8px' },
-                        display: { sm: 'block' },
-                        zIndex: 1
+                        right: { xs: 0, md: '-818px' },
+                        display: { sm: 'block' }
                       }}
                       onClick={onClose}
                     >
@@ -99,8 +98,7 @@ const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
                       borderRadius: '24px',
                       backgroundColor: 'rgba(7, 3, 14, 0.5)', // Add transparency for the blur effect
                       backdropFilter: 'blur(24px)',
-                      padding: '62px 100px 62px 100px',
-                      gap: 6
+                      padding: '40px 64px 40px 64px'
                     }}
                   >
                     <Box
@@ -109,38 +107,67 @@ const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
                         flexDirection: 'column',
                         width: '100%',
                         height: '100%',
-                        gap: 5,
+                        gap: 4,
                         alignItems: 'center'
                       }}
                     >
-                      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <UINewTypography
-                          sx={{
-                            fontSize: '48px',
-                            fontWeight: 600,
-                            lineHeight: '64px',
-                            color: 'primary.100'
-                          }}
-                        >
-                          Join Now for FREE!
-                        </UINewTypography>
-                        <UINewTypography
-                          sx={{
-                            fontSize: '48px',
-                            fontWeight: 500,
-                            lineHeight: '64px',
-                            background: 'linear-gradient(90deg, #FFE38C, #CCA633)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent'
-                          }}
-                        >
-                          Earn on Your Terms!
-                        </UINewTypography>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: 6,
+                          alignItems: 'center'
+                        }}
+                      >
+                        <Box component="img" src="/images/logo-footer.png" width={272} height={54} />
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, textAlign: 'center' }}>
+                          <Box>
+                            <UINewTypography
+                              sx={{
+                                fontSize: '48px',
+                                fontWeight: 500,
+                                lineHeight: '64px',
+                                background: 'linear-gradient(90deg, #FFE38C, #CCA633)',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent'
+                              }}
+                            >
+                              Earn on Your Terms!
+                            </UINewTypography>
+                            <UINewTypography
+                              sx={{
+                                fontSize: '48px',
+                                fontWeight: 600,
+                                lineHeight: '64px',
+                                color: 'primary.100'
+                              }}
+                            >
+                              Join Now for FREE!
+                            </UINewTypography>
+                          </Box>
+                          <UINewTypography
+                            sx={{
+                              fontSize: '24px',
+                              fontWeight: 400,
+                              lineHeight: '32.78px',
+                              color: 'white.main',
+                              whiteSpace: 'normal', // Allows wrapping
+                              overflowWrap: 'break-word'
+                            }}
+                          >
+                            <span style={{ display: 'block', whiteSpace: 'nowrap' }}>
+                              Flexible hours, secure payouts, and a global audience
+                            </span>
+                            <span style={{ display: 'block', whiteSpace: 'nowrap' }}>
+                              waiting to connect with you. Sign up now to start earning!
+                            </span>
+                          </UINewTypography>
+                        </Box>
                       </Box>
 
                       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                             <Box>
                               <ModelUITextConatiner gap={0.5}>
                                 <Box sx={{ display: 'flex', gap: 4, flexDirection: isMdDown ? 'column' : 'row' }}>
@@ -330,60 +357,48 @@ const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
                         </Box>
                       </Box>
                     </Box>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                      <UINewTypography
-                        sx={{
-                          display: 'flex',
-                          justifyContent: 'center',
-                          fontSize: '40px',
-                          fontWeight: 800,
-                          lineHeight: '64px',
-                          whiteSpace: 'nowrap',
-                          color: '#FFFFFFCC'
-                        }}
-                      >
-                        Unlock the Benefits!
-                      </UINewTypography>
+                  </Box>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: 8, gap: 4, justifyContent: 'center' }}>
+                    <UINewTypography
+                      sx={{ fontSize: '40px', fontWeight: 800, lineHeight: '64px', whiteSpace: 'nowrap', color: '#FFFFFFCC' }}
+                    >
+                      Unlock the Benefits!
+                    </UINewTypography>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                      <Box sx={{ display: 'flex', gap: 2 }}>
+                        <Box component="img" src="/images/icons/earn-icon.svg" />
+                        <UINewTypography
+                          sx={{ fontSize: '24px', fontWeight: 800, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
+                        >
+                          Earn Money From Anywhere
+                        </UINewTypography>
+                      </Box>
 
-                      <Box sx={{ display: 'flex', gap: 3 }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '363px' }}>
-                          <Box sx={{ display: 'flex', gap: 2 }}>
-                            <Box component="img" src="/images/icons/earn1-icon.svg" />
-                            <UINewTypography
-                              sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
-                            >
-                              Earn Money From Anywhere
-                            </UINewTypography>
-                          </Box>
+                      <Box sx={{ display: 'flex', gap: 2 }}>
+                        <Box component="img" src="/images/icons/secure-icon.svg" />
+                        <UINewTypography
+                          sx={{ fontSize: '24px', fontWeight: 800, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
+                        >
+                          Secure Payouts
+                        </UINewTypography>
+                      </Box>
 
-                          <Box sx={{ display: 'flex', gap: 2 }}>
-                            <Box component="img" src="/images/icons/secure1-icon.svg" />
-                            <UINewTypography
-                              sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
-                            >
-                              Secure Payouts
-                            </UINewTypography>
-                          </Box>
-                        </Box>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '304px' }}>
-                          <Box sx={{ display: 'flex', gap: 2 }}>
-                            <Box component="img" src="/images/icons/global1-icon.svg" />
-                            <UINewTypography
-                              sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
-                            >
-                              Global Audience
-                            </UINewTypography>
-                          </Box>
+                      <Box sx={{ display: 'flex', gap: 2 }}>
+                        <Box component="img" src="/images/icons/global-icon.svg" />
+                        <UINewTypography
+                          sx={{ fontSize: '24px', fontWeight: 800, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
+                        >
+                          Global Audience
+                        </UINewTypography>
+                      </Box>
 
-                          <Box sx={{ display: 'flex', gap: 2 }}>
-                            <Box component="img" src="/images/icons/support1-icon.svg" />
-                            <UINewTypography
-                              sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
-                            >
-                              Dedicated Support
-                            </UINewTypography>
-                          </Box>
-                        </Box>
+                      <Box sx={{ display: 'flex', gap: 2 }}>
+                        <Box component="img" src="/images/icons/support-icon.svg" />
+                        <UINewTypography
+                          sx={{ fontSize: '24px', fontWeight: 800, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
+                        >
+                          Dedicated Support
+                        </UINewTypography>
                       </Box>
                     </Box>
                   </Box>
@@ -397,4 +412,4 @@ const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-export default ABRegister2Model;
+export default ABRegister1Model;

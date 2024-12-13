@@ -9,6 +9,7 @@ import { FormattedMessage } from 'react-intl';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+import Link from 'next/link';
 import { ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
@@ -19,7 +20,7 @@ import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 
-const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
+const ABRegister2User = ({ onClose }: { onClose: () => void }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -134,7 +135,7 @@ const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
                             WebkitTextFillColor: 'transparent'
                           }}
                         >
-                          Earn on Your Terms!
+                          Get 1 minute of Free Call
                         </UINewTypography>
                       </Box>
 
@@ -326,6 +327,12 @@ const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
                                 Log in here
                               </Box>
                             </UINewTypography>
+                            <UINewTypography variant="bodyRegular">
+                              Sign up as a model{' '}
+                              <Box component="span" sx={{ fontWeight: 800, color: 'primary.100' }}>
+                                <Link href="/">Here</Link>
+                              </Box>
+                            </UINewTypography>
                           </Box>
                         </Box>
                       </Box>
@@ -346,41 +353,41 @@ const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
                       </UINewTypography>
 
                       <Box sx={{ display: 'flex', gap: 3 }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '363px' }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '304px' }}>
                           <Box sx={{ display: 'flex', gap: 2 }}>
-                            <Box component="img" src="/images/icons/earn1-icon.svg" />
+                            <Box component="img" src="/images/icons/ab2-icon-1.svg" />
                             <UINewTypography
                               sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
                             >
-                              Earn Money From Anywhere
+                              1-Minute Free Call
                             </UINewTypography>
                           </Box>
 
                           <Box sx={{ display: 'flex', gap: 2 }}>
-                            <Box component="img" src="/images/icons/secure1-icon.svg" />
+                            <Box component="img" src="/images/icons/ab2-icon-2.svg" />
                             <UINewTypography
                               sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
                             >
-                              Secure Payouts
+                              1,000+ Models
                             </UINewTypography>
                           </Box>
                         </Box>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '304px' }}>
                           <Box sx={{ display: 'flex', gap: 2 }}>
-                            <Box component="img" src="/images/icons/global1-icon.svg" />
+                            <Box component="img" src="/images/icons/ab2-icon-3.svg" />
                             <UINewTypography
                               sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
                             >
-                              Global Audience
+                              Private 1-on-1 Chats
                             </UINewTypography>
                           </Box>
 
                           <Box sx={{ display: 'flex', gap: 2 }}>
-                            <Box component="img" src="/images/icons/support1-icon.svg" />
+                            <Box component="img" src="/images/icons/ab2-icon-4.svg" />
                             <UINewTypography
                               sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
                             >
-                              Dedicated Support
+                              Safe & Secure
                             </UINewTypography>
                           </Box>
                         </Box>
@@ -397,4 +404,4 @@ const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-export default ABRegister2Model;
+export default ABRegister2User;

@@ -3,13 +3,13 @@
 import Dialog from '@mui/material/Dialog';
 import { styled } from '@mui/material/styles';
 
-const UIStyleABTest2Model = styled(Dialog)(({ theme }) => ({
+const UIStyleABRegister2Model = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
     // backgroundColor: '#07030E',
     // borderRadius: theme.spacing(1.5)
   },
   '& .MuiDialog-container': {
-    backgroundImage: `url(/images/ab-register-model2.webp)`,
+    backgroundImage: `url(/images/signup-model2-bg-img.webp)`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
@@ -44,4 +44,4 @@ export const ModelCreditsUIStyledDialogg = styled(Dialog)(({ theme }) => ({
   }
 }));
 
-export default UIStyleABTest2Model;
+export default UIStyleABRegister2Model;
