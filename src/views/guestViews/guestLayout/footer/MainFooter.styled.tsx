@@ -12,3 +12,19 @@ export const FooterButton = styled(UINewTypography)(() => ({
   fontWeight: '700 !important',
   lineHeight: '24px !important'
 }));
+
+export const FooterMainBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  [theme.breakpoints.only('xs')]: {
+    gap: theme.spacing(3),
+    flexDirection: 'column'
+  },
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(3),
+    flexDirection: 'column'
+  },
+  [theme.breakpoints.up('sm')]: {
+    gap: theme.spacing(10),
+    flexDirection: 'row'
+  }
+}));

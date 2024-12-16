@@ -95,6 +95,45 @@ const CallFeature = () => {
     };
   }, [startDuration, intervalDuration, isModelJoin, callLogId, captureScreenshot]);
 
+  const appenText = () => {
+    const existingDiv = document.querySelector('div[item="18d27501"]');
+    if (existingDiv) {
+      console.log('The div already exists. No new div will be appended.');
+      return;
+    }
+
+    const allDivs = document.querySelectorAll('.side-bar-tile-wrapper');
+    if (allDivs?.length > 0) {
+      const lastDiv = allDivs[allDivs.length - 1];
+      const newDiv = document.createElement('div');
+      newDiv.setAttribute('item', '18d27501');
+      newDiv.style.cssText = `
+      background-color: #0000001A;
+      color: #FFFFFF40;
+      word-break: break-all;
+      padding: 10px 8px 10px 8px; 
+      border-radius: 12px;
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 400;
+      margin-top: 5px;
+      font-family: 'Inter', Manrope, sans-serif;
+    `;
+      newDiv.innerHTML = `Please refrain from: Violence/Bloodiness/Underage<br>involvement/Harassment.<br>Hope you have a great call.`;
+      lastDiv?.insertAdjacentElement('afterend', newDiv);
+
+      setTimeout(() => {
+        newDiv.remove();
+      }, 10000);
+    }
+  };
+
+  useEffect(() => {
+    if (call && isCallAccepted && isModelJoin && callLogId) {
+      setTimeout(() => appenText(), 5000);
+    }
+  }, [call, isCallAccepted, isModelJoin, callLogId]);
+
   return (
     <>
       {!isCustomer && <CometChatIncomingCall call={call} />}

@@ -5,6 +5,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Image from 'next/image';
+import { Typography } from '@mui/material';
 
 export const MainWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -337,5 +338,56 @@ export const BannerImageCard = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('xs')]: {
     justifyContent: 'center',
     paddingRight: theme.spacing(3)
+  }
+}));
+
+export const ChatMessageMainContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  position: 'absolute',
+  width: '100%',
+  height: '100%',
+  border: '1px solid #FF5959',
+  backgroundColor: '#FF5959',
+  justifyContent: 'center',
+  borderRadius: theme.spacing(1),
+  [theme.breakpoints.up('sm')]: {
+    top: '385px',
+    maxHeight: '36px',
+    maxWidth: '149px'
+  },
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '103px',
+    maxHeight: '26px',
+    top: '218px'
+  }
+}));
+
+export const ChatMessageInnerBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1),
+  alignItems: 'center'
+}));
+
+export const ChatMessageImg = styled('img')(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    height: '16px',
+    width: '16px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    height: '24px',
+    width: '24px'
+  }
+}));
+
+export const ChatMessageText = styled(Typography)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '10px',
+    fontWeight: 600,
+    lineHeight: '18px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '14px',
+    fontWeight: 600,
+    lineHeight: '24px'
   }
 }));

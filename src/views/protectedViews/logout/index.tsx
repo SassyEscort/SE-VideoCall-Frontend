@@ -19,9 +19,9 @@ import { FormattedMessage } from 'react-intl';
 import { usePathname } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import { CometChatUIKit } from '@cometchat/chat-uikit-react';
 import { useAuthContext } from 'contexts/AuthContext';
 import { deleteCookie } from 'cookies-next';
+import { loadCometChatUIKit, loadUIKitSettingsBuilder, COMETCHAT_CONSTANTS } from 'contexts/CallFeatureContext';
 
 const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const asPath = usePathname();
@@ -31,8 +31,18 @@ const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const handleConfirmLogout = async () => {
     setLoading(true);
     try {
+      const CometChatUIKit = await loadCometChatUIKit();
+      const UIKitSettingsBuilder = await loadUIKitSettingsBuilder();
+      const UIKitSettings = new UIKitSettingsBuilder()
+        .setAppId(COMETCHAT_CONSTANTS.APP_ID)
+        .setRegion(COMETCHAT_CONSTANTS.REGION)
+        .setAuthKey(COMETCHAT_CONSTANTS.AUTH_KEY)
+        .subscribePresenceForAllUsers()
+        .build();
+
+      await CometChatUIKit.init(UIKitSettings);
       if (!isCustomer) {
-        const user = await CometChatUIKit.getLoggedinUser();
+        const user = await CometChatUIKit?.getLoggedinUser();
         if (user) {
           await CometChatUIKit.logout();
         }

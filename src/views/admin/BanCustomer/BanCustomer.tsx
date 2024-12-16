@@ -36,6 +36,8 @@ import { ErrorMessage } from 'constants/common.constants';
 import DeleteModal from 'components/UIComponents/DeleteModal';
 import BanCustomerModel from './BanCustomerModel';
 import { useAuthContext } from 'contexts/AuthContext';
+import { haveUpdatePermission } from 'utils/Admin/PagePermission';
+import { BanCustomerPage } from 'constants/adminUserAccessConstants';
 
 const SORT_BY_OPTIONS: PaginationSortByOption[] = [
   { value: 'createdDate', label: 'Newest' },
@@ -61,7 +63,9 @@ export type BanCustomerFilters = {
 };
 
 const BanCustomer = () => {
-  const { token } = useAuthContext();
+  const { adminUserPermissions, isAdmin, token } = useAuthContext();
+  const UpdatePermission = (adminUserPermissions ? haveUpdatePermission(BanCustomerPage, adminUserPermissions) : false) || isAdmin;
+
   const currentMoment = moment().format('YYYY/MM/DD');
   const oneMonthAgoMoment = moment().subtract(1, 'month').format('YYYY/MM/DD');
 
@@ -309,16 +313,17 @@ const BanCustomer = () => {
             <VisibilityIcon sx={{ mr: 2 }} />
             View Details
           </MenuItem>
-
-          <MenuItem
-            onClick={() => {
-              handleCloseMenu();
-              setOpenDeleteModal(true);
-            }}
-          >
-            <NotInterestedIcon sx={{ mr: 2 }} />
-            Unban Customer
-          </MenuItem>
+          {UpdatePermission && (
+            <MenuItem
+              onClick={() => {
+                handleCloseMenu();
+                setOpenDeleteModal(true);
+              }}
+            >
+              <NotInterestedIcon sx={{ mr: 2 }} />
+              Unban Customer
+            </MenuItem>
+          )}
         </ModelActionPopoverBanModel>
         <BanCustomerModel open={creditModalOpen} onClose={handleCloseCredit} selectedPayoutData={selectedPayoutData} />
         <DeleteModal

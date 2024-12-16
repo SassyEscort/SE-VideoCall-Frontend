@@ -26,7 +26,7 @@ import { sortExistingPhotos } from 'utils/photoUtils';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
 import { gaEventTrigger } from 'utils/analytics';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import GuestFreeCreditsSignup from 'views/auth/guestFreeCreditsSignup';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
@@ -60,6 +60,7 @@ const EscortSliderMobile = ({
   const { user } = useCallFeatureContext();
   const isLg = useMediaQuery(theme.breakpoints.up('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
+  const isMd = useMediaQuery(theme.breakpoints.up('sm'));
   const [liked, setLiked] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
@@ -71,6 +72,7 @@ const EscortSliderMobile = ({
   const sortedWorkerPhotos = workerPhotos.sort(sortExistingPhotos);
 
   const path = usePathname();
+  const router = useRouter();
   const userName = path.split('/')[2];
   const customerData = JSON.parse(user || '{}');
 
@@ -80,6 +82,8 @@ const EscortSliderMobile = ({
     username: customerData?.customer_user_name,
     model_username: userName
   };
+
+  const handleStartChatClick = () => router.push(`/chat/${userName}`);
 
   const handleSignupOpen = () => {
     setIsOpenLogin(false);
@@ -220,8 +224,61 @@ const EscortSliderMobile = ({
           mt: 3
         }}
       >
-        <Box sx={{ width: '100%' }}>
+        <Box
+          sx={{
+            width: '100%',
+            ...(isLg && {
+              display: 'flex',
+              justifyContent: 'space-between',
+              gap: 1.5
+            })
+          }}
+        >
           <StyleButtonShadowV2
+            loading={isLoading}
+            onClick={isCustomer ? handleCallInitiate : isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleLoginOpen}
+            sx={{
+              padding: 0,
+              minWidth: isLg ? '450px' : isMd ? '350px' : isSm ? '200px' : '271px',
+              width: '100%',
+              '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } }
+            }}
+            fullWidth
+            variant="contained"
+          >
+            <Box display="flex" alignItems="center" gap="10px">
+              <Image src="/images/workercards/video-call.svg" alt="video-call" height={20} width={20} />
+              <UINewTypography color="common.white" variant="bodySemiBold" sx={{ textWrap: 'no-wrap' }}>
+                <FormattedMessage id="StartVideoCall" />
+              </UINewTypography>
+            </Box>
+          </StyleButtonShadowV2>
+          {isLg && (
+            <StyleButtonShadowV2
+              loading={isLoading}
+              onClick={isCustomer ? handleStartChatClick : handleLoginOpen}
+              sx={{
+                padding: 0,
+                minWidth: isLg ? '450px' : isMd ? '350px' : isSm ? '200px' : '271px',
+                width: '100%',
+                '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } },
+                '&.MuiButton-contained': {
+                  backgroundColor: '#E9E8EB'
+                }
+              }}
+              fullWidth
+              variant="contained"
+            >
+              <Box display="flex" alignItems="center" gap="10px">
+                <Image src="/images/workercards/Vector.svg" alt="start-chat" height={20} width={20} />
+                <UINewTypography color="primary.400" variant="bodySemiBold" sx={{ textWrap: 'no-wrap', lineHeight: '120%' }}>
+                  <FormattedMessage id="StartChat" />
+                </UINewTypography>
+              </Box>
+            </StyleButtonShadowV2>
+          )}
+
+          {/* <StyleButtonShadowV2
             loading={isLoading}
             onClick={isCustomer ? handleCallInitiate : isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleLoginOpen}
             sx={{
@@ -239,7 +296,7 @@ const EscortSliderMobile = ({
                 <FormattedMessage id="StartVideoCall" />
               </UINewTypography>
             </Box>
-          </StyleButtonShadowV2>
+          </StyleButtonShadowV2> */}
         </Box>
         <Box sx={{ width: '100%' }}>
           <UIStyledShadowButtonLike
@@ -254,6 +311,35 @@ const EscortSliderMobile = ({
           </UIStyledShadowButtonLike>
         </Box>
       </Box>
+      {!isLg && (
+        <Box sx={{ display: 'flex', gap: 1.5, mt: 1.5 }}>
+          <Box sx={{ width: '100%' }}>
+            <StyleButtonShadowV2
+              loading={isLoading}
+              onClick={isCustomer ? handleStartChatClick : handleLoginOpen}
+              sx={{
+                padding: 0,
+                minWidth: isSm ? '200px' : '271px',
+                width: '100%',
+                '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } },
+                '&.MuiButton-contained': {
+                  backgroundColor: '#E9E8EB'
+                }
+              }}
+              fullWidth
+              variant="contained"
+            >
+              <Box display="flex" alignItems="center" gap="10px">
+                <Image src="/images/workercards/Vector.svg" alt="start-chat" height={20} width={20} />
+                <UINewTypography color="primary.400" variant="bodySemiBold" sx={{ textWrap: 'no-wrap', lineHeight: '120%' }}>
+                  <FormattedMessage id="StartChat" />
+                </UINewTypography>
+              </Box>
+            </StyleButtonShadowV2>
+          </Box>
+        </Box>
+      )}
+      {/* <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth scroll="body"> */}
       <NewSignupStyledModalDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth scroll="body">
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
       </NewSignupStyledModalDialog>
