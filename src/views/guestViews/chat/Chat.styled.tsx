@@ -208,10 +208,11 @@ export const ChatBoxHeaderContainer = styled(Box)(({ theme }) => ({
   paddingRight: '20px',
   paddingLeft: '20px',
   width: '100%',
-  justifyContent: 'space-between',
+  justifyContent: 'start',
   heigh: '100%',
   minHeight: '40px',
   [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(1.5),
     paddingTop: theme.spacing(1.5)
   }
 }));
