@@ -21,6 +21,7 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { CometChatUIKit } from '@cometchat/chat-uikit-react';
 import { useAuthContext } from 'contexts/AuthContext';
+import { deleteCookie } from 'cookies-next';
 
 const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const asPath = usePathname();
@@ -37,6 +38,7 @@ const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
         }
       }
       await signOut({ callbackUrl: asPath.startsWith('/model') && !asPath.startsWith('/models') ? '/model' : '/' });
+      deleteCookie('ab-group');
     } catch (error) {
       toast.error('Error during sign-out:');
     } finally {

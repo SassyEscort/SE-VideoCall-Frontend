@@ -258,7 +258,7 @@ const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
                                   </ModelUITextConatiner>{' '}
                                   <ModelUITextConatiner sx={{ gap: 0.5, width: '100%' }}>
                                     <UITypographyText>
-                                      <FormattedMessage id="ConfirmPassword" /> 2
+                                      <FormattedMessage id="ConfirmPassword" />
                                     </UITypographyText>
                                     <UIStyledInputText
                                       fullWidth

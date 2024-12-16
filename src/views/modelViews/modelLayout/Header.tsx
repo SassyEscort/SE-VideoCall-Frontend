@@ -7,7 +7,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HomeMainModelContainer from './homeModelContainer';
 import SideBarModelMenu from './SideBarModelMenu';
 import ModelSignup from '../modelSignup';
@@ -19,6 +19,10 @@ import LanguageDropdown from 'components/common/LanguageDropdown';
 import { FormattedMessage } from 'react-intl';
 import { HeaderBoxContainer } from './ModelLayout.styled';
 import { gaEventTrigger } from 'utils/analytics';
+import { getCookie } from 'cookies-next';
+import ABRegister1Model from 'views/guestViews/abTestComponent/abRegister1Model';
+import UIStyledABTest1Model from 'views/guestViews/abTestComponent/abRegister1Model/UIStyleABTest1Model';
+import ABLogin1Model from 'views/guestViews/abTestComponent/abLogin1Model';
 
 const HeaderModelComponent = () => {
   // const url = new URL(window.location.href);
@@ -30,6 +34,15 @@ const HeaderModelComponent = () => {
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  const [abTestScenerio, setABTestScenerio] = useState({ experiment: 1, variation: 1 });
+
+  useEffect(() => {
+    let group: any = getCookie('ab-group');
+    if (typeof group === 'string') group = JSON.parse(group);
+    if (abTestScenerio.experiment !== group?.experiment || abTestScenerio.variation !== group?.variation) {
+      setABTestScenerio({ experiment: group?.experiment || 1, variation: group?.variation || 1 });
+    }
+  }, [getCookie('ab-group')]);
   // const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && !id ? true : false);
   const isSmaller = useMediaQuery('(max-width:320px)');
 
@@ -185,12 +198,25 @@ const HeaderModelComponent = () => {
         </Toolbar>
       </AppBar>
       <SideBarModelMenu open={openSidebar} toggleDrawer={toggleDrawer} />
-      <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
-        <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </UIStyledDialog>
-      <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
-        <ModelSignin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
-      </UIStyledDialog>
+      {abTestScenerio.experiment === 1 && abTestScenerio.variation === 1 ? (
+        <>
+          <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+            <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
+          </UIStyledDialog>
+          <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
+            <ModelSignin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
+          </UIStyledDialog>
+        </>
+      ) : (
+        <>
+          <UIStyledABTest1Model scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+            <ABRegister1Model onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
+          </UIStyledABTest1Model>
+          <UIStyledABTest1Model scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
+            <ABLogin1Model onClose={handleLoginClose} onSignupOpen={handleSignupOpen} />
+          </UIStyledABTest1Model>
+        </>
+      )}
       <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <ModelForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>

@@ -17,9 +17,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import * as yup from 'yup';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
-import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 
-const ABLogin2User = ({ onClose }: { onClose: () => void }) => {
+const ABLogin2User = ({ onClose, onSignupOpen }: { onClose: () => void; onSignupOpen: () => void }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -176,8 +175,11 @@ const ABLogin2User = ({ onClose }: { onClose: () => void }) => {
                                       }}
                                       InputProps={{
                                         endAdornment: (
-                                          <Box sx={{ display: 'flex' }}>
-                                            <EmailRoundedIcon />
+                                          <Box
+                                            sx={{ cursor: 'pointer', display: 'flex' }}
+                                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                          >
+                                            {showConfirmPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
                                           </Box>
                                         )
                                       }}
@@ -239,7 +241,11 @@ const ABLogin2User = ({ onClose }: { onClose: () => void }) => {
                           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
                             <UINewTypography variant="bodyRegular">
                               Have an account already?
-                              <Box component="span" sx={{ fontWeight: 800, color: 'white.main', textDecoration: 'underline' }}>
+                              <Box
+                                component="span"
+                                sx={{ fontWeight: 800, color: 'white.main', textDecoration: 'underline', cursor: 'Pointer' }}
+                                onClick={onSignupOpen}
+                              >
                                 {' '}
                                 Log in here
                               </Box>

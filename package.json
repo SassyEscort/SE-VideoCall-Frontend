@@ -37,6 +37,7 @@
     "@zegocloud/zego-uikit-prebuilt": "^2.12.2",
     "apexcharts": "^3.50.0",
     "axios": "1.6.2",
+    "cookies-next": "^5.0.2",
     "formik": "2.4.5",
     "html2canvas": "^1.4.1",
     "imagekit": "5.0.1",

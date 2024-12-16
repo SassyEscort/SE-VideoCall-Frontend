@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import { Formik } from 'formik';
@@ -16,7 +16,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import * as yup from 'yup';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
-import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 
 const ABLogin2Model = ({ onClose }: { onClose: () => void }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -175,8 +174,11 @@ const ABLogin2Model = ({ onClose }: { onClose: () => void }) => {
                                       }}
                                       InputProps={{
                                         endAdornment: (
-                                          <Box sx={{ display: 'flex' }}>
-                                            <EmailRoundedIcon />
+                                          <Box
+                                            sx={{ cursor: 'pointer', display: 'flex' }}
+                                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                          >
+                                            {showConfirmPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
                                           </Box>
                                         )
                                       }}

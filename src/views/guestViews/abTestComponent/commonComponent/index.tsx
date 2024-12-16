@@ -20,7 +20,7 @@ import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 
-const ABTestSignUpModel = ({ onClose }: { onClose: () => void }) => {
+const ABTestSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -282,7 +282,7 @@ const ABTestSignUpModel = ({ onClose }: { onClose: () => void }) => {
                                   </ModelUITextConatiner>{' '}
                                   <ModelUITextConatiner sx={{ gap: 0.5, width: '100%' }}>
                                     <UITypographyText>
-                                      <FormattedMessage id="ConfirmPassword" /> 2
+                                      <FormattedMessage id="ConfirmPassword" />
                                     </UITypographyText>
                                     <UIStyledInputText
                                       fullWidth
@@ -345,7 +345,11 @@ const ABTestSignUpModel = ({ onClose }: { onClose: () => void }) => {
                           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
                             <UINewTypography variant="bodyRegular">
                               Have an account already?
-                              <Box component="span" sx={{ fontWeight: 800, color: 'white.main', textDecoration: 'underline' }}>
+                              <Box
+                                component="span"
+                                sx={{ fontWeight: 800, color: 'white.main', textDecoration: 'underline' }}
+                                onClick={onLoginOpen}
+                              >
                                 {' '}
                                 Log in here
                               </Box>

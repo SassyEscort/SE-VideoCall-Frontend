@@ -1,4 +1,4 @@
- import React from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Divider from '@mui/material/Divider';
@@ -27,6 +27,7 @@ import { ROLE } from 'constants/workerVerification';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
+import { deleteCookie } from 'cookies-next';
 
 const StyleButtonV2 = dynamic(() => import('components/UIComponents/StyleLoadingButton'));
 const ErrorBox = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })));
@@ -86,6 +87,7 @@ const GuestLogin = ({
         role: values.role
       });
       if (res?.status === 200) {
+        deleteCookie('ab-group');
         refresh();
         onClose();
       } else if (res?.error) {
