@@ -1,4 +1,4 @@
-import { Divider, Box, useMediaQuery } from '@mui/material';
+import { Divider, Box, useMediaQuery, Dialog, DialogTitle, IconButton, Typography } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { memo, useEffect, useRef, useState } from 'react';
 import {
@@ -16,7 +16,8 @@ import {
   ClientChatTextBoxContainer,
   ModelChatMainBoxContainer,
   ModelChatTextBoxContainer,
-  ArrowBoxWraper
+  ArrowBoxWraper,
+  NoModelSelectedBox
 } from './Chat.styled';
 import CustomComposerView from './CustomComposerView';
 import theme from 'themes/theme';
@@ -24,6 +25,9 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ChatSidbar from './ChatSidbar';
 import moment from 'moment';
 import { useChatFeatureContext } from 'contexts/chatFeatureContext';
+import { FormattedMessage } from 'react-intl';
+import { SelectedImageBox } from 'views/admin/Call-logs/CallLogs.styled';
+import CloseIcon from '@mui/icons-material/Close';
 
 const ChatDescription = () => {
   const chatRef = useRef<HTMLDivElement | null>(null);
@@ -32,9 +36,20 @@ const ChatDescription = () => {
   const favPhoto = modelDetails?.photos?.filter((x) => x.favourite).map((item) => item.link)[0];
 
   const [showSidebar, setShowSidebar] = useState(false);
+  const [selectedImage, setSelectedImage] = useState('');
+  const [openSelectImage, setOpenSelectImage] = useState(false);
 
   const handleBackClick = () => {
     setShowSidebar(true);
+  };
+
+  const handleSelectedImages = (link: string) => {
+    setOpenSelectImage(true);
+    setSelectedImage(link);
+  };
+
+  const handleCloseImageDialog = () => {
+    setOpenSelectImage(false);
   };
 
   useEffect(() => {
@@ -58,7 +73,7 @@ const ChatDescription = () => {
           {isSmUp && (
             <>
               <Divider orientation="vertical" flexItem sx={{ borderColor: '#E9E8EB29' }} />
-              {(modelDetails?.name || selectedModelDetails?.name) && (
+              {modelDetails?.name || selectedModelDetails?.name ? (
                 <ChatBoxMainContainer>
                   <ChatBoxInnerContainer>
                     <ModelDetailsInnerBoxContainer>
@@ -114,11 +129,22 @@ const ChatDescription = () => {
                                 </ClientChatMainBoxContainer>
                               ) : (
                                 <ModelChatMainBoxContainer>
-                                  <ModelChatTextBoxContainer>
-                                    <UINewTypography variant="body1" color="text.secondary">
-                                      {message.sender_type !== 'customers' ? message?.message_content : ''}
-                                    </UINewTypography>
-                                  </ModelChatTextBoxContainer>
+                                  {message.message_type === 'text' ? (
+                                    <ModelChatTextBoxContainer>
+                                      <UINewTypography variant="body1" color="text.secondary">
+                                        {message.sender_type !== 'customers' ? message?.message_content : ''}
+                                      </UINewTypography>
+                                    </ModelChatTextBoxContainer>
+                                  ) : (
+                                    <ModelChatTextBoxContainer>
+                                      <Box
+                                        component="img"
+                                        src={message.link}
+                                        sx={{ height: 100, width: 100, cursor: 'pointer' }}
+                                        onClick={() => handleSelectedImages(message.link)}
+                                      />
+                                    </ModelChatTextBoxContainer>
+                                  )}
 
                                   <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
                                     {message?.time_stamp ? moment(message.time_stamp).format('LT') : moment().format('LT')}
@@ -132,6 +158,12 @@ const ChatDescription = () => {
 
                     <CustomComposerView onSendMessage={handleMessageInputChange} />
                   </ChatBoxInnerContainer>
+                </ChatBoxMainContainer>
+              ) : (
+                <ChatBoxMainContainer>
+                  <NoModelSelectedBox>
+                    <FormattedMessage id="NoModelSelected" />
+                  </NoModelSelectedBox>
                 </ChatBoxMainContainer>
               )}
             </>
@@ -198,11 +230,22 @@ const ChatDescription = () => {
                                 </ClientChatMainBoxContainer>
                               ) : (
                                 <ModelChatMainBoxContainer>
-                                  <ModelChatTextBoxContainer>
-                                    <UINewTypography variant="body1" color="text.secondary">
-                                      {message.sender_type !== 'customers' ? message?.message_content : ''}
-                                    </UINewTypography>
-                                  </ModelChatTextBoxContainer>
+                                  {message.message_type === 'text' ? (
+                                    <ModelChatTextBoxContainer sx={{ wordBreak: 'break-all' }}>
+                                      <UINewTypography variant="body1" color="text.secondary">
+                                        {message.sender_type !== 'customers' ? message?.message_content : ''}
+                                      </UINewTypography>
+                                    </ModelChatTextBoxContainer>
+                                  ) : (
+                                    <ModelChatTextBoxContainer>
+                                      <Box
+                                        component="img"
+                                        src={message.link}
+                                        sx={{ height: 100, width: 100, cursor: 'pointer' }}
+                                        onClick={() => handleSelectedImages(message.link)}
+                                      />
+                                    </ModelChatTextBoxContainer>
+                                  )}
 
                                   <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
                                     {message?.time_stamp ? moment(message.time_stamp).format('LT') : moment().format('LT')}
@@ -222,6 +265,26 @@ const ChatDescription = () => {
           )}
         </>
       )}
+      <Dialog open={openSelectImage} onClose={handleCloseImageDialog} maxWidth="md" fullWidth>
+        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography variant="h6"></Typography>
+          <IconButton onClick={handleCloseImageDialog} sx={{ color: '#fff' }}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <SelectedImageBox>
+          {selectedImage && (
+            <Box
+              component="img"
+              src={selectedImage}
+              alt="Selected Screenshot"
+              width={900}
+              height={450}
+              style={{ maxWidth: '100%', maxHeight: '80vh', objectFit: 'scale-down' }}
+            />
+          )}
+        </SelectedImageBox>
+      </Dialog>
     </>
   );
 };

@@ -879,7 +879,7 @@
   "DuplicateDetected": "Duplicado detectado: El documento que subiste ya existe.",
   "firstTimeOnly": "SOLO PRIMERA VEZ",
   "InvoiceReport": "Informe de Facturas",
-  "ClickToChat": "Haga clic para chatear",
+  "SupportChat": "Soporte por chat",
   "IsBusy": "Esta ocupada",
   "LimitedOffer": "Oferta Limitada",
   "SorryThatPage": "Lo sentimos, esa página no se pudo encontrar.",
@@ -1119,5 +1119,8 @@
   "JoinFlirtBateNudeChatNow": "Únase a Flirtbate Nude Chat ahora: ¡su experiencia privada de desnudos en vivo lo espera!",
   "AtFlirtBateWeBringTheWorld": "En Flirtbate, te traemos el mundo de las transmisiones en vivo de desnudos y las sesiones íntimas de desnudos por video chat. Comience a explorar nuestros modelos de cámaras web desnudas gratuitas y dé el primer paso hacia una conexión emocionante y personalizada.",
   "CreateYourFreeAccountToday": "Cree su cuenta gratuita hoy: ¡miles de modelos en línea!",
-  "StartChat": "Iniciar chat"
+  "StartChat": "Iniciar chat",
+  "NoModelSelected": "Ningún modelo seleccionado por favor seleccione un modelo",
+  "Chat": "Charlar",
+  "NoModelFound": "No se encontró ningún modelo"
 }

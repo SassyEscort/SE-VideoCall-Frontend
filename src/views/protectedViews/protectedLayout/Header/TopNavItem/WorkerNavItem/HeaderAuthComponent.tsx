@@ -27,9 +27,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import Divider from '@mui/material/Divider';
-import ChatRoomDropdown from 'components/common/stepper/ChatDropDown';
 import { useTawk } from 'contexts/TawkContext';
 // import { useVideoCallContext } from 'contexts/videoCallContext';
 import { useCallFeatureContext } from 'contexts/CallFeatureContext';
@@ -59,7 +57,6 @@ const HeaderAuthComponent = () => {
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
-  const isLgDown = useMediaQuery(theme.breakpoints.down('lg'));
   const parthname = usePathname();
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -271,11 +268,6 @@ const HeaderAuthComponent = () => {
             <BorderBox>
               <LanguageDropdown />
             </BorderBox>
-            {!isLgDown && (
-              <BorderBox>
-                <ChatRoomDropdown />
-              </BorderBox>
-            )}
           </>
         )}
 
@@ -495,19 +487,9 @@ const HeaderAuthComponent = () => {
               </ListItemIcon>
               <ListItemText>
                 <UINewTypography variant="bodyLight" color="text.secondary">
-                  <FormattedMessage id="ClickToChat" />
+                  <FormattedMessage id="SupportChat" />
                 </UINewTypography>
               </ListItemText>
-            </MenuItem>
-
-            <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-            <MenuItem>
-              <ListItemIcon>
-                <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0, color: 'secondary.700' }}>
-                  <QuestionAnswerIcon />
-                </IconButton>
-              </ListItemIcon>
-              <ChatRoomDropdown />
             </MenuItem>
 
             <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />

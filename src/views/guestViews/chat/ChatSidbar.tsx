@@ -24,6 +24,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import moment from 'moment';
 import { useChatFeatureContext } from 'contexts/chatFeatureContext';
+import { FormattedMessage } from 'react-intl';
+import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 
 const ChatSidbar = ({ onSelectModel }: { onSelectModel: (model: any) => void }) => {
   const { modelHistoryListSearch, historyOfModels, onlineModelsCount, handleSelectedModelDetails, handleHistoryModleListSearch } =
@@ -49,7 +51,7 @@ const ChatSidbar = ({ onSelectModel }: { onSelectModel: (model: any) => void }) 
         <>
           <ModelHeaderBoxContainer>
             <UINewTypography variant="newTitle" color="text.primary">
-              Chat
+              <FormattedMessage id="Chat" />
             </UINewTypography>
             <ModelReplyBoxContainer>
               {onlineModelsCount > 0 && (
@@ -126,7 +128,15 @@ const ChatSidbar = ({ onSelectModel }: { onSelectModel: (model: any) => void }) 
                         </OnlineFirstBoxContainer>
                       )}
                     </ModelNameText>
-                    <ModelDescriptionText color="text.primary">{history.message_content}</ModelDescriptionText>
+
+                    {history.message_type === 'text' ? (
+                      <ModelDescriptionText color="text.primary">{history.message_content}</ModelDescriptionText>
+                    ) : (
+                      <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center' }}>
+                        <ImageOutlinedIcon sx={{ color: 'text.primary' }} />
+                        <ModelDescriptionText color="text.primary">Image</ModelDescriptionText>
+                      </Box>
+                    )}
                   </ModelNameBoxContainer>
                 </ModelInformationInnerBoxContainer>
 
@@ -150,7 +160,9 @@ const ChatSidbar = ({ onSelectModel }: { onSelectModel: (model: any) => void }) 
             </React.Fragment>
           ))
         ) : (
-          <></>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <FormattedMessage id="NoModelFound" />
+          </Box>
         )}
       </ModelDetailsInnerBoxContainer>
     </ModelDetailsMainBoxContainer>

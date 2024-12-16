@@ -881,7 +881,7 @@
   "DuplicateDetected": "Duplicate detected: The document you uploaded already exists.",
   "firstTimeOnly": "FIRST TIME ONLY",
   "InvoiceReport": "Invoice Report",
-  "ClickToChat": "Click to chat",
+  "SupportChat": "Chat support",
   "IsBusy": "is busy",
   "LimitedOffer": "Limited Offer",
   "SorryThatPage": "Sorry, that page could not be found.",
@@ -1122,5 +1122,8 @@
   "JoinFlirtBateNudeChatNow": "Join Flirtbate Nude Chat Now – Your Private Nude Live Experience Awaits!",
   "AtFlirtBateWeBringTheWorld": "At Flirtbate, we bring the world of nude live streams and intimate video chat nude sessions to you. Start browsing our free nude webcam models and take the first step toward an exciting, personalized connection.",
   "CreateYourFreeAccountToday": "Create Your Free Account Today – Thousands of Models Online!",
-  "StartChat": "Start Chat"
+  "StartChat": "Start Chat",
+  "NoModelSelected": "No model selected please select a model",
+  "Chat": "Chat",
+  "NoModelFound": "No model found"
 }
