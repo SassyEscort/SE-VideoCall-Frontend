@@ -236,7 +236,7 @@ const HeaderAuthComponent = () => {
           socket.emit('join', token.customer_user_name);
           // Listener for chat messages
           socket.on('chat-message', async (message: ISocketMessage) => {
-            if (!parthname.startsWith('/chat/')) {
+            if (!parthname.startsWith('/chat')) {
               const chatNotificationData = await handleChatNotification();
               setSnackbarOptions({
                 open: true,

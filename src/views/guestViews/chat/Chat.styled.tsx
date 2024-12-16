@@ -38,7 +38,7 @@ export const ChatMainBoxContainer = styled(Box)(({ theme }) => ({
   border: '1px solid #100B19',
   [theme.breakpoints.down('sm')]: {
     borderRadius: 0,
-    height: '90vh',
+    // height: '90vh',
     maxHeight: '100%',
     overflowY: 'auto'
   },
@@ -196,10 +196,10 @@ export const ChatBoxInnerContainer = styled(Box)(({ theme }) => ({
   height: '100%',
   justifyContent: 'space-between',
   [theme.breakpoints.down('sm')]: {
-    minHeight: '90vh'
+    minHeight: '100%'
   },
   [theme.breakpoints.up('sm')]: {
-    minHeight: '85vh'
+    minHeight: '79vh'
   }
 }));
 
