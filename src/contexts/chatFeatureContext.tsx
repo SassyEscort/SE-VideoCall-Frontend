@@ -144,7 +144,8 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
           seen: true,
           message_type: 'text',
           time_stamp: new Date().toISOString(),
-          __v: 0
+          __v: 0,
+          link: ''
         }
       ]);
       socket.emit('chat-message', newMessage);

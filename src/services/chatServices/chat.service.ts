@@ -31,6 +31,7 @@ export interface ISocketMessage {
   time_stamp: string;
   __v: number;
   _id: string;
+  link: string;
 }
 
 export interface IModelHistoryList {

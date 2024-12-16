@@ -29,11 +29,14 @@ export const Banner = styled(Box)(({ theme }) => ({
   backgroundColor: 'rgba(30, 8, 21, 1)',
   overflow: 'hidden',
   width: '100%',
-  height: 768,
+  height: 890,
   alignItems: 'end',
   position: 'relative',
   [theme.breakpoints.only('xs')]: {
-    height: 762
+    height: 1190
+  },
+  [theme.breakpoints.only('sm')]: {
+    height: 862
   },
   [theme.breakpoints.down('sm')]: {
     marginTop: '96px'

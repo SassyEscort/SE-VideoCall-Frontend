@@ -3,10 +3,8 @@ import { Box, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const ImageContainer = styled(Box)(({ theme }) => ({
-  width: '100%',
-  maxWidth: '48px',
-  height: '100%',
-  maxHeight: '48px',
+  width: 48,
+  height: 48,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
@@ -338,6 +336,10 @@ export const ModelNameText = styled(Typography)(({ theme }) => ({
 }));
 
 export const ModelDescriptionText = styled(Typography)(({ theme }) => ({
+  width: '100px',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
   [theme.breakpoints.down('sm')]: {
     fontSize: '12px',
     fontWeight: 400,
@@ -348,4 +350,11 @@ export const ModelDescriptionText = styled(Typography)(({ theme }) => ({
     fontWeight: 400,
     lineHeight: '16.8px'
   }
+}));
+
+export const NoModelSelectedBox = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100%'
 }));
