@@ -82,7 +82,7 @@ const ChatDescription = () => {
                               </OnlineFirstBoxContainer>
                             )}
                           </ChatBoxHeaderInnerContainer>
-                          <Box component="img" src="/images/icons/video-call-icon.svg" width={40} height={40} sx={{ cursor: 'pointer' }} />
+                          {/* <Box component="img" src="/images/icons/video-call-icon.svg" width={40} height={40} sx={{ cursor: 'pointer' }} /> */}
                         </ChatBoxHeaderContainer>
                         <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29', mt: '16px' }} />
                       </Box>
@@ -166,7 +166,7 @@ const ChatDescription = () => {
                               </OnlineFirstBoxContainer>
                             )}
                           </ChatBoxHeaderInnerContainer>
-                          <Box component="img" src="/images/icons/video-call-icon.svg" width={40} height={40} sx={{ cursor: 'pointer' }} />
+                          {/* <Box component="img" src="/images/icons/video-call-icon.svg" width={40} height={40} sx={{ cursor: 'pointer' }} /> */}
                         </ChatBoxHeaderContainer>
                         <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29', mt: '16px' }} />
                       </Box>
