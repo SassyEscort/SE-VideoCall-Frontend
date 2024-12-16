@@ -1,3 +1,4 @@
+import { Snackbar } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
@@ -292,4 +293,25 @@ export const GiftBoxThird = styled(Box)(() => ({
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat'
+}));
+
+export const StyledSnackBar = styled(Snackbar)(() => ({
+  '&.MuiSnackbar-root': {
+    top: '120px'
+  },
+  '& .MuiSnackbarContent-message': {
+    fontSize: '16px',
+    fontWeight: 800
+  }
+}));
+
+export const StyledSnackBarInnerBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(2),
+  backgroundColor: '#611441',
+  height: '60px',
+  borderRadius: theme.spacing(1),
+  paddingInline: theme.spacing(2),
+  cursor: 'pointer'
 }));
