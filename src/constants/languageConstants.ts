@@ -24,7 +24,7 @@ export const CHATROOM = [
   { title: 'Mature Chat', id: 7, url: '/mature-chat' },
   { title: 'Lesbian Chat', id: 8, url: '/lesbian-chat' },
   { title: 'Cuckold Chat', id: 9, url: '/cuckold-chat' },
-  { title: 'Anonymous Chat', id: 9, url: '/anonymous-chat' }
+  { title: 'Anonymous Chat', id: 10, url: '/anonymous-chat' }
 ];
 
 export const SEOCHATPATH = [

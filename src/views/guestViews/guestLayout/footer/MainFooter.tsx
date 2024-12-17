@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FooterSubICon } from './MainFooter.styled';
+import { FooterMainBox, FooterSubICon } from './MainFooter.styled';
 import { FooterCityList } from './footer.constants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
@@ -16,6 +16,7 @@ import { gaEventTrigger } from 'utils/analytics';
 import { useState } from 'react';
 import { useAuthContext } from '../../../../contexts/AuthContext';
 import dynamic from 'next/dynamic';
+import { CHATROOM } from 'constants/languageConstants';
 
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
@@ -89,7 +90,7 @@ const MainFooter = ({
               }}
             />
           </Box>
-          <Box mt={'32px'}>
+          <Box mt="32px">
             <Box sx={{ display: 'flex', flexDirection: isSmDown ? 'column' : 'row', justifyContent: 'space-between', px: 1.5 }}>
               <ModelUITextConatiner
                 sx={{
@@ -119,90 +120,114 @@ const MainFooter = ({
                 </Box>
               </ModelUITextConatiner>
 
-              <Box sx={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
-                <FooterSubICon sx={{ flexDirection: 'column', display: 'flex', textAlign: 'left' }}>
-                  <UINewTypography sx={{ mb: '6px' }} variant="captionBold">
-                    <FormattedMessage id="Menu" />
-                  </UINewTypography>
-                  <ModelUITextConatiner sx={{ gap: 1 }}>
-                    <UINewTypography variant="SubtitleSmallRegular">
-                      <Link prefetch={false} href="/">
-                        <FormattedMessage id="Home" />
-                      </Link>
+              <FooterMainBox>
+                <Box sx={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
+                  <FooterSubICon sx={{ flexDirection: 'column', display: 'flex', textAlign: 'left' }}>
+                    <UINewTypography sx={{ mb: '6px' }} variant="captionBold">
+                      <FormattedMessage id="Menu" />
                     </UINewTypography>
-                    {/* <UINewTypography variant="SubtitleSmallRegular">
+                    <ModelUITextConatiner sx={{ gap: 1 }}>
+                      <UINewTypography variant="SubtitleSmallRegular">
+                        <Link prefetch={false} href="/">
+                          <FormattedMessage id="Home" />
+                        </Link>
+                      </UINewTypography>
+                      {/* <UINewTypography variant="SubtitleSmallRegular">
                       <Link prefetch={false} href="https://blog.sassyescort.com/" target="_blank">
                         <FormattedMessage id="HowItWorks" />
                       </Link>
                     </UINewTypography> */}
 
-                    <UINewTypography variant="SubtitleSmallRegular">
-                      <Link prefetch={false} href="/faq">
-                        <FormattedMessage id="FAQs" />
-                      </Link>
-                    </UINewTypography>
-                    {isCustomer || isModel ? (
-                      <Link prefetch={false} href="/">
-                        <UINewTypography variant="SubtitleSmallRegular" sx={{ cursor: 'pointer' }}>
-                          <FormattedMessage id="ExploreModels" />
-                        </UINewTypography>
-                      </Link>
-                    ) : (
-                      <>
-                        <UINewTypography
-                          variant="SubtitleSmallRegular"
-                          sx={{ cursor: 'pointer' }}
-                          onClick={() => {
-                            gaEventTrigger('Signup_Button_clicked', { source: 'footer' });
-                            isFreeCreditAvailable ? handleFreeCreditSignupOpen() : handleSignupOpen();
-                          }}
-                        >
-                          <FormattedMessage id="SignUp" />
-                        </UINewTypography>
-                        <UINewTypography
-                          variant="SubtitleSmallRegular"
-                          sx={{ cursor: 'pointer' }}
-                          onClick={() => {
-                            gaEventTrigger('Login_Button_clicked', { source: 'footer', category: 'Button' });
-                            handleLoginOpen();
-                          }}
-                        >
-                          <FormattedMessage id="LogIn" />
-                        </UINewTypography>
-                      </>
-                    )}
-                    {isCustomer && (
                       <UINewTypography variant="SubtitleSmallRegular">
-                        <Link prefetch={false} href="/model">
-                          <FormattedMessage id="RegisterAsModel" />
+                        <Link prefetch={false} href="/faq">
+                          <FormattedMessage id="FAQs" />
                         </Link>
                       </UINewTypography>
-                    )}
-                  </ModelUITextConatiner>
-                </FooterSubICon>
+                      {isCustomer || isModel ? (
+                        <Link prefetch={false} href="/">
+                          <UINewTypography variant="SubtitleSmallRegular" sx={{ cursor: 'pointer' }}>
+                            <FormattedMessage id="ExploreModels" />
+                          </UINewTypography>
+                        </Link>
+                      ) : (
+                        <>
+                          <UINewTypography
+                            variant="SubtitleSmallRegular"
+                            sx={{ cursor: 'pointer' }}
+                            onClick={() => {
+                              gaEventTrigger('Signup_Button_clicked', { source: 'footer' });
+                              isFreeCreditAvailable ? handleFreeCreditSignupOpen() : handleSignupOpen();
+                            }}
+                          >
+                            <FormattedMessage id="SignUp" />
+                          </UINewTypography>
+                          <UINewTypography
+                            variant="SubtitleSmallRegular"
+                            sx={{ cursor: 'pointer' }}
+                            onClick={() => {
+                              gaEventTrigger('Login_Button_clicked', { source: 'footer', category: 'Button' });
+                              handleLoginOpen();
+                            }}
+                          >
+                            <FormattedMessage id="LogIn" />
+                          </UINewTypography>
+                        </>
+                      )}
+                      {isCustomer && (
+                        <UINewTypography variant="SubtitleSmallRegular">
+                          <Link prefetch={false} href="/model">
+                            <FormattedMessage id="RegisterAsModel" />
+                          </Link>
+                        </UINewTypography>
+                      )}
+                    </ModelUITextConatiner>
+                  </FooterSubICon>
 
-                <FooterSubICon sx={{ flexDirection: 'column', display: 'flex', textAlign: 'left' }}>
-                  <UINewTypography sx={{ mb: '6px' }} variant="captionBold">
-                    <FormattedMessage id="Resources" />
-                  </UINewTypography>
-                  {FooterCityList?.map((val, index) => (
-                    <UINewTypography variant="SubtitleSmallRegular" key={index}>
-                      <Box
-                        sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
-                        component={Link}
-                        prefetch={false}
-                        shallow={true}
-                        href={`${val?.link}`}
-                      >
-                        <FormattedMessage id={val?.name} />
-                      </Box>
+                  <FooterSubICon sx={{ flexDirection: 'column', display: 'flex', textAlign: 'left' }}>
+                    <UINewTypography sx={{ mb: '6px' }} variant="captionBold">
+                      <FormattedMessage id="Resources" />
                     </UINewTypography>
-                  ))}
-                </FooterSubICon>
-              </Box>
+                    {FooterCityList?.map((val, index) => (
+                      <UINewTypography variant="SubtitleSmallRegular" key={index}>
+                        <Box
+                          sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
+                          component={Link}
+                          prefetch={false}
+                          shallow={true}
+                          href={`${val?.link}`}
+                        >
+                          <FormattedMessage id={val?.name} />
+                        </Box>
+                      </UINewTypography>
+                    ))}
+                  </FooterSubICon>
+                </Box>
+
+                <Box sx={{ display: 'flex', gap: 10, justifyContent: 'space-around' }}>
+                  <FooterSubICon sx={{ flexDirection: 'column', display: 'flex', textAlign: 'left' }}>
+                    <UINewTypography sx={{ mb: '6px' }} variant="captionBold">
+                      <FormattedMessage id="Category" />
+                    </UINewTypography>
+                    {CHATROOM?.map((val, index) => (
+                      <UINewTypography variant="SubtitleSmallRegular" key={index}>
+                        <Box
+                          sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
+                          component={Link}
+                          prefetch={false}
+                          shallow={true}
+                          href={val?.url}
+                        >
+                          <FormattedMessage id={val?.title} />
+                        </Box>
+                      </UINewTypography>
+                    ))}
+                  </FooterSubICon>
+                  <FooterSubICon sx={{ width: '120px', display: { xs: 'block', md: 'none' } }}></FooterSubICon>
+                </Box>
+              </FooterMainBox>
             </Box>
           </Box>
-          <Box sx={{ textAlign: 'center', mt: isSmDown ? '70px' : '70px' }}>
+          <Box sx={{ textAlign: 'center', mt: { xs: '40px', md: '70px' } }}>
             <UINewTypography variant="SubtitleSmallRegular">
               <FormattedMessage id="2024SassyEscort" />
             </UINewTypography>

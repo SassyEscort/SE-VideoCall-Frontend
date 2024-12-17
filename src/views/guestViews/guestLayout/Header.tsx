@@ -29,7 +29,6 @@ const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
 const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
 const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'));
-const ChatRoomDropdown = dynamic(() => import('components/common/stepper/ChatDropDown'));
 const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
 
 const HeaderGuestComponent = () => {
@@ -201,14 +200,9 @@ const HeaderGuestComponent = () => {
               <LanguageDropdown />
             </Box>
           ) : (
-            <>
-              <HeaderDropdownStyledBox>
-                <LanguageDropdown />
-              </HeaderDropdownStyledBox>
-              <HeaderDropdownStyledBox>
-                <ChatRoomDropdown />
-              </HeaderDropdownStyledBox>
-            </>
+            <HeaderDropdownStyledBox>
+              <LanguageDropdown />
+            </HeaderDropdownStyledBox>
           )}
           {!isMdUp && (
             <>
@@ -256,16 +250,6 @@ const HeaderGuestComponent = () => {
                     </UIThemeShadowButton>
                   </ListItemText>
                 </MenuItem>
-                {isSmDown && (
-                  <>
-                    <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                    <MenuItem>
-                      <HeaderDropdownStyledBox>
-                        <ChatRoomDropdown />
-                      </HeaderDropdownStyledBox>
-                    </MenuItem>
-                  </>
-                )}
               </MenuContainer>
             </>
           )}

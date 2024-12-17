@@ -165,6 +165,15 @@ const WorkerCard = ({
         <SeconderContainerWorkerCard>
           <SubContainertWorkerCard>
             <ProfileCardContainer>
+              {/* <ChatMessageMainContainer>
+                <ChatMessageInnerBoxContainer>
+                  <ChatMessageImg src="/images/home/chat-mes-icon.svg" />
+                  <ChatMessageText color="text.secondary">
+                    <FormattedMessage id="NewMessage" />
+                  </ChatMessageText>
+                </ChatMessageInnerBoxContainer>
+              </ChatMessageMainContainer> */}
+
               <NameCardContainer>
                 <TextBoxContainer>
                   <UINewTypography variant="newTitle" color="#ffff">
