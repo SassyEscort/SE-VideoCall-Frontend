@@ -1,11 +1,11 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import { ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
@@ -14,9 +14,10 @@ import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import * as yup from 'yup';
-import { PASSWORD_PATTERN } from 'constants/regexConstants';
+import { EMAIL_REGEX, NAME_REGEX } from 'constants/regexConstants';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+<<<<<<< HEAD
 import {
   DescriptionTextTypography,
   EarnTaxtTypography,
@@ -36,27 +37,119 @@ import {
   RightSideMainTitleText,
   RightSideSubTitleText
 } from './abRegister1Model.styled';
+=======
+import { useRouter } from 'next/navigation';
+import { ROLE } from 'constants/workerVerification';
+import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
+import { gaEventTrigger } from 'utils/analytics';
+import { toast } from 'react-toastify';
+import { getErrorMessage } from 'utils/errorUtils';
+import { ErrorMessage } from 'constants/common.constants';
+
+interface ISignUpProps {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  role: ROLE;
+}
+>>>>>>> 9cba7cad7e503cc524606d7b3a93949d63f6ba43
 
 const ABRegister1Model = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
+  const intl = useIntl();
+  const route = useRouter();
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [redirectSeconds, setRedirectSeconds] = useState(3);
+  const [activeStep, setActiveStep] = useState(0);
+  const [alert, setAlert] = useState('');
+
+  useEffect(() => {
+    if (activeStep > 0) {
+      const timer = setTimeout(() => {
+        setRedirectSeconds((prevSeconds) => prevSeconds - 1);
+      }, 1000);
+
+      if (redirectSeconds === 0 && activeStep > 0) {
+        clearTimeout(timer);
+      }
+
+      return () => clearTimeout(timer);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeStep, redirectSeconds]);
 
   const validationSchema = yup.object({
-    password: yup.string().required('New Password Is Required').min(8, 'Password Must Be 8 character long').matches(PASSWORD_PATTERN, {
-      message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
-      excludeEmptyString: true
-    }),
+    name: yup
+      .string()
+      .trim()
+      .required('Nameisrequired')
+      .min(2, 'Nameistooshort')
+      .max(20, 'Nameistoolong')
+      .matches(NAME_REGEX, 'Noleadingspaces'),
+    email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
+    password: yup.string().required('Passwordisrequired').min(8, 'PasswordMustBe'),
     confirmPassword: yup
       .string()
-      .required('confirm Password Is Required')
-      .min(8, 'Password Must Be 8 character long')
-      .matches(PASSWORD_PATTERN, {
-        message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
-        excludeEmptyString: true
-      })
-      .oneOf([yup.ref('password')], 'password and confirm password should match')
+      .required('ConfirmPasswordIsRequired')
+      .oneOf([yup.ref('password'), ''], 'ConfirmPasswordDoesNotMatch'),
+    role: yup.string().required('Roleisrequired').oneOf(['customer', 'model'], 'InvalidRole')
   });
+
+  const handleFormSubmit = async (values: ISignUpProps) => {
+    try {
+      const { PROVIDERCUSTOM_TYPE } = await import('constants/signUpConstants');
+      setLoading(true);
+      values.name = values.name.trim();
+      const data = await GuestAuthService.genericSignup(values);
+      if (data.code === 200) {
+        setActiveStep(1);
+        route.refresh();
+        const { signIn } = await import('next-auth/react');
+        if (values?.role === ROLE.CUSTOMER) {
+          const loginResponse = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {
+            redirect: false,
+            email: values.email,
+            password: values.password
+          });
+
+          if (loginResponse?.status === 200) {
+            route.refresh();
+            setTimeout(() => {
+              onClose();
+            }, 3000);
+            gaEventTrigger('client_signup_completed', { source: 'guest_signup', category: 'Button' });
+          } else {
+            setAlert('Login after signup failed. Please log in manually.');
+          }
+        } else {
+          const loginResponse = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {
+            redirect: false,
+            email: values.email,
+            password: values.password
+          });
+          if (loginResponse?.status === 200) {
+            route.push('/model/profile');
+            onClose();
+            gaEventTrigger('signup_form_CTA_click', { source: 'model_signup', category: 'Button' });
+          } else {
+            setAlert('Login after signup failed. Please log in manually.');
+          }
+        }
+      } else if (data?.code === 403) {
+        toast.error(ErrorMessage);
+      } else {
+        const errorMessage = getErrorMessage(data?.custom_code);
+        setAlert(intl.formatMessage({ id: errorMessage }));
+      }
+    } catch (error) {
+      toast.error(ErrorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -66,11 +159,18 @@ const ABRegister1Model = ({ onClose, onLoginOpen }: { onClose: () => void; onLog
           email: '',
           password: '',
           confirmPassword: '',
-          role: ''
+          role: ROLE.CUSTOMER
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log(values, 'values');
+        onSubmit={(values, { setSubmitting }) => {
+          try {
+            handleFormSubmit(values);
+          } catch (error) {
+            //nothing
+          } finally {
+            setLoading(false);
+            setSubmitting(false);
+          }
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
