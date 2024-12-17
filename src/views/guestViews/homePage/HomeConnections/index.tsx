@@ -9,7 +9,7 @@ import theme from 'themes/theme';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import {
@@ -32,6 +32,13 @@ import {
   ImgBoxContainer,
   ThirdBoxContainer
 } from './HomeConnections.styled';
+import { getCookie } from 'cookies-next';
+import UIStyledDialogg from 'components/UIComponents/UIStyledDialog/UIStyleDialogsss';
+import ABLogin1User from 'views/guestViews/abTestComponent/abLogin1User';
+import ABLogin2User from 'views/guestViews/abTestComponent/abLogin2User';
+import ABRegister2User from 'views/guestViews/abTestComponent/abRegister2User';
+import UIStyleABTest2User from 'views/guestViews/abTestComponent/abRegister2User/UIStyleABTest2User';
+import ABTestSignUpUser from 'views/guestViews/abTestComponent/commonComponent';
 
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
@@ -55,6 +62,15 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const [openChangePassword, setIsOpenChangePassword] = useState(email && !id && pathName !== '/profile' ? true : false);
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
+  const [abTestScenerio, setABTestScenerio] = useState({ experiment: 1, variation: 1 });
+
+  useEffect(() => {
+    let group: any = getCookie('ab-group');
+    if (typeof group === 'string') group = JSON.parse(group);
+    if (abTestScenerio.experiment !== group?.experiment || abTestScenerio.variation !== group?.variation) {
+      setABTestScenerio({ experiment: group?.experiment || 1, variation: group?.variation || 1 });
+    }
+  }, [getCookie('ab-group')]);
 
   const { isCustomer } = useAuthContext();
 
@@ -252,31 +268,57 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
         ' '
       )}
 
-      <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
-        <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </NewSignupStyledModalDialog>
-      <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
-        <GuestLogin
-          isFreeCreditAvailable={isFreeCreditAvailable}
-          onClose={handleLoginClose}
-          onSignupOpen={handleSignupOpen}
-          onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
-          handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
-          // handleLoginOpen={handleLoginOpen}
-          // freeSignupOpen={freeSignupOpen}
-          // handleFreeCreditSignupClose={handleFreeCreditSignupClose}
-          image="/images/auth/auth-model1.webp"
-        />
-      </UIStyledDialog>
-      <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
-        <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
-      </UIStyledDialog>
-      <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
-        <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
-      </UIStyledDialog>
-      <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
-        <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-      </NewSignupStyledModalDialog>
+      {abTestScenerio.experiment === 1 && abTestScenerio.variation === 1 ? (
+        <>
+          <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+            <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
+          </NewSignupStyledModalDialog>
+          <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
+            <GuestLogin
+              isFreeCreditAvailable={isFreeCreditAvailable}
+              onClose={handleLoginClose}
+              onSignupOpen={handleSignupOpen}
+              onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+              handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
+              // handleLoginOpen={handleLoginOpen}
+              // freeSignupOpen={freeSignupOpen}
+              // handleFreeCreditSignupClose={handleFreeCreditSignupClose}
+              image="/images/auth/auth-model1.webp"
+            />
+          </UIStyledDialog>
+          <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
+            <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
+          </UIStyledDialog>
+          <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
+            <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
+          </UIStyledDialog>
+          <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+            <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
+          </NewSignupStyledModalDialog>
+        </>
+      ) : (
+        <>
+          <UIStyledDialogg scroll="body" open={openLogin} onClose={handleLoginClose} fullWidth>
+            <ABLogin1User
+              onClose={handleLoginClose}
+              onSignupOpen={handleSignupOpen}
+              onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+            />
+          </UIStyledDialogg>
+
+          <UIStyledDialogg scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+            <ABTestSignUpUser onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
+          </UIStyledDialogg>
+
+          <UIStyleABTest2User scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+            <ABRegister2User onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
+          </UIStyleABTest2User>
+
+          <UIStyleABTest2User scroll="body" open={openLogin} onClose={handleLoginClose} fullWidth>
+            <ABLogin2User onClose={handleLoginClose} onSignupOpen={handleSignupOpen} />
+          </UIStyleABTest2User>
+        </>
+      )}
     </HomeMainContainer>
   );
 };

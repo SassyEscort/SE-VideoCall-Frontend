@@ -34,6 +34,10 @@ import { useAuthContext } from '../../../../contexts/AuthContext';
 import React from 'react';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 import { useSearchParams } from 'next/navigation';
+import { getCookie } from 'cookies-next';
+import ABLogin1Model from 'views/guestViews/abTestComponent/abLogin1Model';
+import ABRegister1Model from 'views/guestViews/abTestComponent/abRegister1Model';
+import UIStyledABTest1Model from 'views/guestViews/abTestComponent/abRegister1Model/UIStyleABTest1Model';
 
 const HomeModelTopBanner = () => {
   const { isCustomer } = useAuthContext();
@@ -52,6 +56,15 @@ const HomeModelTopBanner = () => {
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [openChangePassword, setIsOpenChangePassword] = useState(email && emailCode && !emailId ? true : false);
+  const [abTestScenerio, setABTestScenerio] = useState({ experiment: 1, variation: 1 });
+
+  useEffect(() => {
+    let group: any = getCookie('ab-group');
+    if (typeof group === 'string') group = JSON.parse(group);
+    if (abTestScenerio.experiment !== group?.experiment || abTestScenerio.variation !== group?.variation) {
+      setABTestScenerio({ experiment: group?.experiment || 1, variation: group?.variation || 1 });
+    }
+  }, [getCookie('ab-group')]);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -198,18 +211,35 @@ const HomeModelTopBanner = () => {
             />
           </ImageContainer>
         </BannerContainer>
-        <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
-          <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-        </UIStyledDialog>
-        <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
-          <ModelSignin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
-        </UIStyledDialog>
-        <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
-          <ModelForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
-        </UIStyledDialog>
-        <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
-          <ModelNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
-        </UIStyledDialog>
+        {abTestScenerio.experiment === 1 && abTestScenerio.variation === 1 ? (
+          <>
+            <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+              <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
+            </UIStyledDialog>
+            <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
+              <ModelSignin
+                onClose={handleLoginClose}
+                onSignupOpen={handleSignupOpen}
+                onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+              />
+            </UIStyledDialog>
+            <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
+              <ModelForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
+            </UIStyledDialog>
+            <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
+              <ModelNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
+            </UIStyledDialog>
+          </>
+        ) : (
+          <>
+            <UIStyledABTest1Model scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+              <ABRegister1Model onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
+            </UIStyledABTest1Model>
+            <UIStyledABTest1Model scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
+              <ABLogin1Model onClose={handleLoginClose} onSignupOpen={handleSignupOpen} />
+            </UIStyledABTest1Model>
+          </>
+        )}
       </HomeMainModelContainer>
     </>
   );
