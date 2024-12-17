@@ -17,7 +17,6 @@ import * as yup from 'yup';
 import { EMAIL_REGEX, NAME_REGEX } from 'constants/regexConstants';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
-<<<<<<< HEAD
 import {
   DescriptionTextTypography,
   EarnTaxtTypography,
@@ -37,7 +36,6 @@ import {
   RightSideMainTitleText,
   RightSideSubTitleText
 } from './abRegister1Model.styled';
-=======
 import { useRouter } from 'next/navigation';
 import { ROLE } from 'constants/workerVerification';
 import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
@@ -53,7 +51,6 @@ interface ISignUpProps {
   confirmPassword: string;
   role: ROLE;
 }
->>>>>>> 9cba7cad7e503cc524606d7b3a93949d63f6ba43
 
 const ABRegister1Model = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
   const intl = useIntl();
