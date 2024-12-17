@@ -32,7 +32,7 @@ import { sortExistingPhotos } from 'utils/photoUtils';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
 import { gaEventTrigger } from 'utils/analytics';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import GuestFreeCreditsSignup from 'views/auth/guestFreeCreditsSignup';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
@@ -78,7 +78,7 @@ const EscortSliderMobile = ({
   const sortedWorkerPhotos = workerPhotos.sort(sortExistingPhotos);
 
   const path = usePathname();
-  const router = useRouter();
+  // const router = useRouter();
   const userName = path.split('/')[2];
   const customerData = JSON.parse(user || '{}');
 
@@ -89,7 +89,7 @@ const EscortSliderMobile = ({
     model_username: userName
   };
 
-  const handleStartChatClick = () => router.push(`/chat/${userName}`);
+  // const handleStartChatClick = () => router.push(`/chat/${userName}`);
 
   const handleSignupOpen = () => {
     setIsOpenLogin(false);

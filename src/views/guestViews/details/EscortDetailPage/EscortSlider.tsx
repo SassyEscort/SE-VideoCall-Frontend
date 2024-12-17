@@ -37,7 +37,7 @@ import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshado
 import { sortExistingPhotos } from 'utils/photoUtils';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
 // import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
 import { useCallFeatureContext } from 'contexts/CallFeatureContext';
@@ -71,7 +71,7 @@ const EscortSlider = ({
   // const { user } = useZegoCallFeatureContext();
   const { user } = useCallFeatureContext();
   const path = usePathname();
-  const router = useRouter();
+  // const router = useRouter();
   const userName = path.split('/')[2];
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [liked, setLiked] = useState(false);
@@ -92,7 +92,7 @@ const EscortSlider = ({
     model_username: userName
   };
 
-  const handleStartChatClick = () => router.push(`/chat/${userName}`);
+  // const handleStartChatClick = () => router.push(`/chat/${userName}`);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
