@@ -21,10 +21,10 @@ export const CHATROOM = [
   { title: 'DirtyTalks', id: 4, url: '/dirty-talks' },
   { title: 'StrangerChat', id: 5, url: '/stranger-chat' },
   { title: 'NudeChat', id: 6, url: '/nude-chat' },
-  { title: 'Mature Chat', id: 7, url: '/mature-chat' },
-  { title: 'Lesbian Chat', id: 8, url: '/lesbian-chat' },
-  { title: 'Cuckold Chat', id: 9, url: '/cuckold-chat' },
-  { title: 'Anonymous Chat', id: 10, url: '/anonymous-chat' }
+  { title: 'MatureChat', id: 7, url: '/mature-chat' },
+  { title: 'LesbianChat', id: 8, url: '/lesbian-chat' },
+  { title: 'CuckoldChat', id: 9, url: '/cuckold-chat' },
+  { title: 'AnonymousChat', id: 10, url: '/anonymous-chat' }
 ];
 
 export const SEOCHATPATH = [
