@@ -40,6 +40,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: 'https://flirtbate.com/nude-chat',
       lastModified: new Date(),
       priority: 0.8
+    },
+    {
+      url: 'https://flirtbate.com/mature-chat',
+      lastModified: new Date(),
+      priority: 0.8
+    },
+    {
+      url: 'https://flirtbate.com/lesbian-chat',
+      lastModified: new Date(),
+      priority: 0.8
+    },
+    {
+      url: 'https://flirtbate.com/cuckold-chat',
+      lastModified: new Date(),
+      priority: 0.8
+    },
+    {
+      url: 'https://flirtbate.com/anonymous-chat',
+      lastModified: new Date(),
+      priority: 0.8
     }
   ];
 }
