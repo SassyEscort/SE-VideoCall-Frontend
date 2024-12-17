@@ -1246,5 +1246,9 @@
   "StartChat": "Iniciar chat",
   "NoModelSelected": "Ningún modelo seleccionado por favor seleccione un modelo",
   "Chat": "Charlar",
-  "NoModelFound": "No se encontró ningún modelo"
+  "NoModelFound": "No se encontró ningún modelo",
+  "MatureChat": "Chat para adultos",
+  "LesbianChat": "Chat lésbico",
+  "CuckoldChat": "Chat cuckold",
+  "AnonymousChat": "Chat anónimo"
 }
