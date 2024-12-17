@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
-import debounce from 'lodash/debounce'; // Import lodash debounce
+import debounce from 'lodash/debounce';
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
 import Stack from '@mui/material/Stack';
@@ -26,9 +26,7 @@ import { PAGE_SIZE } from 'constants/pageConstants';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import TablePager from 'components/common/CustomPaginations/TablePager';
 import MenuItem from '@mui/material/MenuItem';
-import { adminModelServices, ModelListing } from 'services/adminModel/adminModel.services';
-import { getUserDataClient } from 'utils/getSessionData';
-import { TokenIdType } from 'views/protectedModelViews/verification';
+import { adminModelServices, countryListResponse, ModelListing } from 'services/adminModel/adminModel.services';
 import { useRouter } from 'next/navigation';
 import MainLayout from '../../../views/admin/layouts/AdminLayout/DashboardLayout';
 import FormControl from '@mui/material/FormControl';
@@ -45,6 +43,8 @@ import { StyledSelectInputLabel } from 'components/UIComponents/UIStyledSelect';
 import { useAuthContext } from 'contexts/AuthContext';
 import { ModalPage } from 'constants/adminUserAccessConstants';
 import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
+import { Autocomplete, TextField } from '@mui/material';
+import { DatePicker } from '@mui/x-date-pickers';
 
 export type AdminWorkersPaginationType = {
   page: number;
@@ -60,27 +60,30 @@ export type AdminWorkersPaginationType = {
   verificationStep: string;
   is_active: string;
   gender: string;
+  emailVerified: string | null;
+  lastActiveDuration: string;
+  lastActiveFromDate: string;
+  lastActiveToDate: string;
+  country: number | null;
 };
 
 const SORT_BY_OPTIONS: PaginationSortByOption[] = [
-  { value: 'created_at', label: 'Newest' },
-  { value: 'name', label: 'Name' },
-  { value: 'email', label: 'Email' },
-  { value: 'last_active', label: 'Last active' },
-  { value: 'last_login', label: 'Last login' }
+  { value: 'duration', label: 'Duration' },
+  { value: 'calls', label: 'Calls' },
+  { value: 'earnings', label: 'Earnings' }
 ];
 
-const StatusOfPlan = [
+export const StatusOfPlan = [
   { value: '', label: 'All' },
   { value: 'Pending', label: 'Pending' },
   { value: 'Approved', label: 'Approved' },
   { value: 'Rejected', label: 'Rejected' }
 ];
 
-const IS_ACTIVE = [
+const IS_EMAIL_VERIFIED = [
   { value: '', label: 'All' },
-  { value: 'true', label: 'True' },
-  { value: 'false', label: 'False' }
+  { value: '1', label: 'True' },
+  { value: '0', label: 'False' }
 ];
 
 const GENDER = [
@@ -89,56 +92,48 @@ const GENDER = [
   { value: 'Trans', label: 'Trans' }
 ];
 
-const verification_step = [
-  { value: '', label: 'All' },
-  { value: 'Basic_Details', label: 'Basic Details' },
-  { value: 'Upload_Documents', label: 'Upload Documents' },
-  { value: 'Upload_Photos', label: 'Upload Photos' },
-  { value: 'Onboarded', label: 'Onboarded' },
-  { value: 'In_Review', label: 'In Review' },
-  { value: 'Verified', label: 'Verified' }
-];
-
 export type TokenIdTypeAdmin = {
   token: string;
 };
 
 export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutStep?: () => void }) {
   const router = useRouter();
+  const { adminUserPermissions, isAdmin, token } = useAuthContext();
+  const currentMoment = moment().format('YYYY/MM/DD');
+  const oneMonthAgoMoment = moment().subtract(1, 'day').format('YYYY/MM/DD');
+
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selected, setSelected] = useState<ModelListing>();
   const [modelData, setModelData] = useState<ModelListing[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [totalRecords, setTotalRecords] = useState(0);
-
-  const currentMoment = moment();
-  const oneMonthAgoMoment = moment().subtract(1, 'day');
-  const fromDate = oneMonthAgoMoment.format('YYYY/MM/DD');
-  const toDate = currentMoment.format('YYYY/MM/DD');
+  const [countryList, setCountryList] = useState<countryListResponse[]>([]);
   const [filters, setFilters] = useState<AdminWorkersPaginationType>({
     page: 1,
     pageSize: PAGE_SIZE,
     offset: 0,
-    orderField: 'created_at',
+    orderField: 'duration',
     orderType: 'desc',
     filter_Text: '',
     duration: 'day',
-    fromDate: fromDate,
-    toDate: toDate,
+    fromDate: oneMonthAgoMoment,
+    toDate: currentMoment,
     status: '',
     verificationStep: '',
     is_active: '',
-    gender: 'Female'
+    gender: 'Female',
+    emailVerified: '',
+    lastActiveDuration: 'day',
+    lastActiveFromDate: oneMonthAgoMoment,
+    lastActiveToDate: currentMoment,
+    country: 0
   });
 
-  const { adminUserPermissions, isAdmin } = useAuthContext();
   const UpdatePermission = adminUserPermissions ? haveUpdatePermission(ModalPage, adminUserPermissions) : false;
 
   const handleModelDetailsRefetch = useCallback(() => {
     fetchModelData();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
@@ -166,37 +161,39 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     setFilters(value);
   }, []);
 
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
+  const fetchCountryList = async () => {
+    if (token.token) {
+      const data = await adminModelServices.AdminCountryList(token.token);
       if (data) {
-        setToken({ id: data.id, token: data.token });
+        setCountryList(data);
       }
-    };
-
-    userToken();
-  }, []);
+    }
+  };
 
   const fetchModelData = async () => {
     setIsLoading(true);
     if (token.token) {
       const filterparams = {
-        token: token.token,
-        limit: filters.pageSize,
-        offset: filters.offset,
-        filter_text: filters.filter_Text,
-        from_date: filters.fromDate,
-        to_date: filters.toDate,
+        filter: -1,
+        date_range: {
+          start_date: filters.fromDate,
+          end_date: filters.toDate
+        },
         sort_order: filters.orderType,
         sort_field: filters.orderField,
-        verification_step: filters.verificationStep,
-        profile_status: filters.status,
-        is_active: filters.is_active,
-        gender: filters.gender
+        profile_status: filters.status === '' ? null : filters.status,
+        country_code: filters.country || null,
+        gender: filters.gender === '' ? null : filters.gender,
+        email_verified: filters.emailVerified !== '' ? Boolean(Number(filters.emailVerified)) : null,
+        last_active_from_date: filters.lastActiveFromDate,
+        last_active_to_date: filters.lastActiveToDate,
+        search_field: filters.filter_Text
       };
-      const data = await adminModelServices.getModelList(filterparams);
+
+      const data = await adminModelServices.getModelList(filters.pageSize, filters.offset, filterparams, token.token);
+
       setTotalRecords(data?.aggregate?.total_rows);
-      setModelData(data?.model_details);
+      setModelData(data?.model_reports);
     }
     setIsLoading(false);
   };
@@ -205,11 +202,6 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     fetchModelData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, filters.filter_Text]);
-
-  useEffect(() => {
-    fetchModelData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.token, filters]);
 
   const handleChangePage = useCallback(
     (value: number) => {
@@ -222,6 +214,17 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
   const handleChangePageSize = useCallback(
     (value: number) => {
       handleChangeFilter({ ...filters, pageSize: value, page: 1 });
+    },
+    [filters, handleChangeFilter]
+  );
+
+  const handleChangeCountry = useCallback(
+    (value: countryListResponse | null) => {
+      if (value) {
+        handleChangeFilter({ ...filters, country: value.id, page: 1 });
+      } else {
+        handleChangeFilter({ ...filters, country: null, page: 1 });
+      }
     },
     [filters, handleChangeFilter]
   );
@@ -257,16 +260,9 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     [filters, handleChangeFilter]
   );
 
-  const handleChangeVerificationStep = useCallback(
+  const handleChangeEmailVerified = useCallback(
     (val: string) => {
-      handleChangeFilter({ ...filters, verificationStep: val, page: 1 });
-    },
-    [filters, handleChangeFilter]
-  );
-
-  const handleChangeIsActive = useCallback(
-    (val: string) => {
-      handleChangeFilter({ ...filters, is_active: val, page: 1 });
+      handleChangeFilter({ ...filters, emailVerified: val, page: 1 });
     },
     [filters, handleChangeFilter]
   );
@@ -288,7 +284,16 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
   };
 
   const handleFilterDurationChange = (duration: string, fromDate: string, toDate: string) => {
-    handleChangeFilter({ ...filters, duration, fromDate, toDate, page: 1 });
+    handleChangeFilter({
+      ...filters,
+      duration,
+      fromDate,
+      toDate,
+      page: 1,
+      lastActiveDuration: duration,
+      lastActiveFromDate: fromDate,
+      lastActiveToDate: toDate
+    });
   };
 
   const handelViewDetails = async () => {
@@ -324,6 +329,28 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     }
   };
 
+  const handleLastActiveFromDateChange = (value: moment.Moment | null) => {
+    if (value?.isValid()) {
+      handleChangeFilter({ ...filters, lastActiveFromDate: value?.format('YYYY/MM/DD'), page: 1 });
+    }
+  };
+
+  const handleLastActiveToDateChange = (value: moment.Moment | null) => {
+    if (value?.isValid()) {
+      handleChangeFilter({ ...filters, lastActiveToDate: value?.format('YYYY/MM/DD'), page: 1 });
+    }
+  };
+
+  useEffect(() => {
+    fetchModelData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token.token, filters]);
+
+  useEffect(() => {
+    fetchCountryList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token.token]);
+
   useEffect(() => {
     if (adminUserPermissions) {
       const isAccessiable = isPageAccessiable(ModalPage, adminUserPermissions) || isAdmin;
@@ -350,21 +377,35 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
               handleChangeSearch={handleChangeSearch}
             />
           </Stack>
+
           <FilterBox>
             <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
+              <Autocomplete
+                value={Array.isArray(countryList) ? countryList.find((country) => country.id === filters.country) || null : null}
+                onChange={(event: any, newValue: { id: number; name: string; region: string } | null) => {
+                  handleChangeCountry(newValue);
+                }}
+                options={countryList}
+                getOptionLabel={(option) => option.name}
+                isOptionEqualToValue={(option, value) => option.id === value?.id}
+                renderInput={(params) => <TextField {...params} label="Select Country" />}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
               <FormControl fullWidth>
-                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Is deleted</StyledSelectInputLabel>
+                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Email Verified</StyledSelectInputLabel>
                 <Select
-                  name="is_active"
-                  labelId="is_active"
-                  label="Is deleted"
-                  value={filters.is_active}
-                  onChange={(e) => handleChangeIsActive(e.target.value as string)}
+                  name="emailVerified"
+                  labelId="emailVerified"
+                  label="Email Verified"
+                  value={filters.emailVerified}
+                  onChange={(e) => handleChangeEmailVerified(e.target.value as string)}
                   sx={{
                     width: '100%'
                   }}
                 >
-                  {IS_ACTIVE.map((stat) => (
+                  {IS_EMAIL_VERIFIED.map((stat) => (
                     <MenuItem key={stat.value} value={stat.value}>
                       {stat.label}
                     </MenuItem>
@@ -415,28 +456,29 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
-              <FormControl fullWidth>
-                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>verification step</StyledSelectInputLabel>
-                <Select
-                  name="verification_step"
-                  labelId="verification_step"
-                  label="verification step"
-                  value={filters.verificationStep}
-                  onChange={(e) => handleChangeVerificationStep(e.target.value as string)}
-                  sx={{
-                    width: '100%'
-                  }}
-                >
-                  {verification_step?.map((stat) => (
-                    <MenuItem key={stat?.value} value={stat?.value}>
-                      {stat?.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
           </FilterBox>
+
+          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent="flex-start" mt={2} gap={2}>
+            <Grid item xs={12} sm={4} sx={{ width: '100%' }}>
+              <DatePicker
+                label="Last Active FromDate"
+                format="DD-MM-YYYY"
+                value={moment(filters.lastActiveFromDate)}
+                onChange={handleLastActiveFromDateChange}
+                sx={{ width: '100%' }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={4} sx={{ width: '100%' }}>
+              <DatePicker
+                label="Last Active ToDate"
+                format="DD-MM-YYYY"
+                value={moment(filters.lastActiveToDate)}
+                onChange={handleLastActiveToDateChange}
+                sx={{ width: '100%' }}
+              />
+            </Grid>
+          </Stack>
+
           <SortBox>
             <PaginationSortBy
               sortByOptions={SORT_BY_OPTIONS}
@@ -475,7 +517,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                           }}
                         >
                           <TableCell component="th" scope="row">
-                            <Link href={`/admin/model/details/${item?.id}`}>{item?.name || '-'}</Link>
+                            <Link href={`/admin/model/details/${item?.id}`}>{item?.model_name || '-'}</Link>
                           </TableCell>
                           <TableCell component="th" scope="row">
                             <Link href={`/admin/model/details/${item?.id}`}>{item?.email || '-'}</Link>
@@ -497,9 +539,8 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                               '-'
                             )}
                           </TableCell>
-                          <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.created_at, '-')}</TableCell>
+                          <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.created_date, '-')}</TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.last_active, '-')}</TableCell>
-                          <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.last_login, '-')}</TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{item?.verification_step}</TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{item?.email_verified === 0 ? 'No' : 'Yes'}</TableCell>
 

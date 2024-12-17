@@ -41,7 +41,7 @@ const HomeModelTopBanner = () => {
 
   const email = String(searchParams.get('email'));
   const emailCode = String(searchParams.get('code'));
-  const emailId = String(searchParams.get('id'));
+  const emailId = searchParams.get('id') || '';
 
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));

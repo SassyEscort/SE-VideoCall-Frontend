@@ -14,8 +14,6 @@ import moment from 'moment';
 import Visibility from '@mui/icons-material/Visibility';
 import MoreVert from '@mui/icons-material/MoreVert';
 import { useCallback, useEffect, useState } from 'react';
-import { getUserDataClient } from 'utils/getSessionData';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import { PaginationSortByOption } from 'components/common/CustomPaginations/type';
 import PaginationSortBy from 'components/common/CustomPaginations/PaginationSortBy';
 import { PAGE_SIZE } from 'constants/pageConstants';
@@ -38,6 +36,9 @@ import { useRouter } from 'next/navigation';
 import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
 import { CallLogsPage } from 'constants/adminUserAccessConstants';
 import { UserLoaderBox } from '../UsersPage/UpsertPage.styled';
+import { FormControl, Grid, Select } from '@mui/material';
+import { StyledSelectInputLabel } from 'components/UIComponents/UIStyledSelect';
+import { FilterBox } from '../modelPage/ModelPageContainer.styled';
 
 export type PaginationType = {
   page: number;
@@ -49,12 +50,46 @@ export type PaginationType = {
   duration: string;
   fromDate: string;
   toDate: string;
+  call_status: string;
+  ended_by: string;
 };
+
+const Ended_By = [
+  { value: '', label: 'All' },
+  { value: 'model', label: 'Model' },
+  { value: 'customer', label: 'Customer' }
+];
+
+const Call_Status = [
+  { value: '', label: 'All' },
+  { value: 'Ended', label: 'Ended' },
+  { value: 'Cancelled', label: 'Cancelled' },
+  { value: 'Unanswered', label: 'Unanswered' },
+  { value: 'Rejected', label: 'Rejected' }
+];
+
+const SORT_BY_OPTIONS: PaginationSortByOption[] = [
+  { value: 'id', label: 'Id' },
+  { value: 'model_id', label: 'Model Id' },
+  { value: 'customer_id', label: 'Customer Id' },
+  { value: 'model_name', label: 'Model Name' },
+  { value: 'customer_name', label: 'Customer Name' },
+  { value: 'status', label: 'Status' },
+  { value: 'duration', label: 'Duration' },
+  { value: 'credit_used', label: 'Credit Used' },
+  { value: 'is_active', label: 'Is Active' },
+  { value: 'amount_earned', label: 'Amount Earned' },
+  { value: 'created_at', label: 'Created At' },
+  { value: 'updated_at', label: 'Updated At' }
+];
 
 export default function CallLogsContainer() {
   const router = useRouter();
-  const { adminUserPermissions, isAdmin } = useAuthContext();
+  const { adminUserPermissions, isAdmin, token } = useAuthContext();
   const UpdatePermission = adminUserPermissions ? haveUpdatePermission(CallLogsPage, adminUserPermissions) : false;
+
+  const currentMoment = moment().format('YYYY/MM/DD');
+  const oneMonthAgoMoment = moment().subtract(1, 'day').format('YYYY/MM/DD');
 
   const [selectedPayoutData, setSelectedPayoutData] = useState<CallLogDataResponse | null>(null);
   const [data, setData] = useState<CallLogDataResponse[]>([]);
@@ -62,40 +97,20 @@ export default function CallLogsContainer() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [creditModalOpen, setCreditModalOpen] = useState(false);
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [totalRecords, setTotalRecords] = useState(0);
-
-  const currentMoment = moment();
-  const oneMonthAgoMoment = moment().subtract(1, 'day');
-  const fromDate = oneMonthAgoMoment.format('YYYY/MM/DD');
-  const toDate = currentMoment.format('YYYY/MM/DD');
   const [filters, setFilters] = useState<PaginationType>({
     page: 1,
     offset: 0,
     pageSize: PAGE_SIZE,
-    orderField: 'newest',
+    orderField: 'created_at',
     sort_order: 'desc',
     search_field: '',
     duration: 'day',
-    fromDate: fromDate,
-    toDate: toDate
+    fromDate: oneMonthAgoMoment,
+    toDate: currentMoment,
+    call_status: '',
+    ended_by: ''
   });
-
-  const SORT_BY_OPTIONS: PaginationSortByOption[] = [
-    { value: 'name', label: 'Name' },
-    { value: 'email', label: 'Email' }
-  ];
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-
-      if (data) {
-        setToken({ id: data.id, token: data.token });
-      }
-    };
-
-    userToken();
-  }, [token.token]);
 
   const handelFetch = async () => {
     setIsLoading(true);
@@ -105,7 +120,11 @@ export default function CallLogsContainer() {
       filters.offset,
       filters.search_field,
       filters.fromDate,
-      filters.toDate
+      filters.toDate,
+      filters.sort_order,
+      filters.orderField,
+      filters.ended_by,
+      filters.call_status
     );
 
     if (res) {
@@ -117,24 +136,20 @@ export default function CallLogsContainer() {
     setIsLoading(false);
   };
 
-  useEffect(() => {
-    if (token.token) {
-      handelFetch();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.token, filters]);
-
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleCloseMenu = () => {
     setOpen(null);
     setAnchorEl(null);
   };
+
   const handleOpenCredit = (value: CallLogDataResponse) => {
     setSelectedPayoutData(value);
     setCreditModalOpen(true);
   };
+
   const handleCloseCredit = () => {
     setCreditModalOpen(false);
   };
@@ -186,6 +201,21 @@ export default function CallLogsContainer() {
     handleChangeFilter({ ...filters, duration, fromDate, toDate, page: 1 });
   };
 
+  const handleFilterCallStatusChange = (val: string) => {
+    handleChangeFilter({ ...filters, call_status: val, page: 1 });
+  };
+
+  const handleFilterEndedByChange = (val: string) => {
+    handleChangeFilter({ ...filters, ended_by: val, page: 1 });
+  };
+
+  useEffect(() => {
+    if (token.token) {
+      handelFetch();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token.token, filters]);
+
   useEffect(() => {
     if (adminUserPermissions) {
       const isAccessiable = isPageAccessiable(CallLogsPage, adminUserPermissions) || isAdmin;
@@ -211,6 +241,50 @@ export default function CallLogsContainer() {
             handleChangeSearch={handleChangeSearch}
           />
         </Stack>
+        <FilterBox sx={{ justifyContent: 'flex-start' }}>
+          <Grid item xs={12} sm={6} md={4} sx={{ width: '100%', maxWidth: { sm: '33%' } }}>
+            <FormControl fullWidth>
+              <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Ended By</StyledSelectInputLabel>
+              <Select
+                name="ended_by"
+                labelId="ended_by"
+                label="Ended By"
+                value={filters.ended_by}
+                onChange={(e) => handleFilterEndedByChange(e.target.value as string)}
+                sx={{
+                  width: '100%'
+                }}
+              >
+                {Ended_By.map((stat) => (
+                  <MenuItem key={stat.value} value={stat.value}>
+                    {stat.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} sx={{ width: '100%', maxWidth: { sm: '33%' } }}>
+            <FormControl fullWidth>
+              <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Call Status</StyledSelectInputLabel>
+              <Select
+                name="call_status"
+                labelId="call_status"
+                label="Call Status"
+                value={filters.call_status}
+                onChange={(e) => handleFilterCallStatusChange(e.target.value as string)}
+                sx={{
+                  width: '100%'
+                }}
+              >
+                {Call_Status.map((stat) => (
+                  <MenuItem key={stat.value} value={stat.value}>
+                    {stat.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+        </FilterBox>
         <Box sx={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
           <PaginationSortBy
             sortByOptions={SORT_BY_OPTIONS}

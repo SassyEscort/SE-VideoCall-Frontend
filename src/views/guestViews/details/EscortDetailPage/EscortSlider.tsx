@@ -37,7 +37,7 @@ import StyleButtonShadowV2 from 'components/UIComponents/StyleLoadingButtonshado
 import { sortExistingPhotos } from 'utils/photoUtils';
 import { ModelDetailsResponse } from 'views/protectedModelViews/verification/verificationTypes';
 import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
 // import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
 import { useCallFeatureContext } from 'contexts/CallFeatureContext';
@@ -71,6 +71,7 @@ const EscortSlider = ({
   // const { user } = useZegoCallFeatureContext();
   const { user } = useCallFeatureContext();
   const path = usePathname();
+  const router = useRouter();
   const userName = path.split('/')[2];
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [liked, setLiked] = useState(false);
@@ -90,6 +91,8 @@ const EscortSlider = ({
     username: customerData?.customer_user_name,
     model_username: userName
   };
+
+  const handleStartChatClick = () => router.push(`/chat/${userName}`);
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -265,8 +268,47 @@ const EscortSlider = ({
           mt: 3
         }}
       >
-        <Box>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', gap: 1 }}>
           <StyleButtonShadowV2
+            loading={isLoading}
+            onClick={isCustomer ? handleCallInitiate : isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleLoginOpen}
+            sx={{
+              padding: 0,
+              width: '100%',
+              '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } }
+            }}
+            fullWidth
+            variant="contained"
+          >
+            <Box display="flex" alignItems="center" gap="10px">
+              <Image src="/images/workercards/video-call.svg" alt="video-call" height={24} width={24} />
+              <UINewTypography color="common.white" variant="bodySemiBold" sx={{ textWrap: 'no-wrap', lineHeight: '120%' }}>
+                <FormattedMessage id="StartVideoCall" />
+              </UINewTypography>
+            </Box>
+          </StyleButtonShadowV2>
+          <StyleButtonShadowV2
+            loading={isLoading}
+            onClick={isCustomer ? handleStartChatClick : handleLoginOpen}
+            sx={{
+              padding: 0,
+              width: '100%',
+              '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } },
+              '&.MuiButton-contained': {
+                backgroundColor: '#E9E8EB'
+              }
+            }}
+            fullWidth
+            variant="contained"
+          >
+            <Box display="flex" alignItems="center" gap="10px">
+              <Image src="/images/workercards/Vector.svg" alt="start-chat" height={20} width={20} />
+              <UINewTypography color="primary.400" variant="bodySemiBold" sx={{ textWrap: 'no-wrap', lineHeight: '120%' }}>
+                <FormattedMessage id="StartChat" />
+              </UINewTypography>
+            </Box>
+          </StyleButtonShadowV2>
+          {/* <StyleButtonShadowV2
             loading={isLoading}
             onClick={isCustomer ? handleCallInitiate : isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleLoginOpen}
             sx={{
@@ -284,7 +326,7 @@ const EscortSlider = ({
                 <FormattedMessage id="StartVideoCall" />
               </UINewTypography>
             </Box>
-          </StyleButtonShadowV2>
+          </StyleButtonShadowV2> */}
         </Box>
         <Box>
           <UIStyledShadowButtonLike
@@ -322,6 +364,7 @@ const EscortSlider = ({
         <UIStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
           <GuestFreeCreditsSignup
             modelName={guestData?.name}
+            modelCredit={Number(guestData?.video_call_prices?.[0]?.credits_per_minute || 0)}
             image={modelFavPhoto ?? ''}
             onClose={handleFreeCreditSignupClose}
             onLoginOpen={handleLoginOpen}

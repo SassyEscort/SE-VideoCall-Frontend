@@ -29,20 +29,22 @@ import NotInterestedIcon from '@mui/icons-material/NotInterested';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CircularProgress from '@mui/material/CircularProgress';
 import { formatFullDate } from 'utils/dateAndTime';
-import { getUserDataClient } from 'utils/getSessionData';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import { BanCustomerDetails, BanCustomerDetailsRes, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import BanCustomerList from './BanCustomerListHead';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import DeleteModal from 'components/UIComponents/DeleteModal';
 import BanCustomerModel from './BanCustomerModel';
+import { useAuthContext } from 'contexts/AuthContext';
+import { haveUpdatePermission } from 'utils/Admin/PagePermission';
+import { BanCustomerPage } from 'constants/adminUserAccessConstants';
 
 const SORT_BY_OPTIONS: PaginationSortByOption[] = [
   { value: 'createdDate', label: 'Newest' },
   { value: 'name', label: 'Name' },
   { value: 'email', label: 'Email' }
 ];
+
 export type BanCustomerFilters = {
   sort_order: string;
   sort_field: string;
@@ -59,22 +61,23 @@ export type BanCustomerFilters = {
   fromDate: string;
   toDate: string;
 };
+
 const BanCustomer = () => {
+  const { adminUserPermissions, isAdmin, token } = useAuthContext();
+  const UpdatePermission = (adminUserPermissions ? haveUpdatePermission(BanCustomerPage, adminUserPermissions) : false) || isAdmin;
+
+  const currentMoment = moment().format('YYYY/MM/DD');
+  const oneMonthAgoMoment = moment().subtract(1, 'month').format('YYYY/MM/DD');
+
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [totalRecords, setTotalRecords] = useState(0);
-  const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [banCustomerDetails, setBanCustomerDetails] = useState<BanCustomerDetailsRes>();
   const [creditModalOpen, setCreditModalOpen] = useState(false);
   const [selectedPayoutData, setSelectedPayoutData] = useState<BanCustomerDetails | null>(null);
   const [selected, setSelected] = useState<BanCustomerDetails>();
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-
-  const currentMoment = moment();
-  const oneMonthAgoMoment = moment().subtract(1, 'month');
-  const fromDate = oneMonthAgoMoment.format('YYYY/MM/DD');
-  const toDate = currentMoment.format('YYYY/MM/DD');
   const [filters, setFilters] = useState<BanCustomerFilters>({
     page: 0,
     pageSize: PAGE_SIZE,
@@ -82,8 +85,8 @@ const BanCustomer = () => {
     orderField: 'createdDate',
     orderType: 'desc',
     search_field: '',
-    fromDate: fromDate,
-    toDate: toDate,
+    fromDate: oneMonthAgoMoment,
+    toDate: currentMoment,
     is_active: 0,
     sort_order: '',
     sort_field: '',
@@ -130,6 +133,7 @@ const BanCustomer = () => {
     }, 500),
     [filters, handleChangeFilter]
   );
+
   const handleChangeSearch = (val: string) => {
     debouncedChangeSearch(val);
   };
@@ -142,17 +146,6 @@ const BanCustomer = () => {
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
-  useEffect(() => {
-    const userToken = async () => {
-      const data = await getUserDataClient();
-      if (data) {
-        setToken({ id: data.id, token: data.token });
-      }
-    };
-
-    userToken();
-  }, []);
 
   const banCustomerData = async () => {
     setIsLoading(true);
@@ -174,11 +167,6 @@ const BanCustomer = () => {
     }
     setIsLoading(false);
   };
-
-  useEffect(() => {
-    banCustomerData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.token, filters]);
 
   const handelDeleteBanCustomer = async (id: number) => {
     try {
@@ -205,6 +193,12 @@ const BanCustomer = () => {
     setSelectedPayoutData(value);
     setCreditModalOpen(true);
   };
+
+  useEffect(() => {
+    banCustomerData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token.token, filters]);
+
   return (
     <>
       <MainLayout>
@@ -253,12 +247,10 @@ const BanCustomer = () => {
                           <TableCell component="th" scope="row">
                             {item?.name || '-'}
                           </TableCell>
-
-                          <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.email, '-')}</TableCell>
+                          <TableCell sx={{ textAlign: 'left' }}>{item?.email || '-'}</TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{item?.ip_address}</TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{item?.is_active ? 'No' : 'Yes'}</TableCell>
                           <TableCell sx={{ textAlign: 'left' }}>{formatFullDate(item?.createdDate, '-')}</TableCell>
-
                           <TableCell>
                             <IconButton
                               aria-label="more"
@@ -321,16 +313,17 @@ const BanCustomer = () => {
             <VisibilityIcon sx={{ mr: 2 }} />
             View Details
           </MenuItem>
-
-          <MenuItem
-            onClick={() => {
-              handleCloseMenu();
-              setOpenDeleteModal(true);
-            }}
-          >
-            <NotInterestedIcon sx={{ mr: 2 }} />
-            Unban Customer
-          </MenuItem>
+          {UpdatePermission && (
+            <MenuItem
+              onClick={() => {
+                handleCloseMenu();
+                setOpenDeleteModal(true);
+              }}
+            >
+              <NotInterestedIcon sx={{ mr: 2 }} />
+              Unban Customer
+            </MenuItem>
+          )}
         </ModelActionPopoverBanModel>
         <BanCustomerModel open={creditModalOpen} onClose={handleCloseCredit} selectedPayoutData={selectedPayoutData} />
         <DeleteModal
