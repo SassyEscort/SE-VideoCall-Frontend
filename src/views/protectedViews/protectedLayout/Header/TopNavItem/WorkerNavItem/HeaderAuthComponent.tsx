@@ -437,8 +437,8 @@ const HeaderAuthComponent = () => {
                   </ListItemText>
                 </MenuItem>
                 <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                <MenuItem>
-                  {/* <ListItemIcon>
+                {/* <MenuItem>
+                  <ListItemIcon>
                     <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
                       <Link href="/chat" style={{ textDecoration: 'none' }}>
                         <IconButton sx={{ height: 24, width: 24 }}>
@@ -454,7 +454,7 @@ const HeaderAuthComponent = () => {
                         </IconButton>
                       </Link>
                     </IconButton>
-                  </ListItemIcon> */}
+                  </ListItemIcon> 
                   <ListItemText>
                     <Link href="/chat">
                       <UINewTypography variant="bodyLight" color="text.secondary">
@@ -463,7 +463,7 @@ const HeaderAuthComponent = () => {
                     </Link>
                   </ListItemText>
                 </MenuItem>
-                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} /> */}
               </>
             )}
             <MenuItem onClick={handleOpenChangePassword}>
