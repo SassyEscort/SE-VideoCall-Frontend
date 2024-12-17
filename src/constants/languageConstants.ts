@@ -20,7 +20,22 @@ export const CHATROOM = [
   { title: 'ChatWithGirls', id: 3, url: '/chat-with-girls' },
   { title: 'DirtyTalks', id: 4, url: '/dirty-talks' },
   { title: 'StrangerChat', id: 5, url: '/stranger-chat' },
-  { title: 'NudeChat', id: 6, url: '/nude-chat' }
+  { title: 'NudeChat', id: 6, url: '/nude-chat' },
+  { title: 'MatureChat', id: 7, url: '/mature-chat' },
+  { title: 'LesbianChat', id: 8, url: '/lesbian-chat' },
+  { title: 'CuckoldChat', id: 9, url: '/cuckold-chat' },
+  { title: 'AnonymousChat', id: 10, url: '/anonymous-chat' }
 ];
 
-export const SEOCHATPATH = ['/cam-to-cam', '/sex-chat', '/chat-with-girls', '/dirty-talks', '/stranger-chat', '/nude-chat'];
+export const SEOCHATPATH = [
+  '/cam-to-cam',
+  '/sex-chat',
+  '/chat-with-girls',
+  '/dirty-talks',
+  '/stranger-chat',
+  '/nude-chat',
+  '/mature-chat',
+  '/lesbian-chat',
+  '/cuckold-chat',
+  '/anonymous-chat'
+];
