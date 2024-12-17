@@ -17,6 +17,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import * as yup from 'yup';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 
 const ABLogin1User = ({ onClose, onSignupOpen }: { onClose: () => void; onSignupOpen: () => void }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -172,37 +173,21 @@ const ABLogin1User = ({ onClose, onSignupOpen }: { onClose: () => void; onSignup
                                     </UITypographyText>
                                     <UIStyledInputText
                                       fullWidth
-                                      type={showConfirmPassword ? 'text' : 'password'}
-                                      id="confirmPassword"
-                                      name="confirmPassword"
-                                      value={values.confirmPassword}
+                                      id="email"
+                                      name="email"
+                                      value={values.email}
                                       onChange={handleChange}
-                                      onBlur={() => {
-                                        handleBlur;
-                                        //   gaEventTrigger('signup_form_confirm_password_click', {
-                                        //     source: 'model_confirm_password_click',
-                                        //     category: 'TextField'
-                                        //   });
-                                      }}
-                                      error={touched.confirmPassword && Boolean(errors.confirmPassword)}
-                                      helperText={
-                                        touched.confirmPassword && errors.confirmPassword ? (
-                                          <FormattedMessage id={errors.confirmPassword} />
-                                        ) : (
-                                          ''
-                                        )
-                                      }
+                                      onBlur={handleBlur}
+                                      error={touched.email && Boolean(errors.email)}
+                                      helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
                                       sx={{
                                         border: '2px solid',
                                         borderColor: 'secondary.light'
                                       }}
                                       InputProps={{
                                         endAdornment: (
-                                          <Box
-                                            sx={{ cursor: 'pointer', display: 'flex' }}
-                                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                          >
-                                            {showConfirmPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
+                                          <Box sx={{ display: 'flex' }}>
+                                            <EmailRoundedIcon />
                                           </Box>
                                         )
                                       }}

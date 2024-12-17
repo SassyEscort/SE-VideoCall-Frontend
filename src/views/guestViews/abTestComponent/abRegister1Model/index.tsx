@@ -44,6 +44,7 @@ const ABRegister1Model = ({ onClose, onLoginOpen }: { onClose: () => void; onLog
     <>
       <Formik
         initialValues={{
+          name: '',
           email: '',
           password: '',
           confirmPassword: '',
@@ -176,25 +177,12 @@ const ABRegister1Model = ({ onClose, onLoginOpen }: { onClose: () => void; onLog
                                       <FormattedMessage id="Name" />
                                     </UITypographyText>
                                     <UIStyledInputText
-                                      fullWidth
-                                      type={showPassword ? 'text' : 'password'}
-                                      id="password"
-                                      name="password"
-                                      value={values.password}
+                                      name="name"
+                                      value={values.name}
                                       onChange={handleChange}
-                                      onBlur={() => {
-                                        handleBlur;
-                                        //   gaEventTrigger('signup_form_password_click', {
-                                        //     source: 'model_password_click',
-                                        //     category: 'TextField'
-                                        //   });
-                                      }}
-                                      error={touched.password && Boolean(errors.password)}
-                                      helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
-                                      sx={{
-                                        border: '2px solid',
-                                        borderColor: 'secondary.light'
-                                      }}
+                                      onBlur={handleBlur}
+                                      error={touched.name && Boolean(errors.name)}
+                                      helperText={touched.name && errors.name ? <FormattedMessage id={errors.name} /> : ''}
                                       InputProps={{
                                         endAdornment: (
                                           <Box sx={{ display: 'flex' }}>
@@ -210,26 +198,13 @@ const ABRegister1Model = ({ onClose, onLoginOpen }: { onClose: () => void; onLog
                                     </UITypographyText>
                                     <UIStyledInputText
                                       fullWidth
-                                      type={showConfirmPassword ? 'text' : 'password'}
-                                      id="confirmPassword"
-                                      name="confirmPassword"
-                                      value={values.confirmPassword}
+                                      id="email"
+                                      name="email"
+                                      value={values.email}
                                       onChange={handleChange}
-                                      onBlur={() => {
-                                        handleBlur;
-                                        //   gaEventTrigger('signup_form_confirm_password_click', {
-                                        //     source: 'model_confirm_password_click',
-                                        //     category: 'TextField'
-                                        //   });
-                                      }}
-                                      error={touched.confirmPassword && Boolean(errors.confirmPassword)}
-                                      helperText={
-                                        touched.confirmPassword && errors.confirmPassword ? (
-                                          <FormattedMessage id={errors.confirmPassword} />
-                                        ) : (
-                                          ''
-                                        )
-                                      }
+                                      onBlur={handleBlur}
+                                      error={touched.email && Boolean(errors.email)}
+                                      helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
                                       sx={{
                                         border: '2px solid',
                                         borderColor: 'secondary.light'
