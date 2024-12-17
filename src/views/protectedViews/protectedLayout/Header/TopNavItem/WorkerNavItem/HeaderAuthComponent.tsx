@@ -13,7 +13,7 @@ import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { NotificationDetailsService } from 'services/notification/notification.services';
-import { ChatNotificationData, ChatNotificationRoot, Root } from 'services/notification/type';
+import { Root } from 'services/notification/type';
 import MyProfileChangePassword from 'views/protectedViews/myProfile/MyProfileChangePassword';
 import { IconButtonBoxInner, UnReadCountMain } from 'views/protectedDashboardViews/dashboardNavItem/DashboardMenu.styled';
 import { IconButtonBoxNew } from './Notification.styled';
@@ -32,10 +32,10 @@ import { useTawk } from 'contexts/TawkContext';
 // import { useVideoCallContext } from 'contexts/videoCallContext';
 import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 import { io, Socket } from 'socket.io-client';
-import { ISocketMessage } from 'services/chatServices/chat.service';
+// import { ISocketMessage } from 'services/chatServices/chat.service';
 import { StyledSnackBar, StyledSnackBarInnerBox } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
 import CloseIcon from '@mui/icons-material/Close';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export type NotificationFilters = {
   page: number;
@@ -57,7 +57,7 @@ const HeaderAuthComponent = () => {
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
-  const parthname = usePathname();
+  // const parthname = usePathname();
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
@@ -77,7 +77,7 @@ const HeaderAuthComponent = () => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [snackbarOptions, setSnackbarOptions] = useState({ open: false, message: '', url: '' });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setChatNotificationDetails] = useState<ChatNotificationRoot>();
+  // const [_, setChatNotificationDetails] = useState<ChatNotificationRoot>();
 
   const open = Boolean(anchorElLogout);
   const uploadedImageURL = '/images/headerv2/profilePic.png';
@@ -159,15 +159,15 @@ const HeaderAuthComponent = () => {
     initializeChat();
   };
 
-  const handleChatNotification = async (): Promise<ChatNotificationData> => {
-    const ModelPayoutListObject = {
-      limit: filters.pageSize,
-      offset: filters.offset
-    };
-    const chatNotification = await NotificationDetailsService.getChatNotificationDetails(token.token, ModelPayoutListObject);
-    setChatNotificationDetails(chatNotification);
-    return chatNotification.data;
-  };
+  // const handleChatNotification = async (): Promise<ChatNotificationData> => {
+  //   const ModelPayoutListObject = {
+  //     limit: filters.pageSize,
+  //     offset: filters.offset
+  //   };
+  //   const chatNotification = await NotificationDetailsService.getChatNotificationDetails(token.token, ModelPayoutListObject);
+  //   setChatNotificationDetails(chatNotification);
+  //   return chatNotification.data;
+  // };
 
   useEffect(() => {
     handleCallback();
@@ -228,22 +228,22 @@ const HeaderAuthComponent = () => {
 
   useEffect(() => {
     const setupSocketListeners = async () => {
-      if (socket) {
-        socket.on('connect', () => {
-          socket.emit('join', token.customer_user_name);
-          // Listener for chat messages
-          socket.on('chat-message', async (message: ISocketMessage) => {
-            if (!parthname.startsWith('/chat')) {
-              const chatNotificationData = await handleChatNotification();
-              setSnackbarOptions({
-                open: true,
-                message: chatNotificationData?.notifications[0].message || '',
-                url: `/chat/${chatNotificationData?.notifications[0].user_name}` || ''
-              });
-            }
-          });
-        });
-      }
+      // if (socket) {
+      //   socket.on('connect', () => {
+      //     socket.emit('join', token.customer_user_name);
+      //     // Listener for chat messages
+      //     socket.on('chat-message', async (message: ISocketMessage) => {
+      //       if (!parthname.startsWith('/chat')) {
+      //         const chatNotificationData = await handleChatNotification();
+      //         setSnackbarOptions({
+      //           open: true,
+      //           message: chatNotificationData?.notifications[0].message || '',
+      //           url: `/chat/${chatNotificationData?.notifications[0].user_name}` || ''
+      //         });
+      //       }
+      //     });
+      //   });
+      // }
     };
     setupSocketListeners();
     // Cleanup socket listeners on unmount or dependency change
@@ -299,7 +299,7 @@ const HeaderAuthComponent = () => {
                 </Box>
               </IconButton>
             </Link>
-            <Link href="/chat" style={{ textDecoration: 'none' }}>
+            {/* <Link href="/chat" style={{ textDecoration: 'none' }}>
               <IconButton sx={{ height: 24, width: 24 }}>
                 <Box
                   sx={{
@@ -311,7 +311,7 @@ const HeaderAuthComponent = () => {
                   <Box component="img" src="/images/chat/chatNotification.svg" alt="chat_logo" sx={{ width: 24, height: 24 }} />
                 </Box>
               </IconButton>
-            </Link>
+            </Link> */}
           </>
         )}
 
@@ -438,7 +438,7 @@ const HeaderAuthComponent = () => {
                 </MenuItem>
                 <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                 <MenuItem>
-                  <ListItemIcon>
+                  {/* <ListItemIcon>
                     <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
                       <Link href="/chat" style={{ textDecoration: 'none' }}>
                         <IconButton sx={{ height: 24, width: 24 }}>
@@ -454,7 +454,7 @@ const HeaderAuthComponent = () => {
                         </IconButton>
                       </Link>
                     </IconButton>
-                  </ListItemIcon>
+                  </ListItemIcon> */}
                   <ListItemText>
                     <Link href="/chat">
                       <UINewTypography variant="bodyLight" color="text.secondary">
