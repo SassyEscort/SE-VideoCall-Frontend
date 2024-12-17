@@ -287,7 +287,7 @@ const EscortSlider = ({
               </UINewTypography>
             </Box>
           </StyleButtonShadowV2>
-          <StyleButtonShadowV2
+          {/* <StyleButtonShadowV2
             loading={isLoading}
             onClick={isCustomer ? handleStartChatClick : handleLoginOpen}
             sx={{
@@ -307,7 +307,7 @@ const EscortSlider = ({
                 <FormattedMessage id="StartChat" />
               </UINewTypography>
             </Box>
-          </StyleButtonShadowV2>
+          </StyleButtonShadowV2> */}
           {/* <StyleButtonShadowV2
             loading={isLoading}
             onClick={isCustomer ? handleCallInitiate : isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleLoginOpen}

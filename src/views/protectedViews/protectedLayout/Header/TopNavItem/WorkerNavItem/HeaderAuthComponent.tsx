@@ -228,22 +228,22 @@ const HeaderAuthComponent = () => {
 
   useEffect(() => {
     const setupSocketListeners = async () => {
-      if (socket) {
-        socket.on('connect', () => {
-          socket.emit('join', token.customer_user_name);
-          // Listener for chat messages
-          socket.on('chat-message', async (message: ISocketMessage) => {
-            if (!parthname.startsWith('/chat')) {
-              const chatNotificationData = await handleChatNotification();
-              setSnackbarOptions({
-                open: true,
-                message: chatNotificationData?.notifications[0].message || '',
-                url: `/chat/${chatNotificationData?.notifications[0].user_name}` || ''
-              });
-            }
-          });
-        });
-      }
+      // if (socket) {
+      //   socket.on('connect', () => {
+      //     socket.emit('join', token.customer_user_name);
+      //     // Listener for chat messages
+      //     socket.on('chat-message', async (message: ISocketMessage) => {
+      //       if (!parthname.startsWith('/chat')) {
+      //         const chatNotificationData = await handleChatNotification();
+      //         setSnackbarOptions({
+      //           open: true,
+      //           message: chatNotificationData?.notifications[0].message || '',
+      //           url: `/chat/${chatNotificationData?.notifications[0].user_name}` || ''
+      //         });
+      //       }
+      //     });
+      //   });
+      // }
     };
     setupSocketListeners();
     // Cleanup socket listeners on unmount or dependency change
@@ -299,7 +299,7 @@ const HeaderAuthComponent = () => {
                 </Box>
               </IconButton>
             </Link>
-            <Link href="/chat" style={{ textDecoration: 'none' }}>
+            {/* <Link href="/chat" style={{ textDecoration: 'none' }}>
               <IconButton sx={{ height: 24, width: 24 }}>
                 <Box
                   sx={{
@@ -311,7 +311,7 @@ const HeaderAuthComponent = () => {
                   <Box component="img" src="/images/chat/chatNotification.svg" alt="chat_logo" sx={{ width: 24, height: 24 }} />
                 </Box>
               </IconButton>
-            </Link>
+            </Link> */}
           </>
         )}
 
@@ -438,7 +438,7 @@ const HeaderAuthComponent = () => {
                 </MenuItem>
                 <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
                 <MenuItem>
-                  <ListItemIcon>
+                  {/* <ListItemIcon>
                     <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
                       <Link href="/chat" style={{ textDecoration: 'none' }}>
                         <IconButton sx={{ height: 24, width: 24 }}>
@@ -454,7 +454,7 @@ const HeaderAuthComponent = () => {
                         </IconButton>
                       </Link>
                     </IconButton>
-                  </ListItemIcon>
+                  </ListItemIcon> */}
                   <ListItemText>
                     <Link href="/chat">
                       <UINewTypography variant="bodyLight" color="text.secondary">

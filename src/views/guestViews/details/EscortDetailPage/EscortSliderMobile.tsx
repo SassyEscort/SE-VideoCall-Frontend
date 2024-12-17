@@ -244,7 +244,7 @@ const EscortSliderMobile = ({
           </Box>
         </StyleButtonShadowV2>
         <ActivityButtonBox>
-          <StyleButtonShadowV2
+          {/* <StyleButtonShadowV2
             loading={isLoading}
             onClick={isCustomer ? handleStartChatClick : handleLoginOpen}
             sx={{
@@ -265,7 +265,7 @@ const EscortSliderMobile = ({
                 <FormattedMessage id="StartChat" />
               </UINewTypography>
             </Box>
-          </StyleButtonShadowV2>
+          </StyleButtonShadowV2> */}
           <Box sx={{ width: '100%', height: '100%' }}>
             <UIStyledShadowButtonLike
               sx={{
