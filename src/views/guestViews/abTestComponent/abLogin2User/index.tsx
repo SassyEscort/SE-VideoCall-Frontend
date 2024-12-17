@@ -1,58 +1,120 @@
 'use client';
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
+import React, { useEffect, useState } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Formik } from 'formik';
-import CloseIcon from '@mui/icons-material/Close';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { FormattedMessage } from 'react-intl';
-import MenuItem from '@mui/material/MenuItem';
-import Checkbox from '@mui/material/Checkbox';
-import Button from '@mui/material/Button';
 import Link from 'next/link';
-import { ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
+import { useRouter } from 'next/navigation';
+import { useSession, signIn } from 'next-auth/react';
+import { ErrorBox, ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
-import { RiEyeLine, RiEyeOffLine, RiUserFillLine } from 'components/common/customRemixIcons';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import theme from 'themes/theme';
 import * as yup from 'yup';
-import { PASSWORD_PATTERN } from 'constants/regexConstants';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import LoadingButton from '@mui/lab/LoadingButton';
+import CloseIcon from '@mui/icons-material/Close';
+import MenuItem from '@mui/material/MenuItem';
+import Checkbox from '@mui/material/Checkbox';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import InfoIcon from '@mui/icons-material/Info';
+import { deleteCookie } from 'cookies-next';
+import { LoginUserParams } from 'services/guestAuth/types';
+import getCustomErrorMessage from 'utils/error.utils';
+import { EMAIL_REGEX } from 'constants/regexConstants';
 
-const ABLogin2User = ({ onClose, onSignupOpen }: { onClose: () => void; onSignupOpen: () => void }) => {
+const ABLogin2User = ({
+  onClose,
+  onSignupOpen,
+  onFogotPasswordLinkOpen
+}: {
+  onClose: () => void;
+  onSignupOpen: () => void;
+  onFogotPasswordLinkOpen: () => void;
+}) => {
+  const intl = useIntl();
+
+  const route = useRouter();
+  const { data: session } = useSession();
+  const [modelStatus, setModelStatus] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState('');
+  const [authRole, setAuthRole] = useState('');
+
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const validationSchema = yup.object({
-    password: yup.string().required('New Password Is Required').min(8, 'Password Must Be 8 character long').matches(PASSWORD_PATTERN, {
-      message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
-      excludeEmptyString: true
-    }),
-    confirmPassword: yup
-      .string()
-      .required('confirm Password Is Required')
-      .min(8, 'Password Must Be 8 character long')
-      .matches(PASSWORD_PATTERN, {
-        message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
-        excludeEmptyString: true
-      })
-      .oneOf([yup.ref('password')], 'password and confirm password should match')
+    email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
+    password: yup.string().required('Passwordisrequired')
   });
 
+  const handleFormSubmit = async (values: LoginUserParams) => {
+    try {
+      setLoading(true);
+      const { PROVIDERCUSTOM_TYPE } = await import('constants/signUpConstants');
+      const res = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+        role: values.role
+      });
+      if (res?.status === 200) {
+        deleteCookie('ab-group');
+        route.refresh();
+        onClose();
+      } else if (res?.error) {
+        const errorMessage = res.error === 'CredentialsSignin' ? 'InvalidEmail' : 'SomethingWent';
+        setAlert(intl.formatMessage({ id: errorMessage }));
+      }
+    } catch (error: any) {
+      setAlert(getCustomErrorMessage(error));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (session && session.user) {
+      const parsedPicture = JSON.parse((session?.user as any)?.picture);
+      setAuthRole(parsedPicture.role);
+      setModelStatus(parsedPicture.profile_status);
+    }
+  }, [session, session?.user]);
+
+  const checkAndRoutePath = async () => {
+    const { ROLE } = await import('constants/workerVerification');
+    const { MODEL_ACTION } = await import('constants/profileConstants');
+
+    if (authRole === ROLE.CUSTOMER) {
+      route.refresh();
+    } else if (authRole === ROLE.MODEL) {
+      if (modelStatus === MODEL_ACTION.REJECT) {
+        route.push('/model/profile-reject');
+      } else if (modelStatus === MODEL_ACTION.APPROVE) {
+        route.push('/model/dashboard');
+      } else if (modelStatus === MODEL_ACTION.PENDING) {
+        route.push('/model/profile');
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkAndRoutePath();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authRole, modelStatus]);
   return (
     <>
       <Formik
         initialValues={{
           email: '',
           password: '',
-          confirmPassword: '',
           role: ''
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log(values, 'values');
-        }}
+        onSubmit={(values: LoginUserParams) => handleFormSubmit(values)}
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
           return (
@@ -141,6 +203,14 @@ const ABLogin2User = ({ onClose, onSignupOpen }: { onClose: () => void; onSignup
                       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                            <Box sx={{ color: 'primary.300' }}>
+                              {alert && (
+                                <ErrorBox>
+                                  <InfoIcon />
+                                  <UINewTypography>{alert}</UINewTypography>
+                                </ErrorBox>
+                              )}
+                            </Box>
                             <Box>
                               <ModelUITextConatiner gap={0.5}>
                                 <Box sx={{ display: 'flex', gap: 4, flexDirection: isMdDown ? 'column' : 'row' }}>
@@ -227,7 +297,7 @@ const ABLogin2User = ({ onClose, onSignupOpen }: { onClose: () => void; onSignup
                               variant="buttonLargeMenu"
                               color="primary.400"
                               sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}
-                              onClick={() => {}}
+                              onClick={onFogotPasswordLinkOpen}
                             >
                               <FormattedMessage id="ForgotPassword" />
                             </UINewTypography>
@@ -235,12 +305,14 @@ const ABLogin2User = ({ onClose, onSignupOpen }: { onClose: () => void; onSignup
                         </Box>
 
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
-                          <Button
+                          <LoadingButton
                             variant="contained"
                             sx={{ width: '632px', height: '60px', borderRadius: '12px', backgroundColor: 'primary.100' }}
+                            type="submit"
+                            loading={loading}
                           >
                             Join Now
-                          </Button>
+                          </LoadingButton>
                           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
                             <UINewTypography variant="bodyRegular">
                               Have an account already?

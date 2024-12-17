@@ -360,7 +360,11 @@ const HeaderGuestComponent = () => {
           </UIStyleABTest2User>
 
           <UIStyleABTest2User scroll="body" open={openLogin} onClose={handleLoginClose} fullWidth>
-            <ABLogin2User onClose={handleLoginClose} onSignupOpen={handleSignupOpen} />
+            <ABLogin2User
+              onClose={handleLoginClose}
+              onSignupOpen={handleSignupOpen}
+              onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+            />
           </UIStyleABTest2User>
         </>
       )}

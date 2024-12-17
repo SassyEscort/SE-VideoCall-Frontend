@@ -1,31 +1,30 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import { Formik } from 'formik';
-import CloseIcon from '@mui/icons-material/Close';
-import UINewTypography from 'components/UIComponents/UINewTypography';
-import { FormattedMessage, useIntl } from 'react-intl';
-import MenuItem from '@mui/material/MenuItem';
-import Checkbox from '@mui/material/Checkbox';
-import Button from '@mui/material/Button';
-import Link from 'next/link';
-import { ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
-import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
-import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import theme from 'themes/theme';
-import * as yup from 'yup';
-import { EMAIL_REGEX } from 'constants/regexConstants';
-import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import { useRouter } from 'next/navigation';
 import { signIn, useSession } from 'next-auth/react';
-import { ROLE } from 'constants/workerVerification';
-import { MODEL_ACTION } from 'constants/profileConstants';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { Formik } from 'formik';
+import Link from 'next/link';
+import UINewTypography from 'components/UIComponents/UINewTypography';
+import { ErrorBox, ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
+import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
+import { EMAIL_REGEX } from 'constants/regexConstants';
+import theme from 'themes/theme';
+import * as yup from 'yup';
+import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
+import Box from '@mui/material/Box';
+import LoadingButton from '@mui/lab/LoadingButton';
+import IconButton from '@mui/material/IconButton';
 import getCustomErrorMessage from 'utils/error.utils';
+import MenuItem from '@mui/material/MenuItem';
+import Checkbox from '@mui/material/Checkbox';
+import CloseIcon from '@mui/icons-material/Close';
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import InfoIcon from '@mui/icons-material/Info';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { deleteCookie } from 'cookies-next';
-import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { LoginUserParams } from 'services/guestAuth/types';
+
 
 const ABLogin1User = ({
   onClose,
@@ -53,8 +52,26 @@ const ABLogin1User = ({
     password: yup.string().required('Passwordisrequired')
   });
 
+  const checkAndRoutePath = async () => {
+    const { ROLE } = await import('constants/workerVerification');
+    const { MODEL_ACTION } = await import('constants/profileConstants');
+
+    if (authRole === ROLE.CUSTOMER) {
+      route.refresh();
+    } else if (authRole === ROLE.MODEL) {
+      if (modelStatus === MODEL_ACTION.REJECT) {
+        route.push('/model/profile-reject');
+      } else if (modelStatus === MODEL_ACTION.APPROVE) {
+        route.push('/model/dashboard');
+      } else if (modelStatus === MODEL_ACTION.PENDING) {
+        route.push('/model/profile');
+      }
+    }
+  };
+
   const handleFormSubmit = async (values: LoginUserParams) => {
     try {
+      const { PROVIDERCUSTOM_TYPE } = await import('constants/signUpConstants');
       setLoading(true);
       const res = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {
         redirect: false,
@@ -86,17 +103,7 @@ const ABLogin1User = ({
   }, [session, session?.user]);
 
   useEffect(() => {
-    if (authRole === ROLE.CUSTOMER) {
-      route.refresh();
-    } else if (authRole === ROLE.MODEL) {
-      if (modelStatus === MODEL_ACTION.REJECT) {
-        route.push('/model/profile-reject');
-      } else if (modelStatus === MODEL_ACTION.APPROVE) {
-        route.push('/model/dashboard');
-      } else if (modelStatus === MODEL_ACTION.PENDING) {
-        route.push('/model/profile');
-      }
-    }
+    checkAndRoutePath();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authRole, modelStatus]);
 
@@ -220,6 +227,14 @@ const ABLogin1User = ({
                       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                            <Box sx={{ color: 'primary.300' }}>
+                              {alert && (
+                                <ErrorBox>
+                                  <InfoIcon />
+                                  <UINewTypography>{alert}</UINewTypography>
+                                </ErrorBox>
+                              )}
+                            </Box>
                             <Box>
                               <ModelUITextConatiner gap={0.5}>
                                 <Box sx={{ display: 'flex', gap: 4, flexDirection: isMdDown ? 'column' : 'row' }}>
@@ -308,12 +323,14 @@ const ABLogin1User = ({
                         </Box>
 
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
-                          <Button
+                          <LoadingButton
                             variant="contained"
                             sx={{ width: '632px', height: '60px', borderRadius: '12px', backgroundColor: 'primary.100' }}
+                            type="submit"
+                            loading={loading}
                           >
                             Join Now
-                          </Button>
+                          </LoadingButton>
                           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
                             <UINewTypography variant="bodyRegular">
                               Have an account already?
@@ -322,7 +339,6 @@ const ABLogin1User = ({
                                 sx={{ fontWeight: 800, color: 'white.main', textDecoration: 'underline', cursor: 'pointer' }}
                                 onClick={onSignupOpen}
                               >
-                                {' '}
                                 Log in here
                               </Box>
                             </UINewTypography>
