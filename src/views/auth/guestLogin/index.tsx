@@ -77,6 +77,7 @@ const GuestLogin = ({
     email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
     password: yup.string().required('Passwordisrequired')
   });
+
   const handleFormSubmit = async (values: LoginUserParams) => {
     try {
       setLoading(true);

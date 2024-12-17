@@ -1,11 +1,11 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
@@ -16,29 +16,89 @@ import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import * as yup from 'yup';
-import { PASSWORD_PATTERN } from 'constants/regexConstants';
+import { EMAIL_REGEX } from 'constants/regexConstants';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import { useRouter } from 'next/navigation';
+import { signIn, useSession } from 'next-auth/react';
+import { ROLE } from 'constants/workerVerification';
+import { MODEL_ACTION } from 'constants/profileConstants';
+import getCustomErrorMessage from 'utils/error.utils';
+import { deleteCookie } from 'cookies-next';
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
+import { LoginUserParams } from 'services/guestAuth/types';
 
-const ABLogin1User = ({ onClose, onSignupOpen }: { onClose: () => void; onSignupOpen: () => void }) => {
+const ABLogin1User = ({
+  onClose,
+  onSignupOpen,
+  onFogotPasswordLinkOpen
+}: {
+  onClose: () => void;
+  onSignupOpen: () => void;
+  onFogotPasswordLinkOpen: () => void;
+}) => {
+  const intl = useIntl();
+
+  const route = useRouter();
+  const { data: session } = useSession();
+  const [modelStatus, setModelStatus] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState('');
+  const [authRole, setAuthRole] = useState('');
+
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const validationSchema = yup.object({
-    password: yup.string().required('New Password Is Required').min(8, 'Password Must Be 8 character long').matches(PASSWORD_PATTERN, {
-      message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
-      excludeEmptyString: true
-    }),
-    confirmPassword: yup
-      .string()
-      .required('confirm Password Is Required')
-      .min(8, 'Password Must Be 8 character long')
-      .matches(PASSWORD_PATTERN, {
-        message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
-        excludeEmptyString: true
-      })
-      .oneOf([yup.ref('password')], 'password and confirm password should match')
+    email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
+    password: yup.string().required('Passwordisrequired')
   });
+
+  const handleFormSubmit = async (values: LoginUserParams) => {
+    try {
+      setLoading(true);
+      const res = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+        role: values.role
+      });
+      if (res?.status === 200) {
+        deleteCookie('ab-group');
+        route.refresh();
+        onClose();
+      } else if (res?.error) {
+        const errorMessage = res.error === 'CredentialsSignin' ? 'InvalidEmail' : 'SomethingWent';
+        setAlert(intl.formatMessage({ id: errorMessage }));
+      }
+    } catch (error: any) {
+      setAlert(getCustomErrorMessage(error));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (session && session.user) {
+      const parsedPicture = JSON.parse((session?.user as any)?.picture);
+      setAuthRole(parsedPicture.role);
+      setModelStatus(parsedPicture.profile_status);
+    }
+  }, [session, session?.user]);
+
+  useEffect(() => {
+    if (authRole === ROLE.CUSTOMER) {
+      route.refresh();
+    } else if (authRole === ROLE.MODEL) {
+      if (modelStatus === MODEL_ACTION.REJECT) {
+        route.push('/model/profile-reject');
+      } else if (modelStatus === MODEL_ACTION.APPROVE) {
+        route.push('/model/dashboard');
+      } else if (modelStatus === MODEL_ACTION.PENDING) {
+        route.push('/model/profile');
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authRole, modelStatus]);
 
   return (
     <>
@@ -46,13 +106,10 @@ const ABLogin1User = ({ onClose, onSignupOpen }: { onClose: () => void; onSignup
         initialValues={{
           email: '',
           password: '',
-          confirmPassword: '',
           role: ''
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log(values, 'values');
-        }}
+        onSubmit={(values: LoginUserParams) => handleFormSubmit(values)}
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
           return (
@@ -93,10 +150,9 @@ const ABLogin1User = ({ onClose, onSignupOpen }: { onClose: () => void; onSignup
                       width: '100%',
                       minWidth: '760px',
                       height: '100%',
-                      //   minHeight: '880px',
                       border: '1px solid #07030E80',
                       borderRadius: '24px',
-                      backgroundColor: 'rgba(7, 3, 14, 0.5)', // Add transparency for the blur effect
+                      backgroundColor: 'rgba(7, 3, 14, 0.5)',
                       backdropFilter: 'blur(24px)',
                       padding: '40px 64px 40px 64px'
                     }}
@@ -204,13 +260,7 @@ const ABLogin1User = ({ onClose, onSignupOpen }: { onClose: () => void; onSignup
                                       name="password"
                                       value={values.password}
                                       onChange={handleChange}
-                                      onBlur={() => {
-                                        handleBlur;
-                                        //   gaEventTrigger('signup_form_password_click', {
-                                        //     source: 'model_password_click',
-                                        //     category: 'TextField'
-                                        //   });
-                                      }}
+                                      onBlur={handleBlur}
                                       error={touched.password && Boolean(errors.password)}
                                       helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
                                       sx={{
@@ -231,10 +281,28 @@ const ABLogin1User = ({ onClose, onSignupOpen }: { onClose: () => void; onSignup
                             </Box>
                           </Box>
 
-                          <MenuItem sx={{ p: 0, gap: { xs: '0', sm: '1' } }}>
-                            <Checkbox sx={{ p: 0, pr: 1 }} />
-                            <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
-                              <FormattedMessage id="RememberMe" />
+                          <MenuItem
+                            sx={{
+                              display: 'flex',
+                              p: 0,
+                              justifyContent: 'space-between',
+                              flexDirection: { xs: 'column', sm: 'row' },
+                              gap: { xs: 1, sm: 0 }
+                            }}
+                          >
+                            <Box>
+                              <Checkbox sx={{ p: 0, pr: 1 }} />
+                              <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
+                                <FormattedMessage id="RememberMe" />
+                              </UINewTypography>
+                            </Box>
+                            <UINewTypography
+                              variant="buttonLargeMenu"
+                              color="primary.400"
+                              sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}
+                              onClick={onFogotPasswordLinkOpen}
+                            >
+                              <FormattedMessage id="ForgotPassword" />
                             </UINewTypography>
                           </MenuItem>
                         </Box>

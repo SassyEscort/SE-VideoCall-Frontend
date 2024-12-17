@@ -233,10 +233,28 @@ const ABLogin1Model = ({ onClose, onSignupOpen }: { onClose: () => void; onSignu
                             </Box>
                           </Box>
 
-                          <MenuItem sx={{ p: 0, gap: { xs: '0', sm: '1' } }}>
-                            <Checkbox sx={{ p: 0, pr: 1 }} />
-                            <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
-                              <FormattedMessage id="RememberMe" />
+                          <MenuItem
+                            sx={{
+                              display: 'flex',
+                              p: 0,
+                              justifyContent: 'space-between',
+                              flexDirection: { xs: 'column', sm: 'row' },
+                              gap: { xs: 1, sm: 0 }
+                            }}
+                          >
+                            <Box>
+                              <Checkbox sx={{ p: 0, pr: 1 }} />
+                              <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
+                                <FormattedMessage id="RememberMe" />
+                              </UINewTypography>
+                            </Box>
+                            <UINewTypography
+                              variant="buttonLargeMenu"
+                              color="primary.400"
+                              sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}
+                              onClick={() => {}}
+                            >
+                              <FormattedMessage id="ForgotPassword" />
                             </UINewTypography>
                           </MenuItem>
                         </Box>

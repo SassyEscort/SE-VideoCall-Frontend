@@ -11,7 +11,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import { ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
-import { RiEyeLine, RiEyeOffLine, RiUserFillLine } from 'components/common/customRemixIcons';
+import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import * as yup from 'yup';
@@ -21,7 +21,6 @@ import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 const ABLogin2Model = ({ onClose }: { onClose: () => void }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const validationSchema = yup.object({
     password: yup.string().required('New Password Is Required').min(8, 'Password Must Be 8 character long').matches(PASSWORD_PATTERN, {
@@ -207,10 +206,28 @@ const ABLogin2Model = ({ onClose }: { onClose: () => void }) => {
                             </Box>
                           </Box>
 
-                          <MenuItem sx={{ p: 0, gap: { xs: '0', sm: '1' } }}>
-                            <Checkbox sx={{ p: 0, pr: 1 }} />
-                            <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
-                              <FormattedMessage id="RememberMe" />
+                          <MenuItem
+                            sx={{
+                              display: 'flex',
+                              p: 0,
+                              justifyContent: 'space-between',
+                              flexDirection: { xs: 'column', sm: 'row' },
+                              gap: { xs: 1, sm: 0 }
+                            }}
+                          >
+                            <Box>
+                              <Checkbox sx={{ p: 0, pr: 1 }} />
+                              <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
+                                <FormattedMessage id="RememberMe" />
+                              </UINewTypography>
+                            </Box>
+                            <UINewTypography
+                              variant="buttonLargeMenu"
+                              color="primary.400"
+                              sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}
+                              onClick={() => {}}
+                            >
+                              <FormattedMessage id="ForgotPassword" />
                             </UINewTypography>
                           </MenuItem>
                         </Box>

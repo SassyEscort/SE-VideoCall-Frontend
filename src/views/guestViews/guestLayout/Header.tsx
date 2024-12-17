@@ -344,7 +344,11 @@ const HeaderGuestComponent = () => {
       ) : (
         <>
           <UIStyledDialogg scroll="body" open={openLogin} onClose={handleLoginClose} fullWidth>
-            <ABLogin1User onClose={handleLoginClose} onSignupOpen={handleSignupOpen} />
+            <ABLogin1User
+              onClose={handleLoginClose}
+              onSignupOpen={handleSignupOpen}
+              onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+            />
           </UIStyledDialogg>
 
           <UIStyledDialogg scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
