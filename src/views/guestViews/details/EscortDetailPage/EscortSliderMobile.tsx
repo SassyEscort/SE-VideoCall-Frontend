@@ -16,7 +16,13 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { WorkerPhotos } from 'views/protectedModelViews/verification/stepThree/uploadImage';
-import { FirstSwiperBlurContainer, SecondSwiperBlurContainer, SwiperSlidBoxContainer } from './Escort.styled';
+import {
+  ActivityButtonBox,
+  ActivityButtonMainBox,
+  FirstSwiperBlurContainer,
+  SecondSwiperBlurContainer,
+  SwiperSlidBoxContainer
+} from './Escort.styled';
 import { toast } from 'react-toastify';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -217,128 +223,64 @@ const EscortSliderMobile = ({
           </Swiper>
         </Box>
       </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          gap: 1.5,
-          mt: 3
-        }}
-      >
-        <Box
+      <ActivityButtonMainBox>
+        <StyleButtonShadowV2
+          loading={isLoading}
+          onClick={isCustomer ? handleCallInitiate : isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleLoginOpen}
           sx={{
+            padding: 0,
+            minWidth: isLg ? '450px' : isMd ? '350px' : isSm ? '200px' : '271px',
             width: '100%',
-            ...(isLg && {
-              display: 'flex',
-              justifyContent: 'space-between',
-              gap: 1.5
-            })
+            '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } }
           }}
+          fullWidth
+          variant="contained"
         >
+          <Box display="flex" alignItems="center" gap="10px">
+            <Image src="/images/workercards/video-call.svg" alt="video-call" height={20} width={20} />
+            <UINewTypography color="common.white" variant="bodySemiBold" sx={{ textWrap: 'no-wrap' }}>
+              <FormattedMessage id="StartVideoCall" />
+            </UINewTypography>
+          </Box>
+        </StyleButtonShadowV2>
+        <ActivityButtonBox>
           <StyleButtonShadowV2
             loading={isLoading}
-            onClick={isCustomer ? handleCallInitiate : isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleLoginOpen}
+            onClick={isCustomer ? handleStartChatClick : handleLoginOpen}
             sx={{
               padding: 0,
-              minWidth: isLg ? '450px' : isMd ? '350px' : isSm ? '200px' : '271px',
+              minWidth: isSm ? '200px' : '271px',
               width: '100%',
-              '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } }
+              '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } },
+              '&.MuiButton-contained': {
+                backgroundColor: '#E9E8EB'
+              }
             }}
             fullWidth
             variant="contained"
           >
             <Box display="flex" alignItems="center" gap="10px">
-              <Image src="/images/workercards/video-call.svg" alt="video-call" height={20} width={20} />
-              <UINewTypography color="common.white" variant="bodySemiBold" sx={{ textWrap: 'no-wrap' }}>
-                <FormattedMessage id="StartVideoCall" />
+              <Image src="/images/workercards/Vector.svg" alt="start-chat" height={20} width={20} />
+              <UINewTypography color="primary.400" variant="bodySemiBold" sx={{ textWrap: 'no-wrap', lineHeight: '120%' }}>
+                <FormattedMessage id="StartChat" />
               </UINewTypography>
             </Box>
           </StyleButtonShadowV2>
-          {isLg && (
-            <StyleButtonShadowV2
-              loading={isLoading}
-              onClick={isCustomer ? handleStartChatClick : handleLoginOpen}
+          <Box sx={{ width: '100%', height: '100%' }}>
+            <UIStyledShadowButtonLike
               sx={{
-                padding: 0,
-                minWidth: isLg ? '450px' : isMd ? '350px' : isSm ? '200px' : '271px',
+                padding: '10px',
                 width: '100%',
-                '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } },
-                '&.MuiButton-contained': {
-                  backgroundColor: '#E9E8EB'
-                }
+                height: '100%',
+                '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } }
               }}
-              fullWidth
-              variant="contained"
+              onClick={handleLikeClick}
             >
-              <Box display="flex" alignItems="center" gap="10px">
-                <Image src="/images/workercards/Vector.svg" alt="start-chat" height={20} width={20} />
-                <UINewTypography color="primary.400" variant="bodySemiBold" sx={{ textWrap: 'no-wrap', lineHeight: '120%' }}>
-                  <FormattedMessage id="StartChat" />
-                </UINewTypography>
-              </Box>
-            </StyleButtonShadowV2>
-          )}
-
-          {/* <StyleButtonShadowV2
-            loading={isLoading}
-            onClick={isCustomer ? handleCallInitiate : isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleLoginOpen}
-            sx={{
-              padding: 0,
-              minWidth: isLg ? '660px' : isSm ? '200px' : '271px',
-              width: '100%',
-              '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } }
-            }}
-            fullWidth
-            variant="contained"
-          >
-            <Box display="flex" alignItems="center" gap="10px">
-              <Image loading="lazy" src="/images/workercards/video-call.svg" alt="video-call" height={20} width={20} />
-              <UINewTypography color="common.white" variant="bodySemiBold" sx={{ textWrap: 'no-wrap' }}>
-                <FormattedMessage id="StartVideoCall" />
-              </UINewTypography>
-            </Box>
-          </StyleButtonShadowV2> */}
-        </Box>
-        <Box sx={{ width: '100%' }}>
-          <UIStyledShadowButtonLike
-            sx={{
-              padding: '10px',
-              width: '100%',
-              '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } }
-            }}
-            onClick={handleLikeClick}
-          >
-            {liked || guestData?.favourite === 1 ? <FavoriteIcon sx={{ color: '#FF48B3' }} /> : <FavoriteBorderIcon />}
-          </UIStyledShadowButtonLike>
-        </Box>
-      </Box>
-      {!isLg && (
-        <Box sx={{ display: 'flex', gap: 1.5, mt: 1.5 }}>
-          <Box sx={{ width: '100%' }}>
-            <StyleButtonShadowV2
-              loading={isLoading}
-              onClick={isCustomer ? handleStartChatClick : handleLoginOpen}
-              sx={{
-                padding: 0,
-                minWidth: isSm ? '200px' : '271px',
-                width: '100%',
-                '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } },
-                '&.MuiButton-contained': {
-                  backgroundColor: '#E9E8EB'
-                }
-              }}
-              fullWidth
-              variant="contained"
-            >
-              <Box display="flex" alignItems="center" gap="10px">
-                <Image src="/images/workercards/Vector.svg" alt="start-chat" height={20} width={20} />
-                <UINewTypography color="primary.400" variant="bodySemiBold" sx={{ textWrap: 'no-wrap', lineHeight: '120%' }}>
-                  <FormattedMessage id="StartChat" />
-                </UINewTypography>
-              </Box>
-            </StyleButtonShadowV2>
+              {liked || guestData?.favourite === 1 ? <FavoriteIcon sx={{ color: '#FF48B3' }} /> : <FavoriteBorderIcon />}
+            </UIStyledShadowButtonLike>
           </Box>
-        </Box>
-      )}
+        </ActivityButtonBox>
+      </ActivityButtonMainBox>
       {/* <UIStyledDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth scroll="body"> */}
       <NewSignupStyledModalDialog open={open} onClose={handleSignupClose} maxWidth="md" fullWidth scroll="body">
         <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
