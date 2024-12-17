@@ -15,7 +15,7 @@ export type ModelListing = {
   created_date: string;
   email: string;
   email_verified: number;
-  id: number;
+  model_id: number;
   is_active: number;
   last_active: string;
   model_name: string;

@@ -297,7 +297,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
   };
 
   const handelViewDetails = async () => {
-    router.push(`/admin/model/details/${selected?.id}`);
+    router.push(`/admin/model/details/${selected?.model_id}`);
   };
 
   const handleHideModel = async () => {
@@ -517,10 +517,10 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
                           }}
                         >
                           <TableCell component="th" scope="row">
-                            <Link href={`/admin/model/details/${item?.id}`}>{item?.model_name || '-'}</Link>
+                            <Link href={`/admin/model/details/${item?.model_id}`}>{item?.model_name || '-'}</Link>
                           </TableCell>
                           <TableCell component="th" scope="row">
-                            <Link href={`/admin/model/details/${item?.id}`}>{item?.email || '-'}</Link>
+                            <Link href={`/admin/model/details/${item?.model_id}`}>{item?.email || '-'}</Link>
                           </TableCell>
                           <TableCell component="th" scope="row">
                             {item?.gender || '-'}
