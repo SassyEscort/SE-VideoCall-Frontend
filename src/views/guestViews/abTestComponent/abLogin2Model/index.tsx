@@ -8,7 +8,6 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
-import Button from '@mui/material/Button';
 import { ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
@@ -17,6 +16,25 @@ import theme from 'themes/theme';
 import * as yup from 'yup';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import {
+  BenefitsTextTypography,
+  ButtonBoxContainer,
+  ButtonInnerBoxContainer,
+  DescriptionTextBox,
+  DescriptionTextContainer,
+  DescriptionTextInner2Box,
+  DescriptionTextTypography,
+  FooterMainBoxContainer,
+  GetFreeCallTextTypography,
+  HeadingTextMainBoxContainer,
+  InputFiledInnerBoxContainer,
+  InputFiledMainBoxContainer,
+  JoinForFreeTextTypography,
+  LoginTextBoxContainer,
+  ModelInnerBoxContainer,
+  ModelMainBoxContainer
+} from '../abRegister2User/abRegister2User.styled';
+import { JoinNowButtonContainer } from '../abRegister1Model/abRegister1Model.styled';
 
 const ABLogin2Model = ({ onClose }: { onClose: () => void }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -85,60 +103,16 @@ const ABLogin2Model = ({ onClose }: { onClose: () => void }) => {
                       <CloseIcon />
                     </IconButton>
                   </Box>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      width: '100%',
-                      minWidth: '760px',
-                      height: '100%',
-                      //   minHeight: '880px',
-                      border: '1px solid #07030E80',
-                      borderRadius: '24px',
-                      backgroundColor: 'rgba(7, 3, 14, 0.5)', // Add transparency for the blur effect
-                      backdropFilter: 'blur(24px)',
-                      padding: '62px 100px 62px 100px',
-                      gap: 6
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        width: '100%',
-                        height: '100%',
-                        gap: 5,
-                        alignItems: 'center'
-                      }}
-                    >
-                      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <UINewTypography
-                          sx={{
-                            fontSize: '48px',
-                            fontWeight: 600,
-                            lineHeight: '64px',
-                            color: 'primary.100'
-                          }}
-                        >
-                          Join Now for FREE!
-                        </UINewTypography>
-                        <UINewTypography
-                          sx={{
-                            fontSize: '48px',
-                            fontWeight: 500,
-                            lineHeight: '64px',
-                            background: 'linear-gradient(90deg, #FFE38C, #CCA633)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent'
-                          }}
-                        >
-                          Earn on Your Terms!
-                        </UINewTypography>
-                      </Box>
+                  <ModelMainBoxContainer>
+                    <ModelInnerBoxContainer>
+                      <HeadingTextMainBoxContainer>
+                        <JoinForFreeTextTypography>Join Now for FREE!</JoinForFreeTextTypography>
+                        <GetFreeCallTextTypography>Earn on Your Terms!</GetFreeCallTextTypography>
+                      </HeadingTextMainBoxContainer>
 
-                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                      <InputFiledMainBoxContainer>
+                        <InputFiledInnerBoxContainer>
+                          <InputFiledMainBoxContainer>
                             <Box>
                               <ModelUITextConatiner gap={0.5}>
                                 <Box sx={{ display: 'flex', gap: 4, flexDirection: isMdDown ? 'column' : 'row' }}>
@@ -204,7 +178,7 @@ const ABLogin2Model = ({ onClose }: { onClose: () => void }) => {
                                 </Box>
                               </ModelUITextConatiner>
                             </Box>
-                          </Box>
+                          </InputFiledMainBoxContainer>
 
                           <MenuItem
                             sx={{
@@ -230,84 +204,50 @@ const ABLogin2Model = ({ onClose }: { onClose: () => void }) => {
                               <FormattedMessage id="ForgotPassword" />
                             </UINewTypography>
                           </MenuItem>
-                        </Box>
+                        </InputFiledInnerBoxContainer>
 
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
-                          <Button
-                            variant="contained"
-                            sx={{ width: '632px', height: '60px', borderRadius: '12px', backgroundColor: 'primary.100' }}
-                          >
+                        <ButtonBoxContainer>
+                          <JoinNowButtonContainer variant="contained" type="submit">
                             Join Now
-                          </Button>
-                          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
+                          </JoinNowButtonContainer>
+                          <ButtonInnerBoxContainer>
                             <UINewTypography variant="bodyRegular">
                               Have an account already?
-                              <Box component="span" sx={{ fontWeight: 800, color: 'white.main', textDecoration: 'underline' }}>
-                                {' '}
-                                Log in here
-                              </Box>
+                              <LoginTextBoxContainer> Log in here</LoginTextBoxContainer>
                             </UINewTypography>
-                          </Box>
-                        </Box>
-                      </Box>
-                    </Box>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                      <UINewTypography
-                        sx={{
-                          display: 'flex',
-                          justifyContent: 'center',
-                          fontSize: '40px',
-                          fontWeight: 800,
-                          lineHeight: '64px',
-                          whiteSpace: 'nowrap',
-                          color: '#FFFFFFCC'
-                        }}
-                      >
-                        Unlock the Benefits!
-                      </UINewTypography>
+                          </ButtonInnerBoxContainer>
+                        </ButtonBoxContainer>
+                      </InputFiledMainBoxContainer>
+                    </ModelInnerBoxContainer>
+                    <FooterMainBoxContainer>
+                      <BenefitsTextTypography>Unlock the Benefits!</BenefitsTextTypography>
 
-                      <Box sx={{ display: 'flex', gap: 3 }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '363px' }}>
-                          <Box sx={{ display: 'flex', gap: 2 }}>
+                      <DescriptionTextBox>
+                        <DescriptionTextInner2Box>
+                          <DescriptionTextContainer>
                             <Box component="img" src="/images/icons/earn1-icon.svg" />
-                            <UINewTypography
-                              sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
-                            >
-                              Earn Money From Anywhere
-                            </UINewTypography>
-                          </Box>
+                            <DescriptionTextTypography>Earn Money From Anywhere</DescriptionTextTypography>
+                          </DescriptionTextContainer>
 
-                          <Box sx={{ display: 'flex', gap: 2 }}>
+                          <DescriptionTextContainer>
                             <Box component="img" src="/images/icons/secure1-icon.svg" />
-                            <UINewTypography
-                              sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
-                            >
-                              Secure Payouts
-                            </UINewTypography>
-                          </Box>
-                        </Box>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '304px' }}>
-                          <Box sx={{ display: 'flex', gap: 2 }}>
+                            <DescriptionTextTypography>Secure Payouts</DescriptionTextTypography>
+                          </DescriptionTextContainer>
+                        </DescriptionTextInner2Box>
+                        <DescriptionTextInner2Box>
+                          <DescriptionTextContainer>
                             <Box component="img" src="/images/icons/global1-icon.svg" />
-                            <UINewTypography
-                              sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
-                            >
-                              Global Audience
-                            </UINewTypography>
-                          </Box>
+                            <DescriptionTextTypography>Global Audience</DescriptionTextTypography>
+                          </DescriptionTextContainer>
 
-                          <Box sx={{ display: 'flex', gap: 2 }}>
+                          <DescriptionTextContainer>
                             <Box component="img" src="/images/icons/support1-icon.svg" />
-                            <UINewTypography
-                              sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
-                            >
-                              Dedicated Support
-                            </UINewTypography>
-                          </Box>
-                        </Box>
-                      </Box>
-                    </Box>
-                  </Box>
+                            <DescriptionTextTypography>Dedicated Support</DescriptionTextTypography>
+                          </DescriptionTextContainer>
+                        </DescriptionTextInner2Box>
+                      </DescriptionTextBox>
+                    </FooterMainBoxContainer>
+                  </ModelMainBoxContainer>
                 </Box>
               </Box>
             </Box>

@@ -113,6 +113,13 @@ export const DescriptionTextInnerBox = styled(Box)(({ theme }) => ({
   width: '304px'
 }));
 
+export const DescriptionTextInner2Box = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(3),
+  width: '363px'
+}));
+
 export const DescriptionTextContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(2)
