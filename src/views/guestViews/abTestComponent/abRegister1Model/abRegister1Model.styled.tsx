@@ -1,5 +1,6 @@
 'use client';
-import { Button, Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/system/Box';
 
@@ -92,7 +93,7 @@ export const FooterMainBoxContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center'
 }));
 
-export const JoinNowButtonContainer = styled(Button)(({ theme }) => ({
+export const JoinNowButtonContainer = styled(LoadingButton)(({ theme }) => ({
   width: '632px',
   height: '60px',
   borderRadius: '12px',

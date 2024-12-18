@@ -8,7 +8,6 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
-import Button from '@mui/material/Button';
 import Link from 'next/link';
 import { ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
@@ -19,6 +18,25 @@ import * as yup from 'yup';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import {
+  BenefitsTextTypography,
+  ButtonBoxContainer,
+  ButtonInnerBoxContainer,
+  DescriptionTextBox,
+  DescriptionTextContainer,
+  DescriptionTextInnerBox,
+  DescriptionTextTypography,
+  FooterMainBoxContainer,
+  GetFreeCallTextTypography,
+  HeadingTextMainBoxContainer,
+  InputFiledInnerBoxContainer,
+  InputFiledMainBoxContainer,
+  JoinForFreeTextTypography,
+  LoginTextBoxContainer,
+  ModelInnerBoxContainer,
+  ModelMainBoxContainer
+} from './abRegister2User.styled';
+import { JoinNowButtonContainer } from '../abRegister1Model/abRegister1Model.styled';
 
 const ABRegister2User = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -89,60 +107,16 @@ const ABRegister2User = ({ onClose, onLoginOpen }: { onClose: () => void; onLogi
                       <CloseIcon />
                     </IconButton>
                   </Box>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      width: '100%',
-                      minWidth: '760px',
-                      height: '100%',
-                      //   minHeight: '880px',
-                      border: '1px solid #07030E80',
-                      borderRadius: '24px',
-                      backgroundColor: 'rgba(7, 3, 14, 0.5)', // Add transparency for the blur effect
-                      backdropFilter: 'blur(24px)',
-                      padding: '62px 100px 62px 100px',
-                      gap: 6
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        width: '100%',
-                        height: '100%',
-                        gap: 5,
-                        alignItems: 'center'
-                      }}
-                    >
-                      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <UINewTypography
-                          sx={{
-                            fontSize: '48px',
-                            fontWeight: 600,
-                            lineHeight: '64px',
-                            color: 'primary.100'
-                          }}
-                        >
-                          Join Now for FREE!
-                        </UINewTypography>
-                        <UINewTypography
-                          sx={{
-                            fontSize: '48px',
-                            fontWeight: 500,
-                            lineHeight: '64px',
-                            background: 'linear-gradient(90deg, #FFE38C, #CCA633)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent'
-                          }}
-                        >
-                          Get 1 minute of Free Call
-                        </UINewTypography>
-                      </Box>
+                  <ModelMainBoxContainer>
+                    <ModelInnerBoxContainer>
+                      <HeadingTextMainBoxContainer>
+                        <JoinForFreeTextTypography>Join Now for FREE!</JoinForFreeTextTypography>
+                        <GetFreeCallTextTypography>Get 1 minute of Free Call</GetFreeCallTextTypography>
+                      </HeadingTextMainBoxContainer>
 
-                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                      <InputFiledMainBoxContainer>
+                        <InputFiledInnerBoxContainer>
+                          <InputFiledMainBoxContainer>
                             <Box>
                               <ModelUITextConatiner gap={0.5}>
                                 <Box sx={{ display: 'flex', gap: 4, flexDirection: isMdDown ? 'column' : 'row' }}>
@@ -277,7 +251,7 @@ const ABRegister2User = ({ onClose, onLoginOpen }: { onClose: () => void; onLogi
                                 </Box>
                               </ModelUITextConatiner>
                             </Box>
-                          </Box>
+                          </InputFiledMainBoxContainer>
 
                           <MenuItem sx={{ p: 0, gap: { xs: '0', sm: '1' } }}>
                             <Checkbox sx={{ p: 0, pr: 1 }} />
@@ -285,26 +259,19 @@ const ABRegister2User = ({ onClose, onLoginOpen }: { onClose: () => void; onLogi
                               <FormattedMessage id="RememberMe" />
                             </UINewTypography>
                           </MenuItem>
-                        </Box>
+                        </InputFiledInnerBoxContainer>
 
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
-                          <Button
-                            variant="contained"
-                            sx={{ width: '632px', height: '60px', borderRadius: '12px', backgroundColor: 'primary.100' }}
-                          >
+                        <ButtonBoxContainer>
+                          <JoinNowButtonContainer type="submit" variant="contained">
                             Join Now
-                          </Button>
-                          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
+                          </JoinNowButtonContainer>
+                          <ButtonInnerBoxContainer>
                             <UINewTypography variant="bodyRegular">
                               Have an account already?
-                              <Box
-                                component="span"
-                                sx={{ fontWeight: 800, color: 'white.main', textDecoration: 'underline', cursor: 'pointer' }}
-                                onClick={onLoginOpen}
-                              >
+                              <LoginTextBoxContainer component="span" onClick={onLoginOpen}>
                                 {' '}
                                 Log in here
-                              </Box>
+                              </LoginTextBoxContainer>
                             </UINewTypography>
                             <UINewTypography variant="bodyRegular">
                               Sign up as a model{' '}
@@ -312,67 +279,39 @@ const ABRegister2User = ({ onClose, onLoginOpen }: { onClose: () => void; onLogi
                                 <Link href="/">Here</Link>
                               </Box>
                             </UINewTypography>
-                          </Box>
-                        </Box>
-                      </Box>
-                    </Box>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                      <UINewTypography
-                        sx={{
-                          display: 'flex',
-                          justifyContent: 'center',
-                          fontSize: '40px',
-                          fontWeight: 800,
-                          lineHeight: '64px',
-                          whiteSpace: 'nowrap',
-                          color: '#FFFFFFCC'
-                        }}
-                      >
-                        Unlock the Benefits!
-                      </UINewTypography>
+                          </ButtonInnerBoxContainer>
+                        </ButtonBoxContainer>
+                      </InputFiledMainBoxContainer>
+                    </ModelInnerBoxContainer>
+                    <FooterMainBoxContainer>
+                      <BenefitsTextTypography>Unlock the Benefits!</BenefitsTextTypography>
 
-                      <Box sx={{ display: 'flex', gap: 3 }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '304px' }}>
-                          <Box sx={{ display: 'flex', gap: 2 }}>
+                      <DescriptionTextBox>
+                        <DescriptionTextInnerBox>
+                          <DescriptionTextContainer>
                             <Box component="img" src="/images/icons/ab2-icon-1.svg" />
-                            <UINewTypography
-                              sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
-                            >
-                              1-Minute Free Call
-                            </UINewTypography>
-                          </Box>
+                            <DescriptionTextTypography>1-Minute Free Call</DescriptionTextTypography>
+                          </DescriptionTextContainer>
 
-                          <Box sx={{ display: 'flex', gap: 2 }}>
+                          <DescriptionTextContainer>
                             <Box component="img" src="/images/icons/ab2-icon-2.svg" />
-                            <UINewTypography
-                              sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
-                            >
-                              1,000+ Models
-                            </UINewTypography>
-                          </Box>
-                        </Box>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '304px' }}>
-                          <Box sx={{ display: 'flex', gap: 2 }}>
+                            <DescriptionTextTypography>1,000+ Models</DescriptionTextTypography>
+                          </DescriptionTextContainer>
+                        </DescriptionTextInnerBox>
+                        <DescriptionTextInnerBox>
+                          <DescriptionTextContainer>
                             <Box component="img" src="/images/icons/ab2-icon-3.svg" />
-                            <UINewTypography
-                              sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
-                            >
-                              Private 1-on-1 Chats
-                            </UINewTypography>
-                          </Box>
+                            <DescriptionTextTypography>Private 1-on-1 Chats</DescriptionTextTypography>
+                          </DescriptionTextContainer>
 
-                          <Box sx={{ display: 'flex', gap: 2 }}>
+                          <DescriptionTextContainer>
                             <Box component="img" src="/images/icons/ab2-icon-4.svg" />
-                            <UINewTypography
-                              sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
-                            >
-                              Safe & Secure
-                            </UINewTypography>
-                          </Box>
-                        </Box>
-                      </Box>
-                    </Box>
-                  </Box>
+                            <DescriptionTextTypography>Safe & Secure</DescriptionTextTypography>
+                          </DescriptionTextContainer>
+                        </DescriptionTextInnerBox>
+                      </DescriptionTextBox>
+                    </FooterMainBoxContainer>
+                  </ModelMainBoxContainer>
                 </Box>
               </Box>
             </Box>
