@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { ModelSeoService } from 'services/modelSeo/modelSeo.services';
 import { VideoCallProvider } from 'contexts/videoCallContext';
-import { CallFeatureProvider } from 'contexts/ZegoCallContext';
+import { CallFeatureProvider } from 'contexts/ZegoCallContextClone';
 import dynamic from 'next/dynamic';
 const EscortDetailPage = dynamic(() => import('views/guestViews/details/EscortDetailPage'));
 

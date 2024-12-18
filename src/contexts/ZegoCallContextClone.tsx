@@ -260,13 +260,13 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         handleSetIsUnanswered(true);
         handleSetIsModelEndedCall(true);
         handleSetBusy(true);
-        await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.REJECTED, ROLE.MODEL);
-        gaEventTrigger('Video_call_unanswered', {
-          action: 'Video_call_unanswered',
-          category: 'Button',
-          label: 'Video_call_unanswered',
-          value: JSON.stringify(customerInfo)
-        });
+        // await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.REJECTED, ROLE.MODEL);
+        // gaEventTrigger('Video_call_unanswered', {
+        //   action: 'Video_call_unanswered',
+        //   category: 'Button',
+        //   label: 'Video_call_unanswered',
+        //   value: JSON.stringify(customerInfo)
+        // });
       },
 
       onOutgoingCallDeclined: async (callID: string, callee: ZegoUser) => {
@@ -275,13 +275,13 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         handleSetIsUnanswered(true);
         handleSetIsModelEndedCall(true);
         handleSetBusy(true);
-        await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.REJECTED, ROLE.MODEL);
-        gaEventTrigger('Video_call_unanswered', {
-          action: 'Video_call_unanswered',
-          category: 'Button',
-          label: 'Video_call_unanswered',
-          value: JSON.stringify(customerInfo)
-        });
+        // await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.REJECTED, ROLE.MODEL);
+        // gaEventTrigger('Video_call_unanswered', {
+        //   action: 'Video_call_unanswered',
+        //   category: 'Button',
+        //   label: 'Video_call_unanswered',
+        //   value: JSON.stringify(customerInfo)
+        // });
       },
 
       onOutgoingCallTimeout: async (callID: string, callees: ZegoUser[]) => {
@@ -289,13 +289,13 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         handleCreateNewRoomID();
         handleSetIsUnanswered(true);
         handleSetBusy(true);
-        await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.UNASWERED, ROLE.MODEL);
-        gaEventTrigger('Video_call_unanswered', {
-          action: 'Video_call_unanswered',
-          category: 'Button',
-          label: 'Video_call_unanswered',
-          value: JSON.stringify(customerInfo)
-        });
+        // await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.UNASWERED, ROLE.MODEL);
+        // gaEventTrigger('Video_call_unanswered', {
+        //   action: 'Video_call_unanswered',
+        //   category: 'Button',
+        //   label: 'Video_call_unanswered',
+        //   value: JSON.stringify(customerInfo)
+        // });
       }
     });
   }
@@ -304,29 +304,6 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     const handleBeforeUnload = async () => {
       if (isCallAccepted && token.token) {
         // await creditPutCallLog(modelId || modelRef?.current?.id, sessionId || roomID, CALLING_STATUS.ENDED);
-        {
-          /* sendbean post start */
-        }
-        // const moment = (await import('moment')).default;
-        // const start_time = (callDurationRef.current.startTime && moment.utc(callDurationRef.current.startTime).format(DATE_FORMAT)) || '';
-        // const end_time = (callDurationRef.current.endTime && moment.utc(callDurationRef.current.endTime).format(DATE_FORMAT)) || '';
-        // const duration = (Boolean(start_time && end_time) && moment(end_time).diff(start_time, 'second')) || null;
-        // let creditLog = {
-        //   model_id: modelId || modelRef?.current?.id,
-        //   comet_chat_session_id: roomID,
-        //   zego_call_session_id: roomID,
-        //   status: CALL_INVITATION_END_REASON.ENDED,
-        //   ended_by: ROLE.CUSTOMER,
-        //   start_time: String(start_time),
-        //   end_time: String(end_time),
-        //   duration: duration as unknown as null
-        // };
-
-        // await CallingService.creditPutZegoCallLog2(creditLog, token.token);
-        {
-          /* sendbean post END */
-        }
-
         // const moment = (await import('moment')).default;
         // const start_time = (callDurationRef.current.startTime && moment.utc(callDurationRef.current.startTime).format(DATE_FORMAT)) || '';
         // const end_time = (callDurationRef.current.endTime && moment.utc(callDurationRef.current.endTime).format(DATE_FORMAT)) || '';
@@ -505,7 +482,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   };
 
   const handleCancelCall = async () => {
-    await creditPutCallLog(modelId, sessionId, CALLING_STATUS.CANCELED, ROLE.CUSTOMER);
+    // await creditPutCallLog(modelId, sessionId, CALLING_STATUS.CANCELED, ROLE.CUSTOMER);
     handleOutgoingCallCancel();
   };
 
