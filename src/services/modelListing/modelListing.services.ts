@@ -38,6 +38,7 @@ export type ModelHomeListing = {
   languages: Language[];
   favourite: number;
   profile_plan_purchased: number;
+  is_unread_message: boolean;
 };
 
 export type ModelListingRes = {

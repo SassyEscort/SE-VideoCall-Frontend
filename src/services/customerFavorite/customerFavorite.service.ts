@@ -17,6 +17,7 @@ export type ModelFavRes = {
   languages: LanagueRes[];
   favourite: number;
   profile_plan_purchased: number;
+  is_unread_message: boolean;
 };
 
 export type ModelFavResponse = {

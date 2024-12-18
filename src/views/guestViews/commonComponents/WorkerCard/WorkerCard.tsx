@@ -39,7 +39,11 @@ import {
   SecondMainContainerWorkerCard,
   SecondSubContainerWorkerCard,
   UITypographyBox,
-  UITypographyBoxContainer
+  UITypographyBoxContainer,
+  ChatMessageImg,
+  ChatMessageInnerBoxContainer,
+  ChatMessageMainContainer,
+  ChatMessageText
 } from './WorkerCard.styled';
 import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
@@ -131,6 +135,7 @@ const WorkerCard = ({
     e.preventDefault();
     handleLikeClick(modelDetails);
   };
+
   return (
     <MainWorkerCard>
       <ImgWorkerCard ref={imageUrlRef} />
@@ -165,15 +170,16 @@ const WorkerCard = ({
         <SeconderContainerWorkerCard>
           <SubContainertWorkerCard>
             <ProfileCardContainer>
-              {/* <ChatMessageMainContainer>
-                <ChatMessageInnerBoxContainer>
-                  <ChatMessageImg src="/images/home/chat-mes-icon.svg" />
-                  <ChatMessageText color="text.secondary">
-                    <FormattedMessage id="NewMessage" />
-                  </ChatMessageText>
-                </ChatMessageInnerBoxContainer>
-              </ChatMessageMainContainer> */}
-
+              {modelDetails?.is_unread_message && (
+                <ChatMessageMainContainer>
+                  <ChatMessageInnerBoxContainer>
+                    <ChatMessageImg src="/images/home/chat-mes-icon.svg" />
+                    <ChatMessageText color="text.secondary">
+                      <FormattedMessage id="NewMessage" />
+                    </ChatMessageText>
+                  </ChatMessageInnerBoxContainer>
+                </ChatMessageMainContainer>
+              )}
               <NameCardContainer>
                 <TextBoxContainer>
                   <UINewTypography variant="newTitle" color="#ffff">
