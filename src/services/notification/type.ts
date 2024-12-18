@@ -30,3 +30,28 @@ export interface Notification {
   created_at: string;
   title: string;
 }
+
+export interface ChatPOPNotification {
+  id: number;
+  customer_id: number;
+  model_id: number;
+  admin_id: number;
+  message: string;
+  link: string;
+  category: string;
+  is_active: boolean;
+  created_at: string;
+  title: string;
+  user_name: string;
+}
+export interface ChatNotificationData {
+  aggregate: Aggregate;
+  notifications: ChatPOPNotification[];
+}
+
+export interface ChatNotificationRoot {
+  message: string;
+  code: number;
+  error: any;
+  data: ChatNotificationData;
+}

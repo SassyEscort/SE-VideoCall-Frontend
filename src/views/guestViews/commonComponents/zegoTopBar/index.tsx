@@ -2,12 +2,14 @@
 
 import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 
 const ZegoTopBar = () => {
+  const pathName = usePathname();
   return (
     <>
-      {typeof window !== 'undefined' && !window.location.pathname.includes('/admin') && (
+      {!pathName?.includes('/admin') && (
         <Box
           sx={{
             background: 'linear-gradient(90deg, #FECD3D, #FFF1C6, #FF68C0)',
@@ -38,6 +40,7 @@ const ZegoTopBar = () => {
           </Box>
         </Box>
       )}
+      : <></>
     </>
   );
 };

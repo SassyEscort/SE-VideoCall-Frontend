@@ -58,6 +58,11 @@ const RingingModel = ({ open, onClose }: { open: boolean; onClose: () => void })
             />
           </DialogContentSecondBox>
         </DialogContentFristBox>
+        <Box sx={{ padding: '8px 16px 12px 16px', textAlign: 'center', lineHeight: '20px' }}>
+          <UINewTypography variant="caption" color="#FFFFFF40">
+            <FormattedMessage id="TeamsVideo" />
+          </UINewTypography>
+        </Box>
       </DialogContent>
     </DialogContentMain>
   );

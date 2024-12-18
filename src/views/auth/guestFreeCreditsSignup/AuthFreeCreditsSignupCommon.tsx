@@ -14,7 +14,8 @@ const AuthFreeCreditsSignupCommon = ({
   mobileImage,
   variant,
   children,
-  modelName
+  modelName,
+  modelCredit
 }: {
   onClose: () => void;
   image: string;
@@ -22,6 +23,7 @@ const AuthFreeCreditsSignupCommon = ({
   variant?: string;
   children: ReactNode;
   modelName: string;
+  modelCredit: number;
 }) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
@@ -80,7 +82,7 @@ const AuthFreeCreditsSignupCommon = ({
                 }}
               >
                 <TextMainBox>
-                  {modelName} <FormattedMessage id="GaveYou" /> 30{' '}
+                  {modelName} <FormattedMessage id="GaveYou" /> {modelCredit}{' '}
                   <span style={{ fontWeight: 800 }}>
                     <FormattedMessage id="FREE" />
                   </span>{' '}

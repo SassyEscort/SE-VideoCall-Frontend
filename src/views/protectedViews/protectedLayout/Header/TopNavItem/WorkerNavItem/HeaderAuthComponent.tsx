@@ -1,4 +1,5 @@
 'use client';
+
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
@@ -12,7 +13,7 @@ import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { NotificationDetailsService } from 'services/notification/notification.services';
-import { Root } from 'services/notification/type';
+import { ChatNotificationData, ChatNotificationRoot, Root } from 'services/notification/type';
 import MyProfileChangePassword from 'views/protectedViews/myProfile/MyProfileChangePassword';
 import { IconButtonBoxInner, UnReadCountMain } from 'views/protectedDashboardViews/dashboardNavItem/DashboardMenu.styled';
 import { IconButtonBoxNew } from './Notification.styled';
@@ -26,12 +27,16 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import Divider from '@mui/material/Divider';
-import ChatRoomDropdown from 'components/common/stepper/ChatDropDown';
 import { useTawk } from 'contexts/TawkContext';
 import { useVideoCallContext } from 'contexts/videoCallContext';
 // import { useCallFeatureContext } from 'contexts/CallFeatureContext';
+// import { useVideoCallContext } from 'contexts/videoCallContext';
+import { io, Socket } from 'socket.io-client';
+import { ISocketMessage } from 'services/chatServices/chat.service';
+import { StyledSnackBar, StyledSnackBarInnerBox } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
+import CloseIcon from '@mui/icons-material/Close';
+import { usePathname, useRouter } from 'next/navigation';
 
 export type NotificationFilters = {
   page: number;
@@ -48,16 +53,14 @@ const HeaderAuthComponent = () => {
   const { maximizeChat, initializeChat } = useTawk();
   const { session, isFreeCreditsClaimed, isNameChange, openCreditDrawer, handleCreditDrawerClose } = useAuthContext();
   const { isCallEnded, avaialbleCredits } = useVideoCallContext();
-  // const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
+  const router = useRouter();
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
-
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
-  const isLgDown = useMediaQuery(theme.breakpoints.down('lg'));
+  const parthname = usePathname();
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorElLogout);
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
   const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
   const [balance, setBalance] = useState(0);
@@ -71,10 +74,16 @@ const HeaderAuthComponent = () => {
   const [notificationDetails, setNotificationDetails] = useState<Root>();
   const [openChangePassword, setOpenChangePassword] = useState(false);
   const [openCreditSideDrawer, setOpenCreditSideDrawer] = useState(false);
+  const [socket, setSocket] = useState<Socket | null>(null);
+  const [snackbarOptions, setSnackbarOptions] = useState({ open: false, message: '', url: '' });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setChatNotificationDetails] = useState<ChatNotificationRoot>();
 
+  const open = Boolean(anchorElLogout);
   const uploadedImageURL = '/images/headerv2/profilePic.png';
   const firstChar = customerDetails?.customer_name ? customerDetails.customer_name.charAt(0).toUpperCase() : '';
   const notificationCount = useRef(0);
+  const unReadCount = notificationDetails?.data?.aggregate?.enabled && notificationDetails?.data?.aggregate?.enabled > 0;
 
   const handleCloseCreditSideDrawer = () => {
     setOpenCreditSideDrawer(false);
@@ -92,6 +101,7 @@ const HeaderAuthComponent = () => {
   const handleClickLogout = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElLogout(event.currentTarget);
   };
+
   const handleCloseLogout = () => {
     setAnchorElLogout(null);
   };
@@ -134,6 +144,31 @@ const HeaderAuthComponent = () => {
     }
   }, [filters, token.token]);
 
+  const handleSnackbarClose = () => setSnackbarOptions({ open: false, message: '', url: '' });
+
+  const handleOpenLogout = () => {
+    setIsLogoutOpen(true);
+  };
+
+  const handleCloseLogoutt = () => {
+    setIsLogoutOpen(false);
+  };
+
+  const handleChatOpen = () => {
+    maximizeChat();
+    initializeChat();
+  };
+
+  const handleChatNotification = async (): Promise<ChatNotificationData> => {
+    const ModelPayoutListObject = {
+      limit: filters.pageSize,
+      offset: filters.offset
+    };
+    const chatNotification = await NotificationDetailsService.getChatNotificationDetails(token.token, ModelPayoutListObject);
+    setChatNotificationDetails(chatNotification);
+    return chatNotification.data;
+  };
+
   useEffect(() => {
     handleCallback();
   }, [handleCallback]);
@@ -175,25 +210,51 @@ const HeaderAuthComponent = () => {
     }
   }, [avaialbleCredits, isCallEnded, isFreeCreditsClaimed]);
 
-  const handleOpenLogout = () => {
-    setIsLogoutOpen(true);
-  };
-
-  const handleCloseLogoutt = () => {
-    setIsLogoutOpen(false);
-  };
-
-  const unReadCount = notificationDetails?.data?.aggregate?.enabled && notificationDetails?.data?.aggregate?.enabled > 0;
   useEffect(() => {
     if (openCreditDrawer) {
       setOpenCreditSideDrawer(true);
     }
   }, [openCreditDrawer]);
 
-  const handleChatOpen = () => {
-    maximizeChat();
-    initializeChat();
-  };
+  useEffect(() => {
+    const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_BASE_URL!);
+    setSocket(newSocket);
+    if (token.customer_user_name) {
+      newSocket.on('connect', () => {
+        newSocket.emit('join', token.customer_user_name);
+      });
+    }
+  }, [token.customer_user_name]);
+
+  useEffect(() => {
+    const setupSocketListeners = async () => {
+      if (socket) {
+        socket.on('connect', () => {
+          socket.emit('join', token.customer_user_name);
+          // Listener for chat messages
+          socket.on('chat-message', async (message: ISocketMessage) => {
+            if (!parthname.startsWith('/chat')) {
+              const chatNotificationData = await handleChatNotification();
+              setSnackbarOptions({
+                open: true,
+                message: chatNotificationData?.notifications[0].message || '',
+                url: `/chat/${chatNotificationData?.notifications[0].user_name}` || ''
+              });
+            }
+          });
+        });
+      }
+    };
+    setupSocketListeners();
+    // Cleanup socket listeners on unmount or dependency change
+    return () => {
+      if (socket) {
+        socket.off('connect');
+        socket.off('chat-message');
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [socket, token.customer_user_name, handleCallback]);
 
   return (
     <>
@@ -207,11 +268,6 @@ const HeaderAuthComponent = () => {
             <BorderBox>
               <LanguageDropdown />
             </BorderBox>
-            {!isLgDown && (
-              <BorderBox>
-                <ChatRoomDropdown />
-              </BorderBox>
-            )}
           </>
         )}
 
@@ -229,19 +285,34 @@ const HeaderAuthComponent = () => {
         )}
 
         {isMdUp && (
-          <Link href="/profile/favourites" style={{ textDecoration: 'none' }}>
-            <IconButton sx={{ height: 24, width: 24 }}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row-reverse',
-                  position: 'relative'
-                }}
-              >
-                <Box component="img" src="/images/header/heart.png" alt="heart_logo" />
-              </Box>
-            </IconButton>
-          </Link>
+          <>
+            <Link href="/profile/favourites" style={{ textDecoration: 'none' }}>
+              <IconButton sx={{ height: 24, width: 24 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row-reverse',
+                    position: 'relative'
+                  }}
+                >
+                  <Box component="img" src="/images/header/heart.png" alt="heart_logo" />
+                </Box>
+              </IconButton>
+            </Link>
+            <Link href="/chat" style={{ textDecoration: 'none' }}>
+              <IconButton sx={{ height: 24, width: 24 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row-reverse',
+                    position: 'relative'
+                  }}
+                >
+                  <Box component="img" src="/images/chat/chatNotification.svg" alt="chat_logo" sx={{ width: 24, height: 24 }} />
+                </Box>
+              </IconButton>
+            </Link>
+          </>
         )}
 
         <IconButton onClick={handleOpenNotification}>
@@ -366,6 +437,33 @@ const HeaderAuthComponent = () => {
                   </ListItemText>
                 </MenuItem>
                 <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                <MenuItem>
+                  <ListItemIcon>
+                    <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                      <Link href="/chat" style={{ textDecoration: 'none' }}>
+                        <IconButton sx={{ height: 24, width: 24 }}>
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              flexDirection: 'row-reverse',
+                              position: 'relative'
+                            }}
+                          >
+                            <Box component="img" src="/images/chat/chatNotification.svg" alt="chat_logo" />
+                          </Box>
+                        </IconButton>
+                      </Link>
+                    </IconButton>
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Link href="/chat">
+                      <UINewTypography variant="bodyLight" color="text.secondary">
+                        <FormattedMessage id="Chat" />
+                      </UINewTypography>
+                    </Link>
+                  </ListItemText>
+                </MenuItem>
+                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
               </>
             )}
             <MenuItem onClick={handleOpenChangePassword}>
@@ -389,19 +487,9 @@ const HeaderAuthComponent = () => {
               </ListItemIcon>
               <ListItemText>
                 <UINewTypography variant="bodyLight" color="text.secondary">
-                  <FormattedMessage id="ClickToChat" />
+                  <FormattedMessage id="SupportChat" />
                 </UINewTypography>
               </ListItemText>
-            </MenuItem>
-
-            <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-            <MenuItem>
-              <ListItemIcon>
-                <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0, color: 'secondary.700' }}>
-                  <QuestionAnswerIcon />
-                </IconButton>
-              </ListItemIcon>
-              <ChatRoomDropdown />
             </MenuItem>
 
             <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
@@ -443,6 +531,30 @@ const HeaderAuthComponent = () => {
         balance={balance}
         customerDetails={customerDetails}
       />
+
+      <StyledSnackBar
+        open={snackbarOptions.open}
+        autoHideDuration={3000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        onClose={handleSnackbarClose}
+      >
+        <StyledSnackBarInnerBox onClick={() => router.push(snackbarOptions?.url)}>
+          {snackbarOptions.message && (
+            <>
+              <Box component="img" src="/images/chat/chatNotification.svg" alt="chat_img" sx={{ width: 32, height: 32 }} />
+              <Box sx={{ fontWeight: 800, fontSize: 16 }}>{snackbarOptions.message}</Box>
+              <CloseIcon
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleSnackbarClose();
+                }}
+                sx={{ cursor: 'pointer', color: 'black', width: 16, height: 16 }}
+              />
+            </>
+          )}
+        </StyledSnackBarInnerBox>
+      </StyledSnackBar>
     </>
   );
 };

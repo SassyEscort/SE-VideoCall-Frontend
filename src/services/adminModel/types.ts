@@ -83,6 +83,22 @@ export interface ModelDetailsRes extends GenericRes {
   data: ModelDetails;
 }
 
+export type ModelDetailsParams = {
+  filter: number;
+  date_range: {
+    start_date: string;
+    end_date: string;
+  };
+  sort_order?: string;
+  sort_field?: string;
+  profile_status?: string | null;
+  country_code?: number | null;
+  gender?: string | null;
+  email_verified?: boolean | null;
+  last_active_from_date: string | null;
+  last_active_to_date: string | null;
+};
+
 export type ModelFilterParams = {
   token: string;
   limit: number;
@@ -106,6 +122,16 @@ export type CustomerFilterParams = {
   sort_field?: string;
 };
 
+export type CustomerFilterBodyParams = {
+  filter: number;
+  date_range: {
+    start_date: string;
+    end_date: string;
+  };
+  sort_order: string;
+  sort_field: string;
+};
+
 export type CustomerDetailsPage = {
   id: number;
   name: string;
@@ -114,6 +140,11 @@ export type CustomerDetailsPage = {
   userName: string;
   email_verified: number;
   profile_status: string;
+  total_call_duration: string;
+  number_of_calls: number;
+  amount_spent: number;
+  is_customer_banned: number;
+  credits_purchased: number;
 };
 
 export type CustomerDetails = {
@@ -124,7 +155,7 @@ export type CustomerDetails = {
 
 export type CustomerDetailsContainer = {
   aggregate: CustomerDetails;
-  customer_info: CustomerDetailsPage[];
+  user_reports: CustomerDetailsPage[];
 };
 
 export interface CustomerDetailsRes extends GenericRes {

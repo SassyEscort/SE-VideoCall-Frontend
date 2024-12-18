@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { AuthCommonBox } from '../AuthCommon.styled';
 import Box from '@mui/material/Box';
 
-const GuestModelMobileSignup = ({ image, modelName }: { image: string; modelName: string }) => {
+const GuestModelMobileSignup = ({ image, modelName, modelCredit }: { image: string; modelName: string; modelCredit: number }) => {
   return (
     <AuthCommonBox>
       <Box
@@ -40,7 +40,7 @@ const GuestModelMobileSignup = ({ image, modelName }: { image: string; modelName
         <ImageAndTextBoxContainer>
           <TitleTextBoxContainer>
             <TitleText>
-              {modelName} <FormattedMessage id="GaveYou" /> 30 <FormattedMessage id="FREECredits" />
+              {modelName} <FormattedMessage id="GaveYou" /> {modelCredit} <FormattedMessage id="FREECredits" />
             </TitleText>
           </TitleTextBoxContainer>
           <DescriptionTextBoxContainer>

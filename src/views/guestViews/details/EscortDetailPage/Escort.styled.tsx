@@ -234,3 +234,19 @@ export const RatingReviewNotFoundBoxInnerContainer = styled(Box)(({ theme }) => 
   flexDirection: 'column',
   gap: theme.spacing(1.5)
 }));
+
+export const ActivityButtonMainBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(2),
+  marginTop: theme.spacing(3),
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column'
+  }
+}));
+
+export const ActivityButtonBox = styled(Box)(({ theme }) => ({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'space-between',
+  gap: theme.spacing(1.5)
+}));

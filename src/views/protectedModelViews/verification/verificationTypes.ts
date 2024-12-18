@@ -98,3 +98,17 @@ export interface MultipleImageUplaodBody {
   fileName: string;
   folder: string;
 }
+
+export interface IHistoryOfChats {
+  id: string;
+  sender_id: string;
+  receiver_id: string;
+  message_content: string;
+  seen: boolean;
+  message_type: string;
+  time_stamp: string;
+  name: string;
+  profile_pic: string;
+  unread_count: number;
+  is_online: number;
+}

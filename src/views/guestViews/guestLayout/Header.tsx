@@ -29,12 +29,10 @@ const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
 const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
 const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'));
-const ChatRoomDropdown = dynamic(() => import('components/common/stepper/ChatDropDown'));
 const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
 
 const HeaderGuestComponent = () => {
   const { isFreeCreditAvailable } = useAuthContext();
-  const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
@@ -197,19 +195,14 @@ const HeaderGuestComponent = () => {
               <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
             </Box>
           )}
-          {isSMDown ? (
+          {isSmDown ? (
             <Box>
               <LanguageDropdown />
             </Box>
           ) : (
-            <>
-              <HeaderDropdownStyledBox>
-                <LanguageDropdown />
-              </HeaderDropdownStyledBox>
-              <HeaderDropdownStyledBox>
-                <ChatRoomDropdown />
-              </HeaderDropdownStyledBox>
-            </>
+            <HeaderDropdownStyledBox>
+              <LanguageDropdown />
+            </HeaderDropdownStyledBox>
           )}
           {!isMdUp && (
             <>
@@ -257,16 +250,6 @@ const HeaderGuestComponent = () => {
                     </UIThemeShadowButton>
                   </ListItemText>
                 </MenuItem>
-                {isSMDown && (
-                  <>
-                    <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                    <MenuItem>
-                      <HeaderDropdownStyledBox>
-                        <ChatRoomDropdown />
-                      </HeaderDropdownStyledBox>
-                    </MenuItem>
-                  </>
-                )}
               </MenuContainer>
             </>
           )}
