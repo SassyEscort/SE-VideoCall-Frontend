@@ -8,7 +8,7 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage, useIntl } from 'react-intl';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
-import { ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
+import { ErrorBox, ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -17,6 +17,7 @@ import * as yup from 'yup';
 import { EMAIL_REGEX, NAME_REGEX } from 'constants/regexConstants';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import InfoIcon from '@mui/icons-material/Info';
 import {
   DescriptionTextTypography,
   EarnTaxtTypography,
@@ -156,7 +157,7 @@ const ABRegister1Model = ({ onClose, onLoginOpen }: { onClose: () => void; onLog
           email: '',
           password: '',
           confirmPassword: '',
-          role: ROLE.CUSTOMER
+          role: ROLE.MODEL
         }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
@@ -201,6 +202,14 @@ const ABRegister1Model = ({ onClose, onLoginOpen }: { onClose: () => void; onLog
                     >
                       <CloseIcon />
                     </IconButton>
+                  </Box>
+                  <Box sx={{ color: 'primary.300' }}>
+                    {alert && (
+                      <ErrorBox>
+                        <InfoIcon />
+                        <UINewTypography>{alert}</UINewTypography>
+                      </ErrorBox>
+                    )}
                   </Box>
                   <LeftSideMainBoxContainer>
                     <LeftSideInnerBoxContainer>
@@ -368,7 +377,9 @@ const ABRegister1Model = ({ onClose, onLoginOpen }: { onClose: () => void; onLog
                         </InputFiledInnerBoxContainer>
 
                         <FooterMainBoxContainer>
-                          <JoinNowButtonContainer variant="contained">Join Now</JoinNowButtonContainer>
+                          <JoinNowButtonContainer type="submit" variant="contained" loading={loading}>
+                            Join Now
+                          </JoinNowButtonContainer>
                           <UINewTypography variant="bodyRegular">
                             Have an account already?
                             <LoginHereTextBoxContainer component="span" onClick={onLoginOpen}>
