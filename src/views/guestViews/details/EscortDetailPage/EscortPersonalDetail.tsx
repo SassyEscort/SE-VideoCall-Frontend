@@ -49,7 +49,7 @@ const EscortPersonalDetail = ({ guestData }: { guestData: ModelDetailsResponse }
             <NameMainBox>
               <DetailsChildBox>
                 <UINewTypography
-                  variant="MediumSemiBold"
+                  variant="h1"
                   color="#E9E8EB"
                   sx={{ fontSize: { xs: '32px', sm: '40px' }, lineHeight: { xs: '43.2px', sm: '54px' } }}
                 >
