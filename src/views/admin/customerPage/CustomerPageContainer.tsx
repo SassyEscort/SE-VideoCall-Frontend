@@ -55,9 +55,9 @@ export type WorkersPaginationType = {
 };
 
 const SORT_BY_OPTIONS: PaginationSortByOption[] = [
-  { value: 'createdDate', label: 'Newest' },
-  { value: 'name', label: 'Name' },
-  { value: 'email', label: 'Email' }
+  { value: 'duration', label: 'Duration' },
+  { value: 'calls', label: 'Calls' },
+  { value: 'amount', label: 'Amount' }
 ];
 
 export type TokenIdTypeAdmin = {
@@ -84,7 +84,7 @@ export default function CustomerPageContainer() {
     page: 0,
     pageSize: PAGE_SIZE,
     offset: 0,
-    orderField: 'createdDate',
+    orderField: 'duration',
     orderType: 'desc',
     search_field: '',
     duration: 'day',
