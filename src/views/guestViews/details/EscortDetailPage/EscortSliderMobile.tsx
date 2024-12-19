@@ -36,7 +36,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import GuestFreeCreditsSignup from 'views/auth/guestFreeCreditsSignup';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
-import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
+import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContextClone';
 // import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'));

@@ -24,7 +24,7 @@ import {
 } from './CreditSideDrawer.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customerCredit.service';
-import { useZegoCallFeatureContext } from 'contexts/ZegoCallContext';
+import { useZegoCallFeatureContext } from 'contexts/ZegoCallContextClone';
 import { usePathname, useRouter } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
 import { CustomerDetails } from 'services/customerDetails/customerDetails.services';

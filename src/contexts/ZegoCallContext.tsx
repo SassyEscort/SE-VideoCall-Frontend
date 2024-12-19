@@ -206,7 +206,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
       onSetRoomConfigBeforeJoining: (): ZegoCloudRoomConfig => {
         return {
-          container: document.querySelector('#zego-room') as unknown as HTMLElement,
+          // container: document.querySelector('#zego-room') as unknown as HTMLElement,
           turnOnMicrophoneWhenJoining: true,
           turnOnCameraWhenJoining: true,
           showMyCameraToggleButton: true,

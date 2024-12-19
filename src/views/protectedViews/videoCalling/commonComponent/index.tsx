@@ -16,7 +16,7 @@ import {
 } from './videoCallingCard.styled';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import { useVideoCallContext } from 'contexts/videoCallContext';
-import { useZegoCallFeatureContext } from 'contexts/ZegoCallContext';
+import { useZegoCallFeatureContext } from 'contexts/ZegoCallContextClone';
 // import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 
 const VideoCalling = ({

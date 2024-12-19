@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { usePathname } from 'next/navigation';
 import Box from '@mui/system/Box';
-import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
+import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContextClone';
 import { useVideoCallContext } from '../../../../contexts/videoCallContext';
 // import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 import { CallingService } from 'services/calling/calling.services';
@@ -182,6 +182,8 @@ const EscortDetailPage = () => {
                 modelId={guestData?.id ?? 0}
                 token={token}
                 handleCallInitiate={() => {
+                  console.log('handleCallInitiate called');
+
                   handleCallInitiate(
                     guestData?.id,
                     isCreditAvailable,

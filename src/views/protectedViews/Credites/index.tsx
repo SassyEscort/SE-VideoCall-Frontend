@@ -32,7 +32,7 @@ import CreditsAdded from '../CreditsAdded/CreditsAdded';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import Loader from 'components/Loader';
 import { gaEventTrigger } from 'utils/analytics';
-import { useZegoCallFeatureContext } from 'contexts/ZegoCallContext';
+import { useZegoCallFeatureContext } from 'contexts/ZegoCallContextClone';
 // import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 import { ClaimFreeNewButton } from './ModelCredits/Credits.styled';
 import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
