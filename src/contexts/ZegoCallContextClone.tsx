@@ -4,16 +4,14 @@
 import React, { createContext, useContext, useEffect, useCallback, useState } from 'react';
 import { ZegoUIKitPrebuilt, ZegoCloudRoomConfig, ZegoUser } from '@zegocloud/zego-uikit-prebuilt';
 import { ZIM } from 'zego-zim-web';
-import { usePathname } from 'next/navigation';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { useAuthContext } from './AuthContext';
 import { useVideoCallContext } from './videoCallContext';
-import { CALL_ENDED_BY, CALL_INVITATION_END_REASON, CALLING_STATUS, DATE_FORMAT, RINGING_TUNE } from 'constants/callingConstants';
-import { CallingService, CreditZegoCallRes } from 'services/calling/calling.services';
+import { CALL_ENDED_BY, CALL_INVITATION_END_REASON, CALLING_STATUS, RINGING_TUNE } from 'constants/callingConstants';
+import { CallingService } from 'services/calling/calling.services';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
-import { ROLE } from 'constants/workerVerification';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { useIntl } from 'react-intl';
 import dynamic from 'next/dynamic';
@@ -76,7 +74,6 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const {
     sessionId,
     callInstance,
-    isCallInitiated,
     customerInfo,
     userId,
     modelId,
@@ -101,17 +98,13 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     handleSetCallInstance,
     handleSetIsLoading,
     handleSetModelId,
-    handleSetCallLogId,
-    handleSetAvailableCredits,
     handleSetIsCallAccepted,
     handleSetIsModelEndedCall,
-    handleSetCallTime,
     handleSetFavouriteModel,
     handleSetModelDetails,
     handleCallDurationRef,
     handleOutGoingCallCancel,
     handleSetCallEnd,
-    handleSetIsCreditAvailable,
     handleSetUserRef,
     handleSetIsModelJoin,
     handleSetReviewOpen,
@@ -129,8 +122,6 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const userNameData = user && JSON.parse(user);
   const [rId, setRID] = useState('');
   const providerData = JSON.parse(user || '{}');
-
-  const path = usePathname();
 
   const appID = process.env.NEXT_PUBLIC_ZEGO_APP_KEY!;
   const serverSecret = process.env.NEXT_PUBLIC_SECRET_KEY!;
@@ -158,7 +149,6 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
       const callInstance = ZegoUIKitPrebuilt.create(token);
       callInstance.addPlugins({ ZIM });
-      console.log('callInstance set');
       handleSetCallInstance(callInstance);
     }
   }, [userNameData, roomID]);
