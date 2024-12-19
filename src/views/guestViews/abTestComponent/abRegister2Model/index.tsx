@@ -108,8 +108,12 @@ const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
                   <ModelMainBoxContainer>
                     <ModelInnerBoxContainer>
                       <HeadingTextMainBoxContainer>
-                        <JoinForFreeTextTypography>Join Now for FREE!</JoinForFreeTextTypography>
-                        <GetFreeCallTextTypography>Earn on Your Terms!</GetFreeCallTextTypography>
+                        <JoinForFreeTextTypography>
+                          <FormattedMessage id="JoinNowForFREE" />
+                        </JoinForFreeTextTypography>
+                        <GetFreeCallTextTypography>
+                          <FormattedMessage id="EarnOnYourTerms" />
+                        </GetFreeCallTextTypography>
                       </HeadingTextMainBoxContainer>
 
                       <InputFiledMainBoxContainer>
@@ -261,19 +265,24 @@ const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
 
                         <ButtonBoxContainer>
                           <JoinNowButtonContainer variant="contained" type="submit">
-                            Join Now
+                            <FormattedMessage id="JoinNow" />
                           </JoinNowButtonContainer>
                           <ButtonInnerBoxContainer>
                             <UINewTypography variant="bodyRegular">
-                              Have an account already?
-                              <LoginTextBoxContainer> Log in here</LoginTextBoxContainer>
+                              <FormattedMessage id="HaveAnAccount" />
+                              <LoginTextBoxContainer>
+                                {' '}
+                                <FormattedMessage id="LogInHere" />
+                              </LoginTextBoxContainer>
                             </UINewTypography>
                           </ButtonInnerBoxContainer>
                         </ButtonBoxContainer>
                       </InputFiledMainBoxContainer>
                     </ModelInnerBoxContainer>
                     <FooterMainBoxContainer>
-                      <BenefitsTextTypography>Unlock the Benefits!</BenefitsTextTypography>
+                      <BenefitsTextTypography>
+                        <FormattedMessage id="UnlockTheBenefits" />
+                      </BenefitsTextTypography>
 
                       <DescriptionTextBox>
                         <DescriptionTextInner2Box>
@@ -282,7 +291,7 @@ const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
                             <UINewTypography
                               sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
                             >
-                              Earn Money From Anywhere
+                              <FormattedMessage id="EarnMoneyFromAnywhere" />
                             </UINewTypography>
                           </DescriptionTextContainer>
 
@@ -291,7 +300,7 @@ const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
                             <UINewTypography
                               sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
                             >
-                              Secure Payouts
+                              <FormattedMessage id="SecurePayouts" />
                             </UINewTypography>
                           </DescriptionTextContainer>
                         </DescriptionTextInner2Box>
@@ -301,7 +310,7 @@ const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
                             <UINewTypography
                               sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
                             >
-                              Global Audience
+                              <FormattedMessage id="GlobalAudiencee" />
                             </UINewTypography>
                           </DescriptionTextContainer>
 
@@ -310,7 +319,7 @@ const ABRegister2Model = ({ onClose }: { onClose: () => void }) => {
                             <UINewTypography
                               sx={{ fontSize: '24px', fontWeight: 600, lineHeight: '32.7px', whiteSpace: 'nowrap', color: 'white.main' }}
                             >
-                              Dedicated Support
+                              <FormattedMessage id="DedicatedSupport" />
                             </UINewTypography>
                           </DescriptionTextContainer>
                         </DescriptionTextInner2Box>

@@ -170,8 +170,12 @@ const ABLogin2User = ({
                   <ModelMainBoxContainer>
                     <ModelInnerBoxContainer>
                       <HeadingTextMainBoxContainer>
-                        <JoinForFreeTextTypography>Join Now for FREE!</JoinForFreeTextTypography>
-                        <GetFreeCallTextTypography>Get 1 minute of Free Call</GetFreeCallTextTypography>
+                        <JoinForFreeTextTypography>
+                          <FormattedMessage id="JoinNowForFREE" />
+                        </JoinForFreeTextTypography>
+                        <GetFreeCallTextTypography>
+                          <FormattedMessage id="FREECall" />
+                        </GetFreeCallTextTypography>
                       </HeadingTextMainBoxContainer>
 
                       <InputFiledMainBoxContainer>
@@ -280,20 +284,22 @@ const ABLogin2User = ({
 
                         <ButtonBoxContainer>
                           <JoinNowButtonContainer variant="contained" type="submit" loading={loading}>
-                            Join Now
+                            <FormattedMessage id="JoinNow" />
                           </JoinNowButtonContainer>
                           <ButtonInnerBoxContainer>
                             <UINewTypography variant="bodyRegular">
-                              Have an account already?
+                              <FormattedMessage id="HaveAnAccount" />
                               <LoginTextBoxContainer component="span" onClick={onSignupOpen}>
                                 {' '}
-                                Log in here
+                                <FormattedMessage id="LogInHere" />
                               </LoginTextBoxContainer>
                             </UINewTypography>
                             <UINewTypography variant="bodyRegular">
-                              Sign up as a model{' '}
+                              <FormattedMessage id="SignUpAsAModel" />{' '}
                               <Box component="span" sx={{ fontWeight: 800, color: 'primary.100' }}>
-                                <Link href="/">Here</Link>
+                                <Link href="/">
+                                  <FormattedMessage id="Here" />
+                                </Link>
                               </Box>
                             </UINewTypography>
                           </ButtonInnerBoxContainer>
@@ -301,29 +307,39 @@ const ABLogin2User = ({
                       </InputFiledMainBoxContainer>
                     </ModelInnerBoxContainer>
                     <FooterMainBoxContainer>
-                      <BenefitsTextTypography>Unlock the Benefits!</BenefitsTextTypography>
+                      <BenefitsTextTypography>
+                        <FormattedMessage id="UnlockTheBenefits" />
+                      </BenefitsTextTypography>
 
                       <DescriptionTextBox>
                         <DescriptionTextInnerBox>
                           <DescriptionTextContainer>
                             <Box component="img" src="/images/icons/ab2-icon-1.svg" />
-                            <DescriptionTextTypography>1-Minute Free Call</DescriptionTextTypography>
+                            <DescriptionTextTypography>
+                              <FormattedMessage id="1MinuteFreeCall" />
+                            </DescriptionTextTypography>
                           </DescriptionTextContainer>
 
                           <Box sx={{ display: 'flex', gap: 2 }}>
                             <Box component="img" src="/images/icons/ab2-icon-2.svg" />
-                            <DescriptionTextTypography>1,000+ Models</DescriptionTextTypography>
+                            <DescriptionTextTypography>
+                              <FormattedMessage id="1,000Models" />
+                            </DescriptionTextTypography>
                           </Box>
                         </DescriptionTextInnerBox>
                         <DescriptionTextInnerBox>
                           <DescriptionTextContainer>
                             <Box component="img" src="/images/icons/ab2-icon-3.svg" />
-                            <DescriptionTextTypography>Private 1-on-1 Chats</DescriptionTextTypography>
+                            <DescriptionTextTypography>
+                              <FormattedMessage id="Private1on1Chats" />
+                            </DescriptionTextTypography>
                           </DescriptionTextContainer>
 
                           <DescriptionTextContainer>
                             <Box component="img" src="/images/icons/ab2-icon-4.svg" />
-                            <DescriptionTextTypography>Safe & Secure</DescriptionTextTypography>
+                            <DescriptionTextTypography>
+                              <FormattedMessage id="SafeSecure" />
+                            </DescriptionTextTypography>
                           </DescriptionTextContainer>
                         </DescriptionTextInnerBox>
                       </DescriptionTextBox>

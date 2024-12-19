@@ -161,8 +161,12 @@ const ABLogin2Model = ({ onClose }: { onClose: () => void }) => {
                   <ModelMainBoxContainer>
                     <ModelInnerBoxContainer>
                       <HeadingTextMainBoxContainer>
-                        <JoinForFreeTextTypography>Join Now for FREE!</JoinForFreeTextTypography>
-                        <GetFreeCallTextTypography>Earn on Your Terms!</GetFreeCallTextTypography>
+                        <JoinForFreeTextTypography>
+                          <FormattedMessage id="JoinNowForFREE" />
+                        </JoinForFreeTextTypography>
+                        <GetFreeCallTextTypography>
+                          <FormattedMessage id="EarnOnYourTerms" />
+                        </GetFreeCallTextTypography>
                       </HeadingTextMainBoxContainer>
 
                       <InputFiledMainBoxContainer>
@@ -263,41 +267,54 @@ const ABLogin2Model = ({ onClose }: { onClose: () => void }) => {
 
                         <ButtonBoxContainer>
                           <JoinNowButtonContainer variant="contained" type="submit" loading={loading}>
-                            Join Now
+                            <FormattedMessage id="JoinNow" />
                           </JoinNowButtonContainer>
                           <ButtonInnerBoxContainer>
                             <UINewTypography variant="bodyRegular">
-                              Have an account already?
-                              <LoginTextBoxContainer> Log in here</LoginTextBoxContainer>
+                              <FormattedMessage id="HaveAnAccount" />
+                              <LoginTextBoxContainer>
+                                {' '}
+                                <FormattedMessage id="LogInHere" />
+                              </LoginTextBoxContainer>
                             </UINewTypography>
                           </ButtonInnerBoxContainer>
                         </ButtonBoxContainer>
                       </InputFiledMainBoxContainer>
                     </ModelInnerBoxContainer>
                     <FooterMainBoxContainer>
-                      <BenefitsTextTypography>Unlock the Benefits!</BenefitsTextTypography>
+                      <BenefitsTextTypography>
+                        <FormattedMessage id="UnlockTheBenefits" />
+                      </BenefitsTextTypography>
 
                       <DescriptionTextBox>
                         <DescriptionTextInner2Box>
                           <DescriptionTextContainer>
                             <Box component="img" src="/images/icons/earn1-icon.svg" />
-                            <DescriptionTextTypography>Earn Money From Anywhere</DescriptionTextTypography>
+                            <DescriptionTextTypography>
+                              <FormattedMessage id="EarnMoneyFromAnywhere" />
+                            </DescriptionTextTypography>
                           </DescriptionTextContainer>
 
                           <DescriptionTextContainer>
                             <Box component="img" src="/images/icons/secure1-icon.svg" />
-                            <DescriptionTextTypography>Secure Payouts</DescriptionTextTypography>
+                            <DescriptionTextTypography>
+                              <FormattedMessage id="SecurePayouts" />
+                            </DescriptionTextTypography>
                           </DescriptionTextContainer>
                         </DescriptionTextInner2Box>
                         <DescriptionTextInner2Box>
                           <DescriptionTextContainer>
                             <Box component="img" src="/images/icons/global1-icon.svg" />
-                            <DescriptionTextTypography>Global Audience</DescriptionTextTypography>
+                            <DescriptionTextTypography>
+                              <FormattedMessage id="GlobalAudiencee" />
+                            </DescriptionTextTypography>
                           </DescriptionTextContainer>
 
                           <DescriptionTextContainer>
                             <Box component="img" src="/images/icons/support1-icon.svg" />
-                            <DescriptionTextTypography>Dedicated Support</DescriptionTextTypography>
+                            <DescriptionTextTypography>
+                              <FormattedMessage id="DedicatedSupport" />
+                            </DescriptionTextTypography>
                           </DescriptionTextContainer>
                         </DescriptionTextInner2Box>
                       </DescriptionTextBox>

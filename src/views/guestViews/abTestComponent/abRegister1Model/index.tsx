@@ -217,14 +217,20 @@ const ABRegister1Model = ({ onClose, onLoginOpen }: { onClose: () => void; onLog
                         <Box component="img" src="/images/logo-footer.png" width={272} height={54} />
                         <HeadingInnerBoxContainer>
                           <Box>
-                            <EarnTaxtTypography>Earn on Your Terms!</EarnTaxtTypography>
-                            <JoiForFreeTextTypography>Join Now for FREE!</JoiForFreeTextTypography>
+                            <EarnTaxtTypography>
+                              <FormattedMessage id="EarnOnYourTerms" />
+                            </EarnTaxtTypography>
+                            <JoiForFreeTextTypography>
+                              <FormattedMessage id="JoinNowForFREE" />
+                            </JoiForFreeTextTypography>
                           </Box>
                           <DescriptionTextTypography>
                             <span style={{ display: 'block', whiteSpace: 'nowrap' }}>
-                              Flexible hours, secure payouts, and a global audience
+                              <FormattedMessage id="FlexibleHoursSecurePayouts" />
                             </span>
-                            <span style={{ whiteSpace: 'nowrap' }}>waiting to connect with you. Sign up now to start earning!</span>
+                            <span style={{ whiteSpace: 'nowrap' }}>
+                              <FormattedMessage id="waitingToConnectWithYou" />
+                            </span>
                           </DescriptionTextTypography>
                         </HeadingInnerBoxContainer>
                       </HeadingBoxContainer>
@@ -378,13 +384,13 @@ const ABRegister1Model = ({ onClose, onLoginOpen }: { onClose: () => void; onLog
 
                         <FooterMainBoxContainer>
                           <JoinNowButtonContainer type="submit" variant="contained" loading={loading}>
-                            Join Now
+                            <FormattedMessage id="JoinNow" />
                           </JoinNowButtonContainer>
                           <UINewTypography variant="bodyRegular">
-                            Have an account already?
+                            <FormattedMessage id="HaveAnAccount" />
                             <LoginHereTextBoxContainer component="span" onClick={onLoginOpen}>
                               {' '}
-                              Log in here
+                              <FormattedMessage id="LogInHere" />
                             </LoginHereTextBoxContainer>
                           </UINewTypography>
                         </FooterMainBoxContainer>
@@ -392,26 +398,36 @@ const ABRegister1Model = ({ onClose, onLoginOpen }: { onClose: () => void; onLog
                     </LeftSideInnerBoxContainer>
                   </LeftSideMainBoxContainer>
                   <RightSideMainBoxContainer>
-                    <RightSideMainTitleText>Unlock the Benefits!</RightSideMainTitleText>
+                    <RightSideMainTitleText>
+                      <FormattedMessage id="UnlockTheBenefits" />
+                    </RightSideMainTitleText>
                     <RightSideInnerBoxContainer>
                       <Box sx={{ display: 'flex', gap: 2 }}>
                         <Box component="img" src="/images/icons/earn-icon.svg" />
-                        <RightSideSubTitleText>Earn Money From Anywhere</RightSideSubTitleText>
+                        <RightSideSubTitleText>
+                          <FormattedMessage id="EarnMoneyFromAnywhere" />
+                        </RightSideSubTitleText>
                       </Box>
 
                       <Box sx={{ display: 'flex', gap: 2 }}>
                         <Box component="img" src="/images/icons/secure-icon.svg" />
-                        <RightSideSubTitleText>Secure Payouts</RightSideSubTitleText>
+                        <RightSideSubTitleText>
+                          <FormattedMessage id="SecurePayouts" />
+                        </RightSideSubTitleText>
                       </Box>
 
                       <Box sx={{ display: 'flex', gap: 2 }}>
                         <Box component="img" src="/images/icons/global-icon.svg" />
-                        <RightSideSubTitleText>Global Audience</RightSideSubTitleText>
+                        <RightSideSubTitleText>
+                          <FormattedMessage id="GlobalAudiencee" />
+                        </RightSideSubTitleText>
                       </Box>
 
                       <Box sx={{ display: 'flex', gap: 2 }}>
                         <Box component="img" src="/images/icons/support-icon.svg" />
-                        <RightSideSubTitleText>Dedicated Support</RightSideSubTitleText>
+                        <RightSideSubTitleText>
+                          <FormattedMessage id="DedicatedSupport" />
+                        </RightSideSubTitleText>
                       </Box>
                     </RightSideInnerBoxContainer>
                   </RightSideMainBoxContainer>

@@ -112,12 +112,20 @@ const ABTestSignUpUser = ({ onClose, onLoginOpen }: { onClose: () => void; onLog
                         <Box component="img" src="/images/logo-footer.png" width={272} height={54} />
                         <HeadingInnerBoxContainer>
                           <Box>
-                            <EarnTaxtTypography>Get 1 minute of Free Call</EarnTaxtTypography>
-                            <JoiForFreeTextTypography>Join Now for FREE!</JoiForFreeTextTypography>
+                            <EarnTaxtTypography>
+                              <FormattedMessage id="FREECall" />
+                            </EarnTaxtTypography>
+                            <JoiForFreeTextTypography>
+                              <FormattedMessage id="JoinNowForFREE" />
+                            </JoiForFreeTextTypography>
                           </Box>
                           <DescriptionTextTypography>
-                            <span style={{ display: 'block', whiteSpace: 'nowrap' }}>Real Models, Real Pleasure, Live Now!</span>
-                            <span style={{ display: 'block' }}>Don’t Just Watch – Connect, Flirt, and Enjoy!</span>
+                            <span style={{ display: 'block', whiteSpace: 'nowrap' }}>
+                              <FormattedMessage id="RealModelsRealPleasure" />
+                            </span>
+                            <span style={{ display: 'block' }}>
+                              <FormattedMessage id="Don’tJustWatch" />
+                            </span>
                           </DescriptionTextTypography>
                         </HeadingInnerBoxContainer>
                       </HeadingBoxContainer>
@@ -263,19 +271,23 @@ const ABTestSignUpUser = ({ onClose, onLoginOpen }: { onClose: () => void; onLog
                         </InputFiledInnerBoxContainer>
 
                         <FooterMainBoxContainer>
-                          <JoinNowButtonContainer variant="contained">Join Now</JoinNowButtonContainer>
+                          <JoinNowButtonContainer variant="contained">
+                            <FormattedMessage id="JoinNow" />
+                          </JoinNowButtonContainer>
                           <LoginHereTextMainBoxContainer>
                             <UINewTypography variant="bodyRegular">
-                              Have an account already?
+                              <FormattedMessage id="HaveAnAccount" />
                               <LoginHereTextBoxContainer component="span" onClick={onLoginOpen}>
                                 {' '}
-                                Log in here
+                                <FormattedMessage id="LogInHere" />
                               </LoginHereTextBoxContainer>
                             </UINewTypography>
                             <UINewTypography variant="bodyRegular">
-                              Sign up as a model{' '}
+                              <FormattedMessage id="SignUpAsAModel" />{' '}
                               <Box component="span" sx={{ fontWeight: 800, color: 'primary.100' }}>
-                                <Link href="/">Here</Link>
+                                <Link href="/">
+                                  <FormattedMessage id="Here" />
+                                </Link>
                               </Box>
                             </UINewTypography>
                           </LoginHereTextMainBoxContainer>
@@ -284,26 +296,36 @@ const ABTestSignUpUser = ({ onClose, onLoginOpen }: { onClose: () => void; onLog
                     </LeftSideInnerBoxContainer>
                   </LeftSideMainBoxContainer>
                   <RightSideMainBoxContainer>
-                    <RightSideMainTitleText>Unlock the Benefits!</RightSideMainTitleText>
+                    <RightSideMainTitleText>
+                      <FormattedMessage id="UnlockTheBenefits" />
+                    </RightSideMainTitleText>
                     <RightSideInnerBoxContainer>
                       <Box sx={{ display: 'flex', gap: 2 }}>
                         <Box component="img" src="/images/icons/ab-icon-1.svg" />
-                        <RightSideSubTitleText>1-Minute Free Call</RightSideSubTitleText>
+                        <RightSideSubTitleText>
+                          <FormattedMessage id="1MinuteFreeCall"></FormattedMessage>
+                        </RightSideSubTitleText>
                       </Box>
 
                       <Box sx={{ display: 'flex', gap: 2 }}>
                         <Box component="img" src="/images/icons/ab-icon-2.svg" />
-                        <RightSideSubTitleText>1,000+ Models</RightSideSubTitleText>
+                        <RightSideSubTitleText>
+                          <FormattedMessage id="1,000Models" />
+                        </RightSideSubTitleText>
                       </Box>
 
                       <Box sx={{ display: 'flex', gap: 2 }}>
                         <Box component="img" src="/images/icons/ab-icon-3.svg" />
-                        <RightSideSubTitleText>Private 1-on-1 Chats</RightSideSubTitleText>
+                        <RightSideSubTitleText>
+                          <FormattedMessage id="Private1on1Chats" />
+                        </RightSideSubTitleText>
                       </Box>
 
                       <Box sx={{ display: 'flex', gap: 2 }}>
                         <Box component="img" src="/images/icons/ab-icon-4.svg" />
-                        <RightSideSubTitleText>Safe & Secure</RightSideSubTitleText>
+                        <RightSideSubTitleText>
+                          <FormattedMessage id="SafeSecure" />
+                        </RightSideSubTitleText>
                       </Box>
                     </RightSideInnerBoxContainer>
                   </RightSideMainBoxContainer>
