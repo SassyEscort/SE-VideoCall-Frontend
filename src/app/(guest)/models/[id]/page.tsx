@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     const keywords = res?.keywords ? res?.keywords : genericKeywords;
     const description = res?.description ? res?.description : genericDescription;
     const canonicalUrl = `https://staging.flirtbate.com/models/${model}`;
-    const image = '/images/model.jpg';
+    const image = 'https://staging.flirtbate.com/images/model.jpg';
 
     return {
       title,
