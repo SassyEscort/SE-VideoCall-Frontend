@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     const keywords = res?.keywords ? res?.keywords : genericKeywords;
     const description = res?.description ? res?.description : genericDescription;
     const canonicalUrl = `https://staging.flirtbate.com/models/${model}`;
-    const image = 'https://staging.flirtbate.com/images/model.jpg';
+    const image = res.link;
 
     return {
       title,
@@ -47,28 +47,11 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     };
   } else {
     return {
-      title: 'Default Title',
-      description: 'Default Description',
       alternates: {
-        canonical: 'https://staging.flirtbate.com/models'
-      },
-      openGraph: {
-        title: 'Default Title',
-        description: 'Default Description',
-        url: 'https://staging.flirtbate.com/models',
-        images: [
-          {
-            url: 'https://staging.flirtbate.com/images/model.jpg',
-            width: 1200,
-            height: 630,
-            alt: 'Default Image'
-          }
-        ],
-        type: 'website'
+        canonical: `https://staging.flirtbate.com/models`
       }
     };
   }
-
   return {};
 }
 
