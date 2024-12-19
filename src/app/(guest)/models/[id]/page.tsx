@@ -48,10 +48,11 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   } else {
     return {
       alternates: {
-        canonical: `https://staging.flirtbate.com/models`
+        canonical: `https://flirtbate.com/models`
       }
     };
   }
+
   return {};
 }
 
