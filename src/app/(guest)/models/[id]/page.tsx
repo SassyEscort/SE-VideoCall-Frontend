@@ -20,7 +20,8 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     const title = res?.title ? res?.title : genericTitle;
     const keywords = res?.keywords ? res?.keywords : genericKeywords;
     const description = res?.description ? res?.description : genericDescription;
-    const canonicalUrl = `https://flirtbate.com/models/${model}`;
+    const canonicalUrl = `https://staging.flirtbate.com/models/${model}`;
+    const image = '/images/model.jpg';
 
     return {
       title,
@@ -28,6 +29,20 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
       description,
       alternates: {
         canonical: canonicalUrl
+      },
+      openGraph: {
+        title,
+        description,
+        url: canonicalUrl,
+        images: [
+          {
+            url: image,
+            width: 1200,
+            height: 630,
+            alt: `${res?.model_name} - ${res?.country_name} Model`
+          }
+        ],
+        type: 'website'
       }
     };
   } else {
