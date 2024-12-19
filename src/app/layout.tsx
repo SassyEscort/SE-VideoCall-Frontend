@@ -32,6 +32,11 @@ export default function RootLayout({
         />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="FlirtBate - Explore the Best Experiences" />
+        <meta property="og:description" content="Join FlirtBate for amazing features and connections!" />
+        <meta property="og:image" content="https://staging.flirtbate.com/images/home-banner-model.webp" />
+        <meta property="og:url" content="https://staging.flirtbate.com/" />
+        <meta name="twitter:card" content="summary_large_image" />
       </head>
 
       {isProduction && (
