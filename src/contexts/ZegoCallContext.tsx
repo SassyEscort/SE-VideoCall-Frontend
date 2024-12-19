@@ -126,7 +126,10 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     handleOutgoingCallCancel,
     handleSetIsModelAvailable,
     handleSetIsAutodisconnected,
-    handleSetIsCallInitiated
+    handleSetIsCallInitiated,
+    handleSetOutgoingCallDialogOpen,
+    handleSetOutgoingCallInfo,
+    handleSetCancelCallInvitationFn
   } = useVideoCallContext();
   const userNameData = user && JSON.parse(user);
   const [rId, setRID] = useState('');
@@ -171,9 +174,20 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   if (typeof window !== 'undefined' && callInstance) {
     callInstance.setCallInvitationConfig({
+      enableCustomCallInvitationDialog: true,
       enableNotifyWhenAppRunningInBackgroundOrQuit: true,
       endCallWhenInitiatorLeave: true,
       ringtoneConfig: { outgoingCallUrl: RINGING_TUNE },
+
+      onWaitingPageWhenSending: (callType, callees, cancel) => {
+        handleSetCancelCallInvitationFn(() => cancel);
+        handleSetOutgoingCallDialogOpen(true);
+
+        handleSetOutgoingCallInfo(callees);
+        // for (var i = 0; i < callees.length; i++) {
+        // setOutgoingCallInfo({ caller: { userID: callees[i].userID, userName: callees[i].userName } });
+        // }
+      },
 
       onCallInvitationEnded: async (reason, data) => {
         if (reason === CALL_INVITATION_END_REASON.LEAVEROOM || reason === CALL_INVITATION_END_REASON.CANCELED) {
@@ -206,7 +220,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
       onSetRoomConfigBeforeJoining: (): ZegoCloudRoomConfig => {
         return {
-          // container: document.querySelector('#zego-room') as unknown as HTMLElement,
+          container: document.querySelector('#zego-room') as unknown as HTMLElement,
           turnOnMicrophoneWhenJoining: true,
           turnOnCameraWhenJoining: true,
           showMyCameraToggleButton: true,
@@ -246,6 +260,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         handleCallDurationRef(String(new Date()), '');
         handleSetIsCallAccepted(true);
         handleSetIsModelJoin(true);
+        handleSetOutgoingCallDialogOpen(false);
         gaEventTrigger('Video_call_started', {
           action: 'Video_call_started',
           category: 'Button',
@@ -260,6 +275,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         handleSetIsUnanswered(true);
         handleSetIsModelEndedCall(true);
         handleSetBusy(true);
+        handleSetOutgoingCallDialogOpen(false);
         await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.REJECTED, ROLE.MODEL);
         gaEventTrigger('Video_call_unanswered', {
           action: 'Video_call_unanswered',
@@ -275,6 +291,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         handleSetIsUnanswered(true);
         handleSetIsModelEndedCall(true);
         handleSetBusy(true);
+        handleSetOutgoingCallDialogOpen(false);
         await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.REJECTED, ROLE.MODEL);
         gaEventTrigger('Video_call_unanswered', {
           action: 'Video_call_unanswered',
@@ -289,6 +306,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         handleCreateNewRoomID();
         handleSetIsUnanswered(true);
         handleSetBusy(true);
+        handleSetOutgoingCallDialogOpen(false);
         await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.UNASWERED, ROLE.MODEL);
         gaEventTrigger('Video_call_unanswered', {
           action: 'Video_call_unanswered',

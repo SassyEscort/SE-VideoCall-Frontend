@@ -117,7 +117,10 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     handleSetModelPhoto,
     handleOutgoingCallCancel,
     handleSetIsModelAvailable,
-    handleSetIsCallInitiated
+    handleSetIsCallInitiated,
+    handleSetOutgoingCallDialogOpen,
+    handleSetOutgoingCallInfo,
+    handleSetCancelCallInvitationFn
   } = useVideoCallContext();
   const userNameData = user && JSON.parse(user);
   const [rId, setRID] = useState('');
@@ -154,18 +157,24 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   }, [userNameData, roomID]);
 
   useEffect(() => {
-    initCall();
+    if (typeof window !== 'undefined') initCall();
   }, [userNameData]);
 
-  if (callInstance) {
+  if (typeof window !== 'undefined' && callInstance) {
     callInstance?.setCallInvitationConfig({
-      enableCustomCallInvitationWaitingPage: true,
+      enableCustomCallInvitationDialog: true,
       enableNotifyWhenAppRunningInBackgroundOrQuit: true,
       endCallWhenInitiatorLeave: true,
       ringtoneConfig: { outgoingCallUrl: RINGING_TUNE },
 
-      onConfirmDialogWhenReceiving: (callType, caller) => {
-        console.log('Incoming call invitation:', { callType, caller });
+      onWaitingPageWhenSending: (callType, callees, cancel) => {
+        handleSetCancelCallInvitationFn(() => cancel);
+        handleSetOutgoingCallDialogOpen(true);
+
+        handleSetOutgoingCallInfo(callees);
+        // for (var i = 0; i < callees.length; i++) {
+        //   setOutgoingCallInfo({ caller: { userID: callees[i].userID, userName: callees[i].userName } });
+        // }
       },
 
       onCallInvitationEnded: async (reason, data) => {
@@ -199,6 +208,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
       onSetRoomConfigBeforeJoining: (): ZegoCloudRoomConfig => {
         return {
+          container: document.querySelector('#zego-room') as unknown as HTMLElement,
           turnOnMicrophoneWhenJoining: true,
           turnOnCameraWhenJoining: true,
           showMyCameraToggleButton: true,
@@ -208,6 +218,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
           showTextChat: false,
           showUserList: false,
           showLeaveRoomConfirmDialog: false,
+          showWaitingCallAcceptAudioVideoView: true,
           maxUsers: 2,
           layout: 'Auto',
           showRoomTimer: true,
@@ -219,13 +230,11 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
             }
           },
           onUserLeave: async (users) => {
-            console.log('onUserLeave called', users);
             if (users?.[0])
               handleSetUserRef(users?.[0]?.userID || '', users?.[0]?.userName || '', CALL_ENDED_BY.MODEL, true, false, roomID);
           },
 
           onLeaveRoom: async () => {
-            console.log('onLeaveRoom called');
             handleCallDurationRef(callDurationRef?.current?.startTime || '', String(new Date()));
             if (!userRef.current.isUserLeave) {
               handleSetUserRef(userRef.current?.userID || '', userRef.current?.userName || '', CALL_ENDED_BY.CUSTOMER, false, true, roomID);
@@ -235,11 +244,11 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       },
 
       onOutgoingCallAccepted: async (callID: string, callee: ZegoUser) => {
-        console.log('onOutgoingCallAccepted called');
         handleSetUserRef(userRef.current?.userID || '', userRef.current?.userName || '', '', false, true, callID);
         handleCallDurationRef(String(new Date()), '');
         handleSetIsCallAccepted(true);
         handleSetIsModelJoin(true);
+        handleSetOutgoingCallDialogOpen(false);
         gaEventTrigger('Video_call_started', {
           action: 'Video_call_started',
           category: 'Button',
@@ -249,12 +258,12 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       },
 
       onOutgoingCallRejected: async (callID: string, callee: ZegoUser) => {
-        console.log('onOutgoingCallRejected called', callee);
         callInstance?.hangUp();
         handleCreateNewRoomID();
         handleSetIsUnanswered(true);
         handleSetIsModelEndedCall(true);
         handleSetBusy(true);
+        handleSetOutgoingCallDialogOpen(false);
         // await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.REJECTED, ROLE.MODEL);
         // gaEventTrigger('Video_call_unanswered', {
         //   action: 'Video_call_unanswered',
@@ -265,12 +274,12 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       },
 
       onOutgoingCallDeclined: async (callID: string, callee: ZegoUser) => {
-        console.log('onOutgoingCallDeclined called', callee);
         callInstance?.hangUp();
         handleCreateNewRoomID();
         handleSetIsUnanswered(true);
         handleSetIsModelEndedCall(true);
         handleSetBusy(true);
+        handleSetOutgoingCallDialogOpen(false);
         // await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.REJECTED, ROLE.MODEL);
         // gaEventTrigger('Video_call_unanswered', {
         //   action: 'Video_call_unanswered',
@@ -281,11 +290,11 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       },
 
       onOutgoingCallTimeout: async (callID: string, callees: ZegoUser[]) => {
-        console.log('onOutgoingCallTimeout called', callees);
         callInstance?.hangUp();
         handleCreateNewRoomID();
         handleSetIsUnanswered(true);
         handleSetBusy(true);
+        handleSetOutgoingCallDialogOpen(false);
         // await creditPutCallLog(modelId || modelRef?.current?.id, callID, CALLING_STATUS.UNASWERED, ROLE.MODEL);
         // gaEventTrigger('Video_call_unanswered', {
         //   action: 'Video_call_unanswered',
@@ -348,7 +357,6 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   // };
 
   const init = async () => {
-    console.log('init called', modelUsername);
     if (!modelUsername) {
       return;
     }

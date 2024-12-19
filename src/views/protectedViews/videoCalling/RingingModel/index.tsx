@@ -38,7 +38,7 @@ const RingingModel = ({ open, onClose }: { open: boolean; onClose: () => void })
           }}
         />
       </Box>
-      <DialogContent sx={{ p: 0 }}>
+      <DialogContent sx={{ p: 0, overflow: 'hidden' }}>
         <DialogContentFristBox>
           <DialogContentSecondBox>
             <SecondBoxContent>
