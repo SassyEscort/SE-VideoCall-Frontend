@@ -174,7 +174,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   if (typeof window !== 'undefined' && callInstance) {
     callInstance.setCallInvitationConfig({
-      enableCustomCallInvitationDialog: true,
+      enableCustomCallInvitationDialog: false,
       enableNotifyWhenAppRunningInBackgroundOrQuit: true,
       endCallWhenInitiatorLeave: true,
       ringtoneConfig: { outgoingCallUrl: RINGING_TUNE },
@@ -182,11 +182,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
       onWaitingPageWhenSending: (callType, callees, cancel) => {
         handleSetCancelCallInvitationFn(() => cancel);
         handleSetOutgoingCallDialogOpen(true);
-
         handleSetOutgoingCallInfo(callees);
-        // for (var i = 0; i < callees.length; i++) {
-        // setOutgoingCallInfo({ caller: { userID: callees[i].userID, userName: callees[i].userName } });
-        // }
       },
 
       onCallInvitationEnded: async (reason, data) => {
@@ -229,8 +225,9 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
           showScreenSharingButton: false,
           showTextChat: false,
           showUserList: false,
-          showWaitingCallAcceptAudioVideoView: true,
           showLeaveRoomConfirmDialog: false,
+          showWaitingCallAcceptAudioVideoView: true,
+          showRoomDetailsButton: false,
           maxUsers: 2,
           layout: 'Auto',
           showRoomTimer: true,
