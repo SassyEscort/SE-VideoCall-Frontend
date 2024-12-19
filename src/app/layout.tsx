@@ -8,41 +8,8 @@ import ZegoTopBar from 'views/guestViews/commonComponents/zegoTopBar';
 
 // export const metadata: Metadata = {
 //   title: SEO_DATA.TITLE,
-//   description: SEO_DATA.DESCRIPTION,
-//   openGraph: {
-//     title: SEO_DATA.TITLE,
-//     description: SEO_DATA.DESCRIPTION,
-//     images: [
-//       {
-//         url: 'https://staging.flirtbate.com/images/home/home-banner-model.webp',
-//         width: 1200,
-//         height: 630,
-//         alt: 'OG Image Alt Text'
-//       }
-//     ],
-//     url: 'https://staging.flirtbate.com',
-//     type: 'website'
-//   }
+//   description: SEO_DATA.DESCRIPTION
 // };
-
-export async function generateMetadata() {
-  const dynamicTitle = 'Dynamic Title';
-  return {
-    title: dynamicTitle,
-    openGraph: {
-      title: dynamicTitle,
-      description: 'Dynamic Description',
-      images: [
-        {
-          url: 'https://staging.flirtbate.com/images/home/home-banner-model.webp',
-          width: 1200,
-          height: 630,
-          alt: 'Dynamic Image Alt Text'
-        }
-      ]
-    }
-  };
-}
 
 export default function RootLayout({
   children
@@ -62,6 +29,11 @@ export default function RootLayout({
         />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="FlirtBate - Hello" />
+        <meta property="og:description" content="Join FlirtBate for amazing features and connections!" />
+        <meta property="og:image" content="https://staging.flirtbate.com/images/404page.png" />
+        <meta property="og:url" content="https://staging.flirtbate.com/" />
+        <meta name="twitter:card" content="summary_large_image" />
       </head>
 
       {isProduction && (
