@@ -119,8 +119,8 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     handleSetIsModelAvailable,
     handleSetIsCallInitiated,
     handleSetOutgoingCallDialogOpen,
-    handleSetOutgoingCallInfo,
-    handleSetCancelCallInvitationFn
+    // handleSetOutgoingCallInfo,
+    // handleSetCancelCallInvitationFn
   } = useVideoCallContext();
   const userNameData = user && JSON.parse(user);
   const [rId, setRID] = useState('');
@@ -162,20 +162,20 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   if (typeof window !== 'undefined' && callInstance) {
     callInstance?.setCallInvitationConfig({
-      enableCustomCallInvitationDialog: false,
+      enableCustomCallInvitationDialog: true,
       enableNotifyWhenAppRunningInBackgroundOrQuit: true,
       endCallWhenInitiatorLeave: true,
       ringtoneConfig: { outgoingCallUrl: RINGING_TUNE },
 
-      onWaitingPageWhenSending: (callType, callees, cancel) => {
-        handleSetCancelCallInvitationFn(() => cancel);
-        handleSetOutgoingCallDialogOpen(true);
+      // onWaitingPageWhenSending: (callType, callees, cancel) => {
+      //   handleSetCancelCallInvitationFn(() => cancel);
+      //   handleSetOutgoingCallDialogOpen(true);
 
-        handleSetOutgoingCallInfo(callees);
-        // for (var i = 0; i < callees.length; i++) {
-        //   setOutgoingCallInfo({ caller: { userID: callees[i].userID, userName: callees[i].userName } });
-        // }
-      },
+      //   handleSetOutgoingCallInfo(callees);
+      //   // for (var i = 0; i < callees.length; i++) {
+      //   //   setOutgoingCallInfo({ caller: { userID: callees[i].userID, userName: callees[i].userName } });
+      //   // }
+      // },
 
       onCallInvitationEnded: async (reason, data) => {
         if (reason === CALL_INVITATION_END_REASON.LEAVEROOM || reason === CALL_INVITATION_END_REASON.CANCELED) {
