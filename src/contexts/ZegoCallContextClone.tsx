@@ -122,7 +122,6 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     handleSetModelName,
     handleSetModelUsername,
     handleSetModelPhoto,
-    handleSetSessionId,
     handleOutgoingCallCancel,
     handleSetIsModelAvailable,
     handleSetIsCallInitiated
@@ -132,7 +131,6 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const providerData = JSON.parse(user || '{}');
 
   const path = usePathname();
-  const userName = path.split('/')[2];
 
   const appID = process.env.NEXT_PUBLIC_ZEGO_APP_KEY!;
   const serverSecret = process.env.NEXT_PUBLIC_SECRET_KEY!;
@@ -178,14 +176,14 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
       onCallInvitationEnded: async (reason, data) => {
         if (reason === CALL_INVITATION_END_REASON.LEAVEROOM || reason === CALL_INVITATION_END_REASON.CANCELED) {
-          if (isCustomer && isCallInitiated) {
-            const status = reason === CALL_INVITATION_END_REASON.LEAVEROOM ? CALL_INVITATION_END_REASON.ENDED : 'Cancelled';
-            const role = userRef.current.isUserLeave ? ROLE.MODEL : ROLE.CUSTOMER;
-            // const endCallData = await creditPutCallLog(modelId || modelRef?.current?.id, roomID, status, role);
-            // if (endCallData) {
-            //   handleSetAvailableCredits(endCallData.available_credits);
-            // }
-          }
+          // if (isCustomer && isCallInitiated) {
+          //   const status = reason === CALL_INVITATION_END_REASON.LEAVEROOM ? CALL_INVITATION_END_REASON.ENDED : 'Cancelled';
+          //   const role = userRef.current.isUserLeave ? ROLE.MODEL : ROLE.CUSTOMER;
+          //   const endCallData = await creditPutCallLog(modelId || modelRef?.current?.id, roomID, status, role);
+          //   if (endCallData) {
+          //     handleSetAvailableCredits(endCallData.available_credits);
+          //   }
+          // }
           if (reason === CALL_INVITATION_END_REASON.CANCELED) {
             gaEventTrigger('Video_call_canceled', {
               action: 'Video_call_canceled',
@@ -341,19 +339,19 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     };
   }, []);
 
-  const getChatInformation = async () => {
-    if (modelId && token.token) {
-      const getInfo = await CallingService.getCometChatInfo(modelId, token.token);
-      if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 1) {
-        const moment = (await import('moment')).default;
-        const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
-        handleSetCallTime(durationInSeconds);
-        handleSetIsCreditAvailable(true);
-      } else {
-        handleSetIsCreditAvailable(false);
-      }
-    }
-  };
+  // const getChatInformation = async () => {
+  //   if (modelId && token.token) {
+  //     const getInfo = await CallingService.getCometChatInfo(modelId, token.token);
+  //     if (getInfo?.data?.time_unit === 'minutes' && getInfo?.data?.available_call_duration >= 1) {
+  //       const moment = (await import('moment')).default;
+  //       const durationInSeconds = moment.duration(getInfo?.data?.available_call_duration, 'minutes').asMilliseconds();
+  //       handleSetCallTime(durationInSeconds);
+  //       handleSetIsCreditAvailable(true);
+  //     } else {
+  //       handleSetIsCreditAvailable(false);
+  //     }
+  //   }
+  // };
 
   const init = async () => {
     console.log('init called', modelUsername);
