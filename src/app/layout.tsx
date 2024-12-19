@@ -1,6 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
-import type { Metadata } from 'next';
 import ProviderWrapper from './ProviderWrapper';
 import AuthFeaturProvider from 'contexts/AuthContext';
 import TawkProvider from 'contexts/TawkContext';
@@ -9,10 +7,10 @@ import Script from 'next/script';
 import ZegoTopBar from 'views/guestViews/commonComponents/zegoTopBar';
 // import '../app/globals.scss';
 
-export const metadata: Metadata = {
-  title: SEO_DATA.TITLE,
-  description: SEO_DATA.DESCRIPTION
-};
+// EXPORT CONST METADATA: METADATA = {
+//   TITLE: SEO_DATA.TITLE,
+//   DESCRIPTION: SEO_DATA.DESCRIPTION
+// };
 
 export default function RootLayout({
   children
@@ -32,11 +30,11 @@ export default function RootLayout({
         />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <meta name="robots" content="index, follow" />
-        <meta property="og:title" content="FlirtBate - Explore the Best Experiences" />
-        <meta property="og:description" content="Join FlirtBate for amazing features and connections!" />
+        <meta property="og:title" content={SEO_DATA.TITLE} />
+        <meta property="og:description" content={SEO_DATA.DESCRIPTION} />
         <meta property="og:image" content="https://staging.flirtbate.com/images/home/home-banner-model.webp" />
-        <meta property="og:url" content="https://staging.flirtbate.com/" />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="og:url" content="https://staging.flirtbate.com" />
+        <meta property="og:type" content="website" />
       </head>
 
       {isProduction && (
