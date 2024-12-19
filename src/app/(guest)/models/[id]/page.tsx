@@ -47,8 +47,24 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     };
   } else {
     return {
+      title: 'Default Title',
+      description: 'Default Description',
       alternates: {
-        canonical: `https://flirtbate.com/models`
+        canonical: 'https://staging.flirtbate.com/models'
+      },
+      openGraph: {
+        title: 'Default Title',
+        description: 'Default Description',
+        url: 'https://staging.flirtbate.com/models',
+        images: [
+          {
+            url: 'https://staging.flirtbate.com/images/model.jpg',
+            width: 1200,
+            height: 630,
+            alt: 'Default Image'
+          }
+        ],
+        type: 'website'
       }
     };
   }
