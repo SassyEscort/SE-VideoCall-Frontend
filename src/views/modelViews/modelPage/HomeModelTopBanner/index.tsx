@@ -43,9 +43,9 @@ const HomeModelTopBanner = () => {
   const { isCustomer } = useAuthContext();
   const searchParams = useSearchParams();
 
-  const email = String(searchParams.get('email'));
-  const emailCode = String(searchParams.get('code'));
-  const emailId = String(searchParams.get('id'));
+  const email = searchParams?.get('email') || '';
+  const emailCode = searchParams?.get('code') || '';
+  const emailId = searchParams?.get('id') || '';
 
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));

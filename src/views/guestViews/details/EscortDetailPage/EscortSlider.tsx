@@ -268,7 +268,7 @@ const EscortSlider = ({
           mt: 3
         }}
       >
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', gap: 1 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', gap: 1.5 }}>
           <StyleButtonShadowV2
             loading={isLoading}
             onClick={isCustomer ? handleCallInitiate : isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleLoginOpen}
@@ -332,7 +332,7 @@ const EscortSlider = ({
           <UIStyledShadowButtonLike
             sx={{
               padding: '10px',
-              minWidth: '148px',
+              maxWidth: '148px',
               width: '100%',
               '&.MuiButtonBase-root': { height: { xs: '40px', sm: '44px' } }
             }}

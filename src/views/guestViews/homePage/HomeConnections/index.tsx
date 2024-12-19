@@ -53,8 +53,8 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
   const pathName = usePathname();
   const searchParams = useSearchParams();
 
-  const email = searchParams?.get('email');
-  const id = searchParams.get('id');
+  const email = searchParams?.get('email') || '';
+  const id = searchParams?.get('id') || '';
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('lg'));
   const [open, setIsOpen] = useState(false);

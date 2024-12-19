@@ -114,6 +114,7 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
   };
 
   const handleSelectedModelDetails = (model: IHistoryOfChats) => {
+    setMessages([]);
     setSelectedModelDetails(model);
   };
 

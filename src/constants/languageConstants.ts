@@ -16,11 +16,26 @@ export enum LANGUAGES_TYPES {
 
 export const CHATROOM = [
   { title: 'CamToCam', id: 1, url: '/cam-to-cam' },
-  { title: 'SexChat', id: 1, url: '/sex-chat' },
-  { title: 'ChatWithGirls', id: 2, url: '/chat-with-girls' },
-  { title: 'DirtyTalks', id: 3, url: '/dirty-talks' },
-  { title: 'StrangerChat', id: 4, url: '/stranger-chat' },
-  { title: 'NudeChat', id: 4, url: '/nude-chat' }
+  { title: 'SexChat', id: 2, url: '/sex-chat' },
+  { title: 'ChatWithGirls', id: 3, url: '/chat-with-girls' },
+  { title: 'DirtyTalks', id: 4, url: '/dirty-talks' },
+  { title: 'StrangerChat', id: 5, url: '/stranger-chat' },
+  { title: 'NudeChat', id: 6, url: '/nude-chat' },
+  { title: 'MatureChat', id: 7, url: '/mature-chat' },
+  { title: 'LesbianChat', id: 8, url: '/lesbian-chat' },
+  { title: 'CuckoldChat', id: 9, url: '/cuckold-chat' },
+  { title: 'AnonymousChat', id: 10, url: '/anonymous-chat' }
 ];
 
-export const SEOCHATPATH = ['/cam-to-cam', '/sex-chat', '/chat-with-girls', '/dirty-talks', '/stranger-chat', '/nude-chat'];
+export const SEOCHATPATH = [
+  '/cam-to-cam',
+  '/sex-chat',
+  '/chat-with-girls',
+  '/dirty-talks',
+  '/stranger-chat',
+  '/nude-chat',
+  '/mature-chat',
+  '/lesbian-chat',
+  '/cuckold-chat',
+  '/anonymous-chat'
+];

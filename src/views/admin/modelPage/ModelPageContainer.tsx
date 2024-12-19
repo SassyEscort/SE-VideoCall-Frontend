@@ -17,7 +17,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Chip from '@mui/material/Chip';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import moment from 'moment';
-import ReportFilters from 'components/Admin/ReportFilters/ReportFilters';
 import { formatFullDate } from 'utils/dateAndTime';
 import ModelListHead from './ModelListHead';
 import { PaginationSortByOption } from 'components/common/CustomPaginations/type';
@@ -45,6 +44,7 @@ import { ModalPage } from 'constants/adminUserAccessConstants';
 import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermission';
 import { Autocomplete, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
+import ReportDateDurationWithAllFilters from 'components/Admin/ReportFilters/ReportFiltersWithAllDropdown';
 
 export type AdminWorkersPaginationType = {
   page: number;
@@ -61,7 +61,6 @@ export type AdminWorkersPaginationType = {
   is_active: string;
   gender: string;
   emailVerified: string | null;
-  lastActiveDuration: string;
   lastActiveFromDate: string;
   lastActiveToDate: string;
   country: number | null;
@@ -87,6 +86,7 @@ const IS_EMAIL_VERIFIED = [
 ];
 
 const GENDER = [
+  { value: '', label: 'All' },
   { value: 'Male', label: 'Male' },
   { value: 'Female', label: 'Female' },
   { value: 'Trans', label: 'Trans' }
@@ -99,8 +99,6 @@ export type TokenIdTypeAdmin = {
 export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutStep?: () => void }) {
   const router = useRouter();
   const { adminUserPermissions, isAdmin, token } = useAuthContext();
-  const currentMoment = moment().format('YYYY/MM/DD');
-  const oneMonthAgoMoment = moment().subtract(1, 'day').format('YYYY/MM/DD');
 
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -116,17 +114,16 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     orderField: 'duration',
     orderType: 'desc',
     filter_Text: '',
-    duration: 'day',
-    fromDate: oneMonthAgoMoment,
-    toDate: currentMoment,
+    duration: 'all',
+    fromDate: '',
+    toDate: '',
     status: '',
     verificationStep: '',
     is_active: '',
     gender: 'Female',
     emailVerified: '',
-    lastActiveDuration: 'day',
-    lastActiveFromDate: oneMonthAgoMoment,
-    lastActiveToDate: currentMoment,
+    lastActiveFromDate: '',
+    lastActiveToDate: '',
     country: 0
   });
 
@@ -174,10 +171,10 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     setIsLoading(true);
     if (token.token) {
       const filterparams = {
-        filter: -1,
+        filter: filters.duration === 'all' ? 0 : -1,
         date_range: {
-          start_date: filters.fromDate,
-          end_date: filters.toDate
+          start_date: filters.fromDate || null,
+          end_date: filters.toDate || null
         },
         sort_order: filters.orderType,
         sort_field: filters.orderField,
@@ -185,8 +182,8 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
         country_code: filters.country || null,
         gender: filters.gender === '' ? null : filters.gender,
         email_verified: filters.emailVerified !== '' ? Boolean(Number(filters.emailVerified)) : null,
-        last_active_from_date: filters.lastActiveFromDate,
-        last_active_to_date: filters.lastActiveToDate,
+        last_active_from_date: filters.lastActiveFromDate === '' ? null : filters.lastActiveFromDate,
+        last_active_to_date: filters.lastActiveToDate === '' ? null : filters.lastActiveToDate,
         search_field: filters.filter_Text
       };
 
@@ -287,12 +284,11 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     handleChangeFilter({
       ...filters,
       duration,
-      fromDate,
-      toDate,
+      fromDate: fromDate,
+      toDate: toDate,
       page: 1,
-      lastActiveDuration: duration,
-      lastActiveFromDate: fromDate,
-      lastActiveToDate: toDate
+      lastActiveFromDate: '',
+      lastActiveToDate: ''
     });
   };
 
@@ -332,12 +328,16 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
   const handleLastActiveFromDateChange = (value: moment.Moment | null) => {
     if (value?.isValid()) {
       handleChangeFilter({ ...filters, lastActiveFromDate: value?.format('YYYY/MM/DD'), page: 1 });
+    } else {
+      handleChangeFilter({ ...filters, lastActiveFromDate: '', page: 1 });
     }
   };
 
   const handleLastActiveToDateChange = (value: moment.Moment | null) => {
     if (value?.isValid()) {
       handleChangeFilter({ ...filters, lastActiveToDate: value?.format('YYYY/MM/DD'), page: 1 });
+    } else {
+      handleChangeFilter({ ...filters, lastActiveToDate: '', page: 1 });
     }
   };
 
@@ -359,6 +359,16 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adminUserPermissions, isAdmin]);
 
+  const shouldDisableDate = (day: moment.Moment) => {
+    const current = day.format('YYYY/MM/DD');
+    return filters.fromDate > current || filters.toDate < current;
+  };
+
+  const shouldToDisableDate = (day: moment.Moment) => {
+    const current = day.format('YYYY/MM/DD');
+    return day.isBefore(filters.lastActiveFromDate, 'day') || day.isAfter(filters.toDate, 'day') || filters.lastActiveFromDate === current;
+  };
+
   return (
     <>
       <MainLayout>
@@ -369,7 +379,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
             </Typography>
           </Stack>
           <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent="space-between" mb={1}>
-            <ReportFilters
+            <ReportDateDurationWithAllFilters
               duration={filters.duration}
               fromDate={filters.fromDate}
               toDate={filters.toDate}
@@ -463,18 +473,20 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
               <DatePicker
                 label="Last Active FromDate"
                 format="DD-MM-YYYY"
-                value={moment(filters.lastActiveFromDate)}
+                value={filters.lastActiveFromDate ? moment(filters.lastActiveFromDate) : null}
                 onChange={handleLastActiveFromDateChange}
                 sx={{ width: '100%' }}
+                shouldDisableDate={filters.duration !== 'all' ? shouldDisableDate : undefined}
               />
             </Grid>
             <Grid item xs={12} sm={4} sx={{ width: '100%' }}>
               <DatePicker
                 label="Last Active ToDate"
                 format="DD-MM-YYYY"
-                value={moment(filters.lastActiveToDate)}
+                value={filters.lastActiveToDate ? moment(filters.lastActiveToDate) : null}
                 onChange={handleLastActiveToDateChange}
                 sx={{ width: '100%' }}
+                shouldDisableDate={filters.duration !== 'all' ? shouldToDisableDate : undefined}
               />
             </Grid>
           </Stack>

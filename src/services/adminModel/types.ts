@@ -86,8 +86,8 @@ export interface ModelDetailsRes extends GenericRes {
 export type ModelDetailsParams = {
   filter: number;
   date_range: {
-    start_date: string;
-    end_date: string;
+    start_date: string | null;
+    end_date: string | null;
   };
   sort_order?: string;
   sort_field?: string;

@@ -99,7 +99,7 @@ const Footer = () => {
   };
 
   return (
-    <Banner sx={{ ...(isSEOPage && { marginTop: '0px !important' }) }}>
+    <Banner sx={{ ...((isSEOPage || pathName.startsWith('/chat')) && { marginTop: '0px !important' }) }}>
       <TextContainerMain>
         <TextContainer>
           <Box>
