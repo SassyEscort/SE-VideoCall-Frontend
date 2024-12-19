@@ -1,32 +1,48 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
-import type { Metadata } from 'next';
 import ProviderWrapper from './ProviderWrapper';
 import AuthFeaturProvider from 'contexts/AuthContext';
 import TawkProvider from 'contexts/TawkContext';
-import { SEO_DATA } from 'constants/seoConstants';
 import Script from 'next/script';
 import ZegoTopBar from 'views/guestViews/commonComponents/zegoTopBar';
 // import '../app/globals.scss';
 
-export const metadata: Metadata = {
-  title: SEO_DATA.TITLE,
-  description: SEO_DATA.DESCRIPTION,
-  openGraph: {
-    title: SEO_DATA.TITLE,
-    description: SEO_DATA.DESCRIPTION,
-    images: [
-      {
-        url: 'https://staging.flirtbate.com/images/home/home-banner-model.webp',
-        width: 1200,
-        height: 630,
-        alt: 'OG Image Alt Text'
-      }
-    ],
-    url: 'https://staging.flirtbate.com',
-    type: 'website'
-  }
-};
+// export const metadata: Metadata = {
+//   title: SEO_DATA.TITLE,
+//   description: SEO_DATA.DESCRIPTION,
+//   openGraph: {
+//     title: SEO_DATA.TITLE,
+//     description: SEO_DATA.DESCRIPTION,
+//     images: [
+//       {
+//         url: 'https://staging.flirtbate.com/images/home/home-banner-model.webp',
+//         width: 1200,
+//         height: 630,
+//         alt: 'OG Image Alt Text'
+//       }
+//     ],
+//     url: 'https://staging.flirtbate.com',
+//     type: 'website'
+//   }
+// };
+
+export async function generateMetadata() {
+  const dynamicTitle = 'Dynamic Title';
+  return {
+    title: dynamicTitle,
+    openGraph: {
+      title: dynamicTitle,
+      description: 'Dynamic Description',
+      images: [
+        {
+          url: 'https://staging.flirtbate.com/images/home/home-banner-model.webp',
+          width: 1200,
+          height: 630,
+          alt: 'Dynamic Image Alt Text'
+        }
+      ]
+    }
+  };
+}
 
 export default function RootLayout({
   children
