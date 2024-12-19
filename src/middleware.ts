@@ -9,6 +9,10 @@ export function middleware(request: NextRequest) {
     url.pathname = '/api/robots';
     return NextResponse.rewrite(url);
   }
+
+  if (url.pathname.includes('/details')) {
+    return NextResponse.redirect(new URL(url.href.replace('/details', '/models'), request.url));
+  }
   return response;
 }
 

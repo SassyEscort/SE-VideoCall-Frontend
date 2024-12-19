@@ -4,7 +4,7 @@ import HomeImageCard from 'views/guestViews/homePage/homeImageCards';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { HomeExploreBox, SubTitle } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
-import { DetailsChildTypographyBox, ExploreEscortText } from './Escort.styled';
+import { DetailsChildTypographyBox, ExploreEscortText, ExploreModelsBox } from './Escort.styled';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
 import SearchFilters, { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
@@ -16,6 +16,7 @@ import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useAuthContext } from '../../../../contexts/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import UIThemeBorderButton from 'components/UIComponents/UIStyledBorderButton';
 
 const EscortExplore = () => {
   const { isFreeCreditAvailable } = useAuthContext();
@@ -193,7 +194,7 @@ const EscortExplore = () => {
     <>
       <BackdropProgress open={isLoading} />
 
-      <DetailsChildTypographyBox sx={{ gap: 4.25, mt: isSmDown ? 12 : 7 }}>
+      <DetailsChildTypographyBox sx={{ gap: 2.25, mt: isSmDown ? 12 : 7 }}>
         <DetailsChildTypographyBox sx={{ gap: 7 }}>
           <ExploreEscortText>
             <HomeExploreBox>
@@ -213,6 +214,20 @@ const EscortExplore = () => {
             <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
           </HomeMainContainer>
         </DetailsChildTypographyBox>
+        <ExploreModelsBox>
+          <Box>
+            <UINewTypography variant="body">
+              <FormattedMessage id="RelatedModels" />
+            </UINewTypography>
+          </Box>
+          <Box>
+            <UIThemeBorderButton sx={{ width: { xs: '100%', sm: '300px' } }} href="/">
+              <UINewTypography variant="body" color={'text.secondary'}>
+                <FormattedMessage id="ExploreModels" />
+              </UINewTypography>
+            </UIThemeBorderButton>
+          </Box>
+        </ExploreModelsBox>
         <Box>
           <HomeImageCard
             modelListing={modelListing}
