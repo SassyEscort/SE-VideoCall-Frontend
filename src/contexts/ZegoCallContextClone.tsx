@@ -219,6 +219,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
           showUserList: false,
           showLeaveRoomConfirmDialog: false,
           showWaitingCallAcceptAudioVideoView: true,
+          showRoomDetailsButton: false,
           maxUsers: 2,
           layout: 'Auto',
           showRoomTimer: true,
