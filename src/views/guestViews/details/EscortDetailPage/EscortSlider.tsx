@@ -39,8 +39,8 @@ import { ModelDetailsResponse } from 'views/protectedModelViews/verification/ver
 import EscortSwiperPhotoContainerSide from './EscortSwiperPhotoContainerSide';
 import { usePathname, useRouter } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
-// import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
-import { useCallFeatureContext } from 'contexts/CallFeatureContext';
+import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContextClone';
+// import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 import dynamic from 'next/dynamic';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
@@ -68,8 +68,8 @@ const EscortSlider = ({
   guestData: ModelDetailsResponse;
   isFreeCreditAvailable: number;
 }) => {
-  // const { user } = useZegoCallFeatureContext();
-  const { user } = useCallFeatureContext();
+  const { user } = useZegoCallFeatureContext();
+  // const { user } = useCallFeatureContext();
   const path = usePathname();
   const router = useRouter();
   const userName = path.split('/')[2];

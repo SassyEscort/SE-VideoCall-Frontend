@@ -27,8 +27,8 @@ import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-// import { useVideoCallContext } from 'contexts/videoCallContext';
-import { useCallFeatureContext } from 'contexts/CallFeatureContext';
+import { useVideoCallContext } from 'contexts/videoCallContext';
+// import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 
 const BillingDetails = ({
   open,
@@ -43,8 +43,8 @@ const BillingDetails = ({
 }) => {
   const isSMDown = useMediaQuery(theme.breakpoints.down('sm'));
   const router = useRouter();
-  // const { isLoading } = useVideoCallContext();
-  const { isLoading } = useCallFeatureContext();
+  const { isLoading } = useVideoCallContext();
+  // const { isLoading } = useCallFeatureContext();
   const callDurationString = selectDetails.call_duration;
   const callDuration = moment.duration(callDurationString);
   const hours = Math.floor(callDuration.asHours());

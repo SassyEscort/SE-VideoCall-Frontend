@@ -12,9 +12,9 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { usePathname } from 'next/navigation';
 import Box from '@mui/system/Box';
-// import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
-import { useCallFeatureContext } from 'contexts/CallFeatureContext';
-// import { useVideoCallContext } from '../../../../contexts/videoCallContext';
+import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContextClone';
+import { useVideoCallContext } from '../../../../contexts/videoCallContext';
+// import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 import { CallingService } from 'services/calling/calling.services';
 import moment from 'moment';
 import { ModelDetailsParams, ModelDetailsService } from 'services/modelDetails/modelDetails.services';
@@ -42,8 +42,9 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 const EscortDetailPage = () => {
   const { isFreeCreditAvailable, isCustomer, token } = useAuthContext();
-  // const { isLoading, isCallEnded, handleSetCallEnd, isUnanswered } = useVideoCallContext();
-  const { handleCallInitiate, call, isLoading, isCallEnded, handleCallEnd, isUnanswered } = useCallFeatureContext();
+  const { isLoading, isCallEnded, handleSetCallEnd, isUnanswered } = useVideoCallContext();
+  const { handleCallInitiate } = useZegoCallFeatureContext();
+  // const { handleCallInitiate, call, isLoading, isCallEnded, handleCallEnd, isUnanswered } = useCallFeatureContext();
 
   const path = usePathname();
   const userName = path.split('/')[2];
@@ -133,13 +134,13 @@ const EscortDetailPage = () => {
 
   useEffect(() => {
     if (isCallEnded) {
-      // handleSetCallEnd();
-      handleCallEnd();
+      handleSetCallEnd();
+      // handleCallEnd();
     } else {
       getCometChatInfo();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [guestData, token.token, call, isCallEnded]);
+  }, [guestData, token.token, isCallEnded]);
 
   useEffect(() => {
     if (isUnanswered) {
@@ -181,6 +182,8 @@ const EscortDetailPage = () => {
                 modelId={guestData?.id ?? 0}
                 token={token}
                 handleCallInitiate={() => {
+                  console.log('handleCallInitiate called');
+
                   handleCallInitiate(
                     guestData?.id,
                     isCreditAvailable,

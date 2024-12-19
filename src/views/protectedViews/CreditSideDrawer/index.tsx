@@ -24,7 +24,7 @@ import {
 } from './CreditSideDrawer.styled';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customerCredit.service';
-// import { useZegoCallFeatureContext } from '../../../contexts/ZegoCallContext';
+import { useZegoCallFeatureContext } from 'contexts/ZegoCallContextClone';
 import { usePathname, useRouter } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
 import { CustomerDetails } from 'services/customerDetails/customerDetails.services';
@@ -32,7 +32,7 @@ import { FormattedMessage } from 'react-intl';
 import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
-import { useCallFeatureContext } from 'contexts/CallFeatureContext';
+// import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 import { useAuthContext } from 'contexts/AuthContext';
 
 const CreditSideDrawer = ({
@@ -49,8 +49,8 @@ const CreditSideDrawer = ({
   const { token } = useAuthContext();
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  // const { user } = useZegoCallFeatureContext();
-  const { user } = useCallFeatureContext();
+  const { user } = useZegoCallFeatureContext();
+  // const { user } = useCallFeatureContext();
   const customerData = JSON.parse(user || '{}');
 
   const router = useRouter();

@@ -32,13 +32,13 @@ import CreditsAdded from '../CreditsAdded/CreditsAdded';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import Loader from 'components/Loader';
 import { gaEventTrigger } from 'utils/analytics';
-// import { useZegoCallFeatureContext } from '../../../contexts/ZegoCallContext';
-import { useCallFeatureContext } from 'contexts/CallFeatureContext';
+import { useZegoCallFeatureContext } from 'contexts/ZegoCallContextClone';
+// import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 import { ClaimFreeNewButton } from './ModelCredits/Credits.styled';
 import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useAuthContext } from '../../../contexts/AuthContext';
+import { useAuthContext } from 'contexts/AuthContext';
 
 export type CustomerInfo = {
   email: string;
@@ -58,7 +58,8 @@ const Credits = () => {
 
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { user } = useCallFeatureContext();
+  // const { user } = useCallFeatureContext();
+  const { user } = useZegoCallFeatureContext();
   const customerData = JSON.parse(user || '{}');
 
   const credit = searchParams.get('credit');

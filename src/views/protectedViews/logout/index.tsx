@@ -19,33 +19,23 @@ import { FormattedMessage } from 'react-intl';
 import { usePathname } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import { useAuthContext } from 'contexts/AuthContext';
-import { loadCometChatUIKit, loadUIKitSettingsBuilder, COMETCHAT_CONSTANTS } from 'contexts/CallFeatureContext';
+// import { CometChatUIKit } from '@cometchat/chat-uikit-react';
+// import { useAuthContext } from 'contexts/AuthContext';
 
 const Logout = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const asPath = usePathname();
-  const { isCustomer } = useAuthContext();
+  // const { isCustomer } = useAuthContext();
   const [loading, setLoading] = useState(false);
 
   const handleConfirmLogout = async () => {
     setLoading(true);
     try {
-      const CometChatUIKit = await loadCometChatUIKit();
-      const UIKitSettingsBuilder = await loadUIKitSettingsBuilder();
-      const UIKitSettings = new UIKitSettingsBuilder()
-        .setAppId(COMETCHAT_CONSTANTS.APP_ID)
-        .setRegion(COMETCHAT_CONSTANTS.REGION)
-        .setAuthKey(COMETCHAT_CONSTANTS.AUTH_KEY)
-        .subscribePresenceForAllUsers()
-        .build();
-
-      await CometChatUIKit.init(UIKitSettings);
-      if (!isCustomer) {
-        const user = await CometChatUIKit?.getLoggedinUser();
-        if (user) {
-          await CometChatUIKit.logout();
-        }
-      }
+      // if (!isCustomer) {
+      //   const user = await CometChatUIKit.getLoggedinUser();
+      //   if (user) {
+      //     await CometChatUIKit.logout();
+      //   }
+      // }
       await signOut({ callbackUrl: asPath.startsWith('/model') && !asPath.startsWith('/models') ? '/model' : '/' });
     } catch (error) {
       toast.error('Error during sign-out:');

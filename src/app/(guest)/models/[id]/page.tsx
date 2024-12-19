@@ -1,13 +1,14 @@
 import { Metadata } from 'next';
 import { ModelSeoService } from 'services/modelSeo/modelSeo.services';
-// import { VideoCallProvider } from 'contexts/videoCallContext';
-// import { CallFeatureProvider } from 'contexts/ZegoCallContext';
-import { CallFeatureProvider } from 'contexts/CallFeatureContext';
+import { VideoCallProvider } from 'contexts/videoCallContext';
+import { CallFeatureProvider } from 'contexts/ZegoCallContextClone';
 import dynamic from 'next/dynamic';
 const EscortDetailPage = dynamic(() => import('views/guestViews/details/EscortDetailPage'));
 
-// const CallFeature = dynamic(() => import('views/protectedViews/zegoCallingFeature'));
-const CallFeature = dynamic(() => import('views/protectedViews/callingFeature'));
+const CallFeature = dynamic(() => import('views/protectedViews/zegoCallingFeature'));
+
+// import { CallFeatureProvider } from 'contexts/CallFeatureContext';
+// const CallFeature = dynamic(() => import('views/protectedViews/callingFeature'));
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const model = params.id;
@@ -74,12 +75,12 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 
 const WorkerDetailPage = () => {
   return (
-    <>
+    <VideoCallProvider>
       <CallFeatureProvider>
         <CallFeature />
         <EscortDetailPage />
       </CallFeatureProvider>
-    </>
+    </VideoCallProvider>
   );
 };
 

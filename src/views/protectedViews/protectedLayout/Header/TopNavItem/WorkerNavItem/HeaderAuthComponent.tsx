@@ -29,8 +29,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import { useTawk } from 'contexts/TawkContext';
+import { useVideoCallContext } from 'contexts/videoCallContext';
+// import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 // import { useVideoCallContext } from 'contexts/videoCallContext';
-import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 import { io, Socket } from 'socket.io-client';
 import { ISocketMessage } from 'services/chatServices/chat.service';
 import { StyledSnackBar, StyledSnackBarInnerBox } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
@@ -51,8 +52,7 @@ export type NotificationFilters = {
 const HeaderAuthComponent = () => {
   const { maximizeChat, initializeChat } = useTawk();
   const { session, isFreeCreditsClaimed, isNameChange, openCreditDrawer, handleCreditDrawerClose } = useAuthContext();
-  // const { isCallEnded, avaialbleCredits } = useVideoCallContext();
-  const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
+  const { isCallEnded, avaialbleCredits } = useVideoCallContext();
   const router = useRouter();
   const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));

@@ -34,7 +34,7 @@
     "@mui/x-date-pickers": "6.18.5",
     "@next/bundle-analyzer": "^14.2.15",
     "@next/third-parties": "14.2.4",
-    "@zegocloud/zego-uikit-prebuilt": "^2.12.2",
+    "@zegocloud/zego-uikit-prebuilt": "^2.14.0",
     "apexcharts": "^3.50.0",
     "axios": "1.6.2",
     "formik": "2.4.5",

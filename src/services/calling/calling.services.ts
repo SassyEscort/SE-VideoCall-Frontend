@@ -156,6 +156,16 @@ export class CallingService {
     }
   };
 
+  static creditPutZegoCallLog2 = async (params: CreditZegoCallParams, token: string) => {
+    try {
+      const payload = JSON.stringify({ ...params, Authorization: token });
+      const blob = new Blob([payload], { type: 'application/json' });
+      navigator.sendBeacon(`https://7195-103-211-18-174.ngrok-free.app/v1/call/logs`, blob);
+    } catch (err) {
+      console.error('sendBeacon failed:', err);
+    }
+  };
+
   static getModelCallStatus = async (model_id: number, token: string): Promise<CallStatusRes> => {
     try {
       const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/model-call-status?model_id=${model_id}`, {
