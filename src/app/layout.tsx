@@ -1,4 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
+import React from 'react';
+import type { Metadata } from 'next';
 import ProviderWrapper from './ProviderWrapper';
 import AuthFeaturProvider from 'contexts/AuthContext';
 import TawkProvider from 'contexts/TawkContext';
@@ -7,10 +9,24 @@ import Script from 'next/script';
 import ZegoTopBar from 'views/guestViews/commonComponents/zegoTopBar';
 // import '../app/globals.scss';
 
-// EXPORT CONST METADATA: METADATA = {
-//   TITLE: SEO_DATA.TITLE,
-//   DESCRIPTION: SEO_DATA.DESCRIPTION
-// };
+export const metadata: Metadata = {
+  title: SEO_DATA.TITLE,
+  description: SEO_DATA.DESCRIPTION,
+  openGraph: {
+    title: SEO_DATA.TITLE,
+    description: SEO_DATA.DESCRIPTION,
+    images: [
+      {
+        url: 'https://staging.flirtbate.com/images/home/home-banner-model.webp',
+        width: 1200,
+        height: 630,
+        alt: 'OG Image Alt Text'
+      }
+    ],
+    url: 'https://staging.flirtbate.com',
+    type: 'website'
+  }
+};
 
 export default function RootLayout({
   children
@@ -30,11 +46,6 @@ export default function RootLayout({
         />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <meta name="robots" content="index, follow" />
-        <meta property="og:title" content={SEO_DATA.TITLE} />
-        <meta property="og:description" content={SEO_DATA.DESCRIPTION} />
-        <meta property="og:image" content="https://staging.flirtbate.com/images/home/home-banner-model.webp" />
-        <meta property="og:url" content="https://staging.flirtbate.com" />
-        <meta property="og:type" content="website" />
       </head>
 
       {isProduction && (
