@@ -159,10 +159,14 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   if (callInstance) {
     callInstance?.setCallInvitationConfig({
-      enableNotifyWhenAppRunningInBackgroundOrQuit: true,
       enableCustomCallInvitationWaitingPage: true,
+      enableNotifyWhenAppRunningInBackgroundOrQuit: true,
       endCallWhenInitiatorLeave: true,
       ringtoneConfig: { outgoingCallUrl: RINGING_TUNE },
+
+      onConfirmDialogWhenReceiving: (callType, caller) => {
+        console.log('Incoming call invitation:', { callType, caller });
+      },
 
       onCallInvitationEnded: async (reason, data) => {
         if (reason === CALL_INVITATION_END_REASON.LEAVEROOM || reason === CALL_INVITATION_END_REASON.CANCELED) {
