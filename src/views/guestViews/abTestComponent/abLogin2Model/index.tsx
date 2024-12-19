@@ -1,20 +1,20 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
-import { ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
+import { ErrorBox, ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import * as yup from 'yup';
-import { PASSWORD_PATTERN } from 'constants/regexConstants';
+import { EMAIL_REGEX, PASSWORD_PATTERN } from 'constants/regexConstants';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import {
   BenefitsTextTypography,
@@ -35,26 +35,75 @@ import {
   ModelMainBoxContainer
 } from '../abRegister2User/abRegister2User.styled';
 import { JoinNowButtonContainer } from '../abRegister1Model/abRegister1Model.styled';
+import { useRouter } from 'next/navigation';
+import { signIn, useSession } from 'next-auth/react';
+import { LoginModelParams } from 'services/modelAuth/types';
+import { ROLE } from 'constants/workerVerification';
+import { MODEL_ACTION } from 'constants/profileConstants';
+import getCustomErrorMessage from 'utils/error.utils';
+import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
+import InfoIcon from '@mui/icons-material/Info';
 
 const ABLogin2Model = ({ onClose }: { onClose: () => void }) => {
+  const intl = useIntl();
+  const route = useRouter();
+  const { push, refresh } = route;
+  const { data: session } = useSession();
+
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState('');
+  const [authRole, setAuthRole] = useState('');
+  const [modelStatus, setModelStatus] = useState('');
 
   const validationSchema = yup.object({
+    email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
     password: yup.string().required('New Password Is Required').min(8, 'Password Must Be 8 character long').matches(PASSWORD_PATTERN, {
       message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
       excludeEmptyString: true
-    }),
-    confirmPassword: yup
-      .string()
-      .required('confirm Password Is Required')
-      .min(8, 'Password Must Be 8 character long')
-      .matches(PASSWORD_PATTERN, {
-        message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
-        excludeEmptyString: true
-      })
-      .oneOf([yup.ref('password')], 'password and confirm password should match')
+    })
   });
+
+  const handleFormSubmit = async (values: LoginModelParams) => {
+    try {
+      setLoading(true);
+      const res = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, { redirect: false, email: values.email, password: values.password });
+      if (res?.status === 200) {
+        onClose();
+      } else if (res?.error) {
+        const errorMessage = res?.error === 'CredentialsSignin' ? 'InvalidEmail' : res?.error.replace('Error: ', '') || 'SomethingWent';
+        setAlert(intl.formatMessage({ id: errorMessage }));
+      }
+    } catch (error: any) {
+      setAlert(getCustomErrorMessage(error));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (session && session.user) {
+      const parsedPicture = JSON.parse((session?.user as any)?.picture);
+      setAuthRole(parsedPicture.role);
+      setModelStatus(parsedPicture.profile_status);
+    }
+  }, [session, session?.user]);
+
+  useEffect(() => {
+    if (authRole === ROLE.CUSTOMER) {
+      refresh();
+    } else if (authRole === ROLE.MODEL) {
+      if (modelStatus === MODEL_ACTION.REJECT) {
+        push('/model/profile-reject');
+      } else if (modelStatus === MODEL_ACTION.APPROVE) {
+        push('/model/dashboard');
+      } else if (modelStatus === MODEL_ACTION.PENDING) {
+        push('/model/profile');
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authRole, modelStatus]);
 
   return (
     <>
@@ -66,9 +115,7 @@ const ABLogin2Model = ({ onClose }: { onClose: () => void }) => {
           role: ''
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log(values, 'values');
-        }}
+        onSubmit={(values: LoginModelParams) => handleFormSubmit(values)}
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
           return (
@@ -102,6 +149,14 @@ const ABLogin2Model = ({ onClose }: { onClose: () => void }) => {
                     >
                       <CloseIcon />
                     </IconButton>
+                  </Box>
+                  <Box sx={{ color: 'primary.300' }}>
+                    {alert && (
+                      <ErrorBox>
+                        <InfoIcon />
+                        <UINewTypography>{alert}</UINewTypography>
+                      </ErrorBox>
+                    )}
                   </Box>
                   <ModelMainBoxContainer>
                     <ModelInnerBoxContainer>
@@ -207,7 +262,7 @@ const ABLogin2Model = ({ onClose }: { onClose: () => void }) => {
                         </InputFiledInnerBoxContainer>
 
                         <ButtonBoxContainer>
-                          <JoinNowButtonContainer variant="contained" type="submit">
+                          <JoinNowButtonContainer variant="contained" type="submit" loading={loading}>
                             Join Now
                           </JoinNowButtonContainer>
                           <ButtonInnerBoxContainer>
