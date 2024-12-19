@@ -1,15 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
+import React from 'react';
+import type { Metadata } from 'next';
 import ProviderWrapper from './ProviderWrapper';
 import AuthFeaturProvider from 'contexts/AuthContext';
 import TawkProvider from 'contexts/TawkContext';
+import { SEO_DATA } from 'constants/seoConstants';
 import Script from 'next/script';
 import ZegoTopBar from 'views/guestViews/commonComponents/zegoTopBar';
 // import '../app/globals.scss';
 
-// export const metadata: Metadata = {
-//   title: SEO_DATA.TITLE,
-//   description: SEO_DATA.DESCRIPTION
-// };
+export const metadata: Metadata = {
+  title: SEO_DATA.TITLE,
+  description: SEO_DATA.DESCRIPTION
+};
 
 export default function RootLayout({
   children
@@ -29,9 +32,7 @@ export default function RootLayout({
         />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <meta name="robots" content="index, follow" />
-        <meta property="og:title" content="FlirtBate - Hello" />
-        <meta property="og:description" content="Join FlirtBate for amazing features and connections!" />
-        <meta property="og:image" content="https://staging.flirtbate.com/images/404page.png" />
+        <meta property="og:image" content="https://staging.flirtbate.com/images/home/home-banner-model1.png" />
         <meta property="og:url" content="https://staging.flirtbate.com/" />
         <meta name="twitter:card" content="summary_large_image" />
       </head>
