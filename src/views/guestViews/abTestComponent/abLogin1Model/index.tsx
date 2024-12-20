@@ -44,7 +44,15 @@ import getCustomErrorMessage from 'utils/error.utils';
 import InfoIcon from '@mui/icons-material/Info';
 import { useRouter } from 'next/navigation';
 
-const ABLogin1Model = ({ onClose, onSignupOpen }: { onClose: () => void; onSignupOpen: () => void }) => {
+const ABLogin1Model = ({
+  onClose,
+  onSignupOpen,
+  onFogotPasswordLinkOpen
+}: {
+  onClose: () => void;
+  onSignupOpen: () => void;
+  onFogotPasswordLinkOpen: () => void;
+}) => {
   const intl = useIntl();
   const route = useRouter();
   const { push, refresh } = route;
@@ -269,7 +277,7 @@ const ABLogin1Model = ({ onClose, onSignupOpen }: { onClose: () => void; onSignu
                               variant="buttonLargeMenu"
                               color="primary.400"
                               sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}
-                              onClick={() => {}}
+                              onClick={onFogotPasswordLinkOpen}
                             >
                               <FormattedMessage id="ForgotPassword" />
                             </UINewTypography>

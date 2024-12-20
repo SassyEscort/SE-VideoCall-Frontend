@@ -236,7 +236,11 @@ const HomeModelTopBanner = () => {
               <ABRegister1Model onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
             </UIStyledABTest1Model>
             <UIStyledABTest1Model scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
-              <ABLogin1Model onClose={handleLoginClose} onSignupOpen={handleSignupOpen} />
+              <ABLogin1Model
+                onClose={handleLoginClose}
+                onSignupOpen={handleSignupOpen}
+                onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+              />
             </UIStyledABTest1Model>
           </>
         )}
