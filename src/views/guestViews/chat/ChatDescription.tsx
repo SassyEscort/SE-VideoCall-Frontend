@@ -91,7 +91,7 @@ const ChatDescription = () => {
                               </UINewTypography>
                             </ModelNameContainer>
 
-                            {(selectedModelDetails?.is_online === 1 || modelDetails?.is_online === 1) && (
+                            {(selectedModelDetails?.is_online === 1 || (!selectedModelDetails?.name && modelDetails?.is_online === 1)) && (
                               <OnlineFirstBoxContainer>
                                 <OnlineSecBoxContainer />
                               </OnlineFirstBoxContainer>
@@ -192,7 +192,7 @@ const ChatDescription = () => {
                               </UINewTypography>
                             </ModelNameContainer>
 
-                            {(selectedModelDetails?.is_online === 1 || modelDetails?.is_online === 1) && (
+                            {(selectedModelDetails?.is_online === 1 || (!selectedModelDetails?.name && modelDetails?.is_online === 1)) && (
                               <OnlineFirstBoxContainer>
                                 <OnlineSecBoxContainer />
                               </OnlineFirstBoxContainer>
