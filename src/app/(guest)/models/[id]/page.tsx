@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     const title = res?.title ? res?.title : genericTitle;
     const keywords = res?.keywords ? res?.keywords : genericKeywords;
     const description = res?.description ? res?.description : genericDescription;
-    const canonicalUrl = `https://staging.flirtbate.com/models/${model}`;
+    const canonicalUrl = `https://flirtbate.com/models/${model}`;
     const image = res.link;
 
     return {
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   } else {
     return {
       alternates: {
-        canonical: `https://staging.flirtbate.com/models`
+        canonical: `https://flirtbate.com/models`
       }
     };
   }
