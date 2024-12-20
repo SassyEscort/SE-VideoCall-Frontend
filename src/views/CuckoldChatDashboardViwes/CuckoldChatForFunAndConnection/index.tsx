@@ -40,6 +40,7 @@ const CuckoldChatForFunAndConnection = () => (
         height="48px"
         position="absolute"
         sx={{ zIndex: -1 }}
+        alt="connect-level"
       />
       <LightCirclesBox />
       <PinkLightCirclesBox />
@@ -47,7 +48,7 @@ const CuckoldChatForFunAndConnection = () => (
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <CuckoldAndConnectionInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/Video.png" width="32px" height="100%" />
+              <Box component="img" src="/images/camtocamDashboard/Video.png" width="32px" height="100%" alt="video" />
               <CuckoldAndConnectionInfoContainer>
                 <CuckoldAndConnectionDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="PersonalizedChats" />
@@ -60,7 +61,7 @@ const CuckoldChatForFunAndConnection = () => (
           </Grid>
           <Grid item xs={4}>
             <CuckoldAndConnectionInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/Private.png" width="26px" height="26px" />
+              <Box component="img" src="/images/camtocamDashboard/Private.png" width="26px" height="26px" alt="private" />
               <CuckoldAndConnectionInfoContainer>
                 <CuckoldAndConnectionDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="ExcitingEncounters" />
@@ -73,7 +74,7 @@ const CuckoldChatForFunAndConnection = () => (
           </Grid>
           <Grid item xs={4}>
             <CuckoldAndConnectionInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/People.png" width="32px" height="100%" />
+              <Box component="img" src="/images/camtocamDashboard/People.png" width="32px" height="100%" alt="people" />
               <CuckoldAndConnectionInfoContainer>
                 <CuckoldAndConnectionDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="StayAnonymous" />

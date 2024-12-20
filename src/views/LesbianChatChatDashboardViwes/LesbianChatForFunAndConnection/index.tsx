@@ -40,6 +40,7 @@ const LesbianChatForFunAndConnection = () => (
         height="48px"
         position="absolute"
         sx={{ zIndex: -1 }}
+        alt="connect-level"
       />
       <LightCirclesBox />
       <PinkLightCirclesBox />
@@ -47,7 +48,7 @@ const LesbianChatForFunAndConnection = () => (
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <LesbianAndConnectionInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/Video.png" width="32px" height="100%" />
+              <Box component="img" src="/images/camtocamDashboard/Video.png" width="32px" height="100%" alt="video" />
               <LesbianAndConnectionInfoContainer>
                 <LesbianAndConnectionDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="EncryptedConversations" />
@@ -60,7 +61,7 @@ const LesbianChatForFunAndConnection = () => (
           </Grid>
           <Grid item xs={4}>
             <LesbianAndConnectionInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/Private.png" width="26px" height="26px" />
+              <Box component="img" src="/images/camtocamDashboard/Private.png" width="26px" height="26px" alt="private" />
               <LesbianAndConnectionInfoContainer>
                 <LesbianAndConnectionDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="AnonymousChatting" />
@@ -73,7 +74,7 @@ const LesbianChatForFunAndConnection = () => (
           </Grid>
           <Grid item xs={4}>
             <LesbianAndConnectionInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/People.png" width="32px" height="100%" />
+              <Box component="img" src="/images/camtocamDashboard/People.png" width="32px" height="100%" alt="people" />
               <LesbianAndConnectionInfoContainer>
                 <LesbianAndConnectionDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="CompleteControl" />
