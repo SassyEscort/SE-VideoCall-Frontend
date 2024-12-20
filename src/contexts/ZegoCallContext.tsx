@@ -174,7 +174,8 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   if (typeof window !== 'undefined' && callInstance) {
     callInstance.setCallInvitationConfig({
-      enableCustomCallInvitationDialog: false,
+      enableCustomCallInvitationDialog: true,
+      enableCustomCallInvitationWaitingPage: true,
       enableNotifyWhenAppRunningInBackgroundOrQuit: true,
       endCallWhenInitiatorLeave: true,
       ringtoneConfig: { outgoingCallUrl: RINGING_TUNE },
