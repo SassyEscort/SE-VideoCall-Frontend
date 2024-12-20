@@ -16,7 +16,6 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     const genericTitle = `${res?.model_name} - ${res?.country_name} Model | Free Sex Call & Adult chat on Flirtbate`;
     const genericDescription = `Connect with ${res?.model_name}, a  ${res?.country_name} model, for live adult chat and free sex calls on Flirtbate. Enjoy interactive shows and intimate conversations in real-time.`;
     const genericKeywords = `${res?.model_name} ${res?.country_name} Model Adult chat Free Sex Call Flirtbate`;
-
     const title = res?.title ? res?.title : genericTitle;
     const keywords = res?.keywords ? res?.keywords : genericKeywords;
     const description = res?.description ? res?.description : genericDescription;
