@@ -113,15 +113,16 @@ const WorkerNavItem = () => {
             prefetch={true}
             shallow={true}
             href="/"
-            height={{ xs: '26px', md: '36px', sm: '36px' }}
+            height="100%"
             width={{ xs: '120px', md: '182px', sm: '182px' }}
             gap={1}
             display={'flex'}
           >
+            {/* /images/header/new-logo.png */}
             <Image
-              src="/images/header/new-logo.png"
+              src="/images/christmas/christmas_logo.png"
               width={182}
-              height={36}
+              height={40}
               alt="header_logo"
               priority
               style={{

@@ -155,17 +155,7 @@ const HomeImageCard = ({
                   <Grid item key={index} xs={6} sm={4} md={isFavPage ? 4 : 3} lg={isFavPage ? 4 : 3}>
                     <Box display="flex" gap={2} flexDirection="column">
                       {favModelId === item.id ? (
-                        <Box
-                          component={Link}
-                          prefetch={true}
-                          shallow={true}
-                          href={`/models/${item.user_name}`}
-                          onClick={() => handleModelRedirect(item.user_name)}
-                          sx={{
-                            textDecoration: 'none',
-                            height: '100%'
-                          }}
-                        >
+                        item.name === 'Christmas Offer' ? (
                           <WorkerCard
                             modelDetails={item}
                             isFavPage={isFavPage}
@@ -175,18 +165,50 @@ const HomeImageCard = ({
                             handleLike={handleLike}
                             liked={likedModels.includes(item.id)}
                           />
-                        </Box>
+                        ) : (
+                          <Box
+                            component={Link}
+                            prefetch={true}
+                            shallow={true}
+                            href={`/models/${item.user_name}`}
+                            onClick={() => handleModelRedirect(item.user_name)}
+                            sx={{
+                              textDecoration: 'none',
+                              height: '100%'
+                            }}
+                          >
+                            <WorkerCard
+                              modelDetails={item}
+                              isFavPage={isFavPage}
+                              token={token ?? ({} as TokenIdType)}
+                              handleLoginLiked={handleLoginLiked}
+                              handleLoginOpen={handleLoginOpen}
+                              handleLike={handleLike}
+                              liked={likedModels.includes(item.id)}
+                            />
+                          </Box>
+                        )
+                      ) : item.name === 'Christmas Offer' ? (
+                        <WorkerCard
+                          modelDetails={item}
+                          isFavPage={isFavPage}
+                          token={token ?? ({} as TokenIdType)}
+                          handleLoginLiked={handleLoginLiked}
+                          handleLoginOpen={handleLoginOpen}
+                          handleLike={handleLike}
+                          liked={likedModels.includes(item.id)}
+                        />
                       ) : (
                         <Box
                           component={Link}
                           prefetch={true}
                           shallow={true}
                           href={`/models/${item.user_name}`}
+                          onClick={() => handleModelRedirect(item.user_name)}
                           sx={{
                             textDecoration: 'none',
                             height: '100%'
                           }}
-                          onClick={() => handleModelRedirect(item.user_name)}
                         >
                           <WorkerCard
                             modelDetails={item}

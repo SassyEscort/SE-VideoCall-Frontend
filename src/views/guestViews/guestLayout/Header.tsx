@@ -166,14 +166,14 @@ const HeaderGuestComponent = () => {
             prefetch={true}
             shallow={true}
             href="/"
-            height={{ xs: '26px', md: '36px', sm: '36px' }}
+            height="100%"
             width={{ xs: '120px', md: '182px', sm: '182px' }}
             display={'flex'}
           >
             <Image
-              src="/images/header/new-logo.png"
+              src="/images/christmas/christmas_logo.png"
               width={182}
-              height={36}
+              height={40}
               alt="sassy_logo"
               style={{
                 width: '100%',

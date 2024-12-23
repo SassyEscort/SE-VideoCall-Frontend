@@ -209,3 +209,20 @@ export const CreditsListingBox = styled('span')(() => ({
   backgroundClip: 'text',
   fontWeight: 700
 }));
+
+export const ChristmasLeafImg = styled('img')(({ theme }) => ({
+  position: 'absolute',
+  top: -40,
+  [theme.breakpoints.up('sm')]: {
+    left: 270
+  },
+  '@media (max-width: 765px)': {
+    left: 290
+  },
+  '@media (max-width: 425px)': {
+    left: 270
+  },
+  '@media (max-width: 320px)': {
+    left: 215
+  }
+}));
