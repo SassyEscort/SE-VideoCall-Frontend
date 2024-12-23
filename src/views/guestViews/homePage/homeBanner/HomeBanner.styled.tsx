@@ -42,22 +42,21 @@ export const InlineBox = styled(Box)(({ theme }) => ({
   wordBreak: 'break-word',
   display: 'inline',
   [theme.breakpoints.down('sm')]: {
-    fontSize: 27,
+    fontSize: 30,
     fontWeight: 700,
     lineHeight: '50px',
     textAlign: 'center',
     textWrap: 'nowrap',
     marginTop: theme.spacing(6.75)
   },
-  [theme.breakpoints.down(400)]: {
-    textWrap: 'wrap',
-    fontSize: 25
+  [theme.breakpoints.down(330)]: {
+    textWrap: 'wrap'
   },
   [theme.breakpoints.only('sm')]: {
     textAlign: 'left'
   },
   [theme.breakpoints.up('sm')]: {
-    fontSize: 45,
+    fontSize: 48,
     fontWeight: 700,
     lineHeight: '62px'
   }
