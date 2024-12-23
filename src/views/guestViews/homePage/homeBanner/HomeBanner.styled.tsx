@@ -41,23 +41,23 @@ export const InlineBox = styled(Box)(({ theme }) => ({
   flexFlow: 'column-wrap',
   wordBreak: 'break-word',
   display: 'inline',
-
   [theme.breakpoints.down('sm')]: {
-    fontSize: 30,
+    fontSize: 27,
     fontWeight: 700,
     lineHeight: '50px',
     textAlign: 'center',
     textWrap: 'nowrap',
     marginTop: theme.spacing(6.75)
   },
-  [theme.breakpoints.down(330)]: {
-    textWrap: 'wrap'
+  [theme.breakpoints.down(400)]: {
+    textWrap: 'wrap',
+    fontSize: 25
   },
   [theme.breakpoints.only('sm')]: {
     textAlign: 'left'
   },
   [theme.breakpoints.up('sm')]: {
-    fontSize: 48,
+    fontSize: 45,
     fontWeight: 700,
     lineHeight: '62px'
   }

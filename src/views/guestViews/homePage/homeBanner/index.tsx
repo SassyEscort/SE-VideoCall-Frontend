@@ -163,16 +163,11 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
             <FirstBoxContainer>
               <SecBoxContainer>
                 <InlineBox>
-                  <FormattedMessage id="ExperienceThe" /> {!isSmDown && 'of'} {!isSmDown || (isSm && 'of')} &nbsp;
+                  <FormattedMessage id="ExperienceThe" />
                   <Box component="span" position="relative">
                     <InlineBoxRelative>
-                      {isSmDown && !isSm && (
-                        <UINewTypography variant="MediumSemiBoldText" color="common.white" textAlign="center">
-                          <FormattedMessage id="Of" /> &nbsp;
-                        </UINewTypography>
-                      )}
-                      <Box component="span" sx={{ zIndex: 1, position: 'relative', textWrap: isSm ? 'wrap' : 'nowrap' }}>
-                        <FormattedMessage id="LiveInteractions" /> &nbsp;
+                      <Box component="span" sx={{ zIndex: 1, position: 'relative', textWrap: isSm ? 'wrap' : 'wrap' }}>
+                        <FormattedMessage id="LiveInteractions" />
                       </Box>
                       <Image
                         alt="word_underline"
