@@ -1251,5 +1251,22 @@
   "LesbianChat": "Chat lésbico",
   "CuckoldChat": "Chat cuckold",
   "AnonymousChat": "Chat anónimo",
-  "RelatedModels": "Modelos relacionados"
+  "RelatedModels": "Modelos relacionados",
+  "HowItWorkss": "¿Cómo funciona?",
+  "WelcomeToTheRewardsSystem": "¡Bienvenido al Sistema de Recompensas! Aquí tienes una guía rápida que te ayudará a entender cómo ganar recompensas y subir de nivel. ¡Alcanza tus objetivos y gana recompensas!",
+  "LevelSystem": "Sistema de niveles",
+  "EarnRewardsByCompletingFree": "Gane recompensas completando hitos de llamadas gratuitas cada semana. La barra de progreso en la parte superior muestra tu nivel actual y cuántas llamadas necesitas para alcanzar la siguiente recompensa:",
+  "Level": "Nivel",
+  "ThisShowsYourCurrentLevel": "Esto muestra su nivel actual. A medida que avances esto aumentará.",
+  "SimpleRulesToFollow": "Reglas simples a seguir",
+  "PickFreeCalls": "Elija llamadas gratuitas: priorice siempre las llamadas gratuitas para completar sus objetivos. Las llamadas perdidas pueden configurar su cuenta como \"Sin conexión\".",
+  "StayConnected": "Manténgase conectado: mantenga la cámara encendida y no la desconecte antes de tiempo; las llamadas de menos de 50 segundos no contarán.",
+  "FirstImpressionsMatter": "Las primeras impresiones importan: utilice el primer minuto de llamadas gratuitas para cautivar a los usuarios y animarlos a realizar compras.",
+  "TipIfYouDon’tFinish": "Consejo: si no terminas un nivel esta semana, las llamadas restantes se trasladarán a la semana siguiente.",
+  "ThisTimerShowsHowMuchTime": "Este cronómetro muestra cuánto tiempo queda para esta semana.",
+  "ThisSectionShowsYouWhichRewards": "Esta sección le muestra qué recompensas ha ganado y el siguiente nivel.",
+  "UpcomingRewards": "Próximas recompensas",
+  "EachMilestoneUnlocksAReward": "Cada hito desbloquea una recompensa, que puedes ver en la próxima sección de recompensas.",
+  "TheBarFillsUpAs": "La barra se llena a medida que completas las llamadas.",
+  "ThisShowsYourCurrentLevelNextLevel": "Esto muestra su nivel actual, el siguiente nivel, cuántas llamadas ha realizado y cuántas llamadas para el siguiente nivel"
 }
