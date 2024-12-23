@@ -5,7 +5,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import Image from 'next/image';
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 
 export const MainWorkerCard = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -341,41 +341,72 @@ export const BannerImageCard = styled(Box)(({ theme }) => ({
   }
 }));
 
-export const ChatMessageMainContainer = styled(Box)(({ theme }) => ({
+// Christmas Theme --->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+export const ChristmasMainContainer = styled(Box)(({ theme }) => ({
+  background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%)',
+  position: 'absolute',
+  width: '100%',
+  top: '0',
+  left: '0',
+  bottom: '0',
+  height: 432,
+  [theme.breakpoints.down('sm')]: {
+    height: 252
+  }
+}));
+
+export const ChristmasContainer = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'i18n'
+})<{ i18n: string }>(({ theme, i18n }) => ({
   display: 'flex',
   position: 'absolute',
   width: '100%',
   height: '100%',
-  border: '1px solid #FF5959',
-  backgroundColor: '#FF5959',
   justifyContent: 'center',
+  zIndex: 1,
   borderRadius: theme.spacing(1),
-  [theme.breakpoints.up('sm')]: {
-    top: '385px',
-    maxHeight: '36px',
-    maxWidth: '149px'
+  [theme.breakpoints.up('lg')]: {
+    top: i18n === 'sp' ? 50 : 127,
+    paddingInline: theme.spacing(2.5)
+  },
+  [theme.breakpoints.only('md')]: {
+    maxWidth: '260px',
+    top: i18n === 'sp' ? 50 : 85,
+    paddingInline: theme.spacing(1.25)
+  },
+  [theme.breakpoints.only('sm')]: {
+    top: i18n === 'sp' ? 50 : 85,
+    width: '100%',
+    paddingInline: theme.spacing(1)
   },
   [theme.breakpoints.down('sm')]: {
-    maxWidth: '103px',
-    maxHeight: '26px',
-    top: '218px'
+    top: i18n === 'sp' ? 10 : 75,
+    height: 140,
+    paddingInline: theme.spacing(0.625)
+  },
+  '@media (max-width: 320px)': {
+    top: i18n === 'sp' ? 8 : 25,
+    height: 140,
+    paddingInline: theme.spacing(0.625)
   }
 }));
 
-export const ChatMessageInnerBoxContainer = styled(Box)(({ theme }) => ({
+export const ChristmasInnerBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(1),
+  flexDirection: 'column',
   alignItems: 'center'
 }));
 
 export const ChatMessageImg = styled('img')(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
-    height: '16px',
-    width: '16px'
+    height: 16,
+    width: 16
   },
   [theme.breakpoints.up('sm')]: {
-    height: '24px',
-    width: '24px'
+    height: 24,
+    width: 24
   }
 }));
 
@@ -389,5 +420,69 @@ export const ChatMessageText = styled(Typography)(({ theme }) => ({
     fontSize: '14px',
     fontWeight: 600,
     lineHeight: '24px'
+  }
+}));
+
+export const ChristmasHeadingText = styled(Typography)(({ theme }) => ({
+  fontSize: '20px',
+  color: theme.palette.common.white,
+  fontWeight: 900,
+  lineHeight: '28px',
+  letterSpacing: '-0.6000000238418579px',
+  textAlign: 'center',
+  textTransform: 'uppercase',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '11.67px',
+    fontWeight: 900,
+    lineHeight: '16.33px'
+  }
+}));
+
+export const ChristmasInnerText = styled(Typography)(({ theme }) => ({
+  fontSize: '20px',
+  color: theme.palette.common.white,
+  fontWeight: 400,
+  lineHeight: '28px',
+  letterSpacing: '-0.6000000238418579px',
+  textAlign: 'center',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '11.67px',
+    lineHeight: '16.33px'
+  }
+}));
+
+export const SantaTextTypography = styled(Typography)(({ theme }) => ({
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '32px',
+    fontWeight: 800,
+    lineHeight: '37px',
+    textAlign: 'center'
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '18.67px',
+    fontWeight: 900,
+    lineHeight: '21.58px',
+    textAlign: 'center'
+  }
+}));
+
+export const GetItNowButton = styled(Button)(({ theme }) => ({
+  borderRadius: theme.spacing(1),
+  display: 'flex',
+  justifyContent: 'center',
+  padding: theme.spacing(1),
+  '&.MuiButton-root:hover': {
+    backgroundColor: theme.palette.primary[100],
+    color: theme.palette.common.white
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '14px',
+    fontWeight: 800,
+    lineHeight: '24px'
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '8.17px',
+    fontWeight: 800,
+    lineHeight: '14px'
   }
 }));
