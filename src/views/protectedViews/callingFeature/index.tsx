@@ -7,6 +7,7 @@ import OfflineModel from '../videoCalling/offlineModel';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import dynamic from 'next/dynamic';
 import { ScreenshotService } from 'services/screenshot/screenshot.service';
+import useConfig from 'hooks/useConfig';
 
 const CometChatIncomingCall = dynamic(() => import('@cometchat/chat-uikit-react').then((mod) => mod.CometChatIncomingCall), { ssr: false });
 const CometChatOngoingCall = dynamic(() => import('@cometchat/chat-uikit-react').then((mod) => mod.CometChatOngoingCall), { ssr: false });
@@ -29,6 +30,7 @@ const CallFeature = () => {
   } = useCallFeatureContext();
 
   const token: TokenIdType = getToken();
+  const { i18n } = useConfig();
   const [intervalDuration, setIntervalDuration] = useState<number | null>(null);
   const [startDuration, setStartDuration] = useState<number | null>(null);
   const [configFetched, setConfigFetched] = useState(false);
@@ -96,34 +98,48 @@ const CallFeature = () => {
   }, [startDuration, intervalDuration, isModelJoin, callLogId, captureScreenshot]);
 
   const appenText = () => {
+    const textContent =
+      i18n === 'sp'
+        ? `Abstenerse de: violencia,<br>sangre,<br>involucramiento de menores,<br>acoso.<br>Espero que tengas una excelente llamada.`
+        : `Please refrain from: Violence/<br>Bloodiness/<br>Underage<br>involvement<br>Harassment.<br>Hope you have a great call.`;
+
     const existingDiv = document.querySelector('div[item="18d27501"]');
     if (existingDiv) {
       console.log('The div already exists. No new div will be appended.');
       return;
     }
-
-    const allDivs = document.querySelectorAll('.side-bar-tile-wrapper');
-    if (allDivs?.length > 0) {
-      const lastDiv = allDivs[allDivs.length - 1];
-      const newDiv = document.createElement('div');
-      newDiv.setAttribute('item', '18d27501');
-      newDiv.style.cssText = `
-      background-color: #0000001A;
-      color: #FFFFFF40;
-      word-break: break-all;
-      padding: 10px 8px 10px 8px; 
-      border-radius: 12px;
-      font-size: 12px;
-      line-height: 16px;
-      font-weight: 400;
-      margin-top: 5px;
-      font-family: 'Inter', Manrope, sans-serif;
-    `;
-      newDiv.innerHTML = `Please refrain from: Violence/Bloodiness/Underage<br>involvement/Harassment.<br>Hope you have a great call.`;
-      lastDiv?.insertAdjacentElement('afterend', newDiv);
+    const allDivs = document.querySelector('.side-bar-main-user-video');
+    if (allDivs) {
+      const termDiv = document.createElement('div');
+      termDiv.classList.add('absolute-bottom-left');
+      termDiv.setAttribute('item', '18d27502');
+      termDiv.style.cssText = `
+        bottom: 80px;
+        font-family: 'Inter', Manrope, sans-serif;
+      `;
+      const innerDiv = document.createElement('div');
+      innerDiv.classList.add('cc-name-label');
+      innerDiv.style.cssText = `
+        font-size: 12px;
+        background-color: rgba(27, 27, 27, 0.1);
+        max-width: 150px;
+        opacity:0.5;
+        word-wrap: break-word;
+        word-break: break-word;
+        font-weight: 600;
+      `;
+      if (typeof window !== 'undefined' && window.matchMedia('(max-width: 475px)').matches) {
+        termDiv.style.bottom = '50px';
+        termDiv.style.left = '4px';
+        innerDiv.style.maxWidth = '100px';
+      }
+      innerDiv.innerHTML = textContent;
+      termDiv.appendChild(innerDiv);
+      const bottomDiv = allDivs.querySelector('.absolute-bottom-left');
+      allDivs?.insertBefore(termDiv, bottomDiv);
 
       setTimeout(() => {
-        newDiv.remove();
+        termDiv.remove();
       }, 10000);
     }
   };
