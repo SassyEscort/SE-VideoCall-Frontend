@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import theme from 'themes/theme';
@@ -10,7 +10,7 @@ import countryWithFlagList from 'constants/countryList.json';
 import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { toast } from 'react-toastify';
-import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
+import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { ErrorMessage } from 'constants/common.constants';
 import { gaEventTrigger } from 'utils/analytics';
 import StyleBoostUserButton from 'components/UIComponents/StyleBoostUserButton';
@@ -39,10 +39,25 @@ import {
   SecondMainContainerWorkerCard,
   SecondSubContainerWorkerCard,
   UITypographyBox,
-  UITypographyBoxContainer
+  UITypographyBoxContainer,
+  ChristmasInnerBoxContainer,
+  ChristmasMainContainer,
+  SantaTextTypography,
+  GetItNowButton,
+  ChristmasContainer,
+  ChristmasHeadingText,
+  ChristmasInnerText
 } from './WorkerCard.styled';
 import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
+import { Raleway } from 'next/font/google';
+import useConfig from 'hooks/useConfig';
+import CreditSideDrawer from 'views/protectedViews/CreditSideDrawer';
+import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
+import { useCallFeatureContext } from 'contexts/CallFeatureContext';
+import { useAuthContext } from 'contexts/AuthContext';
+
+const ralewayFont = Raleway({ subsets: ['latin'], display: 'swap' });
 
 const WorkerCard = ({
   modelDetails,
@@ -61,10 +76,17 @@ const WorkerCard = ({
   handleLike: (modelId: number) => void;
   liked: boolean;
 }) => {
+  const { i18n } = useConfig();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const isTablet = useMediaQuery(theme.breakpoints.only('sm'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
+  const { isFreeCreditsClaimed, isNameChange } = useAuthContext();
+
+  const [creditModelOpen, setCreditModelOpen] = useState(false);
+  const [balance, setBalance] = useState(0);
+  const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
+  const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
 
   const { data } = useSession();
   const user = (data?.user as User)?.picture;
@@ -78,10 +100,16 @@ const WorkerCard = ({
 
   const imageUrlRef = useRef<HTMLElement | null>(null);
   const videoTypeCondition = VideoAcceptType?.includes(modelDetails?.link?.substring(modelDetails?.link?.lastIndexOf('.') + 1));
+  const customerData = JSON.parse(user || '{}');
+  const isCustomer = customerData?.role === ROLE.CUSTOMER;
 
   useImageOptimize(
     imageUrlRef,
-    modelDetails?.link ?? '',
+    modelDetails?.link
+      ? modelDetails?.link
+      : isCustomer
+        ? '/images/christmas/christmas_model_login.png'
+        : '/images/christmas/christmas_model.png',
     videoTypeCondition ? 'IMG' : 'BG',
     videoTypeCondition ? true : false,
     false,
@@ -89,9 +117,6 @@ const WorkerCard = ({
   );
 
   // useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails?.cords);
-
-  const customerData = JSON.parse(user || '{}');
-  const isCustomer = customerData?.role === ROLE.CUSTOMER;
 
   const handleLikeClick = async (modelDetails: ModelHomeListing | ModelFavRes) => {
     try {
@@ -131,9 +156,107 @@ const WorkerCard = ({
     e.preventDefault();
     handleLikeClick(modelDetails);
   };
+
+  const handleClickCreditModelOpen = () => {
+    setCreditModelOpen(true);
+  };
+  const handleCloseCreditModel = () => {
+    setCreditModelOpen(false);
+  };
+
+  useEffect(() => {
+    const getCustomerCredit = async () => {
+      if (token.token) {
+        const getModel = await ModelDetailsService.getModelWithDraw(token.token);
+        if (getModel?.data?.credits === null) {
+          setBalance(0);
+        } else {
+          setBalance(getModel?.data?.credits);
+        }
+      }
+    };
+
+    if (token.token) {
+      getCustomerCredit();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token.id, token.token, isFreeCreditsClaimed, isCallEnded]);
+
+  useEffect(() => {
+    if (isCallEnded && avaialbleCredits !== undefined) {
+      setBalance(avaialbleCredits);
+    }
+  }, [avaialbleCredits, isCallEnded, isFreeCreditsClaimed]);
+
+  useEffect(() => {
+    const customerDetails = async () => {
+      const customerData = await CustomerDetailsService.customerModelDetails(token.token);
+      setCustomerDetails(customerData.data);
+      // pass this to praent for this modal ClaimCreditSignUp
+      // customerDataProps(customerData.data);
+    };
+    if (token.token) {
+      customerDetails();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token.id, token.token, isCallEnded, isNameChange]);
   return (
     <MainWorkerCard>
       <ImgWorkerCard ref={imageUrlRef} />
+      {modelDetails.name === 'Christmas Offer' &&
+        (isCustomer ? (
+          <ChristmasMainContainer>
+            <ChristmasContainer i18n={i18n}>
+              <ChristmasInnerBoxContainer>
+                <Divider orientation="horizontal" flexItem sx={{ borderColor: '#fff' }} />
+                <ChristmasHeadingText>
+                  <FormattedMessage id="HolidayOffer" />
+                </ChristmasHeadingText>
+                <Divider orientation="horizontal" flexItem sx={{ borderColor: '#fff' }} />
+                <SantaTextTypography fontFamily={ralewayFont.style.fontFamily} color="#fff">
+                  <FormattedMessage id="SantasDeal250" />
+                </SantaTextTypography>
+                <ChristmasInnerText>
+                  <FormattedMessage id="UnwrapIt" />
+                </ChristmasInnerText>
+                <SantaTextTypography color="#79E028" fontFamily={ralewayFont.style.fontFamily}>
+                  <FormattedMessage id="$25" />
+                </SantaTextTypography>
+                <GetItNowButton variant="contained" onClick={handleClickCreditModelOpen}>
+                  <FormattedMessage id="ChristmasBonus" />
+                </GetItNowButton>
+              </ChristmasInnerBoxContainer>
+            </ChristmasContainer>
+          </ChristmasMainContainer>
+        ) : (
+          <ChristmasMainContainer>
+            <ChristmasContainer i18n={i18n}>
+              <ChristmasInnerBoxContainer>
+                <Divider orientation="horizontal" flexItem sx={{ borderColor: '#fff' }} />
+                <ChristmasHeadingText>
+                  <FormattedMessage id="HolidayOffer" />
+                </ChristmasHeadingText>
+                <Divider orientation="horizontal" flexItem sx={{ borderColor: '#fff' }} />
+                <SantaTextTypography fontFamily={ralewayFont.style.fontFamily} color="#fff">
+                  <FormattedMessage id="NaughtiestGift" />
+                </SantaTextTypography>
+                <SantaTextTypography color="#79E028" fontFamily={ralewayFont.style.fontFamily}>
+                  <FormattedMessage id="FREECALL" />
+                </SantaTextTypography>
+                <ChristmasInnerText>
+                  <FormattedMessage id="JustFor" />
+                </ChristmasInnerText>
+                {/* <UIThemeShadowButton variant="contained" onClick={handleLoginOpen} sx={{ width: '195px' }}> */}
+                <GetItNowButton variant="contained" onClick={handleLoginOpen}>
+                  <FormattedMessage id="GETIT" />
+                </GetItNowButton>
+
+                {/* </UIThemeShadowButton> */}
+              </ChristmasInnerBoxContainer>
+            </ChristmasContainer>
+          </ChristmasMainContainer>
+        ))}
+
       <HeartIconWorkerCard>
         {Boolean(modelDetails?.profile_plan_purchased) && (
           <HighlyAvailableButtonBox>
@@ -155,25 +278,18 @@ const WorkerCard = ({
             </HighlyAvailableBox>
           </HighlyAvailableButtonBox>
         )}
-        {isFavPage || liked || modelDetails?.favourite === 1 ? (
-          <FavoriteIconContainer sx={{ color: 'error.main' }} />
-        ) : (
-          <FavoriteBorderIconContainer onClick={handleIconClick} />
-        )}
+        {modelDetails.name !== 'Christmas Offer' &&
+          (isFavPage || liked || modelDetails?.favourite === 1 ? (
+            <FavoriteIconContainer sx={{ color: 'error.main' }} />
+          ) : (
+            <FavoriteBorderIconContainer onClick={handleIconClick} />
+          ))}
       </HeartIconWorkerCard>
+
       <WorkerCardContainer>
         <SeconderContainerWorkerCard>
           <SubContainertWorkerCard>
             <ProfileCardContainer>
-              {/* <ChatMessageMainContainer>
-                <ChatMessageInnerBoxContainer>
-                  <ChatMessageImg src="/images/home/chat-mes-icon.svg" />
-                  <ChatMessageText color="text.secondary">
-                    <FormattedMessage id="NewMessage" />
-                  </ChatMessageText>
-                </ChatMessageInnerBoxContainer>
-              </ChatMessageMainContainer> */}
-
               <NameCardContainer>
                 <TextBoxContainer>
                   <UINewTypography variant="newTitle" color="#ffff">
@@ -206,11 +322,15 @@ const WorkerCard = ({
             </ProfileCardContainer>
             <SecondMainContainerWorkerCard>
               <SecondSubContainerWorkerCard>
-                <UITypographyBox variant="SubtitleSmallMedium" color="text.primary">
-                  {moment().diff(modelDetails?.dob, 'years')}
-                </UITypographyBox>
-                <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
-                <UITypographyBoxContainer variant="SubtitleSmallMedium">{languages}</UITypographyBoxContainer>
+                {modelDetails?.dob && (
+                  <>
+                    <UITypographyBox variant="SubtitleSmallMedium" color="text.primary">
+                      {moment().diff(modelDetails?.dob, 'years')}
+                    </UITypographyBox>
+                    <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
+                  </>
+                )}
+                <UITypographyBoxContainer variant="SubtitleSmallMedium">{languages ? languages : 'New Users'}</UITypographyBoxContainer>
               </SecondSubContainerWorkerCard>
             </SecondMainContainerWorkerCard>
             {isMobile && (
@@ -230,6 +350,7 @@ const WorkerCard = ({
           </SubContainertWorkerCard>
         </SeconderContainerWorkerCard>
       </WorkerCardContainer>
+      <CreditSideDrawer open={creditModelOpen} handleClose={handleCloseCreditModel} balance={balance} customerDetails={customerDetails} />
     </MainWorkerCard>
   );
 };

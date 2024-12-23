@@ -1,5 +1,6 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 import {
+  ChristmasLeafImg,
   CloseButtonContainer,
   CreditAmountBox,
   CreditInfoBox,
@@ -43,8 +44,8 @@ const CreditSideDrawer = ({
 }: {
   open: boolean;
   handleClose: () => void;
-  balance: number;
-  customerDetails: CustomerDetails | undefined;
+  balance?: number;
+  customerDetails?: CustomerDetails | undefined;
 }) => {
   const { token } = useAuthContext();
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
@@ -130,7 +131,12 @@ const CreditSideDrawer = ({
                 creditsListing?.map((creditsListing, index) => (
                   <CreditListContainer
                     sx={{
-                      background: creditsListing?.tag === 'Most Popular' ? 'linear-gradient(90deg, #FF68C0 0%, #9F1666 100%)' : '',
+                      background:
+                        creditsListing?.tag === 'Most Popular'
+                          ? 'linear-gradient(90deg, #FF68C0 0%, #9F1666 100%)'
+                          : creditsListing?.tag === 'Christmas Offer'
+                            ? 'linear-gradient(45deg, #FF0844, #FFB199)'
+                            : '',
                       position: 'relative',
                       border: creditsListing?.tag === 'Most Popular' ? 'none' : ''
                     }}
@@ -161,7 +167,18 @@ const CreditSideDrawer = ({
                         </UINewTypography>
                       </CreditPopularChip>
                     )}
+                    {creditsListing?.tag === 'Christmas Offer' && (
+                      <>
+                        <CreditPopularChip sx={{ maxHeight: '22px', gap: 0.75, backgroundColor: '#518E3F' }}>
+                          <Box component={'img'} src="/images/icons/white-star-icon.svg" alt="StarPink" width={12} height={12} />
 
+                          <UINewTypography variant="captionLargeSemiBold" color={'white.main'} sx={{ lineHeight: '22px' }}>
+                            <FormattedMessage id="ChristmasOffer" />
+                          </UINewTypography>
+                        </CreditPopularChip>
+                        <ChristmasLeafImg src="/images/christmas/leaf_angle.png" alt="StarPink" />
+                      </>
+                    )}
                     {creditsListing?.tag === 'Limited Offer' && (
                       <FirstTimeChip>
                         <Box sx={{ width: '100%', position: 'relative' }}>
