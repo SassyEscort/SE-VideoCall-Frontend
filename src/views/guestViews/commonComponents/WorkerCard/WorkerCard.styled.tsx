@@ -216,7 +216,7 @@ export const NameCardContainer = styled(Box)(({ theme }) => ({
     maxWidth: '200px'
   },
   [theme.breakpoints.up('lg')]: {
-    maxWidth: '135px'
+    maxWidth: '152px'
   }
 }));
 
