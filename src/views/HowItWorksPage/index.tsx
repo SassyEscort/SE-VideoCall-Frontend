@@ -37,7 +37,7 @@ const HowItWorks = () => {
     <HowItWorksMainBoxContainer>
       <HeadingMainBoxContainer>
         <HeadingInnerBoxContainer>
-          <ArrowCircleLeftIcon />
+          <ArrowCircleLeftIcon id="back-button" sx={{ color: 'black.main' }} />
           <UINewTypography variant="h6" color="black.main">
             <FormattedMessage id="HowItWorkss" />
           </UINewTypography>

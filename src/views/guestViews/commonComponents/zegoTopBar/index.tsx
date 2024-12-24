@@ -4,12 +4,13 @@ import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { usePathname } from 'next/navigation';
 import React from 'react';
+const topBarRestrictPath = ['/admin', '/webView', '/howItWork.html'];
 
 const ZegoTopBar = () => {
   const pathName = usePathname();
   return (
     <>
-      {!pathName?.includes('/admin') && (
+      {!topBarRestrictPath.some((path) => pathName?.includes(path)) && (
         <Box
           sx={{
             background: 'linear-gradient(90deg, #FECD3D, #FFF1C6, #FF68C0)',
@@ -40,7 +41,6 @@ const ZegoTopBar = () => {
           </Box>
         </Box>
       )}
-      : <></>
     </>
   );
 };

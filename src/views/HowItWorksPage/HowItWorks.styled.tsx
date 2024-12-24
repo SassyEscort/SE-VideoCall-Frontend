@@ -6,7 +6,7 @@ export const HowItWorksMainBoxContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  maxWidth: '393px',
+  maxWidth: '425px',
   height: '100%',
   backgroundColor: '#FFFDEE'
 }));
