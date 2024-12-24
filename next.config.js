@@ -11,6 +11,10 @@ const nextConfig = {
   async rewrites() {
     return [
       {
+        source: '/howItWork.html',
+        destination: '/webView'
+      },
+      {
         source: '/sitemap/page-sitemap.xml',
         destination: '/sitemap/sitemap.xml'
       },
@@ -49,8 +53,8 @@ const nextConfig = {
           },
           {
             key: 'Cache-Control',
-            value: 'no-cache, must-revalidate, max-age=0',
-          },
+            value: 'no-cache, must-revalidate, max-age=0'
+          }
         ]
       },
       {
