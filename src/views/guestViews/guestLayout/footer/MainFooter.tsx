@@ -101,7 +101,7 @@ const MainFooter = ({
                 }}
               >
                 <Link prefetch={false} href="/">
-                  <Image src="/images/logo-footer.webp" width={219.87} height={43.68} alt="footer_logo" loading="lazy" />
+                  <Image src="/images/christmas/christmas_logo.png" width={219.87} height={43.68} alt="footer_logo" loading="lazy" />
                 </Link>
                 <Box>
                   <UINewTypography

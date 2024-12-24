@@ -99,7 +99,7 @@ const MainFooter = () => {
             <ModelUITextConatinerText>
               <Link prefetch={false} href="/">
                 <Image
-                  src="/images/header/headerlogo.webp"
+                  src="/images/christmas/christmas_logo.png"
                   width={220}
                   height={44}
                   alt="footer_logo"
