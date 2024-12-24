@@ -10,7 +10,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  if (url.pathname.includes('/details')) {
+  if (url.pathname.includes('/details') && !url.pathname.includes('/admin')) {
     return NextResponse.redirect(new URL(url.href.replace('/details', '/models'), request.url));
   }
   return response;
