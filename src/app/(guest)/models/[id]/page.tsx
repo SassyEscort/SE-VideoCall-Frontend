@@ -12,39 +12,47 @@ const CallFeature = dynamic(() => import('views/protectedViews/callingFeature'))
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const model = params.id;
   if (model) {
-    const res = await ModelSeoService.getModelSeo(model);
-    const genericTitle = `${res?.model_name} - ${res?.country_name} Model | Free Sex Call & Adult chat on Flirtbate`;
-    const genericDescription = `Connect with ${res?.model_name}, a  ${res?.country_name} model, for live adult chat and free sex calls on Flirtbate. Enjoy interactive shows and intimate conversations in real-time.`;
-    const genericKeywords = `${res?.model_name} ${res?.country_name} Model Adult chat Free Sex Call Flirtbate`;
+    try {
+      const res = await ModelSeoService.getModelSeo(model);
+      const genericTitle = `${res?.model_name} - ${res?.country_name} Model | Free Sex Call & Adult chat on Flirtbate`;
+      const genericDescription = `Connect with ${res?.model_name}, a  ${res?.country_name} model, for live adult chat and free sex calls on Flirtbate. Enjoy interactive shows and intimate conversations in real-time.`;
+      const genericKeywords = `${res?.model_name} ${res?.country_name} Model Adult chat Free Sex Call Flirtbate`;
 
-    const title = res?.title ? res?.title : genericTitle;
-    const keywords = res?.keywords ? res?.keywords : genericKeywords;
-    const description = res?.description ? res?.description : genericDescription;
-    const canonicalUrl = `https://flirtbate.com/models/${model}`;
-    const image = res.link;
+      const title = res?.title ? res?.title : genericTitle;
+      const keywords = res?.keywords ? res?.keywords : genericKeywords;
+      const description = res?.description ? res?.description : genericDescription;
+      const canonicalUrl = `https://flirtbate.com/models/${model}`;
+      const image = res.link;
 
-    return {
-      title,
-      keywords,
-      description,
-      alternates: {
-        canonical: canonicalUrl
-      },
-      openGraph: {
+      return {
         title,
+        keywords,
         description,
-        url: canonicalUrl,
-        images: [
-          {
-            url: image,
-            width: 1200,
-            height: 630,
-            alt: `${res?.model_name} - ${res?.country_name} Model`
-          }
-        ],
-        type: 'website'
-      }
-    };
+        alternates: {
+          canonical: canonicalUrl
+        },
+        openGraph: {
+          title,
+          description,
+          url: canonicalUrl,
+          images: [
+            {
+              url: image,
+              width: 1200,
+              height: 630,
+              alt: `${res?.model_name} - ${res?.country_name} Model`
+            }
+          ],
+          type: 'website'
+        }
+      };
+    } catch (error) {
+      return {
+        alternates: {
+          canonical: `https://flirtbate.com/models`
+        }
+      };
+    }
   } else {
     return {
       alternates: {
