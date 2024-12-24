@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import theme from 'themes/theme';
@@ -10,7 +10,7 @@ import countryWithFlagList from 'constants/countryList.json';
 import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { toast } from 'react-toastify';
-import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
+import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { ErrorMessage } from 'constants/common.constants';
 import { gaEventTrigger } from 'utils/analytics';
 import StyleBoostUserButton from 'components/UIComponents/StyleBoostUserButton';
@@ -52,10 +52,6 @@ import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
 import { Raleway } from 'next/font/google';
 import useConfig from 'hooks/useConfig';
-import CreditSideDrawer from 'views/protectedViews/CreditSideDrawer';
-import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
-import { useCallFeatureContext } from 'contexts/CallFeatureContext';
-import { useAuthContext } from 'contexts/AuthContext';
 
 const ralewayFont = Raleway({ subsets: ['latin'], display: 'swap' });
 
@@ -66,7 +62,8 @@ const WorkerCard = ({
   handleLoginLiked,
   handleLoginOpen,
   handleLike,
-  liked
+  liked,
+  handleOpenCreditDrawer
 }: {
   modelDetails: ModelHomeListing | ModelFavRes;
   isFavPage: boolean;
@@ -74,6 +71,7 @@ const WorkerCard = ({
   handleLoginLiked: (modelId: number) => void;
   handleLoginOpen: () => void;
   handleLike: (modelId: number) => void;
+  handleOpenCreditDrawer: () => void;
   liked: boolean;
 }) => {
   const { i18n } = useConfig();
@@ -81,12 +79,6 @@ const WorkerCard = ({
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const isTablet = useMediaQuery(theme.breakpoints.only('sm'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(425));
-  const { isFreeCreditsClaimed, isNameChange } = useAuthContext();
-
-  const [creditModelOpen, setCreditModelOpen] = useState(false);
-  const [balance, setBalance] = useState(0);
-  const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
-  const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
 
   const { data } = useSession();
   const user = (data?.user as User)?.picture;
@@ -157,51 +149,18 @@ const WorkerCard = ({
     handleLikeClick(modelDetails);
   };
 
-  const handleClickCreditModelOpen = () => {
-    setCreditModelOpen(true);
-  };
-  const handleCloseCreditModel = () => {
-    setCreditModelOpen(false);
-  };
-
-  useEffect(() => {
-    const getCustomerCredit = async () => {
-      if (token.token) {
-        const getModel = await ModelDetailsService.getModelWithDraw(token.token);
-        if (getModel?.data?.credits === null) {
-          setBalance(0);
-        } else {
-          setBalance(getModel?.data?.credits);
-        }
+  const handleChristmasOffer = () => {
+    if (modelDetails.name === 'Christmas Offer') {
+      if (isCustomer) {
+        handleOpenCreditDrawer();
+      } else {
+        handleLoginOpen();
       }
-    };
-
-    if (token.token) {
-      getCustomerCredit();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.id, token.token, isFreeCreditsClaimed, isCallEnded]);
+  };
 
-  useEffect(() => {
-    if (isCallEnded && avaialbleCredits !== undefined) {
-      setBalance(avaialbleCredits);
-    }
-  }, [avaialbleCredits, isCallEnded, isFreeCreditsClaimed]);
-
-  useEffect(() => {
-    const customerDetails = async () => {
-      const customerData = await CustomerDetailsService.customerModelDetails(token.token);
-      setCustomerDetails(customerData.data);
-      // pass this to praent for this modal ClaimCreditSignUp
-      // customerDataProps(customerData.data);
-    };
-    if (token.token) {
-      customerDetails();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.id, token.token, isCallEnded, isNameChange]);
   return (
-    <MainWorkerCard>
+    <MainWorkerCard onClick={handleChristmasOffer}>
       <ImgWorkerCard ref={imageUrlRef} />
       {modelDetails.name === 'Christmas Offer' &&
         (isCustomer ? (
@@ -222,7 +181,7 @@ const WorkerCard = ({
                 <SantaTextTypography color="#79E028" fontFamily={ralewayFont.style.fontFamily}>
                   <FormattedMessage id="$25" />
                 </SantaTextTypography>
-                <GetItNowButton variant="contained" onClick={handleClickCreditModelOpen}>
+                <GetItNowButton variant="contained" onClick={handleOpenCreditDrawer}>
                   <FormattedMessage id="ChristmasBonus" />
                 </GetItNowButton>
               </ChristmasInnerBoxContainer>
@@ -246,17 +205,13 @@ const WorkerCard = ({
                 <ChristmasInnerText>
                   <FormattedMessage id="JustFor" />
                 </ChristmasInnerText>
-                {/* <UIThemeShadowButton variant="contained" onClick={handleLoginOpen} sx={{ width: '195px' }}> */}
                 <GetItNowButton variant="contained" onClick={handleLoginOpen}>
                   <FormattedMessage id="GETIT" />
                 </GetItNowButton>
-
-                {/* </UIThemeShadowButton> */}
               </ChristmasInnerBoxContainer>
             </ChristmasContainer>
           </ChristmasMainContainer>
         ))}
-
       <HeartIconWorkerCard>
         {Boolean(modelDetails?.profile_plan_purchased) && (
           <HighlyAvailableButtonBox>
@@ -309,12 +264,16 @@ const WorkerCard = ({
                 <CreditContainer>
                   <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" alt="dollar-img" width={22} height={22} />
                   <UINewTypography variant="captionLargeBold" color="text.secondary">
-                    {!modelDetails?.credits_per_minute ? (
-                      <FormattedMessage id="NoPrice" />
+                    {modelDetails.name !== 'Christmas Offer' ? (
+                      !modelDetails?.price_per_minute ? (
+                        <FormattedMessage id="NoPrice" />
+                      ) : (
+                        <>
+                          {modelDetails?.credits_per_minute} <FormattedMessage id="CreditsMin" />
+                        </>
+                      )
                     ) : (
-                      <>
-                        {modelDetails?.credits_per_minute} <FormattedMessage id="CreditsMin" />
-                      </>
+                      <FormattedMessage id="Free" />
                     )}
                   </UINewTypography>
                 </CreditContainer>
@@ -330,19 +289,23 @@ const WorkerCard = ({
                     <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
                   </>
                 )}
-                <UITypographyBoxContainer variant="SubtitleSmallMedium">{languages ? languages : 'New Users'}</UITypographyBoxContainer>
+                <UITypographyBoxContainer variant="SubtitleSmallMedium">{languages ? languages : 'All Users'}</UITypographyBoxContainer>
               </SecondSubContainerWorkerCard>
             </SecondMainContainerWorkerCard>
             {isMobile && (
               <CreditContainer sx={{ marginTop: isSmallScreen ? 1.5 : 1 }}>
                 <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" alt="dollar-img" width={22} height={22} />
                 <UINewTypography variant="captionLargeBold" color="text.secondary">
-                  {!modelDetails?.price_per_minute ? (
-                    <FormattedMessage id="NoPrice" />
+                  {modelDetails.name !== 'Christmas Offer' ? (
+                    !modelDetails?.price_per_minute ? (
+                      <FormattedMessage id="NoPrice" />
+                    ) : (
+                      <>
+                        {modelDetails?.credits_per_minute} <FormattedMessage id="CreditsMin" />
+                      </>
+                    )
                   ) : (
-                    <>
-                      {modelDetails?.credits_per_minute} <FormattedMessage id="CreditsMin" />
-                    </>
+                    <FormattedMessage id="Free" />
                   )}
                 </UINewTypography>
               </CreditContainer>
@@ -350,7 +313,6 @@ const WorkerCard = ({
           </SubContainertWorkerCard>
         </SeconderContainerWorkerCard>
       </WorkerCardContainer>
-      <CreditSideDrawer open={creditModelOpen} handleClose={handleCloseCreditModel} balance={balance} customerDetails={customerDetails} />
     </MainWorkerCard>
   );
 };

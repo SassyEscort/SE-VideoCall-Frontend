@@ -7,7 +7,6 @@ import theme from 'themes/theme';
 import ProfileMenu from './ProfileMenu';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import Logout from 'views/protectedViews/logout';
 import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
@@ -29,7 +28,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import { useTawk } from 'contexts/TawkContext';
-// import { useVideoCallContext } from 'contexts/videoCallContext';
 import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 import { io, Socket } from 'socket.io-client';
 import { ISocketMessage } from 'services/chatServices/chat.service';
@@ -43,18 +41,12 @@ export type NotificationFilters = {
   pageSize: number;
 };
 
-// for this modal Claimyourfreecredits
-// interface customerData {
-//   customerDataProps: (data: CustomerDetails) => void;
-// }
-
 const HeaderAuthComponent = () => {
   const { maximizeChat, initializeChat } = useTawk();
-  const { session, isFreeCreditsClaimed, isNameChange, openCreditDrawer, handleCreditDrawerClose } = useAuthContext();
-  // const { isCallEnded, avaialbleCredits } = useVideoCallContext();
+  const { session, token, isFreeCreditsClaimed, openCreditDrawer, handleCreditDrawerClose } = useAuthContext();
   const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
   const router = useRouter();
-  const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
+  const customerDetails = session?.user ? JSON.parse((session.user as any)?.picture) : '';
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const parthname = usePathname();
@@ -62,7 +54,6 @@ const HeaderAuthComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
-  const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
   const [balance, setBalance] = useState(0);
   const [openNotification, setOpenNotification] = useState<boolean>(false);
   const [anchorElNotification, setAnchorElNotification] = useState<HTMLButtonElement | null>(null);
@@ -174,19 +165,6 @@ const HeaderAuthComponent = () => {
   }, [handleCallback]);
 
   useEffect(() => {
-    const customerDetails = async () => {
-      const customerData = await CustomerDetailsService.customerModelDetails(token.token);
-      setCustomerDetails(customerData.data);
-      // pass this to praent for this modal ClaimCreditSignUp
-      // customerDataProps(customerData.data);
-    };
-    if (token.token) {
-      customerDetails();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.id, token.token, isCallEnded, isNameChange]);
-
-  useEffect(() => {
     const getCustomerCredit = async () => {
       if (token.token) {
         const getModel = await ModelDetailsService.getModelWithDraw(token.token);
@@ -219,18 +197,18 @@ const HeaderAuthComponent = () => {
   useEffect(() => {
     const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_BASE_URL!);
     setSocket(newSocket);
-    if (token.customer_user_name) {
+    if (customerDetails.customer_user_name) {
       newSocket.on('connect', () => {
-        newSocket.emit('join', token.customer_user_name);
+        newSocket.emit('join', customerDetails.customer_user_name);
       });
     }
-  }, [token.customer_user_name]);
+  }, [customerDetails.customer_user_name]);
 
   useEffect(() => {
     const setupSocketListeners = async () => {
       if (socket) {
         socket.on('connect', () => {
-          socket.emit('join', token.customer_user_name);
+          socket.emit('join', customerDetails.customer_user_name);
           // Listener for chat messages
           socket.on('chat-message', async (message: ISocketMessage) => {
             if (!parthname.startsWith('/chat')) {
@@ -251,10 +229,11 @@ const HeaderAuthComponent = () => {
       if (socket) {
         socket.off('connect');
         socket.off('chat-message');
+        socket.disconnect();
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [socket, token.customer_user_name, handleCallback]);
+  }, [socket, customerDetails.customer_user_name]);
 
   return (
     <>
@@ -509,7 +488,7 @@ const HeaderAuthComponent = () => {
             <Logout open={isLogoutOpen} onClose={handleCloseLogoutt} />
           </Menu>
           <ProfileMenu profilePic={uploadedImageURL} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
-          <MyProfileChangePassword onOpen={openChangePassword} onClose={handleCloseChnagePassword} token={token} />
+          <MyProfileChangePassword onOpen={openChangePassword} onClose={handleCloseChnagePassword} token={token.token} />
         </IconButtonBoxNew>
       </HeaderMainBox>
       {notificationDetails && (
@@ -525,12 +504,7 @@ const HeaderAuthComponent = () => {
           handleCallback={handleCallback}
         />
       )}
-      <CreditSideDrawer
-        open={openCreditSideDrawer}
-        handleClose={handleCloseCreditSideDrawer}
-        balance={balance}
-        customerDetails={customerDetails}
-      />
+      <CreditSideDrawer open={openCreditSideDrawer} handleClose={handleCloseCreditSideDrawer} balance={balance} />
 
       <StyledSnackBar
         open={snackbarOptions.open}

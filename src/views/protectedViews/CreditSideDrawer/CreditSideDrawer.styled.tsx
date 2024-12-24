@@ -219,7 +219,7 @@ export const ChristmasLeafImg = styled('img')(({ theme }) => ({
   '@media (max-width: 765px)': {
     left: 290
   },
-  '@media (max-width: 425px)': {
+  '@media (max-width: 385px)': {
     left: 270
   },
   '@media (max-width: 320px)': {
