@@ -13,6 +13,7 @@ const UIStyledButton = styled(Button)(({ theme }) => ({
   textTransform: 'none',
   padding: '12px 16px 12px 16px',
   borderRadius: '8px',
+  border: '1px solid',
   gap: theme.spacing(1),
   fontSize: '16px',
   fontWeight: 700,

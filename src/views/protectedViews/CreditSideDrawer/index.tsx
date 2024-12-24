@@ -1,5 +1,6 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 import {
+  ChristmasLeafImg,
   CloseButtonContainer,
   CreditAmountBox,
   CreditInfoBox,
@@ -27,7 +28,6 @@ import { CustomerCredit, ModelCreditRes } from 'services/customerCredit/customer
 // import { useZegoCallFeatureContext } from '../../../contexts/ZegoCallContext';
 import { usePathname, useRouter } from 'next/navigation';
 import { gaEventTrigger } from 'utils/analytics';
-import { CustomerDetails } from 'services/customerDetails/customerDetails.services';
 import { FormattedMessage } from 'react-intl';
 import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
@@ -35,17 +35,7 @@ import Box from '@mui/material/Box';
 import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 import { useAuthContext } from 'contexts/AuthContext';
 
-const CreditSideDrawer = ({
-  open,
-  handleClose,
-  balance,
-  customerDetails
-}: {
-  open: boolean;
-  handleClose: () => void;
-  balance: number;
-  customerDetails: CustomerDetails | undefined;
-}) => {
+const CreditSideDrawer = ({ open, handleClose, balance }: { open: boolean; handleClose: () => void; balance?: number }) => {
   const { token } = useAuthContext();
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -90,7 +80,7 @@ const CreditSideDrawer = ({
   };
 
   useEffect(() => {
-    if (open && token.token && customerDetails && creditsListing?.length === 0) {
+    if (open && token.token && customerData && creditsListing?.length === 0) {
       getCreditsListing();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -130,7 +120,12 @@ const CreditSideDrawer = ({
                 creditsListing?.map((creditsListing, index) => (
                   <CreditListContainer
                     sx={{
-                      background: creditsListing?.tag === 'Most Popular' ? 'linear-gradient(90deg, #FF68C0 0%, #9F1666 100%)' : '',
+                      background:
+                        creditsListing?.tag === 'Most Popular'
+                          ? 'linear-gradient(90deg, #FF68C0 0%, #9F1666 100%)'
+                          : creditsListing?.tag === 'Christmas Offer'
+                            ? 'linear-gradient(45deg, #FF0844, #FFB199)'
+                            : '',
                       position: 'relative',
                       border: creditsListing?.tag === 'Most Popular' ? 'none' : ''
                     }}
@@ -161,7 +156,18 @@ const CreditSideDrawer = ({
                         </UINewTypography>
                       </CreditPopularChip>
                     )}
+                    {creditsListing?.tag === 'Christmas Offer' && (
+                      <>
+                        <CreditPopularChip sx={{ maxHeight: '22px', gap: 0.75, backgroundColor: '#518E3F' }}>
+                          <Box component={'img'} src="/images/icons/white-star-icon.svg" alt="StarPink" width={12} height={12} />
 
+                          <UINewTypography variant="captionLargeSemiBold" color={'white.main'} sx={{ lineHeight: '22px' }}>
+                            <FormattedMessage id="ChristmasOffer" />
+                          </UINewTypography>
+                        </CreditPopularChip>
+                        <ChristmasLeafImg src="/images/christmas/leaf_angle.png" alt="StarPink" />
+                      </>
+                    )}
                     {creditsListing?.tag === 'Limited Offer' && (
                       <FirstTimeChip>
                         <Box sx={{ width: '100%', position: 'relative' }}>

@@ -19,12 +19,7 @@ const WorkerNavItem = () => {
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [isApiCalled, setIsApiCalled] = useState(false);
   const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
-
-  // for free credits Modal
-  // const [openFreeCredit, setOpenFreeCredit] = useState(false);
-  // const [isCreditsClaimed, setIsCreditsClaimed] = useState(true);
-  // const [userName, setUserName] = useState('');
-  // const path = usePathname();
+  const isSmDown = useMediaQuery('(max-width: 320px)');
 
   const handleCloseFilterModal = () => {
     setOpenFilterModal(false);
@@ -37,14 +32,6 @@ const WorkerNavItem = () => {
     }
   };
 
-  // for free credits Modal
-  // const handleFreeCreditClose = () => {
-  //   setOpenFreeCredit(false);
-  // };
-  // const handleProfileRedirect = () => {
-  //   window.location.href = '/profile';
-  // };
-
   const handleLanguageApiChange = useCallback(() => {
     const languagesData = async () => {
       const data = await CommonServices.getLanguages();
@@ -52,33 +39,6 @@ const WorkerNavItem = () => {
     };
     languagesData();
   }, []);
-
-  // for free credits Modal
-  // const handelCustomerDetails = (Data: CustomerDetails) => {
-  //   if (Data) {
-  //     setUserName(Data.customer_user_name);
-  //     if (Data.free_credits_claimed === 0) setIsCreditsClaimed(false);
-  //   }
-  // };
-  // useEffect(() => {
-  //   if (userName !== '') {
-  //     const getFreeCreditsCookie = getCookie(`${userName}`);
-  //     if (!getFreeCreditsCookie) {
-  //       setCookie(`${userName}`, 'true', 1, '/');
-  //       const timer = setTimeout(() => {
-  //         if (path === '/' && !isCreditsClaimed) {
-  //           setOpenFreeCredit(true);
-  //         }
-  //       }, 2000);
-
-  //       if (openFreeCredit) {
-  //         clearTimeout(timer);
-  //       }
-  //       return () => clearTimeout(timer);
-  //     }
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isCreditsClaimed]);
 
   useEffect(() => {
     if (isApiCalled) {
@@ -113,20 +73,20 @@ const WorkerNavItem = () => {
             prefetch={true}
             shallow={true}
             href="/"
-            height={{ xs: '26px', md: '36px', sm: '36px' }}
+            height="100%"
             width={{ xs: '120px', md: '182px', sm: '182px' }}
             gap={1}
             display={'flex'}
           >
             <Image
-              src="/images/header/new-logo.png"
+              src="/images/christmas/christmas_logo.png"
               width={182}
-              height={36}
+              height={40}
               alt="header_logo"
               priority
               style={{
                 width: '100%',
-                height: 'auto'
+                height: isSmDown ? '26px' : 'auto'
               }}
             />
           </Box>
@@ -143,14 +103,11 @@ const WorkerNavItem = () => {
               </Typography>
             </SearchTitalBoxSm>
           )}
-          {/* here got customer data for claimcrditsignup modal for credit calaimed or not */}
-          {/* <HeaderAuthComponent customerDataProps={handelCustomerDetails} /> */}
+
           <HeaderAuthComponent />
         </Box>
       </AppBar>
       <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
-      {/*   // for free credits Modal
-<ClaimCreditSignUp open={openFreeCredit} onClose={handleFreeCreditClose} onSignupOpen={handleProfileRedirect} /> */}
     </>
   );
 };

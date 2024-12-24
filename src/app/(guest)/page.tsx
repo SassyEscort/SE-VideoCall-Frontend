@@ -1,6 +1,6 @@
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { Metadata } from 'next';
-import { ModelListingService } from 'services/modelListing/modelListing.services';
+import { ModelListingRes, ModelListingService } from 'services/modelListing/modelListing.services';
 import { KeyPairAndUndefined } from 'types/KeyPair';
 import { getUserDataServerSide } from 'utils/getSessionData';
 import HomeContainer from 'views/guestViews/homePage';
@@ -30,7 +30,19 @@ const Home = async ({ searchParams }: { searchParams: KeyPairAndUndefined }) => 
     offset: (Number(searchParams?.page ?? 1) - 1) * HOME_PAGE_SIZE || 0,
     email: searchParams?.email || ''
   };
-  const modelData = await ModelListingService.getModelListing(initVal, session.token);
+  let modelData: ModelListingRes = {
+    model_details: [],
+    aggregate: {
+      offset: 0,
+      page_size: 0,
+      total_rows: 0
+    }
+  };
+  try {
+    modelData = await ModelListingService.getModelListing(initVal, session.token);
+  } catch (error) {
+    / nothing /;
+  }
 
   return <HomeContainer modelData={modelData} params={initVal} />;
 };

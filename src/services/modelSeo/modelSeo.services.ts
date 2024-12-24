@@ -11,6 +11,7 @@ export interface SeoModel {
   country_name: string;
   created_at: string;
   updated_at: string;
+  link: string;
 }
 
 export class ModelSeoService {

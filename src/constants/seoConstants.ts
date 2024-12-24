@@ -32,3 +32,23 @@ export enum SEO_DATA_NUDE_LIVE_VIDEO_CHAT {
   TITLE = 'Nude Live Video Chat – Explore Nude Female Chats on Flirtbate',
   DESCRIPTION = 'Join Flirtbate for the ultimate nude live video chat experience. Enjoy engaging nude female chats and camming sessions with stunning models. Click now to explore!'
 }
+
+export enum SEO_DATA_MATURE_LIVE_VIDEO_CHAT {
+  TITLE = 'Live Mature Chat & Cam | Dirty Talk on Flirtbate',
+  DESCRIPTION = 'Discover Flirtbate mature chat, dirty talk, and adult chat with live mature cam models. Dive into real-time, thrilling conversations with experienced partners today!'
+}
+
+export enum SEO_DATA_LESBIAN_LIVE_VIDEO_CHAT {
+  TITLE = 'Lesbian Chat & Sex Chat | Lesbian Chat Room - Flirtbate',
+  DESCRIPTION = 'Join Flirtbate for intimate lesbian chat and lesbian sex chat. Connect with like-minded women in a safe, lesbian chat room for live video interactions. Explore now!'
+}
+
+export enum SEO_DATA_CUCKOLD_LIVE_VIDEO_CHAT {
+  TITLE = 'Cuckold Chat Rooms | Live Cuck Chat on Flirtbate',
+  DESCRIPTION = 'Join Flirtbate cuckold chat rooms for exciting live cuck chat. Explore real-time conversations and connect with like-minded individuals in a safe, discreet space.'
+}
+
+export enum SEO_DATA_ANONYMOUS_CHAT_LIVE_VIDEO_CHAT {
+  TITLE = 'Anonymous Chat | Private & Secure Sex Chat Rooms – Flirtbate',
+  DESCRIPTION = 'Join Flirtbate cuckold chat rooms for exciting live cuck chat. Explore real-time conversations and connect with like-minded individuals in a safe, discreet space.'
+}
