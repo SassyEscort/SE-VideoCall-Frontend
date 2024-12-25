@@ -20,7 +20,9 @@ export const BannerContainer = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down('lg')]: {
     paddingLeft: '20px',
-    paddingRight: '20px'
+    paddingRight: '20px',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   [theme.breakpoints.down('md')]: {
     flexDirection: 'column'

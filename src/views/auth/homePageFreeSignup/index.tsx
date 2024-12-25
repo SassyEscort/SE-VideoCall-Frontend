@@ -23,7 +23,7 @@ import { getErrorMessage } from 'utils/errorUtils';
 import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
 const GuestSignupSuccess = dynamic(() => import('../GuestSignupSuccess'));
 const StyleButtonV2 = dynamic(() => import('components/UIComponents/StyleLoadingButton'));
-const AuthHomePageFreeSignupCommon = dynamic(() => import('./AuthHomePageFreeSignupCommon'));
+const AuthHomePageFreeSignupCommon = dynamic(() => import('./AuthHomePageFreeSignupCommon'), { ssr: false });
 const HomePageFreeSignupMobile = dynamic(() => import('./HomePageFreeSignupMobile'));
 const ErrorBox = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })));
 const ModelUITextConatiner = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })));
