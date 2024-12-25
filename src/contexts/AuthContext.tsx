@@ -24,6 +24,7 @@ export type AuthContextProps = {
   session: Session | null;
   isCustomer: boolean;
   user: string | undefined;
+  funnelHitId: string;
   isFreeCreditAvailable: number;
   status: string;
   roomID: string;
@@ -59,7 +60,8 @@ const AuthContext = createContext<AuthContextProps>({
   openCreditDrawer: false,
   token: { id: 0, token: '' },
   isAdmin: false,
-  adminUserPermissions: [{} as AdminUserPermissions]
+  adminUserPermissions: [{} as AdminUserPermissions],
+  funnelHitId: ''
 });
 
 const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
@@ -72,7 +74,10 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const [roomID, setRoomID] = useState('');
   const [balance, setBalance] = useState(0);
   const [openSuccess, setOpenSuccess] = useState(false);
+  const [funnelHitId, setfunnelHitId] = useState('');
+  const [funnelVisitorId, setfunnelVisitorId] = useState('');
   const [openCreditDrawer, setOpenCreditDrawer] = useState(false);
+  const [searchURLParams, setSearchURLParams] = useState<string | null>(null);
 
   const user = (data?.user as User)?.picture;
   const providerData = JSON.parse(user || '{}');
@@ -102,6 +107,27 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const currentSearch = window.location.search;
+      if (currentSearch) setSearchURLParams(currentSearch);
+    }, 1000);
+    if (funnelVisitorId) clearInterval(intervalId);
+
+    return () => clearInterval(intervalId);
+  }, [funnelVisitorId]);
+
+  useEffect(() => {
+    if (searchURLParams) {
+      const urlParams = new URLSearchParams(searchURLParams);
+      const visitorId = urlParams.get('vid');
+      const hitId = urlParams.get('hit');
+      if (visitorId) setfunnelVisitorId(visitorId);
+      if (hitId) setfunnelHitId(hitId);
+    }
+  }, [searchURLParams]);
+
   const credit = searchParams?.get('credit') || '';
   const totalBal = searchParams?.get('total_credits_after_txn') || '';
   const totalBalValue = searchParams?.get('total_amount_after_txn') || '';
@@ -210,7 +236,8 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         token: tokenDetails,
         isAdmin,
         adminUserPermissions,
-        roomID
+        roomID,
+        funnelHitId
       }}
     >
       {children}
