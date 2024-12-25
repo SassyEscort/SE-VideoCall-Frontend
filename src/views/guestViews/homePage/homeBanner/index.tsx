@@ -228,6 +228,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 loading="eager"
                 fetchPriority="high"
                 sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, 462px"
+                layout="intrinsic"
               />
             </BannerImageCard>
           </BannerContainer>

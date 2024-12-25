@@ -28,6 +28,7 @@ const HomeHeroBanner = ({ isSmDown, isSm }: { isSmDown: boolean; isSm: boolean }
           priority={true}
           loading="eager"
           fetchPriority="high"
+          layout="intrinsic"
           sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, 462px"
         />
       </picture>

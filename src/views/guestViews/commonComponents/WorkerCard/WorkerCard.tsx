@@ -248,7 +248,7 @@ const WorkerCard = ({
               <NameCardContainer>
                 <TextBoxContainer>
                   <UINewTypography variant="newTitle" color="#ffff">
-                    {modelDetails?.name?.charAt(0)?.toUpperCase() + modelDetails?.name?.slice(1)}
+                    {modelDetails?.name ? modelDetails?.name?.charAt(0)?.toUpperCase() + modelDetails?.name?.slice(1) : ''}
                   </UINewTypography>
                 </TextBoxContainer>
                 {modelDetails?.is_online === 1 && (
@@ -256,13 +256,21 @@ const WorkerCard = ({
                     <LiveIconWorkerCard>
                       <LiveIconSecBoxWorkerCard />
                     </LiveIconWorkerCard>
-                    {modelFlag && <FirstSubContainerImgWorkerCard src={modelFlag} alt={modelAltName} width={16} height={8} />}
+                    {modelFlag && (
+                      <FirstSubContainerImgWorkerCard src={modelFlag} alt={modelAltName} width={16} height={8} layout="intrinsic" />
+                    )}
                   </>
                 )}
               </NameCardContainer>
               {!isMobile && (
                 <CreditContainer>
-                  <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" alt="dollar-img" width={22} height={22} />
+                  <SecondSubContainerImgWorkerCard
+                    src="/images/workercards/dollar-img.avif"
+                    alt="dollar-img"
+                    width={22}
+                    height={22}
+                    layout="intrinsic"
+                  />
                   <UINewTypography variant="captionLargeBold" color="text.secondary">
                     {modelDetails.name !== 'Christmas Offer' ? (
                       !modelDetails?.price_per_minute ? (
