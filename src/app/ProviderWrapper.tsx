@@ -17,8 +17,8 @@ import { SessionProvider } from 'next-auth/react';
 import Locales from 'components/Locales';
 import { ConfigProvider } from 'contexts/configContext';
 
-const GoogleTagManager = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleTagManager));
-const GoogleAnalytics = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleAnalytics));
+const GoogleTagManager = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleTagManager), { ssr: false });
+const GoogleAnalytics = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleAnalytics), { ssr: false });
 const manropeFont = Manrope({ subsets: ['latin'], display: 'swap' });
 
 const ProviderWrapper = ({ children }: { children: JSX.Element }) => {
