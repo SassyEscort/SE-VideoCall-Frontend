@@ -45,6 +45,7 @@ import { haveUpdatePermission, isPageAccessiable } from 'utils/Admin/PagePermiss
 import { Autocomplete, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import ReportDateDurationWithAllFilters from 'components/Admin/ReportFilters/ReportFiltersWithAllDropdown';
+import AdminAddCreditModel from '../AdminAddCredit/AdminAddCreditModel';
 
 export type AdminWorkersPaginationType = {
   page: number;
@@ -92,6 +93,16 @@ const GENDER = [
   { value: 'Trans', label: 'Trans' }
 ];
 
+const VERIFICATION_STEP = [
+  { value: '', label: 'All' },
+  { value: 'Basic_Details', label: 'Basic Details' },
+  { value: 'Upload_Documents', label: 'Upload Documents' },
+  { value: 'Upload_Photos', label: 'Upload Photos' },
+  { value: 'Onboarded', label: 'Onboarded' },
+  { value: 'In_Review', label: 'In Review' },
+  { value: 'Verified', label: 'Verified' }
+];
+
 export type TokenIdTypeAdmin = {
   token: string;
 };
@@ -100,6 +111,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
   const router = useRouter();
   const { adminUserPermissions, isAdmin, token } = useAuthContext();
 
+  const [openCreditModal, setOpenCreditModal] = useState(false);
   const [open, setOpen] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selected, setSelected] = useState<ModelListing>();
@@ -184,7 +196,8 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
         email_verified: filters.emailVerified !== '' ? Boolean(Number(filters.emailVerified)) : null,
         last_active_from_date: filters.lastActiveFromDate === '' ? null : filters.lastActiveFromDate,
         last_active_to_date: filters.lastActiveToDate === '' ? null : filters.lastActiveToDate,
-        search_field: filters.filter_Text
+        search_field: filters.filter_Text,
+        verificationStep: filters.verificationStep === '' ? null : filters.verificationStep
       };
 
       const data = await adminModelServices.getModelList(filters.pageSize, filters.offset, filterparams, token.token);
@@ -253,6 +266,13 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
   const handleChangeStatus = useCallback(
     (val: string) => {
       handleChangeFilter({ ...filters, status: val, page: 1 });
+    },
+    [filters, handleChangeFilter]
+  );
+
+  const handleChangVerificationStep = useCallback(
+    (val: string) => {
+      handleChangeFilter({ ...filters, verificationStep: val, page: 1 });
     },
     [filters, handleChangeFilter]
   );
@@ -341,6 +361,20 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     }
   };
 
+  const handleCloseCreditModal = () => {
+    setOpenCreditModal(false);
+  };
+
+  const shouldDisableDate = (day: moment.Moment) => {
+    const current = day.format('YYYY/MM/DD');
+    return filters.fromDate > current || filters.toDate < current;
+  };
+
+  const shouldToDisableDate = (day: moment.Moment) => {
+    const current = day.format('YYYY/MM/DD');
+    return day.isBefore(filters.lastActiveFromDate, 'day') || day.isAfter(filters.toDate, 'day') || filters.lastActiveFromDate === current;
+  };
+
   useEffect(() => {
     fetchModelData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -358,16 +392,6 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adminUserPermissions, isAdmin]);
-
-  const shouldDisableDate = (day: moment.Moment) => {
-    const current = day.format('YYYY/MM/DD');
-    return filters.fromDate > current || filters.toDate < current;
-  };
-
-  const shouldToDisableDate = (day: moment.Moment) => {
-    const current = day.format('YYYY/MM/DD');
-    return day.isBefore(filters.lastActiveFromDate, 'day') || day.isAfter(filters.toDate, 'day') || filters.lastActiveFromDate === current;
-  };
 
   return (
     <>
@@ -469,6 +493,27 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
           </FilterBox>
 
           <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent="flex-start" mt={2} gap={2}>
+            <Grid item xs={12} sm={4} sx={{ width: '100%' }}>
+              <FormControl fullWidth>
+                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Verification Steps</StyledSelectInputLabel>
+                <Select
+                  name="status"
+                  labelId="status"
+                  label="Profile Status"
+                  value={filters.verificationStep}
+                  onChange={(e) => handleChangVerificationStep(e.target.value as string)}
+                  sx={{
+                    width: '100%'
+                  }}
+                >
+                  {VERIFICATION_STEP?.map((stat) => (
+                    <MenuItem key={stat?.value} value={stat?.value}>
+                      {stat?.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
             <Grid item xs={12} sm={4} sx={{ width: '100%' }}>
               <DatePicker
                 label="Last Active FromDate"
@@ -607,8 +652,10 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
           <MenuItem onClick={handelViewDetails}>
-            <RiEyeLine style={{ marginRight: '4px', width: '20px' }} />
-            View Details
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <RiEyeLine style={{ width: 20, height: 20 }} />
+              View Details
+            </Box>
           </MenuItem>
 
           {(UpdatePermission || isAdmin) && (
@@ -616,34 +663,62 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
               {selected?.is_visible && selected?.profile_status === MODEL_ACTION.APPROVE ? (
                 <>
                   <MenuItem onClick={handleHideModel}>
-                    <RiEyeOffLine style={{ marginRight: '4px' }} />
-                    Hide from listing
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <RiEyeOffLine style={{ width: 20, height: 20 }} />
+                      Hide from listing
+                    </Box>
                   </MenuItem>
                 </>
               ) : (
                 selected?.profile_status === MODEL_ACTION.APPROVE && (
                   <>
                     <MenuItem onClick={handleShowModel}>
-                      <RiEyeLine />
-                      Show in listing
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <RiEyeLine style={{ width: 20, height: 20 }} />
+                        Show in listing
+                      </Box>
                     </MenuItem>
                   </>
                 )
               )}
               {selected?.is_online === 1 && (
                 <MenuItem onClick={() => handleModelDetailsIsOffline(selected?.id as number)}>
-                  <HideSourceOutlinedIcon sx={{ '&.MuiSvgIcon-root': { width: '15px', height: '15px', marginRight: '4px' } }} />
-                  Mark offline
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <HideSourceOutlinedIcon sx={{ width: 20, height: 20 }} />
+                    Mark offline
+                  </Box>
+                </MenuItem>
+              )}
+              {selected?.is_visible && selected?.profile_status === MODEL_ACTION.APPROVE && (
+                <MenuItem
+                  onClick={() => {
+                    setOpenCreditModal(true);
+                    setAnchorEl(null);
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Box component="img" src="/images/header/coin.png" sx={{ width: 20, height: 20 }} />
+                    Add Credit
+                  </Box>
                 </MenuItem>
               )}
               <MenuItem onClick={() => handleModelDetailsDelete(selected?.id as number)}>
-                <DeleteOutlineIcon sx={{ mr: 0.5, color: 'error.main' }} />
-                Delete
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <DeleteOutlineIcon sx={{ width: 20, height: 20, color: 'error.main' }} />
+                  Delete
+                </Box>
               </MenuItem>
             </>
           )}
         </ModelActionPopover>
       </MainLayout>
+
+      <AdminAddCreditModel
+        open={openCreditModal}
+        onClose={handleCloseCreditModal}
+        user_name={selected?.model_name || ''}
+        user_type="model"
+      />
     </>
   );
 }
