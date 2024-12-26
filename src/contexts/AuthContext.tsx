@@ -9,6 +9,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { createContext, ReactNode, useContext, useEffect, useState, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
+import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
 import { gaEventTrigger } from 'utils/analytics';
 import { randomID } from 'utils/videoCall';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -24,6 +25,7 @@ export type AuthContextProps = {
   session: Session | null;
   isCustomer: boolean;
   user: string | undefined;
+  funnelHitId: string;
   isFreeCreditAvailable: number;
   status: string;
   roomID: string;
@@ -59,7 +61,8 @@ const AuthContext = createContext<AuthContextProps>({
   openCreditDrawer: false,
   token: { id: 0, token: '' },
   isAdmin: false,
-  adminUserPermissions: [{} as AdminUserPermissions]
+  adminUserPermissions: [{} as AdminUserPermissions],
+  funnelHitId: ''
 });
 
 const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
@@ -72,6 +75,7 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const [roomID, setRoomID] = useState('');
   const [balance, setBalance] = useState(0);
   const [openSuccess, setOpenSuccess] = useState(false);
+  const [funnelHitId, setfunnelHitId] = useState('');
   const [openCreditDrawer, setOpenCreditDrawer] = useState(false);
 
   const user = (data?.user as User)?.picture;
@@ -94,9 +98,7 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     model_username: userName
   };
 
-  const handleOpen = () => {
-    setOpenCreditDrawer(true);
-  };
+  const handleOpen = () => setOpenCreditDrawer(true);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -107,13 +109,9 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const totalBalValue = searchParams?.get('total_amount_after_txn') || '';
   const transaction_id = searchParams?.get('transaction_id') || '';
 
-  const handleFreeCreditClaim = () => {
-    setIsFreeCreditsClaimed(!isFreeCreditsClaimed);
-  };
+  const handleFreeCreditClaim = () => setIsFreeCreditsClaimed(!isFreeCreditsClaimed);
 
-  const handelNameChange = () => {
-    setIsNameChange(!isNameChange);
-  };
+  const handelNameChange = () => setIsNameChange(!isNameChange);
 
   const handleClose = () => {
     setOpenSuccess(false);
@@ -125,9 +123,7 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     setRoomID(id);
   };
 
-  const handleCreditDrawerClose = () => {
-    setOpenCreditDrawer(false);
-  };
+  const handleCreditDrawerClose = () => setOpenCreditDrawer(false);
 
   const handleCustomerFreeCredits = useCallback(async () => {
     try {
@@ -160,33 +156,47 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   }, [searchParams]);
 
   useEffect(() => {
-    const checkFluxLoaded = async () => {
-      if (window?.flux && window.document && totalBalValue && transaction_id) {
-        gaEventTrigger(
-          'purchase',
-          {
-            action: 'purchase',
-            category: 'Page change',
-            label: 'purchase',
-            value: JSON.stringify(customerInfo)
-          },
-          Number(totalBalValue)
-        );
-        var currentUrl = new URL(window.location.href);
-        var sanitizedUrl = currentUrl.origin + currentUrl.pathname;
-        const eventArgs = {
-          rev: String(totalBalValue),
-          tx: transaction_id.toString(),
-          url_args: JSON.stringify({ rev: String(totalBalValue), tx: transaction_id.toString() }),
-          url: sanitizedUrl
-        };
-        window.flux.track('conversion', eventArgs);
-
-        clearInterval(intervalId);
+    const interval = setInterval(() => {
+      if (typeof window !== 'undefined' && window?.flux && window.document) {
+        if (window?.flux?.get && window?.flux?.get('{hit}')) {
+          setfunnelHitId(window?.flux?.get('{hit}') as string);
+          clearInterval(interval);
+        }
       }
-    };
-    const intervalId = setInterval(checkFluxLoaded, 100);
-    return () => clearInterval(intervalId);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (totalBalValue && transaction_id) {
+      gaEventTrigger(
+        'purchase',
+        {
+          action: 'purchase',
+          category: 'Page change',
+          label: 'purchase',
+          value: JSON.stringify(customerInfo)
+        },
+        Number(totalBalValue)
+      );
+      const checkFluxLoaded = async () => {
+        if (window?.flux && window.document && window?.flux?.get && window?.flux?.get('{hit}')) {
+          const hitID = window?.flux?.get('{hit}') as string;
+          await FunnelfluxService.funnelfluxConversionEvent(
+            {
+              hit_id: hitID,
+              revenue: Number(totalBalValue || 0),
+              transaction_id: transaction_id.toString()
+            },
+            tokenDetails.token
+          );
+          clearInterval(intervalId);
+        }
+      };
+      const intervalId = setInterval(checkFluxLoaded, 100);
+      return () => clearInterval(intervalId);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalBalValue, transaction_id]);
 
@@ -210,7 +220,8 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         token: tokenDetails,
         isAdmin,
         adminUserPermissions,
-        roomID
+        roomID,
+        funnelHitId
       }}
     >
       {children}

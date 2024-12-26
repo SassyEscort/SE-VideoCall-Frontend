@@ -17,6 +17,7 @@ import { ROLE } from 'constants/workerVerification';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { useIntl } from 'react-intl';
 import dynamic from 'next/dynamic';
+import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
 
 type CallFeatureContextProps = {
   handleCancelCall: () => void;
@@ -72,7 +73,7 @@ const VideoCallEnded = dynamic(() => import('views/protectedViews/videoCalling/V
 
 export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const intl = useIntl();
-  const { handleOpen, token, isCustomer, roomID, handleCreateNewRoomID } = useAuthContext();
+  const { handleOpen, token, isCustomer, roomID, handleCreateNewRoomID, funnelHitId } = useAuthContext();
   const {
     sessionId,
     callInstance,
@@ -147,6 +148,22 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     callTime: callTime,
     modelCreditPrice: modelCreditPrice,
     isFavouriteModel: isFavouriteModel
+  };
+
+  const handleFunnelFluxEvent = async () => {
+    const hitID = (window?.flux?.get && (window?.flux?.get('{hit}') as string)) || funnelHitId || '';
+    if (hitID) {
+      try {
+        await FunnelfluxService.funnelfluxConversionEvent(
+          {
+            hit_id: hitID,
+            revenue: 0,
+            num: 2
+          },
+          token.token
+        );
+      } catch (error) {}
+    }
   };
 
   const initCall = useCallback(async () => {
@@ -375,6 +392,7 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
           const message = `${modelName} ${intl.formatMessage({ id: 'CurrentlyOffline' })}`;
           toast.error(message);
         } else {
+          handleFunnelFluxEvent();
           handleSetIsCallInitiated(true);
         }
       }
