@@ -23,6 +23,7 @@ import moment from 'moment';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { ROLE } from 'constants/workerVerification';
 import { useAuthContext } from './AuthContext';
+import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
 
 export const COMETCHAT_CONSTANTS = {
   APP_ID: process.env.NEXT_PUBLIC_COMET_CHAT_APP_ID!,
@@ -191,7 +192,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [isAutodisconnected, setIsAutodisconnected] = useState(false);
   const [isModelEndedCall, setIsisModelEndedCall] = useState(false);
 
-  const { handleOpen } = useAuthContext();
+  const { handleOpen, funnelHitId } = useAuthContext();
 
   const modelObj = {
     modelId: modelId,
@@ -252,6 +253,22 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getToken = () => token;
+
+  const handleFunnelFluxEvent = async () => {
+    const hitID = (window?.flux?.get && (window?.flux?.get('{hit}') as string)) || funnelHitId || '';
+    if (hitID) {
+      try {
+        await FunnelfluxService.funnelfluxConversionEvent(
+          {
+            hit_id: hitID,
+            revenue: 0,
+            num: 2
+          },
+          token.token
+        );
+      } catch (error) {}
+    }
+  };
 
   const getCometChatInfo = async () => {
     if (modelId && token.token) {
@@ -315,6 +332,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
               value: JSON.stringify(customerInfo)
             });
             const callInitiate = await CometChat.initiateCall(callObject);
+            handleFunnelFluxEvent();
             setCall(callInitiate);
             setSessionId(callInitiate.getSessionId());
             setIsCallEnded(false);

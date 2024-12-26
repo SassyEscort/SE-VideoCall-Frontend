@@ -7,7 +7,8 @@ export const MainDashboardContainer = styled(Box)(() => ({
   justifyContent: 'center'
 }));
 
-export const DashboardSecondBox = styled(Box)(() => ({
+export const DashboardSecondBox = styled(Box)(({ theme }) => ({
   width: '100%',
-  maxWidth: '1244px'
+  maxWidth: '1244px',
+  marginTop: theme.spacing(4.5)
 }));

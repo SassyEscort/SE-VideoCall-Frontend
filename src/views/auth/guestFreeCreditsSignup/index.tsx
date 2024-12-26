@@ -28,6 +28,8 @@ import AuthFreeCreditsSignupCommon from './AuthFreeCreditsSignupCommon';
 import GuestModelMobileSignup from './GuestModelMobileSignup';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { gaEventTrigger } from 'utils/analytics';
+import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
+import { useAuthContext } from 'contexts/AuthContext';
 
 export type SignupParams = {
   name: string;
@@ -50,6 +52,7 @@ const GuestFreeCreditsSignup = ({
 }) => {
   const intl = useIntl();
   const route = useRouter();
+  const { funnelHitId } = useAuthContext();
   const { refresh } = route;
 
   const isSm = useMediaQuery(theme.breakpoints.down(330));
@@ -107,6 +110,19 @@ const GuestFreeCreditsSignup = ({
           values.name = values.name.trim();
           const data = await GuestAuthService.guestSignup(values);
           if (data.code === 200) {
+            const hitID = (window?.flux?.get && (window?.flux?.get('{hit}') as string)) || funnelHitId || '';
+            if (hitID) {
+              try {
+                await FunnelfluxService.funnelfluxConversionEvent(
+                  {
+                    hit_id: hitID,
+                    revenue: 0,
+                    num: 1
+                  },
+                  ''
+                );
+              } catch (error) {}
+            }
             setActiveStep(1);
             refresh();
             const loginResponse = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {

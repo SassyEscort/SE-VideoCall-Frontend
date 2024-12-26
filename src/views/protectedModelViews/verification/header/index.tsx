@@ -27,7 +27,8 @@ const VerificationHeader = ({
     <Box
       sx={{
         backgroundColor: 'secondary.dark',
-        width: '100%'
+        width: '100%',
+        mt: 4.5
       }}
     >
       <>
