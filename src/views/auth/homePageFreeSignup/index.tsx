@@ -48,6 +48,8 @@ const RemindMeBoxContainer = dynamic(() =>
 import { signIn } from 'next-auth/react';
 import { gaEventTrigger } from 'utils/analytics';
 import dynamic from 'next/dynamic';
+import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
+import { useAuthContext } from 'contexts/AuthContext';
 
 export type SignupParams = {
   name: string;
@@ -58,6 +60,7 @@ export type SignupParams = {
 const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
   const intl = useIntl();
   const route = useRouter();
+  const { funnelHitId } = useAuthContext();
   const { refresh, push } = route;
 
   const isSm = useMediaQuery(theme.breakpoints.down(330));
@@ -123,6 +126,19 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
           values.name = values.name.trim();
           const data = await GuestAuthService.genericSignup(values);
           if (data.code === 200) {
+            const hitID = (window?.flux?.get && (window?.flux?.get('{hit}') as string)) || funnelHitId || '';
+            if (hitID) {
+              try {
+                await FunnelfluxService.funnelfluxConversionEvent(
+                  {
+                    hit_id: hitID,
+                    revenue: 0,
+                    num: 1
+                  },
+                  ''
+                );
+              } catch (error) {}
+            }
             setActiveStep(1);
             refresh();
             if (values?.role === ROLE.CUSTOMER) {
