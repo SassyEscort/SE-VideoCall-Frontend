@@ -23,13 +23,27 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link
+        {/* <link
           rel="preload"
           fetchPriority="high"
           as="image"
           href="https://ik.imagekit.io/gpgv4gnda/images/1729084436818home-banner-model1_1qobIoZFu.webp"
           type="image/webp"
+        /> */}
+
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 12px;
+              }
+            `
+          }}
         />
+        <link rel="preload" as="image" href="https://ik.imagekit.io/gpgv4gnda/images/1729084436818home-banner-model1_1qobIoZFu.webp" />
+
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <meta name="robots" content="index, follow" />
         <meta property="og:image" content="https://flirtbate.com/images/home/home-banner-model1.png" />

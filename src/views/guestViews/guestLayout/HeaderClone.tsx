@@ -31,7 +31,7 @@ const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPass
 const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'));
 const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
 
-const HeaderGuestComponent = () => {
+const HeaderCloneGuestComponent = () => {
   const { isFreeCreditAvailable } = useAuthContext();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -182,18 +182,19 @@ const HeaderGuestComponent = () => {
               priority
             />
           </Box>
-          {isMdUp && (
+          {isMdUp ? (
             <SearchTitalBoxSm onClick={handleOpenFilterModal}>
               <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
               <UINewTypography variant="buttonLargeMenu">
                 <FormattedMessage id="Search" />
               </UINewTypography>
             </SearchTitalBoxSm>
-          )}
-          {!isMdUp && (
-            <Box display="flex" alignItems="center" gap={1} onClick={handleOpenFilterModal}>
-              <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
-            </Box>
+          ) : (
+            !isMdUp && (
+              <Box display="flex" alignItems="center" gap={1} onClick={handleOpenFilterModal}>
+                <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
+              </Box>
+            )
           )}
           {isSmDown ? (
             <Box>
@@ -203,6 +204,37 @@ const HeaderGuestComponent = () => {
             <HeaderDropdownStyledBox>
               <LanguageDropdown />
             </HeaderDropdownStyledBox>
+          )}
+
+          {isMdUp && (
+            <>
+              <GuestLoginButton
+                onClick={() => {
+                  gaEventTrigger('Login_Button_clicked', { source: 'header', category: 'Button' });
+                  handleLoginOpen();
+                }}
+              >
+                <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
+                <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+                  <FormattedMessage id="LogIn" />
+                </UINewTypography>
+              </GuestLoginButton>
+              {isFreeCreditAvailable ? (
+                <CreditAvailableButton onClick={handleFreeCreditSignupOpen}>
+                  <Box component="img" src="/images/icons/free-credit-icon.png" width="24px" height="30px" alt="free_credit" />
+                  <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
+                    <FormattedMessage id="FREECall" />
+                  </UINewTypography>
+                </CreditAvailableButton>
+              ) : (
+                <UIThemeShadowButton variant="contained" onClick={handleSignupOpen} sx={{ width: '195px' }}>
+                  <UINewTypography variant="body" lineHeight={'150%'}>
+                    <FormattedMessage id="SignUpNow" />
+                  </UINewTypography>
+                  <Box component="img" src="/images/icons/signup-img.png" alt="signup" sx={{ width: '16px', height: '16px' }} />
+                </UIThemeShadowButton>
+              )}
+            </>
           )}
           {!isMdUp && (
             <>
@@ -253,35 +285,6 @@ const HeaderGuestComponent = () => {
               </MenuContainer>
             </>
           )}
-          {isMdUp && (
-            <GuestLoginButton
-              onClick={() => {
-                gaEventTrigger('Login_Button_clicked', { source: 'header', category: 'Button' });
-                handleLoginOpen();
-              }}
-            >
-              <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
-              <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                <FormattedMessage id="LogIn" />
-              </UINewTypography>
-            </GuestLoginButton>
-          )}
-          {isMdUp &&
-            (isFreeCreditAvailable ? (
-              <CreditAvailableButton onClick={handleFreeCreditSignupOpen}>
-                <Box component="img" src="/images/icons/free-credit-icon.png" width="24px" height="30px" alt="free_credit" />
-                <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
-                  <FormattedMessage id="FREECall" />
-                </UINewTypography>
-              </CreditAvailableButton>
-            ) : (
-              <UIThemeShadowButton variant="contained" onClick={handleSignupOpen} sx={{ width: '195px' }}>
-                <UINewTypography variant="body" lineHeight={'150%'}>
-                  <FormattedMessage id="SignUpNow" />
-                </UINewTypography>
-                <Box component="img" src="/images/icons/signup-img.png" alt="signup" sx={{ width: '16px', height: '16px' }} />
-              </UIThemeShadowButton>
-            ))}
         </AppBarBox>
       </AppBar>
 
@@ -324,4 +327,4 @@ const HeaderGuestComponent = () => {
   );
 };
 
-export default memo(HeaderGuestComponent);
+export default memo(HeaderCloneGuestComponent);
