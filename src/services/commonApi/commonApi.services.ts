@@ -40,6 +40,17 @@ export class CommonServices {
     }
   };
 
+  static getRegion = async (modelFilters: Boolean) => {
+    try {
+      const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/region?limit=1000&model_filters=${modelFilters}`);
+
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data || { error_message: error.message };
+    }
+  };
+
   static getNationality = async (token: string) => {
     try {
       const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/catalog/nationality?limit=1000`, {

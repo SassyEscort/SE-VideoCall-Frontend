@@ -13,6 +13,7 @@ export type ModelListingParams = {
   language: string;
   isOnline: string;
   country: string;
+  region: string;
   sortOrder: string;
   sortField: string;
   gender: string;
@@ -33,6 +34,7 @@ export type ModelHomeListing = {
   link: string;
   is_online: number;
   country: string;
+  region: string;
   user_name: string;
   cords: string;
   languages: Language[];
@@ -55,6 +57,7 @@ export class ModelListingService {
     if (filters?.fromPrice) queryParams.push(`min_credits=${filters.fromPrice}`);
     if (filters?.toPrice) queryParams.push(`max_credits=${filters.toPrice}`);
     if (filters?.country) queryParams.push(`country=${filters.country}`);
+    if (filters?.region) queryParams.push(`region=${filters.region}`);
     if (filters?.sortOrder) queryParams.push(`sort_order=${filters.sortOrder}`);
     if (filters?.sortField) queryParams.push(`sort_field=${filters.sortField}`);
     if (filters?.gender) queryParams.push(`gender=${filters.gender}`);
@@ -84,6 +87,7 @@ export type BillingDetails = {
   call_end_time: string;
   call_start_time: string;
   category: string;
+  region: string;
   country_name: string;
   created_at: string;
   credits: number;

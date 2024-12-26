@@ -66,6 +66,19 @@ export const SecondBoxMainContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
+export const MainContainerRegionFilter = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1.5),
+  width: '100%',
+  maxWidth: '442px',
+  [theme.breakpoints.only('md')]: {
+    maxWidth: '300px'
+  },
+  [theme.breakpoints.down('md')]: {
+    maxWidth: '525px'
+  }
+}));
+
 export const ThiredBoxMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(1.5),
