@@ -34,6 +34,7 @@ const MoreFilters = ({ open, languages, handleClose }: { open: boolean; language
 
   const initialFilters = () => ({
     country: searchParams.get('country') ? (searchParams.get('country') as string) : '',
+    region: searchParams.get('region') ? (searchParams.get('region') as string) : '',
     fromAge: searchParams.get('fromAge') ? (searchParams.get('fromAge') as string) : '',
     toAge: searchParams.get('toAge') ? (searchParams.get('toAge') as string) : '',
     fromPrice: searchParams.get('fromPrice') ? (searchParams.get('fromPrice') as string) : '',
@@ -114,13 +115,13 @@ const MoreFilters = ({ open, languages, handleClose }: { open: boolean; language
     if (filters.language) objParams.language = filters.language ? filters.language.toString() : '';
     if (filters.isOnline) objParams.isOnline = filters.isOnline ? filters.isOnline.toString() : '';
     if (filters.country) objParams.country = filters.country ? filters.country.toString() : '';
+    if (filters.region) objParams.region = filters.region ? filters.region.toString() : '';
     if (filters.sortOrder) objParams.sortOrder = filters.sortOrder ? filters.sortOrder.toString() : '';
     if (filters.sortField) objParams.sortField = filters.sortField ? filters.sortField.toString() : '';
     if (filters.gender) objParams.gender = filters.gender ? filters.gender.toString() : '';
 
     let filterCount = Object.keys(objParams).length;
     const queryString = new URLSearchParams(objParams).toString();
-    console.log(objParams, 'objParams');
 
     if (pathname === '/' && filterCount === 0) router.push('/');
     if (pathname === '/' && filterCount === 1 && objParams.page) return;
@@ -133,6 +134,7 @@ const MoreFilters = ({ open, languages, handleClose }: { open: boolean; language
       'fromAge',
       'toPrice',
       'country',
+      'region',
       'sortOrder',
       'sortField',
       'gender'
