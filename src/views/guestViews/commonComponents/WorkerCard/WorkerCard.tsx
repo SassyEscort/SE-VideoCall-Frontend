@@ -161,7 +161,7 @@ const WorkerCard = ({
 
   return (
     <MainWorkerCard onClick={handleChristmasOffer}>
-      <ImgWorkerCard ref={imageUrlRef} />
+      <ImgWorkerCard ref={imageUrlRef} component="div" />
       {modelDetails.name === 'Christmas Offer' &&
         (isCustomer ? (
           <ChristmasMainContainer>

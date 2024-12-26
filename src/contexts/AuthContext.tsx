@@ -75,9 +75,7 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const [balance, setBalance] = useState(0);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [funnelHitId, setfunnelHitId] = useState('');
-  const [funnelVisitorId, setfunnelVisitorId] = useState('');
   const [openCreditDrawer, setOpenCreditDrawer] = useState(false);
-  const [searchURLParams, setSearchURLParams] = useState<string | null>(null);
 
   const user = (data?.user as User)?.picture;
   const providerData = JSON.parse(user || '{}');
@@ -99,47 +97,20 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     model_username: userName
   };
 
-  const handleOpen = () => {
-    setOpenCreditDrawer(true);
-  };
+  const handleOpen = () => setOpenCreditDrawer(true);
 
   const pathname = usePathname();
   const router = useRouter();
 
   const searchParams = useSearchParams();
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      const currentSearch = window.location.search;
-      if (currentSearch) setSearchURLParams(currentSearch);
-    }, 1000);
-    if (funnelVisitorId) clearInterval(intervalId);
-
-    return () => clearInterval(intervalId);
-  }, [funnelVisitorId]);
-
-  useEffect(() => {
-    if (searchURLParams) {
-      const urlParams = new URLSearchParams(searchURLParams);
-      const visitorId = urlParams.get('vid');
-      const hitId = urlParams.get('hit');
-      if (visitorId) setfunnelVisitorId(visitorId);
-      if (hitId) setfunnelHitId(hitId);
-    }
-  }, [searchURLParams]);
-
   const credit = searchParams?.get('credit') || '';
   const totalBal = searchParams?.get('total_credits_after_txn') || '';
   const totalBalValue = searchParams?.get('total_amount_after_txn') || '';
   const transaction_id = searchParams?.get('transaction_id') || '';
 
-  const handleFreeCreditClaim = () => {
-    setIsFreeCreditsClaimed(!isFreeCreditsClaimed);
-  };
+  const handleFreeCreditClaim = () => setIsFreeCreditsClaimed(!isFreeCreditsClaimed);
 
-  const handelNameChange = () => {
-    setIsNameChange(!isNameChange);
-  };
+  const handelNameChange = () => setIsNameChange(!isNameChange);
 
   const handleClose = () => {
     setOpenSuccess(false);
@@ -151,9 +122,7 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     setRoomID(id);
   };
 
-  const handleCreditDrawerClose = () => {
-    setOpenCreditDrawer(false);
-  };
+  const handleCreditDrawerClose = () => setOpenCreditDrawer(false);
 
   const handleCustomerFreeCredits = useCallback(async () => {
     try {
@@ -186,33 +155,48 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   }, [searchParams]);
 
   useEffect(() => {
-    const checkFluxLoaded = async () => {
-      if (window?.flux && window.document && totalBalValue && transaction_id) {
-        gaEventTrigger(
-          'purchase',
-          {
-            action: 'purchase',
-            category: 'Page change',
-            label: 'purchase',
-            value: JSON.stringify(customerInfo)
-          },
-          Number(totalBalValue)
-        );
-        var currentUrl = new URL(window.location.href);
-        var sanitizedUrl = currentUrl.origin + currentUrl.pathname;
-        const eventArgs = {
-          rev: String(totalBalValue),
-          tx: transaction_id.toString(),
-          url_args: JSON.stringify({ rev: String(totalBalValue), tx: transaction_id.toString() }),
-          url: sanitizedUrl
-        };
-        window.flux.track('conversion', eventArgs);
-
-        clearInterval(intervalId);
+    const interval = setInterval(() => {
+      if (typeof window !== 'undefined' && window?.flux && window.document) {
+        if (window?.flux?.get && window?.flux?.get('{hit}')) {
+          setfunnelHitId(window?.flux?.get('{hit}') as string);
+          clearInterval(interval);
+        }
       }
-    };
-    const intervalId = setInterval(checkFluxLoaded, 100);
-    return () => clearInterval(intervalId);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (totalBalValue && transaction_id) {
+      gaEventTrigger(
+        'purchase',
+        {
+          action: 'purchase',
+          category: 'Page change',
+          label: 'purchase',
+          value: JSON.stringify(customerInfo)
+        },
+        Number(totalBalValue)
+      );
+      const checkFluxLoaded = async () => {
+        if (window?.flux && window.document && window?.flux?.get && window?.flux?.get('{hit}')) {
+          var currentUrl = new URL(window.location.href);
+          var sanitizedUrl = currentUrl.origin + currentUrl.pathname;
+          const eventArgs = {
+            rev: String(totalBalValue),
+            tx: transaction_id.toString(),
+            url_args: JSON.stringify({ rev: String(totalBalValue), tx: transaction_id.toString() }),
+            url: sanitizedUrl
+          };
+          window.flux.track('conversion', eventArgs);
+
+          clearInterval(intervalId);
+        }
+      };
+      const intervalId = setInterval(checkFluxLoaded, 100);
+      return () => clearInterval(intervalId);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalBalValue, transaction_id]);
 
