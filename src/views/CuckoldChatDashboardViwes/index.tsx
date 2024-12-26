@@ -23,6 +23,7 @@ export const CuckoldChatDashboard = async ({ searchParams }: { searchParams: Key
     language: searchParams?.language || '',
     isOnline: searchParams?.isOnline || '',
     country: searchParams?.country || '',
+    region: searchParams?.region || '',
     sortOrder: searchParams?.sortOrder || '',
     sortField: searchParams?.sortField || '',
     gender: searchParams?.gender || '',
