@@ -31,7 +31,7 @@ import MainLayout from '../../../views/admin/layouts/AdminLayout/DashboardLayout
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
-import { FilterBox, ModelActionPopover, NotFoundBox, SortBox } from './ModelPageContainer.styled';
+import { FilterBox, FilterFieldsMainBox, ModelActionPopover, NotFoundBox, SortBox } from './ModelPageContainer.styled';
 import { RiEyeOffLine, RiEyeLine } from 'components/common/customRemixIcons';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { toast } from 'react-toastify';
@@ -197,7 +197,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
         last_active_from_date: filters.lastActiveFromDate === '' ? null : filters.lastActiveFromDate,
         last_active_to_date: filters.lastActiveToDate === '' ? null : filters.lastActiveToDate,
         search_field: filters.filter_Text,
-        verificationStep: filters.verificationStep === '' ? null : filters.verificationStep
+        verification_step: filters.verificationStep === '' ? null : filters.verificationStep
       };
 
       const data = await adminModelServices.getModelList(filters.pageSize, filters.offset, filterparams, token.token);
@@ -402,7 +402,7 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
               Models
             </Typography>
           </Stack>
-          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent="space-between" mb={1}>
+          <FilterFieldsMainBox>
             <ReportDateDurationWithAllFilters
               duration={filters.duration}
               fromDate={filters.fromDate}
@@ -410,131 +410,128 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
               onFilterDurationChange={handleFilterDurationChange}
               handleChangeSearch={handleChangeSearch}
             />
-          </Stack>
-
-          <FilterBox>
-            <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
-              <Autocomplete
-                value={Array.isArray(countryList) ? countryList.find((country) => country.id === filters.country) || null : null}
-                onChange={(event: any, newValue: { id: number; name: string; region: string } | null) => {
-                  handleChangeCountry(newValue);
-                }}
-                options={countryList}
-                getOptionLabel={(option) => option.name}
-                isOptionEqualToValue={(option, value) => option.id === value?.id}
-                renderInput={(params) => <TextField {...params} label="Select Country" />}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
-              <FormControl fullWidth>
-                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Email Verified</StyledSelectInputLabel>
-                <Select
-                  name="emailVerified"
-                  labelId="emailVerified"
-                  label="Email Verified"
-                  value={filters.emailVerified}
-                  onChange={(e) => handleChangeEmailVerified(e.target.value as string)}
-                  sx={{
-                    width: '100%'
+            <FilterBox>
+              <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
+                <Autocomplete
+                  value={Array.isArray(countryList) ? countryList.find((country) => country.id === filters.country) || null : null}
+                  onChange={(event: any, newValue: { id: number; name: string; region: string } | null) => {
+                    handleChangeCountry(newValue);
                   }}
-                >
-                  {IS_EMAIL_VERIFIED.map((stat) => (
-                    <MenuItem key={stat.value} value={stat.value}>
-                      {stat.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
+                  options={countryList}
+                  getOptionLabel={(option) => option.name}
+                  isOptionEqualToValue={(option, value) => option.id === value?.id}
+                  renderInput={(params) => <TextField {...params} label="Select Country" />}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
+                <FormControl fullWidth>
+                  <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Email Verified</StyledSelectInputLabel>
+                  <Select
+                    name="emailVerified"
+                    labelId="emailVerified"
+                    label="Email Verified"
+                    value={filters.emailVerified}
+                    onChange={(e) => handleChangeEmailVerified(e.target.value as string)}
+                    sx={{
+                      width: '100%'
+                    }}
+                  >
+                    {IS_EMAIL_VERIFIED.map((stat) => (
+                      <MenuItem key={stat.value} value={stat.value}>
+                        {stat.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
+                <FormControl fullWidth>
+                  <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Gender</StyledSelectInputLabel>
+                  <Select
+                    name="gender"
+                    labelId="gender"
+                    label="Gender"
+                    value={filters.gender}
+                    onChange={(e) => handleChangeGender(e.target.value as string)}
+                    sx={{
+                      width: '100%'
+                    }}
+                  >
+                    {GENDER.map((stat) => (
+                      <MenuItem key={stat.value} value={stat.value}>
+                        {stat.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
+                <FormControl fullWidth>
+                  <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Profile Status</StyledSelectInputLabel>
+                  <Select
+                    name="status"
+                    labelId="status"
+                    label="Profile Status"
+                    value={filters.status}
+                    onChange={(e) => handleChangeStatus(e.target.value as string)}
+                    sx={{
+                      width: '100%'
+                    }}
+                  >
+                    {StatusOfPlan?.map((stat) => (
+                      <MenuItem key={stat?.value} value={stat?.value}>
+                        {stat?.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+            </FilterBox>
 
-            <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
-              <FormControl fullWidth>
-                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Gender</StyledSelectInputLabel>
-                <Select
-                  name="gender"
-                  labelId="gender"
-                  label="Gender"
-                  value={filters.gender}
-                  onChange={(e) => handleChangeGender(e.target.value as string)}
-                  sx={{
-                    width: '100%'
-                  }}
-                >
-                  {GENDER.map((stat) => (
-                    <MenuItem key={stat.value} value={stat.value}>
-                      {stat.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} sx={{ width: '100%' }}>
-              <FormControl fullWidth>
-                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Profile Status</StyledSelectInputLabel>
-                <Select
-                  name="status"
-                  labelId="status"
-                  label="Profile Status"
-                  value={filters.status}
-                  onChange={(e) => handleChangeStatus(e.target.value as string)}
-                  sx={{
-                    width: '100%'
-                  }}
-                >
-                  {StatusOfPlan?.map((stat) => (
-                    <MenuItem key={stat?.value} value={stat?.value}>
-                      {stat?.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-          </FilterBox>
-
-          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" justifyContent="flex-start" mt={2} gap={2}>
-            <Grid item xs={12} sm={4} sx={{ width: '100%' }}>
-              <FormControl fullWidth>
-                <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Verification Steps</StyledSelectInputLabel>
-                <Select
-                  name="status"
-                  labelId="status"
-                  label="Profile Status"
-                  value={filters.verificationStep}
-                  onChange={(e) => handleChangVerificationStep(e.target.value as string)}
-                  sx={{
-                    width: '100%'
-                  }}
-                >
-                  {VERIFICATION_STEP?.map((stat) => (
-                    <MenuItem key={stat?.value} value={stat?.value}>
-                      {stat?.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={4} sx={{ width: '100%' }}>
-              <DatePicker
-                label="Last Active FromDate"
-                format="DD-MM-YYYY"
-                value={filters.lastActiveFromDate ? moment(filters.lastActiveFromDate) : null}
-                onChange={handleLastActiveFromDateChange}
-                sx={{ width: '100%' }}
-                shouldDisableDate={filters.duration !== 'all' ? shouldDisableDate : undefined}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4} sx={{ width: '100%' }}>
-              <DatePicker
-                label="Last Active ToDate"
-                format="DD-MM-YYYY"
-                value={filters.lastActiveToDate ? moment(filters.lastActiveToDate) : null}
-                onChange={handleLastActiveToDateChange}
-                sx={{ width: '100%' }}
-                shouldDisableDate={filters.duration !== 'all' ? shouldToDisableDate : undefined}
-              />
-            </Grid>
-          </Stack>
+            <FilterBox>
+              <Grid item xs={12} sm={4} sx={{ width: '100%' }}>
+                <FormControl fullWidth>
+                  <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Verification Steps</StyledSelectInputLabel>
+                  <Select
+                    name="status"
+                    labelId="status"
+                    label="Profile Status"
+                    value={filters.verificationStep}
+                    onChange={(e) => handleChangVerificationStep(e.target.value as string)}
+                    sx={{
+                      width: '100%'
+                    }}
+                  >
+                    {VERIFICATION_STEP?.map((stat) => (
+                      <MenuItem key={stat?.value} value={stat?.value}>
+                        {stat?.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={4} sx={{ width: '100%' }}>
+                <DatePicker
+                  label="Last Active FromDate"
+                  format="DD-MM-YYYY"
+                  value={filters.lastActiveFromDate ? moment(filters.lastActiveFromDate) : null}
+                  onChange={handleLastActiveFromDateChange}
+                  sx={{ width: '100%' }}
+                  shouldDisableDate={filters.duration !== 'all' ? shouldDisableDate : undefined}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4} sx={{ width: '100%' }}>
+                <DatePicker
+                  label="Last Active ToDate"
+                  format="DD-MM-YYYY"
+                  value={filters.lastActiveToDate ? moment(filters.lastActiveToDate) : null}
+                  onChange={handleLastActiveToDateChange}
+                  sx={{ width: '100%' }}
+                  shouldDisableDate={filters.duration !== 'all' ? shouldToDisableDate : undefined}
+                />
+              </Grid>
+            </FilterBox>
+          </FilterFieldsMainBox>
 
           <SortBox>
             <PaginationSortBy
