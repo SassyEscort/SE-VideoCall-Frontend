@@ -31,7 +31,7 @@ export default function RootLayout({
           type="image/webp"
         /> */}
 
-        <style
+        {/* <style
           dangerouslySetInnerHTML={{
             __html: `
               img {
@@ -41,7 +41,7 @@ export default function RootLayout({
               }
             `
           }}
-        />
+        /> */}
         <link rel="preload" as="image" href="https://ik.imagekit.io/gpgv4gnda/images/1729084436818home-banner-model1_1qobIoZFu.webp" />
 
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
