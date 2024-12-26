@@ -6,11 +6,6 @@ export type funnelfluxPayload = {
   transaction_id?: string;
   num?: number;
 };
-
-export type funnelfluxRes = {
-  screenshot_interval_duration: number;
-  screenshot_start_duration: number;
-};
 export interface funnelfluxMainRes {
   message: string;
   code: number;
