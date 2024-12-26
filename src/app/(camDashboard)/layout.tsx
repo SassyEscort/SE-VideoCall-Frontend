@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import { getLoggedInUser } from 'utils/getSessionData';
 import Header from 'views/protectedViews/protectedLayout/Header';
 // const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/Header'));
-const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/HeaderClone'), { ssr: false });
+const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/Header'), { ssr: false });
 const RedirectGuard = dynamic(() => import('utils/route-guard/RedirectGuard'));
 const Footer = dynamic(() => import('views/guestViews/guestLayout/footer'));
 
