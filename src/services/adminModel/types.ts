@@ -97,6 +97,7 @@ export type ModelDetailsParams = {
   email_verified?: boolean | null;
   last_active_from_date: string | null;
   last_active_to_date: string | null;
+  verification_step?: string | null;
 };
 
 export type ModelFilterParams = {

@@ -297,7 +297,9 @@ const WorkerCard = ({
                     <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
                   </>
                 )}
-                <UITypographyBoxContainer variant="SubtitleSmallMedium">{languages ? languages : 'All Users'}</UITypographyBoxContainer>
+                <UITypographyBoxContainer variant="SubtitleSmallMedium">
+                  {languages ? languages : <FormattedMessage id="AllUsers" />}
+                </UITypographyBoxContainer>
               </SecondSubContainerWorkerCard>
             </SecondMainContainerWorkerCard>
             {isMobile && (
