@@ -28,6 +28,8 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import Link from 'next/link';
 import { getErrorMessage } from 'utils/errorUtils';
+import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
+import { useAuthContext } from 'contexts/AuthContext';
 
 export type ModelSignupParams = {
   name: string;
@@ -39,6 +41,7 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
   const intl = useIntl();
 
   const route = useRouter();
+  const { funnelHitId } = useAuthContext();
   const { push } = route;
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -94,6 +97,19 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
           values.name = values.name.trim();
           const data = await ModelAuthService.modelSignup(values);
           if (data.code === 200) {
+            const hitID = (window?.flux?.get && (window?.flux?.get('{hit}') as string)) || funnelHitId || '';
+            if (hitID) {
+              try {
+                await FunnelfluxService.funnelfluxConversionEvent(
+                  {
+                    hit_id: hitID,
+                    revenue: 0,
+                    num: 1
+                  },
+                  ''
+                );
+              } catch (error) {}
+            }
             const loginResponse = await signIn('providerModel', {
               redirect: false,
               email: values.email,

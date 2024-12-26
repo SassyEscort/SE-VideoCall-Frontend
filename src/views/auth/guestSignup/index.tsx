@@ -27,6 +27,8 @@ import { gaEventTrigger } from 'utils/analytics';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { ErrorBox, ModelUITextConatiner, UITypographyText, UIButtonText } from '../AuthCommon.styled';
 import GuestSignupSuccess from '../GuestSignupSuccess';
+import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
+import { useAuthContext } from 'contexts/AuthContext';
 
 export type SignupParams = {
   name: string;
@@ -37,6 +39,7 @@ export type SignupParams = {
 const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
   const intl = useIntl();
   const route = useRouter();
+  const { funnelHitId } = useAuthContext();
   const { refresh, push } = route;
 
   const isSm = useMediaQuery(theme.breakpoints.down(330));
@@ -101,6 +104,19 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
           values.name = values.name.trim();
           const data = await GuestAuthService.genericSignup(values);
           if (data.code === 200) {
+            const hitID = (window?.flux?.get && (window?.flux?.get('{hit}') as string)) || funnelHitId || '';
+            if (hitID) {
+              try {
+                await FunnelfluxService.funnelfluxConversionEvent(
+                  {
+                    hit_id: hitID,
+                    revenue: 0,
+                    num: 1
+                  },
+                  ''
+                );
+              } catch (error) {}
+            }
             setActiveStep(1);
             refresh();
             const { signIn } = await import('next-auth/react');

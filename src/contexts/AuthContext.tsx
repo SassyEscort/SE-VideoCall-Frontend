@@ -9,6 +9,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { createContext, ReactNode, useContext, useEffect, useState, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
+import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
 import { gaEventTrigger } from 'utils/analytics';
 import { randomID } from 'utils/videoCall';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -181,16 +182,16 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
       );
       const checkFluxLoaded = async () => {
         if (window?.flux && window.document && window?.flux?.get && window?.flux?.get('{hit}')) {
-          var currentUrl = new URL(window.location.href);
-          var sanitizedUrl = currentUrl.origin + currentUrl.pathname;
-          const eventArgs = {
-            rev: String(totalBalValue),
-            tx: transaction_id.toString(),
-            url_args: JSON.stringify({ rev: String(totalBalValue), tx: transaction_id.toString() }),
-            url: sanitizedUrl
-          };
-          window.flux.track('conversion', eventArgs);
-
+          
+          const hitID = window?.flux?.get('{hit}') as string;
+          await FunnelfluxService.funnelfluxConversionEvent(
+            {
+              hit_id: hitID,
+              revenue: Number(totalBalValue || 0),
+              transaction_id: transaction_id.toString(),
+            },
+            tokenDetails.token
+          );
           clearInterval(intervalId);
         }
       };
