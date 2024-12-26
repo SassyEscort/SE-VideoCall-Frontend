@@ -15,7 +15,23 @@ export interface funnelfluxMainRes {
 }
 
 export class ScreenshotService {
-  static funnelfluxEvent = async (payload: funnelfluxPayload, token: string): Promise<funnelfluxMainRes> => {
+  static funnelfluxConversionEvent = async (payload: funnelfluxPayload, token: string): Promise<funnelfluxMainRes> => {
+    try {
+      const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/marketing/funnel-flux-event`, payload, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        }
+      });
+
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as funnelfluxMainRes;
+    }
+  };
+  
+  static funnelfluxCustomEvent = async (payload: funnelfluxPayload, token: string): Promise<funnelfluxMainRes> => {
     try {
       const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/marketing/funnel-flux-event`, payload, {
         headers: {
