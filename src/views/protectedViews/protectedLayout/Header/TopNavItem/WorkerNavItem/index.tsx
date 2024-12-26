@@ -76,7 +76,7 @@ const WorkerNavItem = () => {
             height="100%"
             width={{ xs: '120px', md: '182px', sm: '182px' }}
             gap={1}
-            display={'flex'}
+            display="flex"
           >
             <Image
               src="/images/christmas/christmas_logo.png"

@@ -24,14 +24,23 @@ export const FilterBox = styled(Box)(({ theme }) => ({
     flexDirection: 'column'
   }
 }));
+
 export const SortBox = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'end',
   width: '100%'
 }));
+
 export const NotFoundBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   padding: theme.spacing(2)
+}));
+
+export const FilterFieldsMainBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2),
+  marginBottom: theme.spacing(2)
 }));
