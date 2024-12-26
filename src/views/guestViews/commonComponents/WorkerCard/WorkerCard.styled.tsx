@@ -135,7 +135,7 @@ export const SubContainertWorkerCard = styled(Box)(({ theme }) => ({
 export const FirstSubContainerImgWorkerCard = styled(Image)(() => ({
   display: 'flex',
   width: '100%',
-  maxWidth: '16px',
+  maxWidth: '16px !important',
   height: '100%',
   maxHeight: '8px',
   marginTop: '3px'
