@@ -43,8 +43,8 @@ const AdminAddCreditModel = ({
   const validationSchema = yup.object({
     amount: yup
       .string()
-      .required('Price is required')
-      .test('is-greater-than-zero', 'Price must be greater than 0', (value) => parseFloat(value) > 0.0)
+      .required('Amount is required')
+      .test('is-greater-than-zero', 'Amount must be greater than 0', (value) => parseFloat(value) > 0.0)
   });
 
   const [isLoading, setIsLoading] = useState(false);
