@@ -11,7 +11,7 @@ export const DRAWER_WIDTH = 280;
 export const MINI_DRAWER_WIDTH = 90;
 export const HEADER_HEIGHT = 74;
 
-const manropeFont = Manrope({ subsets: ['latin'], display: 'swap' });
+const manropeFont = Manrope({ subsets: ['latin'], display: 'swap', weight: ['300', '400', '500', '700'], style: 'normal' });
 
 const config: DefaultConfigProps = {
   fontFamily: manropeFont.style.fontFamily,

@@ -19,7 +19,7 @@ import { ConfigProvider } from 'contexts/configContext';
 
 const GoogleTagManager = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleTagManager), { ssr: false });
 const GoogleAnalytics = dynamic(() => import('@next/third-parties/google').then((module) => module.GoogleAnalytics), { ssr: false });
-const manropeFont = Manrope({ subsets: ['latin'], display: 'swap' });
+const manropeFont = Manrope({ subsets: ['latin'], display: 'swap', weight: ['300', '400', '500', '700'], style: 'normal' });
 
 const ProviderWrapper = ({ children }: { children: JSX.Element }) => {
   return (

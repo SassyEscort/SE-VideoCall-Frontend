@@ -53,7 +53,7 @@ import { User } from 'app/(guest)/layout';
 import { Raleway } from 'next/font/google';
 import useConfig from 'hooks/useConfig';
 
-const ralewayFont = Raleway({ subsets: ['latin'], display: 'swap' });
+const ralewayFont = Raleway({ subsets: ['latin'], display: 'swap', weight: ['300', '400', '500', '700'], style: ['normal', 'italic'] });
 
 const WorkerCard = ({
   modelDetails,

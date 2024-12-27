@@ -2,7 +2,7 @@ import { PaletteColorOptions, createTheme } from '@mui/material/styles';
 import { CSSProperties } from 'react';
 import { Manrope } from 'next/font/google';
 
-const manropeFont = Manrope({ subsets: ['latin'], display: 'swap' });
+const manropeFont = Manrope({ subsets: ['latin'], display: 'swap', weight: ['300', '400', '500', '700'], style: 'normal' });
 declare module '@mui/material/styles' {
   interface PaletteOptions {
     white?: PaletteColorOptions;
