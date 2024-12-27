@@ -2,11 +2,11 @@
 import Box from '@mui/material/Box';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import React from 'react';
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+// import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import Divider from '@mui/material/Divider';
 import {
   CallsTextTypography,
-  HeadingInnerBoxContainer,
+  // HeadingInnerBoxContainer,
   HeadingMainBoxContainer,
   HowItWorksMainBoxContainer,
   Level2ChipMainBoxContainer,
@@ -36,12 +36,12 @@ const HowItWorks = () => {
   return (
     <HowItWorksMainBoxContainer>
       <HeadingMainBoxContainer>
-        <HeadingInnerBoxContainer>
+        {/* <HeadingInnerBoxContainer>
           <ArrowCircleLeftIcon id="back-button" sx={{ color: 'black.main' }} />
           <UINewTypography variant="h6" color="black.main">
             <FormattedMessage id="HowItWorkss" />
           </UINewTypography>
-        </HeadingInnerBoxContainer>
+        </HeadingInnerBoxContainer> */}
 
         <UINewTypography variant="bodyUltraLarge" color="#00000099">
           <FormattedMessage id="WelcomeToTheRewardsSystem" />
