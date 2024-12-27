@@ -217,7 +217,47 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
             </FirstBoxContainer>
             {/* <HomeHeroBanner isSm={isSm} isSmDown={isSmDown} /> */}
             <BannerImageCard>
-              <Image
+              {isSm ? (
+                <Image
+                  alt="home_model"
+                  decoding="async"
+                  width={300}
+                  height={339}
+                  src="/images/home/home-banner-model1.webp"
+                  style={{ borderRadius: '12px', right: 0 }}
+                  // priority={true}
+                  loading="eager"
+                  // fetchPriority="high"
+                  layout="fixed"
+                />
+              ) : isSmDown ? (
+                <Image
+                  alt="home_model"
+                  decoding="async"
+                  width={347}
+                  height={339}
+                  src="/images/home/home-banner-model1.webp"
+                  style={{ borderRadius: '12px', right: 0 }}
+                  // priority={true}
+                  loading="eager"
+                  // fetchPriority="high"
+                  layout="fixed"
+                />
+              ) : (
+                <Image
+                  alt="home_model"
+                  decoding="async"
+                  width={462}
+                  height={452}
+                  src="/images/home/home-banner-model1.webp"
+                  style={{ borderRadius: '12px', right: 0 }}
+                  // priority={true}
+                  loading="eager"
+                  // fetchPriority="high"
+                  layout="fixed"
+                />
+              )}
+              {/* <Image
                 alt="home_model"
                 decoding="async"
                 width={isSm && isSmDown ? 300 : isSmDown ? 347 : 462}
@@ -229,7 +269,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 fetchPriority="high"
                 sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, 462px"
                 layout="intrinsic"
-              />
+              /> */}
             </BannerImageCard>
           </BannerContainer>
           {isSmDown && (
