@@ -1,10 +1,10 @@
 'use client';
 import { useCallFeatureContext } from '../../../contexts/CallFeatureContext';
+import { useAuthContext } from 'contexts//AuthContext';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import RingingModel from '../videoCalling/RingingModel';
 import AnotherCallModel from '../videoCalling/AnotherCallModel';
 import OfflineModel from '../videoCalling/offlineModel';
-import { TokenIdType } from 'views/protectedModelViews/verification';
 import dynamic from 'next/dynamic';
 import { ScreenshotService } from 'services/screenshot/screenshot.service';
 import useConfig from 'hooks/useConfig';
@@ -25,26 +25,27 @@ const CallFeature = () => {
     isModelAvailable,
     handleModelOfflineClose,
     isModelJoin,
-    getToken,
     callLogId
   } = useCallFeatureContext();
 
-  const token: TokenIdType = getToken();
+  const { token } = useAuthContext();
   const { i18n } = useConfig();
   const [intervalDuration, setIntervalDuration] = useState<number | null>(null);
   const [startDuration, setStartDuration] = useState<number | null>(null);
   const [configFetched, setConfigFetched] = useState(false);
 
   const fetchScreenshotConfig = useCallback(async () => {
-    const durationRes = await ScreenshotService.fetchScreenShotDuration(token.token);
-    const interval_duration = parseInt(durationRes?.data?.screenshot_interval_duration?.toString() || '5', 0);
-    const start_duration = parseInt(durationRes?.data?.screenshot_start_duration?.toString() || '5', 0);
+    if (token.token) {
+      const durationRes = await ScreenshotService.fetchScreenShotDuration(token.token);
+      const interval_duration = parseInt(durationRes?.data?.screenshot_interval_duration?.toString() || '5', 0);
+      const start_duration = parseInt(durationRes?.data?.screenshot_start_duration?.toString() || '5', 0);
 
-    if (!interval_duration || !start_duration) return;
+      if (!interval_duration || !start_duration) return;
 
-    setIntervalDuration(interval_duration * 1000);
-    setStartDuration(start_duration * 1000);
-    setConfigFetched(true);
+      setIntervalDuration(interval_duration * 1000);
+      setStartDuration(start_duration * 1000);
+      setConfigFetched(true);
+    }
   }, [token.token]);
 
   const shouldFetchDurationConfig = useMemo(
@@ -59,7 +60,7 @@ const CallFeature = () => {
   }, [shouldFetchDurationConfig, fetchScreenshotConfig]);
 
   const captureScreenshot = useCallback(async () => {
-    if (isModelJoin && callLogId) {
+    if (isModelJoin && callLogId && token.token) {
       const captureElement = document.querySelector('#cc-callscreen_ref') as HTMLElement;
       if (captureElement) {
         const html2canvas = (await import('html2canvas')).default;
@@ -105,7 +106,6 @@ const CallFeature = () => {
 
     const existingDiv = document.querySelector('div[item="18d27501"]');
     if (existingDiv) {
-      console.log('The div already exists. No new div will be appended.');
       return;
     }
     const allDivs = document.querySelector('.side-bar-main-user-video');
@@ -152,11 +152,15 @@ const CallFeature = () => {
 
   return (
     <>
-      {!isCustomer && <CometChatIncomingCall call={call} />}
-      {call && !isCallAccepted && !isLoading && !isBusy && (
-        <CometChatOutgoingCall call={call} customView={<RingingModel open={true} onClose={handleCancelCall} />} />
+      {token.token && (
+        <>
+          {!isCustomer && <CometChatIncomingCall call={call} />}
+          {call && !isCallAccepted && !isLoading && !isBusy && (
+            <CometChatOutgoingCall call={call} customView={<RingingModel open={true} onClose={handleCancelCall} />} />
+          )}
+          {call && isCallAccepted && <CometChatOngoingCall sessionID={call?.getSessionId()} />}
+        </>
       )}
-      {call && isCallAccepted && <CometChatOngoingCall sessionID={call?.getSessionId()} />}
       {isBusy && <AnotherCallModel onClose={handleBusyClose} open={isBusy} />}
       <OfflineModel open={!isModelAvailable} isModelAvailable={isModelAvailable} onClose={handleModelOfflineClose} />
     </>

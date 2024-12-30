@@ -6,7 +6,7 @@ const RegionLabel = ({ label, type }: { label: string | number; type: string }) 
   return (
     <Box display="flex" gap={1}>
       {type === 'Region' && <RoomOutlinedIcon sx={{ color: 'secondary.200' }} />}
-      {!label && (type === 'Region' ? <FormattedMessage id="Region" /> : <FormattedMessage id="Region" />)}
+      {!label && type === 'Region' && <FormattedMessage id="Region" defaultMessage="Region" />}
     </Box>
   );
 };
