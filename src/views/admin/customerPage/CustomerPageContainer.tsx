@@ -381,9 +381,11 @@ export default function CustomerPageContainer() {
 
         <AdminAddCreditModel
           open={openCreditModal}
-          onClose={handleCloseCreditModal}
           user_name={selected?.name || ''}
           user_type="customer"
+          user_credit={selected?.wallet_credits || 0}
+          handleFetchData={fetchCustomerData}
+          onClose={handleCloseCreditModal}
         />
       </MainLayout>
     </>

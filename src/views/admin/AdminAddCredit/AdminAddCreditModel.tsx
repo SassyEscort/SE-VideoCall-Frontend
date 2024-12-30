@@ -31,12 +31,16 @@ const AdminAddCreditModel = ({
   open,
   user_name,
   user_type,
-  onClose
+  user_credit,
+  onClose,
+  handleFetchData
 }: {
   open: boolean;
   user_name: string;
   user_type: string;
+  user_credit: number;
   onClose: () => void;
+  handleFetchData: () => void;
 }) => {
   const { token } = useAuthContext();
 
@@ -56,7 +60,8 @@ const AdminAddCreditModel = ({
         const res = await adminAddCreditsServices.addCredits(token.token, values);
         if (res) {
           if (res.code === 200) {
-            toast.success('Credit Added Successfully');
+            toast.success('Wallet updated successfully');
+            handleFetchData();
           } else {
             toast.error(ErrorMessage);
           }
@@ -126,18 +131,8 @@ const AdminAddCreditModel = ({
                       readOnly: true
                     }}
                   />
-                  <TextField
-                    name="amount"
-                    label="Enter Amount"
-                    type="number"
-                    value={Number(values.amount)}
-                    error={Boolean(touched.amount && errors.amount)}
-                    helperText={touched.amount && errors.amount ? errors.amount : ''}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
                   <FormControl fullWidth>
-                    <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Email Verified</StyledSelectInputLabel>
+                    <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Amount Type</StyledSelectInputLabel>
                     <Select
                       name="amount_type"
                       labelId="amount_type"
@@ -155,6 +150,28 @@ const AdminAddCreditModel = ({
                       ))}
                     </Select>
                   </FormControl>
+                  <Box sx={{ display: 'flex', gap: 2 }}>
+                    <TextField
+                      fullWidth
+                      name="amount"
+                      label="Enter Amount"
+                      type="number"
+                      value={Number(values.amount)}
+                      error={Boolean(touched.amount && errors.amount)}
+                      helperText={touched.amount && errors.amount ? errors.amount : ''}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    <TextField
+                      fullWidth
+                      name="wallet_amount"
+                      label="Wallet Amount"
+                      value={user_credit}
+                      InputProps={{
+                        readOnly: true
+                      }}
+                    />
+                  </Box>
                   <TextField
                     name="reason"
                     label="Add Reason"
@@ -171,7 +188,7 @@ const AdminAddCreditModel = ({
                   Cancel
                 </Button>
                 <LoadingButton loading={isLoading} size="large" type="submit" variant="contained" color="primary">
-                  Add
+                  Update
                 </LoadingButton>
               </DialogActions>
             </Box>

@@ -1,10 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import moment from 'moment';
-import useImageOptimize from 'hooks/useImageOptimize';
 import countryWithFlagList from 'constants/countryList.json';
 import { toast } from 'react-toastify';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
@@ -104,10 +103,9 @@ const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRe
     .join(', ');
   const modelFlag = countryWithFlagList.filter((country) => country.name === modelDetails?.country_name).map((data) => data.flag)[0];
   const modelAltName = countryWithFlagList.filter((country) => country.name === modelDetails?.country_name).map((data) => data.name)[0];
+  // const [modelPhoto, setmodelPhoto] = useState(false);
 
-  const imageUrlRef = useRef<HTMLElement>();
-
-  useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails?.cords);
+  // useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails?.cords);
 
   const handleLikeClick = async (modelId: number) => {
     try {
@@ -130,7 +128,7 @@ const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRe
 
   return (
     <MainWorkerCard>
-      <ImgWorkerCard ref={imageUrlRef} />
+      <ImgWorkerCard sx={{ backgroundImage: `url(${modelDetails?.link})` }} />
       <HeartIconWorkerCard>
         <FavoriteIconContainer onClick={() => handleLikeClick(modelDetails?.model_id)}>
           {liked ? <FavoriteIcon sx={{ color: 'error.main' }} /> : <FavoriteBorderIcon />}
@@ -157,7 +155,11 @@ const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRe
                     </OfflineIconWorkerCard>
                   </>
                 )}
-                {modelFlag ? <FirstSubContainerImgWorkerCard src={modelFlag} alt={modelAltName} /> : <FirstSubContainerWithoutImg />}
+                {modelFlag ? (
+                  <FirstSubContainerImgWorkerCard src={modelFlag} alt={modelAltName} width={16} height={8} />
+                ) : (
+                  <FirstSubContainerWithoutImg />
+                )}
               </NameCardContainer>
               {!isMobile && (
                 <CreditContainer>
