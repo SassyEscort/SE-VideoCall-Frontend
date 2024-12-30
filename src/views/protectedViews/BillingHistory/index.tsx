@@ -140,7 +140,7 @@ const BillingHistory = ({
                   <TextMainContainer key={index}>
                     <FirstTextContainer>
                       <BillingUIContainer sx={{ gap: 1.5 }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                           <UINewTypography variant="buttonLargeMenu" color={list.category === 'Credit' ? 'success.100' : 'error.main'}>
                             {list?.category === 'Credit' ? '+' : '-'} {list?.free_credits ? list?.free_credits : list?.credits}{' '}
                             {list?.category}
