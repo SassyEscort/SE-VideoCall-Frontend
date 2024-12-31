@@ -13,6 +13,19 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import { Container } from '@mui/material';
 
+const slides = [
+  { link: '/images/swiper/SlideItem1.webp' },
+  { link: '/images/swiper/SlideItem2.webp' },
+  { link: '/images/swiper/SlideItem3.webp' },
+  { link: '/images/swiper/SlideItem4.webp' },
+  { link: '/images/swiper/SlideItem5.webp' },
+  { link: '/images/swiper/SlideItem1.webp' },
+  { link: '/images/swiper/SlideItem2.webp' },
+  { link: '/images/swiper/SlideItem3.webp' },
+  { link: '/images/swiper/SlideItem4.webp' },
+  { link: '/images/swiper/SlideItem5.webp' }
+];
+
 const ralewayFont = Raleway({ subsets: ['latin'], display: 'swap' });
 
 const PreSignUpWeb = () => {
@@ -84,45 +97,57 @@ const PreSignUpWeb = () => {
             depth: 200,
             modifier: 2.5
           }}
-
           className="mySwiper"
           loop={true}
           autoplay={{
             delay: 2500,
-            disableOnInteraction: false,
-
+            disableOnInteraction: false
           }}
         >
-          <SwiperSlide>
-            <img src="/images/swiper/SlideItem1.webp" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="/images/swiper/SlideItem2.webp" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="/images/swiper/SlideItem3.webp" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="/images/swiper/SlideItem4.webp" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="/images/swiper/SlideItem5.webp" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="/images/swiper/SlideItem1.webp" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="/images/swiper/SlideItem2.webp" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="/images/swiper/SlideItem3.webp" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="/images/swiper/SlideItem4.webp" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="/images/swiper/SlideItem5.webp" />
-          </SwiperSlide>
+          {slides.map((slide, key) => (
+            <SwiperSlide>
+              <img src={slide.link} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 4,
+          width: '1280px',
+          height: '460px',
+          left: '60px',
+          opacity: ' 0px',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center'
+        }}
+      >
+        <Swiper
+          slidesPerView={5}
+          spaceBetween={15}
+          loop={true}
+          centeredSlides={true}
+          autoplay={{
+            delay: 1,
+            disableOnInteraction: false,
+          }}
+          speed={2000}
+          modules={[Autoplay, Pagination]}
+          className="mySwiper1"
+        >
+          {slides.map((slide, key) => (
+            <SwiperSlide>
+              <Box display={'flex'} gap={1.5} sx={{ color: 'black.main', p: 0.5 }}>
+                <img src={slide.link} />
+                <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} gap={0.5} color={'white.main'}>
+                  <div>Ana May</div>
+                  <div>Brazil</div>
+                </Box>
+              </Box>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </Box>
     </Container>

@@ -217,7 +217,7 @@ input[type='number'] {
   width: 410px;
   height: 340px;
   border-radius: 50px;
-  opacity: 0px;
+  object-fit: cover;
 }
 
 .mySwiper .swiper-slide-active {
@@ -230,5 +230,21 @@ input[type='number'] {
   width: 650px !important;
   height: 460px;
   gap: 0px;
+  opacity: 0px;
+}
+
+.mySwiper1 .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mySwiper1 .swiper-slide img {
+  width: 60px;
+  height: 60px;
+  gap: 0px;
+  border-radius: 150px;
   opacity: 0px;
 }
