@@ -34,7 +34,8 @@ a {
   color: #86838a !important;
   height: 50px !important;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     border-color: #86838a !important;
     box-shadow: none !important;
   }
@@ -198,5 +199,36 @@ input[type='number'] {
 }
 
 .mySwiper {
-  height: 100%;
+  width: 100%;
+  padding-block: 50px !important;
+}
+
+.mySwiper .swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+}
+.mySwiper .swiper-wrapper .swiper-slide:first-of-type {
+  width: 300px !important;
+}
+
+.mySwiper .swiper-slide img {
+  display: block;
+  width: 410px;
+  height: 340px;
+  border-radius: 50px;
+  opacity: 0px;
+}
+
+.mySwiper .swiper-slide-active {
+  width: 650px !important;
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.mySwiper .swiper-slide-active img {
+  width: 650px !important;
+  height: 460px;
+  gap: 0px;
+  opacity: 0px;
 }

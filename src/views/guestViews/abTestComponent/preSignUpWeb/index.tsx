@@ -1,14 +1,23 @@
+'use client';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { Raleway } from 'next/font/google';
 import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
+// import { FirstSwiperInnerContainer } from './PreSignUpWeb.styled';
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import { Container } from '@mui/material';
 
 const ralewayFont = Raleway({ subsets: ['latin'], display: 'swap' });
 
 const PreSignUpWeb = () => {
   return (
-    <>
+    <Container maxWidth="lg">
       <Box
         sx={{
           display: 'flex',
@@ -48,7 +57,75 @@ const PreSignUpWeb = () => {
           </UINewTypography>
         </Button>
       </Box>
-    </>
+      <Box
+        className="tesewsew"
+        sx={{
+          display: 'flex',
+          gap: 4,
+          width: '1280px',
+          height: '460px',
+          left: '60px',
+          opacity: ' 0px',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center'
+        }}
+      >
+        <Swiper
+          effect={'coverflow'}
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView={3}
+          loopAdditionalSlides={2}
+          modules={[EffectCoverflow, Pagination, Autoplay]}
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 0,
+            depth: 200,
+            modifier: 2.5
+          }}
+
+          className="mySwiper"
+          loop={true}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+
+          }}
+        >
+          <SwiperSlide>
+            <img src="/images/swiper/SlideItem1.webp" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src="/images/swiper/SlideItem2.webp" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src="/images/swiper/SlideItem3.webp" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src="/images/swiper/SlideItem4.webp" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src="/images/swiper/SlideItem5.webp" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src="/images/swiper/SlideItem1.webp" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src="/images/swiper/SlideItem2.webp" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src="/images/swiper/SlideItem3.webp" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src="/images/swiper/SlideItem4.webp" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src="/images/swiper/SlideItem5.webp" />
+          </SwiperSlide>
+        </Swiper>
+      </Box>
+    </Container>
   );
 };
 
