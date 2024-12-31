@@ -2,7 +2,6 @@ export const ModalPage = 'model';
 export const CustomerPage = 'customer';
 export const PayoutPage = 'payout';
 export const CallLogsPage = 'call logs';
-export const CallReviewPage = 'call review';
 export const CallPricePage = 'call price';
 export const BoostPage = 'boost';
 export const SEOPage = 'SEO';

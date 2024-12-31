@@ -4,9 +4,17 @@ export type CallReviewDataResponse = {
   id: number;
   model_id: number;
   customer_id: number;
-  status: string;
   created_at: string;
   updated_at: string;
+  customer_name: string;
+  duration: string;
+  model_name: string;
+  rejected_reason: string;
+  review_type: string;
+  screenshot_count: number;
+  status: string;
+  call_id: number;
+  review_id: number;
 };
 
 export type PaginationAggregation = {
@@ -23,15 +31,15 @@ export type CallLogsData = {
   aggregate: PaginationAggregation;
 };
 
-export type CallLogsResponse = {
+export type CallReviewResponse = {
   data: CallLogsData;
   code: number;
   error: string | null;
   message: string;
 };
 
-export class CallRevieService {
-  static getCallLogsDetails = async (
+export class CallReviewService {
+  static getCallReviewDetails = async (
     token: string,
     limit: number,
     offset: number,
@@ -42,11 +50,11 @@ export class CallRevieService {
     order_field?: string,
     ended_by?: string,
     call_status?: string
-  ): Promise<CallLogsResponse> => {
+  ): Promise<CallReviewResponse> => {
     try {
       const res = await axios.get(
         process.env.NEXT_PUBLIC_API_BASE_URL +
-          `/v1/admin/analytics/call-logs?limit=${limit}&offset=${offset}&search_field=${search_field}&from_date=${from_date}&to_date=${to_date}&sort_order=${sort_order}&sort_field=${order_field}&ended_by=${ended_by}&call_status=${call_status}`,
+          `/v1/admin/call/review-listings?limit=${limit}&offset=${offset}&search_field=${search_field}&from_date=${from_date}&to_date=${to_date}&sort_order=${sort_order}&sort_field=${order_field}&ended_by=${ended_by}&call_status=${call_status}`,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -58,7 +66,33 @@ export class CallRevieService {
       return res.data;
     } catch (err: any) {
       const error: AxiosError = err;
-      return error.response?.data as CallLogsResponse;
+      return error.response?.data as CallReviewResponse;
+    }
+  };
+
+  static reviewAction = async (
+    token: string,
+    call_log_id: number,
+    status: string,
+    review_id: number,
+    rejection_reason?: string
+  ): Promise<CallReviewResponse> => {
+    try {
+      const res = await axios.put(
+        process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/admin/call/review/${review_id}`,
+        { status: status, rejected_reason: rejection_reason, call_log_id: call_log_id },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+          }
+        }
+      );
+
+      return res.data.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as CallReviewResponse;
     }
   };
 }
