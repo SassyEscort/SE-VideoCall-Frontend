@@ -221,6 +221,7 @@
   "InvoiceDate": "Fecha de la factura",
   "Status": "Estado",
   "Reset": "Restablecer",
+  "TotalOfInvoices": "Total de 100 facturas",
   "TotalOf100Calls": "Total de",
   "Calls": "llamadas",
   "DownloadAll": "Descargar todo",
@@ -604,6 +605,7 @@
   "MinimumWithdrawalAmountIs": "El monto mínimo de retiro es",
   "Pleaseuploadbetween2to30photos": "Por favor sube entre 2 y 30 fotos.",
   "Priceisrequired": "Se requiere precio",
+  "models": "modelos",
   "TotalCallTime": "tiempo total de llamada",
   "TotalOf": "Total de",
   "DobIsRequired": "Se requiere fecha de nacimiento",
@@ -665,6 +667,7 @@
   "TheDocument": "El indicador 'is_document' es requerido",
   "PricePerMin": "Se requiere el precio por minuto",
   "PleaseEnterValid": "Por favor, ingrese una contraseña válida para cambiar su contraseña actual",
+  "PleaseNewPassword": "Ingrese una contraseña válida para configurar una nueva contraseña",
   "AmountNumberIsRequired": "Se requiere el número de cantidad",
   "SelectAnyBank": "Seleccione cualquier banco",
   "BankNameIsRequired": "Se requiere el nombre del banco",
@@ -1279,5 +1282,6 @@
   "JustFor": "¡Solo para Ti!",
   "GETIT": "OBTÉNLO AHORA",
   "ChristmasOffer": "Oferta de Navidad",
-  "AllUsers": "Todos los Usuarios"
+  "AllUsers": "Todos los Usuarios",
+  "Region": "Region"
 }
