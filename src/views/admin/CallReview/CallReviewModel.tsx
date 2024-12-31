@@ -3,7 +3,6 @@ import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
-import { CustomerDetailsPage } from 'services/adminModel/types';
 import { DialogContainer } from '../customerPage/CustomerContainer.styled';
 import { DetailsDialogContent } from './CallReview.styled';
 import { CallReviewDataResponse } from 'services/adminServices/call-review/callReviewService';
