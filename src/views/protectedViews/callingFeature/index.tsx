@@ -96,7 +96,7 @@ const CallFeature = () => {
     };
   }, [startDuration, intervalDuration, isModelJoin, callLogId, captureScreenshot]);
 
-  const appenText = async () => {
+  const AppenText = async () => {
     const { default: useConfig } = await import('hooks/useConfig');
     const { i18n } = useConfig();
     const textContent =
@@ -146,7 +146,7 @@ const CallFeature = () => {
 
   useEffect(() => {
     if (call && isCallAccepted && isModelJoin && callLogId) {
-      setTimeout(() => appenText(), 5000);
+      setTimeout(() => AppenText(), 5000);
     }
   }, [call, isCallAccepted, isModelJoin, callLogId]);
 
