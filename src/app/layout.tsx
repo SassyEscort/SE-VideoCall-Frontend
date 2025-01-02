@@ -47,10 +47,6 @@ export default function RootLayout({
           rel="preload"
           as="image"
           href="https://ik.imagekit.io/gpgv4gnda/images/1729084436818home-banner-model1_1qobIoZFu.webp"
-          imageSrcSet="
-            /_next/image?url=%2Fimages%2Fhome%2Fhome-banner-model1.webp&amp;w=384&amp;q=75 384w,
-            /_next/image?url=%2Fimages%2Fhome%2Fhome-banner-model1.webp&amp;w=750&amp;q=75 750w,
-            /_next/image?url=%2Fimages%2Fhome%2Fhome-banner-model1.webp&amp;w=1200&amp;q=75 1200w          "
           imageSizes="(max-width: 600px) 300px, (max-width: 1024px) 347px, 462px"
         />
 
