@@ -166,8 +166,8 @@ export const SecondSubContainerImgWorkerCard = styled(Image)(() => ({
   display: 'flex',
   width: '100%',
   height: '100%',
-  maxWidth: '22px',
-  maxHeight: '22px'
+  maxWidth: '22px !important',
+  maxHeight: '22px !important'
 }));
 
 export const WorkerCardMainBox = styled(Box)(({ theme }) => ({

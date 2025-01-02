@@ -712,9 +712,11 @@ export default function ModelPageContainer({ handlePayoutStep }: { handlePayoutS
 
       <AdminAddCreditModel
         open={openCreditModal}
-        onClose={handleCloseCreditModal}
         user_name={selected?.model_name || ''}
         user_type="model"
+        user_credit={selected?.model_earnings || 0}
+        handleFetchData={fetchModelData}
+        onClose={handleCloseCreditModal}
       />
     </>
   );

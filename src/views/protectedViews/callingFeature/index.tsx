@@ -106,7 +106,6 @@ const CallFeature = () => {
 
     const existingDiv = document.querySelector('div[item="18d27501"]');
     if (existingDiv) {
-      console.log('The div already exists. No new div will be appended.');
       return;
     }
     const allDivs = document.querySelector('.side-bar-main-user-video');

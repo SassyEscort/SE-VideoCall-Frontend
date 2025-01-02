@@ -21,7 +21,6 @@ export type BillingHistoryDetails = {
   languages: CallHistoryLanguages[];
   link: string;
   model_dob: string;
-
   model_name: string;
   price_per_minute: number;
   user_name: string;
