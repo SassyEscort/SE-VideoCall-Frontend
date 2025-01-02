@@ -226,6 +226,8 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                   src="/images/home/home-banner-model1.webp"
                   style={{ borderRadius: '12px', right: 0 }}
                   priority
+                  placeholder="blur"
+                  blurDataURL="/images/home/home-banner-model_blur.webp"
                   // loading="eager"
                   // fetchPriority="high"
                   layout="fixed"
@@ -239,6 +241,8 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                   src="/images/home/home-banner-model1.webp"
                   style={{ borderRadius: '12px', right: 0 }}
                   priority
+                  placeholder="blur"
+                  blurDataURL="/images/home/home-banner-model_blur.webp"
                   // loading="eager"
                   // fetchPriority="high"
                   layout="fixed"
@@ -252,6 +256,8 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                   src="/images/home/home-banner-model1.webp"
                   style={{ borderRadius: '12px', right: 0 }}
                   priority
+                  placeholder="blur"
+                  blurDataURL="/images/home/home-banner-model_blur.webp"
                   // loading="eager"
                   // fetchPriority="high"
                   layout="fixed"
