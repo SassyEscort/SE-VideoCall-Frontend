@@ -228,7 +228,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                   priority
                   placeholder="blur"
                   blurDataURL="/images/home/home-banner-model_blur.webp"
-                  // loading="eager"
+                  loading="eager"
                   // fetchPriority="high"
                   layout="fixed"
                 />
@@ -243,7 +243,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                   priority
                   placeholder="blur"
                   blurDataURL="/images/home/home-banner-model_blur.webp"
-                  // loading="eager"
+                  loading="eager"
                   // fetchPriority="high"
                   layout="fixed"
                 />
@@ -258,7 +258,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                   priority
                   placeholder="blur"
                   blurDataURL="/images/home/home-banner-model_blur.webp"
-                  // loading="eager"
+                  loading="eager"
                   // fetchPriority="high"
                   layout="fixed"
                 />
