@@ -11,19 +11,20 @@ export type CastedForwardRefNewThemeButtonType = <C extends ElementType>(
 
 const UIStyledButton = styled(Button)(({ theme }) => ({
   textTransform: 'none',
-  padding: '4px 24px 4px 24px',
-  borderRadius: '100px',
+  padding: '12px 32px 12px 32px',
+  borderRadius: '8px',
   gap: theme.spacing(1),
   fontSize: '16px',
   fontWeight: 700,
   '&.MuiButton-root': {
     height: '48px',
-    backgroundColor: theme.palette.primary[100],
-    color: '#FFF'
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary[200],
+    boxShadow: '0px 0px 32px 8px #FF68C07A'
   },
   '&.MuiButton-root:hover': {
     backgroundColor: theme.palette.primary[100],
-    color: '#FFF'
+    color: theme.palette.primary[200]
   },
   '&.MuiButton-outlined': {
     backgroundColor: theme.palette.common.black,
@@ -35,6 +36,10 @@ const UIStyledButton = styled(Button)(({ theme }) => ({
     backgroundColor: theme.palette.primary[200],
     color: '#FFF',
     fontSize: '16px'
+  },
+  '&.MuiButton-text, &.MuiButton-text:hover': {
+    backgroundColor: 'transparent',
+    color: '#FFF'
   },
   '&.MuiButton-outlinedWhite:hover': {
     backgroundColor: theme.palette.primary[800]
@@ -69,6 +74,6 @@ const CastedForwardRefButtonFnc: CastedForwardRefNewThemeButtonType = (props, re
     </UIStyledButton>
   );
 };
-const UINewStyledShadowButton = forwardRef(CastedForwardRefButtonFnc) as CastedForwardRefNewThemeButtonType;
+const UIThemeShadowButton = forwardRef(CastedForwardRefButtonFnc) as CastedForwardRefNewThemeButtonType;
 
-export default UINewStyledShadowButton;
+export default UIThemeShadowButton;
