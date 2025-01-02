@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
 const EscortDetailPage = dynamic(() => import('views/guestViews/details/EscortDetailPage'));
 
 // const CallFeature = dynamic(() => import('views/protectedViews/zegoCallingFeature'));
-const CallFeature = dynamic(() => import('views/protectedViews/callingFeature'));
+const CallFeature = dynamic(() => import('views/protectedViews/callingFeature'), { ssr: false });
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const model = params.id;

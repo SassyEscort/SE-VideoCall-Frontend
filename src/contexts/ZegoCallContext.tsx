@@ -69,7 +69,7 @@ const gaEventTrigger = async (action: string, data: any, credits?: number) => {
   gaEventTrigger(action, data);
 };
 
-const VideoCallEnded = dynamic(() => import('views/protectedViews/videoCalling/VideoCallEnded'));
+const VideoCallEnded = dynamic(() => import('views/protectedViews/videoCalling/VideoCallEnded'), { ssr: false });
 
 export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const intl = useIntl();

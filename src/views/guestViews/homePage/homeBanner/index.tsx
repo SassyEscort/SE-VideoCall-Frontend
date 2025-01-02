@@ -41,11 +41,11 @@ import {
 import { BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import { useSession } from 'next-auth/react';
 // import HomeHeroBanner from './HomeHeroBanner';
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
-const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'));
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), { ssr: false });
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), { ssr: false });
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), { ssr: false });
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), { ssr: false });
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), { ssr: false });
 
 const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const { data: session } = useSession();

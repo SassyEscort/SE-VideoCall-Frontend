@@ -21,29 +21,38 @@ import { ErrorMessage } from 'constants/common.constants';
 import { useRouter } from 'next/navigation';
 import { getErrorMessage } from 'utils/errorUtils';
 import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
-const GuestSignupSuccess = dynamic(() => import('../GuestSignupSuccess'));
-const StyleButtonV2 = dynamic(() => import('components/UIComponents/StyleLoadingButton'));
+const GuestSignupSuccess = dynamic(() => import('../GuestSignupSuccess'), { ssr: false });
+const StyleButtonV2 = dynamic(() => import('components/UIComponents/StyleLoadingButton'), { ssr: false });
 const AuthHomePageFreeSignupCommon = dynamic(() => import('./AuthHomePageFreeSignupCommon'), { ssr: false });
-const HomePageFreeSignupMobile = dynamic(() => import('./HomePageFreeSignupMobile'));
-const ErrorBox = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })));
-const ModelUITextConatiner = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })));
-const UIButtonText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })));
-const UITypographyText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })));
-const HeaderTextInnerBoxContainer = dynamic(() =>
-  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HeaderTextInnerBoxContainer }))
+const HomePageFreeSignupMobile = dynamic(() => import('./HomePageFreeSignupMobile'), { ssr: false });
+const ErrorBox = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })), { ssr: false });
+const ModelUITextConatiner = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })), {
+  ssr: false
+});
+const UIButtonText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })), { ssr: false });
+const UITypographyText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })), {
+  ssr: false
+});
+const HeaderTextInnerBoxContainer = dynamic(
+  () => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HeaderTextInnerBoxContainer })),
+  { ssr: false }
 );
-const HeaderTextMainBoxContainer = dynamic(() =>
-  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HeaderTextMainBoxContainer }))
+const HeaderTextMainBoxContainer = dynamic(
+  () => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HeaderTextMainBoxContainer })),
+  { ssr: false }
 );
-const HomeFreeSignupMainBoxContainer = dynamic(() =>
-  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HomeFreeSignupMainBoxContainer }))
+const HomeFreeSignupMainBoxContainer = dynamic(
+  () => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HomeFreeSignupMainBoxContainer })),
+  { ssr: false }
 );
-const IconeButtonContainer = dynamic(() =>
-  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.IconeButtonContainer }))
+const IconeButtonContainer = dynamic(
+  () => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.IconeButtonContainer })),
+  { ssr: false }
 );
 const JoinForFreeText = dynamic(() => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.JoinForFreeText })));
-const RemindMeBoxContainer = dynamic(() =>
-  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.RemindMeBoxContainer }))
+const RemindMeBoxContainer = dynamic(
+  () => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.RemindMeBoxContainer })),
+  { ssr: false }
 );
 import { signIn } from 'next-auth/react';
 import { gaEventTrigger } from 'utils/analytics';
