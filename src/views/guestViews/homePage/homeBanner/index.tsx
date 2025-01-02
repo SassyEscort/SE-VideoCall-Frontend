@@ -230,7 +230,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                   blurDataURL="/images/home/home-banner-model_blur.webp"
                   // loading="eager"
                   // fetchPriority="high"
-                  layout="intrinsic"
+                  layout="fixed"
                 />
               ) : isSmDown ? (
                 <Image
@@ -245,7 +245,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                   blurDataURL="/images/home/home-banner-model_blur.webp"
                   // loading="eager"
                   // fetchPriority="high"
-                  layout="intrinsic"
+                  layout="fixed"
                 />
               ) : (
                 <Image
@@ -260,7 +260,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                   blurDataURL="/images/home/home-banner-model_blur.webp"
                   // loading="eager"
                   // fetchPriority="high"
-                  layout="intrinsic"
+                  layout="fixed"
                 />
               )}
 
