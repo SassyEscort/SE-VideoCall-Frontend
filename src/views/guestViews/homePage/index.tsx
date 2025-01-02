@@ -18,7 +18,7 @@ const BackdropProgress = dynamic(() => import('components/UIComponents/BackDropP
 
 const HomeContainer = ({ modelData, params }: { modelData: ModelListingRes; params: SearchFiltersTypes }) => {
   const authContext = useAuthContext();
-  const isFreeCreditAvailable = authContext?.isFreeCreditAvailable || 1;
+  const isFreeCreditAvailable = authContext?.isFreeCreditAvailable || 0;
   const { data } = useSession();
   const token = data?.user ? JSON.parse((data.user as any)?.picture) : '';
 
