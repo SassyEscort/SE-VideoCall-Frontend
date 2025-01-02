@@ -38,9 +38,9 @@ import {
   HomeExploreBox,
   SubTitle
 } from './HomeBanner.styled';
-import { BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
+// import { BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import { useSession } from 'next-auth/react';
-// import HomeHeroBanner from './HomeHeroBanner';
+import HomeHeroBanner from './HomeHeroBanner';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), { ssr: false });
 const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), { ssr: false });
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'), { ssr: false });
@@ -215,8 +215,8 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 )}
               </ThirdBoxContainer>
             </FirstBoxContainer>
-            {/* <HomeHeroBanner isSm={isSm} isSmDown={isSmDown} /> */}
-            <BannerImageCard>
+            <HomeHeroBanner isSm={isSm} isSmDown={isSmDown} />
+            {/* <BannerImageCard>
               {isSm ? (
                 <Image
                   alt="home_model"
@@ -228,8 +228,6 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                   priority
                   placeholder="blur"
                   blurDataURL="/images/home/home-banner-model_blur.webp"
-                  loading="eager"
-                  // fetchPriority="high"
                   layout="fixed"
                 />
               ) : isSmDown ? (
@@ -243,8 +241,6 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                   priority
                   placeholder="blur"
                   blurDataURL="/images/home/home-banner-model_blur.webp"
-                  loading="eager"
-                  // fetchPriority="high"
                   layout="fixed"
                 />
               ) : (
@@ -258,11 +254,9 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                   priority
                   placeholder="blur"
                   blurDataURL="/images/home/home-banner-model_blur.webp"
-                  loading="eager"
-                  // fetchPriority="high"
                   layout="fixed"
                 />
-              )}
+              )} */}
 
               {/* <Image
                 alt="home_model"
@@ -290,7 +284,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, 462px"
                 layout="intrinsic"
               /> */}
-            </BannerImageCard>
+            {/* </BannerImageCard> */}
           </BannerContainer>
           {isSmDown && (
             <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} onSignupOpen={handleFreeCreditSignupOpen} />
