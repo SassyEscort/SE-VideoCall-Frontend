@@ -7,7 +7,6 @@ import AnotherCallModel from '../videoCalling/AnotherCallModel';
 import OfflineModel from '../videoCalling/offlineModel';
 import dynamic from 'next/dynamic';
 import { ScreenshotService } from 'services/screenshot/screenshot.service';
-import useConfig from 'hooks/useConfig';
 
 const CometChatIncomingCall = dynamic(() => import('@cometchat/chat-uikit-react').then((mod) => mod.CometChatIncomingCall), { ssr: false });
 const CometChatOngoingCall = dynamic(() => import('@cometchat/chat-uikit-react').then((mod) => mod.CometChatOngoingCall), { ssr: false });
@@ -29,7 +28,6 @@ const CallFeature = () => {
   } = useCallFeatureContext();
 
   const { token } = useAuthContext();
-  const { i18n } = useConfig();
   const [intervalDuration, setIntervalDuration] = useState<number | null>(null);
   const [startDuration, setStartDuration] = useState<number | null>(null);
   const [configFetched, setConfigFetched] = useState(false);
@@ -98,7 +96,9 @@ const CallFeature = () => {
     };
   }, [startDuration, intervalDuration, isModelJoin, callLogId, captureScreenshot]);
 
-  const appenText = () => {
+  const AppenText = async () => {
+    const { default: useConfig } = await import('hooks/useConfig');
+    const { i18n } = useConfig();
     const textContent =
       i18n === 'sp'
         ? `Abstenerse de: violencia,<br>sangre,<br>involucramiento de menores,<br>acoso.<br>Espero que tengas una excelente llamada.`
@@ -146,7 +146,7 @@ const CallFeature = () => {
 
   useEffect(() => {
     if (call && isCallAccepted && isModelJoin && callLogId) {
-      setTimeout(() => appenText(), 5000);
+      setTimeout(() => AppenText(), 5000);
     }
   }, [call, isCallAccepted, isModelJoin, callLogId]);
 

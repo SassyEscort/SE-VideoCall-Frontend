@@ -217,7 +217,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
             </FirstBoxContainer>
             {/* <HomeHeroBanner isSm={isSm} isSmDown={isSmDown} /> */}
             <BannerImageCard>
-              {isSm ? (
+              {/* {isSm ? (
                 <Image
                   alt="home_model"
                   decoding="async"
@@ -256,7 +256,21 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                   // fetchPriority="high"
                   layout="fixed"
                 />
-              )}
+              )} */}
+
+              <Image
+                alt="home_model"
+                decoding="async"
+                src="/images/home/home-banner-model1.webp"
+                style={{ borderRadius: '12px', right: 0 }}
+                priority={true}
+                loading="eager"
+                layout="responsive"
+                width={462}
+                height={452}
+                sizes="(max-width: 600px) 300px, (max-width: 1024px) 347px, 462px"
+              />
+
               {/* <Image
                 alt="home_model"
                 decoding="async"

@@ -100,8 +100,8 @@ const WorkerCard = ({
     modelDetails?.link
       ? modelDetails?.link
       : isCustomer
-        ? '/images/christmas/christmas_model_login.png'
-        : '/images/christmas/christmas_model.png',
+        ? '/images/christmas/christmas_model_login.webp'
+        : '/images/christmas/christmas_model.webp',
     videoTypeCondition ? 'IMG' : 'BG',
     videoTypeCondition ? true : false,
     false,
