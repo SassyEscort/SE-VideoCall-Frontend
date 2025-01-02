@@ -28,11 +28,11 @@ import { MODEL_ACTION } from 'constants/profileConstants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
 
-const StyleButtonV2 = dynamic(() => import('components/UIComponents/StyleLoadingButton'));
-const ErrorBox = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })));
-const ModelUITextConatiner = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })));
-const UIButtonText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })));
-const UITypographyText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })));
+const StyleButtonV2 = dynamic(() => import('components/UIComponents/StyleLoadingButton'), { ssr: false });
+const ErrorBox = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })), { ssr: false });
+const ModelUITextConatiner = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })), { ssr: false });
+const UIButtonText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })), { ssr: false });
+const UITypographyText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })), { ssr: false });
 
 export type LoginParams = {
   email: string;

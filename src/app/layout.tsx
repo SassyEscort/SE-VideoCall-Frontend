@@ -46,11 +46,9 @@ export default function RootLayout({
         <link
           rel="preload"
           as="image"
-          href="https://ik.imagekit.io/gpgv4gnda/images/1729084436818home-banner-model1_1qobIoZFu.webp"
+          href="/images/home/home-banner-model1.webp"
           imageSizes="(max-width: 600px) 300px, (max-width: 1024px) 347px, 462px"
         />
-
-        {/* <link rel="preload" as="image" href="https://ik.imagekit.io/gpgv4gnda/images/1729084436818home-banner-model1_1qobIoZFu.webp" /> */}
 
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <meta name="robots" content="index, follow" />

@@ -3,9 +3,9 @@ import { AuthUser } from 'app/(guest)/layout';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import dynamic from 'next/dynamic';
 import { getLoggedInUser } from 'utils/getSessionData';
-const Header = dynamic(() => import('views/protectedViews/protectedLayout/Header'));
+const Header = dynamic(() => import('views/protectedViews/protectedLayout/Header'), { ssr: false });
 const Footer = dynamic(() => import('views/guestViews/guestLayout/footer'));
-const GuestGuard = dynamic(() => import('utils/route-guard/GuestGuard'));
+const GuestGuard = dynamic(() => import('utils/route-guard/GuestGuard'), { ssr: false });
 // const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/Header'));
 const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/Header'), { ssr: false });
 
