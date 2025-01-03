@@ -258,7 +258,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 />
               )} */}
 
-              {/* <Image
+            {/* <Image
                 alt="home_model"
                 decoding="async"
                 src="/images/home/home-banner-model1.webp"
@@ -271,7 +271,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 sizes="(max-width: 600px) 300px, (max-width: 1024px) 347px, 462px"
               /> */}
 
-              {/* <Image
+            {/* <Image
                 alt="home_model"
                 decoding="async"
                 width={isSm && isSmDown ? 300 : isSmDown ? 347 : 462}

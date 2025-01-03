@@ -132,7 +132,7 @@ const HomeHeroBanner = ({ isSmDown, isSm }: { isSmDown: boolean; isSm: boolean }
         blurDataURL="/images/home/home-banner-model_blur.webp"
         priority
         sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, 462px"
-        layout="intrinsic" // Better for responsive scaling
+        layout="intrinsic"
       />
     </BannerImageCard>
   );

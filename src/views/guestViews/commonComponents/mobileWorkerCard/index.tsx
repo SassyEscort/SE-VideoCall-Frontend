@@ -13,6 +13,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { ViewDetailsRes } from 'services/guestBilling/types';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
+import ModelImage from './ModelImgCard';
 
 const CreditContainer = dynamic(() => import('./mobileWorkerCard.styled').then((module) => ({ default: module.CreditContainer })), {
   ssr: false
@@ -20,9 +21,9 @@ const CreditContainer = dynamic(() => import('./mobileWorkerCard.styled').then((
 const HeartIconWorkerCard = dynamic(() => import('./mobileWorkerCard.styled').then((module) => ({ default: module.HeartIconWorkerCard })), {
   ssr: false
 });
-const ImgWorkerCard = dynamic(() => import('./mobileWorkerCard.styled').then((module) => ({ default: module.ImgWorkerCard })), {
-  ssr: false
-});
+// const ImgWorkerCard = dynamic(() => import('./mobileWorkerCard.styled').then((module) => ({ default: module.ImgWorkerCard })), {
+//   ssr: false
+// });
 const LiveIconSecBoxWorkerCard = dynamic(
   () => import('./mobileWorkerCard.styled').then((module) => ({ default: module.LiveIconSecBoxWorkerCard })),
   { ssr: false }
@@ -128,7 +129,8 @@ const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRe
 
   return (
     <MainWorkerCard>
-      <ImgWorkerCard sx={{ backgroundImage: `url(${modelDetails?.link})` }} />
+      {/* {modelDetails?.link && <ImgWorkerCard sx={{ backgroundImage: `url(${modelDetails?.link})` }} />} */}
+      <ModelImage modelDetails={modelDetails} />
       <HeartIconWorkerCard>
         <FavoriteIconContainer onClick={() => handleLikeClick(modelDetails?.model_id)}>
           {liked ? <FavoriteIcon sx={{ color: 'error.main' }} /> : <FavoriteBorderIcon />}
