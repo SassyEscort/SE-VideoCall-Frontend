@@ -96,7 +96,7 @@ export const ModelImageMainSwiperContainer = styled(Box)(({ theme }) => ({
     maxWidth: '1240px'
   },
   [theme.breakpoints.up('sm')]: {
-    width: '1240px !important'
+    width: '1280px !important'
   }
 }));
 

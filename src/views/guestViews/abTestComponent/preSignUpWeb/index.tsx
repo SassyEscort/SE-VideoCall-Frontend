@@ -117,13 +117,7 @@ const PreSignUpWeb = () => {
               }}
               // breakpoints={{
               //   768: {
-              //     slidesPerView: 2,
-              //     coverflowEffect: {
-              //       rotate: 0,
-              //       stretch: -10,
-              //       depth: 400,
-              //       modifier: 1.5
-              //     }
+              //     slidesPerView: 3
               //   }
               //   1024: {
               //     slidesPerView: 2,
