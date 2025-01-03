@@ -115,25 +115,25 @@ const PreSignUpWeb = () => {
                 depth: 200,
                 modifier: 1.5
               }}
-              breakpoints={{
-                768: {
-                  slidesPerView: 2,
-                  coverflowEffect: {
-                    rotate: 0,
-                    stretch: -10,
-                    depth: 400,
-                    modifier: 1.5
-                  }
-                }
-                //   1024: {
-                //     slidesPerView: 2,
-                //     loopAdditionalSlides: 1
-                //   },
-                //   1200: {
-                //     slidesPerView: 3,
-                //     loopAdditionalSlides: 1
-                //   }
-              }}
+              // breakpoints={{
+              //   768: {
+              //     slidesPerView: 2,
+              //     coverflowEffect: {
+              //       rotate: 0,
+              //       stretch: -10,
+              //       depth: 400,
+              //       modifier: 1.5
+              //     }
+              //   }
+              //   1024: {
+              //     slidesPerView: 2,
+              //     loopAdditionalSlides: 1
+              //   },
+              //   1200: {
+              //     slidesPerView: 3,
+              //     loopAdditionalSlides: 1
+              //   }
+              // }}
               className="mySwiper"
               // autoplay={{
               //   delay: 2500,
