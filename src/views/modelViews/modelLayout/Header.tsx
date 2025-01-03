@@ -108,9 +108,9 @@ const HeaderModelComponent = () => {
               display={'flex'}
             >
               <Image
-                src="/images/christmas/christmas_logo.png"
+                src="/images/header/new-logo.png"
                 width={182}
-                height={40}
+                height={36}
                 alt="header_logo"
                 style={{
                   width: '100%',
