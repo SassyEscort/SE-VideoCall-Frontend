@@ -1,17 +1,28 @@
 import {
+  HighlyAvailableBoxNew,
+  HighlyAvailableButtonBoxNew,
   UIStyledCard,
   UIStyledContent,
   UIStyledFlag,
   UIStyledHoverText,
   UIStyledImage,
   UIStyledPark,
+  UIStyledStar,
   UIStyledTitle
 } from './ImageCard.styled';
 import Box from '@mui/material/Box';
 import UINewTypography from '../UINewTypography';
 import UINewStyledShadowButton from '../UIStyledShadowButton';
+import StyleBoostNewUserButton from '../StyleBoostNewUserButton';
+import Image from 'next/image';
+import { FormattedMessage } from 'react-intl';
+import { useMediaQuery } from '@mui/material';
+import theme from 'themes/theme';
 
 const ImageCard = () => {
+  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+  const isTablet = useMediaQuery(theme.breakpoints.only('sm'));
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <>
       <UIStyledCard>
@@ -25,6 +36,38 @@ const ImageCard = () => {
           <UIStyledImage className="styled-image" />
         </Box>
         <UIStyledContent>
+          <Box
+            sx={{
+              display: 'flex',
+              height: '100%',
+              alignItems: 'top',
+              justifyContent: 'flex-start'
+            }}
+            className="styled-title"
+          >
+            <HighlyAvailableButtonBoxNew>
+              <HighlyAvailableBoxNew>
+                <Image
+                  loading="lazy"
+                  src="/images/boostProfile/fire-ani.gif"
+                  alt="fire-gif"
+                  height={42}
+                  width={33}
+                  style={{ zIndex: 10, left: isTablet ? '-15px' : isMdDown ? '-10px' : '-15px', position: 'absolute', top: '-14px' }}
+                />
+
+                <StyleBoostNewUserButton>
+                  <UINewTypography variant="bodyUltraLarge" color="#ffff" style={{ fontSize: isSmDown ? '10px' : '12px' }}>
+                    <FormattedMessage id="HighlyAvailable" />
+                  </UINewTypography>
+                </StyleBoostNewUserButton>
+              </HighlyAvailableBoxNew>
+            </HighlyAvailableButtonBoxNew>
+            <UIStyledStar>
+              <Box component="img" src="images/home/star-icon.png" alt="park-icon" />
+              <UINewTypography variant="ExtraSmallerText">4.3</UINewTypography>
+            </UIStyledStar>
+          </Box>
           <UIStyledTitle className="styled-title">
             <Box
               sx={{
@@ -69,7 +112,7 @@ const ImageCard = () => {
               <UINewTypography variant="ExtraSmallerText" color="#F1F5F9">
                 Red-flag bed cause tiger no model
               </UINewTypography>
-              <UINewStyledShadowButton sx={{ width: '200px', height: '48px' }}>
+              <UINewStyledShadowButton sx={{ width: '200px', height: '48px', mt: 2 }}>
                 <Box
                   sx={{
                     display: 'flex',

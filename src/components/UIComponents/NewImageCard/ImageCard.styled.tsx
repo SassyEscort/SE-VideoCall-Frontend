@@ -99,3 +99,33 @@ export const UIStyledFlag = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   gap: '8px'
 }));
+
+export const HighlyAvailableButtonBoxNew = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  width: '100%',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  marginTop: 0
+}));
+
+export const HighlyAvailableBoxNew = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  [theme.breakpoints.down('md')]: {
+    justifyContent: 'flex-start'
+  },
+  width: '100%',
+  position: 'relative',
+  marginLeft: '10px'
+}));
+
+export const UIStyledStar = styled(Box)(({ theme }) => ({
+  padding: '4px 12px 4px 12px',
+  display: 'flex',
+  backgroundColor: '#1E0815',
+  width: '66px',
+  height: '28px',
+  borderRadius: '100px',
+  alignItems: 'center',
+  gap: '8px'
+}));
