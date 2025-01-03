@@ -161,7 +161,19 @@ const WorkerCard = ({
 
   return (
     <MainWorkerCard onClick={handleChristmasOffer}>
-      <ImgWorkerCard ref={imageUrlRef} component="div" />
+      {imageUrlRef?.current?.style?.backgroundImage && <ImgWorkerCard ref={imageUrlRef} component="div" />}
+
+      {/* <ImgWorkerCard
+        ref={imageUrlRef}
+        sx={{
+          ...(!imageUrlRef?.current?.style?.backgroundImage && {
+            backgroundImage: `url(/images/workercards/workercard-blur.avif)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            transition: 'background-image 5s ease-in-out'
+          })
+        }}
+      /> */}
       {modelDetails.name === 'Christmas Offer' &&
         (isCustomer ? (
           <ChristmasMainContainer>

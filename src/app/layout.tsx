@@ -58,6 +58,7 @@ export default function RootLayout({
           imageSrcSet="/_next/image?url=%2Fimages%2Fhome%2Fhome-banner-model_blur.webp&w=300&q=75 300w,/_next/image?url=%2Fimages%2Fhome%2Fhome-banner-model_blur.webp&w=347&q=75 347w,/_next/image?url=%2Fimages%2Fhome%2Fhome-banner-model_blur.webp&w=462&q=75 462w"
           imageSizes="(max-width: 600px) 300px, (max-width: 1024px) 347px, 462px"
         />
+        <link rel="preload" as="image" href="/images/workercards/workercard-blur.avif" />
 
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <meta name="robots" content="index, follow" />
