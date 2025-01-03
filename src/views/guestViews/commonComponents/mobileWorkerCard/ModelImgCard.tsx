@@ -26,7 +26,7 @@ const ModelImage = ({ modelDetails }: { modelDetails: { link: string } }) => {
         objectFit="cover"
         priority
         placeholder="blur"
-        blurDataURL="/path-to-blur-image.webp"
+        blurDataURL="/images/workercards/workercard-blur.avif"
       />
     </Box>
   );
