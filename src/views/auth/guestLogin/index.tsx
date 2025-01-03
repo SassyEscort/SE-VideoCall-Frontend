@@ -1,4 +1,4 @@
- import React from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Divider from '@mui/material/Divider';
@@ -30,9 +30,13 @@ import dynamic from 'next/dynamic';
 
 const StyleButtonV2 = dynamic(() => import('components/UIComponents/StyleLoadingButton'), { ssr: false });
 const ErrorBox = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })), { ssr: false });
-const ModelUITextConatiner = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })), { ssr: false });
+const ModelUITextConatiner = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })), {
+  ssr: false
+});
 const UIButtonText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })), { ssr: false });
-const UITypographyText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })), { ssr: false });
+const UITypographyText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })), {
+  ssr: false
+});
 
 export type LoginParams = {
   email: string;
