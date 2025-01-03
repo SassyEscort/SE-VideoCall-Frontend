@@ -254,6 +254,7 @@ export default function SEOContainer() {
               name="seo_data"
               id="demo-simple-select"
               label="SEO data"
+              aria-label="SEO data"
               value={SEODataFilter}
               onChange={(e) => handleSEODataChange(Number(e.target.value))}
             >

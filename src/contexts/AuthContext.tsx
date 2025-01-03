@@ -182,7 +182,6 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
       );
       const checkFluxLoaded = async () => {
         if (window?.flux && window.document && window?.flux?.get && window?.flux?.get('{hit}')) {
-
           const hitID = window?.flux?.get('{hit}') as string;
           await FunnelfluxService.funnelfluxConversionEvent(
             {

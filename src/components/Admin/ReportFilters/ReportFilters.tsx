@@ -114,6 +114,7 @@ export default function ReportFilters({
                   labelId="filter-duration-label"
                   value={duration}
                   label={durationlable ? durationlable : 'Duration'}
+                  aria-label={durationlable ? durationlable : 'Duration'}
                   onChange={(e) => handleChangeDuration(e.target.value)}
                   sx={{
                     '@media (min-width: 600px)': {
