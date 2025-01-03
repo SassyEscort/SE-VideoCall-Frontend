@@ -28,10 +28,14 @@ export const PreSignUpWebInnerBoxContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const PreSignUpMobileBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
   [theme.breakpoints.down('sm')]: {
-    display: 'flex',
-    flexDirection: 'column',
     gap: theme.spacing(2)
+  },
+  [theme.breakpoints.up('sm')]: {
+    gap: theme.spacing(4)
   }
 }));
 
