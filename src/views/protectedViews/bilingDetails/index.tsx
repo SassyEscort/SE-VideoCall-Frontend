@@ -30,6 +30,7 @@ import Divider from '@mui/material/Divider';
 // import { useVideoCallContext } from 'contexts/videoCallContext';
 import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 import { gaEventTrigger } from 'utils/analytics';
+import { useAuthContext } from 'contexts/AuthContext';
 
 const BillingDetails = ({
   open,
@@ -46,6 +47,7 @@ const BillingDetails = ({
   const router = useRouter();
   // const { isLoading } = useVideoCallContext();
   const { isLoading } = useCallFeatureContext();
+  const { fetchPageName } = useAuthContext();
   const callDurationString = selectDetails.call_duration;
   const callDuration = moment.duration(callDurationString);
   const hours = Math.floor(callDuration.asHours());
@@ -76,6 +78,15 @@ const BillingDetails = ({
 
   const message = formatDuration(hours, minutes, seconds);
   const handelExplore = () => {
+    const data = {
+      pageName: fetchPageName()
+    };
+    gaEventTrigger('explore-model-button-click', {
+      action: 'explore-model-button-click',
+      category: 'Button',
+      label: 'Explore mmodel button click',
+      value: JSON.stringify(data)
+    });
     router.push('/');
     handleClose();
   };

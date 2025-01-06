@@ -25,9 +25,11 @@ import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { gaEventTrigger } from 'utils/analytics';
 import { useAuthContext } from 'contexts/AuthContext';
+import { getCookie } from 'cookies-next';
 
 const MainFooter = () => {
-  const { handleGAEventsTrigger } = useAuthContext();
+  const { handleGAEventsTrigger, user } = useAuthContext();
+  const providerData = JSON.parse(user || '{}');
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   // const url = new URL(window.location.href);
   // const email = url.searchParams.get('email');
@@ -90,6 +92,24 @@ const MainFooter = () => {
     userToken();
   }, []);
 
+  const handleTriggerGAEvent = (linkName: string) => {
+    const group = getCookie('ab-group');
+    let versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
+    let data: any = {
+      userLoginStatus: providerData?.token ? 'yes' : 'no',
+      linkName: linkName
+    };
+    if (providerData?.customer_id) data['userid'] = providerData?.customer_id;
+    if (versionDetails?.experiment) data['version'] = `${versionDetails?.experiment}_${versionDetails?.variation}`;
+
+    gaEventTrigger('footer-link-click', {
+      action: 'footer-link-click',
+      category: 'Link',
+      label: 'Footer link click',
+      value: JSON.stringify(data)
+    });
+  };
+
   return (
     <>
       <Box sx={{ width: '100%' }}>
@@ -118,7 +138,12 @@ const MainFooter = () => {
               </Box>
               <FooterStoreBox>
                 <Box>
-                  <Link prefetch={false} href="https://play.google.com/store/apps/details?id=com.bookmyartist.app" target="_blank">
+                  <Link
+                    prefetch={false}
+                    href="https://play.google.com/store/apps/details?id=com.bookmyartist.app"
+                    target="_blank"
+                    onClick={() => handleTriggerGAEvent('google-pay')}
+                  >
                     <Image
                       src="/images/app-logo/google-pay.png"
                       width={120}
@@ -132,7 +157,12 @@ const MainFooter = () => {
                   </Link>
                 </Box>
                 <Box>
-                  <Link prefetch={false} href="https://apps.apple.com/us/app/book-my-artist-provider/id6630371131" target="_blank">
+                  <Link
+                    prefetch={false}
+                    href="https://apps.apple.com/us/app/book-my-artist-provider/id6630371131"
+                    target="_blank"
+                    onClick={() => handleTriggerGAEvent('app-store')}
+                  >
                     <Image
                       src="/images/app-logo/app-store.png"
                       width={120}
@@ -157,23 +187,37 @@ const MainFooter = () => {
                   <FormattedMessage id="Menu" />
                 </UINewTypography>
                 <ModelUITextConatiner sx={{ gap: 1 }}>
-                  <UINewTypography variant="SubtitleSmallRegular">
+                  <UINewTypography variant="SubtitleSmallRegular" onClick={() => handleTriggerGAEvent('Home')}>
                     <Link prefetch={false} href="/">
                       <FormattedMessage id="Home" />
                     </Link>
                   </UINewTypography>
-                  <UINewTypography variant="SubtitleSmallRegular">
+                  <UINewTypography variant="SubtitleSmallRegular" onClick={() => handleTriggerGAEvent('FAQs')}>
                     <Link prefetch={false} href="/faq">
                       <FormattedMessage id="FAQs" />
                     </Link>
                   </UINewTypography>
                   {!token.token && (
-                    <UINewTypography variant="SubtitleSmallRegular" onClick={handleSignupOpen} sx={{ cursor: 'pointer' }}>
+                    <UINewTypography
+                      variant="SubtitleSmallRegular"
+                      onClick={() => {
+                        handleTriggerGAEvent('SignUp');
+                        handleSignupOpen();
+                      }}
+                      sx={{ cursor: 'pointer' }}
+                    >
                       <FormattedMessage id="SignUp" />
                     </UINewTypography>
                   )}
                   {!token.token && (
-                    <UINewTypography variant="SubtitleSmallRegular" onClick={handleLoginOpen} sx={{ cursor: 'pointer' }}>
+                    <UINewTypography
+                      variant="SubtitleSmallRegular"
+                      onClick={() => {
+                        handleTriggerGAEvent('LoginIn');
+                        handleLoginOpen();
+                      }}
+                      sx={{ cursor: 'pointer' }}
+                    >
                       <FormattedMessage id="LogIn" />
                     </UINewTypography>
                   )}
@@ -199,6 +243,7 @@ const MainFooter = () => {
                       prefetch={false}
                       shallow={true}
                       href={`${val?.link}`}
+                      onClick={() => handleTriggerGAEvent(val?.link)}
                     >
                       <FormattedMessage id={val?.name} />
                     </Box>

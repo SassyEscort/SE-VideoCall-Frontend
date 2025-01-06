@@ -146,6 +146,7 @@ const WorkerCard = ({
   const handleIconClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.stopPropagation();
     e.preventDefault();
+    gaEventTrigger('favorite-click', { action: 'favorite-click', category: 'Button', label: 'Favorite icon click' });
     handleLikeClick(modelDetails);
   };
 

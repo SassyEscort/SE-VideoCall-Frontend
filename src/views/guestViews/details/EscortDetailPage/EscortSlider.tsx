@@ -137,6 +137,7 @@ const EscortSlider = ({
         setIsOpenLogin(true);
         gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
       } else if (token.token) {
+        gaEventTrigger('favorite-click', { action: 'favorite-click', category: 'Button', label: 'Favorite icon click' });
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
         const customerInfoString = JSON.stringify(customerInfo);
         gaEventTrigger('Model_Favorite_Clicked', {
@@ -187,6 +188,10 @@ const EscortSlider = ({
 
   const handleStartVideoGAEvent = () => {
     gaEventTrigger('start-video-call-click', { action: 'start-video-call-click', category: 'Button', label: 'start video call click' });
+  };
+
+  const handleStartChatGAEvent = () => {
+    gaEventTrigger('start-chat-click', { action: 'start-chat-click', category: 'Button', label: 'start chat click' });
   };
 
   const modelFavPhoto = workerPhotos.find((x) => x.favourite)?.link;
@@ -304,6 +309,7 @@ const EscortSlider = ({
             loading={isLoading}
             onClick={() => {
               handleGAEventsTrigger('message-icon-click', 'model-details-page');
+              handleStartChatGAEvent();
               if (isCustomer) handleStartChatClick();
               else handleLoginOpen();
             }}

@@ -34,6 +34,7 @@ import { ISocketMessage } from 'services/chatServices/chat.service';
 import { StyledSnackBar, StyledSnackBarInnerBox } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
 import CloseIcon from '@mui/icons-material/Close';
 import { usePathname, useRouter } from 'next/navigation';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type NotificationFilters = {
   page: number;
@@ -82,6 +83,11 @@ const HeaderAuthComponent = () => {
   };
 
   const handleOpenChangePassword = () => {
+    gaEventTrigger('change-password-click', {
+      action: 'change-password-click',
+      category: 'Button',
+      label: 'Change password click'
+    });
     setOpenChangePassword(true);
   };
 
@@ -138,6 +144,11 @@ const HeaderAuthComponent = () => {
   const handleSnackbarClose = () => setSnackbarOptions({ open: false, message: '', url: '' });
 
   const handleOpenLogout = () => {
+    gaEventTrigger('log-out-button-click', {
+      action: 'log-out-button-click',
+      category: 'Button',
+      label: 'logout button click'
+    });
     setIsLogoutOpen(true);
   };
 
@@ -146,6 +157,11 @@ const HeaderAuthComponent = () => {
   };
 
   const handleChatOpen = () => {
+    gaEventTrigger('chat-support-click', {
+      action: 'chat-support-click',
+      category: 'Button',
+      label: 'Chat support click'
+    });
     maximizeChat();
     initializeChat();
   };
@@ -353,7 +369,17 @@ const HeaderAuthComponent = () => {
                   </IconButton>
                 </Link>
               </ListItemIcon>
-              <Link href="/profile" onClick={handleCloseLogout}>
+              <Link
+                href="/profile"
+                onClick={() => {
+                  gaEventTrigger('my-profile-click', {
+                    action: 'my-profile-click',
+                    category: 'Button',
+                    label: 'My profile click'
+                  });
+                  handleCloseLogout();
+                }}
+              >
                 <ListItemText>
                   <UINewTypography variant="bodyLight" color="text.secondary">
                     <FormattedMessage id="MyProfile" />

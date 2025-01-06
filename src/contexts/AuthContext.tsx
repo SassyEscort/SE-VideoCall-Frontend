@@ -46,6 +46,7 @@ export type AuthContextProps = {
   openCreditDrawer: boolean;
   token: TokenIdType;
   adminUserPermissions: AdminUserPermissions[] | undefined;
+  fetchPageName: () => void;
 };
 
 const AuthContext = createContext<AuthContextProps>({
@@ -68,7 +69,8 @@ const AuthContext = createContext<AuthContextProps>({
   token: { id: 0, token: '' },
   isAdmin: false,
   adminUserPermissions: [{} as AdminUserPermissions],
-  funnelHitId: ''
+  funnelHitId: '',
+  fetchPageName: () => {}
 });
 
 const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
@@ -207,6 +209,17 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalBalValue, transaction_id]);
 
+  const fetchPageName = () => {
+    let pageName = 'homepage';
+    if (CHATROOM.some((a) => pathname.includes(a.url))) {
+      const page = CHATROOM?.find((a) => pathname?.includes(a?.url));
+      pageName = page?.title || 'homepage';
+    } else if (pathname?.includes('/models')) {
+      pageName = 'model-details';
+    }
+    return pageName;
+  };
+
   const handleGAEventsTrigger = (eventName: string, position?: string) => {
     const group = getCookie('ab-group');
     let versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
@@ -269,7 +282,8 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         isAdmin,
         adminUserPermissions,
         roomID,
-        funnelHitId
+        funnelHitId,
+        fetchPageName
       }}
     >
       {children}

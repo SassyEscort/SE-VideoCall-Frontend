@@ -41,6 +41,7 @@ import {
 // import { BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import { useSession } from 'next-auth/react';
 import HomeHeroBanner from './HomeHeroBanner';
+import { useAuthContext } from 'contexts/AuthContext';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), { ssr: false });
 const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), { ssr: false });
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'), { ssr: false });
@@ -49,7 +50,7 @@ const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents
 
 const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const { data: session } = useSession();
-
+  const { fetchPageName } = useAuthContext();
   const [isModalOpenFreeCredits, setIsModalOpenFreeCredits] = useState(false);
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
@@ -202,12 +203,36 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                       </SignupTextContainer>
                       <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} alt="signup" />
                     </UIThemeShadowButton>
-                    <ExploreTextContainer onClick={handleClickScroll}>
+                    <ExploreTextContainer
+                      onClick={() => {
+                        const data = {
+                          pageName: fetchPageName()
+                        };
+                        gaEventTrigger('explore-model-button-click', {
+                          action: 'explore-model-button-click',
+                          category: 'Button',
+                          label: 'Explore mmodel button click',
+                          value: JSON.stringify(data)
+                        });
+                        handleClickScroll();
+                      }}
+                    >
                       <FormattedMessage id="ExploreModels" />
                     </ExploreTextContainer>
                   </SecondBoxContainer>
                 ) : (
-                  <StyleButtonShadowV2 onClick={handleClickScroll} variant="contained" loading={loading}>
+                  <StyleButtonShadowV2
+                    onClick={() => {
+                      gaEventTrigger('explore-model-button-click', {
+                        action: 'explore-model-button-click',
+                        category: 'Button',
+                        label: 'Explore mmodel button click'
+                      });
+                      handleClickScroll();
+                    }}
+                    variant="contained"
+                    loading={loading}
+                  >
                     <TextContainer>
                       <FormattedMessage id="ExploreModels" />
                     </TextContainer>

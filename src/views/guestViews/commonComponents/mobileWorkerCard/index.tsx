@@ -14,6 +14,7 @@ import { ViewDetailsRes } from 'services/guestBilling/types';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
 import ModelImage from './ModelImage';
+import { gaEventTrigger } from 'utils/analytics';
 
 const CreditContainer = dynamic(() => import('./mobileWorkerCard.styled').then((module) => ({ default: module.CreditContainer })), {
   ssr: false
@@ -108,10 +109,15 @@ const WorkerCardMobile = ({ modelDetails, token }: { modelDetails: ViewDetailsRe
 
   // useImageOptimize(imageUrlRef, modelDetails?.link ?? '', 'BG', false, false, modelDetails?.cords);
 
+  const handleFavorite = () => {
+    gaEventTrigger('favorite-click', { action: 'favorite-click', category: 'Button', label: 'Favorite icon click' });
+  };
+
   const handleLikeClick = async (modelId: number) => {
     try {
       if (token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token);
+        handleFavorite();
         if (data?.code === 200) {
           if (data.data.is_active === 1) {
             setLiked(true);

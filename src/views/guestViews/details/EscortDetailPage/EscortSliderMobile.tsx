@@ -172,6 +172,7 @@ const EscortSliderMobile = ({
         gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
       } else if (token.token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
+        gaEventTrigger('favorite-click', { action: 'favorite-click', category: 'Button', label: 'Favorite icon click' });
         const customerInfoString = JSON.stringify(customerInfo);
         gaEventTrigger('Model_Favorite_Clicked', {
           category: 'Button',
@@ -283,6 +284,7 @@ const EscortSliderMobile = ({
             loading={isLoading}
             onClick={() => {
               handleGAEventForChatIcon();
+              gaEventTrigger('start-chat-click', { action: 'start-chat-click', category: 'Button', label: 'start chat click' });
               if (isCustomer) handleStartChatClick();
               else handleLoginOpen();
             }}

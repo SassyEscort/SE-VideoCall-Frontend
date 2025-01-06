@@ -17,9 +17,10 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useAuthContext } from '../../../../contexts/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import UIThemeBorderButton from 'components/UIComponents/UIStyledBorderButton';
+import { gaEventTrigger } from 'utils/analytics';
 
 const EscortExplore = () => {
-  const { isFreeCreditAvailable } = useAuthContext();
+  const { isFreeCreditAvailable, fetchPageName } = useAuthContext();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -224,7 +225,21 @@ const EscortExplore = () => {
             </UINewTypography>
           </Box>
           <Box>
-            <UIThemeBorderButton sx={{ width: { xs: '100%', sm: '300px' } }} href="/">
+            <UIThemeBorderButton
+              sx={{ width: { xs: '100%', sm: '300px' } }}
+              href="/"
+              onClick={() => {
+                const data = {
+                  pageName: fetchPageName()
+                };
+                gaEventTrigger('explore-model-button-click', {
+                  action: 'explore-model-button-click',
+                  category: 'Button',
+                  label: 'Explore mmodel button click',
+                  value: JSON.stringify(data)
+                });
+              }}
+            >
               <UINewTypography variant="body" color={'text.secondary'}>
                 <FormattedMessage id="ExploreModels" />
               </UINewTypography>
