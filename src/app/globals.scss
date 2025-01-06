@@ -293,7 +293,7 @@ input[type='number'] {
 
 @media (max-width: 768px) {
   .mySwiper .swiper-slide-active img {
-    width: 300px !important;
+    width: 380px !important;
     height: 400px !important;
   }
 }
@@ -328,14 +328,14 @@ input[type='number'] {
   }
 }
 
-@media (max-width: 425px) {
-  .mySwiper .swiper-slide.custom-z-index {
-    transform: translate3d(0px, 4px, -568.203px) rotateX(0deg) rotateY(0deg) scale(1) !important;
-  }
-}
+// @media (max-width: 425px) {
+//   .mySwiper .swiper-slide.custom-z-index {
+//     transform: translate3d(0px, 4px, -568.203px) rotateX(0deg) rotateY(0deg) scale(1) !important;
+//   }
+// }
 @media (max-width: 768px) {
   .mySwiper .swiper-slide.custom-z-index {
-    transform: translate3d(127px, 51px, -1037.203px) rotateX(0deg) rotateY(0deg) scale(1) !important;
+    transform: translate3d(139px, 51px, -1037.203px) rotateX(0deg) rotateY(0deg) scale(1) !important;
   }
 }
 
@@ -347,7 +347,7 @@ input[type='number'] {
 @media (max-width: 1024px) {
   .mySwiper .swiper-slide.swiper-slide-visible.swiper-slide-prev {
     transition-duration: 0ms !important;
-    transform: translate3d(-132px, 50px, -388.828px) rotateX(0deg) rotateY(0deg) scale(1) !important;
+    transform: translate3d(-134px, 50px, -388.828px) rotateX(0deg) rotateY(0deg) scale(1) !important;
   }
 }
 @media (max-width: 425px) {
@@ -368,7 +368,7 @@ input[type='number'] {
 @media (max-width: 768px) {
   .mySwiper .swiper-slide.swiper-slide-visible.swiper-slide-prev {
     transition-duration: 0ms !important;
-    transform: translate3d(-110px, -6px, -388.828px) rotateX(0deg) rotateY(0deg) scale(1) !important;
+    transform: translate3d(-74px, -6px, -388.828px) rotateX(0deg) rotateY(0deg) scale(1) !important;
   }
 }
 
@@ -387,7 +387,7 @@ input[type='number'] {
 @media (max-width: 768px) {
   .mySwiper .swiper-slide.swiper-slide-next.swiper-slide-visible {
     transition-duration: 0ms !important;
-    transform: translate3d(-117px, -4px, -367.969px) rotateX(0deg) rotateY(0deg) scale(1) !important;
+    transform: translate3d(-166px, -4px, -367.969px) rotateX(0deg) rotateY(0deg) scale(1) !important;
   }
 }
 
@@ -396,17 +396,20 @@ input[type='number'] {
   transform: translate3d(-70.45312px, 0px, -89.0625px) rotateX(0deg) rotateY(0deg) scale(1) !important;
 }
 
-@media (max-width: 768px) {
-  .mySwiper .swiper-slide.swiper-slide-active.swiper-slide-visible.swiper-slide-fully-visible {
-    transition-duration: 0ms;
-    transform: translate3d(-112.45312px, 0px, -89.0625px) rotateX(0deg) rotateY(0deg) scale(1) !important;
-  }
-}
+// @media (max-width: 775px) {
+//   .mySwiper .swiper-slide.swiper-slide-active.swiper-slide-visible.swiper-slide-fully-visible {
+//     transition-duration: 0ms;
+//     transform: translate3d(-112.45312px, 0px, -89.0625px) rotateX(0deg) rotateY(0deg) scale(1) !important;
+//   }
+// }
 
-@media (max-width: 1024px) {
+@media (max-width: 1090px) {
   .mySwiper .swiper-slide.swiper-slide-active.swiper-slide-visible.swiper-slide-fully-visible {
     transition-duration: 0ms;
-    transform: translate3d(-163.45312px, 0px, -89.0625px) rotateX(0deg) rotateY(0deg) scale(1) !important;
+    transform: translate3d(-158.45312px, 0px, -89.0625px) rotateX(0deg) rotateY(0deg) scale(1) !important;
+  }
+  .mySwiper .swiper-slide-shadow-coverflow {
+    z-index: -1 !important;
   }
 }
 
