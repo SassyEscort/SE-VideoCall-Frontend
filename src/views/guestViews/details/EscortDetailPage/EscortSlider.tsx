@@ -185,6 +185,10 @@ const EscortSlider = ({
     setFreeSignupOpen(false);
   };
 
+  const handleStartVideoGAEvent = () => {
+    gaEventTrigger('start-video-call-click', { action: 'start-video-call-click', category: 'Button', label: 'start video call click' });
+  };
+
   const modelFavPhoto = workerPhotos.find((x) => x.favourite)?.link;
 
   return (
@@ -273,7 +277,14 @@ const EscortSlider = ({
         <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', gap: 1.5 }}>
           <StyleButtonShadowV2
             loading={isLoading}
-            onClick={isCustomer ? handleCallInitiate : isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleLoginOpen}
+            onClick={() => {
+              handleStartVideoGAEvent();
+              if (isCustomer) {
+                handleCallInitiate();
+              } else if (isFreeCreditAvailable) {
+                handleFreeCreditSignupOpen();
+              } else handleLoginOpen();
+            }}
             sx={{
               padding: 0,
               width: '100%',

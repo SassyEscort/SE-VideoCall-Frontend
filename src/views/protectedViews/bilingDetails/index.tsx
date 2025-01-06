@@ -29,6 +29,7 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 // import { useVideoCallContext } from 'contexts/videoCallContext';
 import { useCallFeatureContext } from 'contexts/CallFeatureContext';
+import { gaEventTrigger } from 'utils/analytics';
 
 const BillingDetails = ({
   open,
@@ -143,6 +144,11 @@ const BillingDetails = ({
               <StyleButtonV2
                 loading={isLoading}
                 onClick={() => {
+                  gaEventTrigger('start-video-call-click', {
+                    action: 'start-video-call-click',
+                    category: 'Button',
+                    label: 'start video call click'
+                  });
                   handleVideoCall(selectDetails);
                 }}
                 sx={{
