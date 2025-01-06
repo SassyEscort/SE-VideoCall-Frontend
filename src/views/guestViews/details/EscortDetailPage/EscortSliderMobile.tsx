@@ -38,6 +38,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
 // import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
 import { useCallFeatureContext } from 'contexts/CallFeatureContext';
+import { getCookie } from 'cookies-next';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), { ssr: false });
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'), { ssr: false });
 const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), { ssr: false });
@@ -77,6 +78,7 @@ const EscortSliderMobile = ({
 
   const sortedWorkerPhotos = workerPhotos.sort(sortExistingPhotos);
 
+  const group = getCookie('ab-group');
   const path = usePathname();
   const router = useRouter();
   const userName = path.split('/')[2];
@@ -89,7 +91,29 @@ const EscortSliderMobile = ({
     model_username: userName
   };
 
-  const handleStartChatClick = () => router.push(`/chat/${userName}`);
+  const handleGAEventForChatIcon = () => {
+    let versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
+    const customerInfo = {
+      version: (versionDetails?.experiment && `${versionDetails?.experiment}_${versionDetails?.variation}`) || '',
+      userid: (customerData?.customer_id && String(customerData?.customer_id)) || '',
+      userStatus: token?.token ? 'loggedIn' : 'loggedout',
+      pageName: 'model-details',
+      deviceype: 'mobile',
+      browserUsed: (typeof navigator !== 'undefined' && navigator?.userAgent) || '',
+      position: 'model-details-page'
+    };
+    gaEventTrigger('message-icon-click', {
+      action: 'message-icon-click',
+      category: 'Button',
+      label: 'message icon click',
+      value: JSON.stringify(customerInfo)
+    });
+  };
+
+  const handleStartChatClick = () => {
+    handleGAEventForChatIcon();
+    router.push(`/chat/${userName}`);
+  };
 
   const handleSignupOpen = () => {
     setIsOpenLogin(false);
@@ -246,7 +270,11 @@ const EscortSliderMobile = ({
         <ActivityButtonBox>
           <StyleButtonShadowV2
             loading={isLoading}
-            onClick={isCustomer ? handleStartChatClick : handleLoginOpen}
+            onClick={() => {
+              handleGAEventForChatIcon();
+              if (isCustomer) handleStartChatClick();
+              else handleLoginOpen();
+            }}
             sx={{
               padding: 0,
               minWidth: isSm ? '200px' : '271px',

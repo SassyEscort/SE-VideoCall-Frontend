@@ -42,6 +42,7 @@ import { gaEventTrigger } from 'utils/analytics';
 // import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
 import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 import dynamic from 'next/dynamic';
+import { getCookie } from 'cookies-next';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
 const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
@@ -79,6 +80,7 @@ const EscortSlider = ({
   const [openLogin, setIsOpenLogin] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
+  const group = getCookie('ab-group');
 
   const swiperRef = useRef<SwiperRef | any>();
 
@@ -90,6 +92,26 @@ const EscortSlider = ({
     name: customerData?.customer_name,
     username: customerData?.customer_user_name,
     model_username: userName
+  };
+
+  const handleGAEventForChatIcon = () => {
+    let versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
+    const customerInfo = {
+      version: (versionDetails?.experiment && `${versionDetails?.experiment}_${versionDetails?.variation}`) || '',
+      userid: (customerData?.customer_id && String(customerData?.customer_id)) || '',
+      userStatus: token?.token ? 'loggedIn' : 'loggedout',
+      pageName: 'model-details',
+      deviceype: 'desktop',
+      browserUsed: (typeof navigator !== 'undefined' && navigator?.userAgent) || '',
+      position: 'model-details-page'
+    };
+
+    gaEventTrigger('message-icon-click', {
+      action: 'message-icon-click',
+      category: 'Button',
+      label: 'message icon click',
+      value: JSON.stringify(customerInfo)
+    });
   };
 
   const handleStartChatClick = () => router.push(`/chat/${userName}`);
@@ -289,7 +311,11 @@ const EscortSlider = ({
           </StyleButtonShadowV2>
           <StyleButtonShadowV2
             loading={isLoading}
-            onClick={isCustomer ? handleStartChatClick : handleLoginOpen}
+            onClick={() => {
+              handleGAEventForChatIcon();
+              if (isCustomer) handleStartChatClick();
+              else handleLoginOpen();
+            }}
             sx={{
               padding: 0,
               width: '100%',
