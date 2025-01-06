@@ -47,7 +47,7 @@ const AuthContext = createContext<AuthContextProps>({
   session: null,
   isCustomer: false,
   user: '',
-  isFreeCreditAvailable: 1,
+  isFreeCreditAvailable: 0,
   status: '',
   roomID: '',
   handleFreeCreditClaim: () => {},
@@ -68,7 +68,7 @@ const AuthContext = createContext<AuthContextProps>({
 const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const { data, status } = useSession();
   const [session, setSession] = useState<Session | null>(null);
-  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(1);
+  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(0);
   const [isFreeCreditsClaimed, setIsFreeCreditsClaimed] = useState(false);
   const [isNameChange, setIsNameChange] = useState(false);
   const [addedCredits, setAddedCredits] = useState(0);

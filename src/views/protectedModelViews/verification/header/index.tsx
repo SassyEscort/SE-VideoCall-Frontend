@@ -49,7 +49,7 @@ const VerificationHeader = ({
           </Box>
           <ImageBox prefetch={false} shallow={true} href="/model">
             <Image
-              src="/images/christmas/christmas_logo.png"
+              src="/images/header/new-logo.png"
               alt="header_logo"
               width={182}
               height={36}
