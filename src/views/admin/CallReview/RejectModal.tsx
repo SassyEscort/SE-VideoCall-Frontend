@@ -81,7 +81,7 @@ const RejectModal = ({
           justifyContent: 'space-between'
         }}
       >
-        <Typography variant="subtitle">Review Model</Typography>
+        <Typography variant="subtitle">Rejected Model</Typography>
         <IconButton onClick={handleClose}>
           <Close />
         </IconButton>

@@ -1,5 +1,10 @@
 import axios, { AxiosError } from 'axios';
 
+export type CallReviewScreenshotData = {
+  id: number;
+  link: string;
+  created_at: string;
+};
 export type CallReviewDataResponse = {
   id: number;
   model_id: number;
@@ -15,6 +20,7 @@ export type CallReviewDataResponse = {
   status: string;
   call_id: number;
   review_id: number;
+  screenshots: CallReviewScreenshotData[];
 };
 
 export type PaginationAggregation = {

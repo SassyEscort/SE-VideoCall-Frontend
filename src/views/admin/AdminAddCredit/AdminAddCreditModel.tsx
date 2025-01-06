@@ -19,7 +19,7 @@ import { useAuthContext } from 'contexts/AuthContext';
 import { ErrorMessage } from 'constants/common.constants';
 import { toast } from 'react-toastify';
 import { adminAddCreditsServices, CreditAddParams } from 'services/adminAddCredits/adminAddCredit.services';
-import { FormControl, MenuItem, Select } from '@mui/material';
+import { FormControl, InputAdornment, MenuItem, Select } from '@mui/material';
 import { StyledSelectInputLabel } from 'components/UIComponents/UIStyledSelect';
 
 const AmountType = [
@@ -84,7 +84,7 @@ const AdminAddCreditModel = ({
           justifyContent: 'space-between'
         }}
       >
-        <Typography variant="subtitle">Admin Add Credit</Typography>
+        <Typography variant="subtitle">Add Credit To {user_type === 'model' ? 'Model' : 'Customer'}</Typography>
         <IconButton onClick={onClose}>
           <CloseIcon />
         </IconButton>
@@ -115,22 +115,31 @@ const AdminAddCreditModel = ({
                     }
                   }}
                 >
-                  <TextField
-                    name="name"
-                    label="User Name"
-                    value={values.name}
-                    InputProps={{
-                      readOnly: true
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      width: '100%',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      textAlign: 'center'
                     }}
-                  />
-                  <TextField
-                    name="type"
-                    label="User Type"
-                    value={values.type}
-                    InputProps={{
-                      readOnly: true
-                    }}
-                  />
+                  >
+                    <Box>
+                      <Typography variant="body">User Name</Typography>
+                      <Typography>{values.name}</Typography>
+                    </Box>
+                    <Box>
+                      <Typography variant="body">User Type</Typography>
+                      <Typography>{values.type}</Typography>
+                    </Box>
+                    <Box>
+                      <Typography variant="body">Wallet Amount</Typography>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        {user_type === 'model' ? '$' : <Box component="img" src="/images/header/coin.png" sx={{ width: 20, height: 20 }} />}
+                        <Typography>{user_credit}</Typography>
+                      </Box>
+                    </Box>
+                  </Box>
                   <FormControl fullWidth>
                     <StyledSelectInputLabel sx={{ backgroundColor: 'common.white' }}>Amount Type</StyledSelectInputLabel>
                     <Select
@@ -161,14 +170,16 @@ const AdminAddCreditModel = ({
                       helperText={touched.amount && errors.amount ? errors.amount : ''}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                    />
-                    <TextField
-                      fullWidth
-                      name="wallet_amount"
-                      label="Wallet Amount"
-                      value={user_credit}
                       InputProps={{
-                        readOnly: true
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            {user_type === 'model' ? (
+                              '$'
+                            ) : (
+                              <Box component="img" src="/images/header/coin.png" sx={{ width: 20, height: 20 }} />
+                            )}
+                          </InputAdornment>
+                        )
                       }}
                     />
                   </Box>
