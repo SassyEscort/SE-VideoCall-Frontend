@@ -34,9 +34,6 @@ import { ISocketMessage } from 'services/chatServices/chat.service';
 import { StyledSnackBar, StyledSnackBarInnerBox } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
 import CloseIcon from '@mui/icons-material/Close';
 import { usePathname, useRouter } from 'next/navigation';
-import { gaEventTrigger } from 'utils/analytics';
-import { CHATROOM } from 'constants/languageConstants';
-import { getCookie } from 'cookies-next';
 
 export type NotificationFilters = {
   page: number;
@@ -46,7 +43,7 @@ export type NotificationFilters = {
 
 const HeaderAuthComponent = () => {
   const { maximizeChat, initializeChat } = useTawk();
-  const { session, token, isFreeCreditsClaimed, openCreditDrawer, handleCreditDrawerClose } = useAuthContext();
+  const { session, token, isFreeCreditsClaimed, openCreditDrawer, handleCreditDrawerClose, handleGAEventsTrigger } = useAuthContext();
   const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
   const router = useRouter();
   const customerDetails = session?.user ? JSON.parse((session.user as any)?.picture) : '';
@@ -78,7 +75,6 @@ const HeaderAuthComponent = () => {
   const firstChar = customerDetails?.customer_name ? customerDetails.customer_name.charAt(0).toUpperCase() : '';
   const notificationCount = useRef(0);
   const unReadCount = notificationDetails?.data?.aggregate?.enabled && notificationDetails?.data?.aggregate?.enabled > 0;
-  const group = getCookie('ab-group');
 
   const handleCloseCreditSideDrawer = () => {
     setOpenCreditSideDrawer(false);
@@ -239,32 +235,7 @@ const HeaderAuthComponent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket, customerDetails.customer_user_name]);
 
-  const handleGAEventForChatIcon = () => {
-    let versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
-    let pageName = 'homepage';
-    if (CHATROOM.some((a) => pathname.includes(a.url))) {
-      const page = CHATROOM?.find((a) => pathname?.includes(a?.url));
-      pageName = page?.title || 'homepage';
-    } else if (pathname?.includes('/models')) {
-      pageName = 'model-details';
-    }
-    const customerInfo = {
-      version: (versionDetails?.experiment && `${versionDetails?.experiment}_${versionDetails?.variation}`) || '',
-      userid: String(customerDetails?.customer_id),
-      userStatus: 'loggedIn',
-      pageName: pageName,
-      deviceype: 'desktop',
-      browserUsed: (typeof navigator !== 'undefined' && navigator?.userAgent) || '',
-      position: 'top-bar'
-    };
-    gaEventTrigger('message-icon-click', {
-      action: 'message-icon-click',
-      category: 'Button',
-      label: 'message icon click',
-      value: JSON.stringify(customerInfo)
-    });
-  };
-
+  const handleGAEventForChatIcon = () => handleGAEventsTrigger('message-icon-click', 'top-bar');
   return (
     <>
       <HeaderMainBox>

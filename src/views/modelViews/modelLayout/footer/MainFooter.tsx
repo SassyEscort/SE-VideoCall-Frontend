@@ -24,8 +24,10 @@ import { useEffect, useState } from 'react';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
 import { gaEventTrigger } from 'utils/analytics';
+import { useAuthContext } from 'contexts/AuthContext';
 
 const MainFooter = () => {
+  const { handleGAEventsTrigger } = useAuthContext();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   // const url = new URL(window.location.href);
   // const email = url.searchParams.get('email');
@@ -97,7 +99,7 @@ const MainFooter = () => {
         <Box mt={'32px'}>
           <Box sx={{ display: 'flex', flexDirection: isSmDown ? 'column' : 'row', justifyContent: 'space-between', px: 1.5 }}>
             <ModelUITextConatinerText>
-              <Link prefetch={false} href="/">
+              <Link prefetch={false} href="/" onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'footer')}>
                 <Image
                   src="/images/header/new-logo.png"
                   width={220}

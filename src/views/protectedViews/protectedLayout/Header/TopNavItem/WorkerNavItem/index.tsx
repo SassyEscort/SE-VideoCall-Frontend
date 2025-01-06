@@ -13,8 +13,10 @@ import { SearchTitalBox, SearchTitalBoxSm } from './HeaderAuthComponent.styled';
 import { FormattedMessage } from 'react-intl';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
 import { CommonServices } from 'services/commonApi/commonApi.services';
+import { useAuthContext } from 'contexts/AuthContext';
 
 const WorkerNavItem = () => {
+  const { handleGAEventsTrigger } = useAuthContext();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [isApiCalled, setIsApiCalled] = useState(false);
@@ -77,6 +79,7 @@ const WorkerNavItem = () => {
             width={{ xs: '120px', md: '182px', sm: '182px' }}
             gap={1}
             display="flex"
+            onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'top-bar')}
           >
             <Image
               src="/images/header/new-logo.png"

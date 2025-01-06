@@ -42,7 +42,7 @@ const MainFooter = ({
   handleLoginClose: () => void;
   openLogin: boolean;
 }) => {
-  const { isCustomer, isModel } = useAuthContext();
+  const { isCustomer, isModel, handleGAEventsTrigger } = useAuthContext();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [open, setIsOpen] = useState(false);
@@ -100,7 +100,7 @@ const MainFooter = ({
                   gap: 1
                 }}
               >
-                <Link prefetch={false} href="/">
+                <Link prefetch={false} href="/" onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'footer')}>
                   <Image src="/images/header/new-logo.png" width={219.87} height={43.68} alt="footer_logo" loading="lazy" />
                 </Link>
                 <Box>

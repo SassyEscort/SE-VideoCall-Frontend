@@ -9,6 +9,7 @@ import theme from 'themes/theme';
 import { ImageBox, VerificationHeaderBox } from './Header.styled';
 import { FormattedMessage } from 'react-intl';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
+import { useAuthContext } from 'contexts/AuthContext';
 
 const VerificationHeader = ({
   activeStep,
@@ -21,6 +22,7 @@ const VerificationHeader = ({
   handlePrev: () => void;
   isLoading: boolean;
 }) => {
+  const { handleGAEventsTrigger } = useAuthContext();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
@@ -47,7 +49,7 @@ const VerificationHeader = ({
               </UINewTypography>
             </UIThemeButton>
           </Box>
-          <ImageBox prefetch={false} shallow={true} href="/model">
+          <ImageBox prefetch={false} shallow={true} href="/model" onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'top-bar')}>
             <Image
               src="/images/header/new-logo.png"
               alt="header_logo"
