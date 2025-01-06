@@ -27,8 +27,8 @@ import { gaEventTrigger } from 'utils/analytics';
 import StyleButtonV2 from 'components/UIComponents/StyleLoadingButton';
 import { ErrorBox, ModelUITextConatiner, UITypographyText, UIButtonText } from '../AuthCommon.styled';
 import GuestSignupSuccess from '../GuestSignupSuccess';
-import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
 import { useAuthContext } from 'contexts/AuthContext';
+import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
 
 export type SignupParams = {
   name: string;

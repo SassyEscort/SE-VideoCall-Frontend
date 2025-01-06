@@ -99,9 +99,9 @@ const MainFooter = () => {
             <ModelUITextConatinerText>
               <Link prefetch={false} href="/">
                 <Image
-                  src="/images/christmas/christmas_logo.png"
+                  src="/images/header/new-logo.png"
                   width={220}
-                  height={44}
+                  height={36}
                   alt="footer_logo"
                   style={{
                     width: 'auto'
