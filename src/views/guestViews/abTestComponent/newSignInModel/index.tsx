@@ -17,13 +17,25 @@ import * as yup from 'yup';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import {
+  ButtonMainBoxContainer,
+  FooterInnerBoxContainer,
+  HaveAnAccountAlreadyTextTypography,
+  HeadingDescriptionTextTypography,
+  HeadingInnerBoxContainer,
+  HeadingMainBoxContainer,
+  HeadingTextTypography,
+  ImageAndTextSpacingBox,
   InputFiledInnerBoxContainer,
+  InputFiledMainBoxContainer,
   InputTextFiledBoxContainer,
+  JoinNowButtonContainer,
+  JoinNowTextTypography,
+  NewSignUpModelMainBoxContainer,
+  ReferralTextTypography,
   RightSideInnerBoxContainer,
   RightSideMainBoxContainer,
   RightSideSubTitleText
 } from '../newSignUpModel/NewSignUp.styled';
-import Button from '@mui/material/Button';
 import { Raleway } from 'next/font/google';
 
 const ralewayFont = Raleway({ subsets: ['latin'], display: 'swap' });
@@ -97,37 +109,18 @@ const NewSignInModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                         <CloseIcon />
                       </IconButton>
                     </Box>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        width: '100%',
-                        minWidth: '600px',
-                        height: '100%',
-                        minHeight: '700px',
-                        backgroundImage: 'linear-gradient(to bottom, #07030E, #290F1E)',
-                        paddingTop: '60px',
-                        paddingRight: '80px',
-                        paddingLeft: '80px',
-                        paddingBottom: '32px'
-                      }}
-                    >
-                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
-                          <UINewTypography
-                            fontFamily={ralewayFont.style.fontFamily}
-                            sx={{ fontSize: '48px', fontWeight: 900, lineHeight: '60px', color: 'white.main' }}
-                          >
-                            Sign in
-                          </UINewTypography>
+                    <NewSignUpModelMainBoxContainer>
+                      <HeadingMainBoxContainer>
+                        <HeadingInnerBoxContainer>
+                          <HeadingTextTypography fontFamily={ralewayFont.style.fontFamily}>Sign in</HeadingTextTypography>
 
-                          <UINewTypography sx={{ fontSize: '24px', fontWeight: 400, lineHeight: '32px', color: 'white.main' }}>
+                          <HeadingDescriptionTextTypography>
                             Real Models, Real Pleasure, Live Now! Don’t Just Watch –{' '}
                             <span style={{ fontWeight: 800 }}>Connect, Flirt, and Enjoy!</span>
-                          </UINewTypography>
-                        </Box>
+                          </HeadingDescriptionTextTypography>
+                        </HeadingInnerBoxContainer>
 
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                        <InputFiledMainBoxContainer>
                           <InputFiledInnerBoxContainer>
                             <InputTextFiledBoxContainer>
                               <Box sx={{ display: 'flex', gap: 1.5 }}>
@@ -211,79 +204,62 @@ const NewSignInModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                             </MenuItem>
                           </InputFiledInnerBoxContainer>
 
-                          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
-                            <Button
-                              variant="contained"
-                              sx={{ borderRadius: '100px', width: '100%', maxWidth: '440px', height: '100%', minHeight: '48px' }}
-                            >
-                              Join Now
-                            </Button>
-                          </Box>
-                        </Box>
-                      </Box>
+                          <ButtonMainBoxContainer>
+                            <JoinNowButtonContainer>
+                              <JoinNowTextTypography>Join Now</JoinNowTextTypography>
+                            </JoinNowButtonContainer>
+                          </ButtonMainBoxContainer>
+                        </InputFiledMainBoxContainer>
+                      </HeadingMainBoxContainer>
 
                       <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '167px', gap: 0.5, alignItems: 'center' }}>
-                        <Box sx={{ display: 'flex', gap: 0.5 }}>
-                          <UINewTypography sx={{ fontSize: '14px', fontWeight: 400, lineHeight: '24px', color: '#FFFFFF99' }}>
-                            Have an account already?
-                          </UINewTypography>
-                          <UINewTypography
+                        <FooterInnerBoxContainer>
+                          <HaveAnAccountAlreadyTextTypography>Have an account already?</HaveAnAccountAlreadyTextTypography>
+                          <ReferralTextTypography
                             sx={{
-                              fontSize: '14px',
-                              fontWeight: 800,
-                              lineHeight: '24px',
-                              color: 'white.main',
-                              textDecoration: 'underline',
-                              cursor: 'pointer'
+                              color: 'white.main'
                             }}
                           >
                             Log in here
-                          </UINewTypography>
-                        </Box>
+                          </ReferralTextTypography>
+                        </FooterInnerBoxContainer>
 
-                        <Box sx={{ display: 'flex', gap: 0.5 }}>
-                          <UINewTypography sx={{ fontSize: '14px', fontWeight: 400, lineHeight: '24px', color: '#FFFFFF99' }}>
-                            Sign up as a model
-                          </UINewTypography>
-                          <UINewTypography
+                        <FooterInnerBoxContainer>
+                          <HaveAnAccountAlreadyTextTypography>Sign up as a model</HaveAnAccountAlreadyTextTypography>
+                          <ReferralTextTypography
                             sx={{
-                              fontSize: '14px',
-                              fontWeight: 800,
-                              lineHeight: '24px',
-                              color: 'primary.800',
-                              textDecoration: 'underline',
-                              cursor: 'pointer'
+                              color: 'primary.800'
                             }}
                           >
                             Here
-                          </UINewTypography>
-                        </Box>
+                          </ReferralTextTypography>
+                        </FooterInnerBoxContainer>
                       </Box>
-                    </Box>
+                    </NewSignUpModelMainBoxContainer>
 
                     <RightSideMainBoxContainer>
                       <RightSideInnerBoxContainer>
-                        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                        <ImageAndTextSpacingBox>
                           <Box component="img" src="/images/icons/ab-icon-2.svg" />
                           <RightSideSubTitleText>
                             <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>Talk to</span> <FormattedMessage id="1,000Models" />
                           </RightSideSubTitleText>
-                        </Box>
+                        </ImageAndTextSpacingBox>
 
-                        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                        <ImageAndTextSpacingBox>
                           <Box component="img" src="/images/icons/ab-icon-3.svg" />
                           <RightSideSubTitleText>
                             <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>Unleash yourself with</span>{' '}
                             <FormattedMessage id="Private1on1Chats" />
                           </RightSideSubTitleText>
-                        </Box>
+                        </ImageAndTextSpacingBox>
 
-                        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                        <ImageAndTextSpacingBox>
                           <Box component="img" src="/images/icons/ab-icon-4.svg" />
                           <RightSideSubTitleText>
                             <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>Dont worry its</span> <FormattedMessage id="SafeSecure" />
                           </RightSideSubTitleText>
-                        </Box>
+                        </ImageAndTextSpacingBox>
                       </RightSideInnerBoxContainer>
                     </RightSideMainBoxContainer>
                   </Box>

@@ -16,10 +16,23 @@ import theme from 'themes/theme';
 import * as yup from 'yup';
 import { PASSWORD_PATTERN } from 'constants/regexConstants';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
-import Button from '@mui/material/Button';
 import {
+  ButtonMainBoxContainer,
+  FooterInnerBoxContainer,
+  FooterMainBoxContainer,
+  HaveAnAccountAlreadyTextTypography,
+  HeadingDescriptionTextTypography,
+  HeadingInnerBoxContainer,
+  HeadingMainBoxContainer,
+  HeadingTextTypography,
+  ImageAndTextSpacingBox,
   InputFiledInnerBoxContainer,
+  InputFiledMainBoxContainer,
   InputTextFiledBoxContainer,
+  JoinNowButtonContainer,
+  JoinNowTextTypography,
+  NewSignUpModelMainBoxContainer,
+  ReferralTextTypography,
   RightSideInnerBoxContainer,
   RightSideMainBoxContainer,
   RightSideSubTitleText
@@ -96,37 +109,20 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                       <CloseIcon />
                     </IconButton>
                   </Box>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      width: '100%',
-                      minWidth: '600px',
-                      height: '100%',
-                      minHeight: '700px',
-                      backgroundImage: 'linear-gradient(to bottom, #07030E, #290F1E)',
-                      paddingTop: '60px',
-                      paddingRight: '80px',
-                      paddingLeft: '80px',
-                      paddingBottom: '32px'
-                    }}
-                  >
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
-                        <UINewTypography
-                          fontFamily={ralewayFont.style.fontFamily}
-                          sx={{ fontSize: '48px', fontWeight: 900, lineHeight: '60px', color: 'white.main' }}
-                        >
-                          Sign up and get <span style={{ color: '#79E028' }}>1 FREE</span> Video Call
-                        </UINewTypography>
+                  <NewSignUpModelMainBoxContainer>
+                    <HeadingMainBoxContainer>
+                      <HeadingInnerBoxContainer>
+                        <HeadingTextTypography fontFamily={ralewayFont.style.fontFamily}>
+                          Sign up and get <span style={{ color: '#79E028', whiteSpace: 'nowrap' }}>1 FREE</span> Video Call
+                        </HeadingTextTypography>
 
-                        <UINewTypography sx={{ fontSize: '24px', fontWeight: 400, lineHeight: '32px', color: 'white.main' }}>
+                        <HeadingDescriptionTextTypography>
                           Real Models, Real Pleasure, Live Now! Don’t Just Watch –{' '}
                           <span style={{ fontWeight: 800 }}>Connect, Flirt, and Enjoy!</span>
-                        </UINewTypography>
-                      </Box>
+                        </HeadingDescriptionTextTypography>
+                      </HeadingInnerBoxContainer>
 
-                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                      <InputFiledMainBoxContainer>
                         <InputFiledInnerBoxContainer>
                           <InputTextFiledBoxContainer>
                             <Box>
@@ -263,86 +259,62 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                           </MenuItem>
                         </InputFiledInnerBoxContainer>
 
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
-                          {/* <UINewTypography
-                            sx={{ fontSize: '14px', fontWeight: 800, lineHeight: '24px', color: 'white.main', textDecoration: 'underline' }}
-                          >
-                            Have a referral Code?
-                          </UINewTypography> */}
+                        <ButtonMainBoxContainer>
+                          <JoinNowButtonContainer>
+                            <JoinNowTextTypography>Join Now</JoinNowTextTypography>
+                          </JoinNowButtonContainer>
 
-                          <Button
-                            variant="contained"
-                            sx={{ borderRadius: '100px', width: '100%', maxWidth: '440px', height: '100%', minHeight: '48px' }}
-                          >
-                            Join Now
-                          </Button>
+                          <JoinNowButtonContainer>
+                            <JoinNowTextTypography>Join Now</JoinNowTextTypography>
+                          </JoinNowButtonContainer>
+                        </ButtonMainBoxContainer>
+                      </InputFiledMainBoxContainer>
+                    </HeadingMainBoxContainer>
 
-                          <Button
-                            variant="contained"
-                            sx={{ borderRadius: '100px', width: '100%', maxWidth: '440px', height: '100%', minHeight: '48px' }}
-                          >
-                            Join Now
-                          </Button>
-                        </Box>
-                      </Box>
-                    </Box>
+                    <FooterMainBoxContainer>
+                      <FooterInnerBoxContainer>
+                        <HaveAnAccountAlreadyTextTypography>Have an account already?</HaveAnAccountAlreadyTextTypography>
+                        <ReferralTextTypography sx={{ color: 'white.main' }}>Log in here</ReferralTextTypography>
+                      </FooterInnerBoxContainer>
 
-                    <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '70px', gap: 0.5, alignItems: 'center' }}>
-                      <Box sx={{ display: 'flex', gap: 0.5 }}>
-                        <UINewTypography sx={{ fontSize: '14px', fontWeight: 400, lineHeight: '24px', color: '#FFFFFF99' }}>
-                          Have an account already?
-                        </UINewTypography>
-                        <UINewTypography
-                          sx={{ fontSize: '14px', fontWeight: 800, lineHeight: '24px', color: 'white.main', textDecoration: 'underline' }}
-                        >
-                          Log in here
-                        </UINewTypography>
-                      </Box>
-
-                      <Box sx={{ display: 'flex', gap: 0.5 }}>
-                        <UINewTypography sx={{ fontSize: '14px', fontWeight: 400, lineHeight: '24px', color: '#FFFFFF99' }}>
-                          Sign up as a model
-                        </UINewTypography>
-                        <UINewTypography
-                          sx={{ fontSize: '14px', fontWeight: 800, lineHeight: '24px', color: 'primary.800', textDecoration: 'underline' }}
-                        >
-                          Here
-                        </UINewTypography>
-                      </Box>
-                    </Box>
-                  </Box>
+                      <FooterInnerBoxContainer>
+                        <HaveAnAccountAlreadyTextTypography>Sign up as a model</HaveAnAccountAlreadyTextTypography>
+                        <ReferralTextTypography sx={{ color: 'primary.800' }}>Here</ReferralTextTypography>
+                      </FooterInnerBoxContainer>
+                    </FooterMainBoxContainer>
+                  </NewSignUpModelMainBoxContainer>
 
                   <RightSideMainBoxContainer>
                     <RightSideInnerBoxContainer>
-                      <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                      <ImageAndTextSpacingBox>
                         <Box component="img" src="/images/icons/ab-icon-1.svg" />
                         <RightSideSubTitleText>
                           <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>On signup get</span>{' '}
                           <FormattedMessage id="1MinuteFreeCall"></FormattedMessage>
                         </RightSideSubTitleText>
-                      </Box>
+                      </ImageAndTextSpacingBox>
 
-                      <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                      <ImageAndTextSpacingBox>
                         <Box component="img" src="/images/icons/ab-icon-2.svg" />
                         <RightSideSubTitleText>
                           <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>Talk to</span> <FormattedMessage id="1,000Models" />
                         </RightSideSubTitleText>
-                      </Box>
+                      </ImageAndTextSpacingBox>
 
-                      <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                      <ImageAndTextSpacingBox>
                         <Box component="img" src="/images/icons/ab-icon-3.svg" />
                         <RightSideSubTitleText>
                           <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>Unleash yourself with</span>{' '}
                           <FormattedMessage id="Private1on1Chats" />
                         </RightSideSubTitleText>
-                      </Box>
+                      </ImageAndTextSpacingBox>
 
-                      <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                      <ImageAndTextSpacingBox>
                         <Box component="img" src="/images/icons/ab-icon-4.svg" />
                         <RightSideSubTitleText>
                           <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>Dont worry its</span> <FormattedMessage id="SafeSecure" />
                         </RightSideSubTitleText>
-                      </Box>
+                      </ImageAndTextSpacingBox>
                     </RightSideInnerBoxContainer>
                   </RightSideMainBoxContainer>
                 </Box>

@@ -1,77 +1,14 @@
 'use client';
-import Typography from '@mui/material/Typography';
+
 import LoadingButton from '@mui/lab/LoadingButton';
+import { Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/system/Box';
-
-export const LeftSideMainBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
-  minWidth: '760px',
-  height: '100%',
-  border: '1px solid #07030E80',
-  borderRadius: theme.spacing(3),
-  backgroundColor: 'rgba(7, 3, 14, 0.5)',
-  backdropFilter: 'blur(24px)',
-  paddingTop: theme.spacing(5),
-  paddingRight: theme.spacing(8),
-  paddingBottom: theme.spacing(5),
-  paddingLeft: theme.spacing(8)
-}));
-
-export const LeftSideInnerBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
-  height: '100%',
-  gap: theme.spacing(4),
-  alignItems: 'center'
-}));
-
-export const HeadingBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(6),
-  alignItems: 'center'
-}));
-
-export const HeadingInnerBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-  textAlign: 'center'
-}));
-
-export const EarnTaxtTypography = styled(Typography)(() => ({
-  fontSize: '48px',
-  fontWeight: 500,
-  lineHeight: '64px',
-  background: 'linear-gradient(90deg, #FFE38C, #CCA633)',
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent'
-}));
-
-export const JoiForFreeTextTypography = styled(Typography)(({ theme }) => ({
-  fontSize: '48px',
-  fontWeight: 600,
-  lineHeight: '64px',
-  color: theme.palette.primary[100]
-}));
-
-export const DescriptionTextTypography = styled(Typography)(() => ({
-  fontSize: '24px',
-  fontWeight: 400,
-  lineHeight: '32.78px',
-  color: 'white.main',
-  whiteSpace: 'normal',
-  overflowWrap: 'break-word'
-}));
 
 export const InputFiledMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(4)
+  gap: theme.spacing(3)
 }));
 
 export const InputFiledInnerBoxContainer = styled(Box)(({ theme }) => ({
@@ -84,34 +21,6 @@ export const InputTextFiledBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(1.5)
-}));
-
-export const FooterMainBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-  alignItems: 'center'
-}));
-
-export const JoinNowButtonContainer = styled(LoadingButton)(({ theme }) => ({
-  width: '632px',
-  height: '60px',
-  borderRadius: '12px',
-  backgroundColor: theme.palette.primary[100]
-}));
-
-export const LoginHereTextBoxContainer = styled(Box)(({ theme }) => ({
-  fontWeight: 800,
-  color: theme.palette.common.white,
-  textDecoration: 'underline',
-  cursor: 'pointer'
-}));
-
-export const LoginHereTextMainBoxContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(1),
-  textAlign: 'center'
 }));
 
 export const RightSideMainBoxContainer = styled(Box)(({ theme }) => ({
@@ -127,18 +36,10 @@ export const RightSideMainBoxContainer = styled(Box)(({ theme }) => ({
   minWidth: '600px'
 }));
 
-export const RightSideMainTitleText = styled(Typography)(() => ({
-  fontSize: '40px',
-  fontWeight: 800,
-  lineHeight: '64px',
-  whiteSpace: 'nowrap',
-  color: '#FFFFFFCC'
-}));
-
 export const RightSideInnerBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(3),
+  gap: theme.spacing(2),
   paddingLeft: theme.spacing(10),
   paddingTop: theme.spacing(48)
 }));
@@ -148,5 +49,103 @@ export const RightSideSubTitleText = styled(Box)(({ theme }) => ({
   fontWeight: 800,
   lineHeight: '24px',
   whiteSpace: 'nowrap',
+  color: theme.palette.common.white
+}));
+
+export const NewSignUpModelMainBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  minWidth: '600px',
+  height: '100%',
+  minHeight: '700px',
+  backgroundImage: 'linear-gradient(to bottom, #07030E, #290F1E)',
+  paddingTop: theme.spacing(7.5),
+  paddingRight: theme.spacing(10),
+  paddingLeft: theme.spacing(10),
+  paddingBottom: theme.spacing(4)
+}));
+
+export const HeadingMainBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(5)
+}));
+
+export const HeadingInnerBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(1),
+  textAlign: 'center'
+}));
+
+export const HeadingTextTypography = styled(Typography)(({ theme }) => ({
+  fontSize: '48px',
+  fontWeight: 900,
+  lineHeight: '60px',
+  color: theme.palette.common.white
+}));
+
+export const HeadingDescriptionTextTypography = styled(Typography)(({ theme }) => ({
+  fontSize: '22px',
+  fontWeight: 400,
+  lineHeight: '32px',
+  color: theme.palette.common.white
+}));
+
+export const ButtonMainBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2),
+  alignItems: 'center'
+}));
+
+export const ReferralTextTypography = styled(Typography)(({ theme }) => ({
+  fontSize: '14px',
+  fontWeight: 800,
+  lineHeight: '24px',
+  textDecoration: 'underline',
+  cursor: 'pointer'
+}));
+
+export const FooterMainBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  marginTop: theme.spacing(8.75),
+  gap: theme.spacing(0.5),
+  alignItems: 'center'
+}));
+
+export const FooterInnerBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(0.5)
+}));
+
+export const HaveAnAccountAlreadyTextTypography = styled(Typography)(() => ({
+  fontSize: '14px',
+  fontWeight: 400,
+  lineHeight: '24px',
+  color: '#FFFFFF99'
+}));
+
+export const ImageAndTextSpacingBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(2),
+  alignItems: 'center'
+}));
+
+export const JoinNowButtonContainer = styled(LoadingButton)(({ theme }) => ({
+  borderRadius: '100px',
+  width: '100%',
+  maxWidth: '440px',
+  height: '100%',
+  minHeight: '48px',
+  backgroundColor: theme.palette.primary[100]
+}));
+
+export const JoinNowTextTypography = styled(Typography)(({ theme }) => ({
+  fontSize: '16px',
+  fontWeight: 800,
+  lineHeight: '24px',
   color: theme.palette.common.white
 }));
