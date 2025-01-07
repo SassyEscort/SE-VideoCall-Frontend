@@ -19,6 +19,7 @@ import getCustomErrorMessage from 'utils/error.utils';
 import { AdminLoginParams } from 'services/adminAuth/types';
 import { LoginPageFirstTextBox } from './LoginPage.styled';
 import Box from '@mui/material/Box';
+import { gaEventTrigger } from 'utils/analytics';
 
 export default function LoginForm() {
   const route = useRouter();
@@ -74,7 +75,16 @@ export default function LoginForm() {
                 error={Boolean(touched.email && errors.email)}
                 helperText={touched.email && errors.email ? errors.email : ''}
                 onChange={handleChange}
-                onBlur={handleBlur}
+                onBlur={(e) => {
+                  handleBlur(e);
+                  if (values.email) {
+                    gaEventTrigger('email-added', {
+                      source: 'email added',
+                      category: 'TextField',
+                      label: 'email added'
+                    });
+                  }
+                }}
               />
 
               <LoginPageFirstTextBox
@@ -94,7 +104,16 @@ export default function LoginForm() {
                 error={Boolean(touched.password && errors.password)}
                 helperText={touched.password && errors.password ? errors.password : ''}
                 onChange={handleChange}
-                onBlur={handleBlur}
+                onBlur={(e) => {
+                  handleBlur(e);
+                  if (values.password) {
+                    gaEventTrigger('password-added', {
+                      source: 'password added',
+                      category: 'TextField',
+                      label: 'password added'
+                    });
+                  }
+                }}
               />
             </Stack>
 
@@ -123,6 +142,13 @@ export default function LoginForm() {
             cursor: 'pointer',
             textDecoration: 'none',
             color: '#2f2e2e'
+          }}
+          onClick={() => {
+            gaEventTrigger('forgot-password-click', {
+              source: 'forgot password click',
+              category: 'Link',
+              label: 'forgot password click'
+            });
           }}
         >
           Forgot my password

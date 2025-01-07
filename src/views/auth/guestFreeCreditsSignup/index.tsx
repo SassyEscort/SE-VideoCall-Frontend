@@ -252,7 +252,16 @@ const GuestFreeCreditsSignup = ({
                           name="email"
                           value={values.email}
                           onChange={handleChange}
-                          onBlur={handleBlur}
+                          onBlur={(e) => {
+                            handleBlur(e);
+                            if (values.email) {
+                              gaEventTrigger('email-added', {
+                                source: 'email added',
+                                category: 'TextField',
+                                label: 'email added'
+                              });
+                            }
+                          }}
                           error={touched.email && Boolean(errors.email)}
                           helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
                           sx={{
@@ -276,7 +285,16 @@ const GuestFreeCreditsSignup = ({
                             name="password"
                             value={values.password}
                             onChange={handleChange}
-                            onBlur={handleBlur}
+                            onBlur={(e) => {
+                              handleBlur(e);
+                              if (values.password) {
+                                gaEventTrigger('password-added', {
+                                  source: 'password added',
+                                  category: 'TextField',
+                                  label: 'password added'
+                                });
+                              }
+                            }}
                             error={touched.password && Boolean(errors.password)}
                             helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
                             sx={{
@@ -328,7 +346,14 @@ const GuestFreeCreditsSignup = ({
                             whiteSpace="nowrap"
                             variant="body"
                             sx={{ color: 'text.secondary', cursor: 'pointer' }}
-                            onClick={onLoginOpen}
+                            onClick={() => {
+                              onLoginOpen();
+                              gaEventTrigger('login-instead-click', {
+                                source: 'login instead click',
+                                category: 'TextField',
+                                label: 'login instead click'
+                              });
+                            }}
                           >
                             <FormattedMessage id="LogInInstead" />
                           </UINewTypography>

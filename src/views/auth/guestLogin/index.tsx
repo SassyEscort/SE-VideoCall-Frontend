@@ -28,6 +28,7 @@ import { MODEL_ACTION } from 'constants/profileConstants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
 import { gaEventTrigger } from 'utils/analytics';
+import { useAuthContext } from 'contexts/AuthContext';
 
 const StyleButtonV2 = dynamic(() => import('components/UIComponents/StyleLoadingButton'), { ssr: false });
 const ErrorBox = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })), { ssr: false });
@@ -67,6 +68,7 @@ const GuestLogin = ({
 }) => {
   const intl = useIntl();
 
+  const { handleGAEventsTrigger } = useAuthContext();
   const route = useRouter();
   const { data: session } = useSession();
   const { refresh, push } = route;
@@ -90,6 +92,7 @@ const GuestLogin = ({
         password: values.password,
         role: values.role
       });
+      handleGAEventsTrigger('login-cta-click');
       if (res?.status === 200) {
         refresh();
         onClose();
@@ -201,7 +204,7 @@ const GuestLogin = ({
                         onBlur={(e) => {
                           handleBlur(e);
                           if (values.email) {
-                            gaEventTrigger('email/username-added', { category: 'TextBox', label: 'Email or Username added' });
+                            gaEventTrigger('email/username-added', { category: 'TextField', label: 'Email or Username added' });
                           }
                         }}
                         error={touched.email && Boolean(errors.email)}
@@ -230,7 +233,7 @@ const GuestLogin = ({
                           onBlur={(e) => {
                             handleBlur(e);
                             if (values.password) {
-                              gaEventTrigger('password-added', { category: 'TextBox', label: 'Password added' });
+                              gaEventTrigger('password-added', { category: 'TextField', label: 'Password added' });
                             }
                           }}
                           error={touched.password && Boolean(errors.password)}
@@ -307,7 +310,15 @@ const GuestLogin = ({
                         <UINewTypography
                           variant="body"
                           sx={{ color: 'text.secondary', cursor: 'pointer' }}
-                          onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : onSignupOpen}
+                          onClick={() => {
+                            gaEventTrigger('join-free-click', { category: 'Link', label: 'Join now free click' });
+
+                            if (isFreeCreditAvailable) {
+                              handleFreeCreditSignupOpen();
+                            } else {
+                              onSignupOpen();
+                            }
+                          }}
                         >
                           <FormattedMessage id="JoinForFreeNow" />
                         </UINewTypography>

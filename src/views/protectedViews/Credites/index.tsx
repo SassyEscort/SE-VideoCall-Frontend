@@ -47,7 +47,7 @@ export type CustomerInfo = {
 };
 
 const Credits = () => {
-  const { isFreeCreditAvailable, token } = useAuthContext();
+  const { isFreeCreditAvailable, token, handleSetBalance } = useAuthContext();
 
   const [open, setOpen] = useState(false);
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
@@ -77,6 +77,7 @@ const Credits = () => {
     if (token.token) {
       const getModel = await ModelDetailsService.getModelWithDraw(token.token);
       setBalance(getModel?.data?.credits);
+      handleSetBalance(getModel?.data?.credits);
     }
   }, [token.token]);
 
@@ -108,6 +109,7 @@ const Credits = () => {
   };
   useEffect(() => {
     setBalance(Number(totalBal));
+    handleSetBalance(Number(totalBal));
     setAddedCredits(Number(credit));
     getCustomerCredit();
     if (credit) {

@@ -30,6 +30,7 @@ import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { TokenIdType } from 'views/protectedModelViews/verification';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type ModelObj = {
   modelId: number;
@@ -102,6 +103,12 @@ const VideoCallEnded = ({
         };
         const data = await RatingAndReviewService.callRating(params, token.token);
         if (data.code === 200) {
+          gaEventTrigger('ratings-submitted', {
+            action: 'ratings-submitted',
+            category: 'Button',
+            label: 'Rating submitted',
+            value: JSON.stringify({ rating: rating })
+          });
           setIsRatingSubmitted(true);
         } else {
           onClose();

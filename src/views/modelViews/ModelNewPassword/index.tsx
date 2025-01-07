@@ -31,6 +31,7 @@ import { ErrorMessage } from 'constants/common.constants';
 import { FormattedMessage } from 'react-intl';
 import { FourBoxContainer, SixBoxContainer } from 'views/auth/guestNewPassword/GuestNewPassword.styled';
 import { useSearchParams } from 'next/navigation';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type ResetPasswordParams = {
   email: string;
@@ -207,7 +208,14 @@ const ModelNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                         whiteSpace="nowrap"
                         variant="body"
                         sx={{ color: 'text.secondary', cursor: 'pointer' }}
-                        onClick={onLoginOpen}
+                        onClick={() => {
+                          onLoginOpen();
+                          gaEventTrigger('login-instead-click', {
+                            source: 'login instead click',
+                            category: 'TextField',
+                            label: 'login instead click'
+                          });
+                        }}
                       >
                         <FormattedMessage id="LogInInstead" />
                       </UINewTypography>

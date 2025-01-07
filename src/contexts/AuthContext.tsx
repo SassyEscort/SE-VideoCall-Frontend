@@ -47,6 +47,8 @@ export type AuthContextProps = {
   token: TokenIdType;
   adminUserPermissions: AdminUserPermissions[] | undefined;
   fetchPageName: () => void;
+  handleSetBalance: (val: number) => void;
+  balance: number;
 };
 
 const AuthContext = createContext<AuthContextProps>({
@@ -70,7 +72,9 @@ const AuthContext = createContext<AuthContextProps>({
   isAdmin: false,
   adminUserPermissions: [{} as AdminUserPermissions],
   funnelHitId: '',
-  fetchPageName: () => {}
+  fetchPageName: () => {},
+  handleSetBalance: () => {},
+  balance: 0
 });
 
 const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
@@ -108,6 +112,7 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const handleOpen = () => setOpenCreditDrawer(true);
+  const handleSetBalance = (val: number) => setBalance(val);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -216,8 +221,10 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
       pageName = page?.title || 'homepage';
     } else if (pathname?.includes('/models')) {
       pageName = 'model-details';
+    } else {
+      pageName = pathname;
     }
-    return pageName;
+    return pageName.startsWith('/') ? pageName.slice(1).replace(/\//g, '-') : pageName.replace(/\//g, '-');
   };
 
   const handleGAEventsTrigger = (eventName: string, position?: string, is_open?: boolean, language?: string) => {
@@ -247,6 +254,10 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
       customerInfo['language-selected'] = language;
       customerInfo['language-closed'] = is_open ? 'yes' : 'no';
     }
+    if (eventName === 'sign-up-button-click') {
+      customerInfo['free-credits-available'] = isFreeCreditAvailable ? 'yes' : 'no';
+      customerInfo['language-closed'] = is_open ? 'yes' : 'no';
+    }
 
     gaEventTrigger(eventName, {
       action: eventName,
@@ -274,12 +285,14 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         handleCreditDrawerClose,
         handleCreateNewRoomID,
         handleGAEventsTrigger,
+        handleSetBalance,
         token: tokenDetails,
         isAdmin,
         adminUserPermissions,
         roomID,
         funnelHitId,
-        fetchPageName
+        fetchPageName,
+        balance
       }}
     >
       {children}

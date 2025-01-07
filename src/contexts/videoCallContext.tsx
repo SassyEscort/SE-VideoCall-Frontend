@@ -5,6 +5,8 @@ import { createContext, useContext, useRef, useState } from 'react';
 import { User } from 'app/(guest)/layout';
 import { usePathname, useRouter } from 'next/navigation';
 import { randomID } from 'utils/videoCall';
+import { useAuthContext } from './AuthContext';
+import { gaEventTrigger } from 'utils/analytics';
 
 interface ICustomerInfo {
   id: string;
@@ -197,6 +199,7 @@ const VideoCallContext = createContext<VideoCallContextProps>({
 
 export const VideoCallProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const tokenCometChat = useSession();
+  const { balance } = useAuthContext();
   const user = (tokenCometChat?.data?.user as User)?.picture;
   const providerData = JSON.parse(user || '{}');
   const { refresh } = useRouter();
@@ -208,7 +211,8 @@ export const VideoCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     email: providerData?.customer_email,
     name: providerData?.customer_name,
     username: providerData?.customer_user_name,
-    model_username: userName
+    model_username: userName,
+    user_current_balance: balance
   };
 
   const callDurationRef = useRef<{
@@ -367,6 +371,11 @@ export const VideoCallProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const handleSetCallEnd = (val = false) => setIsCallEnded(val);
 
   const handleReviewClose = (isPreventReload?: boolean) => {
+    gaEventTrigger('rating-pop-up-close', {
+      action: 'rating-pop-up-close',
+      category: 'Dialouge',
+      label: 'Rating popup Close'
+    });
     handleSetReviewOpen(false);
     if (!isPreventReload) refresh();
   };

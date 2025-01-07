@@ -44,7 +44,8 @@ export type NotificationFilters = {
 
 const HeaderAuthComponent = () => {
   const { maximizeChat, initializeChat } = useTawk();
-  const { session, token, isFreeCreditsClaimed, openCreditDrawer, handleCreditDrawerClose, handleGAEventsTrigger } = useAuthContext();
+  const { session, token, isFreeCreditsClaimed, openCreditDrawer, handleCreditDrawerClose, handleGAEventsTrigger, handleSetBalance } =
+    useAuthContext();
   const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
   const router = useRouter();
   const customerDetails = session?.user ? JSON.parse((session.user as any)?.picture) : '';
@@ -191,8 +192,10 @@ const HeaderAuthComponent = () => {
         const getModel = await ModelDetailsService.getModelWithDraw(token.token);
         if (getModel?.data?.credits === null) {
           setBalance(0);
+          handleSetBalance(0);
         } else {
           setBalance(getModel?.data?.credits);
+          handleSetBalance(getModel?.data?.credits || 0);
         }
       }
     };
@@ -275,7 +278,20 @@ const HeaderAuthComponent = () => {
         )}
 
         {isMdUp && (
-          <BorderBox alignItems="center" gap={1} display="flex" onClick={() => setOpenCreditSideDrawer(true)}>
+          <BorderBox
+            alignItems="center"
+            gap={1}
+            display="flex"
+            onClick={() => {
+              gaEventTrigger('wallet-icon-click', {
+                source: 'header',
+                label: 'Wallet icon click',
+                category: 'Wallet icon click',
+                value: JSON.stringify({ 'credits-balance-available': balance?.toFixed(2) || 0 })
+              });
+              setOpenCreditSideDrawer(true);
+            }}
+          >
             <Box component="img" src="/images/header/coin.png" alt="coin_icon" />
             <BalanceBox>
               <UINewTypography variant="buttonLargeMenu" color="text.secondary">

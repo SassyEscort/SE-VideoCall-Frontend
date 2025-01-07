@@ -62,7 +62,7 @@ const HomeImageCard = ({
   const [likedModels, setLikedModels] = useState<number[]>([]);
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
   const [creditModelOpen, setCreditModelOpen] = useState(false);
-  const { fetchPageName, user } = useAuthContext();
+  const { fetchPageName, user, handleSetBalance } = useAuthContext();
   const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
   const providerData = JSON.parse(user || '{}');
 
@@ -110,12 +110,14 @@ const HomeImageCard = ({
     if (token?.token) {
       const getModel = await ModelDetailsService.getModelWithDraw(token.token);
       setBalance(getModel?.data?.credits);
+      handleSetBalance(getModel?.data?.credits);
     }
   }, [token?.token]);
 
   useEffect(() => {
     if (isCallEnded && avaialbleCredits !== undefined) {
       setBalance(avaialbleCredits);
+      handleSetBalance(avaialbleCredits);
     }
   }, [avaialbleCredits, isCallEnded]);
 
@@ -238,7 +240,21 @@ const HomeImageCard = ({
               ))
             : modelListing?.map((item, index) => {
                 return (
-                  <Grid item key={index} xs={6} sm={4} md={isFavPage ? 4 : 3} lg={isFavPage ? 4 : 3}>
+                  <Grid
+                    item
+                    key={index}
+                    xs={6}
+                    sm={4}
+                    md={isFavPage ? 4 : 3}
+                    lg={isFavPage ? 4 : 3}
+                    onClick={() => {
+                      gaEventTrigger('model-profile-click', {
+                        source: 'Model profile click',
+                        label: 'Model card click',
+                        category: 'Button'
+                      });
+                    }}
+                  >
                     <Box display="flex" gap={2} flexDirection="column">
                       {favModelId === item.id ? (
                         item.name === 'Christmas Offer' ? (
@@ -316,7 +332,6 @@ const HomeImageCard = ({
                 );
               })}
         </Grid>
-
         {typeof totalRows !== 'undefined' && filters && Number(totalRows) > 0 && (
           <ButtonMainBox>
             <PaginationMainBox>

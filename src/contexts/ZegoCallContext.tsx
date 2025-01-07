@@ -548,6 +548,11 @@ export const CallFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         await getChatInformation();
         handleSetAvailableCredits(creditLogData.available_credits);
         handleSetReviewOpen(true);
+        gaEventTrigger('rating-pop-up-view', {
+          action: 'rating-pop-up-view',
+          category: 'Dialouge',
+          label: 'Rating popup view'
+        });
         if (isCustomer && creditLogData.out_of_credits) {
           const creditInfoEvent = {
             email: providerData?.customer_email,

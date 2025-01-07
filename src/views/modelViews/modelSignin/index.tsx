@@ -172,7 +172,16 @@ const ModelSignin = ({
                       name="email"
                       value={values.email}
                       onChange={handleChange}
-                      onBlur={handleBlur}
+                      onBlur={(e) => {
+                        handleBlur(e);
+                        if (values.email) {
+                          gaEventTrigger('email-added', {
+                            source: 'email added',
+                            category: 'TextField',
+                            label: 'email added'
+                          });
+                        }
+                      }}
                       error={touched.email && Boolean(errors.email)}
                       helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
                       sx={{
@@ -197,7 +206,16 @@ const ModelSignin = ({
                         name="password"
                         value={values.password}
                         onChange={handleChange}
-                        onBlur={handleBlur}
+                        onBlur={(e) => {
+                          handleBlur(e);
+                          if (values.password) {
+                            gaEventTrigger('password-added', {
+                              source: 'password added',
+                              category: 'TextField',
+                              label: 'password added'
+                            });
+                          }
+                        }}
                         error={touched.password && Boolean(errors.password)}
                         helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
                         sx={{
@@ -269,7 +287,14 @@ const ModelSignin = ({
                         <FormattedMessage id="DontHaveAccount" />
                       </UINewTypography>
 
-                      <UINewTypography variant="body" sx={{ color: 'text.secondary', cursor: 'pointer' }} onClick={onSignupOpen}>
+                      <UINewTypography
+                        variant="body"
+                        sx={{ color: 'text.secondary', cursor: 'pointer' }}
+                        onClick={() => {
+                          gaEventTrigger('join-free-click', { category: 'Link', label: 'Join now free click' });
+                          onSignupOpen();
+                        }}
+                      >
                         <FormattedMessage id="JoinForFreeNow" />
                       </UINewTypography>
                     </Box>

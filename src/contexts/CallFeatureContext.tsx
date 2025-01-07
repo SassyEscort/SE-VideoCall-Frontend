@@ -152,13 +152,6 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const path = usePathname();
   const userName = path.split('/')[2];
 
-  const customerInfo = {
-    email: providerData?.customer_email,
-    name: providerData?.customer_name,
-    username: providerData?.customer_user_name,
-    model_username: userName
-  };
-
   const [call, setCall] = useState<CometChat.Call | undefined>(undefined);
   const [modelId, setModelId] = useState(0);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -192,7 +185,15 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [isAutodisconnected, setIsAutodisconnected] = useState(false);
   const [isModelEndedCall, setIsisModelEndedCall] = useState(false);
 
-  const { handleOpen, funnelHitId } = useAuthContext();
+  const { handleOpen, funnelHitId, balance } = useAuthContext();
+
+  const customerInfo = {
+    email: providerData?.customer_email,
+    name: providerData?.customer_name,
+    username: providerData?.customer_user_name,
+    model_username: userName,
+    user_current_balance: balance
+  };
 
   const modelObj = {
     modelId: modelId,
@@ -407,6 +408,11 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
 
   const handleReviewClose = (isPreventReload?: boolean) => {
     setReviewOpen(false);
+    gaEventTrigger('rating-pop-up-close', {
+      action: 'rating-pop-up-close',
+      category: 'Dialouge',
+      label: 'Rating popup Close'
+    });
     if (!isPreventReload) refresh();
   };
 
@@ -444,6 +450,11 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         await getCometChatInfo();
         setAvailableCredits(creditLogData.available_credits);
         setReviewOpen(true);
+        gaEventTrigger('rating-pop-up-view', {
+          action: 'rating-pop-up-view',
+          category: 'Dialouge',
+          label: 'Rating popup view'
+        });
         if (isCustomer && creditLogData.out_of_credits) {
           const creditInfoEvent = {
             email: providerData?.customer_email,

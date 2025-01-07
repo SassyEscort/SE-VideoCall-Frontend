@@ -31,6 +31,7 @@ import { EMAIL_REGEX } from 'constants/regexConstants';
 import { getErrorMessage } from 'utils/errorUtils';
 import { ErrorBox } from 'views/auth/AuthCommon.styled';
 import InfoIcon from '@mui/icons-material/Info';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type ForgetPasswordParams = {
   email: string;
@@ -121,7 +122,16 @@ const ModelForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                           name="email"
                           value={values.email}
                           onChange={handleChange}
-                          onBlur={handleBlur}
+                          onBlur={(e) => {
+                            handleBlur(e);
+                            if (values.email) {
+                              gaEventTrigger('email-added', {
+                                source: 'email added',
+                                category: 'TextField',
+                                label: 'email added'
+                              });
+                            }
+                          }}
                           error={touched.email && Boolean(errors.email)}
                           helperText={touched.email && errors.email}
                           sx={{
@@ -156,7 +166,14 @@ const ModelForgetPasswordLink = ({ onClose, onLoginOpen }: { onClose: () => void
                       whiteSpace="nowrap"
                       variant="body"
                       sx={{ color: 'text.secondary', cursor: 'pointer' }}
-                      onClick={onLoginOpen}
+                      onClick={() => {
+                        onLoginOpen();
+                        gaEventTrigger('login-instead-click', {
+                          source: 'login instead click',
+                          category: 'TextField',
+                          label: 'login instead click'
+                        });
+                      }}
                     >
                       <FormattedMessage id="LogInInstead" />
                     </UINewTypography>
