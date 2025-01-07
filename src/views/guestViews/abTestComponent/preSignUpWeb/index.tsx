@@ -9,7 +9,7 @@ import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
-import { Button, Container, useMediaQuery } from '@mui/material';
+import { Container, useMediaQuery } from '@mui/material';
 import {
   ButtonBoxContainer,
   ButtonTextTypography,
