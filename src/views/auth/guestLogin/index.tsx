@@ -27,6 +27,7 @@ import { ROLE } from 'constants/workerVerification';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
+import { gaEventTrigger } from 'utils/analytics';
 
 const StyleButtonV2 = dynamic(() => import('components/UIComponents/StyleLoadingButton'), { ssr: false });
 const ErrorBox = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })), { ssr: false });
@@ -197,7 +198,12 @@ const GuestLogin = ({
                         name="email"
                         value={values.email}
                         onChange={handleChange}
-                        onBlur={handleBlur}
+                        onBlur={(e) => {
+                          handleBlur(e);
+                          if (values.email) {
+                            gaEventTrigger('email/username-added', { category: 'TextBox', label: 'Email or Username added' });
+                          }
+                        }}
                         error={touched.email && Boolean(errors.email)}
                         helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
                         sx={{
@@ -221,7 +227,12 @@ const GuestLogin = ({
                           name="password"
                           value={values.password}
                           onChange={handleChange}
-                          onBlur={handleBlur}
+                          onBlur={(e) => {
+                            handleBlur(e);
+                            if (values.password) {
+                              gaEventTrigger('password-added', { category: 'TextBox', label: 'Password added' });
+                            }
+                          }}
                           error={touched.password && Boolean(errors.password)}
                           helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
                           sx={{
@@ -247,7 +258,11 @@ const GuestLogin = ({
                           gap: { xs: 1, sm: 0 }
                         }}
                       >
-                        <Box>
+                        <Box
+                          onClick={() => {
+                            gaEventTrigger('remember-click', { category: 'Check Box', label: 'Remember me click' });
+                          }}
+                        >
                           <Checkbox sx={{ p: 0, pr: 1 }} />
                           <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}>
                             <FormattedMessage id="RememberMe" />
@@ -257,7 +272,10 @@ const GuestLogin = ({
                           variant="buttonLargeMenu"
                           color="primary.400"
                           sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}
-                          onClick={onFogotPasswordLinkOpen}
+                          onClick={() => {
+                            gaEventTrigger('forgot-password-click', { category: 'Button', label: 'Forgot password click' });
+                            onFogotPasswordLinkOpen();
+                          }}
                         >
                           <FormattedMessage id="ForgotPassword" />
                         </UINewTypography>

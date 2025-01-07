@@ -42,7 +42,7 @@ export type AuthContextProps = {
   handleCreateNewRoomID: () => void;
   handleOpen: () => void;
   handleCreditDrawerClose: () => void;
-  handleGAEventsTrigger: (eventName: string, position?: string) => void;
+  handleGAEventsTrigger: (eventName: string, position?: string, is_open?: boolean, language?: string) => void;
   openCreditDrawer: boolean;
   token: TokenIdType;
   adminUserPermissions: AdminUserPermissions[] | undefined;
@@ -220,7 +220,7 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     return pageName;
   };
 
-  const handleGAEventsTrigger = (eventName: string, position?: string) => {
+  const handleGAEventsTrigger = (eventName: string, position?: string, is_open?: boolean, language?: string) => {
     const group = getCookie('ab-group');
     let versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
 
@@ -242,22 +242,18 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     if (versionDetails?.experiment) customerInfo['version'] = `${versionDetails?.experiment}_${versionDetails?.variation}`;
     if (providerData?.customer_id) customerInfo['userid'] = String(providerData?.customer_id);
     if (isSmDown) customerInfo['deviceype'] = 'mobile';
-
-    if (eventName === 'flirtbate-icon-click') {
-      gaEventTrigger('flirtbate-icon-click', {
-        action: 'message-icon-click',
-        category: 'Button',
-        label: 'flirtbate icon click',
-        value: JSON.stringify(customerInfo)
-      });
-    } else if (eventName === 'message-icon-click') {
-      gaEventTrigger('message-icon-click', {
-        action: 'message-icon-click',
-        category: 'Button',
-        label: 'message icon click',
-        value: JSON.stringify(customerInfo)
-      });
+    if (eventName === 'search-bar-click') customerInfo['search-bar-closed'] = is_open ? 'yes' : 'no';
+    if (eventName === 'language-click') {
+      customerInfo['language-selected'] = language;
+      customerInfo['language-closed'] = is_open ? 'yes' : 'no';
     }
+
+    gaEventTrigger(eventName, {
+      action: eventName,
+      category: 'Button',
+      label: eventName?.replace('-', ' '),
+      value: JSON.stringify(customerInfo)
+    });
   };
 
   return (

@@ -363,7 +363,12 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           </Box>
                         </ModelUITextConatiner>
 
-                        <MenuItem sx={{ p: 0, gap: { xs: '0', sm: '1' } }}>
+                        <MenuItem
+                          sx={{ p: 0, gap: { xs: '0', sm: '1' } }}
+                          onClick={() => {
+                            gaEventTrigger('remember-click', { category: 'Check Box', label: 'Remember me click' });
+                          }}
+                        >
                           <Checkbox sx={{ p: 0, pr: 1 }} />
                           <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
                             <FormattedMessage id="RememberMe" />

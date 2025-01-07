@@ -24,10 +24,12 @@ const WorkerNavItem = () => {
   const isSmDown = useMediaQuery('(max-width: 320px)');
 
   const handleCloseFilterModal = () => {
+    handleGAEventsTrigger('search-bar-click', '', false);
     setOpenFilterModal(false);
   };
 
   const handleOpenFilterModal = () => {
+    handleGAEventsTrigger('search-bar-click', '', true);
     setOpenFilterModal(true);
     if (!isApiCalled) {
       setIsApiCalled(true);

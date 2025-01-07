@@ -32,7 +32,7 @@ const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup')
 const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
 
 const HeaderCloneGuestComponent = () => {
-  const { isFreeCreditAvailable } = useAuthContext();
+  const { isFreeCreditAvailable, handleGAEventsTrigger } = useAuthContext();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
@@ -103,10 +103,12 @@ const HeaderCloneGuestComponent = () => {
   };
 
   const handleOpenFilterModal = () => {
+    handleGAEventsTrigger('search-bar-click', '', true);
     setOpenFilterModal(true);
   };
 
   const handleCloseFilterModal = () => {
+    handleGAEventsTrigger('search-bar-click', '', false);
     setOpenFilterModal(false);
   };
 
@@ -169,11 +171,12 @@ const HeaderCloneGuestComponent = () => {
             height="100%"
             width={{ xs: '120px', md: '182px', sm: '182px' }}
             display={'flex'}
+            onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'top-bar')}
           >
             <Image
-              src="/images/christmas/christmas_logo.png"
+              src="/images/header/new-logo.png"
               width={182}
-              height={40}
+              height={36}
               alt="sassy_logo"
               style={{
                 maxWidth: '100%',

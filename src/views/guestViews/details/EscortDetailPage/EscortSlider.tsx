@@ -361,7 +361,7 @@ const EscortSlider = ({
             }}
             onClick={handleLikeClick}
           >
-            {liked || guestData?.favourite === 1 ? <FavoriteIcon sx={{ color: '#FF48B3' }} /> : <FavoriteBorderIcon />}
+            {liked || guestData?.favourite === 1 ? <FavoriteIcon sx={{ color: '#FF48B3' }} /> : <FavoriteBorderIcon />}123
           </UIStyledShadowButtonLike>
         </Box>
 

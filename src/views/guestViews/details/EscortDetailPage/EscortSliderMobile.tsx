@@ -37,8 +37,8 @@ import GuestFreeCreditsSignup from 'views/auth/guestFreeCreditsSignup';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
 // import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
-import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 import { getCookie } from 'cookies-next';
+import { useAuthContext } from 'contexts/AuthContext';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'), { ssr: false });
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'), { ssr: false });
 const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), { ssr: false });
@@ -64,7 +64,7 @@ const EscortSliderMobile = ({
   guestData: ModelDetailsResponse;
   isFreeCreditAvailable: number;
 }) => {
-  const { user } = useCallFeatureContext();
+  const { handleGAEventsTrigger, user } = useAuthContext();
   const isLg = useMediaQuery(theme.breakpoints.up('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isMd = useMediaQuery(theme.breakpoints.up('sm'));
@@ -91,27 +91,8 @@ const EscortSliderMobile = ({
     model_username: userName
   };
 
-  const handleGAEventForChatIcon = () => {
-    let versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
-    const customerInfo = {
-      version: (versionDetails?.experiment && `${versionDetails?.experiment}_${versionDetails?.variation}`) || '',
-      userid: (customerData?.customer_id && String(customerData?.customer_id)) || '',
-      userStatus: token?.token ? 'loggedIn' : 'loggedout',
-      pageName: 'model-details',
-      deviceype: 'mobile',
-      browserUsed: (typeof navigator !== 'undefined' && navigator?.userAgent) || '',
-      position: 'model-details-page'
-    };
-    gaEventTrigger('message-icon-click', {
-      action: 'message-icon-click',
-      category: 'Button',
-      label: 'message icon click',
-      value: JSON.stringify(customerInfo)
-    });
-  };
-
   const handleStartChatClick = () => {
-    handleGAEventForChatIcon();
+    handleGAEventsTrigger('message-icon-click', 'model-details-page');
     router.push(`/chat/${userName}`);
   };
 
@@ -165,6 +146,23 @@ const EscortSliderMobile = ({
     setFreeSignupOpen(false);
   };
 
+  const handleGAEventTrigger = () => {
+    const versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
+    let data: any = {
+      modelName: guestData.user_name,
+      modelCredits: Number(guestData?.video_call_prices?.[0]?.credits_per_minute || 0),
+      userLoginStatus: customerData?.token ? 'yes' : 'no'
+    };
+    if (customerData?.customer_id) data['userid'] = customerData?.customer_id;
+    if (versionDetails?.experiment) data['version'] = `${versionDetails?.experiment}_${versionDetails?.variation}`;
+    gaEventTrigger('favorite-icon-click', {
+      action: 'favorite-click',
+      category: 'Button',
+      label: 'Favorite icon click',
+      value: JSON.stringify(data)
+    });
+  };
+
   const handleLikeClick = async () => {
     try {
       if (!isCustomer) {
@@ -172,7 +170,7 @@ const EscortSliderMobile = ({
         gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
       } else if (token.token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
-        gaEventTrigger('favorite-click', { action: 'favorite-click', category: 'Button', label: 'Favorite icon click' });
+        handleGAEventTrigger();
         const customerInfoString = JSON.stringify(customerInfo);
         gaEventTrigger('Model_Favorite_Clicked', {
           category: 'Button',
@@ -283,7 +281,7 @@ const EscortSliderMobile = ({
           <StyleButtonShadowV2
             loading={isLoading}
             onClick={() => {
-              handleGAEventForChatIcon();
+              handleGAEventsTrigger('message-icon-click', 'model-details-page');
               gaEventTrigger('start-chat-click', { action: 'start-chat-click', category: 'Button', label: 'start chat click' });
               if (isCustomer) handleStartChatClick();
               else handleLoginOpen();

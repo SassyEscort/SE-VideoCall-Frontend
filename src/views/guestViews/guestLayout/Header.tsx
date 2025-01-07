@@ -103,10 +103,12 @@ const HeaderGuestComponent = () => {
   };
 
   const handleOpenFilterModal = () => {
+    handleGAEventsTrigger('search-bar-click', '', true);
     setOpenFilterModal(true);
   };
 
   const handleCloseFilterModal = () => {
+    handleGAEventsTrigger('search-bar-click', '', false);
     setOpenFilterModal(false);
   };
 
@@ -182,7 +184,6 @@ const HeaderGuestComponent = () => {
               }}
               priority
             />
-            12
           </Box>
           {isMdUp && (
             <SearchTitalBoxSm onClick={handleOpenFilterModal}>

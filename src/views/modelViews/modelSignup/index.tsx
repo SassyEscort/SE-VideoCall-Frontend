@@ -30,6 +30,7 @@ import Link from 'next/link';
 import { getErrorMessage } from 'utils/errorUtils';
 import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
 import { useAuthContext } from 'contexts/AuthContext';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type ModelSignupParams = {
   name: string;
@@ -266,7 +267,12 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             }}
                           />
                         </ModelUITextConatiner>
-                        <MenuItem sx={{ p: 0 }}>
+                        <MenuItem
+                          sx={{ p: 0 }}
+                          onClick={() => {
+                            gaEventTrigger('remember-click', { category: 'Check Box', label: 'Remember me click' });
+                          }}
+                        >
                           <Checkbox sx={{ p: 0, pr: 1 }} />
                           <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
                             <FormattedMessage id="RememberMe" />

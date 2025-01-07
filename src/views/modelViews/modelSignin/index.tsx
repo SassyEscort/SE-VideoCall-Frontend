@@ -25,6 +25,7 @@ import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { ROLE } from 'constants/workerVerification';
 import { MODEL_ACTION } from 'constants/profileConstants';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type LoginParams = {
   email: string;
@@ -222,7 +223,11 @@ const ModelSignin = ({
                         gap: { xs: 1, sm: 0 }
                       }}
                     >
-                      <Box>
+                      <Box
+                        onClick={() => {
+                          gaEventTrigger('remember-click', { category: 'Check Box', label: 'Remember me click' });
+                        }}
+                      >
                         <Checkbox sx={{ p: 0, pr: 1 }} />
                         <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}>
                           <FormattedMessage id="RememberMe" />
@@ -232,7 +237,10 @@ const ModelSignin = ({
                         variant="buttonLargeMenu"
                         color="primary.400"
                         sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}
-                        onClick={onFogotPasswordLinkOpen}
+                        onClick={() => {
+                          gaEventTrigger('forgot-password-click', { category: 'Button', label: 'Forgot password click' });
+                          onFogotPasswordLinkOpen();
+                        }}
                       >
                         <FormattedMessage id="ForgotPassword" />
                       </UINewTypography>

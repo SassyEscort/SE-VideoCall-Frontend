@@ -109,6 +109,11 @@ const HeaderAuthComponent = () => {
   };
 
   const handleOpenNotification = (event: React.MouseEvent<HTMLButtonElement>) => {
+    gaEventTrigger('notifications-icon-click', {
+      action: 'notifications-icon-click',
+      category: 'Button',
+      label: 'Notification icon click'
+    });
     setOpenNotification(true);
     setAnchorElNotification(event.currentTarget);
   };
@@ -252,6 +257,8 @@ const HeaderAuthComponent = () => {
   }, [socket, customerDetails.customer_user_name]);
 
   const handleGAEventForChatIcon = () => handleGAEventsTrigger('message-icon-click', 'top-bar');
+  const handleGAEventForFavouriteIcon = () => handleGAEventsTrigger('top-bar-favorite-icon-click');
+
   return (
     <>
       <HeaderMainBox>
@@ -282,7 +289,7 @@ const HeaderAuthComponent = () => {
 
         {isMdUp && (
           <>
-            <Link href="/profile/favourites" style={{ textDecoration: 'none' }}>
+            <Link href="/profile/favourites" style={{ textDecoration: 'none' }} onClick={handleGAEventForFavouriteIcon}>
               <IconButton sx={{ height: 24, width: 24 }}>
                 <Box
                   sx={{
