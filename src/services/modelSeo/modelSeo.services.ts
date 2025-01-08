@@ -21,7 +21,8 @@ export class ModelSeoService {
       return res.data.data[0];
     } catch (err: any) {
       const error: AxiosError = err;
-      return error.response?.data as SeoModel;
+      console.log(error?.response?.data, '::::::::: SEO API Error');
+      return {} as SeoModel;
     }
   };
 }
