@@ -56,6 +56,14 @@ export interface IMainMessageResponse {
   online_count: number;
 }
 
+export interface IMessageUploadImageChat {
+  data: { link: string };
+  message: string;
+  code: number;
+  error: null | string;
+  custom_code: null | number;
+}
+
 export interface IHistoryOfChatParams {
   user_name: string;
   search: string;
@@ -107,6 +115,22 @@ export class ChatService {
     } catch (err: any) {
       const error: AxiosError = err;
       return error.response?.data as IMessageResponse;
+    }
+  };
+
+  static chatUploadImage = async (formData: FormData, token: string): Promise<IMessageUploadImageChat> => {
+    try {
+      const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/chat/upload-image`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: token
+        }
+      });
+
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as IMessageUploadImageChat;
     }
   };
 }

@@ -57,14 +57,17 @@ export const VideoCallImageBox = styled(Box)(({ theme }) => ({
 export const ChatMessageInput = styled(OutlinedInput)(({ theme }) => ({
   '& .end-adornment-main-box': {
     display: 'flex',
-    placeItems: 'center',
-    gap: theme.spacing(1.5)
+    // placeItems: 'center',
+    gap: theme.spacing(1.5),
+    justifyContent: 'flex-end',
+    alignItems: 'center'
   },
   '& .heart-box': {
     borderRadius: '50%',
     background: `var(--Surface-Primary, ${theme.palette.secondary[800]})`,
     padding: '8px',
-    placeItems: 'center',
+    minHeight: 48,
+    minWidth: 48,
     display: 'flex'
   },
   '& .send-button': {
@@ -72,6 +75,14 @@ export const ChatMessageInput = styled(OutlinedInput)(({ theme }) => ({
     font: "600 16px/19.2px 'Manrope'",
     textAlign: 'left',
     padding: '10px 24px'
+  },
+  '& .send-chat-button': {
+    backgroundColor: theme.palette.primary[800],
+    font: "600 16px/19.2px 'Manrope'",
+    textAlign: 'left',
+    minHeight: 44,
+    minWidth: 44,
+    padding: 0
   },
   '& fieldset': {
     borderColor: '#D4D3D629'

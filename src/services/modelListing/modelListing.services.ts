@@ -40,6 +40,7 @@ export type ModelHomeListing = {
   languages: Language[];
   favourite: number;
   profile_plan_purchased: number;
+  is_unread_message: boolean;
 };
 
 export type ModelListingRes = {
@@ -73,6 +74,7 @@ export class ModelListingService {
         headers.Authorization = `Bearer ${token}`;
       }
       const res = await axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/model/listing?${query}`, { headers });
+
       return res.data.data;
     } catch (err: any) {
       const error: AxiosError = err;

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import Divider from '@mui/material/Divider';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import theme from 'themes/theme';
@@ -46,12 +46,17 @@ import {
   GetItNowButton,
   ChristmasContainer,
   ChristmasHeadingText,
-  ChristmasInnerText
+  ChristmasInnerText,
+  ChatMessageImg,
+  ChatMessageInnerBoxContainer,
+  ChatMessageMainContainer,
+  ChatMessageText
 } from './WorkerCard.styled';
 import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
 import { Raleway } from 'next/font/google';
 import useConfig from 'hooks/useConfig';
+import { useDrawerChatFeatureContext } from 'contexts/DrwarChatContext';
 
 const ralewayFont = Raleway({ subsets: ['latin'], display: 'swap' });
 
@@ -63,7 +68,8 @@ const WorkerCard = ({
   handleLoginOpen,
   handleLike,
   liked,
-  handleOpenCreditDrawer
+  handleOpenCreditDrawer,
+  handleChatClick
 }: {
   modelDetails: ModelHomeListing | ModelFavRes;
   isFavPage: boolean;
@@ -72,9 +78,16 @@ const WorkerCard = ({
   handleLoginOpen: () => void;
   handleLike: (modelId: number) => void;
   handleOpenCreditDrawer: () => void;
+  handleChatClick?: (modelDetails: ModelHomeListing | ModelFavRes) => void;
   liked: boolean;
 }) => {
   const { i18n } = useConfig();
+  const { historyOfModels } = useDrawerChatFeatureContext();
+  const unseenUserNameList = useMemo(
+    () => historyOfModels?.filter((a) => a?.unread_count).map((history) => history.sender_id),
+    [historyOfModels]
+  );
+
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const isTablet = useMediaQuery(theme.breakpoints.only('sm'));
@@ -212,6 +225,23 @@ const WorkerCard = ({
             </ChristmasContainer>
           </ChristmasMainContainer>
         ))}
+      {unseenUserNameList?.includes(modelDetails.user_name) && (
+        <ChatMessageMainContainer
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            handleChatClick ? handleChatClick(modelDetails) : 'undefined';
+          }}
+        >
+          <ChatMessageInnerBoxContainer>
+            <ChatMessageImg src="/images/home/chat-mes-icon.svg" />
+            <ChatMessageText color="text.secondary">
+              <FormattedMessage id="NewMessage" />
+            </ChatMessageText>
+          </ChatMessageInnerBoxContainer>
+        </ChatMessageMainContainer>
+      )}
+
       <HeartIconWorkerCard>
         {Boolean(modelDetails?.profile_plan_purchased) && (
           <HighlyAvailableButtonBox>

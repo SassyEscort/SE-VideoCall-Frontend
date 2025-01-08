@@ -22,7 +22,7 @@ interface ChatFeatureContextProps {
   onlineModelsCount: number;
   handleModelSelect: (model: boolean) => void;
   handleSelectedModelDetails: (model: IHistoryOfChats) => void;
-  handleMessageInputChange: (input: string) => void;
+  handleMessageInputChange: (input: string, type: string) => void;
   handleHistoryModleListSearch: (searchQuery: string) => void;
 }
 
@@ -118,7 +118,7 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     setSelectedModelDetails(model);
   };
 
-  const handleSendMessage = (input: string) => {
+  const handleSendMessage = (input: string, type: string) => {
     if (socket && input.trim() !== '') {
       const newMessage = {
         sender_id: userDetails.customer_user_name,
@@ -126,10 +126,11 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
           selectedModelDetails.receiver_id === userDetails.customer_user_name
             ? selectedModelDetails.sender_id
             : selectedModelDetails.receiver_id || (userId ? userId[0] : ''),
-        message: input,
-        message_type: 'text',
+        message: type === 'text' ? input : '',
+        message_type: type,
         receiver_type: isCustomer ? 'model' : 'customers',
-        sender_type: isCustomer ? 'customers' : 'model'
+        sender_type: isCustomer ? 'customers' : 'model',
+        link: type !== 'text' ? input : ''
       };
 
       setMessages((prevMessages) => [
@@ -143,10 +144,10 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
           receiver_type: newMessage.receiver_type,
           message_content: newMessage.message,
           seen: true,
-          message_type: 'text',
+          message_type: newMessage.message_type,
           time_stamp: new Date().toISOString(),
           __v: 0,
-          link: ''
+          link: newMessage.link
         }
       ]);
       socket.emit('chat-message', newMessage);
@@ -154,8 +155,8 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     }
   };
 
-  const handleMessageInputChange = (input: string) => {
-    handleSendMessage(input);
+  const handleMessageInputChange = (input: string, type: string) => {
+    handleSendMessage(input, type);
   };
 
   const handleHistoryModleListSearch = (input: string) => {

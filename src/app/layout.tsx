@@ -7,6 +7,7 @@ import TawkProvider from 'contexts/TawkContext';
 import { SEO_DATA } from 'constants/seoConstants';
 import Script from 'next/script';
 import ZegoTopBar from 'views/guestViews/commonComponents/zegoTopBar';
+import { DrawerChatProvider } from 'contexts/DrwarChatContext';
 // import '../app/globals.scss';
 
 export const metadata: Metadata = {
@@ -211,10 +212,12 @@ export default function RootLayout({
         )} */}
         <ProviderWrapper>
           <AuthFeaturProvider>
-            <TawkProvider>
-              <ZegoTopBar />
-              {children}
-            </TawkProvider>
+            <DrawerChatProvider>
+              <TawkProvider>
+                <ZegoTopBar />
+                {children}
+              </TawkProvider>
+            </DrawerChatProvider>
           </AuthFeaturProvider>
         </ProviderWrapper>
       </body>

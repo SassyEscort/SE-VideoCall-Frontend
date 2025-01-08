@@ -400,30 +400,6 @@ export const ChristmasInnerBoxContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center'
 }));
 
-export const ChatMessageImg = styled('img')(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
-    height: 16,
-    width: 16
-  },
-  [theme.breakpoints.up('sm')]: {
-    height: 24,
-    width: 24
-  }
-}));
-
-export const ChatMessageText = styled(Typography)(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '10px',
-    fontWeight: 600,
-    lineHeight: '18px'
-  },
-  [theme.breakpoints.up('sm')]: {
-    fontSize: '14px',
-    fontWeight: 600,
-    lineHeight: '24px'
-  }
-}));
-
 export const ChristmasHeadingText = styled(Typography)(({ theme }) => ({
   fontSize: '20px',
   color: theme.palette.common.white,
@@ -485,5 +461,61 @@ export const GetItNowButton = styled(Button)(({ theme }) => ({
     fontSize: '8.17px',
     fontWeight: 800,
     lineHeight: '14px'
+  }
+}));
+
+//// ==>>>>>>>>>>>>>>>>>>chat
+
+export const ChatMessageMainContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  position: 'absolute',
+  width: '100%',
+  height: '100%',
+  zIndex: 4,
+  border: '1px solid #FF5959',
+  backgroundColor: '#FF5959',
+  justifyContent: 'center',
+  borderRadius: theme.spacing(1),
+  [theme.breakpoints.up('sm')]: {
+    top: '385px',
+    maxHeight: '36px',
+    maxWidth: '149px',
+    left: '10px'
+  },
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '103px',
+    maxHeight: '26px',
+    top: '218px',
+    left: '10px'
+  }
+}));
+
+export const ChatMessageInnerBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1),
+  alignItems: 'center'
+}));
+
+export const ChatMessageImg = styled('img')(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    height: 16,
+    width: 16
+  },
+  [theme.breakpoints.up('sm')]: {
+    height: 24,
+    width: 24
+  }
+}));
+
+export const ChatMessageText = styled(Typography)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '10px',
+    fontWeight: 600,
+    lineHeight: '18px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '14px',
+    fontWeight: 600,
+    lineHeight: '24px'
   }
 }));

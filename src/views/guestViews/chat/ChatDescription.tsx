@@ -99,12 +99,13 @@ const ChatDescription = () => {
                           </ChatBoxHeaderInnerContainer>
                           {/* <Box component="img" src="/images/icons/video-call-icon.svg" width={40} height={40} sx={{ cursor: 'pointer' }} /> */}
                         </ChatBoxHeaderContainer>
-                        <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29', mt: '16px' }} />
+                        <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29' }} />
                       </Box>
                       <Box
                         ref={chatRef}
                         sx={{
-                          maxHeight: '65vh',
+                          minHeight: '81vh',
+                          height: '100%',
                           overflowY: 'auto'
                         }}
                       >
@@ -113,11 +114,22 @@ const ChatDescription = () => {
                             <TextMainBoxContainer key={index}>
                               {message.sender_type === 'customers' ? (
                                 <ClientChatMainBoxContainer>
-                                  <ClientChatTextBoxContainer>
-                                    <UINewTypography variant="body1" color="text.secondary">
-                                      {message.sender_type === 'customers' ? message?.message_content : ''}
-                                    </UINewTypography>
-                                  </ClientChatTextBoxContainer>
+                                  {message.message_type === 'text' ? (
+                                    <ClientChatTextBoxContainer>
+                                      <UINewTypography variant="body1" color="text.secondary">
+                                        {message.sender_type === 'customers' ? message?.message_content : ''}
+                                      </UINewTypography>
+                                    </ClientChatTextBoxContainer>
+                                  ) : (
+                                    <ClientChatTextBoxContainer>
+                                      <Box
+                                        component="img"
+                                        src={message.link}
+                                        sx={{ height: 100, width: 100, cursor: 'pointer' }}
+                                        onClick={() => handleSelectedImages(message.link)}
+                                      />
+                                    </ClientChatTextBoxContainer>
+                                  )}
 
                                   <UINewTypography
                                     variant="SubtitleSmallRegular"
@@ -200,7 +212,7 @@ const ChatDescription = () => {
                           </ChatBoxHeaderInnerContainer>
                           {/* <Box component="img" src="/images/icons/video-call-icon.svg" width={40} height={40} sx={{ cursor: 'pointer' }} /> */}
                         </ChatBoxHeaderContainer>
-                        <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29', mt: '16px' }} />
+                        <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29' }} />
                       </Box>
                       <Box
                         ref={chatRef}
@@ -214,11 +226,22 @@ const ChatDescription = () => {
                             <TextMainBoxContainer key={index}>
                               {message.sender_type === 'customers' ? (
                                 <ClientChatMainBoxContainer>
-                                  <ClientChatTextBoxContainer>
-                                    <UINewTypography variant="body1" color="text.secondary">
-                                      {message.sender_type === 'customers' ? message?.message_content : ''}
-                                    </UINewTypography>
-                                  </ClientChatTextBoxContainer>
+                                  {message.message_type === 'text' ? (
+                                    <ClientChatTextBoxContainer>
+                                      <UINewTypography variant="body1" color="text.secondary">
+                                        {message.sender_type === 'customers' ? message?.message_content : ''}
+                                      </UINewTypography>
+                                    </ClientChatTextBoxContainer>
+                                  ) : (
+                                    <ClientChatTextBoxContainer>
+                                      <Box
+                                        component="img"
+                                        src={message.link}
+                                        sx={{ height: 100, width: 100, cursor: 'pointer' }}
+                                        onClick={() => handleSelectedImages(message.link)}
+                                      />
+                                    </ClientChatTextBoxContainer>
+                                  )}
 
                                   <UINewTypography
                                     variant="SubtitleSmallRegular"

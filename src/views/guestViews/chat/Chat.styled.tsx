@@ -207,8 +207,9 @@ export const ChatBoxHeaderContainer = styled(Box)(({ theme }) => ({
   paddingLeft: '20px',
   width: '100%',
   justifyContent: 'start',
-  heigh: '100%',
-  minHeight: '40px',
+  height: '100%',
+  minHeight: '48px',
+  marginTop: theme.spacing(1),
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(1.5),
     paddingTop: theme.spacing(1.5)

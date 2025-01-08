@@ -17,9 +17,9 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useAuthContext } from '../../../../contexts/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import UIThemeBorderButton from 'components/UIComponents/UIStyledBorderButton';
-
 const EscortExplore = () => {
   const { isFreeCreditAvailable } = useAuthContext();
+
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const searchParams = useSearchParams();
   const pathname = usePathname();

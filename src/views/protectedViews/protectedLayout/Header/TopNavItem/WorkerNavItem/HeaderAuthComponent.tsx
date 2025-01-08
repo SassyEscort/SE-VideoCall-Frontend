@@ -34,6 +34,7 @@ import { ISocketMessage } from 'services/chatServices/chat.service';
 import { StyledSnackBar, StyledSnackBarInnerBox } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
 import CloseIcon from '@mui/icons-material/Close';
 import { usePathname, useRouter } from 'next/navigation';
+import { useDrawerChatFeatureContext } from 'contexts/DrwarChatContext';
 
 export type NotificationFilters = {
   page: number;
@@ -45,6 +46,8 @@ const HeaderAuthComponent = () => {
   const { maximizeChat, initializeChat } = useTawk();
   const { session, token, isFreeCreditsClaimed, openCreditDrawer, handleCreditDrawerClose } = useAuthContext();
   const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
+  const { selectedModelRef } = useDrawerChatFeatureContext();
+
   const router = useRouter();
   const customerDetails = session?.user ? JSON.parse((session.user as any)?.picture) : '';
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -206,18 +209,23 @@ const HeaderAuthComponent = () => {
 
   useEffect(() => {
     const setupSocketListeners = async () => {
-      if (socket) {
-        socket.on('connect', () => {
-          socket.emit('join', customerDetails.customer_user_name);
+      const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_BASE_URL!);
+      setSocket(newSocket);
+
+      if (newSocket) {
+        newSocket.on('connect', () => {
+          newSocket.emit('join', customerDetails.customer_user_name);
           // Listener for chat messages
-          socket.on('chat-message', async (message: ISocketMessage) => {
+          newSocket.on('chat-message', async (message: ISocketMessage) => {
             if (!parthname.startsWith('/chat')) {
               const chatNotificationData = await handleChatNotification();
-              setSnackbarOptions({
-                open: true,
-                message: chatNotificationData?.notifications[0].message || '',
-                url: `/chat/${chatNotificationData?.notifications[0].user_name}` || ''
-              });
+              if (selectedModelRef.current?.user_Name !== chatNotificationData?.notifications[0].user_name) {
+                setSnackbarOptions({
+                  open: true,
+                  message: chatNotificationData?.notifications[0].message || '',
+                  url: `/chat/${chatNotificationData?.notifications[0].user_name}` || ''
+                });
+              }
             }
           });
         });
@@ -233,7 +241,7 @@ const HeaderAuthComponent = () => {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [socket, customerDetails.customer_user_name]);
+  }, [customerDetails.customer_user_name]);
 
   return (
     <>

@@ -46,7 +46,7 @@ const ChatSidbar = ({ onSelectModel }: { onSelectModel: (model: any) => void }) 
   }, [historyOfModels]);
 
   return (
-    <ModelDetailsMainBoxContainer>
+    <ModelDetailsMainBoxContainer sx={{ mt: 3 }}>
       {isSmUp && (
         <>
           <ModelHeaderBoxContainer>
