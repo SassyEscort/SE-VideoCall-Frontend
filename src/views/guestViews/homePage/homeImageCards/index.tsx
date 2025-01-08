@@ -66,8 +66,42 @@ const HomeImageCard = ({
   const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
   const providerData = JSON.parse(user || '{}');
 
-  const handleOpenCreditDrawer = () => setCreditModelOpen(true);
-  const handleCloseCreditDrawer = () => setCreditModelOpen(false);
+  const handleOpenCreditDrawer = (model_user_name: string) => {
+    const creditInfoEvent = {
+      email: providerData?.customer_email,
+      name: providerData?.customer_name,
+      username: providerData?.customer_user_name,
+      model_username: model_user_name,
+      is_credit_over: false,
+      'is-automated': 'no',
+      'close-button-click': 'no',
+      'credits-balance-available': avaialbleCredits || 0,
+      source: 'Model card'
+    };
+    gaEventTrigger('Credits_Purchase_Popup_open', {
+      action: 'Credits_Purchase_Popup_open',
+      category: 'Dialog',
+      label: 'Credits_Purchase_Popup_open',
+      value: JSON.stringify(creditInfoEvent)
+    });
+    setCreditModelOpen(true);
+  };
+  const handleCloseCreditDrawer = () => {
+    const creditInfoEvent = {
+      email: providerData?.customer_email,
+      name: providerData?.customer_name,
+      username: providerData?.customer_user_name,
+      is_credit_over: false,
+      source: 'Video calling model'
+    };
+    gaEventTrigger('Credits_Purchase_Popup_open', {
+      action: 'Credits_Purchase_Popup_open',
+      category: 'Dialog',
+      label: 'Credits_Purchase_Popup_open',
+      value: JSON.stringify(creditInfoEvent)
+    });
+    setCreditModelOpen(false);
+  };
 
   const handleLoginLiked = (modelId: number) => {
     setFavModelId(modelId);
@@ -266,7 +300,7 @@ const HomeImageCard = ({
                             handleLoginOpen={handleLoginOpen}
                             handleLike={handleLike}
                             liked={likedModels.includes(item.id)}
-                            handleOpenCreditDrawer={handleOpenCreditDrawer}
+                            handleOpenCreditDrawer={() => handleOpenCreditDrawer(item.user_name)}
                           />
                         ) : (
                           <Box
@@ -288,7 +322,7 @@ const HomeImageCard = ({
                               handleLoginOpen={handleLoginOpen}
                               handleLike={handleLike}
                               liked={likedModels.includes(item.id)}
-                              handleOpenCreditDrawer={handleOpenCreditDrawer}
+                              handleOpenCreditDrawer={() => handleOpenCreditDrawer(item.user_name)}
                             />
                           </Box>
                         )
@@ -301,7 +335,7 @@ const HomeImageCard = ({
                           handleLoginOpen={handleLoginOpen}
                           handleLike={handleLike}
                           liked={likedModels.includes(item.id)}
-                          handleOpenCreditDrawer={handleOpenCreditDrawer}
+                          handleOpenCreditDrawer={() => handleOpenCreditDrawer(item.user_name)}
                         />
                       ) : (
                         <Box
@@ -323,7 +357,7 @@ const HomeImageCard = ({
                             handleLoginOpen={handleLoginOpen}
                             handleLike={handleLike}
                             liked={likedModels.includes(item.id)}
-                            handleOpenCreditDrawer={handleOpenCreditDrawer}
+                            handleOpenCreditDrawer={() => handleOpenCreditDrawer(item.user_name)}
                           />
                         </Box>
                       )}
