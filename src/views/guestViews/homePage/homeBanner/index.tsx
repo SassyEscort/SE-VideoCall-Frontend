@@ -177,7 +177,7 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                         style={{
                           position: 'absolute',
                           top: isSmDown ? 30 : 44,
-                          left: isSmDown && !isSm ? 80 : isSm ? 16 : 0,
+                          left: isSmDown && !isSm ? 0 : isSm ? 16 : 0,
                           maxWidth: isSmDown ? '239.52px' : '354.18px',
                           width: '100%'
                         }}

@@ -60,7 +60,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
     <>
       {HeaderComponent}
       <main>
-        <Box sx={{ mt: 10 }}>{children}</Box>
+        <Box sx={{ mt: { xs: 10, sm: 15.5, lg: 10 } }}>{children}</Box>
       </main>
       <Footer />
     </>

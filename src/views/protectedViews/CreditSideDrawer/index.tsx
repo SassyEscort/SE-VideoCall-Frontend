@@ -125,7 +125,6 @@ const CreditSideDrawer = ({ open, handleClose, balance }: { open: boolean; handl
             <TitleSerachBox>
               <UINewTypography variant="h3" fontSize={24} color="text.secondary">
                 <FormattedMessage id="Addcredits" />
-                12
               </UINewTypography>
             </TitleSerachBox>
             <IconButton onClick={handleClose}>
