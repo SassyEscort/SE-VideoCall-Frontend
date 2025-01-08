@@ -14,7 +14,7 @@ import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import * as yup from 'yup';
-import { EMAIL_REGEX, PASSWORD_PATTERN } from 'constants/regexConstants';
+import { EMAIL_REGEX } from 'constants/regexConstants';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import {
   ButtonMainBoxContainer,
@@ -185,11 +185,15 @@ const NewSignInModel = ({
                     <NewSignUpModelMainBoxContainer>
                       <HeadingMainBoxContainer>
                         <HeadingInnerBoxContainer>
-                          <HeadingTextTypography fontFamily={ralewayFont.style.fontFamily}>Sign in</HeadingTextTypography>
+                          <HeadingTextTypography fontFamily={ralewayFont.style.fontFamily}>
+                            <FormattedMessage id="SignIn" />
+                          </HeadingTextTypography>
 
                           <HeadingDescriptionTextTypography>
-                            Real Models, Real Pleasure, Live Now! Don’t Just Watch –{' '}
-                            <span style={{ fontWeight: 800 }}>Connect, Flirt, and Enjoy!</span>
+                            <FormattedMessage id="RealModelsRealPleasureLiveNow" /> –{' '}
+                            <span style={{ fontWeight: 800 }}>
+                              <FormattedMessage id="ConnectFlirtAndEnjoy" />
+                            </span>
                           </HeadingDescriptionTextTypography>
                         </HeadingInnerBoxContainer>
 
@@ -287,25 +291,29 @@ const NewSignInModel = ({
 
                       <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '167px', gap: 0.5, alignItems: 'center' }}>
                         <FooterInnerBoxContainer>
-                          <HaveAnAccountAlreadyTextTypography>Have an account already?</HaveAnAccountAlreadyTextTypography>
+                          <HaveAnAccountAlreadyTextTypography>
+                            <FormattedMessage id="HaveAnAccount" />
+                          </HaveAnAccountAlreadyTextTypography>
                           <ReferralTextTypography
                             sx={{
                               color: 'white.main'
                             }}
                             onClick={onSignupOpen}
                           >
-                            Log in here
+                            <FormattedMessage id="LogInHere" />
                           </ReferralTextTypography>
                         </FooterInnerBoxContainer>
 
                         <FooterInnerBoxContainer>
-                          <HaveAnAccountAlreadyTextTypography>Sign up as a model</HaveAnAccountAlreadyTextTypography>
+                          <HaveAnAccountAlreadyTextTypography>
+                            <FormattedMessage id="SignUpAsAModel" />
+                          </HaveAnAccountAlreadyTextTypography>
                           <ReferralTextTypography
                             sx={{
                               color: 'primary.800'
                             }}
                           >
-                            Here
+                            <FormattedMessage id="Here" />
                           </ReferralTextTypography>
                         </FooterInnerBoxContainer>
                       </Box>
@@ -316,14 +324,19 @@ const NewSignInModel = ({
                         <ImageAndTextSpacingBox>
                           <Box component="img" src="/images/icons/ab-icon-2.svg" />
                           <RightSideSubTitleText>
-                            <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>Talk to</span> <FormattedMessage id="1,000Models" />
+                            <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>
+                              <FormattedMessage id="TalkTo" />
+                            </span>{' '}
+                            <FormattedMessage id="1,000Models" />
                           </RightSideSubTitleText>
                         </ImageAndTextSpacingBox>
 
                         <ImageAndTextSpacingBox>
                           <Box component="img" src="/images/icons/ab-icon-3.svg" />
                           <RightSideSubTitleText>
-                            <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>Unleash yourself with</span>{' '}
+                            <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>
+                              <FormattedMessage id="UnleashYourselfWith" />
+                            </span>{' '}
                             <FormattedMessage id="Private1on1Chats" />
                           </RightSideSubTitleText>
                         </ImageAndTextSpacingBox>
@@ -331,7 +344,10 @@ const NewSignInModel = ({
                         <ImageAndTextSpacingBox>
                           <Box component="img" src="/images/icons/ab-icon-4.svg" />
                           <RightSideSubTitleText>
-                            <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>Dont worry its</span> <FormattedMessage id="SafeSecure" />
+                            <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>
+                              <FormattedMessage id="DontWorryIts" />
+                            </span>{' '}
+                            <FormattedMessage id="SafeSecure" />
                           </RightSideSubTitleText>
                         </ImageAndTextSpacingBox>
                       </RightSideInnerBoxContainer>

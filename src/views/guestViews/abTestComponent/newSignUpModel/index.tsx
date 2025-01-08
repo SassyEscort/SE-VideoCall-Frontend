@@ -211,12 +211,15 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                     <HeadingMainBoxContainer>
                       <HeadingInnerBoxContainer>
                         <HeadingTextTypography fontFamily={ralewayFont.style.fontFamily}>
-                          Sign up and get <span style={{ color: '#79E028', whiteSpace: 'nowrap' }}>1 FREE</span> Video Call
+                          <FormattedMessage id="SignUpAndGet" /> <span style={{ color: '#79E028', whiteSpace: 'nowrap' }}>1 FREE</span>{' '}
+                          <FormattedMessage id="VideoCall" />
                         </HeadingTextTypography>
 
                         <HeadingDescriptionTextTypography>
-                          Real Models, Real Pleasure, Live Now! Don’t Just Watch –{' '}
-                          <span style={{ fontWeight: 800 }}>Connect, Flirt, and Enjoy!</span>
+                          <FormattedMessage id="RealModelsRealPleasureLiveNow" /> –{' '}
+                          <span style={{ fontWeight: 800 }}>
+                            <FormattedMessage id="ConnectFlirtAndEnjoy" />
+                          </span>
                         </HeadingDescriptionTextTypography>
                       </HeadingInnerBoxContainer>
 
@@ -370,16 +373,20 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                     <FooterMainBoxContainer>
                       <FooterInnerBoxContainer>
                         <HaveAnAccountAlreadyTextTypography sx={{ cursor: 'pointer' }}>
-                          Have an account already?
+                          <FormattedMessage id="HaveAnAccount" />
                         </HaveAnAccountAlreadyTextTypography>
                         <ReferralTextTypography sx={{ color: 'white.main' }} onClick={onLoginOpen}>
-                          Log in here
+                          <FormattedMessage id="LogInHere" />
                         </ReferralTextTypography>
                       </FooterInnerBoxContainer>
 
                       <FooterInnerBoxContainer>
-                        <HaveAnAccountAlreadyTextTypography>Sign up as a model</HaveAnAccountAlreadyTextTypography>
-                        <ReferralTextTypography sx={{ color: 'primary.800' }}>Here</ReferralTextTypography>
+                        <HaveAnAccountAlreadyTextTypography>
+                          <FormattedMessage id="SignUpAsAModel" />
+                        </HaveAnAccountAlreadyTextTypography>
+                        <ReferralTextTypography sx={{ color: 'primary.800' }}>
+                          <FormattedMessage id="Here" />
+                        </ReferralTextTypography>
                       </FooterInnerBoxContainer>
                     </FooterMainBoxContainer>
                   </NewSignUpModelMainBoxContainer>
@@ -389,7 +396,9 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                       <ImageAndTextSpacingBox>
                         <Box component="img" src="/images/icons/ab-icon-1.svg" width={24} height={24} />
                         <RightSideSubTitleText>
-                          <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>On signup get</span>{' '}
+                          <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>
+                            <FormattedMessage id="OnSignupGet" />
+                          </span>{' '}
                           <FormattedMessage id="1MinuteFreeCall"></FormattedMessage>
                         </RightSideSubTitleText>
                       </ImageAndTextSpacingBox>
@@ -397,14 +406,19 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                       <ImageAndTextSpacingBox>
                         <Box component="img" src="/images/icons/ab-icon-2.svg" width={24} height={24} />
                         <RightSideSubTitleText>
-                          <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>Talk to</span> <FormattedMessage id="1,000Models" />
+                          <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>
+                            <FormattedMessage id="TalkTo" />
+                          </span>{' '}
+                          <FormattedMessage id="1,000Models" />
                         </RightSideSubTitleText>
                       </ImageAndTextSpacingBox>
 
                       <ImageAndTextSpacingBox>
                         <Box component="img" src="/images/icons/ab-icon-3.svg" width={24} height={24} />
                         <RightSideSubTitleText>
-                          <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>Unleash yourself with</span>{' '}
+                          <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>
+                            <FormattedMessage id="UnleashYourselfWith" />
+                          </span>{' '}
                           <FormattedMessage id="Private1on1Chats" />
                         </RightSideSubTitleText>
                       </ImageAndTextSpacingBox>
@@ -412,7 +426,10 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                       <ImageAndTextSpacingBox>
                         <Box component="img" src="/images/icons/ab-icon-4.svg" width={24} height={24} />
                         <RightSideSubTitleText>
-                          <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>Dont worry its</span> <FormattedMessage id="SafeSecure" />
+                          <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>
+                            <FormattedMessage id="DontWorryIts" />
+                          </span>{' '}
+                          <FormattedMessage id="SafeSecure" />
                         </RightSideSubTitleText>
                       </ImageAndTextSpacingBox>
                     </RightSideInnerBoxContainer>
