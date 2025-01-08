@@ -28,6 +28,8 @@ import {
   TrendingNowTextTypography
 } from './PreSignUpWeb.styled';
 import theme from 'themes/theme';
+import { ModelListingRes } from 'services/modelListing/modelListing.services';
+import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
 
 const slides = [
   { link: '/images/swiper/SlideItem1.webp' },
@@ -44,8 +46,9 @@ const slides = [
 
 const ralewayFont = Raleway({ subsets: ['latin'], display: 'swap' });
 
-const PreSignUpWeb = () => {
+const PreSignUpWeb = ({ modelData, params }: { modelData: ModelListingRes; params: SearchFiltersTypes }) => {
   const [slideChange, setSlideChange] = useState(false);
+  console.log('modelData', modelData);
 
   useEffect(() => {
     const updateSwiperSlides = () => {
@@ -168,18 +171,18 @@ const PreSignUpWeb = () => {
                 slidesPerGroup={5}
                 loop={true}
                 centeredSlides={true}
-                autoplay={{
-                  delay: 1,
-                  disableOnInteraction: false
-                }}
+                // autoplay={{
+                //   delay: 1,
+                //   disableOnInteraction: false
+                // }}
                 speed={1000}
                 modules={[Autoplay, Pagination]}
                 className="mySwiper1"
               >
-                {slides.map((slide, key) => (
-                  <SwiperSlide key={key}>
+                {modelData.model_details.map((model, index) => (
+                  <SwiperSlide key={index}>
                     <Box display={'flex'} gap={2.25} sx={{ color: 'black.main' }}>
-                      <img src={slide.link} />
+                      <img src={model.link} />
                       <Box
                         display={'flex'}
                         flexDirection={'column'}
@@ -188,8 +191,8 @@ const PreSignUpWeb = () => {
                         color={'white.main'}
                         textAlign={'start'}
                       >
-                        <div>Ana May</div>
-                        <div>Brazil</div>
+                        <div>{model.user_name}</div>
+                        <div>{model.country}</div>
                       </Box>
                     </Box>
                   </SwiperSlide>
