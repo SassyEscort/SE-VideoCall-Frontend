@@ -16,7 +16,12 @@ const ModelImage = ({ modelDetails }: { modelDetails: { link: string } }) => {
           sm: '56.25%'
         },
         borderRadius: '12px',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        ...(!modelDetails.link && {
+          '& img': {
+            opacity: 0
+          }
+        })
       }}
     >
       <Image

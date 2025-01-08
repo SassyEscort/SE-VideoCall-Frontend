@@ -190,8 +190,8 @@ const WorkerCard = ({
           ...(!imageUrlRef?.current?.style?.backgroundImage && {
             backgroundImage: `url(/images/workercards/workercard-blur.avif)`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center'
-            // transition: 'background-image 5s ease-in-out'
+            backgroundPosition: 'center',
+            opacity: 0,
           })
         }}
       />
