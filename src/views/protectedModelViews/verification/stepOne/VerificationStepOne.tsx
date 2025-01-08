@@ -35,6 +35,7 @@ import { ModelVerificationService } from 'services/modelVerification/modelVerifi
 import { ErrorMessage } from 'constants/common.constants';
 import { getErrorMessage } from 'utils/errorUtils';
 import { usePathname } from 'next/navigation';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type VerificationBasicDetailsType = {
   values: VerificationStep1Type;
@@ -133,6 +134,16 @@ const VerificationBasicDetails = ({
   }, [token.token]);
 
   const handleGender = (val: string) => {
+    gaEventTrigger('model-signup-form-initiated', {
+      sources: 'Basic details',
+      label: 'model signup form initiated',
+      category: 'Radio',
+      value: JSON.stringify({
+        gender: val,
+        'step-name': 'Basic details',
+        'email-verified': Boolean(isModelEmailVerified) ? 'yes' : 'no'
+      })
+    });
     setFieldValue('gender', val);
   };
 

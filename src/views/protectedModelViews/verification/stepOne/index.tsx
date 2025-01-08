@@ -21,6 +21,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { EMAIL_REGEX } from 'constants/regexConstants';
 import { MODEL_ACTIVE_STEP } from 'constants/workerVerification';
 import { getErrorMessage } from 'utils/errorUtils';
+import { gaEventTrigger } from 'utils/analytics';
 
 const VerificationStepOne = ({
   handleNext,
@@ -143,6 +144,15 @@ const VerificationStepOne = ({
           const response = await ModelVerificationService.verificationStepOne(values, token.token);
           if (response.data) {
             handleModelApiChange();
+            gaEventTrigger('cta-next-button-click', {
+              sources: 'Basic details',
+              label: 'Next button click',
+              category: 'Button',
+              value: JSON.stringify({
+                gender: values.gender,
+                'step-name': 'Basic details'
+              })
+            });
             if (isReviewEdit && handleEdit) {
               handleEdit(4);
             } else {
