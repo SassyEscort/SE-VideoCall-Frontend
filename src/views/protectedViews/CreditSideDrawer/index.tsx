@@ -67,6 +67,28 @@ const CreditSideDrawer = ({ open, handleClose, balance }: { open: boolean; handl
       source: 'Credit Page'
     };
 
+    let dataForGACredit = {
+      amount: listCredit.amount,
+      credits: listCredit.credits,
+      'extra-credits-pack-click': 'no',
+      'discount-pack-click': 'no'
+    };
+    if (listCredit.discount) dataForGACredit['extra-credits-pack-click'] = 'yes';
+    if (listCredit.tag) dataForGACredit['extra-credits-pack-click'] = 'yes';
+
+    gaEventTrigger('pack-credits-click', {
+      action: 'pack-credits-click',
+      category: 'Button',
+      label: 'pack-credits-click',
+      source: 'Credit Page',
+      value: JSON.stringify({ dataForGACredit })
+    });
+    // gaEventTrigger('wallet-icon-click', {
+    //   action: 'wallet-icon-click',
+    //   category: 'Button',
+    //   label: 'wallet-icon-click',
+    //   value: JSON.stringify({ 'is-automated': 'no', 'credits-balance-available': listCredit.is_active })
+    // });
     gaEventTrigger('Credits_Purchase_Initiated', {
       action: 'Credits_Purchase_Initiated',
       category: 'Button',
@@ -103,6 +125,7 @@ const CreditSideDrawer = ({ open, handleClose, balance }: { open: boolean; handl
             <TitleSerachBox>
               <UINewTypography variant="h3" fontSize={24} color="text.secondary">
                 <FormattedMessage id="Addcredits" />
+                12
               </UINewTypography>
             </TitleSerachBox>
             <IconButton onClick={handleClose}>

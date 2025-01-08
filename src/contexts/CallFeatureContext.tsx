@@ -364,6 +364,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
             username: providerData?.customer_user_name,
             model_username: userName,
             is_credit_over: false,
+            'is-automated': 'yes',
+            'close-button-click': 'no',
+            'credits-balance-available': isModelAvailable?.data?.available_credits || 0,
             source: 'Video calling model'
           };
           gaEventTrigger('Credits_Purchase_Popup_open', {
@@ -463,6 +466,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
             model_username: userName,
             is_credit_over: true,
             is_new_purchase: false,
+            'is-automated': 'yes',
+            'close-button-click': 'no',
+            'credits-balance-available': creditLogData.available_credits,
             source: 'Video calling model'
           };
           gaEventTrigger('Credits_Purchase_Popup_open', {
