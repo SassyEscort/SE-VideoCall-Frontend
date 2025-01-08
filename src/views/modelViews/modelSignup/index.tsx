@@ -30,6 +30,7 @@ import Link from 'next/link';
 import { getErrorMessage } from 'utils/errorUtils';
 import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
 import { useAuthContext } from 'contexts/AuthContext';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type ModelSignupParams = {
   name: string;
@@ -201,7 +202,16 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             e.target.value = e.target.value.trimStart();
                             handleChange(e);
                           }}
-                          onBlur={handleBlur}
+                          onBlur={(e) => {
+                            handleBlur(e);
+                            if (values.password) {
+                              gaEventTrigger('password-added', {
+                                source: 'password added',
+                                category: 'TextField',
+                                label: 'password added'
+                              });
+                            }
+                          }}
                           error={touched.name && Boolean(errors.name)}
                           helperText={touched.name && errors.name ? <FormattedMessage id={errors.name} /> : ''}
                           sx={{
@@ -224,7 +234,16 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                           name="email"
                           value={values.email}
                           onChange={handleChange}
-                          onBlur={handleBlur}
+                          onBlur={(e) => {
+                            handleBlur(e);
+                            if (values.email) {
+                              gaEventTrigger('email-added', {
+                                source: 'email added',
+                                category: 'TextField',
+                                label: 'email added'
+                              });
+                            }
+                          }}
                           error={touched.email && Boolean(errors.email)}
                           helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
                           sx={{
@@ -266,7 +285,12 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             }}
                           />
                         </ModelUITextConatiner>
-                        <MenuItem sx={{ p: 0 }}>
+                        <MenuItem
+                          sx={{ p: 0 }}
+                          onClick={() => {
+                            gaEventTrigger('remember-click', { category: 'Check Box', label: 'Remember me click' });
+                          }}
+                        >
                           <Checkbox sx={{ p: 0, pr: 1 }} />
                           <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
                             <FormattedMessage id="RememberMe" />
@@ -314,7 +338,14 @@ const ModelSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             whiteSpace="nowrap"
                             variant="body"
                             sx={{ color: 'text.secondary', cursor: 'pointer' }}
-                            onClick={onLoginOpen}
+                            onClick={() => {
+                              onLoginOpen();
+                              gaEventTrigger('login-instead-click', {
+                                source: 'login instead click',
+                                category: 'TextField',
+                                label: 'login instead click'
+                              });
+                            }}
                           >
                             <FormattedMessage id="LogInInstead" />
                           </UINewTypography>

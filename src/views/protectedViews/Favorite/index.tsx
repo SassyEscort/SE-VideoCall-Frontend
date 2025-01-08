@@ -14,6 +14,7 @@ import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Paginat
 import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import { areObjectsEqual } from 'utils/genericFunction';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type FavoritesPaginationType = {
   page: number;
@@ -25,6 +26,7 @@ const Favorites = ({ favModel, filterPayload }: { favModel: ModelFavResponse; fi
   const authContext = useAuthContext();
   const isFreeCreditAvailable = authContext.isFreeCreditAvailable || 1;
   const token = authContext.token;
+  const pageName = authContext.fetchPageName();
 
   const [favListing, setFavListing] = useState<ModelFavRes[]>(favModel?.model_details || []);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,6 +54,12 @@ const Favorites = ({ favModel, filterPayload }: { favModel: ModelFavResponse; fi
   useEffect(() => {
     if (!areObjectsEqual(filterPayload, filters) && initialLoad) {
       getFavListing();
+      gaEventTrigger('page-load-complete', {
+        action: 'page-load-complete',
+        category: 'Button',
+        label: 'Page load complete',
+        values: JSON.stringify({ pageName: pageName })
+      });
     } else {
       setInitialLoad(true);
     }

@@ -12,6 +12,7 @@ import {
   MainContainerRegionFilter
 } from '../Search.styled';
 import RegionFilter from './RegionFilter';
+import { gaEventTrigger } from 'utils/analytics';
 // import GenderFilter from './GenderFilter';
 const AgeFilter = dynamic(() => import('./AgeFilter'));
 const GenderFilter = dynamic(() => import('./GenderFilter'));
@@ -37,6 +38,10 @@ export type SearchFiltersTypes = {
   email?: string;
   gender: string;
 };
+export type NewSearchFiltersTypes = Partial<
+  Pick<SearchFiltersTypes, 'page' | 'pageSize' | 'offset' | 'language' | 'email' | 'sortField' | 'sortOrder'>
+> &
+  Omit<SearchFiltersTypes, 'page' | 'pageSize' | 'offset' | 'language' | 'email' | 'sortField' | 'sortOrder'>;
 
 type SearchFiltersProps = {
   isUserInteracted: boolean;
@@ -89,8 +94,18 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
   //   });
   // };
 
+  const handleFilterGAEventTrigger = (value: string) => {
+    gaEventTrigger('filter-type click', {
+      action: 'filter-type click',
+      category: 'Button',
+      label: 'Filter type click',
+      value: value
+    });
+  };
+
   const handleRegionChange = (event: SelectChangeEvent<unknown>) => {
     const value = event.target.value as string;
+    handleFilterGAEventTrigger('Region');
     setFilters({
       ...filters,
       region: value,
@@ -106,6 +121,7 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
   const handleChangePrice = (event: SelectChangeEvent<unknown>) => {
     const value = event.target.value as string;
     const priceRange = value.split('-');
+    handleFilterGAEventTrigger('Credits');
     setFilters({
       ...filters,
       fromPrice: priceRange[0],
@@ -124,6 +140,7 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
   const handleGender = (event: SelectChangeEvent<unknown>) => {
     const value = event.target.value as string;
     const genderValue = value;
+    handleFilterGAEventTrigger('Gender');
     setFilters({
       ...filters,
       gender: genderValue,
@@ -140,7 +157,7 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
   const handleChangeAge = (event: SelectChangeEvent<unknown>) => {
     const value = event.target.value as string;
     const ageRange = value.split('-');
-
+    handleFilterGAEventTrigger('Age');
     setFilters({
       ...filters,
       fromAge: ageRange[0],
@@ -173,6 +190,7 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
   // };
 
   const handelChangeIsOnline = () => {
+    handleFilterGAEventTrigger('Online');
     setFilters({
       ...filters,
       page: 1,

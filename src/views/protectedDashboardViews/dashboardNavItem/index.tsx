@@ -17,7 +17,7 @@ import { usePathname } from 'next/navigation';
 
 const DashboardNavItem = () => {
   const pathName = usePathname();
-  const { isCustomer } = useAuthContext();
+  const { isCustomer, handleGAEventsTrigger } = useAuthContext();
 
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
   const [modelDetails, setModelDetails] = useState<ModelDetailsResponse>();
@@ -77,6 +77,7 @@ const DashboardNavItem = () => {
               width={{ xs: '120px', md: '182px', sm: '182px' }}
               display={'flex'}
               sx={{ position: 'relative' }}
+              onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'top-bar')}
             >
               <Image
                 src="/images/header/new-logo.png"

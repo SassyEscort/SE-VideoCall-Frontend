@@ -34,6 +34,7 @@ import { useAuthContext } from '../../../../contexts/AuthContext';
 import React from 'react';
 import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 import { useSearchParams } from 'next/navigation';
+import { gaEventTrigger } from 'utils/analytics';
 
 const HomeModelTopBanner = () => {
   const { isCustomer } = useAuthContext();
@@ -178,7 +179,14 @@ const HomeModelTopBanner = () => {
                 </Link>
               ) : modelDetails?.verification_step !== MODEL_ACTIVE_STEP.VERIFIED &&
                 modelDetails?.verification_step !== MODEL_ACTIVE_STEP.IN_REVIEW ? (
-                <UIThemeShadowButton onClick={handleSignupOpen} variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
+                <UIThemeShadowButton
+                  onClick={() => {
+                    gaEventTrigger('join-free-click', { category: 'Link', label: 'Join now free click' });
+                    handleSignupOpen();
+                  }}
+                  variant="contained"
+                  sx={{ width: '100%', maxWidth: '195px' }}
+                >
                   <UINewTypography variant="body" sx={{ lineHeight: '150%' }}>
                     <FormattedMessage id="JoinForFREE" />
                   </UINewTypography>

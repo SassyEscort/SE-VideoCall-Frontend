@@ -19,12 +19,14 @@ import LanguageDropdown from 'components/common/LanguageDropdown';
 import { FormattedMessage } from 'react-intl';
 import { HeaderBoxContainer } from './ModelLayout.styled';
 import { gaEventTrigger } from 'utils/analytics';
+import { useAuthContext } from 'contexts/AuthContext';
 
 const HeaderModelComponent = () => {
   // const url = new URL(window.location.href);
   // const email = url.searchParams.get('email');
   // const emailCode = url.searchParams.get('code');
   // const id = url.searchParams.get('id');
+  const { handleGAEventsTrigger } = useAuthContext();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openSidebar, setOpenSidebar] = useState(false);
   const [open, setIsOpen] = useState(false);
@@ -106,6 +108,7 @@ const HeaderModelComponent = () => {
               height="100%"
               width={{ xs: '120px', md: '182px', sm: '182px' }}
               display={'flex'}
+              onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'top-bar')}
             >
               <Image
                 src="/images/header/new-logo.png"

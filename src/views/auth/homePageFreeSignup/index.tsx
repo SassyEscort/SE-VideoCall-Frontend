@@ -69,7 +69,7 @@ export type SignupParams = {
 const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
   const intl = useIntl();
   const route = useRouter();
-  const { funnelHitId } = useAuthContext();
+  const { funnelHitId, handleGAEventsTrigger } = useAuthContext();
   const { refresh, push } = route;
 
   const isSm = useMediaQuery(theme.breakpoints.down(330));
@@ -268,9 +268,16 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                             e.target.value = e.target.value.trimStart();
                             handleChange(e);
                           }}
-                          onBlur={() => {
-                            handleBlur;
+                          onBlur={(e) => {
+                            handleBlur(e);
                             gaEventTrigger('signup_form_name_click', { source: 'model_name_click', category: 'TextField' });
+                            if (values.name) {
+                              gaEventTrigger('name-added', {
+                                source: 'name added',
+                                category: 'TextField',
+                                label: 'name added'
+                              });
+                            }
                           }}
                           error={touched.name && Boolean(errors.name)}
                           helperText={touched.name && errors.name ? <FormattedMessage id={errors.name} /> : ''}
@@ -293,9 +300,16 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                           name="email"
                           value={values.email}
                           onChange={handleChange}
-                          onBlur={() => {
-                            handleBlur;
+                          onBlur={(e) => {
+                            handleBlur(e);
                             gaEventTrigger('signup_form_email_click', { source: 'model_email_click', category: 'TextField' });
+                            if (values.email) {
+                              gaEventTrigger('email-added', {
+                                source: 'email added',
+                                category: 'TextField',
+                                label: 'email added'
+                              });
+                            }
                           }}
                           error={touched.email && Boolean(errors.email)}
                           helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
@@ -321,9 +335,16 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                               name="password"
                               value={values.password}
                               onChange={handleChange}
-                              onBlur={() => {
-                                handleBlur;
+                              onBlur={(e) => {
+                                handleBlur(e);
                                 gaEventTrigger('signup_form_password_click', { source: 'model_password_click', category: 'TextField' });
+                                if (values.password) {
+                                  gaEventTrigger('password-added', {
+                                    source: 'password added',
+                                    category: 'TextField',
+                                    label: 'password added'
+                                  });
+                                }
                               }}
                               error={touched.password && Boolean(errors.password)}
                               helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
@@ -351,12 +372,19 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                               name="confirmPassword"
                               value={values.confirmPassword}
                               onChange={handleChange}
-                              onBlur={() => {
-                                handleBlur;
+                              onBlur={(e) => {
+                                handleBlur(e);
                                 gaEventTrigger('signup_form_confirm_password_click', {
                                   source: 'model_confirm_password_click',
                                   category: 'TextField'
                                 });
+                                if (values.confirmPassword) {
+                                  gaEventTrigger('confirmPassword-added', {
+                                    source: 'confirmPassword added',
+                                    category: 'TextField',
+                                    label: 'confirmPassword added'
+                                  });
+                                }
                               }}
                               error={touched.confirmPassword && Boolean(errors.confirmPassword)}
                               helperText={
@@ -381,7 +409,12 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                         </Box>
                       </ModelUITextConatiner>
                       <RemindMeBoxContainer>
-                        <MenuItem sx={{ p: 0, gap: { xs: '0', sm: '1' } }}>
+                        <MenuItem
+                          sx={{ p: 0, gap: { xs: '0', sm: '1' } }}
+                          onClick={() => {
+                            gaEventTrigger('remember-click', { category: 'Check Box', label: 'Remember me click' });
+                          }}
+                        >
                           <Checkbox sx={{ p: 0, pr: 1 }} />
                           <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
                             <FormattedMessage id="RememberMe" />
@@ -397,7 +430,13 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                       </StyleButtonV2>
                       <ModelUITextConatiner gap={3} sx={{ alignItems: 'center' }}>
                         <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                        <Box>
+                        <Box
+                          onClick={() => {
+                            if (values.role === ROLE.MODEL) {
+                              handleGAEventsTrigger('model-signup-click');
+                            }
+                          }}
+                        >
                           <UINewTypography variant="buttonLargeMenu" color="text.secondary" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
                             <FormattedMessage id="SignUpAsWhat" />{' '}
                             {values.role === ROLE.MODEL ? <FormattedMessage id="CustomerText" /> : <FormattedMessage id="Model" />}{' '}

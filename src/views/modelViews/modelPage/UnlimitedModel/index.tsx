@@ -21,6 +21,7 @@ import { User } from 'app/(guest)/layout';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import { useSession } from 'next-auth/react';
+import { gaEventTrigger } from 'utils/analytics';
 
 // import ModelNewPassword from 'views/modelViews/ModelNewPassword';
 
@@ -105,7 +106,13 @@ const UnlimitedModel = () => {
                   ''
                 ) : (
                   <PhotoshootExpButton>
-                    <UIThemeButton variant="contained" onClick={handleSignupOpen}>
+                    <UIThemeButton
+                      variant="contained"
+                      onClick={() => {
+                        gaEventTrigger('join-free-click', { category: 'Link', label: 'Join now free click' });
+                        handleSignupOpen();
+                      }}
+                    >
                       <FormattedMessage id="JoinForFREE" />
                     </UIThemeButton>
                   </PhotoshootExpButton>

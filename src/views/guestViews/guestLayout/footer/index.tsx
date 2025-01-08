@@ -23,7 +23,7 @@ const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents
 const Footer = () => {
   const pathName = usePathname();
   const isSEOPage = SEOCHATPATH.includes(pathName);
-  const { isFreeCreditAvailable, isCustomer, isModel } = useAuthContext();
+  const { isFreeCreditAvailable, isCustomer, isModel, fetchPageName } = useAuthContext();
 
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
@@ -65,6 +65,15 @@ const Footer = () => {
   };
 
   const handleClick = () => {
+    const data = {
+      pageName: fetchPageName()
+    };
+    gaEventTrigger('explore-model-button-click', {
+      action: 'explore-model-button-click',
+      category: 'Button',
+      label: 'Explore mmodel button click',
+      value: JSON.stringify(data)
+    });
     setLoading(true);
     setTimeout(() => {
       setLoading(false);

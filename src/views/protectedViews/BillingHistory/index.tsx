@@ -28,6 +28,7 @@ import BillingDetails from '../bilingDetails';
 import CircularProgress from '@mui/material/CircularProgress';
 import { areObjectsEqual } from 'utils/genericFunction';
 import { Chip } from '@mui/material';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type billingHistoryParams = {
   category: string;
@@ -87,6 +88,11 @@ const BillingHistory = ({
     };
     if (!areObjectsEqual(billingFilter, filters) && initialLoad) {
       fetchEarningHistoryDetails();
+      gaEventTrigger('page-load-complete', {
+        action: 'page-load-complete',
+        category: 'Button',
+        label: 'Page load complete'
+      });
     } else {
       setInitialLoad(true);
     }
