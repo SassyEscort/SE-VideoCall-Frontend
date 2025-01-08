@@ -29,6 +29,7 @@ import {
   InputTextFiledBoxContainer,
   JoinNowButtonContainer,
   JoinNowTextTypography,
+  MainBoxContainer,
   NewSignUpModelMainBoxContainer,
   ReferralTextTypography,
   RightSideInnerBoxContainer,
@@ -182,7 +183,7 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                   maxWidth: { xs: '100%', md: '400px' }
                 }}
               >
-                <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
+                <MainBoxContainer>
                   <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
                     <IconButton
                       size="large"
@@ -416,7 +417,7 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                       </ImageAndTextSpacingBox>
                     </RightSideInnerBoxContainer>
                   </RightSideMainBoxContainer>
-                </Box>
+                </MainBoxContainer>
               </Box>
             </Box>
           );

@@ -1,20 +1,20 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import { Formik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
-import { ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
+import { ErrorBox, ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
 import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
 import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
 import * as yup from 'yup';
-import { PASSWORD_PATTERN } from 'constants/regexConstants';
+import { EMAIL_REGEX, PASSWORD_PATTERN } from 'constants/regexConstants';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import {
   ButtonMainBoxContainer,
@@ -30,6 +30,7 @@ import {
   InputTextFiledBoxContainer,
   JoinNowButtonContainer,
   JoinNowTextTypography,
+  MainBoxContainer,
   NewSignUpModelMainBoxContainer,
   ReferralTextTypography,
   RightSideInnerBoxContainer,
@@ -37,28 +38,95 @@ import {
   RightSideSubTitleText
 } from '../newSignUpModel/NewSignUp.styled';
 import { Raleway } from 'next/font/google';
+import { LoginUserParams } from 'services/guestAuth/types';
+import { useRouter } from 'next/navigation';
+import { signIn, useSession } from 'next-auth/react';
+import { deleteCookie } from 'cookies-next';
+import getCustomErrorMessage from 'utils/error.utils';
+import InfoIcon from '@mui/icons-material/Info';
 
 const ralewayFont = Raleway({ subsets: ['latin'], display: 'swap' });
 
-const NewSignInModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
+const NewSignInModel = ({
+  onClose,
+  onSignupOpen,
+  onFogotPasswordLinkOpen
+}: {
+  onClose: () => void;
+  onSignupOpen: () => void;
+  onFogotPasswordLinkOpen: () => void;
+}) => {
+  const intl = useIntl();
+
+  const route = useRouter();
+  const { data: session } = useSession();
+  const [modelStatus, setModelStatus] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState('');
+  const [authRole, setAuthRole] = useState('');
+
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const [showPassword, setShowPassword] = useState(false);
 
   const validationSchema = yup.object({
-    password: yup.string().required('New Password Is Required').min(8, 'Password Must Be 8 character long').matches(PASSWORD_PATTERN, {
-      message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
-      excludeEmptyString: true
-    }),
-    confirmPassword: yup
-      .string()
-      .required('confirm Password Is Required')
-      .min(8, 'Password Must Be 8 character long')
-      .matches(PASSWORD_PATTERN, {
-        message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
-        excludeEmptyString: true
-      })
-      .oneOf([yup.ref('password')], 'password and confirm password should match')
+    email: yup.string().matches(EMAIL_REGEX, 'Enteravalidemail').required('Emailisrequired'),
+    password: yup.string().required('Passwordisrequired')
   });
+
+  const checkAndRoutePath = async () => {
+    const { ROLE } = await import('constants/workerVerification');
+    const { MODEL_ACTION } = await import('constants/profileConstants');
+
+    if (authRole === ROLE.CUSTOMER) {
+      route.refresh();
+    } else if (authRole === ROLE.MODEL) {
+      if (modelStatus === MODEL_ACTION.REJECT) {
+        route.push('/model/profile-reject');
+      } else if (modelStatus === MODEL_ACTION.APPROVE) {
+        route.push('/model/dashboard');
+      } else if (modelStatus === MODEL_ACTION.PENDING) {
+        route.push('/model/profile');
+      }
+    }
+  };
+
+  const handleFormSubmit = async (values: LoginUserParams) => {
+    try {
+      const { PROVIDERCUSTOM_TYPE } = await import('constants/signUpConstants');
+      setLoading(true);
+      const res = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+        role: values.role
+      });
+      if (res?.status === 200) {
+        deleteCookie('ab-group');
+        route.refresh();
+        onClose();
+      } else if (res?.error) {
+        const errorMessage = res.error === 'CredentialsSignin' ? 'InvalidEmail' : 'SomethingWent';
+        setAlert(intl.formatMessage({ id: errorMessage }));
+      }
+    } catch (error: any) {
+      setAlert(getCustomErrorMessage(error));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (session && session.user) {
+      const parsedPicture = JSON.parse((session?.user as any)?.picture);
+      setAuthRole(parsedPicture.role);
+      setModelStatus(parsedPicture.profile_status);
+    }
+  }, [session, session?.user]);
+
+  useEffect(() => {
+    checkAndRoutePath();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authRole, modelStatus]);
 
   return (
     <>
@@ -71,9 +139,7 @@ const NewSignInModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
           role: ''
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log(values, 'values');
-        }}
+        onSubmit={(values: LoginUserParams) => handleFormSubmit(values)}
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
           return (
@@ -92,7 +158,7 @@ const NewSignInModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                     maxWidth: { xs: '100%', md: '400px' }
                   }}
                 >
-                  <Box sx={{ display: 'flex', marginTop: { xs: '100px', sm: 0 } }}>
+                  <MainBoxContainer>
                     <Box display="flex" alignItems="flex-end" justifyContent="flex-end">
                       <IconButton
                         size="large"
@@ -107,6 +173,14 @@ const NewSignInModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                       >
                         <CloseIcon />
                       </IconButton>
+                    </Box>
+                    <Box sx={{ color: 'primary.300' }}>
+                      {alert && (
+                        <ErrorBox>
+                          <InfoIcon />
+                          <UINewTypography>{alert}</UINewTypography>
+                        </ErrorBox>
+                      )}
                     </Box>
                     <NewSignUpModelMainBoxContainer>
                       <HeadingMainBoxContainer>
@@ -204,7 +278,7 @@ const NewSignInModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                           </InputFiledInnerBoxContainer>
 
                           <ButtonMainBoxContainer>
-                            <JoinNowButtonContainer>
+                            <JoinNowButtonContainer type="submit" loading={loading}>
                               <JoinNowTextTypography>Join Now</JoinNowTextTypography>
                             </JoinNowButtonContainer>
                           </ButtonMainBoxContainer>
@@ -218,6 +292,7 @@ const NewSignInModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                             sx={{
                               color: 'white.main'
                             }}
+                            onClick={onSignupOpen}
                           >
                             Log in here
                           </ReferralTextTypography>
@@ -261,7 +336,7 @@ const NewSignInModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                         </ImageAndTextSpacingBox>
                       </RightSideInnerBoxContainer>
                     </RightSideMainBoxContainer>
-                  </Box>
+                  </MainBoxContainer>
                 </Box>
               </Box>
             </>
