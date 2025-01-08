@@ -135,7 +135,7 @@ const HowItWorks = () => {
               <Box component="img" src="/images/levelup-img.png" />
 
               <MoreCallsTextTypography>
-                Make total<span style={{ fontWeight: 800 }}>116</span> minutes of calls to level up
+                Make total <span style={{ fontWeight: 800 }}>116</span> minutes of calls to level up
               </MoreCallsTextTypography>
             </Level2ToLevel3FirstMainBoxContainer>
             <UINewTypography variant="bodySmallBold" color="#00000099">
