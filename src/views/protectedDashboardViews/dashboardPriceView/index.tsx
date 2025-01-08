@@ -33,6 +33,7 @@ import { RiArrowLeftLine, RiArrowRightLine } from 'components/common/customRemix
 import UIThemeButton from 'components/UIComponents/UIStyledLoadingButton';
 import { getErrorMessage } from 'utils/errorUtils';
 import InputAdornment from '@mui/material/InputAdornment';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type PricePerMinute = {
   price_per_minute: number;
@@ -97,6 +98,15 @@ const DashboardPriceView = ({
       const inputPayload: PricePerMinute = {
         price_per_minute: Number(values.price)
       };
+      gaEventTrigger('cta-next-button-click', {
+        sources: 'Add_Price',
+        label: 'Next button click',
+        category: 'Button',
+        value: JSON.stringify({
+          price_per_minute: values.price,
+          'step-name': 'Add_Price'
+        })
+      });
       handleSubmitForm(inputPayload);
     }
   });

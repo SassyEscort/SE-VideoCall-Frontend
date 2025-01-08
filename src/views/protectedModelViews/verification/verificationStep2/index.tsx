@@ -34,6 +34,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import { toast } from 'react-toastify';
 import { ModelVerificationService } from 'services/modelVerification/modelVerification.services';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type VerificationStepSecond = {
   idType: string;
@@ -105,6 +106,15 @@ const VerificationStep2 = ({
             if (button) {
               button.click();
             }
+            gaEventTrigger('cta-next-button-click', {
+              sources: 'Upload_Documents',
+              label: 'Next button click',
+              category: 'Button',
+              value: JSON.stringify({
+                document_type: values.idType,
+                'step-name': 'Upload_Documents'
+              })
+            });
           } else {
             handleChaneDocuModal(true);
           }

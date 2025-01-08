@@ -20,6 +20,7 @@ import { PAYOUT_ACTION } from 'constants/payoutsConstants';
 import { getErrorMessage } from 'utils/errorUtils';
 import { scrollToError } from 'utils/scrollUtils';
 import { usePathname } from 'next/navigation';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type WorkerPhotos = {
   id: number;
@@ -363,6 +364,15 @@ const UploadImage = ({
       onSubmit={(values) => {
         if (!values.file5?.length && !values.file5Existing.length && pathName !== '/model/profile') {
           setImageWarningOpen(true);
+          gaEventTrigger('cta-next-button-click', {
+            sources: 'Upload_Photos',
+            label: 'Next button click',
+            category: 'Button',
+            value: JSON.stringify({
+              file_type: values.file5,
+              'step-name': 'Upload_Photos'
+            })
+          });
         } else {
           handlePhotoSubmit(values);
         }

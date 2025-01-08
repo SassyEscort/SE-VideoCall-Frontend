@@ -22,6 +22,15 @@ const ModelReviewDetails = ({
 }) => {
   const modelReviewSubmit = async () => {
     await VerificationStepService.modelReview(token.token);
+    gaEventTrigger('cta-next-button-click', {
+      sources: 'Onboarded',
+      label: 'Next button click',
+      category: 'Button',
+      value: JSON.stringify({
+        review: modelDetails.email,
+        'step-name': 'Onboarded'
+      })
+    });
     gaEventTrigger('Model_Submit_Verification_Clicked', {
       action: 'Model_Submit_Verification_Clicked',
       category: 'Button',
