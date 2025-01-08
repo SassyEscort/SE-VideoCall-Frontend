@@ -43,7 +43,6 @@ const ralewayFont = Raleway({ subsets: ['latin'], display: 'swap' });
 const NewSignInModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const validationSchema = yup.object({
     password: yup.string().required('New Password Is Required').min(8, 'Password Must Be 8 character long').matches(PASSWORD_PATTERN, {

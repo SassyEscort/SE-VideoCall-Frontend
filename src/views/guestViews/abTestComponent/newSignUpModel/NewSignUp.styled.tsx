@@ -5,6 +5,13 @@ import { Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/system/Box';
 
+export const MainBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column-reverse'
+  }
+}));
+
 export const InputFiledMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -26,44 +33,73 @@ export const InputTextFiledBoxContainer = styled(Box)(({ theme }) => ({
 export const RightSideMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  width: '100%',
+
   gap: theme.spacing(4),
   justifyContent: 'center',
   backgroundImage: `linear-gradient(to bottom, #00000000, #000000), url(/images/new-signup-img.webp)`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
-  width: '100%',
-  minWidth: '600px'
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '600px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    minWidth: '600px'
+  }
 }));
 
 export const RightSideInnerBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(2),
-  paddingLeft: theme.spacing(10),
-  paddingTop: theme.spacing(48)
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(3),
+    paddingTop: theme.spacing(26.25)
+  },
+  [theme.breakpoints.up('sm')]: {
+    paddingLeft: theme.spacing(10),
+    paddingTop: theme.spacing(48)
+  }
 }));
 
 export const RightSideSubTitleText = styled(Box)(({ theme }) => ({
-  fontSize: '20px',
-  fontWeight: 800,
-  lineHeight: '24px',
   whiteSpace: 'nowrap',
-  color: theme.palette.common.white
+  color: theme.palette.common.white,
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '24px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '20px',
+    fontWeight: 800,
+    lineHeight: '24px'
+  }
 }));
 
 export const NewSignUpModelMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  minWidth: '600px',
   height: '100%',
   minHeight: '700px',
   backgroundImage: 'linear-gradient(to bottom, #07030E, #290F1E)',
-  paddingTop: theme.spacing(7.5),
-  paddingRight: theme.spacing(10),
-  paddingLeft: theme.spacing(10),
-  paddingBottom: theme.spacing(4)
+
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '600px',
+    paddingTop: theme.spacing(3),
+    paddingRight: theme.spacing(5.5),
+    paddingLeft: theme.spacing(5.5),
+    paddingBottom: theme.spacing(2)
+  },
+  [theme.breakpoints.up('sm')]: {
+    minWidth: '600px',
+    paddingTop: theme.spacing(7.5),
+    paddingRight: theme.spacing(10),
+    paddingLeft: theme.spacing(10),
+    paddingBottom: theme.spacing(4)
+  }
 }));
 
 export const HeadingMainBoxContainer = styled(Box)(({ theme }) => ({
@@ -80,17 +116,31 @@ export const HeadingInnerBoxContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const HeadingTextTypography = styled(Typography)(({ theme }) => ({
-  fontSize: '48px',
-  fontWeight: 900,
-  lineHeight: '60px',
-  color: theme.palette.common.white
+  color: theme.palette.common.white,
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '32px',
+    fontWeight: 900,
+    lineHeight: '40px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '48px',
+    fontWeight: 900,
+    lineHeight: '60px'
+  }
 }));
 
 export const HeadingDescriptionTextTypography = styled(Typography)(({ theme }) => ({
-  fontSize: '22px',
-  fontWeight: 400,
-  lineHeight: '32px',
-  color: theme.palette.common.white
+  color: theme.palette.common.white,
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '24px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '22px',
+    fontWeight: 400,
+    lineHeight: '32px'
+  }
 }));
 
 export const ButtonMainBoxContainer = styled(Box)(({ theme }) => ({

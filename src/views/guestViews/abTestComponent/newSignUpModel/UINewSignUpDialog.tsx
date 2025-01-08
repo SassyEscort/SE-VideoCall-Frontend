@@ -15,6 +15,12 @@ const UINewSignUpStyledDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiPaper-root': {
     maxWidth: '1200px',
     borderRadius: theme.spacing(1.5)
+  },
+  '& .mui-lttpfc': {
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: 0,
+      paddingRight: 0
+    }
   }
 }));
 
