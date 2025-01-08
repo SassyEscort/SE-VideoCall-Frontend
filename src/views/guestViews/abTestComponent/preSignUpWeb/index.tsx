@@ -24,12 +24,15 @@ import {
   PreSignUpWebMainBoxContainer,
   SignupButtonBoxContainer,
   SignUpTextTypography,
+  SubTitleTypography,
+  TitleTypography,
   TrendingBoxContainer,
   TrendingNowTextTypography
 } from './PreSignUpWeb.styled';
 import theme from 'themes/theme';
 import { ModelListingRes } from 'services/modelListing/modelListing.services';
 import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
+import { CarousalModelImageRes } from 'services/abTest/abTest.services';
 
 const slides = [
   { link: '/images/swiper/SlideItem1.webp' },
@@ -46,9 +49,15 @@ const slides = [
 
 const ralewayFont = Raleway({ subsets: ['latin'], display: 'swap' });
 
-const PreSignUpWeb = ({ modelData, params }: { modelData: ModelListingRes; params: SearchFiltersTypes }) => {
+const PreSignUpWeb = ({
+  modelData,
+  carousalImages
+}: {
+  modelData: ModelListingRes;
+  params: SearchFiltersTypes;
+  carousalImages: CarousalModelImageRes[];
+}) => {
   const [slideChange, setSlideChange] = useState(false);
-  console.log('modelData', modelData);
 
   useEffect(() => {
     const updateSwiperSlides = () => {
@@ -191,8 +200,8 @@ const PreSignUpWeb = ({ modelData, params }: { modelData: ModelListingRes; param
                         color={'white.main'}
                         textAlign={'start'}
                       >
-                        <div>{model.user_name}</div>
-                        <div>{model.country}</div>
+                        <TitleTypography>{model.name}</TitleTypography>
+                        <SubTitleTypography sx={{ whiteSpace: 'nowrap' }}>{model.country}</SubTitleTypography>
                       </Box>
                     </Box>
                   </SwiperSlide>

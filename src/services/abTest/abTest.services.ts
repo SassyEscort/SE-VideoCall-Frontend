@@ -7,6 +7,11 @@ export type ExperimentRes = {
   variation_description: string;
 };
 
+export type CarousalModelImageRes = {
+  id: number;
+  link: string;
+};
+
 export class ABTestServices {
   static fetchPageExperiment = async (token: string, page_url: string): Promise<ExperimentRes[]> => {
     try {
@@ -46,6 +51,25 @@ export class ABTestServices {
       return data.data;
     } catch (err: any) {
       return [] as ExperimentRes[];
+    }
+  };
+ 
+  static fetchcarouselModelImages = async (): Promise<CarousalModelImageRes[]> => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/catalog/carousel-models`, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!res.ok) {
+        throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
+      }
+
+      const data = await res.json();
+      return data.data;
+    } catch (err: any) {
+      return [] as CarousalModelImageRes[];
     }
   };
 }

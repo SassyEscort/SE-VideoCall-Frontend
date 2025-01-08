@@ -2,6 +2,7 @@
 // import ABTest from 'views/guestViews/abTestComponent';
 import { Box } from '@mui/material';
 import { ModelListingService } from 'services/modelListing/modelListing.services';
+import { ABTestServices } from 'services/abTest/abTest.services';
 import { getUserDataServerSide } from 'utils/getSessionData';
 import PreSignUpWeb from 'views/guestViews/abTestComponent/preSignUpWeb';
 import { KeyPairAndUndefined } from 'types/KeyPair';
@@ -18,6 +19,7 @@ const abTest = async ({ searchParams }: { searchParams: KeyPairAndUndefined }) =
     language: searchParams?.language || '',
     isOnline: searchParams?.isOnline || '',
     country: searchParams?.country || '',
+    region: searchParams?.region || '',
     sortOrder: searchParams?.sortOrder || '',
     sortField: searchParams?.sortField || '',
     gender: searchParams?.gender || '',
@@ -28,11 +30,12 @@ const abTest = async ({ searchParams }: { searchParams: KeyPairAndUndefined }) =
   };
 
   const modelData = await ModelListingService.getModelListing(initVal, session.token);
+  const carousalImages = await ABTestServices.fetchcarouselModelImages();  
 
   return (
     <Box width={'100%'}>
       {/* <ABTest group={group} /> */}
-      <PreSignUpWeb modelData={modelData} params={initVal} />
+      <PreSignUpWeb modelData={modelData} params={initVal} carousalImages={carousalImages} />
     </Box>
   );
 };
