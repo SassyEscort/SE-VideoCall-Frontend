@@ -4,7 +4,7 @@ import HomeImageCard from 'views/guestViews/homePage/homeImageCards';
 import theme from 'themes/theme';
 import { FormattedMessage } from 'react-intl';
 import { HomeExploreBox, SubTitle } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
-import { DetailsChildTypographyBox, ExploreEscortText } from './Escort.styled';
+import { DetailsChildTypographyBox, ExploreEscortText, ExploreModelsBox } from './Escort.styled';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { ModelHomeListing, ModelListingService } from 'services/modelListing/modelListing.services';
 import SearchFilters, { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
@@ -16,9 +16,11 @@ import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useAuthContext } from '../../../../contexts/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import UIThemeBorderButton from 'components/UIComponents/UIStyledBorderButton';
+import { gaEventTrigger } from 'utils/analytics';
 
 const EscortExplore = () => {
-  const { isFreeCreditAvailable } = useAuthContext();
+  const { isFreeCreditAvailable, fetchPageName } = useAuthContext();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -42,6 +44,7 @@ const EscortExplore = () => {
     language: searchParams.get('language') ? (searchParams.get('language') as string) : '',
     isOnline: searchParams.get('isOnline') ? (searchParams.get('isOnline') as string) : '',
     country: searchParams.get('country') ? (searchParams.get('country') as string) : '',
+    region: searchParams.get('region') ? (searchParams.get('region') as string) : '',
     sortOrder: searchParams.get('sortOrder') ? (searchParams.get('sortOrder') as string) : '',
     sortField: searchParams.get('sortField') ? (searchParams.get('sortField') as string) : '',
     gender: searchParams.get('gender') ? (searchParams.get('gender') as string) : '',
@@ -71,6 +74,7 @@ const EscortExplore = () => {
     if (filters.language) objParams.language = filters.language ? filters.language.toString() : '';
     if (filters.isOnline) objParams.isOnline = filters.isOnline ? filters.isOnline.toString() : '';
     if (filters.country) objParams.country = filters.country ? filters.country.toString() : '';
+    if (filters.region) objParams.region = filters.region ? filters.region.toString() : '';
     if (filters.sortOrder) objParams.sortOrder = filters.sortOrder ? filters.sortOrder.toString() : '';
     if (filters.gender) objParams.gender = filters.gender ? filters.gender.toString() : '';
     if (filters.sortField) objParams.sortField = filters.sortField ? filters.sortField.toString() : '';
@@ -93,6 +97,7 @@ const EscortExplore = () => {
       'fromAge',
       'toPrice',
       'country',
+      'region',
       'sortOrder',
       'sortField',
       'gender'
@@ -193,7 +198,7 @@ const EscortExplore = () => {
     <>
       <BackdropProgress open={isLoading} />
 
-      <DetailsChildTypographyBox sx={{ gap: 4.25, mt: isSmDown ? 12 : 7 }}>
+      <DetailsChildTypographyBox sx={{ gap: 2.25, mt: isSmDown ? 12 : 7 }}>
         <DetailsChildTypographyBox sx={{ gap: 7 }}>
           <ExploreEscortText>
             <HomeExploreBox>
@@ -213,6 +218,34 @@ const EscortExplore = () => {
             <SearchFilters isUserInteracted={isUserInteracted} handelFilterChange={handelFiltersFormSearch} ref={searchFiltersRef} />
           </HomeMainContainer>
         </DetailsChildTypographyBox>
+        <ExploreModelsBox>
+          <Box>
+            <UINewTypography variant="body">
+              <FormattedMessage id="RelatedModels" />
+            </UINewTypography>
+          </Box>
+          <Box>
+            <UIThemeBorderButton
+              sx={{ width: { xs: '100%', sm: '300px' } }}
+              href="/"
+              onClick={() => {
+                const data = {
+                  pageName: fetchPageName()
+                };
+                gaEventTrigger('explore-model-button-click', {
+                  action: 'explore-model-button-click',
+                  category: 'Button',
+                  label: 'Explore mmodel button click',
+                  value: JSON.stringify(data)
+                });
+              }}
+            >
+              <UINewTypography variant="body" color={'text.secondary'}>
+                <FormattedMessage id="ExploreModels" />
+              </UINewTypography>
+            </UIThemeBorderButton>
+          </Box>
+        </ExploreModelsBox>
         <Box>
           <HomeImageCard
             modelListing={modelListing}

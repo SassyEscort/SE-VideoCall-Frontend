@@ -250,3 +250,9 @@ export const ActivityButtonBox = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between',
   gap: theme.spacing(1.5)
 }));
+
+export const ExploreModelsBox = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center'
+}));

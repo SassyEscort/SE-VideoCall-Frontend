@@ -23,6 +23,7 @@ import moment from 'moment';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import { ROLE } from 'constants/workerVerification';
 import { useAuthContext } from './AuthContext';
+import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
 
 export const COMETCHAT_CONSTANTS = {
   APP_ID: process.env.NEXT_PUBLIC_COMET_CHAT_APP_ID!,
@@ -151,13 +152,6 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const path = usePathname();
   const userName = path.split('/')[2];
 
-  const customerInfo = {
-    email: providerData?.customer_email,
-    name: providerData?.customer_name,
-    username: providerData?.customer_user_name,
-    model_username: userName
-  };
-
   const [call, setCall] = useState<CometChat.Call | undefined>(undefined);
   const [modelId, setModelId] = useState(0);
   const [token, setToken] = useState<TokenIdType>({ id: 0, token: '' });
@@ -191,7 +185,15 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   const [isAutodisconnected, setIsAutodisconnected] = useState(false);
   const [isModelEndedCall, setIsisModelEndedCall] = useState(false);
 
-  const { handleOpen } = useAuthContext();
+  const { handleOpen, funnelHitId, balance } = useAuthContext();
+
+  const customerInfo = {
+    email: providerData?.customer_email,
+    name: providerData?.customer_name,
+    username: providerData?.customer_user_name,
+    model_username: userName,
+    user_current_balance: balance
+  };
 
   const modelObj = {
     modelId: modelId,
@@ -252,6 +254,22 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getToken = () => token;
+
+  const handleFunnelFluxEvent = async () => {
+    const hitID = (window?.flux?.get && (window?.flux?.get('{hit}') as string)) || funnelHitId || '';
+    if (hitID) {
+      try {
+        await FunnelfluxService.funnelfluxConversionEvent(
+          {
+            hit_id: hitID,
+            revenue: 0,
+            num: 2
+          },
+          token.token
+        );
+      } catch (error) {}
+    }
+  };
 
   const getCometChatInfo = async () => {
     if (modelId && token.token) {
@@ -315,6 +333,7 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
               value: JSON.stringify(customerInfo)
             });
             const callInitiate = await CometChat.initiateCall(callObject);
+            handleFunnelFluxEvent();
             setCall(callInitiate);
             setSessionId(callInitiate.getSessionId());
             setIsCallEnded(false);
@@ -345,6 +364,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
             username: providerData?.customer_user_name,
             model_username: userName,
             is_credit_over: false,
+            'is-automated': 'yes',
+            'close-button-click': 'no',
+            'credits-balance-available': isModelAvailable?.data?.available_credits || 0,
             source: 'Video calling model'
           };
           gaEventTrigger('Credits_Purchase_Popup_open', {
@@ -389,6 +411,11 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
 
   const handleReviewClose = (isPreventReload?: boolean) => {
     setReviewOpen(false);
+    gaEventTrigger('rating-pop-up-close', {
+      action: 'rating-pop-up-close',
+      category: 'Dialouge',
+      label: 'Rating popup Close'
+    });
     if (!isPreventReload) refresh();
   };
 
@@ -426,6 +453,11 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
         await getCometChatInfo();
         setAvailableCredits(creditLogData.available_credits);
         setReviewOpen(true);
+        gaEventTrigger('rating-pop-up-view', {
+          action: 'rating-pop-up-view',
+          category: 'Dialouge',
+          label: 'Rating popup view'
+        });
         if (isCustomer && creditLogData.out_of_credits) {
           const creditInfoEvent = {
             email: providerData?.customer_email,
@@ -434,6 +466,9 @@ export const CallFeatureProvider = ({ children }: { children: ReactNode }) => {
             model_username: userName,
             is_credit_over: true,
             is_new_purchase: false,
+            'is-automated': 'yes',
+            'close-button-click': 'no',
+            'credits-balance-available': creditLogData.available_credits,
             source: 'Video calling model'
           };
           gaEventTrigger('Credits_Purchase_Popup_open', {

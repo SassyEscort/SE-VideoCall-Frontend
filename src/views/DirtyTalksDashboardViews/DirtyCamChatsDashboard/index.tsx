@@ -44,6 +44,7 @@ const DirtyCamChatsDashboard = () => (
         height="48px"
         position="absolute"
         sx={{ zIndex: -1 }}
+        alt="connect-level"
       />
       <LightCirclesBox />
       <PinkLightCirclesBox />
@@ -51,7 +52,7 @@ const DirtyCamChatsDashboard = () => (
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <DirtyCamChatsInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/Video.png" width="32px" height="100%" />
+              <Box component="img" src="/images/camtocamDashboard/Video.png" width="32px" height="100%" alt="video" />
               <DirtyCamChatsInfoContainer>
                 <DirtyCamChatsDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="ChooseYourModell" />
@@ -64,7 +65,7 @@ const DirtyCamChatsDashboard = () => (
           </Grid>
           <Grid item xs={4}>
             <DirtyCamChatsInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/Private.png" width="26px" height="26px" />
+              <Box component="img" src="/images/camtocamDashboard/Private.png" width="26px" height="26px" alt="private" />
               <DirtyCamChatsInfoContainer>
                 <DirtyCamChatsDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="StartTheCall" />
@@ -77,7 +78,7 @@ const DirtyCamChatsDashboard = () => (
           </Grid>
           <Grid item xs={4}>
             <DirtyCamChatsInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/People.png" width="32px" height="100%" />
+              <Box component="img" src="/images/camtocamDashboard/People.png" width="32px" height="100%" alt="people" />
               <DirtyCamChatsInfoContainer>
                 <DirtyCamChatsDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="StayInControl" />

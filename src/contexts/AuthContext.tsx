@@ -1,14 +1,19 @@
 'use client';
+import { useMediaQuery } from '@mui/material';
 import { User } from 'app/(guest)/layout';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import { ErrorMessage } from 'constants/common.constants';
+import { CHATROOM } from 'constants/languageConstants';
 import { ROLE } from 'constants/workerVerification';
+import { getCookie } from 'cookies-next';
 import { Session } from 'next-auth';
 import { useSession } from 'next-auth/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { createContext, ReactNode, useContext, useEffect, useState, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { CustomerFreeCreditsService } from 'services/customerFreeCredits/customerFreeCredits.services';
+import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
+import theme from 'themes/theme';
 import { gaEventTrigger } from 'utils/analytics';
 import { randomID } from 'utils/videoCall';
 import { TokenIdType } from 'views/protectedModelViews/verification';
@@ -24,6 +29,7 @@ export type AuthContextProps = {
   session: Session | null;
   isCustomer: boolean;
   user: string | undefined;
+  funnelHitId: string;
   isFreeCreditAvailable: number;
   status: string;
   roomID: string;
@@ -36,16 +42,20 @@ export type AuthContextProps = {
   handleCreateNewRoomID: () => void;
   handleOpen: () => void;
   handleCreditDrawerClose: () => void;
+  handleGAEventsTrigger: (eventName: string, position?: string, is_open?: boolean, language?: string) => void;
   openCreditDrawer: boolean;
   token: TokenIdType;
   adminUserPermissions: AdminUserPermissions[] | undefined;
+  fetchPageName: () => void;
+  handleSetBalance: (val: number) => void;
+  balance: number;
 };
 
 const AuthContext = createContext<AuthContextProps>({
   session: null,
   isCustomer: false,
   user: '',
-  isFreeCreditAvailable: 1,
+  isFreeCreditAvailable: 0,
   status: '',
   roomID: '',
   handleFreeCreditClaim: () => {},
@@ -56,22 +66,29 @@ const AuthContext = createContext<AuthContextProps>({
   handelNameChange: () => {},
   handleCreditDrawerClose: () => {},
   handleCreateNewRoomID: () => {},
+  handleGAEventsTrigger: () => {},
   openCreditDrawer: false,
   token: { id: 0, token: '' },
   isAdmin: false,
-  adminUserPermissions: [{} as AdminUserPermissions]
+  adminUserPermissions: [{} as AdminUserPermissions],
+  funnelHitId: '',
+  fetchPageName: () => {},
+  handleSetBalance: () => {},
+  balance: 0
 });
 
 const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const { data, status } = useSession();
   const [session, setSession] = useState<Session | null>(null);
-  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(1);
+  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(0);
   const [isFreeCreditsClaimed, setIsFreeCreditsClaimed] = useState(false);
   const [isNameChange, setIsNameChange] = useState(false);
   const [addedCredits, setAddedCredits] = useState(0);
   const [roomID, setRoomID] = useState('');
   const [balance, setBalance] = useState(0);
   const [openSuccess, setOpenSuccess] = useState(false);
+  const [funnelHitId, setfunnelHitId] = useState('');
   const [openCreditDrawer, setOpenCreditDrawer] = useState(false);
 
   const user = (data?.user as User)?.picture;
@@ -94,9 +111,8 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     model_username: userName
   };
 
-  const handleOpen = () => {
-    setOpenCreditDrawer(true);
-  };
+  const handleOpen = () => setOpenCreditDrawer(true);
+  const handleSetBalance = (val: number) => setBalance(val);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -107,13 +123,9 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const totalBalValue = searchParams?.get('total_amount_after_txn') || '';
   const transaction_id = searchParams?.get('transaction_id') || '';
 
-  const handleFreeCreditClaim = () => {
-    setIsFreeCreditsClaimed(!isFreeCreditsClaimed);
-  };
+  const handleFreeCreditClaim = () => setIsFreeCreditsClaimed(!isFreeCreditsClaimed);
 
-  const handelNameChange = () => {
-    setIsNameChange(!isNameChange);
-  };
+  const handelNameChange = () => setIsNameChange(!isNameChange);
 
   const handleClose = () => {
     setOpenSuccess(false);
@@ -125,9 +137,7 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     setRoomID(id);
   };
 
-  const handleCreditDrawerClose = () => {
-    setOpenCreditDrawer(false);
-  };
+  const handleCreditDrawerClose = () => setOpenCreditDrawer(false);
 
   const handleCustomerFreeCredits = useCallback(async () => {
     try {
@@ -160,35 +170,102 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   }, [searchParams]);
 
   useEffect(() => {
-    const checkFluxLoaded = async () => {
-      if (window?.flux && window.document && totalBalValue && transaction_id) {
-        gaEventTrigger(
-          'purchase',
-          {
-            action: 'purchase',
-            category: 'Page change',
-            label: 'purchase',
-            value: JSON.stringify(customerInfo)
-          },
-          Number(totalBalValue)
-        );
-        var currentUrl = new URL(window.location.href);
-        var sanitizedUrl = currentUrl.origin + currentUrl.pathname;
-        const eventArgs = {
-          rev: String(totalBalValue),
-          tx: transaction_id.toString(),
-          url_args: JSON.stringify({ rev: String(totalBalValue), tx: transaction_id.toString() }),
-          url: sanitizedUrl
-        };
-        window.flux.track('conversion', eventArgs);
-
-        clearInterval(intervalId);
+    const interval = setInterval(() => {
+      if (typeof window !== 'undefined' && window?.flux && window.document) {
+        if (window?.flux?.get && window?.flux?.get('{hit}')) {
+          setfunnelHitId(window?.flux?.get('{hit}') as string);
+          clearInterval(interval);
+        }
       }
-    };
-    const intervalId = setInterval(checkFluxLoaded, 100);
-    return () => clearInterval(intervalId);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (totalBalValue && transaction_id) {
+      gaEventTrigger(
+        'purchase',
+        {
+          action: 'purchase',
+          category: 'Page change',
+          label: 'purchase',
+          value: JSON.stringify(customerInfo)
+        },
+        Number(totalBalValue)
+      );
+      const checkFluxLoaded = async () => {
+        if (window?.flux && window.document && window?.flux?.get && window?.flux?.get('{hit}')) {
+          const hitID = window?.flux?.get('{hit}') as string;
+          await FunnelfluxService.funnelfluxConversionEvent(
+            {
+              hit_id: hitID,
+              revenue: Number(totalBalValue || 0),
+              transaction_id: transaction_id.toString()
+            },
+            tokenDetails.token
+          );
+          clearInterval(intervalId);
+        }
+      };
+      const intervalId = setInterval(checkFluxLoaded, 100);
+      return () => clearInterval(intervalId);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalBalValue, transaction_id]);
+
+  const fetchPageName = () => {
+    let pageName = 'homepage';
+    if (CHATROOM.some((a) => pathname.includes(a.url))) {
+      const page = CHATROOM?.find((a) => pathname?.includes(a?.url));
+      pageName = page?.title || 'homepage';
+    } else if (pathname?.includes('/models')) {
+      pageName = 'model-details';
+    } else {
+      pageName = pathname;
+    }
+    return pageName.startsWith('/') ? pageName.slice(1).replace(/\//g, '-') : pageName.replace(/\//g, '-');
+  };
+
+  const handleGAEventsTrigger = (eventName: string, position?: string, is_open?: boolean, language?: string) => {
+    const group = getCookie('ab-group');
+    let versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
+
+    let pageName = 'homepage';
+    if (CHATROOM.some((a) => pathname.includes(a.url))) {
+      const page = CHATROOM?.find((a) => pathname?.includes(a?.url));
+      pageName = page?.title || 'homepage';
+    } else if (pathname?.includes('/models')) {
+      pageName = 'model-details';
+    }
+
+    let customerInfo: any = {
+      userLoginStatus: providerData?.token ? 'yes' : 'no',
+      pageName: pageName,
+      deviceype: 'desktop',
+      browserUsed: (typeof navigator !== 'undefined' && navigator?.userAgent) || ''
+    };
+    if (position) customerInfo['position'] = String(position);
+    if (versionDetails?.experiment) customerInfo['version'] = `${versionDetails?.experiment}_${versionDetails?.variation}`;
+    if (providerData?.customer_id) customerInfo['userid'] = String(providerData?.customer_id);
+    if (isSmDown) customerInfo['deviceype'] = 'mobile';
+    if (eventName === 'search-bar-click') customerInfo['search-bar-closed'] = is_open ? 'yes' : 'no';
+    if (eventName === 'language-click') {
+      customerInfo['language-selected'] = language;
+      customerInfo['language-closed'] = is_open ? 'yes' : 'no';
+    }
+    if (eventName === 'sign-up-button-click') {
+      customerInfo['free-credits-available'] = isFreeCreditAvailable ? 'yes' : 'no';
+      customerInfo['language-closed'] = is_open ? 'yes' : 'no';
+    }
+
+    gaEventTrigger(eventName, {
+      action: eventName,
+      category: 'Button',
+      label: eventName?.replace('-', ' '),
+      value: JSON.stringify(customerInfo)
+    });
+  };
 
   return (
     <AuthContext.Provider
@@ -207,10 +284,15 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         openCreditDrawer,
         handleCreditDrawerClose,
         handleCreateNewRoomID,
+        handleGAEventsTrigger,
+        handleSetBalance,
         token: tokenDetails,
         isAdmin,
         adminUserPermissions,
-        roomID
+        roomID,
+        funnelHitId,
+        fetchPageName,
+        balance
       }}
     >
       {children}

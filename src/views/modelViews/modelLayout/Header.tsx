@@ -23,12 +23,14 @@ import { getCookie } from 'cookies-next';
 import ABRegister1Model from 'views/guestViews/abTestComponent/abRegister1Model';
 import UIStyledABTest1Model from 'views/guestViews/abTestComponent/abRegister1Model/UIStyleABTest1Model';
 import ABLogin1Model from 'views/guestViews/abTestComponent/abLogin1Model';
+import { useAuthContext } from 'contexts/AuthContext';
 
 const HeaderModelComponent = () => {
   // const url = new URL(window.location.href);
   // const email = url.searchParams.get('email');
   // const emailCode = url.searchParams.get('code');
   // const id = url.searchParams.get('id');
+  const { handleGAEventsTrigger } = useAuthContext();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const [openSidebar, setOpenSidebar] = useState(false);
   const [open, setIsOpen] = useState(false);
@@ -116,12 +118,13 @@ const HeaderModelComponent = () => {
               prefetch={true}
               shallow={true}
               href="/"
-              height={{ xs: '26px', md: '36px', sm: '36px' }}
+              height="100%"
               width={{ xs: '120px', md: '182px', sm: '182px' }}
               display={'flex'}
+              onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'top-bar')}
             >
               <Image
-                src="/images/header/headerlogo.png"
+                src="/images/header/new-logo.png"
                 width={182}
                 height={36}
                 alt="header_logo"

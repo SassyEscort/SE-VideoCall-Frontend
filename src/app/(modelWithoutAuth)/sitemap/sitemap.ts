@@ -27,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8
     },
     {
-      url: 'https://flirtbate.com/dirty-talks',
+      url: 'https://flirtbate.com/dirty-chat',
       lastModified: new Date(),
       priority: 0.8
     },

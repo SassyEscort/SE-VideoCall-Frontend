@@ -5,7 +5,8 @@ import { AuthUser, User } from 'app/(guest)/layout';
 import { ROLE } from 'constants/workerVerification';
 import dynamic from 'next/dynamic';
 const Footer = dynamic(() => import('views/guestViews/guestLayout/footer'));
-const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/Header'));
+// const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/Header'));
+const HeaderGuestComponent = dynamic(() => import('views/guestViews/guestLayout/Header'), { ssr: false });
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const authUser: AuthUser | null = await getLoggedInUser();

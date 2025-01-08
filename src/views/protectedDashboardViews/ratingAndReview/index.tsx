@@ -26,6 +26,7 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { getUserDataClient } from 'utils/getSessionData';
 import { TokenIdType } from 'views/protectedModelViews/verification';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type ratingAndReviewParams = {
   rating: string;
@@ -88,6 +89,11 @@ const RatingAndReview = () => {
 
   const handleChangePage = useCallback(
     (event: React.ChangeEvent<unknown>, value: number) => {
+      gaEventTrigger('rating-pagination-click', {
+        action: 'rating-pagination-click',
+        category: 'Button',
+        label: 'Rating pagination click'
+      });
       const offset = (value - 1) * filters.limit;
       handleChangeFilter({ ...filters, page: value, offset: offset });
     },

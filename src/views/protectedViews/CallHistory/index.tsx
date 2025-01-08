@@ -51,6 +51,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import CircularProgress from '@mui/material/CircularProgress';
 import Divider from '@mui/material/Divider';
 import { areObjectsEqual } from 'utils/genericFunction';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type CallHistoryPaginationType = {
   page: number;
@@ -104,6 +105,11 @@ const CallHistory = ({
   useEffect(() => {
     if (!areObjectsEqual(filterPayload, filters) && initialLoad) {
       fetchCallHistoryDetails();
+      gaEventTrigger('page-load-complete', {
+        action: 'page-load-complete',
+        category: 'Button',
+        label: 'Page load complete'
+      });
     } else {
       setInitialLoad(true);
     }
@@ -165,6 +171,11 @@ const CallHistory = ({
   const handleVideoCall = (list: CallHistoryDetails) => {
     if (list.user_name) {
       setIsLoadingDetails(true);
+      gaEventTrigger('call-again-click', {
+        action: 'call-again-click',
+        category: 'Button',
+        label: 'Call again click'
+      });
       router.push(`/models/${list.user_name}`);
       setIsLoadingDetails(false);
     }
@@ -174,6 +185,11 @@ const CallHistory = ({
     if (list.call_log_id) {
       setCallLogDetails(list);
       setIsShowRatingModel(true);
+      gaEventTrigger('rate-your-call-click', {
+        action: 'rate-your-call-click',
+        category: 'Button',
+        label: 'Rate your call click'
+      });
     }
   };
 

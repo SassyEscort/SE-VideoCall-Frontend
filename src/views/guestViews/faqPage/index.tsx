@@ -1,16 +1,28 @@
 'use client';
 import React from 'react';
 import dynamic from 'next/dynamic';
-const ContactContainer = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.ContactContainer })));
-const ContactUs = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.ContactUs })));
-const FAQConatainer = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.FAQConatainer })));
-const FaqPageMainContainer = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.FaqPageMainContainer })));
-const FaqPageSubBoxContainer = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.FaqPageSubBoxContainer })));
-const FirstTextContainer = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.FirstTextContainer })));
-const StyledAccordion = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.StyledAccordion })));
-const StyledAccordionDetails = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.StyledAccordionDetails })));
-const StyledAccordionSummary = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.StyledAccordionSummary })));
-const UINewTypographyMainText = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.UINewTypographyMainText })));
+const ContactContainer = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.ContactContainer })), { ssr: false });
+const ContactUs = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.ContactUs })), { ssr: false });
+const FAQConatainer = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.FAQConatainer })), { ssr: false });
+const FaqPageMainContainer = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.FaqPageMainContainer })), {
+  ssr: false
+});
+const FaqPageSubBoxContainer = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.FaqPageSubBoxContainer })), {
+  ssr: false
+});
+const FirstTextContainer = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.FirstTextContainer })), {
+  ssr: false
+});
+const StyledAccordion = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.StyledAccordion })), { ssr: false });
+const StyledAccordionDetails = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.StyledAccordionDetails })), {
+  ssr: false
+});
+const StyledAccordionSummary = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.StyledAccordionSummary })), {
+  ssr: false
+});
+const UINewTypographyMainText = dynamic(() => import('./faqPage.style').then((module) => ({ default: module.UINewTypographyMainText })), {
+  ssr: false
+});
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
 import HomeMainContainer from '../guestLayout/homeContainer';

@@ -8,13 +8,15 @@ import {
   SearchBarMainContainer,
   SearchBarSubMainContainer,
   FirstBoxMainContainer,
-  SecondBoxMainContainer,
-  ThiredBoxMainContainer
+  ThiredBoxMainContainer,
+  MainContainerRegionFilter
 } from '../Search.styled';
+import RegionFilter from './RegionFilter';
+import { gaEventTrigger } from 'utils/analytics';
 // import GenderFilter from './GenderFilter';
 const AgeFilter = dynamic(() => import('./AgeFilter'));
 const GenderFilter = dynamic(() => import('./GenderFilter'));
-const CountryFilter = dynamic(() => import('./CountryFilter'));
+// const CountryFilter = dynamic(() => import('./CountryFilter'));
 const CurrentlyOnline = dynamic(() => import('./CurrentlyOnline'));
 const Price = dynamic(() => import('./Price'));
 const HomeMainContainer = dynamic(() => import('views/guestViews/guestLayout/homeContainer'));
@@ -27,6 +29,7 @@ export type SearchFiltersTypes = {
   language: string;
   isOnline: string;
   country: string;
+  region: string;
   sortOrder: string;
   sortField: string;
   page: number;
@@ -35,6 +38,10 @@ export type SearchFiltersTypes = {
   email?: string;
   gender: string;
 };
+export type NewSearchFiltersTypes = Partial<
+  Pick<SearchFiltersTypes, 'page' | 'pageSize' | 'offset' | 'language' | 'email' | 'sortField' | 'sortOrder'>
+> &
+  Omit<SearchFiltersTypes, 'page' | 'pageSize' | 'offset' | 'language' | 'email' | 'sortField' | 'sortOrder'>;
 
 type SearchFiltersProps = {
   isUserInteracted: boolean;
@@ -56,6 +63,7 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
     language: searchParams.get('language') ? (searchParams.get('language') as string) : '',
     isOnline: searchParams.get('isOnline') ? (searchParams.get('isOnline') as string) : '',
     country: searchParams.get('country') ? (searchParams.get('country') as string) : '',
+    region: searchParams.get('region') ? (searchParams.get('region') as string) : '',
     sortOrder: searchParams.get('sortOrder') ? (searchParams.get('sortOrder') as string) : '',
     sortField: searchParams.get('sortField') ? (searchParams.get('sortField') as string) : '',
     gender: searchParams.get('gender') ? (searchParams.get('gender') as string) : '',
@@ -72,22 +80,48 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
-  const handleCountryChange = (event: SelectChangeEvent<unknown>) => {
+  // const handleCountryChange = (event: SelectChangeEvent<unknown>) => {
+  //   const value = event.target.value as string;
+  //   setFilters({
+  //     ...filters,
+  //     country: value,
+  //     page: 1
+  //   });
+  //   handelFilterChange({
+  //     ...filters,
+  //     country: value,
+  //     page: 1
+  //   });
+  // };
+
+  const handleFilterGAEventTrigger = (value: string) => {
+    gaEventTrigger('filter-type click', {
+      action: 'filter-type click',
+      category: 'Button',
+      label: 'Filter type click',
+      value: value
+    });
+  };
+
+  const handleRegionChange = (event: SelectChangeEvent<unknown>) => {
     const value = event.target.value as string;
+    handleFilterGAEventTrigger('Region');
     setFilters({
       ...filters,
-      country: value,
+      region: value,
       page: 1
     });
     handelFilterChange({
       ...filters,
-      country: value,
+      region: value,
       page: 1
     });
   };
+
   const handleChangePrice = (event: SelectChangeEvent<unknown>) => {
     const value = event.target.value as string;
     const priceRange = value.split('-');
+    handleFilterGAEventTrigger('Credits');
     setFilters({
       ...filters,
       fromPrice: priceRange[0],
@@ -106,6 +140,7 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
   const handleGender = (event: SelectChangeEvent<unknown>) => {
     const value = event.target.value as string;
     const genderValue = value;
+    handleFilterGAEventTrigger('Gender');
     setFilters({
       ...filters,
       gender: genderValue,
@@ -122,7 +157,7 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
   const handleChangeAge = (event: SelectChangeEvent<unknown>) => {
     const value = event.target.value as string;
     const ageRange = value.split('-');
-
+    handleFilterGAEventTrigger('Age');
     setFilters({
       ...filters,
       fromAge: ageRange[0],
@@ -155,6 +190,7 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
   // };
 
   const handelChangeIsOnline = () => {
+    handleFilterGAEventTrigger('Online');
     setFilters({
       ...filters,
       page: 1,
@@ -178,9 +214,12 @@ const SearchFilters = forwardRef<HTMLDivElement, SearchFiltersProps>(({ handelFi
             {isMobile && <CurrentlyOnline onClick={handelChangeIsOnline} />}
             {isMobile && <AgeFilter fromAge={filters.fromAge} toAge={filters.toAge} onChange={handleChangeAge} />}
           </FirstBoxMainContainer>
-          <SecondBoxMainContainer>
+          <MainContainerRegionFilter>
+            <RegionFilter isUserInteracted={isUserInteracted} value={filters.region} onChange={handleRegionChange} />
+          </MainContainerRegionFilter>
+          {/* <SecondBoxMainContainer>
             <CountryFilter isUserInteracted={isUserInteracted} value={filters.country} onChange={handleCountryChange} />
-          </SecondBoxMainContainer>
+          </SecondBoxMainContainer> */}
           <ThiredBoxMainContainer>
             {!isMobile && <AgeFilter fromAge={filters.fromAge} toAge={filters.toAge} onChange={handleChangeAge} />}
             <GenderFilter onChange={handleGender} Value={filters?.gender} />

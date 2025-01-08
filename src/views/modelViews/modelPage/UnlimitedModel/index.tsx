@@ -25,6 +25,7 @@ import { getCookie } from 'cookies-next';
 import ABLogin1Model from 'views/guestViews/abTestComponent/abLogin1Model';
 import ABRegister1Model from 'views/guestViews/abTestComponent/abRegister1Model';
 import UIStyledABTest1Model from 'views/guestViews/abTestComponent/abRegister1Model/UIStyleABTest1Model';
+import { gaEventTrigger } from 'utils/analytics';
 
 // import ModelNewPassword from 'views/modelViews/ModelNewPassword';
 
@@ -118,7 +119,13 @@ const UnlimitedModel = () => {
                   ''
                 ) : (
                   <PhotoshootExpButton>
-                    <UIThemeButton variant="contained" onClick={handleSignupOpen}>
+                    <UIThemeButton
+                      variant="contained"
+                      onClick={() => {
+                        gaEventTrigger('join-free-click', { category: 'Link', label: 'Join now free click' });
+                        handleSignupOpen();
+                      }}
+                    >
                       <FormattedMessage id="JoinForFREE" />
                     </UIThemeButton>
                   </PhotoshootExpButton>

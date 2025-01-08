@@ -40,6 +40,7 @@ const SexyChatAtFingertips = () => (
         height="48px"
         position="absolute"
         sx={{ zIndex: -1 }}
+        alt="connect-level"
       />
       <LightCirclesBox />
       <PinkLightCirclesBox />
@@ -47,7 +48,7 @@ const SexyChatAtFingertips = () => (
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <SexyChatAtFingertipsInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/Video.png" width="32px" height="100%" />
+              <Box component="img" src="/images/camtocamDashboard/Video.png" width="32px" height="100%" alt="video" />
               <SexyChatAtFingertipsInfoContainer>
                 <SexyChatAtFingertipsDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="PrivateDirtyVideoChat" />
@@ -60,7 +61,7 @@ const SexyChatAtFingertips = () => (
           </Grid>
           <Grid item xs={4}>
             <SexyChatAtFingertipsInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/Private.png" width="26px" height="26px" />
+              <Box component="img" src="/images/camtocamDashboard/Private.png" width="26px" height="26px" alt="private" />
               <SexyChatAtFingertipsInfoContainer>
                 <SexyChatAtFingertipsDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="AdultChatRoomswithTwist" />
@@ -73,7 +74,7 @@ const SexyChatAtFingertips = () => (
           </Grid>
           <Grid item xs={4}>
             <SexyChatAtFingertipsInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/People.png" width="32px" height="100%" />
+              <Box component="img" src="/images/camtocamDashboard/People.png" width="32px" height="100%" alt="people" />
               <SexyChatAtFingertipsInfoContainer>
                 <SexyChatAtFingertipsDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="InstantConnection" />

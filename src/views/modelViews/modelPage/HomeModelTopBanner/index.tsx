@@ -38,6 +38,7 @@ import { getCookie } from 'cookies-next';
 import ABLogin1Model from 'views/guestViews/abTestComponent/abLogin1Model';
 import ABRegister1Model from 'views/guestViews/abTestComponent/abRegister1Model';
 import UIStyledABTest1Model from 'views/guestViews/abTestComponent/abRegister1Model/UIStyleABTest1Model';
+import { gaEventTrigger } from 'utils/analytics';
 
 const HomeModelTopBanner = () => {
   const { isCustomer } = useAuthContext();
@@ -191,7 +192,14 @@ const HomeModelTopBanner = () => {
                 </Link>
               ) : modelDetails?.verification_step !== MODEL_ACTIVE_STEP.VERIFIED &&
                 modelDetails?.verification_step !== MODEL_ACTIVE_STEP.IN_REVIEW ? (
-                <UIThemeShadowButton onClick={handleSignupOpen} variant="contained" sx={{ width: '100%', maxWidth: '195px' }}>
+                <UIThemeShadowButton
+                  onClick={() => {
+                    gaEventTrigger('join-free-click', { category: 'Link', label: 'Join now free click' });
+                    handleSignupOpen();
+                  }}
+                  variant="contained"
+                  sx={{ width: '100%', maxWidth: '195px' }}
+                >
                   <UINewTypography variant="body" sx={{ lineHeight: '150%' }}>
                     <FormattedMessage id="JoinForFREE" />
                   </UINewTypography>

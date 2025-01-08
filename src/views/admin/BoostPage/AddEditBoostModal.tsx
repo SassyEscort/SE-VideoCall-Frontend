@@ -174,6 +174,7 @@ const AddEditBoostModal = ({
                       id="demo-simple-select"
                       value={values.duration}
                       label="Duration"
+                      aria-label="Duration"
                       onChange={handleChange}
                       error={Boolean(touched.duration && errors.duration)}
                     >
@@ -195,6 +196,7 @@ const AddEditBoostModal = ({
                       id="demo-simple-select"
                       value={values.is_free ? 1 : 0}
                       label="Is free"
+                      aria-label="Is free"
                       onChange={(e) => {
                         const isFree = e.target.value === 1;
                         setFieldValue('is_free', isFree);

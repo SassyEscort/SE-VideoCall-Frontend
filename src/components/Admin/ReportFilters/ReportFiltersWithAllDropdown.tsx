@@ -104,7 +104,7 @@ export default function ReportDateDurationWithAllFilters({
   return (
     <>
       <Box width="100%">
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
+        <Stack direction="row" alignItems="center" justifyContent="space-between">
           <Grid container sx={{ display: 'flex', alignItems: 'center' }} spacing={2}>
             {handleChangeSearch && (
               <Grid item xs={12} sm={duration === 'custom' ? 2.4 : 4}>
@@ -119,6 +119,7 @@ export default function ReportDateDurationWithAllFilters({
                   labelId="filter-duration-label"
                   value={duration}
                   label={durationlable ? durationlable : 'Duration'}
+                  aria-label={durationlable ? durationlable : 'Duration'}
                   onChange={(e) => handleChangeDuration(e.target.value)}
                   sx={{
                     '@media (min-width: 600px)': {

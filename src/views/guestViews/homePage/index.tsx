@@ -18,7 +18,7 @@ const BackdropProgress = dynamic(() => import('components/UIComponents/BackDropP
 
 const HomeContainer = ({ modelData, params }: { modelData: ModelListingRes; params: SearchFiltersTypes }) => {
   const authContext = useAuthContext();
-  const isFreeCreditAvailable = authContext?.isFreeCreditAvailable || 1;
+  const isFreeCreditAvailable = authContext?.isFreeCreditAvailable || 0;
   const { data } = useSession();
   const token = data?.user ? JSON.parse((data.user as any)?.picture) : '';
 
@@ -43,6 +43,7 @@ const HomeContainer = ({ modelData, params }: { modelData: ModelListingRes; para
     language: searchParams?.get('language') ? (searchParams?.get('language') as string) : '',
     isOnline: searchParams?.get('isOnline') ? (searchParams?.get('isOnline') as string) : '',
     country: searchParams?.get('country') ? (searchParams?.get('country') as string) : '',
+    region: searchParams?.get('region') ? (searchParams?.get('region') as string) : '',
     sortOrder: searchParams?.get('sortOrder') ? (searchParams?.get('sortOrder') as string) : '',
     sortField: searchParams?.get('sortField') ? (searchParams?.get('sortField') as string) : '',
     gender: searchParams?.get('gender') ? (searchParams?.get('gender') as string) : '',
@@ -64,6 +65,7 @@ const HomeContainer = ({ modelData, params }: { modelData: ModelListingRes; para
     if (filters.language) objParams.language = filters.language ? filters.language.toString() : '';
     if (filters.isOnline) objParams.isOnline = filters.isOnline ? filters.isOnline.toString() : '';
     if (filters.country) objParams.country = filters.country ? filters.country.toString() : '';
+    if (filters.region) objParams.region = filters.region ? filters.region.toString() : '';
     if (filters.sortOrder) objParams.sortOrder = filters.sortOrder ? filters.sortOrder.toString() : '';
     if (filters.sortField) objParams.sortField = filters.sortField ? filters.sortField.toString() : '';
     if (filters.email) objParams.email = filters.email ? filters.email.toString() : '';
@@ -86,6 +88,7 @@ const HomeContainer = ({ modelData, params }: { modelData: ModelListingRes; para
       'fromAge',
       'toPrice',
       'country',
+      'region',
       'sortOrder',
       'sortField',
       'gender'

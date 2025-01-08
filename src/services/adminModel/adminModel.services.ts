@@ -10,21 +10,23 @@ import {
 import { GenericRes } from 'services/guestAuth/authuser.services';
 
 export type ModelListing = {
-  country_id: number;
-  country_name: string;
-  created_date: string;
-  email: string;
-  email_verified: number;
-  id: number;
-  is_active: number;
-  last_active: string;
   model_name: string;
+  id: number;
+  email: string;
   profile_status: string;
-  updated_at: string;
-  verification_step: string;
+  is_active: number;
   is_visible: number;
   is_online: number;
   gender: string;
+  email_verified: number;
+  verification_step: string;
+  last_active: string;
+  created_date: string;
+  updated_at: string;
+  number_of_calls: number;
+  total_call_duration: string;
+  model_earnings: number;
+  country_name: string;
 };
 
 export type PaginationAggregation = {

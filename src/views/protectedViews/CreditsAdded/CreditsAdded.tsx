@@ -21,6 +21,8 @@ import {
 } from './CreditsAddded.styled';
 
 import { FormattedMessage } from 'react-intl';
+import { gaEventTrigger } from 'utils/analytics';
+import { useAuthContext } from 'contexts/AuthContext';
 function CreditsAdded({
   onClose,
   addedCredits,
@@ -33,6 +35,7 @@ function CreditsAdded({
   isOutOfCredits: boolean;
 }) {
   const [redirectSeconds, setRedirectSeconds] = useState(3);
+  const { fetchPageName } = useAuthContext();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -82,7 +85,19 @@ function CreditsAdded({
           </NewBalanceDetails>
         </NewBalanceDetailsConatainer>
         {!isOutOfCredits ? (
-          <ExploreButtonContainer>
+          <ExploreButtonContainer
+            onClick={() => {
+              const data = {
+                pageName: fetchPageName()
+              };
+              gaEventTrigger('explore-model-button-click', {
+                action: 'explore-model-button-click',
+                category: 'Button',
+                label: 'Explore mmodel button click',
+                value: JSON.stringify(data)
+              });
+            }}
+          >
             {/* <Link prefetch={false} href="/"> */}
             <UIThemeShadowButton variant="contained" sx={{ p: '10px 29px', width: '176px' }}>
               <UINewTypography variant="buttonLargeBold" color="white.main" whiteSpace={'nowrap'}>

@@ -7,7 +7,6 @@ import theme from 'themes/theme';
 import ProfileMenu from './ProfileMenu';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { CustomerDetails, CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import Logout from 'views/protectedViews/logout';
 import { FormattedMessage } from 'react-intl';
 import LanguageDropdown from 'components/common/LanguageDropdown';
@@ -29,13 +28,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import { useTawk } from 'contexts/TawkContext';
-// import { useVideoCallContext } from 'contexts/videoCallContext';
 import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 import { io, Socket } from 'socket.io-client';
 import { ISocketMessage } from 'services/chatServices/chat.service';
 import { StyledSnackBar, StyledSnackBarInnerBox } from 'views/guestViews/homePage/homeBanner/HomeBanner.styled';
 import CloseIcon from '@mui/icons-material/Close';
 import { usePathname, useRouter } from 'next/navigation';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type NotificationFilters = {
   page: number;
@@ -43,26 +42,20 @@ export type NotificationFilters = {
   pageSize: number;
 };
 
-// for this modal Claimyourfreecredits
-// interface customerData {
-//   customerDataProps: (data: CustomerDetails) => void;
-// }
-
 const HeaderAuthComponent = () => {
   const { maximizeChat, initializeChat } = useTawk();
-  const { session, isFreeCreditsClaimed, isNameChange, openCreditDrawer, handleCreditDrawerClose } = useAuthContext();
-  // const { isCallEnded, avaialbleCredits } = useVideoCallContext();
+  const { session, token, isFreeCreditsClaimed, openCreditDrawer, handleCreditDrawerClose, handleGAEventsTrigger, handleSetBalance } =
+    useAuthContext();
   const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
   const router = useRouter();
-  const token = session?.user ? JSON.parse((session.user as any)?.picture) : '';
+  const customerDetails = session?.user ? JSON.parse((session.user as any)?.picture) : '';
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
-  const parthname = usePathname();
+  const pathname = usePathname();
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
-  const [customerDetails, setCustomerDetails] = useState<CustomerDetails>();
   const [balance, setBalance] = useState(0);
   const [openNotification, setOpenNotification] = useState<boolean>(false);
   const [anchorElNotification, setAnchorElNotification] = useState<HTMLButtonElement | null>(null);
@@ -91,6 +84,11 @@ const HeaderAuthComponent = () => {
   };
 
   const handleOpenChangePassword = () => {
+    gaEventTrigger('change-password-click', {
+      action: 'change-password-click',
+      category: 'Button',
+      label: 'Change password click'
+    });
     setOpenChangePassword(true);
   };
 
@@ -112,6 +110,11 @@ const HeaderAuthComponent = () => {
   };
 
   const handleOpenNotification = (event: React.MouseEvent<HTMLButtonElement>) => {
+    gaEventTrigger('notifications-icon-click', {
+      action: 'notifications-icon-click',
+      category: 'Button',
+      label: 'Notification icon click'
+    });
     setOpenNotification(true);
     setAnchorElNotification(event.currentTarget);
   };
@@ -147,6 +150,11 @@ const HeaderAuthComponent = () => {
   const handleSnackbarClose = () => setSnackbarOptions({ open: false, message: '', url: '' });
 
   const handleOpenLogout = () => {
+    gaEventTrigger('log-out-button-click', {
+      action: 'log-out-button-click',
+      category: 'Button',
+      label: 'logout button click'
+    });
     setIsLogoutOpen(true);
   };
 
@@ -155,6 +163,11 @@ const HeaderAuthComponent = () => {
   };
 
   const handleChatOpen = () => {
+    gaEventTrigger('chat-support-click', {
+      action: 'chat-support-click',
+      category: 'Button',
+      label: 'Chat support click'
+    });
     maximizeChat();
     initializeChat();
   };
@@ -174,26 +187,15 @@ const HeaderAuthComponent = () => {
   }, [handleCallback]);
 
   useEffect(() => {
-    const customerDetails = async () => {
-      const customerData = await CustomerDetailsService.customerModelDetails(token.token);
-      setCustomerDetails(customerData.data);
-      // pass this to praent for this modal ClaimCreditSignUp
-      // customerDataProps(customerData.data);
-    };
-    if (token.token) {
-      customerDetails();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token.id, token.token, isCallEnded, isNameChange]);
-
-  useEffect(() => {
     const getCustomerCredit = async () => {
       if (token.token) {
         const getModel = await ModelDetailsService.getModelWithDraw(token.token);
         if (getModel?.data?.credits === null) {
           setBalance(0);
+          handleSetBalance(0);
         } else {
           setBalance(getModel?.data?.credits);
+          handleSetBalance(getModel?.data?.credits || 0);
         }
       }
     };
@@ -212,6 +214,22 @@ const HeaderAuthComponent = () => {
 
   useEffect(() => {
     if (openCreditDrawer) {
+      const creditInfoEvent = {
+        email: customerDetails?.customer_email,
+        name: customerDetails?.customer_name,
+        username: customerDetails?.customer_user_name,
+        is_credit_over: false,
+        'is-automated': 'yes',
+        'close-button-click': 'no',
+        'credits-balance-available': balance || 0,
+        source: 'Header'
+      };
+      gaEventTrigger('Credits_Purchase_Popup_open', {
+        action: 'Credits_Purchase_Popup_open',
+        category: 'Dialog',
+        label: 'Credits_Purchase_Popup_open',
+        value: JSON.stringify(creditInfoEvent)
+      });
       setOpenCreditSideDrawer(true);
     }
   }, [openCreditDrawer]);
@@ -219,21 +237,21 @@ const HeaderAuthComponent = () => {
   useEffect(() => {
     const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_BASE_URL!);
     setSocket(newSocket);
-    if (token.customer_user_name) {
+    if (customerDetails.customer_user_name) {
       newSocket.on('connect', () => {
-        newSocket.emit('join', token.customer_user_name);
+        newSocket.emit('join', customerDetails.customer_user_name);
       });
     }
-  }, [token.customer_user_name]);
+  }, [customerDetails.customer_user_name]);
 
   useEffect(() => {
     const setupSocketListeners = async () => {
       if (socket) {
         socket.on('connect', () => {
-          socket.emit('join', token.customer_user_name);
+          socket.emit('join', customerDetails.customer_user_name);
           // Listener for chat messages
           socket.on('chat-message', async (message: ISocketMessage) => {
-            if (!parthname.startsWith('/chat')) {
+            if (!pathname.startsWith('/chat')) {
               const chatNotificationData = await handleChatNotification();
               setSnackbarOptions({
                 open: true,
@@ -251,10 +269,14 @@ const HeaderAuthComponent = () => {
       if (socket) {
         socket.off('connect');
         socket.off('chat-message');
+        socket.disconnect();
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [socket, token.customer_user_name, handleCallback]);
+  }, [socket, customerDetails.customer_user_name]);
+
+  const handleGAEventForChatIcon = () => handleGAEventsTrigger('message-icon-click', 'top-bar');
+  const handleGAEventForFavouriteIcon = () => handleGAEventsTrigger('top-bar-favorite-icon-click');
 
   return (
     <>
@@ -272,7 +294,20 @@ const HeaderAuthComponent = () => {
         )}
 
         {isMdUp && (
-          <BorderBox alignItems="center" gap={1} display="flex" onClick={() => setOpenCreditSideDrawer(true)}>
+          <BorderBox
+            alignItems="center"
+            gap={1}
+            display="flex"
+            onClick={() => {
+              gaEventTrigger('wallet-icon-click', {
+                source: 'header',
+                label: 'Wallet icon click',
+                category: 'Wallet icon click',
+                value: JSON.stringify({ 'credits-balance-available': balance?.toFixed(2) || 0 })
+              });
+              setOpenCreditSideDrawer(true);
+            }}
+          >
             <Box component="img" src="/images/header/coin.png" alt="coin_icon" />
             <BalanceBox>
               <UINewTypography variant="buttonLargeMenu" color="text.secondary">
@@ -286,7 +321,7 @@ const HeaderAuthComponent = () => {
 
         {isMdUp && (
           <>
-            <Link href="/profile/favourites" style={{ textDecoration: 'none' }}>
+            <Link href="/profile/favourites" style={{ textDecoration: 'none' }} onClick={handleGAEventForFavouriteIcon}>
               <IconButton sx={{ height: 24, width: 24 }}>
                 <Box
                   sx={{
@@ -299,7 +334,7 @@ const HeaderAuthComponent = () => {
                 </Box>
               </IconButton>
             </Link>
-            <Link href="/chat" style={{ textDecoration: 'none' }}>
+            <Link href="/chat" style={{ textDecoration: 'none' }} onClick={handleGAEventForChatIcon}>
               <IconButton sx={{ height: 24, width: 24 }}>
                 <Box
                   sx={{
@@ -373,7 +408,17 @@ const HeaderAuthComponent = () => {
                   </IconButton>
                 </Link>
               </ListItemIcon>
-              <Link href="/profile" onClick={handleCloseLogout}>
+              <Link
+                href="/profile"
+                onClick={() => {
+                  gaEventTrigger('my-profile-click', {
+                    action: 'my-profile-click',
+                    category: 'Button',
+                    label: 'My profile click'
+                  });
+                  handleCloseLogout();
+                }}
+              >
                 <ListItemText>
                   <UINewTypography variant="bodyLight" color="text.secondary">
                     <FormattedMessage id="MyProfile" />
@@ -440,7 +485,7 @@ const HeaderAuthComponent = () => {
                 <MenuItem>
                   <ListItemIcon>
                     <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                      <Link href="/chat" style={{ textDecoration: 'none' }}>
+                      <Link href="/chat" style={{ textDecoration: 'none' }} onClick={handleGAEventForChatIcon}>
                         <IconButton sx={{ height: 24, width: 24 }}>
                           <Box
                             sx={{
@@ -509,7 +554,7 @@ const HeaderAuthComponent = () => {
             <Logout open={isLogoutOpen} onClose={handleCloseLogoutt} />
           </Menu>
           <ProfileMenu profilePic={uploadedImageURL} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
-          <MyProfileChangePassword onOpen={openChangePassword} onClose={handleCloseChnagePassword} token={token} />
+          <MyProfileChangePassword onOpen={openChangePassword} onClose={handleCloseChnagePassword} token={token.token} />
         </IconButtonBoxNew>
       </HeaderMainBox>
       {notificationDetails && (
@@ -525,12 +570,7 @@ const HeaderAuthComponent = () => {
           handleCallback={handleCallback}
         />
       )}
-      <CreditSideDrawer
-        open={openCreditSideDrawer}
-        handleClose={handleCloseCreditSideDrawer}
-        balance={balance}
-        customerDetails={customerDetails}
-      />
+      <CreditSideDrawer open={openCreditSideDrawer} handleClose={handleCloseCreditSideDrawer} balance={balance} />
 
       <StyledSnackBar
         open={snackbarOptions.open}
@@ -541,7 +581,13 @@ const HeaderAuthComponent = () => {
         <StyledSnackBarInnerBox onClick={() => router.push(snackbarOptions?.url)}>
           {snackbarOptions.message && (
             <>
-              <Box component="img" src="/images/chat/chatNotification.svg" alt="chat_img" sx={{ width: 32, height: 32 }} />
+              <Box
+                component="img"
+                src="/images/chat/chatNotification.svg"
+                alt="chat_img"
+                sx={{ width: 32, height: 32 }}
+                onClick={handleGAEventForChatIcon}
+              />
               <Box sx={{ fontWeight: 800, fontSize: 16 }}>{snackbarOptions.message}</Box>
               <CloseIcon
                 onClick={(e) => {

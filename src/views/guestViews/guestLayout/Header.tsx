@@ -40,7 +40,7 @@ const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup')
 const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
 
 const HeaderGuestComponent = () => {
-  const { isFreeCreditAvailable } = useAuthContext();
+  const { isFreeCreditAvailable, handleGAEventsTrigger } = useAuthContext();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
@@ -120,10 +120,12 @@ const HeaderGuestComponent = () => {
   };
 
   const handleOpenFilterModal = () => {
+    handleGAEventsTrigger('search-bar-click', '', true);
     setOpenFilterModal(true);
   };
 
   const handleCloseFilterModal = () => {
+    handleGAEventsTrigger('search-bar-click', '', false);
     setOpenFilterModal(false);
   };
 
@@ -183,9 +185,10 @@ const HeaderGuestComponent = () => {
             prefetch={true}
             shallow={true}
             href="/"
-            height={{ xs: '26px', md: '36px', sm: '36px' }}
+            height="100%"
             width={{ xs: '120px', md: '182px', sm: '182px' }}
             display={'flex'}
+            onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'top-bar')}
           >
             <Image
               src="/images/header/new-logo.png"
@@ -193,7 +196,7 @@ const HeaderGuestComponent = () => {
               height={36}
               alt="sassy_logo"
               style={{
-                width: '100%',
+                maxWidth: '100%',
                 height: 'auto'
               }}
               priority

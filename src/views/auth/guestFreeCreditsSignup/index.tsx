@@ -28,6 +28,8 @@ import AuthFreeCreditsSignupCommon from './AuthFreeCreditsSignupCommon';
 import GuestModelMobileSignup from './GuestModelMobileSignup';
 import { PROVIDERCUSTOM_TYPE } from 'constants/signUpConstants';
 import { gaEventTrigger } from 'utils/analytics';
+import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
+import { useAuthContext } from 'contexts/AuthContext';
 
 export type SignupParams = {
   name: string;
@@ -50,6 +52,7 @@ const GuestFreeCreditsSignup = ({
 }) => {
   const intl = useIntl();
   const route = useRouter();
+  const { funnelHitId } = useAuthContext();
   const { refresh } = route;
 
   const isSm = useMediaQuery(theme.breakpoints.down(330));
@@ -107,6 +110,19 @@ const GuestFreeCreditsSignup = ({
           values.name = values.name.trim();
           const data = await GuestAuthService.guestSignup(values);
           if (data.code === 200) {
+            const hitID = (window?.flux?.get && (window?.flux?.get('{hit}') as string)) || funnelHitId || '';
+            if (hitID) {
+              try {
+                await FunnelfluxService.funnelfluxConversionEvent(
+                  {
+                    hit_id: hitID,
+                    revenue: 0,
+                    num: 1
+                  },
+                  ''
+                );
+              } catch (error) {}
+            }
             setActiveStep(1);
             refresh();
             const loginResponse = await signIn(PROVIDERCUSTOM_TYPE.PROVIDERCUSTOM, {
@@ -236,7 +252,16 @@ const GuestFreeCreditsSignup = ({
                           name="email"
                           value={values.email}
                           onChange={handleChange}
-                          onBlur={handleBlur}
+                          onBlur={(e) => {
+                            handleBlur(e);
+                            if (values.email) {
+                              gaEventTrigger('email-added', {
+                                source: 'email added',
+                                category: 'TextField',
+                                label: 'email added'
+                              });
+                            }
+                          }}
                           error={touched.email && Boolean(errors.email)}
                           helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
                           sx={{
@@ -260,7 +285,16 @@ const GuestFreeCreditsSignup = ({
                             name="password"
                             value={values.password}
                             onChange={handleChange}
-                            onBlur={handleBlur}
+                            onBlur={(e) => {
+                              handleBlur(e);
+                              if (values.password) {
+                                gaEventTrigger('password-added', {
+                                  source: 'password added',
+                                  category: 'TextField',
+                                  label: 'password added'
+                                });
+                              }
+                            }}
                             error={touched.password && Boolean(errors.password)}
                             helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
                             sx={{
@@ -276,7 +310,12 @@ const GuestFreeCreditsSignup = ({
                             }}
                           />
                         </ModelUITextConatiner>
-                        <MenuItem sx={{ p: 0, gap: { xs: '0', sm: '1' } }}>
+                        <MenuItem
+                          sx={{ p: 0, gap: { xs: '0', sm: '1' } }}
+                          onClick={() => {
+                            gaEventTrigger('remember-click', { category: 'Check Box', label: 'Remember me click' });
+                          }}
+                        >
                           <Checkbox sx={{ p: 0, pr: 1 }} />
                           <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
                             <FormattedMessage id="RememberMe" />
@@ -307,7 +346,14 @@ const GuestFreeCreditsSignup = ({
                             whiteSpace="nowrap"
                             variant="body"
                             sx={{ color: 'text.secondary', cursor: 'pointer' }}
-                            onClick={onLoginOpen}
+                            onClick={() => {
+                              onLoginOpen();
+                              gaEventTrigger('login-instead-click', {
+                                source: 'login instead click',
+                                category: 'TextField',
+                                label: 'login instead click'
+                              });
+                            }}
                           >
                             <FormattedMessage id="LogInInstead" />
                           </UINewTypography>

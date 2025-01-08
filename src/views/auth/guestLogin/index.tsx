@@ -28,12 +28,18 @@ import { MODEL_ACTION } from 'constants/profileConstants';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
 import { deleteCookie } from 'cookies-next';
+import { gaEventTrigger } from 'utils/analytics';
+import { useAuthContext } from 'contexts/AuthContext';
 
-const StyleButtonV2 = dynamic(() => import('components/UIComponents/StyleLoadingButton'));
-const ErrorBox = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })));
-const ModelUITextConatiner = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })));
-const UIButtonText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })));
-const UITypographyText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })));
+const StyleButtonV2 = dynamic(() => import('components/UIComponents/StyleLoadingButton'), { ssr: false });
+const ErrorBox = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })), { ssr: false });
+const ModelUITextConatiner = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })), {
+  ssr: false
+});
+const UIButtonText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })), { ssr: false });
+const UITypographyText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })), {
+  ssr: false
+});
 
 export type LoginParams = {
   email: string;
@@ -63,6 +69,7 @@ const GuestLogin = ({
 }) => {
   const intl = useIntl();
 
+  const { handleGAEventsTrigger } = useAuthContext();
   const route = useRouter();
   const { data: session } = useSession();
   const { refresh, push } = route;
@@ -87,6 +94,7 @@ const GuestLogin = ({
         password: values.password,
         role: values.role
       });
+      handleGAEventsTrigger('login-cta-click');
       if (res?.status === 200) {
         deleteCookie('ab-group');
         refresh();
@@ -196,7 +204,12 @@ const GuestLogin = ({
                         name="email"
                         value={values.email}
                         onChange={handleChange}
-                        onBlur={handleBlur}
+                        onBlur={(e) => {
+                          handleBlur(e);
+                          if (values.email) {
+                            gaEventTrigger('email/username-added', { category: 'TextField', label: 'Email or Username added' });
+                          }
+                        }}
                         error={touched.email && Boolean(errors.email)}
                         helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
                         sx={{
@@ -220,7 +233,12 @@ const GuestLogin = ({
                           name="password"
                           value={values.password}
                           onChange={handleChange}
-                          onBlur={handleBlur}
+                          onBlur={(e) => {
+                            handleBlur(e);
+                            if (values.password) {
+                              gaEventTrigger('password-added', { category: 'TextField', label: 'Password added' });
+                            }
+                          }}
                           error={touched.password && Boolean(errors.password)}
                           helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
                           sx={{
@@ -246,7 +264,11 @@ const GuestLogin = ({
                           gap: { xs: 1, sm: 0 }
                         }}
                       >
-                        <Box>
+                        <Box
+                          onClick={() => {
+                            gaEventTrigger('remember-click', { category: 'Check Box', label: 'Remember me click' });
+                          }}
+                        >
                           <Checkbox sx={{ p: 0, pr: 1 }} />
                           <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}>
                             <FormattedMessage id="RememberMe" />
@@ -256,7 +278,10 @@ const GuestLogin = ({
                           variant="buttonLargeMenu"
                           color="primary.400"
                           sx={{ textWrap: { xs: 'wrap' }, whiteSpace: { xs: 'nowrap' } }}
-                          onClick={onFogotPasswordLinkOpen}
+                          onClick={() => {
+                            gaEventTrigger('forgot-password-click', { category: 'Button', label: 'Forgot password click' });
+                            onFogotPasswordLinkOpen();
+                          }}
                         >
                           <FormattedMessage id="ForgotPassword" />
                         </UINewTypography>
@@ -288,7 +313,15 @@ const GuestLogin = ({
                         <UINewTypography
                           variant="body"
                           sx={{ color: 'text.secondary', cursor: 'pointer' }}
-                          onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : onSignupOpen}
+                          onClick={() => {
+                            gaEventTrigger('join-free-click', { category: 'Link', label: 'Join now free click' });
+
+                            if (isFreeCreditAvailable) {
+                              handleFreeCreditSignupOpen();
+                            } else {
+                              onSignupOpen();
+                            }
+                          }}
                         >
                           <FormattedMessage id="JoinForFreeNow" />
                         </UINewTypography>

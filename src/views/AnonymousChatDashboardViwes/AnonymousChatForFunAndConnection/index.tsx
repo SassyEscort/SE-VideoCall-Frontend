@@ -40,6 +40,7 @@ const AnonymousChatForFunAndConnection = () => (
         height="48px"
         position="absolute"
         sx={{ zIndex: -1 }}
+        alt="connect-level"
       />
       <LightCirclesBox />
       <PinkLightCirclesBox />
@@ -47,7 +48,7 @@ const AnonymousChatForFunAndConnection = () => (
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <AnonymousAndConnectionInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/Video.png" width="32px" height="100%" />
+              <Box component="img" src="/images/camtocamDashboard/Video.png" width="32px" height="100%" alt="video" />
               <AnonymousAndConnectionInfoContainer>
                 <AnonymousAndConnectionDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="HideYourLocation" />
@@ -60,7 +61,7 @@ const AnonymousChatForFunAndConnection = () => (
           </Grid>
           <Grid item xs={4}>
             <AnonymousAndConnectionInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/Private.png" width="26px" height="26px" />
+              <Box component="img" src="/images/camtocamDashboard/Private.png" width="26px" height="26px" alt="private" />
               <AnonymousAndConnectionInfoContainer>
                 <AnonymousAndConnectionDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="FacePrivacyOptions" />
@@ -73,7 +74,7 @@ const AnonymousChatForFunAndConnection = () => (
           </Grid>
           <Grid item xs={4}>
             <AnonymousAndConnectionInfoMainContainer>
-              <Box component="img" src="/images/camtocamDashboard/People.png" width="32px" height="100%" />
+              <Box component="img" src="/images/camtocamDashboard/People.png" width="32px" height="100%" alt="people" />
               <AnonymousAndConnectionInfoContainer>
                 <AnonymousAndConnectionDescriptionTitleTypography variant="h4">
                   <FormattedMessage id="PrivateSecureSpace" />
