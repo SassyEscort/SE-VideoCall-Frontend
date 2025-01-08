@@ -83,12 +83,7 @@ const CreditSideDrawer = ({ open, handleClose, balance }: { open: boolean; handl
       source: 'Credit Page',
       value: JSON.stringify({ dataForGACredit })
     });
-    // gaEventTrigger('wallet-icon-click', {
-    //   action: 'wallet-icon-click',
-    //   category: 'Button',
-    //   label: 'wallet-icon-click',
-    //   value: JSON.stringify({ 'is-automated': 'no', 'credits-balance-available': listCredit.is_active })
-    // });
+    
     gaEventTrigger('Credits_Purchase_Initiated', {
       action: 'Credits_Purchase_Initiated',
       category: 'Button',
