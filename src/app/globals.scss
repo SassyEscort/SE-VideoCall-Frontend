@@ -13,6 +13,7 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   scroll-behavior: smooth; /* Smooth scrolling */
+  font-display: swap;
 }
 
 a {
@@ -34,7 +35,8 @@ a {
   color: #86838a !important;
   height: 50px !important;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     border-color: #86838a !important;
     box-shadow: none !important;
   }

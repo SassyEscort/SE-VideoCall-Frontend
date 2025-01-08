@@ -38,6 +38,7 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { CustomerDetailsService } from 'services/customerDetails/customerDetails.services';
 import ReportFilters from 'components/Admin/ReportFilters/ReportFilters';
+import AdminAddCreditModel from '../AdminAddCredit/AdminAddCreditModel';
 
 export type WorkersPaginationType = {
   page: number;
@@ -71,6 +72,7 @@ export default function CustomerPageContainer() {
   const oneMonthAgoMoment = moment().subtract(1, 'day').format('YYYY/MM/DD');
 
   const [open, setOpen] = useState<null | HTMLElement>(null);
+  const [openCreditModal, setOpenCreditModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selected, setSelected] = useState<CustomerDetailsPage>();
   const [modelData, setModelData] = useState<CustomerDetailsPage[]>([]);
@@ -202,6 +204,10 @@ export default function CustomerPageContainer() {
 
   const handleCloseBanCustomer = () => {
     setBanModelOpen(false);
+  };
+
+  const handleCloseCreditModal = () => {
+    setOpenCreditModal(false);
   };
 
   useEffect(() => {
@@ -342,15 +348,26 @@ export default function CustomerPageContainer() {
           </MenuItem>
 
           {selected?.is_customer_banned === 0 && (
-            <MenuItem
-              onClick={() => {
-                handleOpenBanCustomer();
-                handleCloseMenu();
-              }}
-            >
-              <NotInterestedIcon sx={{ mr: 2 }} />
-              Ban Customer
-            </MenuItem>
+            <>
+              <MenuItem
+                onClick={() => {
+                  handleOpenBanCustomer();
+                  handleCloseMenu();
+                }}
+              >
+                <NotInterestedIcon sx={{ mr: 2 }} />
+                Ban Customer
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  setOpenCreditModal(true);
+                  setAnchorEl(null);
+                }}
+              >
+                <Box component="img" src="/images/header/coin.png" style={{ marginRight: 20, width: 20, height: 20 }} />
+                Add Credit
+              </MenuItem>
+            </>
           )}
         </ModelActionPopover>
         <CustorModel open={creditModalOpen} onClose={handleCloseCredit} selectedPayoutData={selectedPayoutData} />
@@ -360,6 +377,15 @@ export default function CustomerPageContainer() {
           handleDeleteClick={handelCustomerBan}
           ban={true}
           unban={false}
+        />
+
+        <AdminAddCreditModel
+          open={openCreditModal}
+          user_name={selected?.name || ''}
+          user_type="customer"
+          user_credit={selected?.wallet_credits || 0}
+          handleFetchData={fetchCustomerData}
+          onClose={handleCloseCreditModal}
         />
       </MainLayout>
     </>

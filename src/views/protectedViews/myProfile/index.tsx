@@ -1,6 +1,6 @@
 'use client';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DisableButtonBox, EditButton, MyProfileContainerMain, SaveButton } from './MyProfile.styled';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -16,6 +16,7 @@ import { getErrorMessage } from 'utils/errorUtils';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useAuthContext } from '../../../contexts/AuthContext';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type MyProfile = {
   username: string;
@@ -51,7 +52,7 @@ const MyProfile = ({ customerData, token }: { customerData: CustomerDetails | nu
     try {
       setLoadingButton(true);
       const res = await CommonServices.updateUserName(token, name, email);
-
+      handleGAEvents('save-button-click', 'Save button click', { changesMade: (res.code === 200 && 'yes') || 'no' });
       if (res) {
         if (res.code === 200 && res.custom_code === null) {
           toast.success('Updated Successfully');
@@ -105,6 +106,22 @@ const MyProfile = ({ customerData, token }: { customerData: CustomerDetails | nu
     setIsLoading(false);
   };
 
+  const handleGAEvents = (eventName: string, lable: string, value?: {}) => {
+    let data: any = {
+      action: eventName,
+      category: 'Button',
+      label: lable
+    };
+    if (value && Object.keys(value)?.length) {
+      data['value'] = JSON.stringify(value);
+    }
+    gaEventTrigger(eventName, data);
+  };
+
+  useEffect(() => {
+    handleGAEvents('page-load-complete', 'Page load complete');
+  }, []);
+
   return (
     <Formik
       enableReinitialize
@@ -125,6 +142,7 @@ const MyProfile = ({ customerData, token }: { customerData: CustomerDetails | nu
         const isButtonDisabled = !values.username || !values.email;
         const buttonColor = isButtonDisabled ? 'secondary.light' : 'secondary.main';
         const handleCancel = () => {
+          handleGAEvents('cancel-button-click', 'Cancel button click');
           setIsEditable(false);
           resetForm();
           setIsReset(!isReset);
@@ -192,7 +210,13 @@ const MyProfile = ({ customerData, token }: { customerData: CustomerDetails | nu
                       </UINewTypography>
                     </EditButton>
                   ) : (
-                    <EditButton variant="contained" onClick={() => setIsEditable(!isEditable)}>
+                    <EditButton
+                      variant="contained"
+                      onClick={() => {
+                        handleGAEvents('edit-button-click', 'Edit button click');
+                        setIsEditable(!isEditable);
+                      }}
+                    >
                       <UINewTypography variant="buttonSmallBold" color={'secondary.main'}>
                         <FormattedMessage id="Edit" />
                       </UINewTypography>

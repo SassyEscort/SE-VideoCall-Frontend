@@ -76,6 +76,11 @@ const EscortDetailPage = () => {
 
   const handleChangePage = useCallback(
     (event: React.ChangeEvent<unknown>, value: number) => {
+      gaEventTrigger('rating-pagination-click', {
+        action: 'rating-pagination-click',
+        category: 'Button',
+        label: 'Rating pagination click'
+      });
       const offset = (value - 1) * filters.limit;
       handleChangeFilter({ ...filters, page: value, offset: offset });
     },

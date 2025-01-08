@@ -14,16 +14,16 @@ import { usePathname } from 'next/navigation';
 import { SEOCHATPATH } from 'constants/languageConstants';
 import dynamic from 'next/dynamic';
 
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
-const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), { ssr: false });
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), { ssr: false });
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), { ssr: false });
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), { ssr: false });
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), { ssr: false });
 
 const Footer = () => {
   const pathName = usePathname();
   const isSEOPage = SEOCHATPATH.includes(pathName);
-  const { isFreeCreditAvailable, isCustomer, isModel } = useAuthContext();
+  const { isFreeCreditAvailable, isCustomer, isModel, fetchPageName } = useAuthContext();
 
   const [open, setIsOpen] = useState(false);
   const [openLogin, setIsOpenLogin] = useState(false);
@@ -65,6 +65,15 @@ const Footer = () => {
   };
 
   const handleClick = () => {
+    const data = {
+      pageName: fetchPageName()
+    };
+    gaEventTrigger('explore-model-button-click', {
+      action: 'explore-model-button-click',
+      category: 'Button',
+      label: 'Explore mmodel button click',
+      value: JSON.stringify(data)
+    });
     setLoading(true);
     setTimeout(() => {
       setLoading(false);

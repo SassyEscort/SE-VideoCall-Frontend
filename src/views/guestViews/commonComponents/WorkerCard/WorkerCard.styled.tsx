@@ -29,6 +29,7 @@ export const ImgWorkerCard = styled(Box)(({ theme }) => ({
   width: '100%',
   height: '100%',
   minHeight: '432px',
+  objectFit: 'cover',
   borderRadius: theme.spacing(1.5),
   [theme.breakpoints.up('sm')]: {
     minHeight: '432px'
@@ -134,7 +135,7 @@ export const SubContainertWorkerCard = styled(Box)(({ theme }) => ({
 export const FirstSubContainerImgWorkerCard = styled(Image)(() => ({
   display: 'flex',
   width: '100%',
-  maxWidth: '16px',
+  maxWidth: '16px !important',
   height: '100%',
   maxHeight: '8px',
   marginTop: '3px'
@@ -165,8 +166,8 @@ export const SecondSubContainerImgWorkerCard = styled(Image)(() => ({
   display: 'flex',
   width: '100%',
   height: '100%',
-  maxWidth: '22px',
-  maxHeight: '22px'
+  maxWidth: '22px !important',
+  maxHeight: '22px !important'
 }));
 
 export const WorkerCardMainBox = styled(Box)(({ theme }) => ({

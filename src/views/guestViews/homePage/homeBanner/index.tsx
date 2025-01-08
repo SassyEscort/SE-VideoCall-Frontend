@@ -38,18 +38,19 @@ import {
   HomeExploreBox,
   SubTitle
 } from './HomeBanner.styled';
-import { BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
+// import { BannerImageCard } from 'views/guestViews/commonComponents/WorkerCard/WorkerCard.styled';
 import { useSession } from 'next-auth/react';
-// import HomeHeroBanner from './HomeHeroBanner';
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
-const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'));
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
+import HomeHeroBanner from './HomeHeroBanner';
+import { useAuthContext } from 'contexts/AuthContext';
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), { ssr: false });
+const HomePageFreeSignup = dynamic(() => import('views/auth/homePageFreeSignup'), { ssr: false });
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), { ssr: false });
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), { ssr: false });
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), { ssr: false });
 
 const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: number }) => {
   const { data: session } = useSession();
-
+  const { fetchPageName } = useAuthContext();
   const [isModalOpenFreeCredits, setIsModalOpenFreeCredits] = useState(false);
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
@@ -202,12 +203,36 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                       </SignupTextContainer>
                       <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} alt="signup" />
                     </UIThemeShadowButton>
-                    <ExploreTextContainer onClick={handleClickScroll}>
+                    <ExploreTextContainer
+                      onClick={() => {
+                        const data = {
+                          pageName: fetchPageName()
+                        };
+                        gaEventTrigger('explore-model-button-click', {
+                          action: 'explore-model-button-click',
+                          category: 'Button',
+                          label: 'Explore mmodel button click',
+                          value: JSON.stringify(data)
+                        });
+                        handleClickScroll();
+                      }}
+                    >
                       <FormattedMessage id="ExploreModels" />
                     </ExploreTextContainer>
                   </SecondBoxContainer>
                 ) : (
-                  <StyleButtonShadowV2 onClick={handleClickScroll} variant="contained" loading={loading}>
+                  <StyleButtonShadowV2
+                    onClick={() => {
+                      gaEventTrigger('explore-model-button-click', {
+                        action: 'explore-model-button-click',
+                        category: 'Button',
+                        label: 'Explore mmodel button click'
+                      });
+                      handleClickScroll();
+                    }}
+                    variant="contained"
+                    loading={loading}
+                  >
                     <TextContainer>
                       <FormattedMessage id="ExploreModels" />
                     </TextContainer>
@@ -215,9 +240,63 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 )}
               </ThirdBoxContainer>
             </FirstBoxContainer>
-            {/* <HomeHeroBanner isSm={isSm} isSmDown={isSmDown} /> */}
-            <BannerImageCard>
-              <Image
+            <HomeHeroBanner isSm={isSm} isSmDown={isSmDown} />
+            {/* <BannerImageCard>
+              {isSm ? (
+                <Image
+                  alt="home_model"
+                  decoding="async"
+                  width={300}
+                  height={339}
+                  src="/images/home/home-banner-model1.webp"
+                  style={{ borderRadius: '12px', right: 0 }}
+                  priority
+                  placeholder="blur"
+                  blurDataURL="/images/home/home-banner-model_blur.webp"
+                  layout="fixed"
+                />
+              ) : isSmDown ? (
+                <Image
+                  alt="home_model"
+                  decoding="async"
+                  width={347}
+                  height={339}
+                  src="/images/home/home-banner-model1.webp"
+                  style={{ borderRadius: '12px', right: 0 }}
+                  priority
+                  placeholder="blur"
+                  blurDataURL="/images/home/home-banner-model_blur.webp"
+                  layout="fixed"
+                />
+              ) : (
+                <Image
+                  alt="home_model"
+                  decoding="async"
+                  width={462}
+                  height={452}
+                  src="/images/home/home-banner-model1.webp"
+                  style={{ borderRadius: '12px', right: 0 }}
+                  priority
+                  placeholder="blur"
+                  blurDataURL="/images/home/home-banner-model_blur.webp"
+                  layout="fixed"
+                />
+              )} */}
+
+            {/* <Image
+                alt="home_model"
+                decoding="async"
+                src="/images/home/home-banner-model1.webp"
+                style={{ borderRadius: '12px', right: 0 }}
+                priority={true}
+                loading="eager"
+                layout="responsive"
+                width={462}
+                height={452}
+                sizes="(max-width: 600px) 300px, (max-width: 1024px) 347px, 462px"
+              /> */}
+
+            {/* <Image
                 alt="home_model"
                 decoding="async"
                 width={isSm && isSmDown ? 300 : isSmDown ? 347 : 462}
@@ -229,8 +308,9 @@ const HomeTopBanner = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: numbe
                 fetchPriority="high"
                 layout='fixed'
                 sizes="(max-width: 600px) 300px, (max-width: 768px) 347px, 462px"
-              />
-            </BannerImageCard>
+                layout="intrinsic"
+              /> */}
+            {/* </BannerImageCard> */}
           </BannerContainer>
           {isSmDown && (
             <ButtonFreeCredits open={isModalOpenFreeCredits} onClose={handleCloseModal} onSignupOpen={handleFreeCreditSignupOpen} />

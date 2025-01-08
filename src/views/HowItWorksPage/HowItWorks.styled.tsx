@@ -154,7 +154,6 @@ export const MoreCallsTextTypography = styled(Typography)(() => ({
   fontSize: '10px',
   fontWeight: 500,
   lineHeight: '16px',
-  whiteSpace: 'nowrap',
   color: '#00000099'
 }));
 

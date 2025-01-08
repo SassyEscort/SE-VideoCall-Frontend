@@ -9,17 +9,21 @@ import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownR
 import useConfig from 'hooks/useConfig';
 import { I18n } from 'types/config';
 import { useState } from 'react';
+import { useAuthContext } from 'contexts/AuthContext';
 
 const LanguageDropdown = () => {
+  const { handleGAEventsTrigger } = useAuthContext();
   const { i18n, onChangeLocalization } = useConfig();
   const [open, setOpen] = useState(false);
 
   const handleLanguageChange = (event: SelectChangeEvent) => {
     onChangeLocalization(event.target.value as I18n);
+    handleGAEventsTrigger('language-click', '', false, event.target.value);
     setOpen(false);
   };
 
   const handleToggle = () => {
+    handleGAEventsTrigger('language-click', '', !open, i18n);
     setOpen(!open);
   };
 

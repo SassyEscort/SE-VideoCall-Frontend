@@ -75,6 +75,11 @@ const CreditSideDrawer = ({ open, handleClose, balance }: { open: boolean; handl
     });
     const res = await CustomerCredit.modelCreditAmount(token.token, listCredit.id, 0, false, isDetailsPage ? 'details' : 'home', userName);
     if (res) {
+      gaEventTrigger('stripe-initiated', {
+        action: 'stripe-initiated',
+        category: 'Link',
+        label: 'Stripe initiated'
+      });
       router.push(res?.data?.url);
     }
   };

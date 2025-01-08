@@ -97,6 +97,7 @@ export type ModelDetailsParams = {
   email_verified?: boolean | null;
   last_active_from_date: string | null;
   last_active_to_date: string | null;
+  verification_step?: string | null;
 };
 
 export type ModelFilterParams = {
@@ -139,12 +140,13 @@ export type CustomerDetailsPage = {
   createdDate: string;
   userName: string;
   email_verified: number;
-  profile_status: string;
   total_call_duration: string;
   number_of_calls: number;
   amount_spent: number;
-  is_customer_banned: number;
   credits_purchased: number;
+  wallet_credits: number;
+  is_customer_banned: number;
+  // profile_status: string;
 };
 
 export type CustomerDetails = {

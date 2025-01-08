@@ -52,6 +52,7 @@ import { useSession } from 'next-auth/react';
 import { User } from 'app/(guest)/layout';
 import { Raleway } from 'next/font/google';
 import useConfig from 'hooks/useConfig';
+import { getCookie } from 'cookies-next';
 
 const ralewayFont = Raleway({ subsets: ['latin'], display: 'swap' });
 
@@ -100,8 +101,8 @@ const WorkerCard = ({
     modelDetails?.link
       ? modelDetails?.link
       : isCustomer
-        ? '/images/christmas/christmas_model_login.png'
-        : '/images/christmas/christmas_model.png',
+        ? '/images/christmas/christmas_model_login.webp'
+        : '/images/christmas/christmas_model.webp',
     videoTypeCondition ? 'IMG' : 'BG',
     videoTypeCondition ? true : false,
     false,
@@ -143,9 +144,28 @@ const WorkerCard = ({
     }
   };
 
+  const handleGAEventTrigger = () => {
+    const group = getCookie('ab-group');
+    const versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
+    let data: any = {
+      modelName: modelDetails.user_name,
+      modelCredits: modelDetails.price_per_minute,
+      userLoginStatus: customerData?.token ? 'yes' : 'no'
+    };
+    if (customerData?.customer_id) data['userid'] = customerData?.customer_id;
+    if (versionDetails?.experiment) data['version'] = `${versionDetails?.experiment}_${versionDetails?.variation}`;
+    gaEventTrigger('favorite-icon-click', {
+      action: 'favorite-click',
+      category: 'Button',
+      label: 'Favorite icon click',
+      value: JSON.stringify(data)
+    });
+  };
+
   const handleIconClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.stopPropagation();
     e.preventDefault();
+    handleGAEventTrigger();
     handleLikeClick(modelDetails);
   };
 
@@ -161,7 +181,20 @@ const WorkerCard = ({
 
   return (
     <MainWorkerCard onClick={handleChristmasOffer}>
-      <ImgWorkerCard ref={imageUrlRef} />
+      {/* {imageUrlRef?.current?.style?.backgroundImage && <ImgWorkerCard ref={imageUrlRef} component="div" />} */}
+
+      <ImgWorkerCard
+        ref={imageUrlRef}
+        component="div"
+        sx={{
+          ...(!imageUrlRef?.current?.style?.backgroundImage && {
+            backgroundImage: `url(/images/workercards/workercard-blur.avif)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+            // transition: 'background-image 5s ease-in-out'
+          })
+        }}
+      />
       {modelDetails.name === 'Christmas Offer' &&
         (isCustomer ? (
           <ChristmasMainContainer>
@@ -248,7 +281,7 @@ const WorkerCard = ({
               <NameCardContainer>
                 <TextBoxContainer>
                   <UINewTypography variant="newTitle" color="#ffff">
-                    {modelDetails?.name?.charAt(0)?.toUpperCase() + modelDetails?.name?.slice(1)}
+                    {modelDetails?.name ? modelDetails?.name?.charAt(0)?.toUpperCase() + modelDetails?.name?.slice(1) : ''}
                   </UINewTypography>
                 </TextBoxContainer>
                 {modelDetails?.is_online === 1 && (
@@ -256,13 +289,21 @@ const WorkerCard = ({
                     <LiveIconWorkerCard>
                       <LiveIconSecBoxWorkerCard />
                     </LiveIconWorkerCard>
-                    {modelFlag && <FirstSubContainerImgWorkerCard src={modelFlag} alt={modelAltName} width={16} height={8} />}
+                    {modelFlag && (
+                      <FirstSubContainerImgWorkerCard src={modelFlag} alt={modelAltName} width={16} height={8} layout="intrinsic" />
+                    )}
                   </>
                 )}
               </NameCardContainer>
               {!isMobile && (
                 <CreditContainer>
-                  <SecondSubContainerImgWorkerCard src="/images/workercards/dollar-img.avif" alt="dollar-img" width={22} height={22} />
+                  <SecondSubContainerImgWorkerCard
+                    src="/images/workercards/dollar-img.avif"
+                    alt="dollar-img"
+                    width={22}
+                    height={22}
+                    layout="intrinsic"
+                  />
                   <UINewTypography variant="captionLargeBold" color="text.secondary">
                     {modelDetails.name !== 'Christmas Offer' ? (
                       !modelDetails?.price_per_minute ? (
@@ -289,7 +330,9 @@ const WorkerCard = ({
                     <Divider orientation="vertical" flexItem sx={{ borderColor: 'text.primary' }} />
                   </>
                 )}
-                <UITypographyBoxContainer variant="SubtitleSmallMedium">{languages ? languages : 'All Users'}</UITypographyBoxContainer>
+                <UITypographyBoxContainer variant="SubtitleSmallMedium">
+                  {languages ? languages : <FormattedMessage id="AllUsers" />}
+                </UITypographyBoxContainer>
               </SecondSubContainerWorkerCard>
             </SecondMainContainerWorkerCard>
             {isMobile && (

@@ -37,12 +37,13 @@ import GuestFreeCreditsSignup from 'views/auth/guestFreeCreditsSignup';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dynamic from 'next/dynamic';
 // import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
-import { useCallFeatureContext } from 'contexts/CallFeatureContext';
-const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
-const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
-const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
-const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
-const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'));
+import { getCookie } from 'cookies-next';
+import { useAuthContext } from 'contexts/AuthContext';
+const GuestLogin = dynamic(() => import('views/auth/guestLogin'), { ssr: false });
+const GuestSignup = dynamic(() => import('views/auth/guestSignup'), { ssr: false });
+const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'), { ssr: false });
+const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'), { ssr: false });
+const NewSignupStyledModalDialog = dynamic(() => import('components/UIComponents/NewSignupStyledModalDialog'), { ssr: false });
 
 const EscortSliderMobile = ({
   workerPhotos,
@@ -63,7 +64,7 @@ const EscortSliderMobile = ({
   guestData: ModelDetailsResponse;
   isFreeCreditAvailable: number;
 }) => {
-  const { user } = useCallFeatureContext();
+  const { handleGAEventsTrigger, user } = useAuthContext();
   const isLg = useMediaQuery(theme.breakpoints.up('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down(330));
   const isMd = useMediaQuery(theme.breakpoints.up('sm'));
@@ -77,6 +78,7 @@ const EscortSliderMobile = ({
 
   const sortedWorkerPhotos = workerPhotos.sort(sortExistingPhotos);
 
+  const group = getCookie('ab-group');
   const path = usePathname();
   const router = useRouter();
   const userName = path.split('/')[2];
@@ -89,7 +91,10 @@ const EscortSliderMobile = ({
     model_username: userName
   };
 
-  const handleStartChatClick = () => router.push(`/chat/${userName}`);
+  const handleStartChatClick = () => {
+    handleGAEventsTrigger('message-icon-click', 'model-details-page');
+    router.push(`/chat/${userName}`);
+  };
 
   const handleSignupOpen = () => {
     setIsOpenLogin(false);
@@ -141,6 +146,23 @@ const EscortSliderMobile = ({
     setFreeSignupOpen(false);
   };
 
+  const handleGAEventTrigger = () => {
+    const versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
+    let data: any = {
+      modelName: guestData.user_name,
+      modelCredits: Number(guestData?.video_call_prices?.[0]?.credits_per_minute || 0),
+      userLoginStatus: customerData?.token ? 'yes' : 'no'
+    };
+    if (customerData?.customer_id) data['userid'] = customerData?.customer_id;
+    if (versionDetails?.experiment) data['version'] = `${versionDetails?.experiment}_${versionDetails?.variation}`;
+    gaEventTrigger('favorite-icon-click', {
+      action: 'favorite-click',
+      category: 'Button',
+      label: 'Favorite icon click',
+      value: JSON.stringify(data)
+    });
+  };
+
   const handleLikeClick = async () => {
     try {
       if (!isCustomer) {
@@ -148,6 +170,7 @@ const EscortSliderMobile = ({
         gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
       } else if (token.token) {
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
+        handleGAEventTrigger();
         const customerInfoString = JSON.stringify(customerInfo);
         gaEventTrigger('Model_Favorite_Clicked', {
           category: 'Button',
@@ -167,6 +190,10 @@ const EscortSliderMobile = ({
     }
   };
   const modelFavPhoto = workerPhotos.find((x) => x.favourite)?.link;
+
+  const handleStartVideoGAEvent = () => {
+    gaEventTrigger('start-video-call-click', { action: 'start-video-call-click', category: 'Button', label: 'start video call click' });
+  };
 
   return (
     <>
@@ -226,7 +253,14 @@ const EscortSliderMobile = ({
       <ActivityButtonMainBox>
         <StyleButtonShadowV2
           loading={isLoading}
-          onClick={isCustomer ? handleCallInitiate : isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleLoginOpen}
+          onClick={() => {
+            handleStartVideoGAEvent();
+            if (isCustomer) {
+              handleCallInitiate();
+            } else if (isFreeCreditAvailable) {
+              handleFreeCreditSignupOpen();
+            } else handleLoginOpen();
+          }}
           sx={{
             padding: 0,
             minWidth: isLg ? '450px' : isMd ? '350px' : isSm ? '200px' : '271px',
@@ -246,7 +280,12 @@ const EscortSliderMobile = ({
         <ActivityButtonBox>
           <StyleButtonShadowV2
             loading={isLoading}
-            onClick={isCustomer ? handleStartChatClick : handleLoginOpen}
+            onClick={() => {
+              handleGAEventsTrigger('message-icon-click', 'model-details-page');
+              gaEventTrigger('start-chat-click', { action: 'start-chat-click', category: 'Button', label: 'start chat click' });
+              if (isCustomer) handleStartChatClick();
+              else handleLoginOpen();
+            }}
             sx={{
               padding: 0,
               minWidth: isSm ? '200px' : '271px',

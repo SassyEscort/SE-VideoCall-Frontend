@@ -42,6 +42,7 @@ import { gaEventTrigger } from 'utils/analytics';
 // import { useZegoCallFeatureContext } from '../../../../contexts/ZegoCallContext';
 import { useCallFeatureContext } from 'contexts/CallFeatureContext';
 import dynamic from 'next/dynamic';
+import { useAuthContext } from 'contexts/AuthContext';
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
 const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
@@ -69,6 +70,7 @@ const EscortSlider = ({
   isFreeCreditAvailable: number;
 }) => {
   // const { user } = useZegoCallFeatureContext();
+  const { handleGAEventsTrigger } = useAuthContext();
   const { user } = useCallFeatureContext();
   const path = usePathname();
   const router = useRouter();
@@ -135,6 +137,7 @@ const EscortSlider = ({
         setIsOpenLogin(true);
         gaEventTrigger('Login_Button_clicked', { source: 'fav_button', category: 'Button' });
       } else if (token.token) {
+        gaEventTrigger('favorite-click', { action: 'favorite-click', category: 'Button', label: 'Favorite icon click' });
         const data = await CustomerDetailsService.favouritePutId(modelId, token?.token);
         const customerInfoString = JSON.stringify(customerInfo);
         gaEventTrigger('Model_Favorite_Clicked', {
@@ -181,6 +184,14 @@ const EscortSlider = ({
 
   const handleFreeCreditSignupClose = () => {
     setFreeSignupOpen(false);
+  };
+
+  const handleStartVideoGAEvent = () => {
+    gaEventTrigger('start-video-call-click', { action: 'start-video-call-click', category: 'Button', label: 'start video call click' });
+  };
+
+  const handleStartChatGAEvent = () => {
+    gaEventTrigger('start-chat-click', { action: 'start-chat-click', category: 'Button', label: 'start chat click' });
   };
 
   const modelFavPhoto = workerPhotos.find((x) => x.favourite)?.link;
@@ -271,7 +282,14 @@ const EscortSlider = ({
         <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', gap: 1.5 }}>
           <StyleButtonShadowV2
             loading={isLoading}
-            onClick={isCustomer ? handleCallInitiate : isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleLoginOpen}
+            onClick={() => {
+              handleStartVideoGAEvent();
+              if (isCustomer) {
+                handleCallInitiate();
+              } else if (isFreeCreditAvailable) {
+                handleFreeCreditSignupOpen();
+              } else handleLoginOpen();
+            }}
             sx={{
               padding: 0,
               width: '100%',
@@ -289,7 +307,12 @@ const EscortSlider = ({
           </StyleButtonShadowV2>
           <StyleButtonShadowV2
             loading={isLoading}
-            onClick={isCustomer ? handleStartChatClick : handleLoginOpen}
+            onClick={() => {
+              handleGAEventsTrigger('message-icon-click', 'model-details-page');
+              handleStartChatGAEvent();
+              if (isCustomer) handleStartChatClick();
+              else handleLoginOpen();
+            }}
             sx={{
               padding: 0,
               width: '100%',
@@ -338,7 +361,7 @@ const EscortSlider = ({
             }}
             onClick={handleLikeClick}
           >
-            {liked || guestData?.favourite === 1 ? <FavoriteIcon sx={{ color: '#FF48B3' }} /> : <FavoriteBorderIcon />}
+            {liked || guestData?.favourite === 1 ? <FavoriteIcon sx={{ color: '#FF48B3' }} /> : <FavoriteBorderIcon />}123
           </UIStyledShadowButtonLike>
         </Box>
 

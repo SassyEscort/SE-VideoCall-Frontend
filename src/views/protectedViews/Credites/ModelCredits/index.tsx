@@ -50,7 +50,7 @@ const ModelCredits = ({
   userName: string;
   modelCreditPrice: number;
 }) => {
-  const { isFreeCreditAvailable, token } = useAuthContext();
+  const { isFreeCreditAvailable, token, handleSetBalance } = useAuthContext();
 
   const [creditsListing, setCreditsListing] = useState<ModelCreditRes[]>([]);
   const [balance, setBalance] = useState(0);
@@ -78,6 +78,7 @@ const ModelCredits = ({
     if (token.token) {
       const getModel = await ModelDetailsService.getModelWithDraw(token.token);
       setBalance(getModel?.data?.credits);
+      handleSetBalance(getModel?.data?.credits || 0);
     }
   }, [token.token]);
 

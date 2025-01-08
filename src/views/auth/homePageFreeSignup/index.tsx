@@ -21,35 +21,44 @@ import { ErrorMessage } from 'constants/common.constants';
 import { useRouter } from 'next/navigation';
 import { getErrorMessage } from 'utils/errorUtils';
 import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
-const GuestSignupSuccess = dynamic(() => import('../GuestSignupSuccess'));
-const StyleButtonV2 = dynamic(() => import('components/UIComponents/StyleLoadingButton'));
-const AuthHomePageFreeSignupCommon = dynamic(() => import('./AuthHomePageFreeSignupCommon'));
-const HomePageFreeSignupMobile = dynamic(() => import('./HomePageFreeSignupMobile'));
-const ErrorBox = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })));
-const ModelUITextConatiner = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })));
-const UIButtonText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })));
-const UITypographyText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })));
-const HeaderTextInnerBoxContainer = dynamic(() =>
-  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HeaderTextInnerBoxContainer }))
+const GuestSignupSuccess = dynamic(() => import('../GuestSignupSuccess'), { ssr: false });
+const StyleButtonV2 = dynamic(() => import('components/UIComponents/StyleLoadingButton'), { ssr: false });
+const AuthHomePageFreeSignupCommon = dynamic(() => import('./AuthHomePageFreeSignupCommon'), { ssr: false });
+const HomePageFreeSignupMobile = dynamic(() => import('./HomePageFreeSignupMobile'), { ssr: false });
+const ErrorBox = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ErrorBox })), { ssr: false });
+const ModelUITextConatiner = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.ModelUITextConatiner })), {
+  ssr: false
+});
+const UIButtonText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UIButtonText })), { ssr: false });
+const UITypographyText = dynamic(() => import('../AuthCommon.styled').then((module) => ({ default: module.UITypographyText })), {
+  ssr: false
+});
+const HeaderTextInnerBoxContainer = dynamic(
+  () => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HeaderTextInnerBoxContainer })),
+  { ssr: false }
 );
-const HeaderTextMainBoxContainer = dynamic(() =>
-  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HeaderTextMainBoxContainer }))
+const HeaderTextMainBoxContainer = dynamic(
+  () => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HeaderTextMainBoxContainer })),
+  { ssr: false }
 );
-const HomeFreeSignupMainBoxContainer = dynamic(() =>
-  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HomeFreeSignupMainBoxContainer }))
+const HomeFreeSignupMainBoxContainer = dynamic(
+  () => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.HomeFreeSignupMainBoxContainer })),
+  { ssr: false }
 );
-const IconeButtonContainer = dynamic(() =>
-  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.IconeButtonContainer }))
+const IconeButtonContainer = dynamic(
+  () => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.IconeButtonContainer })),
+  { ssr: false }
 );
 const JoinForFreeText = dynamic(() => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.JoinForFreeText })));
-const RemindMeBoxContainer = dynamic(() =>
-  import('./HomePageFreeSignup.styled').then((module) => ({ default: module.RemindMeBoxContainer }))
+const RemindMeBoxContainer = dynamic(
+  () => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.RemindMeBoxContainer })),
+  { ssr: false }
 );
 import { signIn } from 'next-auth/react';
 import { gaEventTrigger } from 'utils/analytics';
 import dynamic from 'next/dynamic';
-import { useAuthContext } from 'contexts/AuthContext';
 import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
+import { useAuthContext } from 'contexts/AuthContext';
 
 export type SignupParams = {
   name: string;
@@ -60,7 +69,7 @@ export type SignupParams = {
 const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
   const intl = useIntl();
   const route = useRouter();
-  const { funnelHitId } = useAuthContext();
+  const { funnelHitId, handleGAEventsTrigger } = useAuthContext();
   const { refresh, push } = route;
 
   const isSm = useMediaQuery(theme.breakpoints.down(330));
@@ -259,9 +268,16 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                             e.target.value = e.target.value.trimStart();
                             handleChange(e);
                           }}
-                          onBlur={() => {
-                            handleBlur;
+                          onBlur={(e) => {
+                            handleBlur(e);
                             gaEventTrigger('signup_form_name_click', { source: 'model_name_click', category: 'TextField' });
+                            if (values.name) {
+                              gaEventTrigger('name-added', {
+                                source: 'name added',
+                                category: 'TextField',
+                                label: 'name added'
+                              });
+                            }
                           }}
                           error={touched.name && Boolean(errors.name)}
                           helperText={touched.name && errors.name ? <FormattedMessage id={errors.name} /> : ''}
@@ -284,9 +300,16 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                           name="email"
                           value={values.email}
                           onChange={handleChange}
-                          onBlur={() => {
-                            handleBlur;
+                          onBlur={(e) => {
+                            handleBlur(e);
                             gaEventTrigger('signup_form_email_click', { source: 'model_email_click', category: 'TextField' });
+                            if (values.email) {
+                              gaEventTrigger('email-added', {
+                                source: 'email added',
+                                category: 'TextField',
+                                label: 'email added'
+                              });
+                            }
                           }}
                           error={touched.email && Boolean(errors.email)}
                           helperText={touched.email && errors.email ? <FormattedMessage id={errors.email} /> : ''}
@@ -312,9 +335,16 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                               name="password"
                               value={values.password}
                               onChange={handleChange}
-                              onBlur={() => {
-                                handleBlur;
+                              onBlur={(e) => {
+                                handleBlur(e);
                                 gaEventTrigger('signup_form_password_click', { source: 'model_password_click', category: 'TextField' });
+                                if (values.password) {
+                                  gaEventTrigger('password-added', {
+                                    source: 'password added',
+                                    category: 'TextField',
+                                    label: 'password added'
+                                  });
+                                }
                               }}
                               error={touched.password && Boolean(errors.password)}
                               helperText={touched.password && errors.password ? <FormattedMessage id={errors.password} /> : ''}
@@ -342,12 +372,19 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                               name="confirmPassword"
                               value={values.confirmPassword}
                               onChange={handleChange}
-                              onBlur={() => {
-                                handleBlur;
+                              onBlur={(e) => {
+                                handleBlur(e);
                                 gaEventTrigger('signup_form_confirm_password_click', {
                                   source: 'model_confirm_password_click',
                                   category: 'TextField'
                                 });
+                                if (values.confirmPassword) {
+                                  gaEventTrigger('confirmPassword-added', {
+                                    source: 'confirmPassword added',
+                                    category: 'TextField',
+                                    label: 'confirmPassword added'
+                                  });
+                                }
                               }}
                               error={touched.confirmPassword && Boolean(errors.confirmPassword)}
                               helperText={
@@ -372,7 +409,12 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                         </Box>
                       </ModelUITextConatiner>
                       <RemindMeBoxContainer>
-                        <MenuItem sx={{ p: 0, gap: { xs: '0', sm: '1' } }}>
+                        <MenuItem
+                          sx={{ p: 0, gap: { xs: '0', sm: '1' } }}
+                          onClick={() => {
+                            gaEventTrigger('remember-click', { category: 'Check Box', label: 'Remember me click' });
+                          }}
+                        >
                           <Checkbox sx={{ p: 0, pr: 1 }} />
                           <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
                             <FormattedMessage id="RememberMe" />
@@ -388,7 +430,13 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                       </StyleButtonV2>
                       <ModelUITextConatiner gap={3} sx={{ alignItems: 'center' }}>
                         <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                        <Box>
+                        <Box
+                          onClick={() => {
+                            if (values.role === ROLE.MODEL) {
+                              handleGAEventsTrigger('model-signup-click');
+                            }
+                          }}
+                        >
                           <UINewTypography variant="buttonLargeMenu" color="text.secondary" sx={{ whiteSpace: isSm ? 'wrap' : 'nowrap' }}>
                             <FormattedMessage id="SignUpAsWhat" />{' '}
                             {values.role === ROLE.MODEL ? <FormattedMessage id="CustomerText" /> : <FormattedMessage id="Model" />}{' '}

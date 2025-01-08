@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { useAuthContext } from '../../../../contexts/AuthContext';
 import dynamic from 'next/dynamic';
 import { CHATROOM } from 'constants/languageConstants';
+import { getCookie } from 'cookies-next';
 
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
@@ -42,7 +43,9 @@ const MainFooter = ({
   handleLoginClose: () => void;
   openLogin: boolean;
 }) => {
-  const { isCustomer, isModel } = useAuthContext();
+  const { isCustomer, isModel, handleGAEventsTrigger, user, fetchPageName } = useAuthContext();
+  const providerData = JSON.parse(user || '{}');
+
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [open, setIsOpen] = useState(false);
@@ -69,6 +72,24 @@ const MainFooter = ({
 
   const handleResetPasswordLinkClose = () => {
     setOpenForgetPassLink(false);
+  };
+
+  const handleTriggerGAEvent = (linkName: string) => {
+    const group = getCookie('ab-group');
+    let versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
+    let data: any = {
+      userLoginStatus: providerData?.token ? 'yes' : 'no',
+      linkName: linkName
+    };
+    if (providerData?.customer_id) data['userid'] = providerData?.customer_id;
+    if (versionDetails?.experiment) data['version'] = `${versionDetails?.experiment}_${versionDetails?.variation}`;
+
+    gaEventTrigger('footer-link-click', {
+      action: 'footer-link-click',
+      category: 'Link',
+      label: 'Footer link click',
+      value: JSON.stringify(data)
+    });
   };
 
   return (
@@ -100,7 +121,7 @@ const MainFooter = ({
                   gap: 1
                 }}
               >
-                <Link prefetch={false} href="/">
+                <Link prefetch={false} href="/" onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'footer')}>
                   <Image src="/images/header/new-logo.png" width={219.87} height={43.68} alt="footer_logo" loading="lazy" />
                 </Link>
                 <Box>
@@ -127,7 +148,7 @@ const MainFooter = ({
                       <FormattedMessage id="Menu" />
                     </UINewTypography>
                     <ModelUITextConatiner sx={{ gap: 1 }}>
-                      <UINewTypography variant="SubtitleSmallRegular">
+                      <UINewTypography variant="SubtitleSmallRegular" onClick={() => handleTriggerGAEvent('Home')}>
                         <Link prefetch={false} href="/">
                           <FormattedMessage id="Home" />
                         </Link>
@@ -138,13 +159,28 @@ const MainFooter = ({
                       </Link>
                     </UINewTypography> */}
 
-                      <UINewTypography variant="SubtitleSmallRegular">
+                      <UINewTypography variant="SubtitleSmallRegular" onClick={() => handleTriggerGAEvent('FAQs')}>
                         <Link prefetch={false} href="/faq">
                           <FormattedMessage id="FAQs" />
                         </Link>
                       </UINewTypography>
                       {isCustomer || isModel ? (
-                        <Link prefetch={false} href="/">
+                        <Link
+                          prefetch={false}
+                          href="/"
+                          onClick={() => {
+                            handleTriggerGAEvent('Explore Models');
+                            const data = {
+                              pageName: fetchPageName()
+                            };
+                            gaEventTrigger('explore-model-button-click', {
+                              action: 'explore-model-button-click',
+                              category: 'Button',
+                              label: 'Explore mmodel button click',
+                              value: JSON.stringify(data)
+                            });
+                          }}
+                        >
                           <UINewTypography variant="SubtitleSmallRegular" sx={{ cursor: 'pointer' }}>
                             <FormattedMessage id="ExploreModels" />
                           </UINewTypography>
@@ -174,7 +210,7 @@ const MainFooter = ({
                         </>
                       )}
                       {isCustomer && (
-                        <UINewTypography variant="SubtitleSmallRegular">
+                        <UINewTypography variant="SubtitleSmallRegular" onClick={() => handleTriggerGAEvent('RegisterAsModel')}>
                           <Link prefetch={false} href="/model">
                             <FormattedMessage id="RegisterAsModel" />
                           </Link>
@@ -195,6 +231,7 @@ const MainFooter = ({
                           prefetch={false}
                           shallow={true}
                           href={`${val?.link}`}
+                          onClick={() => handleTriggerGAEvent(val?.link)}
                         >
                           <FormattedMessage id={val?.name} />
                         </Box>
@@ -216,6 +253,7 @@ const MainFooter = ({
                           prefetch={false}
                           shallow={true}
                           href={val?.url}
+                          onClick={() => handleTriggerGAEvent(val?.url)}
                         >
                           <FormattedMessage id={val?.title} />
                         </Box>

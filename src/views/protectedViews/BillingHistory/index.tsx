@@ -27,6 +27,8 @@ import { LoaderBox, TextMainContainer } from '../Credites/Credits.styled';
 import BillingDetails from '../bilingDetails';
 import CircularProgress from '@mui/material/CircularProgress';
 import { areObjectsEqual } from 'utils/genericFunction';
+import { Chip } from '@mui/material';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type billingHistoryParams = {
   category: string;
@@ -86,6 +88,11 @@ const BillingHistory = ({
     };
     if (!areObjectsEqual(billingFilter, filters) && initialLoad) {
       fetchEarningHistoryDetails();
+      gaEventTrigger('page-load-complete', {
+        action: 'page-load-complete',
+        category: 'Button',
+        label: 'Page load complete'
+      });
     } else {
       setInitialLoad(true);
     }
@@ -139,10 +146,19 @@ const BillingHistory = ({
                   <TextMainContainer key={index}>
                     <FirstTextContainer>
                       <BillingUIContainer sx={{ gap: 1.5 }}>
-                        <UINewTypography variant="buttonLargeMenu" color={list.category === 'Credit' ? 'success.100' : 'error.main'}>
-                          {list?.category === 'Credit' ? '+' : '-'} {list?.free_credits ? list?.free_credits : list?.credits}{' '}
-                          {list?.category}
-                        </UINewTypography>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                          <UINewTypography variant="buttonLargeMenu" color={list.category === 'Credit' ? 'success.100' : 'error.main'}>
+                            {list?.category === 'Credit' ? '+' : '-'} {list?.free_credits ? list?.free_credits : list?.credits}{' '}
+                            {list?.category}
+                          </UINewTypography>
+                          {list?.details.startsWith('Admin') &&
+                            (list?.details === 'Admin_Debit' ? (
+                              <Chip label="Admin Debit" variant="outlined" color="error" />
+                            ) : (
+                              <Chip label="Admin Credit" variant="outlined" color="success" />
+                            ))}
+                        </Box>
+
                         <DateTimeBilling variant="SubtitleSmallMedium" color="text.primary">
                           {moment(list?.created_at).format('LT')}, {moment(list?.created_at).format('DD MMMM YYYY')}
                         </DateTimeBilling>
@@ -150,7 +166,7 @@ const BillingHistory = ({
 
                       <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <DollarBillingValue variant="h6" color="text.secondary">
-                          {list?.category === 'Debit' ? (
+                          {list?.category === 'Debit' && !list?.details.startsWith('Admin') ? (
                             <TextBoxContainer
                               onClick={() => {
                                 handDetailsOpen();

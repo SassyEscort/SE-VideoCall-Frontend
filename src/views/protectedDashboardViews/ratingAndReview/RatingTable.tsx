@@ -24,6 +24,7 @@ import PaginationInWords from 'components/UIComponents/PaginationINWords';
 import { StyledClearIcon } from 'views/guestViews/searchPage/Search.styled';
 import StartRating from 'components/UIComponents/StartRating';
 import MenuItem from '@mui/material/MenuItem';
+import { gaEventTrigger } from 'utils/analytics';
 
 const RatingTable = ({
   ratingAndReview,
@@ -43,7 +44,10 @@ const RatingTable = ({
   const intl = useIntl();
   const [open, setOpen] = useState(false);
 
-  const handleOpen = () => setOpen((prevOpen) => !prevOpen);
+  const handleOpen = () => {
+    gaEventTrigger('rating-filter-click', { action: 'rating-filter-click', category: 'Button', label: 'Rating filter click' });
+    setOpen((prevOpen) => !prevOpen);
+  };
   return (
     <RatingDescriptionMainBoxContainer>
       <FormControl id="rating" sx={{ width: '100%', maxWidth: '140px' }}>

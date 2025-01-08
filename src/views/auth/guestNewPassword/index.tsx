@@ -30,6 +30,7 @@ import {
   FiveBoxContainer,
   SixBoxContainer
 } from './GuestNewPassword.styled';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type ResetPasswordParams = {
   email: string;
@@ -239,7 +240,14 @@ const GuestNewPassword = ({ onClose, email, onLoginOpen }: { onClose: () => void
                         whiteSpace="nowrap"
                         variant="body"
                         sx={{ color: 'text.secondary', cursor: 'pointer' }}
-                        onClick={onLoginOpen}
+                        onClick={() => {
+                          onLoginOpen();
+                          gaEventTrigger('login-instead-click', {
+                            source: 'login instead click',
+                            category: 'TextField',
+                            label: 'login instead click'
+                          });
+                        }}
                       >
                         <FormattedMessage id="LogInInstead" />
                       </UINewTypography>

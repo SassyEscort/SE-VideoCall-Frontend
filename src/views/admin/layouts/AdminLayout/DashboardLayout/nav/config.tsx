@@ -10,6 +10,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import GroupIcon from '@mui/icons-material/Group';
 import EuroIcon from '@mui/icons-material/Euro';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import ReviewsIcon from '@mui/icons-material/Reviews';
 import { AdminUserPermissions } from 'contexts/AuthContext';
 
 export const getNavConfig = (adminUserPermissions: AdminUserPermissions[] | undefined, isAdmin: boolean, id?: number) => {
@@ -53,6 +54,11 @@ export const getNavConfig = (adminUserPermissions: AdminUserPermissions[] | unde
       title: 'Call Logs',
       path: '/admin/call-logs',
       icon: <DuoIcon />
+    },
+    {
+      title: 'Call Review',
+      path: '/admin/call-review',
+      icon: <ReviewsIcon />
     },
     {
       title: 'Boost',
