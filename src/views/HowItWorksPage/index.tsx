@@ -81,7 +81,7 @@ const HowItWorks = () => {
                   Level 1: Complete
                   <span style={{ fontWeight: 800 }}>
                     {' '}
-                    50 calls = <span style={{ color: '#FF8B36' }}>$5</span>
+                    50 minutes = <span style={{ color: '#FF8B36' }}>$5</span>
                   </span>
                 </LevelTextTypography>
               </li>
@@ -90,7 +90,7 @@ const HowItWorks = () => {
                   Level 2: Complete
                   <span style={{ fontWeight: 800 }}>
                     {' '}
-                    150 more calls = <span style={{ color: '#FF8B36' }}>$20</span>
+                    150 more minutes = <span style={{ color: '#FF8B36' }}>$20</span>
                   </span>
                 </LevelTextTypography>
               </li>
@@ -99,7 +99,7 @@ const HowItWorks = () => {
                   Level 3: Complete
                   <span style={{ fontWeight: 800 }}>
                     {' '}
-                    300 more calls = <span style={{ color: '#FF8B36' }}>$50</span>
+                    300 more minutes = <span style={{ color: '#FF8B36' }}>$50</span>
                   </span>
                 </LevelTextTypography>
               </li>
@@ -108,7 +108,7 @@ const HowItWorks = () => {
                   Level 4 and higher:
                   <span style={{ fontWeight: 800 }}>
                     {' '}
-                    For every 100 calls = <span style={{ color: '#FF8B36' }}>$20</span>
+                    For every 100 minutes = <span style={{ color: '#FF8B36' }}>$20</span>
                   </span>
                 </LevelTextTypography>
               </li>
@@ -125,7 +125,7 @@ const HowItWorks = () => {
                     Lv2
                   </UINewTypography>
                   <Divider orientation="vertical" flexItem sx={{ borderColor: 'primary.700' }} />
-                  <CallsTextTypography>84 calls</CallsTextTypography>
+                  <CallsTextTypography>84 minutes</CallsTextTypography>
                 </Level2ToLevel3ChipInnerBoxContainer>
                 <UINewTypography variant="captionLargeSemiBold" color="#000000CC">
                   Lv3
@@ -135,7 +135,7 @@ const HowItWorks = () => {
               <Box component="img" src="/images/levelup-img.png" />
 
               <MoreCallsTextTypography>
-                Make <span style={{ fontWeight: 800 }}>116</span> more calls to level up
+                Make total<span style={{ fontWeight: 800 }}>116</span> minutes of calls to level up
               </MoreCallsTextTypography>
             </Level2ToLevel3FirstMainBoxContainer>
             <UINewTypography variant="bodySmallBold" color="#00000099">
