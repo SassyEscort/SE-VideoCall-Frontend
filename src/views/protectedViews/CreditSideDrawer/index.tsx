@@ -67,6 +67,23 @@ const CreditSideDrawer = ({ open, handleClose, balance }: { open: boolean; handl
       source: 'Credit Page'
     };
 
+    let dataForGACredit = {
+      amount: listCredit.amount,
+      credits: listCredit.credits,
+      'extra-credits-pack-click': 'no',
+      'discount-pack-click': 'no'
+    };
+    if (listCredit.discount) dataForGACredit['extra-credits-pack-click'] = 'yes';
+    if (listCredit.tag) dataForGACredit['extra-credits-pack-click'] = 'yes';
+
+    gaEventTrigger('pack-credits-click', {
+      action: 'pack-credits-click',
+      category: 'Button',
+      label: 'pack-credits-click',
+      source: 'Credit Page',
+      value: JSON.stringify({ dataForGACredit })
+    });
+    
     gaEventTrigger('Credits_Purchase_Initiated', {
       action: 'Credits_Purchase_Initiated',
       category: 'Button',

@@ -214,6 +214,22 @@ const HeaderAuthComponent = () => {
 
   useEffect(() => {
     if (openCreditDrawer) {
+      const creditInfoEvent = {
+        email: customerDetails?.customer_email,
+        name: customerDetails?.customer_name,
+        username: customerDetails?.customer_user_name,
+        is_credit_over: false,
+        'is-automated': 'yes',
+        'close-button-click': 'no',
+        'credits-balance-available': balance || 0,
+        source: 'Header'
+      };
+      gaEventTrigger('Credits_Purchase_Popup_open', {
+        action: 'Credits_Purchase_Popup_open',
+        category: 'Dialog',
+        label: 'Credits_Purchase_Popup_open',
+        value: JSON.stringify(creditInfoEvent)
+      });
       setOpenCreditSideDrawer(true);
     }
   }, [openCreditDrawer]);

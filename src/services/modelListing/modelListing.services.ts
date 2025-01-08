@@ -76,7 +76,8 @@ export class ModelListingService {
       return res.data.data;
     } catch (err: any) {
       const error: AxiosError = err;
-      return error.response?.data as ModelListingRes;
+      console.log(error?.response?.data, '::::::::::::Error');
+      return { model_details: [], aggregate: { offset: 0, page_size: 0, total_rows: 0 } } as ModelListingRes;
     }
   };
 }
