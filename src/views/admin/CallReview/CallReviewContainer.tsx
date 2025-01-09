@@ -293,7 +293,7 @@ export default function CallReviewContainer() {
                           {item?.review_type || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.screenshot_count || '-'}
+                          {item?.screenshots_count || '0'}
                         </TableCell>
                         <TableCell sx={{ textAlign: 'left' }}>
                           {item?.status === PAYOUT_ACTION.PENDING ? (
