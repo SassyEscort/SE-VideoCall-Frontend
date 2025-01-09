@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import { Raleway } from 'next/font/google';
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
+import { Pagination, Autoplay } from 'swiper/modules';
 // import { FirstSwiperInnerContainer } from './PreSignUpWeb.styled';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
@@ -31,20 +31,8 @@ import theme from 'themes/theme';
 import { ModelListingRes } from 'services/modelListing/modelListing.services';
 import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
 import { CarousalModelImageRes } from 'services/abTest/abTest.services';
+import CarousalSwiper from './CarouselSwiper';
 import HorizontalSlider from '../Slider/HorizontalSlider';
-
-const slides = [
-  { link: '/images/swiper/SlideItem1.webp' },
-  { link: '/images/swiper/SlideItem2.webp' },
-  { link: '/images/swiper/SlideItem3.webp' },
-  { link: '/images/swiper/SlideItem4.webp' },
-  { link: '/images/swiper/SlideItem5.webp' },
-  { link: '/images/swiper/SlideItem1.webp' },
-  { link: '/images/swiper/SlideItem2.webp' },
-  { link: '/images/swiper/SlideItem3.webp' },
-  { link: '/images/swiper/SlideItem4.webp' },
-  { link: '/images/swiper/SlideItem5.webp' }
-];
 
 const ralewayFont = Raleway({ subsets: ['latin'], display: 'swap' });
 
@@ -111,48 +99,8 @@ const PreSignUpWeb = ({
         </PreSignUpMobileBoxContainer>
 
         <PreSignUpWebInnerBoxContainer>
-          <ModelImageMainSwiperContainer className="tesewsew">
-            <Swiper
-              effect={'coverflow'}
-              grabCursor={true}
-              centeredSlides={true}
-              slidesPerView={3}
-              loop={true}
-              loopAdditionalSlides={2}
-              modules={[EffectCoverflow, Pagination, Autoplay]}
-              coverflowEffect={{
-                rotate: 0,
-                stretch: -10,
-                depth: 200,
-                modifier: 1.5
-              }}
-              // breakpoints={{
-              //   768: {
-              //     slidesPerView: 3
-              //   }
-              //   1024: {
-              //     slidesPerView: 2,
-              //     loopAdditionalSlides: 1
-              //   },
-              //   1200: {
-              //     slidesPerView: 3,
-              //     loopAdditionalSlides: 1
-              //   }
-              // }}
-              className="mySwiper"
-              // autoplay={{
-              //   delay: 2500,
-              //   disableOnInteraction: false
-              // }}
-              onSlideChange={() => setSlideChange(!slideChange)}
-            >
-              {slides.map((slide, key) => (
-                <SwiperSlide key={key}>
-                  <img src={slide.link} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </ModelImageMainSwiperContainer>
+          <ModelImageMainSwiperContainer className="tesewsew"></ModelImageMainSwiperContainer>
+          <CarousalSwiper />
 
           <ModelDetailsSwiperMainContainer>
             <TrendingBoxContainer>
