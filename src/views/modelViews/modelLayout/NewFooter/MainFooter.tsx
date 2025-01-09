@@ -27,6 +27,7 @@ import { getUserDataClient } from 'utils/getSessionData';
 import { gaEventTrigger } from 'utils/analytics';
 import { useAuthContext } from 'contexts/AuthContext';
 import { getCookie } from 'cookies-next';
+import UINewStyledShadowButton from 'components/UIComponents/UIStyledShadowButton';
 
 const NewFooter = () => {
   const { handleGAEventsTrigger, user } = useAuthContext();
@@ -140,49 +141,49 @@ const NewFooter = () => {
                   <FormattedMessage id="ReadyToExploreNew" />
                 </ModelFooterHeadSecond>
               </Box>
+              <Box mt={5.5}>
+                <UINewStyledShadowButton>
+                  <FormattedMessage id="SignUpNow" />
+                </UINewStyledShadowButton>
+              </Box>
               <FooterStoreBox>
                 <Box>
-                  <Link
-                    prefetch={false}
-                    href="https://play.google.com/store/apps/details?id=com.bookmyartist.app"
-                    target="_blank"
-                    onClick={() => handleTriggerGAEvent('google-pay')}
-                  >
-                    <Image
-                      src="/images/app-logo/google-pay.png"
-                      width={120}
-                      height={120}
-                      alt="play_store"
-                      style={{
-                        width: 'auto'
-                      }}
-                      loading="lazy"
-                    />
-                  </Link>
+                  <Image
+                    src="/images/icons/insta-new-icon.svg"
+                    width={32}
+                    height={32}
+                    alt="Instagram"
+                    style={{
+                      width: 'auto'
+                    }}
+                    loading="lazy"
+                  />
                 </Box>
                 <Box>
-                  <Link
-                    prefetch={false}
-                    href="https://apps.apple.com/us/app/book-my-artist-provider/id6630371131"
-                    target="_blank"
-                    onClick={() => handleTriggerGAEvent('app-store')}
-                  >
-                    <Image
-                      src="/images/app-logo/app-store.png"
-                      width={120}
-                      height={120}
-                      alt="app_store"
-                      style={{
-                        width: 'auto'
-                      }}
-                      loading="lazy"
-                    />
-                  </Link>
+                  <Image
+                    src="/images/icons/twi-new-icon.svg"
+                    width={32}
+                    height={32}
+                    alt="Twitter"
+                    style={{
+                      width: 'auto'
+                    }}
+                    loading="lazy"
+                  />
+                </Box>
+                <Box>
+                  <Image
+                    src="/images/icons/facebook-new-icon.svg"
+                    width={32}
+                    height={32}
+                    alt="Facebook"
+                    style={{
+                      width: 'auto'
+                    }}
+                    loading="lazy"
+                  />
                 </Box>
               </FooterStoreBox>
-              {/* <GradientTypography variant="body">
-                <FormattedMessage id="AppComingSoon" />
-              </GradientTypography> */}
             </ModelUITextConatinerText>
 
             <FirstBoxContainerMain>
