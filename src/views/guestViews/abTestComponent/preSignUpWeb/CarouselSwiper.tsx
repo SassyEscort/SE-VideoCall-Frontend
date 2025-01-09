@@ -8,6 +8,7 @@ import 'swiper/css/navigation';
 import { EffectCoverflow, Pagination, Autoplay, Navigation } from 'swiper/modules';
 import Box from '@mui/material/Box';
 import { NewBoxContainer } from './PreSignUpWeb.styled';
+import { CarousalModelImageRes } from 'services/abTest/abTest.services';
 
 const slides = [
   { link: '/images/swiper/SlideItem1.webp' },
@@ -22,7 +23,7 @@ const slides = [
   { link: '/images/swiper/SlideItem5.webp' }
 ];
 
-function CarousalSwiper() {
+const CarousalSwiper = ({ carousalImages }: { carousalImages: CarousalModelImageRes[] }) => {
   return (
     <NewBoxContainer>
       <Box className="container">
@@ -56,7 +57,7 @@ function CarousalSwiper() {
           modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
           className="swiper_container"
         >
-          {slides.map((slide, index) => (
+          {carousalImages.map((slide, index) => (
             <SwiperSlide key={index}>
               <img src={slide.link} alt={`Slide ${index + 1}`} />
             </SwiperSlide>
@@ -65,6 +66,6 @@ function CarousalSwiper() {
       </Box>
     </NewBoxContainer>
   );
-}
+};
 
 export default CarousalSwiper;

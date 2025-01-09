@@ -3,8 +3,6 @@
 import Box from '@mui/material/Box';
 import { Raleway } from 'next/font/google';
 import React, { useEffect, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Autoplay } from 'swiper/modules';
 // import { FirstSwiperInnerContainer } from './PreSignUpWeb.styled';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
@@ -100,7 +98,7 @@ const PreSignUpWeb = ({
 
         <PreSignUpWebInnerBoxContainer>
           <ModelImageMainSwiperContainer className="tesewsew"></ModelImageMainSwiperContainer>
-          <CarousalSwiper />
+          <CarousalSwiper carousalImages={carousalImages} />
 
           <ModelDetailsSwiperMainContainer>
             <TrendingBoxContainer>
