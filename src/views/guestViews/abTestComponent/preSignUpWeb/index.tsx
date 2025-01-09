@@ -102,7 +102,11 @@ const PreSignUpWeb = ({
 
           <ModelDetailsSwiperMainContainer>
             <TrendingBoxContainer>
-              <Box component="img" src="/images/boostProfile/fire-sidebar.png" width={36} height={36} />
+              <Box
+                component="img"
+                src="/images/boostProfile/fire-sidebar.png"
+                sx={{ width: { sm: '24px', md: '36px' }, height: { sm: '24px', md: '36px' } }}
+              />
               <TrendingNowTextTypography>Trending Now</TrendingNowTextTypography>
             </TrendingBoxContainer>
             <ModelDetailsSwiperInnerContainer>

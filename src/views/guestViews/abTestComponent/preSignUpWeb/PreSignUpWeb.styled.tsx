@@ -31,6 +31,8 @@ export const PreSignUpMobileBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  width: '100%',
+  height: '100%',
   [theme.breakpoints.down('sm')]: {
     gap: theme.spacing(2)
   },
@@ -48,7 +50,7 @@ export const HeadingTextBoxContainer = styled(Box)(({ theme }) => ({
 export const HeadingTextTypography = styled(Typography)(({ theme }) => ({
   color: theme.palette.common.white,
   [theme.breakpoints.down('sm')]: {
-    fontSize: '32px',
+    fontSize: '28px',
     fontWeight: 900,
     lineHeight: '36px'
   },
@@ -68,10 +70,17 @@ export const DescriptionTextTypography = styled(Typography)(({ theme }) => ({
 
 export const ButtonBoxContainer = styled(Button)(({ theme }) => ({
   borderRadius: '100px',
-  width: '400px',
-  height: '72px',
+  width: '100%',
+  maxWidth: '400px',
+  height: '100%',
   gap: theme.spacing(1),
-  backgroundColor: theme.palette.primary[100]
+  backgroundColor: theme.palette.primary[100],
+  [theme.breakpoints.up('sm')]: {
+    minHeight: '72px'
+  },
+  [theme.breakpoints.down('sm')]: {
+    minHeight: '48px'
+  }
 }));
 
 export const ButtonTextTypography = styled(Typography)(({ theme }) => ({
@@ -109,14 +118,22 @@ export const ModelDetailsSwiperMainContainer = styled(Box)(({ theme }) => ({
 
 export const TrendingBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(1.5)
+  gap: theme.spacing(1.5),
+  alignItems: 'center'
 }));
 
 export const TrendingNowTextTypography = styled(Typography)(({ theme }) => ({
-  fontSize: '24px',
-  fontWeight: 400,
-  lineHeight: '42px',
-  color: theme.palette.common.white
+  color: theme.palette.common.white,
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '28px'
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '24px',
+    fontWeight: 400,
+    lineHeight: '42px'
+  }
 }));
 
 export const ModelDetailsSwiperInnerContainer = styled(Box)(() => ({
@@ -134,9 +151,9 @@ export const SignUpTextTypography = styled(Typography)(({ theme }) => ({
 export const SignupButtonBoxContainer = styled(Button)(({ theme }) => ({
   display: 'flex',
   width: '100%',
-  minWidth: '376px',
+  maxWidth: '425px',
   height: '100%',
-  minHeight: '72px',
+  minHeight: '48px',
   borderRadius: '100px',
   border: '2px solid #611441'
 }));
