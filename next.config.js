@@ -8,6 +8,7 @@ const nextConfig = {
       static: 0
     }
   },
+  compress: true,
   async rewrites() {
     return [
       {

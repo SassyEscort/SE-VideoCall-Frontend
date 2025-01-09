@@ -16,7 +16,7 @@ export type CallReviewDataResponse = {
   model_name: string;
   rejected_reason: string;
   review_type: string;
-  screenshot_count: number;
+  screenshots_count: number;
   status: string;
   call_id: number;
   review_id: number;

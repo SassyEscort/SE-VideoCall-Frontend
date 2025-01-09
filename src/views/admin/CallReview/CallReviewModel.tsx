@@ -22,7 +22,7 @@ export const DetailRow = ({ label, value }: { label: string; value: string | num
       {label}
     </Typography>
     <Typography variant="body2" color="textPrimary">
-      {value || '-'}
+      {value || (typeof value === 'number' ? 0 : '-')}
     </Typography>
   </Box>
 );
@@ -80,7 +80,7 @@ const CallReviewModel = ({
                 <DetailRow label="Model Name" value={selectedPayoutData?.model_name} />
                 <DetailRow label="Rejected Reason" value={selectedPayoutData?.rejected_reason} />
                 <DetailRow label="Review Type" value={selectedPayoutData?.review_type} />
-                <DetailRow label="Screenshot Count" value={selectedPayoutData?.screenshot_count} />
+                <DetailRow label="Screenshot Count" value={selectedPayoutData?.screenshots_count} />
                 <DetailRow label="Status" value={selectedPayoutData?.status} />
               </DetailRowBox>
             )}

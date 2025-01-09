@@ -5,7 +5,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     let models = [];
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/model/listing?offset=1&limit=10000000`, {
-        next: { revalidate: 10 }
+        next: { revalidate: 3600 }
       });
 
       const modelsData = await res.json();
@@ -20,11 +20,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   const models = await getModels();
-  return [
-    ...models.map((x: any) => ({
-      url: `https://flirtbate.com/models/${x.user_name}`,
-      lastModified: new Date(),
-      priority: 0.8
-    }))
-  ];
+  return models?.length > 0
+    ? [
+        ...models.map((x: any) => ({
+          url: `https://flirtbate.com/models/${x.user_name}`,
+          lastModified: new Date(),
+          priority: 0.8
+        }))
+      ]
+    : [];
 }

@@ -59,6 +59,7 @@ export default function RootLayout({
           imageSizes="(max-width: 600px) 300px, (max-width: 1024px) 347px, 462px"
         />
         <link rel="preload" as="image" href="/images/workercards/workercard-blur.avif" />
+        <link rel="preload" href="/globals.scss" as="style" />
 
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <meta name="robots" content="index, follow" />
