@@ -1,10 +1,10 @@
 import React from 'react';
-import SliderContainer from './HorizontalSlider/SliderContainer';
+import SliderContainer from './SliderContainer';
 import { ModelHomeListing } from 'services/modelListing/modelListing.services';
-import SliderCard from './HorizontalSlider/sliderCard';
-import { SliderMainWrapper } from './HorizontalSlider/HorizontalSlider.styled';
+import SliderCard from './sliderCard';
+import { SliderMainWrapper } from './HorizontalSlider.styled';
 
-const TrendyModelSlider = ({ modelDetails }: { modelDetails: ModelHomeListing[] }) => {
+const HorizontalSlider = ({ modelDetails }: { modelDetails: ModelHomeListing[] }) => {
   return (
     <SliderMainWrapper>
       <SliderContainer speed={30} playing={true}>
@@ -16,4 +16,4 @@ const TrendyModelSlider = ({ modelDetails }: { modelDetails: ModelHomeListing[] 
   );
 };
 
-export default TrendyModelSlider;
+export default HorizontalSlider;

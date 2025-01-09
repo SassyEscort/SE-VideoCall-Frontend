@@ -1,4 +1,5 @@
 import { Box, styled, Typography } from '@mui/material';
+import Image from 'next/image';
 
 export const TitleTypography = styled(Typography)(({ theme }) => ({
   color: theme.palette.common.white,
@@ -56,4 +57,24 @@ export const SlideWrapper = styled(Box)(({ theme }) => ({
     display: 'flex',
     gap: theme.spacing(4)
   }
+}));
+
+export const ModelSliderCardBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  color: theme.palette.common.black,
+  gap: theme.spacing(2.25)
+}));
+
+export const ModelCardInfoBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  color: theme.palette.common.white,
+  flexDirection: 'column',
+  justifyContent: 'center',
+  gap: theme.spacing(0.5),
+  textAlign: 'start'
+}));
+
+export const ModelCardSliderImage = styled(Image)(() => ({
+  borderRadius: '50%',
+  objectFit: 'cover'
 }));

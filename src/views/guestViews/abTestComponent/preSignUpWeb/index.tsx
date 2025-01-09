@@ -31,7 +31,7 @@ import theme from 'themes/theme';
 import { ModelListingRes } from 'services/modelListing/modelListing.services';
 import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
 import { CarousalModelImageRes } from 'services/abTest/abTest.services';
-import TrendyModelSlider from '../Slider';
+import HorizontalSlider from '../Slider/HorizontalSlider';
 
 const slides = [
   { link: '/images/swiper/SlideItem1.webp' },
@@ -159,56 +159,8 @@ const PreSignUpWeb = ({
               <Box component="img" src="/images/boostProfile/fire-sidebar.png" width={36} height={36} />
               <TrendingNowTextTypography>Trending Now</TrendingNowTextTypography>
             </TrendingBoxContainer>
-            {/* <ModelDetailsSwiperInnerContainer> */}
-            {/* <Swiper
-            grabCursor={true}
-            centeredSlides={true}
-            loop={true}
-            autoplay={{
-              delay: 2,
-              disableOnInteraction: false
-            }}
-            speed={2000}
-            modules={[Autoplay, Pagination]}
-            className="mySwiper1"
-          > */}
-            {/* <Swiper
-                // slidesPerView={Math.min(slides.length, 5)}
-                slidesPerView={5}
-                spaceBetween={15}
-                slidesPerGroup={5}
-                loop={true}
-                centeredSlides={true}
-                // autoplay={{
-                //   delay: 1,
-                //   disableOnInteraction: false
-                // }}
-                speed={1000}
-                modules={[Autoplay, Pagination]}
-                className="mySwiper1"
-              >
-                {modelData.model_details.map((model, index) => (
-                  <SwiperSlide key={index}>
-                    <Box display={'flex'} gap={2.25} sx={{ color: 'black.main' }}>
-                      <img src={model.link} />
-                      <Box
-                        display={'flex'}
-                        flexDirection={'column'}
-                        justifyContent={'center'}
-                        gap={0.5}
-                        color={'white.main'}
-                        textAlign={'start'}
-                      >
-                        <TitleTypography>{model.name}</TitleTypography>
-                        <SubTitleTypography sx={{ whiteSpace: 'nowrap' }}>{model.country}</SubTitleTypography>
-                      </Box>
-                    </Box>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </ModelDetailsSwiperInnerContainer> */}
             <ModelDetailsSwiperInnerContainer>
-              <TrendyModelSlider modelDetails={modelData.model_details} />
+              <HorizontalSlider modelDetails={modelData.model_details} />
             </ModelDetailsSwiperInnerContainer>
           </ModelDetailsSwiperMainContainer>
         </PreSignUpWebInnerBoxContainer>
