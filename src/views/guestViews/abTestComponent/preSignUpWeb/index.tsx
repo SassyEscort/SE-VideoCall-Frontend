@@ -24,8 +24,6 @@ import {
   PreSignUpWebMainBoxContainer,
   SignupButtonBoxContainer,
   SignUpTextTypography,
-  SubTitleTypography,
-  TitleTypography,
   TrendingBoxContainer,
   TrendingNowTextTypography
 } from './PreSignUpWeb.styled';
@@ -33,6 +31,7 @@ import theme from 'themes/theme';
 import { ModelListingRes } from 'services/modelListing/modelListing.services';
 import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
 import { CarousalModelImageRes } from 'services/abTest/abTest.services';
+import TrendyModelSlider from '../Slider';
 
 const slides = [
   { link: '/images/swiper/SlideItem1.webp' },
@@ -160,8 +159,8 @@ const PreSignUpWeb = ({
               <Box component="img" src="/images/boostProfile/fire-sidebar.png" width={36} height={36} />
               <TrendingNowTextTypography>Trending Now</TrendingNowTextTypography>
             </TrendingBoxContainer>
-            <ModelDetailsSwiperInnerContainer>
-              {/* <Swiper
+            {/* <ModelDetailsSwiperInnerContainer> */}
+            {/* <Swiper
             grabCursor={true}
             centeredSlides={true}
             loop={true}
@@ -173,7 +172,7 @@ const PreSignUpWeb = ({
             modules={[Autoplay, Pagination]}
             className="mySwiper1"
           > */}
-              <Swiper
+            {/* <Swiper
                 // slidesPerView={Math.min(slides.length, 5)}
                 slidesPerView={5}
                 spaceBetween={15}
@@ -207,6 +206,9 @@ const PreSignUpWeb = ({
                   </SwiperSlide>
                 ))}
               </Swiper>
+            </ModelDetailsSwiperInnerContainer> */}
+            <ModelDetailsSwiperInnerContainer>
+              <TrendyModelSlider modelDetails={modelData.model_details} />
             </ModelDetailsSwiperInnerContainer>
           </ModelDetailsSwiperMainContainer>
         </PreSignUpWebInnerBoxContainer>
