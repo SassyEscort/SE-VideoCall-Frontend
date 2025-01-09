@@ -13,7 +13,6 @@ export default function CallLogsListHead({ isAdmin, UpdatePermission }: { isAdmi
         <TableCell>Status</TableCell>
         <TableCell>Call Created Date</TableCell>
         <TableCell>Credits Used</TableCell>
-        <TableCell>Call Type (paid/free)</TableCell>
         <TableCell>Call Type</TableCell>
         <TableCell>Credits Per Minute</TableCell>
         <TableCell>Rate Per Minute</TableCell>
