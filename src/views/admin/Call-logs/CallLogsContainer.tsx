@@ -365,7 +365,7 @@ export default function CallLogsContainer() {
                           {item?.credits_used || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item?.call_type || '-'}
+                          {(Boolean(item?.is_free_call) && 'Free') || 'Paid' || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
                           {item?.credits_per_minute || '-'}

@@ -290,6 +290,9 @@ export default function CallReviewContainer() {
                           {item?.rejected_reason || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">
+                          {(Boolean(item?.is_free_call) && 'Free') || 'Paid' || '-'}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
                           {item?.review_type || '-'}
                         </TableCell>
                         <TableCell component="th" scope="row">

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import VerificationStep2 from '../verificationStep2';
 import { ModelDetailsResponse } from '../verificationTypes';
 import { TokenIdType } from '..';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type VerificationStepPromiseType = {
   activeStep: number;
@@ -41,6 +42,12 @@ const DocumentMainContainer = ({
     setStepData(1);
     setOpen(false);
     handleModelApiChange();
+    gaEventTrigger('cta-back-button-click', {
+      sources: 'Back button',
+      label: 'Back button click',
+      category: 'Button',
+      stepData
+    });
   };
 
   return (

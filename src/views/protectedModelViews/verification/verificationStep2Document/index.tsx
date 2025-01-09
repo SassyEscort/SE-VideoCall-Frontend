@@ -26,6 +26,7 @@ import theme from 'themes/theme';
 import { useIntl } from 'react-intl';
 import { getErrorMessage } from 'utils/errorUtils';
 import { TextDetailsBoxContainer } from './verificationStep2Instructions.styled';
+import { gaEventTrigger } from 'utils/analytics';
 
 export type VerificationPhotoWithoutFilter = {
   photoWithoutFilter: File | string;
@@ -185,6 +186,15 @@ const VerificationStepPromise = ({
               photos: uploadPhotos,
               document_upload_step: true
             };
+            gaEventTrigger('cta-next-button-click', {
+              sources: 'Upload_Documents',
+              label: 'Next button click',
+              category: 'Button',
+              value: JSON.stringify({
+                document_type: values.photoWithoutFilter,
+                'step-name': 'Upload_Documents'
+              })
+            });
           } else {
             const allFiles = [values.photoWithoutFilterFront, values.photoWithoutFilterBack];
             const fileBody = [

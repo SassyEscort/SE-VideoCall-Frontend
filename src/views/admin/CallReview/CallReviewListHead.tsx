@@ -10,6 +10,7 @@ export default function CallReviewListHead({ isAdmin, UpdatePermission }: { isAd
         <TableCell>Duration</TableCell>
         <TableCell>Model Name</TableCell>
         <TableCell>Rejected Reason</TableCell>
+        <TableCell>Call Type</TableCell>
         <TableCell>Review Type</TableCell>
         <TableCell>Screenshot Count</TableCell>
         <TableCell>Status</TableCell>

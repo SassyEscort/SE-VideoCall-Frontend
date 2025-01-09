@@ -33,6 +33,7 @@ export type CallLogDataResponse = {
   screenshots: ScreenshotData[];
   screenshot_interval: string;
   screenshot_count: number;
+  is_free_call: number;
 };
 
 export type PaginationAggregation = {
