@@ -45,7 +45,6 @@ export const SearchTitalBoxSm = styled(Box)(({ theme }) => ({
 }));
 
 export const BorderBox = styled(Box)(({ theme }) => ({
-  width: '100%',
   maxWidth: '420px',
   border: '1px solid #E9E8EB33',
   borderRadius: '8px',

@@ -10,19 +10,6 @@ import Box from '@mui/material/Box';
 import { NewBoxContainer } from './PreSignUpWeb.styled';
 import { CarousalModelImageRes } from 'services/abTest/abTest.services';
 
-const slides = [
-  { link: '/images/swiper/SlideItem1.webp' },
-  { link: '/images/swiper/SlideItem2.webp' },
-  { link: '/images/swiper/SlideItem3.webp' },
-  { link: '/images/swiper/SlideItem4.webp' },
-  { link: '/images/swiper/SlideItem5.webp' },
-  { link: '/images/swiper/SlideItem1.webp' },
-  { link: '/images/swiper/SlideItem2.webp' },
-  { link: '/images/swiper/SlideItem3.webp' },
-  { link: '/images/swiper/SlideItem4.webp' },
-  { link: '/images/swiper/SlideItem5.webp' }
-];
-
 const CarousalSwiper = ({ carousalImages }: { carousalImages: CarousalModelImageRes[] }) => {
   return (
     <NewBoxContainer>

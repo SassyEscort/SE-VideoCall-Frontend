@@ -2,7 +2,7 @@
 
 import Box from '@mui/material/Box';
 import { Raleway } from 'next/font/google';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 // import { FirstSwiperInnerContainer } from './PreSignUpWeb.styled';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
@@ -42,24 +42,6 @@ const PreSignUpWeb = ({
   params: SearchFiltersTypes;
   carousalImages: CarousalModelImageRes[];
 }) => {
-  const [slideChange, setSlideChange] = useState(false);
-
-  useEffect(() => {
-    const updateSwiperSlides = () => {
-      const swiperSlides = document.querySelectorAll('.mySwiper .swiper-slide');
-      swiperSlides.forEach((slide) => {
-        slide.classList.remove('custom-z-index');
-      });
-      swiperSlides.forEach((slide) => {
-        const zIndex = window.getComputedStyle(slide).zIndex;
-        if (zIndex === '-2') {
-          slide.classList.add('custom-z-index');
-        }
-      });
-    };
-    updateSwiperSlides();
-  }, [slideChange]);
-
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (

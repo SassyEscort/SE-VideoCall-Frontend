@@ -7,6 +7,7 @@ import { getUserDataServerSide } from 'utils/getSessionData';
 import PreSignUpWeb from 'views/guestViews/abTestComponent/preSignUpWeb';
 import { KeyPairAndUndefined } from 'types/KeyPair';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
+import GuestHeaderComponent from 'views/guestViews/abTestComponent/guestLayout/Header';
 
 const abTest = async ({ searchParams }: { searchParams: KeyPairAndUndefined }) => {
   // const group = cookies().get('ab-group')?.value as string;
@@ -35,6 +36,7 @@ const abTest = async ({ searchParams }: { searchParams: KeyPairAndUndefined }) =
   return (
     <Box width={'100%'}>
       {/* <ABTest group={group} /> */}
+      <GuestHeaderComponent />
       <PreSignUpWeb modelData={modelData} params={initVal} carousalImages={carousalImages} />
     </Box>
   );
