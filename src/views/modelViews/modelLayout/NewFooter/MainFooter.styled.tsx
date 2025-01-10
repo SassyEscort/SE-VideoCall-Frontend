@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Accordion, AccordionProps, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { styled } from '@mui/material/styles';
@@ -99,11 +99,11 @@ export const FirstBoxContainerMain = styled(Box)(({ theme }) => ({
     marginTop: theme.spacing(2)
   },
   [theme.breakpoints.only('sm')]: {
-    marginTop: theme.spacing(15.25),
+    marginTop: theme.spacing(9.5),
     maxWidth: '342px'
   },
   [theme.breakpoints.up('md')]: {
-    marginTop: theme.spacing(15.25),
+    marginTop: theme.spacing(9.5),
     maxWidth: '484px'
   }
 }));
@@ -171,3 +171,20 @@ export const LogoAndTextMainBoxVontainer = styled(Box)(({ theme }) => ({
   paddingLeft: theme.spacing(1.5),
   paddingRight: theme.spacing(1.5)
 }));
+
+export const StyledAccordion = styled((props: AccordionProps) => <Accordion disableGutters elevation={0} square {...props} />)(
+  ({ theme }) => ({
+    padding: '0px',
+    width: '100%',
+    borderColor: theme.palette.primary[700],
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: '12px 0px !important'
+    },
+    ':before': {
+      height: 0
+    },
+    '& .MuiPaper-root .MuiPaper-elevation .MuiPaper-elevation0 .MuiAccordion-root .mui-style-1xh3qms-MuiPaper-root-MuiAccordion-root': {
+      borderTop: '1px solid #265962'
+    }
+  })
+);

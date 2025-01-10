@@ -14,7 +14,8 @@ import {
   ModelFooterHeadSecond,
   ModelUITextConatinerText,
   NewFooterMainBoxContiner,
-  ResourcesInnerBoxContiner
+  ResourcesInnerBoxContiner,
+  StyledAccordion
 } from './MainFooter.styled';
 import { FooterCityList } from './footer.constants';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -35,7 +36,7 @@ import { useAuthContext } from 'contexts/AuthContext';
 import { getCookie } from 'cookies-next';
 import UINewStyledShadowButton from 'components/UIComponents/UIStyledShadowButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { StyledAccordion, StyledAccordionSummary } from 'views/modelViews/modelPage/HomeModelFAQ/HomeModelFAQ.styled';
+import { StyledAccordionSummary } from 'views/modelViews/modelPage/HomeModelFAQ/HomeModelFAQ.styled';
 
 const NewFooter = () => {
   const { handleGAEventsTrigger, user } = useAuthContext();
@@ -149,9 +150,6 @@ const NewFooter = () => {
             <ModelUITextConatinerText>
               <Box>
                 <HeadingMainBoxContiner>
-                  {/* <ModelFooterHead variant="bodySmall">
-                  <FormattedMessage id="ByTheWay" />
-                </ModelFooterHead> */}
                   <ModelFooterHeadSecond>
                     <FormattedMessage id="ReadyToExploreNew" />
                   </ModelFooterHeadSecond>
@@ -282,25 +280,27 @@ const NewFooter = () => {
               </FooterSubICon>
             </FirstBoxContainerMain>
           </NewFooterMainBoxContiner>
-          <FooterTextMainBoxContiner sx={{ mt: isSmDown ? '32px' : '32px' }}>
-            <FlirtbateTextTypography>
-              <FormattedMessage id="2024SassyEscort" />
-            </FlirtbateTextTypography>
-          </FooterTextMainBoxContiner>
         </Box>
-        <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
-          <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-        </UIStyledDialog>
-        <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
-          <ModelSignin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
-        </UIStyledDialog>
-        <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
-          <ModelForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
-        </UIStyledDialog>
-        {/* <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
+      </StyledAccordion>
+
+      <FooterTextMainBoxContiner sx={{ mt: isSmDown ? '32px' : '32px' }}>
+        <FlirtbateTextTypography>
+          <FormattedMessage id="2024SassyEscort" />
+        </FlirtbateTextTypography>
+      </FooterTextMainBoxContiner>
+
+      <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+        <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
+      </UIStyledDialog>
+      <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
+        <ModelSignin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
+      </UIStyledDialog>
+      <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
+        <ModelForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
+      </UIStyledDialog>
+      {/* <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
         <ModelNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
       </UIStyledDialog> */}
-      </StyledAccordion>
     </>
   );
 };
