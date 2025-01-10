@@ -9,7 +9,7 @@ import theme from 'themes/theme';
 import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { FormattedMessage } from 'react-intl';
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import {
@@ -55,6 +55,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
   const [openChangePassword, setIsOpenChangePassword] = useState(email && !id && pathName !== '/profile' ? true : false);
   const [freeSignupOpen, setFreeSignupOpen] = useState(false);
+  const [referCode, setReferCode] = useState('');
 
   const { isCustomer } = useAuthContext();
 
@@ -110,6 +111,14 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
   const handleFreeCreditSignupClose = () => {
     setFreeSignupOpen(false);
   };
+
+  useEffect(() => {
+    const refer = searchParams.get('refer');
+    const refer_code = searchParams.get('code');
+    if (refer === 'true') {
+      setReferCode(refer_code || '');
+    }
+  }, [referCode, searchParams]);
 
   return (
     <HomeMainContainer>
@@ -275,7 +284,7 @@ const HomeConnections = ({ isFreeCreditAvailable }: { isFreeCreditAvailable: num
         <GuestNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
       </UIStyledDialog>
       <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
-        <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
+        <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} referCode={referCode} />
       </NewSignupStyledModalDialog>
     </HomeMainContainer>
   );
