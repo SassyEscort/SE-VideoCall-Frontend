@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Link from 'next/link';
@@ -18,6 +18,7 @@ import { useAuthContext } from '../../../../contexts/AuthContext';
 import dynamic from 'next/dynamic';
 import { CHATROOM } from 'constants/languageConstants';
 import { getCookie } from 'cookies-next';
+import { useSearchParams } from 'next/navigation';
 
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
@@ -45,11 +46,13 @@ const MainFooter = ({
 }) => {
   const { isCustomer, isModel, handleGAEventsTrigger, user, fetchPageName } = useAuthContext();
   const providerData = JSON.parse(user || '{}');
+  const searchParams = useSearchParams();
 
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [open, setIsOpen] = useState(false);
   const [openForgetPassLink, setOpenForgetPassLink] = useState(false);
+  const [referCode, setReferCode] = useState('');
 
   const handleSignupOpen = () => {
     setIsOpen(true);
@@ -91,6 +94,14 @@ const MainFooter = ({
       value: JSON.stringify(data)
     });
   };
+
+  useEffect(() => {
+    const refer = searchParams.get('refer');
+    const refer_code = searchParams.get('code');
+    if (refer === 'true') {
+      setReferCode(refer_code || '');
+    }
+  }, [referCode, searchParams]);
 
   return (
     <>
@@ -291,7 +302,7 @@ const MainFooter = ({
           <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
         </UIStyledDialog>
         <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
-          <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
+          <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} referCode={referCode} />
         </NewSignupStyledModalDialog>
       </HomeMainContainer>
     </>

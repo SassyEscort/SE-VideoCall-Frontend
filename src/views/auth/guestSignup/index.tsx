@@ -34,9 +34,10 @@ export type SignupParams = {
   name: string;
   email: string;
   password: string;
+  referral_code?: string;
 };
 
-const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
+const GuestSignup = ({ onClose, onLoginOpen, referCode }: { onClose: () => void; onLoginOpen: () => void; referCode?: string }) => {
   const intl = useIntl();
   const route = useRouter();
   const { funnelHitId, handleGAEventsTrigger } = useAuthContext();
@@ -95,7 +96,8 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
         email: '',
         password: '',
         confirmPassword: '',
-        role: ROLE.CUSTOMER
+        role: ROLE.CUSTOMER,
+        referral_code: referCode
       }}
       validationSchema={validationSchema}
       onSubmit={async (values, { setSubmitting }) => {
@@ -394,6 +396,50 @@ const GuestSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpe
                             <FormattedMessage id="RememberMe" />
                           </UINewTypography>
                         </MenuItem>
+                      </ModelUITextConatiner>
+                      <ModelUITextConatiner sx={{ gap: 0.5 }}>
+                        <UITypographyText>
+                          <FormattedMessage id="ReferralCode" />
+                        </UITypographyText>
+                        <UIStyledInputText
+                          fullWidth
+                          id="referral_code"
+                          name="referral_code"
+                          value={values.referral_code}
+                          onChange={handleChange}
+                          onBlur={(e) => {
+                            handleBlur(e);
+                            gaEventTrigger('signup_form_referral_click', { source: 'model_referral_click', category: 'TextField' });
+                            if (values.email) {
+                              gaEventTrigger('referral-added', {
+                                source: 'referral added',
+                                category: 'TextField',
+                                label: 'referral added'
+                              });
+                            }
+                          }}
+                          sx={{
+                            border: '2px solid',
+                            borderColor: 'secondary.light'
+                          }}
+                          InputProps={{
+                            endAdornment: (
+                              <Box
+                                sx={{
+                                  display: 'flex',
+                                  gap: 0.5,
+                                  cursor: 'pointer'
+                                }}
+                                onClick={() => setFieldValue('referral_code', '')}
+                              >
+                                <UITypographyText>
+                                  <FormattedMessage id="Remove" />
+                                </UITypographyText>
+                                <CloseIcon sx={{ color: 'secondary.light', cursor: 'pointer' }} />
+                              </Box>
+                            )
+                          }}
+                        />
                       </ModelUITextConatiner>
                     </ModelUITextConatiner>
                     <ModelUITextConatiner width="100%" gap={isSm ? '33px' : '29px'}>

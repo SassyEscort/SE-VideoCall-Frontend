@@ -76,7 +76,8 @@ const HomeContainer = ({ modelData, params }: { modelData: ModelListingRes; para
 
     if (pathname === '/' && filterCount === 0) {
       const credit = searchParams.get('credit');
-      if (!credit) router.push('/');
+      const refer = searchParams.get('refer');
+      if (!credit && !refer) router.push('/');
     }
     if (pathname === '/' && filterCount === 1 && objParams.page) return;
 
@@ -96,7 +97,8 @@ const HomeContainer = ({ modelData, params }: { modelData: ModelListingRes; para
 
     if (filterCount === 0) {
       const credit = searchParams.get('credit');
-      if (!credit) router.push(pathname);
+      const refer = searchParams.get('refer');
+      if (!credit && !refer) router.push(pathname);
     } else {
       if (isMultiple.length) {
         router.push(`${pathname}?${queryString}`);

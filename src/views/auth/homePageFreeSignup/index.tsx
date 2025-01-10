@@ -21,6 +21,11 @@ import { ErrorMessage } from 'constants/common.constants';
 import { useRouter } from 'next/navigation';
 import { getErrorMessage } from 'utils/errorUtils';
 import { GuestAuthService } from 'services/guestAuth/guestAuth.service';
+import { signIn } from 'next-auth/react';
+import { gaEventTrigger } from 'utils/analytics';
+import dynamic from 'next/dynamic';
+import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
+import { useAuthContext } from 'contexts/AuthContext';
 const GuestSignupSuccess = dynamic(() => import('../GuestSignupSuccess'), { ssr: false });
 const StyleButtonV2 = dynamic(() => import('components/UIComponents/StyleLoadingButton'), { ssr: false });
 const AuthHomePageFreeSignupCommon = dynamic(() => import('./AuthHomePageFreeSignupCommon'), { ssr: false });
@@ -54,19 +59,15 @@ const RemindMeBoxContainer = dynamic(
   () => import('./HomePageFreeSignup.styled').then((module) => ({ default: module.RemindMeBoxContainer })),
   { ssr: false }
 );
-import { signIn } from 'next-auth/react';
-import { gaEventTrigger } from 'utils/analytics';
-import dynamic from 'next/dynamic';
-import { FunnelfluxService } from 'services/funnelFlux/funnelflux.service';
-import { useAuthContext } from 'contexts/AuthContext';
 
 export type SignupParams = {
   name: string;
   email: string;
   password: string;
+  referral_code?: string;
 };
 
-const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onLoginOpen: () => void }) => {
+const HomePageFreeSignup = ({ onClose, onLoginOpen, referCode }: { onClose: () => void; onLoginOpen: () => void; referCode?: string }) => {
   const intl = useIntl();
   const route = useRouter();
   const { funnelHitId, handleGAEventsTrigger } = useAuthContext();
@@ -126,7 +127,8 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
         email: '',
         password: '',
         confirmPassword: '',
-        role: ROLE.CUSTOMER
+        role: ROLE.CUSTOMER,
+        referral_code: referCode
       }}
       validationSchema={validationSchema}
       onSubmit={async (values, { setSubmitting }) => {
@@ -421,6 +423,50 @@ const HomePageFreeSignup = ({ onClose, onLoginOpen }: { onClose: () => void; onL
                           </UINewTypography>
                         </MenuItem>
                       </RemindMeBoxContainer>
+                      <ModelUITextConatiner sx={{ gap: 0.5 }}>
+                        <UITypographyText>
+                          <FormattedMessage id="ReferralCode" />
+                        </UITypographyText>
+                        <UIStyledInputText
+                          fullWidth
+                          id="referral_code"
+                          name="referral_code"
+                          value={values.referral_code}
+                          onChange={handleChange}
+                          onBlur={(e) => {
+                            handleBlur(e);
+                            gaEventTrigger('signup_form_referral_click', { source: 'model_referral_click', category: 'TextField' });
+                            if (values.email) {
+                              gaEventTrigger('referral-added', {
+                                source: 'referral added',
+                                category: 'TextField',
+                                label: 'referral added'
+                              });
+                            }
+                          }}
+                          sx={{
+                            border: '2px solid',
+                            borderColor: 'secondary.light'
+                          }}
+                          InputProps={{
+                            endAdornment: (
+                              <Box
+                                sx={{
+                                  display: 'flex',
+                                  gap: 0.5,
+                                  cursor: 'pointer'
+                                }}
+                                onClick={() => setFieldValue('referral_code', '')}
+                              >
+                                <UITypographyText>
+                                  <FormattedMessage id="Remove" />
+                                </UITypographyText>
+                                <CloseIcon sx={{ color: 'secondary.light', cursor: 'pointer' }} />
+                              </Box>
+                            )
+                          }}
+                        />
+                      </ModelUITextConatiner>
                     </ModelUITextConatiner>
                     <ModelUITextConatiner width="100%" gap={isSm ? '33px' : '29px'}>
                       <StyleButtonV2 variant="contained" type="submit" loading={loading} sx={{ width: 'auto' }}>

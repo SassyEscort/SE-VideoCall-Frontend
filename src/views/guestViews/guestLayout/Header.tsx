@@ -24,6 +24,7 @@ import Divider from '@mui/material/Divider';
 import FreeCreditsSignUp from '../homePage/freeCreditsSignUp';
 import { SearchTitalBoxSm } from 'views/protectedViews/protectedLayout/Header/TopNavItem/WorkerNavItem/HeaderAuthComponent.styled';
 import dynamic from 'next/dynamic';
+import { useSearchParams } from 'next/navigation';
 const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
 const GuestSignup = dynamic(() => import('views/auth/guestSignup'));
@@ -46,6 +47,9 @@ const HeaderGuestComponent = () => {
   const [openFreeCredit, setOpenFreeCredit] = useState(false);
   const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
   const [isUserInteracted, setIsUserInteracted] = useState(false);
+  const [referCode, setReferCode] = useState('');
+
+  const searchParams = useSearchParams();
 
   const handleClickLogout = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElLogout(event.currentTarget);
@@ -149,6 +153,15 @@ const HeaderGuestComponent = () => {
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const refer = searchParams.get('refer');
+    const refer_code = searchParams.get('code');
+    if (refer === 'true') {
+      handleFreeCreditSignupOpen();
+      setReferCode(refer_code || '');
+    }
+  }, [referCode, searchParams]);
 
   return (
     <>
@@ -289,7 +302,7 @@ const HeaderGuestComponent = () => {
       </AppBar>
 
       <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
-        <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
+        <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} referCode={referCode} />
       </NewSignupStyledModalDialog>
 
       <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
@@ -311,7 +324,7 @@ const HeaderGuestComponent = () => {
       </UIStyledDialog>
 
       <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
-        <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
+        <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} referCode={referCode} />
       </NewSignupStyledModalDialog>
 
       <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
