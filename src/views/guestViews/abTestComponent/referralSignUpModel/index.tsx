@@ -399,7 +399,7 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                   <RightSideMainBoxContainer>
                     <RightSideInnerBoxContainer>
                       <ImageAndTextSpacingBox>
-                        <Box component="img" src="/images/icons/ab-icon-1.svg" />
+                        <Box component="img" src="/images/icons/ab-icon-1.svg" width={24} height={24} />
                         <RightSideSubTitleText>
                           <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>
                             <FormattedMessage id="OnSignupGet" />
@@ -409,7 +409,7 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                       </ImageAndTextSpacingBox>
 
                       <ImageAndTextSpacingBox>
-                        <Box component="img" src="/images/icons/ab-icon-2.svg" />
+                        <Box component="img" src="/images/icons/ab-icon-2.svg" width={24} height={24} />
                         <RightSideSubTitleText>
                           <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>
                             <FormattedMessage id="TalkTo" />
@@ -419,7 +419,7 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                       </ImageAndTextSpacingBox>
 
                       <ImageAndTextSpacingBox>
-                        <Box component="img" src="/images/icons/ab-icon-3.svg" />
+                        <Box component="img" src="/images/icons/ab-icon-3.svg" width={24} height={24} />
                         <RightSideSubTitleText>
                           <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>
                             <FormattedMessage id="UnleashYourselfWith" />
@@ -429,7 +429,7 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                       </ImageAndTextSpacingBox>
 
                       <ImageAndTextSpacingBox>
-                        <Box component="img" src="/images/icons/ab-icon-4.svg" />
+                        <Box component="img" src="/images/icons/ab-icon-4.svg" width={24} height={24} />
                         <RightSideSubTitleText>
                           <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>
                             <FormattedMessage id="DontWorryIts" />

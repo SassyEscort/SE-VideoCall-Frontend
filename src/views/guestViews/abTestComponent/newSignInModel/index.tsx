@@ -322,7 +322,7 @@ const NewSignInModel = ({
                     <RightSideMainBoxContainer>
                       <RightSideInnerBoxContainer>
                         <ImageAndTextSpacingBox>
-                          <Box component="img" src="/images/icons/ab-icon-2.svg" />
+                          <Box component="img" src="/images/icons/ab-icon-2.svg" width={24} height={24} />
                           <RightSideSubTitleText>
                             <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>
                               <FormattedMessage id="TalkTo" />
@@ -332,7 +332,7 @@ const NewSignInModel = ({
                         </ImageAndTextSpacingBox>
 
                         <ImageAndTextSpacingBox>
-                          <Box component="img" src="/images/icons/ab-icon-3.svg" />
+                          <Box component="img" src="/images/icons/ab-icon-3.svg" width={24} height={24} />
                           <RightSideSubTitleText>
                             <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>
                               <FormattedMessage id="UnleashYourselfWith" />
@@ -342,7 +342,7 @@ const NewSignInModel = ({
                         </ImageAndTextSpacingBox>
 
                         <ImageAndTextSpacingBox>
-                          <Box component="img" src="/images/icons/ab-icon-4.svg" />
+                          <Box component="img" src="/images/icons/ab-icon-4.svg" width={24} height={24} />
                           <RightSideSubTitleText>
                             <span style={{ fontWeight: 400, color: '#FFFFFF80' }}>
                               <FormattedMessage id="DontWorryIts" />

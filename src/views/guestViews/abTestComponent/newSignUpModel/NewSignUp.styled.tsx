@@ -42,7 +42,8 @@ export const RightSideMainBoxContainer = styled(Box)(({ theme }) => ({
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
   [theme.breakpoints.down('sm')]: {
-    maxWidth: '600px'
+    maxWidth: '600px',
+    height: '440px'
   },
   [theme.breakpoints.up('sm')]: {
     minWidth: '600px'
@@ -54,7 +55,7 @@ export const RightSideInnerBoxContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(2),
   [theme.breakpoints.down('sm')]: {
-    paddingLeft: theme.spacing(3),
+    paddingLeft: theme.spacing(1.5),
     paddingTop: theme.spacing(26.25)
   },
   [theme.breakpoints.up('sm')]: {
@@ -64,7 +65,6 @@ export const RightSideInnerBoxContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const RightSideSubTitleText = styled(Box)(({ theme }) => ({
-  whiteSpace: 'nowrap',
   color: theme.palette.common.white,
   [theme.breakpoints.down('sm')]: {
     fontSize: '16px',
@@ -83,14 +83,14 @@ export const NewSignUpModelMainBoxContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   width: '100%',
   height: '100%',
-  minHeight: '700px',
+  maxHeight: '700px',
   backgroundImage: 'linear-gradient(to bottom, #07030E, #290F1E)',
 
   [theme.breakpoints.down('sm')]: {
     maxWidth: '600px',
     paddingTop: theme.spacing(3),
-    paddingRight: theme.spacing(5.5),
-    paddingLeft: theme.spacing(5.5),
+    paddingRight: theme.spacing(1.5),
+    paddingLeft: theme.spacing(1.5),
     paddingBottom: theme.spacing(2)
   },
   [theme.breakpoints.up('sm')]: {

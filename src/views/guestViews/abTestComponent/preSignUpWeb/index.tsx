@@ -31,6 +31,7 @@ import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
 import { CarousalModelImageRes } from 'services/abTest/abTest.services';
 import CarousalSwiper from './CarouselSwiper';
 import HorizontalSlider from '../Slider/HorizontalSlider';
+import { FormattedMessage } from 'react-intl';
 
 const ralewayFont = Raleway({ subsets: ['latin'], display: 'swap' });
 
@@ -51,16 +52,23 @@ const PreSignUpWeb = ({
           <HeadingTextBoxContainer>
             {isSmUp ? (
               <HeadingTextTypography fontFamily={ralewayFont.style.fontFamily}>
-                Are You Ready to Get <span style={{ color: '#79E028' }}>Naughty?</span>
+                <FormattedMessage id="AreYouReadyToGet" />{' '}
+                <span style={{ color: '#79E028' }}>
+                  <FormattedMessage id="Naughty" />
+                </span>
               </HeadingTextTypography>
             ) : (
               <HeadingTextTypography fontFamily={ralewayFont.style.fontFamily}>
-                Real Girls, Waiting for<span style={{ color: '#79E028' }}> your pleasure!?</span>
+                <FormattedMessage id="RealGirlsWaitingFor" />
+                <span style={{ color: '#79E028' }}>
+                  {' '}
+                  <FormattedMessage id="yourPleasure" />
+                </span>
               </HeadingTextTypography>
             )}
             {isSmUp && (
               <DescriptionTextTypography>
-                Unleash your wildest desires with models who are here to tease, please, and make it all about you.
+                <FormattedMessage id="UnleashYourWildestDesiresWithModels" />
               </DescriptionTextTypography>
             )}
           </HeadingTextBoxContainer>
@@ -68,12 +76,16 @@ const PreSignUpWeb = ({
           <ButtonBoxContainer variant="contained">
             <Box component="img" src="/images/icons/new-video-call-icon.svg" alt="video-call" height={32} width={32} />
 
-            <ButtonTextTypography>Start Free Video Chat</ButtonTextTypography>
+            <ButtonTextTypography>
+              <FormattedMessage id="StartFreeVideoChat" />
+            </ButtonTextTypography>
           </ButtonBoxContainer>
 
           {!isSmUp && (
             <SignupButtonBoxContainer>
-              <SignUpTextTypography>Sign in</SignUpTextTypography>
+              <SignUpTextTypography>
+                <FormattedMessage id="SignIn" />
+              </SignUpTextTypography>
             </SignupButtonBoxContainer>
           )}
         </PreSignUpMobileBoxContainer>
@@ -89,7 +101,9 @@ const PreSignUpWeb = ({
                 src="/images/boostProfile/fire-sidebar.png"
                 sx={{ width: { sm: '24px', md: '36px' }, height: { sm: '24px', md: '36px' } }}
               />
-              <TrendingNowTextTypography>Trending Now</TrendingNowTextTypography>
+              <TrendingNowTextTypography>
+                <FormattedMessage id="TrendingNow" />
+              </TrendingNowTextTypography>
             </TrendingBoxContainer>
             <ModelDetailsSwiperInnerContainer>
               <HorizontalSlider modelDetails={modelData.model_details} />
