@@ -353,12 +353,13 @@ const GuestHeaderComponent = () => {
             onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'top-bar')}
           >
             <Image
-              src="/images/header/new-logo.png"
+              src={isSmDown ? '/images/app-logo/app-video.png' : '/images/header/new-logo.png'}
               width={182}
               height={36}
               alt="sassy_logo"
               style={{
                 maxWidth: '100%',
+                width: '30px',
                 height: 'auto'
               }}
               priority
@@ -418,18 +419,22 @@ const GuestHeaderComponent = () => {
                 </BalanceBox>
               </BalanceBoxWrapper>
             )}
-            <Link href="/chat" style={{ textDecoration: 'none' }} onClick={handleGAEventForChatIcon}>
-              <IconButton sx={{ height: 24, width: 24 }}>
-                <IconBoxWrapper>
-                  <Image src="/images/header/new-logo/group.svg" alt="chat_logo" width={20} height={20} priority />
-                </IconBoxWrapper>
-              </IconButton>
-            </Link>
-            <IconButton onClick={handleOpenNotification}>
-              <IconBoxWrapper>
-                <Image src="/images/header/new-logo/notification.svg" width={20} height={20} alt="setting-logo" priority />
-              </IconBoxWrapper>
-            </IconButton>
+            {!isSmDown && (
+              <>
+                <Link href="/chat" style={{ textDecoration: 'none' }} onClick={handleGAEventForChatIcon}>
+                  <IconButton sx={{ height: 24, width: 24 }}>
+                    <IconBoxWrapper>
+                      <Image src="/images/header/new-logo/group.svg" alt="chat_logo" width={20} height={20} priority />
+                    </IconBoxWrapper>
+                  </IconButton>
+                </Link>
+                <IconButton onClick={handleOpenNotification}>
+                  <IconBoxWrapper>
+                    <Image src="/images/header/new-logo/notification.svg" width={20} height={20} alt="setting-logo" priority />
+                  </IconBoxWrapper>
+                </IconButton>
+              </>
+            )}
             <IconButtonBoxNew>
               <IconButtonBoxInner onClick={handleClickLogout}>
                 <IconButton
