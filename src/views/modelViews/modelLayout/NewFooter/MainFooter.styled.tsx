@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { styled } from '@mui/material/styles';
@@ -5,7 +6,11 @@ import UINewTypography from 'components/UIComponents/UINewTypography';
 
 export const FooterSubICon = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(1)
+  flexDirection: 'column',
+  gap: theme.spacing(3),
+  textAlign: 'left',
+  width: '100%',
+  maxWidth: '234px'
 }));
 
 export const TextContainerMain = styled(Box)(() => ({
@@ -60,19 +65,17 @@ export const ModelFooterHead = styled(UINewTypography)(({ theme }) => ({
 }));
 
 export const ModelFooterHeadSecond = styled(UINewTypography)(({ theme }) => ({
-  width: '100%',
-  display: 'flex',
-  textAlign: 'start',
-  fontWeight: 400,
-  fontSize: '40px',
-  alignItems: 'flex-start',
-  lineHeight: '140%',
   color: '#FFFFFF',
-  [theme.breakpoints.only('md')]: {
-    maxWidth: '297px'
-  },
   [theme.breakpoints.down('sm')]: {
-    textAlign: 'center'
+    fontWeight: 400,
+    fontSize: '32px',
+    lineHeight: '140%',
+    textAlign: 'start'
+  },
+  [theme.breakpoints.up('sm')]: {
+    fontWeight: 400,
+    fontSize: '40px',
+    lineHeight: '140%'
   }
 }));
 
@@ -83,21 +86,25 @@ export const ModelUITextConatinerText = styled(Box)(({ theme }) => ({
   textAlign: 'start',
   marginBottom: 0,
   [theme.breakpoints.down('sm')]: {
-    alignItems: 'center',
-    textAlign: 'center',
     marginBottom: 3
   }
 }));
 
 export const FirstBoxContainerMain = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(10),
+  gap: theme.spacing(2),
   justifyContent: 'center',
+  width: '100%',
   [theme.breakpoints.down('sm')]: {
-    marginTop: theme.spacing(5.625)
+    marginTop: theme.spacing(2)
   },
-  [theme.breakpoints.up('sm')]: {
-    marginTop: theme.spacing(3)
+  [theme.breakpoints.only('sm')]: {
+    marginTop: theme.spacing(15.25),
+    maxWidth: '342px'
+  },
+  [theme.breakpoints.up('md')]: {
+    marginTop: theme.spacing(15.25),
+    maxWidth: '484px'
   }
 }));
 
@@ -105,4 +112,62 @@ export const FooterStoreBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(2),
   marginTop: theme.spacing(7.5)
+}));
+
+export const HeadingMainBoxContiner = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  maxWidth: '484px',
+  marginTop: theme.spacing(8)
+}));
+
+export const NewFooterMainBoxContiner = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  paddingRight: theme.spacing(1.5),
+  paddingLeft: theme.spacing(1.5),
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column'
+  },
+  [theme.breakpoints.up('sm')]: {
+    flexDirection: 'row'
+  }
+}));
+
+export const MenuTextTypography = styled(Typography)(({ theme }) => ({
+  fontSize: '10px',
+  fontWeight: 500,
+  lineHeight: '14px',
+  color: theme.palette.common.white,
+  opacity: 0.4,
+  textTransform: 'uppercase'
+}));
+
+export const ResourcesInnerBoxContiner = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(0.75)
+}));
+
+export const FlirtbateTextTypography = styled(Typography)(({ theme }) => ({
+  fontSize: '10px',
+  fontWeight: 500,
+  lineHeight: '14px',
+  color: theme.palette.common.white,
+  opacity: 0.4
+}));
+
+export const FooterTextMainBoxContiner = styled(Box)(({ theme }) => ({
+  textAlign: 'center',
+  paddingBottom: theme.spacing(2.5)
+}));
+
+export const LogoAndTextMainBoxVontainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  width: '100%',
+  justifyContent: 'space-between',
+  paddingLeft: theme.spacing(1.5),
+  paddingRight: theme.spacing(1.5)
 }));

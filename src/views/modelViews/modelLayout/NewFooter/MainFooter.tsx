@@ -2,13 +2,19 @@ import Box from '@mui/material/Box';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  DividerUILine,
   FirstBoxContainerMain,
+  FlirtbateTextTypography,
   FooterStoreBox,
   FooterSubICon,
+  FooterTextMainBoxContiner,
+  HeadingMainBoxContiner,
+  LogoAndTextMainBoxVontainer,
+  MenuTextTypography,
   ModelFooterHead,
   ModelFooterHeadSecond,
-  ModelUITextConatinerText
+  ModelUITextConatinerText,
+  NewFooterMainBoxContiner,
+  ResourcesInnerBoxContiner
 } from './MainFooter.styled';
 import { FooterCityList } from './footer.constants';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -28,6 +34,8 @@ import { gaEventTrigger } from 'utils/analytics';
 import { useAuthContext } from 'contexts/AuthContext';
 import { getCookie } from 'cookies-next';
 import UINewStyledShadowButton from 'components/UIComponents/UIStyledShadowButton';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { StyledAccordion, StyledAccordionSummary } from 'views/modelViews/modelPage/HomeModelFAQ/HomeModelFAQ.styled';
 
 const NewFooter = () => {
   const { handleGAEventsTrigger, user } = useAuthContext();
@@ -114,114 +122,130 @@ const NewFooter = () => {
 
   return (
     <>
-      <Box sx={{ width: '100%' }}>
-        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-          <DividerUILine orientation="horizontal" flexItem />
-        </Box>
-        <Box mt={'32px'}>
-          <Box sx={{ display: 'flex', flexDirection: isSmDown ? 'column' : 'row', justifyContent: 'space-between', px: 1.5 }}>
+      <StyledAccordion defaultExpanded>
+        <StyledAccordionSummary aria-controls="panel1-content" id="panel1-header" expandIcon={<ExpandMoreIcon />}>
+          <LogoAndTextMainBoxVontainer>
+            <Link prefetch={false} href="/" onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'footer')}>
+              <Image
+                src="/images/new-logo-footer.svg"
+                width={164}
+                height={44}
+                alt="footer_logo"
+                style={{
+                  width: 'auto'
+                }}
+                loading="lazy"
+              />
+            </Link>
+            <Box>
+              <ModelFooterHead variant="captionLarge">
+                <FormattedMessage id="ByTheWay" />
+              </ModelFooterHead>
+            </Box>
+          </LogoAndTextMainBoxVontainer>
+        </StyledAccordionSummary>
+        <Box sx={{ width: '100%' }}>
+          <NewFooterMainBoxContiner>
             <ModelUITextConatinerText>
-              <Link prefetch={false} href="/" onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'footer')}>
-                <Image
-                  src="/images/new-logo-footer.svg"
-                  width={164}
-                  height={44}
-                  alt="footer_logo"
-                  style={{
-                    width: 'auto'
-                  }}
-                  loading="lazy"
-                />
-              </Link>
-              <Box width={484} mt={9}>
-                <ModelFooterHead variant="bodySmall">
+              <Box>
+                <HeadingMainBoxContiner>
+                  {/* <ModelFooterHead variant="bodySmall">
                   <FormattedMessage id="ByTheWay" />
-                </ModelFooterHead>
-                <ModelFooterHeadSecond variant="bodySmall" mt={3}>
-                  <FormattedMessage id="ReadyToExploreNew" />
-                </ModelFooterHeadSecond>
+                </ModelFooterHead> */}
+                  <ModelFooterHeadSecond>
+                    <FormattedMessage id="ReadyToExploreNew" />
+                  </ModelFooterHeadSecond>
+                </HeadingMainBoxContiner>
+                <Box mt={4}>
+                  <UINewStyledShadowButton sx={{ width: '100%', maxWidth: '192px' }}>
+                    <FormattedMessage id="SignUpNow" />
+                  </UINewStyledShadowButton>
+                </Box>
+                <FooterStoreBox>
+                  <Box>
+                    <Image
+                      src="/images/icons/insta-new-icon.svg"
+                      width={32}
+                      height={32}
+                      alt="Instagram"
+                      style={{
+                        width: 'auto'
+                      }}
+                      loading="lazy"
+                    />
+                  </Box>
+                  <Box>
+                    <Image
+                      src="/images/icons/twi-new-icon.svg"
+                      width={32}
+                      height={32}
+                      alt="Twitter"
+                      style={{
+                        width: 'auto'
+                      }}
+                      loading="lazy"
+                    />
+                  </Box>
+                  <Box>
+                    <Image
+                      src="/images/icons/facebook-new-icon.svg"
+                      width={32}
+                      height={32}
+                      alt="Facebook"
+                      style={{
+                        width: 'auto'
+                      }}
+                      loading="lazy"
+                    />
+                  </Box>
+                </FooterStoreBox>
               </Box>
-              <Box mt={5.5}>
-                <UINewStyledShadowButton>
-                  <FormattedMessage id="SignUpNow" />
-                </UINewStyledShadowButton>
-              </Box>
-              <FooterStoreBox>
-                <Box>
-                  <Image
-                    src="/images/icons/insta-new-icon.svg"
-                    width={32}
-                    height={32}
-                    alt="Instagram"
-                    style={{
-                      width: 'auto'
-                    }}
-                    loading="lazy"
-                  />
-                </Box>
-                <Box>
-                  <Image
-                    src="/images/icons/twi-new-icon.svg"
-                    width={32}
-                    height={32}
-                    alt="Twitter"
-                    style={{
-                      width: 'auto'
-                    }}
-                    loading="lazy"
-                  />
-                </Box>
-                <Box>
-                  <Image
-                    src="/images/icons/facebook-new-icon.svg"
-                    width={32}
-                    height={32}
-                    alt="Facebook"
-                    style={{
-                      width: 'auto'
-                    }}
-                    loading="lazy"
-                  />
-                </Box>
-              </FooterStoreBox>
             </ModelUITextConatinerText>
 
             <FirstBoxContainerMain>
-              <FooterSubICon sx={{ flexDirection: 'column', display: 'flex', textAlign: 'left' }}>
-                <UINewTypography sx={{ mb: '6px' }} variant="captionBold">
+              <FooterSubICon>
+                <MenuTextTypography>
                   <FormattedMessage id="Menu" />
-                </UINewTypography>
-                <ModelUITextConatiner sx={{ gap: 1 }}>
-                  <UINewTypography variant="SubtitleSmallRegular" onClick={() => handleTriggerGAEvent('Home')}>
+                </MenuTextTypography>
+                <ModelUITextConatiner sx={{ gap: 0.75 }}>
+                  <UINewTypography
+                    variant="bodySmall"
+                    sx={{ color: 'white.main', opacity: 0.8 }}
+                    onClick={() => handleTriggerGAEvent('Home')}
+                  >
                     <Link prefetch={false} href="/">
                       <FormattedMessage id="Home" />
                     </Link>
                   </UINewTypography>
-                  <UINewTypography variant="SubtitleSmallRegular" onClick={() => handleTriggerGAEvent('FAQs')}>
+                  <UINewTypography
+                    variant="bodySmall"
+                    sx={{ color: 'white.main', opacity: 0.8 }}
+                    onClick={() => handleTriggerGAEvent('FAQs')}
+                  >
                     <Link prefetch={false} href="/faq">
                       <FormattedMessage id="FAQs" />
                     </Link>
                   </UINewTypography>
                   {!token.token && (
                     <UINewTypography
-                      variant="SubtitleSmallRegular"
+                      variant="bodySmall"
                       onClick={() => {
                         handleTriggerGAEvent('SignUp');
                         handleSignupOpen();
                       }}
-                      sx={{ cursor: 'pointer' }}
+                      sx={{ cursor: 'pointer', color: 'white.main', opacity: 0.8 }}
                     >
                       <FormattedMessage id="SignUp" />
                     </UINewTypography>
                   )}
                   {!token.token && (
                     <UINewTypography
-                      variant="SubtitleSmallRegular"
+                      variant="bodySmall"
                       onClick={() => {
                         handleTriggerGAEvent('LoginIn');
                         handleLoginOpen();
                       }}
-                      sx={{ cursor: 'pointer' }}
+                      sx={{ cursor: 'pointer', color: 'white.main', opacity: 0.8 }}
                     >
                       <FormattedMessage id="LogIn" />
                     </UINewTypography>
@@ -236,46 +260,47 @@ const NewFooter = () => {
                 </ModelUITextConatiner>
               </FooterSubICon>
 
-              <FooterSubICon sx={{ flexDirection: 'column', display: 'flex', textAlign: 'left' }}>
-                <UINewTypography sx={{ mb: '6px' }} variant="captionBold">
+              <FooterSubICon>
+                <MenuTextTypography>
                   <FormattedMessage id="Resources" />
-                </UINewTypography>
-                {FooterCityList?.map((val, index) => (
-                  <UINewTypography variant="SubtitleSmallRegular" key={index}>
-                    <Box
-                      sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
-                      component={Link}
-                      prefetch={false}
-                      shallow={true}
-                      href={`${val?.link}`}
-                      onClick={() => handleTriggerGAEvent(val?.link)}
-                    >
-                      <FormattedMessage id={val?.name} />
-                    </Box>
-                  </UINewTypography>
-                ))}
+                </MenuTextTypography>
+                <ResourcesInnerBoxContiner>
+                  {FooterCityList?.map((val, index) => (
+                    <UINewTypography variant="SubtitleSmallRegular" key={index}>
+                      <Box
+                        component={Link}
+                        prefetch={false}
+                        shallow={true}
+                        href={`${val?.link}`}
+                        onClick={() => handleTriggerGAEvent(val?.link)}
+                      >
+                        <FormattedMessage id={val?.name} />
+                      </Box>
+                    </UINewTypography>
+                  ))}
+                </ResourcesInnerBoxContiner>
               </FooterSubICon>
             </FirstBoxContainerMain>
-          </Box>
+          </NewFooterMainBoxContiner>
+          <FooterTextMainBoxContiner sx={{ mt: isSmDown ? '32px' : '32px' }}>
+            <FlirtbateTextTypography>
+              <FormattedMessage id="2024SassyEscort" />
+            </FlirtbateTextTypography>
+          </FooterTextMainBoxContiner>
         </Box>
-        <Box sx={{ textAlign: 'center', mt: isSmDown ? '32px' : '32px', pb: '20px' }}>
-          <UINewTypography variant="SubtitleSmallRegular">
-            <FormattedMessage id="2024SassyEscort" />
-          </UINewTypography>
-        </Box>
-      </Box>
-      <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
-        <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </UIStyledDialog>
-      <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
-        <ModelSignin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
-      </UIStyledDialog>
-      <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
-        <ModelForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
-      </UIStyledDialog>
-      {/* <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
+        <UIStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+          <ModelSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
+        </UIStyledDialog>
+        <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
+          <ModelSignin onClose={handleLoginClose} onSignupOpen={handleSignupOpen} onFogotPasswordLinkOpen={handleResetPasswordLinkOpen} />
+        </UIStyledDialog>
+        <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
+          <ModelForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
+        </UIStyledDialog>
+        {/* <UIStyledDialog scroll="body" open={openChangePassword} onClose={handleChangePasswordClose} maxWidth="md" fullWidth>
         <ModelNewPassword email={String(email)} onClose={handleChangePasswordClose} onLoginOpen={handleLoginChangePasswordOpen} />
       </UIStyledDialog> */}
+      </StyledAccordion>
     </>
   );
 };
