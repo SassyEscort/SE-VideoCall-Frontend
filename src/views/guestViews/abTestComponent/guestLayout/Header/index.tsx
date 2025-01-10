@@ -11,10 +11,10 @@ import { FormattedMessage } from 'react-intl';
 import { gaEventTrigger } from 'utils/analytics';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import { CommonServices } from 'services/commonApi/commonApi.services';
-import MoreFilters from '../../searchPage/moreFilters';
-import { AppBarBox, BalanceBoxWrapper, HeaderDropdownStyledBox, IconBoxWrapper, SearchTitalBoxSm } from './GuestLayout.styled';
+import MoreFilters from '../../../searchPage/moreFilters';
+import { AppBarBox, BalanceBoxWrapper, HeaderDropdownStyledBox, IconBoxWrapper, SearchTitalBoxSm } from '../GuestLayout.styled';
 import MenuItem from '@mui/material/MenuItem';
-import { useAuthContext } from '../../../../contexts/AuthContext';
+import { useAuthContext } from '../../../../../contexts/AuthContext';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -376,7 +376,9 @@ const GuestHeaderComponent = () => {
               )}
               {!isMdUp && (
                 <Box display="flex" alignItems="center" gap={1} onClick={handleOpenFilterModal}>
-                  <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
+                  <IconBoxWrapper>
+                    <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
+                  </IconBoxWrapper>
                 </Box>
               )}
             </Box>
@@ -642,85 +644,6 @@ const GuestHeaderComponent = () => {
             </IconButtonBoxNew>
           </Box>
           <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
-          {/*
-          {!isMdUp && (
-            <>
-              <IconButton onClick={handleClickLogout}>
-                <Image height={24} width={24} priority alt="menufill" src="/images/header/menuFill.svg" />
-              </IconButton>
-
-              <MenuContainer
-                id="basic-menu"
-                anchorEl={anchorElLogout}
-                open={Boolean(anchorElLogout)}
-                onClose={handleCloseLogout}
-                MenuListProps={{
-                  'aria-labelledby': 'basic-button',
-                  'aria-label': 'basic-button'
-                }}
-                sx={{
-                  backdropFilter: isSmDown ? 'blur(12px)' : ''
-                }}
-              >
-                <MenuItem onClick={handleLoginOpen}>
-                  <ListItemIcon>
-                    <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                      <Box component="img" src="/images/header/loginCircle.svg" sx={{ width: '20px', height: '20px' }} alt="login" />
-                    </IconButton>
-                  </ListItemIcon>
-                  <ListItemText>
-                    <UINewTypography variant="bodyLight" color="text.secondary">
-                      <FormattedMessage id="LogIn" />
-                    </UINewTypography>
-                  </ListItemText>
-                </MenuItem>
-                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                <MenuItem>
-                  <ListItemText>
-                    <UIThemeShadowButton
-                      variant="contained"
-                      onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
-                      sx={{ width: '195px' }}
-                    >
-                      <UINewTypography variant="body" lineHeight={'150%'}>
-                        <FormattedMessage id="SignUpNow" />
-                      </UINewTypography>
-                      <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} alt="signup" />
-                    </UIThemeShadowButton>
-                  </ListItemText>
-                </MenuItem>
-              </MenuContainer>
-            </>
-          )}
-          {isMdUp && (
-            <GuestLoginButton
-              onClick={() => {
-                gaEventTrigger('Login_Button_clicked', { source: 'header', category: 'Button' });
-                handleLoginOpen();
-              }}
-            >
-              <Image src="/images/header/loginCircle.svg" width={20} height={20} alt="login" priority />
-              <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                <FormattedMessage id="LogIn" />
-              </UINewTypography>
-            </GuestLoginButton>
-          )}
-          {isMdUp &&
-            (isFreeCreditAvailable ? (
-              <CreditAvailableButton onClick={handleFreeCreditSignupOpen}>
-                <Box component="img" src="/images/icons/free-credit-icon.png" width="24px" height="30px" alt="free_credit" />
-                <UINewTypography variant="body" lineHeight={'150%'} color="primary.200">
-                  <FormattedMessage id="FREECall" />
-                </UINewTypography>
-              </CreditAvailableButton>
-            ) : (
-              <UIThemeShadowButton variant="contained" onClick={handleSignupOpen} sx={{ width: '195px' }}>
-                <UINewTypography variant="body" lineHeight={'150%'}>
-                  <FormattedMessage id="SignUpNow" />
-                </UINewTypography>
-                <Box component="img" src="/images/icons/signup-img.png" alt="signup" sx={{ width: '16px', height: '16px' }} />
-              </UIThemeShadowButton>
-            ))}*/}
         </AppBarBox>
       </AppBar>
 
