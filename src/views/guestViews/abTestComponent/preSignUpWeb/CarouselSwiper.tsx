@@ -34,7 +34,6 @@ const CarousalSwiper = ({ carousalImages }: { carousalImages: CarousalModelImage
           navigation={{
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev'
-            //   clickable: true
           }}
           autoplay={{
             delay: 1000,
