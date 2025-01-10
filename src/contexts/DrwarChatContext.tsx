@@ -7,6 +7,7 @@ import { useAuthContext } from './AuthContext';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { IHistoryOfChats } from 'views/protectedModelViews/verification/verificationTypes';
+import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 
 export type DrawerChatContextProps = {
   selectedModel: SelectedModelChatDetails | undefined;
@@ -32,7 +33,7 @@ const DrawerContext = createContext<DrawerChatContextProps>({
 });
 
 export const DrawerChatProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user, token } = useAuthContext();
+  const { user, token, handleSetBalance } = useAuthContext();
   const userDetails = user && JSON.parse(user);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [messages, setMessages] = useState<ISocketMessage[]>([]);
@@ -86,6 +87,9 @@ export const DrawerChatProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         }
       ]);
       socket.emit('chat-message', newMessage);
+      if (newMessage.message_type !== 'text') {
+        handleCredits();
+      }
       handleChatedModleHistoryList();
     }
   };
@@ -94,6 +98,16 @@ export const DrawerChatProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     selectedModelRef.current = model;
     setSelectedModel(model);
     setMessages([]);
+  };
+
+  const handleCredits = async () => {
+    const getModel = await ModelDetailsService.getModelWithDraw(token.token);
+
+    if (getModel?.data?.credits === null) {
+      handleSetBalance(0);
+    } else {
+      handleSetBalance(getModel?.data?.credits);
+    }
   };
 
   useEffect(() => {

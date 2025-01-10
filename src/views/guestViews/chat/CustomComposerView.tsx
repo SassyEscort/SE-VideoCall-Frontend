@@ -1,9 +1,8 @@
 'use client';
-import { useState } from 'react';
-import { Box, Button, Grid, Select, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Box, Button, Grid, Menu, Typography } from '@mui/material';
 import { ChatMessageInput, ComposeMessageControlWrapper } from './ChatFeature.styled';
-import { ChatWidgets } from '../homePage/homeImageCards/ChatBarView';
-import { ChatService } from 'services/chatServices/chat.service';
+import { ChatGiftData, ChatService } from 'services/chatServices/chat.service';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from 'constants/common.constants';
 import { useAuthContext } from 'contexts/AuthContext';
@@ -15,8 +14,11 @@ interface CustomComposerViewProps {
 
 const CustomComposerView = ({ onSendMessage, modelName }: CustomComposerViewProps) => {
   const { token } = useAuthContext();
+
   const [message, setMessage] = useState('');
-  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [chatGiftList, setChatGiftList] = useState<ChatGiftData[]>([]);
+  const isOpen = Boolean(anchorEl);
 
   const handleSend = () => {
     if (message.trim()) {
@@ -31,91 +33,121 @@ const CustomComposerView = ({ onSendMessage, modelName }: CustomComposerViewProp
     }
   };
 
-  const handleFileUpload = async (file: string) => {
-    const response = await fetch(file);
-    const blob = await response.blob();
-    const uploadFile = new File([blob], file.split('/').pop() || '', { type: blob.type });
-    const formData = new FormData();
-    formData.append('image', uploadFile);
-    const uploadFileRes = await ChatService.chatUploadImage(formData, token.token);
-    if (uploadFileRes.code === 200) {
-      onSendMessage(uploadFileRes.data.link, 'image');
+  const handleFileUpload = async (file: string, id: number) => {
+    const params = {
+      gift_id: id,
+      model_user_name: modelName || ''
+    };
+    const giftSendToModel = await ChatService.chatGiftSendServices(params, token.token);
+    if (giftSendToModel.code === 200) {
+      onSendMessage(file, 'image');
     } else {
       toast.error(ErrorMessage);
     }
-    setOpen(false);
+    setAnchorEl(null);
   };
 
+  const hanldeChatGift = async () => {
+    const chatGiftRes = await ChatService.chatGiftList(token.token);
+    if (chatGiftRes.code === 200) {
+      setChatGiftList(chatGiftRes.data);
+    } else {
+      toast.error(ErrorMessage);
+    }
+  };
+
+  const handleClose = () => setAnchorEl(null);
+
+  useEffect(() => {
+    if (token.token) {
+      hanldeChatGift();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
   return (
-    <>
-      <Select
-        open={open}
-        onClose={() => setOpen(false)}
-        onOpen={() => setOpen(true)}
-        sx={{
-          '&.MuiPaper-root': {
-            top: '560px !important',
-            background: 'red'
-          },
-          '&.MuiInputBase-root .MuiSelect-select': {
-            display: 'none'
-          },
-          '&.MuiInputBase-root svg': {
-            display: 'none'
-          }
-        }}
-      >
-        <Box sx={{ paddingInline: 1, overflowY: 'auto', scrollbarWidth: 'none' }}>
-          <Grid container spacing={2}>
-            {ChatWidgets.map((item, index) => (
-              <Grid
-                item
-                xs={4}
-                md={2}
-                key={index}
-                sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0.5, cursor: 'pointer' }}
-                onClick={() => handleFileUpload(item.image)}
-              >
-                <Box component="img" src={item.image} width={48} height={48} />
-                <Typography variant="SubtitleSmallMedium">{item.name}</Typography>
-                <Box sx={{ display: 'flex', gap: 0.5, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                  <Typography variant="captionLargeBold" color="#FBE182">
-                    {item.coins}
-                  </Typography>
-                  <Box component="img" src="/images/chatWidgets/Coin.webp" width={20} height={20} />
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-      </Select>
-      <ComposeMessageControlWrapper variant="outlined">
-        <ChatMessageInput
-          id="search-input"
-          placeholder={`Send a message to ${modelName || ''}...`}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={handleKeyDown}
-          endAdornment={
-            <Box className="end-adornment-main-box" width={44} height={44}>
+    <ComposeMessageControlWrapper variant="outlined">
+      <ChatMessageInput
+        id="search-input"
+        placeholder={`Send a message ...`}
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        onKeyDown={handleKeyDown}
+        endAdornment={
+          <Box className="end-adornment-main-box" width={44} height={44}>
+            <>
               <Button
                 className="heart-box"
                 id="long-button"
-                aria-controls={open ? 'long-menu' : undefined}
-                aria-expanded={open ? 'true' : undefined}
-                onClick={() => setOpen(true)}
+                aria-controls={isOpen ? 'long-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={isOpen ? 'true' : undefined}
+                onClick={(e) => setAnchorEl(e.currentTarget)}
               >
                 <Box component="img" src="/images/chatWidgets/Luck.webp" width={20} height={20} />
               </Button>
-              <Button className="send-button" variant="contained" onClick={handleSend}>
-                Send
-              </Button>
-            </Box>
-          }
-          aria-describedby="send-message"
-        />
-      </ComposeMessageControlWrapper>
-    </>
+              <Menu
+                id="long-menu"
+                anchorEl={anchorEl}
+                open={isOpen}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right'
+                }}
+                sx={{ width: '100%' }}
+              >
+                <Grid
+                  container
+                  spacing={2}
+                  columnGap={{ sm: 0, md: 4 }}
+                  sx={{ marginTop: 0, ml: { md: 2 }, paddingInline: { xs: 2, md: 0 }, maxHeight: 300, overflow: 'auto' }}
+                >
+                  {chatGiftList.map((item, index) => (
+                    <Grid
+                      item
+                      xs={4}
+                      md={2}
+                      key={index}
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: 0.5,
+                        cursor: 'pointer'
+                      }}
+                      onClick={() => handleFileUpload(item.link, item.id)}
+                    >
+                      <Box component="img" src={item.link} width={48} height={48} />
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          gap: 0.5,
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}
+                      >
+                        <Typography variant="captionLargeBold" color="#FBE182">
+                          {item.amount}
+                        </Typography>
+                        <Box component="img" src="/images/chatWidgets/Coin.webp" width={20} height={20} />
+                      </Box>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Menu>
+            </>
+
+            <Button className="send-button" variant="contained" onClick={handleSend}>
+              Send
+            </Button>
+          </Box>
+        }
+        aria-describedby="send-message"
+      />
+    </ComposeMessageControlWrapper>
   );
 };
 

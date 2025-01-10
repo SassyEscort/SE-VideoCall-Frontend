@@ -540,7 +540,7 @@ const HomeImageCard = ({
               <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29' }} />
             </Box>
 
-            <Box sx={{ minHeight: '36vh', overflowY: 'auto', scrollbarWidth: 'none', p: 2 }} ref={chatRef}>
+            <Box sx={{ minHeight: 'calc(100% - 137px)', overflowY: 'auto', scrollbarWidth: 'none', p: 2 }} ref={chatRef}>
               <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
                 {Array.isArray(messages) &&
                   messages?.map((message, index) => (
@@ -554,14 +554,12 @@ const HomeImageCard = ({
                               </UINewTypography>
                             </ChatDraweClientChatTextBoxContainer>
                           ) : (
-                            <ChatDraweClientChatTextBoxContainer>
-                              <Box
-                                component="img"
-                                src={message.link}
-                                sx={{ height: 100, width: 100, cursor: 'pointer' }}
-                                // onClick={() => handleSelectedImages(message.link)}
-                              />
-                            </ChatDraweClientChatTextBoxContainer>
+                            <Box
+                              component="img"
+                              src={message.link}
+                              sx={{ height: 100, width: 100, cursor: 'pointer' }}
+                              // onClick={() => handleSelectedImages(message.link)}
+                            />
                           )}
                           <UINewTypography
                             variant="SubtitleSmallRegular"
@@ -599,7 +597,7 @@ const HomeImageCard = ({
                   ))}
               </Box>
             </Box>
-            <ChatBarView onSendMessage={handleMessageInputChange} modelName={selectedModel?.name} />
+            <ChatBarView onSendMessage={handleMessageInputChange} modelName={selectedModel?.user_Name} />
           </ChatMessageSwipeableDrawer>
         )}
         {!openDrawer && selectedModel && isSmUp && isCustomer && (

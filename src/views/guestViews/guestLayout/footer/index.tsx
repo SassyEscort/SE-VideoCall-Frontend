@@ -83,86 +83,90 @@ const Footer = () => {
   };
 
   return (
-    <Banner sx={{ ...((isSEOPage || pathName.startsWith('/chat')) && { marginTop: '0px !important' }) }}>
-      <TextContainerMain>
-        <TextContainer>
-          <Box>
-            <Box display="flex" flexDirection="column" gap="16px" width="100%" alignItems="center">
-              <TitleText>
-                <FormattedMessage id="ReadyToExplore" />
-              </TitleText>
-              <SubTitleText>
-                <FormattedMessage id="HaveTheBestExperience" />
-              </SubTitleText>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                width: '100%',
-                mt: { xs: '32px', sm: '40px' }
-              }}
-            >
-              <Box sx={{ width: '100%', maxWidth: '195px' }}>
-                {isCustomer || isModel ? (
-                  <Link prefetch={false} href="/">
-                    <StyleButtonShadowV2 fullWidth variant="contained" onClick={handleClick} loading={loading}>
-                      <FooterButton variant="buttonLargeBold">
-                        <FormattedMessage id="ExploreModels" />
-                      </FooterButton>
-                    </StyleButtonShadowV2>
-                  </Link>
-                ) : (
-                  <UIThemeShadowButton
-                    fullWidth
-                    variant="contained"
-                    onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
-                  >
-                    <FooterButton variant="buttonLargeBold">
-                      <FormattedMessage id="SignUpNow" />
-                    </FooterButton>
-                    <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} alt="signup" />
-                  </UIThemeShadowButton>
-                )}
+    <>
+      {!pathName.startsWith('/chat') && (
+        <Banner sx={{ ...((isSEOPage || pathName.startsWith('/chat')) && { marginTop: '0px !important' }) }}>
+          <TextContainerMain>
+            <TextContainer>
+              <Box>
+                <Box display="flex" flexDirection="column" gap="16px" width="100%" alignItems="center">
+                  <TitleText>
+                    <FormattedMessage id="ReadyToExplore" />
+                  </TitleText>
+                  <SubTitleText>
+                    <FormattedMessage id="HaveTheBestExperience" />
+                  </SubTitleText>
+                </Box>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    width: '100%',
+                    mt: { xs: '32px', sm: '40px' }
+                  }}
+                >
+                  <Box sx={{ width: '100%', maxWidth: '195px' }}>
+                    {isCustomer || isModel ? (
+                      <Link prefetch={false} href="/">
+                        <StyleButtonShadowV2 fullWidth variant="contained" onClick={handleClick} loading={loading}>
+                          <FooterButton variant="buttonLargeBold">
+                            <FormattedMessage id="ExploreModels" />
+                          </FooterButton>
+                        </StyleButtonShadowV2>
+                      </Link>
+                    ) : (
+                      <UIThemeShadowButton
+                        fullWidth
+                        variant="contained"
+                        onClick={isFreeCreditAvailable ? handleFreeCreditSignupOpen : handleSignupOpen}
+                      >
+                        <FooterButton variant="buttonLargeBold">
+                          <FormattedMessage id="SignUpNow" />
+                        </FooterButton>
+                        <Box component="img" src="/images/icons/signup-img.png" sx={{ width: '16px', height: '16px' }} alt="signup" />
+                      </UIThemeShadowButton>
+                    )}
+                  </Box>
+                </Box>
               </Box>
-            </Box>
-          </Box>
-          <MainFooter
-            isFreeCreditAvailable={isFreeCreditAvailable}
-            freeSignupOpen={freeSignupOpen}
-            handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
-            handleFreeCreditSignupClose={handleFreeCreditSignupClose}
-            handleLoginOpen={handleLoginOpen}
-            handleLoginClose={handleLoginClose}
-            openLogin={openLogin}
-            // handleLoginOpen={handleLoginOpen}
-            // freeSignupOpen={freeSignupOpen}
-            // handleFreeCreditSignupClose={handleFreeCreditSignupClose}
+              <MainFooter
+                isFreeCreditAvailable={isFreeCreditAvailable}
+                freeSignupOpen={freeSignupOpen}
+                handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
+                handleFreeCreditSignupClose={handleFreeCreditSignupClose}
+                handleLoginOpen={handleLoginOpen}
+                handleLoginClose={handleLoginClose}
+                openLogin={openLogin}
+                // handleLoginOpen={handleLoginOpen}
+                // freeSignupOpen={freeSignupOpen}
+                // handleFreeCreditSignupClose={handleFreeCreditSignupClose}
+              />
+            </TextContainer>
+          </TextContainerMain>
+          <BannerImg
+            sx={{
+              backgroundImage: `url('/images/Footer-min.webp')`
+            }}
           />
-        </TextContainer>
-      </TextContainerMain>
-      <BannerImg
-        sx={{
-          backgroundImage: `url('/images/Footer-min.webp')`
-        }}
-      />
-      <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
-        <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-      </NewSignupStyledModalDialog>
-      <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
-        <GuestLogin
-          isFreeCreditAvailable={isFreeCreditAvailable}
-          onClose={handleLoginClose}
-          onSignupOpen={handleSignupOpen}
-          onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
-          handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
-          image="/images/auth/auth-model1.webp"
-        />
-      </UIStyledDialog>
-      <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
-        <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
-      </UIStyledDialog>
-    </Banner>
+          <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+            <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
+          </NewSignupStyledModalDialog>
+          <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
+            <GuestLogin
+              isFreeCreditAvailable={isFreeCreditAvailable}
+              onClose={handleLoginClose}
+              onSignupOpen={handleSignupOpen}
+              onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+              handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
+              image="/images/auth/auth-model1.webp"
+            />
+          </UIStyledDialog>
+          <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
+            <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
+          </UIStyledDialog>
+        </Banner>
+      )}
+    </>
   );
 };
 

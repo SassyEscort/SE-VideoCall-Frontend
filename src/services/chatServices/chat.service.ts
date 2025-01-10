@@ -69,6 +69,32 @@ export interface IHistoryOfChatParams {
   search: string;
 }
 
+export interface ChatGiftData {
+  id: number;
+  amount: number;
+  link: string;
+}
+
+export interface IChatGiftList {
+  data: ChatGiftData[];
+  message: string;
+  code: number;
+  error: null | string;
+  custom_code: null | number;
+}
+
+export interface IChatGiftSendParams {
+  gift_id: number;
+  model_user_name: string;
+}
+
+export interface IChatGiftSendRes {
+  message: string;
+  code: number;
+  error: null | string;
+  custom_code: null | number;
+}
+
 export class ChatService {
   // static sendChatMessage = async (params: IChatMessageParams, token: string): Promise<IMessageResponse> => {
   //   try {
@@ -131,6 +157,36 @@ export class ChatService {
     } catch (err: any) {
       const error: AxiosError = err;
       return error.response?.data as IMessageUploadImageChat;
+    }
+  };
+
+  static chatGiftList = async (token: string): Promise<IChatGiftList> => {
+    try {
+      const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/chat/gift?limit=1000&offset=0`;
+
+      const res = await axios.get<IChatGiftList>(url, {
+        headers: { 'Content-Type': 'application/json', Authorization: token }
+      });
+
+      return res.data;
+    } catch (error) {
+      return error as IChatGiftList;
+    }
+  };
+
+  static chatGiftSendServices = async (giftParams: IChatGiftSendParams, token: string): Promise<IChatGiftSendRes> => {
+    try {
+      const res = await axios.post(process.env.NEXT_PUBLIC_API_BASE_URL + `/v1/chat/gift`, giftParams, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        }
+      });
+
+      return res.data;
+    } catch (err: any) {
+      const error: AxiosError = err;
+      return error.response?.data as IChatGiftSendRes;
     }
   };
 }

@@ -151,7 +151,7 @@ export const HistorySwipeableDrawer = styled(SwipeableDrawer)(({ theme }) => ({
     maxWidth: 331,
     right: 0,
     left: 'auto',
-    background: ' #FF5959',
+    background: ' #611441',
     boxShadow: '0px 20px 30px 10px #D1228840',
     borderRadius: '12px 12px 0px 0px'
   },

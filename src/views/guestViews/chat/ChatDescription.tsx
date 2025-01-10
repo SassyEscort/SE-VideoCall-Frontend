@@ -28,10 +28,13 @@ import { useChatFeatureContext } from 'contexts/chatFeatureContext';
 import { FormattedMessage } from 'react-intl';
 import { SelectedImageBox } from 'views/admin/Call-logs/CallLogs.styled';
 import CloseIcon from '@mui/icons-material/Close';
+import { useAuthContext } from 'contexts/AuthContext';
 
 const ChatDescription = () => {
   const chatRef = useRef<HTMLDivElement | null>(null);
   const { modelDetails, messages, selectedModelDetails, handleMessageInputChange } = useChatFeatureContext();
+  const { user } = useAuthContext();
+  const userDetails = user && JSON.parse(user);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const favPhoto = modelDetails?.photos?.filter((x) => x.favourite).map((item) => item.link)[0];
 
@@ -104,8 +107,7 @@ const ChatDescription = () => {
                       <Box
                         ref={chatRef}
                         sx={{
-                          minHeight: '81vh',
-                          height: '100%',
+                          maxHeight: '81vh',
                           overflowY: 'auto'
                         }}
                       >
@@ -121,14 +123,12 @@ const ChatDescription = () => {
                                       </UINewTypography>
                                     </ClientChatTextBoxContainer>
                                   ) : (
-                                    <ClientChatTextBoxContainer>
-                                      <Box
-                                        component="img"
-                                        src={message.link}
-                                        sx={{ height: 100, width: 100, cursor: 'pointer' }}
-                                        onClick={() => handleSelectedImages(message.link)}
-                                      />
-                                    </ClientChatTextBoxContainer>
+                                    <Box
+                                      component="img"
+                                      src={message.link}
+                                      sx={{ height: 100, width: 100, cursor: 'pointer' }}
+                                      onClick={() => handleSelectedImages(message.link)}
+                                    />
                                   )}
 
                                   <UINewTypography
@@ -168,7 +168,14 @@ const ChatDescription = () => {
                       </Box>
                     </ModelDetailsInnerBoxContainer>
 
-                    <CustomComposerView onSendMessage={handleMessageInputChange} />
+                    <CustomComposerView
+                      onSendMessage={handleMessageInputChange}
+                      modelName={
+                        selectedModelDetails.receiver_id === userDetails.customer_user_name
+                          ? selectedModelDetails.sender_id
+                          : selectedModelDetails.receiver_id || modelDetails?.user_name
+                      }
+                    />
                   </ChatBoxInnerContainer>
                 </ChatBoxMainContainer>
               ) : (
@@ -233,14 +240,12 @@ const ChatDescription = () => {
                                       </UINewTypography>
                                     </ClientChatTextBoxContainer>
                                   ) : (
-                                    <ClientChatTextBoxContainer>
-                                      <Box
-                                        component="img"
-                                        src={message.link}
-                                        sx={{ height: 100, width: 100, cursor: 'pointer' }}
-                                        onClick={() => handleSelectedImages(message.link)}
-                                      />
-                                    </ClientChatTextBoxContainer>
+                                    <Box
+                                      component="img"
+                                      src={message.link}
+                                      sx={{ height: 100, width: 100, cursor: 'pointer' }}
+                                      onClick={() => handleSelectedImages(message.link)}
+                                    />
                                   )}
 
                                   <UINewTypography
@@ -280,7 +285,14 @@ const ChatDescription = () => {
                       </Box>
                     </ModelDetailsInnerBoxContainer>
 
-                    <CustomComposerView onSendMessage={handleMessageInputChange} />
+                    <CustomComposerView
+                      onSendMessage={handleMessageInputChange}
+                      modelName={
+                        selectedModelDetails.receiver_id === userDetails.customer_user_name
+                          ? selectedModelDetails.sender_id
+                          : selectedModelDetails.receiver_id || modelDetails?.user_name
+                      }
+                    />
                   </ChatBoxInnerContainer>
                 </ChatBoxMainContainer>
               )}

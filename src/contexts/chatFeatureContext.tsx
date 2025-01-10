@@ -95,7 +95,7 @@ const initialState: ChatFeatureContextProps = {
 const ChatFeatureContext = createContext(initialState);
 
 export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isCustomer, token, user } = useAuthContext();
+  const { isCustomer, token, user, handleSetBalance } = useAuthContext();
   const userDetails = user && JSON.parse(user);
   const { id: userId } = useParams();
 
@@ -151,6 +151,9 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
         }
       ]);
       socket.emit('chat-message', newMessage);
+      if (newMessage.message_type !== 'text') {
+        handleCredits();
+      }
       handleChatedModleHistoryList();
     }
   };
@@ -184,6 +187,16 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     }
   };
 
+  const handleCredits = async () => {
+    const getModel = await ModelDetailsService.getModelWithDraw(token.token);
+
+    if (getModel?.data?.credits === null) {
+      handleSetBalance(0);
+    } else {
+      handleSetBalance(getModel?.data?.credits);
+    }
+  };
+
   useEffect(() => {
     const modelDetails = async () => {
       const modelData = await ModelDetailsService.getModelDetails(token.token, isCustomer, { user_name: userId[0] });
@@ -198,39 +211,39 @@ export const ChatFeatureProvider: React.FC<{ children: React.ReactNode }> = ({ c
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCustomer, token.id, token.token, userId]);
 
-  useEffect(() => {
-    const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_BASE_URL!);
-    setSocket(newSocket);
+  // useEffect(() => {
+  //   const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_BASE_URL!);
+  //   setSocket(newSocket);
 
-    newSocket.on('connect', () => {
-      newSocket.emit('join', userDetails.customer_user_name);
-    });
+  //   newSocket.on('connect', () => {
+  //     newSocket.emit('join', userDetails.customer_user_name);
+  //   });
 
-    // // Emit message-seen events for all unseen messages in the current chats
-    const unseenMessages = messages.filter((msg) => msg.sender_id !== userId && !msg.seen);
+  //   // // Emit message-seen events for all unseen messages in the current chats
+  //   const unseenMessages = messages.filter((msg) => msg.sender_id !== userId && !msg.seen);
 
-    unseenMessages.forEach((msg) => {
-      newSocket.emit('mark-message-seen', { id: msg.id, sender_id: msg.sender_id, receiver_id: msg.receiver_id });
-    });
+  //   unseenMessages.forEach((msg) => {
+  //     newSocket.emit('mark-message-seen', { id: msg.id, sender_id: msg.sender_id, receiver_id: msg.receiver_id });
+  //   });
 
-    newSocket.on('message-seen', ({ id }) => {
-      setMessages((prev) => {
-        const updatedMessages = prev.map((message) => {
-          if (!message.seen) {
-            return {
-              ...message,
-              seen: true
-            };
-          }
-          return message;
-        });
-        return updatedMessages;
-      });
-    });
+  //   newSocket.on('message-seen', ({ id }) => {
+  //     setMessages((prev) => {
+  //       const updatedMessages = prev.map((message) => {
+  //         if (!message.seen) {
+  //           return {
+  //             ...message,
+  //             seen: true
+  //           };
+  //         }
+  //         return message;
+  //       });
+  //       return updatedMessages;
+  //     });
+  //   });
 
-    newSocket.on('disconnect', () => {});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messages, userId]);
+  //   newSocket.on('disconnect', () => {});
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [messages, userId]);
 
   useEffect(() => {
     const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_BASE_URL!);

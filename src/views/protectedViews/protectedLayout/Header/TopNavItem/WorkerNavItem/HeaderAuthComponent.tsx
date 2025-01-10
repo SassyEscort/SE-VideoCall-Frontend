@@ -44,7 +44,7 @@ export type NotificationFilters = {
 
 const HeaderAuthComponent = () => {
   const { maximizeChat, initializeChat } = useTawk();
-  const { session, token, isFreeCreditsClaimed, openCreditDrawer, handleCreditDrawerClose } = useAuthContext();
+  const { balance, session, token, isFreeCreditsClaimed, openCreditDrawer, handleCreditDrawerClose, handleSetBalance } = useAuthContext();
   const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
   const { selectedModelRef } = useDrawerChatFeatureContext();
 
@@ -57,7 +57,6 @@ const HeaderAuthComponent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
-  const [balance, setBalance] = useState(0);
   const [openNotification, setOpenNotification] = useState<boolean>(false);
   const [anchorElNotification, setAnchorElNotification] = useState<HTMLButtonElement | null>(null);
   const [filters, setFilters] = useState<NotificationFilters>({
@@ -172,9 +171,9 @@ const HeaderAuthComponent = () => {
       if (token.token) {
         const getModel = await ModelDetailsService.getModelWithDraw(token.token);
         if (getModel?.data?.credits === null) {
-          setBalance(0);
+          handleSetBalance(0);
         } else {
-          setBalance(getModel?.data?.credits);
+          handleSetBalance(getModel?.data?.credits);
         }
       }
     };
@@ -187,8 +186,9 @@ const HeaderAuthComponent = () => {
 
   useEffect(() => {
     if (isCallEnded && avaialbleCredits !== undefined) {
-      setBalance(avaialbleCredits);
+      handleSetBalance(avaialbleCredits);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [avaialbleCredits, isCallEnded, isFreeCreditsClaimed]);
 
   useEffect(() => {

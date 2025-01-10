@@ -2,6 +2,7 @@
 import { User } from 'app/(guest)/layout';
 import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import { ErrorMessage } from 'constants/common.constants';
+import { CHATROOM } from 'constants/languageConstants';
 import { ROLE } from 'constants/workerVerification';
 import { Session } from 'next-auth';
 import { useSession } from 'next-auth/react';
@@ -41,13 +42,16 @@ export type AuthContextProps = {
   openCreditDrawer: boolean;
   token: TokenIdType;
   adminUserPermissions: AdminUserPermissions[] | undefined;
+  fetchPageName: () => void;
+  handleSetBalance: (val: number) => void;
+  balance: number;
 };
 
 const AuthContext = createContext<AuthContextProps>({
   session: null,
   isCustomer: false,
   user: '',
-  isFreeCreditAvailable: 1,
+  isFreeCreditAvailable: 0,
   status: '',
   roomID: '',
   handleFreeCreditClaim: () => {},
@@ -62,13 +66,16 @@ const AuthContext = createContext<AuthContextProps>({
   token: { id: 0, token: '' },
   isAdmin: false,
   adminUserPermissions: [{} as AdminUserPermissions],
-  funnelHitId: ''
+  funnelHitId: '',
+  fetchPageName: () => {},
+  handleSetBalance: () => {},
+  balance: 0
 });
 
 const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   const { data, status } = useSession();
   const [session, setSession] = useState<Session | null>(null);
-  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(1);
+  const [isFreeCreditAvailable, setIsFreeCreditAvailable] = useState(0);
   const [isFreeCreditsClaimed, setIsFreeCreditsClaimed] = useState(false);
   const [isNameChange, setIsNameChange] = useState(false);
   const [addedCredits, setAddedCredits] = useState(0);
@@ -99,6 +106,7 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const handleOpen = () => setOpenCreditDrawer(true);
+  const handleSetBalance = (val: number) => setBalance(val);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -182,13 +190,12 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
       );
       const checkFluxLoaded = async () => {
         if (window?.flux && window.document && window?.flux?.get && window?.flux?.get('{hit}')) {
-          
           const hitID = window?.flux?.get('{hit}') as string;
           await FunnelfluxService.funnelfluxConversionEvent(
             {
               hit_id: hitID,
               revenue: Number(totalBalValue || 0),
-              transaction_id: transaction_id.toString(),
+              transaction_id: transaction_id.toString()
             },
             tokenDetails.token
           );
@@ -200,6 +207,19 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalBalValue, transaction_id]);
+
+  const fetchPageName = () => {
+    let pageName = 'homepage';
+    if (CHATROOM.some((a) => pathname.includes(a.url))) {
+      const page = CHATROOM?.find((a) => pathname?.includes(a?.url));
+      pageName = page?.title || 'homepage';
+    } else if (pathname?.includes('/models')) {
+      pageName = 'model-details';
+    } else {
+      pageName = pathname;
+    }
+    return pageName.startsWith('/') ? pageName.slice(1).replace(/\//g, '-') : pageName.replace(/\//g, '-');
+  };
 
   return (
     <AuthContext.Provider
@@ -218,11 +238,14 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
         openCreditDrawer,
         handleCreditDrawerClose,
         handleCreateNewRoomID,
+        handleSetBalance,
         token: tokenDetails,
         isAdmin,
         adminUserPermissions,
         roomID,
-        funnelHitId
+        funnelHitId,
+        fetchPageName,
+        balance
       }}
     >
       {children}
