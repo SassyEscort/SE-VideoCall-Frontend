@@ -9,7 +9,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import { ErrorBox, ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
-import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
+import { UIStyledInputTextNewABTest } from 'components/UIComponents/UIStyledInputText';
 import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import * as yup from 'yup';
 import { EMAIL_REGEX, NAME_REGEX } from 'constants/regexConstants';
@@ -231,7 +231,7 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                                 <Box sx={{ display: 'flex', gap: 1.5 }}>
                                   <ModelUITextConatiner sx={{ gap: 0.5, width: '100%' }}>
                                     <UITypographyText>{/* <FormattedMessage id="Name" /> */}</UITypographyText>
-                                    <UIStyledInputText
+                                    <UIStyledInputTextNewABTest
                                       name="name"
                                       value={values.name}
                                       placeholder="Name"
@@ -243,7 +243,7 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                                   </ModelUITextConatiner>{' '}
                                   <ModelUITextConatiner sx={{ gap: 0.5, width: '100%' }}>
                                     <UITypographyText>{/* <FormattedMessage id="Email" /> */}</UITypographyText>
-                                    <UIStyledInputText
+                                    <UIStyledInputTextNewABTest
                                       fullWidth
                                       id="email"
                                       name="email"
@@ -275,7 +275,7 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                                 <Box sx={{ display: 'flex', gap: 1.5 }}>
                                   <ModelUITextConatiner sx={{ gap: 0.5, width: '100%' }}>
                                     <UITypographyText>{/* <FormattedMessage id="Password" /> */}</UITypographyText>
-                                    <UIStyledInputText
+                                    <UIStyledInputTextNewABTest
                                       fullWidth
                                       type={showPassword ? 'text' : 'password'}
                                       id="password"
@@ -310,7 +310,7 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                                   </ModelUITextConatiner>{' '}
                                   <ModelUITextConatiner sx={{ gap: 0.5, width: '100%' }}>
                                     <UITypographyText>{/* <FormattedMessage id="ConfirmPassword" /> */}</UITypographyText>
-                                    <UIStyledInputText
+                                    <UIStyledInputTextNewABTest
                                       fullWidth
                                       type={showConfirmPassword ? 'text' : 'password'}
                                       id="confirmPassword"
