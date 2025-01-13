@@ -5,7 +5,7 @@ import HomeMainContainer from 'views/guestViews/guestLayout/homeContainer';
 import { ModelHomeListing } from 'services/modelListing/modelListing.services';
 import { ModelFavRes } from 'services/customerFavorite/customerFavorite.service';
 import { TokenIdType } from 'views/protectedModelViews/verification';
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { UITheme2Pagination } from 'components/UIComponents/PaginationV2/Pagination.styled';
 import { SearchFiltersTypes } from 'views/guestViews/searchPage/searchFilters';
 import { PaginationMainBox } from 'views/protectedDashboardViews/payoutRequest/PayoutRequest.styled';
@@ -24,50 +24,12 @@ import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import CreditSideDrawer from 'views/protectedViews/CreditSideDrawer';
 import { ModelDetailsService } from 'services/modelDetails/modelDetails.services';
 import { useCallFeatureContext } from 'contexts/CallFeatureContext';
-import { Badge, Divider, Typography, useMediaQuery } from '@mui/material';
-import {
-  ChatCountPopBox,
-  ChatDraweClientChatMainBoxContainer,
-  ChatDraweClientChatTextBoxContainer,
-  ChatDrawerBoxHeaderContainer,
-  ChatDrawerModelChatMainBoxContainer,
-  ChatDrawerModelChatTextBoxContainer,
-  ChatDrawerModelNameContainer,
-  ChatDrawerProfileImageContainer,
-  ChatDrawerTextMainBoxContainer,
-  BottomChatHeaderDrawer,
-  ChatMessageSwipeableDrawer,
-  DrwarImageContainer,
-  HistorySwipeableDrawer,
-  SmallMessgePopBox,
-  VideoCallIcon,
-  BottomChatHeaderInnerBox,
-  HistoryBottomStikeyHeaderDrawer,
-  HistoryBottomStikeyHeaderInnerBox,
-  SmallRoundHistoryBox
-} from './ChatDrawerCard.style';
-import moment from 'moment';
-import ChatBarView from './ChatBarView';
 import { useAuthContext } from 'contexts/AuthContext';
 import React from 'react';
-import {
-  ModelDetailsInnerBoxContainer,
-  ModelInformationMainBoxContainer,
-  ModelInformationInnerBoxContainer,
-  ModelNameBoxContainer,
-  ModelNameText,
-  OnlineFirstBoxContainer,
-  OnlineSecBoxContainer,
-  ModelDescriptionText,
-  PendingMainBoxContainer,
-  PendingInnerBoxContainer
-} from 'views/guestViews/chat/Chat.styled';
 import { IHistoryOfChats } from 'views/protectedModelViews/verification/verificationTypes';
-import theme from 'themes/theme';
-import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import { useDrawerChatFeatureContext } from 'contexts/DrwarChatContext';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import ChatDrawer from './ChatDrawer';
 
 const GuestForgetPasswordLink = dynamic(() => import('views/auth/guestForgetPasswordLink'));
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
@@ -100,11 +62,10 @@ const HomeImageCard = ({
   isFreeCreditAvailable: number;
   isLoading: boolean;
 }) => {
-  const { messages, historyOfModels, handleSendChatMessage, handleSelectModel } = useDrawerChatFeatureContext();
-  const { user, isCustomer } = useAuthContext();
-  const router = useRouter();
+  const { handleSelectModel } = useDrawerChatFeatureContext();
+  const { user } = useAuthContext();
   const userDetails = user && JSON.parse(user);
-  const chatRef = useRef<HTMLDivElement | null>(null);
+
   const { isCallEnded, avaialbleCredits } = useCallFeatureContext();
 
   const [open, setIsOpen] = useState(false);
@@ -120,9 +81,6 @@ const HomeImageCard = ({
   const [likedModels, setLikedModels] = useState<number[]>([]);
 
   const [selectedModel, setSelectedModel] = useState<SelectedModelChatDetails>();
-
-  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleOpenCreditDrawer = () => setCreditModelOpen(true);
   const handleCloseCreditDrawer = () => setCreditModelOpen(false);
@@ -239,12 +197,14 @@ const HomeImageCard = ({
     setOpenDrawer(false);
   };
 
-  const handleMessageInputChange = (input: string, type: string) => {
-    handleSendChatMessage(input, type);
-  };
-
   const handleChatBoxClick = () => {
     setOpenDrawer(true);
+  };
+
+  const handleCloseChatBoxDrawer = () => {
+    setOpenDrawer(false);
+    setSelectedModel(undefined);
+    handleSelectModel(undefined);
   };
 
   useEffect(() => {
@@ -256,10 +216,6 @@ const HomeImageCard = ({
   useEffect(() => {
     getCustomerCredit();
   }, [getCustomerCredit]);
-
-  useEffect(() => {
-    if (chatRef?.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
-  }, [messages]);
 
   return (
     <HomeMainContainer>
@@ -425,284 +381,16 @@ const HomeImageCard = ({
 
       <CreditSideDrawer open={creditModelOpen} handleClose={handleCloseCreditDrawer} balance={balance} />
 
-      <Box>
-        {opneHistroyDrwer && isCustomer && (
-          <HistorySwipeableDrawer
-            anchor="bottom"
-            open={opneHistroyDrwer}
-            swipeAreaWidth={56}
-            onOpen={historytoggleDrawer}
-            onClose={historytoggleDrawer}
-          >
-            <ModelDetailsInnerBoxContainer id="mainHistoryBox" sx={{ paddingInline: 1 }}>
-              <Box id="innerHistoryBox" />
-              {historyOfModels?.length ? (
-                historyOfModels.map((history, index) => (
-                  <React.Fragment key={index}>
-                    <ModelInformationMainBoxContainer
-                      onClick={() => {
-                        // onSelectModel(true);
-                        handleSelectedModelDetails(history);
-                      }}
-                    >
-                      <ModelInformationInnerBoxContainer>
-                        <DrwarImageContainer
-                          sx={{
-                            backgroundImage: `url(${history.profile_pic})`,
-                            height: 50,
-                            width: 50
-                          }}
-                        />
-                        <ModelNameBoxContainer>
-                          <ModelNameText color="text.secondary">
-                            {history?.name}
-                            {history?.is_online === 1 && (
-                              <OnlineFirstBoxContainer>
-                                <OnlineSecBoxContainer />
-                              </OnlineFirstBoxContainer>
-                            )}
-                          </ModelNameText>
-
-                          {history.message_type === 'text' ? (
-                            <ModelDescriptionText color="text.primary">{history.message_content}</ModelDescriptionText>
-                          ) : (
-                            <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center' }}>
-                              <ImageOutlinedIcon sx={{ color: 'text.primary' }} />
-                              <ModelDescriptionText color="text.primary">Image</ModelDescriptionText>
-                            </Box>
-                          )}
-                        </ModelNameBoxContainer>
-                      </ModelInformationInnerBoxContainer>
-
-                      <PendingMainBoxContainer>
-                        {isSmUp && (
-                          <UINewTypography variant="bodySmall" color="text.primary" sx={{ whiteSpace: 'nowrap' }}>
-                            {history?.time_stamp ? moment(history.time_stamp).format('LT') : moment().format('LT')}
-                          </UINewTypography>
-                        )}
-                        {history?.unread_count > 0 && (
-                          <PendingInnerBoxContainer>
-                            <UINewTypography variant="SubtitleSmallMedium" color="text.secondary">
-                              {history?.unread_count}
-                            </UINewTypography>
-                          </PendingInnerBoxContainer>
-                        )}
-                      </PendingMainBoxContainer>
-                    </ModelInformationMainBoxContainer>
-
-                    <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29' }} />
-                  </React.Fragment>
-                ))
-              ) : (
-                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                  <FormattedMessage id="NoModelFound" />
-                </Box>
-              )}
-            </ModelDetailsInnerBoxContainer>
-          </HistorySwipeableDrawer>
-        )}
-        {openDrawer && isCustomer && (
-          <ChatMessageSwipeableDrawer
-            historyOfModels={historyOfModels}
-            anchor="bottom"
-            open={openDrawer}
-            swipeAreaWidth={56}
-            onOpen={toggleDrawer}
-            onClose={toggleDrawer}
-          >
-            <Box>
-              <ChatDrawerBoxHeaderContainer>
-                <Box sx={{ display: 'flex', gap: 2 }}>
-                  <ChatDrawerModelNameContainer>
-                    <ChatDrawerProfileImageContainer
-                      sx={{
-                        backgroundImage: `url(${selectedModel?.photoUrl})`
-                      }}
-                    />
-                    <UINewTypography variant="bodySemiBold" color="text.secondary">
-                      {selectedModel?.name}
-                    </UINewTypography>
-                  </ChatDrawerModelNameContainer>
-                </Box>
-                <Box sx={{ display: 'flex', gap: 2 }}>
-                  <VideoCallIcon onClick={() => router.push(`/models/${selectedModel?.user_Name}`)}>
-                    <Box component="img" src="/images/icons/videoCallIcon.svg" sx={{ width: 24, height: 24 }} />
-                  </VideoCallIcon>
-                  <Box component="img" src="/images/icons/chat-minimize-icon.svg" />
-                  <Box
-                    component="img"
-                    src="/images/icons/chat-close-icon.svg"
-                    onClick={() => setOpenDrawer(false)}
-                    sx={{ cursor: 'pointer' }}
-                  />
-                </Box>
-              </ChatDrawerBoxHeaderContainer>
-              <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29' }} />
-            </Box>
-
-            <Box sx={{ minHeight: 'calc(100% - 137px)', overflowY: 'auto', scrollbarWidth: 'none', p: 2 }} ref={chatRef}>
-              <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-                {Array.isArray(messages) &&
-                  messages?.map((message, index) => (
-                    <ChatDrawerTextMainBoxContainer key={index}>
-                      {message.sender_type === 'customers' ? (
-                        <ChatDraweClientChatMainBoxContainer>
-                          {message.message_type === 'text' ? (
-                            <ChatDraweClientChatTextBoxContainer>
-                              <UINewTypography variant="body1" color="text.secondary">
-                                {message.sender_type === 'customers' ? message?.message_content : ''}
-                              </UINewTypography>
-                            </ChatDraweClientChatTextBoxContainer>
-                          ) : (
-                            <Box
-                              component="img"
-                              src={message.link}
-                              sx={{ height: 100, width: 100, cursor: 'pointer' }}
-                              // onClick={() => handleSelectedImages(message.link)}
-                            />
-                          )}
-                          <UINewTypography
-                            variant="SubtitleSmallRegular"
-                            color="secondary.700"
-                            sx={{ display: 'flex', justifyContent: 'end' }}
-                          >
-                            {message?.time_stamp ? moment(message.time_stamp).format('LT') : moment().format('LT')}
-                          </UINewTypography>
-                        </ChatDraweClientChatMainBoxContainer>
-                      ) : (
-                        <ChatDrawerModelChatMainBoxContainer>
-                          {message.message_type === 'text' ? (
-                            <ChatDrawerModelChatTextBoxContainer sx={{ wordBreak: 'break-all' }}>
-                              <UINewTypography variant="body1" color="text.secondary">
-                                {message.sender_type !== 'customers' ? message?.message_content : ''}
-                              </UINewTypography>
-                            </ChatDrawerModelChatTextBoxContainer>
-                          ) : (
-                            <ChatDrawerModelChatTextBoxContainer>
-                              <Box
-                                component="img"
-                                src={message.link}
-                                sx={{ height: 100, width: 100, cursor: 'pointer' }}
-                                // onClick={() => handleSelectedImages(message.link)}
-                              />
-                            </ChatDrawerModelChatTextBoxContainer>
-                          )}
-
-                          <UINewTypography variant="SubtitleSmallRegular" color="secondary.700">
-                            {message?.time_stamp ? moment(message.time_stamp).format('LT') : moment().format('LT')}
-                          </UINewTypography>
-                        </ChatDrawerModelChatMainBoxContainer>
-                      )}
-                    </ChatDrawerTextMainBoxContainer>
-                  ))}
-              </Box>
-            </Box>
-            <ChatBarView onSendMessage={handleMessageInputChange} modelName={selectedModel?.user_Name} />
-          </ChatMessageSwipeableDrawer>
-        )}
-        {!openDrawer && selectedModel && isSmUp && isCustomer && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Box sx={{ position: 'relative', cursor: 'pointer' }}>
-              <BottomChatHeaderDrawer>
-                <BottomChatHeaderInnerBox>
-                  <Box sx={{ display: 'flex', gap: 2 }}>
-                    <ChatDrawerModelNameContainer>
-                      <ChatDrawerProfileImageContainer
-                        sx={{
-                          backgroundImage: `url(${selectedModel?.photoUrl})`
-                        }}
-                      />
-                      <UINewTypography variant="bodySemiBold" color="text.secondary">
-                        {selectedModel?.name}
-                      </UINewTypography>
-                    </ChatDrawerModelNameContainer>
-                  </Box>
-                  <Box sx={{ display: 'flex', gap: 2 }}>
-                    <Box
-                      component="img"
-                      src="/images/icons/chat-minimize-icon.svg"
-                      onClick={handleChatBoxClick}
-                      sx={{ cursor: 'pointer' }}
-                    />
-                    <Box
-                      component="img"
-                      src="/images/icons/chat-close-icon.svg"
-                      onClick={() => {
-                        setOpenDrawer(false);
-                        setSelectedModel(undefined);
-                        handleSelectModel(undefined);
-                      }}
-                      sx={{ cursor: 'pointer' }}
-                    />
-                  </Box>
-                </BottomChatHeaderInnerBox>
-              </BottomChatHeaderDrawer>
-            </Box>
-          </Box>
-        )}
-        {!opneHistroyDrwer && isSmUp && isCustomer && historyOfModels && (
-          <Box sx={{ position: 'relative', cursor: 'pointer' }} onClick={historytoggleDrawer}>
-            <HistoryBottomStikeyHeaderDrawer>
-              <HistoryBottomStikeyHeaderInnerBox>
-                <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                  <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center' }}>
-                    {historyOfModels?.filter((model) => model.unread_count > 0).length ? (
-                      <UINewTypography variant="bodySemiBold" color="text.secondary">
-                        {`+${historyOfModels?.filter((model) => model.unread_count > 0).length} new messages`}
-                      </UINewTypography>
-                    ) : (
-                      <></>
-                    )}
-                    <UINewTypography variant="bodyLight" color="text.secondary">
-                      See all
-                    </UINewTypography>
-                  </Box>
-                  <Box component="img" src="/images/icons/chat-up.svg" />
-                </Box>
-              </HistoryBottomStikeyHeaderInnerBox>
-            </HistoryBottomStikeyHeaderDrawer>
-          </Box>
-        )}
-      </Box>
-      {isSmDown && !opneHistroyDrwer && !openDrawer && isCustomer && (
-        <>
-          <ChatCountPopBox onClick={historytoggleDrawer}>
-            <SmallRoundHistoryBox>
-              {historyOfModels?.filter((model: IHistoryOfChats) => model.unread_count > 0).length ? (
-                <Typography variant="bodySemiBold" color="text.secondary">
-                  +{historyOfModels?.filter((model) => model.unread_count > 0).length}
-                </Typography>
-              ) : (
-                <></>
-              )}
-              <Typography variant="bodySemiBold" color="text.secondary">
-                See all
-              </Typography>
-            </SmallRoundHistoryBox>
-          </ChatCountPopBox>
-        </>
-      )}
-      {isSmDown && !openDrawer && selectedModel && !opneHistroyDrwer && isCustomer && (
-        <SmallMessgePopBox sx={{ backgroundImage: `url(${selectedModel?.photoUrl})` }} onClick={handleChatBoxClick}>
-          <Badge
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right'
-            }}
-            sx={{
-              '& .MuiBadge-badge': { backgroundColor: '#FF5959', color: '#fff', fontSize: '12px', width: 24, height: 24, left: 40 }
-            }}
-            badgeContent={
-              historyOfModels?.filter(
-                (model: IHistoryOfChats) =>
-                  model.unread_count > 0 &&
-                  model.sender_id ===
-                    (model.sender_id === selectedModel?.user_Name ? selectedModel?.user_Name : userDetails.customer_user_name)
-              ).length
-            }
-          />
-        </SmallMessgePopBox>
-      )}
+      <ChatDrawer
+        opneHistroyDrwer={opneHistroyDrwer}
+        openDrawer={openDrawer}
+        selectedModel={selectedModel}
+        toggleDrawer={toggleDrawer}
+        historytoggleDrawer={historytoggleDrawer}
+        handleSelectedModelDetails={handleSelectedModelDetails}
+        handleChatBoxClick={handleChatBoxClick}
+        handleCloseChatBoxDrawer={handleCloseChatBoxDrawer}
+      />
     </HomeMainContainer>
   );
 };

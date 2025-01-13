@@ -65,6 +65,8 @@ const ChatBarView = ({ onSendMessage, modelName }: CustomComposerViewProps) => {
     const uploadFileRes = await ChatService.chatGiftSendServices(params, token.token);
     if (uploadFileRes.code === 200) {
       onSendMessage(file, 'image');
+    } else if (uploadFileRes.code === 400) {
+      toast.error(uploadFileRes.message);
     } else {
       toast.error(ErrorMessage);
     }
