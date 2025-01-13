@@ -22,12 +22,12 @@ const TablePager = ({ page, rowsPerPage, handleChangePage, handleChangePageSize,
 
   const handlepagerGAEvent = (pageNumber: number) => {
     const group = getCookie('ab-group');
-    let versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
+    let versionDetails = (group && JSON.parse(group.toString())) || {};
     let data: any = {
       userLoginStatus: providerData?.token ? 'yes' : 'no',
       pageNumber: pageNumber || 1
     };
-    if (versionDetails?.experiment) data['version'] = `${versionDetails?.experiment}_${versionDetails?.variation}`;
+    if (versionDetails?.experiment) data['version'] = `${versionDetails?.experiment?.name}_${versionDetails?.variation?.name}`;
     if (providerData?.customer_id) data['userid'] = String(providerData?.customer_id);
 
     gaEventTrigger('pagination-click', {

@@ -171,7 +171,7 @@ const HomeImageCard = ({
 
     if (Object.keys(newFilter).length) {
       const group = getCookie('ab-group');
-      let versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
+      let versionDetails = (group && JSON.parse(group.toString())) || {};
 
       let pageName = 'homepage';
       if (CHATROOM.some((a) => pathname.includes(a.url))) {
@@ -184,7 +184,7 @@ const HomeImageCard = ({
         userLoginStatus: providerData?.token ? 'yes' : 'no',
         pageName: pageName
       };
-      if (versionDetails?.experiment) data['version'] = `${versionDetails?.experiment}_${versionDetails?.variation}`;
+      if (versionDetails?.experiment) data['version'] = `${versionDetails?.experiment?.name}_${versionDetails?.variation?.name}`;
       if (providerData?.customer_id) data['userid'] = String(providerData?.customer_id);
       if (newFilter.country) data['country'] = newFilter.country;
       if (newFilter.region) data['region'] = newFilter.region;
@@ -218,14 +218,14 @@ const HomeImageCard = ({
 
   const handleModelRedirect = (user_name: string, is_boost: number) => {
     const group = getCookie('ab-group');
-    let versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
+    let versionDetails = (group && JSON.parse(group.toString())) || {};
     let data: any = {
       userLoginStatus: providerData?.token ? 'yes' : 'no',
       pageName: fetchPageName(),
       modelName: user_name,
       boostedModel: Boolean(is_boost) ? 'yes' : 'no'
     };
-    if (versionDetails?.experiment) data['version'] = `${versionDetails?.experiment}_${versionDetails?.variation}`;
+    if (versionDetails?.experiment) data['version'] = `${versionDetails?.experiment?.name}_${versionDetails?.variation?.name}`;
     if (providerData?.customer_id) data['userid'] = String(providerData?.customer_id);
 
     gaEventTrigger('model_clicked', {

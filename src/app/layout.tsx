@@ -47,7 +47,6 @@ export default function RootLayout({
           rel="preload"
           as="image"
           href="/images/home/home-banner-model1.webp"
-          imageSrcSet="/_next/image?url=%2Fimages%2Fhome%2Fhome-banner-model1.webp&w=300&q=75 300w, /_next/image?url=%2Fimages%2Fhome%2Fhome-banner-model1.webp&w=347&q=75 347w, /_next/image?url=%2Fimages%2Fhome%2Fhome-banner-model1.webp&w=462&q=75 462w"
           imageSizes="(max-width: 600px) 300px, (max-width: 768px) 347px, 462px"
         />
 
@@ -55,8 +54,7 @@ export default function RootLayout({
           rel="preload"
           as="image"
           href="/images/home/home-banner-model_blur.webp"
-          imageSrcSet="/_next/image?url=%2Fimages%2Fhome%2Fhome-banner-model_blur.webp&w=300&q=75 300w,/_next/image?url=%2Fimages%2Fhome%2Fhome-banner-model_blur.webp&w=347&q=75 347w,/_next/image?url=%2Fimages%2Fhome%2Fhome-banner-model_blur.webp&w=462&q=75 462w"
-          imageSizes="(max-width: 600px) 300px, (max-width: 1024px) 347px, 462px"
+         imageSizes="(max-width: 600px) 300px, (max-width: 1024px) 347px, 462px"
         />
         <link rel="preload" as="image" href="/images/workercards/workercard-blur.avif" />
 

@@ -146,14 +146,14 @@ const WorkerCard = ({
 
   const handleGAEventTrigger = () => {
     const group = getCookie('ab-group');
-    const versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
+    let versionDetails = (group && JSON.parse(group.toString())) || {};
     let data: any = {
       modelName: modelDetails.user_name,
       modelCredits: modelDetails.price_per_minute,
       userLoginStatus: customerData?.token ? 'yes' : 'no'
     };
     if (customerData?.customer_id) data['userid'] = customerData?.customer_id;
-    if (versionDetails?.experiment) data['version'] = `${versionDetails?.experiment}_${versionDetails?.variation}`;
+    if (versionDetails?.experiment) data['version'] = `${versionDetails?.experiment?.name}_${versionDetails?.variation?.name}`;
     gaEventTrigger('favorite-icon-click', {
       action: 'favorite-click',
       category: 'Button',

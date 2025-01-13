@@ -2,15 +2,25 @@
 
 import { Box } from '@mui/material';
 import UINewTypography from 'components/UIComponents/UINewTypography';
+import { getCookie } from 'cookies-next';
 import { usePathname } from 'next/navigation';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 const topBarRestrictPath = ['/admin', '/webView', '/howItWork.html'];
 
 const ZegoTopBar = () => {
   const pathName = usePathname();
+  const [isShowTopBar, setIsShowTopBar] = useState(false);
+  const group = getCookie('ab-group');
+
+  useEffect(() => {
+    let versionDetails = (group && JSON.parse(group.toString())) || {};
+    const details = !topBarRestrictPath.some((path) => pathName?.includes(path)) && versionDetails?.variation?.name !== 'B';
+    setIsShowTopBar(details);
+  }, [pathName, getCookie('ab-group')]);
+
   return (
     <>
-      {!topBarRestrictPath.some((path) => pathName?.includes(path)) && (
+      {isShowTopBar && (
         <Box
           sx={{
             background: 'linear-gradient(90deg, #FECD3D, #FFF1C6, #FF68C0)',

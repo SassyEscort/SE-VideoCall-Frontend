@@ -14,7 +14,10 @@ export async function middleware(request: NextRequest) {
   if (!session?.accessToken) {
     if (!groupCookie) {
       const experimentData = await ABTestServices.fetchGuestPageExperiment();
-      group = { experiment: experimentData?.[0]?.experiment_id || 1, variation: experimentData?.[0]?.variation_id || 1 };
+      group = {
+        experiment: { id: experimentData?.[0]?.experiment_id || 1, name: experimentData?.[0]?.experiment_name || '' },
+        variation: { id: experimentData?.[0]?.variation_id || 1, name: experimentData?.[0]?.variation_name || '' }
+      };
       response.cookies.set('ab-group', JSON.stringify(group), {
         maxAge: 60 * 60 * 24 * 2,
         secure: true,
@@ -24,7 +27,10 @@ export async function middleware(request: NextRequest) {
   } else {
     pageName = getPageName(pathname, session?.role || '', session?.accessToken || '');
     const experimentData = await ABTestServices.fetchPageExperiment(session?.accessToken, pageName);
-    group = { experiment: experimentData?.[0]?.experiment_id || 1, variation: experimentData?.[0]?.variation_id || 1 };
+    group = {
+      experiment: { id: experimentData?.[0]?.experiment_id || 1, name: experimentData?.[0]?.experiment_name || '' },
+      variation: { id: experimentData?.[0]?.variation_id || 1, name: experimentData?.[0]?.variation_name || '' }
+    };
 
     response.cookies.set('ab-group', JSON.stringify(group), {
       maxAge: 60 * 60 * 24 * 2,

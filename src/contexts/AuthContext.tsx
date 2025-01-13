@@ -229,7 +229,7 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
 
   const handleGAEventsTrigger = (eventName: string, position?: string, is_open?: boolean, language?: string) => {
     const group = getCookie('ab-group');
-    let versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
+    let versionDetails = (group && JSON.parse(group.toString())) || {};
 
     let pageName = 'homepage';
     if (CHATROOM.some((a) => pathname.includes(a.url))) {
@@ -246,7 +246,7 @@ const AuthFeaturProvider = ({ children }: { children: ReactNode }) => {
       browserUsed: (typeof navigator !== 'undefined' && navigator?.userAgent) || ''
     };
     if (position) customerInfo['position'] = String(position);
-    if (versionDetails?.experiment) customerInfo['version'] = `${versionDetails?.experiment}_${versionDetails?.variation}`;
+    if (versionDetails?.experiment) customerInfo['version'] = `${versionDetails?.experiment?.name}_${versionDetails?.variation?.name}`;
     if (providerData?.customer_id) customerInfo['userid'] = String(providerData?.customer_id);
     if (isSmDown) customerInfo['deviceype'] = 'mobile';
     if (eventName === 'search-bar-click') customerInfo['search-bar-closed'] = is_open ? 'yes' : 'no';

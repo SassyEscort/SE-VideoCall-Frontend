@@ -1,5 +1,6 @@
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
 import { Metadata } from 'next';
+// import { cookies } from 'next/headers';
 import { ModelListingRes, ModelListingService } from 'services/modelListing/modelListing.services';
 import { KeyPairAndUndefined } from 'types/KeyPair';
 import { getUserDataServerSide } from 'utils/getSessionData';
@@ -14,6 +15,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 const Home = async ({ searchParams }: { searchParams: KeyPairAndUndefined }) => {
   const session = await getUserDataServerSide();
+  // const cookieStore = await cookies();
+  // const group = cookieStore.get('ab-group')?.value || '{}';
+  // let versionDetails = (group && JSON.parse(group)) || {};
+
   const initVal = {
     fromAge: searchParams?.fromAge || '',
     toAge: searchParams?.toAge || '',

@@ -76,13 +76,13 @@ const MainFooter = ({
 
   const handleTriggerGAEvent = (linkName: string) => {
     const group = getCookie('ab-group');
-    let versionDetails = (group && JSON.parse(JSON.stringify(group))?.variation) || {};
+    let versionDetails = (group && JSON.parse(group.toString())) || {};
     let data: any = {
       userLoginStatus: providerData?.token ? 'yes' : 'no',
       linkName: linkName
     };
     if (providerData?.customer_id) data['userid'] = providerData?.customer_id;
-    if (versionDetails?.experiment) data['version'] = `${versionDetails?.experiment}_${versionDetails?.variation}`;
+    if (versionDetails?.experiment) data['version'] = `${versionDetails?.experiment.name}_${versionDetails?.variation.name}`;
 
     gaEventTrigger('footer-link-click', {
       action: 'footer-link-click',

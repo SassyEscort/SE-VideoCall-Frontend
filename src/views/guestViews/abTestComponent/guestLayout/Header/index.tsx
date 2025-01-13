@@ -331,7 +331,6 @@ const GuestHeaderComponent = () => {
   return (
     <>
       <AppBar
-        className="TESTestest"
         component="header"
         position="fixed"
         sx={{

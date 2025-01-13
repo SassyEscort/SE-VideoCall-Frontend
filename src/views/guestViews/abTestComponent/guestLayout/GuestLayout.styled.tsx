@@ -80,7 +80,6 @@ export const AppBarBox = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between',
   paddingBlock: '10px',
   paddingInline: theme.spacing(4),
-  border: '1px solid',
   [theme.breakpoints.down('sm')]: {
     paddingInline: '12px'
   }
@@ -126,4 +125,10 @@ export const BalanceBoxWrapper = styled(Box)(({ theme }) => ({
   paddingInline: theme.spacing(0.5),
   gap: theme.spacing(0.5),
   background: '#FFFFFF0D'
+}));
+
+export const GuestABLoginButton = styled(Button)(({ theme }) => ({
+  cursor: 'pointer',
+  padding: '12px 24px',
+  borderRadius: '100px'
 }));
