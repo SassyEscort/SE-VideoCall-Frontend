@@ -7,8 +7,8 @@ import { getUserDataServerSide } from 'utils/getSessionData';
 import PreSignUpWeb from 'views/guestViews/abTestComponent/preSignUpWeb';
 import { KeyPairAndUndefined } from 'types/KeyPair';
 import { HOME_PAGE_SIZE } from 'constants/common.constants';
-import GuestHeaderComponent from 'views/guestViews/abTestComponent/guestLayout/Header';
-import ModelABFooter from 'views/guestViews/abTestComponent/guestLayout/Footer';
+// import GuestHeaderComponent from 'views/guestViews/abTestComponent/guestLayout/Header';
+// import ModelABFooter from 'views/guestViews/abTestComponent/guestLayout/Footer';
 
 const abTest = async ({ searchParams }: { searchParams: KeyPairAndUndefined }) => {
   // const group = cookies().get('ab-group')?.value as string;
@@ -32,7 +32,7 @@ const abTest = async ({ searchParams }: { searchParams: KeyPairAndUndefined }) =
   };
 
   const modelData = await ModelListingService.getModelListing(initVal, session.token);
-  const carousalImages = await ABTestServices.fetchcarouselModelImages();  
+  const carousalImages = await ABTestServices.fetchcarouselModelImages();
 
   return (
     <Box width={'100%'}>
