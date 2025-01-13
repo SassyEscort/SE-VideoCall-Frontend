@@ -30,6 +30,7 @@ import { getCookie } from 'cookies-next';
 const MainFooter = () => {
   const { handleGAEventsTrigger, user } = useAuthContext();
   const providerData = JSON.parse(user || '{}');
+  const currentYear = new Date().getFullYear();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
   // const url = new URL(window.location.href);
   // const email = url.searchParams.get('email');
@@ -255,7 +256,7 @@ const MainFooter = () => {
         </Box>
         <Box sx={{ textAlign: 'center', mt: isSmDown ? '32px' : '32px', pb: '20px' }}>
           <UINewTypography variant="SubtitleSmallRegular">
-            <FormattedMessage id="2024SassyEscort" />
+            <FormattedMessage id="2024SassyEscort" values={{ year: currentYear }} />
           </UINewTypography>
         </Box>
       </Box>

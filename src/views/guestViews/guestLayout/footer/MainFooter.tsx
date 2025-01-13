@@ -45,7 +45,7 @@ const MainFooter = ({
 }) => {
   const { isCustomer, isModel, handleGAEventsTrigger, user, fetchPageName } = useAuthContext();
   const providerData = JSON.parse(user || '{}');
-
+  const currentYear = new Date().getFullYear();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [open, setIsOpen] = useState(false);
@@ -267,7 +267,7 @@ const MainFooter = ({
           </Box>
           <Box sx={{ textAlign: 'center', mt: { xs: '40px', md: '70px' } }}>
             <UINewTypography variant="SubtitleSmallRegular">
-              <FormattedMessage id="2024SassyEscort" />
+              <FormattedMessage id="2024SassyEscort" values={{ year: currentYear }} />
             </UINewTypography>
           </Box>
         </Box>
