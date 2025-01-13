@@ -29,9 +29,12 @@ import { FormattedMessage } from 'react-intl';
 import { SelectedImageBox } from 'views/admin/Call-logs/CallLogs.styled';
 import CloseIcon from '@mui/icons-material/Close';
 import { useAuthContext } from 'contexts/AuthContext';
+import { useRouter } from 'next/navigation';
+import { VideoCallIcon } from '../homePage/homeImageCards/ChatDrawerCard.style';
 
 const ChatDescription = () => {
   const chatRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
   const { modelDetails, messages, selectedModelDetails, handleMessageInputChange } = useChatFeatureContext();
   const { user } = useAuthContext();
   const userDetails = user && JSON.parse(user);
@@ -100,7 +103,19 @@ const ChatDescription = () => {
                               </OnlineFirstBoxContainer>
                             )}
                           </ChatBoxHeaderInnerContainer>
-                          {/* <Box component="img" src="/images/icons/video-call-icon.svg" width={40} height={40} sx={{ cursor: 'pointer' }} /> */}
+                          <VideoCallIcon
+                            onClick={() =>
+                              router.push(
+                                `/models/${
+                                  selectedModelDetails.receiver_id === userDetails.customer_user_name
+                                    ? selectedModelDetails.sender_id
+                                    : selectedModelDetails.receiver_id || modelDetails?.user_name
+                                }`
+                              )
+                            }
+                          >
+                            <Box component="img" src="/images/icons/videoCallIcon.svg" sx={{ width: 24, height: 24 }} />
+                          </VideoCallIcon>
                         </ChatBoxHeaderContainer>
                         <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29' }} />
                       </Box>
@@ -217,7 +232,19 @@ const ChatDescription = () => {
                               </OnlineFirstBoxContainer>
                             )}
                           </ChatBoxHeaderInnerContainer>
-                          {/* <Box component="img" src="/images/icons/video-call-icon.svg" width={40} height={40} sx={{ cursor: 'pointer' }} /> */}
+                          <VideoCallIcon
+                            onClick={() =>
+                              router.push(
+                                `/models/${
+                                  selectedModelDetails.receiver_id === userDetails.customer_user_name
+                                    ? selectedModelDetails.sender_id
+                                    : selectedModelDetails.receiver_id || modelDetails?.user_name
+                                }`
+                              )
+                            }
+                          >
+                            <Box component="img" src="/images/icons/videoCallIcon.svg" sx={{ width: 24, height: 24 }} />
+                          </VideoCallIcon>
                         </ChatBoxHeaderContainer>
                         <Divider orientation="horizontal" flexItem sx={{ borderColor: '#E9E8EB29' }} />
                       </Box>
