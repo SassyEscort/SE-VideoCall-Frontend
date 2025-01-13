@@ -11,7 +11,14 @@ import { FormattedMessage } from 'react-intl';
 import { gaEventTrigger } from 'utils/analytics';
 import UINewTypography from 'components/UIComponents/UINewTypography';
 import MoreFilters from '../../../searchPage/moreFilters';
-import { AppBarBox, BalanceBoxWrapper, HeaderDropdownStyledBox, IconBoxWrapper, SearchTitalBoxSm } from '../GuestLayout.styled';
+import {
+  AppBarBox,
+  AppBarBoxWrapper,
+  BalanceBoxWrapper,
+  HeaderDropdownStyledBox,
+  IconBoxWrapper,
+  SearchTitalBoxSm
+} from '../GuestLayout.styled';
 import MenuItem from '@mui/material/MenuItem';
 import { useAuthContext } from '../../../../../contexts/AuthContext';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
@@ -332,380 +339,317 @@ const GuestHeaderComponent = () => {
         }}
       >
         <AppBarBox>
-          <Box
-            component={Link}
-            prefetch={true}
-            shallow={true}
-            href="/"
-            height="100%"
-            width={{ xs: '120px', md: '182px', sm: '182px' }}
-            display={'flex'}
-            onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'top-bar')}
-          >
-            <Image
-              src={isSmDown ? '/images/app-logo/app-video.png' : '/images/header/new-logo.png'}
-              width={182}
-              height={36}
-              alt="sassy_logo"
-              style={{
-                maxWidth: '100%',
-                width: '30px',
-                height: 'auto'
-              }}
-              priority
-            />
-          </Box>
-          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-            <Box>
-              {isMdUp && (
-                <SearchTitalBoxSm onClick={handleOpenFilterModal}>
-                  <UINewTypography variant="buttonLargeMenu">
-                    <FormattedMessage id="Search" />
-                  </UINewTypography>
-                  <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
-                </SearchTitalBoxSm>
-              )}
-              {!isMdUp && (
-                <Box display="flex" alignItems="center" gap={1} onClick={handleOpenFilterModal}>
-                  <IconBoxWrapper>
-                    <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
-                  </IconBoxWrapper>
-                </Box>
-              )}
+          <AppBarBoxWrapper>
+            <Box
+              component={Link}
+              prefetch={true}
+              shallow={true}
+              href="/"
+              height="100%"
+              width={{ xs: '120px', md: '182px', sm: '182px' }}
+              display={'flex'}
+              onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'top-bar')}
+            >
+              <Image
+                src={isSmDown ? '/images/app-logo/app-video.png' : '/images/header/new-logo.png'}
+                width={182}
+                height={36}
+                alt="sassy_logo"
+                style={{
+                  maxWidth: '100%',
+                  width: '30px',
+                  height: 'auto'
+                }}
+                priority
+              />
             </Box>
-            <Box>
-              {isSmDown ? (
-                <Box>
-                  <LanguageABDropdown />
-                </Box>
-              ) : (
-                <HeaderDropdownStyledBox>
-                  <LanguageABDropdown />
-                </HeaderDropdownStyledBox>
-              )}
-            </Box>
-            <IconBoxWrapper>
-              <Image src="/images/header/new-logo/setting.png" width={20} height={20} alt="setting-logo" priority />
-            </IconBoxWrapper>
-            <Link href="/profile/favourites" style={{ textDecoration: 'none' }} onClick={handleGAEventForFavouriteIcon}>
-              <IconBoxWrapper>
-                <Image src="/images/header/new-logo/favourite-logo.svg" width={20} height={20} alt="favourite-logo" priority />
-              </IconBoxWrapper>
-            </Link>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            {isMdUp && (
-              <BalanceBoxWrapper>
-                <IconButton>
-                  <Image src="/images/header/new-logo/wallet-logo.svg" alt="wallet_icon" width={30} height={30} priority />
-                </IconButton>
-                <BalanceBox>
-                  <IconButton>
-                    <Image src="/images/header/new-logo/coin.svg" alt="coin_icon" width={20} height={20} priority />
-                    <UINewTypography variant="buttonLargeMenu" color="text.secondary" ml={1}>
-                      {balance?.toFixed(2) || 0.0}
+            <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+              <Box>
+                {isMdUp && (
+                  <SearchTitalBoxSm onClick={handleOpenFilterModal}>
+                    <UINewTypography variant="buttonLargeMenu">
+                      <FormattedMessage id="Search" />
                     </UINewTypography>
-                  </IconButton>
-                </BalanceBox>
-              </BalanceBoxWrapper>
-            )}
-            {!isSmDown && (
-              <>
-                <Link href="/chat" style={{ textDecoration: 'none' }} onClick={handleGAEventForChatIcon}>
-                  <IconButton sx={{ height: 24, width: 24 }}>
+                    <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
+                  </SearchTitalBoxSm>
+                )}
+                {!isMdUp && (
+                  <Box display="flex" alignItems="center" gap={1} onClick={handleOpenFilterModal}>
                     <IconBoxWrapper>
-                      <Image src="/images/header/new-logo/group.svg" alt="chat_logo" width={20} height={20} priority />
+                      <Image src="/images/header/searchLine.svg" width={20} height={20} alt="search" priority />
+                    </IconBoxWrapper>
+                  </Box>
+                )}
+              </Box>
+              <Box>
+                {isSmDown ? (
+                  <Box>
+                    <LanguageABDropdown />
+                  </Box>
+                ) : (
+                  <HeaderDropdownStyledBox>
+                    <LanguageABDropdown />
+                  </HeaderDropdownStyledBox>
+                )}
+              </Box>
+              <IconBoxWrapper>
+                <Image src="/images/header/new-logo/setting.png" width={20} height={20} alt="setting-logo" priority />
+              </IconBoxWrapper>
+              <Link href="/profile/favourites" style={{ textDecoration: 'none' }} onClick={handleGAEventForFavouriteIcon}>
+                <IconBoxWrapper>
+                  <Image src="/images/header/new-logo/favourite-logo.svg" width={20} height={20} alt="favourite-logo" priority />
+                </IconBoxWrapper>
+              </Link>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              {isMdUp && (
+                <BalanceBoxWrapper>
+                  <IconButton>
+                    <Image src="/images/header/new-logo/wallet-logo.svg" alt="wallet_icon" width={30} height={30} priority />
+                  </IconButton>
+                  <BalanceBox>
+                    <IconButton>
+                      <Image src="/images/header/new-logo/coin.svg" alt="coin_icon" width={20} height={20} priority />
+                      <UINewTypography variant="buttonLargeMenu" color="text.secondary" ml={1}>
+                        {balance?.toFixed(2) || 0.0}
+                      </UINewTypography>
+                    </IconButton>
+                  </BalanceBox>
+                </BalanceBoxWrapper>
+              )}
+              {!isSmDown && (
+                <>
+                  <Link href="/chat" style={{ textDecoration: 'none' }} onClick={handleGAEventForChatIcon}>
+                    <IconButton sx={{ height: 24, width: 24 }}>
+                      <IconBoxWrapper>
+                        <Image src="/images/header/new-logo/group.svg" alt="chat_logo" width={20} height={20} priority />
+                      </IconBoxWrapper>
+                    </IconButton>
+                  </Link>
+                  <IconButton onClick={handleOpenNotification}>
+                    <IconBoxWrapper>
+                      <Image src="/images/header/new-logo/notification.svg" width={20} height={20} alt="setting-logo" priority />
                     </IconBoxWrapper>
                   </IconButton>
-                </Link>
-                <IconButton onClick={handleOpenNotification}>
-                  <IconBoxWrapper>
-                    <Image src="/images/header/new-logo/notification.svg" width={20} height={20} alt="setting-logo" priority />
-                  </IconBoxWrapper>
-                </IconButton>
-              </>
-            )}
-            <IconButtonBoxNew>
-              <IconButtonBoxInner onClick={handleClickLogout}>
-                <IconButton
-                  id="profile-menu"
-                  aria-controls={openProfileMenu ? 'profile-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={openProfileMenu}
-                  disableFocusRipple
-                  disableRipple
-                  sx={{ p: 1 }}
-                >
-                  <Avatar
-                    alt="User Photo"
-                    sx={{
-                      height: 24,
-                      width: 24
-                    }}
+                </>
+              )}
+              <IconButtonBoxNew>
+                <IconButtonBoxInner onClick={handleClickLogout}>
+                  <IconButton
+                    id="profile-menu"
+                    aria-controls={openProfileMenu ? 'profile-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={openProfileMenu}
+                    disableFocusRipple
+                    disableRipple
+                    sx={{ p: 1 }}
                   >
-                    {firstChar}
-                  </Avatar>
-                </IconButton>
-                {isMdUp && (
-                  <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                    {customerDetails?.customer_name || ''}
-                  </UINewTypography>
-                )}
-              </IconButtonBoxInner>
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorElLogout}
-                open={open}
-                onClose={handleCloseLogout}
-                MenuListProps={{
-                  'aria-labelledby': 'basic-button',
-                  'aria-label': 'basic-button'
-                }}
-                sx={{ '& .MuiMenu-paper > ul': { backgroundColor: '#1E0815 !important' } }}
-              >
-                <MenuItem onClick={handleCloseLogout}>
-                  <ListItemIcon>
-                    <Link href="/profile" onClick={handleCloseLogout}>
-                      <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                        <Box component="img" src="/images/icons/userLine.png" alt="user_line" sx={{ width: '24px', height: '24px' }} />
-                      </IconButton>
-                    </Link>
-                  </ListItemIcon>
-                  <Link
-                    href="/profile"
-                    onClick={() => {
-                      gaEventTrigger('my-profile-click', {
-                        action: 'my-profile-click',
-                        category: 'Button',
-                        label: 'My profile click'
-                      });
-                      handleCloseLogout();
-                    }}
-                  >
-                    <ListItemText>
-                      <UINewTypography variant="bodyLight" color="text.secondary">
-                        <FormattedMessage id="MyProfile" />
-                      </UINewTypography>
-                    </ListItemText>
-                  </Link>
-                </MenuItem>
-                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                {isMdDown && (
-                  <>
-                    <MenuItem
-                      onClick={() => {
-                        setAnchorElLogout(null);
-                        setOpenCreditSideDrawer(true);
+                    <Avatar
+                      alt="User Photo"
+                      sx={{
+                        height: 24,
+                        width: 24
                       }}
                     >
-                      <ListItemIcon>
+                      {firstChar}
+                    </Avatar>
+                  </IconButton>
+                  {isMdUp && (
+                    <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+                      {customerDetails?.customer_name || ''}
+                    </UINewTypography>
+                  )}
+                </IconButtonBoxInner>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorElLogout}
+                  open={open}
+                  onClose={handleCloseLogout}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                    'aria-label': 'basic-button'
+                  }}
+                  sx={{ '& .MuiMenu-paper > ul': { backgroundColor: '#1E0815 !important' } }}
+                >
+                  <MenuItem onClick={handleCloseLogout}>
+                    <ListItemIcon>
+                      <Link href="/profile" onClick={handleCloseLogout}>
                         <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                          <IconBoxWrapper>
-                            <Image src="/images/header/new-logo/wallet-logo.svg" width={20} height={20} alt="wallet-logo" priority />
-                          </IconBoxWrapper>
-                          {/* <Box component="img" src="/images/header/coin.png" alt="coin_icon" /> */}
+                          <Box component="img" src="/images/icons/userLine.png" alt="user_line" sx={{ width: '24px', height: '24px' }} />
                         </IconButton>
-                      </ListItemIcon>
+                      </Link>
+                    </ListItemIcon>
+                    <Link
+                      href="/profile"
+                      onClick={() => {
+                        gaEventTrigger('my-profile-click', {
+                          action: 'my-profile-click',
+                          category: 'Button',
+                          label: 'My profile click'
+                        });
+                        handleCloseLogout();
+                      }}
+                    >
                       <ListItemText>
-                        <BalanceBox>
-                          <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                            {balance?.toFixed(2) || 0}
-                          </UINewTypography>
-                          <Divider orientation="vertical" flexItem sx={{ borderColor: '#E9E8EB33' }} />
-                          <Box component="img" src="/images/header/plus-icon-header.png" alt="coin_icon" />
-                        </BalanceBox>
+                        <UINewTypography variant="bodyLight" color="text.secondary">
+                          <FormattedMessage id="MyProfile" />
+                        </UINewTypography>
                       </ListItemText>
-                    </MenuItem>
-                    <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                  </>
-                )}
-                {isMdDown && (
-                  <>
-                    <MenuItem>
-                      <ListItemIcon>
-                        <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                          <Link href="/profile/favourites" style={{ textDecoration: 'none' }}>
-                            <IconButton sx={{ height: 24, width: 24 }}>
-                              <Box
-                                sx={{
-                                  display: 'flex',
-                                  flexDirection: 'row-reverse',
-                                  position: 'relative'
-                                }}
-                              >
-                                <Box component="img" src="/images/header/heart.png" alt="heart_logo" />
-                              </Box>
-                            </IconButton>
+                    </Link>
+                  </MenuItem>
+                  <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                  {isMdDown && (
+                    <>
+                      <MenuItem
+                        onClick={() => {
+                          setAnchorElLogout(null);
+                          setOpenCreditSideDrawer(true);
+                        }}
+                      >
+                        <ListItemIcon>
+                          <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                            <IconBoxWrapper>
+                              <Image src="/images/header/new-logo/wallet-logo.svg" width={20} height={20} alt="wallet-logo" priority />
+                            </IconBoxWrapper>
+                          </IconButton>
+                        </ListItemIcon>
+                        <ListItemText>
+                          <BalanceBox>
+                            <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+                              {balance?.toFixed(2) || 0}
+                            </UINewTypography>
+                            <Divider orientation="vertical" flexItem sx={{ borderColor: '#E9E8EB33' }} />
+                            <Box component="img" src="/images/header/plus-icon-header.png" alt="coin_icon" />
+                          </BalanceBox>
+                        </ListItemText>
+                      </MenuItem>
+                      <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                    </>
+                  )}
+                  {isMdDown && (
+                    <>
+                      <MenuItem>
+                        <ListItemIcon>
+                          <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                            <Link href="/profile/favourites" style={{ textDecoration: 'none' }}>
+                              <IconButton sx={{ height: 24, width: 24 }}>
+                                <Box
+                                  sx={{
+                                    display: 'flex',
+                                    flexDirection: 'row-reverse',
+                                    position: 'relative'
+                                  }}
+                                >
+                                  <Box component="img" src="/images/header/heart.png" alt="heart_logo" />
+                                </Box>
+                              </IconButton>
+                            </Link>
+                          </IconButton>
+                        </ListItemIcon>
+                        <ListItemText>
+                          <Link href="/profile/favourites">
+                            <UINewTypography variant="bodyLight" color="text.secondary">
+                              <FormattedMessage id="Favourites" />
+                            </UINewTypography>
                           </Link>
-                        </IconButton>
-                      </ListItemIcon>
-                      <ListItemText>
-                        <Link href="/profile/favourites">
-                          <UINewTypography variant="bodyLight" color="text.secondary">
-                            <FormattedMessage id="Favourites" />
-                          </UINewTypography>
-                        </Link>
-                      </ListItemText>
-                    </MenuItem>
-                    <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                    <MenuItem>
-                      <ListItemIcon>
-                        <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                          <Link href="/chat" style={{ textDecoration: 'none' }} onClick={handleGAEventForChatIcon}>
-                            <IconButton sx={{ height: 24, width: 24 }}>
-                              <Box
-                                sx={{
-                                  display: 'flex',
-                                  flexDirection: 'row-reverse',
-                                  position: 'relative'
-                                }}
-                              >
-                                <Box component="img" src="/images/chat/chatNotification.svg" alt="chat_logo" />
-                              </Box>
-                            </IconButton>
+                        </ListItemText>
+                      </MenuItem>
+                      <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                      <MenuItem>
+                        <ListItemIcon>
+                          <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                            <Link href="/chat" style={{ textDecoration: 'none' }} onClick={handleGAEventForChatIcon}>
+                              <IconButton sx={{ height: 24, width: 24 }}>
+                                <Box
+                                  sx={{
+                                    display: 'flex',
+                                    flexDirection: 'row-reverse',
+                                    position: 'relative'
+                                  }}
+                                >
+                                  <Box component="img" src="/images/chat/chatNotification.svg" alt="chat_logo" />
+                                </Box>
+                              </IconButton>
+                            </Link>
+                          </IconButton>
+                        </ListItemIcon>
+                        <ListItemText>
+                          <Link href="/chat">
+                            <UINewTypography variant="bodyLight" color="text.secondary">
+                              <FormattedMessage id="Chat" />
+                            </UINewTypography>
                           </Link>
-                        </IconButton>
-                      </ListItemIcon>
-                      <ListItemText>
-                        <Link href="/chat">
-                          <UINewTypography variant="bodyLight" color="text.secondary">
-                            <FormattedMessage id="Chat" />
-                          </UINewTypography>
-                        </Link>
-                      </ListItemText>
-                    </MenuItem>
-                    <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                  </>
-                )}
-                <MenuItem onClick={handleOpenChangePassword}>
-                  <ListItemIcon>
-                    <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                      <Box
-                        component="img"
-                        src="/images/icons/changepassword-img.png"
-                        alt="change_pwd"
-                        sx={{ width: '24px', height: '24px' }}
-                      />
-                    </IconButton>
-                  </ListItemIcon>
-                  <ListItemText>
-                    <UINewTypography variant="bodyLight" color="text.secondary">
-                      <FormattedMessage id="ChangePassword" />
-                    </UINewTypography>
-                  </ListItemText>
-                </MenuItem>
-                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                <MenuItem onClick={handleChatOpen}>
-                  <ListItemIcon>
-                    <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                      <Box
-                        component="img"
-                        src="/images/profile-vector/chat-icon.png"
-                        alt="vector_img"
-                        sx={{ width: '20px', height: '20px' }}
-                      />
-                    </IconButton>
-                  </ListItemIcon>
-                  <ListItemText>
-                    <UINewTypography variant="bodyLight" color="text.secondary">
-                      <FormattedMessage id="SupportChat" />
-                    </UINewTypography>
-                  </ListItemText>
-                </MenuItem>
+                        </ListItemText>
+                      </MenuItem>
+                      <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                    </>
+                  )}
+                  <MenuItem onClick={handleOpenChangePassword}>
+                    <ListItemIcon>
+                      <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                        <Box
+                          component="img"
+                          src="/images/icons/changepassword-img.png"
+                          alt="change_pwd"
+                          sx={{ width: '24px', height: '24px' }}
+                        />
+                      </IconButton>
+                    </ListItemIcon>
+                    <ListItemText>
+                      <UINewTypography variant="bodyLight" color="text.secondary">
+                        <FormattedMessage id="ChangePassword" />
+                      </UINewTypography>
+                    </ListItemText>
+                  </MenuItem>
+                  <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                  <MenuItem onClick={handleChatOpen}>
+                    <ListItemIcon>
+                      <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                        <Box
+                          component="img"
+                          src="/images/profile-vector/chat-icon.png"
+                          alt="vector_img"
+                          sx={{ width: '20px', height: '20px' }}
+                        />
+                      </IconButton>
+                    </ListItemIcon>
+                    <ListItemText>
+                      <UINewTypography variant="bodyLight" color="text.secondary">
+                        <FormattedMessage id="SupportChat" />
+                      </UINewTypography>
+                    </ListItemText>
+                  </MenuItem>
 
-                <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
-                <MenuItem onClick={handleOpenLogout}>
-                  <ListItemIcon>
-                    <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
-                      <Box
-                        component="img"
-                        src="/images/profile-vector/Vector-6.png"
-                        alt="vector_img"
-                        sx={{ width: '20px', height: '20px' }}
-                      />
-                    </IconButton>
-                  </ListItemIcon>
-                  <ListItemText>
-                    <UINewTypography variant="bodyLight" color="text.secondary">
-                      <FormattedMessage id="LogOut" />
-                    </UINewTypography>
-                  </ListItemText>
-                </MenuItem>
+                  <Divider orientation="horizontal" flexItem sx={{ borderColor: 'primary.700' }} />
+                  <MenuItem onClick={handleOpenLogout}>
+                    <ListItemIcon>
+                      <IconButton id="profile-menu" aria-haspopup="true" disableFocusRipple disableRipple sx={{ p: 0 }}>
+                        <Box
+                          component="img"
+                          src="/images/profile-vector/Vector-6.png"
+                          alt="vector_img"
+                          sx={{ width: '20px', height: '20px' }}
+                        />
+                      </IconButton>
+                    </ListItemIcon>
+                    <ListItemText>
+                      <UINewTypography variant="bodyLight" color="text.secondary">
+                        <FormattedMessage id="LogOut" />
+                      </UINewTypography>
+                    </ListItemText>
+                  </MenuItem>
 
-                <Logout open={isLogoutOpen} onClose={handleCloseLogoutClick} />
-              </Menu>
-              <ProfileMenu profilePic={uploadedImageURL} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
-              <MyProfileChangePassword onOpen={openChangePassword} onClose={handleCloseChnagePassword} token={token.token} />
-            </IconButtonBoxNew>
-          </Box>
+                  <Logout open={isLogoutOpen} onClose={handleCloseLogoutClick} />
+                </Menu>
+                <ProfileMenu profilePic={uploadedImageURL} open={openProfileMenu} handleClose={handleCloseMenu} anchorEl={anchorEl} />
+                <MyProfileChangePassword onOpen={openChangePassword} onClose={handleCloseChnagePassword} token={token.token} />
+              </IconButtonBoxNew>
+            </Box>
+          </AppBarBoxWrapper>
           <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
         </AppBarBox>
       </AppBar>
 
-      {/* {abTestScenerio.experiment === 1 && abTestScenerio.variation === 1 ? (
-        <>
-          <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
-            <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-          </NewSignupStyledModalDialog>
-          <UIStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} maxWidth="md" fullWidth>
-            <GuestLogin
-              onClose={handleLoginClose}
-              onSignupOpen={handleSignupOpen}
-              onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
-              isFreeCreditAvailable={isFreeCreditAvailable}
-              handleFreeCreditSignupOpen={handleFreeCreditSignupOpen}
-              // handleLoginOpen={handleLoginOpen}
-              // freeSignupOpen={freeSignupOpen}
-              // handleFreeCreditSignupClose={handleFreeCreditSignupClose}
-              image="/images/auth/auth-model1.webp"
-            />
-          </UIStyledDialog>
-
-          <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
-            <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-          </NewSignupStyledModalDialog>
-        </>
-      ) : (
-        <>
-          <UIStyledDialogg scroll="body" open={openLogin} onClose={handleLoginClose} fullWidth>
-            <ABLogin1User
-              onClose={handleLoginClose}
-              onSignupOpen={handleSignupOpen}
-              onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
-            />
-          </UIStyledDialogg>
-
-          <UIStyledDialogg scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
-            <ABTestSignUpUser onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-          </UIStyledDialogg>
-
-          <UIStyleABTest2User scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
-            <ABRegister2User onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-          </UIStyleABTest2User>
-
-          <UIStyleABTest2User scroll="body" open={openLogin} onClose={handleLoginClose} fullWidth>
-            <ABLogin2User
-              onClose={handleLoginClose}
-              onSignupOpen={handleSignupOpen}
-              onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
-            />
-          </UIStyleABTest2User>
-        </>
-      )}
-
-      <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
-        <GuestForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
-      </UIStyledDialog>
-
-      <MoreFilters open={openFilterModal} handleClose={handleCloseFilterModal} languages={languages} />
-
-      {isSmUp && isUserInteracted && (
-        <FreeCreditsSignUp
-          open={openFreeCredit && Boolean(isFreeCreditAvailable)}
-          onClose={handleFreeCreditClose}
-          onSignupOpen={handleFreeCreditSignupOpen}
-        />
-      )} */}
 
       {notificationDetails && (
         <NotificationModalCustomerV2

@@ -11,10 +11,10 @@ export const PreSignUpWebMainBoxContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   textAlign: 'center',
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     flexDirection: 'column-reverse'
   },
-  [theme.breakpoints.up('sm')]: {
+  [theme.breakpoints.up('md')]: {
     flexDirection: 'column'
   }
 }));
@@ -55,17 +55,18 @@ export const HeadingTextTypography = styled(Typography)(({ theme }) => ({
     lineHeight: '36px'
   },
   [theme.breakpoints.up('sm')]: {
-    fontSize: '100px',
+    fontSize: '60px',
     fontWeight: 900,
-    lineHeight: '120px'
+    lineHeight: '80px'
   }
 }));
 
 export const DescriptionTextTypography = styled(Typography)(({ theme }) => ({
-  fontSize: '24px',
-  fontWeight: 400,
+  fontSize: '20px',
+  fontWeight: 500,
   lineHeight: '32px',
-  color: theme.palette.common.white
+  color: theme.palette.common.white,
+  letterSpacing: '-1px'
 }));
 
 export const ButtonBoxContainer = styled(Button)(({ theme }) => ({
@@ -75,26 +76,25 @@ export const ButtonBoxContainer = styled(Button)(({ theme }) => ({
   height: '100%',
   gap: theme.spacing(1),
   backgroundColor: theme.palette.primary[100],
-  [theme.breakpoints.up('sm')]: {
-    minHeight: '72px'
+  [theme.breakpoints.up('md')]: {
+    minHeight: '64px',
+
+  },
+  [theme.breakpoints.down('md')]: {
+    minHeight: '64px',
+    maxWidth: '768px',
   },
   [theme.breakpoints.down('sm')]: {
-    minHeight: '48px'
+    minHeight: '48px',
+    maxWidth: '768px',
   }
 }));
 
 export const ButtonTextTypography = styled(Typography)(({ theme }) => ({
   color: theme.palette.common.white,
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '20px',
-    fontWeight: 800,
-    lineHeight: '32px'
-  },
-  [theme.breakpoints.up('sm')]: {
-    fontSize: '24px',
-    fontWeight: 800,
-    lineHeight: '32px'
-  }
+  fontSize: '20px',
+  fontWeight: 800,
+  lineHeight: '32px'
 }));
 
 export const ModelImageMainSwiperContainer = styled(Box)(({ theme }) => ({
@@ -138,7 +138,8 @@ export const TrendingNowTextTypography = styled(Typography)(({ theme }) => ({
 
 export const ModelDetailsSwiperInnerContainer = styled(Box)(() => ({
   display: 'flex',
-  width: '1280px'
+  width: '100%',
+  maxWidth: '1200px'
 }));
 
 export const SignUpTextTypography = styled(Typography)(({ theme }) => ({
@@ -151,11 +152,17 @@ export const SignUpTextTypography = styled(Typography)(({ theme }) => ({
 export const SignupButtonBoxContainer = styled(Button)(({ theme }) => ({
   display: 'flex',
   width: '100%',
-  maxWidth: '425px',
+  maxWidth: '768px',
   height: '100%',
   minHeight: '48px',
   borderRadius: '100px',
-  border: '2px solid #611441'
+  border: '2px solid #611441',
+  [theme.breakpoints.down('md')]: {
+    minHeight: '64px'
+  },
+  [theme.breakpoints.down('sm')]: {
+    minHeight: '48px'
+  }
 }));
 
 export const TitleTypography = styled(Typography)(({ theme }) => ({

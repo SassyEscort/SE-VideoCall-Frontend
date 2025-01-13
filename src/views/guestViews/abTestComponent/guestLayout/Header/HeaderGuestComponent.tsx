@@ -14,17 +14,15 @@ import { CommonServices } from 'services/commonApi/commonApi.services';
 import { MultipleOptionString } from 'views/protectedModelViews/verification/stepOne/VerificationStepOne';
 import dynamic from 'next/dynamic';
 import { getCookie } from 'cookies-next';
-import UIStyledDialogg from 'components/UIComponents/UIStyledDialog/UIStyleDialogsss';
 import { useAuthContext } from 'contexts/AuthContext';
 import FreeCreditsSignUp from 'views/guestViews/homePage/freeCreditsSignUp';
 import MoreFilters from 'views/guestViews/searchPage/moreFilters';
-import ABLogin1User from '../../abLogin1User';
-import ABLogin2User from '../../abLogin2User';
-import ABRegister2User from '../../abRegister2User';
-import UIStyleABTest2User from '../../abRegister2User/UIStyleABTest2User';
-import ABTestSignUpUser from '../../commonComponent';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { AppBarBox, GuestABLoginButton } from '../GuestLayout.styled';
+import { AppBarBox, AppBarBoxWrapper, GuestABLoginButton } from '../GuestLayout.styled';
+import NewSignInModel from '../../newSignInModel';
+import UINewSignUpStyledDialog from '../../newSignUpModel/UINewSignUpDialog';
+import NewSignUpModel from '../../newSignUpModel';
+import ReferralSignUpModel from '../../referralSignUpModel';
 
 const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
@@ -169,49 +167,77 @@ const HeaderGuestComponent = () => {
         }}
       >
         <AppBarBox>
-          <Box
-            component={Link}
-            prefetch={true}
-            shallow={true}
-            href="/"
-            height="100%"
-            width={{ xs: '120px', md: '182px', sm: '182px' }}
-            display={'flex'}
-            onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'top-bar')}
-          >
-            <Image
-              src="/images/header/new-logo.png"
-              width={182}
-              height={36}
-              alt="sassy_logo"
-              style={{
-                maxWidth: '100%',
-                height: 'auto'
-              }}
-              priority
-            />
-          </Box>
-          {isMdUp && (
-            <>
-              <GuestABLoginButton
-                variant="outlined"
-                sx={{ color: 'text.secondary' }}
-                endIcon={<ChevronRightIcon width={20} height={20} />}
-                onClick={() => {
-                  gaEventTrigger('Login_Button_clicked', { source: 'header', category: 'Button' });
-                  handleLoginOpen();
+          <AppBarBoxWrapper>
+            <Box
+              component={Link}
+              prefetch={true}
+              shallow={true}
+              href="/"
+              height="100%"
+              width={{ xs: '120px', md: '182px', sm: '182px' }}
+              display={'flex'}
+              onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'top-bar')}
+            >
+              <Image
+                src="/images/header/new-logo.png"
+                width={182}
+                height={36}
+                alt="sassy_logo"
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto'
                 }}
-              >
-                <UINewTypography variant="buttonLargeMenu" color="text.secondary">
-                  <FormattedMessage id="SignIn" />
-                </UINewTypography>
-              </GuestABLoginButton>
-            </>
-          )}
+                priority
+              />
+            </Box>
+            <Box>
+              {isMdUp && (
+                <GuestABLoginButton
+                  variant="outlined"
+                  sx={{ color: 'text.secondary' }}
+                  endIcon={<ChevronRightIcon width={20} height={20} />}
+                  onClick={() => {
+                    gaEventTrigger('Login_Button_clicked', { source: 'header', category: 'Button' });
+                    handleLoginOpen();
+                  }}
+                >
+                  <UINewTypography variant="buttonLargeMenu" color="text.secondary">
+                    <FormattedMessage id="SignIn" />
+                  </UINewTypography>
+                </GuestABLoginButton>
+              )}
+            </Box>
+          </AppBarBoxWrapper>
         </AppBarBox>
       </AppBar>
 
       {abTestScenerio.experiment?.name === 'UI Testing' && abTestScenerio.variation?.name === 'B' ? (
+        <>
+          <UINewSignUpStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} fullWidth>
+            <NewSignInModel
+              onClose={handleLoginClose}
+              onSignupOpen={handleSignupOpen}
+              onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+            />
+          </UINewSignUpStyledDialog>
+
+          <UINewSignUpStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
+            <NewSignUpModel onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
+          </UINewSignUpStyledDialog>
+
+          <UINewSignUpStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
+            <ReferralSignUpModel onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
+          </UINewSignUpStyledDialog>
+
+          <UINewSignUpStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} fullWidth>
+            <NewSignInModel
+              onClose={handleLoginClose}
+              onSignupOpen={handleSignupOpen}
+              onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
+            />
+          </UINewSignUpStyledDialog>
+        </>
+      ) : (
         <>
           <NewSignupStyledModalDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
             <GuestSignup onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
@@ -230,32 +256,6 @@ const HeaderGuestComponent = () => {
           <NewSignupStyledModalDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
             <HomePageFreeSignup onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
           </NewSignupStyledModalDialog>
-        </>
-      ) : (
-        <>
-          <UIStyledDialogg scroll="body" open={openLogin} onClose={handleLoginClose} fullWidth>
-            <ABLogin1User
-              onClose={handleLoginClose}
-              onSignupOpen={handleSignupOpen}
-              onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
-            />
-          </UIStyledDialogg>
-
-          <UIStyledDialogg scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
-            <ABTestSignUpUser onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-          </UIStyledDialogg>
-
-          <UIStyleABTest2User scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
-            <ABRegister2User onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
-          </UIStyleABTest2User>
-
-          <UIStyleABTest2User scroll="body" open={openLogin} onClose={handleLoginClose} fullWidth>
-            <ABLogin2User
-              onClose={handleLoginClose}
-              onSignupOpen={handleSignupOpen}
-              onFogotPasswordLinkOpen={handleResetPasswordLinkOpen}
-            />
-          </UIStyleABTest2User>
         </>
       )}
 

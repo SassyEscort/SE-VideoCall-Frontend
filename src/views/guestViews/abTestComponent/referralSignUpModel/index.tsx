@@ -9,7 +9,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import { ErrorBox, ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
-import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
+import { UIStyledInputText, UIStyledInputTextNewABTest } from 'components/UIComponents/UIStyledInputText';
 import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import * as yup from 'yup';
 import { EMAIL_REGEX, NAME_REGEX } from 'constants/regexConstants';
@@ -235,9 +235,10 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                                 <Box sx={{ display: 'flex', gap: 1.5 }}>
                                   <ModelUITextConatiner sx={{ gap: 0.5, width: '100%' }}>
                                     <UITypographyText>{/* <FormattedMessage id="Name" /> */}</UITypographyText>
-                                    <UIStyledInputText
+                                    <UIStyledInputTextNewABTest
                                       name="name"
                                       value={values.name}
+                                      placeholder="Name"
                                       onChange={handleChange}
                                       onBlur={handleBlur}
                                       error={touched.name && Boolean(errors.name)}
@@ -246,10 +247,11 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                                   </ModelUITextConatiner>{' '}
                                   <ModelUITextConatiner sx={{ gap: 0.5, width: '100%' }}>
                                     <UITypographyText>{/* <FormattedMessage id="Email" /> */}</UITypographyText>
-                                    <UIStyledInputText
+                                    <UIStyledInputTextNewABTest
                                       fullWidth
                                       id="email"
                                       name="email"
+                                      placeholder="Email"
                                       value={values.email}
                                       onChange={handleChange}
                                       onBlur={handleBlur}
@@ -261,7 +263,7 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                                       }}
                                       InputProps={{
                                         endAdornment: (
-                                          <Box sx={{ display: 'flex' }}>
+                                          <Box sx={{ display: 'flex', opacity: 0.5 }}>
                                             <EmailRoundedIcon />
                                           </Box>
                                         )
@@ -277,11 +279,12 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                                 <Box sx={{ display: 'flex', gap: 1.5 }}>
                                   <ModelUITextConatiner sx={{ gap: 0.5, width: '100%' }}>
                                     <UITypographyText>{/* <FormattedMessage id="Password" /> */}</UITypographyText>
-                                    <UIStyledInputText
+                                    <UIStyledInputTextNewABTest
                                       fullWidth
                                       type={showPassword ? 'text' : 'password'}
                                       id="password"
                                       name="password"
+                                      placeholder="Password"
                                       value={values.password}
                                       onChange={handleChange}
                                       onBlur={() => {
@@ -299,7 +302,10 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                                       }}
                                       InputProps={{
                                         endAdornment: (
-                                          <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setShowPassword(!showPassword)}>
+                                          <Box
+                                            sx={{ cursor: 'pointer', display: 'flex', opacity: 0.5 }}
+                                            onClick={() => setShowPassword(!showPassword)}
+                                          >
                                             {showPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
                                           </Box>
                                         )
@@ -308,19 +314,20 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                                   </ModelUITextConatiner>{' '}
                                   <ModelUITextConatiner sx={{ gap: 0.5, width: '100%' }}>
                                     <UITypographyText>{/* <FormattedMessage id="ConfirmPassword" /> */}</UITypographyText>
-                                    <UIStyledInputText
+                                    <UIStyledInputTextNewABTest
                                       fullWidth
                                       type={showConfirmPassword ? 'text' : 'password'}
                                       id="confirmPassword"
                                       name="confirmPassword"
+                                      placeholder="Confirm Password"
                                       value={values.confirmPassword}
                                       onChange={handleChange}
-                                      onBlur={() => {
-                                        handleBlur;
-                                        //   gaEventTrigger('signup_form_confirm_password_click', {
-                                        //     source: 'model_confirm_password_click',
-                                        //     category: 'TextField'
-                                        //   });
+                                      onBlur={(e) => {
+                                        handleBlur(e);
+                                          gaEventTrigger('signup_form_confirm_password_click', {
+                                            source: 'model_confirm_password_click',
+                                            category: 'TextField'
+                                          });
                                       }}
                                       error={touched.confirmPassword && Boolean(errors.confirmPassword)}
                                       helperText={
@@ -337,7 +344,7 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                                       InputProps={{
                                         endAdornment: (
                                           <Box
-                                            sx={{ cursor: 'pointer', display: 'flex' }}
+                                            sx={{ cursor: 'pointer', display: 'flex', opacity: 0.5 }}
                                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                           >
                                             {showConfirmPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}

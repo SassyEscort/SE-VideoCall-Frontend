@@ -234,6 +234,7 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                                     <UIStyledInputText
                                       name="name"
                                       value={values.name}
+                                      placeholder="Name"
                                       onChange={handleChange}
                                       onBlur={handleBlur}
                                       error={touched.name && Boolean(errors.name)}
@@ -246,6 +247,7 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                                       fullWidth
                                       id="email"
                                       name="email"
+                                      placeholder="Email"
                                       value={values.email}
                                       onChange={handleChange}
                                       onBlur={handleBlur}
@@ -257,7 +259,7 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                                       }}
                                       InputProps={{
                                         endAdornment: (
-                                          <Box sx={{ display: 'flex' }}>
+                                          <Box sx={{ display: 'flex', opacity: 0.5 }}>
                                             <EmailRoundedIcon />
                                           </Box>
                                         )
@@ -278,6 +280,7 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                                       type={showPassword ? 'text' : 'password'}
                                       id="password"
                                       name="password"
+                                      placeholder="Password"
                                       value={values.password}
                                       onChange={handleChange}
                                       onBlur={() => {
@@ -295,7 +298,10 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                                       }}
                                       InputProps={{
                                         endAdornment: (
-                                          <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setShowPassword(!showPassword)}>
+                                          <Box
+                                            sx={{ cursor: 'pointer', display: 'flex', opacity: 0.5 }}
+                                            onClick={() => setShowPassword(!showPassword)}
+                                          >
                                             {showPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
                                           </Box>
                                         )
@@ -309,6 +315,7 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                                       type={showConfirmPassword ? 'text' : 'password'}
                                       id="confirmPassword"
                                       name="confirmPassword"
+                                      placeholder="Confirm Password"
                                       value={values.confirmPassword}
                                       onChange={handleChange}
                                       onBlur={() => {
@@ -333,7 +340,7 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                                       InputProps={{
                                         endAdornment: (
                                           <Box
-                                            sx={{ cursor: 'pointer', display: 'flex' }}
+                                            sx={{ cursor: 'pointer', display: 'flex', opacity: 0.5 }}
                                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                           >
                                             {showConfirmPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}

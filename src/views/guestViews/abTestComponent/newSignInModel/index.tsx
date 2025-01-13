@@ -9,7 +9,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import { ErrorBox, ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
-import { UIStyledInputText } from 'components/UIComponents/UIStyledInputText';
+import { UIStyledInputTextNewABTest } from 'components/UIComponents/UIStyledInputText';
 import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import theme from 'themes/theme';
@@ -206,10 +206,11 @@ const NewSignInModel = ({
                                   <Box sx={{ display: 'flex', gap: 1.5, flexDirection: isMdDown ? 'column' : 'row' }}>
                                     <ModelUITextConatiner sx={{ gap: 0.5, width: '100%' }}>
                                       <UITypographyText>{/* <FormattedMessage id="Email" /> */}</UITypographyText>
-                                      <UIStyledInputText
+                                      <UIStyledInputTextNewABTest
                                         fullWidth
                                         id="email"
                                         name="email"
+                                        placeholder="Email"
                                         value={values.email}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
@@ -221,7 +222,7 @@ const NewSignInModel = ({
                                         }}
                                         InputProps={{
                                           endAdornment: (
-                                            <Box sx={{ display: 'flex' }}>
+                                            <Box sx={{ display: 'flex', opacity: 0.5 }}>
                                               <EmailRoundedIcon />
                                             </Box>
                                           )
@@ -235,11 +236,12 @@ const NewSignInModel = ({
                                   <Box sx={{ display: 'flex', gap: 1.5, flexDirection: isMdDown ? 'column' : 'row' }}>
                                     <ModelUITextConatiner sx={{ gap: 0.5, width: '100%' }}>
                                       <UITypographyText>{/* <FormattedMessage id="Password" /> */}</UITypographyText>
-                                      <UIStyledInputText
+                                      <UIStyledInputTextNewABTest
                                         fullWidth
                                         type={showPassword ? 'text' : 'password'}
                                         id="password"
                                         name="password"
+                                        placeholder="Password"
                                         value={values.password}
                                         onChange={handleChange}
                                         onBlur={() => {
@@ -257,7 +259,10 @@ const NewSignInModel = ({
                                         }}
                                         InputProps={{
                                           endAdornment: (
-                                            <Box sx={{ cursor: 'pointer', display: 'flex' }} onClick={() => setShowPassword(!showPassword)}>
+                                            <Box
+                                              sx={{ cursor: 'pointer', display: 'flex', opacity: 0.5 }}
+                                              onClick={() => setShowPassword(!showPassword)}
+                                            >
                                               {showPassword ? <RiEyeLine color="#86838A" /> : <RiEyeOffLine color="#86838A" />}
                                             </Box>
                                           )

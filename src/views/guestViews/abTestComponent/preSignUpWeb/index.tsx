@@ -44,15 +44,17 @@ const PreSignUpWeb = ({
   carousalImages: CarousalModelImageRes[];
 }) => {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+
 
   return (
     <Container maxWidth="lg">
       <PreSignUpWebMainBoxContainer>
         <PreSignUpMobileBoxContainer>
           <HeadingTextBoxContainer>
-            {isSmUp ? (
+            {!isMdDown ? (
               <HeadingTextTypography fontFamily={ralewayFont.style.fontFamily}>
-                <FormattedMessage id="AreYouReadyToGet" />{' '}
+                <FormattedMessage id="AreYouReadyToGet" />
                 <span style={{ color: '#79E028' }}>
                   <FormattedMessage id="Naughty" />
                 </span>
@@ -81,7 +83,7 @@ const PreSignUpWeb = ({
             </ButtonTextTypography>
           </ButtonBoxContainer>
 
-          {!isSmUp && (
+          {isMdDown && (
             <SignupButtonBoxContainer>
               <SignUpTextTypography>
                 <FormattedMessage id="SignIn" />
