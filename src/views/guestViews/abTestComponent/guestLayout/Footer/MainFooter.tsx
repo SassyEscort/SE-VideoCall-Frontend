@@ -1,20 +1,25 @@
+'use client';
 import Box from '@mui/material/Box';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
+  AccordianMainBoxContainer,
   FirstBoxContainerMain,
   FlirtbateTextTypography,
   FooterStoreBox,
   FooterSubICon,
   FooterTextMainBoxContiner,
   HeadingMainBoxContiner,
-  LogoAndTextMainBoxVontainer,
+  LogoAndTextMainBoxContainer,
   MenuTextTypography,
   ModelFooterHead,
   ModelFooterHeadSecond,
   ModelUITextConatinerText,
   NewFooterMainBoxContiner,
+  ResourcesAndCategoryBoxContainer,
   ResourcesInnerBoxContiner,
+  SignUpNowButton,
+  SignUpNowTextTypography,
   StyledAccordion
 } from './MainFooter.styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -26,7 +31,6 @@ import UIStyledDialog from 'components/UIComponents/UIStyledDialog';
 import ModelSignup from 'views/modelViews/modelSignup';
 import ModelSignin from 'views/modelViews/modelSignin';
 import ModelForgetPasswordLink from 'views/modelViews/modelForgetPasswordLink';
-// import ModelNewPassword from 'views/modelViews/ModelNewPassword';
 import { useEffect, useState } from 'react';
 import { TokenIdType } from 'views/protectedModelViews/verification';
 import { getUserDataClient } from 'utils/getSessionData';
@@ -37,6 +41,8 @@ import UINewStyledShadowButton from 'components/UIComponents/UIStyledShadowButto
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { StyledAccordionSummary } from 'views/modelViews/modelPage/HomeModelFAQ/HomeModelFAQ.styled';
 import { FooterCityList } from './footer.constants';
+import { CHATROOM } from 'constants/languageConstants';
+import { Button } from '@mui/material';
 
 const NewFooter = () => {
   const { handleGAEventsTrigger, user } = useAuthContext();
@@ -117,13 +123,13 @@ const NewFooter = () => {
   };
 
   return (
-    <>
+    <AccordianMainBoxContainer>
       <StyledAccordion defaultExpanded>
         <StyledAccordionSummary aria-controls="panel1-content" id="panel1-header" expandIcon={<ExpandMoreIcon />}>
-          <LogoAndTextMainBoxVontainer>
+          <LogoAndTextMainBoxContainer>
             <Link prefetch={false} href="/" onClick={() => handleGAEventsTrigger('flirtbate-icon-click', 'footer')}>
               <Image
-                src="/images/new-logo-footer.svg"
+                src="/images/header/new-logo.png"
                 width={164}
                 height={44}
                 alt="footer_logo"
@@ -138,7 +144,7 @@ const NewFooter = () => {
                 <FormattedMessage id="ByTheWay" />
               </ModelFooterHead>
             </Box>
-          </LogoAndTextMainBoxVontainer>
+          </LogoAndTextMainBoxContainer>
         </StyledAccordionSummary>
         <Box sx={{ width: '100%' }}>
           <NewFooterMainBoxContiner>
@@ -150,9 +156,11 @@ const NewFooter = () => {
                   </ModelFooterHeadSecond>
                 </HeadingMainBoxContiner>
                 <Box mt={4}>
-                  <UINewStyledShadowButton sx={{ width: '100%', maxWidth: '192px' }}>
-                    <FormattedMessage id="SignUpNow" />
-                  </UINewStyledShadowButton>
+                  <SignUpNowButton>
+                    <SignUpNowTextTypography>
+                      <FormattedMessage id="SignUpNow" />
+                    </SignUpNowTextTypography>
+                  </SignUpNowButton>
                 </Box>
                 <FooterStoreBox>
                   <Box>
@@ -196,83 +204,107 @@ const NewFooter = () => {
             </ModelUITextConatinerText>
 
             <FirstBoxContainerMain>
-              <FooterSubICon>
-                <MenuTextTypography>
-                  <FormattedMessage id="Menu" />
-                </MenuTextTypography>
-                <ModelUITextConatiner sx={{ gap: 0.75 }}>
-                  <UINewTypography
-                    variant="bodySmall"
-                    sx={{ color: 'white.main', opacity: 0.8 }}
-                    onClick={() => handleTriggerGAEvent('Home')}
-                  >
-                    <Link prefetch={false} href="/">
-                      <FormattedMessage id="Home" />
-                    </Link>
-                  </UINewTypography>
-                  <UINewTypography
-                    variant="bodySmall"
-                    sx={{ color: 'white.main', opacity: 0.8 }}
-                    onClick={() => handleTriggerGAEvent('FAQs')}
-                  >
-                    <Link prefetch={false} href="/faq">
-                      <FormattedMessage id="FAQs" />
-                    </Link>
-                  </UINewTypography>
-                  {!token.token && (
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', gap:4 }}>
+                <FooterSubICon>
+                  <MenuTextTypography>
+                    <FormattedMessage id="Menu" />
+                  </MenuTextTypography>
+                  <ModelUITextConatiner sx={{ gap: 0.75 }}>
                     <UINewTypography
                       variant="bodySmall"
-                      onClick={() => {
-                        handleTriggerGAEvent('SignUp');
-                        handleSignupOpen();
-                      }}
-                      sx={{ cursor: 'pointer', color: 'white.main', opacity: 0.8 }}
+                      sx={{ color: 'white.main', opacity: 0.8 }}
+                      onClick={() => handleTriggerGAEvent('Home')}
                     >
-                      <FormattedMessage id="SignUp" />
+                      <Link prefetch={false} href="/">
+                        <FormattedMessage id="Home" />
+                      </Link>
                     </UINewTypography>
-                  )}
-                  {!token.token && (
                     <UINewTypography
                       variant="bodySmall"
-                      onClick={() => {
-                        handleTriggerGAEvent('LoginIn');
-                        handleLoginOpen();
-                      }}
-                      sx={{ cursor: 'pointer', color: 'white.main', opacity: 0.8 }}
+                      sx={{ color: 'white.main', opacity: 0.8 }}
+                      onClick={() => handleTriggerGAEvent('FAQs')}
                     >
-                      <FormattedMessage id="LogIn" />
+                      <Link prefetch={false} href="/faq">
+                        <FormattedMessage id="FAQs" />
+                      </Link>
                     </UINewTypography>
-                  )}
-                  {/* {!token.token && (
+                    {!token.token && (
+                      <UINewTypography
+                        variant="bodySmall"
+                        onClick={() => {
+                          handleTriggerGAEvent('SignUp');
+                          handleSignupOpen();
+                        }}
+                        sx={{ cursor: 'pointer', color: 'white.main', opacity: 0.8 }}
+                      >
+                        <FormattedMessage id="SignUp" />
+                      </UINewTypography>
+                    )}
+                    {!token.token && (
+                      <UINewTypography
+                        variant="bodySmall"
+                        onClick={() => {
+                          handleTriggerGAEvent('LoginIn');
+                          handleLoginOpen();
+                        }}
+                        sx={{ cursor: 'pointer', color: 'white.main', opacity: 0.8 }}
+                      >
+                        <FormattedMessage id="LogIn" />
+                      </UINewTypography>
+                    )}
+                    {/* {!token.token && (
                     <UINewTypography variant="SubtitleSmallRegular">
                       <Link prefetch={false} href="/">
                         <FormattedMessage id="LookingForA" />
                       </Link>
                     </UINewTypography>
                   )} */}
-                </ModelUITextConatiner>
-              </FooterSubICon>
+                  </ModelUITextConatiner>
+                </FooterSubICon>
+                <FooterSubICon>
+                  <MenuTextTypography>
+                    <FormattedMessage id="Resources" />
+                  </MenuTextTypography>
+                  <ResourcesInnerBoxContiner>
+                    {FooterCityList?.map((val, index) => (
+                      <UINewTypography variant="SubtitleSmallRegular" key={index}>
+                        <Box
+                          component={Link}
+                          prefetch={false}
+                          shallow={true}
+                          href={`${val?.link}`}
+                          onClick={() => handleTriggerGAEvent(val?.link)}
+                        >
+                          <FormattedMessage id={val?.name} />
+                        </Box>
+                      </UINewTypography>
+                    ))}
+                  </ResourcesInnerBoxContiner>
+                </FooterSubICon>
+              </Box>
 
-              <FooterSubICon>
-                <MenuTextTypography>
-                  <FormattedMessage id="Resources" />
-                </MenuTextTypography>
-                <ResourcesInnerBoxContiner>
-                  {FooterCityList?.map((val, index) => (
-                    <UINewTypography variant="SubtitleSmallRegular" key={index}>
-                      <Box
-                        component={Link}
-                        prefetch={false}
-                        shallow={true}
-                        href={`${val?.link}`}
-                        onClick={() => handleTriggerGAEvent(val?.link)}
-                      >
-                        <FormattedMessage id={val?.name} />
-                      </Box>
-                    </UINewTypography>
-                  ))}
-                </ResourcesInnerBoxContiner>
-              </FooterSubICon>
+              <ResourcesAndCategoryBoxContainer>
+                <FooterSubICon>
+                  <MenuTextTypography>
+                    <FormattedMessage id="Category" />
+                  </MenuTextTypography>
+                  <ResourcesInnerBoxContiner>
+                    {CHATROOM?.map((val, index) => (
+                      <UINewTypography variant="SubtitleSmallRegular" key={index}>
+                        <Box
+                          component={Link}
+                          prefetch={false}
+                          shallow={true}
+                          href={`${val?.url}`}
+                          onClick={() => handleTriggerGAEvent(val?.url)}
+                        >
+                          <FormattedMessage id={val?.title} />
+                        </Box>
+                      </UINewTypography>
+                    ))}
+                  </ResourcesInnerBoxContiner>
+                </FooterSubICon>
+              </ResourcesAndCategoryBoxContainer>
             </FirstBoxContainerMain>
           </NewFooterMainBoxContiner>
         </Box>
@@ -293,7 +325,7 @@ const NewFooter = () => {
       <UIStyledDialog scroll="body" open={openForgetPassLink} onClose={handleResetPasswordLinkClose} maxWidth="md" fullWidth>
         <ModelForgetPasswordLink onClose={handleResetPasswordLinkClose} onLoginOpen={handleLoginResetPasswordOpen} />
       </UIStyledDialog>
-    </>
+    </AccordianMainBoxContainer>
   );
 };
 

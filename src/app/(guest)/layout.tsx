@@ -13,6 +13,7 @@ const HeaderABGuestComponent = dynamic(() => import('views/guestViews/abTestComp
 });
 const RedirectGuard = dynamic(() => import('utils/route-guard/RedirectGuard'), { ssr: false });
 const Footer = dynamic(() => import('views/guestViews/guestLayout/footer'));
+const FooterAB = dynamic(() => import('views/guestViews/abTestComponent/guestLayout/Footer/MainFooter'));
 
 export interface User {
   name?: string | null;
@@ -63,7 +64,8 @@ export default async function Layout({ children }: { children: React.ReactNode }
       <main>
         <Box sx={{ mt: 10 }}>{children}</Box>
       </main>
-      <Footer />
+
+      {versionDetails?.variation?.name !== 'B' ? <Footer /> : <FooterAB />}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { Accordion, AccordionProps, Typography } from '@mui/material';
+import { Accordion, AccordionProps, Button, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { styled } from '@mui/material/styles';
@@ -8,9 +8,9 @@ export const FooterSubICon = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(3),
-  textAlign: 'left',
-  width: '100%',
-  maxWidth: '234px'
+  textAlign: 'left'
+  // width: '100%',
+  // maxWidth: '195px'
 }));
 
 export const TextContainerMain = styled(Box)(() => ({
@@ -92,11 +92,11 @@ export const ModelUITextConatinerText = styled(Box)(({ theme }) => ({
 
 export const FirstBoxContainerMain = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(2),
+  gap: theme.spacing(2.5),
   justifyContent: 'center',
   width: '100%',
   [theme.breakpoints.down('sm')]: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   [theme.breakpoints.only('sm')]: {
     marginTop: theme.spacing(9.5),
@@ -105,6 +105,10 @@ export const FirstBoxContainerMain = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     marginTop: theme.spacing(9.5),
     maxWidth: '484px'
+  },
+  [theme.breakpoints.down(330)]: {
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start'
   }
 }));
 
@@ -125,8 +129,9 @@ export const HeadingMainBoxContiner = styled(Box)(({ theme }) => ({
 export const NewFooterMainBoxContiner = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
-  paddingRight: theme.spacing(1.5),
-  paddingLeft: theme.spacing(1.5),
+  paddingRight: theme.spacing(3),
+  paddingLeft: theme.spacing(3),
+
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column'
   },
@@ -158,12 +163,28 @@ export const FlirtbateTextTypography = styled(Typography)(({ theme }) => ({
   opacity: 0.4
 }));
 
+export const SignUpNowTextTypography = styled(Typography)(({ theme }) => ({
+  fontSize: '18px',
+  fontWeight: 800,
+  lineHeight: '24px',
+  color: theme.palette.common.white
+}));
+
+export const SignUpNowButton = styled(Button)(({ theme }) => ({
+  width: '100%',
+  maxWidth: '192px',
+  backgroundColor: '#D12288',
+  height: '100%',
+  minHeight: '48px',
+  borderRadius: '100px'
+}));
+
 export const FooterTextMainBoxContiner = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   paddingBottom: theme.spacing(2.5)
 }));
 
-export const LogoAndTextMainBoxVontainer = styled(Box)(({ theme }) => ({
+export const LogoAndTextMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   width: '100%',
@@ -172,10 +193,20 @@ export const LogoAndTextMainBoxVontainer = styled(Box)(({ theme }) => ({
   paddingRight: theme.spacing(1.5)
 }));
 
+export const AccordianMainBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  width: '100%',
+  justifyContent: 'center',
+  marginTop: theme.spacing(4)
+}));
+
 export const StyledAccordion = styled((props: AccordionProps) => <Accordion disableGutters elevation={0} square {...props} />)(
   ({ theme }) => ({
     padding: '0px',
     width: '100%',
+    maxWidth: '1200px',
     borderColor: theme.palette.primary[700],
     [theme.breakpoints.down('sm')]: {
       paddingTop: '12px 0px !important'
@@ -188,3 +219,11 @@ export const StyledAccordion = styled((props: AccordionProps) => <Accordion disa
     }
   })
 );
+
+export const ResourcesAndCategoryBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(5),
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column'
+  }
+}));
