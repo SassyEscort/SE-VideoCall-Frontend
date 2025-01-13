@@ -40,6 +40,20 @@ export async function middleware(request: NextRequest) {
     url.pathname = '/api/robots';
     return NextResponse.rewrite(url);
   }
+
+  if (url.pathname.includes('/details') && !url.pathname.includes('/admin')) {
+    return NextResponse.redirect(new URL(url.href.replace('/details', '/models'), request.url));
+  }
+
+  if (url.pathname.includes('/dirty-talks') && !url.pathname.includes('/admin')) {
+    return NextResponse.redirect(new URL(url.href.replace('/dirty-talks', '/dirty-chat'), request.url));
+  }
+
+  if (url.pathname === '/webView') {
+    url.pathname = '/not-found';
+    return NextResponse.rewrite(url);
+  }
+
   return response;
 }
 
