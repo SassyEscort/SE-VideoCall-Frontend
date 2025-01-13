@@ -74,13 +74,16 @@ export const CreditAvailableButton = styled(Button)(({ theme }) => ({
   gap: theme.spacing(1)
 }));
 
-export const AppBarBox = styled(Box)(() => ({
+export const AppBarBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
   paddingBlock: '10px',
-  paddingInline: '36px',
-  border: '1px solid'
+  paddingInline: theme.spacing(4),
+  border: '1px solid',
+  [theme.breakpoints.down('sm')]: {
+    paddingInline: '12px'
+  }
 }));
 
 export const SearchTitalBox = styled(Box)(({ theme }) => ({

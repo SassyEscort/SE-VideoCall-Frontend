@@ -38,7 +38,10 @@ export const IconButtonBoxInner = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: theme.spacing(1),
-  cursor: 'pointer'
+  cursor: 'pointer',
+  [theme.breakpoints.down('sm')]: {
+    marginLeft: theme.spacing(5)
+  }
 }));
 
 export const CompleteProfileBox = styled(UIThemeButton)(({ theme }) => ({

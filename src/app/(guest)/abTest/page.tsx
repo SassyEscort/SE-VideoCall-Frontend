@@ -37,7 +37,7 @@ const abTest = async ({ searchParams }: { searchParams: KeyPairAndUndefined }) =
   return (
     <Box width={'100%'}>
       {/* <ABTest group={group} /> */}
-      <GuestHeaderComponent />
+      {/* <GuestHeaderComponent /> */}
       <PreSignUpWeb modelData={modelData} params={initVal} carousalImages={carousalImages} />
     </Box>
   );
