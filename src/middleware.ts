@@ -45,8 +45,8 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(url.href.replace('/details', '/models'), request.url));
   }
 
-  if (url.pathname.includes('/dirty-talk') && !url.pathname.includes('/admin')) {
-    return NextResponse.redirect(new URL(url.href.replace('/dirty-talk', '/dirty-chat'), request.url));
+  if (url.pathname.includes('/dirty-talks') && !url.pathname.includes('/admin')) {
+    return NextResponse.redirect(new URL(url.href.replace('/dirty-talks', '/dirty-chat'), request.url));
   }
 
   if (url.pathname === '/webView') {
