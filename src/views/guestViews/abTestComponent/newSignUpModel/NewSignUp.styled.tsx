@@ -7,7 +7,7 @@ import Box from '@mui/system/Box';
 
 export const MainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     flexDirection: 'column-reverse'
   }
 }));
@@ -34,10 +34,9 @@ export const RightSideMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-
   gap: theme.spacing(4),
   justifyContent: 'center',
-  backgroundImage: `linear-gradient(to bottom, #00000000, #000000), url(/images/new-signup-img.webp)`,
+  backgroundImage: `linear-gradient(to bottom, #290F1E00, #290F1E80), url(/images/new-signup-img.webp)`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
@@ -46,7 +45,14 @@ export const RightSideMainBoxContainer = styled(Box)(({ theme }) => ({
     height: '440px'
   },
   [theme.breakpoints.up('sm')]: {
+    minWidth: '480px'
+  },
+  [theme.breakpoints.up('lg')]: {
     minWidth: '600px'
+  },
+  [theme.breakpoints.between('sm', 'md')]: {
+    height: '500px',
+    backgroundPosition: 'top'
   }
 }));
 
@@ -59,6 +65,10 @@ export const RightSideInnerBoxContainer = styled(Box)(({ theme }) => ({
     paddingTop: theme.spacing(26.25)
   },
   [theme.breakpoints.up('sm')]: {
+    paddingLeft: theme.spacing(5.5),
+    paddingTop: theme.spacing(33.5)
+  },
+  [theme.breakpoints.up('md')]: {
     paddingLeft: theme.spacing(10),
     paddingTop: theme.spacing(48)
   }
@@ -83,9 +93,7 @@ export const NewSignUpModelMainBoxContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   width: '100%',
   height: '100%',
-  maxHeight: '700px',
   backgroundImage: 'linear-gradient(to bottom, #07030E, #290F1E)',
-
   [theme.breakpoints.down('sm')]: {
     maxWidth: '600px',
     paddingTop: theme.spacing(3),
@@ -94,7 +102,15 @@ export const NewSignUpModelMainBoxContainer = styled(Box)(({ theme }) => ({
     paddingBottom: theme.spacing(2)
   },
   [theme.breakpoints.up('sm')]: {
+    minWidth: '480px',
+    paddingTop: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    paddingLeft: theme.spacing(4),
+    paddingBottom: theme.spacing(2.75)
+  },
+  [theme.breakpoints.up('lg')]: {
     minWidth: '600px',
+    minHeight: '700px',
     paddingTop: theme.spacing(7.5),
     paddingRight: theme.spacing(10),
     paddingLeft: theme.spacing(10),
@@ -105,7 +121,8 @@ export const NewSignUpModelMainBoxContainer = styled(Box)(({ theme }) => ({
 export const HeadingMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(5)
+  gap: theme.spacing(5),
+  alignItems: 'center'
 }));
 
 export const HeadingInnerBoxContainer = styled(Box)(({ theme }) => ({
@@ -161,21 +178,31 @@ export const ReferralTextTypography = styled(Typography)(({ theme }) => ({
 export const FooterMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  marginTop: theme.spacing(8.75),
   gap: theme.spacing(0.5),
-  alignItems: 'center'
+  alignItems: 'center',
+  [theme.breakpoints.down('sm')]: {
+    marginTop: theme.spacing(4.75)
+  },
+  [theme.breakpoints.up('sm')]: {
+    marginTop: theme.spacing(8.75)
+  }
 }));
 
 export const FooterInnerBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(0.5)
+  gap: theme.spacing(0.5),
+  [`@media (max-width: 320px)`]: {
+    flexDirection: 'column',
+    alignItems: 'center'
+  }
 }));
 
 export const HaveAnAccountAlreadyTextTypography = styled(Typography)(() => ({
   fontSize: '14px',
   fontWeight: 400,
   lineHeight: '24px',
-  color: '#FFFFFF99'
+  color: '#FFFFFF99',
+  whiteSpace: 'nowrap'
 }));
 
 export const ImageAndTextSpacingBox = styled(Box)(({ theme }) => ({
@@ -198,4 +225,24 @@ export const JoinNowTextTypography = styled(Typography)(({ theme }) => ({
   fontWeight: 800,
   lineHeight: '24px',
   color: theme.palette.common.white
+}));
+
+export const SignInFooterMainBoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(0.5),
+  alignItems: 'center',
+  [theme.breakpoints.down('sm')]: {
+    marginTop: theme.spacing(4.25)
+  },
+  [theme.breakpoints.up('sm')]: {
+    marginTop: theme.spacing(20.875)
+  }
+}));
+
+export const RemoveTextTypography = styled(Typography)(({ theme }) => ({
+  fontSize: '12px',
+  fontWeight: 400,
+  lineHeight: '19px',
+  color: '#FFFFFF80'
 }));

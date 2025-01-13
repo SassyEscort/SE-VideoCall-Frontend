@@ -32,6 +32,7 @@ import {
   MainBoxContainer,
   NewSignUpModelMainBoxContainer,
   ReferralTextTypography,
+  RemoveTextTypography,
   RightSideInnerBoxContainer,
   RightSideMainBoxContainer,
   RightSideSubTitleText
@@ -191,7 +192,7 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                         color: 'common.white',
                         position: 'absolute',
                         top: 0,
-                        right: { xs: 0, md: '-782px' },
+                        right: { xs: 0, md: '-546px', lg: '-782px' },
                         display: { sm: 'block' }
                       }}
                       onClick={onClose}
@@ -364,9 +365,53 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                         </InputFiledInnerBoxContainer>
 
                         <ButtonMainBoxContainer>
-                          <JoinNowButtonContainer>
-                            <JoinNowTextTypography>Join Now</JoinNowTextTypography>
-                          </JoinNowButtonContainer>
+                          <ModelUITextConatiner sx={{ gap: 0.5, width: '100%' }}>
+                            <UITypographyText>
+                              <FormattedMessage id="ReferralCode" />
+                            </UITypographyText>
+                            <UIStyledInputText
+                              fullWidth
+                              id="referral_code"
+                              name="referral_code"
+                              // value={values.referral_code}
+                              onChange={handleChange}
+                              onBlur={(e) => {
+                                handleBlur(e);
+                                gaEventTrigger('signup_form_referral_click', { source: 'model_referral_click', category: 'TextField' });
+                                if (values.email) {
+                                  gaEventTrigger('referral-added', {
+                                    source: 'referral added',
+                                    category: 'TextField',
+                                    label: 'referral added'
+                                  });
+                                }
+                              }}
+                              sx={{
+                                border: '2px solid',
+                                borderColor: 'secondary.light',
+                                '& .MuiInputBase-root': {
+                                  borderRadius: '100px'
+                                }
+                              }}
+                              InputProps={{
+                                endAdornment: (
+                                  <Box
+                                    sx={{
+                                      display: 'flex',
+                                      gap: 0.5,
+                                      cursor: 'pointer'
+                                    }}
+                                    // onClick={() => setFieldValue('referral_code', '')}
+                                  >
+                                    <RemoveTextTypography>
+                                      <FormattedMessage id="Remove" />
+                                    </RemoveTextTypography>
+                                    <CloseIcon sx={{ color: 'secondary.light', cursor: 'pointer', width: '20px', height: '20px' }} />
+                                  </Box>
+                                )
+                              }}
+                            />
+                          </ModelUITextConatiner>
 
                           <JoinNowButtonContainer type="submit" loading={loading}>
                             <JoinNowTextTypography>Join Now</JoinNowTextTypography>

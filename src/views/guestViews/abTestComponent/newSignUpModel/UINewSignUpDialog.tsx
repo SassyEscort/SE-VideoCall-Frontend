@@ -17,7 +17,7 @@ const UINewSignUpStyledDialog = styled(Dialog)(({ theme }) => ({
     borderRadius: theme.spacing(1.5)
   },
   '& .mui-lttpfc': {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       paddingLeft: 0,
       paddingRight: 0
     }

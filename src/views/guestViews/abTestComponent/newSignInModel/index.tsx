@@ -35,7 +35,8 @@ import {
   ReferralTextTypography,
   RightSideInnerBoxContainer,
   RightSideMainBoxContainer,
-  RightSideSubTitleText
+  RightSideSubTitleText,
+  SignInFooterMainBoxContainer
 } from '../newSignUpModel/NewSignUp.styled';
 import { Raleway } from 'next/font/google';
 import { LoginUserParams } from 'services/guestAuth/types';
@@ -166,7 +167,7 @@ const NewSignInModel = ({
                           color: 'common.white',
                           position: 'absolute',
                           top: 0,
-                          right: { xs: 0, md: '-782px' },
+                          right: { xs: 0, md: '-546px', lg: '-782px' },
                           display: { sm: 'block' }
                         }}
                         onClick={onClose}
@@ -289,7 +290,7 @@ const NewSignInModel = ({
                         </InputFiledMainBoxContainer>
                       </HeadingMainBoxContainer>
 
-                      <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '167px', gap: 0.5, alignItems: 'center' }}>
+                      <SignInFooterMainBoxContainer>
                         <FooterInnerBoxContainer>
                           <HaveAnAccountAlreadyTextTypography>
                             <FormattedMessage id="HaveAnAccount" />
@@ -316,7 +317,7 @@ const NewSignInModel = ({
                             <FormattedMessage id="Here" />
                           </ReferralTextTypography>
                         </FooterInnerBoxContainer>
-                      </Box>
+                      </SignInFooterMainBoxContainer>
                     </NewSignUpModelMainBoxContainer>
 
                     <RightSideMainBoxContainer>

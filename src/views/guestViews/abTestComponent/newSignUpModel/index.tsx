@@ -191,7 +191,7 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                         color: 'common.white',
                         position: 'absolute',
                         top: 0,
-                        right: { xs: 0, md: '-782px' },
+                        right: { xs: 0, md: '-546px', lg: '-782px' },
                         display: { sm: 'block' }
                       }}
                       onClick={onClose}
