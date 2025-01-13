@@ -90,7 +90,8 @@ export const AppBarBoxWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   width: '100%',
-  maxWidth: '1200px'
+  maxWidth: '1200px',
+  alignItems: 'center'
 }));
 
 export const SearchTitalBox = styled(Box)(({ theme }) => ({

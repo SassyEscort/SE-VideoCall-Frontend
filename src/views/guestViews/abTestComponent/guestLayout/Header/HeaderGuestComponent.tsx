@@ -22,7 +22,6 @@ import { AppBarBox, AppBarBoxWrapper, GuestABLoginButton } from '../GuestLayout.
 import NewSignInModel from '../../newSignInModel';
 import UINewSignUpStyledDialog from '../../newSignUpModel/UINewSignUpDialog';
 import NewSignUpModel from '../../newSignUpModel';
-import ReferralSignUpModel from '../../referralSignUpModel';
 
 const UIStyledDialog = dynamic(() => import('components/UIComponents/UIStyledDialog'));
 const GuestLogin = dynamic(() => import('views/auth/guestLogin'));
@@ -223,10 +222,6 @@ const HeaderGuestComponent = () => {
 
           <UINewSignUpStyledDialog scroll="body" open={open} onClose={handleSignupClose} maxWidth="md" fullWidth>
             <NewSignUpModel onClose={handleSignupClose} onLoginOpen={handleLoginOpen} />
-          </UINewSignUpStyledDialog>
-
-          <UINewSignUpStyledDialog scroll="body" open={freeSignupOpen} onClose={handleFreeCreditSignupClose} maxWidth="md" fullWidth>
-            <ReferralSignUpModel onClose={handleFreeCreditSignupClose} onLoginOpen={handleLoginOpen} />
           </UINewSignUpStyledDialog>
 
           <UINewSignUpStyledDialog scroll="body" open={openLogin} onClose={handleLoginClose} fullWidth>

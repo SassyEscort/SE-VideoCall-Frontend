@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 
 export const PreSignUpWebMainBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(4),
+  gap: theme.spacing(3),
   width: '100%',
   height: '100%',
   alignItems: 'center',
@@ -22,7 +22,6 @@ export const PreSignUpWebMainBoxContainer = styled(Box)(({ theme }) => ({
 export const PreSignUpWebInnerBoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(3),
   width: '100%',
   height: '100%'
 }));
@@ -37,7 +36,7 @@ export const PreSignUpMobileBoxContainer = styled(Box)(({ theme }) => ({
     gap: theme.spacing(2)
   },
   [theme.breakpoints.up('sm')]: {
-    gap: theme.spacing(4)
+    gap: theme.spacing(3)
   }
 }));
 
@@ -77,16 +76,15 @@ export const ButtonBoxContainer = styled(Button)(({ theme }) => ({
   gap: theme.spacing(1),
   backgroundColor: theme.palette.primary[100],
   [theme.breakpoints.up('md')]: {
-    minHeight: '64px',
-
+    minHeight: '64px'
   },
   [theme.breakpoints.down('md')]: {
     minHeight: '64px',
-    maxWidth: '768px',
+    maxWidth: '768px'
   },
   [theme.breakpoints.down('sm')]: {
     minHeight: '48px',
-    maxWidth: '768px',
+    maxWidth: '768px'
   }
 }));
 
@@ -112,7 +110,7 @@ export const ModelImageMainSwiperContainer = styled(Box)(({ theme }) => ({
 export const ModelDetailsSwiperMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(3),
+  gap: theme.spacing(2.25),
   alignItems: 'flex-start'
 }));
 
@@ -139,7 +137,7 @@ export const TrendingNowTextTypography = styled(Typography)(({ theme }) => ({
 export const ModelDetailsSwiperInnerContainer = styled(Box)(() => ({
   display: 'flex',
   width: '100%',
-  maxWidth: '1200px'
+  maxWidth: '1140px'
 }));
 
 export const SignUpTextTypography = styled(Typography)(({ theme }) => ({
@@ -217,8 +215,8 @@ export const NewBoxContainer = styled(Box)(({ theme }) => ({
     textAlign: 'center !important'
   },
   '& .swiper_container': {
-    height: '36rem !important',
-    padding: '2rem 0 !important',
+    height: '30rem !important',
+    padding: '1rem 0 !important',
     position: 'relative !important'
   },
   '& .swiper-slide': {

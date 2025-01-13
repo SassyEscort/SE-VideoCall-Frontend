@@ -274,22 +274,33 @@ const NewSignInModel = ({
                               </Box>
                             </InputTextFiledBoxContainer>
 
-                            <MenuItem sx={{ p: 0, gap: { xs: '0', sm: '1' } }}>
-                              <Checkbox
-                                sx={{
-                                  p: 0,
-                                  pr: 1
-                                }}
-                              />
-                              <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
-                                <FormattedMessage id="RememberMe" />
-                              </UINewTypography>
-                            </MenuItem>
+                            <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+                              <Box>
+                                <MenuItem sx={{ p: 0, gap: { xs: '0', sm: '1' } }}>
+                                  <Checkbox
+                                    sx={{
+                                      p: 0,
+                                      pr: 1
+                                    }}
+                                  />
+                                  <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
+                                    <FormattedMessage id="RememberMe" />
+                                  </UINewTypography>
+                                </MenuItem>
+                              </Box>
+                              <Box>
+                                <UINewTypography variant="buttonLargeMenu" sx={{ textWrap: { xs: 'wrap' } }}>
+                                  <FormattedMessage id="ForgotPassword" />
+                                </UINewTypography>
+                              </Box>
+                            </Box>
                           </InputFiledInnerBoxContainer>
 
                           <ButtonMainBoxContainer>
                             <JoinNowButtonContainer type="submit" loading={loading}>
-                              <JoinNowTextTypography>Join Now</JoinNowTextTypography>
+                              <JoinNowTextTypography>
+                                <FormattedMessage id="JoinNow" />
+                              </JoinNowTextTypography>
                             </JoinNowButtonContainer>
                           </ButtonMainBoxContainer>
                         </InputFiledMainBoxContainer>

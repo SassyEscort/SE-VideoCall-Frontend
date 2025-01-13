@@ -324,10 +324,10 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                                       onChange={handleChange}
                                       onBlur={(e) => {
                                         handleBlur(e);
-                                          gaEventTrigger('signup_form_confirm_password_click', {
-                                            source: 'model_confirm_password_click',
-                                            category: 'TextField'
-                                          });
+                                        gaEventTrigger('signup_form_confirm_password_click', {
+                                          source: 'model_confirm_password_click',
+                                          category: 'TextField'
+                                        });
                                       }}
                                       error={touched.confirmPassword && Boolean(errors.confirmPassword)}
                                       helperText={
@@ -421,7 +421,9 @@ const ReferralSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; on
                           </ModelUITextConatiner>
 
                           <JoinNowButtonContainer type="submit" loading={loading}>
-                            <JoinNowTextTypography>Join Now</JoinNowTextTypography>
+                            <JoinNowTextTypography>
+                              <FormattedMessage id="JoinNow" />
+                            </JoinNowTextTypography>
                           </JoinNowButtonContainer>
                         </ButtonMainBoxContainer>
                       </InputFiledMainBoxContainer>

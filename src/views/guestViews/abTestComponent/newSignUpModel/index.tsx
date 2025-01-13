@@ -9,7 +9,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import { ErrorBox, ModelUITextConatiner, UITypographyText } from 'views/auth/AuthCommon.styled';
-import { UIStyledInputTextNewABTest } from 'components/UIComponents/UIStyledInputText';
+import { UIStyledInputText, UIStyledInputTextNewABTest } from 'components/UIComponents/UIStyledInputText';
 import { RiEyeLine, RiEyeOffLine } from 'components/common/customRemixIcons';
 import * as yup from 'yup';
 import { EMAIL_REGEX, NAME_REGEX } from 'constants/regexConstants';
@@ -32,6 +32,7 @@ import {
   MainBoxContainer,
   NewSignUpModelMainBoxContainer,
   ReferralTextTypography,
+  RemoveTextTypography,
   RightSideInnerBoxContainer,
   RightSideMainBoxContainer,
   RightSideSubTitleText
@@ -59,6 +60,7 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
   const [redirectSeconds, setRedirectSeconds] = useState(3);
   const [activeStep, setActiveStep] = useState(0);
   const [alert, setAlert] = useState('');
+  const [showReferralButton, setShowReferralButton] = useState(false);
 
   useEffect(() => {
     if (activeStep > 0) {
@@ -211,7 +213,10 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                     <HeadingMainBoxContainer>
                       <HeadingInnerBoxContainer>
                         <HeadingTextTypography fontFamily={ralewayFont.style.fontFamily}>
-                          <FormattedMessage id="SignUpAndGet" /> <span style={{ color: '#79E028', whiteSpace: 'nowrap' }}>1 FREE</span>{' '}
+                          <FormattedMessage id="SignUpAndGet" />{' '}
+                          <span style={{ color: '#79E028', whiteSpace: 'nowrap' }}>
+                            <FormattedMessage id="1FREE" />
+                          </span>{' '}
                           <FormattedMessage id="VideoCall" />
                         </HeadingTextTypography>
 
@@ -368,10 +373,65 @@ const NewSignUpModel = ({ onClose, onLoginOpen }: { onClose: () => void; onLogin
                         </InputFiledInnerBoxContainer>
 
                         <ButtonMainBoxContainer>
-                          <ReferralTextTypography sx={{ color: 'white.main' }}>Have a referral Code?</ReferralTextTypography>
+                          {!showReferralButton && (
+                            <ReferralTextTypography sx={{ color: 'white.main' }} onClick={() => setShowReferralButton(!showReferralButton)}>
+                              <FormattedMessage id="HaveAReferralCode" />
+                            </ReferralTextTypography>
+                          )}
+                          {showReferralButton && (
+                            <ModelUITextConatiner sx={{ gap: 0.5, width: '100%' }}>
+                              <UITypographyText>
+                                <FormattedMessage id="ReferralCode" />
+                              </UITypographyText>
+                              <UIStyledInputText
+                                fullWidth
+                                id="referral_code"
+                                name="referral_code"
+                                // value={values.referral_code}
+                                onChange={handleChange}
+                                onBlur={(e) => {
+                                  handleBlur(e);
+                                  gaEventTrigger('signup_form_referral_click', { source: 'model_referral_click', category: 'TextField' });
+                                  if (values.email) {
+                                    gaEventTrigger('referral-added', {
+                                      source: 'referral added',
+                                      category: 'TextField',
+                                      label: 'referral added'
+                                    });
+                                  }
+                                }}
+                                sx={{
+                                  border: '2px solid',
+                                  borderColor: 'secondary.light',
+                                  '& .MuiInputBase-root': {
+                                    borderRadius: '100px'
+                                  }
+                                }}
+                                InputProps={{
+                                  endAdornment: (
+                                    <Box
+                                      sx={{
+                                        display: 'flex',
+                                        gap: 0.5,
+                                        cursor: 'pointer'
+                                      }}
+                                      // onClick={() => setFieldValue('referral_code', '')}
+                                    >
+                                      <RemoveTextTypography>
+                                        <FormattedMessage id="Remove" />
+                                      </RemoveTextTypography>
+                                      <CloseIcon sx={{ color: 'secondary.light', cursor: 'pointer', width: '20px', height: '20px' }} />
+                                    </Box>
+                                  )
+                                }}
+                              />
+                            </ModelUITextConatiner>
+                          )}
 
                           <JoinNowButtonContainer type="submit" loading={loading}>
-                            <JoinNowTextTypography>Join Now</JoinNowTextTypography>
+                            <JoinNowTextTypography>
+                              <FormattedMessage id="JoinNow" />
+                            </JoinNowTextTypography>
                           </JoinNowButtonContainer>
                         </ButtonMainBoxContainer>
                       </InputFiledMainBoxContainer>
