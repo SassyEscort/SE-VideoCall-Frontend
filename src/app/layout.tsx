@@ -54,7 +54,7 @@ export default function RootLayout({
           rel="preload"
           as="image"
           href="/images/home/home-banner-model_blur.webp"
-         imageSizes="(max-width: 600px) 300px, (max-width: 1024px) 347px, 462px"
+          imageSizes="(max-width: 600px) 300px, (max-width: 1024px) 347px, 462px"
         />
         <link rel="preload" as="image" href="/images/workercards/workercard-blur.avif" />
 

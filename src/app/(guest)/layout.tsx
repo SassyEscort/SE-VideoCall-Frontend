@@ -54,7 +54,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
       </>
     );
   } else {
-    HeaderComponent = <>{versionDetails?.variation?.name !== 'B' ? <HeaderGuestComponent /> : <HeaderABGuestComponent/>}</>;
+    HeaderComponent = <>{versionDetails?.variation?.name !== 'B' ? <HeaderGuestComponent /> : <HeaderABGuestComponent />}</>;
   }
 
   return (

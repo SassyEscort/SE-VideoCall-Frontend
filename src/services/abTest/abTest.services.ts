@@ -53,7 +53,7 @@ export class ABTestServices {
       return [] as ExperimentRes[];
     }
   };
- 
+
   static fetchcarouselModelImages = async (): Promise<CarousalModelImageRes[]> => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/catalog/carousel-models`, {

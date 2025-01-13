@@ -10,7 +10,6 @@ import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { gaEventTrigger } from 'utils/analytics';
 import UINewTypography from 'components/UIComponents/UINewTypography';
-import { CommonServices } from 'services/commonApi/commonApi.services';
 import MoreFilters from '../../../searchPage/moreFilters';
 import { AppBarBox, BalanceBoxWrapper, HeaderDropdownStyledBox, IconBoxWrapper, SearchTitalBoxSm } from '../GuestLayout.styled';
 import MenuItem from '@mui/material/MenuItem';
@@ -63,7 +62,7 @@ const GuestHeaderComponent = () => {
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [anchorElLogout, setAnchorElLogout] = useState<null | HTMLElement>(null);
   const [openFreeCredit, setOpenFreeCredit] = useState(false);
-  const [languages, setLanguages] = useState<MultipleOptionString[]>([]);
+  const [languages] = useState<MultipleOptionString[]>([]);
   const [openChangePassword, setOpenChangePassword] = useState(false);
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [openCreditSideDrawer, setOpenCreditSideDrawer] = useState(false);
@@ -190,14 +189,6 @@ const GuestHeaderComponent = () => {
   }, [filters, token.token]);
 
   const handleSnackbarClose = () => setSnackbarOptions({ open: false, message: '', url: '' });
-
-  const handleLanguageApiChange = useCallback(() => {
-    const languagesData = async () => {
-      const data = await CommonServices.getLanguages();
-      setLanguages(data.data);
-    };
-    languagesData();
-  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
